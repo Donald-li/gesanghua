@@ -1,0 +1,7 @@
+root_url: 'http://gesanghua.wikiflyer.cn/'
+app_host: 'gesanghua.wikiflyer.cn'
+app_name: '格桑花项目'
+app_desc: '格桑花项目'
+logo_img: ''
+
+send_sms: 'true'
