@@ -9,5 +9,10 @@ Rails.application.routes.draw do
     resources :articles, only: [:index, :show], concerns: :list
     resource :disclosure, only: :show
     get '/p/:alias', to: 'pages#show'
+    resource :contribution, only: :show
+  end
+
+  scope module: :account do
+    resource :modify_password, only: [:edit, :update]
   end
 end
