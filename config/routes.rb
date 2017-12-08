@@ -19,7 +19,8 @@ Rails.application.routes.draw do
     resources :book_angles, only: [:index, :show]
   end
 
-  scope module: :account do
+  namespace :account do
     resource :modify_password, only: [:edit, :update]
+    resource :profile, only: [:show, :edit, :update]
   end
 end
