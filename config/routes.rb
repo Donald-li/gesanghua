@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     get '/p/:alias', to: 'pages#show'
     resource :contribution, only: :show
     resources :pairs, only: [:index, :show]
+    resources :reads, only: [:index, :show]
   end
 
   scope module: :account do
