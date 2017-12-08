@@ -22,5 +22,7 @@ Rails.application.routes.draw do
   namespace :account do
     resource :modify_password, only: [:edit, :update]
     resource :profile, only: [:show, :edit, :update]
+    resources :donations, only: [:index]
+    resources :raises, only: [:index]
   end
 end
