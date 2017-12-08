@@ -28,5 +28,6 @@ Rails.application.routes.draw do
       resources :mailboxes, only: [:index, :show]
     end
     resources :agents, only: [:index, :new, :edit]
+    resources :activities, only: [:index]
   end
 end
