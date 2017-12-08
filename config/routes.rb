@@ -8,5 +8,6 @@ Rails.application.routes.draw do
   scope module: :site do
     resources :articles, only: [:index, :show], concerns: :list
     resource :disclosure, only: :show
+    get '/p/:alias', to: 'pages#show'
   end
 end
