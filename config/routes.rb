@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resources :pairs, only: [:index, :show]
     resources :reads, only: [:index, :show]
     resources :camps, only: [:index, :show]
+    resources :goods, only: [:index, :show]
   end
 
   scope module: :account do
