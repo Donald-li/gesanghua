@@ -30,4 +30,7 @@ Rails.application.routes.draw do
     resources :agents, only: [:index, :new, :edit]
     resources :activities, only: [:index]
   end
+
+  namespace :gsh_plus do
+  end
 end
