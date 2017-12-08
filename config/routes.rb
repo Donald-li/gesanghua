@@ -15,7 +15,8 @@ Rails.application.routes.draw do
     resources :camps, only: [:index, :show]
     resources :goods, only: [:index, :show]
     resources :certificates, only: [:show]
-    resource :feedback, only: [:new, :create] 
+    resource :feedback, only: [:new, :create]
+    resources :book_angles, only: [:index, :show]
   end
 
   scope module: :account do
