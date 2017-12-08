@@ -24,5 +24,8 @@ Rails.application.routes.draw do
     resource :profile, only: [:show, :edit, :update]
     resources :donations, only: [:index]
     resources :raises, only: [:index]
+    resources :pairs, only: [:index, :show] do
+      resources :mailboxes, only: [:index, :show]
+    end
   end
 end
