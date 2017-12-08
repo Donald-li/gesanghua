@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   root to: 'site/mains#show'
 
   scope module: :site do
-    resources :articles, only: [:index, :show], concerns: [:list]
+    resources :articles, only: [:index, :show], concerns: :list
+    resource :disclosure, only: :show
   end
 end
