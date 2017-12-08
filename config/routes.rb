@@ -27,5 +27,6 @@ Rails.application.routes.draw do
     resources :pairs, only: [:index, :show] do
       resources :mailboxes, only: [:index, :show]
     end
+    resources :agents, only: [:index, :new, :edit]
   end
 end
