@@ -56,4 +56,6 @@ Rails.application.routes.draw do
     resource :modify_password, only: [:edit, :update]
     resource :main, only: :show
   end
+
+  mount RuCaptcha::Engine => "/rucaptcha"
 end
