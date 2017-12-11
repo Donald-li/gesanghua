@@ -1,0 +1,20 @@
+/* here you can put your own css to customize and override the theme */
+body{
+  background-color: #67809F;
+}
+.page-header .navbar-fixed-top{
+  background-color: #67809F;
+}
+.page-header .navbar .navbar-nav>li>a{
+  color: #ccc;
+  background-color: #5E738B;
+}
+.page-header .navbar .topbar-actions .btn-group-img .btn{
+  background-color: #67809F;
+}
+.page-header .navbar .topbar-actions .btn-group-img .btn span{
+  color: #333333;
+}
+.page-content{
+  min-height: 800px;
+}
