@@ -55,6 +55,8 @@ Rails.application.routes.draw do
     resource :session, only: :create
     resource :modify_password, only: [:edit, :update]
     resource :main, only: :show
+    resources :administrators, concerns: :switch
+    resources :audits, only: [:index, :show]
   end
 
   namespace :api do

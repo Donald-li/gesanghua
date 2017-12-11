@@ -1,0 +1,47 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i>修改明细
+    </div>
+    <div class="actions">
+      <%= link_to request.referer, class: 'btn blue-soft', 'data-no-turbolink' => true do %>
+      <i class="icon-list"></i>
+      <span>返回</span>
+      <% end %>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="table-scrollable">
+      <table class="table table-striped table-bordered table-hover" id="sample_2">
+        <thead>
+          <tr>
+            <th>
+              属性
+            </th>
+            <th>
+              修改前
+            </th>
+            <th>
+              修改后
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @audit.changeset.each do |k, v| %>
+          <tr>
+            <td>
+              <strong><%= AuditHelper.attr_name(@audit.item_type, k) %></strong>
+            </td>
+            <td>
+              <%= AuditHelper.attr_value(@audit, k, v.first) %>
+            </td>
+            <td>
+              <%= AuditHelper.attr_value(@audit, k, v.second) %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

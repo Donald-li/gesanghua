@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171211030517) do
+ActiveRecord::Schema.define(version: 20171211080733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "administrator_logs", force: :cascade, comment: "管理员日志" do |t|
+    t.integer "administrator_id", comment: "管理员id"
+    t.integer "kind", comment: "日志动作类型，1:登录 2:登出"
+    t.string "ip", comment: "ip地址"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "administrators", force: :cascade, comment: "管理员" do |t|
     t.string "login", comment: "登录名"

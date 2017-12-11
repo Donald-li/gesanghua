@@ -1,0 +1,18 @@
+# 系统后台
+admin:
+  menus:
+    admin_main:
+      actions:
+        'admin/mains': all
+    # 管理员列表
+    admin_administrator:
+      menus:
+        admin_administrators:
+          actions:
+            'admin/administrators': all
+        admin_audits:
+          actions:
+            'admin/audits': all
+        admin_platform_content:
+          menus:
+            

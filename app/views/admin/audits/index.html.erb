@@ -1,0 +1,105 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i>系统日志
+    </div>
+    <div class="actions">
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="dataTables_wrapper no-footer">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <%= search_form_for @search, url: admin_audits_path, class: 'form-inline' do |f| %>
+          <div class="form-group">
+            <%= f.label :whodunnit_cont, '用户' %>
+            <%= f.text_field :whodunnit_cont, class: 'form-control', placeholder: '企业或管理员名称' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :item_type_eq, '类型' %>
+            <%= f.select :item_type_eq, AuditHelper.item_types, {include_blank: '全部'}, placeholder: '', class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :created_at_gteq, '操作时间' %>
+            <%= f.text_field :created_at_gteq, class: 'form-control datepicker' %>
+            <%= f.label :created_at_lteq, '-' %>
+            <%= f.text_field :created_at_lteq, class: 'form-control datepicker'%>
+          </div>
+          <button type="submit" class="btn btn-default grey">搜索</button>
+          <% end %>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="dataTables_filter pull-right">
+          </div>
+        </div>
+      </div>
+      <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover" id="sample_2">
+          <thead>
+            <tr>
+              <th>
+                操作类型
+              </th>
+              <th>
+                操作对象
+              </th>
+              <th>
+                对象ID
+              </th>
+              <th>
+                名称
+              </th>
+              <th>
+                操作用户
+              </th>
+              <th>
+                操作时间
+              </th>
+              <th>
+                查看
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @audits.each do |audit| %>
+            <tr>
+              <td>
+                <%= AuditHelper.event_name(audit.event) %>
+              </td>
+              <td>
+                <%= AuditHelper.item_name(audit.item_type) %>
+              </td>
+              <td>
+                <%= audit.item_id %>
+              </td>
+              <td>
+                <%= AuditHelper.display_name(audit) %>
+              </td>
+              <td>
+                <%= audit.whodunnit %>
+              </td>
+              <td>
+                <%= l audit.created_at %>
+              </td>
+              <td>
+                <%= link_to admin_audit_path(audit), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                  <i class="fa fa-file"></i> 查看
+                <% end %>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-5 col-sm-12">
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@audits) %></div>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <%= paginate @audits, theme: 'admin' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END EXAMPLE TABLE PORTLET-->

@@ -1,0 +1,10 @@
+<script>
+$(function(){
+  <% if flash[:notice]%>
+    toastr.info('<%= flash.discard(:notice) %>', '' ,{"positionClass": "toast-top-center"})
+  <% end %>
+  <% if flash[:alert]%>
+    toastr.error('<%= flash.discard(:alert) %>', '错误', {"timeOut": "30000", "positionClass": "toast-top-center"})
+  <% end %>
+})
+</script>
