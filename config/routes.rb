@@ -57,5 +57,10 @@ Rails.application.routes.draw do
     resource :main, only: :show
   end
 
+  namespace :api do
+    namespace :v1 do
+    end
+  end
+
   mount RuCaptcha::Engine => "/rucaptcha"
 end
