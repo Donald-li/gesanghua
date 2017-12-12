@@ -1,0 +1,253 @@
+<div class="page-sidebar-wrapper">
+  <!-- BEGIN SIDEBAR -->
+  <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+  <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+  <div class="page-sidebar navbar-collapse collapse">
+    <!-- BEGIN SIDEBAR MENU -->
+    <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+    <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+    <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+    <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+    <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+    <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+    <ul class="page-sidebar-menu" data-keep-expanded="false" data-slide-speed="200">
+      <li class="nav-item start <%= current_nav_class(:admin_main) %>">
+        <%= link_to admin_main_path, class: 'nav-link' do %>
+          <i class="fa fa-home"></i>
+          <span class="title">管理首页</span>
+        <% end %>
+      </li>
+      <li class="heading">
+        <h3 class="uppercase">内容管理</h3>
+      </li>
+
+      <li class="nav-item  <%= current_nav_class(:admin_school) %> ">
+        <a href="javascript:;" class="nav-link nav-toggle">
+          <% to_prove_admin = 0 %>
+          <i class="fa fa-building"></i>
+          <span class="title <%= 'font-red-soft' if to_prove_admin > 0 %>">学校用户</span>
+          <span class="arrow <%= current_nav_class(:admin_product, current: :open) %>"></span>
+        </a>
+        <ul class="sub-menu">
+          <li class="nav-item <%= current_nav_class(:admin_school_applies) %> ">
+            <%= link_to '', class: 'nav-link' do %>
+              <span class="title">学校申请</span>
+              <% if to_prove_admin > 0 %>
+                <span class="badge badge-danger"><%= to_prove_admin %></span>
+              <% end %>
+            <% end %>
+          </li>
+          <li class="nav-item <%= current_nav_class(:admin_schools) %> ">
+            <%= link_to '', class: 'nav-link' do %>
+              <span class="title">学校用户</span>
+            <% end %>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item <%= current_nav_class(:admin_main) %> ">
+        <%= link_to '', class: 'nav-link' do %>
+          <i class="fa fa-user"></i>
+          <span class="title">用户管理</span>
+        <% end %>
+      </li>
+
+      <li class="nav-item <%= current_nav_class(:admin_main) %> ">
+        <%= link_to '', class: 'nav-link' do %>
+          <i class="fa fa-user"></i>
+          <span class="title">格桑花孩子</span>
+        <% end %>
+      </li>
+
+      <li class="nav-item <%= current_nav_class(:admin_main) %> ">
+        <%= link_to '', class: 'nav-link' do %>
+          <i class="fa fa-user"></i>
+          <span class="title">志愿者管理</span>
+        <% end %>
+      </li>
+
+      <li class="nav-item <%= current_nav_class(:admin_main) %> ">
+        <%= link_to '', class: 'nav-link' do %>
+          <i class="fa fa-user"></i>
+          <span class="title">教师用户</span>
+        <% end %>
+      </li>
+
+      <li class="nav-item <%= current_nav_class(:admin_main) %> ">
+        <%= link_to '', class: 'nav-link' do %>
+          <i class="fa fa-user"></i>
+          <span class="title">县级领导</span>
+        <% end %>
+      </li>
+
+      <li class="nav-item  <%= current_nav_class(:admin_apply) %> ">
+        <a href="javascript:;" class="nav-link nav-toggle">
+          <% to_prove_apply = 0 %>
+          <% submited = 0 %>
+          <i class="fa fa-bookmark"></i>
+          <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">捐助申请管理</span>
+          <span class="arrow <%= current_nav_class(:admin_product, current: :open) %>"></span>
+        </a>
+        <ul class="sub-menu">
+          <li class="nav-item <%= current_nav_class(:admin_project_applies) %> ">
+            <%= link_to '', class: 'nav-link' do %>
+              <span class="title">新申请</span>
+              <% if to_prove_apply > 0 %>
+                  <span class="badge badge-danger"><%= to_prove_apply %></span>
+              <% end %>
+            <% end %>
+          </li>
+          <li class="nav-item <%= current_nav_class(:admin_project_lists) %> ">
+            <%= link_to '', class: 'nav-link' do %>
+              <span class="title">全部申请</span>
+                <% if submited > 0 %>
+                    <span class="badge badge-danger"><%= submited %></span>
+                <% end %>
+            <% end %>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item <%= current_nav_class(:admin_feedback) %>">
+        <%= link_to '', class: 'nav-link' do %>
+            <% new = 0 %>
+          <i class="fa fa-hand-paper-o"></i>
+          <span class="title">公示举报</span>
+            <% if new > 0 %>
+                <span class="badge badge-danger"><%= new %></span>
+            <% end %>
+        <% end %>
+      </li>
+
+      <li class="nav-item <%= current_nav_class(:admin_thanks) %>">
+        <%= link_to '', class: 'nav-link' do %>
+            <% to_audit = 0 %>
+          <i class="fa fa-envelope-o"></i>
+          <span class="title">反馈管理</span>
+          <% if to_audit > 0 %>
+            <span class="badge badge-danger"><%= to_audit %></span>
+          <% end %>
+        <% end %>
+      </li>
+
+      <li class="nav-item <%= current_nav_class(:admin_platform_content) %>">
+        <a href="javascript:;" class="nav-link nav-toggle">
+          <i class="fa fa-desktop"></i>
+          <span class="title">平台管理</span>
+          <span class="arrow <%= current_nav_class(:admin_platform_content, current: :open) %>"></span>
+        </a>
+        <ul class="sub-menu">
+          <li class="nav-item <%= current_nav_class(:admin_content_adverts) %>">
+            <%= link_to admin_adverts_path, class: 'nav-link' do %>
+              <span class="title">广告图管理</span>
+            <% end %>
+          </li>
+          <li class="nav-item <%= current_nav_class(:admin_content_articles) %>">
+            <%= link_to admin_articles_path, class: 'nav-link' do %>
+              <span class="title">资讯管理</span>
+            <% end %>
+          </li>
+          <li class="nav-item <%= current_nav_class(:admin_content_supports) %>">
+            <%= link_to admin_supports_path, class: 'nav-link' do %>
+              <span class="title">帮助中心</span>
+            <% end %>
+          </li>
+          <li class="nav-item <%= current_nav_class(:admin_content_pages) %>">
+            <%= link_to admin_pages_path, class: 'nav-link' do %>
+              <span class="title">单页管理</span>
+            <% end %>
+          </li>
+        </ul>
+      </li>
+
+
+      <li class="heading">
+        <h3 class="uppercase">系统管理</h3>
+      </li>
+
+      <li class="nav-item <%= current_nav_class(:admin_system) %>">
+        <a href="javascript:;" class="nav-link nav-toggle">
+          <i class="fa fa-pie-chart"></i>
+          <span class="title">基础数据维护</span>
+          <span class="arrow <%= current_nav_class(:admin_system, current: :open) %>"></span>
+        </a>
+        <ul class="sub-menu">
+          <li class="nav-item  <%= current_nav_class(:admin_main) %>">
+            <%= link_to '', class: 'nav-link' do %>
+                <span class="title">资讯分类管理</span>
+            <% end %>
+          </li>
+        </ul>
+      </li>
+
+      <% if(current_administrator.super_administrator?) %>
+      <li class="nav-item <%= current_nav_class(:admin_administrator) %>">
+        <a href="javascript:;" class="nav-link nav-toggle">
+          <i class="fa fa-users"></i>
+          <span class="title">账号管理</span>
+          <span class="arrow <%= current_nav_class(:admin_administrator, current: :open) %>"></span>
+        </a>
+        <ul class="sub-menu">
+          <li class="nav-item <%= current_nav_class(:admin_administrators) %>">
+            <%= link_to admin_administrators_path, class: 'nav-link' do %>
+              <i class="fa fa-user"></i>
+              <span class="title">系统管理员管理</span>
+            <% end %>
+          </li>
+          <li class="nav-item <%= current_nav_class(:admin_administrators) %>">
+            <%= link_to admin_administrators_path, class: 'nav-link' do %>
+              <i class="fa fa-user"></i>
+              <span class="title">项目管理员管理</span>
+            <% end %>
+          </li>
+          <li class="nav-item <%= current_nav_class(:admin_administrators) %>">
+            <%= link_to admin_administrators_path, class: 'nav-link' do %>
+              <i class="fa fa-user"></i>
+              <span class="title">财务用户管理</span>
+            <% end %>
+          </li>
+          <li class="nav-item <%= current_nav_class(:admin_login_activities) %>">
+            <%= link_to '', class: 'nav-link' do %>
+              <i class="fa fa-file-text"></i>
+              <span class="title">登录日志</span>
+            <% end %>
+          </li>
+          <li class="nav-item <%= current_nav_class(:admin_audits) %>">
+            <%= link_to admin_audits_path, class: 'nav-link' do %>
+              <i class="fa fa-list"></i>
+              <span class="title">操作日志</span>
+            <% end %>
+          </li>
+        </ul>
+      </li>
+      <% end %>
+
+      <li class="heading">
+        <h3 class="uppercase">统计报表</h3>
+      </li>
+      <li class="nav-item <%= current_nav_class(:admin_statistic) %>">
+        <%= link_to '', class: 'nav-link nav-toggle' do %>
+          <i class="fa fa-area-chart"></i>
+          <span class="title">统计报表</span>
+        <% end %>
+      </li>
+
+      <li class="heading">
+        <h3 class="uppercase">财务管理</h3>
+      </li>
+      <li class="nav-item <%= current_nav_class(:admin_finance) %>">
+        <%= link_to '', class: 'nav-link nav-toggle' do %>
+            <% to_sign = 0 %>
+          <i class="fa fa-archive"></i>
+          <span class="title">财务管理</span>
+            <% if to_sign > 0 %>
+                <span class="badge badge-danger"><%= to_sign %></span>
+            <% end %>
+        <% end %>
+      </li>
+
+    </ul>
+    <!-- END SIDEBAR MENU -->
+  </div>
+  <!-- END SIDEBAR -->
+</div>
