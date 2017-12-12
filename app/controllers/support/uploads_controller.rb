@@ -1,4 +1,5 @@
 class Support::UploadsController < Support::BaseController
+
   def create
     klass = "Asset::#{params[:asset_type].classify}".constantize
     asset = klass.new(file: params[:file], user: current_user)
