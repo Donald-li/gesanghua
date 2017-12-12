@@ -53,7 +53,8 @@ Rails.application.routes.draw do
     get '/login' => 'sessions#new', as: :login
     match '/logout', to: 'sessions#destroy', as: :logout, via: :delete
     resource :session, only: :create
-    resource :modify_password, only: [:edit, :update]
+    get '/account/modify-password' => 'modify_password#edit', as: :modify_password
+    put '/account/modify-password' => 'modify_password#update', as: :modify_password_update
     resource :main, only: :show
     resources :administrators, concerns: :switch
     resources :audits, only: [:index, :show]

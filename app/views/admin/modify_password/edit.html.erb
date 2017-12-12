@@ -1,0 +1,51 @@
+<%= content_for :page_script do %>
+<script src="/admin/assets/pages/scripts/login-4.js" type="text/javascript"></script>
+<% end %>
+<%= content_for :page_style do %>
+<link href="/admin/assets/pages/css/login-4.min.css" rel="stylesheet" type="text/css"/>
+<% end %>
+
+<div class="portlet light portlet-fit portlet-form bordered" id="form_wizard_1">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class=" icon-key"></i>
+      <span class="caption-subject">修改密码</span>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <!-- BEGIN FORM-->
+    <!-- <form action="#" class="form-horizontal"> -->
+    <%= simple_form_for @administrator, as: :administrator, url: admin_modify_password_update_path, method: :put do |f| %>
+    <div class="form-body">
+      <div class="form-group">
+        <label class="control-label col-md-3" for="inputWarning">当前密码</label>
+        <div class="col-md-4">
+          <%= f.input :current_password, label: false, required: true, input_html: {class: 'form-control placeholder-no-fix', placeholder: '请输入当前密码'} %>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-md-3" for="inputError">设置密码</label>
+        <div class="col-md-4">
+          <%= f.input :password, label: false, required: true, input_html: {class: 'form-control placeholder-no-fix', placeholder: '密码'} %>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-md-3" for="inputSuccess">确认密码</label>
+        <div class="col-md-4">
+          <%= f.input :password_confirmation, label: false, required: true, input_html: {class: 'form-control placeholder-no-fix', placeholder: '确认密码'} %>
+        </div>
+      </div>
+      <div class="form-actions">
+        <div class="row">
+          <div class="col-md-offset-3 col-md-9">
+            <%= f.button :submit, '提交', class: :'btn green' %>
+          </div>
+        </div>
+      </div>
+      <!-- </form> -->
+      <% end %>
+      <!-- END FORM-->
+    </div>
+  </div>
+  <!-- END PAGE BASE CONTENT -->
+</div>
