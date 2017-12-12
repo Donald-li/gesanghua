@@ -1,0 +1,27 @@
+zh:
+  administrator_states:
+    enable: '启用'
+    disable: '禁用'
+  advert_kinds:
+    banner: 'Banner轮播图(507x304px)'
+  advert_states:
+    show: '展示'
+    hidden: '隐藏'
+  article_states:
+    show: '展示'
+    hidden: '隐藏'
+  article_recommends:
+    normal: '否'
+    recommend: '是'
+  user_states:
+    enable: '启用'
+    disable: '停用'
+  user_genders:
+    male: '男'
+    famale: '女'
+  support_states:
+    show: '展示'
+    hidden: '隐藏'
+  page_states:
+    show: '显示'
+    hidden: '隐藏'
