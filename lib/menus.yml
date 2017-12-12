@@ -4,6 +4,23 @@ admin:
     admin_main:
       actions:
         'admin/mains': all
+    # 平台管理
+    admin_platform:
+      menus:
+        admin_platform_content:
+          menus:
+            admin_content_adverts:
+              actions:
+                'admin/adverts': all
+            admin_content_articles:
+              actions:
+                'admin/articles': all
+            admin_content_supports:
+              actions:
+                'admin/supports': all
+            admin_content_pages:
+              actions:
+                'admin/pages': all
     # 管理员列表
     admin_administrator:
       menus:
@@ -15,4 +32,3 @@ admin:
             'admin/audits': all
         admin_platform_content:
           menus:
-            
