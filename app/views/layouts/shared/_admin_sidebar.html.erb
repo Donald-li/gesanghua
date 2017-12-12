@@ -80,6 +80,56 @@
         <% end %>
       </li>
 
+      <li class="nav-item  <%= current_nav_class(:admin_apply) %> ">
+        <a href="javascript:;" class="nav-link nav-toggle">
+          <% to_prove_apply = 0 %>
+          <% submited = 0 %>
+          <i class="fa fa-bookmark"></i>
+          <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">捐助申请管理</span>
+          <span class="arrow <%= current_nav_class(:admin_product, current: :open) %>"></span>
+        </a>
+        <ul class="sub-menu">
+          <li class="nav-item <%= current_nav_class(:admin_project_applies) %> ">
+            <%= link_to '', class: 'nav-link' do %>
+              <span class="title">新申请</span>
+              <% if to_prove_apply > 0 %>
+                  <span class="badge badge-danger"><%= to_prove_apply %></span>
+              <% end %>
+            <% end %>
+          </li>
+          <li class="nav-item <%= current_nav_class(:admin_project_lists) %> ">
+            <%= link_to '', class: 'nav-link' do %>
+              <span class="title">全部申请</span>
+                <% if submited > 0 %>
+                    <span class="badge badge-danger"><%= submited %></span>
+                <% end %>
+            <% end %>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item <%= current_nav_class(:admin_feedback) %>">
+        <%= link_to '', class: 'nav-link' do %>
+            <% new = 0 %>
+          <i class="fa fa-hand-paper-o"></i>
+          <span class="title">公示举报</span>
+            <% if new > 0 %>
+                <span class="badge badge-danger"><%= new %></span>
+            <% end %>
+        <% end %>
+      </li>
+
+      <li class="nav-item <%= current_nav_class(:admin_thanks) %>">
+        <%= link_to '', class: 'nav-link' do %>
+            <% to_audit = 0 %>
+          <i class="fa fa-envelope-o"></i>
+          <span class="title">反馈管理</span>
+          <% if to_audit > 0 %>
+            <span class="badge badge-danger"><%= to_audit %></span>
+          <% end %>
+        <% end %>
+      </li>
+
       <li class="nav-item <%= current_nav_class(:admin_platform_content) %>">
         <a href="javascript:;" class="nav-link nav-toggle">
           <i class="fa fa-desktop"></i>
