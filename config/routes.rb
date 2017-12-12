@@ -57,6 +57,10 @@ Rails.application.routes.draw do
     resource :main, only: :show
     resources :administrators, concerns: :switch
     resources :audits, only: [:index, :show]
+    resources :adverts, concerns: [:move, :switch]
+    resources :articles, concerns: [:switch, :recommend]
+    resources :supports, concerns: [:move, :switch]
+    resources :pages, concerns: [:move, :switch]
   end
 
   namespace :api do

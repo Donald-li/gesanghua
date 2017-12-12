@@ -13,4 +13,8 @@ module ApplicationHelper
     end
     is_current
   end
+
+  def paginate_info(paginated)
+    "显示 #{start = (paginated.current_page - 1) * paginated.limit_value + 1} - #{start + paginated.count - 1} 条，共 #{paginated.total_count} 条"
+  end
 end

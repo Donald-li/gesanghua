@@ -1,0 +1,39 @@
+<%= content_for :page_level_scripts do %>
+  <%= javascript_include_tag '/assets/webuploader/webuploader.js' %>
+  <%= stylesheet_link_tag '/assets/webuploader/webuploader.css' %>
+<% end %>
+<%= simple_form_for [:admin, @advert], wrapper: :admin_form, html: {'data-parsley-validate': true} do |f| %>
+  <%= f.error_notification %>
+  <div class="form-body">
+    <%= f.input :kind, collection: Advert.options_for_select(:kinds), label: '广告分类：', input_html: { data: {'parsley-required': true}} %>
+    <%= f.input :title, label: '广告标题：', autofocus: true, placeholder: '', hint: '请填写广告标题' %>
+    <div class="form-group">
+      <label class="col-md-2 control-label">广告图片：</label>
+      <div class="col-sm-9">
+        <%= webuploader_tag :image_id, label: '上传图片', type: 'advert_image', asset: @advert.image, klass: 'single' %>
+        <p class="help-block">请上传1014X608px的图片</p>
+      </div>
+    </div>
+    <%= f.input :url, label: '广告链接：', placeholder: '以‘http://’或‘https://’开头' %>
+    <!--<div class="form-group">-->
+      <!--<label class="col-md-2 control-label">广告内容：</label>-->
+      <!--<div class="col-sm-9">-->
+        <!--<%= f.cktext_area :description %>-->
+      <!--</div>-->
+    <!--</div>-->
+    <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Advert.options_for_select(:states), label: '状态：'%>
+  </div>
+  <div class="form-actions">
+    <div class="row">
+      <div class="col-md-offset-2 col-md-9">
+        <%= f.button :submit, '提交', class: 'btn blue' %>
+        <%= link_to '取消', admin_adverts_path, class: 'btn' %>
+      </div>
+    </div>
+  </div>
+<% end %>
+<script>
+$(function(){
+  initImageWebuploader($('#webuploader'));
+})
+</script>

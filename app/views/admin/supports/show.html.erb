@@ -1,0 +1,71 @@
+
+<div class="portlet light portlet-fit bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-bubble font-dark"></i>
+      <span class="caption-subject font-dark bold uppercase">帮助详情</span>
+    </div>
+    <div class="actions">
+      <div class="btn-group">
+        <a href="<%= edit_admin_support_path(@support) %>" class="btn btn-xs blue">
+          <i class="fa fa-edit"></i>修改帮助
+        </a>
+      </div>
+      <div class="btn-group">
+        <a href="<%= admin_supports_path %>" class="btn btn-default">
+          <i class="fa fa-reply"></i>返回
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="table-scrollable">
+      <table class="table table-bordered table-hover">
+        <tbody>
+        <tr>
+
+          <th>
+            帮助标题
+          </th>
+          <th>
+            <%= @support.title %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            帮助别名
+          </th>
+          <th>
+            <%= @support.alias %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            封面
+          </th>
+          <th>
+            <%= image_tag @support.image_url(:tiny) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            详情
+          </th>
+          <th>
+            <%= @support.content.html_safe %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            状态
+          </th>
+          <th>
+            <%= @support.enum_name(:state) %>
+          </th>
+        </tr>
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+</div>

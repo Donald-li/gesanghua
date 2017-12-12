@@ -1,0 +1,43 @@
+<%= simple_form_for [:admin, @article], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
+    <%= f.error_notification %>
+    <div class="form-body form-horizontal">
+      <%= f.input :title, label: '资讯标题：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :article_category_id, collection: ArticleCategory.show, label: '资讯分类：', prompt: "请选择资讯分类", input_html: {data: {'parsley-required': true}} %>
+      <div class="form-group">
+        <label class="col-md-2 control-label">资讯封面：</label>
+        <div class="col-sm-9">
+          <%= webuploader_tag :image_id, label: '上传资讯封面', type: 'article_image', asset: @article.image, klass: 'single' %>
+        </div>
+      </div>
+      <%= f.input :author, label: '资讯作者：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :source, label: '资讯来源：', autofocus: true, input_html: { data: {}} %>
+      <%= f.input :describe, label: '资讯摘要：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+      <div class="form-group">
+        <label class="col-md-2 control-label">资讯详情：</label>
+        <div class="col-sm-9">
+          <%= f.cktext_area :content, input_html: { data: {'parsley-required': true}}  %>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label">发布时间：</label>
+        <div class="col-sm-9">
+          <%= f.text_field :published_at, class: 'datepicker', placeholder: '发布时间' %>
+        </div>
+      </div>
+      <%= f.input :recommend, as: :radio_buttons, wrapper: :inline_inputs, collection: Article.options_for_select(:recommends), label: '推荐到首页：'%>
+      <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Article.options_for_select(:states), label: '状态：' %>
+    </div>
+    <div class="form-actions">
+      <div class="row">
+        <div class="col-md-offset-3 col-md-9">
+          <%= f.button :submit, '提交', class: 'btn green' %>
+          <%= link_to '取消', admin_articles_path, class: 'btn' %>
+        </div>
+      </div>
+    </div>
+<% end %>
+<script>
+$(function(){
+  initImageWebuploader($('#webuploader'));
+})
+</script>

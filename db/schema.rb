@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171211080733) do
+ActiveRecord::Schema.define(version: 20171212040108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,54 @@ ActiveRecord::Schema.define(version: 20171211080733) do
     t.integer "state", default: 1, comment: "状态 1:正常 2:禁用"
     t.integer "kind", default: 2, comment: "管理员类型 1:超级管理员 2:普通管理员"
     t.integer "integer", default: 2, comment: "管理员类型 1:超级管理员 2:普通管理员"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "adverts", force: :cascade, comment: "广告表" do |t|
+    t.integer "kind", comment: "分类"
+    t.string "title", comment: "标题"
+    t.string "description", comment: "描述"
+    t.string "url", comment: "链接"
+    t.integer "views_count", comment: "展示次数"
+    t.integer "kind_position", comment: "分类排序"
+    t.integer "state", comment: "状态"
+    t.integer "user_id", comment: "用户id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "articles", force: :cascade, comment: "资讯表" do |t|
+    t.string "title", comment: "标题"
+    t.text "content", comment: "内容"
+    t.integer "state", default: 1, comment: "状态, 1:展示 2:隐藏"
+    t.integer "recommend", default: 0, comment: "推荐 0:正常 1:推荐"
+    t.integer "article_category_id", comment: "资讯分类id"
+    t.datetime "published_at", comment: "发布时间"
+    t.string "author", comment: "作者"
+    t.string "source", comment: "来源"
+    t.text "describe", comment: "摘要"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pages", force: :cascade, comment: "单页面" do |t|
+    t.string "title", comment: "标题"
+    t.string "alias", comment: "别名"
+    t.text "content", comment: "内容"
+    t.integer "position", comment: "排序"
+    t.integer "state", comment: "状态"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "supports", force: :cascade, comment: "帮助中心主题" do |t|
+    t.string "title", comment: "标题"
+    t.string "alias", comment: "别名"
+    t.text "content", comment: "内容"
+    t.integer "position", comment: "排序"
+    t.integer "state", comment: "状态"
+    t.integer "support_category_id", comment: "帮助中心分类id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
