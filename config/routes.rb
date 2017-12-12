@@ -64,6 +64,10 @@ Rails.application.routes.draw do
     resources :pages, concerns: [:move, :switch]
   end
 
+  namespace :school do
+    resource :main, only: :show
+  end
+
   namespace :api do
     namespace :v1 do
     end

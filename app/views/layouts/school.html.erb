@@ -67,10 +67,15 @@
           <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
           <li class="dropdown dropdown-user dropdown-dark">
             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-              <span class="username username-hide-on-mobile"> <%= current_administrator.nickname %> </span>
+              <span class="username username-hide-on-mobile"> <%= current_teacher.nickname %> </span>
               <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
             </a>
             <ul class="dropdown-menu dropdown-menu-default">
+              <li>
+              <%= link_to admin_modify_password_path do %>
+                <i class="icon-key"></i> 修改密码
+              <% end %>
+            </li>
               <li>
                 <%= link_to admin_logout_path, method: :delete do %>
                   <i class="icon-logout"></i>退出
@@ -94,7 +99,7 @@
 <!-- BEGIN CONTAINER -->
 <div class="page-container">
   <!-- BEGIN SIDEBAR -->
-  <%= render '/layouts/shared/school_sidebar' %>
+  <%= render '/layouts/shared/admin_sidebar' %>
   <!-- END SIDEBAR -->
   <!-- BEGIN CONTENT -->
   <div class="page-content-wrapper">
