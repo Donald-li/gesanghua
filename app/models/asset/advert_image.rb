@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: assets
+# Table name: assets # 资源表
 #
 #  id            :integer          not null, primary key
 #  type          :string
