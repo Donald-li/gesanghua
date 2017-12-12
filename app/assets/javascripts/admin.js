@@ -68,33 +68,6 @@ function toggleRadioInput(el, hash){
   }
 }
 
-function setQrcodesCount(startEl, endEl, countEl){
-  $(countEl).on('keyup', function(){
-    console.log('keyup')
-    var start_no = $(startEl).val()
-    if (!start_no) return
-    var prefix = start_no.substr(0,1)
-    var start = start_no.substr(1)
-    var count = parseInt($(countEl).val()) || 1
-    var plus = (count - 1).toString()
-    var end = sumStrings(start, plus)
-    var zeros = '0000000000000000000000000'.substr(0, start.length - end.length)
-    $(endEl).val(prefix + zeros + end)
-  })
-
-  $(startEl+','+endEl).on('keyup', function(){
-    var start_no = parseInt($(startEl).val().substr(1))
-    var end_no = parseInt($(endEl).val().substr(1))
-    if (isNaN(start_no)) return
-    if (isNaN(end_no)) return
-    if(end_no >= start_no){
-      $(countEl).val(end_no - start_no + 1)
-    } else {
-      $(countEl).val(0)
-    }
-  })
-}
-
 function sumStrings(a,b){
     var res='', c=0;
     a = a.split('');
@@ -120,92 +93,5 @@ $(function(){
     var date = moment(this.value, 'YYYY-MM-DD').format('YYYY-MM-DD')
     $(this).val(date)
   });
-
-  // 商家选择
-  $("form .company_selector").select2({
-    language: "zh-CN",
-    placeholder: '请选择商家',
-    allowClear: true,
-    ajax: {
-      url: "/selects/companies",
-      dataType: 'json',
-      delay: 250,
-      data: function (params) {
-        return {
-          q: params.term, // search term
-          page: params.page
-        };
-      },
-      processResults: function (data, params) {
-        params.page = params.page || 1;
-        return {
-            results: $.map(data.items, function (item) {
-              return {
-                text: item.name,
-                id: item.id
-            }
-          }),
-          pagination: {
-            more: (params.page * 30) < data.total_count
-          }
-        };
-      },
-      cache: true
-    },
-    minimumInputLength: 1
-  });
-
-  $("form .company_selector").on('change', function(){
-    var v = $(this).val()
-    var selector = $(this).data('product-selector')
-    if(selector){
-      // 清空级联
-      $(selector).each(function(){
-          $(this).data('company-id', v)
-      })
-      $('form ' + selector).each(function(){
-          $(this).select2('val', '')
-      })
-    }
-  })
-
-  // 商品选择
-  initProductSelector = function(el){
-    var element = $(el)
-    element.select2({
-      language: "zh-CN",
-      placeholder: '请选择商品',
-      allowClear: true,
-      ajax: {
-        url: "/selects/products",
-        dataType: 'json',
-        delay: 250,
-        data: function (params) {
-          return {
-            q: params.term, // search term
-            company_id: element.data('company-id'),
-            page: params.page
-          };
-        },
-        processResults: function (data, params) {
-          params.page = params.page || 1;
-          return {
-            results: $.map(data.items, function (item) {
-              return {
-                text: item.name,
-                id: item.id
-              }
-            }),
-            pagination: { more: (params.page * 30) < data.total_count }
-          };
-        },
-        cache: true
-      },
-      minimumInputLength: 1
-    });
-
-  }
-  $("form .product_selector").each(function(){initProductSelector(this)})
-
 
 })

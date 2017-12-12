@@ -5,14 +5,14 @@
 <link href="/admin/assets/pages/css/login-4.min.css" rel="stylesheet" type="text/css"/>
 <% end %>
 
-<div class="portlet light portlet-fit portlet-form bordered" id="form_wizard_1">
+<div class="portlet light portlet-form bordered">
   <div class="portlet-title">
     <div class="caption">
       <i class=" icon-key"></i>
       <span class="caption-subject">修改密码</span>
     </div>
   </div>
-  <div class="portlet-body">
+  <div class="portlet-body form">
     <!-- BEGIN FORM-->
     <!-- <form action="#" class="form-horizontal"> -->
     <%= simple_form_for @administrator, as: :administrator, url: admin_modify_password_update_path, method: :put do |f| %>
