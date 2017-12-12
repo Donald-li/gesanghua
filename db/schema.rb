@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171212040108) do
+ActiveRecord::Schema.define(version: 20171212063829) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,24 @@ ActiveRecord::Schema.define(version: 20171212040108) do
     t.text "describe", comment: "摘要"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "assets", force: :cascade, comment: "资源表" do |t|
+    t.string "type"
+    t.string "owner_type"
+    t.integer "owner_id"
+    t.integer "position"
+    t.string "file"
+    t.string "file_name"
+    t.integer "file_size"
+    t.integer "width"
+    t.integer "height"
+    t.string "user_type"
+    t.integer "user_id"
+    t.string "protect_token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["type"], name: "index_assets_on_type"
   end
 
   create_table "pages", force: :cascade, comment: "单页面" do |t|

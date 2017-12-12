@@ -167,3 +167,40 @@ SimpleForm.setup do |config|
   # Defines which i18n scope will be used in Simple Form.
   # config.i18n_scope = 'simple_form'
 end
+
+SimpleForm.setup do |config|
+  config.wrappers :admin_form, tag: 'div', class: 'form-group',
+                  hint_class: 'has-hint', error_class: 'has-error' do |b|
+    b.use :html5
+    b.use :placeholder
+    b.use :label, class: 'col-md-2 control-label'
+    b.wrapper tag: 'div', class: 'col-md-9' do |append|
+      append.use :input, class: 'form-control'
+      append.use :hint, wrap_with: {tag: 'p', class: 'help-block'}
+      append.use :error, wrap_with: {tag: 'p', class: 'help-block'}
+    end
+  end
+
+  config.wrappers :inline_inputs, :tag => 'div', :class => 'form-group' do |b|
+    b.use :html5
+    b.use :label, class: 'col-md-2 control-label'
+      b.wrapper tag: 'div', class: 'col-md-9 form-inline' do |append|
+        append.use :input, class: 'form-control'
+        append.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
+        append.use :error, wrap_with: { tag: 'p', class: 'help-block' }
+    end
+  end
+
+  config.wrappers :admin_nested_form, tag: 'div', class: 'col-md-2',
+    hint_class: 'has-hint', error_class: 'has-error' do |b|
+    b.use :html5
+    b.use :placeholder
+    b.use :label, class: ''
+
+    b.wrapper tag: 'span', class: '' do |ba|
+      ba.use :input, class: 'form-control'
+      ba.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
+      ba.use :error, wrap_with: { tag: 'p', class: 'help-block' }
+    end
+  end
+end

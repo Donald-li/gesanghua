@@ -69,5 +69,10 @@ Rails.application.routes.draw do
     end
   end
 
+  # 支持
+  scope module: :support do
+    resources :uploads, path: 'upload', only: [:create, :destroy]
+  end
+
   mount RuCaptcha::Engine => "/rucaptcha"
 end
