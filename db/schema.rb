@@ -29,8 +29,8 @@ ActiveRecord::Schema.define(version: 20171212084513) do
     t.string "password_digest", comment: "密码"
     t.datetime "expire_at", default: "2099-12-31 00:00:00", comment: "过期时间"
     t.integer "state", default: 1, comment: "状态 1:正常 2:禁用"
-    t.integer "kind", default: 2, comment: "管理员类型 1:超级管理员 2:普通管理员"
-    t.integer "integer", default: 2, comment: "管理员类型 1:超级管理员 2:普通管理员"
+    t.integer "kind", default: 2, comment: "管理员类型 1:超级管理员 2:项目管理员"
+    t.integer "integer", default: 2, comment: "管理员类型 1:超级管理员 2:项目管理员"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
