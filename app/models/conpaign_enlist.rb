@@ -1,0 +1,2 @@
+class ConpaignEnlist < ApplicationRecord
+end
