@@ -1,0 +1,2 @@
+class ReadProjectApplyItem < ApplicationRecord
+end
