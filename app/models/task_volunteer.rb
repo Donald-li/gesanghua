@@ -1,0 +1,2 @@
+class TaskVolunteer < ApplicationRecord
+end
