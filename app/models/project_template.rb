@@ -1,0 +1,2 @@
+class ProjectTemplate < ApplicationRecord
+end

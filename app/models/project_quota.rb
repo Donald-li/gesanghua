@@ -1,0 +1,2 @@
+class ProjectQuota < ApplicationRecord
+end
