@@ -5,6 +5,7 @@
 #  id         :integer          not null, primary key
 #  name       :string                                 # 物品名称
 #  number     :integer                                # 物品数量
+#  project_id :integer                                # 项目ID
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #

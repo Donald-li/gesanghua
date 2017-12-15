@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: campaign_enlists # 活动用户表
+# Table name: campaign_enlists # 活动报名表
 #
 #  id          :integer          not null, primary key
 #  campaign_id :integer                                # 活动ID

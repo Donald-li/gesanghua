@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: voucher_donate_records # 捐赠收据记录表
+# Table name: voucher_donate_records # 捐赠收据捐助记录表
 #
 #  id               :integer          not null, primary key
 #  voucher_id       :integer                                # 捐赠收据ID

@@ -3,7 +3,7 @@
 # Table name: logistics # 物流表
 #
 #  id         :integer          not null, primary key
-#  name       :string                                 # 物流公司
+#  name       :integer                                # 物流公司 1:顺丰
 #  number     :string                                 # 物流单号
 #  owner_type :string
 #  owner_id   :integer

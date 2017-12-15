@@ -5,8 +5,8 @@
 #  id            :integer          not null, primary key
 #  user_id       :integer                                # 用户ID
 #  project_id    :integer                                # 项目ID
-#  state         :integer          default(1)            # 状态：1:启用 2:禁用
-#  approve_state :integer          default(1)            # 申请状态：1:审核中 2:审核通过 3:审核不通过
+#  state         :integer          default("show")       # 状态：1:展示 2:隐藏
+#  approve_state :integer          default("submit")     # 申请状态：1:待审核 2:审核通过 3:审核不通过
 #  school_id     :integer                                # 学校ID
 #  province      :string                                 # 省
 #  city          :string                                 # 市

@@ -1,9 +1,9 @@
 # == Schema Information
 #
-# Table name: majors # 登记
+# Table name: majors # 专业表
 #
 #  id         :integer          not null, primary key
-#  name       :string                                 # 标题
+#  name       :string                                 # 专业名称
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
