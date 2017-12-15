@@ -1,0 +1,2 @@
+class GoodsProjectApplyItem < ApplicationRecord
+end
