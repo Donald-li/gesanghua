@@ -14,4 +14,5 @@
 #
 
 class ProjectQuota < ApplicationRecord
+  
 end
