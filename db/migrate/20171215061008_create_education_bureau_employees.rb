@@ -4,7 +4,8 @@ class CreateEducationBureauEmployees < ActiveRecord::Migration[5.1]
       t.string :name, comment: '姓名'
       t.string :phone, comment: '联系方式'
       t.string :nickname, comment: '昵称'
-      t.integer :kind, comment: '类型，1：员工 2：局长', default: 1
+      t.integer :kind, comment: '类型，1：局长 2：员工', default: 1
+      t.integer :education_bureau_id, comment: '教育局id'
 
       t.timestamps
     end

@@ -8,6 +8,9 @@ class CreateOfflineDonors < ActiveRecord::Migration[5.1]
       t.string :email, comment: '邮箱'
       t.string :phone, comment: '联系方式'
       t.string :address, comment: '详细地址'
+      t.string :province, comment: '省'
+      t.string :city, comment: '市'
+      t.string :district, comment: '区'
 
       t.timestamps
     end

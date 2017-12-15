@@ -13,6 +13,6 @@
 #  updated_at :datetime         not null
 #
 
-class ProjectQuota < ApplicationRecord
-  
+class ProjectQuotum < ApplicationRecord
+
 end

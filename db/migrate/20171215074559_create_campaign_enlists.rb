@@ -1,6 +1,6 @@
 class CreateCampaignEnlists < ActiveRecord::Migration[5.1]
   def change
-    create_table :campaign_enlists, comment: '活动用户表' do |t|
+    create_table :campaign_enlists, comment: '活动报名表' do |t|
       t.integer :campaign_id, comment: '活动ID'
       t.integer :user_id, comment: '用户ID'
       t.integer :number, comment: '报名人数'
