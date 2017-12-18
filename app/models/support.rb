@@ -14,7 +14,7 @@
 #
 
 class Support < ApplicationRecord
-  belongs_to :support_category
+  # belongs_to :support_category
 
   validates :title, presence: true
   validates :alias, presence: true

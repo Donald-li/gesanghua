@@ -24,15 +24,15 @@
 
 class DonateRecord < ApplicationRecord
   belongs_to :user
+  belongs_to :promoter, class_name: 'User'
+  # belongs_to :remitter, class_name: 'User'
   belongs_to :finance_category
   belongs_to :project
   belongs_to :project_apply
   belongs_to :team
 
-  has_one :promoter, class_name: 'User', foreign_key: :promoter_id
   has_many :voucher_donate_records
   has_many :vouchers, through: :voucher_donate_records
-  # has_one :remitter, class_name: 'User', foreign_key: :remitter_id
   # appoint_type 多态关联
   # belongs_to :user, polymorphic: true
 

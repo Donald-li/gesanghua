@@ -13,7 +13,7 @@
 #
 
 class Team < ApplicationRecord
-  has_one :creater, class_name: 'User', foreign_key: :creater_id
+  belongs_to :creater, class_name: 'User'
 
   has_many :users
   has_many :donate_records
