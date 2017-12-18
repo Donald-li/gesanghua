@@ -14,4 +14,11 @@
 #
 
 class TaskVolunteer < ApplicationRecord
+  belongs_to :volunteer
+  belongs_to :task
+
+  validates :task_id, presence: true, numericality: {only_integer: true}
+  validates :volunteer_id, presence: true, numericality: {only_integer: true}
+  validates :duration, numericality: {only_integer: true}
+  validates :approve_state, numericality: {only_integer: true}
 end

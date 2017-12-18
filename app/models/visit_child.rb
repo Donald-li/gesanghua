@@ -10,4 +10,9 @@
 #
 
 class VisitChild < ApplicationRecord
+  belongs_to :child
+  belongs_to :visit
+
+  validates :visit_id, presence: true, numericality: {only_integer: true}
+  validates :child_id, presence: true, numericality: {only_integer: true}
 end

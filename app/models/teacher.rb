@@ -18,4 +18,11 @@ class Teacher < ApplicationRecord
 
   enum state: {show: 1, hidden: 2} # 状态：1:启用 2:禁用
   enum kind: { headmaster: 1, teacher: 2 } # 老师类型：1:校长 2:老师
+
+  belongs_to :school
+  belongs_to :user
+
+  validates :user_id, numericality: {only_integer: true}
+  validates :school_id, numericality: {only_integer: true}
+  validates :state, numericality: {only_integer: true}
 end

@@ -23,4 +23,18 @@
 #
 
 class DonateRecord < ApplicationRecord
+  has_many :voucher_donate_records
+  has_many :vouchers, through: :voucher_donate_records
+
+  validates :user_id, presence: true,numericality: {only_integer: true}
+  validates :appoint_id, numericality: {only_integer: true}
+  validates :finance_category_id, numericality: {only_integer: true}
+  validates :pay_state, numericality: {only_integer: true}
+  validates :amount, numericality: true
+  validates :project_id, numericality: {only_integer: true}
+  validates :project_apply_id, numericality: {only_integer: true}
+  validates :team_id, numericality: {only_integer: true}
+  validates :promoter_id, numericality: {only_integer: true}
+  validates :remitter_id, numericality: {only_integer: true}
+  validates :voucher_state, numericality: {only_integer: true}
 end

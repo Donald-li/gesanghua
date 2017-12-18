@@ -14,4 +14,13 @@
 #
 
 class Volunteer < ApplicationRecord
+  has_one :major
+  belongs_to :user
+  has_many :task_volunteers
+  has_many :tasks, through: :task_volunteers
+
+  validates :major_id, numericality: true
+  validates :user_id, numericality: {only_integer: true}
+  validates :job_state, numericality: {only_integer: true}
+  validates :state, numericality: {only_integer: true}
 end

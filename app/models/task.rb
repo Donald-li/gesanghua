@@ -17,4 +17,10 @@
 #
 
 class Task < ApplicationRecord
+  has_many :task_volunteers
+  has_many :volunteers, through: :task_volunteers
+
+  validates :num, numericality: {only_integer: true}
+  validates :state, numericality: {only_integer: true}
+  validates :major_id, numericality: {only_integer: true}
 end

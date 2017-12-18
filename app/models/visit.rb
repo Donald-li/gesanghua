@@ -11,4 +11,6 @@
 #
 
 class Visit < ApplicationRecord
+  has_many :visit_children
+  has_many :children, through: :visit_children
 end

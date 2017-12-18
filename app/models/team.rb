@@ -13,4 +13,11 @@
 #
 
 class Team < ApplicationRecord
+  has_many :users
+  has_one :creater, class_name: 'User', foreign_key: :creater_id
+
+  validates :member_count, numericality: true
+  validates :current_donate_amount, numericality: true
+  validates :total_donate_amount, numericality: true
+  validates :creater_id, numericality:{only_integer: true}
 end

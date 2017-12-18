@@ -20,4 +20,11 @@ class Child < ApplicationRecord
 
   validates :idcard, :name, :gsh_no, presence: true
 
+  has_many :visit_children
+  has_many :visits, through: :visit_children
+
+  validates school_id, numericality: {only_integer: true}
+  validates user_id, numericality: {only_integer: true}
+  validates :password_digest, confirmation: true
+  validates :state, numericality: {only_integer: true}
 end

@@ -18,4 +18,15 @@
 #
 
 class User < ApplicationRecord
+  has_many :vouchers
+  belongs_to :team
+  has_one :teacher
+  has_one :volunteer
+
+  validates :login, presence: true, uniqueness: true
+  validates :password_digest, presence: true, confirmation: true
+  validates :state, numericality: {only_integer: true}
+  validates :team_id, numericality: {only_integer: true}
+  validates :gender, numericality: {only_integer: true}
+  validates :balance, numericality: true
 end

@@ -18,6 +18,12 @@
 #
 
 class School < ApplicationRecord
-  
+
   enum state: {show: 1, hidden: 2} # 状态：1:启用 2:禁用
+
+  has_many :teachers
+
+  validates :approve_state, numericality: {only_integer: true}
+  validates :number, numericality: {only_integer: true}
+  validates :state, numericality: {only_integer: true}
 end
