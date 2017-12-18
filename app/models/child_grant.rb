@@ -11,4 +11,7 @@
 #
 
 class ChildGrant < ApplicationRecord
+  belongs_to :child
+  belongs_to :project_apply
+
 end

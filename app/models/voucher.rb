@@ -19,7 +19,7 @@
 class Voucher < ApplicationRecord
   belongs_to :user
   has_many :voucher_donate_records
-  has_many :donate_records, through: :voucher_donate_records
+  has_many :billed_donate_records, class_name: 'DonateRecord', through: :voucher_donate_records
 
   validates :user_id, presence: true, numericality: {only_integer: true}
   validates :amount, numericality: true

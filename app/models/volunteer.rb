@@ -19,8 +19,9 @@ class Volunteer < ApplicationRecord
   has_many :task_volunteers
   has_many :tasks, through: :task_volunteers
 
-  validates :major_id, numericality: true
-  validates :user_id, numericality: {only_integer: true}
-  validates :job_state, numericality: {only_integer: true}
-  validates :state, numericality: {only_integer: true}
+  enum job_state: {available: 1, leave: 2} # 任务状态 1:可接受任务 2:请假
+  enum state: {enabled: 1, disabled: 2} # 状态 1:启用 2:禁用
+
+  default_value_for :level, 0
+
 end

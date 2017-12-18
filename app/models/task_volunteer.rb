@@ -17,8 +17,6 @@ class TaskVolunteer < ApplicationRecord
   belongs_to :volunteer
   belongs_to :task
 
-  validates :task_id, presence: true, numericality: {only_integer: true}
-  validates :volunteer_id, presence: true, numericality: {only_integer: true}
-  validates :duration, numericality: {only_integer: true}
-  validates :approve_state, numericality: {only_integer: true}
+  enum approve_state: {submit: 1, pass: 2, reject: 3} #状态 1:待审核 2:通过 3:未通过
+
 end

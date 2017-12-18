@@ -13,4 +13,11 @@
 #
 
 class CampaignEnlist < ApplicationRecord
+  belongs_to :campaign
+  belongs_to :user
+
+  validates :number, presence: true
+  
+  default_vaule_for :number, 1
+
 end

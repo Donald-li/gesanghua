@@ -12,4 +12,7 @@
 #
 
 class Special < ApplicationRecord
+  has_many :special_articles
+
+  validates :name, presence: true
 end

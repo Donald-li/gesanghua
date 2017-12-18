@@ -11,4 +11,9 @@
 #
 
 class SpecialArticle < ApplicationRecord
+  belongs_to :special
+  belongs_to :article
+
+  acts_as_list column: :position
+  scope :sorted, ->{ order(position: :asc) }
 end

@@ -23,18 +23,20 @@
 #
 
 class DonateRecord < ApplicationRecord
+  belongs_to :user
+  belongs_to :finance_category
+  belongs_to :project
+  belongs_to :project_apply
+  belongs_to :team
+
+  has_one :promoter, class_name: 'User', foreign_key: :promoter_id
   has_many :voucher_donate_records
   has_many :vouchers, through: :voucher_donate_records
+  # has_one :remitter, class_name: 'User', foreign_key: :remitter_id
+  # appoint_type 多态关联
+  # belongs_to :user, polymorphic: true
 
-  validates :user_id, presence: true,numericality: {only_integer: true}
-  validates :appoint_id, numericality: {only_integer: true}
-  validates :finance_category_id, numericality: {only_integer: true}
-  validates :pay_state, numericality: {only_integer: true}
-  validates :amount, numericality: true
-  validates :project_id, numericality: {only_integer: true}
-  validates :project_apply_id, numericality: {only_integer: true}
-  validates :team_id, numericality: {only_integer: true}
-  validates :promoter_id, numericality: {only_integer: true}
-  validates :remitter_id, numericality: {only_integer: true}
-  validates :voucher_state, numericality: {only_integer: true}
+  validates :amount, :donor, :remitter_name, presence: true
+
+  enum voucher_state: {to_bill: 1, billed: 2 } #收据状态，1:未开票 2:已开票
 end

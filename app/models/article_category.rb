@@ -12,4 +12,13 @@
 #
 
 class ArticleCategory < ApplicationRecord
+  has_many :articles
+
+  validates :name, presence: true
+
+  enum state: {enabled: 1, disabled: 2} # 状态：1:启用 2:禁用
+  default_value_for :state, 1
+
+  acts_as_list column: :position
+  scope :sorted, ->{ order(position: :asc) }
 end

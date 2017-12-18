@@ -13,4 +13,9 @@
 #
 
 class ChildTrail < ApplicationRecord
+  belongs_to :child
+
+  validates :content, :awarding_body, :awarding_at, presence: true
+
+  default_value_for :kind, 1
 end

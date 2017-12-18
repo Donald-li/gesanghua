@@ -12,18 +12,19 @@
 #  district       :string                                 # 区/县
 #  number         :integer                                # 学校人数
 #  describe       :string                                 # 学校简介
-#  state          :integer          default("show")       # 学校状态：1:启用 2:禁用
+#  state          :integer          default("enabled")    # 学校状态：1:启用 2:禁用
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #
 
 class School < ApplicationRecord
 
-  enum state: {show: 1, hidden: 2} # 状态：1:启用 2:禁用
-
   has_many :teachers
+  has_many :book_shelves
+  has_many :project_applies
+  has_many :project_quota
 
-  validates :approve_state, numericality: {only_integer: true}
-  validates :number, numericality: {only_integer: true}
-  validates :state, numericality: {only_integer: true}
+  validates :name, :province, :city, :district, presence: true
+
+  enum state: {enabled: 1, disabled: 2} # 状态：1:启用 2:禁用
 end

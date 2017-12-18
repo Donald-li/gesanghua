@@ -14,15 +14,16 @@
 #
 
 class Support < ApplicationRecord
-  enum state: {show: 1, hidden: 2}
-  default_value_for :state, 1
-
-  acts_as_list column: :position
+  belongs_to :support_category
 
   validates :title, presence: true
   validates :alias, presence: true
 
+  acts_as_list column: :position
   scope :sorted, ->{ order(position: :asc) }
+
+  enum state: {show: 1, hidden: 2}
+  default_value_for :state, 1
 
   attr_accessor :image_id
 

@@ -16,6 +16,16 @@
 #
 
 class ProjectApply < ApplicationRecord
+  belongs_to :user
+  belongs_to :project
+  belongs_to :school
+
+  has_many :bookshelves
+  has_many :project_apply_children
+  has_many :child_grants
+  has_many :donate_records
+
+  validates :province, :city, :distirct, presence: true
 
   enum state: {show: 1, hidden: 2} # 状态：1:启用 2:禁用
   enum approve_state: { submit: 1, pass: 2, reject: 3 } # 审核状态：1:审核中 2:申请通过 3:申请不通过

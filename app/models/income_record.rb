@@ -21,4 +21,17 @@
 #
 
 class IncomeRecord < ApplicationRecord
+  belongs_to :user
+  belongs_to :finance_category
+  belongs_to :income_source
+
+  has_many :expenditure_records
+  has_one :donate_record
+  has_one :promoter, class_name: 'User', foreign_key: :promoter_id
+  # has_one :remitter, class_name: 'User', foreign_key: :remitter_id
+  # appoint_type 多态关联
+  # belongs_to :user, polymorphic: true
+
+  # enum state: {}
+
 end

@@ -18,4 +18,10 @@
 #
 
 class OfflineDonor < ApplicationRecord
+  belongs_to :user
+
+  validates :name, :province, :city, :district, presence: true
+  validates :phone, uniqueness: true
+
+  # enum state: {enabled: 1, disabled: 2} # 状态 1:启用 2:停用
 end

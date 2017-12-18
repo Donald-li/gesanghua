@@ -9,22 +9,21 @@
 #  user_id         :integer                                # 用户ID
 #  password_digest :string                                 # 密码
 #  gsh_no          :string                                 # 格桑花内部编码
-#  state           :integer          default("show")       # 状态：1:启用 2:禁用
+#  state           :integer          default("enabled")    # 状态：1:启用 2:禁用
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
 
 class Child < ApplicationRecord
-
-  enum state: {show: 1, hidden: 2} # 状态：1:启用 2:禁用
-
-  validates :idcard, :name, :gsh_no, presence: true
-
+  has_many :child_trails
+  has_many :child_grants
+  has_many :project_apply_children
   has_many :visit_children
   has_many :visits, through: :visit_children
 
-  validates school_id, numericality: {only_integer: true}
-  validates user_id, numericality: {only_integer: true}
-  validates :password_digest, confirmation: true
-  validates :state, numericality: {only_integer: true}
+  validates :idcard, :name, :gsh_no, presence: true
+  validates :idcard, uniqueness: true
+
+  enum state: {enabled: 1, disabled: 2} # 状态：1:启用 2:禁用
+
 end

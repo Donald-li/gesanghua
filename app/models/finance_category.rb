@@ -14,4 +14,14 @@
 #
 
 class FinanceCategory < ApplicationRecord
+  has_many :donate_records
+  has_many :income_records
+  has_many :expenditure_records
+  has_many :projects
+  has_many :project_templates
+
+  validates :name, :describe, presence: true
+
+  acts_as_list column: :position
+  scope :sorted, ->{ order(position: :asc) }
 end

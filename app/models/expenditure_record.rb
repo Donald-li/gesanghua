@@ -15,4 +15,13 @@
 #
 
 class ExpenditureRecord < ApplicationRecord
+  belongs_to :finance_category
+  belongs_to :administrator
+  belongs_to :income_record
+  # appoint_type 多态关联
+  # belongs_to :user, polymorphic: true
+
+  enum deliver_state: {to_deliver: 1, deliver: 2} # 发放状态，1:待发放 2:已发放
+  # enum kind: {}
+
 end

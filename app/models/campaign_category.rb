@@ -9,4 +9,9 @@
 #
 
 class CampaignCategory < ApplicationRecord
+
+  has_many :campaigns
+
+  validates :name, presence: true
+
 end

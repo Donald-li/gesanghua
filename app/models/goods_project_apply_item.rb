@@ -11,4 +11,7 @@
 #
 
 class GoodsProjectApplyItem < ApplicationRecord
+  belongs_to :project
+
+  validates :name, :number, presence: true
 end

@@ -13,4 +13,9 @@
 #
 
 class Remark < ApplicationRecord
+  belongs_to :owner, polymorphic: true
+  belongs_to :operator, polymorphic: true
+
+  validates :content, presence: true
+
 end

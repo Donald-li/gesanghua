@@ -7,7 +7,7 @@
 #  name            :string                                 # 姓名
 #  login           :string                                 # 登录账号
 #  password_digest :string                                 # 密码
-#  state           :integer          default(1)            # 状态 1:启用 2:禁用
+#  state           :integer          default("enabled")    # 状态 1:启用 2:禁用
 #  team_id         :integer                                # 团队ID
 #  profile         :jsonb                                  # 微信profile
 #  gender          :integer                                # 性别，1：男 2：女
@@ -18,15 +18,22 @@
 #
 
 class User < ApplicationRecord
-  has_many :vouchers
   belongs_to :team
+
   has_one :teacher
   has_one :volunteer
+  has_one :education_bureau_employee
+  has_many :vouchers
+  has_many :campaign_enlists
+  has_many :donate_records
+  has_many :income_records
+  has_many :project_applies
 
-  validates :login, presence: true, uniqueness: true
-  validates :password_digest, presence: true, confirmation: true
-  validates :state, numericality: {only_integer: true}
-  validates :team_id, numericality: {only_integer: true}
-  validates :gender, numericality: {only_integer: true}
-  validates :balance, numericality: true
+  validates :name, :login, :phone, presence: true
+  validates :login, :phone, uniqueness: true
+
+  enum state: {enabled: 1, disabled: 2} #状态 1:启用 2:禁用
+
+  has_secure_password
+
 end

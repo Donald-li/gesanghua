@@ -14,7 +14,10 @@
 #
 
 class ProjectApplyChild < ApplicationRecord
+  belongs_to :project_apply
+  belongs_to :child
+
+  validates :province, :city, :district, presence: true
 
   enum approve_state: { submit: 1, pass: 2, reject: 3 } # 审核状态：1:审核中 2:申请通过 3:申请不通过
-  
 end

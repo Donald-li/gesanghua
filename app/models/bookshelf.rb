@@ -14,4 +14,12 @@
 #
 
 class Bookshelf < ApplicationRecord
+  belongs_to :school
+  belongs_to :project_apply
+
+  validates :title, :class_name, :balance, presence: true
+
+  enum state: {show: 1, hidden: 2} # 状态：1:公开受捐 2:隐藏
+  default_value_for :state, 2
+
 end

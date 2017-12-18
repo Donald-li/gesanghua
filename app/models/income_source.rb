@@ -9,4 +9,5 @@
 #
 
 class IncomeSource < ApplicationRecord
+  has_many :income_records
 end

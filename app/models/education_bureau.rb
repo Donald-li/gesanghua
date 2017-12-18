@@ -13,4 +13,8 @@
 #
 
 class EducationBureau < ApplicationRecord
+  has_many :education_bureau_employees
+
+  validates :name, :province, :city, :district, presence: true
+
 end

@@ -11,6 +11,9 @@
 #
 
 class Visit < ApplicationRecord
+  belongs_to :owner, polymorphic: true
+
   has_many :visit_children
-  has_many :children, through: :visit_children
+
+  validates :content, presence: true
 end

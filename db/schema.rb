@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171215074559) do
+ActiveRecord::Schema.define(version: 20171218070321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -190,6 +190,7 @@ ActiveRecord::Schema.define(version: 20171215074559) do
     t.integer "education_bureau_id", comment: "教育局id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id", comment: "用户ID"
   end
 
   create_table "education_bureaus", force: :cascade, comment: "教育局表" do |t|
@@ -423,6 +424,15 @@ ActiveRecord::Schema.define(version: 20171215074559) do
     t.string "template", comment: "模板"
     t.string "describe", comment: "简介"
     t.string "article_name", comment: "资讯名称"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "support_categories", force: :cascade, comment: "帮助主题分类" do |t|
+    t.string "name", comment: "名称"
+    t.string "describe", comment: "描述"
+    t.integer "position", comment: "排序"
+    t.integer "state", comment: "状态 1:显示 2:隐藏"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -11,7 +11,7 @@
 #  sign_up_end_time     :datetime                               # 报名截止时间
 #  start_at             :datetime                               # 活动开始时间
 #  end_at               :datetime                               # 活动结束时间
-#  state                :integer          default(1)            # 状态，1：展示 2：隐藏
+#  state                :integer          default("show")       # 状态，1：展示 2：隐藏
 #  project_id           :integer                                # 关联项目ID
 #  campaign_category_id :integer                                # 活动分类ID
 #  created_at           :datetime         not null
@@ -19,4 +19,12 @@
 #
 
 class Campaign < ApplicationRecord
+  belongs_to :project
+  belongs_to :campaign_category
+  has_many :campaign_enlists
+
+  validates :name, :content, presence: true
+
+  enum state: {show: 1, hidden: 2} # 状态：1:启用 2:禁用
+
 end

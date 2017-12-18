@@ -8,7 +8,7 @@
 #  finance_category_id :integer                                # 财务分类ID
 #  protocol_name       :string                                 # 协议名称
 #  protocol_content    :text                                   # 协议内容
-#  contribute_kind     :integer          default(1)            # 捐款类型：1:整捐 2:零捐
+#  contribute_kind     :integer          default("entirety")   # 捐款类型：1:整捐 2:零捐
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #

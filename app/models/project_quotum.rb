@@ -14,5 +14,9 @@
 #
 
 class ProjectQuotum < ApplicationRecord
+  belongs_to :school
+  belongs_to :project
+
+  validates :province, :city, :district, presence: true
 
 end

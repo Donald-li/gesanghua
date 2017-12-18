@@ -12,4 +12,7 @@
 #
 
 class Logistic < ApplicationRecord
+  belongs_to :owner, polymorphic: true
+
+  validates :name, :number, presence: true
 end

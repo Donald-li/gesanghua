@@ -17,10 +17,12 @@
 #
 
 class Task < ApplicationRecord
+  belongs_to :major
+
   has_many :task_volunteers
   has_many :volunteers, through: :task_volunteers
 
-  validates :num, numericality: {only_integer: true}
-  validates :state, numericality: {only_integer: true}
-  validates :major_id, numericality: {only_integer: true}
+  validates :name, :duration, :num, :content, presence: true
+
+  enum state: {show: 1, hidden: 2} # 状态 1:显示 2:隐藏
 end

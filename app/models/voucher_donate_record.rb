@@ -13,6 +13,4 @@ class VoucherDonateRecord < ApplicationRecord
   belongs_to :voucher
   belongs_to :donate_record
 
-  validates :voucher_id, presence: true, numericality: {only_integer: true}
-  validates :donate_record_id, presence: true, numericality: {only_integer: true}
 end

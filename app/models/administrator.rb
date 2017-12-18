@@ -17,6 +17,13 @@
 class Administrator < ApplicationRecord
   has_paper_trail only: [:login, :nickname, :state]
 
+  has_many :administrator_logs, dependent: :destroy
+  has_many :expenditure_records
+
+  validates :login, presence: true, uniqueness: true
+  validates :nickname, presence: true
+  validates :password, length: { in: 6..32 }, if: :need_validate_password?
+
   has_secure_password
   enum state: { enable: 1, disable: 2 } # 状态 1:正常 2:禁用
   default_value_for :state, 1
@@ -25,12 +32,6 @@ class Administrator < ApplicationRecord
   default_value_for :kind, 2
 
   scope :sorted, -> { order(created_at: :desc) }
-
-  validates :login, presence: true, uniqueness: true
-  validates :nickname, presence: true
-  validates :password, length: { in: 6..32 }, if: :need_validate_password?
-
-  has_many :administrator_logs, dependent: :destroy
 
   protected
   def need_validate_password?

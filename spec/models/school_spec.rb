@@ -12,7 +12,7 @@
 #  district       :string                                 # 区/县
 #  number         :integer                                # 学校人数
 #  describe       :string                                 # 学校简介
-#  state          :integer          default("show")       # 学校状态：1:启用 2:禁用
+#  state          :integer          default("enabled")    # 学校状态：1:启用 2:禁用
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #
