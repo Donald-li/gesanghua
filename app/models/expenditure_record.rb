@@ -24,4 +24,6 @@ class ExpenditureRecord < ApplicationRecord
   enum deliver_state: {to_deliver: 1, deliver: 2} # 发放状态，1:待发放 2:已发放
   # enum kind: {}
 
+  scope :sorted, ->{ order(created_at: :desc) }
+
 end

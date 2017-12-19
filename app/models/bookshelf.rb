@@ -22,4 +22,6 @@ class Bookshelf < ApplicationRecord
   enum state: {show: 1, hidden: 2} # 状态：1:公开受捐 2:隐藏
   default_value_for :state, 2
 
+  scope :sorted, ->{ order(created_at: :desc) }
+
 end

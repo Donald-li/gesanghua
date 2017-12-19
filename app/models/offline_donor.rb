@@ -24,4 +24,6 @@ class OfflineDonor < ApplicationRecord
   validates :phone, uniqueness: true
 
   # enum state: {enabled: 1, disabled: 2} # 状态 1:启用 2:停用
+
+  scope :sorted, ->{ order(created_at: :desc) }
 end

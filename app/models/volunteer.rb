@@ -24,4 +24,6 @@ class Volunteer < ApplicationRecord
 
   default_value_for :level, 0
 
+  scope :sorted, ->{ order(created_at: :desc) }
+
 end

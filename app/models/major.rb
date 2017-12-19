@@ -11,4 +11,6 @@
 class Major < ApplicationRecord
   has_many :tasks
   has_many :volunteers
+
+  scope :sorted, ->{ order(created_at: :desc) }
 end

@@ -30,4 +30,6 @@ class Project < ApplicationRecord
 
   enum state: {enabled: 1, disabled: 2} # 状态：1:启用 2:禁用
   enum contribute_kind: { entirety: 1, scattered: 2 } # 捐款类型：1:整捐 2:零捐
+
+  scope :sorted, ->{ order(created_at: :desc) }
 end

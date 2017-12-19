@@ -21,4 +21,6 @@ class EducationBureauEmployee < ApplicationRecord
   validates :phone, uniqueness: true
 
   enum kind: {director: 1, staff: 2}
+
+  scope :sorted, ->{ order(created_at: :desc) }
 end

@@ -22,4 +22,6 @@ class Voucher < ApplicationRecord
   has_many :billed_donate_records, class_name: 'DonateRecord', through: :voucher_donate_records
 
   validates :contact_name, :contact_phone, :province, :city, :district, :address, presence: true
+
+  scope :sorted, ->{ order(created_at: :desc) }
 end

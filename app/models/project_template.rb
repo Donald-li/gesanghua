@@ -21,4 +21,6 @@ class ProjectTemplate < ApplicationRecord
   validates :name, :protocol_name, :protocol_content, presence: true
 
   enum contribute_kind: { entirety: 1, scattered: 2 } # 捐款类型：1:整捐 2:零捐
+
+  scope :sorted, ->{ order(created_at: :desc) }
 end

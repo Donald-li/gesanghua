@@ -14,4 +14,6 @@ class GoodsProjectApplyItem < ApplicationRecord
   belongs_to :project
 
   validates :name, :number, presence: true
+
+  scope :sorted, ->{ order(created_at: :desc) }
 end

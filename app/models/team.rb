@@ -18,4 +18,6 @@ class Team < ApplicationRecord
   has_many :users
   has_many :donate_records
 
+  scope :sorted, ->{ order(created_at: :desc) }
+
 end

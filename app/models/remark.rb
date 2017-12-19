@@ -18,4 +18,6 @@ class Remark < ApplicationRecord
 
   validates :content, presence: true
 
+  scope :sorted, ->{ order(created_at: :desc) }
+
 end

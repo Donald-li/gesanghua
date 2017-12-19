@@ -19,4 +19,6 @@ class ProjectQuotum < ApplicationRecord
 
   validates :province, :city, :district, presence: true
 
+  scope :sorted, ->{ order(created_at: :desc) }
+
 end

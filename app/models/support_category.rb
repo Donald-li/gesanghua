@@ -18,4 +18,6 @@ class SupportCategory < ApplicationRecord
 
   enum state: {show: 1, hidden: 2}
   default_value_for :state, 1
+
+  scope :sorted, ->{ order(created_at: :desc) }
 end

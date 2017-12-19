@@ -14,4 +14,6 @@ class ChildGrant < ApplicationRecord
   belongs_to :child
   belongs_to :project_apply
 
+  scope :sorted, ->{ order(created_at: :desc) }
+
 end

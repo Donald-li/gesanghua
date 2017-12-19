@@ -18,4 +18,6 @@ class ChildTrail < ApplicationRecord
   validates :content, :awarding_body, :awarding_at, presence: true
 
   default_value_for :kind, 1
+
+  scope :sorted, ->{ order(created_at: :desc) }
 end

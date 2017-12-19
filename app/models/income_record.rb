@@ -36,4 +36,6 @@ class IncomeRecord < ApplicationRecord
 
   # enum state: {}
 
+  scope :sorted, ->{ order(created_at: :desc) }
+
 end

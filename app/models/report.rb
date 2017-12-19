@@ -16,4 +16,6 @@
 class Report < ApplicationRecord
   belongs_to :owner, polymorphic: true
 
+  scope :sorted, ->{ order(created_at: :desc) }
+
 end

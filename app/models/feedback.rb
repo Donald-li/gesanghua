@@ -21,4 +21,6 @@ class Feedback < ApplicationRecord
   enum state: {show: 1, hidden: 2}
   enum approve_state: {submit: 1, pass: 2, reject: 3} # 审核状态 1:审核中 2:申请通过 3:申请不通过
 
+  scope :sorted, ->{ order(created_at: :desc) }
+
 end

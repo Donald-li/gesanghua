@@ -16,4 +16,6 @@ class Visit < ApplicationRecord
   has_many :visit_children
 
   validates :content, presence: true
+
+  scope :sorted, ->{ order(created_at: :desc) }
 end

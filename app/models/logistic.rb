@@ -15,4 +15,6 @@ class Logistic < ApplicationRecord
   belongs_to :owner, polymorphic: true
 
   validates :name, :number, presence: true
+
+  scope :sorted, ->{ order(created_at: :desc) }
 end

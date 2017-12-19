@@ -25,4 +25,6 @@ class Task < ApplicationRecord
   validates :name, :duration, :num, :content, presence: true
 
   enum state: {show: 1, hidden: 2} # 状态 1:显示 2:隐藏
+
+  scope :sorted, ->{ order(created_at: :desc) }
 end
