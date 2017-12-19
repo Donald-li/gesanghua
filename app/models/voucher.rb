@@ -21,5 +21,5 @@ class Voucher < ApplicationRecord
   has_many :voucher_donate_records
   has_many :billed_donate_records, class_name: 'DonateRecord', through: :voucher_donate_records
 
-  validates :contact_name, :contact_phone, :province, :city, :district, :address, numericality: true
+  validates :contact_name, :contact_phone, :province, :city, :district, :address, presence: true
 end
