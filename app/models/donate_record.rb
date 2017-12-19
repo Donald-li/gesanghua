@@ -39,4 +39,5 @@ class DonateRecord < ApplicationRecord
   validates :amount, :donor, :remitter_name, presence: true
 
   enum voucher_state: {to_bill: 1, billed: 2 } #收据状态，1:未开票 2:已开票
+  default_value_for :voucher_state, 1
 end
