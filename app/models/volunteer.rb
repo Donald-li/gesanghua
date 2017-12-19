@@ -14,7 +14,7 @@
 #
 
 class Volunteer < ApplicationRecord
-  has_one :major
+  belongs_to :major
   belongs_to :user
   has_many :task_volunteers
   has_many :tasks, through: :task_volunteers

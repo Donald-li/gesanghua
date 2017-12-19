@@ -10,4 +10,6 @@
 
 class IncomeSource < ApplicationRecord
   has_many :income_records
+
+  validates :name, presence: true
 end

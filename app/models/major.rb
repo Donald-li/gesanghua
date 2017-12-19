@@ -10,4 +10,5 @@
 
 class Major < ApplicationRecord
   has_many :tasks
+  has_many :volunteers
 end

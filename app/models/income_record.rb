@@ -32,6 +32,8 @@ class IncomeRecord < ApplicationRecord
   # appoint_type 多态关联
   # belongs_to :user, polymorphic: true
 
+  validates :amount, :remitter_name, :donor, presence: true
+
   # enum state: {}
 
 end
