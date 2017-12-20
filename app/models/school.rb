@@ -27,6 +27,7 @@ class School < ApplicationRecord
   validates :name, :province, :city, :district, presence: true
 
   enum state: {enabled: 1, disabled: 2} # 状态：1:启用 2:禁用
+  default_value_for :state, 1
 
   scope :sorted, ->{ order(created_at: :desc) }
 end

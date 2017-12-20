@@ -22,6 +22,7 @@ class ExpenditureRecord < ApplicationRecord
   # belongs_to :user, polymorphic: true
 
   enum deliver_state: {to_deliver: 1, deliver: 2} # 发放状态，1:待发放 2:已发放
+  default_value_for :deliver_state, 1
   # enum kind: {}
 
   scope :sorted, ->{ order(created_at: :desc) }

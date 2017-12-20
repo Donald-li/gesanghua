@@ -28,7 +28,13 @@ class ProjectApply < ApplicationRecord
   validates :province, :city, :distirct, presence: true
 
   enum state: {show: 1, hidden: 2} # 状态：1:启用 2:禁用
+  default_value_for :state, 1
+  
   enum approve_state: { submit: 1, pass: 2, reject: 3 } # 审核状态：1:审核中 2:申请通过 3:申请不通过
+  default_value_for :approve_state, 1
+
+  default_value_for :state, :show
+  default_value_for :approve_state, :submit
 
   scope :sorted, ->{ order(created_at: :desc) }
 end

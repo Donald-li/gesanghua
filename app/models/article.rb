@@ -28,7 +28,9 @@ class Article < ApplicationRecord
 
   enum state: {show: 1, hidden: 2}
   default_value_for :state, 1
-  enum recommend: { normal: 0, recommend: 1 } # 推荐 0:正常 1:推荐
+
+  enum recommend: { normal: 1, recommend: 2 } # 推荐 0:正常 1:推荐
+  default_value_for :recommend, 1
 
   default_value_for :published_at, Time.now
 

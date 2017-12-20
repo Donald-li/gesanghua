@@ -20,7 +20,10 @@ class Volunteer < ApplicationRecord
   has_many :tasks, through: :task_volunteers
 
   enum job_state: {available: 1, leave: 2} # 任务状态 1:可接受任务 2:请假
+  default_value_for :job_state, 1
+
   enum state: {enabled: 1, disabled: 2} # 状态 1:启用 2:禁用
+  default_value_for :state, 1
 
   default_value_for :level, 0
 

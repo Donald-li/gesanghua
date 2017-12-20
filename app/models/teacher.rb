@@ -22,6 +22,8 @@ class Teacher < ApplicationRecord
   validates :phone, uniqueness: true
 
   enum state: {show: 1, hidden: 2} # 状态：1:启用 2:禁用
+  default_value_for :state, 1
+
   enum kind: { headmaster: 1, teacher: 2 } # 老师类型：1:校长 2:老师
 
   scope :sorted, ->{ order(created_at: :desc) }
