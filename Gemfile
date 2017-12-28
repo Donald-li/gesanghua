@@ -92,6 +92,9 @@ gem 'rqrcode'
 # 阿里云短信
 gem 'aliyun-sms', git: 'https://github.com/songjian/aliyun-sms.git'
 
+#  权限管理
+gem "pundit"
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

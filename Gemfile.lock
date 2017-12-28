@@ -260,6 +260,8 @@ GEM
       activerecord (>= 3.0)
     public_suffix (3.0.1)
     puma (3.11.0)
+    pundit (1.1.0)
+      activesupport (>= 3.0.0)
     rack (2.0.3)
     rack-protection (2.0.0)
       rack
@@ -458,6 +460,7 @@ DEPENDENCIES
   paranoia (~> 2.2)
   pg
   puma (~> 3.7)
+  pundit
   rails (~> 5.1.1)
   ransack
   redis (~> 3.0)
