@@ -18,8 +18,9 @@
 #
 
 class User < ApplicationRecord
-  belongs_to :team
+  belongs_to :team, optional: true
 
+  has_one :administrator
   has_one :teacher
   has_one :volunteer
   has_one :education_bureau_employee

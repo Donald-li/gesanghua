@@ -6,7 +6,7 @@
 #  title               :string                                 # 标题
 #  content             :text                                   # 内容
 #  state               :integer          default("show")       # 状态, 1:展示 2:隐藏
-#  recommend           :integer          default("normal")     # 推荐 0:正常 1:推荐
+#  recommend           :integer          default(NULL)         # 推荐 0:正常 1:推荐
 #  article_category_id :integer                                # 资讯分类id
 #  published_at        :datetime                               # 发布时间
 #  author              :string                                 # 作者
