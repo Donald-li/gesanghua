@@ -172,8 +172,8 @@
           <span class="arrow <%= current_nav_class(:admin_system, current: :open) %>"></span>
         </a>
         <ul class="sub-menu">
-          <li class="nav-item  <%= current_nav_class(:admin_main) %>">
-            <%= link_to '', class: 'nav-link' do %>
+          <li class="nav-item  <%= current_nav_class(:admin_article_category) %>">
+            <%= link_to admin_article_categories_path, class: 'nav-link' do %>
                 <span class="title">资讯分类管理</span>
             <% end %>
           </li>

@@ -60,6 +60,7 @@ Rails.application.routes.draw do
     resources :audits, only: [:index, :show]
     resources :adverts, concerns: [:move, :switch]
     resources :articles, concerns: [:switch, :recommend]
+    resources :article_categories, concerns: [:move, :switch]
     resources :supports, concerns: [:move, :switch]
     resources :pages, concerns: [:move, :switch]
   end

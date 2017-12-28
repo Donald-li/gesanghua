@@ -25,3 +25,6 @@ zh:
   page_states:
     show: '显示'
     hidden: '隐藏'
+  article_category_states:
+    enabled: '启用'
+    disabled: '禁用'
