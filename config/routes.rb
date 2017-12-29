@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     member { get :download }
   end
   concern :recommend do
-    member { put :recomment }
+    member { put :recommend }
   end
   concern :excel_output do
     collection { get :excel_output }
