@@ -41,6 +41,11 @@
               </th>
               <th>二级分类名称</th>
               <th>
+                管理费
+              </th>
+              <th>余额</th>
+              <th>历史收入</th>
+              <th>
                 状态
               </th>
               <th>
@@ -57,6 +62,9 @@
               <td>
                 <%= cate.name %>
               </td>
+              <td></td>
+              <td></td>
+              <td></td>
               <td></td>
               <td>
                 <%= link_to switch_admin_fund_category_path(cate), data: {confirm: "确定#{cate.hidden? ? '显示' : '隐藏'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{cate.show? ? 'green' : 'default'}" do %>
@@ -86,6 +94,15 @@
                 </td>
                 <td>
                   <%= fund.name %>
+                </td>
+                <td>
+                  <%= fund.management_rate %>%
+                </td>
+                <td>
+                  ￥<%= number_to_currency(fund.amount) %>
+                </td>
+                <td>
+                  ￥<%= number_to_currency(fund.total) %>
                 </td>
                 <td>
                   <%= link_to switch_admin_fund_path(fund), data: {confirm: "确定#{cate.hidden? ? '显示' : '隐藏'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{cate.show? ? 'green' : 'default'}" do %>

@@ -251,13 +251,12 @@
           <li class="nav-item  <%= current_nav_class(:admin_audit_reports) %>">
             <%= link_to admin_audit_reports_path, class: 'nav-link' do %>
                 <span class="title">审计报告</span>
-        <%= link_to admin_fund_categories_path, class: 'nav-link nav-toggle' do %>
-
-            <% to_sign = 0 %>
-          <i class="fa fa-archive"></i>
-          <span class="title">收入分类管理</span>
-            <% if to_sign > 0 %>
-                <span class="badge badge-danger"><%= to_sign %></span>
+            <% end %>
+          </li>
+          <li class="nav-item  <%= current_nav_class(:admin_fund_categories) %>">
+            <%= link_to admin_fund_categories_path, class: 'nav-link nav-toggle' do %>
+              <i class="fa fa-archive"></i>
+              <span class="title">收入分类管理</span>
             <% end %>
           </li>
         </ul>

@@ -29,11 +29,6 @@ admin:
         admin_project_template:
           actions:
             'admin/project_templates': all
-    admin_finance:
-      menus:
-        income_category:
-          actions:
-            'admin/fund_categories': all
 
     # 管理员列表
     admin_administrator:
@@ -52,3 +47,6 @@ admin:
         admin_audit_reports:
           actions:
             admin/audit_reports: all
+        admin_fund_categories:
+          actions:
+            'admin/fund_categories': all
