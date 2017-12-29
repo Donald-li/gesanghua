@@ -29,6 +29,12 @@ admin:
         admin_project_template:
           actions:
             'admin/project_templates': all
+    admin_finance:
+      menus:
+        income_category:
+          actions:
+            'admin/finance_categories': all
+
     # 管理员列表
     admin_administrator:
       menus:

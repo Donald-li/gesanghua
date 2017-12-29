@@ -14,6 +14,8 @@
 #
 
 class FinanceCategory < ApplicationRecord
+  has_ancestry
+
   has_many :donate_records
   has_many :income_records
   has_many :expenditure_records
