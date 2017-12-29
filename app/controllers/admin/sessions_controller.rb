@@ -3,16 +3,17 @@ class Admin::SessionsController < Admin::BaseController
   layout 'blank'
 
   def new
-    @admin = Administrator.new
+    @admin = User.new
   end
 
   def create
-    @admin = Administrator.new(session_params.permit!)
+    @admin = User.new(session_params.permit!)
     if !verify_rucaptcha?
       flash[:alert] = '验证码错误'
       render action: :new and return
     end
-    admin = Administrator.find_by(login: session_params[:login])
+    user =  User.find_by(login: session_params[:login])
+    admin = user.administrator.presence
     if admin.blank?
       flash[:alert] = '该帐号不存在'
       render(action: :new) && return
@@ -22,7 +23,7 @@ class Admin::SessionsController < Admin::BaseController
       flash[:alert] = '该帐号已被停用'
       render(action: :new) && return
     end
-    if admin.authenticate(session_params[:password])
+    if user.authenticate(session_params[:password])
       set_current_admin(admin)
       redirect_to admin_main_path
     else

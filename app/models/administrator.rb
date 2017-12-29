@@ -2,16 +2,15 @@
 #
 # Table name: administrators # 管理员
 #
-#  id              :integer          not null, primary key
-#  login           :string                                                         # 登录名
-#  nickname        :string                                                         # 昵称
-#  password_digest :string                                                         # 密码
-#  expire_at       :datetime         default(Thu, 31 Dec 2099 00:00:00 CST +08:00) # 过期时间
-#  state           :integer          default("enable")                             # 状态 1:正常 2:禁用
-#  kind            :integer          default("administrator")                      # 管理员类型 1:超级管理员 2:项目管理员
-#  integer         :integer          default(2)                                    # 管理员类型 1:超级管理员 2:项目管理员
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  id         :integer          not null, primary key
+#  nickname   :string                                                         # 昵称
+#  expire_at  :datetime         default(Thu, 31 Dec 2099 00:00:00 UTC +00:00) # 过期时间
+#  state      :integer          default("enable")                             # 状态 1:正常 2:禁用
+#  user_id    :integer
+#  kind       :integer          default("administrator")                      # 管理员类型 1:超级管理员 2:项目管理员
+#  integer    :integer          default(2)                                    # 管理员类型 1:超级管理员 2:项目管理员
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 
 class Administrator < ApplicationRecord
@@ -20,21 +19,14 @@ class Administrator < ApplicationRecord
   has_many :administrator_logs, dependent: :destroy
   has_many :expenditure_records
 
-  validates :login, presence: true, uniqueness: true
   validates :nickname, presence: true
-  validates :password, length: { in: 6..32 }, if: :need_validate_password?
 
-  has_secure_password
   enum state: { enable: 1, disable: 2 } # 状态 1:正常 2:禁用
   default_value_for :state, 1
 
-  enum kind: { super_administrator: 1, administrator: 2} # 管理员类型 1:超级管理员 2:系统管理员
+  enum kind: { super_administrator: 1, system_administrator: 2, project_administrator: 3, financial_staff: 4, operator: 5} # 管理员类型 1:超级管理员 2:系统管理员 3:项目管理员 4:财务人员 5:运营人员
   default_value_for :kind, 2
 
   scope :sorted, -> { order(created_at: :desc) }
 
-  protected
-  def need_validate_password?
-    self.password_digest.blank? || self.password.present?
-  end
 end
