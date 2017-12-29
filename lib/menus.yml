@@ -26,6 +26,9 @@ admin:
         admin_article_category:
           actions:
             'admin/article_categories': all
+        admin_project_template:
+          actions:
+            'admin/project_templates': all
     # 管理员列表
     admin_administrator:
       menus:

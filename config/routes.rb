@@ -63,6 +63,7 @@ Rails.application.routes.draw do
     resources :article_categories, concerns: [:move, :switch]
     resources :supports, concerns: [:move, :switch]
     resources :pages, concerns: [:move, :switch]
+    resources :project_templates
   end
 
   namespace :school do

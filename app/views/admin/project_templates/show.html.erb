@@ -1,0 +1,72 @@
+
+<div class="portlet light portlet-fit bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-bubble font-dark"></i>
+      <span class="caption-subject font-dark bold uppercase">项目分类详情</span>
+    </div>
+    <div class="actions">
+      <div class="btn-group">
+        <a href="<%= admin_project_templates_path %>" class="btn btn-default">
+          <i class="fa fa-reply"></i>返回
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="table-scrollable">
+      <table class="table table-bordered table-hover">
+        <tbody>
+        <tr>
+          <th width="72px">
+            分类名称
+          </th>
+          <th>
+            <%= @project_template.name %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            财务分类
+          </th>
+          <th>
+            <%= @project_template.finance_category.try(:name) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            捐款类型
+          </th>
+          <th>
+            <%= @project_template.enum_name(:contribute_kind) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            分类描述
+          </th>
+          <th>
+            <%= @project_template.describe %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            协议名称
+          </th>
+          <th>
+            <%= @project_template.protocol_name %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            协议内容
+          </th>
+          <th>
+            <%= @project_template.protocol_content.html_safe %>
+          </th>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

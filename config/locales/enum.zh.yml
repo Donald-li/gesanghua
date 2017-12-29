@@ -5,10 +5,10 @@ zh:
   advert_kinds:
     banner: 'Banner轮播图(507x304px)'
   advert_states:
-    show: '展示'
+    show: '显示'
     hidden: '隐藏'
   article_states:
-    show: '展示'
+    show: '显示'
     hidden: '隐藏'
   article_recommends:
     normal: '否'
@@ -20,11 +20,14 @@ zh:
     male: '男'
     famale: '女'
   support_states:
-    show: '展示'
+    show: '显示'
     hidden: '隐藏'
   page_states:
     show: '显示'
     hidden: '隐藏'
   article_category_states:
-    enabled: '启用'
-    disabled: '禁用'
+    show: '显示'
+    hidden: '隐藏'
+  project_template_contribute_kinds:
+    entirety: '整捐'
+    scattered: '零捐'

@@ -2,7 +2,7 @@
   <%= f.error_notification %>
   <div class="form-body form-horizontal">
     <%= f.input :name, label: '资讯分类名称：', autofocus: true, placeholder: '名称', required: true %>
-    <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: ArticleCategory.options_for_select(:states), label: '状态：'%>
+    <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: ArticleCategory.options_for_enum_select(:states), label: '状态：'%>
   </div>
   <div class="form-actions">
     <div class="row">

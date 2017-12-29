@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171218070321) do
+ActiveRecord::Schema.define(version: 20171228102653) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -359,6 +359,9 @@ ActiveRecord::Schema.define(version: 20171218070321) do
     t.integer "contribute_kind", default: 1, comment: "捐款类型：1:整捐 2:零捐"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "ancestry"
+    t.text "describe", comment: "描述"
+    t.index ["ancestry"], name: "index_project_templates_on_ancestry"
   end
 
   create_table "projects", force: :cascade, comment: "项目表" do |t|

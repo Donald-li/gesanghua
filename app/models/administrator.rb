@@ -6,7 +6,7 @@
 #  login           :string                                                         # 登录名
 #  nickname        :string                                                         # 昵称
 #  password_digest :string                                                         # 密码
-#  expire_at       :datetime         default(Thu, 31 Dec 2099 00:00:00 UTC +00:00) # 过期时间
+#  expire_at       :datetime         default(Thu, 31 Dec 2099 00:00:00 CST +08:00) # 过期时间
 #  state           :integer          default("enable")                             # 状态 1:正常 2:禁用
 #  kind            :integer          default("administrator")                      # 管理员类型 1:超级管理员 2:项目管理员
 #  integer         :integer          default(2)                                    # 管理员类型 1:超级管理员 2:项目管理员
