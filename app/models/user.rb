@@ -13,6 +13,7 @@
 #  gender          :integer                                # 性别，1：男 2：女
 #  balance         :decimal(14, 2)   default(0.0)          # 账户余额
 #  phone           :string                                 # 联系方式
+#  email           :string                                 # 电子邮箱地址
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
@@ -30,8 +31,8 @@ class User < ApplicationRecord
   has_many :income_records
   has_many :project_applies
 
-  validates :name, :login, :phone, presence: true
-  validates :login, :phone, uniqueness: true
+  validates :name, :login, presence: true
+  validates :login, uniqueness: true
   default_value_for :profile, {}
 
   enum state: {enabled: 1, disabled: 2} #状态 1:启用 2:禁用
