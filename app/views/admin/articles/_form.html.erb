@@ -24,7 +24,7 @@
           <%= f.text_field :published_at, class: 'datepicker', placeholder: '发布时间' %>
         </div>
       </div>
-      <%= f.input :recommend, as: :radio_buttons, wrapper: :inline_inputs, collection: Article.options_for_select(:recommends), label: '推荐到首页：'%>
+      <%#= f.input :recommend, as: :radio_buttons, wrapper: :inline_inputs, collection: Article.options_for_select(:recommends), label: '推荐到首页：'%>
       <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Article.options_for_select(:states), label: '状态：' %>
     </div>
     <div class="form-actions">
