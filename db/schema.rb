@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(version: 20171228102653) do
     t.datetime "expire_at", default: "2099-12-31 00:00:00", comment: "过期时间"
     t.integer "state", default: 1, comment: "状态 1:正常 2:禁用"
     t.bigint "user_id"
-    t.integer "kind", default: 2, comment: "管理员类型 1:超级管理员 2:系统管理员 3:项目管理员 4:财务人员"
-    t.integer "integer", default: 2, comment: "管理员类型 1:超级管理员 2:系统管理员 3:项目管理员 4:财务人员"
+    t.integer "kind", default: 2, comment: "管理员类型 1:超级管理员 2:项目管理员"
+    t.integer "integer", default: 2, comment: "管理员类型 1:超级管理员 2:项目管理员"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_administrators_on_user_id"
@@ -509,12 +509,8 @@ ActiveRecord::Schema.define(version: 20171228102653) do
     t.integer "gender", comment: "性别，1：男 2：女"
     t.decimal "balance", precision: 14, scale: 2, default: "0.0", comment: "账户余额"
     t.string "phone", comment: "联系方式"
-    t.string "email", comment: "电子邮箱地址"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_users_on_email"
-    t.index ["login"], name: "index_users_on_login"
-    t.index ["phone"], name: "index_users_on_phone"
   end
 
   create_table "versions", force: :cascade do |t|
