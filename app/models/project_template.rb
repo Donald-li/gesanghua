@@ -28,7 +28,7 @@ class ProjectTemplate < ApplicationRecord
   enum contribute_kind: { entirety: 1, scattered: 2 } # 捐款类型：1:整捐 2:零捐
   default_value_for :contribute_kind, 1
 
-  scope :sorted, ->{ order(created_at: :desc) }
+  scope :sorted, ->{ order(created_at: :asc) }
 
   def sliced_describe
     self.describe.length > 100 ? self.describe.slice(0..100) + '...' : self.describe
