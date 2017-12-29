@@ -28,6 +28,9 @@ zh:
   article_category_states:
     show: '显示'
     hidden: '隐藏'
+  article_states:
+    show: '显示'
+    hidden: '隐藏'
   project_template_contribute_kinds:
     entirety: '整捐'
     scattered: '零捐'
