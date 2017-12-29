@@ -1,2 +1,0 @@
-class TwoLevelFinanceCategory < FinanceCategory
-end

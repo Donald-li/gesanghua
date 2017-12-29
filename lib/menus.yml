@@ -33,7 +33,7 @@ admin:
       menus:
         income_category:
           actions:
-            'admin/finance_categories': all
+            'admin/fund_categories': all
 
     # 管理员列表
     admin_administrator:

@@ -2,7 +2,7 @@ class CreateIncomeRecords < ActiveRecord::Migration[5.1]
   def change
     create_table :income_records, comment: '入帐记录表' do |t|
       t.integer :user_id, comment: '用户id'
-      t.integer :finance_category_id, comment: '财务分类id'
+      t.integer :fund_id, comment: '基金ID'
       t.string :appoint_type, comment: '指定类型'
       t.integer :appoint_id, comment: '指定类型id'
       t.integer :state, comment: '状态'
