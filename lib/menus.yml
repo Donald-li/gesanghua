@@ -40,3 +40,9 @@ admin:
             'admin/audits': all
         admin_platform_content:
           menus:
+    # 财务
+    admin_finance:
+      menus:
+        admin_audit_reports:
+          actions:
+            admin/audit_reports: all

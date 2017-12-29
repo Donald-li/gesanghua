@@ -241,14 +241,26 @@
         <h3 class="uppercase">财务管理</h3>
       </li>
       <li class="nav-item <%= current_nav_class(:admin_finance) %>">
-        <%= link_to '', class: 'nav-link nav-toggle' do %>
-            <% to_sign = 0 %>
+        <!--<%= link_to '', class: 'nav-link nav-toggle' do %>-->
+            <!--<% to_sign = 0 %>-->
+          <!--<i class="fa fa-archive"></i>-->
+          <!--<span class="title">财务管理</span>-->
+            <!--<% if to_sign > 0 %>-->
+                <!--<span class="badge badge-danger"><%= to_sign %></span>-->
+            <!--<% end %>-->
+        <!--<% end %>-->
+        <a href="javascript:;" class="nav-link nav-toggle">
           <i class="fa fa-archive"></i>
           <span class="title">财务管理</span>
-            <% if to_sign > 0 %>
-                <span class="badge badge-danger"><%= to_sign %></span>
+          <span class="arrow <%= current_nav_class(:admin_finance, current: :open) %>"></span>
+        </a>
+        <ul class="sub-menu">
+          <li class="nav-item  <%= current_nav_class(:admin_audit_reports) %>">
+            <%= link_to admin_audit_reports_path, class: 'nav-link' do %>
+                <span class="title">审计报告</span>
             <% end %>
-        <% end %>
+          </li>
+        </ul>
       </li>
 
     </ul>

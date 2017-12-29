@@ -40,3 +40,6 @@ zh:
   project_template_contribute_kinds:
     entirety: '整捐'
     scattered: '零捐'
+  report_states:
+    show: '显示'
+    hidden: '隐藏'

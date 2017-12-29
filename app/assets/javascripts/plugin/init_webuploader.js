@@ -202,3 +202,21 @@ function initAssetWebuploader(el, config) {
   }, config)
   initWebuploader($(el), config);
 }
+
+function initMultiAssetWebuploader(el, config, file_count) {
+    var picker = $(el).find('.upload-pick');
+    if (!config) {
+        config = {}
+    }
+    config = $.extend({
+        uploadType: 'file',
+        uploaderConfig: {
+            pick: { id: picker, multiple: true },
+            accept: {
+                title: '请选择附件',
+                mimeTypes: 'asset/*'
+            }
+        }
+    }, config)
+    initWebuploader($(el), config, file_count);
+}

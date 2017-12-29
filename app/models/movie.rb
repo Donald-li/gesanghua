@@ -4,7 +4,7 @@
 #
 #  id                  :integer          not null, primary key
 #  name                :string                                 # 项目名称
-#  type                :integer                                # 项目类型：1:结对 2:物资 3:悦读 4:营 5:观影
+#  type                :string                                 # 项目类型：1:结对 2:物资 3:悦读 4:营 5:观影
 #  content             :text                                   # 项目内容
 #  state               :integer          default("enabled")    # 项目状态：1:启用 2:禁用
 #  finance_category_id :integer                                # 财务分类ID

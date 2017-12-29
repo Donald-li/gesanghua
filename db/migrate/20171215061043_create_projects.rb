@@ -2,7 +2,7 @@ class CreateProjects < ActiveRecord::Migration[5.1]
   def change
     create_table :projects, comment: '项目表' do |t|
       t.string :name, comment: '项目名称'
-      t.integer :type, comment: '项目类型：1:结对 2:物资 3:悦读 4:营 5:观影'
+      t.string :type, comment: '项目类型：1:结对 2:物资 3:悦读 4:营 5:观影'
       t.text :content, comment: '项目内容'
       t.integer :state, comment: '项目状态：1:启用 2:禁用', default: 1
       t.integer :finance_category_id, comment: '财务分类ID'

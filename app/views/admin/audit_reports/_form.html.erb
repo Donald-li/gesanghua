@@ -1,0 +1,31 @@
+<%= simple_form_for [:admin, @audit_report], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
+    <%= f.error_notification %>
+    <div class="form-body form-horizontal">
+      <%= f.input :title, label: '报告：', autofocus: true, input_html: {data: {'parsley-required': true}} %>
+      <div class="form-group">
+        <label class="col-md-2 control-label">内容：</label>
+        <div class="col-sm-9">
+          <%= f.cktext_area :content %>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label">报告附件：</label>
+        <div class="col-sm-9">
+          <%= webuploader_file 'file_ids[]', id: 'file-upload', label: '学生名单模板', type: 'report_file', asset: @audit_report.report_files, klass: 'multi' %>
+        </div>
+      </div>
+    </div>
+    <div class="form-actions">
+      <div class="row">
+        <div class="col-md-offset-3 col-md-9">
+          <%= f.button :submit, '提交', class: 'btn green' %>
+          <%= link_to '取消', admin_audit_reports_path, class: 'btn' %>
+        </div>
+      </div>
+    </div>
+<% end %>
+<script>
+    $(function () {
+        initMultiAssetWebuploader('#file-upload');
+    })
+</script>
