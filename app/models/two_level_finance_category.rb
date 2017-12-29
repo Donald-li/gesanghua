@@ -1,0 +1,2 @@
+class TwoLevelFinanceCategory < FinanceCategory
+end

@@ -54,7 +54,7 @@
             </tr>
           </thead>
           <tbody>
-            <% @finance_categories.each do |cate| %>
+            <% OneLevelFinanceCategory.all.each do |cate| %>
             <tr>
               <td>
                 <%= cate.name if cate.root? %>
@@ -83,6 +83,41 @@
                 <% end %>
               </td>
             </tr>
+
+            <% if cate.has_children? %>
+              <% cate.children.each do |sc| %>
+              <tr>
+                <td>
+                  <%= sc.name if sc.root? %>
+                </td>
+                <td>
+                  <%= sc.name unless sc.root? %>
+                </td>
+                <td>
+                  <%= sc.describe %>
+                </td>
+                <td>
+                  <%= sc.management_rate %>%
+                </td>
+                <td>
+                  ￥<%= number_to_currency(sc.amount) %>
+                </td>
+                <td>
+                  ￥<%= number_to_currency(sc.total) %>
+                </td>
+                <td>
+                  <%= link_to edit_admin_finance_category_path(sc), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                    <i class="fa fa-edit"></i> 修改
+                  <% end %>
+                  <%= link_to admin_finance_category_path(sc), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                    <i class="fa fa-trash-o"></i> 删除
+                  <% end %>
+                </td>
+              </tr>
+              <% end %>
+
+            <% end %>
+
             <% end %>
           </tbody>
         </table>

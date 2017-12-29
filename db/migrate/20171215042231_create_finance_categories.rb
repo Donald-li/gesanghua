@@ -9,6 +9,7 @@ class CreateFinanceCategories < ActiveRecord::Migration[5.1]
       t.integer :management_rate, default: 0, comment: '管理费率'
       t.string :describe, comment: '简介'
       t.string :ancestry
+      t.string :type, comment: '单表继承'
 
       t.timestamps
     end

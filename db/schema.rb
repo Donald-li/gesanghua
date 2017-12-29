@@ -232,6 +232,7 @@ ActiveRecord::Schema.define(version: 20171228102653) do
     t.integer "management_rate", default: 0, comment: "管理费率"
     t.string "describe", comment: "简介"
     t.string "ancestry"
+    t.string "type", comment: "单表继承"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
