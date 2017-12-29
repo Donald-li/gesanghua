@@ -178,6 +178,13 @@
             <% end %>
           </li>
         </ul>
+        <ul class="sub-menu">
+          <li class="nav-item  <%= current_nav_class(:admin_project_template) %>">
+            <%= link_to admin_project_templates_path, class: 'nav-link' do %>
+                <span class="title">项目分类管理</span>
+            <% end %>
+          </li>
+        </ul>
       </li>
 
       <% if(current_administrator.super_administrator?) %>

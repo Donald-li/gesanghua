@@ -11,6 +11,8 @@
 #  contribute_kind     :integer          default("entirety")   # 捐款类型：1:整捐 2:零捐
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  ancestry            :string
+#  describe            :text                                   # 描述
 #
 
 require 'rails_helper'

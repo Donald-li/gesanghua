@@ -95,6 +95,9 @@ gem 'aliyun-sms', git: 'https://github.com/songjian/aliyun-sms.git'
 #  权限管理
 gem "pundit"
 
+# 多级菜单
+gem 'ancestry'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

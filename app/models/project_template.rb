@@ -11,10 +11,15 @@
 #  contribute_kind     :integer          default("entirety")   # 捐款类型：1:整捐 2:零捐
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  ancestry            :string
+#  describe            :text                                   # 描述
 #
 
 class ProjectTemplate < ApplicationRecord
-  belongs_to :finance_category
+
+  has_ancestry
+
+  belongs_to :finance_category, optional: true # TODO 暂时设置为可空，等财务分类确定再修改
 
   has_many :projects
 
@@ -24,4 +29,8 @@ class ProjectTemplate < ApplicationRecord
   default_value_for :contribute_kind, 1
 
   scope :sorted, ->{ order(created_at: :desc) }
+
+  def sliced_describe
+    self.describe.length > 100 ? self.describe.slice(0..100) + '...' : self.describe
+  end
 end

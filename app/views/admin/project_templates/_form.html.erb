@@ -1,0 +1,26 @@
+<%= simple_form_for [:admin, @project_template], wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'form-horizontal'} do |f| %>
+    <%= f.error_notification %>
+    <div class="form-body">
+      <%= f.hidden_field :parent_id, value: params[:parent_id] %>
+
+      <%= f.input :name, label: '项目分类名称：', autofocus: true, placeholder: '' %>
+      <%= f.input :finance_category_id, as: :select, label: '财务分类：', collection: FinanceCategory.options_for_select, include_blank: false %>
+      <%= f.input :finance_category_id, as: :select, label: '捐款类型：', collection: ProjectTemplate.options_for_enum_select(:contribute_kinds), include_blank: false %>
+      <%= f.input :describe, label: '项目分类描述：' %>
+      <%= f.input :protocol_name, label: '协议名称：' %>
+      <div class="form-group">
+        <label class="col-md-2 control-label">协议内容：</label>
+        <div class="col-sm-9">
+          <%= f.cktext_area :protocol_content %>
+        </div>
+      </div>
+    </div>
+    <div class="form-actions">
+      <div class="row">
+        <div class="col-md-offset-2 col-md-9">
+          <%= f.button :submit, '提交', class: 'btn blue' %>
+          <%= link_to '取消', admin_project_templates_path, class: 'btn' %>
+        </div>
+      </div>
+    </div>
+<% end %>
