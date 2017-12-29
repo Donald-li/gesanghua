@@ -1,31 +1,13 @@
-<%= simple_form_for [:admin, @article], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
+<%= simple_form_for [:admin, @finance_category], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
     <%= f.error_notification %>
     <div class="form-body form-horizontal">
-      <%= f.input :title, label: '资讯标题：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
-      <%= f.input :article_category_id, collection: ArticleCategory.show, label: '资讯分类：', prompt: "请选择资讯分类", input_html: {data: {'parsley-required': true}} %>
-      <div class="form-group">
-        <label class="col-md-2 control-label">资讯封面：</label>
-        <div class="col-sm-9">
-          <%= webuploader_tag :image_id, label: '上传资讯封面', type: 'article_image', asset: @article.image, klass: 'single' %>
-        </div>
-      </div>
-      <%= f.input :author, label: '资讯作者：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
-      <%= f.input :source, label: '资讯来源：', autofocus: true, input_html: { data: {}} %>
-      <%= f.input :describe, label: '资讯摘要：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
-      <div class="form-group">
-        <label class="col-md-2 control-label">资讯详情：</label>
-        <div class="col-sm-9">
-          <%= f.cktext_area :content, input_html: { data: {'parsley-required': true}}  %>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-md-2 control-label">发布时间：</label>
-        <div class="col-sm-9">
-          <%= f.text_field :published_at, class: 'datepicker', placeholder: '发布时间' %>
-        </div>
-      </div>
-      <%#= f.input :recommend, as: :radio_buttons, wrapper: :inline_inputs, collection: Article.options_for_select(:recommends), label: '推荐到首页：'%>
-      <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Article.options_for_select(:states), label: '状态：' %>
+      <%= f.input :name, label: '收入分类名称：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :parent_id, collection: FinanceCategory.roots, label: '资讯分类：', prompt: "选择一级分类" %>
+      <%= f.input :describe, label: '描述：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :management_rate, label: '管理费率：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :amount, label: '余额：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :total, label: '累计收入：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :fund_name, label: '基金池名称：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
     </div>
     <div class="form-actions">
       <div class="row">
