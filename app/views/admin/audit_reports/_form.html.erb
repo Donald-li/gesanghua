@@ -11,7 +11,7 @@
       <div class="form-group">
         <label class="col-md-2 control-label">报告附件：</label>
         <div class="col-sm-9">
-          <%= webuploader_file 'file_ids[]', id: 'file-upload', label: '学生名单模板', type: 'report_file', asset: @audit_report.report_files, klass: 'webuploader' %>
+          <%= webuploader_file 'file_ids[]', id: 'file-upload', label: '报告附件', type: 'report_file', asset: @audit_report.report_files, klass: 'multi' %>
         </div>
       </div>
     </div>

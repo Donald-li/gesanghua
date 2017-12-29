@@ -1,0 +1,6 @@
+<% if @result %>
+  $('#<%= @file_id %>').parent().parent().find('.assetid').val('');
+  $('#<%= @file_id %>').remove();
+<% else %>
+  alert('删除时发生了错误');
+<% end %>
