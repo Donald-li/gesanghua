@@ -24,7 +24,7 @@ class User < ApplicationRecord
   has_one :administrator
   has_one :teacher
   has_one :volunteer
-  has_one :education_bureau_employee
+  has_one :county_user
   has_many :vouchers
   has_many :campaign_enlists
   has_many :donate_records

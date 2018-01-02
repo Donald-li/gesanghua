@@ -75,6 +75,7 @@ Rails.application.routes.draw do
     resources :specials
     resources :pairs, concerns: [:switch]
     resources :support_categories, concerns: [:move, :switch]
+    resources :county_users, concerns: [:switch]
   end
 
   namespace :school do
@@ -92,4 +93,6 @@ Rails.application.routes.draw do
   end
 
   mount RuCaptcha::Engine => "/rucaptcha"
+  mount ChinaCity::Engine => '/china_city'
+
 end

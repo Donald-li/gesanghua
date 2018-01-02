@@ -17,5 +17,7 @@
 #
 
 class CountyUser < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, optional: true
+
+  scope :sorted, ->{ order(created_at: :desc) }
 end
