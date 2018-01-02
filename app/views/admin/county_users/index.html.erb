@@ -16,6 +16,10 @@
         <div class="col-md-12 col-sm-12">
           <%= search_form_for @search, url: admin_county_users_path, class: 'form-inline' do |f| %>
           <div class="form-group">
+            <%= f.label :name_cont, '姓名' %>
+            <%= f.text_field :name_cont, class: 'form-control', placeholder: '' %>
+          </div>
+          <div class="form-group">
             <%= f.label :unit_name_cont, '单位名称' %>
             <%= f.text_field :unit_name_cont, class: 'form-control', placeholder: '' %>
           </div>
@@ -34,9 +38,6 @@
                 姓名
               </th>
               <th>
-                职务
-              </th>
-              <th>
                 管理区域
               </th>
               <th>
@@ -44,6 +45,9 @@
               </th>
               <th>
                 是否激活
+              </th>
+              <th>
+                状态
               </th>
               <th>
                 操作
@@ -57,15 +61,20 @@
                 <%= county_user.name %>
               </td>
               <td>
-                <%= county_user.unit_name %>
-              </td>
-              <td>
                 <%= ChinaCity.get(county_user.province) %> /
                 <%= ChinaCity.get(county_user.city) %> /
                 <%= ChinaCity.get(county_user.district) %>
               </td>
               <td>
                 <%= county_user.phone%>
+              </td>
+              <td>
+                <% enabled = county_user.user.try(:state) === 'enabled' %>
+                <% if county_user.user %>
+                  <span class="btn btn-xs default">已激活</span>
+                <% else %>
+                    <span class="btn btn-xs default">未激活</span>
+                <% end %>
               </td>
               <td>
                 <% enabled = county_user.user.try(:state) === 'enabled' %>
