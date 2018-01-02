@@ -7,7 +7,7 @@
     </div>
     <div class="actions">
       <div class="btn-group">
-        <a href="<%= admin_audit_reports_path %>" class="btn btn-default">
+        <a href="<%= admin_financial_reports_path %>" class="btn btn-default">
           <i class="fa fa-reply"></i>返回
         </a>
       </div>
@@ -22,7 +22,7 @@
             报告名称
           </th>
           <th>
-            <%= @audit_report.title %>
+            <%= @financial_report.title %>
           </th>
         </tr>
         <tr>
@@ -30,7 +30,7 @@
             内容
           </th>
           <th>
-            <%= @audit_report.content.html_safe %>
+            <%= @financial_report.content.html_safe %>
           </th>
         </tr>
         <tr>
@@ -38,8 +38,8 @@
             附件
           </th>
           <th>
-            <% @audit_report.report_files.each do |file| %>
-              <i class="fa fa-download"></i><%= link_to file.file_name, file_download_admin_audit_report_path(file_id: file.id) %><br/>
+            <% @financial_report.report_files.each do |file| %>
+              <i class="fa fa-download"></i><%= link_to file.file_name, file_download_admin_financial_report_path(file_id: file.id) %><br/>
             <% end %>
           </th>
         </tr>

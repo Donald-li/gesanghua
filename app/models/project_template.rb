@@ -19,9 +19,10 @@ class ProjectTemplate < ApplicationRecord
 
   has_ancestry
 
-  belongs_to :fund, optional: true # TODO 暂时设置为可空，等财务分类确定再修改
+  belongs_to :fund
 
   has_many :projects
+  has_many :pairs
 
   validates :name, :protocol_name, :protocol_content, presence: true
 
@@ -32,6 +33,10 @@ class ProjectTemplate < ApplicationRecord
   default_value_for :kind, 2
 
   scope :sorted, ->{ order(created_at: :asc) }
+
+  def self.options_for_select
+    self.all.map{|c| [c.name, c.id]}
+  end
 
   def sliced_describe
     self.describe.length > 100 ? self.describe.slice(0..100) + '...' : self.describe
