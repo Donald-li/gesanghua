@@ -21,14 +21,11 @@
 FactoryBot.define do
   factory :user do
     openid "MyString"
-    name "MyString"
-    login "MyString"
-    password_digest "MyString"
-    state 1
-    team_id 1
+    name {Faker::Name.name}
+    login {Faker::Name.first_name}
+    password_digest "111111"
     profile ""
-    gender 1
-    balance "9.99"
-    phone "MyString"
+    balance "0"
+    phone {"18888#{rand(899999)+100000}"}
   end
 end

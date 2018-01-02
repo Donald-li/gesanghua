@@ -18,7 +18,7 @@ class Sequence < ApplicationRecord
       first = seq.value.to_i
       seq.update_attribute(:value, first + count) if save
     end
-    seqs = (first .. first+count-1).to_a.map{|s| prefix + s.to_s.rjust(length, '0')}
+    seqs = (first .. first+count-1).to_a.map{|s| "#{prefix}#{s.to_s.rjust(length, '0')}" }
 
     # seqs.size > 1 ? seqs : seqs.first
     seqs.first
