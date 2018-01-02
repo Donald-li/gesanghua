@@ -25,6 +25,9 @@ zh:
   user_genders:
     male: '男'
     famale: '女'
+  support_category_states:
+    show: '显示'
+    hidden: '隐藏'  
   support_states:
     show: '显示'
     hidden: '隐藏'

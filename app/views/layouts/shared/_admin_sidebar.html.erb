@@ -187,6 +187,11 @@
                 <span class="title">项目分类管理</span>
             <% end %>
           </li>
+          <li class="nav-item  <%= current_nav_class(:admin_support_category) %>">
+            <%= link_to admin_support_categories_path, class: 'nav-link' do %>
+                <span class="title">帮助分类管理</span>
+            <% end %>
+          </li>
         </ul>
       </li>
 
