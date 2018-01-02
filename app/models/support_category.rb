@@ -19,5 +19,11 @@ class SupportCategory < ApplicationRecord
   enum state: {show: 1, hidden: 2}
   default_value_for :state, 1
 
-  scope :sorted, ->{ order(created_at: :desc) }
+#  scope :sorted, ->{ order(created_at: :desc) }
+  acts_as_list column: :position
+  scope :sorted, ->{ order(position: :asc) }
+
+  def self.options_for_select
+    self.all.map{|c| [c.name, c.id]}
+  end
 end

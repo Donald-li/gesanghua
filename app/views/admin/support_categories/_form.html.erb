@@ -1,0 +1,15 @@
+<%= simple_form_for [:admin, @support_category], wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'category_form'} do |f| %>
+  <%= f.error_notification %>
+  <div class="form-body form-horizontal">
+    <%= f.input :name, label: '帮助分类名称：', autofocus: true, placeholder: '名称', required: true %>
+    <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: SupportCategory.options_for_enum_select(:states), label: '状态：'%>
+  </div>
+  <div class="form-actions">
+    <div class="row">
+      <div class="col-md-offset-2 col-md-9">
+        <%= f.button :submit, '提交', class: 'btn blue' %>
+        <%= link_to '取消', admin_support_categories_path, class: 'btn' %>
+      </div>
+    </div>
+  </div>
+<% end %>

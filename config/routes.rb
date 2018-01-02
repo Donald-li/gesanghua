@@ -68,6 +68,7 @@ Rails.application.routes.draw do
     resources :funds, only: [:new, :create, :edit, :update, :destroy], concerns: [:switch, :move]
     resources :fund_categories, concerns: [:switch, :move]
     resources :specials
+    resources :support_categories, concerns: [:move, :switch]
   end
 
   namespace :school do
