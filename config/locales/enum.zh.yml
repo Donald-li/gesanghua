@@ -27,7 +27,7 @@ zh:
     famale: '女'
   support_category_states:
     show: '显示'
-    hidden: '隐藏'  
+    hidden: '隐藏'
   support_states:
     show: '显示'
     hidden: '隐藏'
@@ -47,9 +47,18 @@ zh:
   fund_states:
     show: '显示'
     hidden: '隐藏'
+  fund_kinds:
+    nondirectional: '非定向'
+    directional: '定向'
+  fund_use_kinds:
+    unrestricted: '非指定'
+    restricted: '指定'
   fund_category_states:
     show: '显示'
     hidden: '隐藏'
+  fund_category_kinds:
+    nondirectional: '非定向'
+    directional: '定向'
   pair_states:
     enabled: '启用'
     disabled: '禁用'

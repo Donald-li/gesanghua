@@ -1,16 +1,5 @@
 namespace :demo do
   task init: [:environment] do
-    # 基金类型
-    fc1 = FundCategory.find_or_create_by(name: '结对', describe: '结对')
-    fc2 = FundCategory.find_or_create_by(name: '悦读', describe: '悦读')
-    fc3 = FundCategory.find_or_create_by(name: '观影', describe: '观影')
-    fc4 = FundCategory.find_or_create_by(name: '探索营', describe: '探索营')
-    fc5 = FundCategory.find_or_create_by(name: '物资类', describe: '物资类')
-    FundCategory.all.each do |fc|
-      Fund.find_or_create_by(name: "#{fc.name}定向", management_rate: 5, describe: '定向', fund_category_id: fc.id)
-      Fund.find_or_create_by(name: "#{fc.name}非定向", management_rate: 5, describe: '非定向', fund_category_id: fc.id)
-    end
-
     # 项目模板一级分类
     content = %{<p>
     为构建社会主义和谐社会，弘扬人道主义精神，促进社会主义公益事业发展，支持贫困学生福利事业，甲方自愿向乙方捐赠，并经双方友好协商，就合作内容、甲乙双方权利与义务等事项，达成以下协议。</br>

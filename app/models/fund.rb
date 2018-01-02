@@ -16,6 +16,7 @@
 #
 
 class Fund < ApplicationRecord
+  belongs_to :fund_category
   has_many :donate_records
   has_many :income_records
   has_many :expenditure_records
@@ -28,6 +29,10 @@ class Fund < ApplicationRecord
   scope :sorted, ->{ order(position: :asc) }
 
   enum state: {show: 1, hidden: 2} # 状态：1:显示 2:隐藏
+
+  enum kind: {nondirectional: 1, directional: 2} # 类型 1:非定向 2:定向
+
+  enum use_kind: {unrestricted: 1, restricted: 2} # 指定类型 1:非指定 2:指定
 
   def self.options_for_select
     self.all.map{|c| [c.name, c.id]}
