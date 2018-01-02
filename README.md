@@ -8,3 +8,6 @@ rake db:migrate && rake db:seed && rails s
 
 ## 重置本地开发环境数据
 rake db:reset
+
+## 本地开发调试用数据
+rake demo:init
