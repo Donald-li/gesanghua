@@ -60,9 +60,9 @@
                 <%= county_user.unit_name %>
               </td>
               <td>
-                <%= county_user.province %>
-                <%= county_user.city %>
-                <%= county_user.district %>
+                <%= ChinaCity.get(county_user.province) %> /
+                <%= ChinaCity.get(county_user.city) %> /
+                <%= ChinaCity.get(county_user.district) %>
               </td>
               <td>
                 <%= county_user.phone%>

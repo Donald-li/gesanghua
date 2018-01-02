@@ -10,10 +10,16 @@
           <%= f.cktext_area :unit_describe, input_html: { data: {'parsley-required': true}}  %>
         </div>
       </div>
-      
-      <%= f.input :province, label: '省：', prompt: "请选择省份", input_html: {data: {'parsley-required': true}} %>
-      <%= f.input :city, label: '市：', prompt: "请选择城市", input_html: {data: {'parsley-required': true}} %>
-      <%= f.input :province, label: '区/县：', prompt: "请选择区/县", input_html: {data: {'parsley-required': true}} %>
+      <div class="form-group">
+        <label class="col-md-2 control-label">选择地区：</label>
+        <div class="col-sm-9">
+          <div class="city-group">
+            <%= select_tag 'county_user[province]', options_for_select(ChinaCity.list, @county_user.province.presence), prompt: '省份', class: "city-select" %>
+            <%= select_tag 'county_user[city]', options_for_select(ChinaCity.list(@county_user.province.to_s), @county_user.city.presence), prompt: '城市', class: "city-select" %>
+            <%= select_tag 'county_user[district]', options_for_select(ChinaCity.list(@county_user.city.to_s), @county_user.district.presence), prompt: '地区', class: "city-select" %>
+          </div>
+        </div>
+      </div>
       <%= f.input :address, label: '详细地址：', input_html: { data: {'parsley-required': true}} %>
     </div>
     <div class="form-actions">
