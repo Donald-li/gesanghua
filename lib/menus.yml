@@ -47,6 +47,17 @@ admin:
         admin_audit_reports:
           actions:
             admin/audit_reports: all
+        admin_financial_reports:
+          actions:
+            admin/financial_reports: all
         admin_fund_categories:
           actions:
             'admin/fund_categories': all
+    # 项目管理
+    admin_project:
+      menus:
+        admin_pair:
+          menus:
+            admin_pair_project:
+              actions:
+                'admin/pairs': all

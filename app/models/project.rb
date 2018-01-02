@@ -17,7 +17,7 @@
 #
 
 class Project < ApplicationRecord
-  belongs_to :finance_category
+  belongs_to :fund
   belongs_to :project_template
 
   has_many :campaigns

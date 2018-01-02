@@ -50,3 +50,9 @@ zh:
   fund_category_states:
     show: '显示'
     hidden: '隐藏'
+  pair_states:
+    enabled: '启用'
+    disabled: '禁用'
+  pair_contribute_kinds:
+    entirety: '整捐'
+    scattered: '零捐'
