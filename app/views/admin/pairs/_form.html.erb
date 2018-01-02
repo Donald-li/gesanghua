@@ -1,0 +1,39 @@
+<%= simple_form_for [:admin, @pair], wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'pair_form'} do |f| %>
+    <%= f.error_notification %>
+    <div class="form-body form-horizontal">
+      <%= f.hidden_field :fund_id, value: @pair.fund_id %>
+      <%= f.hidden_field :project_template_id, value: @pair.project_template_id %>
+      <%= f.input :name, label: '名称：', autofocus: true, placeholder: '名称', required: true %>
+      <%= f.input :contribute_kind, as: :select, label: '捐款类型：', collection: Pair.options_for_enum_select(:contribute_kinds), include_blank: false %>
+      <div class="form-group">
+        <label class="col-md-2 control-label">内容：</label>
+        <div class="col-sm-9">
+          <%= f.cktext_area :content %>
+        </div>
+      </div>
+      <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Pair.options_for_enum_select(:states), label: '状态：'%>
+    </div>
+    <div class="form-actions">
+      <div class="row">
+        <div class="col-md-offset-2 col-md-9">
+          <%= f.button :submit, '提交', class: 'btn blue' %>
+          <%= link_to '取消', admin_pairs_path, class: 'btn' %>
+        </div>
+      </div>
+    </div>
+<% end %>
+
+<script>
+    $(function() {
+        $("#project_template_id").select2({
+            //placeholder: "请选择财务分类"
+        });
+    })
+    $(function(){
+        // 表单验证
+        $(".pair_form").html5Validate(function(){
+            $(this).find('[type="submit"]').attr('disabled','disabled');
+            this.submit();
+        });
+    })
+</script>

@@ -1,0 +1,27 @@
+<%= simple_form_for [:admin, @county_user], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
+    <%= f.error_notification %>
+    <div class="form-body form-horizontal">
+      <%= f.input :name, label: '姓名：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :phone, label: '联系方式：', input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :unit_name, label: '单位名称：', input_html: { data: {'parsley-required': true}} %>
+      <div class="form-group">
+        <label class="col-md-2 control-label">单位简介：</label>
+        <div class="col-sm-9">
+          <%= f.cktext_area :unit_describe, input_html: { data: {'parsley-required': true}}  %>
+        </div>
+      </div>
+      
+      <%= f.input :province, label: '省：', prompt: "请选择省份", input_html: {data: {'parsley-required': true}} %>
+      <%= f.input :city, label: '市：', prompt: "请选择城市", input_html: {data: {'parsley-required': true}} %>
+      <%= f.input :province, label: '区/县：', prompt: "请选择区/县", input_html: {data: {'parsley-required': true}} %>
+      <%= f.input :address, label: '详细地址：', input_html: { data: {'parsley-required': true}} %>
+    </div>
+    <div class="form-actions">
+      <div class="row">
+        <div class="col-md-offset-3 col-md-9">
+          <%= f.button :submit, '提交', class: 'btn green' %>
+          <%= link_to '取消', admin_county_users_path, class: 'btn' %>
+        </div>
+      </div>
+    </div>
+<% end %>
