@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180102040836) do
+ActiveRecord::Schema.define(version: 20180102082004) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -383,6 +383,10 @@ ActiveRecord::Schema.define(version: 20180102040836) do
     t.integer "project_template_id", comment: "项目模板ID"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "junior_term_amount", precision: 14, scale: 2, default: "0.0", comment: "初中资助金额（学期）"
+    t.decimal "junior_year_amount", precision: 14, scale: 2, default: "0.0", comment: "初中资助金额（学年）"
+    t.decimal "senior_term_amount", precision: 14, scale: 2, default: "0.0", comment: "高中资助金额（学期）"
+    t.decimal "senior_year_amount", precision: 14, scale: 2, default: "0.0", comment: "高中资助金额（学年）"
   end
 
   create_table "remarks", force: :cascade, comment: "备注信息表" do |t|

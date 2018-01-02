@@ -14,6 +14,10 @@
 #  project_template_id :integer                                # 项目模板ID
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  junior_term_amount  :decimal(14, 2)   default(0.0)          # 初中资助金额（学期）
+#  junior_year_amount  :decimal(14, 2)   default(0.0)          # 初中资助金额（学年）
+#  senior_term_amount  :decimal(14, 2)   default(0.0)          # 高中资助金额（学期）
+#  senior_year_amount  :decimal(14, 2)   default(0.0)          # 高中资助金额（学年）
 #
 
 require 'rails_helper'

@@ -49,7 +49,10 @@ class Admin::PairsController < Admin::BaseController
 
   def switch
     @pair.enabled? ? @pair.disabled! : @pair.enabled!
-    redirect_to admin_pairs_path, notice:  @pair.enabled? ? '已启用' : '已禁用'
+    if @pair.enabled?
+      Pair.where.not(id: @pair.id).update(state: 2)
+    end
+    redirect_to referer_or(admin_pairs_path), notice: @pair.enabled? ? "#{@pair.name}年度已设为当前执行年度" : '该年度已禁用'
   end
 
 
