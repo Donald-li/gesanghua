@@ -19,7 +19,7 @@ class ProjectTemplate < ApplicationRecord
 
   has_ancestry
 
-  belongs_to :finance_category, optional: true # TODO 暂时设置为可空，等财务分类确定再修改
+  belongs_to :fund, optional: true # TODO 暂时设置为可空，等财务分类确定再修改
 
   has_many :projects
 
@@ -27,6 +27,9 @@ class ProjectTemplate < ApplicationRecord
 
   enum contribute_kind: { entirety: 1, scattered: 2 } # 捐款类型：1:整捐 2:零捐
   default_value_for :contribute_kind, 1
+
+  enum kind: { system: 1, custom: 2 } # 类型：1:系统默认 2:用户新增
+  default_value_for :kind, 2
 
   scope :sorted, ->{ order(created_at: :asc) }
 

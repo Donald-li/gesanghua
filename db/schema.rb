@@ -226,20 +226,6 @@ ActiveRecord::Schema.define(version: 20171229103802) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "finance_categories", force: :cascade, comment: "财务分类表" do |t|
-    t.string "name", comment: "分类名称"
-    t.integer "position", comment: "排序"
-    t.string "fund_name", comment: "基金名称"
-    t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "金额"
-    t.decimal "total", precision: 14, scale: 2, default: "0.0", comment: "历史收入"
-    t.integer "management_rate", default: 0, comment: "管理费率"
-    t.string "describe", comment: "简介"
-    t.string "ancestry"
-    t.string "type", comment: "单表继承"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "fund_categories", force: :cascade do |t|
     t.string "name", comment: "分类名"
     t.integer "position", comment: "排序"
@@ -394,7 +380,7 @@ ActiveRecord::Schema.define(version: 20171229103802) do
 
   create_table "projects", force: :cascade, comment: "项目表" do |t|
     t.string "name", comment: "项目名称"
-    t.integer "type", comment: "项目类型：1:结对 2:物资 3:悦读 4:营 5:观影"
+    t.string "type", comment: "项目类型：1:结对 2:物资 3:悦读 4:营 5:观影"
     t.text "content", comment: "项目内容"
     t.integer "state", default: 1, comment: "项目状态：1:启用 2:禁用"
     t.integer "fund_id", comment: "基金ID"
@@ -421,7 +407,7 @@ ActiveRecord::Schema.define(version: 20171229103802) do
     t.text "content", comment: "内容"
     t.string "owner_type"
     t.integer "owner_id"
-    t.integer "type", comment: "单表：audit_report、financial_report、project_report"
+    t.string "type", comment: "单表：audit_report、financial_report、project_report"
     t.integer "state", comment: "状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

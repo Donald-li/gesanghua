@@ -9,6 +9,7 @@
 #  total            :decimal(14, 2)   default(0.0)          # 历史收入
 #  management_rate  :integer          default(0)            # 管理费率
 #  describe         :string                                 # 简介
+#  state            :integer          default("show")       # 状态 1:显示 2:隐藏
 #  fund_category_id :integer
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
@@ -27,5 +28,9 @@ class Fund < ApplicationRecord
   scope :sorted, ->{ order(position: :asc) }
 
   enum state: {show: 1, hidden: 2} # 状态：1:显示 2:隐藏
+
+  def self.options_for_select
+    self.all.map{|c| [c.name, c.id]}
+  end
 
 end

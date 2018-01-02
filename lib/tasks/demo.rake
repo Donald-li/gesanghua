@@ -1,5 +1,16 @@
 namespace :demo do
   task init: [:environment] do
+    # 基金类型
+    FundCategory.find_or_create_by(name: '结对', describe: '结对')
+    FundCategory.find_or_create_by(name: '悦读', describe: '悦读')
+    FundCategory.find_or_create_by(name: '观影', describe: '观影')
+    FundCategory.find_or_create_by(name: '探索营', describe: '探索营')
+    FundCategory.find_or_create_by(name: '物资类', describe: '物资类')
+    FundCategory.all.each do |fc|
+      Fund.find_or_create_by(name: "#{fc.name}定向", management_rate: 5, describe: '定向', fund_category_id: fc.id)
+      Fund.find_or_create_by(name: "#{fc.name}非定向", management_rate: 5, describe: '非定向', fund_category_id: fc.id)
+    end
+
     # 项目模板一级分类
     content = %{<p>
     为构建社会主义和谐社会，弘扬人道主义精神，促进社会主义公益事业发展，支持贫困学生福利事业，甲方自愿向乙方捐赠，并经双方友好协商，就合作内容、甲乙双方权利与义务等事项，达成以下协议。</br>
@@ -23,12 +34,12 @@ namespace :demo do
     </p>
     }
     description = "为了使资助者与受助人保持长久的联系，同时保证资助款发挥真正的助学之用，请资助双方认真阅读填写本协议书以作书面凭证。在签定本协议之前，请资助者仔细阅读以下条款，并请严格遵守"
-    ProjectTemplate.find_or_create_by(name: '结对', protocol_name: '结对助学协议', protocol_content: content, describe: description)
-    ProjectTemplate.find_or_create_by(name: '悦读', protocol_name: '悦读捐助协议', protocol_content: content, describe: description)
-    ProjectTemplate.find_or_create_by(name: '观影', protocol_name: '观影捐助协议', protocol_content: content, describe: description)
-    ProjectTemplate.find_or_create_by(name: '探索营', protocol_name: '探索营捐助协议', protocol_content: content, describe: description)
-    good = ProjectTemplate.find_or_create_by(name: '物资类', protocol_name: '物资类捐助协议', protocol_content: content, describe: description)
-    good.children.find_or_create_by(name: '广播', protocol_name: '广播捐助协议', protocol_content: content, describe: description)
-    good.children.find_or_create_by(name: '护花', protocol_name: '护花捐助协议', protocol_content: content, describe: description)
+    ProjectTemplate.find_or_create_by(name: '结对', protocol_name: '结对助学协议', protocol_content: content, describe: description, kind: 1, fund_id: Fund.find_by(name: '结对非定向'))
+    ProjectTemplate.find_or_create_by(name: '悦读', protocol_name: '悦读捐助协议', protocol_content: content, describe: description, kind: 1, fund_id: Fund.find_by(name: '悦读非定向'))
+    ProjectTemplate.find_or_create_by(name: '观影', protocol_name: '观影捐助协议', protocol_content: content, describe: description, kind: 1, fund_id: Fund.find_by(name: '观影非定向'))
+    ProjectTemplate.find_or_create_by(name: '探索营', protocol_name: '探索营捐助协议', protocol_content: content, describe: description, kind: 1, fund_id: Fund.find_by(name: '探索营非定向'))
+    good = ProjectTemplate.find_or_create_by(name: '物资类', protocol_name: '物资类捐助协议', protocol_content: content, describe: description, kind: 1, fund_id: Fund.find_by(name: '物资类非定向'))
+    good.children.find_or_create_by(name: '广播', protocol_name: '广播捐助协议', protocol_content: content, describe: description, kind: 1, fund_id: Fund.find_by(name: '物资类定向'))
+    good.children.find_or_create_by(name: '护花', protocol_name: '护花捐助协议', protocol_content: content, describe: description, kind: 1, fund_id: Fund.find_by(name: '物资类定向'))
   end
 end
