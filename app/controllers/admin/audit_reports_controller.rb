@@ -1,5 +1,5 @@
 class Admin::AuditReportsController < Admin::BaseController
-  before_action :set_audit_report, only: [:show, :edit, :update, :destroy, :switch]
+  before_action :set_audit_report, only: [:show, :edit, :update, :destroy, :switch, :file_download]
 
   def index
     @search = AuditReport.sorted.ransack(params[:q])
@@ -22,7 +22,7 @@ class Admin::AuditReportsController < Admin::BaseController
 
     respond_to do |format|
       if @audit_report.save
-        @audit_report.attach_report_files[:file_ids]
+        @audit_report.attach_report_files(params[:file_ids])
         format.html { redirect_to admin_audit_reports_path, notice: '新增成功。' }
       else
         format.html { render :new }
@@ -32,6 +32,7 @@ class Admin::AuditReportsController < Admin::BaseController
 
   def update
     respond_to do |format|
+      @audit_report.attach_report_files(params[:file_ids])
       if @audit_report.update(audit_report_params)
         format.html { redirect_to admin_audit_reports_path, notice: '修改成功。' }
       else
@@ -49,9 +50,13 @@ class Admin::AuditReportsController < Admin::BaseController
 
   def switch
     @audit_report.show? ? @audit_report.hidden! : @audit_report.show!
-    redirect_to admin_audit_reports_path, notice:  @audit_report.show? ? '帮助已显示' : '帮助已隐藏'
+    redirect_to admin_audit_reports_path, notice:  @audit_report.show? ? '报告已显示' : '报告已隐藏'
   end
 
+  def file_download
+    file = @audit_report.report_files.find(params[:file_id])
+    send_data(file.file_url, filename: file.file_name)
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
