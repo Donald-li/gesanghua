@@ -19,6 +19,9 @@
 
 FactoryBot.define do
   factory :school do
-    
+    name {"#{Faker::Name.name}学校"}
+    province '630000'
+    city '630100'
+    district '630123'
   end
 end

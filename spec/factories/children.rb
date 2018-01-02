@@ -16,12 +16,9 @@
 
 FactoryBot.define do
   factory :child do
-    idcard "MyString"
-    name "MyString"
-    school_id 1
-    user_id 1
-    password_digest "MyString"
-    gsh_no "MyString"
-    state 1
+    idcard {"31011219941215#{rand(8999)+1000}"}
+    name {Faker::Name.name}
+    password_digest "111111"
+    gsh_no {Sequence.get_seq(kind: :gsh_no, prefix: 0)}
   end
 end

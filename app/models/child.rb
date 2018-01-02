@@ -15,6 +15,9 @@
 #
 
 class Child < ApplicationRecord
+  belongs_to :user, optional: true
+  belongs_to :school, optional: true
+
   has_many :child_trails
   has_many :child_grants
   has_many :project_apply_children
