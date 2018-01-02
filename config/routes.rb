@@ -73,6 +73,7 @@ Rails.application.routes.draw do
     resources :fund_categories, concerns: [:switch, :move]
     resources :specials
     resources :support_categories, concerns: [:move, :switch]
+    resources :county_users, concerns: [:switch]
   end
 
   namespace :school do
