@@ -55,7 +55,7 @@ class Admin::AuditReportsController < Admin::BaseController
 
   def file_download
     file = @audit_report.report_files.find(params[:file_id])
-    send_data(file.file_url, filename: file.file_name)
+    send_file(File.join(Rails.root, 'public', file.file_url), filename: file.file_name)
   end
 
   private
