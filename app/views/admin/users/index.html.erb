@@ -1,0 +1,131 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i>用户管理
+    </div>
+    <div class="actions">
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="dataTables_wrapper no-footer">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <%= search_form_for @search, url: admin_users_path, class: 'form-inline' do |f| %>
+          <div class="form-group">
+            <%= f.label :name_or_phone_cont, '搜索' %>
+            <%= f.text_field :name_or_phone_cont, class: 'form-control', placeholder: '姓名或手机号' %>
+          </div>
+          <div class="form-group">
+            <%= f.label '注册时间' %>
+            <%= f.text_field :created_at_gteq, class: 'form-control datepicker', placeholder: '开始时间' %>
+            <%= f.text_field :created_at_lteq, class: 'form-control datepicker', placeholder: '结束时间' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :state_eq, '状态' %>
+            <%= f.select :state_eq, User.options_for_select(:states, raw: true), {include_blank: '全部'}, placeholder: '', class: 'form-control' %>
+          </div>
+          <button type="submit" class="btn btn-default grey">搜索</button>
+          <% end %>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="dataTables_filter pull-right">
+          </div>
+        </div>
+      </div>
+      <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover" id="sample_2">
+          <thead>
+            <tr>
+              <th>
+                用户ID
+              </th>
+              <th>
+                昵称
+              </th>
+              <th>
+                预留手机
+              </th>
+              <th>
+                是否认证手机
+              </th>
+              <th>
+                历史捐赠金额
+              </th>
+              <th>
+                可开票金额
+              </th>
+              <th>
+                账号状态
+              </th>
+              <th>
+                其他身份
+              </th>
+              <th>
+                操作
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @users.each do |user| %>
+            <tr>
+              <td>
+                <%= user.id %>
+              </td>
+              <td>
+                <%= user.nickname %>
+              </td>
+              <td>
+                <%= user.phone %>
+              </td>
+              <td>
+                <%= user.validate_phone? ? "是" : "否" %>
+              </td>
+              <td>
+                <%= user.donate_records.paid.sum(:amount) %>
+              </td>
+              <td>
+                <%= user.to_bill_amount %>
+              </td>
+              <td>
+                <%= link_to switch_admin_user_path(user), data: {confirm: "确定#{user.state === 'enabled' ? '停用该用户' : '启用该用户'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{user.state === 'enabled' ? 'green' : 'default'}" do %>
+                <%= user.state === 'enabled' ? '启用' : '停用' %>
+                <i class="fa <%= user.state === 'enabled' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                <% end %>
+              </td>
+              <td>
+                <%= '管理员' if user.administrator.present? %>
+                <% if user.teacher.present? %>
+                  <%= '校长' if user.teacher.headmaster? %>
+                  <%= '教师' if user.teacher.teacher? %>
+                <% end %>
+                <%= '志愿者' if user.volunteer.present? %>
+                <% if user.education_bureau_employee.present? %>
+                  <%= '教育局局长' if user.education_bureau_employee.director? %>
+                  <%= '教育局职员' if user.education_bureau_employee.staff? %>
+                <% end %>
+              </td>
+              <td>
+                <%= link_to edit_admin_user_path(user), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                  <i class="fa fa-edit"></i> 修改信息
+                <% end %>
+                <%= link_to admin_user_donate_records_path(user), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                  <i class="fa fa-edit"></i> 捐助记录
+                <% end %>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-5 col-sm-12">
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@users) %></div>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <%= paginate @users, theme: 'admin' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END EXAMPLE TABLE PORTLET-->

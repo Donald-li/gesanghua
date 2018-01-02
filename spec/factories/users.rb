@@ -16,6 +16,13 @@
 #  email           :string                                 # 电子邮箱地址
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  nickname        :string                                 # 昵称
+#  salutation      :string                                 # 孩子们如何称呼我
+#  consignee       :string                                 # 收货人
+#  province        :string                                 # 省
+#  city            :string                                 # 市
+#  district        :string                                 # 区/县
+#  address         :string                                 # 详细地址
 #
 
 FactoryBot.define do

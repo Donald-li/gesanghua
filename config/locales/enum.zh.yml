@@ -71,3 +71,6 @@ zh:
   project_apply_states:
     show: '显示'
     hidden: '隐藏'
+  user_states:
+    enabled: '正常'
+    disabled: '冻结'

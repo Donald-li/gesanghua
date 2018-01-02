@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180102105102) do
+ActiveRecord::Schema.define(version: 20180102123913) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -280,6 +280,8 @@ ActiveRecord::Schema.define(version: 20180102105102) do
     t.string "name", comment: "名称"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "description", comment: "描述"
+    t.integer "position", comment: "位置"
   end
 
   create_table "logistics", force: :cascade, comment: "物流表" do |t|
@@ -549,6 +551,13 @@ ActiveRecord::Schema.define(version: 20180102105102) do
     t.string "email", comment: "电子邮箱地址"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "nickname", comment: "昵称"
+    t.string "salutation", comment: "孩子们如何称呼我"
+    t.string "consignee", comment: "收货人"
+    t.string "province", comment: "省"
+    t.string "city", comment: "市"
+    t.string "district", comment: "区/县"
+    t.string "address", comment: "详细地址"
     t.index ["email"], name: "index_users_on_email"
     t.index ["login"], name: "index_users_on_login"
     t.index ["phone"], name: "index_users_on_phone"

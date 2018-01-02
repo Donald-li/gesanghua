@@ -97,13 +97,13 @@
 textarea.form-control{
   min-height: 100px;
 }
-.form-inline {
-  float: none !important;
-  width: auto;
-  .destroy{
-    margin-left: 10px;
-  }
-}
+// .form-inline {
+//   float: none !important;
+//   width: auto;
+//   .destroy{
+//     margin-left: 10px;
+//   }
+// }
 .form-horizontal {
   .radio {
     & + .radio {
