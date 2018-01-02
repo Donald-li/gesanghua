@@ -1,7 +1,7 @@
 <div class="portlet light">
   <div class="portlet-title">
     <div class="caption">
-      <i class="icon-list"></i>系统管理员管理
+      <i class="icon-list"></i>平台用户管理
     </div>
     <div class="actions">
       <%= link_to new_admin_administrator_path, class: 'btn blue-soft', 'data-no-turbolink' => true do %>
@@ -16,8 +16,8 @@
         <div class="col-md-12 col-sm-12">
           <%= search_form_for @search, url: admin_administrators_path, class: 'form-inline' do |f| %>
           <div class="form-group">
-            <%= f.label :nickname_cont, '管理员账号' %>
-            <%= f.text_field :nickname_cont, class: 'form-control', placeholder: '根据管理员账号过滤' %>
+            <%= f.label :nickname_cont, '用户账号' %>
+            <%= f.text_field :nickname_cont, class: 'form-control', placeholder: '根据用户账号过滤' %>
           </div>
           <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>
@@ -31,10 +31,13 @@
           <thead>
             <tr>
               <th>
-                管理员账号
+                用户账号
               </th>
               <th>
-                管理员昵称
+                用户昵称
+              </th>
+              <th>
+                用户类型
               </th>
               <th>
                 创建时间
@@ -55,6 +58,9 @@
               </td>
               <td>
                 <%= admin.nickname %>
+              </td>
+              <td>
+                <%= admin.enum_name(:kind) %>
               </td>
               <td>
                 <%= l admin.created_at %>

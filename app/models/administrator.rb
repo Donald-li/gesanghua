@@ -28,6 +28,6 @@ class Administrator < ApplicationRecord
   enum kind: { super_administrator: 1, system_administrator: 2, project_administrator: 3, financial_staff: 4, operator: 5} # 管理员类型 1:超级管理员 2:系统管理员 3:项目管理员 4:财务人员 5:运营人员
   default_value_for :kind, 2
 
-  scope :sorted, -> { order(created_at: :desc) }
+  scope :sorted, -> { order(created_at: :asc) }
 
 end
