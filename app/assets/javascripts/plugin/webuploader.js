@@ -4086,6 +4086,7 @@
                 tr.append( data );
                 tr.setRequestHeader( headers );
                 tr.send();
+                console.log(file)
             },
 
             // 完成上传。

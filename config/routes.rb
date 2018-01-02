@@ -18,6 +18,10 @@ Rails.application.routes.draw do
     collection { get :excel_output }
   end
 
+  concern :file_download do
+    member { get :file_download }
+  end
+
   root to: 'site/mains#show'
 
   scope module: :site do
@@ -64,7 +68,7 @@ Rails.application.routes.draw do
     resources :supports, concerns: [:move, :switch]
     resources :pages, concerns: [:move, :switch]
     resources :project_templates
-    resources :audit_reports, concerns: [:switch]
+    resources :audit_reports, concerns: [:switch, :file_download]
   end
 
   namespace :school do
