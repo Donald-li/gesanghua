@@ -1,25 +1,20 @@
 # == Schema Information
 #
-# Table name: finance_categories # 财务分类表
+# Table name: fund_categories
 #
 #  id         :integer          not null, primary key
-#  name       :string                                 # 分类名称
+#  name       :string                                 # 分类名
 #  position   :integer                                # 排序
-#  fund_name  :string                                 # 基金名称
 #  amount     :decimal(14, 2)   default(0.0)          # 金额
+#  total      :decimal(14, 2)   default(0.0)          # 历史收入
 #  describe   :string                                 # 简介
-#  ancestry   :string
+#  state      :integer          default("show")       # 状态 1:显示 2:隐藏
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
 FactoryBot.define do
-  factory :finance_category do
-    name "MyString"
-    position 1
-    fund_name "MyString"
-    amount "9.99"
-    describe "MyString"
-    ancestry "MyString"
+  factory :fund_category do
+    
   end
 end

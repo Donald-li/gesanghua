@@ -41,5 +41,9 @@ zh:
     entirety: '整捐'
     scattered: '零捐'
   report_states:
+  fund_states:
+    show: '显示'
+    hidden: '隐藏'
+  fund_category_states:
     show: '显示'
     hidden: '隐藏'

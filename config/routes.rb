@@ -69,6 +69,9 @@ Rails.application.routes.draw do
     resources :pages, concerns: [:move, :switch]
     resources :project_templates
     resources :audit_reports, concerns: [:switch, :file_download]
+    resources :funds, only: [:new, :create, :edit, :update, :destroy], concerns: [:switch, :move]
+    resources :fund_categories, concerns: [:switch, :move]
+    resources :specials
   end
 
   namespace :school do

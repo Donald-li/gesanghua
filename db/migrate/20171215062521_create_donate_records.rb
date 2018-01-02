@@ -4,7 +4,7 @@ class CreateDonateRecords < ActiveRecord::Migration[5.1]
       t.integer :user_id, comment: '用户id'
       t.string :appoint_type, comment: '指定类型'
       t.integer :appoint_id, comment: '指定类型'
-      t.integer :finance_category_id, comment: '财务分类id'
+      t.integer :fund_id, comment: '基金ID'
       t.integer :pay_state, comment: '付款状态'
       t.decimal :amount, precision: 14, scale: 2, default: "0.0", comment: '捐助金额'
       t.integer :project_id, comment: '项目id'
