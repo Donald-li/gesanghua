@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171229103802) do
+ActiveRecord::Schema.define(version: 20180102040836) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -162,6 +162,20 @@ ActiveRecord::Schema.define(version: 20171229103802) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "county_users", force: :cascade do |t|
+    t.string "name", comment: "姓名"
+    t.string "phone", comment: "联系方式"
+    t.string "unit_name", comment: "单位名称"
+    t.string "unit_describe", comment: "单位简介"
+    t.integer "user_id", comment: "用户id"
+    t.string "address", comment: "详细地址"
+    t.string "province", comment: "省"
+    t.string "city", comment: "市"
+    t.string "district", comment: "区/县"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "donate_records", force: :cascade, comment: "捐赠记录" do |t|
     t.integer "user_id", comment: "用户id"
     t.string "appoint_type", comment: "指定类型"
@@ -178,27 +192,6 @@ ActiveRecord::Schema.define(version: 20171229103802) do
     t.string "remitter_name", comment: "汇款人姓名"
     t.integer "remitter_id", comment: "汇款人id"
     t.integer "voucher_state", comment: "捐赠收据状态"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "education_bureau_employees", force: :cascade, comment: "教育局工作人员表" do |t|
-    t.string "name", comment: "姓名"
-    t.string "phone", comment: "联系方式"
-    t.string "nickname", comment: "昵称"
-    t.integer "kind", default: 1, comment: "类型，1：局长 2：员工"
-    t.integer "education_bureau_id", comment: "教育局id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "user_id", comment: "用户ID"
-  end
-
-  create_table "education_bureaus", force: :cascade, comment: "教育局表" do |t|
-    t.string "name", comment: "名称"
-    t.string "address", comment: "详细地址"
-    t.string "province", comment: "省"
-    t.string "city", comment: "市"
-    t.string "district", comment: "区/县"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
