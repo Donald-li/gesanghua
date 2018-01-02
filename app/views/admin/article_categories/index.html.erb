@@ -52,9 +52,9 @@
                 <%= cate.name %>
               </td>
               <td>
-                <%= link_to switch_admin_article_category_path(cate), data: {confirm: "确定#{cate.state === 'hidden' ? '显示' : '隐藏'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{cate.state === 'show' ? 'green' : 'default'}" do %>
-                  <%= cate.state === 'show' ? '显示' : '隐藏' %>
-                  <i class="fa <%= cate.state === 'show' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                <%= link_to switch_admin_article_category_path(cate), data: {confirm: "确定#{cate.hidden? ? '显示' : '隐藏'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{cate.show? ? 'green' : 'default'}" do %>
+                  <%= cate.show? ? '显示' : '隐藏' %>
+                  <i class="fa <%= cate.show? ? 'fa-eye' : 'fa-eye-slash' %>"></i>
                 <% end %>
               </td>
               <td>

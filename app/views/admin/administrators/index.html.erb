@@ -51,7 +51,7 @@
             <% @administrators.each do |admin| %>
             <tr>
               <td>
-                <%= admin.login %>
+                <%= admin.user.try(:login) %>
               </td>
               <td>
                 <%= admin.nickname %>
@@ -66,9 +66,9 @@
                     <i class="fa fa-user"></i>
                   </a>
                 <% else %>
-                  <%= link_to switch_admin_administrator_path(admin), data: {confirm: "确定#{admin.state === 'enable' ? '停用该管理员' : '启用该管理员'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{admin.state === 'enable' ? 'green' : 'default'}" do %>
-                  <%= admin.state === 'enable' ? '启用' : '停用' %>
-                  <i class="fa <%= admin.state === 'enable' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                  <%= link_to switch_admin_administrator_path(admin), data: {confirm: "确定#{admin.enable? ? '停用该管理员' : '启用该管理员'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{admin.enable? ? 'green' : 'default'}" do %>
+                  <%= admin.enable? ? '启用' : '停用' %>
+                  <i class="fa <%= admin.enable? ? 'fa-eye' : 'fa-eye-slash' %>"></i>
                   <% end %>
                 <% end %>
               </td>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171228102653) do
+ActiveRecord::Schema.define(version: 20171229103802) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(version: 20171228102653) do
     t.datetime "expire_at", default: "2099-12-31 00:00:00", comment: "过期时间"
     t.integer "state", default: 1, comment: "状态 1:正常 2:禁用"
     t.bigint "user_id"
-    t.integer "kind", default: 2, comment: "管理员类型 1:超级管理员 2:项目管理员"
-    t.integer "integer", default: 2, comment: "管理员类型 1:超级管理员 2:项目管理员"
+    t.integer "kind", default: 2, comment: "管理员类型 1:超级管理员 2:系统管理员 3:项目管理员 4:财务人员"
+    t.integer "integer", default: 2, comment: "管理员类型 1:超级管理员 2:系统管理员 3:项目管理员 4:财务人员"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_administrators_on_user_id"
@@ -166,7 +166,7 @@ ActiveRecord::Schema.define(version: 20171228102653) do
     t.integer "user_id", comment: "用户id"
     t.string "appoint_type", comment: "指定类型"
     t.integer "appoint_id", comment: "指定类型"
-    t.integer "finance_category_id", comment: "财务分类id"
+    t.integer "fund_id", comment: "基金ID"
     t.integer "pay_state", comment: "付款状态"
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "捐助金额"
     t.integer "project_id", comment: "项目id"
@@ -204,7 +204,7 @@ ActiveRecord::Schema.define(version: 20171228102653) do
   end
 
   create_table "expenditure_records", force: :cascade, comment: "支出记录表" do |t|
-    t.integer "finance_category_id", comment: "财务分类id"
+    t.integer "fund_id", comment: "基金ID"
     t.string "appoint_type", comment: "指定类型"
     t.integer "appoint_id", comment: "指定类型id"
     t.integer "administrator_id", comment: "管理员id"
@@ -231,10 +231,38 @@ ActiveRecord::Schema.define(version: 20171228102653) do
     t.integer "position", comment: "排序"
     t.string "fund_name", comment: "基金名称"
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "金额"
+    t.decimal "total", precision: 14, scale: 2, default: "0.0", comment: "历史收入"
+    t.integer "management_rate", default: 0, comment: "管理费率"
     t.string "describe", comment: "简介"
     t.string "ancestry"
+    t.string "type", comment: "单表继承"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "fund_categories", force: :cascade do |t|
+    t.string "name", comment: "分类名"
+    t.integer "position", comment: "排序"
+    t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "金额"
+    t.decimal "total", precision: 14, scale: 2, default: "0.0", comment: "历史收入"
+    t.string "describe", comment: "简介"
+    t.integer "state", default: 1, comment: "状态 1:显示 2:隐藏"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "funds", force: :cascade do |t|
+    t.string "name", comment: "基金名"
+    t.integer "position", comment: "排序"
+    t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "金额"
+    t.decimal "total", precision: 14, scale: 2, default: "0.0", comment: "历史收入"
+    t.integer "management_rate", default: 0, comment: "管理费率"
+    t.string "describe", comment: "简介"
+    t.integer "state", default: 1, comment: "状态 1:显示 2:隐藏"
+    t.bigint "fund_category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fund_category_id"], name: "index_funds_on_fund_category_id"
   end
 
   create_table "goods_categories", force: :cascade, comment: "物资分类" do |t|
@@ -253,7 +281,7 @@ ActiveRecord::Schema.define(version: 20171228102653) do
 
   create_table "income_records", force: :cascade, comment: "入帐记录表" do |t|
     t.integer "user_id", comment: "用户id"
-    t.integer "finance_category_id", comment: "财务分类id"
+    t.integer "fund_id", comment: "基金ID"
     t.string "appoint_type", comment: "指定类型"
     t.integer "appoint_id", comment: "指定类型id"
     t.integer "state", comment: "状态"
@@ -353,7 +381,7 @@ ActiveRecord::Schema.define(version: 20171228102653) do
   create_table "project_templates", force: :cascade, comment: "项目模板表" do |t|
     t.string "name", comment: "项目模板名称"
     t.integer "kind", comment: "模板类型"
-    t.integer "finance_category_id", comment: "财务分类ID"
+    t.integer "fund_id", comment: "基金ID"
     t.string "protocol_name", comment: "协议名称"
     t.text "protocol_content", comment: "协议内容"
     t.integer "contribute_kind", default: 1, comment: "捐款类型：1:整捐 2:零捐"
@@ -369,7 +397,7 @@ ActiveRecord::Schema.define(version: 20171228102653) do
     t.integer "type", comment: "项目类型：1:结对 2:物资 3:悦读 4:营 5:观影"
     t.text "content", comment: "项目内容"
     t.integer "state", default: 1, comment: "项目状态：1:启用 2:禁用"
-    t.integer "finance_category_id", comment: "财务分类ID"
+    t.integer "fund_id", comment: "基金ID"
     t.integer "contribute_kind", default: 1, comment: "捐款类型：1:整捐 2:零捐"
     t.string "category_type", comment: "具体项目分类"
     t.integer "category_id", comment: "分类ID"
@@ -509,8 +537,12 @@ ActiveRecord::Schema.define(version: 20171228102653) do
     t.integer "gender", comment: "性别，1：男 2：女"
     t.decimal "balance", precision: 14, scale: 2, default: "0.0", comment: "账户余额"
     t.string "phone", comment: "联系方式"
+    t.string "email", comment: "电子邮箱地址"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email"
+    t.index ["login"], name: "index_users_on_login"
+    t.index ["phone"], name: "index_users_on_phone"
   end
 
   create_table "versions", force: :cascade do |t|

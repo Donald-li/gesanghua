@@ -5,7 +5,7 @@ class CreateReports < ActiveRecord::Migration[5.1]
       t.text :content, comment: '内容'
       t.string :owner_type, comment: ''
       t.integer :owner_id, comment: ''
-      t.integer :type, comment: '单表：audit_report、financial_report、project_report'
+      t.string :type, comment: '单表：audit_report、financial_report、project_report'
       t.integer :state, comment: '状态'
 
       t.timestamps

@@ -68,9 +68,9 @@
                 <%= image_tag advert.image_url(:tiny), width:92, height:30 %>
               </td>
               <td>
-                <%= link_to switch_admin_advert_path(advert), data: {confirm: "确定#{advert.state === 'show' ? '隐藏' : '显示'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{advert.state === 'show' ? 'green' : 'default'}" do %>
-                  <%= advert.state === 'show' ? '显示' : '隐藏' %>
-                  <i class="fa <%= advert.state === 'show' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                <%= link_to switch_admin_advert_path(advert), data: {confirm: "确定#{advert.show? ? '隐藏' : '显示'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{advert.show? ? 'green' : 'default'}" do %>
+                  <%= advert.show? ? '显示' : '隐藏' %>
+                  <i class="fa <%= advert.show? ? 'fa-eye' : 'fa-eye-slash' %>"></i>
                 <% end %>
               </td>
               <td>

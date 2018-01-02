@@ -2,6 +2,12 @@ zh:
   administrator_states:
     enable: '启用'
     disable: '禁用'
+  administrator_kinds:
+    super_administrator: '超级管理员'
+    system_administrator: '系统管理员'
+    project_administrator: '项目管理员'
+    financial_staff: '财务人员'
+    operator: '运营人员'
   advert_kinds:
     banner: 'Banner轮播图(507x304px)'
   advert_states:
@@ -34,3 +40,10 @@ zh:
   project_template_contribute_kinds:
     entirety: '整捐'
     scattered: '零捐'
+  report_states:
+  fund_states:
+    show: '显示'
+    hidden: '隐藏'
+  fund_category_states:
+    show: '显示'
+    hidden: '隐藏'

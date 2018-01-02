@@ -71,18 +71,16 @@ function initWebuploader(el, config, image_count) {
       if (!uploader.options.pick.multiple) {
         //删除已有文件
         list.find('li.file-item').remove();
-        var $filepart = '<li id="' + file.id + '" class="file-item">'
-          + '<div class="file-title">' + file.name + ' <small>(' + file.size/1000000 + 'MB)</small></div>';
-        console.log(file)
-        if (config.showStatus) {
-          $filepart += '<p class="state">等待上传</p>'
-        }
-        $filepart += '</li>';
-        list.prepend($filepart);
-
       }
-    }
+      var $filepart = '<li id="' + file.id + '" class="file-item">'
+        + '<div class="file-title">' + file.name + ' <small>(' + file.size/1000000 + 'MB)</small></div>';
+      if (config.showStatus) {
+        $filepart += '<p class="state">等待上传</p>'
+      }
+      $filepart += '</li>';
+      list.prepend($filepart);
 
+    }
   });
 
   // 文件上传过程中创建进度条实时显示。
@@ -201,4 +199,22 @@ function initAssetWebuploader(el, config) {
     }
   }, config)
   initWebuploader($(el), config);
+}
+
+function initMultiAssetWebuploader(el, config, file_count) {
+    var picker = $(el).find('.upload-pick');
+    if (!config) {
+        config = {}
+    }
+    config = $.extend({
+        uploadType: 'file',
+        uploaderConfig: {
+            pick: { id: picker, multiple: true },
+            accept: {
+                title: '请选择附件',
+                mimeTypes: 'asset/*'
+            }
+        }
+    }, config)
+    initWebuploader($(el), config, file_count);
 }

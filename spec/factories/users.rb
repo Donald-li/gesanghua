@@ -13,6 +13,7 @@
 #  gender          :integer                                # 性别，1：男 2：女
 #  balance         :decimal(14, 2)   default(0.0)          # 账户余额
 #  phone           :string                                 # 联系方式
+#  email           :string                                 # 电子邮箱地址
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
