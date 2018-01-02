@@ -137,6 +137,16 @@
                     <span class="title">年度管理</span>
                 <% end %>
               </li>
+              <li class="nav-item <%= current_nav_class(:admin_pair_applies) %> ">
+                <%= link_to admin_pair_applies_path, class: 'nav-link' do %>
+                    <span class="title">申请管理</span>
+                <% end %>
+              </li>
+              <li class="nav-item <%= current_nav_class(:admin_pair_lists) %> ">
+                <%= link_to admin_pair_lists_path, class: 'nav-link' do %>
+                    <span class="title">项目管理</span>
+                <% end %>
+              </li>
             </ul>
           </li>
         </ul>

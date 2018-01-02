@@ -41,5 +41,9 @@ namespace :demo do
     good = ProjectTemplate.find_or_create_by(name: '物资类', protocol_name: '物资类捐助协议', protocol_content: content, describe: description, kind: 1, fund: fc5.funds.first)
     good.children.find_or_create_by(name: '广播', protocol_name: '广播捐助协议', protocol_content: content, describe: description, kind: 1, fund: fc5.funds.second)
     good.children.find_or_create_by(name: '护花', protocol_name: '护花捐助协议', protocol_content: content, describe: description, kind: 1, fund: fc5.funds.second)
+
+    # 生成学校
+    School.create(name: '西宁第一实验中学', address: '某街', approve_state: 2, province: '630000', city: '630100', district: '630101', number: '600', describe: '优秀中学', level: 1, contact_name: '陈俊生', contact_phone: '17866548888')
+
   end
 end

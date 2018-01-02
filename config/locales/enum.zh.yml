@@ -56,3 +56,9 @@ zh:
   pair_contribute_kinds:
     entirety: '整捐'
     scattered: '零捐'
+  school_levels:
+    junior: '初中'
+    senior: '高中'
+  project_apply_states:
+    show: '显示'
+    hidden: '隐藏'

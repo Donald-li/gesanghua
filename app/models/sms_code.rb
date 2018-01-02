@@ -1,19 +1,14 @@
 # == Schema Information
 #
-# Table name: sms_codes # 短信验证码
+# Table name: sms_codes
 #
 #  id         :integer          not null, primary key
-#  kind       :integer                                # 分类
-#  mobile     :string                                 # 手机
-#  code       :string                                 # 验证码
-#  state      :integer                                # 状态
+#  kind       :integer
+#  mobile     :string
+#  code       :string
+#  state      :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#
-# Indexes
-#
-#  index_sms_codes_on_kind    (kind)
-#  index_sms_codes_on_mobile  (mobile)
 #
 
 require 'custom_validators'

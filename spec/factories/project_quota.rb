@@ -5,7 +5,7 @@
 #  id         :integer          not null, primary key
 #  school_id  :integer                                # 学校ID
 #  project_id :integer                                # 项目ID
-#  amount     :decimal(14, 2)   default(0.0)          # 金额
+#  number     :integer                                # 学生数量
 #  province   :string                                 # 省
 #  city       :string                                 # 市
 #  district   :string                                 # 区/县

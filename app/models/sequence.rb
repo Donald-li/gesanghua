@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: sequences
+#
+#  id         :integer          not null, primary key
+#  kind       :string
+#  prefix     :string
+#  value      :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class Sequence < ApplicationRecord
   def self.get_seq(kind: :order_no, prefix: '', count: 1, length: 5, start: 1, save: true)
     seq = self.where(kind: kind, prefix: prefix).first || self.create(kind: kind, prefix: prefix, value: start)

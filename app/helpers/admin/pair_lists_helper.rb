@@ -1,0 +1,2 @@
+module Admin::PairListsHelper
+end

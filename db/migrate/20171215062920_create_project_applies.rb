@@ -9,6 +9,7 @@ class CreateProjectApplies < ActiveRecord::Migration[5.1]
       t.string :province, comment: '省'
       t.string :city, comment: '市'
       t.string :district, comment: '区/县'
+      t.text :describe, comment: '描述、申请要求'
 
       t.timestamps
     end

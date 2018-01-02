@@ -15,6 +15,9 @@
 #  state          :integer          default("enabled")    # 学校状态：1:启用 2:禁用
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  level          :integer                                # 学校等级： 1:初中 2:高中
+#  contact_name   :string                                 # 联系人
+#  contact_phone  :string                                 # 联系方式
 #
 
 require 'rails_helper'

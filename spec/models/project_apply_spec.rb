@@ -11,8 +11,11 @@
 #  province      :string                                 # 省
 #  city          :string                                 # 市
 #  district      :string                                 # 区/县
+#  describe      :text                                   # 描述、申请要求
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  number        :integer                                # 学生数量
+#  name          :string                                 # 申请名称
 #
 
 require 'rails_helper'

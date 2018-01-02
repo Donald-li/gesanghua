@@ -11,12 +11,15 @@
 #  province      :string                                 # 省
 #  city          :string                                 # 市
 #  district      :string                                 # 区/县
+#  describe      :text                                   # 描述、申请要求
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  number        :integer                                # 学生数量
+#  name          :string                                 # 申请名称
 #
 
 class ProjectApply < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, optional: true
   belongs_to :project
   belongs_to :school
 
@@ -24,8 +27,6 @@ class ProjectApply < ApplicationRecord
   has_many :project_apply_children
   has_many :child_grants
   has_many :donate_records
-
-  validates :province, :city, :distirct, presence: true
 
   enum state: {show: 1, hidden: 2} # 状态：1:启用 2:禁用
   default_value_for :state, 1
