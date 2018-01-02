@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180102040836) do
+ActiveRecord::Schema.define(version: 20180102083138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -419,6 +419,26 @@ ActiveRecord::Schema.define(version: 20180102040836) do
     t.integer "state", default: 1, comment: "学校状态：1:启用 2:禁用"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "sequences", force: :cascade do |t|
+    t.string "kind"
+    t.string "prefix"
+    t.bigint "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["kind"], name: "index_sequences_on_kind"
+  end
+
+  create_table "sms_codes", force: :cascade do |t|
+    t.integer "kind"
+    t.string "mobile"
+    t.string "code"
+    t.integer "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["kind"], name: "index_sms_codes_on_kind"
+    t.index ["mobile"], name: "index_sms_codes_on_mobile"
   end
 
   create_table "special_articles", force: :cascade, comment: "专题资讯表" do |t|
