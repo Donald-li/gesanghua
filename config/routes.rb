@@ -77,7 +77,9 @@ Rails.application.routes.draw do
     resources :fund_categories, concerns: [:switch, :move]
     resources :specials
     resources :pairs, concerns: [:switch]
-    resources :pair_applies
+    resources :pair_applies do
+      resources :pair_students
+    end
     resources :pair_lists, concerns: [:switch]
     resources :support_categories, concerns: [:move, :switch]
     resources :county_users, concerns: [:switch]
