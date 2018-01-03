@@ -24,7 +24,9 @@ ActiveRecord::Schema.define(version: 20180102123913) do
   end
 
   create_table "administrators", force: :cascade, comment: "管理员" do |t|
+    t.string "login", comment: "登录名"
     t.string "nickname", comment: "昵称"
+    t.string "password_digest", comment: "密码"
     t.datetime "expire_at", default: "2099-12-31 00:00:00", comment: "过期时间"
     t.integer "state", default: 1, comment: "状态 1:正常 2:禁用"
     t.bigint "user_id"
@@ -32,7 +34,6 @@ ActiveRecord::Schema.define(version: 20180102123913) do
     t.integer "integer", default: 2, comment: "管理员类型 1:超级管理员 2:系统管理员 3:项目管理员 4:财务人员"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_administrators_on_user_id"
   end
 
   create_table "adverts", force: :cascade, comment: "广告表" do |t|
@@ -600,6 +601,9 @@ ActiveRecord::Schema.define(version: 20180102123913) do
     t.integer "state", comment: "状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "kind", comment: "类型"
+    t.integer "approve_state", comment: "认证状态"
+    t.datetime "approve_time", comment: "认证时间"
   end
 
   create_table "voucher_donate_records", force: :cascade, comment: "捐赠收据捐助记录表" do |t|

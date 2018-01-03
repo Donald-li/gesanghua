@@ -73,4 +73,19 @@ module ApplicationHelper
     html.html_safe
   end
 
+  def static_form_control(label, content)
+    %{
+    <div class="form-group">
+      <label class="control-label col-md-2">#{label}</label>
+      <div class="form-group">
+      <div class="input-group">
+        <p class="form-control-static" style="padding-left: 20px;">
+          #{content}
+        </p>
+      </div>
+      </div>
+    </div>
+    }.html_safe
+  end
+
 end

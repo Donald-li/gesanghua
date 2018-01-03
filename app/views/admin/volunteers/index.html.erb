@@ -1,0 +1,118 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i>志愿者管理
+    </div>
+    <div class="actions">
+      <%= link_to new_admin_volunteer_path, class: 'btn blue-soft', 'data-no-turbolink' => true do %>
+          <i class="icon-plus"></i>
+          <span>新增</span>
+      <% end %>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="dataTables_wrapper no-footer">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <%= search_form_for @search, url: admin_volunteers_path, class: 'form-inline' do |f| %>
+              <div class="form-group">
+                <%= f.label :user_name_cont, '搜索用户' %>
+                <%= f.text_field :user_name_or_user_phone_cont, class: 'form-control', placeholder: '姓名、手机号' %>
+              </div>
+              <button type="submit" class="btn btn-default grey">搜索</button>
+          <% end %>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="dataTables_filter pull-right">
+          </div>
+        </div>
+      </div>
+      <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover" id="sample_2">
+          <thead>
+          <tr>
+            <th>
+              编号
+            </th>
+            <th>
+              姓名
+            </th>
+            <th>
+              地区
+            </th>
+            <th>
+              服务时长（小时）
+            </th>
+            <th>
+              认证时间
+            </th>
+            <th>
+              类型
+            </th>
+            <th>
+              工作状态
+            </th>
+            <th>
+              用户状态
+            </th>
+            <th>
+              操作
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @volunteers.each do |volunteer| %>
+              <tr>
+                <td>
+                  <%= volunteer.id %>
+                </td>
+                <td>
+                  <%= volunteer.user.try(:name) %>
+                </td>
+                <td>
+                  <%= volunteer.user.try(:simple_address) %>
+                </td>
+                <td>
+                  <%= volunteer.duration %>
+                </td>
+                <td>
+                  <%= l volunteer.approve_time if volunteer.approve_time.present? %>
+                </td>
+                <td>
+                  <%= volunteer.enum_name(:kind) %>
+                </td>
+                <%= link_to switch_job_admin_volunteer_path(volunteer), data: {confirm: "确定标记为#{volunteer.leave? ? '可接受任务' : '请假'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{volunteer.available? ? 'green' : 'default'}" do %>
+                    <%= volunteer.available? ? '可接受任务' : '请假' %>
+                    <i class="fa <%= volunteer.available? ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                <% end %>
+                <td>
+                  <%= link_to switch_admin_volunteer_path(volunteer), data: {confirm: "确定#{volunteer.disabled? ? '启用' : '禁用'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{volunteer.enabled? ? 'green' : 'default'}" do %>
+                      <%= volunteer.enabled? ? '启用' : '禁用' %>
+                      <i class="fa <%= volunteer.enabled? ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                  <% end %>
+                </td>
+                <td>
+                  <%= link_to edit_admin_volunteer_path(volunteer), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                      <i class="fa fa-edit"></i> 修改
+                  <% end %>
+                  <%= link_to admin_volunteer_path(volunteer), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                      <i class="fa fa-trash-o"></i> 删除
+                  <% end %>
+                </td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-5 col-sm-12">
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@volunteers) %></div>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <%= paginate @volunteers, theme: 'admin' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END EXAMPLE TABLE PORTLET-->

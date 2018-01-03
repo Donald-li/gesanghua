@@ -68,4 +68,16 @@ class User < ApplicationRecord
     self.donate_records.where({ created_at: (Time.now.beginning_of_year)..(Time.now.end_of_year), voucher_state: 1 }).sum(:amount)
   end
 
+  def full_address
+    ChinaCity.get(self.province).to_s + ChinaCity.get(self.city).to_s + ChinaCity.get(self.district).to_s + self.adderss.to_s
+  end
+
+  def simple_address
+    ChinaCity.get(self.province).to_s + " " + ChinaCity.get(self.city).to_s + " " + ChinaCity.get(self.district).to_s
+  end
+
+  def short_address
+    ChinaCity.get(self.city).to_s + " " + ChinaCity.get(self.district).to_s
+  end
+
 end

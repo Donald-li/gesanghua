@@ -1,0 +1,47 @@
+<div class="portlet light bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-note"></i>
+      <span class="caption-subject">新增志愿者</span>
+      <span class="caption-helper"></span>
+    </div>
+    <div class="actions">
+      <div class="portlet-input input-inline input-small">
+        <div class="input-icon right">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body form">
+    <%= simple_form_for [:admin, @volunteer], wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'volunteer_form'} do |f| %>
+        <%= f.error_notification %>
+        <div class="form-body form-horizontal">
+          <%= static_form_control 'ID：', @volunteer.user.try(:id) %>
+          <%= static_form_control '姓名：', @volunteer.user.try(:name) %>
+          <%= static_form_control '认证时间：', @volunteer.created_at.present? ? @volunteer.created_at.strftime("%Y-%M-%d %H:%M") : '' %>
+          <%= f.input :duration, label: '服务时长：', autofocus: true, placeholder: '' %>
+          <%= f.input :kind, as: :radio_buttons, wrapper: :inline_inputs, collection: Volunteer.options_for_select(:kinds), label: '类型：', include_blank: false %>
+          <%= f.input :job_state, as: :radio_buttons, wrapper: :inline_inputs, collection: Volunteer.options_for_select(:job_states), label: '工作状态：', include_blank: false %>
+          <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Volunteer.options_for_select(:states), label: '用户状态：', include_blank: false %>
+        </div>
+        <div class="form-actions">
+          <div class="row">
+            <div class="col-md-offset-2 col-md-9">
+              <%= f.button :submit, '提交', class: 'btn blue' %>
+              <%= link_to '取消', admin_volunteers_path, class: 'btn' %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+
+    <script>
+        $(function(){
+            //    表单验证
+            $(".volunteer_form").html5Validate(function(){
+                $(this).find('[type="submit"]').attr('disabled','disabled');
+                this.submit();
+            });
+        })
+    </script>
+  </div>
+</div>

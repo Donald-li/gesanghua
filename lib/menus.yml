@@ -7,23 +7,27 @@ admin:
     admin_user:
       actions:
         'admin/users': all
-    # 平台管理
-    admin_platform:
+    admin_volunteers:
       menus:
-        admin_platform_content:
-          menus:
-            admin_content_adverts:
-              actions:
-                'admin/adverts': all
-            admin_content_articles:
-              actions:
-                'admin/articles': all
-            admin_content_supports:
-              actions:
-                'admin/supports': all
-            admin_content_pages:
-              actions:
-                'admin/pages': all
+        admin_volunteer_list:
+          actions:
+            'admin/volunteers': all
+    # 平台管理
+    admin_platform_content:
+      menus:
+        admin_content_adverts:
+          actions:
+            'admin/adverts': all
+        admin_content_articles:
+          actions:
+            'admin/articles': all
+        admin_content_supports:
+          actions:
+            'admin/supports': all
+        admin_content_pages:
+          actions:
+            'admin/pages': all
+
     # 运营管理
     admin_operation:
       menus:
