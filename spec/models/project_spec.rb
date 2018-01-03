@@ -23,5 +23,13 @@
 require 'rails_helper'
 
 RSpec.describe Project, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:project) { build(:project) }
+
+  it '测试项目基本操作' do
+    project.name = '一对一'
+    project.save
+    expect(project.valid?).to be true
+    expect(project.name).to eq '一对一'
+
+  end
 end
