@@ -41,6 +41,12 @@ admin:
         admin_project_template:
           actions:
             'admin/project_templates': all
+        admin_support_category:
+          actions:
+            'admin/support_categories': all
+        admin_income_source:
+          actions:
+            'admin/income_sources': all
 
     # 管理员列表
     admin_administrator:
