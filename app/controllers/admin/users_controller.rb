@@ -1,5 +1,5 @@
 class Admin::UsersController < Admin::BaseController
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :switch, :move]
+  before_action :set_user, only: [:edit, :update, :switch]
 
   def index
     set_search_end_of_day(:created_at_lteq)
@@ -8,7 +8,20 @@ class Admin::UsersController < Admin::BaseController
     @users = scope.sorted.page(params[:page])
   end
 
-  def show
+  def new
+    @user = User.new
+  end
+
+  def create
+    @user = User.new(user_params)
+    respond_to do |format|
+      if @user.save
+        @user.attach_avatar(params[:avatar_id])
+        format.html { redirect_to admin_users_path, notice: '创建成功。' }
+      else
+        format.html { render :new }
+      end
+    end
   end
 
   def edit
