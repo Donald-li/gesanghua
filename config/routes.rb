@@ -73,7 +73,9 @@ Rails.application.routes.draw do
     resources :project_templates
     resources :audit_reports, concerns: [:switch, :file_download]
     resources :financial_reports, concerns: [:switch, :file_download]
-    resources :funds, concerns: [:switch, :move]
+    resources :funds, concerns: [:switch, :move] do
+      resource :fund_adjust_amount, only: [:new, :create]
+    end
     resources :fund_categories, concerns: [:switch, :move]
     resources :specials
     resources :pairs, concerns: [:switch]
