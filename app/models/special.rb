@@ -4,7 +4,7 @@
 #
 #  id           :integer          not null, primary key
 #  name         :string                                 # 专题名
-#  template     :string                                 # 模板
+#  template     :integer                                # 模板
 #  describe     :string                                 # 简介
 #  article_name :string                                 # 资讯名称
 #  created_at   :datetime         not null
@@ -16,7 +16,7 @@ class Special < ApplicationRecord
 
   validates :name, presence: true
 
-  enum template: {yin: 1, yang: 2}
+  enum template: {single: 1, double: 2}
   default_value_for :template, 1
 
   include HasAsset

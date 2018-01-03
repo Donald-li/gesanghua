@@ -4,7 +4,7 @@
 #
 #  id           :integer          not null, primary key
 #  name         :string                                 # 专题名
-#  template     :string                                 # 模板
+#  template     :integer                                # 模板
 #  describe     :string                                 # 简介
 #  article_name :string                                 # 资讯名称
 #  created_at   :datetime         not null

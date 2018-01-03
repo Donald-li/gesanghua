@@ -83,3 +83,6 @@ zh:
   volunteer_kinds:
     normal: '普通志愿者'
     professional: '专业志愿者'
+  special_templates:
+    single: '模板1'
+    double: '模板2'

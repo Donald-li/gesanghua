@@ -16,11 +16,7 @@
         <%= f.error_notification %>
         <div class="form-body form-horizontal">
           <%= f.input :name, label: '专题名称：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
-          <div class="form-group">
-            <label class="col-md-2 control-label">选择模板：</label><br>
-            <%= f.radio_button :template, '1' %>
-            <%= f.radio_button :template, '2' %>
-          </div>
+          <%= f.input :template, as: :radio_buttons, label: '选择模板：', collection: Special.options_for_enum_select(:templates) %>
         </div>
         <div class="form-actions">
           <div class="row">
