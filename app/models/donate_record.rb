@@ -30,6 +30,7 @@ class DonateRecord < ApplicationRecord
   belongs_to :project
   belongs_to :project_apply
   belongs_to :team
+  belongs_to :income_record
 
   has_many :voucher_donate_records
   has_many :vouchers, through: :voucher_donate_records
@@ -38,8 +39,12 @@ class DonateRecord < ApplicationRecord
 
   validates :amount, :donor, :remitter_name, presence: true
 
+  enum pay_state: { unpay: 1, paid: 2 } #付款状态， 1:已付款  2:未付款
+  default_value_for :pay_state, 1
+
   enum voucher_state: {to_bill: 1, billed: 2 } #收据状态，1:未开票 2:已开票
   default_value_for :voucher_state, 1
 
   scope :sorted, ->{ order(created_at: :desc) }
+
 end

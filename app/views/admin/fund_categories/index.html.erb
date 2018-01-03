@@ -40,14 +40,11 @@
                 一级分类名称
               </th>
               <th>二级分类名称</th>
-              <th>
-                管理费
-              </th>
+              <th>定向类型</th>
+              <th>指定类型</th>
+              <th>管理费率</th>
               <th>余额</th>
               <th>历史收入</th>
-              <th>
-                状态
-              </th>
               <th>
                 排序
               </th>
@@ -66,12 +63,8 @@
               <td></td>
               <td></td>
               <td></td>
-              <td>
-                <%= link_to switch_admin_fund_category_path(cate), data: {confirm: "确定#{cate.hidden? ? '显示' : '隐藏'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{cate.show? ? 'green' : 'default'}" do %>
-                  <%= cate.show? ? '显示' : '隐藏' %>
-                  <i class="fa <%= cate.show? ? 'fa-eye' : 'fa-eye-slash' %>"></i>
-                <% end %>
-              </td>
+              <td></td>
+              <td></td>
               <td>
                 <%= link_to '顶部', move_admin_fund_category_path(cate, to: :to_top), method: :put %>
                 <%= link_to '上', move_admin_fund_category_path(cate, to: :higher), method: :put %>
@@ -90,25 +83,24 @@
             <% if cate.funds.count > 0 %>
               <% cate.funds.sorted.each do |fund| %>
               <tr>
-                <td>
-                </td>
+                <td></td>
                 <td>
                   <%= fund.name %>
                 </td>
                 <td>
-                  <%= fund.management_rate %>%
+                  <%= fund.enum_name(:kind) %>
+                </td>
+                <td>
+                  <%= fund.enum_name(:use_kind) %>
+                </td>
+                <td>
+                  <%= fund.restricted? ? "#{fund.management_rate}%" : '-' %>
                 </td>
                 <td>
                   ￥<%= number_to_currency(fund.amount) %>
                 </td>
                 <td>
                   ￥<%= number_to_currency(fund.total) %>
-                </td>
-                <td>
-                  <%= link_to switch_admin_fund_path(fund), data: {confirm: "确定#{cate.hidden? ? '显示' : '隐藏'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{cate.show? ? 'green' : 'default'}" do %>
-                    <%= fund.show? ? '显示' : '隐藏' %>
-                    <i class="fa <%= fund.show? ? 'fa-eye' : 'fa-eye-slash' %>"></i>
-                  <% end %>
                 </td>
                 <td>
                   <%= link_to '顶部', move_admin_fund_path(fund, to: :to_top), method: :put %>

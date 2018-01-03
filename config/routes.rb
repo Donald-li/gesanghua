@@ -60,6 +60,9 @@ Rails.application.routes.draw do
     get '/account/modify-password' => 'modify_password#edit', as: :modify_password
     put '/account/modify-password' => 'modify_password#update', as: :modify_password_update
     resource :main, only: :show
+    resources :users, concerns: :switch do
+      resources :donate_records, only: [:index, :destroy]
+    end
     resources :administrators, concerns: :switch
     resources :audits, only: [:index, :show]
     resources :adverts, concerns: [:move, :switch]
@@ -70,7 +73,7 @@ Rails.application.routes.draw do
     resources :project_templates
     resources :audit_reports, concerns: [:switch, :file_download]
     resources :financial_reports, concerns: [:switch, :file_download]
-    resources :funds, only: [:new, :create, :edit, :update, :destroy], concerns: [:switch, :move]
+    resources :funds, concerns: [:switch, :move]
     resources :fund_categories, concerns: [:switch, :move]
     resources :specials
     resources :pairs, concerns: [:switch]
@@ -78,6 +81,7 @@ Rails.application.routes.draw do
     resources :pair_lists, concerns: [:switch]
     resources :support_categories, concerns: [:move, :switch]
     resources :county_users, concerns: [:switch]
+    resources :income_sources, concerns: :move
   end
 
   namespace :school do

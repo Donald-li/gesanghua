@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180102105102) do
+ActiveRecord::Schema.define(version: 20180102123913) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -228,6 +228,7 @@ ActiveRecord::Schema.define(version: 20180102105102) do
     t.integer "state", default: 1, comment: "状态 1:显示 2:隐藏"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "kind", default: 1, comment: "类型 1:非定向 2:定向"
   end
 
   create_table "funds", force: :cascade do |t|
@@ -241,6 +242,8 @@ ActiveRecord::Schema.define(version: 20180102105102) do
     t.bigint "fund_category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "kind", default: 1, comment: "类型 1:非定向 2:定向"
+    t.integer "use_kind", default: 1, comment: "指定类型 1:非指定 2:指定"
     t.index ["fund_category_id"], name: "index_funds_on_fund_category_id"
   end
 
@@ -280,6 +283,8 @@ ActiveRecord::Schema.define(version: 20180102105102) do
     t.string "name", comment: "名称"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "description", comment: "描述"
+    t.integer "position", comment: "位置"
   end
 
   create_table "logistics", force: :cascade, comment: "物流表" do |t|
@@ -342,17 +347,6 @@ ActiveRecord::Schema.define(version: 20180102105102) do
     t.integer "project_apply_id", comment: "项目申请ID"
     t.integer "child_id", comment: "格桑花孩子ID"
     t.integer "approve_state", default: 1, comment: "审核状态：1:待审核 2:申请通过 3:申请不通过"
-    t.string "province", comment: "省"
-    t.string "city", comment: "市"
-    t.string "district", comment: "区/县"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "project_quota", force: :cascade, comment: "项目配额" do |t|
-    t.integer "school_id", comment: "学校ID"
-    t.integer "project_id", comment: "项目ID"
-    t.integer "number", comment: "学生数量"
     t.string "province", comment: "省"
     t.string "city", comment: "市"
     t.string "district", comment: "区/县"
@@ -549,6 +543,13 @@ ActiveRecord::Schema.define(version: 20180102105102) do
     t.string "email", comment: "电子邮箱地址"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "nickname", comment: "昵称"
+    t.string "salutation", comment: "孩子们如何称呼我"
+    t.string "consignee", comment: "收货人"
+    t.string "province", comment: "省"
+    t.string "city", comment: "市"
+    t.string "district", comment: "区/县"
+    t.string "address", comment: "详细地址"
     t.index ["email"], name: "index_users_on_email"
     t.index ["login"], name: "index_users_on_login"
     t.index ["phone"], name: "index_users_on_phone"

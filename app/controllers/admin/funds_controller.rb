@@ -1,6 +1,12 @@
 class Admin::FundsController < Admin::BaseController
   before_action :set_fund, only: [:show, :edit, :update, :destroy, :move, :switch]
 
+  def index
+    @search = Fund.sorted.ransack(params[:q])
+    scope = @search.result
+    @funds = scope.page(params[:page])
+  end
+
   def new
     @fund = Fund.new
   end

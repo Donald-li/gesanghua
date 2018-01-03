@@ -16,9 +16,22 @@
 #  email           :string                                 # 电子邮箱地址
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  nickname        :string                                 # 昵称
+#  salutation      :string                                 # 孩子们如何称呼我
+#  consignee       :string                                 # 收货人
+#  province        :string                                 # 省
+#  city            :string                                 # 市
+#  district        :string                                 # 区/县
+#  address         :string                                 # 详细地址
 #
 
 class User < ApplicationRecord
+
+  attr_accessor :avatar_id
+
+  include HasAsset
+  has_one_asset :avatar, class_name: 'Asset::UserAvatar'
+
   belongs_to :team, optional: true
 
   has_one :administrator
@@ -38,8 +51,21 @@ class User < ApplicationRecord
   enum state: {enabled: 1, disabled: 2} #状态 1:启用 2:禁用
   default_value_for :state, 1
 
+  enum gender: {male: 1, female: 2} #性别 1:男 2:女
+  default_value_for :gender, 1
+
   scope :sorted, ->{ order(created_at: :desc) }
 
   has_secure_password
+
+  # 用于判断是否验证预留手机号码
+  def validate_phone?
+    #TODO
+  end
+
+  # 可开票金额
+  def to_bill_amount
+    self.donate_records.where({ created_at: (Time.now.beginning_of_year)..(Time.now.end_of_year), voucher_state: 1 }).sum(:amount)
+  end
 
 end

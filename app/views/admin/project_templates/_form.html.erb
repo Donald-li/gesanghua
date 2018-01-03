@@ -1,7 +1,7 @@
 <%= simple_form_for [:admin, @project_template], wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'form-horizontal project_template_form'} do |f| %>
 <%= f.error_notification %>
 <div class="form-body">
-  <%= f.hidden_field :parent_id, value: params[:parent_id] %>
+  <%= f.hidden_field :parent_id, value: 5 %>
 
   <%= f.input :name, label: '项目分类名称：', autofocus: true, placeholder: '', required: true %>
   <div class="form-group">

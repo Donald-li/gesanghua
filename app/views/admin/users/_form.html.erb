@@ -1,0 +1,57 @@
+<%= content_for :page_level_scripts do %>
+  <%= javascript_include_tag '/assets/webuploader/webuploader.js' %>
+  <%= stylesheet_link_tag '/assets/webuploader/webuploader.css' %>
+<% end %>
+<%= simple_form_for [:admin, @user], wrapper: :admin_form do |f| %>
+  <%= f.error_notification %>
+  <div class="form-body form-horizontal">
+    <h4>用户资料</h3>
+    <div class="form-group">
+      <label class="col-md-2 control-label">用户头像：</label>
+      <div class="col-sm-9">
+        <%= webuploader_tag :avatar_id, label: '上传Logo', type: 'user_avatar', asset: @user.avatar, klass: 'single' %>
+      </div>
+    </div>
+    <%= f.input :nickname, label: '昵称：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+    <%= f.input :name, label: '真实姓名：', input_html: { data: {'parsley-required': true}} %>
+    <%= f.input :salutation, label: '如何称呼：', input_html: { data: {'parsley-required': true}} %>
+    <%= f.input :gender, as: :radio_buttons, wrapper: :inline_inputs, collection: User.options_for_select(:genders), label: '性别：'%>
+    <h4>收货地址</h3>
+    <%= f.input :consignee, label: '收件人：', input_html: { data: {'parsley-required': true}} %>
+    <div style="margin-bottom: 20px;" class="form-group">
+      <label class="col-md-2 control-label select required" for="project_category_id">省市区：</label>
+      <div class="col-sm-6">
+        <div class="row city-group">
+          <div class="col-sm-3">
+            <%= select_tag 'user[province]', options_for_select(ChinaCity.list, @user.province.presence), prompt: '省份', class: "form-control city-select" %>
+          </div>
+          <div class="col-sm-3">
+            <%= select_tag 'user[city]', options_for_select(ChinaCity.list(@user.province.to_s), @user.city.presence), prompt: '城市', class: "form-control city-select" %>
+          </div>
+          <div class="col-sm-3">
+            <%= select_tag 'user[district]', options_for_select(ChinaCity.list(@user.city.to_s), @user.district.presence), prompt: '地区', class: "form-control city-select" %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= f.input :address, label: '详细地址：', input_html: { data: {'parsley-required': true}} %>
+    <h4>账号信息</h3>
+    <%= f.input :openid, label: '微信openID：', input_html: { data: {'parsley-required': true}} %>
+    <%= f.input :phone, label: '绑定手机：', input_html: { data: {'parsley-required': true}} %>
+    <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: User.options_for_select(:states), label: '账号状态：'%>
+  </div>
+  <div class="form-actions">
+    <div class="row">
+      <div class="col-md-offset-2 col-md-9">
+        <%= f.button :submit, '提交', class: 'btn blue' %>
+        <%= link_to '取消', admin_users_path, class: 'btn' %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script>
+$(function(){
+  initImageWebuploader($('#webuploader'));
+})
+</script>

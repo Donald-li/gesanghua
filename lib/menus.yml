@@ -4,6 +4,9 @@ admin:
     admin_main:
       actions:
         'admin/mains': all
+    admin_user:
+      actions:
+        'admin/users': all
     # 平台管理
     admin_platform:
       menus:
