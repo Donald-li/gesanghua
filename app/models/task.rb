@@ -14,6 +14,8 @@
 #  district   :string                                 # 区
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  start_time :datetime                               # 任务开始时间
+#  end_time   :datetime                               # 任务结束时间
 #
 
 class Task < ApplicationRecord
@@ -24,8 +26,13 @@ class Task < ApplicationRecord
 
   validates :name, :duration, :num, :content, presence: true
 
-  enum state: {show: 1, hidden: 2} # 状态 1:显示 2:隐藏
+  enum state: {draft: 1, open: 2, doing: 3, done: 4} # 状态 1:创建 2:招募 3:进行 4:完成
   default_value_for :state, 1
 
   scope :sorted, ->{ order(created_at: :desc) }
+
+  def simple_address
+    ChinaCity.get(self.province).to_s + " " + ChinaCity.get(self.city).to_s + " " + ChinaCity.get(self.district).to_s
+  end
+
 end

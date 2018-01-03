@@ -1,0 +1,68 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i> 服务历史
+    </div>
+    <div class="actions">
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="dataTables_wrapper no-footer">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="dataTables_filter pull-right">
+          </div>
+        </div>
+      </div>
+      <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover" id="sample_2">
+          <thead>
+          <tr>
+            <th>
+              时间
+            </th>
+            <th>
+              获得来源
+            </th>
+            <th>
+              获得时长（小时）
+            </th>
+            <th>
+              备注
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @service_histories.each do |history| %>
+              <tr>
+                <td>
+                  <%= history.id %>
+                </td>
+                <td>
+                  <%= history.name %>
+                </td>
+                <td>
+                  <%= history.duration %>
+                </td>
+                <td>
+                  yiyiyi
+                </td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-5 col-sm-12">
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@service_histories) %></div>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <%= paginate @service_histories, theme: 'admin' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END EXAMPLE TABLE PORTLET-->

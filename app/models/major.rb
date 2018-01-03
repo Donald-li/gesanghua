@@ -13,4 +13,8 @@ class Major < ApplicationRecord
   has_many :volunteers
 
   scope :sorted, ->{ order(created_at: :desc) }
+
+  def self.options_for_select
+    self.all.map{|c| [c.name, c.id]}
+  end
 end

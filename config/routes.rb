@@ -82,7 +82,12 @@ Rails.application.routes.draw do
     resources :support_categories, concerns: [:move, :switch]
     resources :county_users, concerns: [:switch]
     resources :income_sources, concerns: :move
-    resources :volunteers
+    resources :volunteers, concerns: [:switch] do
+      resources :service_histories
+      member do
+        put :switch_job
+      end
+    end
   end
 
   namespace :school do

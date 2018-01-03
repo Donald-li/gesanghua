@@ -34,6 +34,8 @@ class Volunteer < ApplicationRecord
   enum approve_state: { submit: 1, pass: 2, reject: 3 } # 审核状态：1:审核中 2:申请通过 3:申请不通过
   default_value_for :approve_state, 1
 
+  default_value_for :approve_time, Time.now
+
   default_value_for :level, 0
 
   scope :sorted, ->{ order(created_at: :desc) }

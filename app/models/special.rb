@@ -16,5 +16,11 @@ class Special < ApplicationRecord
 
   validates :name, presence: true
 
+  enum template: {yin: 1, yang: 2}
+  default_value_for :template, 1
+
+  include HasAsset
+  has_one_asset :banner, class_name: 'SpecialBanner'
+
   scope :sorted, ->{ order(created_at: :desc) }
 end

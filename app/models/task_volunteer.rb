@@ -20,4 +20,6 @@ class TaskVolunteer < ApplicationRecord
   enum approve_state: {submit: 1, pass: 2, reject: 3} #状态 1:待审核 2:通过 3:未通过
   default_value_for :approve_state, 1
 
+  scope :sorted, ->{ order(created_at: :desc) }
+
 end

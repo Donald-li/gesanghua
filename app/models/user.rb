@@ -80,4 +80,8 @@ class User < ApplicationRecord
     ChinaCity.get(self.city).to_s + " " + ChinaCity.get(self.district).to_s
   end
 
+  def has_volunteer?
+    self.volunteer.present?
+  end
+
 end

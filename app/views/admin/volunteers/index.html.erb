@@ -4,10 +4,6 @@
       <i class="icon-list"></i>志愿者管理
     </div>
     <div class="actions">
-      <%= link_to new_admin_volunteer_path, class: 'btn blue-soft', 'data-no-turbolink' => true do %>
-          <i class="icon-plus"></i>
-          <span>新增</span>
-      <% end %>
     </div>
   </div>
   <div class="portlet-body">
@@ -36,6 +32,9 @@
             </th>
             <th>
               姓名
+            </th>
+            <th>
+              联系方式
             </th>
             <th>
               地区
@@ -70,6 +69,9 @@
                   <%= volunteer.user.try(:name) %>
                 </td>
                 <td>
+                  <%= volunteer.user.try(:phone) %>
+                </td>
+                <td>
                   <%= volunteer.user.try(:simple_address) %>
                 </td>
                 <td>
@@ -81,10 +83,12 @@
                 <td>
                   <%= volunteer.enum_name(:kind) %>
                 </td>
-                <%= link_to switch_job_admin_volunteer_path(volunteer), data: {confirm: "确定标记为#{volunteer.leave? ? '可接受任务' : '请假'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{volunteer.available? ? 'green' : 'default'}" do %>
-                    <%= volunteer.available? ? '可接受任务' : '请假' %>
-                    <i class="fa <%= volunteer.available? ? 'fa-eye' : 'fa-eye-slash' %>"></i>
-                <% end %>
+                <td>
+                  <%= link_to switch_job_admin_volunteer_path(volunteer), data: {confirm: "确定标记为#{volunteer.leave? ? '可接受任务' : '请假'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{volunteer.available? ? 'green' : 'default'}" do %>
+                      <%= volunteer.available? ? '可接受任务' : '请假' %>
+                      <i class="fa <%= volunteer.available? ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                  <% end %>
+                </td>
                 <td>
                   <%= link_to switch_admin_volunteer_path(volunteer), data: {confirm: "确定#{volunteer.disabled? ? '启用' : '禁用'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{volunteer.enabled? ? 'green' : 'default'}" do %>
                       <%= volunteer.enabled? ? '启用' : '禁用' %>
@@ -92,6 +96,9 @@
                   <% end %>
                 </td>
                 <td>
+                  <%= link_to admin_volunteer_service_histories_path(volunteer), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                      <i class="fa fa-history"></i> 服务历史
+                  <% end %>
                   <%= link_to edit_admin_volunteer_path(volunteer), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-edit"></i> 修改
                   <% end %>

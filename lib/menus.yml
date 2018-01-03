@@ -27,6 +27,9 @@ admin:
         admin_content_pages:
           actions:
             'admin/pages': all
+        admin_content_specials:
+          actions:
+            'admin/specials': all
 
     # 运营管理
     admin_operation:

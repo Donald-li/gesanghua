@@ -11,10 +11,10 @@
           <%= f.cktext_area :content %>
         </div>
       </div>
-      <%= f.input :junior_term_amount, label: '初中资助金额（学期）：', required: true %>
-      <%= f.input :junior_year_amount, label: '初中资助金额（学年）：', required: true %>
-      <%= f.input :senior_term_amount, label: '高中资助金额（学期）：', required: true %>
-      <%= f.input :senior_year_amount, label: '高中资助金额（学年）：', required: true %>
+      <%= f.input :junior_term_amount, label: '初中资助金额（学期）：', required: true, type: 'number' %>
+      <%= f.input :junior_year_amount, label: '初中资助金额（学年）：', required: true, type: 'number' %>
+      <%= f.input :senior_term_amount, label: '高中资助金额（学期）：', required: true, type: 'number' %>
+      <%= f.input :senior_year_amount, label: '高中资助金额（学年）：', required: true, type: 'number' %>
       <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Pair.options_for_enum_select(:states), label: '状态：'%>
     </div>
     <div class="form-actions">

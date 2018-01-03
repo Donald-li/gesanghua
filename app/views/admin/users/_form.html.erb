@@ -5,7 +5,7 @@
 <%= simple_form_for [:admin, @user], wrapper: :admin_form do |f| %>
   <%= f.error_notification %>
   <div class="form-body form-horizontal">
-    <h4>用户资料</h3>
+    <h4>用户资料</h4>
     <div class="form-group">
       <label class="col-md-2 control-label">用户头像：</label>
       <div class="col-sm-9">
@@ -16,7 +16,7 @@
     <%= f.input :name, label: '真实姓名：', input_html: { data: {'parsley-required': true}} %>
     <%= f.input :salutation, label: '如何称呼：', input_html: { data: {'parsley-required': true}} %>
     <%= f.input :gender, as: :radio_buttons, wrapper: :inline_inputs, collection: User.options_for_select(:genders), label: '性别：'%>
-    <h4>收货地址</h3>
+    <h4>收货地址</h4>
     <%= f.input :consignee, label: '收件人：', input_html: { data: {'parsley-required': true}} %>
     <div style="margin-bottom: 20px;" class="form-group">
       <label class="col-md-2 control-label select required" for="project_category_id">省市区：</label>
@@ -35,7 +35,7 @@
       </div>
     </div>
     <%= f.input :address, label: '详细地址：', input_html: { data: {'parsley-required': true}} %>
-    <h4>账号信息</h3>
+    <h4>账号信息</h4>
     <%= f.input :openid, label: '微信openID：', input_html: { data: {'parsley-required': true}} %>
     <%= f.input :phone, label: '绑定手机：', input_html: { data: {'parsley-required': true}} %>
     <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: User.options_for_select(:states), label: '账号状态：'%>

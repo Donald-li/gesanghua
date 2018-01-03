@@ -14,6 +14,8 @@
 #  district   :string                                 # 区
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  start_time :datetime                               # 任务开始时间
+#  end_time   :datetime                               # 任务结束时间
 #
 
 FactoryBot.define do
