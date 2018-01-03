@@ -354,6 +354,17 @@ ActiveRecord::Schema.define(version: 20180102123913) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "project_quota", force: :cascade, comment: "项目配额" do |t|
+    t.integer "school_id", comment: "学校ID"
+    t.integer "project_id", comment: "项目ID"
+    t.integer "number", comment: "学生数量"
+    t.string "province", comment: "省"
+    t.string "city", comment: "市"
+    t.string "district", comment: "区/县"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "project_templates", force: :cascade, comment: "项目模板表" do |t|
     t.string "name", comment: "项目模板名称"
     t.integer "kind", comment: "模板类型"
