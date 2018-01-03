@@ -18,10 +18,13 @@ class Admin::PairAppliesController < Admin::BaseController
   end
 
   def create
-    @project_apply = ProjectApply.new(project_apply_params.except(:project_quotum))
+    @project_apply = ProjectApply.new(project_apply_params)
 
     respond_to do |format|
-      if @project_apply.save
+      if ProjectApply.find_by(school_id: project_apply_params[:school_id], project_id: project_apply_params[:project_id]).present?
+        flash[:notice] = '此学校在本年度还有未完成的申请'
+        format.html { render :new }
+      elsif @project_apply.save
         format.html { redirect_to admin_pair_applies_path, notice: '创建成功。' }
       else
         format.html { render :new }
