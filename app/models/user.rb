@@ -51,6 +51,9 @@ class User < ApplicationRecord
   enum state: {enabled: 1, disabled: 2} #状态 1:启用 2:禁用
   default_value_for :state, 1
 
+  enum gender: {male: 1, female: 2} #性别 1:男 2:女
+  default_value_for :gender, 1
+
   scope :sorted, ->{ order(created_at: :desc) }
 
   has_secure_password

@@ -4,18 +4,20 @@
 <% end %>
 <%= simple_form_for [:admin, @user], wrapper: :admin_form do |f| %>
   <%= f.error_notification %>
-  <div class="form-body">
+  <div class="form-body form-horizontal">
+    <h4>用户资料</h3>
     <div class="form-group">
-      <label class="col-md-2 control-label">组织Logo：</label>
+      <label class="col-md-2 control-label">用户头像：</label>
       <div class="col-sm-9">
         <%= webuploader_tag :avatar_id, label: '上传Logo', type: 'user_avatar', asset: @user.avatar, klass: 'single' %>
       </div>
     </div>
-    <%= f.input :nickname, label: '昵称：', placeholder: '', hint: '' %>
-    <%= f.input :name, label: '真实姓名：', placeholder: '', hint: '' %>
-    <%= f.input :salutation, label: '如何称呼：', placeholder: '', hint: '' %>
-    <%= f.input :gender, label: '性别：', placeholder: '', hint: '' %>
-    <%= f.input :consignee, label: '收件人：', placeholder: '', hint: '' %>
+    <%= f.input :nickname, label: '昵称：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+    <%= f.input :name, label: '真实姓名：', input_html: { data: {'parsley-required': true}} %>
+    <%= f.input :salutation, label: '如何称呼：', input_html: { data: {'parsley-required': true}} %>
+    <%= f.input :gender, as: :radio_buttons, wrapper: :inline_inputs, collection: User.options_for_select(:genders), label: '性别：'%>
+    <h4>收货地址</h3>
+    <%= f.input :consignee, label: '收件人：', input_html: { data: {'parsley-required': true}} %>
     <div style="margin-bottom: 20px;" class="form-group">
       <label class="col-md-2 control-label select required" for="project_category_id">省市区：</label>
       <div class="col-sm-6">
@@ -32,11 +34,11 @@
         </div>
       </div>
     </div>
-    <%= f.input :address, label: '详细地址：', placeholder: ''%>
-
-    <%= f.input :phone, label: '联系电话', input_html: { data: {'parsley-phone': true}} %>
-    <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: User.options_for_select(:states), label: '用户状态：'%>
-    <%= f.input :openid, label: '微信openID' %>
+    <%= f.input :address, label: '详细地址：', input_html: { data: {'parsley-required': true}} %>
+    <h4>账号信息</h3>
+    <%= f.input :openid, label: '微信openID：', input_html: { data: {'parsley-required': true}} %>
+    <%= f.input :phone, label: '绑定手机：', input_html: { data: {'parsley-required': true}} %>
+    <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: User.options_for_select(:states), label: '账号状态：'%>
   </div>
   <div class="form-actions">
     <div class="row">
@@ -47,6 +49,7 @@
     </div>
   </div>
 <% end %>
+
 <script>
 $(function(){
   initImageWebuploader($('#webuploader'));

@@ -93,15 +93,22 @@
                 <% end %>
               </td>
               <td>
-                <%= '管理员' if user.administrator.present? %>
-                <% if user.teacher.present? %>
-                  <%= '校长' if user.teacher.headmaster? %>
-                  <%= '教师' if user.teacher.teacher? %>
+                <% if user.administrator.present? %>
+                  <span class="btn btn-xs yellow">管理员</span>
                 <% end %>
-                <%= '志愿者' if user.volunteer.present? %>
-                <% if user.education_bureau_employee.present? %>
-                  <%= '教育局局长' if user.education_bureau_employee.director? %>
-                  <%= '教育局职员' if user.education_bureau_employee.staff? %>
+                <% if user.teacher.present? %>
+                  <% if user.teacher.headmaster? %>
+                    <span class="btn btn-xs yellow">校长</span>
+                  <% end %>
+                  <% if user.teacher.teacher? %>
+                    <span class="btn btn-xs yellow">教师</span>
+                  <% end %>
+                <% end %>
+                <% if user.volunteer.present? %>
+                  <span class="btn btn-xs yellow">志愿者</span>
+                <% end %>
+                <% if user.county_user.present? %>
+                  <span class="btn btn-xs yellow">县级领导</span>
                 <% end %>
               </td>
               <td>

@@ -24,7 +24,7 @@ zh:
     disable: '停用'
   user_genders:
     male: '男'
-    famale: '女'
+    female: '女'
   support_category_states:
     show: '显示'
     hidden: '隐藏'

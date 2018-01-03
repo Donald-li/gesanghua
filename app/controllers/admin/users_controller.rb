@@ -17,6 +17,7 @@ class Admin::UsersController < Admin::BaseController
   def update
     respond_to do |format|
       if @user.update(user_params)
+        @user.attach_avatar(params[:avatar_id])
         format.html { redirect_to referer_or(admin_users_url), notice: '用户已修改。' }
       else
         format.html { render :edit }
