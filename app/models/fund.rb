@@ -36,6 +36,22 @@ class Fund < ApplicationRecord
 
   enum use_kind: {unrestricted: 1, restricted: 2} # 指定类型 1:非指定 2:指定
 
+  # 调整基金金额
+  def self.adjust(from_fund, from_to, amount)
+    return if amount < 1
+
+    from = Fund.find(fund_from)
+    to = Fund.find(fund_to)
+
+    return if from.amount < amount
+
+    from.amount -= amount
+    to.amount += amount
+
+    from.save
+    to.save
+  end
+
   def self.options_for_select
     self.all.map{|c| [c.name, c.id]}
   end

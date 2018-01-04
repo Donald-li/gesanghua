@@ -73,6 +73,7 @@ module ApplicationHelper
     html.html_safe
   end
 
+  # 静态表单项
   def static_form_control(label, content)
     %{
     <div class="form-group">

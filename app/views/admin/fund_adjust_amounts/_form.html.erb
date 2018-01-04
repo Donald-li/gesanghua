@@ -1,0 +1,36 @@
+<%= simple_form_for [:admin, @fund], as: :adjust, url: admin_fund_fund_adjust_amount_path(@fund), method: :post, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'category_form'} do |f| %>
+  <%= f.error_notification %>
+  <div class="form-body form-horizontal">
+    <%= static_form_control '出财务分类：', "#{@fund.fund_category.name} - #{@fund.name}" %>
+    <div class="form-group select optional">
+      <label class="col-md-2 control-label">入财务分类：</label>
+      <div class="col-sm-9">
+        <select name="to_fund" class="form-control company_selector">
+          <% funds = Fund.where("id <> #{@fund.id} ") %>
+          <% funds.each do |fund| %>
+          <option value="<%= fund.id %>"><%= "#{fund.fund_category.name} - #{fund.name}" %></option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+    <%= f.input :amount, label: '调整金额：', autofocus: true, placeholder: '请输入金额', required: true %>
+  </div>
+  <div class="form-actions">
+    <div class="row">
+      <div class="col-md-offset-2 col-md-9">
+        <%= f.button :submit, '提交', class: 'btn blue' %>
+        <%= link_to '取消', admin_article_categories_path, class: 'btn' %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script>
+    $(function(){
+        // 表单验证
+        $(".category_form").html5Validate(function(){
+            $(this).find('[type="submit"]').attr('disabled','disabled');
+            this.submit();
+        });
+    })
+</script>
