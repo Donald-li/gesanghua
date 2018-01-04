@@ -69,7 +69,6 @@
                 <%= county_user.phone%>
               </td>
               <td>
-                <% enabled = county_user.user.try(:state) === 'enabled' %>
                 <% if county_user.user %>
                   <span class="btn btn-xs default">已激活</span>
                 <% else %>

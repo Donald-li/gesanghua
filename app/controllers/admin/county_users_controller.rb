@@ -19,7 +19,7 @@ class Admin::CountyUsersController < Admin::BaseController
     @county_user = CountyUser.new(county_user_params)
     respond_to do |format|
       if @county_user.save
-        format.html { redirect_to referer_or(admin_county_users_url), article: '用户已增加。' }
+        format.html { redirect_to referer_or(admin_county_users_url), notice: '用户已增加。' }
       else
         format.html { render :new }
       end
@@ -32,7 +32,7 @@ class Admin::CountyUsersController < Admin::BaseController
   def update
     respond_to do |format|
       if @county_user.update(county_user_params)
-        format.html { redirect_to referer_or(admin_county_users_url), county_user: '用户资料已修改。' }
+        format.html { redirect_to referer_or(admin_county_users_url), notice: '用户资料已修改。' }
       else
         format.html { render :edit }
       end
@@ -42,7 +42,7 @@ class Admin::CountyUsersController < Admin::BaseController
   def destroy
     @county_user.destroy
     respond_to do |format|
-      format.html { redirect_to referer_or(admin_county_users_url), county_user: '用户已删除。' }
+      format.html { redirect_to referer_or(admin_county_users_url), notice: '用户已删除。' }
     end
   end
 

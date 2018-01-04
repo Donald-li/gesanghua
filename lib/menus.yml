@@ -12,6 +12,9 @@ admin:
         admin_volunteer_list:
           actions:
             'admin/volunteers': all
+    admin_user_county_users:
+      actions:
+        'admin/county_users': all
     # 平台管理
     admin_platform_content:
       menus:
@@ -36,9 +39,7 @@ admin:
       menus:
         admin_user:
           menus:
-            admin_user_county_users:
-              actions:
-                'admin/county_users': all
+
 
     admin_system:
       menus:

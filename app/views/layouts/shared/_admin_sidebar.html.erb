@@ -58,7 +58,7 @@
         </ul>
       </li>
 
-      <li class="nav-item <%= current_nav_class(:admin_main) %> ">
+      <li class="nav-item <%= current_nav_class(:admin_main) %> <%= current_nav_class(:admin_user_county_users) %> ">
         <%= link_to '', class: 'nav-link' do %>
             <i class="fa fa-user"></i>
             <span class="title">用户管理</span>
@@ -66,7 +66,7 @@
         <% end %>
         <ul class="sub-menu">
           <li class="nav-item <%= current_nav_class(:admin_main) %> ">
-            <%= link_to '', class: 'nav-link' do %>
+            <%= link_to admin_children_path, class: 'nav-link' do %>
                 <i class="fa fa-user"></i>
                 <span class="title">格桑花孩子</span>
             <% end %>
