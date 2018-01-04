@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180103150516) do
+ActiveRecord::Schema.define(version: 20180104072228) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20180103150516) do
     t.text "describe", comment: "摘要"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "kind", comment: "类型"
   end
 
   create_table "assets", force: :cascade, comment: "资源表" do |t|
@@ -295,6 +296,7 @@ ActiveRecord::Schema.define(version: 20180103150516) do
     t.integer "user_id", comment: "关联用户id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "idcard", comment: "身份证"
   end
 
   create_table "income_records", force: :cascade, comment: "入帐记录表" do |t|
@@ -561,6 +563,15 @@ ActiveRecord::Schema.define(version: 20180103150516) do
     t.datetime "updated_at", null: false
     t.index ["kind"], name: "index_sms_codes_on_kind"
     t.index ["mobile"], name: "index_sms_codes_on_mobile"
+  end
+
+  create_table "special_adverts", force: :cascade do |t|
+    t.integer "special_id", comment: "专题id"
+    t.integer "advert_id", comment: "广告id"
+    t.integer "position", comment: "排序"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "kind", comment: "类型"
   end
 
   create_table "special_articles", force: :cascade, comment: "专题资讯表" do |t|

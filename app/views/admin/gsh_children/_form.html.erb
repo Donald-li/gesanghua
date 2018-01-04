@@ -1,0 +1,29 @@
+<%= simple_form_for [:admin, @gsh_child], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
+    <%= f.error_notification %>
+    <div class="form-body form-horizontal">
+      <%= f.input :gsh_no, label: '格桑花编号：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :user_id, collection: User.enabled, label: '关联用户：', prompt: "请选用户", input_html: {data: {'parsley-required': true}} %>
+      <%= f.input :idcard, label: '身份证：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :name, label: '姓名：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :phone, label: '联系方式：', autofocus: true %>
+      <%= f.input :qq, label: 'QQ：', autofocus: true %>
+      <div class="form-group">
+        <label class="col-md-2 control-label">选择地区：</label>
+        <div class="col-sm-9">
+          <div class="city-group">
+            <%= select_tag 'gsh_child[province]', options_for_select(ChinaCity.list, @gsh_child.province.presence), prompt: '省份', class: "city-select" %>
+            <%= select_tag 'gsh_child[city]', options_for_select(ChinaCity.list(@gsh_child.province.to_s), @gsh_child.city.presence), prompt: '城市', class: "city-select" %>
+            <%= select_tag 'gsh_child[district]', options_for_select(ChinaCity.list(@gsh_child.city.to_s), @gsh_child.district.presence), prompt: '地区', class: "city-select" %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-actions">
+      <div class="row">
+        <div class="col-md-offset-3 col-md-9">
+          <%= f.button :submit, '提交', class: 'btn green' %>
+          <%= link_to '取消', admin_gsh_children_path, class: 'btn' %>
+        </div>
+      </div>
+    </div>
+<% end %>

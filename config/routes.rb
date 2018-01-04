@@ -95,6 +95,9 @@ Rails.application.routes.draw do
         put :switch_job
       end
     end
+    resources :gsh_children do
+      resources :apply_records
+    end
   end
 
   namespace :school do

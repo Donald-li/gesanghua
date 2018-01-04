@@ -15,9 +15,11 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #
-
+require 'custom_validators'
 class CountyUser < ApplicationRecord
   belongs_to :user, optional: true
+
+  validates :phone, mobile: true
 
   scope :sorted, ->{ order(created_at: :desc) }
 end

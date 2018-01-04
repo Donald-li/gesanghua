@@ -15,6 +15,10 @@ admin:
     admin_user_county_users:
       actions:
         'admin/county_users': all
+    admin_user_gsh_children:
+      actions:
+        'admin/gsh_children': all
+        
     # 平台管理
     admin_platform_content:
       menus:
