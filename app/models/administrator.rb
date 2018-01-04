@@ -16,6 +16,7 @@
 class Administrator < ApplicationRecord
 
   belongs_to :user
+  accepts_nested_attributes_for :user, update_only: true
 
   has_many :administrator_logs, dependent: :destroy
   has_many :expenditure_records

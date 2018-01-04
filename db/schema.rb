@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180104044359) do
+ActiveRecord::Schema.define(version: 20180103150516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,7 +69,6 @@ ActiveRecord::Schema.define(version: 20180104044359) do
     t.text "describe", comment: "摘要"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "kind", comment: "类型"
   end
 
   create_table "assets", force: :cascade, comment: "资源表" do |t|
@@ -88,6 +87,16 @@ ActiveRecord::Schema.define(version: 20180104044359) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["type"], name: "index_assets_on_type"
+  end
+
+  create_table "audits", force: :cascade do |t|
+    t.string "owner_type"
+    t.bigint "owner_id"
+    t.integer "user_id", comment: "审核人"
+    t.text "comment", comment: "评语"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_type", "owner_id"], name: "index_audits_on_owner_type_and_owner_id"
   end
 
   create_table "bookshelves", force: :cascade, comment: "书架表" do |t|
@@ -262,6 +271,27 @@ ActiveRecord::Schema.define(version: 20180104044359) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "gsh_bookshelves", force: :cascade do |t|
+    t.integer "school_id", comment: "关联学校id"
+    t.string "classname", comment: "班级名"
+    t.string "title", comment: "冠名"
+    t.string "province", comment: "省"
+    t.string "city", comment: "市"
+    t.string "district", comment: "区/县"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "gsh_children", force: :cascade, comment: "格桑花孩子表" do |t|
+    t.integer "school_id", comment: "关联学校id"
+    t.string "name", comment: "孩子姓名"
+    t.string "province", comment: "省"
+    t.string "city", comment: "市"
+    t.string "district", comment: "区/县"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "income_records", force: :cascade, comment: "入帐记录表" do |t|
     t.integer "user_id", comment: "用户id"
     t.integer "fund_id", comment: "基金ID"
@@ -355,6 +385,91 @@ ActiveRecord::Schema.define(version: 20180104044359) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "project_season_applies", force: :cascade, comment: "项目执行年度申请表" do |t|
+    t.integer "project_id", comment: "关联项目id"
+    t.integer "project_season_id", comment: "关联项目执行年度的id"
+    t.integer "school_id", comment: "关联学校id"
+    t.integer "teacher_id", comment: "负责项目的老师id"
+    t.text "describe", comment: "描述、申请要求"
+    t.string "province", comment: "省"
+    t.string "city", comment: "市"
+    t.string "district", comment: "区/县"
+    t.integer "state", default: 1, comment: "状态：1:展示 2:隐藏"
+    t.integer "gsh_child_id", comment: "关联格桑花孩子id"
+    t.integer "gsh_bookshelf_id", comment: "关联格桑花书架(图书角)id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "project_season_apply_bookshelves", force: :cascade, comment: "项目执行年度申请书架表" do |t|
+    t.integer "project_id", comment: "关联项目id"
+    t.integer "project_season_id", comment: "关联项目执行年度id"
+    t.integer "project_season_apply_id", comment: "关联项目执行年度申请id"
+    t.integer "gsh_bookshelf_id", comment: "关联格桑花书架id"
+    t.string "classname", comment: "班级名"
+    t.string "title", comment: "冠名"
+    t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "筹款金额"
+    t.decimal "surplus", precision: 14, scale: 2, default: "0.0", comment: "剩余捐款额"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "project_season_apply_children", force: :cascade, comment: "项目执行年度申请的孩子表" do |t|
+    t.integer "project_id", comment: "关联项目id"
+    t.integer "project_season_id", comment: "关联项目执行年度id"
+    t.integer "project_season_apply_id", comment: "关联项目执行年度申请id"
+    t.integer "gsh_child_id", comment: "关联格桑花孩子表id"
+    t.string "name", comment: "孩子姓名"
+    t.string "province", comment: "省"
+    t.string "city", comment: "市"
+    t.string "district", comment: "区/县"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "project_season_apply_gooods", force: :cascade, comment: "项目执行年度申请的物品表" do |t|
+    t.integer "project_id", comment: "关联项目id"
+    t.integer "project_season_id", comment: "关联项目执行年度id"
+    t.integer "project_season_apply_id", comment: "关联项目执行年度申请id"
+    t.integer "project_season_goods_id", comment: "关联项目执行年度物品id"
+    t.integer "num", comment: "物品申请数量"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "project_season_apply_volunteers", force: :cascade, comment: "项目执行年度申请和志愿者关联表" do |t|
+    t.integer "project_id", comment: "关联项目id"
+    t.integer "project_season_id", comment: "关联项目执行年度id"
+    t.integer "project_season_apply_id", comment: "关联项目执行年度的申请id"
+    t.integer "volunteer_id", comment: "关联志愿者id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "project_season_courses", force: :cascade, comment: "项目执行年度的课程表(例：护花)" do |t|
+    t.integer "project_id", comment: "关联项目id"
+    t.integer "project_season_id", comment: "关联项目执行年度id"
+    t.string "name", comment: "课程名称"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "project_season_goods", force: :cascade, comment: "物资类项目，执行年度的物品表" do |t|
+    t.integer "project_id", comment: "关联项目id"
+    t.integer "project_season_id", comment: "关联执行年度id"
+    t.string "name", comment: "物品名称"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "project_seasons", force: :cascade, comment: "项目执行年度表" do |t|
+    t.integer "project_id", comment: "关联项目表id"
+    t.string "name", comment: "执行年度名称"
+    t.integer "state", comment: "状态 1:未执行 2:执行中"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "project_templates", force: :cascade, comment: "项目模板表" do |t|
     t.string "name", comment: "项目模板名称"
     t.integer "kind", comment: "模板类型"
@@ -369,16 +484,13 @@ ActiveRecord::Schema.define(version: 20180104044359) do
     t.index ["ancestry"], name: "index_project_templates_on_ancestry"
   end
 
-  create_table "projects", force: :cascade, comment: "项目表" do |t|
+  create_table "projects", force: :cascade do |t|
+    t.string "type", comment: "单表继承字段"
+    t.integer "kind", comment: "项目类型 1:固定项目 2:物资类项目"
     t.string "name", comment: "项目名称"
-    t.string "type", comment: "项目类型：1:结对 2:物资 3:悦读 4:营 5:观影"
-    t.text "content", comment: "项目内容"
-    t.integer "state", default: 1, comment: "项目状态：1:启用 2:禁用"
-    t.integer "fund_id", comment: "基金ID"
-    t.integer "contribute_kind", default: 1, comment: "捐款类型：1:整捐 2:零捐"
-    t.string "category_type", comment: "具体项目分类"
-    t.integer "category_id", comment: "分类ID"
-    t.integer "project_template_id", comment: "项目模板ID"
+    t.text "describe", comment: "简介"
+    t.text "protocol", comment: "用户协议"
+    t.integer "fund", comment: "关联财务分类id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "junior_term_amount", precision: 14, scale: 2, default: "0.0", comment: "初中资助金额（学期）"
@@ -446,15 +558,6 @@ ActiveRecord::Schema.define(version: 20180104044359) do
     t.index ["mobile"], name: "index_sms_codes_on_mobile"
   end
 
-  create_table "special_adverts", force: :cascade do |t|
-    t.integer "special_id", comment: "专题id"
-    t.integer "advert_id", comment: "广告id"
-    t.integer "position", comment: "排序"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "kind", comment: "类型"
-  end
-
   create_table "special_articles", force: :cascade, comment: "专题资讯表" do |t|
     t.integer "special_id", comment: "专题id"
     t.integer "article_id", comment: "资讯id"
@@ -466,7 +569,7 @@ ActiveRecord::Schema.define(version: 20180104044359) do
   create_table "specials", force: :cascade, comment: "专题表" do |t|
     t.string "name", comment: "专题名"
     t.integer "template", comment: "模板"
-    t.text "describe", comment: "简介"
+    t.string "describe", comment: "简介"
     t.string "article_name", comment: "资讯名称"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
