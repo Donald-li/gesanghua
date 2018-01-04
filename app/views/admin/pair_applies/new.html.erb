@@ -13,6 +13,7 @@
     </div>
   </div>
   <div class="portlet-body form">
+    <% if Pair.enabled.first.present? %>
     <%= simple_form_for [:admin, @project_apply], url: admin_pair_applies_path, wrapper: :admin_form, html: {class: 'form-horizontal project_template_form'} do |f| %>
         <%= f.error_notification %>
         <div class="form-body">
@@ -33,15 +34,17 @@
           </div>
         </div>
     <% end %>
-    <script type="text/javascript">
-        $(function(){
-            //    表单验证
-            $(".project_template_form").html5Validate(function(){
-                $(this).find('[type="submit"]').attr('disabled','disabled');
-                this.submit();
-            });
-        })
-    </script>
-
+    <% else %>
+      <h4>请先设置可用年度 <%= link_to '去设置', admin_pairs_path, class: 'btn btn-xs blue' %> </h4>
+    <% end %>
   </div>
 </div>
+<script type="text/javascript">
+    $(function(){
+        //    表单验证
+        $(".project_template_form").html5Validate(function(){
+            $(this).find('[type="submit"]').attr('disabled','disabled');
+            this.submit();
+        });
+    })
+</script>
