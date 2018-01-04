@@ -44,7 +44,7 @@ class User < ApplicationRecord
   has_many :campaign_enlists
   has_many :donate_records
   has_many :income_records
-  has_many :project_applies
+  has_many :project_season_applies
 
   validates :password, confirmation: true, length: { minimum: 6 }, allow_blank: true
   validates :email, email: true
