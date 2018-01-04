@@ -11,6 +11,8 @@
 #  approve_state       :integer                                # 审核状态
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  finish_time         :datetime                               # 任务完成时间
+#  approve_time        :datetime                               # 审核时间
 #
 
 require 'rails_helper'

@@ -19,14 +19,14 @@
 #
 
 class Task < ApplicationRecord
-  belongs_to :major
+  belongs_to :major, optional: true
 
   has_many :task_volunteers
   has_many :volunteers, through: :task_volunteers
 
   validates :name, :duration, :num, :content, presence: true
 
-  enum state: {draft: 1, open: 2, doing: 3, done: 4} # 状态 1:创建 2:招募 3:进行 4:完成
+  enum state: {draft: 1, open: 2, picking: 3, doing: 4, done: 5} # 状态 1:创建 2:报名 3:筛选 4:进行 5:完成
   default_value_for :state, 1
 
   scope :sorted, ->{ order(created_at: :desc) }

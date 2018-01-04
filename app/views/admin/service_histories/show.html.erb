@@ -1,4 +1,81 @@
-<p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_admin_service_history_path(@admin_service_history) %> |
-<%= link_to 'Back', admin_service_histories_path %>
+<div class="portlet light portlet-fit bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-bubble font-dark"></i>
+      <span class="caption-subject font-dark bold uppercase">任务详情</span>
+    </div>
+    <div class="actions">
+      <div class="btn-group">
+        <a href="<%= admin_volunteer_service_histories_path(@volunteer) %>" class="btn btn-default">
+          <i class="fa fa-reply"></i>返回
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="table-scrollable">
+      <table class="table table-bordered table-hover">
+        <tbody>
+        <tr>
+          <th width="72px">
+            任务名称
+          </th>
+          <th>
+            <%= @task.name %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            时长
+          </th>
+          <th>
+            <%= @task.duration %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            内容
+          </th>
+          <th>
+            <%= @task.content.html_safe %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            需要人数
+          </th>
+          <th>
+            <%= @task.num %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            专业
+          </th>
+          <th>
+            <%= @task.major.try(:name) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            地区
+          </th>
+          <th>
+            <%= @task.simple_address %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            任务时间
+          </th>
+          <th>
+            开始时间：<%= l @task.start_time if @task.start_time.present? %> <br>
+            结束时间：<%= l @task.end_time if @task.end_time.present? %>
+          </th>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

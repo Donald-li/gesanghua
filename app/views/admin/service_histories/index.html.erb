@@ -21,16 +21,28 @@
           <thead>
           <tr>
             <th>
-              时间
+              编号
             </th>
             <th>
-              获得来源
+              任务名称
             </th>
             <th>
               获得时长（小时）
             </th>
             <th>
+              任务时间
+            </th>
+            <th>
+              地点
+            </th>
+            <th>
+              任务完成时间
+            </th>
+            <th>
               备注
+            </th>
+            <th>
+              操作
             </th>
           </tr>
           </thead>
@@ -41,13 +53,28 @@
                   <%= history.id %>
                 </td>
                 <td>
-                  <%= history.name %>
+                  <%= history.task.try(:name) %>
                 </td>
                 <td>
                   <%= history.duration %>
                 </td>
                 <td>
-                  yiyiyi
+                  开始时间：<%= l history.task.start_time if history.task.start_time.present? %> <br>
+                  结束时间：<%= l history.task.end_time if history.task.end_time.present? %>
+                </td>
+                <td>
+                  <%= history.task.try(:simple_address) %>
+                </td>
+                <td>
+                  <%= l history.finish_time if history.finish_time.present? %>
+                </td>
+                <td>
+                  <%= history.comment %>
+                </td>
+                <td>
+                  <%= link_to admin_volunteer_service_history_url(@volunteer, history), class: 'btn btn-xs blue' do %>
+                      <i class="fa fa-file"></i> 任务详情
+                  <% end %>
                 </td>
               </tr>
           <% end %>

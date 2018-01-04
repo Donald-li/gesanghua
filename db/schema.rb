@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180103150516) do
+ActiveRecord::Schema.define(version: 20180104072418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20180103150516) do
     t.text "describe", comment: "摘要"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "kind", comment: "类型"
   end
 
   create_table "assets", force: :cascade, comment: "资源表" do |t|
@@ -92,6 +93,7 @@ ActiveRecord::Schema.define(version: 20180103150516) do
   create_table "audits", force: :cascade do |t|
     t.string "owner_type"
     t.bigint "owner_id"
+    t.integer "state", comment: "审核状态 0:待审核 1:通过 2:未通过"
     t.integer "user_id", comment: "审核人"
     t.text "comment", comment: "评语"
     t.datetime "created_at", null: false
@@ -288,6 +290,10 @@ ActiveRecord::Schema.define(version: 20180103150516) do
     t.string "province", comment: "省"
     t.string "city", comment: "市"
     t.string "district", comment: "区/县"
+    t.string "gsh_no", comment: "格桑花孩子编号"
+    t.string "phone", comment: "联系电话"
+    t.string "qq", comment: "qq号"
+    t.integer "user_id", comment: "关联用户id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -558,6 +564,15 @@ ActiveRecord::Schema.define(version: 20180103150516) do
     t.index ["mobile"], name: "index_sms_codes_on_mobile"
   end
 
+  create_table "special_adverts", force: :cascade do |t|
+    t.integer "special_id", comment: "专题id"
+    t.integer "advert_id", comment: "广告id"
+    t.integer "position", comment: "排序"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "kind", comment: "类型"
+  end
+
   create_table "special_articles", force: :cascade, comment: "专题资讯表" do |t|
     t.integer "special_id", comment: "专题id"
     t.integer "article_id", comment: "资讯id"
@@ -569,7 +584,7 @@ ActiveRecord::Schema.define(version: 20180103150516) do
   create_table "specials", force: :cascade, comment: "专题表" do |t|
     t.string "name", comment: "专题名"
     t.integer "template", comment: "模板"
-    t.string "describe", comment: "简介"
+    t.text "describe", comment: "简介"
     t.string "article_name", comment: "资讯名称"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -604,6 +619,8 @@ ActiveRecord::Schema.define(version: 20180103150516) do
     t.integer "approve_state", comment: "审核状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "finish_time", comment: "任务完成时间"
+    t.datetime "approve_time", comment: "审核时间"
   end
 
   create_table "tasks", force: :cascade, comment: "任务表" do |t|

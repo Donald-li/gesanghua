@@ -90,7 +90,7 @@ Rails.application.routes.draw do
     resources :county_users, concerns: [:switch]
     resources :income_sources, concerns: :move
     resources :volunteers, concerns: [:switch] do
-      resources :service_histories
+      resources :service_histories, only: [:index, :show]
       member do
         put :switch_job
       end

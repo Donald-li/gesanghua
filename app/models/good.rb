@@ -1,23 +1,20 @@
 # == Schema Information
 #
-# Table name: projects # 项目表
+# Table name: projects
 #
-#  id                  :integer          not null, primary key
-#  name                :string                                 # 项目名称
-#  type                :string                                 # 项目类型：1:结对 2:物资 3:悦读 4:营 5:观影
-#  content             :text                                   # 项目内容
-#  state               :integer          default("enabled")    # 项目状态：1:启用 2:禁用
-#  fund_id             :integer                                # 基金ID
-#  contribute_kind     :integer          default("entirety")   # 捐款类型：1:整捐 2:零捐
-#  category_type       :string                                 # 具体项目分类
-#  category_id         :integer                                # 分类ID
-#  project_template_id :integer                                # 项目模板ID
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  junior_term_amount  :decimal(14, 2)   default(0.0)          # 初中资助金额（学期）
-#  junior_year_amount  :decimal(14, 2)   default(0.0)          # 初中资助金额（学年）
-#  senior_term_amount  :decimal(14, 2)   default(0.0)          # 高中资助金额（学期）
-#  senior_year_amount  :decimal(14, 2)   default(0.0)          # 高中资助金额（学年）
+#  id                 :integer          not null, primary key
+#  type               :string                                 # 单表继承字段
+#  kind               :integer                                # 项目类型 1:固定项目 2:物资类项目
+#  name               :string                                 # 项目名称
+#  describe           :text                                   # 简介
+#  protocol           :text                                   # 用户协议
+#  fund               :integer                                # 关联财务分类id
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  junior_term_amount :decimal(14, 2)   default(0.0)          # 初中资助金额（学期）
+#  junior_year_amount :decimal(14, 2)   default(0.0)          # 初中资助金额（学年）
+#  senior_term_amount :decimal(14, 2)   default(0.0)          # 高中资助金额（学期）
+#  senior_year_amount :decimal(14, 2)   default(0.0)          # 高中资助金额（学年）
 #
 
 class Good < Project

@@ -43,9 +43,16 @@ namespace :demo do
     good.children.find_or_create_by(name: '护花', protocol_name: '护花捐助协议', protocol_content: content, describe: description, kind: 1, fund: fc5.funds.second)
 
     # 生成结对项目可用年度
-    Pair.find_or_create_by(name: '2017年一对一结对助学项目', content: content, state: 1, junior_term_amount: 1200, junior_year_amount: 2400, senior_term_amount: 2000, senior_year_amount: 4000)
+    Pair.find_or_create_by(name: '2017年一对一结对助学项目', junior_term_amount: 1200, junior_year_amount: 2400, senior_term_amount: 2000, senior_year_amount: 4000)
     # 生成学校
     School.find_or_create_by(name: '西宁第一实验中学', address: '某街', approve_state: 2, province: '630000', city: '630100', district: '630101', number: '600', describe: '优秀中学', level: 1, contact_name: '陈俊生', contact_phone: '17866548888')
+
+    # 生成志愿者和任务
+    v = Volunteer.find_or_create_by(level: 0, duration: 200, user_id: 1, approve_state: 2)
+    5.times do
+      t = Task.find_or_create_by(name: Faker::Name.name, duration: 15, content: '做任务', num: 6, state: rand(2..5), province: '630000', city: '630100', district: '630101', start_time: Time.now - 10.days, end_time: Time.now + 20.days)
+      t.task_volunteers.find_or_create_by(volunteer_id: v.id)
+    end
 
   end
 
