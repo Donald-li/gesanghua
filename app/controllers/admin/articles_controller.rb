@@ -3,7 +3,7 @@ class Admin::ArticlesController < Admin::BaseController
 
   def index
     set_search_end_of_day(:published_at_lteq)
-    @search = Article.sorted.ransack(params[:q])
+    @search = Article.visible.sorted.ransack(params[:q])
     scope = @search.result
     @articles = scope.page(params[:page])
   end

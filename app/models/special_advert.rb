@@ -1,19 +1,23 @@
 # == Schema Information
 #
-# Table name: special_articles # 专题资讯表
+# Table name: special_adverts
 #
 #  id         :integer          not null, primary key
 #  special_id :integer                                # 专题id
-#  article_id :integer                                # 资讯id
+#  advert_id  :integer                                # 广告id
 #  position   :integer                                # 排序
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  kind       :integer                                # 类型
 #
 
-class SpecialArticle < ApplicationRecord
+class SpecialAdvert < ApplicationRecord
   belongs_to :special
-  belongs_to :article
+  belongs_to :advert
 
   acts_as_list
   scope :reverse_sorted, ->{ order(position: :asc) }
+
+  enum kind: {top: 1, down: 2}
+
 end

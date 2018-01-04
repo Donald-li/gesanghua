@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180103093252) do
+ActiveRecord::Schema.define(version: 20180104044359) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20180103093252) do
     t.text "describe", comment: "摘要"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "kind", comment: "类型"
   end
 
   create_table "assets", force: :cascade, comment: "资源表" do |t|
@@ -445,6 +446,15 @@ ActiveRecord::Schema.define(version: 20180103093252) do
     t.index ["mobile"], name: "index_sms_codes_on_mobile"
   end
 
+  create_table "special_adverts", force: :cascade do |t|
+    t.integer "special_id", comment: "专题id"
+    t.integer "advert_id", comment: "广告id"
+    t.integer "position", comment: "排序"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "kind", comment: "类型"
+  end
+
   create_table "special_articles", force: :cascade, comment: "专题资讯表" do |t|
     t.integer "special_id", comment: "专题id"
     t.integer "article_id", comment: "资讯id"
@@ -456,7 +466,7 @@ ActiveRecord::Schema.define(version: 20180103093252) do
   create_table "specials", force: :cascade, comment: "专题表" do |t|
     t.string "name", comment: "专题名"
     t.integer "template", comment: "模板"
-    t.string "describe", comment: "简介"
+    t.text "describe", comment: "简介"
     t.string "article_name", comment: "资讯名称"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

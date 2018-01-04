@@ -22,8 +22,8 @@ class Admin::SpecialsController < Admin::BaseController
     @special = Special.new(special_params)
     respond_to do |format|
       if @special.save
-        #@special.attach_image(params[:image_id])
-        format.html { redirect_to referer_or(admin_specials_url), special: '专题已增加。' }
+        @special.attach_banner(params[:banner_id])
+        format.html { redirect_to admin_specials_path, notice: '专题已增加。' }
       else
         format.html { render :new }
       end
@@ -33,8 +33,8 @@ class Admin::SpecialsController < Admin::BaseController
   def update
     respond_to do |format|
       if @special.update(special_params)
-        #@special.attach_image(params[:image_id])
-        format.html { redirect_to referer_or(admin_specials_url), special: '专题已修改。' }
+        @special.attach_banner(params[:banner_id])
+        format.html { redirect_to edit_admin_special_path(@special), notice: '专题已修改。' }
       else
         format.html { render :edit }
       end
@@ -44,7 +44,7 @@ class Admin::SpecialsController < Admin::BaseController
   def destroy
     @special.destroy
     respond_to do |format|
-      format.html { redirect_to referer_or(admin_specials_url), special: '专题已删除。' }
+      format.html { redirect_to admin_specials_path, notice: '专题已删除。' }
     end
   end
 

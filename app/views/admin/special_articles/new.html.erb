@@ -1,0 +1,57 @@
+<div class="portlet light bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-icon"></i>
+      <span class="caption-subject">新增</span>
+    </div>
+    <div class="actions">
+      <div class="portlet-input input-inline input-small">
+        <div class="input-icon right">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body form">
+    <%= simple_form_for [:admin, @special, @article], url: admin_special_special_articles_path, wrapper: :admin_form, html: {'data-parsley-validate': true} do |f| %>
+        <%= f.error_notification %>
+        <div class="form-body form-horizontal">
+          <%= f.input :title, label: '标题：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+          <div class="form-group">
+            <label class="col-md-2 control-label">封面：</label>
+            <div class="col-sm-9">
+              <%= webuploader_tag :image_id, label: '上传封面', type: 'article_image', asset: @article.image, klass: 'single' %>
+            </div>
+          </div>
+          <%= f.input :author, label: '作者：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+          <%= f.input :source, label: '来源：', autofocus: true, input_html: { data: {}} %>
+          <%= f.input :describe, label: '摘要：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+          <div class="form-group">
+            <label class="col-md-2 control-label">详情：</label>
+            <div class="col-sm-9">
+              <%= f.cktext_area :content, input_html: { data: {'parsley-required': true}}  %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label">发布时间：</label>
+            <div class="col-sm-9">
+              <%= f.text_field :published_at, class: 'datepicker', placeholder: '发布时间' %>
+            </div>
+          </div>
+        </div>
+        <div class="form-actions">
+          <div class="row">
+            <div class="col-md-offset-2 col-md-9">
+              <%= f.button :submit, '提交', class: 'btn blue' %>
+              <%= link_to '取消', edit_admin_special_path(@special), class: 'btn' %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+
+  </div>
+</div>
+<script>
+    $(function () {
+        initImageWebuploader($('#webuploader'));
+    })
+</script>

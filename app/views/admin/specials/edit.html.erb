@@ -5,28 +5,141 @@
       <span class="caption-subject">修改专题</span>
     </div>
     <div class="actions">
-      <div class="portlet-input input-inline input-small">
-        <div class="input-icon right">
-        </div>
+      <div class="btn-group">
+        <a href="<%= admin_specials_path %>" class="btn btn-default">
+          <i class="fa fa-reply"></i> 返回列表
+        </a>
       </div>
     </div>
   </div>
-  <div class="portlet-body form">
-    <%= simple_form_for [:admin, @special], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
-        <%= f.error_notification %>
-        <div class="form-body form-horizontal">
-          <%= f.input :name, label: '专题名称：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
-          <%= f.input :template, as: :select, label: '模板类型：', collection: Special.options_for_enum_select(:templates), include_blank: false %>
-
-        </div>
-        <div class="form-actions">
-          <div class="row">
-            <div class="col-md-offset-3 col-md-9">
-              <%= f.button :submit, '提交', class: 'btn green' %>
-              <%= link_to '取消', admin_specials_path, class: 'btn' %>
+  <div class="portlet light bordered">
+    <div class="portlet light bordered">
+      <div class="portlet-body form" id="special-form">
+        <%= simple_form_for [:admin, @special], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
+            <%= f.error_notification %>
+            <div class="form-body form-horizontal">
+              <div class="form-group">
+                <label class="col-md-2 control-label">专题Banner：</label>
+                <div class="col-sm-9">
+                  <%= webuploader_tag :banner_id, label: '上传Banner', type: 'special_banner', asset: @special.banner, klass: 'single' %>
+                </div>
+              </div>
+              <%= f.input :describe, label: '专题导读：', input_html: {data: {'parsley-required': true}} %>
             </div>
-          </div>
+            <div class="form-actions">
+              <div class="row">
+                <div class="col-md-offset-3 col-md-9">
+                  <%= f.button :submit, '保存', class: 'btn green' %>
+                </div>
+              </div>
+            </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="portlet light bordered" id="top-adverts">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="icon-share font-red-sunglo"></i>
+          <span class="caption-subject font-red-sunglo bold uppercase">左侧图集</span>
         </div>
-    <% end %>
+        <div class="actions">
+          <%= link_to new_admin_special_special_advert_path(@special, item_kind: 'top'), class: 'btn blue-soft', 'data-no-turbolink' => true do %>
+              <i class="icon-plus"></i>
+              <span>新增</span>
+          <% end %>
+        </div>
+      </div>
+      <div class="portlet-body row">
+        <% @special.special_adverts.top.reverse_sorted.each do |item| %>
+            <div class="col-sm-5 col-md-4 thumbnail">
+              <%= image_tag item.advert.image_url(:tiny) %>
+              <div class="caption">
+                <div style="height: 60px"><%= item.advert.try(:title) %></div>
+                <p>
+                  <%= link_to '修改', edit_admin_special_special_advert_path(@special, item.advert), class: 'btn blue' %>
+                  <%= link_to admin_special_special_advert_path(@special, item.advert), class: 'btn red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                      <i class="fa fa-trash-o"></i> 删除
+                  <% end %>
+                </p>
+              </div>
+            </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="portlet light bordered" id="special-articles">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="icon-share font-red-sunglo"></i>
+          <span class="caption-subject font-red-sunglo bold uppercase">右侧文字新闻</span>
+        </div>
+        <div class="actions">
+          <%= link_to new_admin_special_special_article_path(@special), class: 'btn blue-soft', 'data-no-turbolink' => true do %>
+              <i class="icon-plus"></i>
+              <span>新增</span>
+          <% end %>
+        </div>
+      </div>
+      <div class="portlet-body">
+        <% @special.articles.reverse_sorted.each do |article| %>
+          <div class="portlet light bordered">
+            <div class="well well-sm">
+              <div class="portlet-title">
+                <div class="caption">
+                  <%= article.title %>
+                </div>
+              </div>
+              <div class="portlet-body">
+                <%= article.describe %>
+              </div>
+            </div>
+            <p>
+              <%= link_to '修改', edit_admin_special_special_article_path(@special, article), class: 'btn blue' %>
+              <%= link_to admin_special_special_article_path(@special, article), class: 'btn red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                  <i class="fa fa-trash-o"></i> 删除
+              <% end %>
+            </p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="portlet light bordered" id="down-adverts">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="icon-share font-red-sunglo"></i>
+          <span class="caption-subject font-red-sunglo bold uppercase">图片新闻</span>
+        </div>
+        <div class="actions">
+          <%= link_to new_admin_special_special_advert_path(@special, item_kind: 'down'), class: 'btn blue-soft', 'data-no-turbolink' => true do %>
+              <i class="icon-plus"></i>
+              <span>新增</span>
+          <% end %>
+        </div>
+      </div>
+      <div class="portlet-body row">
+        <% @special.special_adverts.down.reverse_sorted.each do |item| %>
+            <div class="col-sm-6 col-md-3 thumbnail">
+              <%= image_tag item.advert.image_url(:tiny) %>
+              <div class="caption">
+                <div style="height: 60px"><%= item.advert.try(:title) %></div>
+                <p>
+                  <%= link_to '修改', edit_admin_special_special_advert_path(@special, item.advert), class: 'btn blue' %>
+                  <%= link_to admin_special_special_advert_path(@special, item.advert), class: 'btn red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                      <i class="fa fa-trash-o"></i> 删除
+                  <% end %>
+                </p>
+              </div>
+            </div>
+        <% end %>
+      </div>
+    </div>
   </div>
+
 </div>
+<script>
+    $(function () {
+        initImageWebuploader($('#webuploader'));
+    })
+</script>

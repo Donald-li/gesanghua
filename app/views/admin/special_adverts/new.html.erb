@@ -1,0 +1,50 @@
+<div class="portlet light bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-icon"></i>
+      <span class="caption-subject">新增</span>
+    </div>
+    <div class="actions">
+      <div class="portlet-input input-inline input-small">
+        <div class="input-icon right">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body form">
+    <%= simple_form_for [:admin, @special, @advert], url: admin_special_special_adverts_path, wrapper: :admin_form, html: {'data-parsley-validate': true} do |f| %>
+        <%= f.error_notification %>
+        <div class="form-body form-horizontal">
+          <%= f.input :title, label: '标题：', autofocus: true, placeholder: '', hint: '请填写标题' %>
+          <div class="form-group">
+            <label class="col-md-2 control-label">图片：</label>
+            <div class="col-sm-9">
+              <%= webuploader_tag :image_id, label: '上传图片', type: 'advert_image', asset: @advert.image, klass: 'single' %>
+              <!--<p class="help-block">请上传1014X608px的图片</p>-->
+            </div>
+          </div>
+          <%= f.input :url, label: '链接：', placeholder: '以‘http://’或‘https://’开头' %>
+          <!--<div class="form-group">-->
+          <!--<label class="col-md-2 control-label">内容：</label>-->
+          <!--<div class="col-sm-9">-->
+          <!--<%= f.cktext_area :description %>-->
+          <!--</div>-->
+          <!--</div>-->
+        </div>
+        <div class="form-actions">
+          <div class="row">
+            <div class="col-md-offset-2 col-md-9">
+              <%= f.button :submit, '提交', class: 'btn blue' %>
+              <%= link_to '取消', edit_admin_special_path(@special), class: 'btn' %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+    <script>
+        $(function () {
+            initImageWebuploader($('#webuploader'));
+        })
+    </script>
+
+  </div>
+</div>
