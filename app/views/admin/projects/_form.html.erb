@@ -6,7 +6,7 @@
     <label class="col-md-2 control-label">财务分类：</label>
     <div class="col-sm-9">
       <select id="fund" class="form-control select optional" name="project[fund_id]" required>
-        <% FundCategory.all.each do |fc| %>
+        <% FundCategory.directional.reverse_sorted.each do |fc| %>
         <optgroup label="<%= fc.name %>">
           <% fc.funds.each do |fund| %>
           <option value="<%= fund.id %>" <%= 'selected' if @project.fund_id == fund.id %>><%= fund.name %></option>

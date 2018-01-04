@@ -1,11 +1,11 @@
 namespace :demo do
   task init: [:environment] do
     # 基金类型
-    fc1 = FundCategory.find_or_create_by(name: '结对', describe: '结对')
-    fc2 = FundCategory.find_or_create_by(name: '悦读', describe: '悦读')
-    fc3 = FundCategory.find_or_create_by(name: '观影', describe: '观影')
-    fc4 = FundCategory.find_or_create_by(name: '探索营', describe: '探索营')
-    fc5 = FundCategory.find_or_create_by(name: '物资类', describe: '物资类')
+    fc1 = FundCategory.find_or_create_by(name: '结对', describe: '结对', kind: 'directional')
+    fc2 = FundCategory.find_or_create_by(name: '悦读', describe: '悦读', kind: 'directional')
+    fc3 = FundCategory.find_or_create_by(name: '观影', describe: '观影', kind: 'directional')
+    fc4 = FundCategory.find_or_create_by(name: '探索营', describe: '探索营', kind: 'directional')
+    fc5 = FundCategory.find_or_create_by(name: '物资类', describe: '物资类', kind: 'directional')
     FundCategory.all.each do |fc|
       Fund.find_or_create_by(name: "#{fc.name}指定", management_rate: 5, describe: '定向指定', fund_category_id: fc.id)
       Fund.find_or_create_by(name: "#{fc.name}非指定", management_rate: 5, describe: '定向非指定', fund_category_id: fc.id)
