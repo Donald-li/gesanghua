@@ -30,6 +30,8 @@ admin:
         admin_content_specials:
           actions:
             'admin/specials': all
+            'admin/special_adverts': all
+            'admin/special_articles': all
 
     # 运营管理
     admin_operation:
