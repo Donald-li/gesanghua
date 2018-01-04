@@ -21,21 +21,21 @@
     </div>
 <% end %>
 <script>
-    $(function(){
-        //    表单验证
-        $(".admin_form").html5Validate(function(){
-            $(this).find('[type="submit"]').attr('disabled','disabled');
-            this.submit();
-        },  {
-                validate: function() {
-                    var password = $('#password').val();
-                    var password_confirmation = $('#password_confirmation').val();
-                    if (password !== password_confirmation) {
-                        alert("确认密码错误");
-                        return false;
-                    }
-                    return true;
-                }
-            });
-    })
+    // $(function(){
+    //     //    表单验证
+    //     $(".admin_form").html5Validate(function(){
+    //         $(this).find('[type="submit"]').attr('disabled','disabled');
+    //         this.submit();
+    //     },  {
+    //             validate: function() {
+    //                 var password = $('#password').val();
+    //                 var password_confirmation = $('#password_confirmation').val();
+    //                 if (password !== password_confirmation) {
+    //                     alert("确认密码错误");
+    //                     return false;
+    //                 }
+    //                 return true;
+    //             }
+    //         });
+    // })
 </script>

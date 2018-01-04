@@ -46,4 +46,13 @@ namespace :demo do
     School.create(name: '西宁第一实验中学', address: '某街', approve_state: 2, province: '630000', city: '630100', district: '630101', number: '600', describe: '优秀中学', level: 1, contact_name: '陈俊生', contact_phone: '17866548888')
 
   end
+
+  task user_donate: :environment do
+    # 新增用户
+    user1 = User.create(login: 'Garnett', password: '123123', name: 'Garnett', phone: '18888888888')
+    donate_record1 = user1.donate_records.build(donor: '刘阿四', remitter_name: '阿四', amount: '8.88', pay_state: 2)
+    donate_record2 = user1.donate_records.build(donor: '阮小五', remitter_name: '小五', amount: '9.99', pay_state: 2)
+    donate_record1.save(validate: false)
+    donate_record2.save(validate: false)
+  end
 end

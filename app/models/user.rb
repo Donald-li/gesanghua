@@ -27,6 +27,8 @@
 
 class User < ApplicationRecord
 
+  require 'custom_validators'
+
   attr_accessor :avatar_id
 
   include HasAsset
@@ -44,6 +46,9 @@ class User < ApplicationRecord
   has_many :income_records
   has_many :project_applies
 
+  validates :password, confirmation: true, length: { minimum: 6 }, allow_blank: true
+  validates :email, email: true
+  validates :phone, mobile: true
   validates :name, :login, presence: true
   validates :login, uniqueness: true
   default_value_for :profile, {}
@@ -65,7 +70,7 @@ class User < ApplicationRecord
 
   # 可开票金额
   def to_bill_amount
-    self.donate_records.where({ created_at: (Time.now.beginning_of_year)..(Time.now.end_of_year), voucher_state: 1 }).sum(:amount)
+    self.donate_records.where({ created_at: (Time.now.beginning_of_year)..(Time.now.end_of_year), voucher_state: 1, pay_state: 2 }).sum(:amount)
   end
 
   def full_address
