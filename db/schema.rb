@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180104072418) do
+ActiveRecord::Schema.define(version: 20180104091727) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -347,6 +347,8 @@ ActiveRecord::Schema.define(version: 20180104072418) do
     t.integer "gsh_bookshelf_id", comment: "关联格桑花书架(图书角)id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name", comment: "名称"
+    t.integer "number", comment: "配额"
   end
 
   create_table "project_season_apply_bookshelves", force: :cascade, comment: "项目执行年度申请书架表" do |t|
@@ -414,22 +416,12 @@ ActiveRecord::Schema.define(version: 20180104072418) do
     t.integer "project_id", comment: "关联项目表id"
     t.string "name", comment: "执行年度名称"
     t.integer "state", comment: "状态 1:未执行 2:执行中"
+    t.decimal "junior_term_amount", precision: 14, scale: 2, default: "0.0", comment: "初中资助金额（学期）"
+    t.decimal "junior_year_amount", precision: 14, scale: 2, default: "0.0", comment: "初中资助金额（学年）"
+    t.decimal "senior_term_amount", precision: 14, scale: 2, default: "0.0", comment: "高中资助金额（学期）"
+    t.decimal "senior_year_amount", precision: 14, scale: 2, default: "0.0", comment: "高中资助金额（学年）"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "project_templates", force: :cascade, comment: "项目模板表" do |t|
-    t.string "name", comment: "项目模板名称"
-    t.integer "kind", comment: "模板类型"
-    t.integer "fund_id", comment: "基金ID"
-    t.string "protocol_name", comment: "协议名称"
-    t.text "protocol_content", comment: "协议内容"
-    t.integer "contribute_kind", default: 1, comment: "捐款类型：1:整捐 2:零捐"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "ancestry"
-    t.text "describe", comment: "描述"
-    t.index ["ancestry"], name: "index_project_templates_on_ancestry"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -441,10 +433,6 @@ ActiveRecord::Schema.define(version: 20180104072418) do
     t.integer "fund_id", comment: "关联财务分类id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.decimal "junior_term_amount", precision: 14, scale: 2, default: "0.0", comment: "初中资助金额（学期）"
-    t.decimal "junior_year_amount", precision: 14, scale: 2, default: "0.0", comment: "初中资助金额（学年）"
-    t.decimal "senior_term_amount", precision: 14, scale: 2, default: "0.0", comment: "高中资助金额（学期）"
-    t.decimal "senior_year_amount", precision: 14, scale: 2, default: "0.0", comment: "高中资助金额（学年）"
   end
 
   create_table "remarks", force: :cascade, comment: "备注信息表" do |t|

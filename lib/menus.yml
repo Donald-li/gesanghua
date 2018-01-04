@@ -83,9 +83,9 @@ admin:
       menus:
         admin_pair:
           menus:
-            admin_pair_project:
+            admin_pair_season:
               actions:
-                'admin/pairs': all
+                'admin/pair_seasons': all
             admin_pair_applies:
               actions:
                 'admin/pair_applies': all

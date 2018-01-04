@@ -81,7 +81,7 @@ Rails.application.routes.draw do
       resources :special_adverts
       resources :special_articles
     end
-    resources :pairs, concerns: [:switch]
+    resources :pair_seasons, concerns: [:switch]
     resources :pair_applies do
       resources :pair_students
     end

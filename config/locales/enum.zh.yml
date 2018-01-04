@@ -68,7 +68,7 @@ zh:
   project_kinds:
     normal: '基本类'
     goods: '物资类'
-  project_apply_states:
+  project_season_apply_states:
     show: '显示'
     hidden: '隐藏'
   user_states:

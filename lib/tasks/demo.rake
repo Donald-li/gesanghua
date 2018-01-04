@@ -42,7 +42,7 @@ namespace :demo do
     Project.find_or_create_by(name: '护花', protocol: content, describe: description, kind: 2, fund: fc5.funds.second)
 
     # 生成结对项目可用年度
-    Pair.find_or_create_by(name: '2017年一对一结对助学项目', junior_term_amount: 1200, junior_year_amount: 2400, senior_term_amount: 2000, senior_year_amount: 4000)
+    ProjectSeason.find_or_create_by(name: '2017年一对一结对助学项目', junior_term_amount: 1200, junior_year_amount: 2400, senior_term_amount: 2000, senior_year_amount: 4000)
     # 生成学校
     School.find_or_create_by(name: '西宁第一实验中学', address: '某街', approve_state: 2, province: '630000', city: '630100', district: '630101', number: '600', describe: '优秀中学', level: 1, contact_name: '陈俊生', contact_phone: '17866548888')
 

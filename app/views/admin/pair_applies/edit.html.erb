@@ -16,9 +16,9 @@
     <%= simple_form_for [:admin, @project_apply], url: admin_pair_apply_path, wrapper: :admin_form, html: {class: 'form-horizontal project_form'} do |f| %>
         <%= f.error_notification %>
         <div class="form-body">
-          <%= static_form_control '申请年度：', Pair.enabled.first.name %>
+          <%= static_form_control '申请年度：', ProjectSeason.where(project_id: ProjectSeason.pair_project_id).enabled.first.name %>
           <%= f.input :name, label: '申请名称：', autofocus: true, placeholder: '', required: true %>
-          <%= f.input :number, label: '配额数量：', placeholder: '学生数量', required: true %>
+          <%= f.input :number, label: '配额数量：', placeholder: '学生数量', required: true, type: 'number' %>
           <%= f.input :school_id, as: :select, label: '选择学校：', collection: School.options_for_select, include_blank: false %>
           <%= f.input :describe, label: '申请要求：', placeholder: '要求', required: true %>
         </div>
