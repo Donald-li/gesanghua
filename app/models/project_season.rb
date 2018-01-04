@@ -17,6 +17,8 @@
 class ProjectSeason < ApplicationRecord
   belongs_to :project
 
+  has_many :project_season_applies, dependent: :destroy
+
   validates :name, presence: true
 
   enum state: {enabled: 1, disabled: 2}
