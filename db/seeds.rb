@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # 超级管理员
-admin = User.new(login: 'admin', password: 'admin!', name: 'Administrator', phone: '0971-8862113')
+admin = User.new(login: 'admin', password: 'admin!', name: 'Administrator', phone: '18888888888')
 admin.build_administrator(nickname: '超级管理员', kind: 1)
 admin.save
 
