@@ -77,7 +77,10 @@ Rails.application.routes.draw do
       resource :fund_adjust_amount, only: [:new, :create]
     end
     resources :fund_categories, concerns: [:switch, :move]
-    resources :specials
+    resources :specials do
+      resources :special_adverts
+      resources :special_articles
+    end
     resources :pairs, concerns: [:switch]
     resources :pair_applies do
       resources :pair_students

@@ -34,6 +34,9 @@
                 专题标题
               </th>
               <th>
+                模板类型
+              </th>
+              <th>
                 专题简介
               </th>
               <th>
@@ -46,6 +49,9 @@
             <tr>
               <td>
                 <%= special.name %>
+              </td>
+              <td>
+                <%= special.enum_name(:template) %>
               </td>
               <td>
                 <%= special.describe %>

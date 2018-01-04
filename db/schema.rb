@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(version: 20180103150516) do
   create_table "audits", force: :cascade do |t|
     t.string "owner_type"
     t.bigint "owner_id"
+    t.integer "state", comment: "审核状态 0:待审核 1:通过 2:未通过"
     t.integer "user_id", comment: "审核人"
     t.text "comment", comment: "评语"
     t.datetime "created_at", null: false
@@ -288,6 +289,10 @@ ActiveRecord::Schema.define(version: 20180103150516) do
     t.string "province", comment: "省"
     t.string "city", comment: "市"
     t.string "district", comment: "区/县"
+    t.string "gsh_no", comment: "格桑花孩子编号"
+    t.string "phone", comment: "联系电话"
+    t.string "qq", comment: "qq号"
+    t.integer "user_id", comment: "关联用户id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
