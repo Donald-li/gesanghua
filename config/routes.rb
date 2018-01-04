@@ -70,7 +70,7 @@ Rails.application.routes.draw do
     resources :article_categories, concerns: [:move, :switch]
     resources :supports, concerns: [:move, :switch]
     resources :pages, concerns: [:move, :switch]
-    resources :project_templates
+    resources :projects
     resources :audit_reports, concerns: [:switch, :file_download]
     resources :financial_reports, concerns: [:switch, :file_download]
     resources :funds, concerns: [:switch, :move] do

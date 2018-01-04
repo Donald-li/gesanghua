@@ -34,13 +34,12 @@ namespace :demo do
     </p>
     }
     description = "为了使资助者与受助人保持长久的联系，同时保证资助款发挥真正的助学之用，请资助双方认真阅读填写本协议书以作书面凭证。在签定本协议之前，请资助者仔细阅读以下条款，并请严格遵守"
-    ProjectTemplate.find_or_create_by(name: '结对', protocol_name: '结对助学协议', protocol_content: content, describe: description, kind: 1, fund: fc1.funds.first)
-    ProjectTemplate.find_or_create_by(name: '悦读', protocol_name: '悦读捐助协议', protocol_content: content, describe: description, kind: 1, fund: fc2.funds.first)
-    ProjectTemplate.find_or_create_by(name: '观影', protocol_name: '观影捐助协议', protocol_content: content, describe: description, kind: 1, fund: fc3.funds.first)
-    ProjectTemplate.find_or_create_by(name: '探索营', protocol_name: '探索营捐助协议', protocol_content: content, describe: description, kind: 1, fund: fc4.funds.first)
-    good = ProjectTemplate.find_or_create_by(name: '物资类', protocol_name: '物资类捐助协议', protocol_content: content, describe: description, kind: 1, fund: fc5.funds.first)
-    good.children.find_or_create_by(name: '广播', protocol_name: '广播捐助协议', protocol_content: content, describe: description, kind: 1, fund: fc5.funds.second)
-    good.children.find_or_create_by(name: '护花', protocol_name: '护花捐助协议', protocol_content: content, describe: description, kind: 1, fund: fc5.funds.second)
+    Project.find_or_create_by(name: '结对', protocol: content, describe: description, kind: 1, fund: fc1.funds.first)
+    Project.find_or_create_by(name: '悦读', protocol: content, describe: description, kind: 1, fund: fc2.funds.first)
+    Project.find_or_create_by(name: '观影', protocol: content, describe: description, kind: 1, fund: fc3.funds.first)
+    Project.find_or_create_by(name: '探索营', protocol: content, describe: description, kind: 1, fund: fc4.funds.first)
+    Project.find_or_create_by(name: '广播', protocol: content, describe: description, kind: 2, fund: fc5.funds.second)
+    Project.find_or_create_by(name: '护花', protocol: content, describe: description, kind: 2, fund: fc5.funds.second)
 
     # 生成结对项目可用年度
     Pair.find_or_create_by(name: '2017年一对一结对助学项目', junior_term_amount: 1200, junior_year_amount: 2400, senior_term_amount: 2000, senior_year_amount: 4000)

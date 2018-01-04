@@ -23,7 +23,7 @@ class Fund < ApplicationRecord
   has_many :income_records
   has_many :expenditure_records
   has_many :projects
-  has_many :project_templates
+  has_many :projects
 
   validates :name, :describe, presence: true
 

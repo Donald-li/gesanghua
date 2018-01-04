@@ -8,7 +8,7 @@
 #  name               :string                                 # 项目名称
 #  describe           :text                                   # 简介
 #  protocol           :text                                   # 用户协议
-#  fund               :integer                                # 关联财务分类id
+#  fund_id            :integer                                # 关联财务分类id
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  junior_term_amount :decimal(14, 2)   default(0.0)          # 初中资助金额（学期）
@@ -22,8 +22,12 @@ class Project < ApplicationRecord
 
   validates :name, :protocol, presence: true
 
-  enum kind: { normal: 1, goods: 2 }
+  enum kind: { normal: 1, goods: 2 } # 项目类型 1:基本类 2:物资类
 
   scope :sorted, ->{ order(created_at: :desc) }
+
+  def sliced_describe
+    self.describe.length > 90 ? self.describe.slice(0..90) : self.describe
+  end
 
 end

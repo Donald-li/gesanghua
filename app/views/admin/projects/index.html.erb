@@ -4,7 +4,7 @@
       <i class="icon-list"></i>项目分类管理
     </div>
     <div class="actions">
-      <%= link_to new_admin_project_template_path, class: 'btn blue-soft', 'data-no-turbolink' => true do %>
+      <%= link_to new_admin_project_path, class: 'btn blue-soft', 'data-no-turbolink' => true do %>
       <i class="icon-plus"></i>
       <span>新增物资类项目</span>
       <% end %>
@@ -14,7 +14,7 @@
     <div class="dataTables_wrapper no-footer">
       <div class="row">
         <div class="col-md-12 col-sm-12">
-          <%= search_form_for @search, url: admin_project_templates_path, class: 'form-inline' do |f| %>
+          <%= search_form_for @search, url: admin_projects_path, class: 'form-inline' do |f| %>
               <div class="form-group">
                 <%= f.label :name_cont, '分类名' %>
                 <%= f.text_field :name_cont, class: 'form-control', placeholder: '分类名' %>
@@ -32,10 +32,10 @@
           <thead>
           <tr>
             <th>
-              项目分类
+              分类名称
             </th>
             <th>
-              子分类
+              类型
             </th>
             <th>
               描述
@@ -46,56 +46,33 @@
           </tr>
           </thead>
           <tbody>
-          <% @project_templates.each do |project_template| %>
+          <% @projects.each do |project| %>
               <tr>
                 <td>
-                  <%= project_template.name %>
+                  <%= project.name %>
                 </td>
                 <td>
+                  <%= project.enum_name(:kind) %>
                 </td>
                 <td>
-                  <%=  project_template.sliced_describe %>
+                  <%=  project.sliced_describe %>
                 </td>
                 <td>
-                  <%= link_to edit_admin_project_template_path(project_template), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                  <%= link_to edit_admin_project_path(project), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-edit"></i> 修改
                   <% end %>
                 </td>
               </tr>
-              <% project_template.children.sorted.each do |prot| %>
-                  <tr>
-                    <td>
-
-                    </td>
-                    <td>
-                      <%= prot.name %>
-                    </td>
-                    <td>
-                      <%= prot.describe %>
-                    </td>
-                    <td>
-                      <%= link_to edit_admin_project_template_path(prot), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                          <i class="fa fa-edit"></i> 修改
-                      <% end %>
-                      <% if prot.custom? %>
-                      <%= link_to admin_project_template_path(prot), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
-                          <i class="fa fa-trash-o"></i> 删除
-                      <% end %>
-                      <% end %>
-                    </td>
-                  </tr>
-              <% end %>
-              <!-- -->
           <% end %>
           </tbody>
         </table>
       </div>
       <div class="row">
         <div class="col-md-5 col-sm-12">
-          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@project_templates) %></div>
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@projects) %></div>
         </div>
         <div class="col-md-7 col-sm-12">
-          <%= paginate @project_templates, theme: 'admin' %>
+          <%= paginate @projects, theme: 'admin' %>
         </div>
       </div>
     </div>

@@ -47,7 +47,7 @@ admin:
             'admin/article_categories': all
         admin_project_template:
           actions:
-            'admin/project_templates': all
+            'admin/projects': all
         admin_support_category:
           actions:
             'admin/support_categories': all

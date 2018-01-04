@@ -14,7 +14,7 @@
   </div>
   <div class="portlet-body form">
     <% if Pair.enabled.first.present? %>
-    <%= simple_form_for [:admin, @project_apply], url: admin_pair_applies_path, wrapper: :admin_form, html: {class: 'form-horizontal project_template_form'} do |f| %>
+    <%= simple_form_for [:admin, @project_apply], url: admin_pair_applies_path, wrapper: :admin_form, html: {class: 'form-horizontal project_form'} do |f| %>
         <%= f.error_notification %>
         <div class="form-body">
           <%= f.hidden_field :project_id, value: Pair.enabled.first.id %>
@@ -42,7 +42,7 @@
 <script type="text/javascript">
     $(function(){
         //    表单验证
-        $(".project_template_form").html5Validate(function(){
+        $(".project_form").html5Validate(function(){
             $(this).find('[type="submit"]').attr('disabled','disabled');
             this.submit();
         });

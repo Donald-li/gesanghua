@@ -40,9 +40,6 @@ zh:
   article_states:
     show: '显示'
     hidden: '隐藏'
-  project_template_contribute_kinds:
-    entirety: '整捐'
-    scattered: '零捐'
   report_states:
   fund_states:
     show: '显示'
@@ -68,6 +65,9 @@ zh:
   school_levels:
     junior: '初中'
     senior: '高中'
+  project_kinds:
+    normal: '基本类'
+    goods: '物资类'
   project_apply_states:
     show: '显示'
     hidden: '隐藏'

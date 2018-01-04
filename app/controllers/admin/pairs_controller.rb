@@ -11,8 +11,8 @@ class Admin::PairsController < Admin::BaseController
   end
 
   def new
-    project_template = ProjectTemplate.find(1)
-    @pair = project_template.pairs.new(contribute_kind: project_template.contribute_kind, fund_id: project_template.fund_id)
+    project = ProjectTemplate.find(1)
+    @pair = project.pairs.new(contribute_kind: project.contribute_kind, fund_id: project.fund_id)
   end
 
   def edit

@@ -13,7 +13,7 @@
     </div>
   </div>
   <div class="portlet-body form">
-    <%= simple_form_for [:admin, @project_apply], url: admin_pair_apply_path, wrapper: :admin_form, html: {class: 'form-horizontal project_template_form'} do |f| %>
+    <%= simple_form_for [:admin, @project_apply], url: admin_pair_apply_path, wrapper: :admin_form, html: {class: 'form-horizontal project_form'} do |f| %>
         <%= f.error_notification %>
         <div class="form-body">
           <%= static_form_control '申请年度：', Pair.enabled.first.name %>
@@ -34,7 +34,7 @@
     <script type="text/javascript">
         $(function(){
             //    表单验证
-            $(".project_template_form").html5Validate(function(){
+            $(".project_form").html5Validate(function(){
                 $(this).find('[type="submit"]').attr('disabled','disabled');
                 this.submit();
             });

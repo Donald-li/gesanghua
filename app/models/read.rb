@@ -8,7 +8,7 @@
 #  name               :string                                 # 项目名称
 #  describe           :text                                   # 简介
 #  protocol           :text                                   # 用户协议
-#  fund               :integer                                # 关联财务分类id
+#  fund_id            :integer                                # 关联财务分类id
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  junior_term_amount :decimal(14, 2)   default(0.0)          # 初中资助金额（学期）
