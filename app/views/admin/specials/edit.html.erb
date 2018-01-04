@@ -31,6 +31,7 @@
           <%= simple_form_for [:admin, @special], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
               <%= f.error_notification %>
               <div class="form-body form-horizontal">
+                <%= f.input :name, label: '专题名称：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
                 <div class="form-group">
                   <label class="col-md-2 control-label">专题Banner：</label>
                   <div class="col-sm-9">
