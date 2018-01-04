@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180103163112) do
+ActiveRecord::Schema.define(version: 20180103150516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -333,16 +333,6 @@ ActiveRecord::Schema.define(version: 20180103163112) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "new_projects", force: :cascade do |t|
-    t.string "type", comment: "单表继承字段"
-    t.integer "kind", comment: "项目类型 1:固定项目 2:物资类项目"
-    t.string "name", comment: "项目名称"
-    t.text "protocol", comment: "用户协议"
-    t.integer "fund", comment: "关联财务分类id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "offline_donors", force: :cascade, comment: "代捐人表" do |t|
     t.integer "user_id", comment: "用户ID"
     t.string "name", comment: "姓名"
@@ -494,16 +484,13 @@ ActiveRecord::Schema.define(version: 20180103163112) do
     t.index ["ancestry"], name: "index_project_templates_on_ancestry"
   end
 
-  create_table "projects", force: :cascade, comment: "项目表" do |t|
+  create_table "projects", force: :cascade do |t|
+    t.string "type", comment: "单表继承字段"
+    t.integer "kind", comment: "项目类型 1:固定项目 2:物资类项目"
     t.string "name", comment: "项目名称"
-    t.string "type", comment: "项目类型：1:结对 2:物资 3:悦读 4:营 5:观影"
-    t.text "content", comment: "项目内容"
-    t.integer "state", default: 1, comment: "项目状态：1:启用 2:禁用"
-    t.integer "fund_id", comment: "基金ID"
-    t.integer "contribute_kind", default: 1, comment: "捐款类型：1:整捐 2:零捐"
-    t.string "category_type", comment: "具体项目分类"
-    t.integer "category_id", comment: "分类ID"
-    t.integer "project_template_id", comment: "项目模板ID"
+    t.text "describe", comment: "简介"
+    t.text "protocol", comment: "用户协议"
+    t.integer "fund", comment: "关联财务分类id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "junior_term_amount", precision: 14, scale: 2, default: "0.0", comment: "初中资助金额（学期）"

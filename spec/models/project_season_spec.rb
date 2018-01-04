@@ -13,5 +13,13 @@
 require 'rails_helper'
 
 RSpec.describe ProjectSeason, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:project) { build(:hair_project) }
+
+  it '测试结对项目基本操作' do
+    # project.name = '结对'
+    # project.save
+    expect(project.valid?).to be true
+    expect(project.name).to eq '结对'
+    expect(project.normal?).to be true
+  end
 end
