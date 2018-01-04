@@ -14,11 +14,17 @@
 #
 
 FactoryBot.define do
-  factory :hair_project, class: 'Project' do
+  factory :project, aliases: [:hair_project] do
     name '结对'
     describe '一对一结对项目'
     kind 'normal'
     protocol '用户协议'
+
+    trait :with_seasons do
+      after(:build) do |project|
+        create_list :project_season, 2, project: project
+      end
+    end
   end
 
 end

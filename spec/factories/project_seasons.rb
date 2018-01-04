@@ -16,6 +16,8 @@
 
 FactoryBot.define do
   factory :project_season do
-
+    project
+    name '2017'
+    state 1
   end
 end

@@ -17,13 +17,11 @@
 require 'rails_helper'
 
 RSpec.describe ProjectSeason, type: :model do
-  let(:project) { build(:hair_project) }
+  let(:project_season) { build(:project_season) }
 
-  it '测试结对项目基本操作' do
-    # project.name = '结对'
-    # project.save
-    expect(project.valid?).to be true
-    expect(project.name).to eq '结对'
-    expect(project.normal?).to be true
+  it '测试项目执行年度基本操作' do
+    expect(project_season.valid?).to be true
+    expect(project_season.name).to eq '2017'
+    expect(project_season.project.normal?).to be true
   end
 end

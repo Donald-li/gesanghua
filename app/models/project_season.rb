@@ -16,7 +16,6 @@
 
 class ProjectSeason < ApplicationRecord
   belongs_to :project
-
   has_many :project_season_applies, dependent: :destroy
 
   validates :name, presence: true

@@ -16,11 +16,18 @@
 require 'rails_helper'
 
 RSpec.describe Project, type: :model do
-  let(:project) { build(:hair_project) }
+  let(:project) { build(:project, :with_seasons) }
+
+  it '' do
+  end
 
   it '测试结对项目基本操作' do
-    # project.name = '结对'
+    # project.seasons.new(name: '2017年度')
     # project.save
+
+    byebug
+
+    expect(project.seasons.first.name).to eq '2017年度'
     expect(project.valid?).to be true
     expect(project.name).to eq '结对'
     expect(project.normal?).to be true

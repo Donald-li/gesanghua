@@ -14,6 +14,13 @@
 #
 
 class Project < ApplicationRecord
+  has_many :seasons, class_name: 'ProjectSeason', dependent: :destroy
+  has_many :applies, class_name: 'ProjectSeasonApply', dependent: :destroy
+  has_many :children, class_name: 'ProjectSeasonApplyChild', dependent: :destroy
+  has_many :bookshelves, class_name: 'ProjectSeasonApplyBookshelf', dependent: :destroy
+  has_many :goods, class_name: 'ProjectSeasonApplyGoods', dependent: :destroy
+  has_many :volunteer, class_name: 'Volunteer', dependent: :destroy
+
   belongs_to :fund, optional: true
 
   validates :name, :protocol, presence: true
