@@ -17,7 +17,7 @@
 #
 
 class Volunteer < ApplicationRecord
-  belongs_to :major, optional: true # TODO 专业管理添加完成后处理
+  belongs_to :major, optional: true
   belongs_to :user
   has_many :task_volunteers
   has_many :tasks, through: :task_volunteers

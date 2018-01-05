@@ -11,11 +11,13 @@
 #  province          :string                                 # 省
 #  city              :string                                 # 市
 #  district          :string                                 # 区/县
-#  state             :integer          default(1)            # 状态：1:展示 2:隐藏
+#  state             :integer          default("show")       # 状态：1:展示 2:隐藏
 #  gsh_child_id      :integer                                # 关联格桑花孩子id
 #  gsh_bookshelf_id  :integer                                # 关联格桑花书架(图书角)id
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  name              :string                                 # 名称
+#  number            :integer                                # 配额
 #
 
 FactoryBot.define do

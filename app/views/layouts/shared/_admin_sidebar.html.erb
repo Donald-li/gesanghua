@@ -148,8 +148,8 @@
               <span class="arrow <%= current_nav_class(:admin_pair, current: :open) %>"></span>
             </a>
             <ul class="sub-menu">
-              <li class="nav-item <%= current_nav_class(:admin_pair_project) %> ">
-                <%= link_to admin_pairs_path, class: 'nav-link' do %>
+              <li class="nav-item <%= current_nav_class(:admin_pair_season) %> ">
+                <%= link_to admin_pair_seasons_path, class: 'nav-link' do %>
                     <span class="title">年度管理</span>
                 <% end %>
               </li>
@@ -243,7 +243,7 @@
             <% end %>
           </li>
           <li class="nav-item  <%= current_nav_class(:admin_project_template) %>">
-            <%= link_to admin_project_templates_path, class: 'nav-link' do %>
+            <%= link_to admin_projects_path, class: 'nav-link' do %>
                 <span class="title">项目分类管理</span>
             <% end %>
           </li>

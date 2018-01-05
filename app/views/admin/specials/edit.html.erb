@@ -15,28 +15,40 @@
       </div>
     </div>
   </div>
+
   <div class="portlet light bordered">
-    <div class="portlet light bordered">
-      <div class="portlet-body form" id="special-form">
-        <%= simple_form_for [:admin, @special], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
-            <%= f.error_notification %>
-            <div class="form-body form-horizontal">
-              <div class="form-group">
-                <label class="col-md-2 control-label">专题Banner：</label>
-                <div class="col-sm-9">
-                  <%= webuploader_tag :banner_id, label: '上传Banner', type: 'special_banner', asset: @special.banner, klass: 'single' %>
+    <div class="portlet light bordered" id="basic-info">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="icon-share font-red-sunglo"></i>
+          <span class="caption-subject font-red-sunglo bold uppercase">专题信息</span>
+        </div>
+        <div class="actions">
+        </div>
+      </div>
+      <div class="portlet-body">
+        <div class="portlet-body form" id="special-form">
+          <%= simple_form_for [:admin, @special], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
+              <%= f.error_notification %>
+              <div class="form-body form-horizontal">
+                <%= f.input :name, label: '专题名称：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+                <div class="form-group">
+                  <label class="col-md-2 control-label">专题Banner：</label>
+                  <div class="col-sm-9">
+                    <%= webuploader_tag :banner_id, label: '上传Banner', type: 'special_banner', asset: @special.banner, klass: 'single' %>
+                  </div>
+                </div>
+                <%= f.input :describe, label: '专题导读：', input_html: {data: {'parsley-required': true}} %>
+              </div>
+              <div class="form-actions">
+                <div class="row">
+                  <div class="col-md-offset-3 col-md-9">
+                    <%= f.button :submit, '保存', class: 'btn green' %>
+                  </div>
                 </div>
               </div>
-              <%= f.input :describe, label: '专题导读：', input_html: {data: {'parsley-required': true}} %>
-            </div>
-            <div class="form-actions">
-              <div class="row">
-                <div class="col-md-offset-3 col-md-9">
-                  <%= f.button :submit, '保存', class: 'btn green' %>
-                </div>
-              </div>
-            </div>
-        <% end %>
+          <% end %>
+        </div>
       </div>
     </div>
 
@@ -44,7 +56,7 @@
       <div class="portlet-title">
         <div class="caption">
           <i class="icon-share font-red-sunglo"></i>
-          <span class="caption-subject font-red-sunglo bold uppercase">左侧图集</span>
+          <span class="caption-subject font-red-sunglo bold uppercase">滚动图集</span>
         </div>
         <div class="actions">
           <%= link_to new_admin_special_special_advert_path(@special, item_kind: 'top'), class: 'btn blue-soft', 'data-no-turbolink' => true do %>
@@ -75,7 +87,7 @@
       <div class="portlet-title">
         <div class="caption">
           <i class="icon-share font-red-sunglo"></i>
-          <span class="caption-subject font-red-sunglo bold uppercase">右侧文字新闻</span>
+          <span class="caption-subject font-red-sunglo bold uppercase">文字新闻</span>
         </div>
         <div class="actions">
           <%= link_to new_admin_special_special_article_path(@special), class: 'btn blue-soft', 'data-no-turbolink' => true do %>

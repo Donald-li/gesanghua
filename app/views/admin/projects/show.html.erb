@@ -7,7 +7,7 @@
     </div>
     <div class="actions">
       <div class="btn-group">
-        <a href="<%= admin_project_templates_path %>" class="btn btn-default">
+        <a href="<%= admin_projects_path %>" class="btn btn-default">
           <i class="fa fa-reply"></i>返回
         </a>
       </div>
@@ -22,7 +22,7 @@
             分类名称
           </th>
           <th>
-            <%= @project_template.name %>
+            <%= @project.name %>
           </th>
         </tr>
         <tr>
@@ -30,7 +30,7 @@
             财务分类
           </th>
           <th>
-            <%= @project_template.fund.try(:name) %>
+            <%= @project.fund.try(:name) %>
           </th>
         </tr>
         <tr>
@@ -38,7 +38,7 @@
             捐款类型
           </th>
           <th>
-            <%= @project_template.enum_name(:contribute_kind) %>
+            <%= @project.enum_name(:contribute_kind) %>
           </th>
         </tr>
         <tr>
@@ -46,7 +46,7 @@
             分类描述
           </th>
           <th>
-            <%= @project_template.describe %>
+            <%= @project.describe %>
           </th>
         </tr>
         <tr>
@@ -54,7 +54,7 @@
             协议名称
           </th>
           <th>
-            <%= @project_template.protocol_name %>
+            <%= @project.protocol_name %>
           </th>
         </tr>
         <tr>
@@ -62,7 +62,7 @@
             协议内容
           </th>
           <th>
-            <%= @project_template.protocol_content.html_safe %>
+            <%= @project.protocol_content.html_safe %>
           </th>
         </tr>
         </tbody>

@@ -37,6 +37,8 @@ admin:
         admin_content_specials:
           actions:
             'admin/specials': all
+            'admin/special_adverts': all
+            'admin/special_articles': all
 
     # 运营管理
     admin_operation:
@@ -52,7 +54,7 @@ admin:
             'admin/article_categories': all
         admin_project_template:
           actions:
-            'admin/project_templates': all
+            'admin/projects': all
         admin_support_category:
           actions:
             'admin/support_categories': all
@@ -88,9 +90,9 @@ admin:
       menus:
         admin_pair:
           menus:
-            admin_pair_project:
+            admin_pair_season:
               actions:
-                'admin/pairs': all
+                'admin/pair_seasons': all
             admin_pair_applies:
               actions:
                 'admin/pair_applies': all

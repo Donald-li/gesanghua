@@ -70,7 +70,7 @@ Rails.application.routes.draw do
     resources :article_categories, concerns: [:move, :switch]
     resources :supports, concerns: [:move, :switch]
     resources :pages, concerns: [:move, :switch]
-    resources :project_templates
+    resources :projects
     resources :audit_reports, concerns: [:switch, :file_download]
     resources :financial_reports, concerns: [:switch, :file_download]
     resources :funds, concerns: [:switch, :move] do
@@ -81,7 +81,7 @@ Rails.application.routes.draw do
       resources :special_adverts
       resources :special_articles
     end
-    resources :pairs, concerns: [:switch]
+    resources :pair_seasons, concerns: [:switch]
     resources :pair_applies do
       resources :pair_students
     end
@@ -90,7 +90,7 @@ Rails.application.routes.draw do
     resources :county_users, concerns: [:switch]
     resources :income_sources, concerns: :move
     resources :volunteers, concerns: [:switch] do
-      resources :service_histories
+      resources :service_histories, only: [:index, :show]
       member do
         put :switch_job
       end

@@ -17,6 +17,12 @@
         <div class="form-body form-horizontal">
           <%= f.input :name, label: '专题名称：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
           <%= f.input :template, as: :radio_buttons, label: '选择模板：', collection: Special.options_for_enum_select(:templates) %>
+          <div class="form-group">
+            <label class="col-md-2 control-label">专题Banner：</label>
+            <div class="col-sm-9">
+              <%= webuploader_tag :banner_id, label: '上传Banner', type: 'special_banner', asset: @special.banner, klass: 'single' %>
+            </div>
+          </div>
           <%= f.input :describe, label: '专题导读：', input_html: { data: {'parsley-required': true}} %>
         </div>
         <div class="form-actions">
@@ -30,3 +36,8 @@
     <% end %>
   </div>
 </div>
+<script>
+    $(function () {
+        initImageWebuploader($('#webuploader'));
+    })
+</script>

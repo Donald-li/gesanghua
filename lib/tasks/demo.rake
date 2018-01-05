@@ -1,11 +1,11 @@
 namespace :demo do
   task init: [:environment] do
     # 基金类型
-    fc1 = FundCategory.find_or_create_by(name: '结对', describe: '结对')
-    fc2 = FundCategory.find_or_create_by(name: '悦读', describe: '悦读')
-    fc3 = FundCategory.find_or_create_by(name: '观影', describe: '观影')
-    fc4 = FundCategory.find_or_create_by(name: '探索营', describe: '探索营')
-    fc5 = FundCategory.find_or_create_by(name: '物资类', describe: '物资类')
+    fc1 = FundCategory.find_or_create_by(name: '结对', describe: '结对', kind: 'directional')
+    fc2 = FundCategory.find_or_create_by(name: '悦读', describe: '悦读', kind: 'directional')
+    fc3 = FundCategory.find_or_create_by(name: '观影', describe: '观影', kind: 'directional')
+    fc4 = FundCategory.find_or_create_by(name: '探索营', describe: '探索营', kind: 'directional')
+    fc5 = FundCategory.find_or_create_by(name: '物资类', describe: '物资类', kind: 'directional')
     FundCategory.all.each do |fc|
       Fund.find_or_create_by(name: "#{fc.name}指定", management_rate: 5, describe: '定向指定', fund_category_id: fc.id)
       Fund.find_or_create_by(name: "#{fc.name}非指定", management_rate: 5, describe: '定向非指定', fund_category_id: fc.id)
@@ -34,18 +34,24 @@ namespace :demo do
     </p>
     }
     description = "为了使资助者与受助人保持长久的联系，同时保证资助款发挥真正的助学之用，请资助双方认真阅读填写本协议书以作书面凭证。在签定本协议之前，请资助者仔细阅读以下条款，并请严格遵守"
-    ProjectTemplate.find_or_create_by(name: '结对', protocol_name: '结对助学协议', protocol_content: content, describe: description, kind: 1, fund: fc1.funds.first)
-    ProjectTemplate.find_or_create_by(name: '悦读', protocol_name: '悦读捐助协议', protocol_content: content, describe: description, kind: 1, fund: fc2.funds.first)
-    ProjectTemplate.find_or_create_by(name: '观影', protocol_name: '观影捐助协议', protocol_content: content, describe: description, kind: 1, fund: fc3.funds.first)
-    ProjectTemplate.find_or_create_by(name: '探索营', protocol_name: '探索营捐助协议', protocol_content: content, describe: description, kind: 1, fund: fc4.funds.first)
-    good = ProjectTemplate.find_or_create_by(name: '物资类', protocol_name: '物资类捐助协议', protocol_content: content, describe: description, kind: 1, fund: fc5.funds.first)
-    good.children.find_or_create_by(name: '广播', protocol_name: '广播捐助协议', protocol_content: content, describe: description, kind: 1, fund: fc5.funds.second)
-    good.children.find_or_create_by(name: '护花', protocol_name: '护花捐助协议', protocol_content: content, describe: description, kind: 1, fund: fc5.funds.second)
+    Project.find_or_create_by(name: '结对', protocol: content, describe: description, kind: 1, fund: fc1.funds.first)
+    Project.find_or_create_by(name: '悦读', protocol: content, describe: description, kind: 1, fund: fc2.funds.first)
+    Project.find_or_create_by(name: '观影', protocol: content, describe: description, kind: 1, fund: fc3.funds.first)
+    Project.find_or_create_by(name: '探索营', protocol: content, describe: description, kind: 1, fund: fc4.funds.first)
+    Project.find_or_create_by(name: '广播', protocol: content, describe: description, kind: 2, fund: fc5.funds.second)
+    Project.find_or_create_by(name: '护花', protocol: content, describe: description, kind: 2, fund: fc5.funds.second)
 
     # 生成结对项目可用年度
-    Pair.find_or_create_by(name: '2017年一对一结对助学项目', content: content, state: 1, junior_term_amount: 1200, junior_year_amount: 2400, senior_term_amount: 2000, senior_year_amount: 4000)
+    ProjectSeason.find_or_create_by(name: '2017年一对一结对助学项目', junior_term_amount: 1200, junior_year_amount: 2400, senior_term_amount: 2000, senior_year_amount: 4000)
     # 生成学校
     School.find_or_create_by(name: '西宁第一实验中学', address: '某街', approve_state: 2, province: '630000', city: '630100', district: '630101', number: '600', describe: '优秀中学', level: 1, contact_name: '陈俊生', contact_phone: '17866548888')
+
+    # 生成志愿者和任务
+    v = Volunteer.find_or_create_by(level: 0, duration: 200, user_id: 1, approve_state: 2)
+    5.times do
+      t = Task.find_or_create_by(name: Faker::Name.name, duration: 15, content: '做任务', num: 6, state: rand(2..5), province: '630000', city: '630100', district: '630101', start_time: Time.now - 10.days, end_time: Time.now + 20.days)
+      t.task_volunteers.find_or_create_by(volunteer_id: v.id)
+    end
 
   end
 
