@@ -66,8 +66,8 @@ zh:
     junior: '初中'
     senior: '高中'
   project_kinds:
-    normal: '基本类'
-    goods: '物资类'
+    normal: '固定项目'
+    goods: '物资项目'
   project_season_apply_states:
     show: '显示'
     hidden: '隐藏'

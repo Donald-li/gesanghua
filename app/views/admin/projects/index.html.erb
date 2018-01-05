@@ -34,8 +34,11 @@
             <th>
               分类名称
             </th>
-            <th width="60px">
-              类型
+            <th>
+              项目类型
+            </th>
+            <th>
+              财务分类
             </th>
             <th>
               描述
@@ -53,6 +56,9 @@
                 </td>
                 <td>
                   <%= project.enum_name(:kind) %>
+                </td>
+                <td>
+                  <%= "#{project.fund.fund_category.name} - #{project.fund.name}" %>
                 </td>
                 <td>
                   <%=  project.sliced_describe %>
