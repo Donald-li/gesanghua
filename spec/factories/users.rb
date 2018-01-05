@@ -36,6 +36,6 @@ FactoryBot.define do
     profile ""
     gender 1
     balance "9.99"
-    phone "MyString"
+    phone "13500000001"
   end
 end

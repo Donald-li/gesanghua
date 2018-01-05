@@ -40,6 +40,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   belongs_to :project_season
   belongs_to :project_season_apply
   belongs_to :gsh_child, optional: true
+  belongs_to :school
   has_many :audits, as: :owner
   has_many :remarks, as: :owner
 

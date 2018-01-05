@@ -26,5 +26,6 @@ FactoryBot.define do
     province '630000'
     city '630100'
     district '630123'
+    contact_phone '13500000001'
   end
 end

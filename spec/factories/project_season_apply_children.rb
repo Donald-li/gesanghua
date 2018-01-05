@@ -30,6 +30,16 @@
 
 FactoryBot.define do
   factory :project_season_apply_child do
-    
+    project
+    project_season
+    project_season_apply
+    name '李同学'
+    province '630000'
+    city '630100'
+    district '630123'
+    id_card '370202198411195417'
+    age 13
+    parent_name '李爹'
+    phone '13500000001'
   end
 end

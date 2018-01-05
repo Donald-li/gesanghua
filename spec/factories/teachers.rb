@@ -16,6 +16,12 @@
 
 FactoryBot.define do
   factory :teacher do
-    
+    name '李老师'
+    nickname 'Lee'
+    user
+    school
+    kind 2
+    phone '13500000001'
+    state 1
   end
 end

@@ -22,6 +22,13 @@
 
 FactoryBot.define do
   factory :project_season_apply do
-    
+    project
+    project_season
+    school
+    teacher
+    province '630000'
+    city '630100'
+    district '630123'
+    state 1
   end
 end
