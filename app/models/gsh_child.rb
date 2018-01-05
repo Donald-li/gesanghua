@@ -17,8 +17,11 @@
 #  idcard     :string                                 # 身份证
 #
 
-require 'custom_validators'
+
+  require 'custom_validators'
+
 class GshChild < ApplicationRecord
+
   default_value_for(:gsh_no){ Sequence.get_seq(kind: :gsh_no, length: 10, save: false)  }
   belongs_to :user, optional: true
   belongs_to :school, optional: true
@@ -27,8 +30,8 @@ class GshChild < ApplicationRecord
 
   validates :name, presence: true
   validates :province, :city, :district, presence: true
-  #validates :phone, mobile: true
-  #validates :qq, qq: true
+  validates :phone, mobile: true
+  validates :qq, qq: true
   #validates :idcard, shenfenzheng_no: true
 
   scope :sorted, ->{ order(created_at: :desc) }
