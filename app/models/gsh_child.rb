@@ -23,7 +23,8 @@ class GshChild < ApplicationRecord
 
   belongs_to :user, optional: true
   belongs_to :school, optional: true
-  has_many :project_season_apply_children
+  has_many :applies, class_name: 'ProjectSeasonApply', dependent: :destroy
+  has_many :project_season_apply_children, dependent: :destroy
 
   validates :name, presence: true
   validates :province, :city, :district, presence: true

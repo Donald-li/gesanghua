@@ -1,0 +1,75 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i> 申请记录
+    </div>
+    <div class="actions">
+      <div class="btn-group">
+        <a href="<%= admin_volunteers_path %>" class="btn btn-default">
+          <i class="fa fa-reply"></i>返回
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="dataTables_wrapper no-footer">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="dataTables_filter pull-right">
+          </div>
+        </div>
+      </div>
+      <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover" id="sample_2">
+          <thead>
+          <tr>
+            <th>
+              编号
+            </th>
+            <th>
+              项目名称
+            </th>
+            <th>
+              项目类型
+            </th>
+            <th>
+              操作
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @apply_records.each do |apply_record| %>
+              <tr>
+                <td>
+                  <%= apply_record.project_season_apply_child.try(:id) %>
+                </td>
+                <td>
+                  <%= apply_record.project_season_apply_child.project.try(:name) %>
+                </td>
+                <td>
+                  <%= apply_record.project_season_apply_child.project.try(:kind) %>
+                </td>
+                <td>
+                  <%= link_to admin_gsh_child_apply_record_url(@gsh_child, apply_record), class: 'btn btn-xs blue' do %>
+                      <i class="fa fa-file"></i> 任务详情
+                  <% end %>
+                </td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-5 col-sm-12">
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@apply_records) %></div>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <%= paginate @apply_records, theme: 'admin' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END EXAMPLE TABLE PORTLET-->
