@@ -28,6 +28,7 @@ class ProjectSeasonApply < ApplicationRecord
   belongs_to :gsh_child, optional: true
   belongs_to :gsh_bookshelf, optional: true
   has_many :audits, as: :owner
+  has_many :apply_children, class_name: "ProjectSeasonApplyChild", foreign_key: "project_season_apply_id"
 
   validates :province, :city, :district, presence: true
 

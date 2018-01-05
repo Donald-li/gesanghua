@@ -101,8 +101,8 @@
                   <%= link_to admin_pair_apply_path(apply), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                       <i class="fa fa-trash-o"></i> 删除
                   <% end %>
-                  <%= link_to '', 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
-                      <i class="fa fa-list-ul"></i> 查看名单（80）
+                  <%= link_to admin_pair_apply_pair_students_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                      <i class="fa fa-list-ul"></i> 查看名单（<%= apply.apply_children.count %>）
                   <% end %>
                 </td>
               </tr>

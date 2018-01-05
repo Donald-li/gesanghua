@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180104091727) do
+ActiveRecord::Schema.define(version: 20180104124003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -375,6 +375,19 @@ ActiveRecord::Schema.define(version: 20180104091727) do
     t.string "district", comment: "区/县"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "phone", comment: "电话"
+    t.string "qq", comment: "QQ号码"
+    t.integer "nation", comment: "民族"
+    t.string "id_card", comment: "身份证号码"
+    t.string "parent_name", comment: "家长姓名"
+    t.text "description", comment: "描述"
+    t.integer "state", comment: "状态"
+    t.integer "approve_state", comment: "审核状态"
+    t.integer "age", comment: "年龄"
+    t.integer "level", comment: "初中或高中"
+    t.integer "grade", comment: "年级"
+    t.integer "gender", comment: "性别"
+    t.integer "school_id", comment: "学校ID"
   end
 
   create_table "project_season_apply_gooods", force: :cascade, comment: "项目执行年度申请的物品表" do |t|
@@ -383,6 +396,17 @@ ActiveRecord::Schema.define(version: 20180104091727) do
     t.integer "project_season_apply_id", comment: "关联项目执行年度申请id"
     t.integer "project_season_goods_id", comment: "关联项目执行年度物品id"
     t.integer "num", comment: "物品申请数量"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "project_season_apply_periods", force: :cascade, comment: "项目申请时长" do |t|
+    t.string "name", comment: "名称"
+    t.integer "kind", comment: "类型"
+    t.integer "state", comment: "状态"
+    t.string "desciption", comment: "描述"
+    t.datetime "start_at", comment: "开始时间"
+    t.datetime "end_at", comment: "结束时间"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -13,6 +13,19 @@
 #  district                :string                                 # 区/县
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  phone                   :string                                 # 电话
+#  qq                      :string                                 # QQ号码
+#  nation                  :integer                                # 民族
+#  id_card                 :string                                 # 身份证号码
+#  parent_name             :string                                 # 家长姓名
+#  description             :text                                   # 描述
+#  state                   :integer                                # 状态
+#  approve_state           :integer                                # 审核状态
+#  age                     :integer                                # 年龄
+#  level                   :integer                                # 初中或高中
+#  grade                   :integer                                # 年级
+#  gender                  :integer                                # 性别
+#  school_id               :integer                                # 学校ID
 #
 
 FactoryBot.define do
