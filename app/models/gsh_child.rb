@@ -20,4 +20,10 @@ class GshChild < ApplicationRecord
   validates :name, presence: true
   validates :province, :city, :district, presence: true
 
+  before_create :gen_gsh_no
+
+  private
+  def gen_gsh_no
+    self.gsh_no ||= Sequence.get_seq(kind: :gsh_no, prefix: 'GSH', length: 10)
+  end
 end
