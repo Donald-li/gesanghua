@@ -3,7 +3,7 @@
   <div class="form-body form-horizontal">
     <%= f.input :name, label: '收入分类名称：', autofocus: true, placeholder: '名称', required: true %>
     <%= f.input :describe, label: '描述：', autofocus: true, placeholder: '描述', required: true %>
-    <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: FundCategory.options_for_enum_select(:states), label: '状态：'%>
+    <%#= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: FundCategory.options_for_enum_select(:states), label: '状态：'%>
   </div>
   <div class="form-actions">
     <div class="row">
