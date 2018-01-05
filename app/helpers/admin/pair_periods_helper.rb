@@ -1,0 +1,2 @@
+module Admin::PairPeriodsHelper
+end

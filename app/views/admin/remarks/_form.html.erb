@@ -1,0 +1,23 @@
+<%= simple_form_for [:admin, @remark], wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'season_form'} do |f| %>
+    <%= f.error_notification %>
+    <div class="form-body form-horizontal">
+      <%= f.hidden_field :owner_id, value: params[:owner_id] %>
+      <%= f.hidden_field :owner_type, value: params[:owner_type] %>
+      <%#= f.hidden_field :operator_id, value: params[:operator_id] %>
+      <%#= f.hidden_field :operator_type, value: params[:operator_type] %>
+      <div class="form-group">
+        <label class="col-md-2 control-label">内容：</label>
+        <div class="col-sm-9">
+          <%= f.cktext_area :content %>
+        </div>
+      </div>
+    </div>
+    <div class="form-actions">
+      <div class="row">
+        <div class="col-md-offset-2 col-md-9">
+          <%= f.button :submit, '提交', class: 'btn blue' %>
+          <%= link_to '取消', request.referer, class: 'btn' %>
+        </div>
+      </div>
+    </div>
+<% end %>

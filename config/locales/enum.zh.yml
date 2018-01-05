@@ -93,6 +93,13 @@ zh:
   project_season_apply_child_genders:
     male: '男'
     female: '女'
+  project_season_apply_child_grades:
+    juniorone: '初中一年级'
+    juniortwo: '初中二年级'
+    juniorthree: '初中三年级'
+    seniorone: '高中一年级'
+    seniortwo: '高中二年级'
+    seniorthree: '高中三年级'
   project_season_apply_child_nations:
     default: '未设置'
     hanzu: '汉族'

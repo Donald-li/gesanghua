@@ -22,6 +22,10 @@ Rails.application.routes.draw do
     member { get :file_download }
   end
 
+  concern :remarks do
+    member { get :remarks }
+  end
+
   root to: 'site/mains#show'
 
   scope module: :site do
@@ -82,10 +86,12 @@ Rails.application.routes.draw do
       resources :special_articles
     end
     resources :pair_seasons, concerns: [:switch]
+    resources :pair_periods, concerns: [:switch, :move]
     resources :pair_applies do
-      resources :pair_students
+      resources :pair_students, concerns: [:remarks]
     end
     resources :pair_lists, concerns: [:switch]
+    resources :remarks
     resources :support_categories, concerns: [:move, :switch]
     resources :county_users, concerns: [:switch]
     resources :income_sources, concerns: :move

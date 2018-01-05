@@ -21,11 +21,27 @@
           <%= f.hidden_field :project_season_id, value: @project_apply.project_season_id %>
           <%= f.input :name, label: '姓名：', autofocus: true, placeholder: '姓名', required: true %>
           <%= f.input :age, label: '年龄：', autofocus: true, placeholder: '年龄', required: true %>
+          <%= f.input :grade, as: :select, label: '年级：', collection: ProjectSeasonApplyChild.options_for_enum_select(:grades), include_blank: false %>
           <%= f.input :id_card, label: '身份证号：', autofocus: true, placeholder: '身份证号', required: true %>
           <%= f.input :nation, as: :select, label: '民族：', collection: ProjectSeasonApplyChild.options_for_enum_select(:nations), include_blank: false %>
           <%= f.input :gender, as: :radio_buttons, wrapper: :inline_inputs, collection: User.options_for_select(:genders), label: '性别：'%>
           <%= f.input :parent_name, label: '家长姓名：', autofocus: true, placeholder: '家长姓名', required: true %>
           <%= f.input :phone, label: '联系电话：', autofocus: true, placeholder: '联系电话', required: true %>
+          <div class="form-group">
+            <label class="col-md-2 control-label">申请学期：</label>
+            <div class="col-sm-9">
+              <ul>
+                <% ProjectSeasonApplyPeriod.enabled.sorted.all.each do |period| %>
+                  <li>
+                    <label>
+                      <%= check_box_tag 'project_season_apply_child[project_season_apply_period_ids][]', period.id, period.id.in?(@apply_child.project_season_apply_period_ids)  %>
+                      <%= period.name %>
+                    </label>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
           <div class="form-group">
             <label class="col-md-2 control-label">描述：</label>
             <div class="col-sm-9">

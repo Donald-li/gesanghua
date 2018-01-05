@@ -23,6 +23,7 @@ class Admin::PairStudentsController < Admin::BaseController
 
     respond_to do |format|
       if @apply_child.save
+        Remark.create()
         format.html { redirect_to admin_pair_apply_pair_students_path(@project_apply), notice: '新增成功。' }
       else
         format.html { render :new }
@@ -49,6 +50,13 @@ class Admin::PairStudentsController < Admin::BaseController
     respond_to do |format|
       format.html { redirect_to admin_pair_apply_pair_students_path(@project_apply), notice: '删除成功。' }
     end
+  end
+
+  def remarks
+    @apply_child = ProjectSeasonApplyChild.find(params[:id])
+    @search = @apply_child.remarks.sorted.ransack(params[:q])
+    scope = @search.result
+    @remarks = scope.page(params[:page])
   end
 
   # def switch

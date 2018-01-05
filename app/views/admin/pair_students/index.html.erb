@@ -88,14 +88,18 @@
                   <%= child.enum_name(:nation) %>
                 </td>
                 <td>
-                  <%= child.project_season_apply.school.name %>
-                  <%= child.enum_name(:level) %>/<%= child.enum_name(:grade) %>
+                  <%= child.project_season_apply.school.name %> / <%= child.enum_name(:grade) %>
                 </td>
                 <td>
-                  <%= '' %>
+                  <% child.project_season_apply_periods.sorted.all.each do |period| %>
+                    <span class="btn btn-xs green"><%= period.name %></span>
+                  <% end %>
                 </td>
                 <td>
-                  <%= '' %>
+                  <%= child.parent_name %>
+                </td>
+                <td>
+                  <%= child.remarks.count %>
                 </td>
                 <td>
                   <%= child.enum_name(:approve_state) %>
@@ -107,7 +111,7 @@
                   <%= link_to admin_pair_apply_pair_student_path(@project_apply,child), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                       <i class="fa fa-trash-o"></i> 删除申请
                   <% end %>
-                  <%= link_to '', 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                  <%= link_to remarks_admin_pair_apply_pair_student_path(@project_apply,child), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                       <i class="fa fa-list-ul"></i> 查看备注
                   <% end %>
                 </td>

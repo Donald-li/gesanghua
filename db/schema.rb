@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180105103019) do
+ActiveRecord::Schema.define(version: 20180105073253) do
+>>>>>>> 申请名单
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -334,6 +335,13 @@ ActiveRecord::Schema.define(version: 20180105103019) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "period_child_ships", force: :cascade, comment: "年度孩子和申请学期中间表" do |t|
+    t.integer "project_season_apply_period_id", comment: "申请学期ID"
+    t.integer "project_season_apply_child_id", comment: "年度孩子ID"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "project_season_applies", force: :cascade, comment: "项目执行年度申请表" do |t|
     t.integer "project_id", comment: "关联项目id"
     t.integer "project_season_id", comment: "关联项目执行年度的id"
@@ -410,6 +418,8 @@ ActiveRecord::Schema.define(version: 20180105103019) do
     t.datetime "end_at", comment: "结束时间"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "project_season_id", comment: "年度ID"
+    t.integer "position", comment: "位置"
   end
 
   create_table "project_season_apply_volunteers", force: :cascade, comment: "项目执行年度申请和志愿者关联表" do |t|
