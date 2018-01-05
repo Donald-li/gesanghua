@@ -36,6 +36,8 @@ class Fund < ApplicationRecord
 
   enum use_kind: {unrestricted: 1, restricted: 2} # 指定类型 1:非指定 2:指定
 
+  default_value_for :management_rate, 0
+
   # 调整基金金额
   def self.adjust(from_fund, from_to, amount)
     return if amount < 1

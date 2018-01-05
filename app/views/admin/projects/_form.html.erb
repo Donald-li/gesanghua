@@ -7,8 +7,8 @@
     <div class="col-sm-9">
       <select id="fund" class="form-control select optional" name="project[fund_id]" required>
         <% FundCategory.directional.reverse_sorted.each do |fc| %>
-        <optgroup label="<%= fc.name %>">
-          <% fc.funds.each do |fund| %>
+        <optgroup label="">
+          <% fc.funds.restricted.each do |fund| %>
           <option value="<%= fund.id %>" <%= 'selected' if @project.fund_id == fund.id %>><%= fund.name %></option>
           <% end %>
         </optgroup>

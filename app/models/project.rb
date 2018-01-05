@@ -29,9 +29,9 @@ class Project < ApplicationRecord
 
   validates :name, :protocol, presence: true
 
-  enum kind: { normal: 1, goods: 2 } # 项目类型 1:基本类 2:物资类
+  enum kind: { normal: 1, goods: 2 } # 项目类型 1:固定项目 2:物资类项目
 
-  scope :sorted, ->{ order(created_at: :desc) }
+  scope :sorted, ->{ order(created_at: :asc) }
 
   def sliced_describe
     self.describe.length > 90 ? self.describe.slice(0..90) : self.describe
