@@ -28,7 +28,6 @@ class Admin::RemarksController < Admin::BaseController
   end
 
   def update
-    byebug
     respond_to do |format|
       @remark.operator = current_user
       if @remark.update(remark_params)
