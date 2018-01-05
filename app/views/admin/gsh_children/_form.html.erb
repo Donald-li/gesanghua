@@ -2,10 +2,7 @@
     <%= f.error_notification %>
     <div class="form-body form-horizontal">
       <% if @gsh_child.gsh_no %>
-      <div class="form-group">
-        <label class="col-md-2 control-label">格桑花编号：</label>
-        <p class="col-sm-9"><%= @gsh_child.gsh_no %></p>
-      </div>
+       <%= static_form_control '格桑花编号', @gsh_child.gsh_no %>
       <% end %>
       <%= f.input :user_id, collection: [@gsh_child.user].compact.map {|u| [u.name, u.id]}, label: '关联用户', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
       <%= f.input :idcard, label: '身份证：', autofocus: true, input_html: { data: {'parsley-required': true}} %>

@@ -37,7 +37,7 @@
                 模板类型
               </th>
               <th>
-                专题简介
+                状态
               </th>
               <th>
                 操作
@@ -54,7 +54,10 @@
                 <%= special.enum_name(:template) %>
               </td>
               <td>
-                <%= special.describe %>
+                <%= link_to switch_admin_special_path(special), data: {confirm: "确定#{special.state === 'show' ? '隐藏该专题' : '展示该专题'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{special.state === 'show' ? 'green' : 'default'}" do %>
+                <%= special.state === 'show' ? '展示' : '隐藏' %>
+                <i class="fa <%= special.state === 'show' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                <% end %>
               </td>
               <td>
                 <%= link_to edit_admin_special_path(special), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>

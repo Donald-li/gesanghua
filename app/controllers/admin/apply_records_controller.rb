@@ -3,7 +3,7 @@ class Admin::ApplyRecordsController < Admin::BaseController
   before_action :set_gsh_child
 
   def index
-    @search = @gsh_child.applies.sorted.ransack(params[:q])
+    @search = @gsh_child.project_season_apply_children.sorted.ransack(params[:q])
     scope = @search.result
     @apply_records = scope.page(params[:page])
   end

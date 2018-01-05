@@ -5,7 +5,7 @@
     </div>
     <div class="actions">
       <div class="btn-group">
-        <a href="<%= admin_volunteers_path %>" class="btn btn-default">
+        <a href="<%= admin_gsh_children_path %>" class="btn btn-default">
           <i class="fa fa-reply"></i>返回
         </a>
       </div>
@@ -31,30 +31,20 @@
             <th>
               项目名称
             </th>
-            <th>
-              项目类型
-            </th>
-            <th>
-              操作
-            </th>
+            <th>申请日期</th>
           </tr>
           </thead>
           <tbody>
           <% @apply_records.each do |apply_record| %>
               <tr>
                 <td>
-                  <%= apply_record.project_season_apply_child.try(:id) %>
+                  <%= apply_record.project_season_apply.try(:id) %>
                 </td>
                 <td>
-                  <%= apply_record.project_season_apply_child.project.try(:name) %>
+                  <%= apply_record.project_season_apply.project.try(:name) %>
                 </td>
                 <td>
-                  <%= apply_record.project_season_apply_child.project.try(:kind) %>
-                </td>
-                <td>
-                  <%= link_to admin_gsh_child_apply_record_url(@gsh_child, apply_record), class: 'btn btn-xs blue' do %>
-                      <i class="fa fa-file"></i> 任务详情
-                  <% end %>
+                  <%= l apply_record.project_season_apply.created_at %>
                 </td>
               </tr>
           <% end %>

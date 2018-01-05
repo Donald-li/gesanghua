@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180104124003) do
+ActiveRecord::Schema.define(version: 20180105103019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -543,6 +543,7 @@ ActiveRecord::Schema.define(version: 20180104124003) do
     t.string "article_name", comment: "资讯名称"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "state", default: 1, comment: "状态, 1:展示 2:隐藏"
   end
 
   create_table "support_categories", force: :cascade, comment: "帮助主题分类" do |t|
