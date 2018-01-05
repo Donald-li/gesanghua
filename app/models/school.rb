@@ -25,6 +25,7 @@ class School < ApplicationRecord
   has_many :teachers
   has_many :book_shelves
   has_many :project_season_applies
+  has_many :gsh_children
 
   validates :name, :province, :city, :district, presence: true
 

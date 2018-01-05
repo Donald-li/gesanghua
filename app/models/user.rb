@@ -40,6 +40,7 @@ class User < ApplicationRecord
   has_one :teacher
   has_one :volunteer
   has_one :county_user
+  has_one :gsh_child
   has_many :vouchers
   has_many :campaign_enlists
   has_many :donate_records

@@ -1,6 +1,6 @@
 class Admin::GshChildrenController < Admin::BaseController
   before_action :set_gsh_child, only: [:show, :edit, :update, :destroy, :gsh_child_apply_records]
-
+  
   def index
     @search = GshChild.sorted.ransack(params[:q])
     if @search.user_id

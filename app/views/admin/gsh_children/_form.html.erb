@@ -1,8 +1,13 @@
 <%= simple_form_for [:admin, @gsh_child], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
     <%= f.error_notification %>
     <div class="form-body form-horizontal">
-      <%= f.input :gsh_no, label: '格桑花编号：', autofocus: true, input_html: { data: {'parsley-required': true}}, readonly: true %>
-      <%= f.input :user_id, collection: User.enabled, label: '关联用户：', prompt: "请选用户", input_html: {data: {'parsley-required': true}} %>
+      <% if @gsh_child.gsh_no %>
+      <div class="form-group">
+        <label class="col-md-2 control-label">格桑花编号：</label>
+        <p class="col-sm-9"><%= @gsh_child.gsh_no %></p>
+      </div>
+      <% end %>
+      <%= f.input :user_id, collection: [@gsh_child.user].compact.map {|u| [u.name, u.id]}, label: '关联用户', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
       <%= f.input :idcard, label: '身份证：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
       <%= f.input :name, label: '姓名：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
       <%= f.input :phone, label: '联系方式：', autofocus: true %>
@@ -27,3 +32,41 @@
       </div>
     </div>
 <% end %>
+
+<script>
+$(function(){
+  $("form .user_selector").select2({
+    language: "zh-CN",
+    placeholder: '请选择用户',
+    allowClear: true,
+    ajax: {
+      url: "/admin/users",
+      dataType: 'json',
+      delay: 250,
+      data: function (params) {
+        return {
+          q: params.term, // search term
+          page: params.page
+        };
+      },
+      processResults: function (data, params) {
+        params.page = params.page || 1;
+        return {
+            results: $.map(data.items, function (item) {
+              return {
+                text: item.name,
+                id: item.id
+            }
+          }),
+          pagination: {
+            more: (params.page * 30) < data.total_count
+          }
+        };
+      },
+      cache: true
+    },
+    minimumInputLength: 1
+  });
+
+})
+</script>

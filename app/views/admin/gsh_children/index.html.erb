@@ -87,7 +87,7 @@
                 <%= link_to edit_admin_gsh_child_path(gsh_child), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                   <i class="fa fa-edit"></i> 修改信息
                 <% end %>
-                <%= link_to '', 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                <%= link_to admin_gsh_child_apply_records_path(gsh_child), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                   <i class="fa fa-edit"></i> 申请记录
                 <% end %>
                 <%= link_to admin_gsh_child_path(gsh_child), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>

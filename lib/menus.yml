@@ -18,7 +18,7 @@ admin:
     admin_user_gsh_children:
       actions:
         'admin/gsh_children': all
-        
+
     # 平台管理
     admin_platform_content:
       menus:

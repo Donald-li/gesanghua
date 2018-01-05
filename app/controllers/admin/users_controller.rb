@@ -2,10 +2,19 @@ class Admin::UsersController < Admin::BaseController
   before_action :set_user, only: [:edit, :update, :switch]
 
   def index
-    set_search_end_of_day(:created_at_lteq)
-    @search = User.ransack(params[:q])
-    scope = @search.result
-    @users = scope.sorted.page(params[:page])
+    respond_to do |format|
+      format.html do # HTML页面
+        set_search_end_of_day(:created_at_lteq)
+        @search = User.ransack(params[:q])
+        scope = @search.result
+        @users = scope.sorted.page(params[:page])
+      end
+      format.json do # Select2 异步选择用户搜索
+        users = User.enabled.left_joins(:gsh_child).where(gsh_children: {user_id: nil}).where("users.name like :q", q: "%#{params[:q]}%").page(params[:page])
+        render json: {items: users.as_json(only: [:id, :name])}
+      end
+    end
+
   end
 
   def new

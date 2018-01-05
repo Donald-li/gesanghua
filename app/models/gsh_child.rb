@@ -19,11 +19,10 @@
 require 'custom_validators'
 class GshChild < ApplicationRecord
 
-  default_value_for(:gsh_no){ Sequence.get_seq(kind: :gsh_no, prefix: 'GSH', length: 10, save: false)  }
+  # default_value_for(:gsh_no){ Sequence.get_seq(kind: :gsh_no, prefix: 'GSH', length: 10, save: false)  }
 
   belongs_to :user, optional: true
   belongs_to :school, optional: true
-
   has_many :project_season_apply_children
 
   validates :name, presence: true
