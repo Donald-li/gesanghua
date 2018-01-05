@@ -38,4 +38,6 @@ class IncomeRecord < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
+  # counter_culture :user, column_name: ''
+
 end

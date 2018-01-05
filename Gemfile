@@ -98,6 +98,9 @@ gem "pundit"
 # 多级菜单
 gem 'ancestry'
 
+# 身份证验证
+gem 'chinese_pid'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

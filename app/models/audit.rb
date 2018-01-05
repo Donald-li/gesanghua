@@ -15,4 +15,6 @@
 class Audit < ApplicationRecord
   belongs_to :owner, polymorphic: true
   belongs_to :user
+
+  enum state: {submit: 1, pass: 2, rejected: 3} # 状态：1:待审核 2:通过 3:不通过
 end
