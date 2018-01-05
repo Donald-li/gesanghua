@@ -1,7 +1,7 @@
 <%= simple_form_for [:admin, @gsh_child], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
     <%= f.error_notification %>
     <div class="form-body form-horizontal">
-      <%= f.input :gsh_no, label: '格桑花编号：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :gsh_no, label: '格桑花编号：', autofocus: true, input_html: { data: {'parsley-required': true}}, readonly: true %>
       <%= f.input :user_id, collection: User.enabled, label: '关联用户：', prompt: "请选用户", input_html: {data: {'parsley-required': true}} %>
       <%= f.input :idcard, label: '身份证：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
       <%= f.input :name, label: '姓名：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
