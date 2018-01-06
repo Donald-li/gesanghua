@@ -88,7 +88,14 @@ Rails.application.routes.draw do
     resources :pair_seasons, concerns: [:switch]
     resources :pair_periods, concerns: [:switch, :move]
     resources :pair_applies do
-      resources :pair_students, concerns: [:remarks]
+      resources :pair_students, concerns: [:remarks] do
+        member do
+          get :new_audit
+        end
+        collection do
+          post :create_audit
+        end
+      end
     end
     resources :pair_lists, concerns: [:switch]
     resources :remarks

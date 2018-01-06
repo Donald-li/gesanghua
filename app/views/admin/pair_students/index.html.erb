@@ -102,7 +102,8 @@
                   <%= child.remarks.count %>
                 </td>
                 <td>
-                  <%= child.enum_name(:approve_state) %>
+                  <%= child.audits.first.enum_name(:state) if child.audits.present? %>
+                  <%#= child.enum_name(:approve_state) %>
                 </td>
                 <td>
                   <%= link_to edit_admin_pair_apply_pair_student_path(@project_apply,child), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>

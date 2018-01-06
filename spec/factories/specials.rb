@@ -9,7 +9,7 @@
 #  article_name :string                                 # 资讯名称
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
-#  state        :integer          default(1)            # 状态, 1:展示 2:隐藏
+#  state        :integer          default("show")       # 状态, 1:展示 2:隐藏
 #
 
 FactoryBot.define do

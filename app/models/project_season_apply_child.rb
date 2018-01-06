@@ -41,12 +41,14 @@ class ProjectSeasonApplyChild < ApplicationRecord
   belongs_to :project_season_apply
   belongs_to :gsh_child, optional: true
   belongs_to :school
+  has_one :visit, foreign_key: 'apply_child_id'
   has_many :audits, as: :owner
   has_many :remarks, as: :owner
 
   has_many :period_child_ships
   has_many :project_season_apply_periods, through: :period_child_ships
   accepts_nested_attributes_for :project_season_apply_periods
+  accepts_nested_attributes_for :audits
 
   validates :id_card, ShenfenzhengNo: true
   validates :id_card, :name, :phone, presence: true

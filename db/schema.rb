@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180105103019) do
+ActiveRecord::Schema.define(version: 20180106074708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -675,6 +675,7 @@ ActiveRecord::Schema.define(version: 20180105103019) do
     t.text "content", comment: "内容"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "apply_child_id", comment: "孩子申请ID"
   end
 
   create_table "volunteers", force: :cascade, comment: "志愿者表" do |t|

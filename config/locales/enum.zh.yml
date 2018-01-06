@@ -86,6 +86,10 @@ zh:
   special_templates:
     single: '模板1'
     double: '模板2'
+  audit_states:
+    submit: '待审核'
+    pass: '审核已通过'
+    rejected: '审核已拒绝'
   project_season_apply_child_approve_states:
     submit: '待审核'
     pass: '审核已通过'
