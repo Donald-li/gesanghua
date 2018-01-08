@@ -125,6 +125,11 @@ Rails.application.routes.draw do
   # 支持
   scope module: :support do
     resources :uploads, path: 'upload', only: [:create, :destroy]
+    resources :selects, only: [] do
+      collection do
+        get :schools
+      end
+    end
   end
 
   mount RuCaptcha::Engine => "/rucaptcha"
