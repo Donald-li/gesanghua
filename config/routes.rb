@@ -97,7 +97,7 @@ Rails.application.routes.draw do
         end
       end
     end
-    resources :pair_lists, concerns: [:switch]
+    resources :pair_student_lists, concerns: [:switch]
     resources :remarks
     resources :support_categories, concerns: [:move, :switch]
     resources :county_users, concerns: [:switch]

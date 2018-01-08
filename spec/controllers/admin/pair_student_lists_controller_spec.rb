@@ -23,7 +23,7 @@ require 'rails_helper'
 # removed from Rails core in Rails 5, but can be added back in via the
 # `rails-controller-testing` gem.
 
-RSpec.describe Admin::PairListsController, type: :controller do
+RSpec.describe Admin::PairStudentListsController, type: :controller do
 
   # This should return the minimal set of attributes required to create a valid
   # Admin::PairList. As you add validations to Admin::PairList, be sure to

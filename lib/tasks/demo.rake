@@ -60,9 +60,15 @@ namespace :demo do
     ProjectSeason.find_or_create_by(name: '2017年一对一结对助学项目', junior_term_amount: 1200, junior_year_amount: 2400, senior_term_amount: 2000, senior_year_amount: 4000)
     # 生成学校
     School.find_or_create_by(name: '西宁第一实验中学', address: '某街', approve_state: 2, province: '630000', city: '630100', district: '630101', number: '600', describe: '优秀中学', level: 1, contact_name: '陈俊生', contact_phone: '17866548888')
-
+    # 生成申请
+    ProjectSeasonApply.find_or_create_by(name: '2017年西宁第一实验中学-一对一结对助学项目', number: 10, project_id: Project.first.id, project_season_id: ProjectSeason.first.id, school_id: School.first.id, describe: '品学兼优，家境贫寒', province: '630000', city: '630100', district: '630101', state: 1)
+    # 生成格桑花孩子
+    10.times do
+      gc = GshChild.find_or_create_by(school_id: School.first.id, name: Faker::Name.name, phone: '1866965' + rand(1000..9999).to_s, province: '630000', city: '630100', district: '630101')
+      ProjectSeasonApplyChild.find_or_create_by(project_id: Project.first.id, project_season_id: ProjectSeason.first.id, project_season_apply_id: ProjectSeasonApply.first.id, gsh_child_id: gc.id, school_id: School.first.id, name: gc.name, phone: gc.phone, id_card: '37130219980723' + rand(1997..9999).to_s, province: '630000', city: '630100', district: '630101')
+    end
     # 生成志愿者和任务
-    v = Volunteer.find_or_create_by(level: 0, duration: 200, user_id: 1, approve_state: 2)
+    v = Volunteer.find_or_create_by(level: 0, duration: 200, user_id: User.first.id, approve_state: 2)
     5.times do
       t = Task.find_or_create_by(name: Faker::Name.name, duration: 15, content: '做任务', num: 6, state: rand(2..5), province: '630000', city: '630100', district: '630101', start_time: Time.now - 10.days, end_time: Time.now + 20.days)
       t.task_volunteers.find_or_create_by(volunteer_id: v.id)
