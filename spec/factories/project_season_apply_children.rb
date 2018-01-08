@@ -26,6 +26,7 @@
 #  grade                   :integer                                # 年级
 #  gender                  :integer                                # 性别
 #  school_id               :integer                                # 学校ID
+#  semester                :integer                                # 学期
 #
 
 FactoryBot.define do
