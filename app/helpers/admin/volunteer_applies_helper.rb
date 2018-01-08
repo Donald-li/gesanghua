@@ -1,0 +1,2 @@
+module Admin::VolunteerAppliesHelper
+end

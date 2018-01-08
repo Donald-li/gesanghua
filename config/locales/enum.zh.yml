@@ -83,6 +83,10 @@ zh:
   volunteer_kinds:
     normal: '普通志愿者'
     professional: '专业志愿者'
+  volunteer_approve_states:
+    submit: '审核中'
+    pass: '审核通过'
+    reject: '审核不通过'
   special_templates:
     single: '模板1'
     double: '模板2'

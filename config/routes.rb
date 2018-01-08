@@ -102,6 +102,7 @@ Rails.application.routes.draw do
     resources :support_categories, concerns: [:move, :switch]
     resources :county_users, concerns: [:switch]
     resources :income_sources, concerns: :move
+    resources :volunteer_applies, only: [:index, :edit, :update]
     resources :volunteers, concerns: [:switch] do
       resources :service_histories, only: [:index, :show]
       member do
@@ -125,11 +126,7 @@ Rails.application.routes.draw do
   # 支持
   scope module: :support do
     resources :uploads, path: 'upload', only: [:create, :destroy]
-    resources :selects, only: [] do
-      collection do
-        get :schools
-      end
-    end
+    resources :selects, only: []
   end
 
   mount RuCaptcha::Engine => "/rucaptcha"
