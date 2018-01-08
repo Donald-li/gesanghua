@@ -17,6 +17,9 @@
         <%= f.error_notification %>
         <div class="form-body form-horizontal">
           <%= f.input :name, label: '学期名称：', autofocus: true, placeholder: '学期名称', required: true %>
+          <%= f.input :kind, as: :select, label: '类型：', collection: ProjectSeasonApplyPeriod.options_for_enum_select(:kinds), include_blank: false %>
+          <%= f.input :grade, as: :select, label: '年级：', collection: ProjectSeasonApplyPeriod.options_for_enum_select(:grades), include_blank: false %>
+          <%= f.input :semester, as: :select, label: '学期：', collection: ProjectSeasonApplyPeriod.options_for_enum_select(:semesters), include_blank: false %>
           <div class="form-group">
             <label class="col-md-2 control-label">捐助时间：</label>
             <div class="col-md-9">

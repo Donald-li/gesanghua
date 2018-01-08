@@ -13,6 +13,8 @@
 #  updated_at        :datetime         not null
 #  project_season_id :integer                                # 年度ID
 #  position          :integer                                # 位置
+#  grade             :integer                                # 结对对应年级
+#  semester          :integer                                # 结对对应学期
 #
 
 require 'rails_helper'

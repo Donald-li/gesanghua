@@ -35,6 +35,15 @@
               名称
             </th>
             <th>
+              类型
+            </th>
+            <th>
+              年级
+            </th>
+            <th>
+              学期
+            </th>
+            <th>
               时段
             </th>
             <th>
@@ -55,7 +64,16 @@
                   <%= period.name %>
                 </td>
                 <td>
-                  <%= l period.start_at %> - <%= l period.end_at %>
+                  <%= period.enum_name(:kind) %>
+                </td>
+                <td>
+                  <%= period.enum_name(:grade) %>
+                </td>
+                <td>
+                  <%= period.enum_name(:semester) %>
+                </td>
+                <td>
+                  <%= period.start_at.strftime("%Y-%m-%d") %> - <%= period.end_at.strftime("%Y-%m-%d") %>
                 </td>
                 <td>
                   <%= link_to switch_admin_pair_period_path(period), data: {confirm: "确定#{period.disabled? ? '启用' : '禁用'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{period.enabled? ? 'green' : 'default'}" do %>
