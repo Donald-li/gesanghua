@@ -7,7 +7,7 @@
     <div class="col-sm-9">
       <select id="fund" class="form-control select optional" name="project[fund_id]" required>
         <% FundCategory.directional.reverse_sorted.each do |fc| %>
-        <optgroup label="">
+        <optgroup label="<%= fc.name %>">
           <% fc.funds.restricted.each do |fund| %>
           <option value="<%= fund.id %>" <%= 'selected' if @project.fund_id == fund.id %>><%= fund.name %></option>
           <% end %>
@@ -34,14 +34,13 @@
 </div>
 <% end %>
 <script type="text/javascript">
-$(function() {
-  $("#fund").select2();
-})
 $(function(){
     //    表单验证
     $(".project_form").html5Validate(function(){
         $(this).find('[type="submit"]').attr('disabled','disabled');
         this.submit();
     });
+
+    $("#fund").select2();
 })
 </script>
