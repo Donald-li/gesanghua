@@ -55,8 +55,8 @@
                   <%= season.project.try(:fund).try(:fund_category).try(:name) %> - <%= season.project.try(:fund).try(:name) %>
                 </td>
                 <td>
-                  <%= link_to switch_admin_pair_season_path(season), data: {confirm: "确定#{season.disabled? ? '启用' : '禁用'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{season.enabled? ? 'green' : 'default'}" do %>
-                      <%= season.enabled? ? '启用' : '禁用' %>
+                  <%= link_to switch_admin_pair_season_path(season), data: {confirm: "确定#{season.disabled? ? '设置为可用年度' : '禁用'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{season.enabled? ? 'green' : 'default'}" do %>
+                      <%= season.enabled? ? '可用年度' : '禁用' %>
                       <i class="fa <%= season.enabled? ? 'fa-eye' : 'fa-eye-slash' %>"></i>
                   <% end %>
                 </td>

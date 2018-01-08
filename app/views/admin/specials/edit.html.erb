@@ -82,7 +82,6 @@
         <% end %>
       </div>
     </div>
-
     <div class="portlet light bordered" id="special-articles">
       <div class="portlet-title">
         <div class="caption">
@@ -151,10 +150,13 @@
       </div>
     </div>
   </div>
-
 </div>
 <script>
     $(function () {
         initImageWebuploader($('#webuploader'));
+        // FIXME: 重新定位到anchor
+        setTimeout(function () {
+            location.href = location.hash;
+        }, 200)
     })
 </script>
