@@ -22,6 +22,8 @@ class Volunteer < ApplicationRecord
   belongs_to :user
   has_many :task_volunteers
   has_many :tasks, through: :task_volunteers
+  has_many :audits, as: :owner
+  has_many :remarks, as: :owner
 
   enum job_state: {available: 1, leave: 2} # 任务状态 1:可接受任务 2:请假
   default_value_for :job_state, 1

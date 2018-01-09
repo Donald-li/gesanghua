@@ -101,7 +101,7 @@ zh:
   project_season_apply_child_genders:
     male: '男'
     female: '女'
-  project_season_apply_child_kind:
+  project_season_apply_child_kinds:
     outside: '对外捐助'
     inside: '内部认捐'
   project_season_apply_child_grades:

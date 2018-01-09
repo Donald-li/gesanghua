@@ -24,6 +24,10 @@ class ProjectSeason < ApplicationRecord
 
   scope :sorted, -> { order(created_at: :desc)}
 
+  def self.options_for_select
+    self.all.map{|c| [c.name, c.id]}
+  end
+
   def self.pair_project_id
     1 # TODO: 约定为1
   end
