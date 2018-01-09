@@ -94,6 +94,8 @@ Rails.application.routes.draw do
 
     resources :project_book_seasons
 
+    resources :project_camp_seasons
+
     resources :pair_seasons, concerns: [:switch]
     resources :pair_periods, concerns: [:switch, :move]
     resources :pair_applies do

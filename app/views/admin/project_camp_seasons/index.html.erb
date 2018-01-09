@@ -1,10 +1,10 @@
 <div class="portlet light">
   <div class="portlet-title">
     <div class="caption">
-      <i class="icon-list"></i>悦读 > 批次管理
+      <i class="icon-list"></i>探索营 > 批次管理
     </div>
     <div class="actions">
-      <%= link_to new_admin_project_book_season_path, class: 'btn blue-soft', 'data-no-turbolink' => true do %>
+      <%= link_to new_admin_project_camp_season_path, class: 'btn blue-soft', 'data-no-turbolink' => true do %>
         <i class="icon-plus"></i>
         <span>新增</span>
       <% end %>
@@ -14,7 +14,7 @@
     <div class="dataTables_wrapper no-footer">
       <div class="row">
         <div class="col-md-12 col-sm-12">
-          <%= search_form_for @search, url: admin_project_book_seasons_path, class: 'form-inline' do |f| %>
+          <%= search_form_for @search, url: admin_project_camp_seasons_path, class: 'form-inline' do |f| %>
               <div class="form-group">
                 <%= f.label :name_cont, '批次名称' %>
                 <%= f.text_field :name_cont, class: 'form-control', placeholder: '可根据批次名称搜索' %>
@@ -46,10 +46,10 @@
                   <%= season.name %>
                 </td>
                 <td>
-                  <%= link_to edit_admin_project_book_season_path(season), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                  <%= link_to edit_admin_project_camp_season_path(season), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-edit"></i> 修改
                   <% end %>
-                  <%= link_to admin_project_book_season_path(season), class: 'btn btn-xs red', method: :delete, data: {confirm: '删除本年度，将会同时删除本年度下的所有申请记录，确定要删除吗？'} do %>
+                  <%= link_to admin_project_camp_season_path(season), class: 'btn btn-xs red', method: :delete, data: {confirm: '删除本年度，将会同时删除本年度下的所有申请记录，确定要删除吗？'} do %>
                       <i class="fa fa-trash-o"></i> 删除
                   <% end %>
                 </td>
