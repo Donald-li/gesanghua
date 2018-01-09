@@ -17,9 +17,15 @@ Rails.application.routes.draw do
   concern :excel_output do
     collection { get :excel_output }
   end
-
+  concern :share do
+    member { get :share }
+  end
   concern :file_download do
     member { get :file_download }
+  end
+
+  concern :qrcode_download do
+    member { get :qrcode_download }
   end
 
   concern :remarks do
@@ -97,7 +103,11 @@ Rails.application.routes.draw do
         end
       end
     end
-    resources :pair_student_lists, concerns: [:switch]
+    resources :pair_student_lists, concerns: [:switch, :remarks, :share, :qrcode_download] do
+      member do
+        put :turn_over
+      end
+    end
     resources :remarks
     resources :support_categories, concerns: [:move, :switch]
     resources :county_users, concerns: [:switch]

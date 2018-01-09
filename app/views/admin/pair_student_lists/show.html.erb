@@ -1,4 +1,123 @@
-<p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_admin_pair_list_path(@admin_pair_list) %> |
-<%= link_to 'Back', admin_pair_lists_path %>
+<div class="portlet light portlet-fit bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-bubble font-dark"></i>
+      <span class="caption-subject font-dark bold uppercase">申请详情</span>
+    </div>
+    <div class="actions">
+      <div class="btn-group">
+        <a href="<%= admin_pair_student_lists_path %>" class="btn btn-default">
+          <i class="fa fa-reply"></i>返回
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="table-scrollable">
+      <table class="table table-bordered table-hover">
+        <tbody>
+        <tr>
+          <th width="72px">
+            姓名
+          </th>
+          <th>
+            <%= @pair_student_list.name %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            学校
+          </th>
+          <th>
+            <%= @pair_student_list.school.try(:name) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            中学
+          </th>
+          <th>
+            <%= @pair_student_list.enum_name(:level) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            年级
+          </th>
+          <th>
+            <%= @pair_student_list.enum_name(:grade) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            学期
+          </th>
+          <th>
+            <%= @pair_student_list.enum_name(:semester) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            身份证号
+          </th>
+          <th>
+            <%= @pair_student_list.id_card %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            民族
+          </th>
+          <th>
+            <%= @pair_student_list.enum_name(:nation) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            性别
+          </th>
+          <th>
+            <%= @pair_student_list.enum_name(:gender) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            家长姓名
+          </th>
+          <th>
+            <%= @pair_student_list.parent_name %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            联系电话
+          </th>
+          <th>
+            <%= @pair_student_list.phone %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            申请学期
+          </th>
+          <th>
+            <% @pair_student_list.project_season_apply_periods.sorted.all.each do |period| %>
+                <span class="btn btn-xs green"><%= period.name %></span>
+            <% end %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            描述
+          </th>
+          <th>
+            <%= @pair_student_list.description %>
+          </th>
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

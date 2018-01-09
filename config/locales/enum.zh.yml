@@ -101,6 +101,9 @@ zh:
   project_season_apply_child_genders:
     male: '男'
     female: '女'
+  project_season_apply_child_kind:
+    outside: '对外捐助'
+    inside: '内部认捐'
   project_season_apply_child_grades:
     one: '一年级'
     two: '二年级'

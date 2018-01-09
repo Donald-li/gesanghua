@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180108085523) do
+ActiveRecord::Schema.define(version: 20180109025748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -397,6 +397,7 @@ ActiveRecord::Schema.define(version: 20180108085523) do
     t.integer "gender", comment: "性别"
     t.integer "school_id", comment: "学校ID"
     t.integer "semester", comment: "学期"
+    t.integer "kind", comment: "捐助形式：1对外捐助 2内部认捐"
   end
 
   create_table "project_season_apply_gooods", force: :cascade, comment: "项目执行年度申请的物品表" do |t|

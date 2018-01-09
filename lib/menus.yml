@@ -102,6 +102,8 @@ admin:
             admin_pair_applies:
               actions:
                 'admin/pair_applies': all
+                'admin/pair_students': all
             admin_pair_lists:
               actions:
-                'admin/pair_lists': all
+                'admin/pair_student_lists': all
+                'admin/remarks': all

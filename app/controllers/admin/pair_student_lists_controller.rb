@@ -1,5 +1,5 @@
 class Admin::PairStudentListsController < Admin::BaseController
-  before_action :set_pair_student_list, only: [:show, :edit, :update, :destroy]
+  before_action :set_pair_student_list, only: [:show, :edit, :update, :destroy, :switch, :remarks, :turn_over, :share, :qrcode_download]
 
   def index
     @search = ProjectSeasonApplyChild.pass.sorted.ransack(params[:q])
@@ -44,6 +44,31 @@ class Admin::PairStudentListsController < Admin::BaseController
     respond_to do |format|
       format.html { redirect_to admin_pair_student_lists_path, notice: '删除成功。' }
     end
+  end
+
+  def switch
+    @pair_student_list.show? ? @pair_student_list.hidden! : @pair_student_list.show!
+    redirect_to admin_pair_student_lists_path, notice:  @pair_student_list.show? ? '已开启筹款' : '已关闭筹款'
+  end
+
+  def remarks
+    @apply_child = ProjectSeasonApplyChild.find(params[:id])
+    @search = @apply_child.remarks.sorted.ransack(params[:q])
+    scope = @search.result
+    @remarks = scope.page(params[:page])
+  end
+
+  def turn_over
+    @pair_student_list.inside? ? @pair_student_list.outside! : @pair_student_list.inside!
+    redirect_to admin_pair_student_lists_path, notice:  @pair_student_list.inside? ? '标记内部认捐成功' : '标记对外捐助成功'
+  end
+
+  def share
+    @pair_student_list.generate_qrcode
+  end
+
+  def qrcode_download
+    send_file(File.join(Rails.root, 'public', @pair_student_list.qrcode_url), filename: "#{@pair_student_list.id}-分享二维码")
   end
 
   private

@@ -27,6 +27,7 @@
 #  gender                  :integer                                # 性别
 #  school_id               :integer                                # 学校ID
 #  semester                :integer                                # 学期
+#  kind                    :integer                                # 捐助形式：1对外捐助 2内部认捐
 #
 
 class ProjectSeasonApplyChild < ApplicationRecord
@@ -51,7 +52,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   accepts_nested_attributes_for :project_season_apply_periods
   accepts_nested_attributes_for :audits
 
-  validates :id_card, ShenfenzhengNo: true
+  # validates :id_card, ShenfenzhengNo: true
   validates :id_card, :name, :phone, presence: true
   validates :province, :city, :district, presence: true
 
@@ -66,6 +67,9 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   enum level: {junior: 1, senior: 2} # 状态：1:初中 2:高中
   default_value_for :level, 1
+
+  enum kind: {outside: 1, inside: 2} # 捐助形式：1:对外捐助 2:内部认捐
+  default_value_for :kind, 1
 
   enum grade: {one: 1, two: 2, three: 3} # 年级：1:一年级 2:二年级, 3:三年级
   default_value_for :grade, 1
@@ -83,6 +87,32 @@ class ProjectSeasonApplyChild < ApplicationRecord
     today = Date.today
     child_age = (today - birthday).to_i/365
     self.update_columns(age: child_age)
+  end
+
+  def generate_qrcode
+    qrcode = RQRCode::QRCode.new(self.share_url)
+    png = qrcode.as_png(
+        resize_gte_to: true,
+        resize_exactly_to: true,
+        fill: 'white',
+        color: 'black',
+        size: 480,
+        border_modules: 0,
+        module_px_size: 1,
+        file: nil # path to write
+    )
+    FileUtils.mkdir_p("public/uploads/qrcode") unless File.exists?("public/uploads/qrcode")
+    f = File.new("public/uploads/qrcode/#{self.id}.png", "w+")
+    f.syswrite(png)
+  end
+
+  def qrcode_url
+    "/uploads/qrcode/#{self.id}.png"
+  end
+
+  def share_url
+    # Rails.application.routes.url_helpers.q_url(:host => Settings.app_host, child_id: self.id)
+    'https://www.baidu.com' # TODO 前段路由定义以后修改为正确的路由
   end
 
 end
