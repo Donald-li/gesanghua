@@ -107,3 +107,8 @@ admin:
               actions:
                 'admin/pair_student_lists': all
                 'admin/remarks': all
+        admin_project_book:
+          menus:
+            admin_project_book_season:
+              actions:
+                'admin/project/book/seasons': all

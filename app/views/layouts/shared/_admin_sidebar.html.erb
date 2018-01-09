@@ -175,6 +175,23 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item <%= current_nav_class(:admin_project_book) %>">
+            <a href="javascript:;" class="nav-link nav-toggle">
+              <% to_prove_apply = 0 %>
+              <% submited = 0 %>
+              <i class="fa fa-book"></i>
+              <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">悦读项目</span>
+              <span class="arrow <%= current_nav_class(:admin_pair, current: :open) %>"></span>
+            </a>
+            <ul class="sub-menu">
+              <li class="nav-item <%= current_nav_class(:admin_project_book_season) %>">
+                <%= link_to admin_project_book_seasons_path, class: 'nav-link' do %>
+                  <i class="fa fa-align-justify"></i>
+                  <span class="title">批次管理</span>
+                <% end %>
+              </li>
+            </ul>
+          </li>
         </ul>
       </li>
 

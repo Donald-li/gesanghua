@@ -27,6 +27,8 @@ class ProjectSeason < ApplicationRecord
   def self.options_for_select
     self.all.map{|c| [c.name, c.id]}
   end
+  
+  scope :book, -> { where(project_id: 2) }
 
   def self.pair_project_id
     1 # TODO: 约定为1
