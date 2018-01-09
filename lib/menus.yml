@@ -111,3 +111,13 @@ admin:
               actions:
                 'admin/pair_student_lists': all
                 'admin/remarks': all
+        admin_project_book:
+          menus:
+            admin_project_book_season:
+              actions:
+                'admin/project_book_seasons': all
+        admin_project_camp:
+          menus:
+            admin_project_camp_season:
+              actions:
+                'admin/project_camp_seasons': all

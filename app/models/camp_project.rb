@@ -1,0 +1,2 @@
+class CampProject < Project
+end
