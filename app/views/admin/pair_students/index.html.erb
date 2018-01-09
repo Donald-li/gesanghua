@@ -88,7 +88,7 @@
                   <%= child.enum_name(:nation) %>
                 </td>
                 <td>
-                  <%= child.project_season_apply.school.name %> / <%= child.enum_name(:grade) %>
+                  <%= child.project_season_apply.school.name %> / <%= child.enum_name(:level) %> <%= child.enum_name(:grade) %> <%= child.enum_name(:semester) %>
                 </td>
                 <td>
                   <% child.project_season_apply_periods.sorted.all.each do |period| %>
