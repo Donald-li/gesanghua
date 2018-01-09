@@ -93,8 +93,9 @@ Rails.application.routes.draw do
     end
 
     resources :project_book_seasons
-
     resources :project_camp_seasons
+    resources :project_radio_seasons
+    resources :project_flower_seasons
 
     resources :pair_seasons, concerns: [:switch]
     resources :pair_periods, concerns: [:switch, :move]
