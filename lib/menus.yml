@@ -104,4 +104,4 @@ admin:
                 'admin/pair_applies': all
             admin_pair_lists:
               actions:
-                'admin/pair_lists': all
+                'admin/pair_student_lists': all
