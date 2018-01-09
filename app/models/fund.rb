@@ -54,8 +54,4 @@ class Fund < ApplicationRecord
     to.save
   end
 
-  def self.options_for_select
-    self.all.map{|c| [c.name, c.id]}
-  end
-
 end

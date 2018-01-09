@@ -119,6 +119,9 @@ Rails.application.routes.draw do
         put :switch_job
       end
     end
+    resources :tasks, concerns: [:switch] do
+      resources :task_applies, only: [:index, :edit, :update]
+    end
     resources :gsh_children do
       resources :apply_records, only: [:index, :show]
     end

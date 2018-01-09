@@ -173,15 +173,25 @@ zh:
     hezhezu: '赫哲族'
     luobazu: '珞巴族'
   project_season_apply_period_kinds:
-      junior: '初中'
-      senior: '高中'
+    junior: '初中'
+    senior: '高中'
   project_season_apply_period_grades:
-      one: '一年级'
-      two: '二年级'
-      three: '三年级'
+    one: '一年级'
+    two: '二年级'
+    three: '三年级'
   project_season_apply_period_semesters:
-      up: '上学期'
-      down: '下学期'
+    up: '上学期'
+    down: '下学期'
   project_season_apply_period_states:
-      enabled: '启用'
-      disabled: '禁用'
+    enabled: '启用'
+    disabled: '禁用'
+  task_states:
+    draft: '待发布'
+    open: '报名中'
+    picking: '筛选中'
+    doing: '执行中'
+    done: '已完成'
+  task_volunteer_approve_states:
+    submit: '待审核'
+    pass: '审核通过'
+    reject: '审核不通过'
