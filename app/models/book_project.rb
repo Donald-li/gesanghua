@@ -1,0 +1,2 @@
+class BookProject < Project
+end

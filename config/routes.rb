@@ -91,11 +91,9 @@ Rails.application.routes.draw do
       resources :special_adverts
       resources :special_articles
     end
-    namespace :project do
-      namespace :book do
-        resources :seasons, concerns: [:switch]
-      end
-    end
+
+    resources :project_book_seasons
+
     resources :pair_seasons, concerns: [:switch]
     resources :pair_periods, concerns: [:switch, :move]
     resources :pair_applies do

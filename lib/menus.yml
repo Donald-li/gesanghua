@@ -111,4 +111,4 @@ admin:
           menus:
             admin_project_book_season:
               actions:
-                'admin/project/book/seasons': all
+                'admin/project_book_seasons': all
