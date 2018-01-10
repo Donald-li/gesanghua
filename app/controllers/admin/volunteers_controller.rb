@@ -3,7 +3,7 @@ class Admin::VolunteersController < Admin::BaseController
   before_action :set_user, only: [:new, :create]
 
   def index
-    @search = Volunteer.sorted.ransack(params[:q])
+    @search = Volunteer.pass.sorted.ransack(params[:q])
     scope = @search.result.joins(:user)
     @volunteers = scope.page(params[:page])
   end

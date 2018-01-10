@@ -17,9 +17,15 @@ Rails.application.routes.draw do
   concern :excel_output do
     collection { get :excel_output }
   end
-
+  concern :share do
+    member { get :share }
+  end
   concern :file_download do
     member { get :file_download }
+  end
+
+  concern :qrcode_download do
+    member { get :qrcode_download }
   end
 
   concern :remarks do
@@ -89,6 +95,12 @@ Rails.application.routes.draw do
       resources :special_adverts
       resources :special_articles
     end
+
+    resources :project_book_seasons
+    resources :project_camp_seasons
+    resources :project_radio_seasons
+    resources :project_flower_seasons
+
     resources :pair_seasons, concerns: [:switch]
     resources :pair_periods, concerns: [:switch, :move]
     resources :pair_applies do
@@ -101,16 +113,24 @@ Rails.application.routes.draw do
         end
       end
     end
-    resources :pair_lists, concerns: [:switch]
+    resources :pair_student_lists, concerns: [:switch, :remarks, :share, :qrcode_download] do
+      member do
+        put :turn_over
+      end
+    end
     resources :remarks
     resources :support_categories, concerns: [:move, :switch]
     resources :county_users, concerns: [:switch]
     resources :income_sources, concerns: :move
+    resources :volunteer_applies, only: [:index, :edit, :update]
     resources :volunteers, concerns: [:switch] do
       resources :service_histories, only: [:index, :show]
       member do
         put :switch_job
       end
+    end
+    resources :tasks, concerns: [:switch] do
+      resources :task_applies, only: [:index, :edit, :update]
     end
     resources :gsh_children do
       resources :apply_records, only: [:index, :show]

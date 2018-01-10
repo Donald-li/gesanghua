@@ -1,0 +1,48 @@
+<div class="portlet light bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-bubble font-dark"></i>
+      <span class="caption-subject font-dark bold uppercase">分享</span>
+    </div>
+    <div class="actions">
+      <div class="btn-group">
+        <%= link_to qrcode_download_admin_pair_student_list_path, class: 'btn btn-default' do %>
+            <i class="fa fa-download"></i> 点击下载二维码
+        <% end %>
+        <a href="<%= admin_pair_student_lists_path %>" class="btn btn-default">
+          <i class="fa fa-reply"></i>返回
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body form">
+    <form role="form">
+      <div class="form-body">
+        <div class="form-group">
+          <label for="exampleInputPassword1">分享链接</label>
+          <div class="input-group">
+            <input id="share_url" class="form-control" value="<%= @pair_student_list.share_url %>">
+            <span class="input-group-addon" onclick="copyShareUrl()" style="cursor: pointer">
+              <i class="fa fa-cut"></i> 点击复制链接
+            </span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">二维码</label>
+          <div class="input-group">
+            <%= image_tag @pair_student_list.qrcode_url %>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script type="text/javascript">
+    function copyShareUrl() {
+        var Url2 = document.getElementById("share_url");
+        Url2.select(); // 选择对象
+        document.execCommand("Copy"); // 执行浏览器复制命令
+        alert("已复制好，可贴粘。");
+    }
+</script>

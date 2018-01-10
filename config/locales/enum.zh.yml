@@ -91,6 +91,10 @@ zh:
   volunteer_kinds:
     normal: '普通志愿者'
     professional: '专业志愿者'
+  volunteer_approve_states:
+    submit: '审核中'
+    pass: '审核通过'
+    reject: '审核不通过'
   special_templates:
     single: '模板1'
     double: '模板2'
@@ -105,13 +109,19 @@ zh:
   project_season_apply_child_genders:
     male: '男'
     female: '女'
+  project_season_apply_child_kinds:
+    outside: '对外捐助'
+    inside: '内部认捐'
   project_season_apply_child_grades:
-    juniorone: '初中一年级'
-    juniortwo: '初中二年级'
-    juniorthree: '初中三年级'
-    seniorone: '高中一年级'
-    seniortwo: '高中二年级'
-    seniorthree: '高中三年级'
+    one: '一年级'
+    two: '二年级'
+    three: '三年级'
+  project_season_apply_child_levels:
+    junior: '初中'
+    senior: '高中'
+  project_season_apply_child_semesters:
+    up: '上学期'
+    down: '下学期'
   project_season_apply_child_nations:
     default: '未设置'
     hanzu: '汉族'
@@ -170,3 +180,26 @@ zh:
     tataerzu: '塔塔尔族'
     hezhezu: '赫哲族'
     luobazu: '珞巴族'
+  project_season_apply_period_kinds:
+    junior: '初中'
+    senior: '高中'
+  project_season_apply_period_grades:
+    one: '一年级'
+    two: '二年级'
+    three: '三年级'
+  project_season_apply_period_semesters:
+    up: '上学期'
+    down: '下学期'
+  project_season_apply_period_states:
+    enabled: '启用'
+    disabled: '禁用'
+  task_states:
+    draft: '待发布'
+    open: '报名中'
+    picking: '筛选中'
+    doing: '执行中'
+    done: '已完成'
+  task_volunteer_approve_states:
+    submit: '待审核'
+    pass: '审核通过'
+    reject: '审核不通过'

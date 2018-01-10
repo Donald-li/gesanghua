@@ -1,0 +1,31 @@
+<% url = @season.new_record? ? admin_project_camp_seasons_path : admin_project_camp_season_path %>
+<%= simple_form_for [:admin, @season], url: url, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'season_form'} do |f| %>
+    <%= f.error_notification %>
+    <div class="form-body form-horizontal">
+      <%= f.input :name, label: '名称：', autofocus: true, placeholder: '名称', required: true %>
+    </div>
+    <div class="form-actions">
+      <div class="row">
+        <div class="col-md-offset-2 col-md-9">
+          <%= f.button :submit, '提交', class: 'btn blue' %>
+          <%= link_to '取消', admin_project_camp_seasons_path, class: 'btn' %>
+        </div>
+      </div>
+    </div>
+<% end %>
+
+<script>
+    $(function() {
+        $("#project_id").select2({
+            //placeholder: "请选择财务分类"
+        });
+    })
+
+    $(function(){
+        // 表单验证
+        $(".season_form").html5Validate(function(){
+            $(this).find('[type="submit"]').attr('disabled','disabled');
+            this.submit();
+        });
+    })
+</script>

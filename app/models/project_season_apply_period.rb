@@ -13,6 +13,8 @@
 #  updated_at        :datetime         not null
 #  project_season_id :integer                                # 年度ID
 #  position          :integer                                # 位置
+#  grade             :integer                                # 结对对应年级
+#  semester          :integer                                # 结对对应学期
 #
 
 class ProjectSeasonApplyPeriod < ApplicationRecord
@@ -25,11 +27,22 @@ class ProjectSeasonApplyPeriod < ApplicationRecord
 
   validates :name, presence: true
 
+  enum kind: {junior: 1, senior: 2}
+  default_value_for :kind, 1
+
+  enum grade: {one: 1, two: 2, three: 3}
+
+  enum semester: {up: 1, down: 2}
+
   enum state: {enabled: 1, disabled: 2}
   default_value_for :state, 1
 
   def start_at_format
     return self.start_at.present? ? self.start_at.strftime("%Y-%m-%d %H:%M") : '' #"%Y-%m-%d %H:%M:%S"
+  end
+
+  def end_at_format
+    return self.end_at.present? ? self.end_at.strftime("%Y-%m-%d %H:%M") : '' #"%Y-%m-%d %H:%M:%S"
   end
 
 end

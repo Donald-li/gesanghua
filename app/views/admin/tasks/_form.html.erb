@@ -1,0 +1,58 @@
+<%= simple_form_for [:admin, @task], wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'category_form'} do |f| %>
+    <%= f.error_notification %>
+    <div class="form-body form-horizontal">
+      <%= f.input :name, label: '名称：', autofocus: true, placeholder: '名称', required: true %>
+      <%= f.input :duration, label: '时长：', placeholder: '小时', required: true, type: 'number' %>
+      <%= f.input :num, label: '人数：', placeholder: '人数', required: true, type: 'number' %>
+      <div class="form-group">
+        <label class="col-md-2 control-label">开始时间：</label>
+        <div class="col-sm-9">
+          <%= f.text_field :start_time, class: 'datetime-picker', value: (l Time.now) %>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label">结束时间：</label>
+        <div class="col-sm-9">
+          <%= f.text_field :end_time, class: 'datetime-picker', value: (l Time.now) %>
+        </div>
+      </div>
+      <div style="margin-bottom: 20px;" class="form-group">
+        <label class="col-md-2 control-label select required">省市区：</label>
+        <div class="col-sm-6">
+          <div class="row city-group">
+            <div class="col-sm-3">
+              <%= select_tag 'task[province]', options_for_select(ChinaCity.list, @task.province.presence), prompt: '省份', class: "form-control city-select" %>
+            </div>
+            <div class="col-sm-3">
+              <%= select_tag 'task[city]', options_for_select(ChinaCity.list(@task.province.to_s), @task.city.presence), prompt: '城市', class: "form-control city-select" %>
+            </div>
+            <div class="col-sm-3">
+              <%= select_tag 'task[district]', options_for_select(ChinaCity.list(@task.city.to_s), @task.district.presence), prompt: '地区', class: "form-control city-select" %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label">详情：</label>
+        <div class="col-sm-9">
+          <%= f.cktext_area :content, input_html: { data: {'parsley-required': true}}  %>
+        </div>
+      </div>
+      <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Task.options_for_some_select(:states, ['draft', 'open']), label: '状态：'%>
+    </div>
+    <div class="form-actions">
+      <div class="row">
+        <div class="col-md-offset-2 col-md-9">
+          <%= f.button :submit, '提交', class: 'btn blue' %>
+          <%= link_to '取消', admin_support_categories_path, class: 'btn' %>
+        </div>
+      </div>
+    </div>
+<% end %>
+<script type="text/javascript" charset="utf-8">
+  $(function () {
+      $('.datetime-picker').datetimepicker(
+
+      )
+  })
+</script>

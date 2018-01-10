@@ -23,6 +23,7 @@ class Admin::PairStudentsController < Admin::BaseController
     # @apply_child.audits.build
     respond_to do |format|
       if @apply_child.save
+        @apply_child.count_age
         format.html { redirect_to admin_pair_apply_pair_students_path(@project_apply), notice: '新增成功。' }
       else
         format.html { render :new }
@@ -35,6 +36,7 @@ class Admin::PairStudentsController < Admin::BaseController
 
     respond_to do |format|
       if @apply_child.update(apply_child_params)
+        @apply_child.count_age
         format.html { redirect_to admin_pair_apply_pair_students_path(@project_apply), notice: '修改成功。' }
       else
         format.html { render :edit }
@@ -68,10 +70,11 @@ class Admin::PairStudentsController < Admin::BaseController
     @audit = @apply_child.audits.build(state: params[:audit][:state], comment: params[:audit][:comment], user_id: current_user.id)
     respond_to do |format|
       if @audit.save
-        if @audit.pass? && @apply_child.gsh_child.blank?
-          @apply_child.build_gsh_child(name: @apply_child.name, phone: @apply_child.phone, idcard: @apply_child.id_card, province: @apply_child.province, city: @apply_child.city, district: @apply_child.district)
-          @apply_child.save
-        end
+        # if @audit.pass? && @apply_child.gsh_child.blank?
+        #   @apply_child.build_gsh_child(name: @apply_child.name, phone: @apply_child.phone, idcard: @apply_child.id_card, province: @apply_child.province, city: @apply_child.city, district: @apply_child.district)
+        # end
+        @apply_child.approve_state = params[:audit][:state]
+        @apply_child.save(validate: false)
         format.html { redirect_to edit_admin_pair_apply_pair_student_path(@project_apply, @apply_child), notice: '审核成功。' }
       else
         format.html { render :new_audit }
@@ -86,7 +89,6 @@ class Admin::PairStudentsController < Admin::BaseController
   #   end
   #   redirect_to referer_or(admin_pair_seasons_path), notice: @season.enabled? ? "#{@season.name}年度已设为当前执行年度" : '该年度已禁用'
   # end
-
 
   private
     # Use callbacks to share common setup or constraints between actions.

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180109114908) do
+ActiveRecord::Schema.define(version: 20180109025748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -396,6 +396,8 @@ ActiveRecord::Schema.define(version: 20180109114908) do
     t.integer "grade", comment: "年级"
     t.integer "gender", comment: "性别"
     t.integer "school_id", comment: "学校ID"
+    t.integer "semester", comment: "学期"
+    t.integer "kind", comment: "捐助形式：1对外捐助 2内部认捐"
   end
 
   create_table "project_season_apply_gooods", force: :cascade, comment: "项目执行年度申请的物品表" do |t|
@@ -419,6 +421,8 @@ ActiveRecord::Schema.define(version: 20180109114908) do
     t.datetime "updated_at", null: false
     t.integer "project_season_id", comment: "年度ID"
     t.integer "position", comment: "位置"
+    t.integer "grade", comment: "结对对应年级"
+    t.integer "semester", comment: "结对对应学期"
   end
 
   create_table "project_season_apply_volunteers", force: :cascade, comment: "项目执行年度申请和志愿者关联表" do |t|
@@ -695,6 +699,7 @@ ActiveRecord::Schema.define(version: 20180109114908) do
     t.integer "kind", comment: "类型"
     t.integer "approve_state", comment: "认证状态"
     t.datetime "approve_time", comment: "认证时间"
+    t.text "approve_remark", comment: "审核备注"
   end
 
   create_table "voucher_donate_records", force: :cascade, comment: "捐赠收据捐助记录表" do |t|

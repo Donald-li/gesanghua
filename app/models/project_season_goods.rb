@@ -10,10 +10,11 @@
 #  updated_at        :datetime         not null
 #
 
-class ProjectSeasonGood < ApplicationRecord
+class ProjectSeasonGoods < ApplicationRecord
   belongs_to :project
-  belongs_to :project_season
+  belongs_to :project_season, optional: true
 
   validates :name, presence: true
-  
+
+
 end

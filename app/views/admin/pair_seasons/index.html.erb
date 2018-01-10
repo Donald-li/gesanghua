@@ -1,7 +1,7 @@
 <div class="portlet light">
   <div class="portlet-title">
     <div class="caption">
-      <i class="icon-list"></i>年度管理
+      <i class="icon-list"></i>批次管理
     </div>
     <div class="actions">
       <%= link_to new_admin_pair_season_path, class: 'btn blue-soft', 'data-no-turbolink' => true do %>
@@ -16,8 +16,8 @@
         <div class="col-md-12 col-sm-12">
           <%= search_form_for @search, url: admin_pair_seasons_path, class: 'form-inline' do |f| %>
               <div class="form-group">
-                <%= f.label :name_cont, '分类名' %>
-                <%= f.text_field :name_cont, class: 'form-control', placeholder: '分类名' %>
+                <%= f.label :name_cont, '批次名称' %>
+                <%= f.text_field :name_cont, class: 'form-control', placeholder: '可根据批次名称搜索' %>
               </div>
               <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>
@@ -32,13 +32,7 @@
           <thead>
           <tr>
             <th>
-              名称
-            </th>
-            <th>
-              财务分类
-            </th>
-            <th>
-              状态
+              批次名称
             </th>
             <th width="230px">
               操作
@@ -51,10 +45,7 @@
                 <td>
                   <%= season.name %>
                 </td>
-                <td>
-                  <%= season.project.try(:fund).try(:fund_category).try(:name) %> - <%= season.project.try(:fund).try(:name) %>
-                </td>
-                <td>
+                <td style="display: none">
                   <%= link_to switch_admin_pair_season_path(season), data: {confirm: "确定#{season.disabled? ? '设置为可用年度' : '禁用'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{season.enabled? ? 'green' : 'default'}" do %>
                       <%= season.enabled? ? '可用年度' : '禁用' %>
                       <i class="fa <%= season.enabled? ? 'fa-eye' : 'fa-eye-slash' %>"></i>
