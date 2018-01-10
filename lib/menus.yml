@@ -78,6 +78,13 @@ admin:
           actions:
             'admin/income_sources': all
 
+    # 学校用户
+    admin_school:
+      menus:
+        admin_school_applies:
+          actions:
+            admin/school_applies: all
+
     # 管理员列表
     admin_administrator:
       menus:

@@ -36,7 +36,7 @@
     </div>
     <%= f.input :address, label: '详细地址：', placeholder: '请填写正确的收件地址' %>
     <h4>账号信息</h4>
-    <%= f.input :login, label: '登陆名：', placeholder: '设置用户登录名', input_html: { data: {'parsley-required': true}} %>
+    <%= f.input :login, label: '登录名：', placeholder: '设置用户登录名', input_html: { data: {'parsley-required': true}} %>
     <%= f.input :password, label: '设置密码：', hint: '设置登录密码', placeholder: '如果不修改密码，请留空', input_html: {id: 'password'} %>
     <%= f.input :password_confirmation, label: '确认密码：', hint: '重新输入一次密码', placeholder: '如果不修改密码，请留空', input_html: {id: 'password_confirmation'} %>
     <%= f.input :phone, label: '绑定手机：', placeholder: '填写正确的手机号码', input_html: { data: {'parsley-required': true}} %>
