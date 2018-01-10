@@ -12,6 +12,7 @@ admin:
         admin_volunteer_list:
           actions:
             'admin/volunteers': all
+            'admin/service_histories': all
         admin_volunteer_apply:
           actions:
             'admin/volunteer_applies': all
@@ -73,6 +74,13 @@ admin:
         admin_income_source:
           actions:
             'admin/income_sources': all
+
+    # 学校用户
+    admin_school:
+      menus:
+        admin_school_applies:
+          actions:
+            admin/school_applies: all
 
     # 管理员列表
     admin_administrator:

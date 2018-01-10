@@ -1,0 +1,2 @@
+module Admin::SchoolAppliesHelper
+end
