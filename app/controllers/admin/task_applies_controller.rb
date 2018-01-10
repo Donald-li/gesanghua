@@ -4,7 +4,7 @@ class Admin::TaskAppliesController < Admin::BaseController
 
   def index
     @search = TaskVolunteer.where(task: @task).submit.sorted.ransack(params[:q])
-    scope = @search.result
+    scope = @search.result.joins(:volunteer).where('volunteers.job_state' => 'available')
     @task_applies = scope.page(params[:page])
   end
 

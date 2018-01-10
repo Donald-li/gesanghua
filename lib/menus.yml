@@ -12,6 +12,7 @@ admin:
         admin_volunteer_list:
           actions:
             'admin/volunteers': all
+            'admin/service_histories': all
         admin_volunteer_apply:
           actions:
             'admin/volunteer_applies': all
