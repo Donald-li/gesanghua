@@ -2,7 +2,7 @@ class Admin::PairSeasonsController < Admin::BaseController
   before_action :set_season, only: [:show, :edit, :update, :destroy, :switch]
 
   def index
-    @search = ProjectSeason.sorted.ransack(params[:q])
+    @search = ProjectSeason.pair.sorted.ransack(params[:q])
     scope = @search.result
     @seasons = scope.page(params[:page])
   end

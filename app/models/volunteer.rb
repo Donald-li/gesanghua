@@ -20,7 +20,7 @@
 class Volunteer < ApplicationRecord
   belongs_to :major, optional: true
   belongs_to :user
-  has_many :task_volunteers
+  has_many :task_volunteers, dependent: :destroy
   has_many :tasks, through: :task_volunteers
   has_many :audits, as: :owner
   has_many :remarks, as: :owner

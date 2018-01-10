@@ -19,8 +19,7 @@
           <%= static_form_control 'ID：', @user.id %>
           <%= static_form_control '姓名：', @user.name %>
           <%= static_form_control '联系方式：', @user.phone %>
-          <%= f.input :duration, label: '服务时长：', autofocus: true, placeholder: '', required: true %>
-          <%= f.input :major, as: :select, collection: Major.sorted, label: '专业：', include_blank: false %>
+          <%= f.input :major, as: :select, collection: Major.all, label: '专业：', include_blank: false %>
           <%= f.input :kind, as: :radio_buttons, wrapper: :inline_inputs, collection: Volunteer.options_for_select(:kinds), label: '类型：', include_blank: false %>
           <%= f.input :job_state, as: :radio_buttons, wrapper: :inline_inputs, collection: Volunteer.options_for_select(:job_states), label: '工作状态：', include_blank: false %>
           <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Volunteer.options_for_select(:states), label: '用户状态：', include_blank: false %>

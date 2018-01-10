@@ -56,7 +56,7 @@
             <th>
               任务状态
             </th>
-            <th>
+            <th width="200px">
               操作
             </th>
           </tr>
@@ -87,6 +87,12 @@
                   <%= task.enum_name(:state) %>
                 </td>
                 <td>
+                  <% if !task.done? %>
+                  <% if task.task_volunteers.try(:first).to_check? %>
+                  <%= link_to check_edit_admin_appoint_task_url(task), class: 'btn btn-xs blue' do %>
+                      <i class="fa fa-gavel"></i> 审核任务
+                  <% end %>
+                  <% end %>
                   <%= link_to switch_edit_admin_appoint_task_url(task), class: 'btn btn-xs blue' do %>
                       <i class="fa fa-edit"></i> 移交任务
                   <% end %>
@@ -95,6 +101,7 @@
                   <% end %>
                   <%= link_to admin_appoint_task_url(task), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                       <i class="fa fa-trash-o"></i> 删除
+                  <% end %>
                   <% end %>
                 </td>
               </tr>

@@ -1,5 +1,5 @@
 class Admin::AppointTasksController < Admin::BaseController
-  before_action :set_task, only: [:show, :edit, :update, :destroy, :switch_edit, :switch_update]
+  before_action :set_task, only: [:show, :edit, :update, :destroy, :switch_edit, :switch_update, :check_edit, :check_update]
 
   def index
     @search = Task.appoint.sorted.ransack(params[:q])
@@ -21,7 +21,7 @@ class Admin::AppointTasksController < Admin::BaseController
     @task = Task.new(task_params.merge(kind: 2))
     respond_to do |format|
       if @task.save
-        @task.task_volunteers.create(volunteer_id: params[:appoint_id], approve_state: 2, approve_time: Time.now)
+        @task.task_volunteers.create(volunteer_id: params[:appoint_id], approve_state: 'pass', approve_time: Time.now)
         format.html { redirect_to admin_appoint_tasks_path, notice: '新建成功。' }
       else
         format.html { render :new }
@@ -55,6 +55,20 @@ class Admin::AppointTasksController < Admin::BaseController
         format.html { redirect_to admin_appoint_tasks_path, notice: '移交成功。' }
       else
         format.html { redirect_to admin_appoint_tasks_path, notice: '移交失败。' }
+      end
+    end
+  end
+
+  def check_edit
+  end
+
+  def check_update
+    respond_to do |format|
+      @task.task_volunteers.first.update(duration: params[:duration], comment: params[:comment], finish_state: 'done', finish_time: Time.now)
+      if @task.done!
+        format.html { redirect_to admin_appoint_tasks_path, notice: '审核成功。' }
+      else
+        format.html { redirect_to admin_appoint_tasks_path, notice: '审核失败。' }
       end
     end
   end

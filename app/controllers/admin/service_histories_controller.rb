@@ -4,7 +4,7 @@ class Admin::ServiceHistoriesController < Admin::BaseController
 
   def index
     set_search_end_of_day(:finish_time_lteq)
-    @search = @volunteer.task_volunteers.sorted.ransack(params[:q])
+    @search = @volunteer.task_volunteers.pass.sorted.ransack(params[:q])
     scope = @search.result
     @service_histories = scope.page(params[:page])
   end

@@ -110,6 +110,9 @@
                   <%= link_to admin_volunteer_service_histories_path(volunteer), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-history"></i> 服务历史
                   <% end %>
+                  <%= link_to admin_volunteer_task_volunteers_path(volunteer), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                      <i class="fa fa-list"></i> 时长记录
+                  <% end %>
                   <%= link_to edit_admin_volunteer_path(volunteer), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-edit"></i> 修改
                   <% end %>

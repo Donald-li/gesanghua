@@ -13,6 +13,7 @@ admin:
           actions:
             'admin/volunteers': all
             'admin/service_histories': all
+            'admin/task_volunteers': all
         admin_volunteer_apply:
           actions:
             'admin/volunteer_applies': all
