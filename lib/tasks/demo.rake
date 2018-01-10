@@ -84,4 +84,5 @@ namespace :demo do
     donate_record1.save(validate: false)
     donate_record2.save(validate: false)
   end
+
 end

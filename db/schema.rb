@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180110073234) do
+ActiveRecord::Schema.define(version: 20180110071054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -173,7 +173,6 @@ ActiveRecord::Schema.define(version: 20180110073234) do
     t.integer "pay_state", comment: "付款状态"
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "捐助金额"
     t.integer "project_id", comment: "项目id"
-    t.integer "project_apply_id", comment: "项目申请id"
     t.integer "team_id", comment: "小组id"
     t.string "message", comment: "留言"
     t.string "donor", comment: "捐赠者"
@@ -183,6 +182,10 @@ ActiveRecord::Schema.define(version: 20180110073234) do
     t.integer "voucher_state", comment: "捐赠收据状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "project_season_id", comment: "年度ID"
+    t.integer "project_season_apply_id", comment: "年度项目ID"
+    t.integer "project_season_apply_child_id", comment: "年度孩子申请ID"
+    t.string "donate_no", comment: "捐赠编号"
   end
 
   create_table "expenditure_records", force: :cascade, comment: "支出记录表" do |t|
@@ -510,15 +513,15 @@ ActiveRecord::Schema.define(version: 20180110073234) do
     t.integer "level", comment: "学校等级： 1:初中 2:高中"
     t.string "contact_name", comment: "联系人"
     t.string "contact_phone", comment: "联系方式"
-    t.string "contact_position", comment: "联系人职务"
-    t.integer "kind", comment: "学校类型"
-    t.integer "user_id", comment: "用户id"
+    t.integer "user_id", comment: "申请人ID"
     t.string "school_no", comment: "学校申请编号"
     t.string "contact_idcard", comment: "联系人身份证号"
     t.string "postcode", comment: "邮政编码"
     t.integer "teacher_count", comment: "教师人数"
     t.integer "logistic_count", comment: "后勤人数"
     t.string "contact_telephone", comment: "联系人座机号码"
+    t.string "contact_position", comment: "联系人职务"
+    t.integer "kind", comment: "学校类型"
   end
 
   create_table "sequences", force: :cascade do |t|
@@ -599,9 +602,6 @@ ActiveRecord::Schema.define(version: 20180110073234) do
     t.datetime "updated_at", null: false
     t.datetime "finish_time", comment: "任务完成时间"
     t.datetime "approve_time", comment: "审核时间"
-    t.integer "user_id", comment: "审核人id"
-    t.integer "finish_state", comment: "完成状态1:未完成doing 2:已完成done"
-    t.string "source", comment: "获得来源"
   end
 
   create_table "tasks", force: :cascade, comment: "任务表" do |t|
@@ -618,7 +618,6 @@ ActiveRecord::Schema.define(version: 20180110073234) do
     t.datetime "updated_at", null: false
     t.datetime "start_time", comment: "任务开始时间"
     t.datetime "end_time", comment: "任务结束时间"
-    t.integer "kind"
   end
 
   create_table "teachers", force: :cascade, comment: "老师表" do |t|
