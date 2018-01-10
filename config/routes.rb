@@ -166,7 +166,9 @@ Rails.application.routes.draw do
         get :users
         get :gsh_child_user
         get :teacher_user
-        get :school_user
+        get :school_users
+      end
+    end
     resources :ajaxes, only: [] do
       collection do
         get :school_users
