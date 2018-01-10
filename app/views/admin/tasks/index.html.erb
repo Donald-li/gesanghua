@@ -113,9 +113,6 @@
                       <li>
                         <%= link_to '标记为执行中', switch_admin_task_path(task, state: 'doing'), method: :put, data: {confirm: '确定标记为执行中吗？'} %>
                       </li>
-                      <li>
-                        <%= link_to '标记为已完成', switch_admin_task_path(task, state: 'done'), method: :put, data: {confirm: '确定标记为已完成吗？'} %>
-                      </li>
                     </ul>
                   </div>
                   <%= link_to edit_admin_task_url(task), class: 'btn btn-xs blue' do %>

@@ -16,6 +16,7 @@
 #  user_id             :integer                                # 审核人id
 #  finish_state        :integer                                # 完成状态1:未完成doing 2:已完成done
 #  source              :string                                 # 获得来源
+#  kind                :integer                                # 类型
 #
 
 require 'rails_helper'
