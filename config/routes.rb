@@ -85,6 +85,7 @@ Rails.application.routes.draw do
     resources :supports, concerns: [:move, :switch]
     resources :pages, concerns: [:move, :switch]
     resources :projects
+    resources :school_applies
     resources :audit_reports, concerns: [:switch, :file_download]
     resources :financial_reports, concerns: [:switch, :file_download]
     resources :funds, concerns: [:switch, :move] do
@@ -110,6 +111,7 @@ Rails.application.routes.draw do
         end
         collection do
           post :create_audit
+          patch :update_audit
         end
       end
     end
@@ -165,6 +167,9 @@ Rails.application.routes.draw do
         get :gsh_child_user
         get :teacher_user
         get :school_user
+    resources :ajaxes, only: [] do
+      collection do
+        get :school_users
       end
     end
   end

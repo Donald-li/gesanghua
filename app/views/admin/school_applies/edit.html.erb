@@ -1,0 +1,108 @@
+<div class="portlet light bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-note"></i>
+      <span class="caption-subject">审核学校申请</span>
+      <span class="caption-helper"></span>
+    </div>
+    <div class="actions">
+      <div class="portlet-input input-inline input-small">
+        <div class="input-icon right">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body form">
+    <%= simple_form_for [:admin, @school_apply], url: admin_school_apply_path, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'school_form'} do |f| %>
+      <%= f.error_notification %>
+      <div class="form-body form-horizontal">
+        <%= f.input :name, label: '学校全称：', autofocus: true, placeholder: '学校全称', input_html: { data: {'parsley-required': true}} %>
+        <%= f.input :user_id, collection: [@school_apply.user].compact.map {|u| [u.name, u.id]}, label: '学校申请人', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
+        <div style="margin-bottom: 20px;" class="form-group">
+          <label class="col-md-2 control-label select required" for="project_category_id">省市区：</label>
+          <div class="col-sm-6">
+            <div class="row city-group">
+              <div class="col-sm-3">
+                <%= select_tag 'school[province]', options_for_select(ChinaCity.list, @school_apply.province.presence), prompt: '省份', class: "form-control city-select" %>
+              </div>
+              <div class="col-sm-3">
+                <%= select_tag 'school[city]', options_for_select(ChinaCity.list(@school_apply.province.to_s), @school_apply.city.presence), prompt: '城市', class: "form-control city-select" %>
+              </div>
+              <div class="col-sm-3">
+                <%= select_tag 'school[district]', options_for_select(ChinaCity.list(@school_apply.city.to_s), @school_apply.district.presence), prompt: '地区', class: "form-control city-select" %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <%= f.input :address, label: '通信地址：', placeholder: '通信地址', input_html: { data: {'parsley-required': true}} %>
+        <%= f.input :contact_name, label: '校长姓名：', placeholder: '校长姓名', input_html: { data: {'parsley-required': true}} %>
+        <%= f.input :contact_idcard, label: '校长身份证号码：', placeholder: '校长身份证号码', input_html: { data: {'parsley-required': true}} %>
+        <%= f.input :contact_phone, label: '校长手机号码：', placeholder: '校长手机号码', input_html: { data: {'parsley-required': true}} %>
+        <%= f.input :number, label: '学生人数：', placeholder: '学生人数', input_html: { data: {'parsley-required': true}} %>
+        <%= f.input :teacher_count, label: '教师人数：', placeholder: '教师人数', input_html: { data: {'parsley-required': true}} %>
+        <%= f.input :logistic_count, label: '后勤人数：', placeholder: '后勤人数', input_html: { data: {'parsley-required': true}} %>
+        <%= f.input :describe, label: '学校简介：', placeholder: '请填写学校简介' %>
+        <div class="form-group">
+          <label class="col-md-2 control-label">申请图片：</label>
+          <div class="col-sm-9">
+            <%= webuploader_tag 'image_ids[]', label: '上传学校申请图片', type: 'school_image', asset: @school_apply.images %>
+            <!-- <span style="color: red">注意：左起第一张图片为第一张图</span> -->
+          </div>
+        </div>
+      </div>
+      <div class="form-actions">
+        <div class="row">
+          <div class="col-md-offset-2 col-md-9">
+            <%= f.button :submit, '提交', class: 'btn blue' %>
+            <%= link_to '取消', admin_school_applies_path, class: 'btn' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script>
+    $(function(){
+        // 表单验证
+        $(".school_form").html5Validate(function(){
+            $(this).find('[type="submit"]').attr('disabled','disabled');
+            this.submit();
+        });
+        $(".school_form .user_selector").select2({
+          language: "zh-CN",
+          placeholder: '请选择申请人',
+          allowClear: true,
+          ajax: {
+            url: "/ajaxes/school_users",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+              return {
+                q: params.term, // search term
+                page: params.page
+              };
+            },
+            processResults: function (data, params) {
+              params.page = params.page || 1;
+              return {
+                  results: $.map(data.items, function (item) {
+                    return {
+                      text: item.name,
+                      id: item.id
+                  }
+                }),
+                pagination: {
+                  more: (params.page * 30) < data.total_count
+                }
+              };
+            },
+            cache: true
+          },
+          minimumInputLength: 1
+        });
+        //多图上传
+        initMultiImageWebuploader('.upload-wrap');
+        $('.upload-list').viewer();
+    })
+</script>

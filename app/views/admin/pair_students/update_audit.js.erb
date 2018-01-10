@@ -1,0 +1,4 @@
+alert("修改审核成功！")
+$('#myModal_update').modal('hide')
+$('#check_state').text('<%= @audit.enum_name(:state) %>')
+$('#check_comment').text('<%= @audit.comment %>')
