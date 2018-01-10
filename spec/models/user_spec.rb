@@ -23,6 +23,8 @@
 #  city            :string                                 # 市
 #  district        :string                                 # 区/县
 #  address         :string                                 # 详细地址
+#  qq              :string                                 # qq号
+#  idcard          :string                                 # 身份证
 #
 
 require 'rails_helper'

@@ -69,6 +69,10 @@ Rails.application.routes.draw do
     resource :session, only: :create
     get '/account/modify-password' => 'modify_password#edit', as: :modify_password
     put '/account/modify-password' => 'modify_password#update', as: :modify_password_update
+    get '/selects/gsh_child_user' => 'selects#gsh_child_user'
+    get '/selects/teacher_user' => 'selects#teacher_user'
+    get '/selects/teacher_school' => 'selects#teacher_school'
+
     resource :main, only: :show
     resources :users, concerns: :switch do
       resources :donate_records, only: [:index, :destroy]
@@ -93,8 +97,9 @@ Rails.application.routes.draw do
     end
 
     resources :project_book_seasons
-
     resources :project_camp_seasons
+    resources :project_radio_seasons
+    resources :project_flower_seasons
 
     resources :pair_seasons, concerns: [:switch]
     resources :pair_periods, concerns: [:switch, :move]
@@ -130,6 +135,15 @@ Rails.application.routes.draw do
     resources :gsh_children do
       resources :apply_records, only: [:index, :show]
     end
+    resources :schools do
+      member do
+        get :contact_show
+        get :contact_edit
+        put :contact_update
+      end
+      resources :teachers
+      resources :contacts
+    end
   end
 
   namespace :school do
@@ -147,6 +161,10 @@ Rails.application.routes.draw do
     resources :selects, only: [] do
       collection do
         get :schools
+        get :users
+        get :gsh_child_user
+        get :teacher_user
+        get :school_user
       end
     end
   end

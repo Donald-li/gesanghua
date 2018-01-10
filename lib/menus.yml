@@ -26,6 +26,11 @@ admin:
     admin_user_gsh_children:
       actions:
         'admin/gsh_children': all
+    admin_school:
+      menus:
+        admin_schools:
+          actions:
+            'admin/schools': all
 
     # 平台管理
     admin_platform_content:
@@ -122,3 +127,13 @@ admin:
             admin_project_camp_season:
               actions:
                 'admin/project_camp_seasons': all
+        admin_project_radio:
+          menus:
+            admin_project_radio_season:
+              actions:
+                'admin/project_radio_seasons': all
+        admin_project_flower:
+          menus:
+            admin_project_flower_season:
+              actions:
+                'admin/project_flower_seasons': all

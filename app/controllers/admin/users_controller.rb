@@ -9,10 +9,10 @@ class Admin::UsersController < Admin::BaseController
         scope = @search.result
         @users = scope.sorted.page(params[:page])
       end
-      format.json do # Select2 异步选择用户搜索
-        users = User.enabled.where.not(users: {id: 1}).left_joins(:gsh_child).where(gsh_children: {user_id: nil}).where("users.name like :q", q: "%#{params[:q]}%").page(params[:page])
-        render json: {items: users.as_json(only: [:id, :name])}
-      end
+      #format.json do # Select2 异步选择用户搜索
+      #  users = User.enabled.where.not(users: {id: 1}).left_joins(:gsh_child).where(gsh_children: {user_id: nil}).where("users.name like :q", q: "%#{params[:q]}%").page(params[:page])
+      #  render json: {items: users.as_json(only: [:id, :name])}
+      #end
     end
 
   end
