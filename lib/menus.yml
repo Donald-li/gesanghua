@@ -131,6 +131,9 @@ admin:
             admin_pair_donate_records:
               actions:
                 'admin/pair_donate_records': all
+            admin_pair_reports:
+              actions:
+                'admin/pair_reports': all
         admin_project_book:
           menus:
             admin_project_book_season:

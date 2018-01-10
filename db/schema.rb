@@ -495,6 +495,10 @@ ActiveRecord::Schema.define(version: 20180110095238) do
     t.integer "state", comment: "状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "project_id", comment: "项目ID"
+    t.datetime "published_at", comment: "发布时间"
+    t.integer "position", comment: "位置"
+    t.integer "user_id", comment: "发布人"
   end
 
   create_table "schools", force: :cascade, comment: "学校表" do |t|

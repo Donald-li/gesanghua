@@ -208,3 +208,6 @@ zh:
     submit: '待审核'
     pass: '审核通过'
     rejected: '审核不通过'
+  report_states:
+    show: '显示'
+    hidden: '隐藏'
