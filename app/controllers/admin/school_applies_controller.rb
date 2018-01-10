@@ -1,5 +1,5 @@
 class Admin::SchoolAppliesController < Admin::BaseController
-  before_action :set_school_apply, only: [:edit, :update]
+  before_action :set_school_apply, only: [:edit, :update, :new_audit, :edit_audti]
 
   def index
     @search = School.can_check.sorted.ransack(params[:q])
@@ -12,11 +12,13 @@ class Admin::SchoolAppliesController < Admin::BaseController
   end
 
   def edit
+    @audit = @school_apply.audits.last
+    @new_audit = @school_apply.audits.build
   end
 
   def create
     @school_apply = School.new(school_apply_params)
-
+    @school_apply.audits.build
     respond_to do |format|
       if @school_apply.save
         @school_apply.attach_images(params[:image_ids])
@@ -42,6 +44,45 @@ class Admin::SchoolAppliesController < Admin::BaseController
     @school.destroy
     respond_to do |format|
       format.html { redirect_to admin_school_applies_path, notice: '删除成功。' }
+    end
+  end
+
+  # def new_audit
+  #   @audit = @school_apply.audits.build
+  # end
+
+  def create_audit
+    @school_apply = School.find(params[:audit][:school_apply_id])
+    @new_audit = @school_apply.audits.build(state: params[:audit][:state], comment: params[:audit][:comment], user_id: current_user.id)
+    respond_to do |format|
+      if @new_audit.save
+        # if @audit.pass? && @school_apply.gsh_child.blank?
+        #   @school_apply.build_gsh_child(name: @school_apply.name, phone: @school_apply.phone, idcard: @school_apply.id_card, province: @school_apply.province, city: @school_apply.city, district: @school_apply.district)
+        # end
+        @school_apply.approve_state = params[:audit][:state]
+        @school_apply.save(validate: false)
+        # format.html { redirect_to edit_admin_pair_apply_school_apply_path(@project_apply, @school_apply), notice: '审核成功。' }
+        # format.json { render json: @audit, status: 'created'}
+        format.js
+      else
+        format.html { render :new_audit }
+      end
+    end
+  end
+
+  # def edit_audti
+  #   @audit = @school_apply.audits.last
+  # end
+
+  def update_audit
+    @school_apply = School.find(params[:audit][:school_apply_id])
+    @audit = @school_apply.audits.last
+    respond_to do |format|
+      if @audit.update(state: params[:audit][:state], comment: params[:audit][:comment], user_id: current_user.id)
+        format.js
+      else
+        format.html { render :edit }
+      end
     end
   end
 

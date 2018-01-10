@@ -25,6 +25,8 @@
 #  teacher_count     :integer                                # 教师人数
 #  logistic_count    :integer                                # 后勤人数
 #  contact_telephone :string                                 # 联系人座机号码
+#  contact_position  :string                                 # 联系人职务
+#  kind              :integer                                # 学校类型
 #
 
 require 'rails_helper'

@@ -5,12 +5,6 @@
       <span class="caption-subject">学生申请</span>
       <span class="caption-helper"></span>
     </div>
-    <!-- <div class="actions">
-      <%= link_to new_audit_admin_pair_apply_pair_student_path(@project_apply, @apply_child), class: 'btn blue-soft', 'data-no-turbolink' => true do %>
-          <i class="icon-plus"></i>
-          <span>审核操作</span>
-      <% end %>
-    </div> -->
     <div class="actions">
       <div class="portlet-input input-inline input-small">
         <div class="input-icon right">
@@ -20,81 +14,100 @@
   </div>
   <div class="portlet-body form">
 
-        <div class="form-body form-horizontal">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="tabbable-line boxless tabbable-reversed">
-                <ul class="nav nav-tabs">
-                  <li class="active">
-                    <a href="#tab_0" data-toggle="tab" aria-expanded="true"> 申请资料 </a>
-                  </li>
-                  <li class="">
-                    <a href="#tab_1" data-toggle="tab" aria-expanded="false"> 家访报告 </a>
-                  </li>
-                  <li class="">
-                    <a href="#tab_2" data-toggle="tab" aria-expanded="false"> 审核信息 </a>
-                  </li>
-                </ul>
-                <div class="tab-content">
-                  <div class="tab-pane active" id="tab_0">
-                    <%= simple_form_for [:admin, @project_apply, @apply_child], url: admin_pair_apply_pair_student_path, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'season_form'} do |f| %>
-                        <%= f.error_notification %>
-                        <%= f.hidden_field :school_id, value: @project_apply.school_id %>
-                        <%= f.hidden_field :project_id, value: @project_apply.project_id %>
-                        <%= f.hidden_field :project_season_id, value: @project_apply.project_season_id %>
-                        <%= f.input :name, label: '姓名：', autofocus: true, placeholder: '姓名', required: true %>
-                        <%= f.input :level, as: :select, label: '中学：', collection: ProjectSeasonApplyChild.options_for_enum_select(:levels), include_blank: false %>
-                        <%= f.input :grade, as: :select, label: '年级：', collection: ProjectSeasonApplyChild.options_for_enum_select(:grades), include_blank: false %>
-                        <%= f.input :semester, as: :select, label: '学期：', collection: ProjectSeasonApplyChild.options_for_enum_select(:semesters), include_blank: false %>
-                        <%= f.input :id_card, label: '身份证号：', autofocus: true, placeholder: '身份证号', required: true %>
-                        <%= f.input :nation, as: :select, label: '民族：', collection: ProjectSeasonApplyChild.options_for_enum_select(:nations), include_blank: false %>
-                        <%= f.input :gender, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApplyChild.options_for_select(:genders), label: '性别：'%>
-                        <%= f.input :parent_name, label: '家长姓名：', autofocus: true, placeholder: '家长姓名', required: true %>
-                        <%= f.input :phone, label: '联系电话：', autofocus: true, placeholder: '联系电话', required: true %>
-                        <div class="form-group">
-                          <label class="col-md-2 control-label">申请学期：</label>
-                          <div class="col-sm-9">
-                            <ul>
-                              <% ProjectSeasonApplyPeriod.enabled.sorted.all.each do |period| %>
-                                <li>
-                                  <label>
-                                    <%= check_box_tag 'project_season_apply_child[project_season_apply_period_ids][]', period.id, period.id.in?(@apply_child.project_season_apply_period_ids)  %>
-                                    <%= period.name %>
-                                  </label>
-                                </li>
-                              <% end %>
-                            </ul>
-                          </div>
-                        </div>
-                        <%#= f.input :approve_state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApplyChild.options_for_select(:approve_states), label: '审核：'%>
-                        <%= f.input :description, label: '描述：', placeholder: '描述' %>
-                      <div class="form-actions">
-                        <div class="row">
-                          <div class="col-md-offset-2 col-md-9">
-                            <%= f.button :submit, '提交', class: 'btn blue' %>
-                            <%= link_to '取消', admin_pair_apply_pair_students_path(@project_apply), class: 'btn' %>
-                          </div>
-                        </div>
+    <div class="form-body form-horizontal">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="tabbable-line boxless tabbable-reversed">
+            <ul class="nav nav-tabs">
+              <li class="active">
+                <a href="#tab_0" data-toggle="tab" aria-expanded="true"> 申请资料 </a>
+              </li>
+              <li class="">
+                <a href="#tab_1" data-toggle="tab" aria-expanded="false"> 家访报告 </a>
+              </li>
+              <li class="">
+                <a href="#tab_2" data-toggle="tab" aria-expanded="false"> 审核信息 </a>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="tab_0">
+                <%= simple_form_for [:admin, @project_apply, @apply_child], url: admin_pair_apply_pair_student_path, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'season_form'} do |f| %>
+                    <%= f.error_notification %>
+                    <%= f.hidden_field :school_id, value: @project_apply.school_id %>
+                    <%= f.hidden_field :project_id, value: @project_apply.project_id %>
+                    <%= f.hidden_field :project_season_id, value: @project_apply.project_season_id %>
+                    <%= f.input :name, label: '姓名：', autofocus: true, placeholder: '姓名', required: true %>
+                    <%= f.input :level, as: :select, label: '中学：', collection: ProjectSeasonApplyChild.options_for_enum_select(:levels), include_blank: false %>
+                    <%= f.input :grade, as: :select, label: '年级：', collection: ProjectSeasonApplyChild.options_for_enum_select(:grades), include_blank: false %>
+                    <%= f.input :semester, as: :select, label: '学期：', collection: ProjectSeasonApplyChild.options_for_enum_select(:semesters), include_blank: false %>
+                    <%= f.input :id_card, label: '身份证号：', autofocus: true, placeholder: '身份证号', required: true %>
+                    <%= f.input :nation, as: :select, label: '民族：', collection: ProjectSeasonApplyChild.options_for_enum_select(:nations), include_blank: false %>
+                    <%= f.input :gender, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApplyChild.options_for_select(:genders), label: '性别：'%>
+                    <%= f.input :parent_name, label: '家长姓名：', autofocus: true, placeholder: '家长姓名', required: true %>
+                    <%= f.input :phone, label: '联系电话：', autofocus: true, placeholder: '联系电话', required: true %>
+                    <div class="form-group">
+                      <label class="col-md-2 control-label">申请学期：</label>
+                      <div class="col-sm-9">
+                        <ul>
+                          <% ProjectSeasonApplyPeriod.enabled.sorted.all.each do |period| %>
+                            <li>
+                              <label>
+                                <%= check_box_tag 'project_season_apply_child[project_season_apply_period_ids][]', period.id, period.id.in?(@apply_child.project_season_apply_period_ids)  %>
+                                <%= period.name %>
+                              </label>
+                            </li>
+                          <% end %>
+                        </ul>
                       </div>
-                  </div>
-                  <div class="tab-pane" id="tab_1">
-                    <% if @apply_child.visit.present? %>
-                      <% visit = @apply_child.visit %>
-                      <%= static_form_control '内容：', visit.content %>
-                    <% end %>
-                  </div>
-                  <div class="tab-pane" id="tab_2">
-                    <div class="">
-                      <div>审核状态： <span id="check_state"><%= @audit.enum_name(:state) %></span></div>
-                      <div>审核评语： <span id="check_comment"><%= @audit.comment %></span></div>
                     </div>
-                    <div class="form-actions">
-                      <div class="row">
-                        <div class="col-md-offset-2 col-md-9">
-                          <a class="btn blue" data-toggle="modal" data-target="#myModal_update" href="#responsive"> 修改审核信息 </a>
-                          <a class="btn red" data-toggle="modal" data-target="#myModal_create" href="#responsive"> 再次审核 </a>
-                        </div>
+                    <%#= f.input :approve_state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApplyChild.options_for_select(:approve_states), label: '审核：'%>
+                    <%= f.input :description, label: '描述：', placeholder: '描述' %>
+                  <div class="form-actions">
+                    <div class="row">
+                      <div class="col-md-offset-2 col-md-9">
+                        <%= f.button :submit, '提交', class: 'btn blue' %>
+                        <%= link_to '取消', admin_pair_apply_pair_students_path(@project_apply), class: 'btn' %>
                       </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+              <div class="tab-pane" id="tab_1">
+                <% if @apply_child.visit.present? %>
+                  <% visit = @apply_child.visit %>
+                  <%= static_form_control '内容：', visit.content %>
+                <% end %>
+              </div>
+              <div class="tab-pane" id="tab_2">
+                <div class="portlet-body">
+                  <div class="table-scrollable">
+                    <table class="table table-bordered table-hover">
+                      <tbody>
+                      <tr>
+                        <th width="72px">
+                          审核状态
+                        </th>
+                        <th>
+                          <span id="check_state"><%= @audit.enum_name(:state) %></span>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th>
+                          审核评语
+                        </th>
+                        <th>
+                          <span id="check_comment"><%= @audit.comment %></span>
+                        </th>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="form-actions">
+                  <div class="row">
+                    <div class="col-md-offset-2 col-md-9">
+                      <a class="btn blue" data-toggle="modal" data-target="#myModal_update" href="#responsive"> 修改审核信息 </a>
+                      <a class="btn red" data-toggle="modal" data-target="#myModal_create" href="#responsive"> 再次审核 </a>
                     </div>
                   </div>
                 </div>
@@ -102,9 +115,8 @@
             </div>
           </div>
         </div>
-
-    <% end %>
-
+      </div>
+    </div>
   </div>
 </div>
 
@@ -121,7 +133,7 @@
         <div class="portlet-body form">
           <div class="form-body form-horizontal">
             <%= f.hidden_field :pair_student_id, value: params[:id] %>
-            <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Audit.options_for_some_select(:states, ['pass', 'rejected']), label: '审核：', required: true%>
+            <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Audit.options_for_some_select(:states), label: '审核：', required: true%>
             <%= f.input :comment, label: '评语：', placeholder: '请填写评语' %>
           </div>
         </div>
@@ -138,7 +150,7 @@
 <div class="modal fade" id="myModal_create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <%= simple_form_for [:admin, @project_apply, @apply_child, @audit], url: create_audit_admin_pair_apply_pair_students_path, remote: true, wrapper: :admin_form, html: {'data-parsley-validate': true} do |f| %>
+      <%= simple_form_for [:admin, @project_apply, @apply_child, @new_audit], url: create_audit_admin_pair_apply_pair_students_path, remote: true, wrapper: :admin_form, html: {'data-parsley-validate': true} do |f| %>
       <%= f.error_notification %>
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -148,7 +160,7 @@
         <div class="portlet-body form">
           <div class="form-body form-horizontal">
             <%= f.hidden_field :pair_student_id, value: params[:id] %>
-            <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Audit.options_for_some_select(:states, ['pass', 'rejected']), label: '审核：', required: true%>
+            <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Audit.options_for_some_select(:states), label: '审核：', required: true%>
             <%= f.input :comment, label: '评语：', placeholder: '请填写评语' %>
           </div>
         </div>

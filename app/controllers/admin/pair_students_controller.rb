@@ -17,6 +17,7 @@ class Admin::PairStudentsController < Admin::BaseController
   def edit
     @apply_child = ProjectSeasonApplyChild.find(params[:id])
     @audit = @apply_child.audits.last
+    @new_audit = @apply_child.audits.build
   end
 
   def create
@@ -67,9 +68,9 @@ class Admin::PairStudentsController < Admin::BaseController
 
   def create_audit
     @apply_child = ProjectSeasonApplyChild.find(params[:audit][:pair_student_id])
-    @audit = @apply_child.audits.build(state: params[:audit][:state], comment: params[:audit][:comment], user_id: current_user.id)
+    @new_audit = @apply_child.audits.build(state: params[:audit][:state], comment: params[:audit][:comment], user_id: current_user.id)
     respond_to do |format|
-      if @audit.save
+      if @new_audit.save
         # if @audit.pass? && @apply_child.gsh_child.blank?
         #   @apply_child.build_gsh_child(name: @apply_child.name, phone: @apply_child.phone, idcard: @apply_child.id_card, province: @apply_child.province, city: @apply_child.city, district: @apply_child.district)
         # end

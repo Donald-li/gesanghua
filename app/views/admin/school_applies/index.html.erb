@@ -21,7 +21,7 @@
           </div>
           <div class="form-group">
             <%= f.label :approve_state_eq, '审核状态' %>
-            <%= f.select :approve_state_eq, School.options_for_some_select(:approve_states, ['submit', 'rejected']), {include_blank: '全部'}, class: 'form-control' %>
+            <%= f.select :approve_state_eq, School.options_for_some_select(:approve_states, ['submit', 'rejected'], raw: true), {include_blank: '全部'}, class: 'form-control' %>
           </div>
           <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>
@@ -41,6 +41,7 @@
               <th>学校名称</th>
               <th>地区</th>
               <th>校长</th>
+              <th>审核状态</th>
               <th>
                 操作
               </th>
@@ -68,8 +69,11 @@
                 <%= school.contact_name %> | <%= school.contact_phone %>
               </td>
               <td>
+                <%= school.enum_name(:approve_state) %>
+              </td>
+              <td>
                 <%= link_to edit_admin_school_apply_path(school), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                  <i class="fa fa-edit"></i> 修改
+                  <i class="fa fa-edit"></i> 查看审核
                 <% end %>
                 <%= link_to admin_school_apply_path(school), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                    <i class="fa fa-trash-o"></i> 删除

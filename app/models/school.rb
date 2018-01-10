@@ -25,6 +25,8 @@
 #  teacher_count     :integer                                # 教师人数
 #  logistic_count    :integer                                # 后勤人数
 #  contact_telephone :string                                 # 联系人座机号码
+#  contact_position  :string                                 # 联系人职务
+#  kind              :integer                                # 学校类型
 #
 
 class School < ApplicationRecord
@@ -35,14 +37,13 @@ class School < ApplicationRecord
 
   include HasAsset
   has_one_asset :logo, class_name: 'Asset::SchoolLogo'
-  include HasAsset
-
   has_many_assets :images, class_name: 'Asset::SchoolImage'
 
   has_many :teachers
   has_many :book_shelves
   has_many :project_season_applies
   has_many :gsh_children
+  has_many :audits, as: :owner
   belongs_to :user
 
   belongs_to :user
@@ -57,7 +58,7 @@ class School < ApplicationRecord
   default_value_for :level, 1
 
   enum kind: {village_center_school: 1, small_village_village: 2, cheng_guan_primary_school: 3, other: 4} # 学校类型：1:乡村中心校 2:乡村村小 3:城关小学 4:其他
-  
+
   enum approve_state: {submit: 1, pass: 2, rejected: 3} # 审核状态：1:待审核 2:审核通过 3：审核不通过
   default_value_for :approve_state, 1
 
