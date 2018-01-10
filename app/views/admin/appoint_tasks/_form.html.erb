@@ -1,9 +1,14 @@
-<%= simple_form_for [:admin, @task], wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'category_form'} do |f| %>
+<%= simple_form_for [:admin, @task], url: @task.new_record? ? admin_appoint_tasks_path : admin_appoint_task_path, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'category_form'} do |f| %>
     <%= f.error_notification %>
     <div class="form-body form-horizontal">
       <%= f.input :name, label: '名称：', autofocus: true, placeholder: '名称', required: true %>
       <%= f.input :duration, label: '时长：', placeholder: '小时', required: true, type: 'number' %>
-      <%= f.input :num, label: '人数：', placeholder: '人数', required: true, type: 'number' %>
+      <div class="form-group approve_reject">
+        <label class="col-md-2 control-label">负责人：</label>
+        <div class="col-sm-9">
+          <select class="form-control select optional" name="appoint_id" id="volunteer-ajax" required></select>
+        </div>
+      </div>
       <div class="form-group">
         <label class="col-md-2 control-label">开始时间：</label>
         <div class="col-sm-9">
@@ -35,24 +40,58 @@
       <div class="form-group">
         <label class="col-md-2 control-label">详情：</label>
         <div class="col-sm-9">
-          <%= f.cktext_area :content, input_html: { data: {'parsley-required': true}}  %>
+          <%= f.cktext_area :content, input_html: {data: {'parsley-required': true}} %>
         </div>
       </div>
-      <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Task.options_for_some_select(:states, ['draft', 'open']), label: '状态：'%>
+      <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Task.options_for_some_select(:states, ['pick_done', 'doing']), label: '状态：' %>
     </div>
     <div class="form-actions">
       <div class="row">
         <div class="col-md-offset-2 col-md-9">
           <%= f.button :submit, '提交', class: 'btn blue' %>
-          <%= link_to '取消', admin_tasks_path, class: 'btn' %>
+          <%= link_to '取消', admin_appoint_tasks_path, class: 'btn' %>
         </div>
       </div>
     </div>
 <% end %>
 <script type="text/javascript" charset="utf-8">
-  $(function () {
-      $('.datetime-picker').datetimepicker(
+    $(function () {
+        $('.datetime-picker').datetimepicker(
 
-      )
-  })
+        )
+    })
+    $(function () {
+        // 异步加载志愿者列表
+        $('#volunteer-ajax').select2({
+            language: "zh-CN",
+            placeholder: '请选择志愿者',
+            allowClear: true,
+            ajax: {
+                url: "/selects/volunteers",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: $.map(data.items, function (item) {
+                            return {
+                                text: item.volunteer_name,
+                                id: item.id
+                            }
+                        }),
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            }
+        });
+    })
 </script>

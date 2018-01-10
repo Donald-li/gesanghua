@@ -24,4 +24,11 @@ class Support::SelectsController < Support::BaseController
     render json: {items: users.as_json(only: [:id, :name])}
   end
 
+  def volunteers
+    scope = Volunteer.available.enabled.joins(:user).where("users.name like :q", q: "%#{params[:q]}%")
+    scope = scope.where.not(id: params[:old_id]) if params[:old_id].present?
+    volunteers = scope.page(params[:page])
+    render json: {items: volunteers.as_json(only: [:id], methods: :volunteer_name)}
+  end
+
 end

@@ -20,8 +20,8 @@ class TaskVolunteer < ApplicationRecord
   belongs_to :task, optional: true
   has_many :audits, as: :owner
 
-  enum approve_state: {submit: 1, pass: 2, reject: 3} #状态 1:待审核 2:通过 3:未通过
-  default_value_for :approve_state, 1
+  enum approve_state: {initial: 0, submit: 1, pass: 2, reject: 3} # 报名审核状态 0:初始状态 1:待审核 2:通过 3:未通过
+  default_value_for :approve_state, 0
 
   scope :sorted, ->{ order(created_at: :desc) }
 

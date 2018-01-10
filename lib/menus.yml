@@ -20,6 +20,9 @@ admin:
           actions:
             'admin/tasks': all
             'admin/task_applies': all
+        admin_appoint_task:
+          actions:
+            'admin/appoint_tasks': all
     admin_user_county_users:
       actions:
         'admin/county_users': all

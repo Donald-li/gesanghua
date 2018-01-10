@@ -197,9 +197,11 @@ zh:
     draft: '待发布'
     open: '报名中'
     picking: '筛选中'
+    pick_done: '筛选完成'
     doing: '执行中'
     done: '已完成'
   task_volunteer_approve_states:
+    initial: '执行中'
     submit: '待审核'
     pass: '审核通过'
     reject: '审核不通过'

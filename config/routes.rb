@@ -132,6 +132,12 @@ Rails.application.routes.draw do
     resources :tasks, concerns: [:switch] do
       resources :task_applies, only: [:index, :edit, :update]
     end
+    resources :appoint_tasks do
+      member do
+        get :switch_edit
+        put :switch_update
+      end
+    end
     resources :gsh_children do
       resources :apply_records, only: [:index, :show]
     end
@@ -165,6 +171,7 @@ Rails.application.routes.draw do
         get :gsh_child_user
         get :teacher_user
         get :school_user
+        get :volunteers
       end
     end
   end

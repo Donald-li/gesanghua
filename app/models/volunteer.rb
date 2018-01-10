@@ -43,4 +43,8 @@ class Volunteer < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
+  def volunteer_name
+    self.user.try(:name)
+  end
+
 end
