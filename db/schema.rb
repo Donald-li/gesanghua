@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180109081612) do
+ActiveRecord::Schema.define(version: 20180110071054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -173,7 +173,6 @@ ActiveRecord::Schema.define(version: 20180109081612) do
     t.integer "pay_state", comment: "付款状态"
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "捐助金额"
     t.integer "project_id", comment: "项目id"
-    t.integer "project_apply_id", comment: "项目申请id"
     t.integer "team_id", comment: "小组id"
     t.string "message", comment: "留言"
     t.string "donor", comment: "捐赠者"
@@ -183,6 +182,10 @@ ActiveRecord::Schema.define(version: 20180109081612) do
     t.integer "voucher_state", comment: "捐赠收据状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "project_season_id", comment: "年度ID"
+    t.integer "project_season_apply_id", comment: "年度项目ID"
+    t.integer "project_season_apply_child_id", comment: "年度孩子申请ID"
+    t.string "donate_no", comment: "捐赠编号"
   end
 
   create_table "expenditure_records", force: :cascade, comment: "支出记录表" do |t|

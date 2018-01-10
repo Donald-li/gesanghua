@@ -127,6 +127,9 @@ admin:
               actions:
                 'admin/pair_student_lists': all
                 'admin/remarks': all
+            admin_pair_donate_records:
+              actions:
+                'admin/pair_donate_records': all
         admin_project_book:
           menus:
             admin_project_book_season:
