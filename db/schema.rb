@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180106074708) do
+ActiveRecord::Schema.define(version: 20180109114908) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -506,6 +506,9 @@ ActiveRecord::Schema.define(version: 20180106074708) do
     t.integer "level", comment: "学校等级： 1:初中 2:高中"
     t.string "contact_name", comment: "联系人"
     t.string "contact_phone", comment: "联系方式"
+    t.string "contact_position", comment: "联系人职务"
+    t.integer "kind", comment: "学校类型"
+    t.integer "user_id", comment: "用户id"
   end
 
   create_table "sequences", force: :cascade do |t|
@@ -647,6 +650,8 @@ ActiveRecord::Schema.define(version: 20180106074708) do
     t.string "city", comment: "市"
     t.string "district", comment: "区/县"
     t.string "address", comment: "详细地址"
+    t.string "qq", comment: "qq号"
+    t.string "idcard", comment: "身份证"
     t.index ["email"], name: "index_users_on_email"
     t.index ["login"], name: "index_users_on_login"
     t.index ["phone"], name: "index_users_on_phone"

@@ -23,6 +23,8 @@
 #  city            :string                                 # 市
 #  district        :string                                 # 区/县
 #  address         :string                                 # 详细地址
+#  qq              :string                                 # qq号
+#  idcard          :string                                 # 身份证
 #
 
 class User < ApplicationRecord
@@ -36,6 +38,7 @@ class User < ApplicationRecord
 
   belongs_to :team, optional: true
 
+  has_one :school
   has_one :administrator
   has_one :teacher
   has_one :volunteer

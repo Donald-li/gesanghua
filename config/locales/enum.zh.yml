@@ -65,6 +65,14 @@ zh:
   school_levels:
     junior: '初中'
     senior: '高中'
+  school_kinds:
+    village_center_school: '乡村中心校'
+    small_village_village: '乡村村小'
+    cheng_guan_primary_school: '城关小学'
+    other: '其他'
+  teacher_kinds:
+    headmaster: '校长'
+    teacher: '老师'
   project_kinds:
     normal: '固定项目'
     goods: '物资项目'
