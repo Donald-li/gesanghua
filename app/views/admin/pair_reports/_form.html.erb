@@ -9,19 +9,13 @@
           <%= f.text_field :published_at, class: 'datetime-picker', require: true %>
         </div>
       </div>
-      <div class="form-group">
-        <label class="col-md-2 control-label">资讯详情：</label>
-        <div class="col-sm-9">
-          <%= f.text_area :content, input_html: { data: {'parsley-required': true}}  %>
-        </div>
-      </div>
+      <%= f.input :content, label: '资讯详情：', placeholder: '请填写资讯详情' %>
       <div class="form-group">
         <label class="col-md-2 control-label">报告图片：</label>
         <div class="col-sm-9">
           <%= webuploader_tag 'image_ids[]', label: '上传报告图片', type: 'report_image', asset: @report.images %>
         </div>
       </div>
-      <%#= f.input :recommend, as: :radio_buttons, wrapper: :inline_inputs, collection: Article.options_for_select(:recommends), label: '推荐到首页：'%>
       <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Report.options_for_select(:states), label: '状态：' %>
     </div>
     <div class="form-actions">

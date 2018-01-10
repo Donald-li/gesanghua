@@ -517,15 +517,15 @@ ActiveRecord::Schema.define(version: 20180110095238) do
     t.integer "level", comment: "学校等级： 1:初中 2:高中"
     t.string "contact_name", comment: "联系人"
     t.string "contact_phone", comment: "联系方式"
-    t.string "contact_position", comment: "联系人职务"
-    t.integer "kind", comment: "学校类型"
-    t.integer "user_id", comment: "用户id"
+    t.integer "user_id", comment: "申请人ID"
     t.string "school_no", comment: "学校申请编号"
     t.string "contact_idcard", comment: "联系人身份证号"
     t.string "postcode", comment: "邮政编码"
     t.integer "teacher_count", comment: "教师人数"
     t.integer "logistic_count", comment: "后勤人数"
     t.string "contact_telephone", comment: "联系人座机号码"
+    t.string "contact_position", comment: "联系人职务"
+    t.integer "kind", comment: "学校类型"
   end
 
   create_table "sequences", force: :cascade do |t|
