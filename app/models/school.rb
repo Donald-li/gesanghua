@@ -18,15 +18,15 @@
 #  level             :integer                                # 学校等级： 1:初中 2:高中
 #  contact_name      :string                                 # 联系人
 #  contact_phone     :string                                 # 联系方式
-#  user_id           :integer                                # 申请人ID
+#  contact_position  :string                                 # 联系人职务
+#  kind              :integer                                # 学校类型
+#  user_id           :integer                                # 用户id
 #  school_no         :string                                 # 学校申请编号
 #  contact_idcard    :string                                 # 联系人身份证号
 #  postcode          :string                                 # 邮政编码
 #  teacher_count     :integer                                # 教师人数
 #  logistic_count    :integer                                # 后勤人数
 #  contact_telephone :string                                 # 联系人座机号码
-#  contact_position  :string                                 # 联系人职务
-#  kind              :integer                                # 学校类型
 #
 
 class School < ApplicationRecord

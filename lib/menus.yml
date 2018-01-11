@@ -26,6 +26,9 @@ admin:
     admin_user_gsh_children:
       actions:
         'admin/gsh_children': all
+    admin_user_teachers:
+      actions:
+        'admin/teachers': all
     admin_school:
       menus:
         admin_schools:

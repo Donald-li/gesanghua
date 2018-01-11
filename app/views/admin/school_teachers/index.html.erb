@@ -3,34 +3,23 @@
     <div class="caption">
       <i class="icon-list"></i>教师管理
     </div>
-
+    <div class="actions">
+      <div class="btn-group">
+        <a href="<%= admin_schools_path %>" class="btn btn-default">
+          <i class="fa fa-reply"></i>返回
+        </a>
+      </div>
+      <%= link_to new_admin_school_school_teacher_path, class: 'btn blue-soft', 'data-no-turbolink' => true do %>
+      <i class="icon-plus"></i>
+      <span>新增</span>
+      <% end %>
+    </div>
   </div>
   <div class="portlet-body">
     <div class="dataTables_wrapper no-footer">
       <div class="row">
         <div class="col-md-12 col-sm-12">
-          <%= search_form_for @search, url: admin_teachers_path, class: 'form-inline' do |f| %>
-            <div class="form-group">
-              <%= f.label :school_name_cont, '搜索' %>
-              <%= f.text_field :school_name_cont, class: 'form-control', placeholder: '学校名称' %>
-            </div>
-            <div class="form-group">
-              <%= f.label '申请时间' %>
-              <%= f.text_field :created_at_gteq, class: 'form-control datepicker', placeholder: '开始时间' %>
-              <%= f.text_field :created_at_lteq, class: 'form-control datepicker', placeholder: '结束时间' %>
-            </div>
-            <div class="form-group">
-              <%= f.label '地区' %>
-              <div class="form-group">
-                <div class="city-group">
-                  <%= select_tag 'q[school_province_eq]', options_for_select(ChinaCity.list), prompt: '省份', class: "city-select form-control" %>
-                  <%= select_tag 'q[school_city_eq]', options_for_select([]), prompt: '城市', class: "city-select form-control" %>
-                  <%= select_tag 'q[school_district_eq]', options_for_select([]), prompt: '地区', class: "city-select form-control" %>
-                </div>
-              </div>
-            </div>
-            <button type="submit" class="btn btn-default grey">查询</button>
-          <% end %>
+
         </div>
         <div class="col-md-6 col-sm-12">
           <div class="dataTables_filter pull-right"></div>
@@ -67,7 +56,7 @@
             </tr>
           </thead>
           <tbody>
-            <% @teachers.each do |teacher| %>
+            <% @school_teachers.each do |teacher| %>
             <tr>
               <td>
                 <%= teacher.name %>
@@ -93,10 +82,10 @@
                 <% end %>
               </td>
               <td>
-                <%= link_to edit_admin_teacher_path(teacher), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                <%= link_to edit_admin_school_school_teacher_path(teacher.school, teacher), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                   <i class="fa fa-edit"></i> 修改信息
                 <% end %>
-                <%= link_to admin_teacher_path(teacher), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                <%= link_to admin_school_school_teacher_path(teacher.school, teacher), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                   <i class="fa fa-trash-o"></i> 删除
                 <% end %>
               </td>
@@ -107,10 +96,10 @@
       </div>
       <div class="row">
         <div class="col-md-5 col-sm-12">
-          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@teachers) %></div>
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@school_teachers) %></div>
         </div>
         <div class="col-md-7 col-sm-12">
-          <%= paginate @teachers, theme: '' %>
+          <%= paginate @school_teachers, theme: '' %>
         </div>
       </div>
     </div>

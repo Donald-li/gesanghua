@@ -20,6 +20,8 @@ class Project < ApplicationRecord
   has_many :bookshelves, class_name: 'ProjectSeasonApplyBookshelf', dependent: :destroy
   has_many :goods, class_name: 'ProjectSeasonApplyGoods', dependent: :destroy
   has_many :volunteer, class_name: 'Volunteer', dependent: :destroy
+  has_many :teacher_projects
+  has_many :teacher, through: :teacher_projects
 
   belongs_to :fund, optional: true
 

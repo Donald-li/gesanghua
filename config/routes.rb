@@ -146,14 +146,10 @@ Rails.application.routes.draw do
       resources :apply_records, only: [:index, :show]
     end
     resources :schools do
-      member do
-        get :contact_show
-        get :contact_edit
-        put :contact_update
-      end
-      resources :teachers
-      resources :contacts
+      resources :school_teachers
+      resources :school_project_applies
     end
+    resources :teachers
   end
 
   namespace :school do
@@ -174,7 +170,7 @@ Rails.application.routes.draw do
         get :users
         get :gsh_child_user
         get :teacher_user
-        get :school_users
+        get :school_user
       end
     end
     resources :ajaxes, only: [] do

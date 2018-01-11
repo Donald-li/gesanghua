@@ -18,6 +18,8 @@ class Teacher < ApplicationRecord
   belongs_to :school
   belongs_to :user, optional: true
   has_many :project_season_applies
+  has_many :teacher_projects
+  has_many :projects, through: :teacher_projects
 
   validates :name, :phone, presence: true
   validates :phone, uniqueness: true

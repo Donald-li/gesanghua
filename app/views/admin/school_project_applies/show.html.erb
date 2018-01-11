@@ -1,0 +1,48 @@
+
+<div class="portlet light portlet-fit bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-bubble font-dark"></i>
+      <span class="caption-subject font-dark bold uppercase">申请详情</span>
+    </div>
+    <div class="actions">
+      <div class="btn-group">
+        <a href="<%= admin_school_school_project_applies_path(@school) %>" class="btn btn-default">
+          <i class="fa fa-reply"></i>返回
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="table-scrollable">
+      <table class="table table-bordered table-hover">
+        <tbody>
+        <tr>
+          <th width="72px">
+            项目名称
+          </th>
+          <th>
+            <%= @project.name %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            项目类型
+          </th>
+          <th>
+            <%= @project.kind %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            项目简介
+          </th>
+          <th>
+            <%= @project.describe %>
+          </th>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

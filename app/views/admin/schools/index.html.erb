@@ -98,14 +98,14 @@
                 <%= link_to edit_admin_school_path(school), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                   <i class="fa fa-edit"></i> 修改信息
                 <% end %>
-                <%= link_to admin_school_path(school), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
-                  <i class="fa fa-trash-o"></i> 删除
-                <% end %>
-                <%= link_to admin_school_teachers_path(school), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                <%= link_to admin_school_school_teachers_path(school), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                   <i class="fa "></i> 老师管理
                 <% end %>
-                <%= link_to '', 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                <%= link_to admin_school_school_project_applies_path(school), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                   <i class="fa "></i> 全部申请
+                <% end %>
+                <%= link_to admin_school_path(school), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                  <i class="fa fa-trash-o"></i> 删除
                 <% end %>
               </td>
             </tr>

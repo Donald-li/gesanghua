@@ -1,9 +1,8 @@
 class Admin::TeachersController < Admin::BaseController
   before_action :set_teacher, only: [:show, :destroy, :edit, :update, :destroy]
-  before_action :set_school, only: [:new, :index, :create, :edit, :update]
 
   def index
-    @search = @school.teachers.sorted.ransack(params[:q])
+    @search = Teacher.sorted.ransack(params[:q])
     scope = @search.result
     @teachers = scope.page(params[:page])
   end
@@ -12,14 +11,14 @@ class Admin::TeachersController < Admin::BaseController
   end
 
   def new
-    @teacher = @school.teachers.new
+    @teacher = Teacher.new
   end
 
   def create
-    @teacher = @school.teachers.new(teacher_params)
+    @teacher = Teacher.new(teacher_params)
     respond_to do |format|
       if @teacher.save
-        format.html { redirect_to admin_school_teachers_path, notice: '教师创建成功。' }
+        format.html { redirect_to admin_teachers_path, notice: '教师创建成功。' }
       else
         format.html { render :new }
       end
@@ -32,7 +31,7 @@ class Admin::TeachersController < Admin::BaseController
   def update
     respond_to do |format|
       if @teacher.update(teacher_params)
-        format.html { redirect_to referer_or(admin_school_teachers_url), notice: '教师信息已修改。' }
+        format.html { redirect_to referer_or(admin_teachers_url), notice: '教师信息已修改。' }
       else
         format.html { render :edit }
       end
@@ -42,7 +41,7 @@ class Admin::TeachersController < Admin::BaseController
   def destroy
     @teacher.destroy
     respond_to do |format|
-      format.html { redirect_to referer_or(admin_school_teachers_url), notice: '教师已删除。' }
+      format.html { redirect_to referer_or(admin_teachers_url), notice: '教师已删除。' }
     end
   end
 
@@ -50,10 +49,6 @@ class Admin::TeachersController < Admin::BaseController
     # Use callbacks to share common setup or constraints between actions.
     def set_teacher
       @teacher = Teacher.find(params[:id])
-    end
-
-    def set_school
-      @school = School.find(params[:school_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
