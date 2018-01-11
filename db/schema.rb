@@ -173,7 +173,6 @@ ActiveRecord::Schema.define(version: 20180111024630) do
     t.integer "pay_state", comment: "付款状态"
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "捐助金额"
     t.integer "project_id", comment: "项目id"
-    t.integer "project_apply_id", comment: "项目申请id"
     t.integer "team_id", comment: "小组id"
     t.string "message", comment: "留言"
     t.string "donor", comment: "捐赠者"
@@ -183,6 +182,10 @@ ActiveRecord::Schema.define(version: 20180111024630) do
     t.integer "voucher_state", comment: "捐赠收据状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "project_season_id", comment: "年度ID"
+    t.integer "project_season_apply_id", comment: "年度项目ID"
+    t.integer "project_season_apply_child_id", comment: "年度孩子申请ID"
+    t.string "donate_no", comment: "捐赠编号"
   end
 
   create_table "expenditure_records", force: :cascade, comment: "支出记录表" do |t|
@@ -492,6 +495,10 @@ ActiveRecord::Schema.define(version: 20180111024630) do
     t.integer "state", comment: "状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "project_id", comment: "项目ID"
+    t.datetime "published_at", comment: "发布时间"
+    t.integer "position", comment: "位置"
+    t.integer "user_id", comment: "发布人"
   end
 
   create_table "schools", force: :cascade, comment: "学校表" do |t|
@@ -599,6 +606,10 @@ ActiveRecord::Schema.define(version: 20180111024630) do
     t.datetime "updated_at", null: false
     t.datetime "finish_time", comment: "任务完成时间"
     t.datetime "approve_time", comment: "审核时间"
+    t.integer "user_id", comment: "审核人id"
+    t.integer "finish_state", comment: "完成状态1:未完成doing 2:已完成done"
+    t.string "source", comment: "获得来源"
+    t.integer "kind", comment: "类型"
   end
 
   create_table "tasks", force: :cascade, comment: "任务表" do |t|
@@ -615,6 +626,7 @@ ActiveRecord::Schema.define(version: 20180111024630) do
     t.datetime "updated_at", null: false
     t.datetime "start_time", comment: "任务开始时间"
     t.datetime "end_time", comment: "任务结束时间"
+    t.integer "kind"
   end
 
   create_table "teacher_projects", force: :cascade, comment: "老师项目表" do |t|

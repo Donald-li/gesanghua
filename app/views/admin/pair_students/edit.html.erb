@@ -6,10 +6,10 @@
       <span class="caption-helper"></span>
     </div>
     <div class="actions">
-      <div class="portlet-input input-inline input-small">
-        <div class="input-icon right">
-        </div>
-      </div>
+      <%= link_to admin_pair_apply_pair_students_path(@project_apply), class: 'btn blue-soft', 'data-no-turbolink' => true do %>
+        <i class="fa fa-reply"></i>
+        <span>返回</span>
+      <% end %>
     </div>
   </div>
   <div class="portlet-body form">

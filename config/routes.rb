@@ -110,8 +110,10 @@ Rails.application.routes.draw do
     resources :project_radio_seasons
     resources :project_flower_seasons
 
+    resources :pair_reports, concerns: [:switch]
     resources :pair_seasons, concerns: [:switch]
     resources :pair_periods, concerns: [:switch, :move]
+    resources :pair_donate_records, only: [:index, :show]
     resources :pair_applies do
       resources :pair_students, concerns: [:remarks] do
         member do
@@ -134,6 +136,7 @@ Rails.application.routes.draw do
     resources :income_sources, concerns: :move
     resources :volunteer_applies, only: [:index, :edit, :update]
     resources :volunteers, concerns: [:switch] do
+      resources :task_volunteers
       resources :service_histories, only: [:index, :show]
       member do
         put :switch_job
@@ -141,6 +144,14 @@ Rails.application.routes.draw do
     end
     resources :tasks, concerns: [:switch] do
       resources :task_applies, only: [:index, :edit, :update]
+    end
+    resources :appoint_tasks do
+      member do
+        get :switch_edit
+        put :switch_update
+        get :check_edit
+        put :check_update
+      end
     end
     resources :gsh_children do
       resources :apply_records, only: [:index, :show]
@@ -171,6 +182,7 @@ Rails.application.routes.draw do
         get :gsh_child_user
         get :teacher_user
         get :school_user
+        get :volunteers
       end
     end
     resources :ajaxes, only: [] do

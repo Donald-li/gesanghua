@@ -20,7 +20,7 @@
 class Volunteer < ApplicationRecord
   belongs_to :major, optional: true
   belongs_to :user
-  has_many :task_volunteers
+  has_many :task_volunteers, dependent: :destroy
   has_many :tasks, through: :task_volunteers
   has_many :audits, as: :owner
   has_many :remarks, as: :owner
@@ -42,5 +42,9 @@ class Volunteer < ApplicationRecord
   default_value_for :level, 0
 
   scope :sorted, ->{ order(created_at: :desc) }
+
+  def volunteer_name
+    self.user.try(:name)
+  end
 
 end

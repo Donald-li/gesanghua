@@ -4,10 +4,6 @@
       <i class="icon-list"></i> 任务管理
     </div>
     <div class="actions">
-      <%= link_to '', class: 'btn blue-soft', 'data-no-turbolink' => true do %>
-          <i class="icon-plus"></i>
-          <span>指派任务</span>
-      <% end %>
       <%= link_to new_admin_task_path, class: 'btn blue-soft', 'data-no-turbolink' => true do %>
           <i class="icon-plus"></i>
           <span>新增任务</span>
@@ -91,6 +87,7 @@
                   <%= task.enum_name(:state) %>
                 </td>
                 <td>
+                  <% if !task.done? %>
                   <%= link_to admin_task_task_applies_path(task), class: 'btn btn-xs blue' do %>
                       <i class="fa fa-list-ul"></i> 报名名单
                   <% end %>
@@ -111,10 +108,10 @@
                         <%= link_to '标记为筛选中', switch_admin_task_path(task, state: 'picking'), method: :put, data: {confirm: '确定标记为筛选中吗？'} %>
                       </li>
                       <li>
-                        <%= link_to '标记为执行中', switch_admin_task_path(task, state: 'doing'), method: :put, data: {confirm: '确定标记为执行中吗？'} %>
+                        <%= link_to '标记为筛选完成', switch_admin_task_path(task, state: 'pick_done'), method: :put, data: {confirm: '确定标记为筛选完成吗？'} %>
                       </li>
                       <li>
-                        <%= link_to '标记为已完成', switch_admin_task_path(task, state: 'done'), method: :put, data: {confirm: '确定标记为已完成吗？'} %>
+                        <%= link_to '标记为执行中', switch_admin_task_path(task, state: 'doing'), method: :put, data: {confirm: '确定标记为执行中吗？'} %>
                       </li>
                     </ul>
                   </div>
@@ -123,6 +120,7 @@
                   <% end %>
                   <%= link_to admin_task_url(task), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                       <i class="fa fa-trash-o"></i> 删除
+                  <% end %>
                   <% end %>
                 </td>
               </tr>

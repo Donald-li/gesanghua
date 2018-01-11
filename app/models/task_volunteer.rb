@@ -13,16 +13,30 @@
 #  updated_at          :datetime         not null
 #  finish_time         :datetime                               # 任务完成时间
 #  approve_time        :datetime                               # 审核时间
+#  user_id             :integer                                # 审核人id
+#  finish_state        :integer                                # 完成状态1:未完成doing 2:已完成done
+#  source              :string                                 # 获得来源
+#  kind                :integer                                # 类型
 #
 
 class TaskVolunteer < ApplicationRecord
   belongs_to :volunteer
   belongs_to :task, optional: true
-  has_many :audits, as: :owner
+  belongs_to :user, optional: true
+  has_many :audits, as: :owner # 报名审核
 
-  enum approve_state: {submit: 1, pass: 2, reject: 3} #状态 1:待审核 2:通过 3:未通过
+  enum approve_state: {submit: 1, pass: 2, reject: 3} # 报名审核状态 1:待审核 2:通过 3:未通过
   default_value_for :approve_state, 1
 
+  enum kind: {normal: 1, additional: 2}
+  default_value_for :kind, 1
+
+  enum finish_state: {doing: 1, to_check: 2, done: 3}
+  default_value_for :finish_state, 1
+  default_value_for :duration, 0
+
   scope :sorted, ->{ order(created_at: :desc) }
+
+  counter_culture :volunteer, column_name: "duration", delta_magnitude: proc {|model| model.done? ? model.duration : 0}
 
 end

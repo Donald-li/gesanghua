@@ -34,6 +34,18 @@
             <th>
               批次名称
             </th>
+            <th>
+              初中/学期
+            </th>
+            <th>
+              初中/学年
+            </th>
+            <th>
+              高中/学期
+            </th>
+            <th>
+              高中/学年
+            </th>
             <th width="230px">
               操作
             </th>
@@ -44,6 +56,18 @@
               <tr>
                 <td>
                   <%= season.name %>
+                </td>
+                <td>
+                  ￥<%= season.junior_term_amount %>
+                </td>
+                <td>
+                  ￥<%= season.junior_year_amount %>
+                </td>
+                <td>
+                  ￥<%= season.senior_term_amount %>
+                </td>
+                <td>
+                  ￥<%= season.senior_year_amount %>
                 </td>
                 <td style="display: none">
                   <%= link_to switch_admin_pair_season_path(season), data: {confirm: "确定#{season.disabled? ? '设置为可用年度' : '禁用'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{season.enabled? ? 'green' : 'default'}" do %>
