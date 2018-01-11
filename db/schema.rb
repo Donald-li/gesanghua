@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180111063339) do
+ActiveRecord::Schema.define(version: 20180111145322) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -133,14 +133,6 @@ ActiveRecord::Schema.define(version: 20180111063339) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "child_grants", force: :cascade, comment: "孩子发放记录表" do |t|
-    t.integer "child_id", comment: "孩子ID"
-    t.integer "project_apply_id", comment: "项目申请ID"
-    t.integer "state", comment: "状态"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "child_trails", force: :cascade, comment: "孩子轨迹表" do |t|
     t.integer "kind", comment: "分类，1：奖项 2：毕业 3：工作"
     t.text "content", comment: "详情"
@@ -254,6 +246,17 @@ ActiveRecord::Schema.define(version: 20180111063339) do
     t.string "district", comment: "区/县"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "gsh_child_grants", force: :cascade, comment: "格桑花孩子发放表" do |t|
+    t.bigint "gsh_child_id", comment: "关联孩子表id"
+    t.bigint "project_season_apply_id", comment: "关联申请表"
+    t.integer "state", comment: "状态 1:为筹款 2:待发放 3:发放完成"
+    t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "发放金额"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["gsh_child_id"], name: "index_gsh_child_grants_on_gsh_child_id"
+    t.index ["project_season_apply_id"], name: "index_gsh_child_grants_on_project_season_apply_id"
   end
 
   create_table "gsh_children", force: :cascade, comment: "格桑花孩子表" do |t|

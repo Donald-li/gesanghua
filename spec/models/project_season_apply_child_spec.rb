@@ -33,5 +33,32 @@
 require 'rails_helper'
 
 RSpec.describe ProjectSeasonApplyChild, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  it '测试生成格桑花孩子' do
+    user = create(:user)
+    school = create(:school, user: user)
+    teacher = create(:teacher, school: school, user: user)
+    project = create(:project)
+    season = create(:project_season, project: project)
+    apply = create(:project_season_apply, project: project, project_season: season, teacher: teacher, school: school)
+    child = create(:project_season_apply_child, project: project, project_season: season, project_season_apply: apply, school: school, semester: 'down')
+
+    # 通过孩子申请
+    child.approve_pass
+
+    expect(child.pass?).to be true
+
+    gsh_child = GshChild.first
+    expect(gsh_child.name).to eq '李同学'
+    expect(gsh_child.gsh_no).to end_with('1')
+    expect(child.project_season_apply.gsh_child).to eq gsh_child
+
+    # 创建发放记录
+    GshChildGrant.gen_grant_record(gsh_child)
+
+    expect(GshChildGrant.count).to eq 3
+    expect(GshChildGrant.first.amount).to eq 1050.0
+    expect(GshChildGrant.last.amount).to eq 2100.0
+
+  end
 end

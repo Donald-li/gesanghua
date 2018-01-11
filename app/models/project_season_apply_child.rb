@@ -115,4 +115,28 @@ class ProjectSeasonApplyChild < ApplicationRecord
     'https://www.baidu.com' # TODO 前段路由定义以后修改为正确的路由
   end
 
+  # 通过审核
+  def approve_pass
+    self.approve_state = 'pass'
+    self.gsh_child = self.gen_gsh_child
+    self.project_season_apply.gsh_child = self.gsh_child
+    self.save
+  end
+
+  protected
+
+  # 生成受助孩子
+  def gen_gsh_child
+    gsh_child = GshChild.new
+    gsh_child.province = self.province
+    gsh_child.city = self.city
+    gsh_child.district = self.district
+    gsh_child.name = self.name
+    gsh_child.phone = self.phone
+    gsh_child.qq = self.qq
+    gsh_child.save
+    return gsh_child
+  end
+
+
 end
