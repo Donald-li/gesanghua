@@ -37,6 +37,6 @@ class TaskVolunteer < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
-  counter_culture :volunteer, column_name: "duration", delta_magnitude: proc {|model| model.done? ? model.duration : 0}
+  counter_culture :volunteer, column_name: 'duration', delta_magnitude: proc {|model| model.done? ? model.duration : 0}
 
 end

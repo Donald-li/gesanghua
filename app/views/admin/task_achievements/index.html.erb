@@ -1,22 +1,19 @@
 <div class="portlet light">
   <div class="portlet-title">
     <div class="caption">
-      <i class="icon-list"></i>报名名单
+      <i class="icon-list"></i> 任务提交
     </div>
     <div class="actions">
-      <a href="<%= admin_tasks_path %>" class="btn btn-default">
-        <i class="fa fa-reply"></i> 返回
-      </a>
     </div>
   </div>
   <div class="portlet-body">
     <div class="dataTables_wrapper no-footer">
       <div class="row">
         <div class="col-md-12 col-sm-12">
-          <%= search_form_for @search, url: admin_task_task_applies_path(@task), class: 'form-inline' do |f| %>
+          <%= search_form_for @search, url: admin_task_achievements_path, class: 'form-inline' do |f| %>
             <div class="form-group">
-              <%= f.label :approve_state_eq, '审核状态' %>
-              <%= f.select :approve_state_eq, TaskVolunteer.options_for_select(:approve_states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
+              <%= f.label :task_name_cont, '搜索' %>
+              <%= f.text_field :task_name_cont, class: 'form-control', placeholder: '任务名称' %>
             </div>
             <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>
@@ -26,7 +23,7 @@
           </div>
         </div>
       </div>
-      <div class="table-scrollable">
+      <div class="table-scrollable dropdown-select">
         <table class="table table-striped table-bordered table-hover" id="sample_2">
           <thead>
           <tr>
@@ -34,25 +31,25 @@
               编号
             </th>
             <th>
-              姓名
-            </th>
-            <th>
-              联系方式
-            </th>
-            <th>
-              地区
+              名称
             </th>
             <th>
               服务时长（小时）
             </th>
             <th>
-              认证时间
+              任务时间
             </th>
             <th>
-              类型
+              地点
             </th>
             <th>
-              审核状态
+              任务类型
+            </th>
+            <th>
+              志愿者姓名
+            </th>
+            <th>
+              完成时间
             </th>
             <th>
               操作
@@ -60,35 +57,36 @@
           </tr>
           </thead>
           <tbody>
-          <% @task_volunteers.each do |apply| %>
+          <% @task_volunteers.each do |item| %>
             <tr>
               <td>
-                <%= apply.id %>
+                <%= item.task_id %>
               </td>
               <td>
-                <%= apply.volunteer.try(:user).try(:name) %>
+                <%= item.task.try(:name) %>
               </td>
               <td>
-                <%= apply.volunteer.try(:user).try(:phone) %>
+                <%= item.task.try(:duration) %>
               </td>
               <td>
-                <%= apply.volunteer.try(:user).try(:simple_address) %>
+                开始时间：<br><%= l item.task.start_time if item.task.try(:start_time).present? %> <br>
+                结束时间：<br><%= l item.task.end_time if item.task.try(:end_time).present? %>
               </td>
               <td>
-                <%= apply.volunteer.try(:duration) %>
+                <%= item.task.try(:simple_address) %>
               </td>
               <td>
-                <%= l apply.volunteer.approve_time if apply.volunteer.approve_time.present? %>
+                <button class="btn btn-xs <%= item.task.normal? ? 'default' : 'green' %>"><%= item.task.enum_name(:kind) %></button>
               </td>
               <td>
-                <%= apply.volunteer.enum_name(:kind) %>
+                <%= item.volunteer.volunteer_name %>
               </td>
               <td>
-                <%= apply.enum_name(:approve_state) %>
+                <%= l item.finish_time if item.finish_time.present? %>
               </td>
               <td>
-                <%= link_to edit_admin_task_task_apply_path(@task, apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                  <i class="fa fa-gavel"></i> 报名审核
+                <%= link_to edit_admin_task_achievement_path(item), class: 'btn btn-xs blue' do %>
+                  <i class="fa fa-check-square-o"></i> 成果确认
                 <% end %>
               </td>
             </tr>
@@ -98,10 +96,10 @@
       </div>
       <div class="row">
         <div class="col-md-5 col-sm-12">
-          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@task_applies) %></div>
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@task_volunteers) %></div>
         </div>
         <div class="col-md-7 col-sm-12">
-          <%= paginate @task_applies, theme: 'admin' %>
+          <%= paginate @task_volunteers, theme: 'admin' %>
         </div>
       </div>
     </div>

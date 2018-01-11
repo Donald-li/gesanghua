@@ -8,6 +8,7 @@ class Admin::AppointTasksController < Admin::BaseController
   end
 
   def show
+    @task_volunteers = @task.task_volunteers
   end
 
   def new
@@ -18,11 +19,13 @@ class Admin::AppointTasksController < Admin::BaseController
   end
 
   def create
-    @task = Task.new(task_params.merge(kind: 2))
+    @task = Task.new(task_params.merge(kind: 2, num: params[:appoint_ids].size, state: 5))
     respond_to do |format|
       if @task.save
-        @task.task_volunteers.create(volunteer_id: params[:appoint_id], approve_state: 'pass', approve_time: Time.now)
-        format.html { redirect_to admin_appoint_tasks_path, notice: '新建成功。' }
+        params[:appoint_ids].each do |appoint_id|
+          @task.task_volunteers.create(volunteer_id: appoint_id, approve_state: 'pass', approve_time: Time.now)
+        end
+        format.html { redirect_to admin_tasks_path, notice: '新建成功。' }
       else
         format.html { render :new }
       end
@@ -32,7 +35,7 @@ class Admin::AppointTasksController < Admin::BaseController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to admin_appoint_tasks_path, notice: '修改成功。' }
+        format.html { redirect_to admin_tasks_path, notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -42,19 +45,21 @@ class Admin::AppointTasksController < Admin::BaseController
   def destroy
     @task.destroy
     respond_to do |format|
-      format.html { redirect_to admin_appoint_tasks_path, notice: '删除成功。' }
+      format.html { redirect_to admin_tasks_path, notice: '删除成功。' }
     end
   end
 
   def switch_edit
+    @task_volunteer = TaskVolunteer.find(params[:task_volunteer_id])
   end
 
   def switch_update
+    @task_volunteer = TaskVolunteer.find(params[:task_volunteer_id])
     respond_to do |format|
-      if @task.task_volunteers.first.update(volunteer_id: params[:appoint_id])
-        format.html { redirect_to admin_appoint_tasks_path, notice: '移交成功。' }
+      if @task_volunteer.update(volunteer_id: params[:appoint_id])
+        format.html { redirect_to admin_task_path(@task), notice: '移交成功。' }
       else
-        format.html { redirect_to admin_appoint_tasks_path, notice: '移交失败。' }
+        format.html { redirect_to admin_task_path(@task), notice: '移交失败。' }
       end
     end
   end
@@ -64,11 +69,11 @@ class Admin::AppointTasksController < Admin::BaseController
 
   def check_update
     respond_to do |format|
-      @task.task_volunteers.first.update(duration: params[:duration], comment: params[:comment], finish_state: 'done', finish_time: Time.now)
+      @task.task_volunteers.first.update!(duration: params[:duration], comment: params[:comment], finish_state: 'done', finish_time: Time.now)
       if @task.done!
-        format.html { redirect_to admin_appoint_tasks_path, notice: '审核成功。' }
+        format.html { redirect_to admin_tasks_path, notice: '审核成功。' }
       else
-        format.html { redirect_to admin_appoint_tasks_path, notice: '审核失败。' }
+        format.html { redirect_to admin_tasks_path, notice: '审核失败。' }
       end
     end
   end

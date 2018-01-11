@@ -3,12 +3,14 @@
     <div class="form-body form-horizontal">
       <%= f.input :name, label: '名称：', autofocus: true, placeholder: '名称', required: true %>
       <%= f.input :duration, label: '时长：', placeholder: '小时', required: true, type: 'number' %>
+      <% if @task.new_record? %>
       <div class="form-group approve_reject">
-        <label class="col-md-2 control-label">负责人：</label>
+        <label class="col-md-2 control-label">选择志愿者：</label>
         <div class="col-sm-9">
-          <select class="form-control select optional" name="appoint_id" id="volunteer-ajax" required></select>
+          <select class="form-control select optional" name="appoint_ids[]" id="volunteer-ajax" required></select>
         </div>
       </div>
+        <% end %>
       <div class="form-group">
         <label class="col-md-2 control-label">开始时间：</label>
         <div class="col-sm-9">
@@ -43,7 +45,6 @@
           <%= f.cktext_area :content, input_html: {data: {'parsley-required': true}} %>
         </div>
       </div>
-      <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Task.options_for_some_select(:states, ['pick_done', 'doing']), label: '状态：' %>
     </div>
     <div class="form-actions">
       <div class="row">
@@ -66,6 +67,7 @@
             language: "zh-CN",
             placeholder: '请选择志愿者',
             allowClear: true,
+            multiple: true,
             ajax: {
                 url: "/selects/volunteers",
                 dataType: 'json',
