@@ -1,4 +1,4 @@
-alert("修改审核成功！")
 $('#myModal_update').modal('hide')
 $('#check_state').text('<%= @audit.enum_name(:state) %>')
 $('#check_comment').text('<%= @audit.comment %>')
+toastr.info('修改审核记录成功！', '' ,{"positionClass": "toast-top-center"})

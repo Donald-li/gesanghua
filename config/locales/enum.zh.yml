@@ -100,12 +100,12 @@ zh:
     double: '模板2'
   audit_states:
     submit: '待审核'
-    pass: '审核已通过'
-    rejected: '审核已拒绝'
+    pass: '审核不通过'
+    rejected: '审核不通过'
   project_season_apply_child_approve_states:
     submit: '待审核'
-    pass: '审核已通过'
-    rejected: '审核被拒绝'
+    pass: '审核通过'
+    rejected: '审核不通过'
   project_season_apply_child_genders:
     male: '男'
     female: '女'

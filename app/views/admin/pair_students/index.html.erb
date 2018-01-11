@@ -1,7 +1,7 @@
 <div class="portlet light">
   <div class="portlet-title">
     <div class="caption">
-      <i class="icon-list"></i><%= link_to @project_apply.school.try(:name), admin_pair_applies_path %> 孩子申请
+      <i class="icon-list"></i><%= link_to @project_apply.school.try(:name), admin_pair_applies_path %> > 孩子申请
     </div>
     <div class="actions">
       <%= link_to new_admin_pair_apply_pair_student_path(@project_apply), class: 'btn blue-soft', 'data-no-turbolink' => true do %>
@@ -107,7 +107,7 @@
                 </td>
                 <td>
                   <%= link_to edit_admin_pair_apply_pair_student_path(@project_apply,child), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                      <i class="fa fa-edit"></i> 查看审核
+                      <i class="fa fa-edit"></i> 编辑审核
                   <% end %>
                   <%= link_to admin_pair_apply_pair_student_path(@project_apply,child), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                       <i class="fa fa-trash-o"></i> 删除申请

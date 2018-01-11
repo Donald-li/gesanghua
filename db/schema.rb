@@ -11,10 +11,14 @@
 # It's strongly recommended that you check this file into your version control system.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20180111024630) do
 =======
 ActiveRecord::Schema.define(version: 20180110095238) do
 >>>>>>> ea9d1654a64b04fb14987e0a6792a4cebcc8b3d7
+=======
+ActiveRecord::Schema.define(version: 20180111063339) do
+>>>>>>> debug
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -514,7 +518,7 @@ ActiveRecord::Schema.define(version: 20180110095238) do
     t.string "city", comment: "市"
     t.string "district", comment: "区/县"
     t.integer "number", comment: "学校人数"
-    t.string "describe", comment: "学校简介"
+    t.text "describe", comment: "学校简介"
     t.integer "state", default: 1, comment: "学校状态：1:启用 2:禁用"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

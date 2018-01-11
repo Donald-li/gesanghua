@@ -130,6 +130,7 @@ Rails.application.routes.draw do
         put :turn_over
       end
     end
+    resources :pair_grants, concerns: :switch
     resources :remarks
     resources :support_categories, concerns: [:move, :switch]
     resources :county_users, concerns: [:switch]

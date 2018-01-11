@@ -131,6 +131,9 @@ admin:
               actions:
                 'admin/pair_student_lists': all
                 'admin/remarks': all
+            admin_pair_grants:
+              actions:
+                'admin/pair_grants': all
             admin_pair_donate_records:
               actions:
                 'admin/pair_donate_records': all
