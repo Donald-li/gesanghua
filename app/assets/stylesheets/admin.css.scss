@@ -3,13 +3,17 @@
  *= require_tree ./common
  *= require_self
 */
-
+.page-header.navbar.navbar-fixed-top, .page-header.navbar.navbar-static-top{
+  z-index: 1000 !important;
+}
 .control-label .required, .form-group .required{
+  color: inherit;
   padding-left: 0;
 }
 .control-label, .form-group{
   .form-control{
     padding-left: 6px;
+    max-width: 400px;
   }
 }
 
@@ -69,7 +73,7 @@
 }
 
 .inline-group {
-  display: inline-block !important;
+  display: inline-block;
   margin-right: 10px;
   margin-bottom: 10px;
   & > .form-group {
@@ -89,46 +93,17 @@
   .form-inline {
     float: none !important;
     width: auto;
-    a.destroy{
-      margin-left: 10px;
-    }
   }
 }
-textarea.form-control{
-  min-height: 100px;
-}
-.form-inline {
-  float: none !important;
-  width: auto;
-  .destroy{
-    margin-left: 10px;
-  }
-}
+
 .form-horizontal {
   .radio {
     & + .radio {
-      // margin-left: 15px;
+      margin-left: 15px;
     }
     .radio {
       padding-top: 1px;
       margin-right: 5px;
     }
   }
-}
-
-.admin-project-detail-ul{
-  list-style: none;
-  padding-left: 0;
-  li{
-    float: left;
-    margin-right: 10px;
-    img{
-      max-width: 100px;
-    }
-  }
-}
-
-.dropdown-select{
-  overflow-x: visible !important;
-  overflow-y: visible !important;
 }
