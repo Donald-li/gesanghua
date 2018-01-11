@@ -1,13 +1,13 @@
-<%= simple_form_for [:admin, @school, @teacher], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
+<%= simple_form_for [:admin, @teacher], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
     <%= f.error_notification %>
     <div class="form-body form-horizontal">
       <div class="form-group">
         <label class="col-md-2 control-label">学校地区：</label>
         <div class="col-sm-9">
           <div class="city-group">
-            <%= select_tag 'school[province]', options_for_select(ChinaCity.list, @school.province.presence), prompt: '省份', class: "city-select" %>
-            <%= select_tag 'school[city]', options_for_select(ChinaCity.list(@school.province.to_s), @school.city.presence), prompt: '城市', class: "city-select" %>
-            <%= select_tag 'school[district]', options_for_select(ChinaCity.list(@school.city.to_s), @school.district.presence), prompt: '地区', class: "city-select" %>
+            <%= select_tag 'teacher.school[province]', options_for_select(ChinaCity.list, @teacher.school.province.presence), prompt: '省份', class: "city-select" %>
+            <%= select_tag 'teacher.school[city]', options_for_select(ChinaCity.list(@teacher.school.province.to_s), @teacher.school.city.presence), prompt: '城市', class: "city-select" %>
+            <%= select_tag 'teacher.school[district]', options_for_select(ChinaCity.list(@teacher.school.city.to_s), @teacher.school.district.presence), prompt: '地区', class: "city-select" %>
           </div>
         </div>
       </div>
@@ -22,7 +22,7 @@
       <div class="row">
         <div class="col-md-offset-3 col-md-9">
           <%= f.button :submit, '提交', class: 'btn green' %>
-          <%= link_to '取消', admin_school_teachers_path(@school), class: 'btn' %>
+          <%= link_to '取消', admin_teachers_path, class: 'btn' %>
         </div>
       </div>
     </div>

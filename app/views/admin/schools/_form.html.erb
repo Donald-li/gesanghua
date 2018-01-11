@@ -20,7 +20,7 @@
       <%= f.input :address, label: '详细地址：', autofocus: true, input_html: { data:{} } %>
       <%= f.input :name, label: '学校名称：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
       <%= f.input :level, as: :radio_buttons, label: '学校等级：', collection: School.options_for_enum_select(:levels) %>
-      <%= f.input :user_id, collection: [@school.user].sorted.compact.map {|u| [u.name, u.id]}, label: '指定校长用户：', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
+      <%= f.input :user_id, collection: [@school.user].compact.map {|u| [u.name, u.id]}, label: '指定校长用户：', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
       <%= f.input :contact_phone, label: '校长联系方式：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
       <%= f.input :contact_name, label: '联系人：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
       <%= f.input :contact_position, label: '联系人职务：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
@@ -41,6 +41,7 @@
       </div>
     </div>
 <% end %>
+
 <script>
 $(function(){
   initImageWebuploader($('#webuploader'));
@@ -77,6 +78,6 @@ $(function(){
     },
     minimumInputLength: 1
   });
-})
 
+})
 </script>

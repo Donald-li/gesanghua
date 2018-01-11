@@ -3,21 +3,13 @@
     <div class="caption">
       <i class="icon-list"></i>教师管理
     </div>
-    <div class="actions">
-      <%= link_to admin_schools_path, class: 'btn blue-soft', 'data-no-turbolink' => true do %>
-      <span>返回</span>
-      <% end %>
-      <%= link_to new_admin_school_teacher_path, class: 'btn blue-soft', 'data-no-turbolink' => true do %>
-      <i class="icon-plus"></i>
-      <span>新增</span>
-      <% end %>
-    </div>
+
   </div>
   <div class="portlet-body">
     <div class="dataTables_wrapper no-footer">
       <div class="row">
         <div class="col-md-12 col-sm-12">
-          <%= search_form_for @search, url: admin_school_teachers_path(@school), class: 'form-inline' do |f| %>
+          <%= search_form_for @search, url: admin_teachers_path, class: 'form-inline' do |f| %>
             <div class="form-group">
               <%= f.label :school_name_cont, '搜索' %>
               <%= f.text_field :school_name_cont, class: 'form-control', placeholder: '学校名称' %>
@@ -31,9 +23,9 @@
               <%= f.label '地区' %>
               <div class="form-group">
                 <div class="city-group">
-                  <%= select_tag 'q[province_eq]', options_for_select(ChinaCity.list), prompt: '省份', class: "city-select form-control" %>
-                  <%= select_tag 'q[city_eq]', options_for_select([]), prompt: '城市', class: "city-select form-control" %>
-                  <%= select_tag 'q[district_eq]', options_for_select([]), prompt: '地区', class: "city-select form-control" %>
+                  <%= select_tag 'q[school_province_eq]', options_for_select(ChinaCity.list), prompt: '省份', class: "city-select form-control" %>
+                  <%= select_tag 'q[school_city_eq]', options_for_select([]), prompt: '城市', class: "city-select form-control" %>
+                  <%= select_tag 'q[school_district_eq]', options_for_select([]), prompt: '地区', class: "city-select form-control" %>
                 </div>
               </div>
             </div>
@@ -96,15 +88,15 @@
                 <%= teacher.school.try(:name) %>
               </td>
               <td>
-                <% teacher.project_season_applies.each do |project_season_apply| %>
-                  <span class="btn btn-xs red"><%= project_season_apply.project.try(:name) %></span>
+                <% teacher.teacher_projects.each do |teacher_project| %>
+                  <span class="btn btn-xs red"><%= teacher_project.project.try(:name) %></span>
                 <% end %>
               </td>
               <td>
-                <%= link_to edit_admin_school_teacher_path(teacher.school, teacher), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                <%= link_to edit_admin_teacher_path(teacher), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                   <i class="fa fa-edit"></i> 修改信息
                 <% end %>
-                <%= link_to admin_school_teacher_path(teacher.school, teacher), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                <%= link_to admin_teacher_path(teacher), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                   <i class="fa fa-trash-o"></i> 删除
                 <% end %>
               </td>

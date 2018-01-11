@@ -21,6 +21,8 @@ class Project < ApplicationRecord
   has_many :goods, class_name: 'ProjectSeasonApplyGoods', dependent: :destroy
   has_many :volunteer, class_name: 'Volunteer', dependent: :destroy
   has_many :donate_records
+  has_many :teacher_projects
+  has_many :teachers, through: :teacher_projects
 
   belongs_to :fund, optional: true
 

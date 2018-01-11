@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+ActiveRecord::Schema.define(version: 20180111024630) do
+=======
 ActiveRecord::Schema.define(version: 20180110095238) do
+>>>>>>> ea9d1654a64b04fb14987e0a6792a4cebcc8b3d7
+=======
+ActiveRecord::Schema.define(version: 20180111063339) do
+>>>>>>> debug
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -495,6 +503,10 @@ ActiveRecord::Schema.define(version: 20180110095238) do
     t.integer "state", comment: "状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "project_id", comment: "项目ID"
+    t.datetime "published_at", comment: "发布时间"
+    t.integer "position", comment: "位置"
+    t.integer "user_id", comment: "发布人"
   end
 
   create_table "schools", force: :cascade, comment: "学校表" do |t|
@@ -506,7 +518,7 @@ ActiveRecord::Schema.define(version: 20180110095238) do
     t.string "city", comment: "市"
     t.string "district", comment: "区/县"
     t.integer "number", comment: "学校人数"
-    t.string "describe", comment: "学校简介"
+    t.text "describe", comment: "学校简介"
     t.integer "state", default: 1, comment: "学校状态：1:启用 2:禁用"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -623,6 +635,16 @@ ActiveRecord::Schema.define(version: 20180110095238) do
     t.datetime "start_time", comment: "任务开始时间"
     t.datetime "end_time", comment: "任务结束时间"
     t.integer "kind"
+<<<<<<< HEAD
+  end
+
+  create_table "teacher_projects", force: :cascade, comment: "老师项目表" do |t|
+    t.integer "teacher_id", comment: "老师id"
+    t.integer "project_id", comment: "项目id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+=======
+>>>>>>> ea9d1654a64b04fb14987e0a6792a4cebcc8b3d7
   end
 
   create_table "teachers", force: :cascade, comment: "老师表" do |t|

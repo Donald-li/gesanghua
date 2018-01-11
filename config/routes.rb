@@ -110,6 +110,7 @@ Rails.application.routes.draw do
     resources :project_radio_seasons
     resources :project_flower_seasons
 
+    resources :pair_reports, concerns: [:switch]
     resources :pair_seasons, concerns: [:switch]
     resources :pair_periods, concerns: [:switch, :move]
     resources :pair_donate_records, only: [:index, :show]
@@ -129,6 +130,7 @@ Rails.application.routes.draw do
         put :turn_over
       end
     end
+    resources :pair_grants, concerns: :switch
     resources :remarks
     resources :support_categories, concerns: [:move, :switch]
     resources :county_users, concerns: [:switch]
@@ -157,14 +159,10 @@ Rails.application.routes.draw do
       resources :apply_records, only: [:index, :show]
     end
     resources :schools do
-      member do
-        get :contact_show
-        get :contact_edit
-        put :contact_update
-      end
-      resources :teachers
-      resources :contacts
+      resources :school_teachers
+      resources :school_project_applies
     end
+    resources :teachers
   end
 
   namespace :school do

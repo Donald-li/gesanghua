@@ -1,0 +1,112 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i> 全部申请
+    </div>
+    <div class="actions">
+      <div class="btn-group">
+        <a href="<%= admin_schools_path %>" class="btn btn-default">
+          <i class="fa fa-reply"></i>返回
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="dataTables_wrapper no-footer">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="dataTables_filter pull-right">
+          </div>
+        </div>
+      </div>
+      <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover" id="sample_2">
+          <thead>
+          <tr>
+            <th>
+              申请编号
+            </th>
+            <th>
+              申请学校
+            </th>
+            <th>
+              申请时间
+            </th>
+            <th>
+              申请年度
+            </th>
+            <th>
+              申请项目名称
+            </th>
+            <th>
+              申请内容
+            </th>
+            <th>
+              项目负责人
+            </th>
+            <th>
+              联系方式
+            </th>
+            <th>
+              当前状态
+            </th>
+            <th>
+              操作
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @school_project_applies.each do |school_project_apply| %>
+              <tr>
+                <td>
+                  <%= school_project_apply.id %>
+                </td>
+                <td>
+                  <%= school_project_apply.school.try(:name) %>
+                </td>
+                <td>
+                  <%= school_project_apply.created_at.to_s(:db) %>
+                </td>
+                <td>
+                  <%= school_project_apply.project_season.try(:name) %>
+                </td>
+                <td>
+                  <%= school_project_apply.project.try(:name) %>
+                </td>
+                <td>
+                  <%= school_project_apply.describe %>
+                </td>
+                <td>
+                  <%= school_project_apply.teacher.try(:name) %>
+                </td>
+                <td>
+                  <%= school_project_apply.teacher.try(:phone) %>
+                </td>
+                <td>
+                  <%= school_project_apply.enum_name(:state) %>
+                </td>
+                <td>
+                  <%= link_to admin_school_school_project_apply_url(@school, school_project_apply), class: 'btn btn-xs blue' do %>
+                      <i class="fa fa-file"></i> 申请详情
+                  <% end %>
+                </td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-5 col-sm-12">
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@school_project_applies) %></div>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <%= paginate @school_project_applies, theme: 'admin' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END EXAMPLE TABLE PORTLET-->
