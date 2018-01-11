@@ -34,7 +34,7 @@
               名称
             </th>
             <th>
-              服务时长（小时）
+              计划时长（小时）
             </th>
             <th>
               任务时间
@@ -85,6 +85,9 @@
                 <%= l item.finish_time if item.finish_time.present? %>
               </td>
               <td>
+                <%= link_to admin_task_achievement_path(item), class: 'btn btn-xs blue' do %>
+                  <i class="fa fa-file"></i> 成果详情
+                <% end %>
                 <%= link_to edit_admin_task_achievement_path(item), class: 'btn btn-xs blue' do %>
                   <i class="fa fa-check-square-o"></i> 成果确认
                 <% end %>
