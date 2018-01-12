@@ -87,11 +87,10 @@ Rails.application.routes.draw do
     resources :projects
     resources :school_applies do
       member do
-        get :new_audit
+        patch :update_audit
       end
       collection do
         post :create_audit
-        patch :update_audit
       end
     end
     resources :audit_reports, concerns: [:switch, :file_download]
@@ -112,16 +111,14 @@ Rails.application.routes.draw do
 
     resources :pair_reports, concerns: [:switch]
     resources :pair_seasons, concerns: [:switch]
-    resources :pair_periods, concerns: [:switch, :move]
     resources :pair_donate_records, only: [:index, :show]
     resources :pair_applies do
       resources :pair_students, concerns: [:remarks] do
         member do
-          get :edit_audti
+          patch :update_audit
         end
         collection do
           post :create_audit
-          patch :update_audit
         end
       end
     end
@@ -130,7 +127,14 @@ Rails.application.routes.draw do
         put :turn_over
       end
     end
-    resources :pair_grants, concerns: :switch
+    resources :pair_grants do
+      member do
+        get :edit_delay
+        get :edit_cancel
+        patch :update_delay
+        patch :update_cancel
+      end
+    end
     resources :remarks
     resources :support_categories, concerns: [:move, :switch]
     resources :county_users, concerns: [:switch]

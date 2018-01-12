@@ -1,0 +1,49 @@
+<div class="portlet light bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-note"></i>
+      <span class="caption-subject">发放操作</span>
+      <span class="caption-helper"></span>
+    </div>
+    <div class="actions">
+      <div class="portlet-input input-inline input-small">
+        <div class="input-icon right">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body form">
+    <%= simple_form_for [:admin, @grant], url: admin_pair_grant_path, wrapper: :admin_form, html: {class: 'form-horizontal grant_form'} do |f| %>
+        <%= f.error_notification %>
+        <div class="form-body">
+          <%= f.text_field :granted_at, label: '发放时间', class: 'datetime-picker', require: true %>
+          <%= f.input :grant_remark, label: '发放说明：', placeholder: '请填写发放说明', required: true %>
+          <div class="form-group">
+            <label class="col-md-2 control-label">发放证明：</label>
+            <div class="col-sm-9">
+              <%= webuploader_tag 'image_ids[]', label: '上传发放证明图片', type: 'gsh_child_grant_image', asset: @grant.images %>
+            </div>
+          </div>
+        </div>
+        <div class="form-actions">
+          <div class="row">
+            <div class="col-md-offset-2 col-md-9">
+              <%= f.button :submit, '提交', class: 'btn blue' %>
+              <%= link_to '取消', admin_pair_grants_path, class: 'btn' %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+  </div>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        //    表单验证
+        $(".grant_form").html5Validate(function(){
+            $(this).find('[type="submit"]').attr('disabled','disabled');
+            this.submit();
+        });
+        // 异步加载学校列表
+    })
+</script>
