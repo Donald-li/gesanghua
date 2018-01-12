@@ -64,10 +64,6 @@ class School < ApplicationRecord
 
   scope :can_check, ->{ where.not(approve_state: 2) }
 
-  def self.all_to_hash
-    self.all.map{|c| [c.name, c.id]}
-  end
-
   def full_address
     ChinaCity.get(self.province).to_s + ChinaCity.get(self.city).to_s + ChinaCity.get(self.district).to_s + self.address.to_s
   end
