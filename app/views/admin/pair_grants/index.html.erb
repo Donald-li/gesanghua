@@ -4,10 +4,9 @@
       <i class="icon-list"></i>发放管理
     </div>
     <div class="actions">
-      <%#= link_to new_admin_pair_grant_path, class: 'btn blue-soft', 'data-no-turbolink' => true do %>
-          <i class="icon-plus"></i>
-          <span>导出</span>
-      <%# end %>
+      <%= link_to excel_output_admin_pair_grants_path, class: 'btn blue-soft', 'data-no-turbolink' => true do %>
+      <span>导出</span>
+      <% end %>
     </div>
   </div>
   <div class="portlet-body">
@@ -52,7 +51,7 @@
               年龄
             </th>
             <th>
-              发放年度
+              发放时间
             </th>
             <th>
               学校
@@ -87,7 +86,7 @@
                   <%= grant.try(:gsh_child).try(:age) %>
                 </td>
                 <td>
-                  <%= grant.try(:project_season).try(:name) %>
+                  <%= grant.granted_at.strftime("%Y-%m-%d") %>
                 </td>
                 <td>
                   <%= grant.try(:school).try(:name) %>
@@ -107,25 +106,29 @@
                 <td>
                   <% if grant.waiting? %>
                     <%= link_to edit_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                        <i class="fa fa-edit"></i> 发放操作
+                        <i class="fa"></i> 发放操作
                     <% end %>
-                    <%= link_to edit_delay_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                        <i class="fa fa-edit"></i> 暂缓发放
+                    <%= link_to edit_delay_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
+                        <i class="fa"></i> 暂缓发放
                     <% end %>
-                    <%= link_to edit_cancel_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                        <i class="fa fa-edit"></i> 取消捐助
+                    <%= link_to edit_cancel_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
+                        <i class="fa"></i> 取消捐助
                     <% end %>
                   <% elsif grant.granted? %>
-                    发放反馈
+                    <% if grant.feedback.present? %>
+                      <%= link_to edit_feedback_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
+                          <i class="fa"></i> 修改发放反馈
+                      <% end %>
+                    <% else %>
+                      <%= link_to new_feedback_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
+                          <i class="fa"></i> 新增发放反馈
+                      <% end %>
+                    <% end %>
                   <% else %>
                     <%= link_to edit_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                         <i class="fa fa-edit"></i> 继续发放
                     <% end %>
                   <% end %>
-
-                  <%#= link_to admin_pair_grant_pairedit_cancel_admin_pair_grant_students_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
-                      <!-- <i class="fa fa-list-ul"></i> 查看名单（<%= grant.grant_children.count %>） -->
-                  <%# end %>
                 </td>
               </tr>
           <% end %>

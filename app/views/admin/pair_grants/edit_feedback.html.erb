@@ -2,7 +2,7 @@
   <div class="portlet-title">
     <div class="caption">
       <i class="icon-note"></i>
-      <span class="caption-subject">暂缓发放说明</span>
+      <span class="caption-subject">取消捐助说明</span>
       <span class="caption-helper"></span>
     </div>
     <div class="actions">
@@ -13,11 +13,11 @@
     </div>
   </div>
   <div class="portlet-body form">
-    <%= simple_form_for [:admin, @grant], url: update_delay_admin_pair_grant_path, wrapper: :admin_form, html: {class: 'form-horizontal grant_form'} do |f| %>
+    <%= simple_form_for [:admin, @grant, @feedback], url: update_feedback_admin_pair_grant_path, wrapper: :admin_form, html: {class: 'form-horizontal grant_form'} do |f| %>
         <%= f.error_notification %>
         <div class="form-body">
-          <%= f.input :delay_reason, label: '暂缓原因：', placeholder: '请填写原因', required: true %>
-          <%= f.input :delay_remark, label: '暂缓说明：', placeholder: '请填写详细说明', required: true %>
+          <%= f.input :content, label: '内容：', placeholder: '请填写反馈内容', required: true %>
+          <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Feedback.options_for_select(:states), label: '状态：' %>
         </div>
         <div class="form-actions">
           <div class="row">

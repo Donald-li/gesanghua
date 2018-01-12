@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20180112071039) do
+=======
+ActiveRecord::Schema.define(version: 20180112070231) do
+>>>>>>> 发放管理
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -215,6 +219,7 @@ ActiveRecord::Schema.define(version: 20180112071039) do
     t.integer "approve_state", comment: "审核状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "kind", comment: "反馈类型"
   end
 
   create_table "fund_categories", force: :cascade do |t|

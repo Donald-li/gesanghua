@@ -230,3 +230,6 @@ zh:
     balance_default: '默认'
     transfer: '转捐'
     send_back: '退回'
+  feedback_states:
+    show: '显示'
+    hidden: '隐藏'
