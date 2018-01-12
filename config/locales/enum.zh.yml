@@ -120,8 +120,8 @@ zh:
     junior: '初中'
     senior: '高中'
   project_season_apply_child_semesters:
-    up: '上学期'
-    down: '下学期'
+    last_term: '上学期'
+    next_term: '下学期'
   project_season_apply_child_nations:
     default: '未设置'
     hanzu: '汉族'
@@ -188,8 +188,8 @@ zh:
     two: '二年级'
     three: '三年级'
   project_season_apply_period_semesters:
-    up: '上学期'
-    down: '下学期'
+    last_term: '上学期'
+    next_term: '下学期'
   project_season_apply_period_states:
     enabled: '启用'
     disabled: '禁用'

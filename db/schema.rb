@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20180111145322) do
+=======
+ActiveRecord::Schema.define(version: 20180112023247) do
+>>>>>>> 发放表
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -282,6 +286,9 @@ ActiveRecord::Schema.define(version: 20180111145322) do
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "发放金额"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "school_id", comment: "学校ID"
+    t.integer "project_season_id", comment: "批次ID"
+    t.integer "donate_state", comment: "捐助状态"
     t.index ["gsh_child_id"], name: "index_gsh_child_grants_on_gsh_child_id"
     t.index ["project_season_apply_id"], name: "index_gsh_child_grants_on_project_season_apply_id"
   end
@@ -547,8 +554,11 @@ ActiveRecord::Schema.define(version: 20180111145322) do
     t.integer "level", comment: "学校等级： 1:初中 2:高中"
     t.string "contact_name", comment: "联系人"
     t.string "contact_phone", comment: "联系方式"
+<<<<<<< HEAD
     t.string "contact_position", comment: "联系人职务"
     t.integer "kind", comment: "学校类型"
+=======
+>>>>>>> 发放表
     t.integer "user_id", comment: "申请人ID"
     t.string "school_no", comment: "学校申请编号"
     t.string "contact_idcard", comment: "联系人身份证号"

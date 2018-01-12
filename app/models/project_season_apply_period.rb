@@ -32,7 +32,7 @@ class ProjectSeasonApplyPeriod < ApplicationRecord
 
   enum grade: {one: 1, two: 2, three: 3}
 
-  enum semester: {up: 1, down: 2}
+  enum semester: {last_term: 1, next_term: 2}
 
   enum state: {enabled: 1, disabled: 2}
   default_value_for :state, 1
