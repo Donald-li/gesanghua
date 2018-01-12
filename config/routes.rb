@@ -111,7 +111,6 @@ Rails.application.routes.draw do
 
     resources :pair_reports, concerns: [:switch]
     resources :pair_seasons, concerns: [:switch]
-    resources :pair_periods, concerns: [:switch, :move]
     resources :pair_donate_records, only: [:index, :show]
     resources :pair_applies do
       resources :pair_students, concerns: [:remarks] do
