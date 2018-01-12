@@ -20,18 +20,13 @@ class ProjectSeason < ApplicationRecord
   has_many :goods, class_name: 'ProjectSeasonGoods', dependent: :destroy
   accepts_nested_attributes_for :goods, allow_destroy: true, reject_if: proc { |attributes| attributes['name'].blank? }
 
-  has_many :project_season_applies, dependent: :destroy
+  has_many :applies, class_name: 'ProjectSeasonApply', dependent: :destroy
 
   validates :name, presence: true
 
   enum state: {enabled: 1, disabled: 2}
 
   scope :sorted, -> { order(created_at: :desc)}
-
-  def self.all_to_hash
-    self.all.map{|c| [c.name, c.id]}
-  end
-
   scope :pair, -> { where(project_id: 1) } # 结对
   scope :book, -> { where(project_id: 2) } # 悦读
   scope :movie, -> { where(project_id: 3) } # 观影
