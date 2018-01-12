@@ -39,7 +39,7 @@ class School < ApplicationRecord
   has_one_asset :logo, class_name: 'Asset::SchoolLogo'
   has_many_assets :images, class_name: 'Asset::SchoolImage'
 
-  has_many :teachers
+  has_many :teachers, dependent: :destroy
   has_many :book_shelves
   has_many :project_season_applies
   has_many :gsh_children
