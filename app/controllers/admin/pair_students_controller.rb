@@ -76,8 +76,6 @@ class Admin::PairStudentsController < Admin::BaseController
         # end
         #
         params[:audit][:state] == 'pass' ? @apply_child.approve_pass : @apply_child.approve_reject
-        # format.html { redirect_to edit_admin_pair_apply_pair_student_path(@project_apply, @apply_child), notice: '审核成功。' }
-        # format.json { render json: @audit, status: 'created'}
         format.js
       else
         format.html { render :new_audit }
@@ -95,6 +93,7 @@ class Admin::PairStudentsController < Admin::BaseController
     @audit = @apply_child.audits.last
     respond_to do |format|
       if @audit.update(state: params[:audit][:state], comment: params[:audit][:comment], user_id: current_user.id)
+        params[:audit][:state] == 'pass' ? @apply_child.approve_pass : @apply_child.approve_reject
         format.js
       else
         format.html { render :edit }
