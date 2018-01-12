@@ -21,6 +21,7 @@
 #  balance_manage          :integer                                # 取消余额处理
 #  cancel_remark           :text                                   # 取消说明
 #  title                   :string                                 # 标题
+#  remark                  :text
 #
 
 class GshChildGrant < ApplicationRecord
@@ -42,6 +43,7 @@ class GshChildGrant < ApplicationRecord
   default_value_for :balance_manage, 0
 
   scope :sorted, ->{ order(created_at: :desc) }
+  scope :reverse_sorted, ->{ order(created_at: :asc) }
 
   def self.gen_grant_record(gsh_child)
     child = gsh_child.apply_child

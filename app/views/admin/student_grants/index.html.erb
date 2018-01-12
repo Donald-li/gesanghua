@@ -1,0 +1,93 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i><%= link_to @child.name, admin_pair_student_lists_path %> > 资助年度
+    </div>
+    <div class="actions">
+      <%#= link_to new_admin_pair_grant_path, class: 'btn blue-soft', 'data-no-turbolink' => true do %>
+      <!--<i class="icon-plus"></i>-->
+      <!--<span>新增资助年度</span>-->
+      <%# end %>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="dataTables_wrapper no-footer">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="dataTables_filter pull-right"></div>
+        </div>
+      </div>
+      <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover" id="sample_2">
+          <thead>
+          <tr>
+            <th>
+              申请学年
+            </th>
+            <th>
+              申请金额
+            </th>
+            <th>
+              备注
+            </th>
+            <th>
+              捐助人
+            </th>
+            <th>
+              筹款状态
+            </th>
+            <th>
+              发放状态
+            </th>
+            <th>
+              操作
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @grants.each do |grant| %>
+            <tr>
+              <td>
+                <%= grant.title %>
+              </td>
+              <td>
+                ￥<%= grant.amount %>
+              </td>
+              <td>
+                <%= grant.remark %>
+              </td>
+              <td>
+                <%#= grant.user.try(:name) %>
+              </td>
+              <td>
+                <%= grant.enum_name(:donate_state) %>
+              </td>
+              <td>
+                <% if grant.succeed? %>
+                  <%= grant.enum_name(:state) %>
+                <% end %>
+              </td>
+              <td>
+                <%#= link_to admin_pair_grant_pairedit_cancel_admin_pair_grant_students_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                <!-- <i class="fa fa-list-ul"></i> 查看名单（<%#= grant.grant_children.count %>） -->
+                <%# end %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-5 col-sm-12">
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@grants) %></div>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <%= paginate @grants, theme: '' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END EXAMPLE TABLE PORTLET-->

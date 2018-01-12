@@ -21,6 +21,7 @@
 #  balance_manage          :integer                                # 取消余额处理
 #  cancel_remark           :text                                   # 取消说明
 #  title                   :string                                 # 标题
+#  remark                  :text
 #
 
 require 'rails_helper'
