@@ -28,10 +28,12 @@ class GshChildGrant < ApplicationRecord
   include HasAsset
   has_many_assets :images, class_name: 'Asset::GshChildGrantImage'
 
-  belongs_to :school
-  belongs_to :gsh_child
+  belongs_to :school, optional: true
+  belongs_to :gsh_child, optional: true
   belongs_to :project_season, optional: true
-  belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id'
+  belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id', optional: true
+
+  has_one :feedback, as: :owner
 
   enum state: {waiting: 1, granted: 2, suspend: 3, cancel: 4}
   default_value_for :state, 1

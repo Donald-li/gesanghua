@@ -128,12 +128,18 @@ Rails.application.routes.draw do
         put :turn_over
       end
     end
-    resources :pair_grants do
+    resources :pair_grants, concerns: [:excel_output] do
       member do
         get :edit_delay
         get :edit_cancel
+        get :new_feedback
+        get :edit_feedback
         patch :update_delay
         patch :update_cancel
+        patch :update_feedback
+      end
+      collection do
+        post :create_feedback
       end
     end
     resources :remarks

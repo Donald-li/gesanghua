@@ -215,6 +215,7 @@ ActiveRecord::Schema.define(version: 20180112071039) do
     t.integer "approve_state", comment: "审核状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "kind", comment: "反馈类型"
   end
 
   create_table "fund_categories", force: :cascade do |t|
