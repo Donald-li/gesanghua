@@ -44,7 +44,7 @@
                 姓名
               </th>
               <th>
-                身份
+                身份证号
               </th>
               <th>
                 QQ
@@ -73,13 +73,13 @@
                 <%= teacher.name %>
               </td>
               <td>
-                <%= teacher.enum_name(:kind) %>
+                <%= teacher.idcard %>
               </td>
               <td>
-                <%= teacher.user.try(:qq)%>
+                <%= teacher.qq %>
               </td>
               <td>
-                <%= teacher.user.try(:openid)%>
+                <%= teacher.openid%>
               </td>
               <td>
                 <%= teacher.phone %>

@@ -13,10 +13,13 @@
       </div>
       <%= f.input :nickname, label: '教师昵称：', autofocus: true, input_html: { data: {}} %>
       <%= f.input :name, label: '教师姓名：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :idcard, label: '教师身份证号：', autofocus: true, input_html: { data: {}} %>
       <%= f.input :user_id, collection: [@teacher.user].compact.map {|u| [u.name, u.id]}, label: '关联用户', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
       <%= f.input :school_id, collection: [@teacher.school].compact.map {|u| [u.name, u.id]}, label: '关联学校', prompt: "请选择学校", input_html: {class: 'school_selector'} %>
       <%= f.input :kind, as: :radio_buttons, wrapper: :inline_inputs, label: '教师类型：', collection: Teacher.options_for_enum_select(:kinds) %>
       <%= f.input :phone, label: '联系方式：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :qq, label: '教师QQ号：', autofocus: true, input_html: { data: {}} %>
+      <%= f.input :openid, label: '教师微信号：', autofocus: true, input_html: { data: {}} %>
     </div>
     <div class="form-actions">
       <div class="row">
