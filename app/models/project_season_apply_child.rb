@@ -90,6 +90,23 @@ class ProjectSeasonApplyChild < ApplicationRecord
     self.update_columns(age: child_age)
   end
 
+  def raise_process
+    return "#{self.gsh_child.gsh_child_grants.succeed.count} / #{self.gsh_child.gsh_child_grants.count}"
+  end
+
+  def raise_condition
+    total = self.gsh_child.gsh_child_grants.count
+    num = total - self.gsh_child.gsh_child_grants.succeed.count
+
+    if num == 0
+      '筹款完成'
+    elsif num == total
+      '筹款中'
+    else
+      '可续捐'
+    end
+  end
+
   def generate_qrcode
     qrcode = RQRCode::QRCode.new(self.share_url)
     png = qrcode.as_png(
@@ -119,9 +136,22 @@ class ProjectSeasonApplyChild < ApplicationRecord
   # 通过审核
   def approve_pass
     self.approve_state = 'pass'
-    self.gsh_child = self.gen_gsh_child
-    self.project_season_apply.gsh_child = self.gsh_child
+    if self.gsh_child_id.nil?
+      self.gsh_child = self.gen_gsh_child
+      self.project_season_apply.gsh_child = self.gsh_child
+    end
     self.save
+    self.gen_grant_record
+  end
+
+  # 审核不通过
+  def approve_reject
+    self.approve_state = 'rejected'
+    self.save
+  end
+
+  def gen_grant_record
+    GshChildGrant.gen_grant_record(self.gsh_child)
   end
 
   protected

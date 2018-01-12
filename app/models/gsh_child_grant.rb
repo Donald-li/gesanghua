@@ -47,11 +47,11 @@ class GshChildGrant < ApplicationRecord
     end
 
 
-    GshChildGrant.create(gsh_child: gsh_child, apply: apply, amount: term_amount) && apply_num -= 1 if child.last_term? && apply_num > 0
+    GshChildGrant.find_or_create_by(gsh_child: gsh_child, apply: apply, amount: term_amount) && apply_num -= 1 if child.last_term? && apply_num > 0
 
     if (apply_num > 0)
       apply_num.times do
-        GshChildGrant.create(gsh_child: gsh_child, apply: apply, amount: year_amount)
+        GshChildGrant.find_or_create_by(gsh_child: gsh_child, apply: apply, amount: year_amount)
       end
     end
 

@@ -80,19 +80,19 @@
                   <%= child.try(:name) %>
                 </td>
                 <td>
-                  <%= child.project_season_apply.school.name %> / <%= child.enum_name(:grade) %>
+                  <%= child.project_season_apply.try(:school).try(:name) %> / <%= child.enum_name(:grade) %>
                 </td>
                 <td>
                   <%= child.project_season.try(:name) %>
                 </td>
                 <td>
-                  1 / 3 <!-- * 这是假数据 *-->
+                  <%= child.raise_process %>
                 </td>
                 <td>
                   <%= child.remarks.count %>
                 </td>
                 <td>
-                  筹款中 <!--* 这是假数据 *-->
+                  <%= child.raise_condition %>
                 </td>
                 <td>
                   <%= link_to turn_over_admin_pair_student_list_path(child), data: {confirm: "确定#{child.kind === 'outside' ? '内部认捐' : '对外筹款'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{child.kind === 'inside' ? 'green' : 'blue'}" do %>
