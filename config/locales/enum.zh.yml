@@ -194,8 +194,8 @@ zh:
     enabled: '启用'
     disabled: '禁用'
   task_states:
-    draft: '待发布'
-    open: '报名中'
+    draft: '准备中'
+    open: '开始报名'
     picking: '筛选中'
     pick_done: '筛选完成'
     doing: '执行中'
