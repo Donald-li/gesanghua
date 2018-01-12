@@ -86,7 +86,7 @@
                   <%= grant.try(:gsh_child).try(:age) %>
                 </td>
                 <td>
-                  <%= grant.granted_at.strftime("%Y-%m-%d") %>
+                  <%= grant.granted_at.strftime("%Y-%m-%d") if grant.granted_at.present? %>
                 </td>
                 <td>
                   <%= grant.try(:school).try(:name) %>
