@@ -94,7 +94,7 @@
                 <%= l item.finish_time if item.finish_time.present? %>
               </td>
               <td>
-                <%= link_to admin_task_achievement_path(item), class: 'btn btn-xs blue' do %>
+                <%= link_to admin_task_achievement_path(item), class: 'btn btn-xs yellow' do %>
                   <i class="fa fa-file"></i> 成果详情
                 <% end %>
                 <% if item.to_check? %>
