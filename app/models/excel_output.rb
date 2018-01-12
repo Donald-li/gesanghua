@@ -24,7 +24,7 @@ class ExcelOutput
     wb = p.workbook
     grants = GshChildGrant.sorted
     wb.add_worksheet(:name => "表") do |sheet|
-      sheet.add_row ["编号", "姓名", "年龄", "发放时间", "学校", "发放说明", "发放金额", "筹款状态", "发放状态"]
+      sheet.add_row ["编号", "姓名", "年龄", "发放日期", "学校", "发放说明", "发放金额", "筹款状态", "发放状态"]
       grants.each do |grant|
         sheet.add_row [grant.grant_no,
                        grant.try(:gsh_child).try(:name),
