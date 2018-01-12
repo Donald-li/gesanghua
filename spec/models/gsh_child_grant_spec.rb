@@ -9,6 +9,9 @@
 #  amount                  :decimal(14, 2)   default(0.0)          # 发放金额
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  school_id               :integer                                # 学校ID
+#  project_season_id       :integer                                # 批次ID
+#  donate_state            :integer                                # 捐助状态
 #
 
 require 'rails_helper'

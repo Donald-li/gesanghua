@@ -12,7 +12,7 @@ class Admin::AppointTasksController < Admin::BaseController
   end
 
   def new
-    @task = Task.new(state: 'pick_done')
+    @task = Task.new
   end
 
   def edit

@@ -74,8 +74,8 @@ class Admin::PairStudentsController < Admin::BaseController
         # if @audit.pass? && @apply_child.gsh_child.blank?
         #   @apply_child.build_gsh_child(name: @apply_child.name, phone: @apply_child.phone, idcard: @apply_child.id_card, province: @apply_child.province, city: @apply_child.city, district: @apply_child.district)
         # end
-        @apply_child.approve_state = params[:audit][:state]
-        @apply_child.save(validate: false)
+        #
+        params[:audit][:state] == 'pass' ? @apply_child.approve_pass : @apply_child.approve_reject
         # format.html { redirect_to edit_admin_pair_apply_pair_student_path(@project_apply, @apply_child), notice: '审核成功。' }
         # format.json { render json: @audit, status: 'created'}
         format.js
