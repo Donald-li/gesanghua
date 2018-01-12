@@ -91,33 +91,11 @@
                 <%= task.simple_address %>
               </td>
               <td>
-                <%= task.enum_name(:state) %>
-              </td>
-              <td>
-                <button class="btn btn-xs <%= task.normal? ? 'default' : 'green' %>"><%= task.enum_name(:kind) %></button>
-              </td>
-              <td>
-                <% count = task.task_volunteers.to_check.count %>
-                <%  if count > 0 %>
-                  <%= link_to admin_task_achievements_path(task_id: task), class: 'btn btn-xs blue' do %>
-                    <i class="fa fa-check-square-o"></i> 任务提交确认
-                  <% end %>
-                <% end %>
-                <% if ['draft', 'open', 'picking', 'pick_done'].include?(task.state) %>
-                <%= link_to admin_task_task_applies_path(task), class: 'btn btn-xs blue' do %>
-                  <i class="fa fa-list-ul"></i> 报名名单
-                <% end %>
-                <% end %>
-                <% if task.doing? %>
-                <%= link_to admin_task_path(task), class: 'btn btn-xs blue' do %>
-                  <i class="fa fa-external-link"></i> 移交任务
-                <% end %>
-                <% end %>
                 <% if !task.done? %>
                   <div class="btn-group">
                     <a class="btn btn-xs blue dropdown-toggle" data-toggle="dropdown" href="javascript:;" aria-expanded="false">
-                      <i class="fa fa-cogs"></i>
-                      任务状态
+                      <i class="fa fa-circle-o-notch"></i>
+                      <%= task.enum_name(:state) %>
                       <i class="fa fa-angle-down"></i>
                     </a>
                     <ul class="dropdown-menu">
@@ -163,7 +141,36 @@
                       </li>
                     </ul>
                   </div>
-                  <% if !task.doing? %>
+                <% else %>
+                  <div class="btn-group">
+                    <a class="btn btn-xs blue dropdown-toggle" data-toggle="dropdown" href="javascript:;" aria-expanded="false">
+                      <i class="fa fa-check-circle"></i>
+                      <%= task.enum_name(:state) %>
+                    </a>
+                  </div>
+                <% end %>
+              </td>
+              <td>
+                <button class="btn btn-xs <%= task.normal? ? 'default' : 'green' %>"><%= task.enum_name(:kind) %></button>
+              </td>
+              <td>
+                <% count = task.task_volunteers.to_check.count %>
+                <% if count > 0 %>
+                  <%= link_to admin_task_achievements_path(task_id: task), class: 'btn btn-xs blue' do %>
+                    <i class="fa fa-check-square-o"></i> 任务提交
+                  <% end %>
+                <% end %>
+                <% if ['draft', 'open', 'picking', 'pick_done'].include?(task.state) %>
+                  <%= link_to admin_task_task_applies_path(task), class: 'btn btn-xs blue' do %>
+                    <i class="fa fa-list-ul"></i> 报名名单
+                  <% end %>
+                <% end %>
+                <% if task.doing? %>
+                  <%= link_to admin_task_path(task), class: 'btn btn-xs blue' do %>
+                    <i class="fa fa-external-link"></i> 移交任务
+                  <% end %>
+                <% end %>
+                <% if !task.done? && !task.doing? %>
                   <% if task.normal? %>
                     <%= link_to edit_admin_task_url(task), class: 'btn btn-xs blue' do %>
                       <i class="fa fa-edit"></i> 修改
@@ -175,7 +182,6 @@
                   <% end %>
                   <%= link_to admin_task_url(task), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                     <i class="fa fa-trash-o"></i> 删除
-                  <% end %>
                   <% end %>
                 <% end %>
               </td>
