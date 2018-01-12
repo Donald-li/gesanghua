@@ -3,7 +3,6 @@ class Admin::SchoolProjectAppliesController < Admin::BaseController
   before_action :set_school
 
   def index
-    set_search_end_of_day(:finish_time_lteq)
     @search = @school.project_season_applies.sorted.ransack(params[:q])
     scope = @search.result
     @school_project_applies = scope.page(params[:page])

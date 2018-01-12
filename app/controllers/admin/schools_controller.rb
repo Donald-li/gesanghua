@@ -38,10 +38,11 @@ class Admin::SchoolsController < Admin::BaseController
 
   def update
     respond_to do |format|
-      @school.user.teacher.update(kind: 2)
+      @t = @school.user.teacher
       @user = User.find(school_params[:user_id])
       @school.user = @user
-      Teacher.find_or_create_by(name: school_params[:contact_name], phone: school_params[:contact_name], school: @school, user: @user, kind: 'headmaster')
+      @t.update(kind: 2) if @school.user_id_changed?
+      Teacher.find_or_create_by(name: school_params[:contact_name], phone: school_params[:contact_phone], school: @school, user: @user, kind: 'headmaster')
       if @school.update(school_params)
         @school.attach_logo(params[:logo_id])
         format.html { redirect_to referer_or(admin_schools_url), notice: '学校信息已修改。' }
