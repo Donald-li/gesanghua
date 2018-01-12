@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20180111145322) do
+=======
+ActiveRecord::Schema.define(version: 20180111081335) do
+>>>>>>> 提交发放表
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -133,6 +137,31 @@ ActiveRecord::Schema.define(version: 20180111145322) do
     t.datetime "updated_at", null: false
   end
 
+<<<<<<< HEAD
+=======
+  create_table "child_grants", force: :cascade, comment: "孩子发放记录表" do |t|
+    t.integer "child_id", comment: "孩子ID"
+    t.integer "project_apply_id", comment: "项目申请ID"
+    t.integer "state", comment: "状态"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "child_periods", force: :cascade, comment: "孩子捐助学期表" do |t|
+    t.integer "grant_id", comment: "发放记录ID"
+    t.integer "project_season_id", comment: "项目年度ID"
+    t.integer "gsh_child_id", comment: "格桑花孩子ID"
+    t.integer "donate_record_id", comment: "捐助记录ID"
+    t.integer "user_id", comment: "捐赠人ID"
+    t.string "name", comment: "名称"
+    t.text "description", comment: "描述"
+    t.integer "state", comment: "状态"
+    t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "资助金额"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+>>>>>>> 提交发放表
   create_table "child_trails", force: :cascade, comment: "孩子轨迹表" do |t|
     t.integer "kind", comment: "分类，1：奖项 2：毕业 3：工作"
     t.text "content", comment: "详情"
@@ -233,6 +262,19 @@ ActiveRecord::Schema.define(version: 20180111145322) do
 
   create_table "goods_categories", force: :cascade, comment: "物资分类" do |t|
     t.string "name", comment: "名称"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "grants", force: :cascade, comment: "发放表" do |t|
+    t.integer "project_id", comment: "归属项目ID"
+    t.integer "project_season_id", comment: "项目年度ID"
+    t.integer "school_id", comment: "学校ID"
+    t.integer "project_season_apply_id", comment: "项目申请ID"
+    t.integer "gsh_child_id", comment: "格桑花孩子ID"
+    t.string "grant_no", comment: "发放编号"
+    t.integer "state", comment: "状态"
+    t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "资助金额"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -520,8 +562,11 @@ ActiveRecord::Schema.define(version: 20180111145322) do
     t.integer "level", comment: "学校等级： 1:初中 2:高中"
     t.string "contact_name", comment: "联系人"
     t.string "contact_phone", comment: "联系方式"
+<<<<<<< HEAD
     t.string "contact_position", comment: "联系人职务"
     t.integer "kind", comment: "学校类型"
+=======
+>>>>>>> 提交发放表
     t.integer "user_id", comment: "申请人ID"
     t.string "school_no", comment: "学校申请编号"
     t.string "contact_idcard", comment: "联系人身份证号"
@@ -529,6 +574,8 @@ ActiveRecord::Schema.define(version: 20180111145322) do
     t.integer "teacher_count", comment: "教师人数"
     t.integer "logistic_count", comment: "后勤人数"
     t.string "contact_telephone", comment: "联系人座机号码"
+    t.string "contact_position", comment: "联系人职务"
+    t.integer "kind", comment: "学校类型"
   end
 
   create_table "sequences", force: :cascade do |t|

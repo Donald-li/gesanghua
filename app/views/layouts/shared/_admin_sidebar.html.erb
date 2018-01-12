@@ -32,7 +32,7 @@
       </li>
       <li class="nav-item  <%= current_nav_class(:admin_school) %> ">
         <a href="javascript:;" class="nav-link nav-toggle">
-          <% to_prove_admin = 0 %>
+          <% to_prove_admin = School.can_check.count %>
           <i class="fa fa-building"></i>
           <span class="title <%= 'font-red-soft' if to_prove_admin > 0 %>">学校用户</span>
           <span class="arrow <%= current_nav_class(:admin_school, current: :open) %>"></span>
