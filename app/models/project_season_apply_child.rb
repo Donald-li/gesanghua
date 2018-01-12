@@ -141,17 +141,13 @@ class ProjectSeasonApplyChild < ApplicationRecord
       self.project_season_apply.gsh_child = self.gsh_child
     end
     self.save
-    self.gen_grant_record
+    GshChildGrant.gen_grant_record(self.gsh_child)
   end
 
   # 审核不通过
   def approve_reject
     self.approve_state = 'rejected'
     self.save
-  end
-
-  def gen_grant_record
-    GshChildGrant.gen_grant_record(self.gsh_child)
   end
 
   protected
