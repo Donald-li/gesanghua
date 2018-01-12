@@ -1,5 +1,5 @@
 class Admin::PairGrantsController < Admin::BaseController
-  before_action :set_grant, only: [:edit, :update, :destroy, :switch, :edit_delay, :edit_cancel, :edit_feedback, :update_feedback, :new_feedback]
+  before_action :set_grant, except: [:index, :create_feedback, :excel_output]
 
   def index
     set_search_end_of_day(:published_at_lteq)
@@ -23,7 +23,7 @@ class Admin::PairGrantsController < Admin::BaseController
       @grant.attach_images(params[:image_ids])
       if @grant.update(grant_params)
         @grant.granted!
-        format.html { redirect_to referer_or(admin_pair_grants_url), notice: '项目报告已修改。' }
+        format.html { redirect_to admin_pair_grants_path, notice: '操作成功。' }
       else
         format.html { render :edit }
       end
@@ -48,7 +48,7 @@ class Admin::PairGrantsController < Admin::BaseController
     respond_to do |format|
       if @grant.update(grant_params)
         @grant.suspend!
-        format.html { redirect_to referer_or(admin_pair_grants_url), notice: '项目报告已修改。' }
+        format.html { redirect_to admin_pair_grants_path, notice: '操作成功。' }
       else
         format.html { render :edit }
       end
@@ -59,7 +59,7 @@ class Admin::PairGrantsController < Admin::BaseController
     respond_to do |format|
       if @grant.update(grant_params)
         @grant.cancel!
-        format.html { redirect_to referer_or(admin_pair_grants_url), notice: '项目报告已修改。' }
+        format.html { redirect_to admin_pair_grants_path, notice: '操作成功。' }
       else
         format.html { render :edit }
       end
@@ -72,7 +72,7 @@ class Admin::PairGrantsController < Admin::BaseController
     respond_to do |format|
       if @feedback.save
         @feedback.grant!
-        format.html { redirect_to referer_or(admin_pair_grants_url), notice: '发放反馈已生成。' }
+        format.html { redirect_to admin_pair_grants_path, notice: '发放反馈已生成。' }
       else
         format.html { render :new_feedback }
       end
@@ -83,7 +83,7 @@ class Admin::PairGrantsController < Admin::BaseController
     @feedback = @grant.feedback
     respond_to do |format|
       if @feedback.update(content: params[:feedback][:content], state: params[:feedback][:state])
-        format.html { redirect_to referer_or(admin_pair_grants_url), notice: '发放反馈已修改。' }
+        format.html { redirect_to admin_pair_grants_path, notice: '发放反馈已修改。' }
       else
         format.html { render :edit }
       end
@@ -93,7 +93,7 @@ class Admin::PairGrantsController < Admin::BaseController
   # def destroy
   #   @grant.destroy
   #   respond_to do |format|
-  #     format.html { redirect_to referer_or(admin_pair_grants_url), grant: '项目报告已删除。' }
+  #     format.html { redirect_to admin_pair_grants_path, grant: '项目报告已删除。' }
   #   end
   # end
 
