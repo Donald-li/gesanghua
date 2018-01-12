@@ -82,7 +82,7 @@
                 <%= item.task.try(:simple_address) %>
               </td>
               <td>
-                <button class="btn btn-xs <%= item.task.normal? ? 'default' : 'green' %>"><%= item.task.enum_name(:kind) %></button>
+                <button class="btn btn-xs <%= item.task.normal? ? 'yellow-gold' : 'green' %>"><%= item.task.enum_name(:kind) %></button>
               </td>
               <td>
                 <%= item.volunteer.volunteer_name %>

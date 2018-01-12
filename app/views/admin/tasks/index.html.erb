@@ -6,11 +6,11 @@
     <div class="actions">
       <%= link_to new_admin_appoint_task_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
         <i class="icon-plus"></i>
-        <span>指派任务</span>
+        <span>发布指派任务</span>
       <% end %>
       <%= link_to new_admin_task_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
         <i class="icon-plus"></i>
-        <span>新增任务</span>
+        <span>发布公开任务</span>
       <% end %>
     </div>
   </div>
@@ -150,7 +150,7 @@
                 <% end %>
               </td>
               <td>
-                <button class="btn btn-xs <%= task.normal? ? 'default' : 'green' %>"><%= task.enum_name(:kind) %></button>
+                <button class="btn btn-xs <%= task.normal? ? 'yellow-gold' : 'green' %>"><%= task.enum_name(:kind) %></button>
               </td>
               <td>
                 <% count = task.task_volunteers.to_check.count %>

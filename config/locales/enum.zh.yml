@@ -201,7 +201,7 @@ zh:
     doing: '执行中'
     done: '已完成'
   task_kinds:
-    normal: '普通任务'
+    normal: '公开任务'
     appoint: '指派任务'
   task_volunteer_approve_states:
     submit: '待审核'
