@@ -16,6 +16,7 @@ public/system
 public/uploads
 public/images
 public/tmp
+public/files
 public/sitemap*
 public/images/gift_cards
 solr/data

@@ -158,7 +158,7 @@ Rails.application.routes.draw do
     resources :gsh_children do
       resources :apply_records, only: [:index, :show]
     end
-    resources :schools do
+    resources :schools, concerns: [:excel_output] do
       resources :school_teachers
       resources :school_project_applies
     end

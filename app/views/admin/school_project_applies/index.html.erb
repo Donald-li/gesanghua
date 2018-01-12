@@ -1,7 +1,7 @@
 <div class="portlet light">
   <div class="portlet-title">
     <div class="caption">
-      <i class="icon-list"></i> 全部申请
+      <i class="icon-list"></i><%= link_to @school.name, admin_schools_path %> > 全部申请
     </div>
     <div class="actions">
       <div class="btn-group">
@@ -17,8 +17,8 @@
         <div class="col-md-12 col-sm-12">
           <%= search_form_for @search, url: admin_school_school_project_applies_path, class: 'form-inline' do |f| %>
           <div class="form-group">
-            <%= f.label :project_name_eq, '项目名称' %>
-            <%= f.select :project_name_eq, Project.all.map{|c| [c.name, c.id]}, {include_blank: '选择项目名称'}, placeholder: '', class: 'form-control' %>
+            <%= f.label :project_id_eq, '项目名称' %>
+            <%= f.select :project_id_eq, Project.all.map{|c| [c.name, c.id]}, {include_blank: '选择项目名称'}, placeholder: '', class: 'form-control' %>
           </div>
           <div class="form-group">
             <%= f.label '申请时间' %>
@@ -100,8 +100,8 @@
                   <%= school_project_apply.enum_name(:state) %>
                 </td>
                 <td>
-                  <%= link_to admin_school_school_project_apply_url(@school, school_project_apply), class: 'btn btn-xs blue' do %>
-                      <i class="fa fa-file"></i> 申请详情
+                  <%= link_to admin_pair_apply_pair_students_url(@school,school_project_apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                      <i class="fa fa-list-ul"></i> 查看名单（<%= school_project_apply.apply_children.count %>）
                   <% end %>
                 </td>
               </tr>
