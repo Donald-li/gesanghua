@@ -161,7 +161,7 @@
                 <% end %>
                 <% if ['draft', 'open', 'picking', 'pick_done'].include?(task.state) %>
                   <%= link_to admin_task_task_applies_path(task), class: 'btn btn-xs blue' do %>
-                    <i class="fa fa-list-ul"></i> 报名名单
+                    <i class="fa fa-list-ul"></i> 报名名单 ( <%= task.participant_number %> )
                   <% end %>
                 <% end %>
                 <% if task.doing? %>

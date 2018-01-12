@@ -39,4 +39,8 @@ class Task < ApplicationRecord
     ChinaCity.get(self.province).to_s + " " + ChinaCity.get(self.city).to_s + " " + ChinaCity.get(self.district).to_s
   end
 
+  def participant_number
+    self.task_volunteers.count
+  end
+
 end
