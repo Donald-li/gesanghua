@@ -121,7 +121,7 @@
 <div class="modal fade" id="myModal_update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <%= simple_form_for [:admin, @school_apply, @audit], url: update_audit_admin_school_applies_path, remote: true, wrapper: :admin_form, html: {'data-parsley-validate': true} do |f| %>
+      <%= simple_form_for [:admin, @school_apply, @audit], url: update_audit_admin_school_apply_path, remote: true, wrapper: :admin_form, html: {'data-parsley-validate': true} do |f| %>
       <%= f.error_notification %>
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>

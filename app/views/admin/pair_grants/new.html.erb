@@ -1,0 +1,82 @@
+<div class="portlet light bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-note"></i>
+      <span class="caption-subject">新增配额</span>
+      <span class="caption-helper"></span>
+    </div>
+    <div class="actions">
+      <div class="portlet-input input-inline input-small">
+        <div class="input-icon right">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body form">
+    <% if ProjectSeason.where(project_id: ProjectSeason.pair_project_id).enabled.first.present? %>
+    <%= simple_form_for [:admin, @project_apply], url: admin_pair_applies_path, wrapper: :admin_form, html: {class: 'form-horizontal project_form'} do |f| %>
+        <%= f.error_notification %>
+        <div class="form-body">
+          <%= f.hidden_field :project_id, value: ProjectSeason.pair_project_id %>
+          <%= f.hidden_field :project_season_id, value: ProjectSeason.where(project_id: ProjectSeason.pair_project_id).enabled.first.id %>
+
+          <%= static_form_control '申请年度：', ProjectSeason.where(project_id: ProjectSeason.pair_project_id).enabled.first.name %>
+          <%= f.input :number, label: '配额数量：', placeholder: '学生数量', required: true, type: 'number' %>
+          <%= f.input :school_id, as: :select, label: '选择学校：', input_html: {class: 'schools-ajax'} %>
+          <%= f.input :describe, label: '申请要求：', placeholder: '要求', required: true %>
+        </div>
+        <div class="form-actions">
+          <div class="row">
+            <div class="col-md-offset-2 col-md-9">
+              <%= f.button :submit, '提交', class: 'btn blue' %>
+              <%= link_to '取消', admin_pair_applies_path, class: 'btn' %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+    <% else %>
+      <h4>请先设置可用年度 <%= link_to '去设置', admin_pair_seasons_path, class: 'btn btn-xs blue' %> </h4>
+    <% end %>
+  </div>
+</div>
+<script type="text/javascript">
+    $(function(){
+        //    表单验证
+        $(".project_form").html5Validate(function(){
+            $(this).find('[type="submit"]').attr('disabled','disabled');
+            this.submit();
+        });
+        // 异步加载学校列表
+        $('.schools-ajax').select2({
+            language: "zh-CN",
+            placeholder: '请选择学校',
+            allowClear: true,
+            ajax: {
+                url: "/selects/schools",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: $.map(data.items, function (item) {
+                            return {
+                                text: item.name,
+                                id: item.id
+                            }
+                        }),
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            }
+        });
+    })
+</script>

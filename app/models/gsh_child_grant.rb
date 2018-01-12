@@ -12,11 +12,21 @@
 #  school_id               :integer                                # 学校ID
 #  project_season_id       :integer                                # 批次ID
 #  donate_state            :integer                                # 捐助状态
+#  grant_no                :string                                 # 格桑花发放编号
+#  granted_at              :datetime                               # 发放时间
+#  grant_remark            :text                                   # 发放说明
+#  delay_reason            :string                                 # 暂缓发放原因
+#  delay_remark            :text                                   # 暂缓发放备注
+#  cancel_reason           :string                                 # 取消原因
+#  balance_manage          :integer                                # 取消余额处理
+#  cancel_remark           :text                                   # 取消说明
 #
 
 class GshChildGrant < ApplicationRecord
 
+  belongs_to :school
   belongs_to :gsh_child
+  belongs_to :project_season, optional: true
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id'
 
   enum state: {waiting: 1, granted: 2, suspend: 3, cancel: 4}
@@ -24,6 +34,9 @@ class GshChildGrant < ApplicationRecord
 
   enum donate_state: {pending: 1, succeed: 2} # 捐助状态：1:未筹款 2:已筹款
   default_value_for :donate_state, 1
+
+  enum balance_manage: {balance_default: 0, transfer: 1, send_back: 2} # 捐助状态：0:默认 1:转捐 2:退回
+  default_value_for :balance_manage, 0
 
   scope :sorted, ->{ order(created_at: :desc) }
 

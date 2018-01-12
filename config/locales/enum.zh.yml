@@ -214,3 +214,15 @@ zh:
   report_states:
     show: '显示'
     hidden: '隐藏'
+  gsh_child_grant_states:
+    waiting: '待发放'
+    granted: '已发放'
+    suspend: '暂缓发放'
+    cancel: '取消发放'
+  gsh_child_grant_donate_states:
+    pending: '未筹款'
+    succeed: '已筹款'
+  gsh_child_grant_balance_manages:
+    balance_default: '默认'
+    transfer: '转捐'
+    send_back: '退回'

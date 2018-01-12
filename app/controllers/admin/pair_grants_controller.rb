@@ -3,32 +3,15 @@ class Admin::PairGrantsController < Admin::BaseController
 
   def index
     set_search_end_of_day(:published_at_lteq)
-    @search = ProjectReport.where(project_id: 1).sorted.ransack(params[:q])
+    @search = GshChildGrant.sorted.ransack(params[:q])
     scope = @search.result
     @grants = scope.page(params[:page])
-  end
-
-  def new
-    @grant = ProjectReport.new
   end
 
   def edit
   end
 
-  def create
-    @grant = ProjectReport.new(grant_params.merge(project_id: 1, user_id: current_user.id))
-    @grant.attach_images(params[:image_ids])
-    respond_to do |format|
-      if @grant.save
-        format.html { redirect_to referer_or(admin_pair_grants_url), grant: '项目报告已增加。' }
-      else
-        format.html { render :new }
-      end
-    end
-  end
-
   def update
-    @grant.attach_images(params[:image_ids])
     respond_to do |format|
       if @grant.update(grant_params)
         format.html { redirect_to referer_or(admin_pair_grants_url), grant: '项目报告已修改。' }
@@ -52,10 +35,10 @@ class Admin::PairGrantsController < Admin::BaseController
 
   private
     def set_grant
-      @grant = ProjectReport.find(params[:id])
+      @grant = GshChildGrant.find(params[:id])
     end
 
     def grant_params
-      params.require(:project_grant).permit!
+      params.require(:gsh_child_grant).permit!
     end
 end

@@ -12,6 +12,14 @@
 #  school_id               :integer                                # 学校ID
 #  project_season_id       :integer                                # 批次ID
 #  donate_state            :integer                                # 捐助状态
+#  grant_no                :string                                 # 格桑花发放编号
+#  granted_at              :datetime                               # 发放时间
+#  grant_remark            :text                                   # 发放说明
+#  delay_reason            :string                                 # 暂缓发放原因
+#  delay_remark            :text                                   # 暂缓发放备注
+#  cancel_reason           :string                                 # 取消原因
+#  balance_manage          :integer                                # 取消余额处理
+#  cancel_remark           :text                                   # 取消说明
 #
 
 FactoryBot.define do

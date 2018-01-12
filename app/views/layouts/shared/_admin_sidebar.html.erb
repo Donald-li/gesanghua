@@ -182,6 +182,20 @@
                 <%= link_to admin_pair_student_lists_path, class: 'nav-link' do %>
                     <span class="title">捐助管理</span>
                 <% end %>
+              </li><li class="nav-item <%= current_nav_class(:admin_pair_donate_records) %> ">
+                <%= link_to admin_pair_donate_records_path, class: 'nav-link' do %>
+                    <span class="title">捐助记录</span>
+                <% end %>
+              </li>
+              <li class="nav-item <%= current_nav_class(:admin_pair_grants) %> ">
+                <%= link_to admin_pair_grants_path, class: 'nav-link' do %>
+                    <span class="title">发放管理</span>
+                <% end %>
+              </li>
+              <li class="nav-item <%= current_nav_class(:admin_pair_reports) %> ">
+                <%= link_to admin_pair_reports_path, class: 'nav-link' do %>
+                    <span class="title">项目报告</span>
+                <% end %>
               </li>
             </ul>
           </li>
