@@ -23,7 +23,14 @@ class GshChild < ApplicationRecord
 
   belongs_to :user, optional: true
   belongs_to :school, optional: true
+
+  # TODO: 孩子表和申请孩子是一对多关系？
   has_many :project_season_apply_children, dependent: :destroy
+
+  has_one :apply_child, class_name: 'ProjectSeasonApplyChild'
+
+  has_many :gsh_child_grants, dependent: :destroy
+
 
   validates :name, presence: true
   validates :province, :city, :district, presence: true
@@ -39,4 +46,5 @@ class GshChild < ApplicationRecord
   def gen_gsh_no
     self.gsh_no ||= Sequence.get_seq(kind: :gsh_no, prefix: 'GSH', length: 10)
   end
+
 end

@@ -1,17 +1,12 @@
 <div class="portlet light">
   <div class="portlet-title">
     <div class="caption">
-      <i class="icon-list"></i><%= link_to @volunteer.volunteer_name, admin_volunteers_path %> > 时长记录
+      <i class="icon-list"></i><%= link_to @task.name, admin_tasks_path %> > 报名名单
     </div>
     <div class="actions">
-      <%= link_to new_admin_volunteer_task_volunteer_path(@volunteer), class: 'btn blue-soft', 'data-no-turbolink' => true do %>
-          <i class="icon-plus"></i>
-          <span>添加时长</span>
-      <% end %>
-      <%= link_to admin_volunteers_path, class: 'btn blue-soft', 'data-no-turbolink' => true do %>
-          <i class="fa fa-reply"></i>
-          <span>返回</span>
-      <% end %>
+      <a href="<%= admin_tasks_path %>" class="btn btn-default">
+        <i class="fa fa-reply"></i> 返回
+      </a>
     </div>
   </div>
   <div class="portlet-body">
@@ -29,19 +24,28 @@
           <thead>
           <tr>
             <th>
-              获得来源
+              编号
             </th>
             <th>
-              获得时间
+              姓名
             </th>
             <th>
-              获得时长（小时）
+              联系方式
             </th>
             <th>
-              备注
+              地区
             </th>
             <th>
-              发放人
+              计划时长（小时）
+            </th>
+            <th>
+              认证时间
+            </th>
+            <th>
+              类型
+            </th>
+            <th>
+              操作
             </th>
           </tr>
           </thead>
@@ -49,19 +53,30 @@
           <% @task_volunteers.each do |item| %>
               <tr>
                 <td>
-                  <%= item.task.try(:name) || item.source %>
+                  <%= item.id %>
                 </td>
                 <td>
-                  <%= l item.finish_time if item.finish_time.present? %>
+                  <%= item.volunteer.try(:user).try(:name) %>
                 </td>
                 <td>
-                  <%= item.duration %>
+                  <%= item.volunteer.try(:user).try(:phone) %>
                 </td>
                 <td>
-                  <%= item.comment %>
+                  <%= item.volunteer.try(:user).try(:simple_address) %>
                 </td>
                 <td>
-                  <%= item.user.try(:name) %>
+                  <%= item.volunteer.try(:duration) %>
+                </td>
+                <td>
+                  <%= l item.volunteer.approve_time if item.volunteer.approve_time.present? %>
+                </td>
+                <td>
+                  <%= item.volunteer.enum_name(:kind) %>
+                </td>
+                <td>
+                  <%= link_to switch_edit_admin_appoint_task_path(@task, task_volunteer_id: item.id), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                      <i class="fa fa-external-link"></i> 移交
+                  <% end %>
                 </td>
               </tr>
           <% end %>

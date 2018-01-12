@@ -2,12 +2,13 @@ class Admin::TasksController < Admin::BaseController
   before_action :set_task, only: [:show, :edit, :update, :destroy, :switch]
 
   def index
-    @search = Task.normal.sorted.ransack(params[:q])
+    @search = Task.sorted.ransack(params[:q])
     scope = @search.result
     @tasks = scope.page(params[:page])
   end
 
   def show
+    @task_volunteers = @task.task_volunteers.pass.page(params[:page])
   end
 
   def new

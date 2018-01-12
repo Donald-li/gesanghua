@@ -1,7 +1,7 @@
 <div class="portlet light">
   <div class="portlet-title">
     <div class="caption">
-      <i class="icon-list"></i>报名名单
+      <i class="icon-list"></i><%= link_to @task.name, admin_tasks_path %> > 报名名单
     </div>
     <div class="actions">
       <a href="<%= admin_tasks_path %>" class="btn btn-default">
@@ -43,7 +43,7 @@
               地区
             </th>
             <th>
-              服务时长（小时）
+              计划时长（小时）
             </th>
             <th>
               认证时间
@@ -52,7 +52,7 @@
               类型
             </th>
             <th>
-              审核状态
+              报名审核状态
             </th>
             <th>
               操作
@@ -87,8 +87,12 @@
                   <%= apply.enum_name(:approve_state) %>
                 </td>
                 <td>
+                  <% if apply.submit? %>
                   <%= link_to edit_admin_task_task_apply_path(@task, apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-gavel"></i> 报名审核
+                  <% end %>
+                  <% else %>
+                    已审核
                   <% end %>
                 </td>
               </tr>

@@ -6,4 +6,7 @@ logo_img: ''
 
 send_sms: 'true'
 
-# http://www.gesanghua.org/
+junior_term_amount: 1050
+junior_year_amount: 2100
+senior_term_amount: 1050
+senior_year_amount: 2100

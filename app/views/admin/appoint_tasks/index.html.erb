@@ -42,10 +42,7 @@
               名称
             </th>
             <th>
-              服务时长（小时）
-            </th>
-            <th>
-              负责人
+              计划时长（小时）
             </th>
             <th>
               任务时间
@@ -74,9 +71,6 @@
                   <%= task.duration %>
                 </td>
                 <td>
-                  <%= task.volunteers.first.try(:user).try(:name) %>
-                </td>
-                <td>
                   开始时间：<br><%= l task.start_time if task.start_time.present? %> <br>
                   结束时间：<br><%= l task.end_time if task.end_time.present? %>
                 </td>
@@ -87,6 +81,9 @@
                   <%= task.enum_name(:state) %>
                 </td>
                 <td>
+                  <%= link_to admin_appoint_task_url(task), class: 'btn btn-xs blue' do %>
+                    <i class="fa fa-list"></i> 工作列表
+                  <% end %>
                   <% if !task.done? %>
                   <% if task.task_volunteers.try(:first).to_check? %>
                   <%= link_to check_edit_admin_appoint_task_url(task), class: 'btn btn-xs blue' do %>

@@ -18,16 +18,12 @@
         <% end %>
       </li>
       <li class="heading">
-        <h3 class="uppercase">内容管理</h3>
-      </li>
-
-      <li class="heading">
         <h3 class="uppercase">运营管理</h3>
       </li>
       <li class="nav-item <%= current_nav_class(:admin_user) %>">
         <%= link_to admin_users_path, class: 'nav-link' do %>
             <% new = 0 %>
-            <i class="fa fa-male"></i>
+            <i class="fa fa-user"></i>
             <span class="title">注册用户</span>
             <% if new > 0 %>
                 <span class="badge badge-danger"><%= new %></span>
@@ -36,7 +32,7 @@
       </li>
       <li class="nav-item  <%= current_nav_class(:admin_main) %> ">
         <a href="javascript:;" class="nav-link nav-toggle">
-          <% to_prove_admin = 0 %>
+          <% to_prove_admin = School.can_check.count %>
           <i class="fa fa-building"></i>
           <span class="title <%= 'font-red-soft' if to_prove_admin > 0 %>">学校用户</span>
           <span class="arrow <%= current_nav_class(:admin_school, current: :open) %>"></span>
@@ -60,7 +56,7 @@
 
       <li class="nav-item <%= current_nav_class(:admin_main) %> <%= current_nav_class(:admin_user_county_users) %> <%= current_nav_class(:admin_user_gsh_children) %> <%= current_nav_class(:admin_user_teachers) %>">
         <%= link_to '', class: 'nav-link' do %>
-            <i class="fa fa-user"></i>
+            <i class="fa fa-users"></i>
             <span class="title">用户管理</span>
             <span class="arrow <%= current_nav_class(:admin_user, current: :open) %>"></span>
         <% end %>
@@ -73,14 +69,14 @@
           </li>
           <li class="nav-item <%= current_nav_class(:admin_user_teachers) %> ">
             <%= link_to admin_teachers_path, class: 'nav-link' do %>
-                <i class="fa fa-user"></i>
+                <i class="fa fa-female"></i>
                 <span class="title">教师用户</span>
             <% end %>
           </li>
 
           <li class="nav-item <%= current_nav_class(:admin_user_county_users) %> ">
             <%= link_to admin_county_users_path, class: 'nav-link' do %>
-                <i class="fa fa-user"></i>
+                <i class="fa fa-flag"></i>
                 <span class="title">县级领导</span>
             <% end %>
           </li>
@@ -89,7 +85,8 @@
 
       <li class="nav-item <%= current_nav_class(:admin_volunteers) %> ">
         <a href="javascript:;" class="nav-link nav-toggle">
-          <i class="fa fa-pie-chart"></i>
+          <% to_check_task = TaskVolunteer.to_check.count %>
+          <i class="fa fa-address-card-o"></i>
           <span class="title">志愿者管理</span>
           <span class="arrow <%= current_nav_class(:admin_volunteers, current: :open) %>"></span>
         </a>
@@ -107,6 +104,15 @@
           <li class="nav-item  <%= current_nav_class(:admin_task_list) %>">
             <%= link_to admin_tasks_path, class: 'nav-link' do %>
                 <span class="title">任务管理</span>
+            <% end %>
+          </li>
+
+          <li class="nav-item  <%= current_nav_class(:admin_task_check) %>">
+            <%= link_to admin_task_achievements_path, class: 'nav-link' do %>
+              <span class="title">任务提交</span>
+              <% if to_check_task > 0 %>
+                <span class="badge badge-danger"><%= to_check_task %></span>
+              <% end %>
             <% end %>
           </li>
         </ul>
@@ -144,7 +150,7 @@
         <a href="javascript:;" class="nav-link nav-toggle">
           <% to_prove_apply = 0 %>
           <% submited = 0 %>
-          <i class="fa fa-bookmark"></i>
+          <i class="fa fa-cubes"></i>
           <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">项目管理</span>
           <span class="arrow <%= current_nav_class(:admin_project, current: :open) %>"></span>
         </a>

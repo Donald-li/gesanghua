@@ -11,22 +11,22 @@
 #  city              :string                                 # 市
 #  district          :string                                 # 区/县
 #  number            :integer                                # 学校人数
-#  describe          :string                                 # 学校简介
+#  describe          :text                                   # 学校简介
 #  state             :integer          default("enabled")    # 学校状态：1:启用 2:禁用
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  level             :integer                                # 学校等级： 1:初中 2:高中
 #  contact_name      :string                                 # 联系人
 #  contact_phone     :string                                 # 联系方式
-#  contact_position  :string                                 # 联系人职务
-#  kind              :integer                                # 学校类型
-#  user_id           :integer                                # 用户id
+#  user_id           :integer                                # 申请人ID
 #  school_no         :string                                 # 学校申请编号
 #  contact_idcard    :string                                 # 联系人身份证号
 #  postcode          :string                                 # 邮政编码
 #  teacher_count     :integer                                # 教师人数
 #  logistic_count    :integer                                # 后勤人数
 #  contact_telephone :string                                 # 联系人座机号码
+#  contact_position  :string                                 # 联系人职务
+#  kind              :integer                                # 学校类型
 #
 
 class School < ApplicationRecord
@@ -44,8 +44,6 @@ class School < ApplicationRecord
   has_many :project_season_applies
   has_many :gsh_children
   has_many :audits, as: :owner
-  belongs_to :user
-
   belongs_to :user
 
   validates :name, :province, :city, :district, presence: true
