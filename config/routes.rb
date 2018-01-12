@@ -127,7 +127,7 @@ Rails.application.routes.draw do
         put :turn_over
       end
     end
-    resources :pair_grants, concerns: :switch do
+    resources :pair_grants do
       member do
         get :edit_delay
         get :edit_cancel
