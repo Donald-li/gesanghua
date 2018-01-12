@@ -28,6 +28,7 @@ class Admin::SchoolsController < Admin::BaseController
 
   def create
     @school = School.new(school_params)
+    @school.approve_state = 'pass'
     @user = @school.user
     Teacher.find_or_create_by(name: @school.contact_name, phone: @school.contact_phone, school: @school, user: @user, kind: 'headmaster')
     respond_to do |format|
