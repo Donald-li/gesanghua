@@ -29,7 +29,7 @@ class ExcelOutput
         sheet.add_row [grant.grant_no,
                        grant.try(:gsh_child).try(:name),
                        grant.try(:gsh_child).try(:age),
-                       grant.granted_at.strftime("%Y-%m-%d"),
+                       (grant.granted_at.strftime("%Y-%m-%d %H:%M") if grant.granted_at),
                        grant.try(:school).try(:name),
                        grant.grant_remark,
                        grant.amount,
