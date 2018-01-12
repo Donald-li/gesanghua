@@ -23,6 +23,7 @@ class Admin::PairSeasonsController < Admin::BaseController
 
   def create
     @season = ProjectSeason.new(pair_params)
+    @season.state = 'enabled'
 
     respond_to do |format|
       if @season.save

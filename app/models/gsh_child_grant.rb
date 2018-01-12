@@ -20,6 +20,7 @@
 #  cancel_reason           :string                                 # 取消原因
 #  balance_manage          :integer                                # 取消余额处理
 #  cancel_remark           :text                                   # 取消说明
+#  title                   :string                                 # 标题
 #
 
 class GshChildGrant < ApplicationRecord
@@ -45,7 +46,6 @@ class GshChildGrant < ApplicationRecord
   def self.gen_grant_record(gsh_child)
     child = gsh_child.apply_child
     apply = gsh_child.apply_child.project_season_apply
-    season = apply.season
 
     if child.junior?
       term_amount = Settings.junior_term_amount
@@ -55,18 +55,16 @@ class GshChildGrant < ApplicationRecord
       year_amount = Settings.senior_year_amount
     end
 
-    if child.last_term?
-      apply_num = 4 - child.grade.to_i
-    else
-      apply_num = 3 - child.grade.to_i
-    end
+    apply_num = 4 - child.child_grade_integer
 
+    year = Time.now.year
 
-    GshChildGrant.find_or_create_by(gsh_child: gsh_child, apply: apply, amount: term_amount) && apply_num -= 1 if child.last_term? && apply_num > 0
+    GshChildGrant.find_or_create_by(title: "#{year}学年春季学期", gsh_child: gsh_child, apply: apply, amount: term_amount, school_id: gsh_child.school_id) && apply_num -= 1 if child.next_term? && apply_num > 0
 
     if (apply_num > 0)
       apply_num.times do
-        GshChildGrant.find_or_create_by(gsh_child: gsh_child, apply: apply, amount: year_amount)
+        GshChildGrant.find_or_create_by(title: "#{year}秋季学期 - #{year + 1}学年春季学期", gsh_child: gsh_child, apply: apply, amount: year_amount, school_id: gsh_child.school_id)
+        year += 1
       end
     end
 

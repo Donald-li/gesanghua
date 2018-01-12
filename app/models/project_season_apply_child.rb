@@ -150,11 +150,16 @@ class ProjectSeasonApplyChild < ApplicationRecord
     self.save
   end
 
+  def child_grade_integer
+    ProjectSeasonApplyChild.options_for_some_select(:grades, [self.grade], raw: true).first.second
+  end
+
   protected
 
   # 生成受助孩子
   def gen_gsh_child
     gsh_child = GshChild.new
+    gsh_child.school_id = self.project_season_apply.school_id
     gsh_child.province = self.province
     gsh_child.city = self.city
     gsh_child.district = self.district
@@ -164,6 +169,5 @@ class ProjectSeasonApplyChild < ApplicationRecord
     gsh_child.save
     return gsh_child
   end
-
 
 end

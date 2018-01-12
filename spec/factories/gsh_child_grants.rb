@@ -20,6 +20,7 @@
 #  cancel_reason           :string                                 # 取消原因
 #  balance_manage          :integer                                # 取消余额处理
 #  cancel_remark           :text                                   # 取消说明
+#  title                   :string                                 # 标题
 #
 
 FactoryBot.define do
