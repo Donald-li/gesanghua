@@ -6,10 +6,10 @@
     </div>
     <div class="actions">
       <div class="btn-group">
-        <a href="<%= admin_special_path(@special) %>" class="btn btn-default">
+        <a href="<%= admin_special_path(@special) %>" class="btn btn-xs blue">
           <i class="fa fa-eye"></i> 预览
         </a>
-        <a href="<%= admin_specials_path %>" class="btn btn-default">
+        <a href="<%= admin_specials_path %>" class="btn btn-xs blue">
           <i class="fa fa-reply"></i> 返回列表
         </a>
       </div>
@@ -59,7 +59,7 @@
           <span class="caption-subject font-red-sunglo bold uppercase">滚动图集</span>
         </div>
         <div class="actions">
-          <%= link_to new_admin_special_special_advert_path(@special, item_kind: 'top'), class: 'btn blue-soft', 'data-no-turbolink' => true do %>
+          <%= link_to new_admin_special_special_advert_path(@special, item_kind: 'top'), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
               <i class="icon-plus"></i>
               <span>新增</span>
           <% end %>
@@ -89,7 +89,7 @@
           <span class="caption-subject font-red-sunglo bold uppercase">文字新闻</span>
         </div>
         <div class="actions">
-          <%= link_to new_admin_special_special_article_path(@special), class: 'btn blue-soft', 'data-no-turbolink' => true do %>
+          <%= link_to new_admin_special_special_article_path(@special), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
               <i class="icon-plus"></i>
               <span>新增</span>
           <% end %>
@@ -126,7 +126,7 @@
           <span class="caption-subject font-red-sunglo bold uppercase">图片新闻</span>
         </div>
         <div class="actions">
-          <%= link_to new_admin_special_special_advert_path(@special, item_kind: 'down'), class: 'btn blue-soft', 'data-no-turbolink' => true do %>
+          <%= link_to new_admin_special_special_advert_path(@special, item_kind: 'down'), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
               <i class="icon-plus"></i>
               <span>新增</span>
           <% end %>

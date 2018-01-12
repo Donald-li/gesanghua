@@ -4,7 +4,7 @@
       <i class="icon-list"></i><%= link_to @apply_child.name, admin_pair_apply_pair_students_path(@apply_child.project_season) %> > 备注管理
     </div>
     <div class="actions">
-      <%= link_to new_admin_remark_path(owner_id: @apply_child.id, owner_type: 'ProjectSeasonApplyChild'), class: 'btn blue-soft', 'data-no-turbolink' => true do %>
+      <%= link_to new_admin_remark_path(owner_id: @apply_child.id, owner_type: 'ProjectSeasonApplyChild'), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
           <i class="icon-plus"></i>
           <span>新增</span>
       <% end %>

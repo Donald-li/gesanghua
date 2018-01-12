@@ -20,7 +20,7 @@
                 <%= f.select :school_id_eq, School.all_to_hash, {include_blank: '全部'}, class: 'form-control schools-ajax' %>
               </div>
               <div class="form-group">
-                <%= f.label :project_season_id_eq, '年度' %>
+                <%= f.label :project_season_id_eq, '批次' %>
                 <%= f.select :project_season_id_eq, ProjectSeason.where(project_id: ProjectSeason.pair_project_id).all_to_hash, {include_blank: '全部'}, class: 'form-control' %>
               </div>
               <div class="form-group">
