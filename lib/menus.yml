@@ -126,9 +126,6 @@ admin:
             admin_pair_season:
               actions:
                 'admin/pair_seasons': all
-            admin_pair_period:
-              actions:
-                'admin/pair_periods': all
             admin_pair_applies:
               actions:
                 'admin/pair_applies': all

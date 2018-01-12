@@ -20,7 +20,7 @@
 #  contact_phone     :string                                 # 联系方式
 #  contact_position  :string                                 # 联系人职务
 #  kind              :integer                                # 学校类型
-#  user_id           :integer                                # 用户id
+#  user_id           :integer                                # 申请人ID
 #  school_no         :string                                 # 学校申请编号
 #  contact_idcard    :string                                 # 联系人身份证号
 #  postcode          :string                                 # 邮政编码
@@ -63,10 +63,6 @@ class School < ApplicationRecord
   scope :sorted, ->{ order(created_at: :desc) }
 
   scope :can_check, ->{ where.not(approve_state: 2) }
-
-  def self.all_to_hash
-    self.all.map{|c| [c.name, c.id]}
-  end
 
   def full_address
     ChinaCity.get(self.province).to_s + ChinaCity.get(self.city).to_s + ChinaCity.get(self.district).to_s + self.address.to_s

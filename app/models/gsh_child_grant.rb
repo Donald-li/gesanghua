@@ -24,6 +24,8 @@
 #
 
 class GshChildGrant < ApplicationRecord
+  include HasAsset
+  has_many_assets :images, class_name: 'Asset::GshChildGrantImage'
 
   belongs_to :school
   belongs_to :gsh_child
