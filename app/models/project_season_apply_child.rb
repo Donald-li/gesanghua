@@ -151,7 +151,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   end
 
   def child_grade_integer
-    ProjectSeasonApplyChild.options_for_some_select(:grades, [self.grade], raw: true).first.second
+    ProjectSeasonApplyChild.send(:grades)[self.grade]
   end
 
   protected

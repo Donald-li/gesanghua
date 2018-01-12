@@ -134,6 +134,7 @@ admin:
               actions:
                 'admin/pair_student_lists': all
                 'admin/remarks': all
+                'admin/student_grants': all
             admin_pair_grants:
               actions:
                 'admin/pair_grants': all

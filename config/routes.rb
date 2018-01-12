@@ -123,6 +123,7 @@ Rails.application.routes.draw do
       end
     end
     resources :pair_student_lists, concerns: [:switch, :remarks, :share, :qrcode_download] do
+      resources :student_grants
       member do
         put :turn_over
       end
