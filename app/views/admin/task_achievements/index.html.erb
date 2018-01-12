@@ -76,8 +76,7 @@
                 <%= item.task.try(:duration) %>
               </td>
               <td>
-                开始时间：<br><%= l item.task.start_time if item.task.try(:start_time).present? %> <br>
-                结束时间：<br><%= l item.task.end_time if item.task.try(:end_time).present? %>
+                <%= l item.task.start_time if item.task.start_time.present? %> 到 <%= l item.task.end_time if item.task.end_time.present? %>
               </td>
               <td>
                 <%= item.task.try(:simple_address) %>
