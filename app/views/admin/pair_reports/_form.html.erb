@@ -1,7 +1,7 @@
 <%= simple_form_for @report, url: @report.new_record? ? admin_pair_reports_path : admin_pair_report_path(@report), wrapper: :admin_form, html: {'parsley-validate': true, class: 'report_form'} do |f| %>
     <%= f.error_notification %>
     <div class="form-body form-horizontal">
-      <%= f.input :title, label: '资讯标题：', autofocus: true, require: true, input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :title, label: '报告标题：', autofocus: true, require: true, input_html: { data: {'parsley-required': true}} %>
       <%#= f.input :user_id, label: '资讯作者：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
       <div class="form-group">
         <label class="col-md-2 control-label">发布时间：</label>
@@ -9,7 +9,7 @@
           <%= f.text_field :published_at, class: 'datetime-picker', require: true %>
         </div>
       </div>
-      <%= f.input :content, label: '资讯详情：', placeholder: '请填写资讯详情' %>
+      <%= f.input :content, label: '报告详情：', placeholder: '请填写报告详情' %>
       <div class="form-group">
         <label class="col-md-2 control-label">报告图片：</label>
         <div class="col-sm-9">
