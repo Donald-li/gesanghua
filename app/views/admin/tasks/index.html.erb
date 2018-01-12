@@ -84,8 +84,7 @@
                 <%= task.task_volunteers.count %> / <%= task.num %>
               </td>
               <td>
-                开始时间：<br><%= l task.start_time if task.start_time.present? %> <br>
-                结束时间：<br><%= l task.end_time if task.end_time.present? %>
+                <%= l task.start_time if task.start_time.present? %> 到 <%= l task.end_time if task.end_time.present? %>
               </td>
               <td>
                 <%= task.simple_address %>
@@ -100,16 +99,16 @@
                     </a>
                     <ul class="dropdown-menu">
                       <li>
-                        <%= link_to switch_admin_task_path(task, state: 'draft'), method: :put, data: {confirm: '确定标记为待发布吗？'} do %>
-                          标记为待发布
+                        <%= link_to switch_admin_task_path(task, state: 'draft'), method: :put, data: {confirm: '确定标记为准备中吗？'} do %>
+                          标记为准备中
                           <% if task.draft? %>
                             <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
                           <% end %>
                         <% end %>
                       </li>
                       <li>
-                        <%= link_to switch_admin_task_path(task, state: 'open'), method: :put, data: {confirm: '确定标记为报名中吗？'} do %>
-                          标记为报名中
+                        <%= link_to switch_admin_task_path(task, state: 'open'), method: :put, data: {confirm: '确定标记为开始报名吗？'} do %>
+                          标记为开始报名
                           <% if task.open? %>
                             <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
                           <% end %>
