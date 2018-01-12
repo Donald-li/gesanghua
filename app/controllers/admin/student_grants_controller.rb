@@ -1,9 +1,9 @@
 class Admin::StudentGrantsController < Admin::BaseController
   before_action :set_grant, only: [:show, :edit, :update, :destroy]
-  before_action :set_child
+  before_action :set_child_apply
 
   def index
-    @search = GshChildGrant.where(gsh_child_id: @child.gsh_child_id).reverse_sorted.ransack(params[:q])
+    @search = GshChildGrant.where(gsh_child_id: @child_apply.gsh_child_id).reverse_sorted.ransack(params[:q])
     scope = @search.result
     @grants = scope.page(params[:page])
   end
@@ -19,11 +19,11 @@ class Admin::StudentGrantsController < Admin::BaseController
   end
 
   def create
-    @grant = GshChildGrant.new(grant_params)
+    @grant = GshChildGrant.new(grant_params.merge(school_id: @child_apply.school_id, gsh_child: @child_apply.gsh_child, project_season_apply_id: @child_apply.project_season_apply_id))
 
     respond_to do |format|
       if @grant.save
-        format.html { redirect_to @grant, notice: '新增成功。' }
+        format.html { redirect_to admin_pair_student_list_student_grants_path(@child_apply), notice: '新增成功。' }
       else
         format.html { render :new }
       end
@@ -33,7 +33,7 @@ class Admin::StudentGrantsController < Admin::BaseController
   def update
     respond_to do |format|
       if @grant.update(grant_params)
-        format.html { redirect_to admin_pair_student_list_pair_grants, notice: '修改成功。' }
+        format.html { redirect_to admin_pair_student_list_student_grants_path(@child_apply), notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -46,8 +46,8 @@ class Admin::StudentGrantsController < Admin::BaseController
       @grant = GshChildGrant.find(params[:id])
     end
 
-    def set_child
-      @child = ProjectSeasonApplyChild.find(params[:pair_student_list_id])
+    def set_child_apply
+      @child_apply = ProjectSeasonApplyChild.find(params[:pair_student_list_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

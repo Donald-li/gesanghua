@@ -1,6 +1,18 @@
-<h1>Editing Admin Pair Child Grant</h1>
-
-<%= render 'form', admin_pair_child_grant: @admin_pair_child_grant %>
-
-<%= link_to 'Show', @admin_pair_child_grant %> |
-<%= link_to 'Back', admin_pair_child_grants_path %>
+<div class="portlet light bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-note"></i>
+      <span class="caption-subject">修改资助年度</span>
+      <span class="caption-helper"></span>
+    </div>
+    <div class="actions">
+      <div class="portlet-input input-inline input-small">
+        <div class="input-icon right">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body form">
+    <%= render 'form' %>
+  </div>
+</div>
