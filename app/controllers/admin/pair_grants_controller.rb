@@ -5,15 +5,24 @@ class Admin::PairGrantsController < Admin::BaseController
     set_search_end_of_day(:published_at_lteq)
     @search = GshChildGrant.sorted.ransack(params[:q])
     scope = @search.result
-    @grants = scope.page(params[:page])
-  end
+    scope = scope.includes(:school, :gsh_child)
 
-  def excel_output
-    ExcelOutput.pair_grants_output
-    file_path = Rails.root.join("public/files/结对发放" + DateTime.now.strftime("%Y-%m-%d-%s") + ".xlsx")
-    file_name = "结对捐助发放.xlsx"
-    send_file(file_path, filename: file_name)
+    respond_to do |format|
+      format.html { @grants = scope.page(params[:page]) }
+      format.xlsx {
+        @grants = scope.sorted.all
+        response.headers['Content-Disposition'] = 'attachment; filename= "结对发放列表" ' + Date.today.to_s + '.xlsx'
+      }
+    end
+
   end
+  # 
+  # def excel_output
+  #   ExcelOutput.pair_grants_output
+  #   file_path = Rails.root.join("public/files/结对发放" + DateTime.now.strftime("%Y-%m-%d-%s") + ".xlsx")
+  #   file_name = "结对捐助发放.xlsx"
+  #   send_file(file_path, filename: file_name)
+  # end
 
   def edit
   end
