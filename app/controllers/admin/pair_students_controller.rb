@@ -2,7 +2,7 @@ class Admin::PairStudentsController < Admin::BaseController
   before_action :set_project_apply
 
   def index
-    @search = @project_apply.apply_children.sorted.ransack(params[:q])
+    @search = @project_apply.children.sorted.ransack(params[:q])
     scope = @search.result
     @children = scope.page(params[:page])
   end
@@ -11,7 +11,7 @@ class Admin::PairStudentsController < Admin::BaseController
   end
 
   def new
-    @apply_child = @project_apply.apply_children.build
+    @apply_child = @project_apply.children.build
   end
 
   def edit
@@ -21,7 +21,7 @@ class Admin::PairStudentsController < Admin::BaseController
   end
 
   def create
-    @apply_child = @project_apply.apply_children.build(apply_child_params.merge(province: @project_apply.province, city: @project_apply.city, district: @project_apply.district, approve_state: 1))
+    @apply_child = @project_apply.children.build(apply_child_params.merge(province: @project_apply.province, city: @project_apply.city, district: @project_apply.district, approve_state: 1))
     @apply_child.audits.build
     respond_to do |format|
       if @apply_child.save

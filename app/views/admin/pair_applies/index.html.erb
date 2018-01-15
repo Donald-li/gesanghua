@@ -102,7 +102,7 @@
                       <i class="fa fa-trash-o"></i> 删除
                   <% end %>
                   <%= link_to admin_pair_apply_pair_students_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
-                      <i class="fa fa-list-ul"></i> 查看名单（<%= apply.apply_children.count %>）
+                      <i class="fa fa-list-ul"></i> 查看名单（<%= apply.children.count %>）
                   <% end %>
                 </td>
               </tr>
