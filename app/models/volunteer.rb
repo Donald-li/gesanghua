@@ -28,7 +28,7 @@ class Volunteer < ApplicationRecord
   enum job_state: {available: 1, leave: 2} # 任务状态 1:可接受任务 2:请假
   default_value_for :job_state, 1
 
-  enum state: {enabled: 1, disabled: 2} # 状态 1:启用 2:禁用
+  enum state: {enable: 1, disable: 2} # 状态 1:启用 2:禁用
   default_value_for :state, 1
 
   enum kind: {normal: 1, professional: 2} # 类型 1:普通 2:专业

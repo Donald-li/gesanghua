@@ -49,7 +49,7 @@
                       <label class="col-md-2 control-label">申请学期：</label>
                       <div class="col-sm-9">
                         <ul>
-                          <% ProjectSeasonApplyPeriod.enabled.sorted.all.each do |period| %>
+                          <% ProjectSeasonApplyPeriod.enable.sorted.all.each do |period| %>
                             <li>
                               <label>
                                 <%= check_box_tag 'project_season_apply_child[project_season_apply_period_ids][]', period.id, period.id.in?(@apply_child.project_season_apply_period_ids)  %>

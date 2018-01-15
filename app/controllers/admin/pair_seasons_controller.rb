@@ -23,7 +23,7 @@ class Admin::PairSeasonsController < Admin::BaseController
 
   def create
     @season = ProjectSeason.new(pair_params)
-    @season.state = 'enabled'
+    @season.state = 'enable'
 
     respond_to do |format|
       if @season.save
@@ -52,11 +52,11 @@ class Admin::PairSeasonsController < Admin::BaseController
   end
 
   def switch
-    @season.enabled? ? @season.disabled! : @season.enabled!
-    if @season.enabled?
+    @season.enable? ? @season.disable! : @season.enable!
+    if @season.enable?
       Pair.where.not(id: @season.id).update(state: 2)
     end
-    redirect_to referer_or(admin_pair_seasons_path), notice: @season.enabled? ? "#{@season.name}批次已设为当前执行批次" : '该批次已禁用'
+    redirect_to referer_or(admin_pair_seasons_path), notice: @season.enable? ? "#{@season.name}批次已设为当前执行批次" : '该批次已禁用'
   end
 
 

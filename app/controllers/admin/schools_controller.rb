@@ -1,6 +1,6 @@
 class Admin::SchoolsController < Admin::BaseController
 
-  before_action :set_school, only: [:show, :edit, :update, :destroy]
+  before_action :set_school, only: [:show, :edit, :update, :destroy, :switch]
 
   def index
     respond_to do |format|
@@ -68,8 +68,8 @@ class Admin::SchoolsController < Admin::BaseController
   end
 
   def switch
-    School.find(id).enabled? ? School.find(id).disabled! : School.find(id).enabled!
-    redirect_to admin_schools_url, notice:  School.find(id).enabled? ? '学校已启用' : '学校已禁用'
+    @school.enable? ? @school.disable! : @school.enable!
+    redirect_to admin_schools_url, notice:  @school.enable? ? '学校已启用' : '学校已禁用'
   end
 
   private

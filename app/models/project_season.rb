@@ -24,7 +24,8 @@ class ProjectSeason < ApplicationRecord
 
   validates :name, presence: true
 
-  enum state: {enabled: 1, disabled: 2}
+  enum state: {enable: 1, disable: 2}
+  default_value_for :state, 1
 
   scope :sorted, -> { order(created_at: :desc)}
   scope :pair, -> { where(project_id: 1) } # 结对

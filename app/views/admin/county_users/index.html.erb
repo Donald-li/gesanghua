@@ -76,11 +76,11 @@
                 <% end %>
               </td>
               <td>
-                <% enabled = county_user.user.try(:state) === 'enabled' %>
+                <% enable = county_user.user.try(:state) === 'enable' %>
                 <% if county_user.user %>
-                  <%= link_to switch_admin_county_user_path(county_user), data: {confirm: "确定#{enabled ? '禁用该用户' : '启用该用户'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{enabled ? 'green' : 'default'}" do %>
-                    <%= enabled ? '启用' : '禁用' %>
-                    <i class="fa <%= enabled ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                  <%= link_to switch_admin_county_user_path(county_user), data: {confirm: "确定#{enable ? '禁用该用户' : '启用该用户'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{enable ? 'green' : 'default'}" do %>
+                    <%= enable ? '启用' : '禁用' %>
+                    <i class="fa <%= enable ? 'fa-eye' : 'fa-eye-slash' %>"></i>
                   <% end %>
                 <% else %>
                     <span class="btn btn-xs default">未激活</span>

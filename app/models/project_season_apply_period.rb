@@ -34,7 +34,7 @@ class ProjectSeasonApplyPeriod < ApplicationRecord
 
   enum semester: {last_term: 1, next_term: 2}
 
-  enum state: {enabled: 1, disabled: 2}
+  enum state: {enable: 1, disable: 2}
   default_value_for :state, 1
 
   def start_at_format

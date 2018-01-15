@@ -97,9 +97,9 @@
                 <%= user.to_bill_amount %>
               </td>
               <td>
-                <%= link_to switch_admin_user_path(user), data: {confirm: "确定#{user.state === 'enabled' ? '停用该用户' : '启用该用户'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{user.state === 'enabled' ? 'green' : 'default'}" do %>
-                <%= user.state === 'enabled' ? '启用' : '停用' %>
-                <i class="fa <%= user.state === 'enabled' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                <%= link_to switch_admin_user_path(user), data: {confirm: "确定#{user.state === 'enable' ? '禁用该用户' : '启用该用户'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{user.state === 'enable' ? 'green' : 'default'}" do %>
+                <%= user.state === 'enable' ? '启用' : '禁用' %>
+                <i class="fa <%= user.state === 'enable' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
                 <% end %>
               </td>
               <td>

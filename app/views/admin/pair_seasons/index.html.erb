@@ -70,9 +70,9 @@
                   ￥<%= season.senior_year_amount %>
                 </td>
                 <td style="display: none">
-                  <%= link_to switch_admin_pair_season_path(season), data: {confirm: "确定#{season.disabled? ? '设置为可用批次' : '禁用'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{season.enabled? ? 'green' : 'default'}" do %>
-                      <%= season.enabled? ? '可用批次' : '禁用' %>
-                      <i class="fa <%= season.enabled? ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                  <%= link_to switch_admin_pair_season_path(season), data: {confirm: "确定#{season.disable? ? '设置为可用批次' : '禁用'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{season.enable? ? 'green' : 'default'}" do %>
+                      <%= season.enable? ? '可用批次' : '禁用' %>
+                      <i class="fa <%= season.enable? ? 'fa-eye' : 'fa-eye-slash' %>"></i>
                   <% end %>
                 </td>
                 <td>

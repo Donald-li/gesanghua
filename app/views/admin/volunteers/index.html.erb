@@ -101,9 +101,9 @@
                   <% end %>
                 </td>
                 <td>
-                  <%= link_to switch_admin_volunteer_path(volunteer), data: {confirm: "确定#{volunteer.disabled? ? '启用' : '禁用'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{volunteer.enabled? ? 'green' : 'default'}" do %>
-                      <%= volunteer.enabled? ? '启用' : '禁用' %>
-                      <i class="fa <%= volunteer.enabled? ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                  <%= link_to switch_admin_volunteer_path(volunteer), data: {confirm: "确定#{volunteer.disable? ? '启用' : '禁用'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{volunteer.enable? ? 'green' : 'default'}" do %>
+                      <%= volunteer.enable? ? '启用' : '禁用' %>
+                      <i class="fa <%= volunteer.enable? ? 'fa-eye' : 'fa-eye-slash' %>"></i>
                   <% end %>
                 </td>
                 <td>
