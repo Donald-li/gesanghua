@@ -150,7 +150,7 @@
                 <% end %>
               </td>
               <td>
-                <button class="btn btn-xs <%= task.normal? ? 'yellow-gold' : 'green' %>"><%= task.enum_name(:kind) %></button>
+                <button class="btn btn-xs <%= task.normal? ? 'green' : 'yellow-gold' %>"><%= task.enum_name(:kind) %></button>
               </td>
               <td>
                 <% count = task.task_volunteers.to_check.count %>
