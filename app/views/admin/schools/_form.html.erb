@@ -1,83 +1,92 @@
-<%= simple_form_for [:admin, @school], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
-    <%= f.error_notification %>
-    <div class="form-body form-horizontal">
-      <div class="form-group">
+<%= simple_form_for [:admin, @school], wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'school_form'} do |f| %>
+  <%= f.error_notification %>
+  <div class="form-body form-horizontal">
+    <div class="form-group">
         <label class="col-md-2 control-label">学校logo：</label>
         <div class="col-sm-9">
           <%= webuploader_tag :logo_id, label: '上传学校logo', type: 'school_logo', asset: @school.logo, klass: 'single' %>
         </div>
-      </div>
-      <div class="form-group">
-        <label class="col-md-2 control-label">学校地区：</label>
-        <div class="col-sm-9">
-          <div class="city-group">
-            <%= select_tag 'school[province]', options_for_select(ChinaCity.list, @school.province.presence), prompt: '省份', class: "city-select" %>
-            <%= select_tag 'school[city]', options_for_select(ChinaCity.list(@school.province.to_s), @school.city.presence), prompt: '城市', class: "city-select" %>
-            <%= select_tag 'school[district]', options_for_select(ChinaCity.list(@school.city.to_s), @school.district.presence), prompt: '地区', class: "city-select" %>
+    </div>
+    <%= f.input :name, label: '学校全称：', autofocus: true, placeholder: '学校全称', input_html: { data: {'parsley-required': true}} %>
+    <%= f.input :user_id, collection: [@school.user].compact.map {|u| [u.name, u.id]}, label: '学校申请人', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
+    <div style="margin-bottom: 20px;" class="form-group">
+      <label class="col-md-2 control-label select required" for="project_category_id">所在地区：</label>
+      <div class="col-sm-6">
+        <div class="row city-group">
+          <div class="col-sm-3">
+            <%= select_tag 'school[province]', options_for_select(ChinaCity.list, @school.province.presence), prompt: '省份', class: "form-control city-select" %>
+          </div>
+          <div class="col-sm-3">
+            <%= select_tag 'school[city]', options_for_select(ChinaCity.list(@school.province.to_s), @school.city.presence), prompt: '城市', class: "form-control city-select" %>
+          </div>
+          <div class="col-sm-3">
+            <%= select_tag 'school[district]', options_for_select(ChinaCity.list(@school.city.to_s), @school.district.presence), prompt: '地区', class: "form-control city-select" %>
           </div>
         </div>
       </div>
-      <%= f.input :address, label: '详细地址：', autofocus: true, input_html: { data:{'parsley-required': true} } %>
-      <%= f.input :name, label: '学校名称：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
-      <%= f.input :level, as: :radio_buttons, wrapper: :inline_inputs, label: '学校等级：', collection: School.options_for_enum_select(:levels) %>
-      <%= f.input :user_id, collection: [@school.user].compact.map {|u| [u.name, u.id]}, label: '指定校长用户：', prompt: "请选择用户", input_html: { data: {'parsley-required': true}, class: 'user_selector'} %>
-      <%= f.input :contact_phone, label: '校长联系方式：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
-      <%= f.input :contact_name, label: '联系人：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
-      <%= f.input :contact_position, label: '联系人职务：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
-      <div class="form-group">
-        <label class="col-md-2 control-label">学校概况：</label>
-        <div class="col-sm-9">
-          <%= f.cktext_area :describe, input_html: { data: {}}  %>
-        </div>
-      </div>
-      <%= f.input :kind, as: :radio_buttons, wrapper: :inline_inputs, label: '学校性质：', collection: School.options_for_enum_select(:kinds), input_html: { data: {'parsley-required': true}} %>
     </div>
-    <div class="form-actions">
-      <div class="row">
-        <div class="col-md-offset-3 col-md-9">
-          <%= f.button :submit, '提交', class: 'btn green' %>
-          <%= link_to '取消', admin_schools_path, class: 'btn' %>
-        </div>
+    <%= f.input :address, label: '通信地址：', placeholder: '通信地址', input_html: { data: {'parsley-required': true}} %>
+    <%= f.input :postcode, label: '邮政编码：', placeholder: '邮政编码', input_html: { data: {'parsley-required': true}} %>
+    <%#= static_form_control '校长姓名：', @school.contact_name %>
+    <%= f.input :contact_name, label: '校长姓名：', placeholder: '校长姓名', input_html: { data: {'parsley-required': true}} %>
+    <%= f.input :contact_idcard, label: '校长身份证号码：', placeholder: '校长身份证号码', input_html: { data: {'parsley-required': true}} %>
+    <%= f.input :contact_phone, label: '校长手机号码：', placeholder: '校长手机号码', input_html: { data: {'parsley-required': true}} %>
+    <%= f.input :number, label: '学生人数：', placeholder: '学生人数', input_html: { data: {'parsley-required': true}} %>
+    <%= f.input :teacher_count, label: '教师人数：', placeholder: '教师人数', input_html: { data: {'parsley-required': true}} %>
+    <%= f.input :logistic_count, label: '后勤人数：', placeholder: '后勤人数', input_html: { data: {'parsley-required': true}} %>
+    <%= f.input :describe, label: '学校简介：', placeholder: '请填写学校简介' %>
+  </div>
+  <div class="form-actions">
+    <div class="row">
+      <div class="col-md-offset-2 col-md-9">
+        <%= f.button :submit, '提交', class: 'btn blue' %>
+        <%= link_to '取消', admin_schools_path, class: 'btn' %>
       </div>
     </div>
+  </div>
 <% end %>
 
 <script>
-$(function(){
-  initImageWebuploader($('#webuploader'));
+    $(function(){
+        initImageWebuploader($('#webuploader'));
 
-  $("form .user_selector").select2({
-    language: "zh-CN",
-    placeholder: '请选择用户',
-    allowClear: true,
-    ajax: {
-      url: "/selects/school_user",
-      dataType: 'json',
-      delay: 250,
-      data: function (params) {
-        return {
-          q: params.term, // search term
-          page: params.page
-        };
-      },
-      processResults: function (data, params) {
-        params.page = params.page || 1;
-        return {
-            results: $.map(data.items, function (item) {
+        // 表单验证
+        $(".school_form").html5Validate(function(){
+            $(this).find('[type="submit"]').attr('disabled','disabled');
+            this.submit();
+        });
+        $(".school_form .user_selector").select2({
+          language: "zh-CN",
+          placeholder: '请选择申请人',
+          allowClear: true,
+          ajax: {
+            url: "/selects/school_user",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
               return {
-                text: item.name,
-                id: item.id
-            }
-          }),
-          pagination: {
-            more: (params.page * 30) < data.total_count
-          }
-        };
-      },
-      cache: true
-    },
-    minimumInputLength: 1
-  });
+                q: params.term, // search term
+                page: params.page
+              };
+            },
+            processResults: function (data, params) {
+              params.page = params.page || 1;
+              return {
+                  results: $.map(data.items, function (item) {
+                    return {
+                      text: item.name,
+                      id: item.id
+                  }
+                }),
+                pagination: {
+                  more: (params.page * 30) < data.total_count
+                }
+              };
+            },
+            cache: true
+          },
+        });
 
-})
+        $('.upload-list').viewer();
+    })
 </script>

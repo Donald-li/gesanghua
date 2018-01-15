@@ -20,7 +20,7 @@
 #  contact_phone     :string                                 # 联系方式
 #  contact_position  :string                                 # 联系人职务
 #  kind              :integer                                # 学校类型
-#  user_id           :integer                                # 用户id
+#  user_id           :integer                                # 申请人ID
 #  school_no         :string                                 # 学校申请编号
 #  contact_idcard    :string                                 # 联系人身份证号
 #  postcode          :string                                 # 邮政编码
@@ -44,10 +44,11 @@ class School < ApplicationRecord
   has_many :project_season_applies
   has_many :gsh_children
   has_many :audits, as: :owner
-  belongs_to :user
+  belongs_to :user, optional: true
 
   validates :name, :province, :city, :district, presence: true
   validates :contact_phone, mobile: true
+  validates :contact_idcard, shenfenzheng_no: true
 
   enum state: {enabled: 1, disabled: 2} # 状态：1:启用 2:禁用
   default_value_for :state, 1

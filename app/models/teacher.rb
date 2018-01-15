@@ -18,6 +18,9 @@
 #
 
 class Teacher < ApplicationRecord
+
+  require 'custom_validators'
+
   belongs_to :school
   belongs_to :user, optional: true
   has_many :project_season_applies
@@ -26,6 +29,8 @@ class Teacher < ApplicationRecord
 
   validates :name, :phone, presence: true
   validates :phone, uniqueness: true
+  validates :idcard, shenfenzheng_no: true
+  validates :qq, qq: true
 
   enum state: {show: 1, hidden: 2} # 状态：1:启用 2:禁用
   default_value_for :state, 1

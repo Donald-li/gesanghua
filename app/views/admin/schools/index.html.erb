@@ -64,9 +64,6 @@
                 联系电话
               </th>
               <th>
-                学校类型
-              </th>
-              <th>
                 操作
               </th>
             </tr>
@@ -86,13 +83,10 @@
                 <%= ChinaCity.get(school.district) %>
               </td>
               <td>
-                <%= school.user.try(:name) %>
+                <%= school.contact_name %>
               </td>
               <td>
                 <%= school.contact_phone %>
-              </td>
-              <td>
-                <%= school.enum_name(:kind) %>
               </td>
               <td>
                 <%= link_to edit_admin_school_path(school), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
