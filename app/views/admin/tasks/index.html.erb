@@ -159,7 +159,7 @@
                     <i class="fa fa-check-square-o"></i> 任务提交
                   <% end %>
                 <% end %>
-                <% if ['draft', 'open', 'picking', 'pick_done'].include?(task.state) %>
+                <% if !task.draft? %>
                   <%= link_to admin_task_task_applies_path(task), class: 'btn btn-xs blue' do %>
                     <i class="fa fa-list-ul"></i> 报名名单 ( <%= task.participant_number %> )
                   <% end %>
@@ -169,7 +169,7 @@
                     <i class="fa fa-external-link"></i> 移交任务
                   <% end %>
                 <% end %>
-                <% if !task.done? && !task.doing? %>
+                <% if task.draft? %>
                   <% if task.normal? %>
                     <%= link_to edit_admin_task_url(task), class: 'btn btn-xs blue' do %>
                       <i class="fa fa-edit"></i> 修改
