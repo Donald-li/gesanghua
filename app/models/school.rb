@@ -44,10 +44,11 @@ class School < ApplicationRecord
   has_many :project_season_applies
   has_many :gsh_children
   has_many :audits, as: :owner
-  belongs_to :user
+  belongs_to :user, optional: true
 
   validates :name, :province, :city, :district, presence: true
   validates :contact_phone, mobile: true
+  validates :contact_idcard, shenfenzheng_no: true
 
   enum state: {enable: 1, disable: 2} # 状态：1:启用 2:禁用
   default_value_for :state, 1

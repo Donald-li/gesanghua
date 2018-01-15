@@ -17,6 +17,14 @@ class Admin::SchoolTeachersController < Admin::BaseController
 
   def create
     @school_teacher = @school.teachers.new(teacher_params)
+    if @school_teacher.user.present?
+      @user = @school_teacher.user
+      @school_teacher.name = @user.name
+      @school_teacher.phone = @user.phone
+      @school_teacher.qq = @user.qq
+      @school_teacher.openid = @user.openid
+      @school_teacher.idcard = @user.idcard
+    end
     respond_to do |format|
       if @school_teacher.save
         format.html { redirect_to admin_school_school_teachers_path, notice: '教师创建成功。' }
@@ -30,8 +38,17 @@ class Admin::SchoolTeachersController < Admin::BaseController
   end
 
   def update
+    if teacher_params[:user_id] !=nil && teacher_params[:user_id] != nil
+      @user = User.find(:user_id)
+    end
     respond_to do |format|
       if @school_teacher.update(teacher_params)
+        @school_teacher.name = @user.name
+        @school_teacher.phone = @user.phone
+        @school_teacher.qq = @user.qq
+        @school_teacher.openid = @user.openid
+        @school_teacher.idcard = @user.idcard
+        @school_teacher.save
         format.html { redirect_to referer_or(admin_school_school_teachers_url), notice: '教师信息已修改。' }
       else
         format.html { render :edit }

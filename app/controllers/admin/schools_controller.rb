@@ -29,8 +29,13 @@ class Admin::SchoolsController < Admin::BaseController
   def create
     @school = School.new(school_params)
     @school.approve_state = 'pass'
-    @user = @school.user
-    Teacher.find_or_create_by(name: @school.contact_name, phone: @school.contact_phone, school: @school, user: @user, kind: 'headmaster')
+    if @school.user.present?
+      @user = @school.user
+      @school.contact_name = @user.name
+      @school.contact_phone = @user.phone
+      @school.contact_idcard = @user.idcard
+      Teacher.find_or_create_by(name: @school.contact_name, phone: @school.contact_phone, school: @school, user: @user, kind: 'headmaster')
+    end
     respond_to do |format|
       if @school.save
         @school.attach_logo(params[:logo_id])
@@ -45,13 +50,28 @@ class Admin::SchoolsController < Admin::BaseController
   end
 
   def update
-    respond_to do |format|
+    if @school.user.present?
       @t = @school.user.teacher
+    end
+    if school_params[:user_id] != nil && school_params[:user_id] != ""
       @user = User.find(school_params[:user_id])
       @school.user = @user
-      @t.update(kind: 2) if @school.user_id_changed?
-      Teacher.find_or_create_by(name: school_params[:contact_name], phone: school_params[:contact_phone], school: @school, user: @user, kind: 'headmaster')
+      if @t.present?
+        @t.update(kind: 2) if @school.user_id_changed?
+      end
+      Teacher.find_or_create_by(name: @user.name, phone: @user.phone, school: @school, user: @user, kind: 'headmaster')
+    else
+      @school.user = nil
+      if @t.present?
+        @t.update(kind: 2)
+      end
+    end
+    respond_to do |format|
       if @school.update(school_params)
+        @school.contact_name = @user.name
+        @school.contact_phone = @user.phone
+        @school.contact_idcard = @user.idcard
+        @school.save
         @school.attach_logo(params[:logo_id])
         format.html { redirect_to referer_or(admin_schools_url), notice: '学校信息已修改。' }
       else
