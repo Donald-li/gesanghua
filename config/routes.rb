@@ -174,6 +174,10 @@ Rails.application.routes.draw do
       resources :school_project_applies
     end
     resources :teachers
+    resources :income_records
+
+    resource :data_statistic, only: [:show]
+    resource :donate_statistic, only: [:show]
   end
 
   namespace :school do
