@@ -1,12 +1,28 @@
 class Admin::PairGrantsController < Admin::BaseController
-  before_action :set_grant, only: [:edit, :update, :destroy, :switch, :edit_delay, :edit_cancel]
+  before_action :set_grant, except: [:index, :create_feedback, :excel_output]
 
   def index
     set_search_end_of_day(:published_at_lteq)
     @search = GshChildGrant.sorted.ransack(params[:q])
     scope = @search.result
-    @grants = scope.page(params[:page])
+    scope = scope.includes(:school, :gsh_child)
+
+    respond_to do |format|
+      format.html { @grants = scope.page(params[:page]) }
+      format.xlsx {
+        @grants = scope.sorted.all
+        response.headers['Content-Disposition'] = 'attachment; filename= "结对发放列表" ' + Date.today.to_s + '.xlsx'
+      }
+    end
+
   end
+  # 
+  # def excel_output
+  #   ExcelOutput.pair_grants_output
+  #   file_path = Rails.root.join("public/files/结对发放" + DateTime.now.strftime("%Y-%m-%d-%s") + ".xlsx")
+  #   file_name = "结对捐助发放.xlsx"
+  #   send_file(file_path, filename: file_name)
+  # end
 
   def edit
   end
@@ -16,7 +32,7 @@ class Admin::PairGrantsController < Admin::BaseController
       @grant.attach_images(params[:image_ids])
       if @grant.update(grant_params)
         @grant.granted!
-        format.html { redirect_to referer_or(admin_pair_grants_url), grant: '项目报告已修改。' }
+        format.html { redirect_to admin_pair_grants_path, notice: '操作成功。' }
       else
         format.html { render :edit }
       end
@@ -29,11 +45,19 @@ class Admin::PairGrantsController < Admin::BaseController
   def edit_cancel
   end
 
+  def new_feedback
+    @feedback = @grant.build_feedback
+  end
+
+  def edit_feedback
+    @feedback = @grant.feedback
+  end
+
   def update_delay
     respond_to do |format|
       if @grant.update(grant_params)
         @grant.suspend!
-        format.html { redirect_to referer_or(admin_pair_grants_url), grant: '项目报告已修改。' }
+        format.html { redirect_to admin_pair_grants_path, notice: '操作成功。' }
       else
         format.html { render :edit }
       end
@@ -44,7 +68,31 @@ class Admin::PairGrantsController < Admin::BaseController
     respond_to do |format|
       if @grant.update(grant_params)
         @grant.cancel!
-        format.html { redirect_to referer_or(admin_pair_grants_url), grant: '项目报告已修改。' }
+        format.html { redirect_to admin_pair_grants_path, notice: '操作成功。' }
+      else
+        format.html { render :edit }
+      end
+    end
+  end
+
+  def create_feedback
+    @grant = GshChildGrant.find(params[:feedback][:grant_id])
+    @feedback = @grant.build_feedback(content: params[:feedback][:content], state: params[:feedback][:state])
+    respond_to do |format|
+      if @feedback.save
+        @feedback.grant!
+        format.html { redirect_to admin_pair_grants_path, notice: '发放反馈已生成。' }
+      else
+        format.html { render :new_feedback }
+      end
+    end
+  end
+
+  def update_feedback
+    @feedback = @grant.feedback
+    respond_to do |format|
+      if @feedback.update(content: params[:feedback][:content], state: params[:feedback][:state])
+        format.html { redirect_to admin_pair_grants_path, notice: '发放反馈已修改。' }
       else
         format.html { render :edit }
       end
@@ -54,7 +102,7 @@ class Admin::PairGrantsController < Admin::BaseController
   # def destroy
   #   @grant.destroy
   #   respond_to do |format|
-  #     format.html { redirect_to referer_or(admin_pair_grants_url), grant: '项目报告已删除。' }
+  #     format.html { redirect_to admin_pair_grants_path, grant: '项目报告已删除。' }
   #   end
   # end
 

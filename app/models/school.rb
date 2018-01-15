@@ -50,7 +50,7 @@ class School < ApplicationRecord
   validates :contact_phone, mobile: true
   validates :contact_idcard, shenfenzheng_no: true
 
-  enum state: {enabled: 1, disabled: 2} # 状态：1:启用 2:禁用
+  enum state: {enable: 1, disable: 2} # 状态：1:启用 2:禁用
   default_value_for :state, 1
 
   enum level: {junior: 1, senior: 2} # 学校等级：1:初中 2:高中

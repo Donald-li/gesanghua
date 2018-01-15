@@ -18,7 +18,7 @@
         <div class="form-body form-horizontal">
           <%= f.input :source, label: '获得来源：', autofocus: true, required: true %>
           <div class="form-group approve_reject">
-            <label class="col-md-2 control-label">时长：</label>
+            <label class="col-md-2 control-label">操作类型：</label>
             <div class="col-md-9">
               <div class="radio-list">
                 <label class="radio-inline">
@@ -30,7 +30,7 @@
               </div>
             </div>
           </div>
-          <%= f.input :duration, label: '', placeholder: '小时', required: true, type: 'number' %>
+          <%= f.input :duration, label: '时长：', placeholder: '小时', required: true, type: 'number' %>
           <%= f.input :comment, label: '备注：', required: true %>
         </div>
         <div class="form-actions">

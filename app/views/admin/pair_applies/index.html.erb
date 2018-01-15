@@ -4,7 +4,7 @@
       <i class="icon-list"></i>配额管理
     </div>
     <div class="actions">
-      <%= link_to new_admin_pair_apply_path, class: 'btn blue-soft', 'data-no-turbolink' => true do %>
+      <%= link_to new_admin_pair_apply_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
           <i class="icon-plus"></i>
           <span>新增配额</span>
       <% end %>
@@ -83,7 +83,7 @@
                   <%= apply.number %>
                 </td>
                 <td>
-                  <%= apply.project_season.try(:name) %>
+                  <%= apply.season.try(:name) %>
                 </td>
                 <td>
                   <%= apply.school.try(:contact_name) %>
@@ -102,7 +102,7 @@
                       <i class="fa fa-trash-o"></i> 删除
                   <% end %>
                   <%= link_to admin_pair_apply_pair_students_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
-                      <i class="fa fa-list-ul"></i> 查看名单（<%= apply.apply_children.count %>）
+                      <i class="fa fa-list-ul"></i> 查看名单（<%= apply.children.count %>）
                   <% end %>
                 </td>
               </tr>

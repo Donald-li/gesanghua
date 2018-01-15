@@ -10,7 +10,7 @@ class Admin::UsersController < Admin::BaseController
         @users = scope.sorted.page(params[:page])
       end
       #format.json do # Select2 异步选择用户搜索
-      #  users = User.enabled.where.not(users: {id: 1}).left_joins(:gsh_child).where(gsh_children: {user_id: nil}).where("users.name like :q", q: "%#{params[:q]}%").page(params[:page])
+      #  users = User.enable.where.not(users: {id: 1}).left_joins(:gsh_child).where(gsh_children: {user_id: nil}).where("users.name like :q", q: "%#{params[:q]}%").page(params[:page])
       #  render json: {items: users.as_json(only: [:id, :name])}
       #end
     end
@@ -48,8 +48,8 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def switch
-    @user.enabled? ? @user.disabled! : @user.enabled!
-    redirect_to admin_users_url, notice:  @user.enabled? ? '用户账号已启用' : '用户账号已停用'
+    @user.enable? ? @user.disable! : @user.enable!
+    redirect_to admin_users_url, notice:  @user.enable? ? '用户账号已启用' : '用户账号已禁用'
   end
 
   private

@@ -34,7 +34,7 @@ class Advert < ApplicationRecord
   validates :kind, presence: true
   acts_as_list scope: [:kind], column: :kind_position
 
-  scope :visible, -> {where(kind: 1)}
   scope :sorted, -> { order(kind_position: :asc) }
-  scope :visible, -> { where(state: 1) }
+  scope :visible, -> { where(state: 1, kind: 1) }
+
 end

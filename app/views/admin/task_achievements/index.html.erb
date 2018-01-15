@@ -15,6 +15,10 @@
               <%= f.label :task_name_cont, '搜索' %>
               <%= f.text_field :task_name_cont, class: 'form-control', placeholder: '任务名称' %>
             </div>
+            <div class="form-group">
+              <%= f.label :finish_state_eq, '完成状态' %>
+              <%= f.select :finish_state_eq, TaskVolunteer.options_for_select(:finish_states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
+            </div>
             <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>
         </div>
@@ -49,6 +53,9 @@
               志愿者姓名
             </th>
             <th>
+              完成状态
+            </th>
+            <th>
               完成时间
             </th>
             <th>
@@ -69,27 +76,31 @@
                 <%= item.task.try(:duration) %>
               </td>
               <td>
-                开始时间：<br><%= l item.task.start_time if item.task.try(:start_time).present? %> <br>
-                结束时间：<br><%= l item.task.end_time if item.task.try(:end_time).present? %>
+                <%= l item.task.start_time if item.task.start_time.present? %> 到 <%= l item.task.end_time if item.task.end_time.present? %>
               </td>
               <td>
                 <%= item.task.try(:simple_address) %>
               </td>
               <td>
-                <button class="btn btn-xs <%= item.task.normal? ? 'default' : 'green' %>"><%= item.task.enum_name(:kind) %></button>
+                <button class="btn btn-xs <%= item.task.normal? ? 'yellow-gold' : 'green' %>"><%= item.task.enum_name(:kind) %></button>
               </td>
               <td>
                 <%= item.volunteer.volunteer_name %>
               </td>
               <td>
+                <%= item.enum_name(:finish_state) %>
+              </td>
+              <td>
                 <%= l item.finish_time if item.finish_time.present? %>
               </td>
               <td>
-                <%= link_to admin_task_achievement_path(item), class: 'btn btn-xs blue' do %>
+                <%= link_to admin_task_achievement_path(item), class: 'btn btn-xs yellow' do %>
                   <i class="fa fa-file"></i> 成果详情
                 <% end %>
+                <% if item.to_check? %>
                 <%= link_to edit_admin_task_achievement_path(item), class: 'btn btn-xs blue' do %>
                   <i class="fa fa-check-square-o"></i> 成果确认
+                <% end %>
                 <% end %>
               </td>
             </tr>

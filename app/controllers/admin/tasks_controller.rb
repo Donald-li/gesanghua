@@ -23,7 +23,7 @@ class Admin::TasksController < Admin::BaseController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to admin_tasks_path, notice: '新建成功。' }
+        format.html { redirect_to admin_tasks_path, notice: '发布成功。' }
       else
         format.html { render :new }
       end

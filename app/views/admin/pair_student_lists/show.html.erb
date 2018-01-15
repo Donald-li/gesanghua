@@ -2,12 +2,12 @@
 <div class="portlet light portlet-fit bordered">
   <div class="portlet-title">
     <div class="caption">
-      <i class="icon-bubble font-dark"></i>
+      <i class="fa fa-sliders font-dark"></i>
       <span class="caption-subject font-dark bold uppercase">申请详情</span>
     </div>
     <div class="actions">
       <div class="btn-group">
-        <a href="<%= admin_pair_student_lists_path %>" class="btn btn-default">
+        <a href="<%= admin_pair_student_lists_path %>" class="btn btn-xs blue">
           <i class="fa fa-reply"></i>返回
         </a>
       </div>
@@ -87,16 +87,6 @@
           </th>
           <th>
             <%= @pair_student_list.phone %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            申请学期
-          </th>
-          <th>
-            <% @pair_student_list.project_season_apply_periods.sorted.all.each do |period| %>
-                <span class="btn btn-xs green"><%= period.name %></span>
-            <% end %>
           </th>
         </tr>
         <tr>

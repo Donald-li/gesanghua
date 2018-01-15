@@ -6,7 +6,7 @@
       <span class="caption-helper"></span>
     </div>
     <div class="actions">
-      <%= link_to admin_school_applies_path, class: 'btn blue-soft', 'data-no-turbolink' => true do %>
+      <%= link_to admin_school_applies_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
         <i class="fa fa-reply"></i>
         <span>返回</span>
       <% end %>
@@ -33,7 +33,7 @@
                   <%= f.input :name, label: '学校全称：', autofocus: true, placeholder: '学校全称', input_html: { data: {'parsley-required': true}} %>
                   <%= f.input :user_id, collection: [@school_apply.user].compact.map {|u| [u.name, u.id]}, label: '学校申请人', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
                   <div style="margin-bottom: 20px;" class="form-group">
-                    <label class="col-md-2 control-label select required" for="project_category_id">省市区：</label>
+                    <label class="col-md-2 control-label select required" for="project_category_id">学校所在地：</label>
                     <div class="col-sm-6">
                       <div class="row city-group">
                         <div class="col-sm-3">

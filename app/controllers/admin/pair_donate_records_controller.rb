@@ -18,7 +18,7 @@ class Admin::PairDonateRecordsController < Admin::BaseController
     @donate_record = DonateRecord.find(params[:id])
     @donate_record.destroy
     respond_to do |format|
-      format.html { redirect_to referer_or(admin_user_donate_records_url(@user,@donate_record)), article: '捐助记录已删除。' }
+      format.html { redirect_to referer_or(admin_user_donate_records_url(@user,@donate_record)), notice: '捐助记录已删除。' }
     end
   end
 

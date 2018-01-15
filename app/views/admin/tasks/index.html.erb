@@ -4,13 +4,13 @@
       <i class="icon-list"></i> 任务管理
     </div>
     <div class="actions">
-      <%= link_to new_admin_appoint_task_path, class: 'btn blue-soft', 'data-no-turbolink' => true do %>
+      <%= link_to new_admin_appoint_task_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
         <i class="icon-plus"></i>
-        <span>指派任务</span>
+        <span>发布指派任务</span>
       <% end %>
-      <%= link_to new_admin_task_path, class: 'btn blue-soft', 'data-no-turbolink' => true do %>
+      <%= link_to new_admin_task_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
         <i class="icon-plus"></i>
-        <span>新增任务</span>
+        <span>发布公开任务</span>
       <% end %>
     </div>
   </div>
@@ -84,8 +84,7 @@
                 <%= task.task_volunteers.count %> / <%= task.num %>
               </td>
               <td>
-                开始时间：<br><%= l task.start_time if task.start_time.present? %> <br>
-                结束时间：<br><%= l task.end_time if task.end_time.present? %>
+                <%= l task.start_time if task.start_time.present? %> 到 <%= l task.end_time if task.end_time.present? %>
               </td>
               <td>
                 <%= task.simple_address %>
@@ -100,16 +99,16 @@
                     </a>
                     <ul class="dropdown-menu">
                       <li>
-                        <%= link_to switch_admin_task_path(task, state: 'draft'), method: :put, data: {confirm: '确定标记为待发布吗？'} do %>
-                          标记为待发布
+                        <%= link_to switch_admin_task_path(task, state: 'draft'), method: :put, data: {confirm: '确定标记为准备中吗？'} do %>
+                          标记为准备中
                           <% if task.draft? %>
                             <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
                           <% end %>
                         <% end %>
                       </li>
                       <li>
-                        <%= link_to switch_admin_task_path(task, state: 'open'), method: :put, data: {confirm: '确定标记为报名中吗？'} do %>
-                          标记为报名中
+                        <%= link_to switch_admin_task_path(task, state: 'open'), method: :put, data: {confirm: '确定标记为开始报名吗？'} do %>
+                          标记为开始报名
                           <% if task.open? %>
                             <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
                           <% end %>
@@ -151,7 +150,7 @@
                 <% end %>
               </td>
               <td>
-                <button class="btn btn-xs <%= task.normal? ? 'default' : 'green' %>"><%= task.enum_name(:kind) %></button>
+                <button class="btn btn-xs <%= task.normal? ? 'green' : 'yellow-gold' %>"><%= task.enum_name(:kind) %></button>
               </td>
               <td>
                 <% count = task.task_volunteers.to_check.count %>
@@ -162,7 +161,7 @@
                 <% end %>
                 <% if ['draft', 'open', 'picking', 'pick_done'].include?(task.state) %>
                   <%= link_to admin_task_task_applies_path(task), class: 'btn btn-xs blue' do %>
-                    <i class="fa fa-list-ul"></i> 报名名单
+                    <i class="fa fa-list-ul"></i> 报名名单 ( <%= task.participant_number %> )
                   <% end %>
                 <% end %>
                 <% if task.doing? %>

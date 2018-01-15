@@ -48,8 +48,8 @@ class Admin::VolunteersController < Admin::BaseController
   end
 
   def switch
-    @volunteer.enabled? ? @volunteer.disabled! : @volunteer.enabled!
-    redirect_to admin_volunteers_path, notice:  @volunteer.enabled? ? '已启用' : '已禁用'
+    @volunteer.enable? ? @volunteer.disable! : @volunteer.enable!
+    redirect_to admin_volunteers_path, notice:  @volunteer.enable? ? '已启用' : '已禁用'
   end
 
   def switch_job

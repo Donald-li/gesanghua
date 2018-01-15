@@ -21,7 +21,7 @@ zh:
     recommend: '是'
   user_states:
     enable: '启用'
-    disable: '停用'
+    disable: '禁用'
   user_genders:
     male: '男'
     female: '女'
@@ -57,8 +57,8 @@ zh:
     nondirectional: '非定向'
     directional: '定向'
   pair_states:
-    enabled: '启用'
-    disabled: '禁用'
+    enable: '启用'
+    disable: '禁用'
   pair_contribute_kinds:
     entirety: '整捐'
     scattered: '零捐'
@@ -79,12 +79,9 @@ zh:
   project_season_apply_states:
     show: '显示'
     hidden: '隐藏'
-  user_states:
-    enabled: '正常'
-    disabled: '冻结'
   volunteer_states:
-    enabled: '启用'
-    disabled: '禁用'
+    enable: '启用'
+    disable: '禁用'
   volunteer_job_states:
     available: '可接受任务'
     leave: '请假'
@@ -191,22 +188,26 @@ zh:
     last_term: '上学期'
     next_term: '下学期'
   project_season_apply_period_states:
-    enabled: '启用'
-    disabled: '禁用'
+    enable: '启用'
+    disable: '禁用'
   task_states:
-    draft: '待发布'
-    open: '报名中'
+    draft: '准备中'
+    open: '开始报名'
     picking: '筛选中'
     pick_done: '筛选完成'
     doing: '执行中'
     done: '已完成'
   task_kinds:
-    normal: '普通任务'
+    normal: '公开任务'
     appoint: '指派任务'
   task_volunteer_approve_states:
     submit: '待审核'
     pass: '审核通过'
     reject: '审核不通过'
+  task_volunteer_finish_states:
+    doing: '执行中'
+    to_check: '待确认'
+    done: '已完成'
   school_approve_states:
     submit: '待审核'
     pass: '审核通过'
@@ -226,3 +227,6 @@ zh:
     balance_default: '默认'
     transfer: '转捐'
     send_back: '退回'
+  feedback_states:
+    show: '显示'
+    hidden: '隐藏'

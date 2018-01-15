@@ -22,14 +22,13 @@
 
 class ProjectSeasonApply < ApplicationRecord
   belongs_to :project
-  belongs_to :project_season
   belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id'
   belongs_to :school
   belongs_to :teacher, optional: true
   belongs_to :gsh_child, optional: true
   belongs_to :gsh_bookshelf, optional: true
   has_many :audits, as: :owner
-  has_many :apply_children, class_name: "ProjectSeasonApplyChild", foreign_key: "project_season_apply_id"
+  has_many :children, class_name: "ProjectSeasonApplyChild"
 
   validates :province, :city, :district, presence: true
 

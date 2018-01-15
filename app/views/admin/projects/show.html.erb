@@ -1,13 +1,12 @@
-
 <div class="portlet light portlet-fit bordered">
   <div class="portlet-title">
     <div class="caption">
-      <i class="icon-bubble font-dark"></i>
+      <i class="fa fa-sliders font-dark"></i>
       <span class="caption-subject font-dark bold uppercase">项目分类详情</span>
     </div>
     <div class="actions">
       <div class="btn-group">
-        <a href="<%= admin_projects_path %>" class="btn btn-default">
+        <a href="<%= admin_projects_path %>" class="btn btn-xs blue">
           <i class="fa fa-reply"></i>返回
         </a>
       </div>
@@ -27,18 +26,18 @@
         </tr>
         <tr>
           <th>
-            财务分类
+            项目类型
           </th>
           <th>
-            <%= @project.fund.try(:name) %>
+            <%= @project.enum_name(:kind) %>
           </th>
         </tr>
         <tr>
           <th>
-            捐款类型
+            财务分类
           </th>
           <th>
-            <%= @project.enum_name(:contribute_kind) %>
+            <%= @project.fund.try(:fund_category).try(:name) %> - <%= @project.fund.try(:name) %>
           </th>
         </tr>
         <tr>
@@ -51,18 +50,10 @@
         </tr>
         <tr>
           <th>
-            协议名称
-          </th>
-          <th>
-            <%= @project.protocol_name %>
-          </th>
-        </tr>
-        <tr>
-          <th>
             协议内容
           </th>
           <th>
-            <%= @project.protocol_content.html_safe %>
+            <%= @project.protocol.html_safe %>
           </th>
         </tr>
         </tbody>

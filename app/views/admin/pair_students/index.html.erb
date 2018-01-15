@@ -4,7 +4,7 @@
       <i class="icon-list"></i><%= link_to @project_apply.school.try(:name), admin_pair_applies_path %> > 孩子申请
     </div>
     <div class="actions">
-      <%= link_to new_admin_pair_apply_pair_student_path(@project_apply), class: 'btn blue-soft', 'data-no-turbolink' => true do %>
+      <%= link_to new_admin_pair_apply_pair_student_path(@project_apply), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
           <i class="icon-plus"></i>
           <span>新增</span>
       <% end %>

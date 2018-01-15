@@ -23,7 +23,7 @@ class Admin::PairAppliesController < Admin::BaseController
 
     respond_to do |format|
       if ProjectSeasonApply.find_by(school_id: project_apply_params[:school_id], project_id: project_apply_params[:project_id]).present?
-        flash[:notice] = '此学校在本年度还有未完成的申请'
+        flash[:notice] = '此学校在本批次还有未完成的申请'
         format.html { render :new }
       elsif @project_apply.save
         format.html { redirect_to admin_pair_applies_path, notice: '创建成功。' }

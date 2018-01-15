@@ -14,17 +14,17 @@
       <div class="form-group">
         <label class="col-md-2 control-label">开始时间：</label>
         <div class="col-sm-9">
-          <%= f.text_field :start_time, class: 'datetime-picker', value: (l Time.now) %>
+          <%= f.text_field :start_time, class: 'datetime-picker', value: Time.now.strftime("%Y-%m-%d %H:%M") %>
         </div>
       </div>
       <div class="form-group">
         <label class="col-md-2 control-label">结束时间：</label>
         <div class="col-sm-9">
-          <%= f.text_field :end_time, class: 'datetime-picker', value: (l Time.now) %>
+          <%= f.text_field :end_time, class: 'datetime-picker', value: Time.now.strftime("%Y-%m-%d %H:%M") %>
         </div>
       </div>
       <div style="margin-bottom: 20px;" class="form-group">
-        <label class="col-md-2 control-label select required">省市区：</label>
+        <label class="col-md-2 control-label select required">任务所在地：</label>
         <div class="col-sm-6">
           <div class="row city-group">
             <div class="col-sm-3">
@@ -50,7 +50,7 @@
       <div class="row">
         <div class="col-md-offset-2 col-md-9">
           <%= f.button :submit, '提交', class: 'btn blue' %>
-          <%= link_to '取消', admin_appoint_tasks_path, class: 'btn' %>
+          <%= link_to '取消', admin_tasks_path, class: 'btn' %>
         </div>
       </div>
     </div>

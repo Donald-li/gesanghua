@@ -20,7 +20,7 @@
                 <%= f.select :school_id_eq, School.all_to_hash, {include_blank: '全部'}, class: 'form-control schools-ajax' %>
               </div>
               <div class="form-group">
-                <%= f.label :project_season_id_eq, '年度' %>
+                <%= f.label :project_season_id_eq, '批次' %>
                 <%= f.select :project_season_id_eq, ProjectSeason.where(project_id: ProjectSeason.pair_project_id).all_to_hash, {include_blank: '全部'}, class: 'form-control' %>
               </div>
               <div class="form-group">
@@ -83,7 +83,7 @@
                   <%= child.project_season_apply.try(:school).try(:name) %> / <%= child.enum_name(:grade) %>
                 </td>
                 <td>
-                  <%= child.project_season.try(:name) %>
+                  <%= child.season.try(:name) %>
                 </td>
                 <td>
                   <%= child.raise_process %>
@@ -107,7 +107,7 @@
                   <% end %>
                 </td>
                 <td>
-                  <%= link_to admin_pair_student_list_path(child), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                  <%= link_to admin_pair_student_list_path(child), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                       <i class="fa fa-file"></i> 申请详情
                   <% end %>
                   <%= link_to remarks_admin_pair_student_list_path(child), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>

@@ -2,7 +2,7 @@ class Admin::PairStudentsController < Admin::BaseController
   before_action :set_project_apply
 
   def index
-    @search = @project_apply.apply_children.sorted.ransack(params[:q])
+    @search = @project_apply.children.sorted.ransack(params[:q])
     scope = @search.result
     @children = scope.page(params[:page])
   end
@@ -11,7 +11,7 @@ class Admin::PairStudentsController < Admin::BaseController
   end
 
   def new
-    @apply_child = @project_apply.apply_children.build
+    @apply_child = @project_apply.children.build
   end
 
   def edit
@@ -21,7 +21,7 @@ class Admin::PairStudentsController < Admin::BaseController
   end
 
   def create
-    @apply_child = @project_apply.apply_children.build(apply_child_params.merge(province: @project_apply.province, city: @project_apply.city, district: @project_apply.district, approve_state: 1))
+    @apply_child = @project_apply.children.build(apply_child_params.merge(province: @project_apply.province, city: @project_apply.city, district: @project_apply.district, approve_state: 1))
     @apply_child.audits.build
     respond_to do |format|
       if @apply_child.save
@@ -76,8 +76,6 @@ class Admin::PairStudentsController < Admin::BaseController
         # end
         #
         params[:audit][:state] == 'pass' ? @apply_child.approve_pass : @apply_child.approve_reject
-        # format.html { redirect_to edit_admin_pair_apply_pair_student_path(@project_apply, @apply_child), notice: '审核成功。' }
-        # format.json { render json: @audit, status: 'created'}
         format.js
       else
         format.html { render :new_audit }
@@ -95,6 +93,7 @@ class Admin::PairStudentsController < Admin::BaseController
     @audit = @apply_child.audits.last
     respond_to do |format|
       if @audit.update(state: params[:audit][:state], comment: params[:audit][:comment], user_id: current_user.id)
+        params[:audit][:state] == 'pass' ? @apply_child.approve_pass : @apply_child.approve_reject
         format.js
       else
         format.html { render :edit }

@@ -57,7 +57,7 @@ class User < ApplicationRecord
   validates :login, uniqueness: true
   default_value_for :profile, {}
 
-  enum state: {enabled: 1, disabled: 2} #状态 1:启用 2:禁用
+  enum state: {enable: 1, disable: 2} #状态 1:启用 2:禁用
   default_value_for :state, 1
 
   enum gender: {male: 1, female: 2} #性别 1:男 2:女

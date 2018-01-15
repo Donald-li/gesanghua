@@ -61,8 +61,6 @@ class Admin::SchoolAppliesController < Admin::BaseController
         # end
         @school_apply.approve_state = params[:audit][:state]
         @school_apply.save(validate: false)
-        # format.html { redirect_to edit_admin_pair_apply_school_apply_path(@project_apply, @school_apply), notice: '审核成功。' }
-        # format.json { render json: @audit, status: 'created'}
         format.js
       else
         format.html { render :new_audit }
@@ -70,15 +68,13 @@ class Admin::SchoolAppliesController < Admin::BaseController
     end
   end
 
-  # def edit_audti
-  #   @audit = @school_apply.audits.last
-  # end
-
   def update_audit
     @school_apply = School.find(params[:audit][:school_apply_id])
     @audit = @school_apply.audits.last
     respond_to do |format|
       if @audit.update(state: params[:audit][:state], comment: params[:audit][:comment], user_id: current_user.id)
+        @school_apply.approve_state = params[:audit][:state]
+        @school_apply.save(validate: false)
         format.js
       else
         format.html { render :edit }

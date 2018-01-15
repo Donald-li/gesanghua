@@ -16,7 +16,12 @@
     <%= simple_form_for [:admin, @grant], url: admin_pair_grant_path, wrapper: :admin_form, html: {class: 'form-horizontal grant_form'} do |f| %>
         <%= f.error_notification %>
         <div class="form-body">
-          <%= f.text_field :granted_at, label: '发放时间', class: 'datetime-picker', require: true %>
+          <div class="form-group">
+            <label class="col-md-2 control-label">发放时间：</label>
+            <div class="col-sm-9">
+              <%= f.text_field :granted_at, label: '发放日期', placeholder: '请选择发放日期', class: 'datetime-picker', require: true %>
+            </div>
+          </div>
           <%= f.input :grant_remark, label: '发放说明：', placeholder: '请填写发放说明', required: true %>
           <div class="form-group">
             <label class="col-md-2 control-label">发放证明：</label>
@@ -44,6 +49,13 @@
             $(this).find('[type="submit"]').attr('disabled','disabled');
             this.submit();
         });
-        // 异步加载学校列表
+        $('.datetime-picker').datepicker({
+          language: 'zh-CN',
+          format: 'yyyy-mm-dd',
+          showClear: true,
+          dayViewHeaderFormat: 'yyyy mm'
+        });
+        initMultiImageWebuploader($('#webuploader'));
+        $('.upload-list').viewer();
     })
 </script>

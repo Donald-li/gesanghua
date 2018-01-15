@@ -6,7 +6,7 @@
       <span class="caption-helper"></span>
     </div>
     <div class="actions">
-      <%= link_to admin_pair_apply_pair_students_path(@project_apply), class: 'btn blue-soft', 'data-no-turbolink' => true do %>
+      <%= link_to admin_pair_apply_pair_students_path(@project_apply), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
         <i class="fa fa-reply"></i>
         <span>返回</span>
       <% end %>
@@ -49,7 +49,7 @@
                       <label class="col-md-2 control-label">申请学期：</label>
                       <div class="col-sm-9">
                         <ul>
-                          <% ProjectSeasonApplyPeriod.enabled.sorted.all.each do |period| %>
+                          <% ProjectSeasonApplyPeriod.enable.sorted.all.each do |period| %>
                             <li>
                               <label>
                                 <%= check_box_tag 'project_season_apply_child[project_season_apply_period_ids][]', period.id, period.id.in?(@apply_child.project_season_apply_period_ids)  %>

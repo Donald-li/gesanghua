@@ -4,7 +4,7 @@
       <i class="icon-list"></i>项目分类管理
     </div>
     <div class="actions">
-      <%= link_to new_admin_project_path, class: 'btn blue-soft', 'data-no-turbolink' => true do %>
+      <%= link_to new_admin_project_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
       <i class="icon-plus"></i>
       <span>新增项目</span>
       <% end %>
@@ -64,6 +64,9 @@
                   <%=  project.sliced_describe %>
                 </td>
                 <td>
+                  <%= link_to admin_project_path(project), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                    <i class="fa fa-file"></i> 查看
+                  <% end %>
                   <%= link_to edit_admin_project_path(project), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-edit"></i> 修改
                   <% end %>
