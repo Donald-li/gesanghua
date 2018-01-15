@@ -56,7 +56,7 @@ class Admin::PairSeasonsController < Admin::BaseController
     if @season.enabled?
       Pair.where.not(id: @season.id).update(state: 2)
     end
-    redirect_to referer_or(admin_pair_seasons_path), notice: @season.enabled? ? "#{@season.name}年度已设为当前执行年度" : '该年度已禁用'
+    redirect_to referer_or(admin_pair_seasons_path), notice: @season.enabled? ? "#{@season.name}批次已设为当前执行批次" : '该批次已禁用'
   end
 
 

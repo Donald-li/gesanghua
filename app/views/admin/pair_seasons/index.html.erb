@@ -70,8 +70,8 @@
                   ￥<%= season.senior_year_amount %>
                 </td>
                 <td style="display: none">
-                  <%= link_to switch_admin_pair_season_path(season), data: {confirm: "确定#{season.disabled? ? '设置为可用年度' : '禁用'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{season.enabled? ? 'green' : 'default'}" do %>
-                      <%= season.enabled? ? '可用年度' : '禁用' %>
+                  <%= link_to switch_admin_pair_season_path(season), data: {confirm: "确定#{season.disabled? ? '设置为可用批次' : '禁用'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{season.enabled? ? 'green' : 'default'}" do %>
+                      <%= season.enabled? ? '可用批次' : '禁用' %>
                       <i class="fa <%= season.enabled? ? 'fa-eye' : 'fa-eye-slash' %>"></i>
                   <% end %>
                 </td>
@@ -79,7 +79,7 @@
                   <%= link_to edit_admin_pair_season_path(season), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-edit"></i> 修改
                   <% end %>
-                  <%= link_to admin_pair_season_path(season), class: 'btn btn-xs red', method: :delete, data: {confirm: '删除本年度，将会同时删除本年度下的所有申请记录，确定要删除吗？'} do %>
+                  <%= link_to admin_pair_season_path(season), class: 'btn btn-xs red', method: :delete, data: {confirm: '删除本批次，将会同时删除本批次下的所有申请记录，确定要删除吗？'} do %>
                       <i class="fa fa-trash-o"></i> 删除
                   <% end %>
                 </td>
