@@ -1,0 +1,43 @@
+<%= simple_form_for [:admin, @season], wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'season_form'} do |f| %>
+    <%= f.error_notification %>
+    <div class="form-body form-horizontal">
+      <%= f.hidden_field :fund_id, value: @season.fund_id %>
+      <%= f.hidden_field :project_id, value: @season.project_id %>
+      <%= f.input :name, label: '名称：', autofocus: true, placeholder: '名称', required: true %>
+      <%= f.input :contribute_kind, as: :select, label: '捐款类型：', collection: Pair.options_for_enum_select(:contribute_kinds), include_blank: false %>
+      <div class="form-group">
+        <label class="col-md-2 control-label">内容：</label>
+        <div class="col-sm-9">
+          <%= f.cktext_area :content %>
+        </div>
+      </div>
+      <%= f.input :junior_term_amount, label: '初中资助金额（学期）：', required: true, type: 'number' %>
+      <%= f.input :junior_year_amount, label: '初中资助金额（学年）：', required: true, type: 'number' %>
+      <%= f.input :senior_term_amount, label: '高中资助金额（学期）：', required: true, type: 'number' %>
+      <%= f.input :senior_year_amount, label: '高中资助金额（学年）：', required: true, type: 'number' %>
+    </div>
+    <div class="form-actions">
+      <div class="row">
+        <div class="col-md-offset-2 col-md-9">
+          <%= f.button :submit, '提交', class: 'btn blue' %>
+          <%= link_to '取消', admin_pair_seasons_path, class: 'btn' %>
+        </div>
+      </div>
+    </div>
+<% end %>
+
+<script>
+    $(function() {
+        $("#project_id").select2({
+            //placeholder: "请选择财务分类"
+        });
+    })
+
+    $(function(){
+        // 表单验证
+        $(".season_form").html5Validate(function(){
+            $(this).find('[type="submit"]').attr('disabled','disabled');
+            this.submit();
+        });
+    })
+</script>

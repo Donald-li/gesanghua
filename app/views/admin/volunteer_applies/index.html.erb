@@ -1,0 +1,89 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i>志愿者申请
+    </div>
+    <div class="actions">
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="dataTables_wrapper no-footer">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <%= search_form_for @search, url: admin_volunteer_applies_path, class: 'form-inline' do |f| %>
+              <div class="form-group">
+                <%= f.label :user_name_cont, '搜索用户' %>
+                <%= f.text_field :user_name_or_user_phone_cont, class: 'form-control', placeholder: '姓名、手机号' %>
+              </div>
+              <button type="submit" class="btn btn-default grey">搜索</button>
+          <% end %>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="dataTables_filter pull-right">
+          </div>
+        </div>
+      </div>
+      <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover" id="sample_2">
+          <thead>
+          <tr>
+            <th>
+              编号
+            </th>
+            <th>
+              姓名
+            </th>
+            <th>
+              联系方式
+            </th>
+            <th>
+              类型
+            </th>
+            <th>
+              地区
+            </th>
+            <th>
+              操作
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @applies.each do |apply| %>
+              <tr>
+                <td>
+                  <%= apply.id %>
+                </td>
+                <td>
+                  <%= apply.user.try(:name) %>
+                </td>
+                <td>
+                  <%= apply.user.try(:phone) %>
+                </td>
+                <td>
+                  <%= apply.enum_name(:kind) %>
+                </td>
+                <td>
+                  <%= apply.user.try(:simple_address) %>
+                </td>
+                <td>
+                  <%= link_to edit_admin_volunteer_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                      <i class="fa fa-gavel"></i> 审核
+                  <% end %>
+                </td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-5 col-sm-12">
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@applies) %></div>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <%= paginate @applies, theme: 'admin' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END EXAMPLE TABLE PORTLET-->

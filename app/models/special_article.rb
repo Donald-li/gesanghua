@@ -15,5 +15,5 @@ class SpecialArticle < ApplicationRecord
   belongs_to :article
 
   acts_as_list
-  scope :sorted, ->{ order(position: :asc) }
+  scope :reverse_sorted, ->{ order(position: :asc) }
 end

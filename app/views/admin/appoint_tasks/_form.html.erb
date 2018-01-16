@@ -1,0 +1,99 @@
+<%= simple_form_for [:admin, @task], url: @task.new_record? ? admin_appoint_tasks_path : admin_appoint_task_path, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'category_form'} do |f| %>
+    <%= f.error_notification %>
+    <div class="form-body form-horizontal">
+      <%= f.input :name, label: '名称：', autofocus: true, placeholder: '名称', required: true %>
+      <%= f.input :duration, label: '时长：', placeholder: '小时', required: true, type: 'number' %>
+      <% if @task.new_record? %>
+      <div class="form-group approve_reject">
+        <label class="col-md-2 control-label">选择志愿者：</label>
+        <div class="col-sm-9">
+          <select class="form-control select optional" name="appoint_ids[]" id="volunteer-ajax" required></select>
+        </div>
+      </div>
+        <% end %>
+      <div class="form-group">
+        <label class="col-md-2 control-label">开始时间：</label>
+        <div class="col-sm-9">
+          <%= f.text_field :start_time, class: 'datetime-picker', value: Time.now.strftime("%Y-%m-%d %H:%M") %>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label">结束时间：</label>
+        <div class="col-sm-9">
+          <%= f.text_field :end_time, class: 'datetime-picker', value: Time.now.strftime("%Y-%m-%d %H:%M") %>
+        </div>
+      </div>
+      <div style="margin-bottom: 20px;" class="form-group">
+        <label class="col-md-2 control-label select required">任务所在地：</label>
+        <div class="col-sm-6">
+          <div class="row city-group">
+            <div class="col-sm-3">
+              <%= select_tag 'task[province]', options_for_select(ChinaCity.list, @task.province.presence), prompt: '省份', class: "form-control city-select" %>
+            </div>
+            <div class="col-sm-3">
+              <%= select_tag 'task[city]', options_for_select(ChinaCity.list(@task.province.to_s), @task.city.presence), prompt: '城市', class: "form-control city-select" %>
+            </div>
+            <div class="col-sm-3">
+              <%= select_tag 'task[district]', options_for_select(ChinaCity.list(@task.city.to_s), @task.district.presence), prompt: '地区', class: "form-control city-select" %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label">详情：</label>
+        <div class="col-sm-9">
+          <%= f.cktext_area :content, input_html: {data: {'parsley-required': true}} %>
+        </div>
+      </div>
+    </div>
+    <div class="form-actions">
+      <div class="row">
+        <div class="col-md-offset-2 col-md-9">
+          <%= f.button :submit, '提交', class: 'btn blue' %>
+          <%= link_to '取消', admin_tasks_path, class: 'btn' %>
+        </div>
+      </div>
+    </div>
+<% end %>
+<script type="text/javascript" charset="utf-8">
+    $(function () {
+        $('.datetime-picker').datetimepicker(
+
+        )
+    })
+    $(function () {
+        // 异步加载志愿者列表
+        $('#volunteer-ajax').select2({
+            language: "zh-CN",
+            placeholder: '请选择志愿者',
+            allowClear: true,
+            multiple: true,
+            ajax: {
+                url: "/selects/volunteers",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: $.map(data.items, function (item) {
+                            return {
+                                text: item.volunteer_name,
+                                id: item.id
+                            }
+                        }),
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            }
+        });
+    })
+</script>

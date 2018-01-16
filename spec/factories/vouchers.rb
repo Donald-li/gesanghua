@@ -14,6 +14,10 @@
 #  address       :string                                 # 详细地址
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  kind          :integer                                # 开票类型
+#  tax_no        :string                                 # 开票税号
+#  voucher_no    :string                                 # 发票编号
+#  tax_company   :string                                 # 开票单位
 #
 
 FactoryBot.define do

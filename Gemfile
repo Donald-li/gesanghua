@@ -5,7 +5,6 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.1'
 # Use sqlite3 as the database for Active Record
@@ -95,8 +94,17 @@ gem 'aliyun-sms', git: 'https://github.com/songjian/aliyun-sms.git'
 #  权限管理
 gem "pundit"
 
+# echarts表格
+gem 'echarts-rails'
+
+# 定时任务
+gem 'whenever', :require => false
+
 # 多级菜单
 gem 'ancestry'
+
+# 身份证验证
+gem 'chinese_pid'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

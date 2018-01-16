@@ -1,0 +1,218 @@
+<div class="portlet light bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-note"></i>
+      <span class="caption-subject">审核学校申请</span>
+      <span class="caption-helper"></span>
+    </div>
+    <div class="actions">
+      <%= link_to admin_school_applies_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+        <i class="fa fa-reply"></i>
+        <span>返回</span>
+      <% end %>
+    </div>
+  </div>
+  <div class="portlet-body form">
+    <div class="form-body form-horizontal">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="tabbable-line boxless tabbable-reversed">
+            <ul class="nav nav-tabs">
+              <li class="active">
+                <a href="#tab_0" data-toggle="tab" aria-expanded="true"> 申请资料 </a>
+              </li>
+              <li class="">
+                <a href="#tab_1" data-toggle="tab" aria-expanded="false"> 审核资料 </a>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="tab_0">
+
+                <%= simple_form_for [:admin, @school_apply], url: admin_school_apply_path, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'school_form'} do |f| %>
+                  <%= f.error_notification %>
+                  <%= f.input :name, label: '学校全称：', autofocus: true, placeholder: '学校全称', input_html: { data: {'parsley-required': true}} %>
+                  <%= f.input :user_id, collection: [@school_apply.user].compact.map {|u| [u.name, u.id]}, label: '学校申请人', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
+                  <div style="margin-bottom: 20px;" class="form-group">
+                    <label class="col-md-2 control-label select required" for="project_category_id">学校所在地：</label>
+                    <div class="col-sm-6">
+                      <div class="row city-group">
+                        <div class="col-sm-3">
+                          <%= select_tag 'school[province]', options_for_select(ChinaCity.list, @school_apply.province.presence), prompt: '省份', class: "form-control city-select" %>
+                        </div>
+                        <div class="col-sm-3">
+                          <%= select_tag 'school[city]', options_for_select(ChinaCity.list(@school_apply.province.to_s), @school_apply.city.presence), prompt: '城市', class: "form-control city-select" %>
+                        </div>
+                        <div class="col-sm-3">
+                          <%= select_tag 'school[district]', options_for_select(ChinaCity.list(@school_apply.city.to_s), @school_apply.district.presence), prompt: '地区', class: "form-control city-select" %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <%= f.input :address, label: '通信地址：', placeholder: '通信地址', input_html: { data: {'parsley-required': true}} %>
+                  <%= f.input :contact_name, label: '校长姓名：', placeholder: '校长姓名', input_html: { data: {'parsley-required': true}} %>
+                  <%= f.input :contact_idcard, label: '校长身份证号码：', placeholder: '校长身份证号码', input_html: { data: {'parsley-required': true}} %>
+                  <%= f.input :contact_phone, label: '校长手机号码：', placeholder: '校长手机号码', input_html: { data: {'parsley-required': true}} %>
+                  <%= f.input :number, label: '学生人数：', placeholder: '学生人数', input_html: { data: {'parsley-required': true}} %>
+                  <%= f.input :teacher_count, label: '教师人数：', placeholder: '教师人数', input_html: { data: {'parsley-required': true}} %>
+                  <%= f.input :logistic_count, label: '后勤人数：', placeholder: '后勤人数', input_html: { data: {'parsley-required': true}} %>
+                  <%= f.input :describe, label: '学校简介：', placeholder: '请填写学校简介' %>
+                <div class="form-group">
+                  <label class="col-md-2 control-label">申请图片：</label>
+                  <div class="col-sm-9">
+                    <%= webuploader_tag 'image_ids[]', label: '上传学校申请图片', type: 'school_image', asset: @school_apply.images %>
+                    <!-- <span style="color: red">注意：左起第一张图片为第一张图</span> -->
+                  </div>
+                </div>
+                <div class="form-actions">
+                  <div class="row">
+                    <div class="col-md-offset-2 col-md-9">
+                      <%= f.button :submit, '提交', class: 'btn blue' %>
+                      <%= link_to '取消', admin_school_applies_path, class: 'btn' %>
+                    </div>
+                  </div>
+                </div>
+                <% end %>
+
+              </div>
+              <div class="tab-pane" id="tab_1">
+                <div class="portlet-body">
+                  <div class="table-scrollable">
+                    <table class="table table-bordered table-hover">
+                      <tbody>
+                      <tr>
+                        <th width="72px">
+                          审核状态
+                        </th>
+                        <th>
+                          <span id="check_state"><%= @audit.enum_name(:state) %></span>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th>
+                          审核评语
+                        </th>
+                        <th>
+                          <span id="check_comment"><%= @audit.comment %></span>
+                        </th>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="form-actions">
+                  <div class="row">
+                    <div class="col-md-offset-2 col-md-9">
+                      <a class="btn blue" data-toggle="modal" data-target="#myModal_update" href="#responsive"> 修改审核信息 </a>
+                      <a class="btn red" data-toggle="modal" data-target="#myModal_create" href="#responsive"> 再次审核 </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="myModal_update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <%= simple_form_for [:admin, @school_apply, @audit], url: update_audit_admin_school_apply_path, remote: true, wrapper: :admin_form, html: {'data-parsley-validate': true} do |f| %>
+      <%= f.error_notification %>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">审核信息</h4>
+      </div>
+      <div class="modal-body">
+        <div class="portlet-body form">
+          <div class="form-body form-horizontal">
+            <%= f.hidden_field :school_apply_id, value: params[:id] %>
+            <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Audit.options_for_some_select(:states), label: '审核：', required: true%>
+            <%= f.input :comment, label: '评语：', placeholder: '请填写评语' %>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="submit" class="btn btn-primary" >提交审核</button>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="myModal_create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <%= simple_form_for [:admin, @school_apply, @new_audit], url: create_audit_admin_school_applies_path, remote: true, wrapper: :admin_form, html: {'data-parsley-validate': true} do |f| %>
+      <%= f.error_notification %>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">审核信息</h4>
+      </div>
+      <div class="modal-body">
+        <div class="portlet-body form">
+          <div class="form-body form-horizontal">
+            <%= f.hidden_field :school_apply_id, value: params[:id] %>
+            <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Audit.options_for_some_select(:states), label: '审核：', required: true%>
+            <%= f.input :comment, label: '评语：', placeholder: '请填写评语' %>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="submit" class="btn btn-primary" >提交审核</button>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+<script>
+    $(function(){
+        // 表单验证
+        $(".school_form").html5Validate(function(){
+            $(this).find('[type="submit"]').attr('disabled','disabled');
+            this.submit();
+        });
+        $(".school_form .user_selector").select2({
+          language: "zh-CN",
+          placeholder: '请选择申请人',
+          allowClear: true,
+          ajax: {
+            url: "/ajaxes/school_users",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+              return {
+                q: params.term, // search term
+                page: params.page
+              };
+            },
+            processResults: function (data, params) {
+              params.page = params.page || 1;
+              return {
+                  results: $.map(data.items, function (item) {
+                    return {
+                      text: item.name,
+                      id: item.id
+                  }
+                }),
+                pagination: {
+                  more: (params.page * 30) < data.total_count
+                }
+              };
+            },
+            cache: true
+          },
+        });
+        //多图上传
+        initMultiImageWebuploader('.upload-wrap');
+        $('.upload-list').viewer();
+    })
+</script>

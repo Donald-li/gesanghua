@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Admin::ProjectTemplatesController, type: :routing do
+RSpec.describe Admin::ProjectsController, type: :routing do
   describe "routing" do
 
     it "routes to #index" do

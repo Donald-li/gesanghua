@@ -4,7 +4,7 @@
       <i class="icon-list"></i>用户管理
     </div>
     <div class="actions">
-      <%= link_to new_admin_user_path, class: 'btn blue-soft', 'data-no-turbolink' => true do %>
+      <%= link_to new_admin_user_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
         <i class="icon-plus"></i>
         <span>新增</span>
       <% end %>
@@ -16,8 +16,8 @@
         <div class="col-md-12 col-sm-12">
           <%= search_form_for @search, url: admin_users_path, class: 'form-inline' do |f| %>
           <div class="form-group">
-            <%= f.label :nickname_or_phone_cont, '搜索' %>
-            <%= f.text_field :nickname_or_phone_cont, class: 'form-control', placeholder: '昵称或手机号' %>
+            <%= f.label :nickname_or_name_or_phone_cont, '搜索' %>
+            <%= f.text_field :nickname_or_name_or_phone_cont, class: 'form-control', placeholder: '使用姓名、昵称或手机号搜索' %>
           </div>
           <div class="form-group">
             <%= f.label '注册时间' %>
@@ -42,6 +42,9 @@
             <tr>
               <th>
                 用户ID
+              </th>
+              <th>
+                姓名
               </th>
               <th>
                 昵称
@@ -76,6 +79,9 @@
                 <%= user.id %>
               </td>
               <td>
+                <%= user.name %>
+              </td>
+              <td>
                 <%= user.nickname %>
               </td>
               <td>
@@ -91,9 +97,9 @@
                 <%= user.to_bill_amount %>
               </td>
               <td>
-                <%= link_to switch_admin_user_path(user), data: {confirm: "确定#{user.state === 'enabled' ? '停用该用户' : '启用该用户'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{user.state === 'enabled' ? 'green' : 'default'}" do %>
-                <%= user.state === 'enabled' ? '启用' : '停用' %>
-                <i class="fa <%= user.state === 'enabled' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                <%= link_to switch_admin_user_path(user), data: {confirm: "确定#{user.state === 'enable' ? '禁用该用户' : '启用该用户'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{user.state === 'enable' ? 'green' : 'default'}" do %>
+                <%= user.state === 'enable' ? '启用' : '禁用' %>
+                <i class="fa <%= user.state === 'enable' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
                 <% end %>
               </td>
               <td>
@@ -117,8 +123,8 @@
               </td>
               <td>
                 <div class="btn-group">
-                  <a class="btn btn-xs blue dropdown-toggle" data-toggle="dropdown" href="javascript:;" aria-expanded="false" >
-                    <i class="fa fa-cogs"></i>
+                  <a class="btn btn-xs green dropdown-toggle" data-toggle="dropdown" href="javascript:;" aria-expanded="false" >
+                    <i class="fa fa-users"></i>
                     管理用户角色
                     <i class="fa fa-angle-down"></i>
                   </a>
@@ -138,8 +144,8 @@
                 <%= link_to edit_admin_user_path(user), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                   <i class="fa fa-edit"></i> 修改信息
                 <% end %>
-                <%= link_to admin_user_donate_records_path(user), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                  <i class="fa fa-edit"></i> 捐助记录
+                <%= link_to admin_user_donate_records_path(user), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                  <i class="fa fa-file-text-o"></i> 捐助记录
                 <% end %>
               </td>
             </tr>

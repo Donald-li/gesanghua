@@ -1,0 +1,19 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "结对捐助列表") do |sheet|
+  sheet.add_row ["编号", "姓名", "年龄", "发放日期", "学校", "发放说明", "发放金额", "筹款状态", "发放状态"]
+  @grants.each do |g|
+    child = g.gsh_child
+    school = g.school
+    sheet.add_row [
+      g.grant_no,
+      child.try(:name),
+      child.try(:age),
+      (g.granted_at.strftime("%Y-%m-%d %H:%M") if g.granted_at),
+      school.name,
+      g.grant_remark,
+      g.amount,
+      g.enum_name(:donate_state),
+      g.enum_name(:state)]
+    end
+    sheet.column_widths 20,30,20,30,30,40,20,20,20
+  end

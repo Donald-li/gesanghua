@@ -1,0 +1,92 @@
+
+<div class="portlet light portlet-fit bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="fa fa-sliders font-dark"></i>
+      <span class="caption-subject font-dark bold uppercase">任务提交详情</span>
+    </div>
+    <div class="actions">
+      <div class="btn-group">
+        <a href="<%= admin_task_achievements_path %>" class="btn btn-xs blue">
+          <i class="fa fa-reply"></i>返回
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="table-scrollable">
+      <table class="table table-bordered table-hover">
+        <tbody>
+        <tr>
+          <th width="72px">
+            名称
+          </th>
+          <th>
+            <%= @task_achievement.task.try(:name) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            计划时长
+          </th>
+          <th>
+            <%= @task_achievement.task.try(:duration) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            任务时间
+          </th>
+          <th>
+            开始时间：<%= l @task_achievement.task.start_time if @task_achievement.task.try(:start_time).present? %> <br>
+            结束时间：<%= l @task_achievement.task.end_time if @task_achievement.task.try(:end_time).present? %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            地点
+          </th>
+          <th>
+            <%= @task_achievement.task.try(:simple_address) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            任务类型
+          </th>
+          <th>
+            <%= @task_achievement.task.enum_name(:kind) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            志愿者姓名
+          </th>
+          <th>
+            <%= @task_achievement.volunteer.try(:volunteer_name) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            完成时间
+          </th>
+          <th>
+            <%= l @task_achievement.finish_time if @task_achievement.finish_time.present? %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            成果描述
+          </th>
+          <th>
+            <%= @task_achievement.achievement_comment %>
+          </th>
+        </tr>
+
+
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180103093252) do
+ActiveRecord::Schema.define(version: 20180115124739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20180103093252) do
     t.text "describe", comment: "摘要"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "kind", comment: "类型"
   end
 
   create_table "assets", force: :cascade, comment: "资源表" do |t|
@@ -89,15 +90,15 @@ ActiveRecord::Schema.define(version: 20180103093252) do
     t.index ["type"], name: "index_assets_on_type"
   end
 
-  create_table "bookshelves", force: :cascade, comment: "书架表" do |t|
-    t.string "title", comment: "名称"
-    t.integer "school_id", comment: "学校id"
-    t.string "class_name", comment: "班级名"
-    t.integer "state", comment: "状态"
-    t.decimal "balance", precision: 14, scale: 2, default: "0.0", comment: "剩余金额"
-    t.integer "project_apply_id", comment: "项目申请id"
+  create_table "audits", force: :cascade do |t|
+    t.string "owner_type"
+    t.bigint "owner_id"
+    t.integer "state", comment: "审核状态 0:待审核 1:通过 2:未通过"
+    t.integer "user_id", comment: "审核人"
+    t.text "comment", comment: "评语"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["owner_type", "owner_id"], name: "index_audits_on_owner_type_and_owner_id"
   end
 
   create_table "campaign_categories", force: :cascade, comment: "活动分类表" do |t|
@@ -132,10 +133,16 @@ ActiveRecord::Schema.define(version: 20180103093252) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "child_grants", force: :cascade, comment: "孩子发放记录表" do |t|
-    t.integer "child_id", comment: "孩子ID"
-    t.integer "project_apply_id", comment: "项目申请ID"
+  create_table "child_periods", force: :cascade, comment: "孩子捐助学期表" do |t|
+    t.integer "grant_id", comment: "发放记录ID"
+    t.integer "project_season_id", comment: "项目年度ID"
+    t.integer "gsh_child_id", comment: "格桑花孩子ID"
+    t.integer "donate_record_id", comment: "捐助记录ID"
+    t.integer "user_id", comment: "捐赠人ID"
+    t.string "name", comment: "名称"
+    t.text "description", comment: "描述"
     t.integer "state", comment: "状态"
+    t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "资助金额"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -146,18 +153,6 @@ ActiveRecord::Schema.define(version: 20180103093252) do
     t.string "awarding_body", comment: "操作单位"
     t.datetime "awarding_at", comment: "操作时间"
     t.integer "child_id", comment: "孩子ID"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "children", force: :cascade, comment: "格桑花孩子表" do |t|
-    t.string "idcard", comment: "身份证"
-    t.string "name", comment: "姓名"
-    t.integer "school_id", comment: "学校ID"
-    t.integer "user_id", comment: "用户ID"
-    t.string "password_digest", comment: "密码"
-    t.string "gsh_no", comment: "格桑花内部编码"
-    t.integer "state", default: 1, comment: "状态：1:启用 2:禁用"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -184,7 +179,6 @@ ActiveRecord::Schema.define(version: 20180103093252) do
     t.integer "pay_state", comment: "付款状态"
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "捐助金额"
     t.integer "project_id", comment: "项目id"
-    t.integer "project_apply_id", comment: "项目申请id"
     t.integer "team_id", comment: "小组id"
     t.string "message", comment: "留言"
     t.string "donor", comment: "捐赠者"
@@ -194,6 +188,10 @@ ActiveRecord::Schema.define(version: 20180103093252) do
     t.integer "voucher_state", comment: "捐赠收据状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "project_season_id", comment: "年度ID"
+    t.integer "project_season_apply_id", comment: "年度项目ID"
+    t.integer "project_season_apply_child_id", comment: "年度孩子申请ID"
+    t.string "donate_no", comment: "捐赠编号"
   end
 
   create_table "expenditure_records", force: :cascade, comment: "支出记录表" do |t|
@@ -217,6 +215,7 @@ ActiveRecord::Schema.define(version: 20180103093252) do
     t.integer "approve_state", comment: "审核状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "kind", comment: "反馈类型"
   end
 
   create_table "fund_categories", force: :cascade do |t|
@@ -253,12 +252,67 @@ ActiveRecord::Schema.define(version: 20180103093252) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "goods_project_apply_items", force: :cascade, comment: "物资类项目申请条目表" do |t|
-    t.string "name", comment: "物品名称"
-    t.integer "number", comment: "物品数量"
-    t.integer "project_id", comment: "项目ID"
+  create_table "grants", force: :cascade, comment: "发放表" do |t|
+    t.integer "project_id", comment: "归属项目ID"
+    t.integer "project_season_id", comment: "项目年度ID"
+    t.integer "school_id", comment: "学校ID"
+    t.integer "project_season_apply_id", comment: "项目申请ID"
+    t.integer "gsh_child_id", comment: "格桑花孩子ID"
+    t.string "grant_no", comment: "发放编号"
+    t.integer "state", comment: "状态"
+    t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "资助金额"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "gsh_bookshelves", force: :cascade do |t|
+    t.integer "school_id", comment: "关联学校id"
+    t.string "classname", comment: "班级名"
+    t.string "title", comment: "冠名"
+    t.string "province", comment: "省"
+    t.string "city", comment: "市"
+    t.string "district", comment: "区/县"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "gsh_child_grants", force: :cascade, comment: "格桑花孩子发放表" do |t|
+    t.bigint "gsh_child_id", comment: "关联孩子表id"
+    t.bigint "project_season_apply_id", comment: "关联申请表"
+    t.integer "state", comment: "状态 1:为筹款 2:待发放 3:发放完成"
+    t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "发放金额"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "school_id", comment: "学校ID"
+    t.integer "project_season_id", comment: "批次ID"
+    t.integer "donate_state", comment: "捐助状态"
+    t.string "grant_no", comment: "格桑花发放编号"
+    t.datetime "granted_at", comment: "发放时间"
+    t.text "grant_remark", comment: "发放说明"
+    t.string "delay_reason", comment: "暂缓发放原因"
+    t.text "delay_remark", comment: "暂缓发放备注"
+    t.string "cancel_reason", comment: "取消原因"
+    t.integer "balance_manage", comment: "取消余额处理"
+    t.text "cancel_remark", comment: "取消说明"
+    t.string "title", comment: "标题"
+    t.text "remark"
+    t.index ["gsh_child_id"], name: "index_gsh_child_grants_on_gsh_child_id"
+    t.index ["project_season_apply_id"], name: "index_gsh_child_grants_on_project_season_apply_id"
+  end
+
+  create_table "gsh_children", force: :cascade, comment: "格桑花孩子表" do |t|
+    t.integer "school_id", comment: "关联学校id"
+    t.string "name", comment: "孩子姓名"
+    t.string "province", comment: "省"
+    t.string "city", comment: "市"
+    t.string "district", comment: "区/县"
+    t.string "gsh_no", comment: "格桑花孩子编号"
+    t.string "phone", comment: "联系电话"
+    t.string "qq", comment: "qq号"
+    t.integer "user_id", comment: "关联用户id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "idcard", comment: "身份证"
   end
 
   create_table "income_records", force: :cascade, comment: "入帐记录表" do |t|
@@ -327,63 +381,143 @@ ActiveRecord::Schema.define(version: 20180103093252) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "project_applies", force: :cascade, comment: "项目申请表" do |t|
-    t.integer "user_id", comment: "用户ID"
-    t.integer "project_id", comment: "项目ID"
-    t.integer "state", default: 1, comment: "状态：1:展示 2:隐藏"
-    t.integer "approve_state", default: 1, comment: "申请状态：1:待审核 2:审核通过 3:审核不通过"
-    t.integer "school_id", comment: "学校ID"
-    t.string "province", comment: "省"
-    t.string "city", comment: "市"
-    t.string "district", comment: "区/县"
+  create_table "period_child_ships", force: :cascade, comment: "年度孩子和申请学期中间表" do |t|
+    t.integer "project_season_apply_period_id", comment: "申请学期ID"
+    t.integer "project_season_apply_child_id", comment: "年度孩子ID"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "project_season_applies", force: :cascade, comment: "项目执行年度申请表" do |t|
+    t.integer "project_id", comment: "关联项目id"
+    t.integer "project_season_id", comment: "关联项目执行年度的id"
+    t.integer "school_id", comment: "关联学校id"
+    t.integer "teacher_id", comment: "负责项目的老师id"
     t.text "describe", comment: "描述、申请要求"
+    t.string "province", comment: "省"
+    t.string "city", comment: "市"
+    t.string "district", comment: "区/县"
+    t.integer "state", default: 1, comment: "状态：1:展示 2:隐藏"
+    t.integer "gsh_child_id", comment: "关联格桑花孩子id"
+    t.integer "gsh_bookshelf_id", comment: "关联格桑花书架(图书角)id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "number", comment: "学生数量"
-    t.string "name", comment: "申请名称"
+    t.string "name", comment: "名称"
+    t.integer "number", comment: "配额"
   end
 
-  create_table "project_apply_children", force: :cascade, comment: "一对一孩子申请表" do |t|
-    t.integer "project_apply_id", comment: "项目申请ID"
-    t.integer "child_id", comment: "格桑花孩子ID"
-    t.integer "approve_state", default: 1, comment: "审核状态：1:待审核 2:申请通过 3:申请不通过"
+  create_table "project_season_apply_bookshelves", force: :cascade, comment: "项目执行年度申请书架表" do |t|
+    t.integer "project_id", comment: "关联项目id"
+    t.integer "project_season_id", comment: "关联项目执行年度id"
+    t.integer "project_season_apply_id", comment: "关联项目执行年度申请id"
+    t.integer "gsh_bookshelf_id", comment: "关联格桑花书架id"
+    t.string "classname", comment: "班级名"
+    t.string "title", comment: "冠名"
+    t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "筹款金额"
+    t.decimal "surplus", precision: 14, scale: 2, default: "0.0", comment: "剩余捐款额"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "project_season_apply_children", force: :cascade, comment: "项目执行年度申请的孩子表" do |t|
+    t.integer "project_id", comment: "关联项目id"
+    t.integer "project_season_id", comment: "关联项目执行年度id"
+    t.integer "project_season_apply_id", comment: "关联项目执行年度申请id"
+    t.integer "gsh_child_id", comment: "关联格桑花孩子表id"
+    t.string "name", comment: "孩子姓名"
     t.string "province", comment: "省"
     t.string "city", comment: "市"
     t.string "district", comment: "区/县"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "phone", comment: "电话"
+    t.string "qq", comment: "QQ号码"
+    t.integer "nation", comment: "民族"
+    t.string "id_card", comment: "身份证号码"
+    t.string "parent_name", comment: "家长姓名"
+    t.text "description", comment: "描述"
+    t.integer "state", comment: "状态"
+    t.integer "approve_state", comment: "审核状态"
+    t.integer "age", comment: "年龄"
+    t.integer "level", comment: "初中或高中"
+    t.integer "grade", comment: "年级"
+    t.integer "gender", comment: "性别"
+    t.integer "school_id", comment: "学校ID"
+    t.integer "semester", comment: "学期"
+    t.integer "kind", comment: "捐助形式：1对外捐助 2内部认捐"
   end
 
-  create_table "project_templates", force: :cascade, comment: "项目模板表" do |t|
-    t.string "name", comment: "项目模板名称"
-    t.integer "kind", comment: "模板类型"
-    t.integer "fund_id", comment: "基金ID"
-    t.string "protocol_name", comment: "协议名称"
-    t.text "protocol_content", comment: "协议内容"
-    t.integer "contribute_kind", default: 1, comment: "捐款类型：1:整捐 2:零捐"
+  create_table "project_season_apply_gooods", force: :cascade, comment: "项目执行年度申请的物品表" do |t|
+    t.integer "project_id", comment: "关联项目id"
+    t.integer "project_season_id", comment: "关联项目执行年度id"
+    t.integer "project_season_apply_id", comment: "关联项目执行年度申请id"
+    t.integer "project_season_goods_id", comment: "关联项目执行年度物品id"
+    t.integer "num", comment: "物品申请数量"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "ancestry"
-    t.text "describe", comment: "描述"
-    t.index ["ancestry"], name: "index_project_templates_on_ancestry"
   end
 
-  create_table "projects", force: :cascade, comment: "项目表" do |t|
-    t.string "name", comment: "项目名称"
-    t.string "type", comment: "项目类型：1:结对 2:物资 3:悦读 4:营 5:观影"
-    t.text "content", comment: "项目内容"
-    t.integer "state", default: 1, comment: "项目状态：1:启用 2:禁用"
-    t.integer "fund_id", comment: "基金ID"
-    t.integer "contribute_kind", default: 1, comment: "捐款类型：1:整捐 2:零捐"
-    t.string "category_type", comment: "具体项目分类"
-    t.integer "category_id", comment: "分类ID"
-    t.integer "project_template_id", comment: "项目模板ID"
+  create_table "project_season_apply_periods", force: :cascade, comment: "项目申请时长" do |t|
+    t.string "name", comment: "名称"
+    t.integer "kind", comment: "类型"
+    t.integer "state", comment: "状态"
+    t.string "desciption", comment: "描述"
+    t.datetime "start_at", comment: "开始时间"
+    t.datetime "end_at", comment: "结束时间"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "project_season_id", comment: "年度ID"
+    t.integer "position", comment: "位置"
+    t.integer "grade", comment: "结对对应年级"
+    t.integer "semester", comment: "结对对应学期"
+  end
+
+  create_table "project_season_apply_volunteers", force: :cascade, comment: "项目执行年度申请和志愿者关联表" do |t|
+    t.integer "project_id", comment: "关联项目id"
+    t.integer "project_season_id", comment: "关联项目执行年度id"
+    t.integer "project_season_apply_id", comment: "关联项目执行年度的申请id"
+    t.integer "volunteer_id", comment: "关联志愿者id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "project_season_courses", force: :cascade, comment: "项目执行年度的课程表(例：护花)" do |t|
+    t.integer "project_id", comment: "关联项目id"
+    t.integer "project_season_id", comment: "关联项目执行年度id"
+    t.string "name", comment: "课程名称"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "project_season_goods", force: :cascade, comment: "物资类项目，执行年度的物品表" do |t|
+    t.integer "project_id", comment: "关联项目id"
+    t.integer "project_season_id", comment: "关联执行年度id"
+    t.string "name", comment: "物品名称"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "project_seasons", force: :cascade, comment: "项目执行年度表" do |t|
+    t.integer "project_id", comment: "关联项目表id"
+    t.string "name", comment: "执行年度名称"
+    t.integer "state", comment: "状态 1:未执行 2:执行中"
     t.decimal "junior_term_amount", precision: 14, scale: 2, default: "0.0", comment: "初中资助金额（学期）"
     t.decimal "junior_year_amount", precision: 14, scale: 2, default: "0.0", comment: "初中资助金额（学年）"
     t.decimal "senior_term_amount", precision: 14, scale: 2, default: "0.0", comment: "高中资助金额（学期）"
     t.decimal "senior_year_amount", precision: 14, scale: 2, default: "0.0", comment: "高中资助金额（学年）"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.string "type", comment: "单表继承字段"
+    t.integer "kind", comment: "项目类型 1:固定项目 2:物资类项目"
+    t.string "name", comment: "项目名称"
+    t.text "describe", comment: "简介"
+    t.text "protocol", comment: "用户协议"
+    t.integer "fund_id", comment: "关联财务分类id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "remarks", force: :cascade, comment: "备注信息表" do |t|
@@ -405,6 +539,10 @@ ActiveRecord::Schema.define(version: 20180103093252) do
     t.integer "state", comment: "状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "project_id", comment: "项目ID"
+    t.datetime "published_at", comment: "发布时间"
+    t.integer "position", comment: "位置"
+    t.integer "user_id", comment: "发布人"
   end
 
   create_table "schools", force: :cascade, comment: "学校表" do |t|
@@ -416,13 +554,22 @@ ActiveRecord::Schema.define(version: 20180103093252) do
     t.string "city", comment: "市"
     t.string "district", comment: "区/县"
     t.integer "number", comment: "学校人数"
-    t.string "describe", comment: "学校简介"
+    t.text "describe", comment: "学校简介"
     t.integer "state", default: 1, comment: "学校状态：1:启用 2:禁用"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "level", comment: "学校等级： 1:初中 2:高中"
     t.string "contact_name", comment: "联系人"
     t.string "contact_phone", comment: "联系方式"
+    t.string "contact_position", comment: "联系人职务"
+    t.integer "kind", comment: "学校类型"
+    t.integer "user_id", comment: "用户id"
+    t.string "school_no", comment: "学校申请编号"
+    t.string "contact_idcard", comment: "联系人身份证号"
+    t.string "postcode", comment: "邮政编码"
+    t.integer "teacher_count", comment: "教师人数"
+    t.integer "logistic_count", comment: "后勤人数"
+    t.string "contact_telephone", comment: "联系人座机号码"
   end
 
   create_table "sequences", force: :cascade do |t|
@@ -445,6 +592,15 @@ ActiveRecord::Schema.define(version: 20180103093252) do
     t.index ["mobile"], name: "index_sms_codes_on_mobile"
   end
 
+  create_table "special_adverts", force: :cascade do |t|
+    t.integer "special_id", comment: "专题id"
+    t.integer "advert_id", comment: "广告id"
+    t.integer "position", comment: "排序"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "kind", comment: "类型"
+  end
+
   create_table "special_articles", force: :cascade, comment: "专题资讯表" do |t|
     t.integer "special_id", comment: "专题id"
     t.integer "article_id", comment: "资讯id"
@@ -456,8 +612,16 @@ ActiveRecord::Schema.define(version: 20180103093252) do
   create_table "specials", force: :cascade, comment: "专题表" do |t|
     t.string "name", comment: "专题名"
     t.integer "template", comment: "模板"
-    t.string "describe", comment: "简介"
+    t.text "describe", comment: "简介"
     t.string "article_name", comment: "资讯名称"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "state", default: 1, comment: "状态, 1:展示 2:隐藏"
+  end
+
+  create_table "statistic_records", force: :cascade do |t|
+    t.integer "amount", default: 0, comment: "今日更新数量"
+    t.integer "kind", comment: "类型"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -491,6 +655,12 @@ ActiveRecord::Schema.define(version: 20180103093252) do
     t.integer "approve_state", comment: "审核状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "finish_time", comment: "任务完成时间"
+    t.datetime "approve_time", comment: "审核时间"
+    t.integer "user_id", comment: "审核人id"
+    t.integer "finish_state", comment: "完成状态1:未完成doing 2:已完成done"
+    t.string "source", comment: "获得来源"
+    t.integer "kind", comment: "类型"
   end
 
   create_table "tasks", force: :cascade, comment: "任务表" do |t|
@@ -507,6 +677,14 @@ ActiveRecord::Schema.define(version: 20180103093252) do
     t.datetime "updated_at", null: false
     t.datetime "start_time", comment: "任务开始时间"
     t.datetime "end_time", comment: "任务结束时间"
+    t.integer "kind"
+  end
+
+  create_table "teacher_projects", force: :cascade, comment: "老师项目表" do |t|
+    t.integer "teacher_id", comment: "老师id"
+    t.integer "project_id", comment: "项目id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "teachers", force: :cascade, comment: "老师表" do |t|
@@ -519,6 +697,9 @@ ActiveRecord::Schema.define(version: 20180103093252) do
     t.integer "state", default: 1, comment: "老师状态: 1:启用 2:禁用"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "idcard", comment: "身份证"
+    t.string "qq", comment: "QQ"
+    t.string "openid", comment: "微信openid"
   end
 
   create_table "teams", force: :cascade, comment: "小组" do |t|
@@ -552,6 +733,8 @@ ActiveRecord::Schema.define(version: 20180103093252) do
     t.string "city", comment: "市"
     t.string "district", comment: "区/县"
     t.string "address", comment: "详细地址"
+    t.string "qq", comment: "qq号"
+    t.string "idcard", comment: "身份证"
     t.index ["email"], name: "index_users_on_email"
     t.index ["login"], name: "index_users_on_login"
     t.index ["phone"], name: "index_users_on_phone"
@@ -580,6 +763,7 @@ ActiveRecord::Schema.define(version: 20180103093252) do
     t.text "content", comment: "内容"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "apply_child_id", comment: "孩子申请ID"
   end
 
   create_table "volunteers", force: :cascade, comment: "志愿者表" do |t|
@@ -594,6 +778,7 @@ ActiveRecord::Schema.define(version: 20180103093252) do
     t.integer "kind", comment: "类型"
     t.integer "approve_state", comment: "认证状态"
     t.datetime "approve_time", comment: "认证时间"
+    t.text "approve_remark", comment: "审核备注"
   end
 
   create_table "voucher_donate_records", force: :cascade, comment: "捐赠收据捐助记录表" do |t|

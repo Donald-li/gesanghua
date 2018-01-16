@@ -18,69 +18,65 @@
         <% end %>
       </li>
       <li class="heading">
-        <h3 class="uppercase">内容管理</h3>
-      </li>
-
-      <li class="heading">
         <h3 class="uppercase">运营管理</h3>
       </li>
       <li class="nav-item <%= current_nav_class(:admin_user) %>">
         <%= link_to admin_users_path, class: 'nav-link' do %>
             <% new = 0 %>
-            <i class="fa fa-male"></i>
+            <i class="fa fa-user"></i>
             <span class="title">注册用户</span>
             <% if new > 0 %>
                 <span class="badge badge-danger"><%= new %></span>
             <% end %>
         <% end %>
       </li>
-      <li class="nav-item  <%= current_nav_class(:admin_school) %> ">
+      <li class="nav-item  <%= current_nav_class(:admin_schools) %> ">
         <a href="javascript:;" class="nav-link nav-toggle">
-          <% to_prove_admin = 0 %>
+          <% to_prove_admin = School.can_check.count %>
           <i class="fa fa-building"></i>
           <span class="title <%= 'font-red-soft' if to_prove_admin > 0 %>">学校用户</span>
-          <span class="arrow <%= current_nav_class(:admin_product, current: :open) %>"></span>
+          <span class="arrow <%= current_nav_class(:admin_schools, current: :open) %>"></span>
         </a>
         <ul class="sub-menu">
           <li class="nav-item <%= current_nav_class(:admin_school_applies) %> ">
-            <%= link_to '', class: 'nav-link' do %>
+            <%= link_to admin_school_applies_path, class: 'nav-link' do %>
                 <span class="title">学校申请</span>
                 <% if to_prove_admin > 0 %>
                     <span class="badge badge-danger"><%= to_prove_admin %></span>
                 <% end %>
             <% end %>
           </li>
-          <li class="nav-item <%= current_nav_class(:admin_schools) %> ">
-            <%= link_to '', class: 'nav-link' do %>
+          <li class="nav-item <%= current_nav_class(:admin_school_list) %> ">
+            <%= link_to admin_schools_path, class: 'nav-link' do %>
                 <span class="title">学校用户</span>
             <% end %>
           </li>
         </ul>
       </li>
 
-      <li class="nav-item <%= current_nav_class(:admin_main) %> ">
+      <li class="nav-item <%= current_nav_class(:admin_user_main) %> <%= current_nav_class(:admin_user_county_users) %> <%= current_nav_class(:admin_user_gsh_children) %> <%= current_nav_class(:admin_user_teachers) %>">
         <%= link_to '', class: 'nav-link' do %>
-            <i class="fa fa-user"></i>
+            <i class="fa fa-users"></i>
             <span class="title">用户管理</span>
             <span class="arrow <%= current_nav_class(:admin_user, current: :open) %>"></span>
         <% end %>
         <ul class="sub-menu">
-          <li class="nav-item <%= current_nav_class(:admin_main) %> ">
-            <%= link_to '', class: 'nav-link' do %>
+          <li class="nav-item <%= current_nav_class(:admin_user_gsh_children) %> ">
+            <%= link_to admin_gsh_children_path, class: 'nav-link' do %>
                 <i class="fa fa-user"></i>
                 <span class="title">格桑花孩子</span>
             <% end %>
           </li>
-          <li class="nav-item <%= current_nav_class(:admin_main) %> ">
-            <%= link_to '', class: 'nav-link' do %>
-                <i class="fa fa-user"></i>
+          <li class="nav-item <%= current_nav_class(:admin_user_teachers) %> ">
+            <%= link_to admin_teachers_path, class: 'nav-link' do %>
+                <i class="fa fa-female"></i>
                 <span class="title">教师用户</span>
             <% end %>
           </li>
 
           <li class="nav-item <%= current_nav_class(:admin_user_county_users) %> ">
             <%= link_to admin_county_users_path, class: 'nav-link' do %>
-                <i class="fa fa-user"></i>
+                <i class="fa fa-flag"></i>
                 <span class="title">县级领导</span>
             <% end %>
           </li>
@@ -89,14 +85,37 @@
 
       <li class="nav-item <%= current_nav_class(:admin_volunteers) %> ">
         <a href="javascript:;" class="nav-link nav-toggle">
-          <i class="fa fa-pie-chart"></i>
+          <% to_check_task = TaskVolunteer.to_check.count %>
+          <% to_approve_volunteer = Volunteer.submit.count %>
+          <i class="fa fa-address-card-o"></i>
           <span class="title">志愿者管理</span>
           <span class="arrow <%= current_nav_class(:admin_volunteers, current: :open) %>"></span>
         </a>
         <ul class="sub-menu">
+          <li class="nav-item  <%= current_nav_class(:admin_volunteer_apply) %>">
+            <%= link_to admin_volunteer_applies_path, class: 'nav-link' do %>
+                <span class="title">志愿者申请</span>
+              <% if to_approve_volunteer > 0 %>
+                <span class="badge badge-danger"><%= to_approve_volunteer %></span>
+              <% end %>
+            <% end %>
+          </li>
           <li class="nav-item  <%= current_nav_class(:admin_volunteer_list) %>">
             <%= link_to admin_volunteers_path, class: 'nav-link' do %>
                 <span class="title">全部志愿者</span>
+            <% end %>
+          </li>
+          <li class="nav-item  <%= current_nav_class(:admin_task_list) %>">
+            <%= link_to admin_tasks_path, class: 'nav-link' do %>
+                <span class="title">任务管理</span>
+            <% end %>
+          </li>
+          <li class="nav-item  <%= current_nav_class(:admin_task_check) %>">
+            <%= link_to admin_task_achievements_path, class: 'nav-link' do %>
+              <span class="title">任务提交</span>
+              <% if to_check_task > 0 %>
+                <span class="badge badge-danger"><%= to_check_task %></span>
+              <% end %>
             <% end %>
           </li>
         </ul>
@@ -106,7 +125,7 @@
         <a href="javascript:;" class="nav-link nav-toggle">
           <% to_prove_apply = 0 %>
           <% submited = 0 %>
-          <i class="fa fa-bookmark"></i>
+          <i class="fa fa-file-text-o"></i>
           <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">捐助申请管理</span>
           <span class="arrow <%= current_nav_class(:admin_product, current: :open) %>"></span>
         </a>
@@ -134,7 +153,7 @@
         <a href="javascript:;" class="nav-link nav-toggle">
           <% to_prove_apply = 0 %>
           <% submited = 0 %>
-          <i class="fa fa-bookmark"></i>
+          <i class="fa fa-cubes"></i>
           <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">项目管理</span>
           <span class="arrow <%= current_nav_class(:admin_project, current: :open) %>"></span>
         </a>
@@ -143,24 +162,106 @@
             <a href="javascript:;" class="nav-link nav-toggle">
               <% to_prove_apply = 0 %>
               <% submited = 0 %>
-              <i class="fa fa-venus-double"></i>
-              <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">结对助学项目</span>
+              <i class="fa fa-handshake-o"></i>
+              <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">结对</span>
               <span class="arrow <%= current_nav_class(:admin_pair, current: :open) %>"></span>
             </a>
             <ul class="sub-menu">
-              <li class="nav-item <%= current_nav_class(:admin_pair_project) %> ">
-                <%= link_to admin_pairs_path, class: 'nav-link' do %>
-                    <span class="title">年度管理</span>
+              <li class="nav-item <%= current_nav_class(:admin_pair_season) %> ">
+                <%= link_to admin_pair_seasons_path, class: 'nav-link' do %>
+                  <i class="fa fa-align-justify"></i>
+                  <span class="title">批次管理</span>
                 <% end %>
               </li>
               <li class="nav-item <%= current_nav_class(:admin_pair_applies) %> ">
                 <%= link_to admin_pair_applies_path, class: 'nav-link' do %>
-                    <span class="title">申请管理</span>
+                    <span class="title">配额管理</span>
                 <% end %>
               </li>
               <li class="nav-item <%= current_nav_class(:admin_pair_lists) %> ">
-                <%= link_to admin_pair_lists_path, class: 'nav-link' do %>
-                    <span class="title">项目管理</span>
+                <%= link_to admin_pair_student_lists_path, class: 'nav-link' do %>
+                    <span class="title">捐助管理</span>
+                <% end %>
+              </li><li class="nav-item <%= current_nav_class(:admin_pair_donate_records) %> ">
+                <%= link_to admin_pair_donate_records_path, class: 'nav-link' do %>
+                    <span class="title">捐助记录</span>
+                <% end %>
+              </li>
+              <li class="nav-item <%= current_nav_class(:admin_pair_grants) %> ">
+                <%= link_to admin_pair_grants_path, class: 'nav-link' do %>
+                    <span class="title">发放管理</span>
+                <% end %>
+              </li>
+              <li class="nav-item <%= current_nav_class(:admin_pair_reports) %> ">
+                <%= link_to admin_pair_reports_path, class: 'nav-link' do %>
+                    <span class="title">项目报告</span>
+                <% end %>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item <%= current_nav_class(:admin_project_book) %>">
+            <a href="javascript:;" class="nav-link nav-toggle">
+              <% to_prove_apply = 0 %>
+              <% submited = 0 %>
+              <i class="fa fa-book"></i>
+              <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">悦读</span>
+              <span class="arrow <%= current_nav_class(:admin_project_book, current: :open) %>"></span>
+            </a>
+            <ul class="sub-menu">
+              <li class="nav-item <%= current_nav_class(:admin_project_book_season) %>">
+                <%= link_to admin_project_book_seasons_path, class: 'nav-link' do %>
+                  <i class="fa fa-align-justify"></i>
+                  <span class="title">批次管理</span>
+                <% end %>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item <%= current_nav_class(:admin_project_camp) %>">
+            <a href="javascript:;" class="nav-link nav-toggle">
+              <% to_prove_apply = 0 %>
+              <% submited = 0 %>
+              <i class="fa fa-child"></i>
+              <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">探索营</span>
+              <span class="arrow <%= current_nav_class(:admin_project_camp, current: :open) %>"></span>
+            </a>
+            <ul class="sub-menu">
+              <li class="nav-item <%= current_nav_class(:admin_project_camp_season) %>">
+                <%= link_to admin_project_camp_seasons_path, class: 'nav-link' do %>
+                  <i class="fa fa-align-justify"></i>
+                  <span class="title">批次管理</span>
+                <% end %>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item <%= current_nav_class(:admin_project_radio) %>">
+            <a href="javascript:;" class="nav-link nav-toggle">
+              <% to_prove_apply = 0 %>
+              <% submited = 0 %>
+              <i class="fa fa-volume-up"></i>
+              <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">广播</span>
+              <span class="arrow <%= current_nav_class(:admin_project_radio, current: :open) %>"></span>
+            </a>
+            <ul class="sub-menu">
+              <li class="nav-item <%= current_nav_class(:admin_project_radio_season) %>">
+                <%= link_to admin_project_radio_seasons_path, class: 'nav-link' do %>
+                  <i class="fa fa-align-justify"></i>
+                  <span class="title">批次管理</span>
+                <% end %>
+              </li>
+            </ul>
+          </li><li class="nav-item <%= current_nav_class(:admin_project_flower) %>">
+            <a href="javascript:;" class="nav-link nav-toggle">
+              <% to_prove_apply = 0 %>
+              <% submited = 0 %>
+              <i class="fa fa-futbol-o"></i>
+              <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">护花</span>
+              <span class="arrow <%= current_nav_class(:admin_project_flower, current: :open) %>"></span>
+            </a>
+            <ul class="sub-menu">
+              <li class="nav-item <%= current_nav_class(:admin_project_flower_season) %>">
+                <%= link_to admin_project_flower_seasons_path, class: 'nav-link' do %>
+                  <i class="fa fa-align-justify"></i>
+                  <span class="title">批次管理</span>
                 <% end %>
               </li>
             </ul>
@@ -243,7 +344,7 @@
             <% end %>
           </li>
           <li class="nav-item  <%= current_nav_class(:admin_project_template) %>">
-            <%= link_to admin_project_templates_path, class: 'nav-link' do %>
+            <%= link_to admin_projects_path, class: 'nav-link' do %>
                 <span class="title">项目分类管理</span>
             <% end %>
           </li>
@@ -294,10 +395,25 @@
         <h3 class="uppercase">统计报表</h3>
       </li>
       <li class="nav-item <%= current_nav_class(:admin_statistic) %>">
-        <%= link_to '', class: 'nav-link nav-toggle' do %>
-            <i class="fa fa-area-chart"></i>
-            <span class="title">统计报表</span>
-        <% end %>
+        <a href="javascript:;" class="nav-link nav-toggle">
+          <i class="fa fa-area-chart"></i>
+          <span class="title">统计报表</span>
+          <span class="arrow <%= current_nav_class(:admin_statistic, current: :open) %>"></span>
+        </a>
+        <ul class="sub-menu">
+          <li class="nav-item  <%= current_nav_class(:admin_data_statistic) %>">
+            <%= link_to admin_data_statistic_path, class: 'nav-link nav-toggle' do %>
+              <i class="icon-bar-chart"></i>
+              <span class="title">数据统计</span>
+            <% end %>
+          </li>
+          <li class="nav-item  <%= current_nav_class(:admin_donate_statistic) %>">
+            <%= link_to admin_donate_statistic_path, class: 'nav-link nav-toggle' do %>
+              <i class="fa fa-list"></i>
+              <span class="title">捐助统计</span>
+            <% end %>
+          </li>
+        </ul>
       </li>
 
       <li class="heading">
@@ -319,6 +435,16 @@
           <li class="nav-item  <%= current_nav_class(:admin_financial_reports) %>">
             <%= link_to admin_financial_reports_path, class: 'nav-link' do %>
                 <span class="title">财务报告</span>
+            <% end %>
+          </li>
+          <li class="nav-item  <%= current_nav_class(:admin_income_record) %>">
+            <%= link_to admin_income_records_path, class: 'nav-link' do %>
+              <span class="title">收入记录</span>
+            <% end %>
+          </li>
+          <li class="nav-item  <%= current_nav_class(:admin_voucherss) %>">
+            <%= link_to admin_vouchers_path, class: 'nav-link' do %>
+              <span class="title">捐赠收据</span>
             <% end %>
           </li>
           <li class="nav-item  <%= current_nav_class(:admin_fund_categories) %>">

@@ -4,12 +4,12 @@
       <i class="icon-list"></i>收入分类管理
     </div>
     <div class="actions">
-      <%= link_to new_admin_fund_category_path, class: 'btn blue-soft', 'data-no-turbolink' => true do %>
+      <%= link_to new_admin_fund_category_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
       <i class="icon-plus"></i>
       <span>新增一级分类</span>
       <% end %>
 
-      <%= link_to new_admin_fund_path, class: 'btn blue-soft', 'data-no-turbolink' => true do %>
+      <%= link_to new_admin_fund_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
       <i class="icon-plus"></i>
       <span>新增二级分类</span>
       <% end %>
@@ -115,7 +115,7 @@
                   <%= link_to admin_fund_path(fund), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                      <i class="fa fa-trash-o"></i> 删除
                  <% end %>
-                 <%= link_to '调整金额', new_admin_fund_fund_adjust_amount_path(fund), class: 'btn btn-xs yellow' %>
+                 <%= link_to '跨分类调整', new_admin_fund_fund_adjust_amount_path(fund), class: 'btn btn-xs yellow' %>
                 </td>
               </tr>
               <% end %>

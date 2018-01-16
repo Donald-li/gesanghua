@@ -23,7 +23,4 @@ class SupportCategory < ApplicationRecord
   acts_as_list column: :position
   scope :sorted, ->{ order(position: :asc) }
 
-  def self.options_for_select
-    self.all.map{|c| [c.name, c.id]}
-  end
 end

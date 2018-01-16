@@ -1,0 +1,34 @@
+<div class="portlet light bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-note"></i>
+      <span class="caption-subject">取消捐助说明</span>
+      <span class="caption-helper"></span>
+    </div>
+    <div class="actions">
+      <div class="portlet-input input-inline input-small">
+        <div class="input-icon right">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body form">
+    <%= simple_form_for [:admin, @grant], url: update_cancel_admin_pair_grant_path, wrapper: :admin_form, html: {class: 'form-horizontal grant_form'} do |f| %>
+        <%= f.error_notification %>
+        <div class="form-body">
+          <%= static_form_control '学生姓名：', @grant.try(:gsh_child).try(:name) %>
+          <%= f.input :balance_manage, as: :radio_buttons, wrapper: :inline_inputs, collection: GshChildGrant.options_for_select(:balance_manages), label: '余款动向：' %>
+          <%= f.input :cancel_reason, label: '取消捐助原因：', placeholder: '请填写原因', required: true %>
+          <%= f.input :cancel_remark, label: '取消捐助说明：', placeholder: '请填写详细说明', required: true %>
+        </div>
+        <div class="form-actions">
+          <div class="row">
+            <div class="col-md-offset-2 col-md-9">
+              <%= f.button :submit, '提交', class: 'btn blue' %>
+              <%= link_to '取消', admin_pair_grants_path, class: 'btn' %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+  </div>
+</div>

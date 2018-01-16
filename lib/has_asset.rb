@@ -17,7 +17,7 @@ module HasAsset
             self.try(key).try(:file).try(:url)
           end
         else
-          return ActionController::Base.helpers.asset_path('ico-default.jpg')
+          return ActionController::Base.helpers.asset_path('default.jpg')
         end
       end
 

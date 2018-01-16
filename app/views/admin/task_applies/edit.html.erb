@@ -1,0 +1,82 @@
+<div class="portlet light portlet-fit bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="fa fa-sliders font-dark"></i>
+      <span class="caption-subject font-dark bold uppercase">审核志愿者申请</span>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="table-scrollable">
+      <table class="table table-bordered table-hover">
+        <tbody>
+        <tr>
+          <th>
+            姓名
+          </th>
+          <th>
+            <%= @task_apply.volunteer.try(:user).try(:name) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            联系方式
+          </th>
+          <th>
+            <%= @task_apply.volunteer.try(:user).try(:phone) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            地区
+          </th>
+          <th>
+            <%= @task_apply.volunteer.try(:user).try(:simple_address) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            类型
+          </th>
+          <th>
+            <%= @task_apply.volunteer.enum_name(:kind) %>
+          </th>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="portlet-body form">
+      <%= simple_form_for [:admin, @task_apply], url: admin_task_task_apply_path(@task), method: :patch, wrapper: :admin_form, html: {id: 'approve-form'} do |f| %>
+          <%= f.error_notification %>
+          <div class="form-body form-horizontal">
+            <%= f.input :approve_state, as: :radio_buttons, wrapper: :inline_inputs, collection: TaskVolunteer.options_for_some_select(:approve_states, ['pass', 'reject']), label: '审核状态：', required: 'required', input_html: { class: 'approve_state', onclick: 'toggleState();'} %>
+            <div class="form-group approve_reject">
+              <label class="col-md-2 control-label">备注：</label>
+              <div class="col-sm-9">
+                <textarea name="approve_remark" style="width: 800px; height: 200px"></textarea>
+              </div>
+            </div>
+            <div class="form-actions">
+              <div class="row">
+                <div class="col-md-offset-3 col-md-9">
+                  <%= f.button :submit, '提交', class: 'btn green' %>
+                  <%= link_to '取消', admin_task_task_applies_path(@task), class: 'btn' %>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+      <% end %>
+      </div>
+</div>
+<script type="text/javascript">
+    function toggleState(){
+        toggleRadioInput('.approve_state', {
+            reject: '.approve_reject'
+        })
+    }
+    toggleState();
+    $("#approve-form").html5Validate(function () {
+        $(this).find('[type="submit"]').attr('disabled', 'disabled');
+        this.submit();
+    });
+</script>

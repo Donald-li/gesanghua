@@ -17,9 +17,19 @@ Rails.application.routes.draw do
   concern :excel_output do
     collection { get :excel_output }
   end
-
+  concern :share do
+    member { get :share }
+  end
   concern :file_download do
     member { get :file_download }
+  end
+
+  concern :qrcode_download do
+    member { get :qrcode_download }
+  end
+
+  concern :remarks do
+    member { get :remarks }
   end
 
   root to: 'site/mains#show'
@@ -59,6 +69,10 @@ Rails.application.routes.draw do
     resource :session, only: :create
     get '/account/modify-password' => 'modify_password#edit', as: :modify_password
     put '/account/modify-password' => 'modify_password#update', as: :modify_password_update
+    get '/selects/gsh_child_user' => 'selects#gsh_child_user'
+    get '/selects/teacher_user' => 'selects#teacher_user'
+    get '/selects/teacher_school' => 'selects#teacher_school'
+
     resource :main, only: :show
     resources :users, concerns: :switch do
       resources :donate_records, only: [:index, :destroy]
@@ -70,28 +84,100 @@ Rails.application.routes.draw do
     resources :article_categories, concerns: [:move, :switch]
     resources :supports, concerns: [:move, :switch]
     resources :pages, concerns: [:move, :switch]
-    resources :project_templates
+    resources :projects
+    resources :school_applies do
+      member do
+        patch :update_audit
+      end
+      collection do
+        post :create_audit
+      end
+    end
     resources :audit_reports, concerns: [:switch, :file_download]
     resources :financial_reports, concerns: [:switch, :file_download]
     resources :funds, concerns: [:switch, :move] do
       resource :fund_adjust_amount, only: [:new, :create]
     end
     resources :fund_categories, concerns: [:switch, :move]
-    resources :specials
-    resources :pairs, concerns: [:switch]
-    resources :pair_applies do
-      resources :pair_students
+    resources :specials, concerns: [:switch] do
+      resources :special_adverts
+      resources :special_articles
     end
-    resources :pair_lists, concerns: [:switch]
+
+    resources :project_book_seasons
+    resources :project_camp_seasons
+    resources :project_radio_seasons
+    resources :project_flower_seasons
+
+    resources :pair_reports, concerns: [:switch]
+    resources :pair_seasons, concerns: [:switch]
+    resources :pair_donate_records, only: [:index, :show]
+    resources :pair_applies do
+      resources :pair_students, concerns: [:remarks] do
+        member do
+          patch :update_audit
+        end
+        collection do
+          post :create_audit
+        end
+      end
+    end
+    resources :pair_student_lists, concerns: [:switch, :remarks, :share, :qrcode_download] do
+      resources :student_grants
+      member do
+        put :turn_over
+      end
+    end
+    resources :pair_grants, concerns: [:excel_output] do
+      member do
+        get :edit_delay
+        get :edit_cancel
+        get :new_feedback
+        get :edit_feedback
+        patch :update_delay
+        patch :update_cancel
+        patch :update_feedback
+      end
+      collection do
+        post :create_feedback
+      end
+    end
+    resources :remarks
     resources :support_categories, concerns: [:move, :switch]
     resources :county_users, concerns: [:switch]
     resources :income_sources, concerns: :move
+    resources :volunteer_applies, only: [:index, :edit, :update]
     resources :volunteers, concerns: [:switch] do
-      resources :service_histories
+      resources :task_volunteers
+      resources :service_histories, only: [:index, :show]
       member do
         put :switch_job
       end
     end
+    resources :tasks, concerns: [:switch] do
+      resources :task_applies, only: [:index, :edit, :update]
+    end
+    resources :task_achievements
+    resources :appoint_tasks do
+      member do
+        get :switch_edit
+        put :switch_update
+        get :check_edit
+        put :check_update
+      end
+    end
+    resources :gsh_children do
+      resources :apply_records, only: [:index, :show]
+    end
+    resources :schools, concerns: [:excel_output] do
+      resources :school_teachers
+      resources :school_project_applies
+    end
+    resources :teachers
+    resources :income_records
+    resource :data_statistic, only: [:show]
+    resource :donate_statistic, only: [:show]
+    resources :vouchers, concerns: :switch
   end
 
   namespace :school do
@@ -106,6 +192,23 @@ Rails.application.routes.draw do
   # 支持
   scope module: :support do
     resources :uploads, path: 'upload', only: [:create, :destroy]
+    resources :selects, only: [] do
+      collection do
+        get :schools
+        get :users
+        get :gsh_child_user
+        get :teacher_user
+        get :school_user
+        get :volunteers
+      end
+    end
+    resources :ajaxes, only: [] do
+      collection do
+        get :school_users
+        get :user_statistics
+        get :income_statistics
+      end
+    end
   end
 
   mount RuCaptcha::Engine => "/rucaptcha"

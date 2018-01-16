@@ -7,7 +7,7 @@
 #  name            :string                                 # 姓名
 #  login           :string                                 # 登录账号
 #  password_digest :string                                 # 密码
-#  state           :integer          default("enabled")    # 状态 1:启用 2:禁用
+#  state           :integer          default("enable")     # 状态 1:启用 2:禁用
 #  team_id         :integer                                # 团队ID
 #  profile         :jsonb                                  # 微信profile
 #  gender          :integer                                # 性别，1：男 2：女
@@ -23,9 +23,13 @@
 #  city            :string                                 # 市
 #  district        :string                                 # 区/县
 #  address         :string                                 # 详细地址
+#  qq              :string                                 # qq号
+#  idcard          :string                                 # 身份证
 #
 
 class User < ApplicationRecord
+
+  require 'custom_validators'
 
   attr_accessor :avatar_id
 
@@ -34,27 +38,33 @@ class User < ApplicationRecord
 
   belongs_to :team, optional: true
 
+  has_one :school
   has_one :administrator
   has_one :teacher
   has_one :volunteer
   has_one :county_user
+  has_one :gsh_child
   has_many :vouchers
   has_many :campaign_enlists
   has_many :donate_records
   has_many :income_records
-  has_many :project_applies
+  has_many :project_season_applies
 
+  validates :password, confirmation: true, length: { minimum: 6 }, allow_blank: true
+  validates :email, email: true
+  validates :phone, mobile: true
   validates :name, :login, presence: true
   validates :login, uniqueness: true
   default_value_for :profile, {}
 
-  enum state: {enabled: 1, disabled: 2} #状态 1:启用 2:禁用
+  enum state: {enable: 1, disable: 2} #状态 1:启用 2:禁用
   default_value_for :state, 1
 
   enum gender: {male: 1, female: 2} #性别 1:男 2:女
   default_value_for :gender, 1
 
   scope :sorted, ->{ order(created_at: :desc) }
+  scope :reverse_sorted, ->{ order(created_at: :asc) }
 
   has_secure_password
 
@@ -65,7 +75,7 @@ class User < ApplicationRecord
 
   # 可开票金额
   def to_bill_amount
-    self.donate_records.where({ created_at: (Time.now.beginning_of_year)..(Time.now.end_of_year), voucher_state: 1 }).sum(:amount)
+    self.donate_records.where({ created_at: (Time.now.beginning_of_year)..(Time.now.end_of_year), voucher_state: 1, pay_state: 2 }).sum(:amount)
   end
 
   def full_address
@@ -82,6 +92,12 @@ class User < ApplicationRecord
 
   def has_volunteer?
     self.volunteer.present?
+  end
+
+  def self.update_user_statistic_record
+    amount = self.where("created_at > ? and created_at < ?", Time.now.beginning_of_day, Time.now.end_of_day).count
+    record = StatisticRecord.new(amount: amount, kind: 1)
+    record.save
   end
 
 end

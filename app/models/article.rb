@@ -14,17 +14,23 @@
 #  describe            :text                                   # 摘要
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  kind                :integer                                # 类型
 #
 
 class Article < ApplicationRecord
   belongs_to :article_category, optional: true
 
-  has_many :special_articles
+  has_many :special_articles, dependent: :destroy
 
   validates :title, presence: true
   validates :content, presence: true
 
+  scope :visible, -> {where(kind: 1)}
   scope :sorted, ->{ order(published_at: :desc) }
+  scope :reverse_sorted, ->{ order(published_at: :desc) }
+
+  enum kind: {simple: 1, special: 2}
+  default_value_for :kind, 1
 
   enum state: {show: 1, hidden: 2}
   default_value_for :state, 1

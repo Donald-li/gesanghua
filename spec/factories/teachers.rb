@@ -12,10 +12,19 @@
 #  state      :integer          default("show")       # 老师状态: 1:启用 2:禁用
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  idcard     :string                                 # 身份证
+#  qq         :string                                 # QQ
+#  openid     :string                                 # 微信openid
 #
 
 FactoryBot.define do
   factory :teacher do
-    
+    name '李老师'
+    nickname 'Lee'
+    user
+    school
+    kind 2
+    phone '13500000001'
+    state 1
   end
 end

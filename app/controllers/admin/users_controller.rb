@@ -2,10 +2,19 @@ class Admin::UsersController < Admin::BaseController
   before_action :set_user, only: [:edit, :update, :switch]
 
   def index
-    set_search_end_of_day(:created_at_lteq)
-    @search = User.ransack(params[:q])
-    scope = @search.result
-    @users = scope.sorted.page(params[:page])
+    respond_to do |format|
+      format.html do # HTML页面
+        set_search_end_of_day(:created_at_lteq)
+        @search = User.ransack(params[:q])
+        scope = @search.result
+        @users = scope.sorted.page(params[:page])
+      end
+      #format.json do # Select2 异步选择用户搜索
+      #  users = User.enable.where.not(users: {id: 1}).left_joins(:gsh_child).where(gsh_children: {user_id: nil}).where("users.name like :q", q: "%#{params[:q]}%").page(params[:page])
+      #  render json: {items: users.as_json(only: [:id, :name])}
+      #end
+    end
+
   end
 
   def new
@@ -39,8 +48,8 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def switch
-    @user.enabled? ? @user.disabled! : @user.enabled!
-    redirect_to admin_users_url, notice:  @user.enabled? ? '用户账号已启用' : '用户账号已停用'
+    @user.enable? ? @user.disable! : @user.enable!
+    redirect_to admin_users_url, notice:  @user.enable? ? '用户账号已启用' : '用户账号已禁用'
   end
 
   private

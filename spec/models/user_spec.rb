@@ -7,7 +7,7 @@
 #  name            :string                                 # 姓名
 #  login           :string                                 # 登录账号
 #  password_digest :string                                 # 密码
-#  state           :integer          default("enabled")    # 状态 1:启用 2:禁用
+#  state           :integer          default("enable")     # 状态 1:启用 2:禁用
 #  team_id         :integer                                # 团队ID
 #  profile         :jsonb                                  # 微信profile
 #  gender          :integer                                # 性别，1：男 2：女
@@ -23,6 +23,8 @@
 #  city            :string                                 # 市
 #  district        :string                                 # 区/县
 #  address         :string                                 # 详细地址
+#  qq              :string                                 # qq号
+#  idcard          :string                                 # 身份证
 #
 
 require 'rails_helper'

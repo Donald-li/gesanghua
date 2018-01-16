@@ -1,0 +1,33 @@
+<div class="portlet light bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-note"></i>
+      <span class="caption-subject">发放反馈</span>
+      <span class="caption-helper"></span>
+    </div>
+    <div class="actions">
+      <div class="portlet-input input-inline input-small">
+        <div class="input-icon right">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body form">
+    <%= simple_form_for [:admin, @grant, @feedback], url: create_feedback_admin_pair_grants_path, wrapper: :admin_form, html: {class: 'form-horizontal grant_form'} do |f| %>
+        <%= f.error_notification %>
+        <div class="form-body">
+          <%= f.hidden_field :grant_id, value: @grant.id %>
+          <%= f.input :content, label: '内容：', placeholder: '请填写反馈内容', required: true %>
+          <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Feedback.options_for_select(:states), label: '状态：' %>
+        </div>
+        <div class="form-actions">
+          <div class="row">
+            <div class="col-md-offset-2 col-md-9">
+              <%= f.button :submit, '提交', class: 'btn blue' %>
+              <%= link_to '取消', admin_pair_grants_path, class: 'btn' %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+  </div>
+</div>

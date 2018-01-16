@@ -38,4 +38,12 @@ class IncomeRecord < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
+  # counter_culture :user, column_name: ''
+
+  def self.update_income_statistic_record
+    amount = self.where("created_at > ? and created_at < ?", Time.now.beginning_of_day, Time.now.end_of_day).count(:amount)
+    record = StatisticRecord.new(amount: amount, kind: 2)
+    record.save
+  end
+
 end

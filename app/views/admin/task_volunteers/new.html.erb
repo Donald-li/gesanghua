@@ -1,0 +1,46 @@
+<div class="portlet light bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-note"></i>
+      <span class="caption-subject">新增时长</span>
+      <span class="caption-helper"></span>
+    </div>
+    <div class="actions">
+      <div class="portlet-input input-inline input-small">
+        <div class="input-icon right">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body form">
+    <%= simple_form_for [:admin, @volunteer, @task_volunteer], wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'category_form'} do |f| %>
+        <%= f.error_notification %>
+        <div class="form-body form-horizontal">
+          <%= f.input :source, label: '获得来源：', autofocus: true, required: true %>
+          <div class="form-group approve_reject">
+            <label class="col-md-2 control-label">操作类型：</label>
+            <div class="col-md-9">
+              <div class="radio-list">
+                <label class="radio-inline">
+                  <input type="radio" name="kind" value="plus" checked> 增加
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="kind" value="reduce"> 扣除
+                </label>
+              </div>
+            </div>
+          </div>
+          <%= f.input :duration, label: '时长：', placeholder: '小时', required: true, type: 'number' %>
+          <%= f.input :comment, label: '备注：', required: true %>
+        </div>
+        <div class="form-actions">
+          <div class="row">
+            <div class="col-md-offset-2 col-md-9">
+              <%= f.button :submit, '提交', class: 'btn blue' %>
+              <%= link_to '取消', admin_volunteer_task_volunteers_path(@volunteer), class: 'btn' %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+  </div>
+</div>

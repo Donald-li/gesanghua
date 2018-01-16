@@ -16,6 +16,7 @@
 #  updated_at :datetime         not null
 #  start_time :datetime                               # 任务开始时间
 #  end_time   :datetime                               # 任务结束时间
+#  kind       :integer
 #
 
 FactoryBot.define do

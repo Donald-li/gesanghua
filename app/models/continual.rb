@@ -11,6 +11,7 @@
 #  approve_state :integer                                # 审核状态
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  kind          :integer                                # 反馈类型
 #
 
 class Continual < Feedback

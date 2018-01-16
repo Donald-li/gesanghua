@@ -3,7 +3,7 @@ class Admin::VolunteersController < Admin::BaseController
   before_action :set_user, only: [:new, :create]
 
   def index
-    @search = Volunteer.sorted.ransack(params[:q])
+    @search = Volunteer.pass.sorted.ransack(params[:q])
     scope = @search.result.joins(:user)
     @volunteers = scope.page(params[:page])
   end
@@ -48,8 +48,8 @@ class Admin::VolunteersController < Admin::BaseController
   end
 
   def switch
-    @volunteer.enabled? ? @volunteer.disabled! : @volunteer.enabled!
-    redirect_to admin_volunteers_path, notice:  @volunteer.enabled? ? '已启用' : '已禁用'
+    @volunteer.enable? ? @volunteer.disable! : @volunteer.enable!
+    redirect_to admin_volunteers_path, notice:  @volunteer.enable? ? '已启用' : '已禁用'
   end
 
   def switch_job

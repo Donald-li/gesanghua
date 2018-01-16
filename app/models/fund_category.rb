@@ -21,6 +21,7 @@ class FundCategory < ApplicationRecord
 
   acts_as_list column: :position
   scope :sorted, ->{ order(position: :asc) }
+  scope :reverse_sorted, ->{ order(position: :desc) }
 
   enum state: {show: 1, hidden: 2} # 状态：1:显示 2:隐藏
 

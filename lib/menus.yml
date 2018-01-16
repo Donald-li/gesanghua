@@ -12,6 +12,41 @@ admin:
         admin_volunteer_list:
           actions:
             'admin/volunteers': all
+            'admin/service_histories': all
+            'admin/task_volunteers': all
+        admin_volunteer_apply:
+          actions:
+            'admin/volunteer_applies': all
+        admin_task_list:
+          actions:
+            'admin/tasks': all
+            'admin/task_applies': all
+            'admin/appoint_tasks': all
+        admin_task_check:
+          actions:
+            'admin/task_achievements': all
+    admin_schools:
+      menus:
+        admin_school_list:
+          actions:
+            'admin/schools': all
+        admin_school_applies:
+          actions:
+            'admin/school_applies': all
+
+    admin_user_main:
+      menus:
+        admin_user_county_users:
+          actions:
+            'admin/county_users': all
+        admin_user_gsh_children:
+          actions:
+            'admin/gsh_children': all
+        admin_user_teachers:
+          actions:
+            'admin/teachers': all
+
+
     # 平台管理
     admin_platform_content:
       menus:
@@ -30,15 +65,15 @@ admin:
         admin_content_specials:
           actions:
             'admin/specials': all
+            'admin/special_adverts': all
+            'admin/special_articles': all
 
     # 运营管理
     admin_operation:
       menus:
         admin_user:
           menus:
-            admin_user_county_users:
-              actions:
-                'admin/county_users': all
+
 
     admin_system:
       menus:
@@ -47,13 +82,30 @@ admin:
             'admin/article_categories': all
         admin_project_template:
           actions:
-            'admin/project_templates': all
+            'admin/projects': all
         admin_support_category:
           actions:
             'admin/support_categories': all
         admin_income_source:
           actions:
             'admin/income_sources': all
+
+    # 学校用户
+    admin_school:
+      menus:
+        admin_school_applies:
+          actions:
+            'admin/school_applies': all
+
+    # 统计报表
+    admin_statistic:
+      menus:
+        admin_data_statistic:
+          actions:
+            admin/data_statistics: all
+        admin_donate_statistic:
+          actions:
+            admin/donate_statistics: all
 
     # 管理员列表
     admin_administrator:
@@ -75,20 +127,63 @@ admin:
         admin_financial_reports:
           actions:
             admin/financial_reports: all
+        admin_vouchers:
+          actions:
+            admin/vouchers: all
         admin_fund_categories:
           actions:
             'admin/fund_categories': all
+        admin_income_record:
+          actions:
+            admin/income_records: all
+
     # 项目管理
     admin_project:
       menus:
         admin_pair:
           menus:
-            admin_pair_project:
+            admin_pair_season:
               actions:
-                'admin/pairs': all
+                'admin/pair_seasons': all
             admin_pair_applies:
               actions:
                 'admin/pair_applies': all
+                'admin/pair_students': all
             admin_pair_lists:
               actions:
-                'admin/pair_lists': all
+                'admin/pair_student_lists': all
+                'admin/remarks': all
+                'admin/student_grants': all
+            admin_pair_grants:
+              actions:
+                'admin/pair_grants': all
+            admin_pair_donate_records:
+              actions:
+                'admin/pair_donate_records': all
+            admin_pair_grants:
+              actions:
+                'admin/pair_grants': all
+            admin_pair_reports:
+              actions:
+                'admin/pair_reports': all
+
+        admin_project_book:
+          menus:
+            admin_project_book_season:
+              actions:
+                'admin/project_book_seasons': all
+        admin_project_camp:
+          menus:
+            admin_project_camp_season:
+              actions:
+                'admin/project_camp_seasons': all
+        admin_project_radio:
+          menus:
+            admin_project_radio_season:
+              actions:
+                'admin/project_radio_seasons': all
+        admin_project_flower:
+          menus:
+            admin_project_flower_season:
+              actions:
+                'admin/project_flower_seasons': all

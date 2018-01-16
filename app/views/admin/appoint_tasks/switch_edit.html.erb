@@ -1,0 +1,74 @@
+<div class="portlet light bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-note"></i>
+      <span class="caption-subject">移交任务</span>
+      <span class="caption-helper"></span>
+    </div>
+    <div class="actions">
+      <div class="portlet-input input-inline input-small">
+        <div class="input-icon right">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body form">
+    <%= simple_form_for [:admin, @task],  url: switch_update_admin_appoint_task_path(task_volunteer_id: @task_volunteer.id), method: :put, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'category_form'} do |f| %>
+        <%= f.error_notification %>
+        <div class="form-body form-horizontal">
+          <%= static_form_control '任务名称：', @task.name %>
+          <div class="form-group approve_reject">
+            <label class="col-md-2 control-label">负责人：</label>
+            <div class="col-sm-9">
+              <select class="form-control select optional" name="appoint_id" id="volunteer-ajax" required></select>
+            </div>
+          </div>
+        </div>
+        <div class="form-actions">
+          <div class="row">
+            <div class="col-md-offset-2 col-md-9">
+              <%= f.button :submit, '提交', class: 'btn blue' %>
+              <%= link_to '取消', admin_task_path(@task), class: 'btn' %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+  </div>
+</div>
+<script type="text/javascript">
+    $(function(){
+        // 异步加载志愿者列表
+        $('#volunteer-ajax').select2({
+            language: "zh-CN",
+            placeholder: '<%= @task.volunteers.first.volunteer_name %>',
+            allowClear: true,
+            ajax: {
+                url: "/selects/volunteers",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page,
+                        participator_ids: <%= @task.volunteers.ids %>
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: $.map(data.items, function (item) {
+                            return {
+                                text: item.volunteer_name,
+                                id: item.id
+                            }
+                        }),
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            }
+        });
+    })
+</script>

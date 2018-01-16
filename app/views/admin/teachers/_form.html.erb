@@ -1,0 +1,102 @@
+<%= simple_form_for [:admin, @teacher], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
+    <%= f.error_notification %>
+    <div class="form-body form-horizontal">
+      <div class="form-group">
+        <label class="col-md-2 control-label">学校地区：</label>
+        <div class="col-sm-9">
+          <div class="city-group">
+            <%= select_tag 'teacher.school[province]', options_for_select(ChinaCity.list, @teacher.school.province.presence), prompt: '省份', class: "city-select" %>
+            <%= select_tag 'teacher.school[city]', options_for_select(ChinaCity.list(@teacher.school.province.to_s), @teacher.school.city.presence), prompt: '城市', class: "city-select" %>
+            <%= select_tag 'teacher.school[district]', options_for_select(ChinaCity.list(@teacher.school.city.to_s), @teacher.school.district.presence), prompt: '地区', class: "city-select" %>
+          </div>
+        </div>
+      </div>
+      <%= f.input :nickname, label: '教师昵称：', autofocus: true, input_html: { data: {}} %>
+      <%= f.input :name, label: '教师姓名：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :idcard, label: '教师身份证号：', autofocus: true, input_html: { data: {}} %>
+      <%= f.input :user_id, collection: [@teacher.user].compact.map {|u| [u.name, u.id]}, label: '关联用户', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
+      <%= f.input :school_id, collection: [@teacher.school].compact.map {|u| [u.name, u.id]}, label: '关联学校', prompt: "请选择学校", input_html: {class: 'school_selector'} %>
+      <%= f.input :kind, as: :radio_buttons, wrapper: :inline_inputs, label: '教师类型：', collection: Teacher.options_for_enum_select(:kinds) %>
+      <%= f.input :phone, label: '联系方式：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :qq, label: '教师QQ号：', autofocus: true, input_html: { data: {}} %>
+      <%= f.input :openid, label: '教师微信号：', autofocus: true, input_html: { data: {}} %>
+    </div>
+    <div class="form-actions">
+      <div class="row">
+        <div class="col-md-offset-3 col-md-9">
+          <%= f.button :submit, '提交', class: 'btn green' %>
+          <%= link_to '取消', admin_teachers_path, class: 'btn' %>
+        </div>
+      </div>
+    </div>
+<% end %>
+
+<script>
+$(function(){
+  $("form .user_selector").select2({
+    language: "zh-CN",
+    placeholder: '请选择用户',
+    allowClear: true,
+    ajax: {
+      url: "/selects/teacher_user",
+      dataType: 'json',
+      delay: 250,
+      data: function (params) {
+        return {
+          q: params.term, // search term
+          page: params.page
+        };
+      },
+      processResults: function (data, params) {
+        params.page = params.page || 1;
+        return {
+            results: $.map(data.items, function (item) {
+              return {
+                text: item.name,
+                id: item.id
+            }
+          }),
+          pagination: {
+            more: (params.page * 30) < data.total_count
+          }
+        };
+      },
+      cache: true
+    },
+    minimumInputLength: 1
+  });
+
+  $("form .school_selector").select2({
+    language: "zh-CN",
+    placeholder: '请选择学校',
+    allowClear: true,
+    ajax: {
+      url: "/selects/schools",
+      dataType: 'json',
+      delay: 250,
+      data: function (params) {
+        return {
+          q: params.term, // search term
+          page: params.page
+        };
+      },
+      processResults: function (data, params) {
+        params.page = params.page || 1;
+        return {
+            results: $.map(data.items, function (item) {
+              return {
+                text: item.name,
+                id: item.id
+            }
+          }),
+          pagination: {
+            more: (params.page * 30) < data.total_count
+          }
+        };
+      },
+      cache: true
+    },
+    minimumInputLength: 1
+  });
+})
+</script>
