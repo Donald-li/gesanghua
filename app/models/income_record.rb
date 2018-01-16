@@ -23,7 +23,7 @@
 
 class IncomeRecord < ApplicationRecord
   belongs_to :user, optional: true
-  # belongs_to :finance_category
+  belongs_to :fund
   belongs_to :income_source
   belongs_to :promoter, class_name: 'User', optional: true
   # belongs_to :remitter, class_name: 'User'

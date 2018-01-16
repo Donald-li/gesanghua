@@ -28,6 +28,9 @@
                 描述
               </th>
               <th>
+                类型
+              </th>
+              <th>
                 累计收入（元）
               </th>
               <th>
@@ -46,6 +49,9 @@
               </td>
               <td>
                 <%= source.description %>
+              </td>
+              <td>
+                <%= source.enum_name(:kind) %>
               </td>
               <td>
                 <%= source.income_records.sum(:amount) %>

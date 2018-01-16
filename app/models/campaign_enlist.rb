@@ -18,7 +18,7 @@ class CampaignEnlist < ApplicationRecord
 
   validates :number, presence: true
   
-  default_vaule_for :number, 1
+  default_value_for :number, 1
 
   scope :sorted, ->{ order(created_at: :desc) }
 

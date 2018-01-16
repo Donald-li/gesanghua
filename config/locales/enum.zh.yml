@@ -237,3 +237,6 @@ zh:
     individual: '个人'
     company: '企业'
     other: '其他'
+  income_source_kinds:
+    online: '线上捐助'
+    offline: '线下捐助'

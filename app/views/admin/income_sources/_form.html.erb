@@ -3,6 +3,7 @@
   <div class="form-body form-horizontal">
     <%= f.input :name, label: '收入渠道名称：', autofocus: true, placeholder: '名称', required: true %>
     <%= f.input :description, label: '描述：', autofocus: true, placeholder: '描述', required: true %>
+    <%= f.input :kind, as: :radio_buttons, wrapper: :inline_inputs, collection: IncomeSource.options_for_select(:kinds), label: '类型：'%>
   </div>
   <div class="form-actions">
     <div class="row">
