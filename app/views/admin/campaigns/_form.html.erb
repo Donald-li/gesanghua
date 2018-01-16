@@ -1,0 +1,57 @@
+<%= simple_form_for [:admin, @campaign], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
+    <%= f.error_notification %>
+    <div class="form-body form-horizontal">
+      <%= f.input :name, label: '活动名称：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :campaign_category_id, collection: CampaignCategory.all, label: '活动分类：', prompt: "请选择活动分类", input_html: {data: {'parsley-required': true}} %>
+      <div class="form-group">
+        <label class="col-md-2 control-label">活动封面：</label>
+        <div class="col-sm-9">
+          <%= webuploader_tag :image_id, label: '上传活动封面图片', type: 'campaign_image', asset: @campaign.image, klass: 'single' %>
+          <%= webuploader_tag 'banner_ids[]', label: '上传活动详情页banner', type: 'campaign_banner', asset: @campaign.banners, id: 'banner_ids' %>
+          <!-- <span style="color: red">注意：左起第一张图片为第一张图</span> -->
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label">活动时间：</label>
+        <div class="col-sm-9">
+          <%= f.text_field :start_time, class: 'datetime-picker', placeholder: '开始时间', require: true %> --
+          <%= f.text_field :end_time, class: 'datetime-picker', placeholder: '结束时间', require: true %>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label">报名时间：</label>
+        <div class="col-sm-9">
+          <%= f.text_field :sign_up_start_time, class: 'datetime-picker', placeholder: '报名开始时间', require: true %> --
+          <%= f.text_field :sign_up_end_time, class: 'datetime-picker', placeholder: '报名结束时间', require: true %>
+        </div>
+      </div>
+      <%= f.input :number, label: '限制人数：', autofocus: true, placeholder: '如不填写，人数不限', input_html: { data: {}} %>
+      <%= f.input :price, label: '活动价格：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+      <div class="form-group">
+        <label class="col-md-2 control-label">活动详情：</label>
+        <div class="col-sm-9">
+          <%= f.cktext_area :content, input_html: { data: {'parsley-required': true}}  %>
+        </div>
+      </div>
+      <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Campaign.options_for_select(:states), label: '状态：' %>
+      <%= f.input :remark, label: '报名表备注内容：', placeholder: '' %>
+    </div>
+    <div class="form-actions">
+      <div class="row">
+        <div class="col-md-offset-3 col-md-9">
+          <%= f.button :submit, '提交', class: 'btn green' %>
+          <%= link_to '取消', admin_campaigns_path, class: 'btn' %>
+        </div>
+      </div>
+    </div>
+<% end %>
+<script>
+$(function(){
+  $('.datetime-picker').datetimepicker();
+  //上传单图，活动封面
+  initImageWebuploader($('#webuploader'));
+  //多图上传，活动详情页banner
+  initMultiImageWebuploader($('#banner_ids'));
+  $('.upload-list').viewer();
+})
+</script>

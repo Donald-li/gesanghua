@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180112071039) do
+ActiveRecord::Schema.define(version: 20180116074213) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,6 +115,9 @@ ActiveRecord::Schema.define(version: 20180112071039) do
     t.decimal "total", precision: 14, scale: 2, default: "0.0", comment: "合计报名金额"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "contact_name", comment: "联系人"
+    t.string "contact_phone", comment: "联系电话"
+    t.integer "payment_state", default: 1, comment: "支付状态 1:已支付 2:已取消"
   end
 
   create_table "campaigns", force: :cascade, comment: "活动表" do |t|
@@ -131,6 +134,9 @@ ActiveRecord::Schema.define(version: 20180112071039) do
     t.integer "campaign_category_id", comment: "活动分类ID"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "sign_up_start_time", comment: "报名开始时间"
+    t.integer "number", comment: "报名限制人数"
+    t.string "remark", comment: "报名表备注"
   end
 
   create_table "child_periods", force: :cascade, comment: "孩子捐助学期表" do |t|
@@ -215,6 +221,7 @@ ActiveRecord::Schema.define(version: 20180112071039) do
     t.integer "approve_state", comment: "审核状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "kind", comment: "反馈类型"
   end
 
   create_table "fund_categories", force: :cascade do |t|
@@ -294,6 +301,7 @@ ActiveRecord::Schema.define(version: 20180112071039) do
     t.integer "balance_manage", comment: "取消余额处理"
     t.text "cancel_remark", comment: "取消说明"
     t.string "title", comment: "标题"
+    t.text "remark"
     t.index ["gsh_child_id"], name: "index_gsh_child_grants_on_gsh_child_id"
     t.index ["project_season_apply_id"], name: "index_gsh_child_grants_on_project_season_apply_id"
   end

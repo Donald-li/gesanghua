@@ -16,6 +16,9 @@
 #  campaign_category_id :integer                                # 活动分类ID
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  sign_up_start_time   :datetime                               # 报名开始时间
+#  number               :integer                                # 报名限制人数
+#  remark               :string                                 # 报名表备注
 #
 
 require 'rails_helper'

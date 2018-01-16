@@ -24,7 +24,7 @@ admin:
             'admin/appoint_tasks': all
         admin_task_check:
           actions:
-            'admin/task_achievements': all
+            'admin/task_achievements': all    
     admin_schools:
       menus:
         admin_school_list:

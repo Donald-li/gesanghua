@@ -32,6 +32,10 @@ Rails.application.routes.draw do
     member { get :remarks }
   end
 
+  concern :cancel do
+    member { get :cancel }
+  end
+
   root to: 'site/mains#show'
 
   scope module: :site do
@@ -174,6 +178,13 @@ Rails.application.routes.draw do
       resources :school_project_applies
     end
     resources :teachers
+    resources :campaigns, concerns: [:switch] do
+      resources :campaign_enlists, concerns: [:excel_output] do
+        member do
+          put :cancel
+        end
+      end
+    end
   end
 
   namespace :school do
@@ -196,6 +207,7 @@ Rails.application.routes.draw do
         get :teacher_user
         get :school_user
         get :volunteers
+        get :campaign_enlist_user
       end
     end
     resources :ajaxes, only: [] do
