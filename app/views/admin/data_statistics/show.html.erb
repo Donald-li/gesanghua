@@ -215,7 +215,7 @@
                     tooltip: {
                         triggerOn: 'onmousemove',
                         formatter: function(params) {
-                            return '日期: ' + params.name + '<br>人数: ' + params.value;
+                            return '人数: ' + params.value;
                         }
                     },
                     xAxis: {
@@ -240,7 +240,7 @@
                             data: ylist,
                             markLine: {
                                 data: [
-                                    {type: 'average', name: '平均值'}
+                                    {type: 'average', name: ''}
                                 ]
                             }
                         }
@@ -295,7 +295,7 @@
                             data: ylist,
                             markLine: {
                                 data: [
-                                    {type: 'average', name: '平均值'}
+                                    {type: 'average', name: ''}
                                 ]
                             }
                         }
