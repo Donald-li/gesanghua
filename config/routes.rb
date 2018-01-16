@@ -175,9 +175,9 @@ Rails.application.routes.draw do
     end
     resources :teachers
     resources :income_records
-
     resource :data_statistic, only: [:show]
     resource :donate_statistic, only: [:show]
+    resources :vouchers, concerns: :switch
   end
 
   namespace :school do

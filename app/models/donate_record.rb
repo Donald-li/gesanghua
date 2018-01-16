@@ -23,6 +23,7 @@
 #  project_season_apply_id       :integer                                # 年度项目ID
 #  project_season_apply_child_id :integer                                # 年度孩子申请ID
 #  donate_no                     :string                                 # 捐赠编号
+#  voucher_id                    :integer                                # 捐助记录ID
 #
 
 class DonateRecord < ApplicationRecord
@@ -36,9 +37,10 @@ class DonateRecord < ApplicationRecord
   belongs_to :project_season_apply_child
   belongs_to :team
   belongs_to :income_record
+  # belongs_to :voucher, optional: true
 
-  has_many :voucher_donate_records
-  has_many :vouchers, through: :voucher_donate_records
+  # has_many :voucher_donate_records
+  # has_many :vouchers, through: :voucher_donate_records
   # appoint_type 多态关联
   # belongs_to :user, polymorphic: true
 
