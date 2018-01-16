@@ -14,6 +14,9 @@
 
 FactoryBot.define do
   factory :team do
-    
+    name {"#{Faker::Name.name}小组"}
+    member_count '10'
+    current_donate_amount '11.11'
+    total_donate_amount '66.55'
   end
 end
