@@ -1,0 +1,11 @@
+before_script:
+  - ruby -v
+  - bundle install
+  - pwd
+
+rspec:
+  variables:
+    # CI_DEBUG_TRACE: "true"
+  script:
+    - cp config/database.example.yml config/database.yml
+    - bundle exec rspec spec -fd
