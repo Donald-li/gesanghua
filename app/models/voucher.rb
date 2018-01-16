@@ -21,11 +21,13 @@
 #
 
 class Voucher < ApplicationRecord
+  require 'custom_validators'
   belongs_to :user
   has_one :logistic, as: :owner
   accepts_nested_attributes_for :logistic, reject_if: :all_blank
   has_many :donate_records
   validates :contact_name, :contact_phone, :province, :city, :district, :address, presence: true
+  validates :contact_phone, mobile: true
 
   enum state: { pending: 1, deal: 2 } # 审核状态：1:待处理 2:已处理
   default_value_for :state, 1
@@ -38,4 +40,20 @@ class Voucher < ApplicationRecord
   def full_address
     ChinaCity.get(self.province).to_s + ChinaCity.get(self.city).to_s + ChinaCity.get(self.district).to_s + self.address.to_s
   end
+
+  def save_voucher(ids)
+    self.transaction do
+      begin
+        self.save!
+        records = ids.map{ |i| DonateRecord.find_by_id(i) }.compact
+        voucher_id = self.id
+        records.each{ |e| e.update!( voucher_state: 2, voucher_id: voucher_id ) }
+        return true
+      rescue
+        return false
+      end
+    end
+    return false
+  end
+
 end
