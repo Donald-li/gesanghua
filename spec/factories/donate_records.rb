@@ -28,6 +28,12 @@
 
 FactoryBot.define do
   factory :donate_record do
-    
+    pay_state 'paid'
+    amount {Faker::Number.decimal(2)}
+    message {Faker::Lorem.sentences}
+    donor {Faker::Name.name}
+    remitter_name {Faker::Name.name}
+    voucher_state 'to_bill'
+    donate_no {Faker::Number.number(10)}
   end
 end
