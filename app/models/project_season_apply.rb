@@ -23,7 +23,7 @@
 class ProjectSeasonApply < ApplicationRecord
   belongs_to :project
   belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id'
-  belongs_to :school
+  belongs_to :school, optional: true
   belongs_to :teacher, optional: true
   belongs_to :gsh_child, optional: true
   belongs_to :gsh_bookshelf, optional: true
