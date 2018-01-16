@@ -31,4 +31,9 @@ class Support::SelectsController < Support::BaseController
     render json: {items: volunteers.as_json(only: [:id], methods: :volunteer_name)}
   end
 
+  def campaign_enlist_user
+    users = User.enable.where.not(users: {id: 1}).where("users.name like :q", q: "%#{params[:q]}%").page(params[:page])
+    render json: {items: users.as_json(only: [:id, :name])}
+  end
+
 end
