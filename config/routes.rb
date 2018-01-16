@@ -75,6 +75,10 @@ Rails.application.routes.draw do
 
     resource :main, only: :show
     resources :users, concerns: :switch do
+      member do
+        get :invoices
+        post :bill
+      end
       resources :donate_records, only: [:index, :destroy]
     end
     resources :administrators, concerns: :switch

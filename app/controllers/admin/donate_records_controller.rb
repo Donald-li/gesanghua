@@ -18,6 +18,7 @@ class Admin::DonateRecordsController < Admin::BaseController
     end
   end
 
+
   private
 
   def set_user

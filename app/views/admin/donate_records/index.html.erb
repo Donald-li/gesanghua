@@ -4,10 +4,10 @@
       <i class="icon-list"></i> <%= link_to @user.name, admin_users_path %> > 捐助记录
     </div>
     <div class="actions">
-      <%#= link_to new_admin_article_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+      <%= link_to invoices_admin_user_path(@user), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
       <i class="icon-plus"></i>
       <span>申请发票</span>
-      <%# end %>
+      <% end %>
     </div>
   </div>
   <div class="portlet-body">
