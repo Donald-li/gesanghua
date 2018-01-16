@@ -25,6 +25,9 @@
 #  address         :string                                 # 详细地址
 #  qq              :string                                 # qq号
 #  idcard          :string                                 # 身份证
+#  donate_count    :decimal(14, 2)   default(0.0)          # 捐助金额
+#  online_count    :decimal(14, 2)   default(0.0)          # 线上捐助金额
+#  offline_count   :decimal(14, 2)   default(0.0)          # 线下捐助金额
 #
 
 FactoryBot.define do

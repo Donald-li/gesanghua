@@ -83,33 +83,21 @@
           <li>
             <a onclick="getUserStatisticData('week')" >
               最近一周
-              <% if params[:time_span] == 'week' %>
-                <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
-              <% end %>
             </a>
           </li>
           <li>
             <a onclick="getUserStatisticData('month')" >
               最近一月
-              <% if params[:time_span] == 'month' %>
-                <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
-              <% end %>
             </a>
           </li>
           <li>
             <a onclick="getUserStatisticData('year')" >
               今年
-              <% if params[:time_span] == 'year' %>
-                <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
-              <% end %>
             </a>
           </li>
           <li>
             <a onclick="getUserStatisticData('all')" >
               全部
-              <% if params[:time_span] == 'all' %>
-                <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
-              <% end %>
             </a>
           </li>
         </ul>
@@ -154,33 +142,21 @@
             <li>
               <a onclick="getIncomeStatisticData('week')" >
                 最近一周
-                <% if params[:time_span] == 'week' %>
-                  <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
-                <% end %>
               </a>
             </li>
             <li>
               <a onclick="getIncomeStatisticData('month')" >
                 最近一月
-                <% if params[:time_span] == 'month' %>
-                  <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
-                <% end %>
               </a>
             </li>
             <li>
               <a onclick="getIncomeStatisticData('year')" >
                 今年
-                <% if params[:time_span] == 'year' %>
-                  <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
-                <% end %>
               </a>
             </li>
             <li>
               <a onclick="getIncomeStatisticData('all')" >
                 全部
-                <% if params[:time_span] == 'all' %>
-                  <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
-                <% end %>
               </a>
             </li>
           </ul>
@@ -292,7 +268,7 @@
                         // subtext: ''
                     },
                     tooltip: {
-                        triggerOn: 'onmousemove',
+                        triggerOn: 'mousemove',
                         formatter: function(params) {
                             return '日期: ' + params.name + '<br>人数: ' + params.value;
                         }

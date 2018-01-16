@@ -176,7 +176,7 @@ Rails.application.routes.draw do
     resources :teachers
     resources :income_records
     resource :data_statistic, only: [:show]
-    resource :donate_statistic, only: [:show]
+    resource :donate_statistic, only: [:show], concerns: [:excel_output]
     resources :vouchers, concerns: :switch
   end
 

@@ -36,7 +36,7 @@ class DonateRecord < ApplicationRecord
   belongs_to :project_season_apply
   belongs_to :project_season_apply_child
   belongs_to :team
-  belongs_to :income_record
+  has_one :income_record, dependent: :destroy
   # belongs_to :voucher, optional: true
 
   # has_many :voucher_donate_records
