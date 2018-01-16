@@ -73,7 +73,7 @@
                 <%= voucher.voucher_no %>
               </td>
               <td>
-                <%= voucher.user.name %>
+                <%= voucher.try(:user).try(:name) %>
               </td>
               <td>
                 <%= l voucher.created_at %>
