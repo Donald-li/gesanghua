@@ -19,6 +19,7 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  income_time      :datetime                               # 入账时间
+#  remark           :text                                   # 备注
 #
 
 class IncomeRecord < ApplicationRecord
@@ -29,11 +30,11 @@ class IncomeRecord < ApplicationRecord
   # belongs_to :remitter, class_name: 'User'
 
   has_many :expenditure_records
-  belongs_to :donate_record #, optional: true
+  belongs_to :donate_record , optional: true
   # appoint_type 多态关联
   # belongs_to :user, polymorphic: true
 
-  validates :amount, :remitter_name, :income_time, :donor, presence: true
+  validates :amount, :income_time, presence: true
 
   # enum state: {}
 

@@ -19,6 +19,7 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  income_time      :datetime                               # 入账时间
+#  remark           :text                                   # 备注
 #
 
 require 'rails_helper'

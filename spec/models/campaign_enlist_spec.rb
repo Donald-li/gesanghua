@@ -12,7 +12,7 @@
 #  updated_at    :datetime         not null
 #  contact_name  :string                                 # 联系人
 #  contact_phone :string                                 # 联系电话
-#  payment_state :integer          default(1)            # 支付状态 1:已支付 2:已取消
+#  payment_state :integer          default("paid")       # 支付状态 1:已支付 2:已取消
 #
 
 require 'rails_helper'
