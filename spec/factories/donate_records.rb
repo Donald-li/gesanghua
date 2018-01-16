@@ -23,6 +23,7 @@
 #  project_season_apply_id       :integer                                # 年度项目ID
 #  project_season_apply_child_id :integer                                # 年度孩子申请ID
 #  donate_no                     :string                                 # 捐赠编号
+#  voucher_id                    :integer                                # 捐助记录ID
 #
 
 FactoryBot.define do

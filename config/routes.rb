@@ -79,6 +79,10 @@ Rails.application.routes.draw do
 
     resource :main, only: :show
     resources :users, concerns: :switch do
+      member do
+        get :invoices
+        post :bill
+      end
       resources :donate_records, only: [:index, :destroy]
     end
     resources :administrators, concerns: :switch
@@ -185,6 +189,10 @@ Rails.application.routes.draw do
         end
       end
     end
+    resources :income_records
+    resource :data_statistic, only: [:show]
+    resource :donate_statistic, only: [:show], concerns: [:excel_output]
+    resources :vouchers, concerns: :switch
   end
 
   namespace :school do
@@ -213,6 +221,8 @@ Rails.application.routes.draw do
     resources :ajaxes, only: [] do
       collection do
         get :school_users
+        get :user_statistics
+        get :income_statistics
       end
     end
   end

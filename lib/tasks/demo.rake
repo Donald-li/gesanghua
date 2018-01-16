@@ -141,6 +141,21 @@ namespace :demo do
       t.task_volunteers.find_or_create_by(volunteer_id: v.id)
     end
 
+    # 生成统计数据
+    time = Time.now - 56.day
+    55.times do
+      StatisticRecord.create(amount: rand(10...100), kind: 1, record_time: time.strftime("%Y-%m-%d"))
+      StatisticRecord.create(amount: rand(1000...9999), kind: 2, record_time: time.strftime("%Y-%m-%d"))
+      time = time + 1.day
+    end
+
+    # 生成收入来源
+    IncomeSource.find_or_create_by(name: '微信支付', description: '微信转账', kind: 1)
+    IncomeSource.find_or_create_by(name: '现金捐助', description: '行走吧格桑花线下募捐', kind: 2)
+
+    # 生成入账记录（格桑花非指定）
+    # IncomeRecord.create(user_id: 2, fund_id: 4, income_source_id: 1, amount: 777.7, remitter_name: '可爱的人', remitter_id: 2, donor: '可爱的人', income_time: Time.now)
+
   end
 
 end

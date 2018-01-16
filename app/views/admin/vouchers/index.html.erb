@@ -1,0 +1,125 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i>用户管理
+    </div>
+    <div class="actions">
+
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="dataTables_wrapper no-footer">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <%= search_form_for @search, url: admin_vouchers_path, class: 'form-inline' do |f| %>
+          <div class="form-group">
+            <%= f.label :voucher_no_or_user_name_cont, '搜索' %>
+            <%= f.text_field :voucher_no_or_user_name_cont, class: 'form-control', placeholder: '使用申请人、收据号搜索' %>
+          </div>
+          <div class="form-group">
+            <%= f.label '申请时间' %>
+            <%= f.text_field :created_at_gteq, class: 'form-control datepicker', placeholder: '开始时间' %>
+            <%= f.text_field :created_at_lteq, class: 'form-control datepicker', placeholder: '结束时间' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :state_eq, '状态' %>
+            <%= f.select :state_eq, Voucher.options_for_select(:states, raw: true), {include_blank: '全部'}, placeholder: '', class: 'form-control' %>
+          </div>
+          <button type="submit" class="btn btn-default grey">搜索</button>
+          <% end %>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="dataTables_filter pull-right">
+          </div>
+        </div>
+      </div>
+      <div class="table-scrollable dropdown-select">
+        <table class="table table-striped table-bordered table-hover" id="sample_2">
+          <thead>
+            <tr>
+              <th>
+                申请单号
+              </th>
+              <th>
+                申请人
+              </th>
+              <th>
+                申请时间
+              </th>
+              <th>
+                收货人
+              </th>
+              <th>
+                邮寄地址
+              </th>
+              <th>
+                开票金额
+              </th>
+              <th>
+                开票信息
+              </th>
+              <th>
+                状态
+              </th>
+              <th>
+                操作
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @vouchers.each do |voucher| %>
+            <tr>
+              <td>
+                <%= voucher.voucher_no %>
+              </td>
+              <td>
+                <%= voucher.try(:user).try(:name) %>
+              </td>
+              <td>
+                <%= l voucher.created_at %>
+              </td>
+              <td>
+                <%= voucher.contact_name %>
+                <p><%= voucher.contact_phone %></p>
+              </td>
+              <td>
+                <%= voucher.full_address %>
+              </td>
+              <td>
+                ￥<%= number_to_currency(voucher.amount) %>
+              </td>
+              <td>
+                <%= voucher.enum_name(:kind) %>
+                <p><%= voucher.try(:tax_company) %></p>
+              </td>
+              <td>
+                <%= link_to switch_admin_voucher_path(voucher), data: {confirm: "确定#{voucher.state === 'deal' ? '改为未处理状态' : '改为已处理状态'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{voucher.state === 'deal' ? 'green' : 'default'}" do %>
+                <%= voucher.state === 'deal' ? '已处理' : '未处理' %>
+                <i class="fa <%= voucher.state === 'deal' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                <% end %>
+              </td>
+              <td>
+                <%= link_to edit_admin_voucher_path(voucher), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                  <i class="fa fa-edit"></i> 修改信息
+                <% end %>
+                <%= link_to edit_admin_voucher_path(voucher), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                  <i class="fa fa-trash-o"></i> 删除
+                <% end %>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-5 col-sm-12">
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@vouchers) %></div>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <%= paginate @vouchers, theme: 'admin' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END EXAMPLE TABLE PORTLET-->

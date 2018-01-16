@@ -25,6 +25,9 @@
 #  address         :string                                 # 详细地址
 #  qq              :string                                 # qq号
 #  idcard          :string                                 # 身份证
+#  donate_count    :decimal(14, 2)   default(0.0)          # 捐助金额
+#  online_count    :decimal(14, 2)   default(0.0)          # 线上捐助金额
+#  offline_count   :decimal(14, 2)   default(0.0)          # 线下捐助金额
 #
 
 class User < ApplicationRecord
@@ -64,6 +67,7 @@ class User < ApplicationRecord
   default_value_for :gender, 1
 
   scope :sorted, ->{ order(created_at: :desc) }
+  scope :reverse_sorted, ->{ order(created_at: :asc) }
 
   has_secure_password
 
@@ -91,6 +95,12 @@ class User < ApplicationRecord
 
   def has_volunteer?
     self.volunteer.present?
+  end
+
+  def self.update_user_statistic_record
+    amount = self.where("created_at > ? and created_at < ?", Time.now.beginning_of_day, Time.now.end_of_day).count
+    record = StatisticRecord.new(amount: amount, kind: 1, record_time: Time.now)
+    record.save
   end
 
 end

@@ -34,15 +34,17 @@ admin:
           actions:
             'admin/school_applies': all
 
-    admin_user_county_users:
-      actions:
-        'admin/county_users': all
-    admin_user_gsh_children:
-      actions:
-        'admin/gsh_children': all
-    admin_user_teachers:
-      actions:
-        'admin/teachers': all
+    admin_user_main:
+      menus:
+        admin_user_county_users:
+          actions:
+            'admin/county_users': all
+        admin_user_gsh_children:
+          actions:
+            'admin/gsh_children': all
+        admin_user_teachers:
+          actions:
+            'admin/teachers': all
 
 
     # 平台管理
@@ -93,7 +95,17 @@ admin:
       menus:
         admin_school_applies:
           actions:
-            admin/school_applies: all
+            'admin/school_applies': all
+
+    # 统计报表
+    admin_statistic:
+      menus:
+        admin_data_statistic:
+          actions:
+            admin/data_statistics: all
+        admin_donate_statistic:
+          actions:
+            admin/donate_statistics: all
 
     # 管理员列表
     admin_administrator:
@@ -115,9 +127,16 @@ admin:
         admin_financial_reports:
           actions:
             admin/financial_reports: all
+        admin_vouchers:
+          actions:
+            admin/vouchers: all
         admin_fund_categories:
           actions:
             'admin/fund_categories': all
+        admin_income_record:
+          actions:
+            admin/income_records: all
+
     # 项目管理
     admin_project:
       menus:

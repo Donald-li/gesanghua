@@ -18,6 +18,7 @@
 #  donate_record_id :integer                                # 捐助记录id
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  income_time      :datetime                               # 入账时间
 #
 
 FactoryBot.define do

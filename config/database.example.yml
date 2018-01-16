@@ -1,0 +1,19 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: root
+  password: root
+
+development:
+  <<: *default
+  database: gesanghua_development
+
+test: &test
+  <<: *default
+  database: gesanghua_test
+
+production:
+  <<: *default
+  database: gesanghua_production
+  pool: 20

@@ -1,5 +1,5 @@
 class Admin::UsersController < Admin::BaseController
-  before_action :set_user, only: [:edit, :update, :switch]
+  before_action :set_user, only: [:edit, :update, :switch, :invoices, :bill]
 
   def index
     respond_to do |format|
@@ -52,6 +52,28 @@ class Admin::UsersController < Admin::BaseController
     redirect_to admin_users_url, notice:  @user.enable? ? '用户账号已启用' : '用户账号已禁用'
   end
 
+  def invoices
+    @records = @user.donate_records.paid.to_bill
+    set_search_end_of_day(:created_at_lteq)
+    @search = @records.ransack(params[:q])
+    scope = @search.result
+    @records = scope.sorted.page(params[:page])
+    @voucher =  @user.vouchers.build
+  end
+
+  def bill
+    @voucher = @user.vouchers.build(voucher_params)
+    ids = Array(params[:ids])
+    respond_to do |format|
+      if @voucher.save_voucher(ids)
+        format.html { redirect_to invoices_admin_user_path(@user), notice: '开票申请提交成功。' }
+      else
+        format.html { redirect_to invoices_admin_user_path(@user), alert: '开票申请提交失败。' }
+      end
+    end
+
+  end
+
   private
     def set_user
       @user = User.find(params[:id])
@@ -59,5 +81,9 @@ class Admin::UsersController < Admin::BaseController
 
     def user_params
       params.require(:user).permit!
+    end
+
+    def voucher_params
+      params.require(:voucher).permit!
     end
 end

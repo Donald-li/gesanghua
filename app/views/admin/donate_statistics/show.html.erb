@@ -1,0 +1,72 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i>用户捐助统计
+    </div>
+    <div class="actions">
+      <%= link_to excel_output_admin_donate_statistic_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+        <i class="fa fa-download"></i>
+        <span>导出</span>
+      <% end %>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="dataTables_wrapper no-footer">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="dataTables_filter pull-right">
+          </div>
+        </div>
+      </div>
+      <div class="table-scrollable dropdown-select">
+        <table class="table table-striped table-bordered table-hover" id="sample_2">
+          <thead>
+          <tr>
+            <th>
+              用户ID
+            </th>
+            <th>
+              昵称
+            </th>
+            <th>
+              手机号码
+            </th>
+            <th>
+              捐赠金额
+            </th>
+            <th>
+              线上捐助
+            </th>
+            <th>
+              线下捐助
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @donate_statistics.each do |user| %>
+            <tr>
+              <td><%= user.id %></td>
+              <td><%= user.nickname %></td>
+              <td><%= user.phone %></td>
+              <td>￥<%= user.donate_count %></td>
+              <td>￥<%= user.online_count %></td>
+              <td>￥<%= user.offline_count %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-5 col-sm-12">
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@donate_statistics) %></div>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <%= paginate @donate_statistics, theme: 'admin' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END EXAMPLE TABLE PORTLET-->
