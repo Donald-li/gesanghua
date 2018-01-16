@@ -442,6 +442,11 @@
               <span class="title">收入记录</span>
             <% end %>
           </li>
+          <li class="nav-item  <%= current_nav_class(:admin_voucherss) %>">
+            <%= link_to admin_vouchers_path, class: 'nav-link' do %>
+              <span class="title">捐赠收据</span>
+            <% end %>
+          </li>
           <li class="nav-item  <%= current_nav_class(:admin_fund_categories) %>">
             <%= link_to admin_fund_categories_path, class: 'nav-link nav-toggle' do %>
                 <i class="fa fa-archive"></i>

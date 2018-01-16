@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180112071039) do
+ActiveRecord::Schema.define(version: 20180115091449) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -192,6 +192,7 @@ ActiveRecord::Schema.define(version: 20180112071039) do
     t.integer "project_season_apply_id", comment: "年度项目ID"
     t.integer "project_season_apply_child_id", comment: "年度孩子申请ID"
     t.string "donate_no", comment: "捐赠编号"
+    t.integer "voucher_id", comment: "捐助记录ID"
   end
 
   create_table "expenditure_records", force: :cascade, comment: "支出记录表" do |t|
@@ -215,6 +216,7 @@ ActiveRecord::Schema.define(version: 20180112071039) do
     t.integer "approve_state", comment: "审核状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "kind", comment: "反馈类型"
   end
 
   create_table "fund_categories", force: :cascade do |t|
@@ -294,6 +296,7 @@ ActiveRecord::Schema.define(version: 20180112071039) do
     t.integer "balance_manage", comment: "取消余额处理"
     t.text "cancel_remark", comment: "取消说明"
     t.string "title", comment: "标题"
+    t.text "remark"
     t.index ["gsh_child_id"], name: "index_gsh_child_grants_on_gsh_child_id"
     t.index ["project_season_apply_id"], name: "index_gsh_child_grants_on_project_season_apply_id"
   end
@@ -791,6 +794,10 @@ ActiveRecord::Schema.define(version: 20180112071039) do
     t.string "address", comment: "详细地址"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "kind", comment: "开票类型"
+    t.string "tax_no", comment: "开票税号"
+    t.string "voucher_no", comment: "发票编号"
+    t.string "tax_company", comment: "开票单位"
   end
 
 end
