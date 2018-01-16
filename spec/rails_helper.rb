@@ -13,6 +13,8 @@ SimpleCov.profiles.define 'wikiflyer' do
   add_filter '/app/uploaders/'
   add_filter '/lib/'
   add_filter '/config/'
+  add_filter '/app/uploaders/'
+  add_filter '/app/controllers/'
 
   add_group 'Controllers', ['app/controllers', 'app/middlewares']
   add_group 'Models', 'app/models'

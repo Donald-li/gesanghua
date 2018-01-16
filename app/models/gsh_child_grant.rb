@@ -49,7 +49,7 @@ class GshChildGrant < ApplicationRecord
 
   def self.gen_grant_record(gsh_child)
     child = gsh_child.apply_child
-    apply = gsh_child.apply_child.project_season_apply
+    apply = gsh_child.apply_child.apply
 
     if child.junior?
       term_amount = Settings.junior_term_amount

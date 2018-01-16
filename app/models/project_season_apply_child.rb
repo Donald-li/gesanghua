@@ -39,8 +39,9 @@ class ProjectSeasonApplyChild < ApplicationRecord
   has_many_assets :images, class_name: 'Asset::ApplyChildImage'
 
   belongs_to :project
-  belongs_to :project_season
-  belongs_to :project_season_apply
+  belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id'
+  belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id'
+
   belongs_to :gsh_child, optional: true
   belongs_to :school
   has_one :visit, foreign_key: 'apply_child_id'
@@ -138,7 +139,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
     self.approve_state = 'pass'
     if self.gsh_child_id.nil?
       self.gsh_child = self.gen_gsh_child
-      self.project_season_apply.gsh_child = self.gsh_child
+      self.apply.gsh_child = self.gsh_child
     end
     self.save
     GshChildGrant.gen_grant_record(self.gsh_child)
@@ -159,7 +160,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   # 生成受助孩子
   def gen_gsh_child
     gsh_child = GshChild.new
-    gsh_child.school_id = self.project_season_apply.school_id
+    gsh_child.school_id = self.apply.school_id
     gsh_child.province = self.province
     gsh_child.city = self.city
     gsh_child.district = self.district

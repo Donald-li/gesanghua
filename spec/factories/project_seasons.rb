@@ -15,7 +15,7 @@
 #
 
 FactoryBot.define do
-  factory :project_season do
+  factory :project_season, aliases: [:season] do
     project
     name '2017'
     state 1
