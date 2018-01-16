@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180112071039) do
+ActiveRecord::Schema.define(version: 20180115124739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -215,6 +215,7 @@ ActiveRecord::Schema.define(version: 20180112071039) do
     t.integer "approve_state", comment: "审核状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "kind", comment: "反馈类型"
   end
 
   create_table "fund_categories", force: :cascade do |t|
@@ -294,6 +295,7 @@ ActiveRecord::Schema.define(version: 20180112071039) do
     t.integer "balance_manage", comment: "取消余额处理"
     t.text "cancel_remark", comment: "取消说明"
     t.string "title", comment: "标题"
+    t.text "remark"
     t.index ["gsh_child_id"], name: "index_gsh_child_grants_on_gsh_child_id"
     t.index ["project_season_apply_id"], name: "index_gsh_child_grants_on_project_season_apply_id"
   end
@@ -561,7 +563,7 @@ ActiveRecord::Schema.define(version: 20180112071039) do
     t.string "contact_phone", comment: "联系方式"
     t.string "contact_position", comment: "联系人职务"
     t.integer "kind", comment: "学校类型"
-    t.integer "user_id", comment: "申请人ID"
+    t.integer "user_id", comment: "用户id"
     t.string "school_no", comment: "学校申请编号"
     t.string "contact_idcard", comment: "联系人身份证号"
     t.string "postcode", comment: "邮政编码"
@@ -615,6 +617,13 @@ ActiveRecord::Schema.define(version: 20180112071039) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "state", default: 1, comment: "状态, 1:展示 2:隐藏"
+  end
+
+  create_table "statistic_records", force: :cascade do |t|
+    t.integer "amount", default: 0, comment: "今日更新数量"
+    t.integer "kind", comment: "类型"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "support_categories", force: :cascade, comment: "帮助主题分类" do |t|

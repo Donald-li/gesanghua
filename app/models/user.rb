@@ -7,7 +7,7 @@
 #  name            :string                                 # 姓名
 #  login           :string                                 # 登录账号
 #  password_digest :string                                 # 密码
-#  state           :integer          default("enabled")    # 状态 1:启用 2:禁用
+#  state           :integer          default("enable")     # 状态 1:启用 2:禁用
 #  team_id         :integer                                # 团队ID
 #  profile         :jsonb                                  # 微信profile
 #  gender          :integer                                # 性别，1：男 2：女
@@ -64,6 +64,7 @@ class User < ApplicationRecord
   default_value_for :gender, 1
 
   scope :sorted, ->{ order(created_at: :desc) }
+  scope :reverse_sorted, ->{ order(created_at: :asc) }
 
   has_secure_password
 
@@ -91,6 +92,12 @@ class User < ApplicationRecord
 
   def has_volunteer?
     self.volunteer.present?
+  end
+
+  def self.update_user_statistic_record
+    amount = self.where("created_at > ? and created_at < ?", Time.now.beginning_of_day, Time.now.end_of_day).count
+    record = StatisticRecord.new(amount: amount, kind: 1)
+    record.save
   end
 
 end

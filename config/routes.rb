@@ -205,6 +205,8 @@ Rails.application.routes.draw do
     resources :ajaxes, only: [] do
       collection do
         get :school_users
+        get :user_statistics
+        get :income_statistics
       end
     end
   end

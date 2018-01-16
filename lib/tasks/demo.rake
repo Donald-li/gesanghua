@@ -141,6 +141,11 @@ namespace :demo do
       t.task_volunteers.find_or_create_by(volunteer_id: v.id)
     end
 
+    15.times do
+      StatisticRecord.create(amount: rand(10...100), kind: 1)
+      StatisticRecord.create(amount: rand(1000...9999), kind: 2)
+    end
+
   end
 
 end

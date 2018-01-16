@@ -12,7 +12,7 @@
 #  district          :string                                 # 区/县
 #  number            :integer                                # 学校人数
 #  describe          :text                                   # 学校简介
-#  state             :integer          default("enabled")    # 学校状态：1:启用 2:禁用
+#  state             :integer          default("enable")     # 学校状态：1:启用 2:禁用
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  level             :integer                                # 学校等级： 1:初中 2:高中
@@ -20,7 +20,7 @@
 #  contact_phone     :string                                 # 联系方式
 #  contact_position  :string                                 # 联系人职务
 #  kind              :integer                                # 学校类型
-#  user_id           :integer                                # 申请人ID
+#  user_id           :integer                                # 用户id
 #  school_no         :string                                 # 学校申请编号
 #  contact_idcard    :string                                 # 联系人身份证号
 #  postcode          :string                                 # 邮政编码

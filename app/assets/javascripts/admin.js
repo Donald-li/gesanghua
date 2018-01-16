@@ -6,6 +6,7 @@
 //= require ckeditor/init
 //= require 'china_city/jquery.china_city'
 //= require_self
+//= require echarts.common
 
 //判断是否是IE浏览器，包括Edge浏览器
 function IEVersion() {

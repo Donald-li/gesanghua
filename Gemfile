@@ -94,6 +94,12 @@ gem 'aliyun-sms', git: 'https://github.com/songjian/aliyun-sms.git'
 #  权限管理
 gem "pundit"
 
+# echarts表格
+gem 'echarts-rails'
+
+# 定时任务
+gem 'whenever', :require => false
+
 # 多级菜单
 gem 'ancestry'
 

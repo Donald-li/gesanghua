@@ -5,6 +5,7 @@ class Admin::DataStatisticsController < Admin::BaseController
     @volunteer_count = Volunteer.enable.count
     @donate_record = DonateRecord.paid.count
     @income_count = IncomeRecord.count(:amount)
+
   end
 
 end
