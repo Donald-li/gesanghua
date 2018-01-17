@@ -34,7 +34,6 @@ RSpec.describe IncomeRecord, type: :model do
     IncomeRecord.create(user_id: user.id, fund_id: fund.id, income_source_id: income_source1.id, amount: 200, remitter_name: '爱心人士', remitter_id: user.id, donor: '爱心人士', income_time: Time.now)
     IncomeRecord.create(user_id: user.id, fund_id: fund.id, income_source_id: income_source2.id, amount: 300, remitter_name: '爱心人士', remitter_id: user.id, donor: '爱心人士', income_time: Time.now - 1.day)
 
-    # 通过孩子申请
     IncomeRecord.update_income_statistic_record
 
     expect(StatisticRecord.income_statistic.where(record_time: Time.now.beginning_of_day..Time.now.end_of_day).first.amount).to eq 200
