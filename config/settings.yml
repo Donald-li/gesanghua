@@ -19,3 +19,5 @@ wechat_app_token: "c06a2a40256fdeb47ff0c7cc"
 # 微信支付
 wechat_mch_id: "1386171602"
 wechat_pay_key: "34894D77893800F28FD98B6EDD34FFE2"
+
+income_records_template_path: '/files/templates/收入记录导入模板.xlsx'

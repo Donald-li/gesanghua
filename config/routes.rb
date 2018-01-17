@@ -17,6 +17,12 @@ Rails.application.routes.draw do
   concern :excel_output do
     collection { get :excel_output }
   end
+  concern :excel_upload do
+    collection { get :excel_upload}
+  end
+  concern :excel_import do
+    collection { put :excel_import}
+  end
   concern :share do
     member { get :share }
   end
@@ -189,7 +195,7 @@ Rails.application.routes.draw do
         end
       end
     end
-    resources :income_records
+    resources :income_records, concerns: [:excel_upload, :excel_import, :excel_output]
     resource :data_statistic, only: [:show]
     resource :donate_statistic, only: [:show], concerns: [:excel_output]
     resources :vouchers, concerns: :switch

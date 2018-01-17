@@ -8,11 +8,11 @@
         <i class="icon-plus"></i>
         <span>新增收入</span>
       <% end %>
-      <%= link_to '', class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+      <%= link_to excel_upload_admin_income_records_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
         <i class="fa fa-upload"></i>
         <span>导入收入</span>
       <% end %>
-      <%= link_to '', class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+      <%= link_to url_for(params.permit!.merge(format: :xlsx)), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
         <i class="fa fa-download"></i>
         <span>导出收入</span>
       <% end %>
@@ -65,10 +65,10 @@
               捐助人
             </th>
             <th>
-              代捐人/汇款人
+              手机号码
             </th>
             <th>
-              手机号码
+              代捐人/汇款人
             </th>
             <th>
               是否开具发票
@@ -106,10 +106,10 @@
                 <%= record.user.try(:name) %>
               </td>
               <td>
-                <%= record.donor %>/<%= record.remitter_name %>
+                <%= record.user.try(:phone) %>
               </td>
               <td>
-                <%= record.user.try(:phone) %>
+                <%= record.donor || '-' %>/<%= record.remitter_name || '-' %>
               </td>
               <td>
                 <%= record.donate_record.present? ? record.donate_record.enum_name(:voucher_state) : '不支持开票' %>

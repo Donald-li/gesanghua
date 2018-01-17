@@ -32,7 +32,7 @@ class Admin::CampaignEnlistsController < Admin::BaseController
       else
         format.html { render :new  }
       end
-   end
+    end
   end
 
   def update
