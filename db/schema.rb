@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180116074213) do
+ActiveRecord::Schema.define(version: 20180116103218) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -198,6 +198,7 @@ ActiveRecord::Schema.define(version: 20180116074213) do
     t.integer "project_season_apply_id", comment: "年度项目ID"
     t.integer "project_season_apply_child_id", comment: "年度孩子申请ID"
     t.string "donate_no", comment: "捐赠编号"
+    t.integer "voucher_id", comment: "捐助记录ID"
   end
 
   create_table "expenditure_records", force: :cascade, comment: "支出记录表" do |t|
@@ -337,6 +338,8 @@ ActiveRecord::Schema.define(version: 20180116074213) do
     t.integer "donate_record_id", comment: "捐助记录id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "income_time", comment: "入账时间"
+    t.text "remark", comment: "备注"
   end
 
   create_table "income_sources", force: :cascade, comment: "收入来源" do |t|
@@ -345,6 +348,7 @@ ActiveRecord::Schema.define(version: 20180116074213) do
     t.datetime "updated_at", null: false
     t.string "description", comment: "描述"
     t.integer "position", comment: "位置"
+    t.integer "kind", comment: "类型： 1:线上（online） 2:线下（offline）"
   end
 
   create_table "logistics", force: :cascade, comment: "物流表" do |t|
@@ -569,7 +573,7 @@ ActiveRecord::Schema.define(version: 20180116074213) do
     t.string "contact_phone", comment: "联系方式"
     t.string "contact_position", comment: "联系人职务"
     t.integer "kind", comment: "学校类型"
-    t.integer "user_id", comment: "申请人ID"
+    t.integer "user_id", comment: "用户id"
     t.string "school_no", comment: "学校申请编号"
     t.string "contact_idcard", comment: "联系人身份证号"
     t.string "postcode", comment: "邮政编码"
@@ -623,6 +627,14 @@ ActiveRecord::Schema.define(version: 20180116074213) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "state", default: 1, comment: "状态, 1:展示 2:隐藏"
+  end
+
+  create_table "statistic_records", force: :cascade do |t|
+    t.integer "amount", default: 0, comment: "今日更新数量"
+    t.integer "kind", comment: "类型"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "record_time", comment: "统计时间"
   end
 
   create_table "support_categories", force: :cascade, comment: "帮助主题分类" do |t|
@@ -734,6 +746,9 @@ ActiveRecord::Schema.define(version: 20180116074213) do
     t.string "address", comment: "详细地址"
     t.string "qq", comment: "qq号"
     t.string "idcard", comment: "身份证"
+    t.decimal "donate_count", precision: 14, scale: 2, default: "0.0", comment: "捐助金额"
+    t.decimal "online_count", precision: 14, scale: 2, default: "0.0", comment: "线上捐助金额"
+    t.decimal "offline_count", precision: 14, scale: 2, default: "0.0", comment: "线下捐助金额"
     t.index ["email"], name: "index_users_on_email"
     t.index ["login"], name: "index_users_on_login"
     t.index ["phone"], name: "index_users_on_phone"
@@ -799,6 +814,10 @@ ActiveRecord::Schema.define(version: 20180116074213) do
     t.string "address", comment: "详细地址"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "kind", comment: "开票类型"
+    t.string "tax_no", comment: "开票税号"
+    t.string "voucher_no", comment: "发票编号"
+    t.string "tax_company", comment: "开票单位"
   end
 
 end

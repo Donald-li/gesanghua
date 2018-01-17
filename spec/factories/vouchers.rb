@@ -25,8 +25,8 @@ FactoryBot.define do
     user_id 1
     amount "9.99"
     state 1
-    contact_name "MyString"
-    contact_phone "MyString"
+    contact_name {Faker::Name.name}
+    contact_phone "18888888888"
     province "MyString"
     city "MyString"
     district "MyString"

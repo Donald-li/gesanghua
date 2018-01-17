@@ -34,7 +34,7 @@ FactoryBot.define do
   factory :user do
     openid "MyString"
     name "MyString"
-    login "MyString"
+    login {Faker::Name.name}
     password_digest "MyString"
     state 1
     team_id 1

@@ -24,8 +24,8 @@ RSpec.describe Project, type: :model do
     teacher = create(:teacher, school: school, user: user)
     project = create(:project)
     season = create(:project_season, project: project)
-    apply = create(:project_season_apply, project: project, project_season: season, teacher: teacher)
-    child = create(:project_season_apply_child, project: project, project_season: season, project_season_apply: apply, school: school)
+    apply = create(:project_season_apply, project: project, season: season, teacher: teacher)
+    child = create(:project_season_apply_child, project: project, season: season, apply: apply, school: school)
   end
 
   it '测试结对项目基本操作' do

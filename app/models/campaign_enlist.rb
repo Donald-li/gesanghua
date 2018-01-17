@@ -12,25 +12,28 @@
 #  updated_at    :datetime         not null
 #  contact_name  :string                                 # 联系人
 #  contact_phone :string                                 # 联系电话
-#  payment_state :integer          default(1)            # 支付状态 1:已支付 2:已取消
+#  payment_state :integer          default("paid")       # 支付状态 1:已支付 2:已取消
 #
 
 class CampaignEnlist < ApplicationRecord
 
   require 'custom_validators'
-  
+
   belongs_to :campaign
   belongs_to :user
 
   belongs_to :income_source
 
   validates :number, presence: true
+  
   validates :contact_phone, phone: true
 
   #default_vaule_for :number, 1
 
+
   enum payment_state: {paid: 1, canceled: 2} #支付状态 1:已支付 2:已取消
   default_value_for :payment_state, 1
+  default_value_for :number, 1
 
   scope :sorted, ->{ order(created_at: :desc) }
 
