@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180117060457) do
+ActiveRecord::Schema.define(version: 20180117152446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,6 +118,7 @@ ActiveRecord::Schema.define(version: 20180117060457) do
     t.string "contact_name", comment: "联系人"
     t.string "contact_phone", comment: "联系电话"
     t.integer "payment_state", default: 1, comment: "支付状态 1:已支付 2:已取消"
+    t.integer "income_source_id", comment: "收入来源id"
   end
 
   create_table "campaigns", force: :cascade, comment: "活动表" do |t|
@@ -561,8 +562,6 @@ ActiveRecord::Schema.define(version: 20180117060457) do
   create_table "reports", force: :cascade, comment: "报告表" do |t|
     t.string "title", comment: "标题"
     t.text "content", comment: "内容"
-    t.string "owner_type"
-    t.integer "owner_id"
     t.string "type", comment: "单表：audit_report、financial_report、project_report"
     t.integer "state", comment: "状态"
     t.datetime "created_at", null: false
@@ -591,7 +590,7 @@ ActiveRecord::Schema.define(version: 20180117060457) do
     t.string "contact_phone", comment: "联系方式"
     t.string "contact_position", comment: "联系人职务"
     t.integer "kind", comment: "学校类型"
-    t.integer "user_id", comment: "用户id"
+    t.integer "user_id", comment: "申请人ID"
     t.string "school_no", comment: "学校申请编号"
     t.string "contact_idcard", comment: "联系人身份证号"
     t.string "postcode", comment: "邮政编码"

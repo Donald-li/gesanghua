@@ -42,6 +42,10 @@ Rails.application.routes.draw do
     member { get :cancel }
   end
 
+  concern :info do
+    collection { get :info }
+  end
+
   root to: 'site/mains#show'
 
   scope module: :site do
@@ -215,6 +219,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resource :pair, only: [:show]
+      resources :project_reports, only: :index
+
       resources :projects, only: :show
       resources :pair_projects
     end

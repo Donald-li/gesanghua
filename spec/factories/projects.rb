@@ -25,6 +25,12 @@ FactoryBot.define do
         create_list :project_season, 2, project: project
       end
     end
+
+    trait :with_project_reports do
+      after(:build) do |project|
+        create_list :project_report, 6, project: project
+      end
+    end
   end
 
 end

@@ -124,6 +124,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.5'
   gem 'database_cleaner'
   gem 'faker'
+  gem 'ffaker', '~> 2.7'
   gem 'factory_bot_rails'
   gem 'airborne'
   gem 'shoulda-matchers', github: 'thoughtbot/shoulda-matchers', branch: 'rails-5'

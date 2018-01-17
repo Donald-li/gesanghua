@@ -24,7 +24,7 @@ class Api::V1::BaseController < ApplicationController
   end
 
   def json_pagination(list)
-    {list: list.current_page, total: list.total_entries, page_count: list.total_pages}
+    {list: list.current_page, total: list.total_count, page_count: list.total_pages}
   end
 
   def current_user

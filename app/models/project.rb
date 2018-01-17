@@ -23,6 +23,7 @@ class Project < ApplicationRecord
   has_many :donate_records
   has_many :teacher_projects
   has_many :teachers, through: :teacher_projects
+  has_many :project_reports
 
   belongs_to :fund, optional: true
 
