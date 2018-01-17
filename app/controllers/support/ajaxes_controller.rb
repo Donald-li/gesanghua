@@ -17,25 +17,25 @@ class Support::AjaxesController < Support::BaseController
 
   def user_statistics
     user_statistics = StatisticRecord.user_register.reverse_sorted
-    user_statistics = user_statistics.where("created_at > ? and created_at < ?", Time.now.beginning_of_day - 1.week, Time.now.end_of_day) if params[:time_span] == 'week'
-    user_statistics = user_statistics.where("created_at > ? and created_at < ?", Time.now.beginning_of_day - 1.month, Time.now.end_of_day) if params[:time_span] == 'month'
-    user_statistics = user_statistics.where("created_at > ? and created_at < ?", Time.now.beginning_of_day - 1.year, Time.now.end_of_day) if params[:time_span] == 'year'
-    user_statistics = user_statistics.where("created_at > ?", params[:start_time]) if params[:start_time].present?
-    user_statistics = user_statistics.where("created_at < ?", params[:end_time]) if params[:end_time].present?
+    user_statistics = user_statistics.where("record_time > ? and record_time < ?", Time.now.beginning_of_day - 1.week, Time.now.end_of_day) if params[:time_span] == 'week'
+    user_statistics = user_statistics.where("record_time > ? and record_time < ?", Time.now.beginning_of_day - 1.month, Time.now.end_of_day) if params[:time_span] == 'month'
+    user_statistics = user_statistics.where("record_time > ? and record_time < ?", Time.now.beginning_of_day - 1.year, Time.now.end_of_day) if params[:time_span] == 'year'
+    user_statistics = user_statistics.where("record_time > ?", params[:start_time]) if params[:start_time].present?
+    user_statistics = user_statistics.where("record_time < ?", params[:end_time]) if params[:end_time].present?
 
-    hash = user_statistics.map {|item| [item.created_at.strftime("%Y-%m-%d"), item.amount]}.to_h
+    hash = user_statistics.map {|item| [item.record_time.strftime("%Y-%m-%d"), item.amount]}.to_h
     render json: {keys: hash.keys, values: hash.values}
   end
 
   def income_statistics
     income_statistics = StatisticRecord.income_statistic.reverse_sorted
-    income_statistics = income_statistics.where("created_at > ? and created_at < ?", Time.now.beginning_of_day - 1.week, Time.now.end_of_day) if params[:time_span] == 'week'
-    income_statistics = income_statistics.where("created_at > ? and created_at < ?", Time.now.beginning_of_day - 1.month, Time.now.end_of_day) if params[:time_span] == 'month'
-    income_statistics = income_statistics.where("created_at > ? and created_at < ?", Time.now.beginning_of_day - 1.year, Time.now.end_of_day) if params[:time_span] == 'year'
-    income_statistics = income_statistics.where("created_at > ?", params[:start_time]) if params[:start_time].present?
-    income_statistics = income_statistics.where("created_at < ?", params[:end_time]) if params[:end_time].present?
+    income_statistics = income_statistics.where("record_time > ? and record_time < ?", Time.now.beginning_of_day - 1.week, Time.now.end_of_day) if params[:time_span] == 'week'
+    income_statistics = income_statistics.where("record_time > ? and record_time < ?", Time.now.beginning_of_day - 1.month, Time.now.end_of_day) if params[:time_span] == 'month'
+    income_statistics = income_statistics.where("record_time > ? and record_time < ?", Time.now.beginning_of_day - 1.year, Time.now.end_of_day) if params[:time_span] == 'year'
+    income_statistics = income_statistics.where("record_time > ?", params[:start_time]) if params[:start_time].present?
+    income_statistics = income_statistics.where("record_time < ?", params[:end_time]) if params[:end_time].present?
 
-    hash = income_statistics.map {|item| [item.created_at.strftime("%Y-%m-%d"), item.amount]}.to_h
+    hash = income_statistics.map {|item| [item.record_time.strftime("%Y-%m-%d"), item.amount]}.to_h
     render json: {keys: hash.keys, values: hash.values}
   end
 

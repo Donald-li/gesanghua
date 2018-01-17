@@ -8,8 +8,8 @@ set :output, "log/cron_log.log"
 
 set :environment, :production
 
-# every 1.day, :at => '11:59 pm' do
-every 1.minute do
+every 1.day, :at => '11:59 pm' do
+# every 1.minute do
   runner "User.update_user_statistic_record"
   runner "IncomeRecord.update_income_statistic_record"
 end

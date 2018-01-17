@@ -8,6 +8,7 @@
 #  updated_at  :datetime         not null
 #  description :string                                 # 描述
 #  position    :integer                                # 位置
+#  kind        :integer                                # 类型： 1:线上（online） 2:线下（offline）
 #
 
 FactoryBot.define do

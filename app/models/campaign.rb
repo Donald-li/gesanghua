@@ -16,10 +16,13 @@
 #  campaign_category_id :integer                                # 活动分类ID
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  sign_up_start_time   :datetime                               # 报名开始时间
+#  number               :integer                                # 报名限制人数
+#  remark               :string                                 # 报名表备注
 #
 
 class Campaign < ApplicationRecord
-  belongs_to :project
+  belongs_to :project, optional: true
   belongs_to :campaign_category
   has_many :campaign_enlists
 
@@ -29,5 +32,11 @@ class Campaign < ApplicationRecord
   default_value_for :state, 1
 
   scope :sorted, ->{ order(created_at: :desc) }
+
+  attr_accessor :image_id
+
+  include HasAsset
+  has_one_asset :image, class_name: 'Asset::CampaignImage'
+  has_many_assets :banners, class_name: 'Asset::CampaignBanner'
 
 end

@@ -40,8 +40,8 @@ RSpec.describe ProjectSeasonApplyChild, type: :model do
     teacher = create(:teacher, school: school, user: user)
     project = create(:project)
     season = create(:project_season, project: project)
-    apply = create(:project_season_apply, project: project, project_season: season, teacher: teacher, school: school)
-    child = create(:project_season_apply_child, project: project, project_season: season, project_season_apply: apply, school: school, semester: 'next_term')
+    apply = create(:project_season_apply, project: project, season: season, teacher: teacher, school: school)
+    child = create(:project_season_apply_child, project: project, season: season, apply: apply, school: school, semester: 'next_term')
 
     # 通过孩子申请
     child.approve_pass
@@ -51,7 +51,7 @@ RSpec.describe ProjectSeasonApplyChild, type: :model do
     gsh_child = GshChild.first
     expect(gsh_child.name).to eq '李同学'
     expect(gsh_child.gsh_no).to end_with('1')
-    expect(child.project_season_apply.gsh_child).to eq gsh_child
+    expect(child.apply.gsh_child).to eq gsh_child
 
     expect(GshChildGrant.count).to eq 3
     expect(GshChildGrant.first.amount).to eq 1050.0

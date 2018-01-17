@@ -28,9 +28,9 @@ class Admin::TeachersController < Admin::BaseController
       if @teacher.save
         format.html { redirect_to admin_teachers_path, notice: '教师创建成功。' }
       else
-        format.html { redirect_to new_admin_school_school_teacher_path(@teacher.school, @teacher), notice: '教师创建失败，请检查表单项填写。' }
+        format.html { redirect_to new_admin_school_school_teacher_url(@teacher.school, @teacher), notice: '教师创建失败，请检查表单项填写。' }
       end
-    end
+   end
   end
 
   def edit

@@ -1,10 +1,83 @@
-<%= simple_form_for(@admin_income_record) do |f| %>
+<%= simple_form_for [:admin, @income_record], wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'category_form'} do |f| %>
   <%= f.error_notification %>
-
-  <div class="form-inputs">
+  <div class="form-body form-horizontal">
+    <div class="form-group">
+      <label class="col-md-2 control-label">财务分类：</label>
+      <div class="col-sm-9">
+        <select id="fund" class="form-control select optional" name="income_record[fund_id]" required>
+          <% FundCategory.reverse_sorted.each do |fc| %>
+            <optgroup label="<%= fc.name %>">
+              <% fc.funds.each do |fund| %>
+                <option value="<%= fund.id %>" <%= 'selected' if @income_record.fund_id == fund.id %>><%= fund.name %></option>
+              <% end %>
+            </optgroup>
+          <% end %>
+        </select>
+      </div>
+    </div>
+    <%= f.input :income_source_id, as: :select, collection: IncomeSource.sorted, label: '捐助渠道：', include_blank: '选择捐助渠道', require: true%>
+    <%= f.input :amount, label: '收入金额：', require: true, type: 'number' %>
+    <%= f.input :user_id, as: :select, label: '捐助人：', input_html: {class: 'users-ajax'} %>
+    <div class="form-group">
+      <label class="col-md-2 control-label">捐助时间：</label>
+      <div class="col-sm-9">
+        <%= f.text_field :income_time, class: 'datetime-picker', value: Time.now.strftime("%Y-%m-%d %H:%M") %>
+      </div>
+    </div>
+    <%= f.input :remark, label: '备注：', placeholder: '备注' %>
   </div>
-
   <div class="form-actions">
-    <%= f.button :submit %>
+    <div class="row">
+      <div class="col-md-offset-2 col-md-9">
+        <%= f.button :submit, '提交', class: 'btn blue' %>
+        <%= link_to '取消', admin_income_records_path, class: 'btn' %>
+      </div>
+    </div>
   </div>
 <% end %>
+
+<script>
+    $(function(){
+        // 表单验证
+        $(".category_form").html5Validate(function(){
+            $(this).find('[type="submit"]').attr('disabled','disabled');
+            this.submit();
+        });
+
+        $("#fund").select2();
+        $('.datetime-picker').datetimepicker()
+
+        // 异步加载学校列表
+        $('.users-ajax').select2({
+            language: "zh-CN",
+            placeholder: '<%= @income_record.user.try(:name) %>',
+            allowClear: true,
+            ajax: {
+                url: "/selects/users",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: $.map(data.items, function (item) {
+                            return {
+                                text: item.name,
+                                id: item.id
+                            }
+                        }),
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            }
+        });
+    })
+</script>

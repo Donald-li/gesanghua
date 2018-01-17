@@ -18,32 +18,40 @@
 #  donate_record_id :integer                                # 捐助记录id
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  income_time      :datetime                               # 入账时间
+#  remark           :text                                   # 备注
 #
 
 class IncomeRecord < ApplicationRecord
-  belongs_to :user
-  belongs_to :finance_category
+  belongs_to :user, optional: true
+  belongs_to :fund
   belongs_to :income_source
-  belongs_to :promoter, class_name: 'User'
+  belongs_to :promoter, class_name: 'User', optional: true
   # belongs_to :remitter, class_name: 'User'
 
   has_many :expenditure_records
-  has_one :donate_record
+  belongs_to :donate_record , optional: true
   # appoint_type 多态关联
   # belongs_to :user, polymorphic: true
 
-  validates :amount, :remitter_name, :donor, presence: true
+  validates :amount, :income_time, presence: true
 
   # enum state: {}
 
   scope :sorted, ->{ order(created_at: :desc) }
 
-  # counter_culture :user, column_name: ''
+  counter_culture :user, column_name: 'donate_count', delta_magnitude: proc {|model| model.amount}
+  counter_culture :user, column_name: proc {|model| model.income_source.online? ? 'online_count' : nil }, delta_magnitude: proc {|model| model.amount}
+  counter_culture :user, column_name: proc {|model| model.income_source.offline? ? 'offline_count' : nil }, delta_magnitude: proc {|model| model.amount}
 
   def self.update_income_statistic_record
-    amount = self.where("created_at > ? and created_at < ?", Time.now.beginning_of_day, Time.now.end_of_day).count(:amount)
-    record = StatisticRecord.new(amount: amount, kind: 2)
-    record.save
+    record_times = self.where("created_at > ? and created_at < ?", Time.now.beginning_of_day, Time.now.end_of_day).group_by{|record| record.income_time.strftime("%Y-%m-%d")}.keys
+    record_times.each do |record_time|
+      record_time = Time.parse(record_time)
+      amount = self.where("income_time > ? and income_time < ?", record_time.beginning_of_day, record_time.end_of_day).sum(:amount)
+      record = StatisticRecord.find_or_create_by(kind: 2, record_time: record_time)
+      record.update(amount: amount)
+    end
   end
 
 end

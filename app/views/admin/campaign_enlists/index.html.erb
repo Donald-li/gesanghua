@@ -1,0 +1,124 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i>活动报名表
+    </div>
+    <div class="actions">
+      <%= link_to excel_output_admin_campaign_campaign_enlists_path(@campaign), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+      <span>导出到EXCEL</span>
+      <% end %>
+      <%= link_to new_admin_campaign_campaign_enlist_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+      <i class="icon-plus"></i>
+      <span>新增</span>
+      <% end %>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="dataTables_wrapper no-footer">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <%= search_form_for @search, url: admin_campaign_campaign_enlists_path(@campaign), class: 'form-inline' do |f| %>
+          <div class="form-group">
+            <%= f.label :contact_name_cont, '搜索' %>
+            <%= f.text_field :contact_name_or_contact_phone_cont, class: 'form-control', placeholder: '姓名、手机号' %>
+          </div>
+          <button type="submit" class="btn btn-default grey">搜索</button>
+          <% end %>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="dataTables_filter pull-right"></div>
+        </div>
+      </div>
+      <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover" id="sample_2">
+          <thead>
+            <tr>
+              <th>
+                报名用户
+              </th>
+              <th>
+                用户昵称
+              </th>
+              <th>
+                报名时间
+              </th>
+              <th>
+                报名人数
+              </th>
+              <th>
+                联系人
+              </th>
+              <th>
+                联系电话
+              </th>
+              <% if @campaign.price != 0 %>
+                <th>
+                  金额
+                </th>
+                <th>
+                  支付状态
+                </th>
+              <% end %>
+              <th>
+                操作
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @campaign_enlists.each do |campaign_enlist| %>
+            <tr>
+              <td>
+                <%= campaign_enlist.user.try(:phone) %>
+              </td>
+              <td>
+                <%= campaign_enlist.user.try(:nickname) %>
+              </td>
+              <td>
+                <%= campaign_enlist.created_at.strftime('%Y-%m-%d %H:%M') %>
+              </td>
+              <td>
+                <%= campaign_enlist.number %>
+              </td>
+              <td>
+                <%= campaign_enlist.contact_name %>
+              </td>
+              <td>
+                <%= campaign_enlist.contact_phone %>
+              </td>
+              <% if @campaign.price != 0%>
+                <td>
+                  <%= campaign_enlist.total %>
+                </td>
+                <td>
+                  <%= campaign_enlist.enum_name(:payment_state) %>
+                </td>
+              <% end %>
+              <td>
+                <%= link_to edit_admin_campaign_campaign_enlist_path(campaign_enlist.campaign, campaign_enlist), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                  <i class="fa fa-edit"></i> 修改
+                <% end %>
+                <% if @campaign.price !=0 %>
+                  <% if campaign_enlist.paid? %>
+                    <%= link_to cancel_admin_campaign_campaign_enlist_path(campaign_enlist.campaign, campaign_enlist), data: {confirm: "确定取消报名吗？"}, method: :put, 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                       取消报名
+                    <% end %>
+                  <% end %>
+                <% end %>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-5 col-sm-12">
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@campaign_enlists) %></div>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <%= paginate @campaign_enlists, theme: '' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END EXAMPLE TABLE PORTLET-->
