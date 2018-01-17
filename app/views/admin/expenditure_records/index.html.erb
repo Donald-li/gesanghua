@@ -6,7 +6,13 @@
     <div class="actions">
       <%= link_to new_admin_expenditure_record_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
         <i class="icon-plus"></i>
-        <span>新增收入</span>
+        <span>新增支出</span>
+      <% end %>
+    </div>
+    <div class="actions">
+      <%= link_to url_for(params.permit!.merge(format: :xlsx)), class: 'btn btn-xs green', 'data-no-turbolink' => true do %>
+        <i class="fa fa-download"></i>
+      <span>导出表单</span>
       <% end %>
     </div>
   </div>
@@ -16,14 +22,18 @@
         <div class="col-md-12 col-sm-12">
           <%= search_form_for @search, url: admin_expenditure_records_path, class: 'form-inline' do |f| %>
             <div class="form-group">
-              <%= f.label :name_or_user_phone_cont, '搜索' %>
-              <%= f.text_field :name_or_user_phone_cont, class: 'form-control', placeholder: '捐助人姓名或手机号搜索' %>
+              <%= f.label :name_or_fund_name_cont, '搜索' %>
+              <%= f.text_field :name_or_fund_name_cont, class: 'form-control', placeholder: '支出名称或支出分类搜索' %>
             </div>
             <div class="form-group">
-              <%= f.label '捐助时间' %>
-              <%= f.text_field :income_time_gteq, class: 'form-control datepicker', placeholder: '开始时间' %>
-              <%= f.text_field :income_time_lteq, class: 'form-control datepicker', placeholder: '结束时间' %>
+              <%= f.label '支出时间' %>
+              <%= f.text_field :expended_at_gteq, class: 'form-control datepicker', placeholder: '开始时间' %>
+              <%= f.text_field :expended_at_lteq, class: 'form-control datepicker', placeholder: '结束时间' %>
             </div>
+            <!-- <div class="form-group">
+              <%#= f.label :deliver_state_eq, '支出状态' %>
+              <%#= f.select :deliver_state_eq, ExpenditureRecord.options_for_select(:deliver_states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
+            </div> -->
             <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>
         </div>
@@ -36,37 +46,25 @@
           <thead>
           <tr>
             <th>
-              收入单号
+              支出单号
             </th>
             <th>
-              收入名称
+              支出名称
             </th>
             <th>
-              收入分类
+              支出时间
             </th>
             <th>
-              捐助时间
+              支出金额
             </th>
             <th>
-              捐助金额
-            </th>
-            <th>
-              捐助渠道
-            </th>
-            <th>
-              捐助人
-            </th>
-            <th>
-              代捐人/汇款人
-            </th>
-            <th>
-              手机号码
-            </th>
-            <th>
-              是否开具发票
+              支出分类
             </th>
             <th>
               备注
+            </th>
+            <th>
+              经办人
             </th>
             <th>
               操作
@@ -80,34 +78,22 @@
                 <%= record.id %>
               </td>
               <td>
-                <%= record.id %>
+                <%= record.name %>
+              </td>
+              <td>
+                <%= l record.expended_at %>
+              </td>
+              <td>
+                ￥<%= number_to_currency(record.amount) %>
               </td>
               <td>
                 <%= record.fund.try(:fund_category).try(:name) %> - <%= record.fund.try(:name) %>
               </td>
               <td>
-                <%= l record.income_time %>
-              </td>
-              <td>
-                ￥<%= record.amount %>
-              </td>
-              <td>
-                <%= record.income_source.try(:name) %>
-              </td>
-              <td>
-                <%= record.user.try(:name) %>
-              </td>
-              <td>
-                <%= record.donor %>/<%= record.remitter_name %>
-              </td>
-              <td>
-                <%= record.user.try(:phone) %>
-              </td>
-              <td>
-                <%= record.donate_record.present? ? record.donate_record.enum_name(:voucher_state) : '不支持开票' %>
-              </td>
-              <td>
                 <%= record.remark %>
+              </td>
+              <td>
+                <%= record.operator %>
               </td>
               <td>
                 <%= link_to edit_admin_expenditure_record_path(record), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>

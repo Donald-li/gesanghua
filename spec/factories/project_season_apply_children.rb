@@ -32,9 +32,6 @@
 
 FactoryBot.define do
   factory :project_season_apply_child, aliases: [:child] do
-    project
-    season
-    apply
     name '李同学'
     province '630000'
     city '630100'

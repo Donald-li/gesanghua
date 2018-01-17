@@ -19,5 +19,5 @@
 require 'rails_helper'
 
 RSpec.describe ChildPeriod, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  
 end

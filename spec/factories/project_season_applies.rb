@@ -22,10 +22,6 @@
 
 FactoryBot.define do
   factory :project_season_apply, aliases: [:apply] do
-    project
-    season
-    school
-    teacher
     province '630000'
     city '630100'
     district '630123'
