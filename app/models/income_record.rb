@@ -46,12 +46,17 @@ class IncomeRecord < ApplicationRecord
 
   def self.update_income_statistic_record
     record_times = self.where("created_at > ? and created_at < ?", Time.now.beginning_of_day, Time.now.end_of_day).group_by{|record| record.income_time.strftime("%Y-%m-%d")}.keys
-    record_times.each do |record_time|
-      record_time = Time.parse(record_time)
-      amount = self.where("income_time > ? and income_time < ?", record_time.beginning_of_day, record_time.end_of_day).sum(:amount)
-      record = StatisticRecord.find_or_create_by(kind: 2, record_time: record_time)
-      record.update(amount: amount)
+    if record_times.size > 0
+      record_times.each do |record_time|
+        record_time = Time.parse(record_time)
+        amount = self.where("income_time > ? and income_time < ?", record_time.beginning_of_day, record_time.end_of_day).sum(:amount)
+        record = StatisticRecord.find_or_create_by(kind: 2, record_time: record_time)
+        record.update(amount: amount)
+      end
+    else
+      StatisticRecord.find_or_create_by(kind: 2, record_time: Time.now.strftime("%Y-%m-%d"), amount: 0)
     end
+
   end
 
 end
