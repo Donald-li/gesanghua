@@ -18,18 +18,20 @@
 #  operator         :string                                 # 支出经办人
 #  remark           :text                                   # 备注
 #  amount           :decimal(14, 2)   default(0.0)          # 支出金额
-#  fund_category_id :integer                                # 财务分类ID
 #
 
 class ExpenditureRecord < ApplicationRecord
-  belongs_to :fund_category
-  belongs_to :administrator
-  belongs_to :income_record
+  include HasAsset
+  has_many_assets :images, class_name: 'Asset::ExpenditureRecordImage'
+
+  belongs_to :fund
+  belongs_to :administrator, optional: true
+  belongs_to :income_record, optional: true
   # appoint_type 多态关联
   # belongs_to :user, polymorphic: true
 
-  enum deliver_state: {to_deliver: 1, deliver: 2} # 发放状态，1:待发放 2:已发放
-  default_value_for :deliver_state, 1
+  # enum deliver_state: {to_deliver: 1, deliver: 2} # 发放状态，1:待发放 2:已发放
+  # default_value_for :deliver_state, 1
   # enum kind: {}
 
   scope :sorted, ->{ order(created_at: :desc) }

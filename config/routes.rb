@@ -190,6 +190,7 @@ Rails.application.routes.draw do
       end
     end
     resources :income_records
+    resources :expenditure_records
     resource :data_statistic, only: [:show]
     resource :donate_statistic, only: [:show], concerns: [:excel_output]
     resources :vouchers, concerns: :switch

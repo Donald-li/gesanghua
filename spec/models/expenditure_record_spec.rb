@@ -18,7 +18,6 @@
 #  operator         :string                                 # 支出经办人
 #  remark           :text                                   # 备注
 #  amount           :decimal(14, 2)   default(0.0)          # 支出金额
-#  fund_category_id :integer                                # 财务分类ID
 #
 
 require 'rails_helper'
