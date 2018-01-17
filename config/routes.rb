@@ -201,9 +201,11 @@ Rails.application.routes.draw do
       end
     end
     resources :expenditure_records
+    resources :expenditure_uploads, only: [:new, :create]
     resource :data_statistic, only: [:show]
     resource :donate_statistic, only: [:show], concerns: [:excel_output]
     resources :vouchers, concerns: :switch
+    resources :month_donates
   end
 
   namespace :school do
@@ -212,6 +214,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resources :projects, only: :show
     end
   end
 

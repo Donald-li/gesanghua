@@ -92,7 +92,7 @@ gem 'rqrcode'
 gem 'aliyun-sms', git: 'https://github.com/songjian/aliyun-sms.git'
 
 #  权限管理
-gem "pundit"
+gem "cancan"
 
 # echarts表格
 gem 'echarts-rails'

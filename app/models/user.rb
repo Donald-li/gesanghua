@@ -52,6 +52,7 @@ class User < ApplicationRecord
   has_many :donate_records
   has_many :income_records
   has_many :project_season_applies
+  has_many :month_donates
 
   validates :password, confirmation: true, length: { minimum: 6 }, allow_blank: true
   validates :email, email: true

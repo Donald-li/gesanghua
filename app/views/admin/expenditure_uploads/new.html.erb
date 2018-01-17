@@ -1,0 +1,38 @@
+<%= content_for :page_level_scripts do %>
+  <%= javascript_include_tag '/assets/webuploader/webuploader.js' %>
+  <%= stylesheet_link_tag '/assets/webuploader/webuploader.css' %>
+<% end %>
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i>
+      <span class="caption-subject">导入支出记录</span>
+    </div>
+  </div>
+  <div class="portlet-body form">
+      <div>
+        <%= form_tag admin_expenditure_uploads_path, multipart: true,class:'form-horizontal' do %>
+            <div class="form-group">
+              <%= label_tag :file, '上传文件：',class:'control-label col-md-3' %>
+              <div class="col-md-4">
+                <%= file_field_tag :file,class:'form-control' %>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="control-label col-md-3">
+                下载导入模板：
+              </div>
+              <div class="col-md-4">
+                <%= link_to '下载 "'+ ExpenditureRecord.download_name, ExpenditureRecord.download_path %>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-offset-3 col-md-9">
+                <%= submit_tag '提交',class:'btn green' %>
+                <%= link_to '取消', admin_expenditure_records_path, class: 'btn' %>
+              </div>
+            </div>
+        <% end %>
+      </div>
+  </div>
+</div>
