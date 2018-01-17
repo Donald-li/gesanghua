@@ -20,8 +20,14 @@ RSpec.describe ProjectSeason, type: :model do
   let(:project_season) { build(:project_season) }
 
   it '测试项目执行年度基本操作' do
-    expect(project_season.valid?).to be true
-    expect(project_season.name).to eq '2017'
-    expect(project_season.project.normal?).to be true
+    user = create(:user)
+    school = create(:school)
+    teacher = create(:teacher, school: school, user: user)
+    project = create(:project)
+    season = create(:project_season, project: project)
+
+    expect(season.valid?).to be true
+    expect(season.name).to eq '2017'
+    expect(season.project.normal?).to be true
   end
 end

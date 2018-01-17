@@ -5,7 +5,13 @@ class Admin::IncomeRecordsController < Admin::BaseController
     set_search_end_of_day(:created_at_lteq)
     @search = IncomeRecord.sorted.ransack(params[:q])
     scope = @search.result.joins(:user)
-    @income_records = scope.page(params[:page])
+    respond_to do |format|
+      format.html { @income_records = scope.page(params[:page]) }
+      format.xlsx {
+        @income_records = scope.sorted.all
+        response.headers['Content-Disposition'] = 'attachment; filename= "收入记录" ' + Date.today.to_s + '.xlsx'
+      }
+    end
   end
 
   def show
@@ -20,6 +26,10 @@ class Admin::IncomeRecordsController < Admin::BaseController
 
   def create
     @income_record = IncomeRecord.new(income_record_params)
+    user = User.find(income_record_params[:user_id]).name
+    @income_record.donor = user.name
+    @income_record.remitter_name = user.name
+    @income_record.remitter_id = user.id
 
     respond_to do |format|
       if @income_record.save
@@ -45,6 +55,13 @@ class Admin::IncomeRecordsController < Admin::BaseController
     respond_to do |format|
       format.html { redirect_to admin_income_records_path, notice: '删除成功。' }
     end
+  end
+
+  def excel_upload
+  end
+
+  def excel_import
+
   end
 
   private

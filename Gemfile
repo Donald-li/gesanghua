@@ -109,7 +109,7 @@ gem 'chinese_pid'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'simplecov', :require => false, :group => :test
+# gem 'simplecov', :require => false, :group => :test
 
 #微信
 gem 'weixin_rails_middleware', github: 'Modernech/weixin_rails_middleware'

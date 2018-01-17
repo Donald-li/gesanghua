@@ -1,13 +1,22 @@
 before_script:
   - ruby -v
   - bundle install
-  - pwd
+  # - pwd
+  - cp config/database.example.yml config/database.yml
+  - bundle exec rails db:migrate RAILS_ENV=test
+
+stages:
+  - test
+  # - deploy
 
 rspec:
+  stage: test
   variables:
     # CI_DEBUG_TRACE: "true"
   script:
-    - cp config/database.example.yml config/database.yml
-    - bundle exec rails db:migrate RAILS_ENV=test
     - bundle exec rspec spec -fd
-    - bundle exec mina dev deploy
+
+# deploy:
+#   stage: deploy
+#   script:
+#     - bundle exec mina dev deploy
