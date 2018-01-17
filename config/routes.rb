@@ -193,6 +193,7 @@ Rails.application.routes.draw do
     resource :data_statistic, only: [:show]
     resource :donate_statistic, only: [:show], concerns: [:excel_output]
     resources :vouchers, concerns: :switch
+    resources :month_donates
   end
 
   namespace :school do

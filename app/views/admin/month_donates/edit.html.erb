@@ -1,0 +1,37 @@
+<div class="portlet light bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-note"></i>
+      <span class="caption-subject">修改捐助</span>
+      <span class="caption-helper"></span>
+    </div>
+    <div class="actions">
+      <%= link_to admin_month_donates_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+        <i class="fa fa-reply"></i>
+        <span>返回列表</span>
+      <% end %>
+      <div class="portlet-input input-inline input-small">
+        <div class="input-icon right">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body form">
+    <%= simple_form_for [:admin, @month_donate], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
+        <%= f.error_notification %>
+        <div class="form-body form-horizontal">
+          <%= f.input :donated_period, label: '已捐期数：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+          <%= f.input :amount, label: '金额：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+        </div>
+        <div class="form-actions">
+          <div class="row">
+            <div class="col-md-offset-3 col-md-9">
+              <%= f.button :submit, '提交', class: 'btn green' %>
+              <%= link_to '取消', admin_month_donates_path, class: 'btn' %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+
+  </div>
+</div>

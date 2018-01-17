@@ -24,6 +24,7 @@ class Fund < ApplicationRecord
   has_many :expenditure_records
   has_many :projects
   has_many :projects
+  has_many :month_donates
 
   validates :name, :describe, presence: true
 

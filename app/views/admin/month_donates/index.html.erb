@@ -1,0 +1,108 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i>月捐管理
+    </div>
+    <div class="actions">
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="dataTables_wrapper no-footer">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <%= search_form_for @search, url: admin_month_donates_path, class: 'form-inline' do |f| %>
+          <div class="form-group">
+            <%= f.label :user_name_cont, '搜索' %>
+            <%= f.text_field :user_name_or_user_phone_cont, class: 'form-control', placeholder: '捐助人、捐助人手机号码' %>
+          </div>
+          <button type="submit" class="btn btn-default grey">搜索</button>
+          <% end %>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="dataTables_filter pull-right"></div>
+        </div>
+      </div>
+      <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover" id="sample_2">
+          <thead>
+            <tr>
+              <th>
+                月捐编号
+              </th>
+              <th>
+                捐助人
+              </th>
+              <th>
+                捐助人手机
+              </th>
+              <th>
+                捐助项目
+              </th>
+              <th>
+                已捐/计划期数
+              </th>
+              <th>
+                金额
+              </th>
+              <th>
+                开始时间
+              </th>
+              <th>
+                月捐状态
+              </th>
+              <th>
+                操作
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @month_donates.each do |month_donate| %>
+            <tr>
+              <td>
+                <%= month_donate.id %>
+              </td>
+              <td>
+                <%= month_donate.user.try(:name) %>
+              </td>
+              <td>
+                <%= month_donate.user.try(:phone) %>
+              </td>
+              <td>
+                <%= month_donate.fund.fund_category.try(:name) %>
+              </td>
+              <td>
+                <%= month_donate.donated_period %>/<%= month_donate.plan_period %>
+              </td>
+              <td>
+                <%= month_donate.amount %>元/月
+              </td>
+              <td>
+                <%= month_donate.start_time.strftime('%Y-%m-%d') %>
+              </td>
+              <td>
+                <%= month_donate.enum_name(:state) %>
+              </td>
+              <td>
+                <% if month_donate.donation? %>
+                  <%= link_to edit_admin_month_donate_path(month_donate), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                    <i class="fa fa-edit"></i> 修改捐助
+                  <% end %>
+                <% end %>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-5 col-sm-12">
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@month_donates) %></div>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <%= paginate @month_donates, theme: '' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END EXAMPLE TABLE PORTLET-->

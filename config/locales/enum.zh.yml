@@ -249,3 +249,6 @@ zh:
   income_source_kinds:
     online: '线上捐助'
     offline: '线下捐助'
+  month_donate_states:
+    donation: '捐助中'
+    finished: '已结束'
