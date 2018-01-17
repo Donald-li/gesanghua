@@ -12,10 +12,17 @@
 #  kind             :integer                                # 类别
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  name             :string                                 # 支出名称
+#  expend_no        :string                                 # 支出编号
+#  expended_at      :datetime                               # 支出时间
+#  operator         :string                                 # 支出经办人
+#  remark           :text                                   # 备注
+#  amount           :decimal(14, 2)   default(0.0)          # 支出金额
+#  fund_category_id :integer                                # 财务分类ID
 #
 
 class ExpenditureRecord < ApplicationRecord
-  belongs_to :finance_category
+  belongs_to :fund_category
   belongs_to :administrator
   belongs_to :income_record
   # appoint_type 多态关联

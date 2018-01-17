@@ -22,7 +22,7 @@ class Admin::CampaignsController < Admin::BaseController
     respond_to do |format|
       if @campaign.save
         @campaign.attach_image(params[:image_id])
-        @campaign.attach_banners(params[:banner_ids])
+        @campaign.attach_banner(params[:banner_id])
         format.html { redirect_to referer_or(admin_campaigns_url), notice: '活动已增加。' }
       else
         format.html { render :new }
@@ -34,7 +34,7 @@ class Admin::CampaignsController < Admin::BaseController
     respond_to do |format|
       if @campaign.update(campaign_params)
         @campaign.attach_image(params[:image_id])
-        @campaign.attach_banners(params[:banner_ids])
+        @campaign.attach_banner(params[:banner_id])
         format.html { redirect_to referer_or(admin_campaigns_url), notice: '活动已修改。' }
       else
         format.html { render :edit }

@@ -24,7 +24,7 @@
 class Campaign < ApplicationRecord
   belongs_to :project, optional: true
   belongs_to :campaign_category
-  has_many :campaign_enlists
+  has_many :campaign_enlists, dependent: :destroy
 
   validates :name, :content, presence: true
 
@@ -37,6 +37,6 @@ class Campaign < ApplicationRecord
 
   include HasAsset
   has_one_asset :image, class_name: 'Asset::CampaignImage'
-  has_many_assets :banners, class_name: 'Asset::CampaignBanner'
+  has_one_asset :banner, class_name: 'Asset::CampaignBanner'
 
 end

@@ -42,6 +42,6 @@ FactoryBot.define do
     id_card '370202198411195417'
     age 13
     parent_name '李爹'
-    phone '13500000001'
+    sequence(:phone) { |n| "18888#{n.to_s.rjust(6,'0')}" }
   end
 end

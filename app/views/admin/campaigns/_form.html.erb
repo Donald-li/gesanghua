@@ -7,22 +7,28 @@
         <label class="col-md-2 control-label">活动封面：</label>
         <div class="col-sm-9">
           <%= webuploader_tag :image_id, label: '上传活动封面图片', type: 'campaign_image', asset: @campaign.image, klass: 'single' %>
-          <%= webuploader_tag 'banner_ids[]', label: '上传活动详情页banner', type: 'campaign_banner', asset: @campaign.banners, id: 'banner_ids' %>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label">活动详情页banner：</label>
+        <div class="col-sm-9">
+          <%#= webuploader_tag 'banner_ids[]', label: '上传活动详情页banner', type: 'campaign_banner', asset: @campaign.banners, id: 'banner_ids' %>
+          <%= webuploader_tag :banner_id, label: '上传活动详情页banner图片', type: 'campaign_banner', asset: @campaign.banner, klass: 'single', id: 'banner_id' %>
           <!-- <span style="color: red">注意：左起第一张图片为第一张图</span> -->
         </div>
       </div>
       <div class="form-group">
         <label class="col-md-2 control-label">活动时间：</label>
         <div class="col-sm-9">
-          <%= f.text_field :start_time, class: 'datetime-picker', placeholder: '开始时间', require: true %> --
-          <%= f.text_field :end_time, class: 'datetime-picker', placeholder: '结束时间', require: true %>
+          <%= f.text_field :start_time, class: 'datepicker', placeholder: '开始时间', require: true %> --
+          <%= f.text_field :end_time, class: 'datepicker', placeholder: '结束时间', require: true %>
         </div>
       </div>
       <div class="form-group">
         <label class="col-md-2 control-label">报名时间：</label>
         <div class="col-sm-9">
-          <%= f.text_field :sign_up_start_time, class: 'datetime-picker', placeholder: '报名开始时间', require: true %> --
-          <%= f.text_field :sign_up_end_time, class: 'datetime-picker', placeholder: '报名结束时间', require: true %>
+          <%= f.text_field :sign_up_start_time, class: 'datepicker', placeholder: '报名开始时间', require: true %> --
+          <%= f.text_field :sign_up_end_time, class: 'datepicker', placeholder: '报名结束时间', require: true %>
         </div>
       </div>
       <%= f.input :number, label: '限制人数：', autofocus: true, placeholder: '如不填写，人数不限', input_html: { data: {}} %>
@@ -47,11 +53,9 @@
 <% end %>
 <script>
 $(function(){
-  $('.datetime-picker').datetimepicker();
   //上传单图，活动封面
   initImageWebuploader($('#webuploader'));
-  //多图上传，活动详情页banner
-  initMultiImageWebuploader($('#banner_ids'));
-  $('.upload-list').viewer();
+  //上传活动详情页banner
+  initImageWebuploader($('#banner_id'));
 })
 </script>
