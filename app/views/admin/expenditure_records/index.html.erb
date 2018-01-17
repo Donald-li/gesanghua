@@ -1,0 +1,136 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i>支出记录
+    </div>
+    <div class="actions">
+      <%= link_to new_admin_expenditure_record_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+        <i class="icon-plus"></i>
+        <span>新增收入</span>
+      <% end %>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="dataTables_wrapper no-footer">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <%= search_form_for @search, url: admin_expenditure_records_path, class: 'form-inline' do |f| %>
+            <div class="form-group">
+              <%= f.label :name_or_user_phone_cont, '搜索' %>
+              <%= f.text_field :name_or_user_phone_cont, class: 'form-control', placeholder: '捐助人姓名或手机号搜索' %>
+            </div>
+            <div class="form-group">
+              <%= f.label '捐助时间' %>
+              <%= f.text_field :income_time_gteq, class: 'form-control datepicker', placeholder: '开始时间' %>
+              <%= f.text_field :income_time_lteq, class: 'form-control datepicker', placeholder: '结束时间' %>
+            </div>
+            <button type="submit" class="btn btn-default grey">搜索</button>
+          <% end %>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="dataTables_filter pull-right"></div>
+        </div>
+      </div>
+      <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover" id="sample_2">
+          <thead>
+          <tr>
+            <th>
+              收入单号
+            </th>
+            <th>
+              收入名称
+            </th>
+            <th>
+              收入分类
+            </th>
+            <th>
+              捐助时间
+            </th>
+            <th>
+              捐助金额
+            </th>
+            <th>
+              捐助渠道
+            </th>
+            <th>
+              捐助人
+            </th>
+            <th>
+              代捐人/汇款人
+            </th>
+            <th>
+              手机号码
+            </th>
+            <th>
+              是否开具发票
+            </th>
+            <th>
+              备注
+            </th>
+            <th>
+              操作
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @expenditure_records.each do |record| %>
+            <tr>
+              <td>
+                <%= record.id %>
+              </td>
+              <td>
+                <%= record.id %>
+              </td>
+              <td>
+                <%= record.fund.try(:fund_category).try(:name) %> - <%= record.fund.try(:name) %>
+              </td>
+              <td>
+                <%= l record.income_time %>
+              </td>
+              <td>
+                ￥<%= record.amount %>
+              </td>
+              <td>
+                <%= record.income_source.try(:name) %>
+              </td>
+              <td>
+                <%= record.user.try(:name) %>
+              </td>
+              <td>
+                <%= record.donor %>/<%= record.remitter_name %>
+              </td>
+              <td>
+                <%= record.user.try(:phone) %>
+              </td>
+              <td>
+                <%= record.donate_record.present? ? record.donate_record.enum_name(:voucher_state) : '不支持开票' %>
+              </td>
+              <td>
+                <%= record.remark %>
+              </td>
+              <td>
+                <%= link_to edit_admin_expenditure_record_path(record), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                  <i class="fa fa-edit"></i> 修改
+                <% end %>
+                <%= link_to admin_expenditure_record_path(record), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                  <i class="fa fa-trash-o"></i> 删除
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-5 col-sm-12">
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@expenditure_records) %></div>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <%= paginate @expenditure_records, theme: 'admin' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END EXAMPLE TABLE PORTLET-->

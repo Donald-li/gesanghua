@@ -20,7 +20,7 @@
 #  contact_phone     :string                                 # 联系方式
 #  contact_position  :string                                 # 联系人职务
 #  kind              :integer                                # 学校类型
-#  user_id           :integer                                # 用户id
+#  user_id           :integer                                # 申请人ID
 #  school_no         :string                                 # 学校申请编号
 #  contact_idcard    :string                                 # 联系人身份证号
 #  postcode          :string                                 # 邮政编码
@@ -35,6 +35,6 @@ FactoryBot.define do
     province '630000'
     city '630100'
     district '630123'
-    contact_phone '13500000001'
+    sequence(:contact_phone) { |n| "13888#{n.to_s.rjust(6,'0')}" }
   end
 end

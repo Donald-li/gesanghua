@@ -41,6 +41,6 @@ FactoryBot.define do
     profile ""
     gender 1
     balance "9.99"
-    phone "13500000001"
+    sequence(:phone) { |n| "18788#{n.to_s.rjust(6,'0')}" }
   end
 end
