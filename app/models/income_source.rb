@@ -14,6 +14,8 @@
 class IncomeSource < ApplicationRecord
   has_many :income_records
 
+  has_many :campaign_enlists
+
   validates :name, presence: true
 
   enum kind: {online: 1, offline: 2} # 类型： 1:线上（online） 2:线下（offline）

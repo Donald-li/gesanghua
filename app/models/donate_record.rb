@@ -30,12 +30,11 @@ class DonateRecord < ApplicationRecord
   belongs_to :user
   belongs_to :promoter, class_name: 'User', optional: true
   # belongs_to :remitter, class_name: 'User'
-  # belongs_to :finance_category
   belongs_to :project
   belongs_to :project_season
   belongs_to :project_season_apply
-  belongs_to :project_season_apply_child
   belongs_to :team, optional: true
+  belongs_to :project_season_apply_child, optional: true
   has_one :income_record, dependent: :destroy
   belongs_to :voucher, optional: true
 

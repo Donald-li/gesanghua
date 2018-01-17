@@ -8,4 +8,6 @@ rspec:
     # CI_DEBUG_TRACE: "true"
   script:
     - cp config/database.example.yml config/database.yml
+    - bundle exec rails db:migrate RAILS_ENV=test
     - bundle exec rspec spec -fd
+    - bundle exec mina dev deploy

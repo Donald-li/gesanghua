@@ -21,9 +21,9 @@
 #
 
 FactoryBot.define do
-  factory :project_season_apply do
+  factory :project_season_apply, aliases: [:apply] do
     project
-    project_season
+    season
     school
     teacher
     province '630000'

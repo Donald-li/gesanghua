@@ -80,7 +80,7 @@
                   <%= child.try(:name) %>
                 </td>
                 <td>
-                  <%= child.project_season_apply.try(:school).try(:name) %> / <%= child.enum_name(:grade) %>
+                  <%= child.apply.try(:school).try(:name) %> / <%= child.enum_name(:grade) %>
                 </td>
                 <td>
                   <%= child.project_season.try(:name) %>

@@ -16,15 +16,24 @@
 #
 
 class CampaignEnlist < ApplicationRecord
+
+  require 'custom_validators'
+
   belongs_to :campaign
   belongs_to :user
 
-  validates :number, presence: true
+  belongs_to :income_source
 
-  # default_value_for :number, 1
+  validates :number, presence: true
+  
+  validates :contact_phone, phone: true
+
+  #default_vaule_for :number, 1
+
 
   enum payment_state: {paid: 1, canceled: 2} #支付状态 1:已支付 2:已取消
   default_value_for :payment_state, 1
+  default_value_for :number, 1
 
   scope :sorted, ->{ order(created_at: :desc) }
 
