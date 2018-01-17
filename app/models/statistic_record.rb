@@ -14,6 +14,6 @@ class StatisticRecord < ApplicationRecord
   default_value_for :amount, 0
   enum kind: {user_register: 1, income_statistic: 2}
 
-  scope :reverse_sorted, -> { order(created_at: :asc) }
+  scope :record_sorted, -> { order(record_time: :asc) }
 
 end
