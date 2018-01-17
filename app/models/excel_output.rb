@@ -99,7 +99,7 @@ class ExcelOutput
     header = wb.styles.add_style :sz => 16, :b => true, :alignment => {:horizontal => :center}
     wb.add_worksheet(:name => "表") do |sheet|
       sheet.add_row ["收入分类", "捐助时间", "捐助金额", "捐助渠道", "捐助人", "手机号码", "代捐人", "汇款人", "备注"], :style => header
-      sheet.add_row ["结对-非指定",	"2018-1-17 12:30", "2000", "微信支付", "爱心人士", "13800888888", "爱心人士", "爱心人士", "好好学习"]
+      sheet.add_row ["结对-非指定",	"2018-1-17 12:30", "2000", "微信支付", "爱心人士", "13800888888", "爱心人士", "爱心人士", "好好学习", "请按照模板格式填写"]
       3.times do
         sheet.add_row []
       end
