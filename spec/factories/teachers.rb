@@ -24,7 +24,7 @@ FactoryBot.define do
     user
     school
     kind 2
-    phone '13500000001'
+    sequence(:phone) { |n| "18888#{n.to_s.rjust(6, '0')}" }
     state 1
   end
 end

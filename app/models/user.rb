@@ -98,8 +98,9 @@ class User < ApplicationRecord
   end
 
   def self.update_user_statistic_record
-    amount = self.where("created_at > ? and created_at < ?", Time.now.beginning_of_day, Time.now.end_of_day).count
-    record = StatisticRecord.new(amount: amount, kind: 1, record_time: Time.now)
+    time = Time.now
+    amount = self.where("created_at > ? and created_at < ?", time.beginning_of_day, time.end_of_day).count
+    record = StatisticRecord.new(amount: amount, kind: 1, record_time: time)
     record.save
   end
 

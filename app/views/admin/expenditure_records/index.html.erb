@@ -1,20 +1,12 @@
 <div class="portlet light">
   <div class="portlet-title">
     <div class="caption">
-      <i class="icon-list"></i>收入记录
+      <i class="icon-list"></i>支出记录
     </div>
     <div class="actions">
-      <%= link_to new_admin_income_record_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+      <%= link_to new_admin_expenditure_record_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
         <i class="icon-plus"></i>
         <span>新增收入</span>
-      <% end %>
-      <%= link_to '', class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
-        <i class="fa fa-upload"></i>
-        <span>导入收入</span>
-      <% end %>
-      <%= link_to '', class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
-        <i class="fa fa-download"></i>
-        <span>导出收入</span>
       <% end %>
     </div>
   </div>
@@ -22,10 +14,10 @@
     <div class="dataTables_wrapper no-footer">
       <div class="row">
         <div class="col-md-12 col-sm-12">
-          <%= search_form_for @search, url: admin_income_records_path, class: 'form-inline' do |f| %>
+          <%= search_form_for @search, url: admin_expenditure_records_path, class: 'form-inline' do |f| %>
             <div class="form-group">
-              <%= f.label :user_name_or_user_phone_cont, '搜索' %>
-              <%= f.text_field :user_name_or_user_phone_cont, class: 'form-control', placeholder: '捐助人姓名或手机号搜索' %>
+              <%= f.label :name_or_user_phone_cont, '搜索' %>
+              <%= f.text_field :name_or_user_phone_cont, class: 'form-control', placeholder: '捐助人姓名或手机号搜索' %>
             </div>
             <div class="form-group">
               <%= f.label '捐助时间' %>
@@ -82,7 +74,7 @@
           </tr>
           </thead>
           <tbody>
-          <% @income_records.each do |record| %>
+          <% @expenditure_records.each do |record| %>
             <tr>
               <td>
                 <%= record.id %>
@@ -118,10 +110,10 @@
                 <%= record.remark %>
               </td>
               <td>
-                <%= link_to edit_admin_income_record_path(record), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                <%= link_to edit_admin_expenditure_record_path(record), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                   <i class="fa fa-edit"></i> 修改
                 <% end %>
-                <%= link_to admin_income_record_path(record), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                <%= link_to admin_expenditure_record_path(record), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                   <i class="fa fa-trash-o"></i> 删除
                 <% end %>
               </td>
@@ -132,10 +124,10 @@
       </div>
       <div class="row">
         <div class="col-md-5 col-sm-12">
-          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@income_records) %></div>
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@expenditure_records) %></div>
         </div>
         <div class="col-md-7 col-sm-12">
-          <%= paginate @income_records, theme: 'admin' %>
+          <%= paginate @expenditure_records, theme: 'admin' %>
         </div>
       </div>
     </div>
