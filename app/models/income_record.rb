@@ -24,8 +24,8 @@
 
 class IncomeRecord < ApplicationRecord
   belongs_to :user, optional: true
-  belongs_to :fund
-  belongs_to :income_source
+  belongs_to :fund, optional: true
+  belongs_to :income_source, optional: true
   belongs_to :promoter, class_name: 'User', optional: true
   # belongs_to :remitter, class_name: 'User'
 
@@ -46,6 +46,11 @@ class IncomeRecord < ApplicationRecord
   counter_culture :user, column_name: 'donate_count', delta_magnitude: proc {|model| model.amount}
   counter_culture :user, column_name: proc {|model| model.income_source.online? ? 'online_count' : nil }, delta_magnitude: proc {|model| model.amount}
   counter_culture :user, column_name: proc {|model| model.income_source.offline? ? 'offline_count' : nil }, delta_magnitude: proc {|model| model.amount}
+
+  def self.read_excel(excel_id)
+  file = Asset.find(excel_id).try(:file).try(:file)
+  FileUtil.import_income_records(original_filename: file.original_filename, path: file.path) if file.present?
+  end
 
   def self.update_income_statistic_record
     record_times = self.where("created_at > ? and created_at < ?", Time.now.beginning_of_day, Time.now.end_of_day).group_by{|record| record.income_time.strftime("%Y-%m-%d")}.keys

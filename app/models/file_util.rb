@@ -128,4 +128,35 @@ class FileUtil
 #     end
 #   end
 
+    def self.import_income_records(original_filename: nil, path: nil)
+      s = nil
+      if File.extname(original_filename) == '.xlsx' || File.extname(original_filename) == '.xls'
+        s = Roo::Excelx.new path
+      else
+        return
+      end
+      #  name：学校名称  contact_name：联系人姓名 contact_title：联系人职位 contact_phone：联系方式 province：省 city：市 district：区 street：街 address：详细地址
+      2.upto(s.last_row) do |line|
+
+        fund_title = s.formatted_value(line, 'A')
+        income_time = s.formatted_value(line, 'B')
+        amount = s.formatted_value(line, 'C')
+        income_source_name = s.formatted_value(line, 'D')
+        user_name = s.formatted_value(line, 'E')
+        donor_phone = s.formatted_value(line, 'F')
+        donor = s.formatted_value(line, 'G')
+        remitter_name = s.formatted_value(line, 'H')
+        remark = s.formatted_value(line, 'I')
+
+        fund = fund_title.present? ? FundCategory.find_by(name: fund_title.split('-').first).funds.find_by(name: fund_title.split('-').second) : nil
+        income_source = IncomeSource.find_by(name: income_source_name) || nil
+
+        if user_name === donor
+          user = User.find_by(phone: donor_phone)
+        end
+
+        IncomeRecord.create(fund: fund, income_time: Time.parse(income_time), amount: amount, income_source: income_source, user: user, donor: user.try(:name) || donor, remitter_name: remitter_name, remark: remark) if fund.present?
+
+      end
+    end
 end

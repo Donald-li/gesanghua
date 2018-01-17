@@ -28,10 +28,10 @@ class ExcelOutput
         sheet.add_row [user.id,
                        user.nickname,
                        user.name,
-                      user.phone,
-                      user.donate_count,
-                      user.online_count,
-                      user.offline_count]
+                       user.phone,
+                       user.donate_count,
+                       user.online_count,
+                       user.offline_count]
       end
     end
     p.serialize "public/files/用户捐助统计" + DateTime.now.strftime("%Y-%m-%d-%s") + ".xlsx"
@@ -86,8 +86,34 @@ class ExcelOutput
                          campaign_enlist.enum_name(:payment_state)]
         end
       end
-    p.serialize "public/files/活动" + DateTime.now.strftime("%Y-%m-%d-%s") + ".xlsx"
+      p.serialize "public/files/活动" + DateTime.now.strftime("%Y-%m-%d-%s") + ".xlsx"
+    end
   end
-end
+
+  def self.generate_income_template(time)
+    p = Axlsx::Package.new
+    wb = p.workbook
+    funds = Fund.sorted
+    income_sources = IncomeSource.sorted
+
+    header = wb.styles.add_style :sz => 16, :b => true, :alignment => {:horizontal => :center}
+    wb.add_worksheet(:name => "表") do |sheet|
+      sheet.add_row ["收入分类", "捐助时间", "捐助金额", "捐助渠道", "捐助人", "手机号码", "代捐人", "汇款人", "备注"], :style => header
+      sheet.add_row ["结对-非指定",	"2018-1-17 12:30", "2000", "微信支付", "爱心人士", "13800888888", "爱心人士", "爱心人士", "好好学习"]
+      3.times do
+        sheet.add_row []
+      end
+      sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, "收入分类名称模板", "请按照收入分类名称模板填写收入分类"], :style => header
+      funds.each do |fund|
+        sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, "#{fund.fund_category.name}-#{fund.name}"]
+      end
+      sheet.add_row []
+      sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, "捐助渠道名称模板", "请按照捐助渠道名称模板填写捐助渠道"], :style => header
+      income_sources.each do |source|
+        sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, source.name]
+      end
+      p.serialize "public/files/templates/收入导入模板" + time + ".xlsx"
+    end
+  end
 
 end

@@ -24,8 +24,8 @@
         <div class="col-md-12 col-sm-12">
           <%= search_form_for @search, url: admin_income_records_path, class: 'form-inline' do |f| %>
             <div class="form-group">
-              <%= f.label :user_name_or_user_phone_cont, '搜索' %>
-              <%= f.text_field :user_name_or_user_phone_cont, class: 'form-control', placeholder: '捐助人姓名或手机号搜索' %>
+              <%= f.label :user_name_cont, '搜索' %>
+              <%= f.text_field :user_name_cont, class: 'form-control', placeholder: '捐助人姓名搜索' %>
             </div>
             <div class="form-group">
               <%= f.label '捐助时间' %>
@@ -47,9 +47,6 @@
               收入单号
             </th>
             <th>
-              收入名称
-            </th>
-            <th>
               收入分类
             </th>
             <th>
@@ -63,9 +60,6 @@
             </th>
             <th>
               捐助人
-            </th>
-            <th>
-              手机号码
             </th>
             <th>
               代捐人/汇款人
@@ -88,9 +82,6 @@
                 <%= record.id %>
               </td>
               <td>
-                <%= record.id %>
-              </td>
-              <td>
                 <%= record.fund.try(:fund_category).try(:name) %> - <%= record.fund.try(:name) %>
               </td>
               <td>
@@ -104,9 +95,6 @@
               </td>
               <td>
                 <%= record.user.try(:name) %>
-              </td>
-              <td>
-                <%= record.user.try(:phone) %>
               </td>
               <td>
                 <%= record.donor || '-' %>/<%= record.remitter_name || '-' %>

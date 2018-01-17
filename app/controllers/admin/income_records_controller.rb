@@ -4,7 +4,7 @@ class Admin::IncomeRecordsController < Admin::BaseController
   def index
     set_search_end_of_day(:created_at_lteq)
     @search = IncomeRecord.sorted.ransack(params[:q])
-    scope = @search.result.joins(:user)
+    scope = @search.result
     respond_to do |format|
       format.html { @income_records = scope.page(params[:page]) }
       format.xlsx {
@@ -60,8 +60,20 @@ class Admin::IncomeRecordsController < Admin::BaseController
   def excel_upload
   end
 
-  def excel_import
+  def template_download
+    time = DateTime.now.strftime("%Y-%m-%d-%s")
+    ExcelOutput.generate_income_template(time)
+    send_file(File.join(Rails.root, "public/files/templates/收入导入模板" + time + ".xlsx"), filename: "收入支出导入模板.xlsx")
+  end
 
+  def excel_import
+    respond_to do |format|
+      if IncomeRecord.read_excel(params[:income_record_excel_id])
+        format.html {redirect_to admin_income_records_path, notice: '操作成功'}
+      else
+        format.html {render :excel_upload}
+      end
+    end
   end
 
   private
@@ -74,4 +86,5 @@ class Admin::IncomeRecordsController < Admin::BaseController
     def income_record_params
       params.require(:income_record).permit!
     end
+
 end

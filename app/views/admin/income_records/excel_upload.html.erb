@@ -19,7 +19,7 @@
           <label class="col-md-2 control-label" style="margin-left: 15px;">需要下载模板，按格式填写后上传</label>
           <div class="btn btn-lg green">
             <i class="fa fa-download"></i>
-            <%= link_to '下载模板', Settings.income_records_template_path %>
+            <%= link_to '下载模板', template_download_admin_income_records_path %>
           </div>
         </div>
         <%= simple_form_for :file, url: excel_import_admin_income_records_path, method: :put, wrapper: :admin_form do |f| %>
@@ -27,7 +27,7 @@
           <div class="form-group">
             <label class="col-md-2 control-label">收入记录文件:</label>
             <div class="col-sm-9">
-              <%= webuploader_file :excel_id, id: 'excel-upload', label: '上传文件', type: 'school_excel' %>
+              <%= webuploader_file :income_record_excel_id, id: 'excel-upload', label: '上传文件', type: 'income_record_excel' %>
             </div>
           </div>
           <div class="form-actions">
