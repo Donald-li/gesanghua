@@ -56,7 +56,6 @@ class IncomeRecord < ApplicationRecord
     else
       StatisticRecord.find_or_create_by(kind: 2, record_time: Time.now.strftime("%Y-%m-%d"), amount: 0)
     end
-
   end
 
 end
