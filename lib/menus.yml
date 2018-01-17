@@ -121,6 +121,11 @@ admin:
     # 财务
     admin_finance:
       menus:
+        admin_finance_pair:
+          menus:
+            admin_pair_grant_exceptions:
+              actions:
+                'admin/pair_grant_exceptions': all
         admin_audit_reports:
           actions:
             admin/audit_reports: all

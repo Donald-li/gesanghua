@@ -123,6 +123,7 @@ Rails.application.routes.draw do
     resources :project_radio_seasons
     resources :project_flower_seasons
 
+    resources :pair_grant_exceptions
     resources :pair_reports, concerns: [:switch]
     resources :pair_seasons, concerns: [:switch]
     resources :pair_donate_records, only: [:index, :show]

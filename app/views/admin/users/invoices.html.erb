@@ -14,7 +14,7 @@
     <div class="dataTables_wrapper no-footer">
       <div class="row">
         <div class="col-md-12 col-sm-12">
-          <%= search_form_for @search, url: invoices_admin_user_path(@user), class: 'form-inline' do |f| %>
+          <%= search_form_for @search, url: invoices_admin_user_path(@user), class: 'form-inline', html: {'data-parsley-validate': true} do |f| %>
           <div class="form-group">
             <%= f.label :title_cont, '搜索收入' %>
             <%= f.text_field :user_name_or_user_phone_cont, class: 'form-control', placeholder: '捐助人姓名、捐助人手机号' %>
@@ -102,23 +102,23 @@
             <div class="modal-body">
               <div class="portlet-body form">
                 <div class="form-body form-horizontal">
-                    <%= f.input :kind, as: :radio_buttons, wrapper: :inline_inputs, collection: Voucher.options_for_select(:kinds), label: '发票类型：'%>
+                    <%= f.input :kind, as: :radio_buttons, wrapper: :inline_inputs, collection: Voucher.options_for_select(:kinds), label: '发票类型：', label_html: { class: 'required' } %>
                     <%= f.input :amount, label: '开票金额：', autofocus: true, placeholder: '请填写开票金额', required: true %>
-                    <%= f.input :tax_no, label: '开票税号：', placeholder: '没有可不填写' %>
-                    <%= f.input :tax_company, label: '开票单位：', placeholder: '没有可不填写' %>
+                    <%= f.input :tax_no, label: '开票税号：', placeholder: '没有可不填写', label_html: { class: 'required' } %>
+                    <%= f.input :tax_company, label: '开票单位：', placeholder: '没有可不填写', label_html: { class: 'required' } %>
                     <%= f.input :contact_name, label: '收件人：', placeholder: '请填写收件人', required: true %>
-                    <%= f.input :contact_phone, label: '收件人联系电话：', placeholder: '请填写联系电话', required: true %>
+                    <%= f.input :contact_phone, label: '联系电话：', placeholder: '请填写联系电话', required: true %>
                     <div style="margin-bottom: 20px;" class="form-group">
-                      <label class="col-md-2 control-label select required" for="project_category_id">用户所在地：</label>
-                      <div class="col-sm-6">
+                      <label class="col-md-2 control-label select required" for="project_category_id">地区选择：</label>
+                      <div class="col-sm-9">
                         <div class="row city-group">
-                          <div class="col-sm-3">
+                          <div class="col-sm-4" style="padding-right:0px">
                             <%= select_tag 'voucher[province]', options_for_select(ChinaCity.list, @voucher.province.presence), prompt: '省份', class: "form-control city-select", required: true %>
                           </div>
-                          <div class="col-sm-3">
+                          <div class="col-sm-4" style="padding-right:0px">
                             <%= select_tag 'voucher[city]', options_for_select(ChinaCity.list(@voucher.province.to_s), @voucher.city.presence), prompt: '城市', class: "form-control city-select", required: true %>
                           </div>
-                          <div class="col-sm-3">
+                          <div class="col-sm-3" style="padding-right:0px">
                             <%= select_tag 'voucher[district]', options_for_select(ChinaCity.list(@voucher.city.to_s), @voucher.district.presence), prompt: '地区', class: "form-control city-select", required: true %>
                           </div>
                         </div>
