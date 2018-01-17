@@ -36,4 +36,12 @@ class ExpenditureRecord < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
+  def self.download_path
+    "/excel/expenditure/支出记录导入模板文件.xlsx"
+  end
+
+  def self.download_name
+    '支出记录导入模板文件.xlsx'
+  end
+
 end

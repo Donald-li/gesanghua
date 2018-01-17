@@ -197,6 +197,7 @@ Rails.application.routes.draw do
     end
     resources :income_records, concerns: [:excel_upload, :excel_import]
     resources :expenditure_records
+    resources :expenditure_uploads, only: [:new, :create]
     resource :data_statistic, only: [:show]
     resource :donate_statistic, only: [:show], concerns: [:excel_output]
     resources :vouchers, concerns: :switch

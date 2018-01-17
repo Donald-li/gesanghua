@@ -54,5 +54,38 @@
         $('.datetime-picker').datetimepicker()
         initMultiImageWebuploader($('#webuploader'));
         $('.upload-list').viewer();
+
+        // 异步加载入账列表
+        // $('.income-ajax').select2({
+        //     language: "zh-CN",
+        //     placeholder: '请选择支出的入账记录',
+        //     allowClear: true,
+        //     ajax: {
+        //         url: "/selects/income_records",
+        //         dataType: 'json',
+        //         delay: 250,
+        //         data: function (params) {
+        //             return {
+        //                 q: params.term, // search term
+        //                 page: params.page
+        //             };
+        //         },
+        //         processResults: function (data, params) {
+        //             params.page = params.page || 1;
+        //             return {
+        //                 results: $.map(data.items, function (item) {
+        //                     return {
+        //                         text: item.name,
+        //                         id: item.id
+        //                     }
+        //                 }),
+        //                 pagination: {
+        //                     more: (params.page * 30) < data.total_count
+        //                 }
+        //             };
+        //         },
+        //         cache: true
+        //     }
+        // });
     })
 </script>
