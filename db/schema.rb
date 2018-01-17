@@ -118,6 +118,7 @@ ActiveRecord::Schema.define(version: 20180117020506) do
     t.string "contact_name", comment: "联系人"
     t.string "contact_phone", comment: "联系电话"
     t.integer "payment_state", default: 1, comment: "支付状态 1:已支付 2:已取消"
+    t.integer "income_source_id", comment: "收入来源id"
   end
 
   create_table "campaigns", force: :cascade, comment: "活动表" do |t|

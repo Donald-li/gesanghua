@@ -111,6 +111,11 @@ gem 'chinese_pid'
 
 gem 'simplecov', :require => false, :group => :test
 
+#微信
+gem 'weixin_rails_middleware', github: 'Modernech/weixin_rails_middleware'
+gem 'weixin_authorize'
+gem 'wx_pay'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
