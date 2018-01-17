@@ -8,6 +8,9 @@ Bundler.require(*Rails.groups)
 
 module Gesanghua
   class Application < Rails::Application
+    require_relative "../app/middlewares/snake_case_parameters"
+    config.middleware.use SnakeCaseParameters
+    
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
     config.eager_load_paths += %W(#{config.root}/lib #{config.root}/app/uploaders)
