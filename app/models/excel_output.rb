@@ -103,6 +103,7 @@ class ExcelOutput
       3.times do
         sheet.add_row []
       end
+      sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, "录入数据以后，请删除以下数据"], :style => header
       sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, "收入分类名称模板", "请按照收入分类名称模板填写收入分类"], :style => header
       funds.each do |fund|
         sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, "#{fund.fund_category.name}-#{fund.name}"]
