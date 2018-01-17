@@ -10,3 +10,12 @@ junior_term_amount: 1050
 junior_year_amount: 2100
 senior_term_amount: 1050
 senior_year_amount: 2100
+
+# 微信公众号
+wechat_app_id: "wx771c54fb737861a3"
+wechat_app_secret: "7faa87ee5c43e2f0ff5465459e34a264"
+wechat_app_token: "c06a2a40256fdeb47ff0c7cc"
+
+# 微信支付
+wechat_mch_id: "1386171602"
+wechat_pay_key: "34894D77893800F28FD98B6EDD34FFE2"
