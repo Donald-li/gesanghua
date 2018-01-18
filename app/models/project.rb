@@ -37,4 +37,18 @@ class Project < ApplicationRecord
     self.describe.length > 90 ? self.describe.slice(0..90) : self.describe
   end
 
+  def summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id)
+      json.name self.name
+      json.describe self.describe
+    end.attributes!
+  end
+
+  def detail_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :name, :describe)
+    end.attributes!
+  end
+
 end

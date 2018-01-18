@@ -23,4 +23,9 @@ class ProjectReport < Report
 
   scope :sorted, ->{ order(created_at: :desc) }
 
+  def detail_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :title, :content)
+    end.attributes!
+  end
 end
