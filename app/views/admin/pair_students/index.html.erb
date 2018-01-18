@@ -91,8 +91,10 @@
                   <%= child.apply.school.name %> / <%= child.enum_name(:level) %> <%= child.enum_name(:grade) %> <%= child.enum_name(:semester) %>
                 </td>
                 <td>
-                  <% child.apply.sorted.all.each do |period| %>
-                    <span class="btn btn-xs green"><%= period.name %></span>
+                  <% if child.gsh_child.present? %>
+                    <% child.gsh_child.gsh_child_grants.sorted.all.each do |grant| %>
+                      <span class="btn btn-xs green"><%= grant.title %></span>
+                    <% end %>
                   <% end %>
                 </td>
                 <td>
