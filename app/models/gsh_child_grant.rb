@@ -22,6 +22,7 @@
 #  cancel_remark           :text                                   # 取消说明
 #  title                   :string                                 # 标题
 #  remark                  :text
+#  operator_id             :integer                                # 异常处理人id
 #
 
 class GshChildGrant < ApplicationRecord
@@ -32,6 +33,7 @@ class GshChildGrant < ApplicationRecord
   belongs_to :gsh_child, optional: true
   belongs_to :project_season, optional: true
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id', optional: true
+  belongs_to :oprator_id, class_name: 'User', foreign_key: 'project_season_apply_id', optional: true
 
   has_one :feedback, as: :owner
 

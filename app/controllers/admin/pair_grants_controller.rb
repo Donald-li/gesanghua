@@ -16,7 +16,7 @@ class Admin::PairGrantsController < Admin::BaseController
     end
 
   end
-  # 
+  #
   # def excel_output
   #   ExcelOutput.pair_grants_output
   #   file_path = Rails.root.join("public/files/结对发放" + DateTime.now.strftime("%Y-%m-%d-%s") + ".xlsx")
@@ -66,7 +66,7 @@ class Admin::PairGrantsController < Admin::BaseController
 
   def update_cancel
     respond_to do |format|
-      if @grant.update(grant_params)
+      if @grant.update(grant_params.merge(operator_id: current_user.id))
         @grant.cancel!
         format.html { redirect_to admin_pair_grants_path, notice: '操作成功。' }
       else
