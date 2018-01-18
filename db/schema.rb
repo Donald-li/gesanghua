@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180118025401) do
+ActiveRecord::Schema.define(version: 20180118114340) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -200,6 +200,8 @@ ActiveRecord::Schema.define(version: 20180118025401) do
     t.integer "project_season_apply_child_id", comment: "年度孩子申请ID"
     t.string "donate_no", comment: "捐赠编号"
     t.integer "voucher_id", comment: "捐助记录ID"
+    t.integer "period", comment: "月捐期数"
+    t.integer "month_donate_id", comment: "月捐id"
   end
 
   create_table "expenditure_records", force: :cascade, comment: "支出记录表" do |t|
@@ -369,14 +371,6 @@ ActiveRecord::Schema.define(version: 20180118025401) do
 
   create_table "majors", force: :cascade, comment: "专业表" do |t|
     t.string "name", comment: "专业名称"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "month_donate_records", force: :cascade, comment: "月捐记录表" do |t|
-    t.integer "month_donate_id", comment: "月捐id"
-    t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "每期捐助金额"
-    t.integer "period", comment: "期数"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -555,6 +549,7 @@ ActiveRecord::Schema.define(version: 20180118025401) do
     t.integer "fund_id", comment: "关联财务分类id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "donate_record_amount_count", precision: 14, scale: 2, default: "0.0", comment: "累计捐助金额"
   end
 
   create_table "remarks", force: :cascade, comment: "备注信息表" do |t|

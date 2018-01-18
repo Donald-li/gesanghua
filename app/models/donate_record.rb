@@ -35,6 +35,7 @@ class DonateRecord < ApplicationRecord
   belongs_to :promoter, class_name: 'User', optional: true
   # belongs_to :remitter, class_name: 'User'
   belongs_to :project, optional: true
+  counter_culture :project, column_name: :donate_record_amount_count, delta_magnitude: proc {|model| model.amount}
   belongs_to :project_season, optional: true
   belongs_to :project_season_apply, optional: true
   belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id'
