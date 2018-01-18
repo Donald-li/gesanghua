@@ -205,7 +205,11 @@ Rails.application.routes.draw do
         get :template_download
       end
     end
-    resources :expenditure_records
+    resources :expenditure_records, concerns: [:excel_upload, :excel_import] do
+      collection do
+        get :template_download
+      end
+    end
     resources :expenditure_uploads, only: [:new, :create]
     resource :data_statistic, only: [:show]
     resource :donate_statistic, only: [:show], concerns: [:excel_output]
@@ -221,9 +225,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resource :pair, only: [:show]
       resources :project_reports, only: :index
-
       resources :projects, only: :show
-      resources :pair_projects
     end
   end
 

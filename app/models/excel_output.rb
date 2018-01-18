@@ -117,4 +117,26 @@ class ExcelOutput
     end
   end
 
+  def self.generate_expenditure_template(time)
+    p = Axlsx::Package.new
+    wb = p.workbook
+    funds = Fund.sorted
+
+    header = wb.styles.add_style :sz => 16, :b => true, :alignment => {:horizontal => :center}
+    wb.add_worksheet(:name => "表") do |sheet|
+      sheet.add_row ["支出名称", "支出时间", "支出分类", "支出金额", "备注", "经办人"], :style => header
+      sheet.add_row ["结对孩子支出", "2018-1-17 12:30", "结对-非指定", "2000", "好好学习", "李阿姨", "请按照模板格式填写"]
+      3.times do
+        sheet.add_row []
+      end
+      sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil,  "录入数据以后，请删除以下数据"], :style => header
+      sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil,  "支出分类名称模板", "请按照支出分类名称模板填写支出分类"], :style => header
+      funds.each do |fund|
+        sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil, "#{fund.fund_category.name}-#{fund.name}"]
+      end
+
+      p.serialize "public/files/templates/支出导入模板" + time + ".xlsx"
+    end
+  end
+
 end

@@ -23,6 +23,7 @@
 class ExpenditureRecord < ApplicationRecord
   include HasAsset
   has_many_assets :images, class_name: 'Asset::ExpenditureRecordImage'
+  has_one_asset :expenditure_record_excel, class_name: 'Asset::ExpenditureRecordExcel'
 
   belongs_to :fund
   belongs_to :administrator, optional: true
@@ -42,6 +43,11 @@ class ExpenditureRecord < ApplicationRecord
 
   def self.download_name
     '支出记录导入模板文件.xlsx'
+  end
+
+  def self.read_excel(excel_id)
+    file = Asset.find(excel_id).try(:file).try(:file)
+    FileUtil.import_expenditure_records(original_filename: file.original_filename, path: file.path) if file.present?
   end
 
 end
