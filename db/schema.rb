@@ -312,6 +312,7 @@ ActiveRecord::Schema.define(version: 20180118114340) do
     t.text "cancel_remark", comment: "取消说明"
     t.string "title", comment: "标题"
     t.text "remark"
+    t.integer "operator_id", comment: "异常处理人id"
     t.index ["gsh_child_id"], name: "index_gsh_child_grants_on_gsh_child_id"
     t.index ["project_season_apply_id"], name: "index_gsh_child_grants_on_project_season_apply_id"
   end

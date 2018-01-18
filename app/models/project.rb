@@ -14,6 +14,8 @@
 #
 
 class Project < ApplicationRecord
+  include ActionView::Helpers::NumberHelper
+
   has_many :seasons, class_name: 'ProjectSeason', dependent: :destroy
   has_many :applies, class_name: 'ProjectSeasonApply', dependent: :destroy
   has_many :children, class_name: 'ProjectSeasonApplyChild', dependent: :destroy
@@ -48,6 +50,7 @@ class Project < ApplicationRecord
   def detail_builder
     Jbuilder.new do |json|
       json.(self, :id, :name, :describe)
+      json.total number_to_currency(self.donate_record_amount_count)
     end.attributes!
   end
 
