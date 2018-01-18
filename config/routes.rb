@@ -228,6 +228,7 @@ Rails.application.routes.draw do
       resource :pair, only: [:show]
       resources :project_reports, only: :index
       resources :projects, only: :show
+      resources :pair_children, only: :show
     end
   end
 

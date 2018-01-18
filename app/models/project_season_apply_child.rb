@@ -154,6 +154,46 @@ class ProjectSeasonApplyChild < ApplicationRecord
     ProjectSeasonApplyChild.send(:grades)[self.grade]
   end
 
+  def get_tuition
+    if self.junior?
+      return self.season.junior_year_amount
+    else
+      return self.season.senior_year_amount
+    end
+  end
+
+  def summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id)
+      json.name self.name
+      json.age self.age
+      json.level self.enum_name(:level)
+      json.gsh_no self.gsh_child.gsh_no
+      json.tuition self.get_tuition.to_i
+      json.description self.description
+      json.grants do
+        json.array! self.gsh_child.gsh_child_grants do |grant|
+          json.(grant, :id)
+          json.(grant, :title)
+          json.(grant, :amount)
+          json.donate_state grant.donate_state
+        end
+      end
+      json.images do
+        json.array! self.images do |image|
+          json.(image, :id)
+          json.image image.file.url
+        end
+      end
+    end.attributes!
+  end
+
+  def detail_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :name, :describe)
+    end.attributes!
+  end
+
   protected
 
   def create_gsh_child
