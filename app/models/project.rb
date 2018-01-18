@@ -42,6 +42,7 @@ class Project < ApplicationRecord
       json.(self, :id)
       json.name self.name
       json.describe self.describe
+      # json.total_amount self.fund.amount
     end.attributes!
   end
 

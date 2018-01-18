@@ -9,4 +9,5 @@ RSpec.describe "Api::V1::Pairs", type: :request do
       expect_json({ data: {name: '结对'} })
     end
   end
+
 end

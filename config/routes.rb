@@ -226,6 +226,11 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resource :pair, only: [:show]
+      resources :children do
+        collection do
+          get :get_address_list
+        end
+      end
       resources :project_reports, only: :index
       resources :projects, only: :show
     end

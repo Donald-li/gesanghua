@@ -14,7 +14,7 @@
 #
 
 FactoryBot.define do
-  factory :project, aliases: [:hair_project] do
+  factory :project, aliases: [:pair_project] do
     name '结对'
     describe '一对一结对项目'
     kind 'normal'
@@ -31,6 +31,7 @@ FactoryBot.define do
         create_list :project_report, 6, project: project
       end
     end
+
   end
 
 end

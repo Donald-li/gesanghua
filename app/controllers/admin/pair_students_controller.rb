@@ -2,7 +2,7 @@ class Admin::PairStudentsController < Admin::BaseController
   before_action :set_project_apply
 
   def index
-    @search = @project_apply.children.sorted.ransack(params[:q])
+    @search = @project_apply.children.where(school: @project_apply.school).sorted.ransack(params[:q])
     scope = @search.result
     @children = scope.page(params[:page])
   end
@@ -16,7 +16,7 @@ class Admin::PairStudentsController < Admin::BaseController
 
   def edit
     @apply_child = ProjectSeasonApplyChild.find(params[:id])
-    @audit = @apply_child.audits.last
+    @audit = @apply_child.audits.last || @apply_child.audits.create
     @new_audit = @apply_child.audits.build
   end
 

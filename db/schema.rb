@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180117152446) do
+ActiveRecord::Schema.define(version: 20180118025401) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -372,6 +372,14 @@ ActiveRecord::Schema.define(version: 20180117152446) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "month_donate_records", force: :cascade, comment: "月捐记录表" do |t|
+    t.integer "month_donate_id", comment: "月捐id"
+    t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "每期捐助金额"
+    t.integer "period", comment: "期数"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "month_donates", force: :cascade, comment: "月捐表" do |t|
     t.integer "user_id", comment: "用户id"
     t.integer "fund_id", comment: "基金id"
@@ -589,7 +597,7 @@ ActiveRecord::Schema.define(version: 20180117152446) do
     t.string "contact_phone", comment: "联系方式"
     t.string "contact_position", comment: "联系人职务"
     t.integer "kind", comment: "学校类型"
-    t.integer "user_id", comment: "申请人ID"
+    t.integer "user_id", comment: "用户id"
     t.string "school_no", comment: "学校申请编号"
     t.string "contact_idcard", comment: "联系人身份证号"
     t.string "postcode", comment: "邮政编码"

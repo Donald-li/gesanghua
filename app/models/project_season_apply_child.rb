@@ -58,7 +58,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   validates :province, :city, :district, presence: true
 
   enum state: {show: 1, hidden: 2} # 状态：1:展示 2:隐藏
-  default_value_for :state, 1
+  default_value_for :state, 2
 
   enum approve_state: {submit: 1, pass: 2, rejected: 3} # 状态：1:待审核 2:通过 3:不通过
   default_value_for :approve_state, 1
@@ -153,6 +153,39 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   def child_grade_integer
     ProjectSeasonApplyChild.send(:grades)[self.grade]
+  end
+
+  def detail_builder
+    Jbuilder.new do |json|
+      json.(self, :id)
+      json.name self.secrecy_name
+      json.gsh_no self.gsh_child.try(:gsh_no)
+      json.remarks_string self.remarks_string
+    end.attributes!
+  end
+
+  def self.address_group
+    Jbuilder.new do |json|
+      json.city self.city_group
+    end.attributes!
+  end
+
+  def secrecy_name
+    name = self.name
+    name[1..(name.size - 2)] = '*' * (name.size - 2)
+    return name
+  end
+
+  def remarks_string
+    self.remarks.map{|remark| remark.content}.join('、').slice(0..8)
+  end
+
+  def self.city_group
+    self.all.group_by{|child| child.city}.keys.map{|key| {value: key, name: ChinaCity.get(key), district: self.district_group(key)}}
+  end
+
+  def self.district_group(city)
+    self.where(city: city).group_by{|child| child.district}.keys.map{|key| {value: key, name: ChinaCity.get(key)}}
   end
 
   protected

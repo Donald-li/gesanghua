@@ -3,7 +3,7 @@ class Api::V1::BaseController < ApplicationController
   before_action :set_paper_trail_whodunnit
 
   protected
-  rescue_from(CanCan::AccessDenied){ deny_access }
+  # rescue_from(CanCan::AccessDenied){ deny_access }
 
   def user_for_paper_trail
     "#{current_user.name}(#{current_user.login_name})" if current_user
