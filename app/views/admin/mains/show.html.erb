@@ -1,1 +1,32 @@
-平台管理首页
+<div class="row">
+  <div class="col-md-12">
+    <div class="portlet light portlet-fit bordered">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class=" icon-layers font-green"></i>
+          <span class="caption-subject font-green bold uppercase">平台首页</span>
+        </div>
+      </div>
+      <div class="portlet-body">
+        <div class="mt-element-card mt-card-round mt-element-overlay">
+          <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+              <div class="mt-card-item">
+                <div class="mt-card-avatar mt-overlay-1">
+                  <%= image_tag current_administrator.user.avatar_url(:tiny) %>
+                </div>
+                <div class="mt-card-content">
+                  <h3 class="mt-card-name"><%= current_administrator.nickname %></h3>
+                  <p class="mt-card-desc font-grey-mint"><%= current_administrator.user.try(:name) %></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+              <h4>欢迎 <%= current_administrator.enum_name(:kind) %> <%= current_administrator.user.try(:name) %> 登录格桑花平台！</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
