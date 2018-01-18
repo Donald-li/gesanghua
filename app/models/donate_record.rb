@@ -24,19 +24,23 @@
 #  project_season_apply_child_id :integer                                # 年度孩子申请ID
 #  donate_no                     :string                                 # 捐赠编号
 #  voucher_id                    :integer                                # 捐助记录ID
+#  period                        :integer                                # 月捐期数
+#  month_donate_id               :integer                                # 月捐id
 #
 
 class DonateRecord < ApplicationRecord
   belongs_to :user
   belongs_to :promoter, class_name: 'User', optional: true
   # belongs_to :remitter, class_name: 'User'
-  belongs_to :project
-  belongs_to :project_season
-  belongs_to :project_season_apply
+  belongs_to :project, optional: true
+  belongs_to :project_season, optional: true
+  belongs_to :project_season_apply, optional: true
   belongs_to :team, optional: true
   belongs_to :project_season_apply_child, optional: true
   has_one :income_record, dependent: :destroy
   belongs_to :voucher, optional: true
+  belongs_to :month_donate, optional: true
+  belongs_to :fund, optional: true
 
   # has_many :voucher_donate_records
   # has_many :vouchers, through: :voucher_donate_records

@@ -8,6 +8,7 @@
 #  state      :integer          default("enable")                             # 状态 1:正常 2:禁用
 #  user_id    :integer
 #  kind       :integer          default("system_administrator")               # 管理员类型 1:超级管理员 2:系统管理员 3:项目管理员 4:财务人员
+#  integer    :integer          default(2)                                    # 管理员类型 1:超级管理员 2:系统管理员 3:项目管理员 4:财务人员
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
