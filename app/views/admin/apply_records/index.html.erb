@@ -38,13 +38,13 @@
           <% @apply_records.each do |apply_record| %>
               <tr>
                 <td>
-                  <%= apply_record.project_season_apply.try(:id) %>
+                  <%= apply_record.apply.try(:id) %>
                 </td>
                 <td>
-                  <%= apply_record.project_season_apply.project.try(:name) %>
+                  <%= apply_record.apply.project.try(:name) %>
                 </td>
                 <td>
-                  <%= l apply_record.project_season_apply.created_at %>
+                  <%= l apply_record.apply.created_at %>
                 </td>
               </tr>
           <% end %>
