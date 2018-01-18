@@ -83,6 +83,9 @@
                 <%= month_donate.enum_name(:state) %>
               </td>
               <td>
+                <%= link_to admin_month_donate_month_donate_records_path(month_donate), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                  <i class="fa fa-list"></i> 捐助记录
+                <% end %>
                 <% if month_donate.donation? %>
                   <%= link_to edit_admin_month_donate_path(month_donate), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                     <i class="fa fa-edit"></i> 修改捐助

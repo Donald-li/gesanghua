@@ -18,6 +18,8 @@ class MonthDonate < ApplicationRecord
   belongs_to :user
   belongs_to :fund
 
+  has_many :month_donate_records, dependent: :destroy
+
   validates :plan_period, :amount, presence: true
 
   enum state: {donation: 1, finished: 2} #状态 1:捐助中 2:已结束
