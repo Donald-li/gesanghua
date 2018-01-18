@@ -2,7 +2,7 @@
   <div class="portlet-title">
     <div class="caption">
       <i class="icon-icon"></i>
-      <span class="caption-subject">新增报名</span>
+      <span class="caption-subject"><%= link_to @campaign.name, admin_campaigns_path %> >新增报名</span>
     </div>
     <div class="actions">
       <%= link_to admin_campaign_campaign_enlists_path(@campaign_enlist.campaign), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>

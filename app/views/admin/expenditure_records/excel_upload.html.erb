@@ -1,0 +1,51 @@
+<div class="portlet light bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-note"></i>
+      <span class="caption-subject">导入支出记录</span>
+      <span class="caption-helper"></span>
+    </div>
+    <div class="actions">
+      <div class="portlet-input input-inline input-small">
+        <div class="input-icon right">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body form">
+    <div class="form-body form-horizontal">
+      <div class="form-body">
+        <div class="form-group">
+          <label class="col-md-2 control-label" style="margin-left: 15px;">需要下载模板，按格式填写后上传</label>
+          <div class="btn btn-lg green">
+            <i class="fa fa-download"></i>
+            <%= link_to '下载模板', template_download_admin_expenditure_records_path %>
+          </div>
+        </div>
+        <%= simple_form_for :file, url: excel_import_admin_expenditure_records_path, method: :put, wrapper: :admin_form do |f| %>
+          <%= f.error_notification %>
+          <div class="form-group">
+            <label class="col-md-2 control-label">支出记录文件:</label>
+            <div class="col-sm-9">
+              <%= webuploader_file :expenditure_record_excel_id, id: 'excel-upload', label: '上传文件', type: 'expenditure_record_excel' %>
+            </div>
+          </div>
+          <div class="form-actions">
+            <div class="row">
+              <div class="col-md-offset-3 col-md-9">
+                <%= f.button :submit, '提交', class: 'btn green' %>
+                <%= link_to '取消', admin_expenditure_records_path, class: 'btn' %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    $(function () {
+        initAssetWebuploader('#excel-upload');
+    })
+</script>

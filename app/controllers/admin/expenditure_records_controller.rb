@@ -49,6 +49,22 @@ class Admin::ExpenditureRecordsController < Admin::BaseController
     end
   end
 
+  def template_download
+    time = DateTime.now.strftime("%Y-%m-%d-%s")
+    ExcelOutput.generate_expenditure_template(time)
+    send_file(File.join(Rails.root, "public/files/templates/支出导入模板" + time + ".xlsx"), filename: "支出导入模板.xlsx")
+  end
+
+  def excel_import
+    respond_to do |format|
+      if notice =  ExpenditureRecord.read_excel(params[:expenditure_record_excel_id])
+        format.html {redirect_to admin_expenditure_records_path, notice: notice}
+      else
+        format.html {render :excel_upload}
+      end
+    end
+  end
+
   def destroy
     @expenditure_record.destroy
     respond_to do |format|

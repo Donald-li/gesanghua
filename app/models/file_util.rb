@@ -159,4 +159,36 @@ class FileUtil
 
       end
     end
+
+    def self.import_expenditure_records(original_filename: nil, path: nil)
+      s = nil
+      s_count = 0
+      f_count = 0
+      if File.extname(original_filename) == '.xlsx' || File.extname(original_filename) == '.xls'
+        s = Roo::Excelx.new path
+      else
+        return
+      end
+      #  name：学校名称  contact_name：联系人姓名 contact_title：联系人职位 contact_phone：联系方式 province：省 city：市 district：区 street：街 address：详细地址
+      2.upto(s.last_row) do |line|
+
+        name = s.formatted_value(line, 'A')
+        expended_at = s.formatted_value(line, 'B')
+        fund_title = s.formatted_value(line, 'C')
+        amount = s.formatted_value(line, 'D')
+        remark = s.formatted_value(line, 'E')
+        operator = s.formatted_value(line, 'F')
+
+        fund = fund_title.present? ? FundCategory.find_by(name: fund_title.split('-').first).funds.find_by(name: fund_title.split('-').second) : nil
+
+        if fund.present?
+          ExpenditureRecord.create(fund: fund, expended_at: Time.parse(expended_at), amount: amount, operator: operator, name: name, remark: remark)
+          s_count += 1
+        else
+          f_count += 1
+        end
+      end
+      # right_notice = "成功录入#{s_count}条，其中#{f_count}条录入失败"
+      right_notice = "成功录入#{s_count}条支出记录"
+    end
 end

@@ -205,7 +205,11 @@ Rails.application.routes.draw do
         get :template_download
       end
     end
-    resources :expenditure_records
+    resources :expenditure_records, concerns: [:excel_upload, :excel_import] do
+      collection do
+        get :template_download
+      end
+    end
     resources :expenditure_uploads, only: [:new, :create]
     resource :data_statistic, only: [:show]
     resource :donate_statistic, only: [:show], concerns: [:excel_output]
