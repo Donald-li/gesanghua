@@ -221,9 +221,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resource :pair, only: [:show]
       resources :project_reports, only: :index
-
       resources :projects, only: :show
-      resources :pair_projects
     end
   end
 
