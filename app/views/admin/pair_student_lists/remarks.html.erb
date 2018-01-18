@@ -55,10 +55,10 @@
           </tr>
           </thead>
           <tbody>
-          <% @remarks.each do |remark| %>
+          <% @remarks.each_with_index do |remark, index| %>
               <tr>
                 <td>
-                  <%= remark.id %>
+                  <%= index + 1 %>
                 </td>
                 <td>
                   <%= remark.content.html_safe %>
