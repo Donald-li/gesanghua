@@ -34,7 +34,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   require 'custom_validators'
 
-  attr_accessor :image_ids
+  # attr_accessor :image_ids
   include HasAsset
   has_many_assets :images, class_name: 'Asset::ApplyChildImage'
 

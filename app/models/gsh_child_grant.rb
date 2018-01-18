@@ -60,7 +60,7 @@ class GshChildGrant < ApplicationRecord
     end
 
     apply_num = 4 - child.child_grade_integer
-
+    byebug
     year = Time.now.year
 
     GshChildGrant.find_or_create_by(title: "#{year}学年春季学期", gsh_child: gsh_child, apply: apply, amount: term_amount, school_id: gsh_child.school_id) && apply_num -= 1 if child.next_term? && apply_num > 0

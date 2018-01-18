@@ -29,6 +29,7 @@ class ProjectSeasonApply < ApplicationRecord
   belongs_to :gsh_bookshelf, optional: true
   has_many :audits, as: :owner
   has_many :children, class_name: "ProjectSeasonApplyChild"
+  has_many :gsh_child_grants
 
   validates :province, :city, :district, presence: true
 
