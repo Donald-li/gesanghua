@@ -32,6 +32,11 @@ FactoryBot.define do
       end
     end
 
+    trait :with_donate_records do
+      after(:build) do |project|
+        create_list :project_report, 6, project: project
+      end
+    end
   end
 
 end

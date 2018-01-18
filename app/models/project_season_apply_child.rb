@@ -41,7 +41,6 @@ class ProjectSeasonApplyChild < ApplicationRecord
   belongs_to :project
   belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id'
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id'
-
   belongs_to :gsh_child, optional: true
   belongs_to :school
   has_one :visit, foreign_key: 'apply_child_id'
@@ -138,11 +137,11 @@ class ProjectSeasonApplyChild < ApplicationRecord
   def approve_pass
     self.approve_state = 'pass'
     if self.gsh_child_id.nil?
-      self.gsh_child = self.gen_gsh_child
+      self.gsh_child = self.create_gsh_child
       self.apply.gsh_child = self.gsh_child
     end
     self.save
-    GshChildGrant.gen_grant_record(self.gsh_child)
+    self.gen_grant_record
   end
 
   # 审核不通过
@@ -188,10 +187,43 @@ class ProjectSeasonApplyChild < ApplicationRecord
     self.where(city: city).group_by{|child| child.district}.keys.map{|key| {value: key, name: ChinaCity.get(key)}}
   end
 
+  def get_tuition
+    if self.junior?
+      return self.season.junior_year_amount
+    else
+      return self.season.senior_year_amount
+    end
+  end
+
+  def summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id)
+      json.name self.name
+      json.age self.age
+      json.level self.enum_name(:level)
+      json.gsh_no self.gsh_child.gsh_no
+      json.tuition self.get_tuition.to_i
+      json.description self.description
+      json.grants do
+        json.array! self.gsh_child.gsh_child_grants do |grant|
+          json.(grant, :id)
+          json.(grant, :title)
+          json.(grant, :amount)
+          json.donate_state grant.donate_state
+        end
+      end
+      json.images do
+        json.array! self.images do |image|
+          json.(image, :id)
+          json.image image.file.url
+        end
+      end
+    end.attributes!
+  end
+
   protected
 
-  # 生成受助孩子
-  def gen_gsh_child
+  def create_gsh_child
     gsh_child = GshChild.new
     gsh_child.school_id = self.apply.school_id
     gsh_child.province = self.province
@@ -202,6 +234,10 @@ class ProjectSeasonApplyChild < ApplicationRecord
     gsh_child.qq = self.qq
     gsh_child.save
     return gsh_child
+  end
+
+  def gen_grant_record
+    GshChildGrant.gen_grant_record(self.gsh_child)
   end
 
 end

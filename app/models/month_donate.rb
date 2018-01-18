@@ -18,7 +18,7 @@ class MonthDonate < ApplicationRecord
   belongs_to :user
   belongs_to :fund
 
-  has_many :month_donate_records, dependent: :destroy
+  has_many :donate_records, dependent: :destroy
 
   validates :plan_period, :amount, presence: true
 

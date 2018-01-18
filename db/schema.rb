@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180118025401) do
+ActiveRecord::Schema.define(version: 20180118114340) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,6 +118,7 @@ ActiveRecord::Schema.define(version: 20180118025401) do
     t.string "contact_name", comment: "联系人"
     t.string "contact_phone", comment: "联系电话"
     t.integer "payment_state", default: 1, comment: "支付状态 1:已支付 2:已取消"
+    t.integer "income_source_id", comment: "收入来源id"
   end
 
   create_table "campaigns", force: :cascade, comment: "活动表" do |t|
@@ -199,6 +200,8 @@ ActiveRecord::Schema.define(version: 20180118025401) do
     t.integer "project_season_apply_child_id", comment: "年度孩子申请ID"
     t.string "donate_no", comment: "捐赠编号"
     t.integer "voucher_id", comment: "捐助记录ID"
+    t.integer "period", comment: "月捐期数"
+    t.integer "month_donate_id", comment: "月捐id"
   end
 
   create_table "expenditure_records", force: :cascade, comment: "支出记录表" do |t|
@@ -309,6 +312,7 @@ ActiveRecord::Schema.define(version: 20180118025401) do
     t.text "cancel_remark", comment: "取消说明"
     t.string "title", comment: "标题"
     t.text "remark"
+    t.integer "operator_id", comment: "异常处理人id"
     t.index ["gsh_child_id"], name: "index_gsh_child_grants_on_gsh_child_id"
     t.index ["project_season_apply_id"], name: "index_gsh_child_grants_on_project_season_apply_id"
   end
@@ -368,14 +372,6 @@ ActiveRecord::Schema.define(version: 20180118025401) do
 
   create_table "majors", force: :cascade, comment: "专业表" do |t|
     t.string "name", comment: "专业名称"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "month_donate_records", force: :cascade, comment: "月捐记录表" do |t|
-    t.integer "month_donate_id", comment: "月捐id"
-    t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "每期捐助金额"
-    t.integer "period", comment: "期数"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -554,6 +550,7 @@ ActiveRecord::Schema.define(version: 20180118025401) do
     t.integer "fund_id", comment: "关联财务分类id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "donate_record_amount_count", precision: 14, scale: 2, default: "0.0", comment: "累计捐助金额"
   end
 
   create_table "remarks", force: :cascade, comment: "备注信息表" do |t|
@@ -597,7 +594,7 @@ ActiveRecord::Schema.define(version: 20180118025401) do
     t.string "contact_phone", comment: "联系方式"
     t.string "contact_position", comment: "联系人职务"
     t.integer "kind", comment: "学校类型"
-    t.integer "user_id", comment: "用户id"
+    t.integer "user_id", comment: "申请人ID"
     t.string "school_no", comment: "学校申请编号"
     t.string "contact_idcard", comment: "联系人身份证号"
     t.string "postcode", comment: "邮政编码"

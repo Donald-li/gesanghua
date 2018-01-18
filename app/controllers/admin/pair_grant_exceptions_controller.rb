@@ -14,10 +14,8 @@ class Admin::PairGrantExceptionsController < Admin::BaseController
 
   def update
     respond_to do |format|
-      @grant.attach_images(params[:image_ids])
-      if @grant.update(grant_params)
-        @grant.granted!
-        format.html { redirect_to admin_pair_grants_path, notice: '操作成功。' }
+      if @grant.update(grant_params.merge(operator_id: current_user.id))
+        format.html { redirect_to referer_or(admin_pair_grant_exceptions_url), notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -33,4 +31,5 @@ class Admin::PairGrantExceptionsController < Admin::BaseController
     def grant_params
       params.require(:gsh_child_grant).permit!
     end
+
 end

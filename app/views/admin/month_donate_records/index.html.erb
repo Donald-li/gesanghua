@@ -45,25 +45,25 @@
             </tr>
           </thead>
           <tbody>
-            <% @month_donate_records.each do |month_donate_record| %>
+            <% @donate_records.each do |donate_record| %>
             <tr>
               <td>
-                <%= month_donate_record.month_donate.try(:id) %>
+                <%= donate_record.month_donate.try(:id) %>
               </td>
               <td>
-                <%= month_donate_record.month_donate.user.try(:name) %>
+                <%= donate_record.month_donate.user.try(:name) %>
               </td>
               <td>
-                <%= month_donate_record.month_donate.user.try(:phone) %>
+                <%= donate_record.month_donate.user.try(:phone) %>
               </td>
               <td>
-                <%= month_donate_record.month_donate.fund.fund_category.try(:name) %>
+                <%= donate_record.month_donate.fund.fund_category.try(:name) %>
               </td>
               <td>
-                <%= month_donate_record.period %>
+                <%= donate_record.period %>
               </td>
               <td>
-                <%= month_donate_record.amount %>元
+                <%= donate_record.amount %>元
               </td>
             </tr>
             <% end %>
@@ -72,10 +72,10 @@
       </div>
       <div class="row">
         <div class="col-md-5 col-sm-12">
-          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@month_donate_records) %></div>
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@donate_records) %></div>
         </div>
         <div class="col-md-7 col-sm-12">
-          <%= paginate @month_donate_records, theme: '' %>
+          <%= paginate @donate_records, theme: '' %>
         </div>
       </div>
     </div>

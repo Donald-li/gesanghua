@@ -22,6 +22,7 @@
 #  cancel_remark           :text                                   # 取消说明
 #  title                   :string                                 # 标题
 #  remark                  :text
+#  operator_id             :integer                                # 异常处理人id
 #
 
 FactoryBot.define do

@@ -22,6 +22,7 @@
 #  cancel_remark           :text                                   # 取消说明
 #  title                   :string                                 # 标题
 #  remark                  :text
+#  operator_id             :integer                                # 异常处理人id
 #
 
 class GshChildGrant < ApplicationRecord
@@ -32,6 +33,7 @@ class GshChildGrant < ApplicationRecord
   belongs_to :gsh_child, optional: true
   belongs_to :project_season, optional: true
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id', optional: true
+  belongs_to :oprator_id, class_name: 'User', foreign_key: 'project_season_apply_id', optional: true
 
   has_one :feedback, as: :owner
 
@@ -63,11 +65,11 @@ class GshChildGrant < ApplicationRecord
 
     year = Time.now.year
 
-    GshChildGrant.find_or_create_by(title: "#{year}学年春季学期", gsh_child: gsh_child, apply: apply, amount: term_amount, school_id: gsh_child.school_id) && apply_num -= 1 if child.next_term? && apply_num > 0
+    GshChildGrant.find_or_create_by(title: "#{year} 春季", gsh_child: gsh_child, apply: apply, amount: term_amount, school_id: gsh_child.school_id) && apply_num -= 1 if child.next_term? && apply_num > 0
 
     if (apply_num > 0)
       apply_num.times do
-        GshChildGrant.find_or_create_by(title: "#{year}秋季学期 - #{year + 1}学年春季学期", gsh_child: gsh_child, apply: apply, amount: year_amount, school_id: gsh_child.school_id)
+        GshChildGrant.find_or_create_by(title: "#{year} - #{year + 1} 学年", gsh_child: gsh_child, apply: apply, amount: year_amount, school_id: gsh_child.school_id)
         year += 1
       end
     end
