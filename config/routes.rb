@@ -229,6 +229,7 @@ Rails.application.routes.draw do
       resources :project_reports, only: :index
       resources :projects, only: :show
       resources :pair_children, only: :show
+      resources :donate_records
     end
   end
 
