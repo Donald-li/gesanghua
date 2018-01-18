@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180117152446) do
+ActiveRecord::Schema.define(version: 20180118025401) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,6 +118,7 @@ ActiveRecord::Schema.define(version: 20180117152446) do
     t.string "contact_name", comment: "联系人"
     t.string "contact_phone", comment: "联系电话"
     t.integer "payment_state", default: 1, comment: "支付状态 1:已支付 2:已取消"
+    t.integer "income_source_id", comment: "收入来源id"
   end
 
   create_table "campaigns", force: :cascade, comment: "活动表" do |t|
@@ -368,6 +369,14 @@ ActiveRecord::Schema.define(version: 20180117152446) do
 
   create_table "majors", force: :cascade, comment: "专业表" do |t|
     t.string "name", comment: "专业名称"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "month_donate_records", force: :cascade, comment: "月捐记录表" do |t|
+    t.integer "month_donate_id", comment: "月捐id"
+    t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "每期捐助金额"
+    t.integer "period", comment: "期数"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
