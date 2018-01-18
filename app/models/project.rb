@@ -16,6 +16,11 @@
 class Project < ApplicationRecord
   include ActionView::Helpers::NumberHelper
 
+  attr_accessor :image_id
+
+  include HasAsset
+  has_one_asset :image, class_name: 'Asset::ProjectImage'
+
   has_many :seasons, class_name: 'ProjectSeason', dependent: :destroy
   has_many :applies, class_name: 'ProjectSeasonApply', dependent: :destroy
   has_many :children, class_name: 'ProjectSeasonApplyChild', dependent: :destroy
@@ -45,6 +50,7 @@ class Project < ApplicationRecord
       json.name self.name
       json.describe self.describe
       # json.total_amount self.fund.amount
+      json.cover_url self.image_url(:tiny).to_s
     end.attributes!
   end
 
@@ -52,6 +58,7 @@ class Project < ApplicationRecord
     Jbuilder.new do |json|
       json.(self, :id, :name, :describe)
       json.total number_to_currency(self.donate_record_amount_count)
+      json.cover_url self.image_url(:tiny).to_s
     end.attributes!
   end
 
