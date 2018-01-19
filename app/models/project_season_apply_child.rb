@@ -157,8 +157,9 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   def detail_builder
     Jbuilder.new do |json|
-      json.(self, :id)
+      json.(self, :id, :age)
       json.name self.secrecy_name
+      json.level self.enum_name(:level)
       json.gsh_no self.gsh_child.try(:gsh_no)
       json.remarks_string self.remarks_string
     end.attributes!
@@ -209,14 +210,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
       json.gsh_no self.gsh_child.gsh_no
       json.tuition self.get_tuition.to_i
       json.description self.description
-      json.donate_grants do
-        json.array! self.gsh_child.gsh_child_grants.reverse_sorted do |grant|
-          json.(grant, :id)
-          json.(grant, :title)
-          json.(grant, :amount)
-          json.donate_state grant.donate_state
-        end
-      end
+      json.donate_grants self.donate_record_builder
       json.grants do
         json.array! self.gsh_child.gsh_child_grants.granted.reverse_sorted do |grant|
           json.(grant, :id)
@@ -239,6 +233,17 @@ class ProjectSeasonApplyChild < ApplicationRecord
           json.image image.file.url
         end
       end
+    end.attributes!
+  end
+
+  def donate_record_builder
+    Jbuilder.new do |json|
+        json.array! self.gsh_child.gsh_child_grants.reverse_sorted do |grant|
+          json.(grant, :id)
+          json.(grant, :title)
+          json.(grant, :amount)
+          json.donate_state grant.donate_state
+        end
     end.attributes!
   end
 

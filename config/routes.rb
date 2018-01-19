@@ -238,8 +238,15 @@ Rails.application.routes.draw do
       resources :pair_children, only: :show do
         collection do
           post :complaint
+          get :contribute
         end
       end
+      resources :children_grants do
+        collection do
+          get :grants_list
+        end
+      end
+      resources :teams
       resources :donate_records
     end
   end
