@@ -12,6 +12,96 @@
     </div>
   </div>
   <div class="portlet-body form">
-    <%= render 'form' %>
+    <%= simple_form_for [:admin, @teacher], url: admin_school_school_teachers_path, wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
+        <%= f.error_notification %>
+        <div class="form-body form-horizontal">
+          <%= f.input :name, label: '姓名：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+          <%= f.input :user_id, collection: [@teacher.user].compact.map {|u| [u.name, u.id]}, label: '关联用户', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
+          <%= f.input :school_id, collection: [@teacher.school].compact.map {|u| [u.name, u.id]}, label: '关联学校', prompt: "请选择学校", input_html: {class: 'school_selector'} %>
+          <%= f.input :phone, label: '手机号码：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+          <%= f.input :qq, label: 'QQ号：', autofocus: true, input_html: { data: {}} %>
+          <%= f.input :openid, label: '微信号：', autofocus: true, input_html: { data: {}} %>
+          <%= f.input :idcard, label: '身份证号：', autofocus: true, input_html: { data: {}} %>
+        </div>
+        <div class="form-actions">
+          <div class="row">
+            <div class="col-md-offset-3 col-md-9">
+              <%= f.button :submit, '提交', class: 'btn green' %>
+              <%= link_to '取消', admin_school_school_teachers_path(@teacher.school), class: 'btn' %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+
+    <script>
+    $(function(){
+      $("form .user_selector").select2({
+        language: "zh-CN",
+        placeholder: '请选择用户',
+        allowClear: true,
+        ajax: {
+          url: "/selects/teacher_user",
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
+            return {
+              q: params.term, // search term
+              page: params.page
+            };
+          },
+          processResults: function (data, params) {
+            params.page = params.page || 1;
+            return {
+                results: $.map(data.items, function (item) {
+                  return {
+                    text: item.name,
+                    id: item.id
+                }
+              }),
+              pagination: {
+                more: (params.page * 30) < data.total_count
+              }
+            };
+          },
+          cache: true
+        },
+        minimumInputLength: 1
+      });
+
+      $("form .school_selector").select2({
+        language: "zh-CN",
+        placeholder: '请选择学校',
+        allowClear: true,
+        ajax: {
+          url: "/selects/schools",
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
+            return {
+              q: params.term, // search term
+              page: params.page
+            };
+          },
+          processResults: function (data, params) {
+            params.page = params.page || 1;
+            return {
+                results: $.map(data.items, function (item) {
+                  return {
+                    text: item.name,
+                    id: item.id
+                }
+              }),
+              pagination: {
+                more: (params.page * 30) < data.total_count
+              }
+            };
+          },
+          cache: true
+        },
+        minimumInputLength: 1
+      });
+    })
+    </script>
+
   </div>
 </div>
