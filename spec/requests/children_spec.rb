@@ -6,13 +6,20 @@ RSpec.describe "Api::V1::Children", type: :request do
   let!(:season) { create(:project_season, project: pair) }
   let!(:apply) { create(:project_season_apply, season: season, project: pair) }
   let!(:school) { create(:school) }
-  let!(:child) { create(:project_season_apply_child, state: 1, approve_state: 2, kind: 1, project: pair, season: season, apply: apply, school: school) }
+  let!(:child1) { create(:project_season_apply_child, state: 1, approve_state: 2, kind: 1, project: pair, season: season, apply: apply, school: school) }
+  let!(:child2) { create(:project_season_apply_child, name: '陈同学',district: '630121', state: 1, approve_state: 2, kind: 1, project: pair, season: season, apply: apply, school: school) }
 
   describe '孩子列表' do
     it '获取结对孩子列表' do
       get api_v1_children_path
       api_v1_expect_success
-      expect(json_body[:data][:children].first[:name]).to eq '李*学'
+      expect(json_body[:data][:children].second[:name]).to eq '李*学'
+    end
+
+    it '根据地区获取结对孩子列表' do
+      get api_v1_children_path(district: '630121')
+      api_v1_expect_success
+      expect(json_body[:data][:children].first[:name]).to eq '陈*学'
     end
   end
 
