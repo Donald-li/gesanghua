@@ -1,0 +1,71 @@
+<div class="portlet light portlet-fit bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="fa fa-sliders font-dark"></i>
+      <span class="caption-subject font-dark bold uppercase">处理举报</span>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="table-scrollable">
+      <table class="table table-bordered table-hover">
+        <tbody>
+        <tr>
+          <th>
+            姓名
+          </th>
+          <th>
+            <%= @complaint.contact_name %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            手机号码
+          </th>
+          <th>
+            <%= @complaint.contact_phone %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            举报内容
+          </th>
+          <th>
+            <%= @complaint.content %>
+          </th>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="portlet-body form">
+      <%= simple_form_for [:admin, @complaint], wrapper: :admin_form, html: {id: 'approve-form'} do |f| %>
+        <%= f.error_notification %>
+        <div class="form-body form-horizontal">
+          <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Complaint.options_for_select(:states), label: '处理状态：', required: 'required', input_html: { class: 'approve_state', onclick: 'toggleState();'} %>
+          <div class="approve_reject">
+            <%= f.input :remark, label: '备注：', input_html: {class: 'form-control', placeholder: '', style: 'height: 200px'} %>
+          </div>
+          <div class="form-actions">
+            <div class="row">
+              <div class="col-md-offset-3 col-md-9">
+                <%= f.button :submit, '提交', class: 'btn green' %>
+                <%= link_to '取消', admin_complaints_path, class: 'btn' %>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      <% end %>
+      </div>
+</div>
+<script type="text/javascript">
+    function toggleState(){
+        toggleRadioInput('.approve_state', {
+            check: '.approve_reject'
+        })
+    }
+    toggleState();
+    $("#approve-form").html5Validate(function () {
+        $(this).find('[type="submit"]').attr('disabled', 'disabled');
+        this.submit();
+    });
+</script>

@@ -1,5 +1,6 @@
 class Api::V1::BaseController < ApplicationController
   # before_action :login?
+  skip_before_action :verify_authenticity_token
   before_action :set_paper_trail_whodunnit
 
   protected

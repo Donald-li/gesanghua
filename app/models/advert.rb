@@ -37,4 +37,12 @@ class Advert < ApplicationRecord
   scope :sorted, -> { order(kind_position: :asc) }
   scope :visible, -> { where(state: 1, kind: 1) }
 
+  def summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id)
+      json.cover_mode self.image.present?
+      json.cover_url self.image_url(:tiny).to_s
+    end.attributes!
+  end
+
 end

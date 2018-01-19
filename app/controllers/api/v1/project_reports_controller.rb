@@ -8,6 +8,6 @@ class Api::V1::ProjectReportsController < Api::V1::BaseController
 
   private
   def set_project
-    @project = Project.find(params[:project_id])
+    @project = Project.first #find(params[:project_id])
   end
 end

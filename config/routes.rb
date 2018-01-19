@@ -217,6 +217,8 @@ Rails.application.routes.draw do
     resources :month_donates do
       resources :month_donate_records
     end
+
+    resources :complaints
   end
 
   namespace :school do
@@ -233,7 +235,11 @@ Rails.application.routes.draw do
       end
       resources :project_reports, only: :index
       resources :projects, only: :show
-      resources :pair_children, only: :show
+      resources :pair_children, only: :show do
+        collection do
+          post :complaint
+        end
+      end
       resources :donate_records
     end
   end
