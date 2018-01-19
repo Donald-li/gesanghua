@@ -205,7 +205,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
       json.tuition self.get_tuition.to_i
       json.description self.description
       json.grants do
-        json.array! self.gsh_child.gsh_child_grants do |grant|
+        json.array! self.gsh_child.gsh_child_grants.reverse_sorted do |grant|
           json.(grant, :id)
           json.(grant, :title)
           json.(grant, :amount)
