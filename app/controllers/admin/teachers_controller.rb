@@ -7,32 +7,6 @@ class Admin::TeachersController < Admin::BaseController
     @teachers = scope.page(params[:page])
   end
 
-  #def show
-  #end
-
-  #def new
-  #  @teacher = Teacher.new
-  #end
-
-  def create
-    @teacher = Teacher.new(teacher_params)
-    if @teacher.user.present?
-      @user = @teacher.user
-      @teacher.name = @user.name
-      @teacher.phone = @user.phone
-      @teacher.qq = @user.qq
-      @teacher.openid = @user.openid
-      @teacher.idcard = @user.idcard
-    end
-    respond_to do |format|
-      if @teacher.save
-        format.html { redirect_to admin_teachers_path, notice: '教师创建成功。' }
-      else
-        format.html { redirect_to new_admin_school_school_teacher_url(@teacher.school, @teacher), notice: '教师创建失败，请检查表单项填写。' }
-      end
-   end
-  end
-
   def edit
   end
 
@@ -42,12 +16,14 @@ class Admin::TeachersController < Admin::BaseController
     end
     respond_to do |format|
       if @teacher.update(teacher_params)
-        @teacher.name = @user.name
-        @teacher.phone = @user.phone
-        @teacher.qq = @user.qq
-        @teacher.openid = @user.openid
-        @teacher.idcard = @user.idcard
-        @teacher.save
+        if @user.present?
+          @teacher.name = @user.name
+          @teacher.phone = @user.phone
+          @teacher.qq = @user.qq
+          @teacher.openid = @user.openid
+          @teacher.idcard = @user.idcard
+          @teacher.save
+        end
         format.html { redirect_to referer_or(admin_teachers_url), notice: '教师信息已修改。' }
       else
         format.html { render :edit }

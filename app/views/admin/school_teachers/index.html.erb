@@ -9,7 +9,7 @@
           <i class="fa fa-reply"></i>返回
         </a>
       </div>
-      <%= link_to new_admin_school_school_teacher_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+      <%= link_to new_admin_school_school_teacher_path(@school), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
       <i class="icon-plus"></i>
       <span>新增</span>
       <% end %>
@@ -56,7 +56,7 @@
             </tr>
           </thead>
           <tbody>
-            <% @school_teachers.each do |teacher| %>
+            <% @teachers.each do |teacher| %>
             <tr>
               <td>
                 <%= teacher.name %>
@@ -96,10 +96,10 @@
       </div>
       <div class="row">
         <div class="col-md-5 col-sm-12">
-          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@school_teachers) %></div>
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@teachers) %></div>
         </div>
         <div class="col-md-7 col-sm-12">
-          <%= paginate @school_teachers, theme: '' %>
+          <%= paginate @teachers, theme: '' %>
         </div>
       </div>
     </div>
