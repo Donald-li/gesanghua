@@ -23,6 +23,7 @@
 #  title                   :string                                 # 标题
 #  remark                  :text
 #  operator_id             :integer                                # 异常处理人id
+#  grant_person            :string                                 # 发放人
 #
 
 FactoryBot.define do

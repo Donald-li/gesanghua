@@ -209,12 +209,28 @@ class ProjectSeasonApplyChild < ApplicationRecord
       json.gsh_no self.gsh_child.gsh_no
       json.tuition self.get_tuition.to_i
       json.description self.description
-      json.grants do
+      json.donate_grants do
         json.array! self.gsh_child.gsh_child_grants.reverse_sorted do |grant|
           json.(grant, :id)
           json.(grant, :title)
           json.(grant, :amount)
           json.donate_state grant.donate_state
+        end
+      end
+      json.grants do
+        json.array! self.gsh_child.gsh_child_grants.granted.reverse_sorted do |grant|
+          json.(grant, :id)
+          json.(grant, :amount)
+          json.(grant, :grant_person)
+          json.(grant, :grant_remark)
+          json.granted_at grant.granted_at.strftime("%Y-%m-%d")
+          json.grant_images do
+            json.array! grant.images do |img|
+              json.img_id img.id
+              json.img_tiny img.file_url(:tiny)
+              json.img_medium img.file_url(:medium)
+            end
+          end
         end
       end
       json.images do
