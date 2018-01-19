@@ -41,7 +41,8 @@ class Advert < ApplicationRecord
     Jbuilder.new do |json|
       json.(self, :id)
       json.cover_mode self.image.present?
-      json.cover_url self.image_url(:tiny).to_s
+      json.cover_img self.image_url(:tiny).to_s
+      json.cover_url self.url
     end.attributes!
   end
 
