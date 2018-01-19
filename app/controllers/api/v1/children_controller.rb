@@ -18,7 +18,7 @@ class Api::V1::ChildrenController < Api::V1::BaseController
     @complaint.owner = @child
     complaint = Complaint.find_by(contact_phone: complaint_params[:contact_phone], owner: @child)
     if complaint.present?
-      api_success(message: '您已经提交过举报信息，管理员会尽快处理')
+      api_success(message: '您已经提交过举报信息')
     elsif @complaint.save
       api_success(message: '举报成功，管理员会尽快处理')
     else
