@@ -3,7 +3,9 @@ class Api::V1::ChildrenController < Api::V1::BaseController
 
   def index
     @children = ProjectSeasonApplyChild.pass.outside.show.sorted
-    api_success(data: {children: @children.map{|child| child.detail_builder}, info: @pair.summary_builder})
+    @children = @children.where(city: params[:city]) if params[:city].present?
+    @children = @children.where(district: params[:district]) if params[:district].present?
+    api_success(data: {children: @children.map{|child| child.detail_builder}, info: @pair.detail_builder})
   end
 
   def get_address_list
