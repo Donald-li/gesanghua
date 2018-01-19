@@ -71,6 +71,7 @@ class DonateRecord < ApplicationRecord
       json.amount number_to_currency(self.amount)
       json.item_name self.appoint.present? ? self.appoint.name : ''
       json.team self.team.present? ? self.team.name : ''
+      json.project self.try(:project).try(:name)
     end.attributes!
   end
 
