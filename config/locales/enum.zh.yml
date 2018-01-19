@@ -252,3 +252,6 @@ zh:
   month_donate_states:
     donation: '捐助中'
     finished: '已结束'
+  complaint_states:
+    submit: '待处理'
+    check: '已处理'

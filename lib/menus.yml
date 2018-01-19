@@ -195,3 +195,10 @@ admin:
             admin_project_flower_season:
               actions:
                 'admin/project_flower_seasons': all
+    admin_campaign:
+      acitons:
+        admin/campaigns: all
+
+    admin_complaint:
+      actions:
+        admin/complaints: all

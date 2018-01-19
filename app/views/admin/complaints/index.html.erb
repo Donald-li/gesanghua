@@ -1,0 +1,87 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i>举报管理
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="dataTables_wrapper no-footer">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <%= search_form_for @search, url: admin_complaints_path, class: 'form-inline' do |f| %>
+            <div class="form-group">
+              <%= f.label :contact_name_or_contact_phone_cont, '搜索' %>
+              <%= f.text_field :contact_name_or_contact_phone_cont, class: 'form-control', placeholder: '输入姓名或手机号' %>
+            </div>
+            <button type="submit" class="btn btn-default grey">搜索</button>
+          <% end %>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="dataTables_filter pull-right">
+          </div>
+        </div>
+      </div>
+      <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover" id="sample_2">
+          <thead>
+          <tr>
+            <th>
+              编号
+            </th>
+            <th>
+              姓名
+            </th>
+            <th>
+              手机号码
+            </th>
+            <th>
+              举报内容
+            </th>
+            <th>
+              状态
+            </th>
+            <th>
+              操作
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @complaints.each do |cate| %>
+            <tr>
+              <td>
+                <%= cate.id %>
+              </td>
+              <td>
+                <%= cate.contact_name %>
+              </td>
+              <td>
+                <%= cate.contact_phone %>
+              </td>
+              <td>
+                <%= cate.sliced_content %>
+              </td>
+              <td>
+                <%= cate.enum_name(:state) %>
+              </td>
+              <td>
+                <%= link_to edit_admin_complaint_path(cate), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                  <i class="fa fa-edit"></i> 处理举报
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-5 col-sm-12">
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@complaints) %></div>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <%= paginate @complaints, theme: 'admin' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END EXAMPLE TABLE PORTLET-->

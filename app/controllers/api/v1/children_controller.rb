@@ -12,9 +12,23 @@ class Api::V1::ChildrenController < Api::V1::BaseController
     api_success(data: ProjectSeasonApplyChild.address_group)
   end
 
+  def complaint
+    @complaint = Complaint.new(complaint_params)
+    @complaint.owner = ProjectSeasonApplyChild.find(params[:child_id])
+    if @complaint.save
+      api_success(message: '举报成功，管理员会尽快处理')
+    else
+      api_success(message: '提交失败，请重试')
+    end
+  end
+
   private
   def set_pair
     @pair = Project.first
+  end
+
+  def complaint_params
+    params.require(:complaint).permit!
   end
 
 end
