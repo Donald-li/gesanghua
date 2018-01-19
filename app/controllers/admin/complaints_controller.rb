@@ -13,7 +13,7 @@ class Admin::ComplaintsController < Admin::BaseController
   def update
     respond_to do |format|
       if @complaint.update(complaint_params)
-        format.html { redirect_to @complaint, notice: '举报已处理' }
+        format.html { redirect_to admin_complaints_path, notice: '举报已处理' }
       else
         format.html { render :edit }
       end
