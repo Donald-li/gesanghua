@@ -231,12 +231,15 @@ Rails.application.routes.draw do
       resources :children do
         collection do
           get :get_address_list
-          post :complaint
         end
       end
       resources :project_reports, only: :index
       resources :projects, only: :show
-      resources :pair_children, only: :show
+      resources :pair_children, only: :show do
+        collection do
+          post :complaint
+        end
+      end
       resources :donate_records
     end
   end
