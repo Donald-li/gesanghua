@@ -58,6 +58,7 @@ class Project < ApplicationRecord
     Jbuilder.new do |json|
       json.(self, :id, :name, :describe)
       json.total number_to_currency(self.donate_record_amount_count)
+      json.cover_mode self.image.present?
       json.cover_url self.image_url(:tiny).to_s
     end.attributes!
   end
