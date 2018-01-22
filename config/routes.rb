@@ -227,6 +227,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resource :main, only: [:show] do
+        post :contribute
+      end
       resource :pair, only: [:show]
       resources :children do
         collection do

@@ -173,11 +173,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   def secrecy_name
     name = self.name
-    if name.size > 2
-      name[1..(name.size - 2)] = '*' * (name.size - 2)
-    else
-      name[-1] = '*'
-    end
+    name[1] = '*'
     return name
   end
 

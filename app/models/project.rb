@@ -64,4 +64,20 @@ class Project < ApplicationRecord
     end.attributes!
   end
 
+  def self.find_project(value)
+    if value == 'toPair'
+      self.find 1
+    elsif value == 'toRead'
+      self.find 2
+    elsif value == 'toBroadcast'
+      self.find 5
+    elsif value == 'toFlower'
+      self.find 6
+    elsif value == 'toCamp'
+      self.find 4
+    else
+      ''
+    end
+  end
+
 end
