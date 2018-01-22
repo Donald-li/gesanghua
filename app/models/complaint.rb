@@ -25,6 +25,9 @@ class Complaint < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
+  include HasAsset
+  has_many_assets :images, class_name: 'Asset::ComplaintImage'
+
   def sliced_content
     self.content.slice(0..90)
   end

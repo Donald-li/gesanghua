@@ -8,15 +8,18 @@ class Api::V1::PairChildrenController < Api::V1::BaseController
 
   def complaint
     api_error(message: '无效页面') && return unless @pair
-    @complaint = Complaint.new(complaint_params)
-    @complaint.owner = @pair
     complaint = Complaint.find_by(contact_phone: complaint_params[:contact_phone], owner: @pair)
     if complaint.present?
       api_success(message: '您已经提交过举报信息')
-    elsif @complaint.save
-      api_success(message: '举报成功，管理员会尽快处理')
     else
-      api_success(message: '提交失败，请重试')
+      @complaint = Complaint.new(complaint_params)
+      @complaint.owner = @pair
+      if @complaint.save
+        @complaint.attach_images(params[:images].map{|image| image[:id]})
+        api_success(message: '举报成功，管理员会尽快处理')
+      else
+        api_success(message: '提交失败，请重试')
+      end
     end
   end
 
@@ -37,13 +40,13 @@ class Api::V1::PairChildrenController < Api::V1::BaseController
     team = current_user.team if params[:by_team] == 'true'
     promoter = User.find(params[:promoter_id]) if params[:promoter_id].present?
     donor = params[:donor_name] || current_user.name
-    grants = GshChildGrant.where(id: params[:selected_grants].map{|grant| grant[:id]})
+    grants = GshChildGrant.where(id: params[:selected_grants].map {|grant| grant[:id]})
     grants.each do |grant|
       record = current_user.donate_records.find_or_create_by(user: current_user, fund: @pair.project.fund, amount: grant[:amount].to_f, project: @pair.project, team: team, donor: donor, remitter_id: current_user.id, remitter_name: current_user.name, season: @pair.season, apply: @pair.apply, project_season_apply_child: @pair)
       record.update(promoter_id: promoter.id) if promoter.present?
     end
     if params[:payMethod] == 'weixin' || params[:payMethod] == 'balance_and_weixin'
-    # TODO: 这里调用微信支付,支付金额为payment
+      # TODO: 这里调用微信支付,支付金额为payment
     end
     # 支付成功后，更新捐助记录的支付状态，生成收入记录
     if true
@@ -54,7 +57,7 @@ class Api::V1::PairChildrenController < Api::V1::BaseController
       grants.each do |grant|
         grant.succeed!
       end
-      if !@pair.gsh_child.gsh_child_grants.detect{|grant| grant if grant.pending?}.present?
+      if !@pair.gsh_child.gsh_child_grants.detect {|grant| grant if grant.pending?}.present?
         @pair.hidden!
       end
       api_success(data: {pay_state: true}, message: '支付成功（暂时提示，应跳转捐助成功页面）')

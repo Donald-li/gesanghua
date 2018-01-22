@@ -43,6 +43,13 @@ class Asset < ApplicationRecord
     end
   end
 
+  def summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :protect_token)
+      json.url self.file.url
+    end.attributes!
+  end
+
   protected
   def generate_token
     self.protect_token = SecureRandom.hex(10)

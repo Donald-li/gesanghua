@@ -249,6 +249,11 @@ Rails.application.routes.draw do
       end
       resources :teams
       resources :donate_records
+
+    end
+
+    namespace :common do
+      resources :uploads, only: [:create, :destroy]
     end
   end
 
