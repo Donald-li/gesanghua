@@ -1,5 +1,5 @@
 class Api::V1::PairChildrenController < Api::V1::BaseController
-  before_action :set_pair, only: [:show, :complaint]
+  before_action :set_pair, only: [:show, :complaint, :contribute]
 
   def show
     api_error(message: '无效页面') && return unless @pair
@@ -7,6 +7,7 @@ class Api::V1::PairChildrenController < Api::V1::BaseController
   end
 
   def complaint
+    api_error(message: '无效页面') && return unless @pair
     @complaint = Complaint.new(complaint_params)
     @complaint.owner = @pair
     complaint = Complaint.find_by(contact_phone: complaint_params[:contact_phone], owner: @pair)
@@ -17,6 +18,11 @@ class Api::V1::PairChildrenController < Api::V1::BaseController
     else
       api_success(message: '提交失败，请重试')
     end
+  end
+
+  def contribute
+    api_error(message: '无效页面') && return unless @pair
+    api_success(data: {child_info: @pair.detail_builder})
   end
 
   private
