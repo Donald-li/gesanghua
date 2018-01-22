@@ -44,8 +44,8 @@ class IncomeRecord < ApplicationRecord
   scope :sorted, ->{ order(created_at: :desc) }
 
   counter_culture :user, column_name: 'donate_count', delta_magnitude: proc {|model| model.amount}
-  counter_culture :user, column_name: proc {|model| model.income_source.online? ? 'online_count' : nil }, delta_magnitude: proc {|model| model.amount}
-  counter_culture :user, column_name: proc {|model| model.income_source.offline? ? 'offline_count' : nil }, delta_magnitude: proc {|model| model.amount}
+  counter_culture :user, column_name: proc {|model| model.income_source.present? && model.income_source.online? ? 'online_count' : nil }, delta_magnitude: proc {|model| model.amount}
+  counter_culture :user, column_name: proc {|model| model.income_source.present? && model.income_source.offline? ? 'offline_count' : nil }, delta_magnitude: proc {|model| model.amount}
 
   def self.read_excel(excel_id)
   file = Asset.find(excel_id).try(:file).try(:file)

@@ -3,7 +3,7 @@ class Api::V1::ChildrenGrantsController < Api::V1::BaseController
 
   def grants_list
     api_error(message: '无效页面') && return unless @pair
-    api_success(data: {grants: @pair.donate_record_builder})
+    api_success(data: {grants: @pair.gsh_child.gsh_child_grants.pending.reverse_sorted.map{|grant| grant.summary_builder}})
   end
 
   private

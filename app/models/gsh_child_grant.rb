@@ -79,4 +79,10 @@ class GshChildGrant < ApplicationRecord
 
   end
 
+  def summary_builder
+    Jbuilder.new do |json|
+        json.(self, :id, :title, :amount, :donate_state)
+    end.attributes!
+  end
+
 end

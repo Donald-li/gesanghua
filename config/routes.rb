@@ -239,6 +239,7 @@ Rails.application.routes.draw do
         collection do
           post :complaint
           get :contribute
+          post :settlement
         end
       end
       resources :children_grants do
