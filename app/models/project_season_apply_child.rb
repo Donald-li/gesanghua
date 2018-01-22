@@ -216,9 +216,11 @@ class ProjectSeasonApplyChild < ApplicationRecord
           json.granted_at grant.granted_at.strftime("%Y-%m-%d")
           json.grant_images do
             json.array! grant.images do |img|
-              json.img_id img.id
-              json.img_tiny img.file_url(:tiny)
-              json.img_medium img.file_url(:medium)
+              json.id img.id
+              json.thumb img.file_url(:small)
+              json.src img.file_url
+              json.w img.width
+              json.h img.height
             end
           end
         end
