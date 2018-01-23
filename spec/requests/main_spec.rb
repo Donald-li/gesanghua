@@ -18,7 +18,6 @@ RSpec.describe "Api::V1::Main", type: :request do
 
     it '捐助给指定项目' do
       create(:project)
-
       post contribute_api_v1_main_path(amount: '5000', project: {"name"=>"一对一", "value"=>"toPair"}, donor_name: '好心人', month: false, by_team: false, pay_method: 'weixin')
       api_v1_expect_success
       expect(json_body[:data][:pay_state]).to eq true

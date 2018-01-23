@@ -27,7 +27,6 @@ RSpec.describe "Api::V1::PairChildren", type: :request do
   describe '捐助孩子支付' do
     it '下单支付' do
       create(:user)
-      create(:user)
       child1.approve_pass
       post settlement_api_v1_pair_children_path(id: child1.id, by_team: false, donor_name: '好心人', total_amount: '2100', paymethod: 'weixin', selectedGrants: child1.donate_record_builder)
       api_v1_expect_success

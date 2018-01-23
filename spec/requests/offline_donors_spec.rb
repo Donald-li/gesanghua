@@ -2,9 +2,10 @@ require 'rails_helper'
 
 RSpec.describe "Api::V1::OfflineDonors", type: :request do
 
-   let!(:donor1) { create(:offline_donor, user: User.first) }
-   let!(:donor2) { create(:offline_donor, user: User.first) }
-   let!(:donor3) { create(:offline_donor, user: User.first) }
+  let!(:user) {create(:user)}
+  let!(:donor1) {create(:offline_donor, user: User.first)}
+  let!(:donor2) {create(:offline_donor, user: User.first)}
+  let!(:donor3) {create(:offline_donor, user: User.first)}
 
   describe '代捐人列表' do
     it '获取代捐人列表' do
