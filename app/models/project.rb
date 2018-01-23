@@ -61,6 +61,7 @@ class Project < ApplicationRecord
       json.total number_to_currency(self.donate_record_amount_count)
       json.cover_mode self.image.present?
       json.cover_url self.image_url(:tiny).to_s
+      json.num self.children.pass.outside.show.length
     end.attributes!
   end
 

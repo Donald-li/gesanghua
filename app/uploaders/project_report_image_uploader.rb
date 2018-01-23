@@ -1,4 +1,4 @@
-class ReportImageUploader < BaseUploader
+class ProjectReportImageUploader < BaseUploader
 
   process :auto_orient
 
