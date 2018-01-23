@@ -42,6 +42,7 @@ FactoryBot.define do
     profile ""
     gender 1
     balance "9.99"
+    auth_token Faker::Crypto.md5
     sequence(:phone) { |n| "18788#{n.to_s.rjust(6,'0')}" }
   end
 end
