@@ -227,6 +227,10 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resource :main, only: [:show] do
+        post :contribute
+        get :banners
+      end
       resource :pair, only: [:show]
       resources :children do
         collection do
@@ -250,6 +254,11 @@ Rails.application.routes.draw do
       end
       resources :teams
       resources :donate_records
+
+    end
+
+    namespace :common do
+      resources :uploads, only: [:create, :destroy]
     end
   end
 

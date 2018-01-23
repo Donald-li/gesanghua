@@ -173,11 +173,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   def secrecy_name
     name = self.name
-    if name.size > 2
-      name[1..(name.size - 2)] = '*' * (name.size - 2)
-    else
-      name[-1] = '*'
-    end
+    name[1] = '*'
     return name
   end
 
@@ -220,9 +216,11 @@ class ProjectSeasonApplyChild < ApplicationRecord
           json.granted_at grant.granted_at.strftime("%Y-%m-%d")
           json.grant_images do
             json.array! grant.images do |img|
-              json.img_id img.id
-              json.img_tiny img.file_url(:tiny)
-              json.img_medium img.file_url(:medium)
+              json.id img.id
+              json.thumb img.file_url(:small)
+              json.src img.file_url
+              json.w img.width
+              json.h img.height
             end
           end
         end
