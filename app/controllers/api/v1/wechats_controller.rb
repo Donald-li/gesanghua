@@ -8,8 +8,6 @@ class Api::V1::WechatsController < Api::V1::BaseController
     target_url = params["target_url"]
     scope = "snsapi_userinfo"
     state = "weixin"
-    # redirect_uri = callback_api_v1_wechat_url(host: Settings.app_host, port: 80, target_url: target_url)
-    # url = $client.authorize_url(redirect_uri, scope=scope, state=state)
     url = $client.authorize_url(params[:redirect_url], scope=scope, state=state)
     api_success data: {url: url}
   end
@@ -18,7 +16,9 @@ class Api::V1::WechatsController < Api::V1::BaseController
   def callback
     userinfo = get_userinfo
     user = User.where(openid: userinfo.result['openid']).first || User.new
-    user.attributes = { openid: userinfo.result["openid"], gender: userinfo.result["sex"],  nickname: userinfo.result["nickname"], profile: userinfo.result }
+    user.attributes = { openid: userinfo.result["openid"], gender: userinfo.result["sex"], name: userinfo.result["nickname"], login: userinfo.result["nickname"], nickname: userinfo.result["nickname"], profile: userinfo.result }
+    # user.password = '11111111'
+    # user.password_confirmation = '11111111'
     if user.disable?
       raise ActionController::RoutingError.new('Not Found')
     elsif user.save

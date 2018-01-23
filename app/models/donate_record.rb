@@ -36,10 +36,8 @@ class DonateRecord < ApplicationRecord
   # belongs_to :remitter, class_name: 'User'
   belongs_to :project, optional: true
   counter_culture :project, column_name: :donate_record_amount_count, delta_magnitude: proc {|model| model.amount}
-  belongs_to :project_season, optional: true # TODO: 重复定义
-  belongs_to :project_season_apply, optional: true # TODO: 重复定义
-  belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id'
-  belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id'
+  belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id', optional: true
+  belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id', optional: true
   belongs_to :team, optional: true
   belongs_to :project_season_apply_child, optional: true
   has_one :income_record, dependent: :destroy

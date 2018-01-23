@@ -28,6 +28,7 @@
 #  donate_count    :decimal(14, 2)   default(0.0)          # 捐助金额
 #  online_count    :decimal(14, 2)   default(0.0)          # 线上捐助金额
 #  offline_count   :decimal(14, 2)   default(0.0)          # 线下捐助金额
+#  auth_token      :string                                 # Token
 #
 
 FactoryBot.define do
@@ -41,6 +42,7 @@ FactoryBot.define do
     profile ""
     gender 1
     balance "9.99"
+    auth_token Faker::Crypto.md5
     sequence(:phone) { |n| "18788#{n.to_s.rjust(6,'0')}" }
   end
 end

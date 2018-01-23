@@ -246,7 +246,7 @@ Rails.application.routes.draw do
       resource :wechat do
         collection do
           get :authorize
-          get :callback
+          post :callback
         end
       end
       resource :pair, only: [:show]
@@ -273,6 +273,11 @@ Rails.application.routes.draw do
       end
       resources :teams
       resources :donate_records
+      resources :offline_donors, only: [] do
+        collection do
+          get :donor_list
+        end
+      end
 
     end
 

@@ -67,7 +67,7 @@ class Project < ApplicationRecord
 
   def self.find_project(value)
     if value == 'toPair'
-      self.find 1
+      self.first
     elsif value == 'toRead'
       self.find 2
     elsif value == 'toBroadcast'

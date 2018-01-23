@@ -28,6 +28,7 @@
 #  donate_count    :decimal(14, 2)   default(0.0)          # 捐助金额
 #  online_count    :decimal(14, 2)   default(0.0)          # 线上捐助金额
 #  offline_count   :decimal(14, 2)   default(0.0)          # 线下捐助金额
+#  auth_token      :string                                 # Token
 #
 
 class User < ApplicationRecord
@@ -53,8 +54,10 @@ class User < ApplicationRecord
   has_many :income_records
   has_many :project_season_applies
   has_many :month_donates
+  has_many :offline_donors
 
   validates :password, confirmation: true, length: { minimum: 6 }, allow_blank: true
+  default_value_for :password, '111111'
   validates :email, email: true
   validates :phone, mobile: true
   validates :name, :login, presence: true
@@ -71,6 +74,10 @@ class User < ApplicationRecord
   scope :reverse_sorted, ->{ order(created_at: :asc) }
 
   has_secure_password
+
+  def avatar
+    self.profile["headimgurl"] || ''
+  end
 
   # 用于判断是否验证预留手机号码
   def validate_phone?
@@ -103,6 +110,22 @@ class User < ApplicationRecord
     amount = self.where("created_at > ? and created_at < ?", time.beginning_of_day, time.end_of_day).count
     record = StatisticRecord.new(amount: amount, kind: 1, record_time: time)
     record.save
+  end
+
+  def summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :nickname)
+      json.login_name self.login
+      json.avatar self.avatar
+    end.attributes!
+  end
+
+  def detail_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :nickname)
+      json.login_name self.login
+      json.avatar self.avatar
+    end.attributes!
   end
 
 end

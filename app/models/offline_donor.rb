@@ -15,6 +15,8 @@
 #  district   :string                                 # 区
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  nickname   :string                                 # 昵称
+#  salutation :string                                 # 孩子们如何称呼我
 #
 
 class OfflineDonor < ApplicationRecord
@@ -23,7 +25,15 @@ class OfflineDonor < ApplicationRecord
   validates :name, :province, :city, :district, presence: true
   validates :phone, uniqueness: true
 
-  # enum state: {enable: 1, disable: 2} # 状态 1:启用 2:停用
+  enum state: {show: 1, hidden: 2} # 是否使用昵称 1:启用 2:停用
+  default_value_for :state, 2
 
   scope :sorted, ->{ order(created_at: :desc) }
+
+  def summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :phone)
+      json.name self.hidden? ? self.name : self.nickname
+    end.attributes!
+  end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180122071834) do
+ActiveRecord::Schema.define(version: 20180123062034) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,7 +118,6 @@ ActiveRecord::Schema.define(version: 20180122071834) do
     t.string "contact_name", comment: "联系人"
     t.string "contact_phone", comment: "联系电话"
     t.integer "payment_state", default: 1, comment: "支付状态 1:已支付 2:已取消"
-    t.integer "income_source_id", comment: "收入来源id"
   end
 
   create_table "campaigns", force: :cascade, comment: "活动表" do |t|
@@ -414,6 +413,8 @@ ActiveRecord::Schema.define(version: 20180122071834) do
     t.string "district", comment: "区"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "nickname", comment: "昵称"
+    t.string "salutation", comment: "孩子们如何称呼我"
   end
 
   create_table "pages", force: :cascade, comment: "单页面" do |t|
@@ -607,7 +608,7 @@ ActiveRecord::Schema.define(version: 20180122071834) do
     t.string "contact_phone", comment: "联系方式"
     t.string "contact_position", comment: "联系人职务"
     t.integer "kind", comment: "学校类型"
-    t.integer "user_id", comment: "申请人ID"
+    t.integer "user_id", comment: "用户id"
     t.string "school_no", comment: "学校申请编号"
     t.string "contact_idcard", comment: "联系人身份证号"
     t.string "postcode", comment: "邮政编码"

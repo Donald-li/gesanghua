@@ -16,6 +16,7 @@
 
 FactoryBot.define do
   factory :fund_category do
-    
+    name { FFaker::NameCN.name }
+    describe '描述'
   end
 end

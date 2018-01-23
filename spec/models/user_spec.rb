@@ -28,6 +28,7 @@
 #  donate_count    :decimal(14, 2)   default(0.0)          # 捐助金额
 #  online_count    :decimal(14, 2)   default(0.0)          # 线上捐助金额
 #  offline_count   :decimal(14, 2)   default(0.0)          # 线下捐助金额
+#  auth_token      :string                                 # Token
 #
 
 require 'rails_helper'
