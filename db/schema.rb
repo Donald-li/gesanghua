@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180123062034) do
+ActiveRecord::Schema.define(version: 20180123072741) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -430,6 +430,19 @@ ActiveRecord::Schema.define(version: 20180123062034) do
   create_table "period_child_ships", force: :cascade, comment: "年度孩子和申请学期中间表" do |t|
     t.integer "project_season_apply_period_id", comment: "申请学期ID"
     t.integer "project_season_apply_child_id", comment: "年度孩子ID"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "project_reports", force: :cascade, comment: "项目报告表" do |t|
+    t.string "title", comment: "标题"
+    t.text "content", comment: "内容"
+    t.integer "state", comment: "状态：1显示 2隐藏"
+    t.integer "project_id", comment: "项目id"
+    t.datetime "published_at", comment: "发布时间"
+    t.integer "kind", comment: "类型: 1项目报告 2回访报告"
+    t.integer "position", comment: "位置"
+    t.integer "user_id", comment: "发布人"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
