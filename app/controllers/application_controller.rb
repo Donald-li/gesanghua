@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @current_user = User.first if Settings.development_mode
-    @current_user ||= (login_from_session)
+    @current_user ||= (login_from_session )
   end
 
   def login_from_session
@@ -20,5 +20,14 @@ class ApplicationController < ActionController::Base
     set_current_user user
     reset_session unless @current_user
     return @current_user
+  end
+
+  def set_current_user(new_user)
+    session[:user_id] = (new_user.nil? || new_user.is_a?(Symbol)) ? nil : new_user.openid
+    @current_user = new_user
+  end
+
+  def json_pagination(list)
+    {current_page: list.current_page, total_count: list.total_count, total_pages: list.total_pages}
   end
 end

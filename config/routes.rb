@@ -60,6 +60,17 @@ Rails.application.routes.draw do
     resources :certificates, only: [:show]
     resource :feedback, only: [:new, :create]
     resources :book_angles, only: [:index, :show]
+
+    # 微信支付通知接口
+    post "notify" => "orders#notify"
+  end
+
+  scope module: :user do
+    resources :wechat_connects, only: :new do
+      collection do
+        get :callback
+      end
+    end
   end
 
   namespace :account do
@@ -230,6 +241,13 @@ Rails.application.routes.draw do
       resource :main, only: [:show] do
         post :contribute
         get :banners
+      end
+
+      resource :wechat do
+        collection do
+          get :authorize
+          get :callback
+        end
       end
       resource :pair, only: [:show]
       resources :children do
