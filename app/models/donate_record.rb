@@ -65,7 +65,7 @@ class DonateRecord < ApplicationRecord
     Jbuilder.new do |json|
       json.(self, :id)
       json.user_name self.user.present? ? self.user.name : '爱心人士'
-      json.time self.created_at
+      json.time self.created_at.strftime('%Y-%m-%d %H:%M:%S')
       json.amount number_to_currency(self.amount)
       json.item_name self.appoint.present? ? self.appoint.name : ''
       json.team self.team.present? ? self.team.name : ''
