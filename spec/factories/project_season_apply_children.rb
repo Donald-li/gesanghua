@@ -38,6 +38,9 @@ FactoryBot.define do
     district '630123'
     id_card '370202198411195417'
     age 13
+    level 1
+    grade 1
+    semester 1
     parent_name '李爹'
     sequence(:phone) { |n| "18888#{n.to_s.rjust(6,'0')}" }
   end

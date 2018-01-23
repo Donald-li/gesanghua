@@ -15,7 +15,7 @@ class Api::V1::PairChildrenController < Api::V1::BaseController
       @complaint = Complaint.new(complaint_params)
       @complaint.owner = @pair
       if @complaint.save
-        @complaint.attach_images(params[:images].map{|image| image[:id]})
+        @complaint.attach_images(params[:images].map{|image| image[:id]}) if params[:images].present?
         api_success(message: '举报成功，管理员会尽快处理')
       else
         api_success(message: '提交失败，请重试')
