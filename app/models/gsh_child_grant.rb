@@ -95,7 +95,7 @@ class GshChildGrant < ApplicationRecord
       json.report_images do
         json.array! self.images do |img|
           json.img_id img.id
-          json.img_tiny img.file_url(:tiny)
+          json.img_tiny img.file_url(:small)
           json.img_medium img.file_url(:medium)
         end
       end
