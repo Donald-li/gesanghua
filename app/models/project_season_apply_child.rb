@@ -211,10 +211,10 @@ class ProjectSeasonApplyChild < ApplicationRecord
         json.array! self.gsh_child.gsh_child_grants.granted.reverse_sorted do |grant|
           json.(grant, :id)
           json.(grant, :amount)
-          json.(grant, :grant_person)
-          json.(grant, :grant_remark)
-          json.granted_at grant.granted_at.strftime("%Y-%m-%d")
-          json.grant_images do
+          json.reporter grant.grant_person
+          json.content grant.grant_remark
+          json.reported_at grant.granted_at.strftime("%Y-%m-%d")
+          json.report_images do
             json.array! grant.images do |img|
               json.id img.id
               json.thumb img.file_url(:small)

@@ -256,6 +256,8 @@ Rails.application.routes.draw do
         end
       end
       resources :project_reports, only: :index
+      resources :grant_reports, only: :index
+      resources :visit_reports, only: :index
       resources :projects, only: :show
       resources :pair_children, only: :show do
         collection do
