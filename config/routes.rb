@@ -246,7 +246,7 @@ Rails.application.routes.draw do
       resource :wechat do
         collection do
           get :authorize
-          get :callback
+          post :callback
         end
       end
       resource :pair, only: [:show]
