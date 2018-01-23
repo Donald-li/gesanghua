@@ -1,12 +1,13 @@
 class Api::V1::BaseController < ApplicationController
-  before_action :login?
+  # before_action :login?
   before_action :set_paper_trail_whodunnit
+  skip_before_action :verify_authenticity_token
 
   protected
   rescue_from(CanCan::AccessDenied){ deny_access }
 
   def user_for_paper_trail
-    "#{current_user.name}(#{current_user.login_name})" if current_user
+    "#{current_user.nickname}(#{current_user.name})" if current_user
   end
 
   def info_for_paper_trail
@@ -28,7 +29,7 @@ class Api::V1::BaseController < ApplicationController
   end
 
   def current_user
-    @current_user = User.find_by(id: 352)  if Settings.development_mode && session[:id].blank? && request.headers['agent'].to_s == 'mobile'
+    @current_user = User.find_by(id: 2) # if Settings.development_mode && session[:id].blank? && request.headers['agent'].to_s == 'mobile'
     @current_user = User.find_by(id: session[:id]) if session[:id].present? && request.headers['agent'].to_s == 'mobile'
     token = request.headers['Authorization'] || params[:auth_token]
     return nil if token.blank?

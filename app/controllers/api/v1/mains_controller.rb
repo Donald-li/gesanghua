@@ -10,19 +10,19 @@ class Api::V1::MainsController < Api::V1::BaseController
   end
 
   def contribute
-    current_user = User.second # TODO: 这里需要处理
-    total = params[:total_amount]
+    current_user = User.second # TODO 需要删除
+    amount = params[:amount].to_f
     if params[:pay_method] == 'balance_and_weixin'
-      payment = total - current_user.balance
+      payment = amount - current_user.balance
     else
-      payment = total
+      payment = amount
     end
     team = current_user.team if params[:by_team] == 'true'
     promoter = User.find(params[:promoter_id]) if params[:promoter_id].present?
     donor = params[:donor_name] || current_user.name
     project = Project.find_project(params[:project][:value])
-    fund = project.present? ? project.fund : Fund.find(1)
-    record = current_user.donate_records.find_or_create_by(user: current_user, fund: fund, amount: params[:amount], team: team, donor: donor, remitter_id: current_user.id, remitter_name: current_user.name)
+    fund = project.present? ? project.fund : Fund.first
+    record = current_user.donate_records.create(user: current_user, fund: fund, amount: amount, team: team, donor: donor, remitter_id: current_user.id, remitter_name: current_user.name)
     record.update(promoter_id: promoter.id) if promoter.present?
     record.update(project: project) if project.present?
     if params[:pay_method] == 'weixin' || params[:pay_method] == 'balance_and_weixin'
@@ -33,7 +33,7 @@ class Api::V1::MainsController < Api::V1::BaseController
       if params[:pay_method] == 'balance_and_weixin'
         current_user.balance = 0
       elsif params[:pay_method] == 'balance'
-        current_user.balance -= total
+        current_user.balance -= amount
       end
       IncomeRecord.create(donate_record: record, user: record.user, fund: record.fund, amount: record.amount, remitter_id: record.remitter_id, remitter_name: record.remitter_name, donor: record.donor, promoter_id: record.promoter_id, income_time: Time.now)
       api_success(data: {pay_state: true}, message: '支付成功（暂时提示，应跳转捐助成功页面）')

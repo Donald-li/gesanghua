@@ -19,6 +19,7 @@
 
 FactoryBot.define do
   factory :fund do
-    
+    name { FFaker::NameCN.name }
+    describe '描述'
   end
 end
