@@ -32,7 +32,8 @@ class OfflineDonor < ApplicationRecord
 
   def summary_builder
     Jbuilder.new do |json|
-      json.(self, :id, :name, :phone)
+      json.(self, :id, :phone)
+      json.name self.hidden? ? self.name : self.nickname
     end.attributes!
   end
 end
