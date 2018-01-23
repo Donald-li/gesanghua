@@ -15,10 +15,16 @@
 #  district   :string                                 # 区
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  nickname   :string                                 # 昵称
+#  salutation :string                                 # 孩子们如何称呼我
 #
 
 FactoryBot.define do
   factory :offline_donor do
-    
+    name {FFaker::NameCN.name}
+    province '630000'
+    city '630100'
+    district '630123'
+    sequence(:phone) { |n| "18788#{n.to_s.rjust(6,'0')}" }
   end
 end

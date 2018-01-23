@@ -15,6 +15,8 @@
 #  district   :string                                 # 区
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  nickname   :string                                 # 昵称
+#  salutation :string                                 # 孩子们如何称呼我
 #
 
 require 'rails_helper'

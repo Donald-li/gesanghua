@@ -29,7 +29,6 @@ class Api::V1::PairChildrenController < Api::V1::BaseController
   end
 
   def settlement
-    current_user = User.second # TODO: 这里需要处理
     total = params[:total_amount]
     if params[:pay_method] == 'balance_and_weixin'
       payment = total - current_user.balance
@@ -38,10 +37,10 @@ class Api::V1::PairChildrenController < Api::V1::BaseController
     end
     team = current_user.team if params[:by_team] == 'true'
     promoter = User.find(params[:promoter_id]) if params[:promoter_id].present?
-    donor = params[:donor_name] || current_user.name
+    donor = params[:donor] || current_user.name
     grants = GshChildGrant.where(id: params[:selected_grants].map {|grant| grant[:id]})
     grants.each do |grant|
-      record = current_user.donate_records.find_or_create_by(user: current_user, fund: @pair.project.fund, amount: grant[:amount].to_f, project: @pair.project, team: team, donor: donor, remitter_id: current_user.id, remitter_name: current_user.name, season: @pair.season, apply: @pair.apply, project_season_apply_child: @pair)
+      record = DonateRecord.find_or_create_by(user: current_user, fund: @pair.project.fund, amount: grant[:amount].to_f, project: @pair.project, team: team, donor: donor, remitter_id: current_user.id, remitter_name: current_user.name, season: @pair.season, apply: @pair.apply, project_season_apply_child: @pair)
       record.update(promoter_id: promoter.id) if promoter.present?
     end
     if params[:pay_method] == 'weixin' || params[:pay_method] == 'balance_and_weixin'
@@ -64,7 +63,7 @@ class Api::V1::PairChildrenController < Api::V1::BaseController
       if !@pair.gsh_child.gsh_child_grants.detect {|grant| grant if grant.pending?}.present?
         @pair.hidden!
       end
-      api_success(data: {pay_state: true}, message: '支付成功（暂时提示，应跳转捐助成功页面）')
+      api_success(data: {pay_state: true}, message: '支付成功（应跳转捐助成功页面）')
     else
       api_success(data: {pay_state: false}, message: '支付失败，请重试')
     end

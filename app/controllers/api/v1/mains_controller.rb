@@ -10,7 +10,6 @@ class Api::V1::MainsController < Api::V1::BaseController
   end
 
   def contribute
-    current_user = User.second # TODO 需要删除
     amount = params[:amount].to_f
     if params[:pay_method] == 'balance_and_weixin'
       payment = amount - current_user.balance
@@ -19,10 +18,10 @@ class Api::V1::MainsController < Api::V1::BaseController
     end
     team = current_user.team if params[:by_team] == 'true'
     promoter = User.find(params[:promoter_id]) if params[:promoter_id].present?
-    donor = params[:donor_name] || current_user.name
+    donor = params[:donor] || current_user.name
     project = Project.find_project(params[:project][:value])
     fund = project.present? ? project.fund : Fund.first
-    record = current_user.donate_records.create(user: current_user, fund: fund, amount: amount, team: team, donor: donor, remitter_id: current_user.id, remitter_name: current_user.name)
+    record = DonateRecord.create(user: current_user, fund: fund, amount: amount, team: team, donor: donor, remitter_id: current_user.id, remitter_name: current_user.name)
     record.update(promoter_id: promoter.id) if promoter.present?
     record.update(project: project) if project.present?
     if params[:pay_method] == 'weixin' || params[:pay_method] == 'balance_and_weixin'
