@@ -85,4 +85,21 @@ class GshChildGrant < ApplicationRecord
     end.attributes!
   end
 
+  def detail_builder
+    Jbuilder.new do |json|
+      json.(self, :id)
+      json.amount self.amount
+      json.granted_at self.try(:granted_at).strftime('%Y-%m-%d')
+      json.grant_person self.grant_person
+      json.school_name self.try(:school).try(:name)
+      json.report_images do
+        json.array! self.images do |img|
+          json.img_id img.id
+          json.img_tiny img.file_url(:tiny)
+          json.img_medium img.file_url(:medium)
+        end
+      end
+    end.attributes!
+  end
+
 end

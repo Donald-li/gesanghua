@@ -20,12 +20,24 @@ class ProjectReport < Report
   validates :published_at, presence: true
 
   belongs_to :project, optional: true
+  belongs_to :user, optional: true
 
   scope :sorted, ->{ order(created_at: :desc) }
 
   def detail_builder
     Jbuilder.new do |json|
-      json.(self, :id, :title, :content)
+      json.(self, :id)
+      json.title self.title
+      json.published_at self.published_at.strftime('%Y-%m-%d')
+      json.publisher self.user.name
+      json.content self.content
+      json.report_images do
+        json.array! self.images do |img|
+          json.img_id img.id
+          json.img_tiny img.file_url(:tiny)
+        end
+      end
     end.attributes!
   end
+
 end
