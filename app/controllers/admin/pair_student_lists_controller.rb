@@ -68,7 +68,7 @@ class Admin::PairStudentListsController < Admin::BaseController
   end
 
   def qrcode_download
-    send_file(File.join(Rails.root, 'public', @pair_student_list.qrcode_url), filename: "#{@pair_student_list.id}-分享二维码")
+    send_file(File.join(Rails.root, 'public', @pair_student_list.qrcode_url), filename: "#{@pair_student_list.gsh_child.gsh_no}-分享二维码")
   end
 
   private
