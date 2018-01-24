@@ -13,4 +13,15 @@ RSpec.describe "Api::V1::ProjectReports", type: :request do
     end
 
   end
+
+  describe '发放报告' do
+    let(:project) { create(:project, :with_grant_reports) }
+
+    it '获取发放报告列表' do
+      get api_v1_grant_reports_path(project_id: project.id), headers: api_v1_headers(login_user)
+      api_v1_expect_success
+      expect(json_body[:data][:grant_reports].count).to eq 6
+    end
+
+  end
 end
