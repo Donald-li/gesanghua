@@ -33,6 +33,7 @@ class Api::V1::MainsController < Api::V1::BaseController
       elsif params[:pay_method] == 'balance'
         current_user.balance -= amount
       end
+      record.paid!
       IncomeRecord.create(donate_record: record, user: record.user, fund: record.fund, amount: record.amount, remitter_id: record.remitter_id, remitter_name: record.remitter_name, donor: record.donor, promoter_id: record.promoter_id, income_time: Time.now)
       api_success(data: {pay_state: true}, message: '支付成功（暂时提示，应跳转捐助成功页面）')
     else
