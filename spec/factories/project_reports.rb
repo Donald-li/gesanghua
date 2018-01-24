@@ -20,6 +20,6 @@ FactoryBot.define do
     title {FFaker::NameCN.name}
     content {FFaker::LoremCN.sentences(10)}
     published_at Time.now
-    
+
   end
 end
