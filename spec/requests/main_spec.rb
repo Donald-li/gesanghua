@@ -7,6 +7,15 @@ RSpec.describe "Api::V1::Main", type: :request do
   let!(:login_user) { create(:user) }
   let!(:team) { create(:team, creater: login_user) }
   let!(:team_user) { create(:user, team: team) }
+  let!(:banner) { create(:advert) }
+
+  describe '获取滚动Banner' do
+    it '获取Banner' do
+      get banners_api_v1_main_path, headers: api_v1_headers(login_user)
+      api_v1_expect_success
+      expect(json_body[:data].first[:id]).to eq banner.id
+    end
+  end
 
   describe '单次捐助' do
     it '捐助给格桑花' do

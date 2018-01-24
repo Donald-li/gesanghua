@@ -46,7 +46,7 @@ class Api::V1::PairChildrenController < Api::V1::BaseController
     if params[:pay_method] == 'weixin' || params[:pay_method] == 'balance_and_weixin'
       # TODO: 这里调用微信支付,支付金额为payment,在支付成功时扣除用户相应余额
     end
-    # 支付成功后，更新捐助记录的支付状态，生成收入记录
+    # 以下为支付成功后需要处理的操作：更新捐助记录的支付状态，生成收入记录
     if true
       if params[:pay_method] == 'balance_and_weixin'
         current_user.balance = 0

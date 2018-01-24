@@ -10,6 +10,15 @@ RSpec.describe "Api::V1::PairChildren", type: :request do
   let!(:child1) { create(:project_season_apply_child, state: 1, approve_state: 2, kind: 1, project: pair, season: season, apply: apply, school: school) }
   let!(:child2) { create(:project_season_apply_child, name: '陈同学',district: '630121', state: 1, approve_state: 2, kind: 1, project: pair, season: season, apply: apply, school: school) }
 
+  describe '测试获得孩子信息' do
+    it '获取孩子信息' do
+      child1.approve_pass
+      get api_v1_pair_child_path(id: child1.id), headers: api_v1_headers(login_user)
+      api_v1_expect_success
+      expect(json_body[:data][:id]).to eq child1.id
+    end
+  end
+
   describe '测试举报' do
     it '举报孩子' do
       post complaint_api_v1_pair_children_path,
@@ -25,7 +34,7 @@ RSpec.describe "Api::V1::PairChildren", type: :request do
     it '获取捐助孩子信息' do
       get contribute_api_v1_pair_children_path(id: child1.id), headers: api_v1_headers(login_user)
       api_v1_expect_success
-      expect(json_body[:data][:child_info][:name]).to eq '李*学'
+      expect(json_body[:data][:child_info][:id]).to eq child1.id
     end
   end
 

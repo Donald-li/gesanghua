@@ -14,13 +14,13 @@ RSpec.describe "Api::V1::Children", type: :request do
     it '获取结对孩子列表' do
       get api_v1_children_path, headers: api_v1_headers(login_user)
       api_v1_expect_success
-      expect(json_body[:data][:children].second[:name]).to eq '李*学'
+      expect(json_body[:data][:children].second[:id]).to eq child1.id
     end
 
     it '根据地区获取结对孩子列表' do
       get api_v1_children_path(district: '630121'), headers: api_v1_headers(login_user)
       api_v1_expect_success
-      expect(json_body[:data][:children].first[:name]).to eq '陈*学'
+      expect(json_body[:data][:children].first[:id]).to eq child2.id
     end
   end
 
