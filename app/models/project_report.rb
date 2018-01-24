@@ -8,7 +8,7 @@
 #  state        :integer                                # 状态：1显示 2隐藏
 #  project_id   :integer                                # 项目id
 #  published_at :datetime                               # 发布时间
-#  kind         :integer                                # 类型: 1项目报告 2回访报告
+#  kind         :integer                                # 类型: 1项目报告 2回访报告 3发放报告
 #  position     :integer                                # 位置
 #  user_id      :integer                                # 发布人
 #  created_at   :datetime         not null
@@ -27,7 +27,7 @@ class ProjectReport < ApplicationRecord
   enum state: {show: 1, hidden: 2} # 状态 1:显示 2:隐藏
   default_value_for :state, 1
 
-  enum kind: {project_report: 1, visit_report: 2} # 类型 1:项目报告 2:回访报告
+  enum kind: {project_report: 1, visit_report: 2, grant_report: 3} # 类型 1:项目报告 2:回访报告 3:发放报告
   default_value_for :kind, 1
 
   include HasAsset

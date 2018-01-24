@@ -255,3 +255,10 @@ zh:
   complaint_states:
     submit: '待处理'
     check: '已处理'
+  project_report_states:
+    show: '显示'
+    hidden: '隐藏'
+  project_report_kinds:
+    project_report: '项目报告'
+    visit_report: '回访报告'
+    grant_report: '发放报告'
