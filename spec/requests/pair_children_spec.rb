@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Api::V1::PairChildren", type: :request do
 
+  let!(:login_user) { create(:user) }
   let!(:pair) { create(:project) }
   let!(:season) { create(:project_season, project: pair) }
   let!(:apply) { create(:project_season_apply, season: season, project: pair) }
@@ -11,14 +12,18 @@ RSpec.describe "Api::V1::PairChildren", type: :request do
 
   describe '测试举报' do
     it '举报孩子' do
-      post complaint_api_v1_pair_children_path(id: child1.id, complaint: {contact_name: '刘某', contact_phone: '17866539878', content: '该孩子描述内容不实'}, images: {})
+      post complaint_api_v1_pair_children_path,
+          params: {id: child1.id,
+                   complaint: {contact_name: '刘某', contact_phone: '17866539878', content: '该孩子描述内容不实'},
+                   images: {}},
+          headers: api_v1_headers(login_user)
       api_v1_expect_success
     end
   end
 
   describe '捐助孩子' do
     it '获取捐助孩子信息' do
-      get contribute_api_v1_pair_children_path(id: child1.id)
+      get contribute_api_v1_pair_children_path(id: child1.id), headers: api_v1_headers(login_user)
       api_v1_expect_success
       expect(json_body[:data][:child_info][:name]).to eq '李*学'
     end
@@ -26,7 +31,6 @@ RSpec.describe "Api::V1::PairChildren", type: :request do
 
   describe '捐助孩子支付' do
     it '下单支付' do
-      login_user = create(:user)
       child1.approve_pass
       post settlement_api_v1_pair_children_path,
            params: {id: child1.id, by_team: false,
