@@ -1,5 +1,5 @@
 class Api::V1::BaseController < ApplicationController
-  # before_action :login?
+  before_action :login?
   before_action :set_paper_trail_whodunnit
   skip_before_action :verify_authenticity_token
 
@@ -25,7 +25,7 @@ class Api::V1::BaseController < ApplicationController
   end
 
   def json_pagination(list)
-    {current_page: list.current_page, total_count: list.total_count, page_count: list.total_pages}
+    {list: list.current_page, total: list.total_count, page_count: list.total_pages}
   end
 
   def current_user
