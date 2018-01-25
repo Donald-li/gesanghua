@@ -121,12 +121,12 @@ class ProjectSeasonApplyChild < ApplicationRecord
         file: nil # path to write
     )
     FileUtils.mkdir_p("public/uploads/qrcode") unless File.exists?("public/uploads/qrcode")
-    f = File.new("public/uploads/qrcode/#{self.id}.png", "w+")
+    f = File.new("public/uploads/qrcode/#{self.gsh_child.gsh_no}.png", "w+")
     f.syswrite(png)
   end
 
   def qrcode_url
-    "/uploads/qrcode/#{self.id}.png"
+    "/uploads/qrcode/#{self.gsh_child.gsh_no}.png"
   end
 
   def share_url

@@ -1,5 +1,6 @@
 module RequestHelpers
   def api_v1_headers(user=nil, headers={})
+    user ||= create(:user)
     { 'Authorization' =>user.try(:auth_token)}.merge(headers)
   end
 

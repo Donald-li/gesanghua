@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Api::V1::Children", type: :request do
 
+  let!(:login_user) { create(:user) }
   let!(:pair) { create(:project) }
   let!(:season) { create(:project_season, project: pair) }
   let!(:apply) { create(:project_season_apply, season: season, project: pair) }
@@ -11,21 +12,21 @@ RSpec.describe "Api::V1::Children", type: :request do
 
   describe '孩子列表' do
     it '获取结对孩子列表' do
-      get api_v1_children_path
+      get api_v1_children_path, headers: api_v1_headers(login_user)
       api_v1_expect_success
-      expect(json_body[:data][:children].second[:name]).to eq '李*学'
+      expect(json_body[:data][:children].second[:id]).to eq child1.id
     end
 
     it '根据地区获取结对孩子列表' do
-      get api_v1_children_path(district: '630121')
+      get api_v1_children_path(district: '630121'), headers: api_v1_headers(login_user)
       api_v1_expect_success
-      expect(json_body[:data][:children].first[:name]).to eq '陈*学'
+      expect(json_body[:data][:children].first[:id]).to eq child2.id
     end
   end
 
   describe '筛选地址' do
     it '获取可筛选地址' do
-      get get_address_list_api_v1_children_path
+      get get_address_list_api_v1_children_path, headers: api_v1_headers(login_user)
       api_v1_expect_success
       expect(json_body[:data][:city].first[:value]).to eq '630100'
     end
