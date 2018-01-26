@@ -75,8 +75,8 @@ class User < ApplicationRecord
 
   has_secure_password
 
-  def avatar
-    self.profile["headimgurl"] || ''
+  def user_avatar
+    self.profile["headimgurl"] || self.avatar.file_url(:tiny)
   end
 
   # 用于判断是否验证预留手机号码

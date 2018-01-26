@@ -34,9 +34,18 @@ $(function(){
   $(".report_form").html5Validate(function(){
       $(this).find('[type="submit"]').attr('disabled','disabled');
       this.submit();
+  }, {
+    validate: function() {
+        var ima_length = document.getElementById("webuploader").getElementsByTagName("li").length;
+        if (ima_length > 9) {
+            alert("最多上传9张图片");
+            return false;
+        }
+        return true;
+        }
   });
   $('.datetime-picker').datetimepicker();
-  initMultiImageWebuploader($('#webuploader'));
+  initMultiImageWebuploader($('#webuploader'), null, 9);
   $('.upload-list').viewer();
 })
 </script>
