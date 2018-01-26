@@ -196,9 +196,11 @@ admin:
               actions:
                 'admin/project_flower_seasons': all
     admin_campaign:
-      acitons:
+      actions:
         admin/campaigns: all
-
     admin_complaint:
       actions:
         admin/complaints: all
+    admin_month_donate:
+      actions:
+        admin/month_donates: all
