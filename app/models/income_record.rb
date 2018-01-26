@@ -62,7 +62,7 @@ class IncomeRecord < ApplicationRecord
         record.update(amount: amount)
       end
     else
-      StatisticRecord.find_or_create_by(kind: 2, record_time: Time.now.strftime("%Y-%m-%d"), amount: 0)
+      StatisticRecord.create(kind: 2, record_time: Time.now.strftime("%Y-%m-%d"), amount: 0)
     end
   end
 

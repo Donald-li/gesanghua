@@ -108,8 +108,8 @@ class User < ApplicationRecord
   def self.update_user_statistic_record
     time = Time.now
     amount = self.where("created_at > ? and created_at < ?", time.beginning_of_day, time.end_of_day).count
-    record = StatisticRecord.new(amount: amount, kind: 1, record_time: time)
-    record.save
+    record = StatisticRecord.find_or_create_by(amount: amount, kind: 1, record_time: time)
+    record.update(amount: amount)
   end
 
   def summary_builder
