@@ -4,17 +4,19 @@
       <i class="icon-list"></i>收入记录
     </div>
     <div class="actions">
+      <%= link_to excel_upload_admin_income_records_path, class: 'btn btn-xs yellow', 'data-no-turbolink' => true do %>
+        <i class="fa fa-upload"></i>
+        <span>批量导入</span>
+      <% end %>
+
+      <%= link_to url_for(params.permit!.merge(format: :xlsx)), class: 'btn btn-xs green', 'data-no-turbolink' => true do %>
+        <i class="fa fa-download"></i>
+        <span>导出表单</span>
+      <% end %>
+
       <%= link_to new_admin_income_record_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
         <i class="icon-plus"></i>
         <span>新增收入</span>
-      <% end %>
-      <%= link_to excel_upload_admin_income_records_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
-        <i class="fa fa-upload"></i>
-        <span>导入收入</span>
-      <% end %>
-      <%= link_to url_for(params.permit!.merge(format: :xlsx)), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
-        <i class="fa fa-download"></i>
-        <span>导出收入</span>
       <% end %>
     </div>
   </div>

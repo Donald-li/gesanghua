@@ -139,7 +139,7 @@ class FileUtil
       2.upto(s.last_row) do |line|
 
         fund_title = s.formatted_value(line, 'A')
-        income_time = s.formatted_value(line, 'B')
+        income_time = s.cell(line, 'B')
         amount = s.formatted_value(line, 'C')
         income_source_name = s.formatted_value(line, 'D')
         user_name = s.formatted_value(line, 'E')
@@ -155,7 +155,10 @@ class FileUtil
           user = User.find_by(phone: donor_phone)
         end
 
-        IncomeRecord.create(fund: fund, income_time: Time.parse(income_time), amount: amount, income_source: income_source, user: user, donor: user.try(:name) || donor, remitter_name: remitter_name, remark: remark) if fund.present?
+        if fund.present?
+          income_time = income_time.class.to_s == 'DateTime' ? income_time : Time.parse(income_time)
+          IncomeRecord.create(fund: fund, income_time: income_time, amount: amount, income_source: income_source, user: user, donor: user.try(:name) || donor, remitter_name: remitter_name, remark: remark)
+        end
 
       end
     end
@@ -182,7 +185,8 @@ class FileUtil
         fund = fund_title.present? ? FundCategory.find_by(name: fund_title.split('-').first).funds.find_by(name: fund_title.split('-').second) : nil
 
         if fund.present?
-          ExpenditureRecord.create(fund: fund, expended_at: Time.parse(expended_at), amount: amount, operator: operator, name: name, remark: remark)
+          expended_at = expended_at.class.to_s == 'DateTime' ? expended_at : Time.parse(expended_at)
+          ExpenditureRecord.create(fund: fund, expended_at: expended_at, amount: amount, operator: operator, name: name, remark: remark)
           s_count += 1
         else
           f_count += 1
