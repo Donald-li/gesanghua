@@ -262,3 +262,7 @@ zh:
     project_report: '项目报告'
     visit_report: '回访报告'
     grant_report: '发放报告'
+  logistic_names:
+    shunfeng: '顺丰'
+    shentong: '申通'
+    zhongtong: '中通'
