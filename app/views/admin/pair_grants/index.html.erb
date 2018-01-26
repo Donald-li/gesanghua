@@ -130,7 +130,7 @@
                             <i class="fa fa-edit"></i> 新增发放反馈
                         <% end %>
                       <% end %>
-                    <% else %>
+                    <% elsif grant.suspend? %>
                       <%= link_to edit_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                           <i class="fa fa-play"></i> 继续发放
                       <% end %>

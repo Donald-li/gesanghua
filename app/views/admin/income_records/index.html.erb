@@ -96,10 +96,10 @@
                 <%= record.income_source.try(:name) %>
               </td>
               <td>
-                <%= record.user.try(:name) %>
+                <%= record.donor %>
               </td>
               <td>
-                <%= record.donor || '-' %>/<%= record.remitter_name || '-' %>
+                <%= record.user.try(:name) || '-' %>/<%= record.remitter_name || '-' %>
               </td>
               <td>
                 <%= record.donate_record.present? ? record.donate_record.enum_name(:voucher_state) : '不支持开票' %>

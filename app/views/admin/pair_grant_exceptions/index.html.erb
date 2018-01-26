@@ -78,11 +78,11 @@
                   <%= grant.cancel_remark %>
                 </td>
                 <td>
-                  <%= User.find(grant.operator_id).try(:name) %>
+                  <%= grant.try(:operator).try(:name) %>
                 </td>
                 <td>
                   <%= link_to edit_admin_pair_grant_exception_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
-                      <i class="fa fa-edit"></i> 修改
+                      <i class="fa fa-eye"></i> 查看
                   <% end %>
                   <!-- <%= link_to '###', 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                       <i class="fa fa-pencil"></i> 标记处理

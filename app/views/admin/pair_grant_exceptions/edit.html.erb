@@ -17,15 +17,18 @@
         <%= f.error_notification %>
         <div class="form-body">
           <%= static_form_control '学生姓名：', @grant.try(:gsh_child).try(:name) %>
-          <%= f.input :balance_manage, as: :radio_buttons, wrapper: :inline_inputs, collection: GshChildGrant.options_for_select(:balance_manages), label: '余款动向：' %>
-          <%= f.input :cancel_reason, label: '取消捐助原因：', placeholder: '请填写原因', required: true %>
-          <%= f.input :cancel_remark, label: '取消捐助说明：', placeholder: '请填写详细说明', required: true %>
+          <%= static_form_control '余款动向：', @grant.enum_name(:balance_manage) %>
+          <%= static_form_control '取消捐助原因：', @grant.cancel_reason %>
+          <%= static_form_control '取消捐助说明：', @grant.cancel_remark %>
+          <%#= f.input :balance_manage, as: :radio_buttons, wrapper: :inline_inputs, collection: GshChildGrant.options_for_select(:balance_manages), label: '余款动向：' %>
+          <%#= f.input :cancel_reason, label: '取消捐助原因：', placeholder: '请填写原因', required: true %>
+          <%#= f.input :cancel_remark, label: '取消捐助说明：', placeholder: '请填写详细说明', required: true %>
         </div>
         <div class="form-actions">
           <div class="row">
             <div class="col-md-offset-2 col-md-9">
-              <%= f.button :submit, '提交', class: 'btn blue' %>
-              <%= link_to '取消', admin_pair_grant_exceptions_path, class: 'btn' %>
+              <%#= f.button :submit, '提交', class: 'btn blue' %>
+              <%= link_to '返回', admin_pair_grant_exceptions_path, class: 'btn' %>
             </div>
           </div>
         </div>

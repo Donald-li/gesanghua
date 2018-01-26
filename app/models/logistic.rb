@@ -17,4 +17,6 @@ class Logistic < ApplicationRecord
   validates :name, :number, presence: true
 
   scope :sorted, ->{ order(created_at: :desc) }
+
+  enum name: { shunfeng: 1, shentong: 2, zhongtong: 3 }
 end
