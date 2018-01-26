@@ -20,6 +20,10 @@
             <%= f.text_field :title_cont, class: 'form-control', placeholder: '请输入报告标题' %>
           </div>
           <div class="form-group">
+            <%= f.label :kind_eq, '类型' %>
+            <%= f.select :kind_eq, ProjectReport.options_for_select(:kinds, raw: true), {include_blank: '全部'}, placeholder: '', class: 'form-control' %>
+          </div>
+          <div class="form-group">
             <%= f.label :state_eq, '状态' %>
             <%= f.select :state_eq, Article.options_for_select(:states, raw: true), {include_blank: '全部'}, placeholder: '', class: 'form-control' %>
           </div>
@@ -40,6 +44,9 @@
           <thead>
             <tr>
               <th>
+                报告类型
+              </th>
+              <th>
                 报告标题
               </th>
               <th>
@@ -59,6 +66,9 @@
           <tbody>
             <% @reports.each do |report| %>
             <tr>
+              <td>
+                <%= report.enum_name(:kind) %>
+              </td>
               <td>
                 <%= report.title %>
               </td>

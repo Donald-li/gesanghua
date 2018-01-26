@@ -20,7 +20,7 @@ class Admin::PairReportsController < Admin::BaseController
     @report.attach_images(params[:image_ids])
     respond_to do |format|
       if @report.save
-        format.html { redirect_to referer_or(admin_pair_reports_url), notice: '项目报告已增加。' }
+        format.html { redirect_to referer_or(admin_pair_reports_url), notice: '报告已增加。' }
       else
         format.html { render :new }
       end
@@ -31,7 +31,7 @@ class Admin::PairReportsController < Admin::BaseController
     @report.attach_images(params[:image_ids])
     respond_to do |format|
       if @report.update(report_params)
-        format.html { redirect_to referer_or(admin_pair_reports_url), notice: '项目报告已修改。' }
+        format.html { redirect_to referer_or(admin_pair_reports_url), notice: '报告已修改。' }
       else
         format.html { render :edit }
       end
@@ -41,13 +41,13 @@ class Admin::PairReportsController < Admin::BaseController
   def destroy
     @report.destroy
     respond_to do |format|
-      format.html { redirect_to referer_or(admin_pair_reports_url), notice: '项目报告已删除。' }
+      format.html { redirect_to referer_or(admin_pair_reports_url), notice: '报告已删除。' }
     end
   end
 
   def switch
     @report.show? ? @report.hidden! : @report.show!
-    redirect_to admin_pair_reports_url, notice:  @report.show? ? '项目报告已展示' : '项目报告已隐藏'
+    redirect_to admin_pair_reports_url, notice:  @report.show? ? '报告已展示' : '报告已隐藏'
   end
 
   private
