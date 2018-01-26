@@ -195,6 +195,10 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   end
 
+  def self.visible_child_ids
+    self.pass.outside.show.sorted.map{|child| child.id if child.gsh_child.gsh_child_grants.succeed.empty?}
+  end
+
   # 受助学生的全部捐助记录
   def donate_all_records
     self.gsh_child.gsh_child_grants.reverse_sorted

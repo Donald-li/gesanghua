@@ -10,7 +10,12 @@ RSpec.describe "Api::V1::Children", type: :request do
   let!(:child1) { create(:project_season_apply_child, state: 1, approve_state: 2, kind: 1, project: pair, season: season, apply: apply, school: school) }
   let!(:child2) { create(:project_season_apply_child, name: '陈同学',district: '630121', state: 1, approve_state: 2, kind: 1, project: pair, season: season, apply: apply, school: school) }
 
+
   describe '孩子列表' do
+    before {
+      child1.approve_pass
+      child2.approve_pass
+    }
     it '获取结对孩子列表' do
       get api_v1_children_path, headers: api_v1_headers(login_user)
       api_v1_expect_success
