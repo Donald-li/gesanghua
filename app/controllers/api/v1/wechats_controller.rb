@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Api::V1::WechatsController < Api::V1::BaseController
   skip_before_action :login?
-  skip_before_action :verify_authenticity_token
+  # skip_before_action :verify_authenticity_token
 
   # 微信授权
   def authorize
