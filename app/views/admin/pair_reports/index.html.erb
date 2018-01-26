@@ -25,7 +25,7 @@
           </div>
           <div class="form-group">
             <%= f.label :state_eq, '状态' %>
-            <%= f.select :state_eq, Article.options_for_select(:states, raw: true), {include_blank: '全部'}, placeholder: '', class: 'form-control' %>
+            <%= f.select :state_eq, ProjectReport.options_for_select(:states, raw: true), {include_blank: '全部'}, placeholder: '', class: 'form-control' %>
           </div>
           <div class="form-group">
             <%= f.label '发布时间' %>
