@@ -23,9 +23,9 @@ class Admin::UsersController < Admin::BaseController
 
   def create
     @user = User.new(user_params)
+    @user.attach_avatar(params[:avatar_id])
     respond_to do |format|
       if @user.save
-        @user.attach_avatar(params[:avatar_id])
         format.html { redirect_to admin_users_path, notice: '创建成功。' }
       else
         format.html { render :new }

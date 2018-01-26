@@ -40,6 +40,7 @@ class Admin::SchoolsController < Admin::BaseController
     end
     respond_to do |format|
       if @school.save
+        @school.pass!
         @school.attach_logo(params[:logo_id])
         format.html { redirect_to referer_or(admin_schools_url), notice: '学校已增加。' }
       else
