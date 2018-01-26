@@ -73,7 +73,17 @@ class User < ApplicationRecord
   scope :sorted, ->{ order(created_at: :desc) }
   scope :reverse_sorted, ->{ order(created_at: :asc) }
 
+  before_create :generate_auth_token
+
+
   has_secure_password
+
+  def generate_auth_token
+    loop do
+      self.auth_token = SecureRandom.base64(64)
+      break if !User.find_by(auth_token: auth_token)
+    end
+  end
 
   def user_avatar
     self.profile["headimgurl"] || self.avatar.file_url(:tiny)
