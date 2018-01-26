@@ -157,8 +157,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   def detail_builder
     Jbuilder.new do |json|
-      json.(self, :id, :age)
-      json.name self.secrecy_name
+      json.(self, :id, :age, :name)
       json.level self.enum_name(:level)
       json.gsh_no self.gsh_child.try(:gsh_no)
       json.remarks_string self.remarks_string
@@ -169,12 +168,6 @@ class ProjectSeasonApplyChild < ApplicationRecord
     Jbuilder.new do |json|
       json.city self.city_group
     end.attributes!
-  end
-
-  def secrecy_name
-    name = self.name
-    name[1] = '*'
-    return name
   end
 
   def remarks_string
