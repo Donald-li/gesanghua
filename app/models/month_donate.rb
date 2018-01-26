@@ -20,7 +20,7 @@ class MonthDonate < ApplicationRecord
 
   has_many :donate_records, dependent: :destroy
 
-  validates :plan_period, :amount, presence: true
+  validates :plan_period, :donated_period, :amount, :start_time, presence: true
 
   enum state: {donation: 1, finished: 2} #状态 1:捐助中 2:已结束
   default_value_for :state, 1
