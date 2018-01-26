@@ -197,6 +197,26 @@ class ProjectSeasonApplyChild < ApplicationRecord
     end
   end
 
+  # 捐助一个受助学生
+  def donate_child
+
+  end
+
+  # 受助学生的全部捐助记录
+  def donate_all_records
+    self.gsh_child.gsh_child_grants.reverse_sorted
+  end
+
+  # 受助学生未筹款的记录
+  def donate_pending_records
+    self.gsh_child.gsh_child_grants.pending.reverse_sorted
+  end
+
+  # 受助学生筹款成功的记录
+  def donate_succeed_records
+    self.gsh_child.gsh_child_grants.succeed.reverse_sorted
+  end
+
   def summary_builder
     Jbuilder.new do |json|
       json.(self, :id)
@@ -236,7 +256,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   def donate_record_builder
     Jbuilder.new do |json|
-        json.array! self.gsh_child.gsh_child_grants.reverse_sorted do |grant|
+        json.array! self.donate_all_records do |grant|
           json.(grant, :id)
           json.(grant, :title)
           json.(grant, :amount)

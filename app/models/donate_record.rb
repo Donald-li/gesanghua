@@ -32,26 +32,22 @@ class DonateRecord < ApplicationRecord
   include ActionView::Helpers::NumberHelper
 
   belongs_to :user
-  belongs_to :promoter, class_name: 'User', optional: true
-  # belongs_to :remitter, class_name: 'User'
+  belongs_to :promoter, class_name: 'User', foreign_key: 'promoter_id', optional: true
   belongs_to :project, optional: true
-  counter_culture :project, column_name: :donate_record_amount_count, delta_magnitude: proc {|model| model.amount}
   belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id', optional: true
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id', optional: true
+  belongs_to :child, class_name: 'ProjectSeasonApplyChild', foreign_key: 'project_season_apply_child_id', optional: true
   belongs_to :team, optional: true
-  belongs_to :project_season_apply_child, optional: true
+  belongs_to :project_season_apply_child, optional: true # TODO: 检查下，没用删掉
   has_one :income_record, dependent: :destroy
   belongs_to :voucher, optional: true
   belongs_to :month_donate, optional: true
   belongs_to :fund, optional: true
   belongs_to :appoint, polymorphic: true, optional: true
 
-  # has_many :voucher_donate_records
-  # has_many :vouchers, through: :voucher_donate_records
-  # appoint_type 多态关联
-  # belongs_to :user, polymorphic: true
+  counter_culture :project, column_name: :donate_record_amount_count, delta_magnitude: proc {|model| model.amount}
 
-  validates :amount, :donor, :remitter_name, presence: true
+  validates :amount, presence: true
 
   enum pay_state: { unpay: 1, paid: 2 } #付款状态， 1:已付款  2:未付款
   default_value_for :pay_state, 1
@@ -60,6 +56,16 @@ class DonateRecord < ApplicationRecord
   default_value_for :voucher_state, 1
 
   scope :sorted, ->{ order(created_at: :desc) }
+
+  def self.donate_gsh(user: nil, amount: '0.0', promoter: nil)
+    self.create(user: user, amount: amount ,team: nil, fund: Fund.gsh, pay_state: 'unpay', promoter: promoter, remitter_name: promoter.try(:name), apply: nil, child: nil, project: nil)
+  end
+
+  # 定项非指定
+  def self.donate_project(user: nil, amount: 0.0, promoter: nil, project: nil)
+    return unless project.present?
+    self.create(user: user, amount: amount ,team: nil, fund: project.fund, pay_state: 'unpay', promoter: promoter, remitter_name: promoter.try(:name), apply: nil, child: nil, project: project)
+  end
 
   def detail_builder
     Jbuilder.new do |json|

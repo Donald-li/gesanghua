@@ -47,7 +47,7 @@ class GshChildGrant < ApplicationRecord
   enum balance_manage: {balance_default: 0, transfer: 1, send_back: 2} # 捐助状态：0:默认 1:转捐 2:退回
   default_value_for :balance_manage, 0
 
-  scope :sorted, ->{ order(created_at: :desc) }
+  scope :sorted, ->(){ order(created_at: :desc) }
   scope :reverse_sorted, ->{ order(created_at: :asc) }
 
   def self.gen_grant_record(gsh_child)

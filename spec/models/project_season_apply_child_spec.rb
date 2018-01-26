@@ -33,18 +33,16 @@
 require 'rails_helper'
 
 RSpec.describe ProjectSeasonApplyChild, type: :model do
+  let!(:user) { create(:user) }
+  let!(:school) { create(:school, user: user) }
+  let!(:teacher) { create(:teacher, school: school, user: user) }
+  let!(:project) { create(:project) }
+  let!(:season) { create(:project_season, project: project) }
+  let!(:apply) { create(:project_season_apply, project: project, season: season, teacher: teacher, school: school) }
+  let!(:child) { create(:project_season_apply_child, project: project, season: season, apply: apply, school: school, semester: 'next_term') }
 
   it '测试生成格桑花孩子' do
-    user = create(:user)
-    school = create(:school, user: user)
-    teacher = create(:teacher, school: school, user: user)
-    project = create(:project)
-    season = create(:project_season, project: project)
-    apply = create(:project_season_apply, project: project, season: season, teacher: teacher, school: school)
-    child = create(:project_season_apply_child, project: project, season: season, apply: apply, school: school, semester: 'next_term')
-
-    # 通过孩子申请
-    child.approve_pass
+    child.approve_pass # 通过孩子申请
 
     expect(child.pass?).to be true
 
@@ -56,6 +54,27 @@ RSpec.describe ProjectSeasonApplyChild, type: :model do
     expect(GshChildGrant.count).to eq 3
     expect(GshChildGrant.first.amount).to eq 1050.0
     expect(GshChildGrant.last.amount).to eq 2100.0
+  end
 
+  it '测试查询受助孩子的全部捐助记录' do
+    child.approve_pass # 通过孩子申请
+
+    expect(child.donate_all_records.count).to eq 3
+    expect(child.donate_all_records.first.amount).to eq 1050.0
+    expect(child.donate_all_records.last.amount).to eq 2100.0
+  end
+
+  it '测试查询受助孩子的未筹款捐助记录' do
+    child.approve_pass # 通过孩子申请
+
+    expect(child.donate_pending_records.count).to eq 3
+    expect(child.donate_pending_records.first.amount).to eq 1050.0
+    expect(child.donate_pending_records.last.amount).to eq 2100.0
+  end
+
+  it '测试查询受助孩子的已筹款捐助记录' do
+    child.approve_pass # 通过孩子申请
+
+    expect(child.donate_succeed_records.count).to eq 0
   end
 end

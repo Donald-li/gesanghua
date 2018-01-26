@@ -40,6 +40,21 @@ class Fund < ApplicationRecord
 
   default_value_for :management_rate, 0
 
+  # 返回格桑花财务分类
+  def self.gsh
+    self.find 1
+  end
+
+  # 一对一指定分类
+  def self.pari_restricted
+    self.find 5
+  end
+
+  # 一对一非指定分类
+  def self.pari_restricted
+    self.find 4
+  end
+
   # 调整基金金额
   def self.adjust(from_fund, from_to, amount)
     return if amount < 1

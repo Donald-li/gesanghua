@@ -4,6 +4,7 @@ before_script:
   # - pwd
   - cp config/database.example.yml config/database.yml
   - bundle exec rails db:migrate RAILS_ENV=test
+  - bundle exec rails db:seed RAILS_ENV=test
 
 stages:
   - test
