@@ -20,7 +20,7 @@
     <%= simple_form_for [:admin, @month_donate], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
         <%= f.error_notification %>
         <div class="form-body form-horizontal">
-          <%= f.input :donated_period, label: '已捐期数：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+          <%= f.input :plan_period, label: '计划期数：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
           <%= f.input :amount, label: '金额：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
         </div>
         <div class="form-actions">

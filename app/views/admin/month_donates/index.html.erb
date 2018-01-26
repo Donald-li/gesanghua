@@ -74,19 +74,24 @@
                 <%= month_donate.donated_period %>/<%= month_donate.plan_period %>
               </td>
               <td>
-                <%= month_donate.amount %>元/月
+                <%= number_to_currency(month_donate.amount) %>元/月
               </td>
               <td>
                 <%= month_donate.start_time.strftime('%Y-%m-%d') %>
               </td>
               <td>
-                <%= month_donate.enum_name(:state) %>
+                <!-- <%= month_donate.enum_name(:state) %> -->
+                <% if month_donate.plan_period == month_donate.donated_period %>
+                  已结束
+                <% else %>
+                  捐助中
+                <% end %>
               </td>
               <td>
                 <%= link_to admin_month_donate_month_donate_records_path(month_donate), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                   <i class="fa fa-list"></i> 捐助记录
                 <% end %>
-                <% if month_donate.donation? %>
+                <% if month_donate.plan_period != month_donate.donated_period %>
                   <%= link_to edit_admin_month_donate_path(month_donate), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                     <i class="fa fa-edit"></i> 修改捐助
                   <% end %>
