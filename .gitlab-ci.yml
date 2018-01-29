@@ -17,7 +17,7 @@ rspec:
   script:
     - bundle exec rspec spec -fd
 
-# deploy:
-#   stage: deploy
-#   script:
-#     - bundle exec mina dev deploy
+deploy:
+  stage: deploy
+  script:
+    - bundle exec mina dev deploy
