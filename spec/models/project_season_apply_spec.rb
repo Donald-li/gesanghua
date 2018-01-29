@@ -12,13 +12,17 @@
 #  city              :string                                 # 市
 #  district          :string                                 # 区/县
 #  state             :integer          default("show")       # 状态：1:展示 2:隐藏
-#  gsh_child_id      :integer                                # 关联格桑花孩子id
-#  gsh_bookshelf_id  :integer                                # 关联格桑花书架(图书角)id
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  name              :string                                 # 名称
 #  number            :integer                                # 配额
 #  apply_no          :string                                 # 项目申请编号
+#  bookshelf_type    :integer                                # 悦读项目申请类型
+#  contact_name      :string                                 # 联系人姓名
+#  contact_phone     :string                                 # 联系人电话
+#  audit_state       :integer                                # 审核状态
+#  abstract          :string                                 # 简述
+#  address           :string                                 # 详细地址
 #
 
 require 'rails_helper'
