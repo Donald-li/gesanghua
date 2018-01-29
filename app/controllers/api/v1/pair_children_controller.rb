@@ -59,9 +59,7 @@ class Api::V1::PairChildrenController < Api::V1::BaseController
       grants.each do |grant|
         grant.succeed!
       end
-      if !@pair.gsh_child.gsh_child_grants.detect {|grant| grant if grant.pending?}.present?
-        @pair.hidden!
-      end
+      @pair.hidden! # 只要有捐助成功记录就隐藏
       api_success(data: {pay_state: true}, message: '支付成功（应跳转捐助成功页面）')
     else
       api_success(data: {pay_state: false}, message: '支付失败，请重试')

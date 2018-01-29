@@ -63,7 +63,7 @@ class Admin::IncomeRecordsController < Admin::BaseController
   def template_download
     time = DateTime.now.strftime("%Y-%m-%d-%s")
     ExcelOutput.generate_income_template(time)
-    send_file(File.join(Rails.root, "public/files/templates/收入导入模板" + time + ".xlsx"), filename: "收入支出导入模板.xlsx")
+    send_file(File.join(Rails.root, "public/files/templates/收入导入模板" + time + ".xlsx"), filename: "收入导入模板.xlsx")
   end
 
   def excel_import
