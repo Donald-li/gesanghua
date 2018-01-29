@@ -23,6 +23,7 @@
 #  audit_state       :integer                                # 审核状态
 #  abstract          :string                                 # 简述
 #  address           :string                                 # 详细地址
+#  apply_no          :string                                 # 项目申请编号
 #
 
 class ProjectSeasonApply < ApplicationRecord
@@ -45,6 +46,9 @@ class ProjectSeasonApply < ApplicationRecord
   scope :sorted, -> {order(created_at: :desc)}
 
   before_create :gen_apply_no
+
+  enum bookshelf_type: {whole: 1, supplement: 2}
+  default_value_for :bookshelf_type, 1
 
   private
   def gen_apply_no

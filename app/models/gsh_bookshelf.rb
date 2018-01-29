@@ -20,9 +20,15 @@
 #  state                   :integer                                # 执行状态
 #  project_season_apply_id :integer                                # 项目申请ID
 #  project_season_id       :integer                                # 批次申请ID
+#  apply_type              :integer                                # 申请类型
 #
 
 class GshBookshelf < ApplicationRecord
+
+  belongs_to :project_season_apply, optional: true
+  belongs_to :project_season, optional: true
+  belongs_to :school, optional: true
+
   validates :classname, presence: true
 
   enum audit_state: {submit: 1, pass: 2}
