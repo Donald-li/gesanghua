@@ -67,6 +67,17 @@ class DonateRecord < ApplicationRecord
     self.create(user: user, amount: amount ,team: nil, fund: project.fund, pay_state: 'unpay', promoter: promoter, remitter_name: promoter.try(:name), apply: nil, child: nil, project: project)
   end
 
+  # 计算开票金额
+  def self.count_amount(ids)
+    donates = DonateRecord.find(ids)
+    if donates.present?
+      amount = donates.sum{|d| d.amount.to_f}
+      return amount
+    else
+      return 0
+    end
+  end
+
   def detail_builder
     Jbuilder.new do |json|
       json.(self, :id)

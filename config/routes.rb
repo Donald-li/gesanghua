@@ -94,9 +94,9 @@ Rails.application.routes.draw do
     resource :session, only: :create
     get '/account/modify-password' => 'modify_password#edit', as: :modify_password
     put '/account/modify-password' => 'modify_password#update', as: :modify_password_update
-    get '/selects/gsh_child_user' => 'selects#gsh_child_user'
-    get '/selects/teacher_user' => 'selects#teacher_user'
-    get '/selects/teacher_school' => 'selects#teacher_school'
+    # get '/selects/gsh_child_user' => 'selects#gsh_child_user'
+    # get '/selects/teacher_user' => 'selects#teacher_user'
+    # get '/selects/teacher_school' => 'selects#teacher_school'
 
     resource :main, only: :show
     resources :users, concerns: :switch do
@@ -204,10 +204,12 @@ Rails.application.routes.draw do
       resources :school_project_applies
     end
     resources :teachers
+    resources :campaign_categories
     resources :campaigns, concerns: [:switch] do
       resources :campaign_enlists, concerns: [:excel_output] do
         member do
           put :cancel
+          get :calculate_total_price
         end
       end
     end
@@ -306,6 +308,7 @@ Rails.application.routes.draw do
         get :school_users
         get :user_statistics
         get :income_statistics
+        get :bill_amount
       end
     end
   end

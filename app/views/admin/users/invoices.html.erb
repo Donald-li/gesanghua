@@ -82,7 +82,7 @@
                 <%= record.amount %>
               </td>
               <td>
-                <%#= record.income_record.income_source.name if record.income_record.present? %>
+                <%= record.income_record.income_source.name if record.income_record.present? %>
               </td>
             </tr>
             <% end %>
@@ -90,7 +90,8 @@
         </table>
       </div>
       <div class="form-actions right">
-          <button type="button" data-toggle="modal" data-target="#myModal" href="#responsive" class="btn green">确认开票</button>
+          <button type="button" href="###" class="btn blue uncheck" id="selectAll">全选</button>
+          <button type="button" href="#responsive" class="btn green" id="toBill">确认开票</button>
       </div>
       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
@@ -103,7 +104,8 @@
               <div class="portlet-body form">
                 <div class="form-body form-horizontal">
                     <%= f.input :kind, as: :radio_buttons, wrapper: :inline_inputs, collection: Voucher.options_for_select(:kinds), label: '发票类型：', label_html: { class: 'required' } %>
-                    <%= f.input :amount, label: '开票金额：', autofocus: true, placeholder: '请填写开票金额', required: true %>
+                    <%= f.input :amount, label: '开票金额：', autofocus: true, placeholder: '请填写开票金额', required: true, readonly: true %>
+                    <%#= static_form_control '开票金额：', @voucher.amount, label_html: { id: 'bilAmount' } %>
                     <%= f.input :tax_no, label: '开票税号：', placeholder: '没有可不填写', label_html: { class: 'required' } %>
                     <%= f.input :tax_company, label: '开票单位：', placeholder: '没有可不填写', label_html: { class: 'required' } %>
                     <%= f.input :contact_name, label: '收件人：', placeholder: '请填写收件人', required: true %>
@@ -150,11 +152,43 @@
 <!-- END EXAMPLE TABLE PORTLET-->
 
 <script>
-    $(function(){
-        //    表单验证
-        $(".voucher_form").html5Validate(function(){
-            $(this).find('[type="submit"]').attr('disabled','disabled');
-            this.submit();
-        });
+  $(function(){
+      //    表单验证
+      $(".voucher_form").html5Validate(function(){
+          $(this).find('[type="submit"]').attr('disabled','disabled');
+          this.submit();
+      });
+      $("#selectAll").click(function() {
+        if ($(this).hasClass('uncheck')) {
+          $("input:checkbox:not(:checked)").trigger('click')
+          $(this).removeClass('blue uncheck').addClass('red').text('取消全选')
+        } else {
+          $("input:checkbox:checked").trigger('click')
+          $(this).removeClass('red').addClass('blue uncheck').text('全选')
+        }
+      });
+      $("#toBill").click(function() {
+        if ($("#uniform-ids_ > span").hasClass('checked')) {
+          var ids = []
+          $("input:checkbox:checked").each(function(index, el) {
+            console.log(el.value)
+            ids = ids.concat(el.value)
+          });
+          $.get('/ajaxes/bill_amount',{ids: ids})
+          .done(function(value) {
+            console.log("success");
+            $("#voucher_amount").val(value.value)
+          })
+          .fail(function() {
+            console.log("error");
+          })
+          .always(function() {
+            console.log("complete");
+          });
+          $('#myModal').modal('show')
+        } else {
+          toastr.error('请勾选需要开票的捐助记录', '' ,{"positionClass": "toast-top-center"})
+        }
+      });
     })
 </script>

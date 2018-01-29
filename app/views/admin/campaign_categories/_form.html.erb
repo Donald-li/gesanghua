@@ -1,0 +1,14 @@
+<%= simple_form_for [:admin, @campaign_category], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
+    <%= f.error_notification %>
+    <div class="form-body form-horizontal">
+      <%= f.input :name, label: '活动分类名称：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+    </div>
+    <div class="form-actions">
+      <div class="row">
+        <div class="col-md-offset-3 col-md-9">
+          <%= f.button :submit, '提交', class: 'btn green' %>
+          <%= link_to '取消', admin_campaign_categories_path, class: 'btn' %>
+        </div>
+      </div>
+    </div>
+<% end %>

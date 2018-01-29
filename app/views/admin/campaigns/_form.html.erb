@@ -1,4 +1,4 @@
-<%= simple_form_for [:admin, @campaign], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
+<%= simple_form_for [:admin, @campaign], wrapper: :admin_form, html: {data: {'parsley-validate': true, class: 'campaign_form'}} do |f| %>
     <%= f.error_notification %>
     <div class="form-body form-horizontal">
       <%= f.input :name, label: '活动名称：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
@@ -20,15 +20,15 @@
       <div class="form-group">
         <label class="col-md-2 control-label">活动时间：</label>
         <div class="col-sm-9">
-          <%= f.text_field :start_time, class: 'datepicker', placeholder: '开始时间', require: true %> --
-          <%= f.text_field :end_time, class: 'datepicker', placeholder: '结束时间', require: true %>
+          <%= f.text_field :start_time, class: 'datepicker', placeholder: '开始时间', require: true, id: 'start_time' %> --
+          <%= f.text_field :end_time, class: 'datepicker', placeholder: '结束时间', require: true, id: 'end_time' %>
         </div>
       </div>
       <div class="form-group">
         <label class="col-md-2 control-label">报名时间：</label>
         <div class="col-sm-9">
-          <%= f.text_field :sign_up_start_time, class: 'datepicker', placeholder: '报名开始时间', require: true %> --
-          <%= f.text_field :sign_up_end_time, class: 'datepicker', placeholder: '报名结束时间', require: true %>
+          <%= f.text_field :sign_up_start_time, class: 'datepicker', placeholder: '报名开始时间', require: true, id: 'sign_up_start_time' %> --
+          <%= f.text_field :sign_up_end_time, class: 'datepicker', placeholder: '报名结束时间', require: true, id: 'sign_up_end_time' %>
         </div>
       </div>
       <%= f.input :number, label: '限制人数：', autofocus: true, placeholder: '如不填写，人数不限', input_html: { data: {}} %>
@@ -57,5 +57,30 @@ $(function(){
   initImageWebuploader($('#webuploader'));
   //上传活动详情页banner
   initImageWebuploader($('#banner_id'));
+
+  // // 表单验证
+  // $(".campaign_form").html5Validate(function(){
+  //     $(this).find('[type="submit"]').attr('disabled','disabled');
+  //     this.submit();
+  //     },  {
+  //       validate: function() {
+  //         var start_time = document.getElementById("start_time");
+  //         var end_time = document.getElementById("end_time");
+  //         if (start_time.value > end_time.value) {
+  //             alert("活动开始时间不得晚于结束时间");
+  //             return false;
+  //         }
+  //         return true;
+  //     },  {
+  //       validate: function() {
+  //         var sign_up_start_time = document.getElementById("sign_up_start_time");
+  //         var sign_up_end_time = document.getElementById("sign_up_end_time");
+  //         if (sign_up_start_time.value > sign_up_end_time.value) {
+  //             alert("报名开始时间不得晚于结束时间");
+  //             return false;
+  //         }
+  //         return true;
+  //     }
+  // });
 })
 </script>
