@@ -232,6 +232,7 @@ Rails.application.routes.draw do
     end
 
     resources :complaints
+    resources :radio_applies
   end
 
   namespace :school do
