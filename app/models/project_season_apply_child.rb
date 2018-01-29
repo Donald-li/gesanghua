@@ -139,7 +139,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
     self.approve_state = 'pass'
     if self.gsh_child_id.nil?
       self.gsh_child = self.create_gsh_child
-      self.apply.gsh_child = self.gsh_child
+      # self.apply.gsh_child = self.gsh_child
     end
     self.save
     self.gen_grant_record
