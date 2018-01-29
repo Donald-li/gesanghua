@@ -1,10 +1,10 @@
 <div class="portlet light">
   <div class="portlet-title">
     <div class="caption">
-      <i class="icon-list"></i>配额管理
+      <i class="icon-list"></i>广播项目申请
     </div>
     <div class="actions">
-      <%= link_to new_admin_pair_apply_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+      <%= link_to new_admin_radio_apply_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
           <i class="icon-plus"></i>
           <span>新增配额</span>
       <% end %>
@@ -14,7 +14,7 @@
     <div class="dataTables_wrapper no-footer">
       <div class="row">
         <div class="col-md-12 col-sm-12">
-          <%= search_form_for @search, url: admin_pair_applies_path, class: 'form-inline' do |f| %>
+          <%= search_form_for @search, url: admin_radio_applies_path, class: 'form-inline' do |f| %>
               <div class="form-group">
                 <%= f.label :school_name_cont, '学校名称' %>
                 <%= f.text_field :school_name_cont, class: 'form-control', placeholder: '学校名称' %>
@@ -25,7 +25,7 @@
               </div>
               <div class="form-group">
                 <%= f.label :project_id_eq, '批次' %>
-                <%= f.select :project_id_eq, ProjectSeason.where(project_id: ProjectSeason.pair_project_id).collect {|p| [p.name, p.id]}, {include_blank: '全部'}, class: 'form-control' %>
+                <%= f.select :project_id_eq, ProjectSeason.where(project_id: ProjectSeason.radio_project_id).collect {|p| [p.name, p.id]}, {include_blank: '全部'}, class: 'form-control' %>
               </div>
               <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>
@@ -45,13 +45,13 @@
               申请学校
             </th>
             <th>
-              申请年级
-            </th>
-            <th>
-              配额数量
+              申请时间
             </th>
             <th>
               批次
+            </th>
+            <th>
+              申请内容
             </th>
             <th>
               学校联系人
@@ -77,13 +77,13 @@
                   <%= apply.school.try(:name) %>
                 </td>
                 <td>
-                  <%= apply.school.enum_name(:level) %>
-                </td>
-                <td>
-                  <%= apply.number %>
+                  <%= l apply.created_at %>
                 </td>
                 <td>
                   <%= apply.season.try(:name) %>
+                </td>
+                <td>
+                  <%= apply.number %>
                 </td>
                 <td>
                   <%= apply.school.try(:contact_name) %>
@@ -95,14 +95,11 @@
                   <%= apply.enum_name(:state) %>
                 </td>
                 <td>
-                  <%= link_to edit_admin_pair_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                  <%= link_to edit_admin_radio_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-edit"></i> 修改
                   <% end %>
-                  <%= link_to admin_pair_apply_path(apply), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                  <%= link_to admin_radio_apply_path(apply), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                       <i class="fa fa-trash-o"></i> 删除
-                  <% end %>
-                  <%= link_to admin_pair_apply_pair_students_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
-                      <i class="fa fa-list-ul"></i> 查看名单（<%= "#{apply.children.where(school: apply.school).submit.count}/#{apply.children.where(school: apply.school).count}" %>）
                   <% end %>
                 </td>
               </tr>

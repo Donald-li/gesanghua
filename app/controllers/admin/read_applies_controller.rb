@@ -1,8 +1,8 @@
-class Admin::PairAppliesController < Admin::BaseController
+class Admin::ReadAppliesController < Admin::BaseController
   before_action :set_project_apply, only: [:show, :edit, :update, :destroy]
 
   def index
-    @search = ProjectSeasonApply.where(project_id: 1).sorted.ransack(params[:q])
+    @search = ProjectSeasonApply.sorted.ransack(params[:q])
     scope = @search.result.joins(:school)
     @project_applies = scope.page(params[:page])
   end
@@ -19,7 +19,7 @@ class Admin::PairAppliesController < Admin::BaseController
 
   def create
     @school = School.find(project_apply_params[:school_id])
-    @project_apply = ProjectSeasonApply.new(project_apply_params.merge(province: @school.province, city: @school.city, district: @school.district))
+    @project_apply = ProjectSeasonApply.new(project_apply_params.merge(province: @school.province, city: @school.city, district: @school.district, project_id: 2))
 
     respond_to do |format|
       if ProjectSeasonApply.find_by(school_id: project_apply_params[:school_id], project_id: project_apply_params[:project_id]).present?

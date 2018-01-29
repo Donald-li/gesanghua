@@ -40,4 +40,24 @@ class ProjectSeason < ApplicationRecord
     1 # TODO: 约定为1
   end
 
+  def self.book_project_id
+    2 # TODO: 约定为2
+  end
+
+  def self.movie_project_id
+    3 # TODO: 约定为3
+  end
+
+  def self.camp_project_id
+    4 # TODO: 约定为4
+  end
+
+  def self.radio_project_id
+    5 # TODO: 约定为5
+  end
+
+  def self.flower_project_id
+    6 # TODO: 约定为6
+  end
+
 end

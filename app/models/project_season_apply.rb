@@ -16,12 +16,14 @@
 #  updated_at        :datetime         not null
 #  name              :string                                 # 名称
 #  number            :integer                                # 配额
+#  apply_no          :string                                 # 项目申请编号
 #  bookshelf_type    :integer                                # 悦读项目申请类型
 #  contact_name      :string                                 # 联系人姓名
 #  contact_phone     :string                                 # 联系人电话
 #  audit_state       :integer                                # 审核状态
 #  abstract          :string                                 # 简述
 #  address           :string                                 # 详细地址
+#  apply_no          :string                                 # 项目申请编号
 #
 
 class ProjectSeasonApply < ApplicationRecord
@@ -29,8 +31,6 @@ class ProjectSeasonApply < ApplicationRecord
   belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id'
   belongs_to :school, optional: true
   belongs_to :teacher, optional: true
-  belongs_to :gsh_child, optional: true
-  belongs_to :gsh_bookshelf, optional: true
   has_many :audits, as: :owner
   has_many :children, class_name: "ProjectSeasonApplyChild"
   has_many :gsh_child_grants
@@ -44,6 +44,9 @@ class ProjectSeasonApply < ApplicationRecord
   scope :sorted, -> {order(created_at: :desc)}
 
   before_create :gen_apply_no
+
+  enum bookshelf_type: {whole: 1, supplement: 2}
+  default_value_for :bookshelf_type, 1
 
   private
   def gen_apply_no

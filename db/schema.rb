@@ -483,6 +483,12 @@ ActiveRecord::Schema.define(version: 20180129091736) do
     t.datetime "updated_at", null: false
     t.string "name", comment: "名称"
     t.integer "number", comment: "配额"
+    t.integer "bookshelf_type", comment: "悦读项目申请类型"
+    t.string "contact_name", comment: "联系人姓名"
+    t.string "contact_phone", comment: "联系人电话"
+    t.integer "audit_state", comment: "审核状态"
+    t.string "abstract", comment: "简述"
+    t.string "address", comment: "详细地址"
     t.string "apply_no", comment: "项目申请编号"
     t.integer "bookshelf_type", comment: "悦读项目申请类型"
     t.string "contact_name", comment: "联系人姓名"
