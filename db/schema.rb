@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180129081811) do
+ActiveRecord::Schema.define(version: 20180129091736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,6 +101,17 @@ ActiveRecord::Schema.define(version: 20180129081811) do
     t.index ["owner_type", "owner_id"], name: "index_audits_on_owner_type_and_owner_id"
   end
 
+  create_table "beneficial_children", force: :cascade do |t|
+    t.string "id_no", comment: "身份证号"
+    t.string "name", comment: "姓名"
+    t.integer "gender", comment: "性别"
+    t.integer "nation", comment: "民族"
+    t.integer "gsh_bookshelf_id", comment: "图书角ID"
+    t.integer "project_season_apply_id", comment: "项目申请ID"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "campaign_categories", force: :cascade, comment: "活动分类表" do |t|
     t.string "name", comment: "名称"
     t.datetime "created_at", null: false
@@ -118,6 +129,7 @@ ActiveRecord::Schema.define(version: 20180129081811) do
     t.string "contact_name", comment: "联系人"
     t.string "contact_phone", comment: "联系电话"
     t.integer "payment_state", default: 1, comment: "支付状态 1:已支付 2:已取消"
+    t.integer "income_source_id", comment: "收入来源id"
   end
 
   create_table "campaigns", force: :cascade, comment: "活动表" do |t|
@@ -302,6 +314,15 @@ ActiveRecord::Schema.define(version: 20180129081811) do
     t.string "district", comment: "区/县"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "bookshelf_no", comment: "图书角编号"
+    t.decimal "univalence", precision: 14, scale: 2, default: "0.0", comment: "单个金额"
+    t.decimal "balance", precision: 14, scale: 2, default: "0.0", comment: "单个筹款剩余金额"
+    t.decimal "extra_amount", precision: 14, scale: 2, default: "0.0", comment: "补书金额"
+    t.integer "audit_state", comment: "审核状态"
+    t.integer "show_state", comment: "展示状态"
+    t.integer "state", comment: "执行状态"
+    t.integer "project_season_apply_id", comment: "项目申请ID"
+    t.integer "project_season_id", comment: "批次申请ID"
   end
 
   create_table "gsh_child_grants", force: :cascade, comment: "格桑花孩子发放表" do |t|
@@ -458,13 +479,17 @@ ActiveRecord::Schema.define(version: 20180129081811) do
     t.string "city", comment: "市"
     t.string "district", comment: "区/县"
     t.integer "state", default: 1, comment: "状态：1:展示 2:隐藏"
-    t.integer "gsh_child_id", comment: "关联格桑花孩子id"
-    t.integer "gsh_bookshelf_id", comment: "关联格桑花书架(图书角)id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name", comment: "名称"
     t.integer "number", comment: "配额"
     t.string "apply_no", comment: "项目申请编号"
+    t.integer "bookshelf_type", comment: "悦读项目申请类型"
+    t.string "contact_name", comment: "联系人姓名"
+    t.string "contact_phone", comment: "联系人电话"
+    t.integer "audit_state", comment: "审核状态"
+    t.string "abstract", comment: "简述"
+    t.string "address", comment: "详细地址"
   end
 
   create_table "project_season_apply_bookshelves", force: :cascade, comment: "项目执行年度申请书架表" do |t|
@@ -568,6 +593,7 @@ ActiveRecord::Schema.define(version: 20180129081811) do
     t.decimal "senior_year_amount", precision: 14, scale: 2, default: "0.0", comment: "高中资助金额（学年）"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "bookshelf_univalence", precision: 14, scale: 2, default: "0.0", comment: "单个图书角金额"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -623,7 +649,7 @@ ActiveRecord::Schema.define(version: 20180129081811) do
     t.string "contact_phone", comment: "联系方式"
     t.string "contact_position", comment: "联系人职务"
     t.integer "kind", comment: "学校类型"
-    t.integer "user_id", comment: "用户id"
+    t.integer "user_id", comment: "申请人ID"
     t.string "school_no", comment: "学校申请编号"
     t.string "contact_idcard", comment: "联系人身份证号"
     t.string "postcode", comment: "邮政编码"
