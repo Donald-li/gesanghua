@@ -26,7 +26,7 @@ class Admin::IncomeRecordsController < Admin::BaseController
 
   def create
     @income_record = IncomeRecord.new(income_record_params)
-    user = User.find(income_record_params[:user_id]).name
+    user = User.find(income_record_params[:user_id])
     @income_record.donor = user.name
     @income_record.remitter_name = user.name
     @income_record.remitter_id = user.id

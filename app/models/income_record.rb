@@ -34,7 +34,7 @@ class IncomeRecord < ApplicationRecord
   # appoint_type 多态关联
   # belongs_to :user, polymorphic: true
 
-  validates :amount, :donor, :income_time, presence: true
+  validates :amount, :income_time, presence: true
 
   include HasAsset
   has_one_asset :income_record_excel, class_name: 'Asset::IncomeRecordExcel'
