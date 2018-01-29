@@ -79,6 +79,9 @@ zh:
   project_season_apply_states:
     show: '显示'
     hidden: '隐藏'
+  project_season_apply_bookshelf_types:
+    whole: '图书角'
+    supplement: '补书'
   volunteer_states:
     enable: '启用'
     disable: '禁用'
