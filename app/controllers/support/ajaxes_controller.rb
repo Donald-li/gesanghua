@@ -39,4 +39,10 @@ class Support::AjaxesController < Support::BaseController
     render json: {keys: hash.keys, values: hash.values}
   end
 
+  def bill_amount
+    ids = params[:ids]
+    amount = DonateRecord.count_amount(ids)
+    render json: {value: amount}
+  end
+
 end

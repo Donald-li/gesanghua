@@ -306,6 +306,7 @@ Rails.application.routes.draw do
         get :school_users
         get :user_statistics
         get :income_statistics
+        get :bill_amount
       end
     end
   end
