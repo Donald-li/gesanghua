@@ -196,8 +196,13 @@ admin:
               actions:
                 'admin/project_flower_seasons': all
     admin_campaign:
-      actions:
-        admin/campaigns: all
+      menus:
+        admin_campaigns:
+          actions:
+            admin/campaigns: all
+        admin_campaign_categories:
+          actions:
+            admin/campaign_categories: all
     admin_complaint:
       actions:
         admin/complaints: all

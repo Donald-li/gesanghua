@@ -4,10 +4,9 @@
       <%= f.input :user_id, collection: [@campaign_enlist.user].compact.map {|u| [u.name, u.id]}, label: '选择用户：', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
       <%= f.input :contact_name, label: '联系人：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
       <%= f.input :contact_phone, label: '联系电话：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
-      <%= f.input :number, label: '参与人数：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
-      <%= f.input :total, label: '金额：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :number, label: '参与人数：', autofocus: true, input_html: { data: {'parsley-required': true, 'parsley-min': 1}}, id: 'number' %>
+      <%= f.input :total, label: '金额：', autofocus: true, input_html: { data: {'parsley-required': true}}, id: 'total' %>
       <%= f.input :payment_state, as: :radio_buttons, wrapper: :inline_inputs, collection: CampaignEnlist.options_for_some_select(:payment_states, ['paid']), label: '支付状态：' %>
-      <%#= f.input :, label: '支付方式：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
       <%= f.input :income_source_id, collection: IncomeSource.all, label: '支付方式：', prompt: "请选择支付方式", input_html: {data: {'parsley-required': true}} %>
     </div>
     <div class="form-actions">
@@ -22,6 +21,29 @@
 <script>
 $(function(){
   initImageWebuploader($('#webuploader'));
+
+  // $('#number').blur(function(){
+  //   ajax: {
+  //     url: "/campaign_enlists/calculate_total_price",
+  //     dataType: 'json',
+  //     delay: 250,
+  //     data: function (params){
+  //       return {
+  //         q: params.number
+  //       };
+  //     },
+  //     processResults: function (data, params) {
+  //       return {
+  //         results: $.map(data.items, function (item) {
+  //           return {
+  //             number: item.number,
+  //             text: item.total
+  //         }
+  //       })
+  //     };
+  //   }
+  // }
+  // });
 
   $("form .user_selector").select2({
     language: "zh-CN",
