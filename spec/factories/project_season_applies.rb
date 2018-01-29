@@ -18,6 +18,7 @@
 #  updated_at        :datetime         not null
 #  name              :string                                 # 名称
 #  number            :integer                                # 配额
+#  apply_no          :string                                 # 项目申请编号
 #
 
 FactoryBot.define do

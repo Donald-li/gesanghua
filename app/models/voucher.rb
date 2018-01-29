@@ -37,6 +37,8 @@ class Voucher < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
+  before_create :gen_voucher_no
+
   def full_address
     ChinaCity.get(self.province).to_s + ChinaCity.get(self.city).to_s + ChinaCity.get(self.district).to_s + self.address.to_s
   end
@@ -54,6 +56,12 @@ class Voucher < ApplicationRecord
       end
     end
     return false
+  end
+
+  private
+  def gen_voucher_no
+    time_string = Time.now.strftime("%y%m%d")
+    self.voucher_no ||= Sequence.get_seq(kind: :voucher_no, prefix: time_string, length: 3)
   end
 
 end

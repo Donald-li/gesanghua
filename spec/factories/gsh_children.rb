@@ -19,6 +19,9 @@
 
 FactoryBot.define do
   factory :gsh_child do
-    
+    name {"#{FFaker::NameCN.name}"}
+    province '630000'
+    city '630100'
+    district '630123'
   end
 end

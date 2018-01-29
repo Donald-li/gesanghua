@@ -10,6 +10,7 @@
 #  creater_id            :integer                                # 团队创建人id
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
+#  team_no               :string                                 # 团队编号
 #
 
 FactoryBot.define do

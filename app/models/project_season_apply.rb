@@ -18,6 +18,7 @@
 #  updated_at        :datetime         not null
 #  name              :string                                 # 名称
 #  number            :integer                                # 配额
+#  apply_no          :string                                 # 项目申请编号
 #
 
 class ProjectSeasonApply < ApplicationRecord
@@ -35,6 +36,28 @@ class ProjectSeasonApply < ApplicationRecord
 
   enum state: {show: 1, hidden: 2} # 状态：1:展示 2:隐藏
 
-  scope :sorted, ->{ order(created_at: :desc) }
+  scope :sorted, -> {order(created_at: :desc)}
+
+  before_create :gen_apply_no
+
+  private
+  def gen_apply_no
+    if self.project_id == 1
+      kind = 'JD'
+    elsif self.project_id == 2
+      kind = 'YD'
+    elsif self.project_id == 3
+      kind = 'GY'
+    elsif self.project_id == 4
+      kind = 'TS'
+    elsif self.project_id == 5
+      kind = 'GB'
+    elsif self.project_id == 6
+      kind = 'HH'
+    else
+      kind = 'QT'
+    end
+    self.apply_no ||= Sequence.get_seq(kind: :apply_no, prefix: kind, length: 7)
+  end
 
 end

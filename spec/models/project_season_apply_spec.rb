@@ -18,10 +18,35 @@
 #  updated_at        :datetime         not null
 #  name              :string                                 # 名称
 #  number            :integer                                # 配额
+#  apply_no          :string                                 # 项目申请编号
 #
 
 require 'rails_helper'
 
 RSpec.describe ProjectSeasonApply, type: :model do
-  
+  before(:all) do
+    @user = create(:user)
+    @project = create(:project)
+    @project_season = create(:project_season, project_id: @project.id)
+    @project_season_apply = create(:project_season_apply, project_id: @project.id, project_season_id: @project_season.id)
+  end
+
+  it '测试生成项目编号' do
+    if @project_season_apply.project_id == 1
+      kind = 'JD'
+    elsif @project_season_apply.project_id == 2
+      kind = 'YD'
+    elsif @project_season_apply.project_id == 3
+      kind = 'GY'
+    elsif @project_season_apply.project_id == 4
+      kind = 'TS'
+    elsif @project_season_apply.project_id == 5
+      kind = 'GB'
+    elsif @project_season_apply.project_id == 6
+      kind = 'HH'
+    else
+      kind = 'QT'
+    end
+    expect(@project_season_apply.apply_no).to eq kind + '0000001'
+  end
 end

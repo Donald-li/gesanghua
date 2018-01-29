@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180123072741) do
+ActiveRecord::Schema.define(version: 20180129081811) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,7 +118,6 @@ ActiveRecord::Schema.define(version: 20180123072741) do
     t.string "contact_name", comment: "联系人"
     t.string "contact_phone", comment: "联系电话"
     t.integer "payment_state", default: 1, comment: "支付状态 1:已支付 2:已取消"
-    t.integer "income_source_id", comment: "收入来源id"
   end
 
   create_table "campaigns", force: :cascade, comment: "活动表" do |t|
@@ -214,6 +213,7 @@ ActiveRecord::Schema.define(version: 20180123072741) do
     t.integer "voucher_id", comment: "捐助记录ID"
     t.integer "period", comment: "月捐期数"
     t.integer "month_donate_id", comment: "月捐id"
+    t.string "certificate_no", comment: "捐赠证书编号"
   end
 
   create_table "expenditure_records", force: :cascade, comment: "支出记录表" do |t|
@@ -464,6 +464,7 @@ ActiveRecord::Schema.define(version: 20180123072741) do
     t.datetime "updated_at", null: false
     t.string "name", comment: "名称"
     t.integer "number", comment: "配额"
+    t.string "apply_no", comment: "项目申请编号"
   end
 
   create_table "project_season_apply_bookshelves", force: :cascade, comment: "项目执行年度申请书架表" do |t|
@@ -622,7 +623,7 @@ ActiveRecord::Schema.define(version: 20180123072741) do
     t.string "contact_phone", comment: "联系方式"
     t.string "contact_position", comment: "联系人职务"
     t.integer "kind", comment: "学校类型"
-    t.integer "user_id", comment: "申请人ID"
+    t.integer "user_id", comment: "用户id"
     t.string "school_no", comment: "学校申请编号"
     t.string "contact_idcard", comment: "联系人身份证号"
     t.string "postcode", comment: "邮政编码"
@@ -770,6 +771,7 @@ ActiveRecord::Schema.define(version: 20180123072741) do
     t.integer "creater_id", comment: "团队创建人id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "team_no", comment: "团队编号"
   end
 
   create_table "users", force: :cascade, comment: "用户" do |t|
@@ -843,6 +845,8 @@ ActiveRecord::Schema.define(version: 20180123072741) do
     t.integer "approve_state", comment: "认证状态"
     t.datetime "approve_time", comment: "认证时间"
     t.text "approve_remark", comment: "审核备注"
+    t.string "volunteer_no", comment: "志愿者编号"
+    t.string "volunteer_apply_no", comment: "志愿者申请编号"
   end
 
   create_table "voucher_donate_records", force: :cascade, comment: "捐赠收据捐助记录表" do |t|
