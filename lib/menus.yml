@@ -180,6 +180,8 @@ admin:
             admin_project_book_season:
               actions:
                 'admin/project_book_seasons': all
+              actions:
+                'admin/read_applies': all
         admin_project_camp:
           menus:
             admin_project_camp_season:
