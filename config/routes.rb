@@ -300,6 +300,7 @@ Rails.application.routes.draw do
         get :school_user
         get :volunteers
         get :campaign_enlist_user
+        get :seasons
       end
     end
     resources :ajaxes, only: [] do
@@ -307,6 +308,7 @@ Rails.application.routes.draw do
         get :school_users
         get :user_statistics
         get :income_statistics
+        get :bill_amount
       end
     end
   end
