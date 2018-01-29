@@ -77,7 +77,7 @@
                 <%= record.amount %>
               </td>
               <td>
-                <%= record.income_record.income_source.name if record.income_record.present? %>
+                <%= record.income_record.income_source.try(:name) if record.income_record.present? %>
               </td>
               <td>
                 <%= link_to admin_pair_donate_record_path(record), class: 'btn btn-xs yellow' do %>

@@ -39,7 +39,7 @@
           <thead>
           <tr>
             <th>
-              申请编号
+              格桑花编号
             </th>
             <th>
               姓名
@@ -74,7 +74,7 @@
           <% @pair_student_lists.each do |child| %>
               <tr>
                 <td>
-                  <%= child.id %>
+                  <%= child.gsh_child.gsh_no %>
                 </td>
                 <td>
                   <%= child.try(:name) %>
