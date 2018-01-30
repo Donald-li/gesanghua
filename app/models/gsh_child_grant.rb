@@ -50,6 +50,9 @@ class GshChildGrant < ApplicationRecord
   scope :sorted, ->(){ order(created_at: :desc) }
   scope :reverse_sorted, ->{ order(created_at: :asc) }
 
+  counter_culture :gsh_child, column_name: "semester_count"
+  counter_culture :gsh_child, column_name: proc {|model| model.succeed? ? 'done_semester_count' : nil }
+
   def self.gen_grant_record(gsh_child)
     child = gsh_child.apply_child
     apply = gsh_child.apply_child.apply

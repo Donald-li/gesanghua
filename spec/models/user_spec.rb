@@ -82,4 +82,22 @@ RSpec.describe User, type: :model do
     expect(donate.promoter).to eq nil
     expect(donate.fund_id).to eq project.fund.id
   end
+
+  it '测试用户捐给悦读项目' do
+    amount = 313213
+    project = Project.book_project
+    user.donate_project(amount: amount, project: project)
+
+    donate = DonateRecord.last
+    expect(donate.user.id).to eq user.id
+    expect(donate.project.id).to eq project.id
+    expect(donate.unpay?).to be true
+    expect(donate.amount).to eq amount
+    expect(donate.promoter).to eq nil
+    expect(donate.fund_id).to eq project.fund.id
+  end
+
+  it '测试用户捐一对一的指定' do
+    
+  end
 end
