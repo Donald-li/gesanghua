@@ -18,9 +18,21 @@
 #  updated_at        :datetime         not null
 #  name              :string                                 # 名称
 #  number            :integer                                # 配额
+#  girl_number       :integer                                # 申请女生人数
+#  boy_number        :integer                                # 申请男生人数
+#  address           :string                                 # 详细地址
+#  consignee         :string                                 # 收货人
+#  consignee_phone   :string                                 # 收货人联系电话
+#  approve_state     :integer                                # 审核状态 1:待审核 2:通过 3:不通过
 #
 
 class ProjectSeasonApply < ApplicationRecord
+
+  attr_accessor :apply_image_ids
+
+  include HasAsset
+  has_many_assets :project_season_apply_images, class_name: 'Asset::ProjectSeasonApplyImage'
+
   belongs_to :project
   belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id'
   belongs_to :school, optional: true
@@ -35,6 +47,21 @@ class ProjectSeasonApply < ApplicationRecord
 
   enum state: {show: 1, hidden: 2} # 状态：1:展示 2:隐藏
 
+  enum approve_state: {submit: 1, pass: 2, rejected: 3} # 状态：1:待审核 2:通过 3:不通过
+  default_value_for :approve_state, 1
+
   scope :sorted, ->{ order(created_at: :desc) }
+
+  # 通过审核
+  def approve_pass
+    self.approve_state = 'pass'
+    self.save
+  end
+
+  # 审核不通过
+  def approve_reject
+    self.approve_state = 'rejected'
+    self.save
+  end
 
 end

@@ -18,6 +18,12 @@
 #  updated_at        :datetime         not null
 #  name              :string                                 # 名称
 #  number            :integer                                # 配额
+#  girl_number       :integer                                # 申请女生人数
+#  boy_number        :integer                                # 申请男生人数
+#  address           :string                                 # 详细地址
+#  consignee         :string                                 # 收货人
+#  consignee_phone   :string                                 # 收货人联系电话
+#  approve_state     :integer                                # 审核状态 1:待审核 2:通过 3:不通过
 #
 
 require 'rails_helper'

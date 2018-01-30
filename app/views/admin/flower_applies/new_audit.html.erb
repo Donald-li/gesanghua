@@ -1,0 +1,37 @@
+<div class="portlet light bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-note"></i>
+      <span class="caption-subject"><%= @project_apply.name %> 的审核操作</span>
+      <span class="caption-helper"></span>
+    </div>
+    <div class="actions">
+      <div class="portlet-input input-inline input-small">
+        <div class="input-icon right">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body form">
+    <%= simple_form_for [:admin, @project_apply, @audit], url: create_audit_admin_flower_applies_path, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'student_form'} do |f| %>
+        <%= f.error_notification %>
+        <div class="form-body form-horizontal">
+          <%= f.hidden_field :project_id, value: params[:id] %>
+          <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Audit.options_for_some_select(:states, ['pass', 'rejected']), label: '审核：', required: true%>
+          <%= f.input :comment, label: '评语：', placeholder: '请填写评语' %>
+
+        </div>
+        <div class="form-actions">
+          <div class="row">
+            <div class="col-md-offset-2 col-md-9">
+              <%= f.button :submit, '提交', class: 'btn blue' %>
+              <%= link_to '取消', request.referer, class: 'btn' %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+  </div>
+</div>
+<script>
+
+</script>

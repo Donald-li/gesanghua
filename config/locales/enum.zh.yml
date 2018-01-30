@@ -79,6 +79,10 @@ zh:
   project_season_apply_states:
     show: '显示'
     hidden: '隐藏'
+  project_season_apply_approve_states:
+    submit: '待审核'
+    pass: '审核通过'
+    rejected: '审核不通过'
   volunteer_states:
     enable: '启用'
     disable: '禁用'

@@ -39,4 +39,7 @@ class ProjectSeason < ApplicationRecord
     1 # TODO: 约定为1
   end
 
+  def self.flower_project_id
+    6 # TODO: 约定为6
+  end
 end
