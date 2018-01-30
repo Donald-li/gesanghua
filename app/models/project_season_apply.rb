@@ -16,14 +16,6 @@
 #  updated_at        :datetime         not null
 #  name              :string                                 # 名称
 #  number            :integer                                # 配额
-
-#  girl_number       :integer                                # 申请女生人数
-#  boy_number        :integer                                # 申请男生人数
-#  address           :string                                 # 详细地址
-#  consignee         :string                                 # 收货人
-#  consignee_phone   :string                                 # 收货人联系电话
-#  approve_state     :integer                                # 审核状态 1:待审核 2:通过 3:不通过
-
 #  apply_no          :string                                 # 项目申请编号
 #  bookshelf_type    :integer                                # 悦读项目申请类型
 #  contact_name      :string                                 # 联系人姓名
@@ -31,8 +23,10 @@
 #  audit_state       :integer                                # 审核状态
 #  abstract          :string                                 # 简述
 #  address           :string                                 # 详细地址
-#  apply_no          :string                                 # 项目申请编号
-
+#  girl_number       :integer                                # 申请女生人数
+#  boy_number        :integer                                # 申请男生人数
+#  consignee         :string                                 # 收货人
+#  consignee_phone   :string                                 # 收货人联系电话
 #
 
 class ProjectSeasonApply < ApplicationRecord
@@ -56,20 +50,27 @@ class ProjectSeasonApply < ApplicationRecord
 
   enum state: {show: 1, hidden: 2} # 状态：1:展示 2:隐藏
 
-
-  enum approve_state: {submit: 1, pass: 2, rejected: 3} # 状态：1:待审核 2:通过 3:不通过
-  default_value_for :approve_state, 1
-
   scope :sorted, ->{ order(created_at: :desc) }
-
 
   before_create :gen_apply_no
 
-  enum audit_state: {submit: 1, pass: 2}
+  enum audit_state: {submit: 1, pass: 2, rejected: 3}
   default_value_for :audit_state, 1
 
   enum bookshelf_type: {whole: 1, supplement: 2}
   default_value_for :bookshelf_type, 1
+
+  # 通过审核
+  def audit_pass
+    self.audit_state = 'pass'
+    self.save
+  end
+
+  # 审核不通过
+  def audit_reject
+    self.audit_state = 'rejected'
+    self.save
+  end
 
   private
   def gen_apply_no
@@ -89,19 +90,6 @@ class ProjectSeasonApply < ApplicationRecord
       kind = 'QT'
     end
     self.apply_no ||= Sequence.get_seq(kind: :apply_no, prefix: kind, length: 7)
-  end
-
-
-  # 通过审核
-  def approve_pass
-    self.approve_state = 'pass'
-    self.save
-  end
-
-  # 审核不通过
-  def approve_reject
-    self.approve_state = 'rejected'
-    self.save
   end
 
 end

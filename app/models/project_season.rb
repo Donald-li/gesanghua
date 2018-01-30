@@ -40,7 +40,6 @@ class ProjectSeason < ApplicationRecord
     1 # TODO: 约定为1
   end
 
-
   def self.book_project_id
     2 # TODO: 约定为2
   end

@@ -29,6 +29,8 @@ class Admin::FlowerAppliesController < Admin::BaseController
         flash[:notice] = '此学校在本批次还有未完成的申请'
         format.html { render :new }
       elsif @project_apply.save
+        @project_apply.update(apply_no: @project_apply.apply_no)
+        @project_apply.attach_project_season_apply_images(params[:apply_image_ids])
         @project_apply.audits.build
         format.html { redirect_to admin_flower_applies_path, notice: '创建成功。' }
       else
@@ -40,6 +42,7 @@ class Admin::FlowerAppliesController < Admin::BaseController
   def update
     respond_to do |format|
       if @project_apply.update(project_apply_params)
+        @project_apply.attach_project_season_apply_images(params[:apply_image_ids])
         format.html { redirect_to admin_flower_applies_path, notice: '修改成功。' }
       else
         format.html { render :edit }
@@ -64,7 +67,7 @@ class Admin::FlowerAppliesController < Admin::BaseController
     @new_audit = @project_apply.audits.build(state: params[:audit][:state], comment: params[:audit][:comment], user_id: current_user.id)
     respond_to do |format|
       if @new_audit.save
-        params[:audit][:state] == 'pass' ? @project_apply.approve_pass : @project_apply.approve_reject
+        params[:audit][:state] == 'pass' ? @project_apply.audit_pass : @project_apply.audit_reject
         format.js
       else
         format.html { render :new_audit }
@@ -82,7 +85,7 @@ class Admin::FlowerAppliesController < Admin::BaseController
     @audit = @project_apply.audits.last
     respond_to do |format|
       if @audit.update(state: params[:audit][:state], comment: params[:audit][:comment], user_id: current_user.id)
-        params[:audit][:state] == 'pass' ? @project_apply.approve_pass : @project_apply.approve_reject
+        params[:audit][:state] == 'pass' ? @project_apply.audit_pass : @project_apply.audit_reject
         format.js
       else
         format.html { render :edit }

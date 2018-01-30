@@ -16,6 +16,18 @@
 #  updated_at        :datetime         not null
 #  name              :string                                 # 名称
 #  number            :integer                                # 配额
+#  apply_no          :string                                 # 项目申请编号
+#  bookshelf_type    :integer                                # 悦读项目申请类型
+#  contact_name      :string                                 # 联系人姓名
+#  contact_phone     :string                                 # 联系人电话
+#  audit_state       :integer                                # 审核状态
+#  abstract          :string                                 # 简述
+#  address           :string                                 # 详细地址
+#  girl_number       :integer                                # 申请女生人数
+#  boy_number        :integer                                # 申请男生人数
+#  consignee         :string                                 # 收货人
+#  consignee_phone   :string                                 # 收货人联系电话
+#
 
 #  girl_number       :integer                                # 申请女生人数
 #  boy_number        :integer                                # 申请男生人数

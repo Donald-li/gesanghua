@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20180129094900) do
-=======
-ActiveRecord::Schema.define(version: 20180129091736) do
->>>>>>> 1acd352358c2e68e97d666e399c68b55f448ed3a
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -487,20 +483,6 @@ ActiveRecord::Schema.define(version: 20180129091736) do
     t.datetime "updated_at", null: false
     t.string "name", comment: "名称"
     t.integer "number", comment: "配额"
-<<<<<<< HEAD
-    t.integer "girl_number", comment: "申请女生人数"
-    t.integer "boy_number", comment: "申请男生人数"
-    t.string "address", comment: "详细地址"
-    t.string "consignee", comment: "收货人"
-    t.string "consignee_phone", comment: "收货人联系电话"
-    t.integer "approve_state", comment: "审核状态 1:待审核 2:通过 3:不通过"
-=======
-    t.integer "bookshelf_type", comment: "悦读项目申请类型"
-    t.string "contact_name", comment: "联系人姓名"
-    t.string "contact_phone", comment: "联系人电话"
-    t.integer "audit_state", comment: "审核状态"
-    t.string "abstract", comment: "简述"
-    t.string "address", comment: "详细地址"
     t.string "apply_no", comment: "项目申请编号"
     t.integer "bookshelf_type", comment: "悦读项目申请类型"
     t.string "contact_name", comment: "联系人姓名"
@@ -508,7 +490,10 @@ ActiveRecord::Schema.define(version: 20180129091736) do
     t.integer "audit_state", comment: "审核状态"
     t.string "abstract", comment: "简述"
     t.string "address", comment: "详细地址"
->>>>>>> 1acd352358c2e68e97d666e399c68b55f448ed3a
+    t.integer "girl_number", comment: "申请女生人数"
+    t.integer "boy_number", comment: "申请男生人数"
+    t.string "consignee", comment: "收货人"
+    t.string "consignee_phone", comment: "收货人联系电话"
   end
 
   create_table "project_season_apply_bookshelves", force: :cascade, comment: "项目执行年度申请书架表" do |t|
