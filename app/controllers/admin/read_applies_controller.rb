@@ -1,5 +1,5 @@
 class Admin::ReadAppliesController < Admin::BaseController
-  before_action :set_project_apply, only: [:show, :edit, :update, :destroy, :audit]
+  before_action :set_project_apply, only: [:show, :edit, :update, :destroy, :audit, :students]
 
   def index
     @search = ProjectSeasonApply.where(project_id: 2).sorted.ransack(params[:q])
@@ -68,6 +68,13 @@ class Admin::ReadAppliesController < Admin::BaseController
     respond_to do |format|
       format.html { redirect_to admin_read_applies_path, notice: '删除成功。' }
     end
+  end
+
+  def students
+    @search = @project_apply.beneficial_children.sorted.ransack(params[:q])
+    @bookshelves = @project_apply.gsh_bookshelves
+    scope = @search.result
+    @students = scope.page(params[:page])
   end
 
   private

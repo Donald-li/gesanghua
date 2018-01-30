@@ -1,0 +1,138 @@
+<div class="portlet light bordered">
+  <div class="portlet-title">
+    <!-- <div class="caption">
+      <i class="icon-note">审核操作</i>
+      <span class="caption-subject"></span>
+      <span class="caption-helper"></span>
+    </div> -->
+
+    <div class="actions">
+      <% if params[:q] %>
+        <%= link_to new_admin_beneficial_child_path(gsh_bookshelf_id: params[:q][:gsh_bookshelf_id_eq], project_season_apply_id: @project_apply.id), class: 'btn btn-xs green', 'data-no-turbolink' => true do %>
+            <i class="icon-plus"></i>
+            <span>新增学生</span>
+        <% end %>
+      <% end %>
+
+      <%= link_to excel_upload_admin_beneficial_children_path(apply_id: @project_apply.id, gsh_bookshelf_id: params[:q][:gsh_bookshelf_id_eq]), class: 'btn btn-xs yellow', 'data-no-turbolink' => true do %>
+        <i class="fa fa-upload"></i>
+        <span>批量导入</span>
+      <% end %>
+
+      <%= link_to admin_read_applies_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+          <i class="fa fa-reply"></i>
+          <span>返回</span>
+      <% end %>
+    </div>
+  </div>
+  <div class="portlet-body form">
+
+    <div class="form-body form-horizontal">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="tabbable-line boxless tabbable-reversed">
+            <ul class="nav nav-tabs">
+              <li class="">
+                <a href="<%= edit_admin_read_apply_path(@project_apply) %>"> 申请资料 </a>
+              </li>
+              <li class="">
+                <a href="<%= audit_admin_read_apply_path(@project_apply) %>"> 审核申请 </a>
+              </li>
+              <li class="active">
+                <a href="#tab_2" data-toggle="tab" aria-expanded="false"> 受益学生 </a>
+              </li>
+            </ul>
+            <div class="tab-content">
+
+
+              <div class="portlet light">
+
+                <div class="portlet-body">
+                  <div class="dataTables_wrapper no-footer">
+                    <div class="row">
+                      <div class="col-md-12 col-sm-12">
+                        <%= search_form_for @search, url: students_admin_read_apply_path, class: 'form-inline' do |f| %>
+                            <div class="form-group" style="margin-left: 22px; margin-right: 15px;">
+                              <%= f.label :name_or_id_no_cont, '姓名或身份证号' %>
+                              <%= f.text_field :name_or_id_no_cont, class: 'form-control', placeholder: '姓名或身份证号' %>
+                            </div>
+                            <div class="form-group" style="margin-left: 22px; margin-right: 15px;">
+                              <%= f.label :gsh_bookshelf_id_eq, '班级' %>
+                              <%= f.select :gsh_bookshelf_id_eq, @project_apply.gsh_bookshelves.collect {|p| [p.classname, p.id]}, {include_blank: false}, class: 'form-control' %>
+                            </div>
+                            <button type="submit" class="btn btn-default grey">搜索</button>
+                        <% end %>
+                      </div>
+                      <div class="col-md-6 col-sm-12">
+                        <div class="dataTables_filter pull-right"></div>
+                      </div>
+                    </div>
+                    <div class="table-scrollable">
+                      <table class="table table-striped table-bordered table-hover" id="sample_2">
+                        <thead>
+                        <tr>
+                          <th>
+                            姓名
+                          </th>
+                          <th>
+                            身份证号
+                          </th>
+                          <th>
+                            性别
+                          </th>
+                          <th>
+                            民族
+                          </th>
+                          <th>
+                            操作
+                          </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% @students.each do |student| %>
+                            <tr>
+                              <td>
+                                <%= student.name %>
+                              </td>
+                              <td>
+                                <%= student.id_no %>
+                              </td>
+                              <td>
+                                <%= student.enum_name(:gender) %>
+                              </td>
+                              <td>
+                                <%= student.enum_name(:nation) %>
+                              </td>
+                              <td>
+                                <%= link_to edit_admin_beneficial_child_path(student), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                                    <i class="fa fa-edit"></i> 编辑
+                                <% end %>
+                                <%= link_to admin_beneficial_child_path(student), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                                    <i class="fa fa-trash-o"></i> 删除
+                                <% end %>
+                              </td>
+                            </tr>
+                        <% end %>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-5 col-sm-12">
+                  <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@students) %></div>
+                </div>
+                <div class="col-md-7 col-sm-12">
+                  <%= paginate @students, theme: '' %>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
