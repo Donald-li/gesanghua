@@ -105,11 +105,11 @@ zh:
   audit_states:
     submit: '待审核'
     pass: '审核通过'
-    rejected: '审核不通过'
+    reject: '审核不通过'
   project_season_apply_child_approve_states:
     submit: '待审核'
     pass: '审核通过'
-    rejected: '审核不通过'
+    reject: '审核不通过'
   project_season_apply_child_genders:
     male: '男'
     female: '女'
@@ -218,7 +218,7 @@ zh:
   school_approve_states:
     submit: '待审核'
     pass: '审核通过'
-    rejected: '审核不通过'
+    reject: '审核不通过'
   report_states:
     show: '显示'
     hidden: '隐藏'
@@ -279,7 +279,7 @@ zh:
   gsh_bookshelf_audit_states:
     submit: '待审核'
     pass: '通过'
-    rejected: '不通过'
+    reject: '不通过'
   logistic_names:
     shunfeng: '顺丰'
     shentong: '申通'
