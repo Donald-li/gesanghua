@@ -15,8 +15,8 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  idcard              :string                                 # 身份证
-#  semester_count      :integer                                # 孩子申请学期总数
-#  done_semester_count :integer                                # 孩子募款成功学期总数
+#  semester_count      :integer          default(0)            # 孩子申请学期总数
+#  done_semester_count :integer          default(0)            # 孩子募款成功学期总数
 #
 
 FactoryBot.define do

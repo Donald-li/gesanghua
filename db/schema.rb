@@ -226,6 +226,7 @@ ActiveRecord::Schema.define(version: 20180130093427) do
     t.integer "period", comment: "月捐期数"
     t.integer "month_donate_id", comment: "月捐id"
     t.string "certificate_no", comment: "捐赠证书编号"
+    t.integer "kind", comment: "记录类型: 1:系统生成 2:手动添加"
     t.integer "gsh_child_id", comment: "格桑花孩子id"
   end
 
