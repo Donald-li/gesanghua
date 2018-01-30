@@ -73,7 +73,7 @@ class User < ApplicationRecord
   default_value_for :gender, 1
 
   scope :sorted, ->{ order(created_at: :desc) }
-  scope :reverse_sorted, ->{ order(created_at: :asc) }
+  scope :reverse_sorted, ->{ sorted.reverse_order }
 
   before_create :generate_auth_token
 
@@ -112,7 +112,11 @@ class User < ApplicationRecord
   end
 
   # 捐给孩子
-  def donate_child(gsh_child: nil, promoter: nil)
+  def donate_child(gsh_child: nil, promoter: nil, semester_num: 0)
+    return false unless gsh_child.present?
+
+    semesters = gsh_child.semesters.pending.take(semester_num)
+
 
   end
 
