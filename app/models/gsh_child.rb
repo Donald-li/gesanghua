@@ -32,6 +32,8 @@ class GshChild < ApplicationRecord
 
   has_many :gsh_child_grants, dependent: :destroy
 
+  has_many :semesters, class_name: 'GshChildGrant', dependent: :destroy
+
 
   validates :name, presence: true
   validates :province, :city, :district, presence: true

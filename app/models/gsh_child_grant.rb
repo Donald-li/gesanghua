@@ -48,7 +48,7 @@ class GshChildGrant < ApplicationRecord
   # default_value_for :balance_manage, 0
 
   scope :sorted, ->(){ order(created_at: :desc) }
-  scope :reverse_sorted, ->{ order(created_at: :asc) }
+  scope :reverse_sorted, ->{ sorted.reverse_order }
 
   counter_culture :gsh_child, column_name: "semester_count"
   counter_culture :gsh_child, column_name: proc {|model| model.succeed? ? 'done_semester_count' : nil }

@@ -27,7 +27,7 @@ class Article < ApplicationRecord
 
   scope :visible, -> {where(kind: 1)}
   scope :sorted, ->{ order(published_at: :desc) }
-  scope :reverse_sorted, ->{ order(published_at: :desc) }
+  scope :reverse_sorted, ->{ sorted.reverse_order }
 
   enum kind: {simple: 1, special: 2}
   default_value_for :kind, 1
