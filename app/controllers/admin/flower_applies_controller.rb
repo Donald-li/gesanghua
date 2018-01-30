@@ -30,7 +30,7 @@ class Admin::FlowerAppliesController < Admin::BaseController
         format.html { render :new }
       elsif @project_apply.save
         @project_apply.update(apply_no: @project_apply.apply_no)
-        @project_apply.attach_project_season_apply_images(params[:apply_image_ids])
+        @project_apply.attach_images(params[:apply_image_ids])
         @project_apply.audits.build
         format.html { redirect_to admin_flower_applies_path, notice: '创建成功。' }
       else
@@ -42,7 +42,7 @@ class Admin::FlowerAppliesController < Admin::BaseController
   def update
     respond_to do |format|
       if @project_apply.update(project_apply_params)
-        @project_apply.attach_project_season_apply_images(params[:apply_image_ids])
+        @project_apply.attach_images(params[:apply_image_ids])
         format.html { redirect_to admin_flower_applies_path, notice: '修改成功。' }
       else
         format.html { render :edit }

@@ -72,10 +72,10 @@ class ProjectSeasonApply < ApplicationRecord
   def audit_reject
     self.audit_state = 'rejected'
     self.save
+  end
 
   def sliced_describe
     self.describe.length > 90 ? self.describe.slice(0..90) : self.describe
-
   end
 
   private
