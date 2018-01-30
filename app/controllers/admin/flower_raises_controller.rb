@@ -1,9 +1,9 @@
-class Admin::FlowerFundraisingsController < Admin::BaseController
+class Admin::FlowerRaisesController < Admin::BaseController
   before_action :set_project, only: [:index, :new, :create]
   before_action :set_project_apply, only: [:show, :edit, :update, :destroy]
 
   def index
-    @search = @project.applies.sorted.ransack(params[:q])
+    @search = @project.applies.raise_project.sorted.ransack(params[:q])
     scope = @search.result
     @project_applies = scope.page(params[:page])
   end
@@ -12,7 +12,7 @@ class Admin::FlowerFundraisingsController < Admin::BaseController
   end
 
   def new
-    @project_apply = @project.applies.new
+    @project_apply = @project.applies.pass.raise_project.new
   end
 
   def edit

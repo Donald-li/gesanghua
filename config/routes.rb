@@ -182,10 +182,12 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :flower_fundraisings
+    resources :flower_raises
     resources :flower_applies do
+      resources :flower_approve_logs
       member do
         patch :update_audit
+        put :switch_to_raise
       end
       collection do
         post :create_audit

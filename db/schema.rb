@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180130093847) do
+ActiveRecord::Schema.define(version: 20180130093427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -226,6 +226,7 @@ ActiveRecord::Schema.define(version: 20180130093847) do
     t.integer "period", comment: "月捐期数"
     t.integer "month_donate_id", comment: "月捐id"
     t.string "certificate_no", comment: "捐赠证书编号"
+    t.integer "gsh_child_id", comment: "格桑花孩子id"
   end
 
   create_table "expenditure_records", force: :cascade, comment: "支出记录表" do |t|
@@ -324,6 +325,7 @@ ActiveRecord::Schema.define(version: 20180130093847) do
     t.integer "project_season_apply_id", comment: "项目申请ID"
     t.integer "project_season_id", comment: "批次申请ID"
     t.integer "grade", comment: "所属年级"
+    t.integer "student_number", comment: "班级人数"
   end
 
   create_table "gsh_child_grants", force: :cascade, comment: "格桑花孩子发放表" do |t|
@@ -365,6 +367,8 @@ ActiveRecord::Schema.define(version: 20180130093847) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "idcard", comment: "身份证"
+    t.integer "semester_count", default: 0, comment: "孩子申请学期总数"
+    t.integer "done_semester_count", default: 0, comment: "孩子募款成功学期总数"
   end
 
   create_table "income_records", force: :cascade, comment: "入帐记录表" do |t|
@@ -495,10 +499,10 @@ ActiveRecord::Schema.define(version: 20180130093847) do
     t.integer "boy_number", comment: "申请男生人数"
     t.string "consignee", comment: "收货人"
     t.string "consignee_phone", comment: "收货人联系电话"
-    t.decimal "fundraising_target", precision: 14, scale: 2, default: "0.0", comment: "筹款目标金额"
-    t.decimal "raised_amount", precision: 14, scale: 2, default: "0.0", comment: "已筹金额"
-    t.integer "execute_state", comment: "执行状态 1:筹款中 2:待执行 3:待收货 4:待反馈 5:已完成"
-    t.integer "fundraising_state", comment: "对外筹款状态 1:对外筹款 2:不对外筹款"
+    t.decimal "target_amount", precision: 14, scale: 2, default: "0.0", comment: "目标金额"
+    t.decimal "present_amount", precision: 14, scale: 2, default: "0.0", comment: "目前已筹金额"
+    t.integer "execute_state", default: 0, comment: "执行状态：0:准备中 1:筹款中 2:待执行 3:待收货 4:待反馈 5:已完成"
+    t.integer "project_type", default: 1, comment: "项目类型:1:申请 2:筹款项目"
   end
 
   create_table "project_season_apply_bookshelves", force: :cascade, comment: "项目执行年度申请书架表" do |t|
@@ -615,6 +619,7 @@ ActiveRecord::Schema.define(version: 20180130093847) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "donate_record_amount_count", precision: 14, scale: 2, default: "0.0", comment: "累计捐助金额"
+    t.string "alias", comment: "项目别名，使用英文"
   end
 
   create_table "radio_informations", force: :cascade, comment: "广播详细信息表" do |t|

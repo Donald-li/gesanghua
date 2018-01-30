@@ -1,6 +1,6 @@
 class Admin::FlowerAppliesController < Admin::BaseController
   before_action :set_project, only: [:index, :new, :create]
-  before_action :set_project_apply, only: [:show, :edit, :update, :destroy]
+  before_action :set_project_apply, only: [:show, :edit, :update, :destroy, :switch_to_raise]
 
   def index
     @search = @project.applies.sorted.ransack(params[:q])
@@ -58,6 +58,11 @@ class Admin::FlowerAppliesController < Admin::BaseController
     respond_to do |format|
       format.html { redirect_to admin_flower_applies_path, notice: '删除成功。' }
     end
+  end
+
+  def switch_to_raise
+    @project_apply.update(project_type: 2)
+    redirect_to admin_flower_applies_path, notice: '已转为筹款项目'
   end
 
   def new_audit

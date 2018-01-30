@@ -13,8 +13,8 @@
         <%= f.error_notification %>
         <div class="form-body">
           <%= f.hidden_field :project_id, value: ProjectSeason.flower_project_id %>
-          <%= f.input :school_id, as: :select, label: '申请学校：', input_html: {class: 'schools-ajax'} %>
-          <%= f.input :project_season_id, as: :select, label: '申请批次：', input_html: {class: 'seasons-ajax'} %>
+          <%= f.input :school_id, collection: [@project_apply.school].compact.map {|u| [u.name, u.id]}, label: '申请学校：', input_html: {class: 'schools-ajax'} %>
+          <%= f.input :project_season_id, collection: [@project_apply.season].compact.map {|u| [u.name, u.id]}, label: '申请批次：', input_html: {class: 'seasons-ajax'} %>
           <div class="form-group">
             <label class="col-md-2 control-label">申请人数：</label>
             <div class="col-sm-9">

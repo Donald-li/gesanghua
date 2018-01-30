@@ -66,7 +66,7 @@
         </div>
       </div>
       <div class="portlet-body row">
-        <% @special.special_adverts.top.reverse_sorted.each do |item| %>
+        <% @special.special_adverts.top.sorted.each do |item| %>
           <div class="col-sm-5 col-md-4 thumbnail">
             <%= image_tag item.advert.image_url(:tiny) %>
             <div class="caption">
@@ -133,7 +133,7 @@
         </div>
       </div>
       <div class="portlet-body row">
-        <% @special.special_adverts.down.reverse_sorted.each do |item| %>
+        <% @special.special_adverts.down.sorted.each do |item| %>
           <div class="col-sm-6 col-md-3 thumbnail">
             <%= image_tag item.advert.image_url(:tiny) %>
             <div class="caption">

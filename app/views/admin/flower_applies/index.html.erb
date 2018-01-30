@@ -105,7 +105,7 @@
                       <i class="fa fa-edit"></i> 修改审核
                   <% end %>
                   <% if apply.pass? %>
-                    <%= link_to '', 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                    <%= link_to switch_to_raise_admin_flower_apply_path(apply), data: {confirm: '确定要转为筹款项目吗？'}, method: :put, class: 'btn btn-xs blue' do %>
                          转为筹款项目
                     <% end %>
                   <% end %>
