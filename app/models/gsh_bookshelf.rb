@@ -21,6 +21,7 @@
 #  project_season_apply_id :integer                                # 项目申请ID
 #  project_season_id       :integer                                # 批次申请ID
 #  grade                   :integer                                # 所属年级
+#  student_number          :integer                                # 班级人数
 #
 
 class GshBookshelf < ApplicationRecord
@@ -29,10 +30,11 @@ class GshBookshelf < ApplicationRecord
   belongs_to :project_season, optional: true
   belongs_to :school, optional: true
   has_many :beneficial_children
+  has_many :audits, as: :owner
 
   validates :classname, presence: true
 
-  enum audit_state: {submit: 1, pass: 2, rejected: 3}
+  enum audit_state: {submit: 1, pass: 2, reject: 3}
   default_value_for :audit_state, 1
 
   enum show_state: {show: 1, hidden: 2}

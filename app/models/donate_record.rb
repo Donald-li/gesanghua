@@ -27,6 +27,7 @@
 #  period                        :integer                                # 月捐期数
 #  month_donate_id               :integer                                # 月捐id
 #  certificate_no                :string                                 # 捐赠证书编号
+#  gsh_child_id                  :integer                                # 格桑花孩子id
 #
 
 class DonateRecord < ApplicationRecord
@@ -45,6 +46,7 @@ class DonateRecord < ApplicationRecord
   belongs_to :month_donate, optional: true
   belongs_to :fund, optional: true
   belongs_to :appoint, polymorphic: true, optional: true
+  belongs_to :gsh_child, optional: true
 
   counter_culture :project, column_name: :donate_record_amount_count, delta_magnitude: proc {|model| model.amount}
 
@@ -58,6 +60,8 @@ class DonateRecord < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
+  scope :donate_gsh_child, ->{ where("gsh_child_id IS NOT NULL")} # 捐助给孩子的记录
+
   before_create :gen_donate_no
 
   def pay_and_gen_certificate
@@ -66,7 +70,7 @@ class DonateRecord < ApplicationRecord
     self.save
   end
 
-  def self.donate_gsh(user: nil, amount: '0.0', promoter: nil)
+  def self.donate_gsh(user: nil, amount: 0.0, promoter: nil)
     self.create(user: user, amount: amount ,team: nil, fund: Fund.gsh, pay_state: 'unpay', promoter: promoter, remitter_name: promoter.try(:name), apply: nil, child: nil, project: nil)
   end
 

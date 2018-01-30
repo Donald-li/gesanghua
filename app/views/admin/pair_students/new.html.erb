@@ -54,16 +54,18 @@
     $(".season_form").html5Validate(function(){
         $(this).find('[type="submit"]').attr('disabled','disabled');
         this.submit();
-    },  {
-        validate: function() {
-            var ima_length = document.getElementById("webuploader").getElementsByTagName("li").length;
-            if (ima_length <= 1) {
-                alert("请上传图片");
-                return false;
-            }
-            return true;
-        }
-    });
+    }
+    // ,  {
+    //     validate: function() {
+    //         var ima_length = document.getElementById("webuploader").getElementsByTagName("li").length;
+    //         if (ima_length <= 1) {
+    //             alert("请上传图片");
+    //             return false;
+    //         }
+    //         return true;
+    //     }
+    // }
+    );
 
     initMultiImageWebuploader($('#webuploader'));
     $('.upload-list').viewer();

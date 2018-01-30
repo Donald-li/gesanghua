@@ -1,12 +1,12 @@
 <div class="portlet light">
   <div class="portlet-title">
     <div class="caption">
-      <i class="icon-list"></i>项目分类管理
+      <i class="icon-list"></i>项目管理
     </div>
     <div class="actions">
       <%= link_to new_admin_project_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
       <i class="icon-plus"></i>
-      <span>新增项目</span>
+      <span>新增自定义项目</span>
       <% end %>
     </div>
   </div>
@@ -16,8 +16,8 @@
         <div class="col-md-12 col-sm-12">
           <%= search_form_for @search, url: admin_projects_path, class: 'form-inline' do |f| %>
               <div class="form-group">
-                <%= f.label :name_cont, '分类名' %>
-                <%= f.text_field :name_cont, class: 'form-control', placeholder: '分类名' %>
+                <%= f.label :name_cont, '项目名称' %>
+                <%= f.text_field :name_cont, class: 'form-control', placeholder: '项目名称' %>
               </div>
               <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>
@@ -32,10 +32,13 @@
           <thead>
           <tr>
             <th>
-              分类名称
+              项目名称
             </th>
             <th>
-              项目类型
+              类型
+            </th>
+            <th>
+              封面
             </th>
             <th>
               收入分类
@@ -56,6 +59,9 @@
                 </td>
                 <td>
                   <%= project.enum_name(:kind) %>
+                </td>
+                <td>
+                  <%= image_tag project.image_url(:tiny), width:92, height:30 %>
                 </td>
                 <td>
                   <%= "#{project.fund.fund_category.name} - #{project.fund.name}" %>

@@ -62,7 +62,7 @@
                                 <% @project_apply.gsh_bookshelves.build if @project_apply.gsh_bookshelves.blank? %>
                                 <%= f.fields_for :gsh_bookshelves, wrapper: 'inline_inputs' do |b| %>
                                 <tr>
-                                  <%#= b.hidden_field :project_id, value: 2 %>
+                                  <%#= b.hidden_field :school_id, value: 2 %>
                                   <%#= b.hidden_field :project_season_id, value: @project_apply.project_season_id %>
                                   <td>
                                     <%= b.input :grade, as: :select, label: false, collection: GshBookshelf.options_for_select(:grades), include_blank: false %>
@@ -89,6 +89,7 @@
                           </div>
                         </div>
                       </div>
+                      <%= f.input :abstract, label: '申请内容：', placeholder: '请填写申请所需物品' %>
                       <%= f.input :describe, label: '申请理由：', placeholder: '请填写申请理由' %>
                       <div class="form-group">
                         <label class="col-md-2 control-label">申请图片：</label>

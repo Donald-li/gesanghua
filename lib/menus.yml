@@ -180,6 +180,7 @@ admin:
             admin_project_book_season:
               actions:
                 'admin/project_book_seasons': all
+            admin_read_applies:
               actions:
                 'admin/read_applies': all
         admin_project_camp:
@@ -195,6 +196,9 @@ admin:
             admin_radio_applies:
               actions:
                 'admin/radio_applies': all
+            admin_radio_projects:
+              actions:
+                'admin/radio_projects': all
         admin_project_flower:
           menus:
             admin_project_flower_season:

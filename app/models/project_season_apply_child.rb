@@ -60,7 +60,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   enum state: {show: 1, hidden: 2} # 状态：1:展示 2:隐藏
   default_value_for :state, 2
 
-  enum approve_state: {submit: 1, pass: 2, rejected: 3} # 状态：1:待审核 2:通过 3:不通过
+  enum approve_state: {submit: 1, pass: 2, reject: 3} # 状态：1:待审核 2:通过 3:不通过
   default_value_for :approve_state, 1
 
   enum gender: {male: 1, female: 2,} # 状态：1:男 2:女
@@ -147,7 +147,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   # 审核不通过
   def approve_reject
-    self.approve_state = 'rejected'
+    self.approve_state = 'reject'
     self.save
   end
 

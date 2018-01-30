@@ -12,13 +12,13 @@
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
 #  donate_record_amount_count :decimal(14, 2)   default(0.0)          # 累计捐助金额
+#  alias                      :string                                 # 项目别名，使用英文
 #
 
 FactoryBot.define do
   factory :project, aliases: [:pair_project] do
     name '结对'
     describe '一对一结对项目'
-    kind 'normal'
     protocol '用户协议'
 
     trait :with_seasons do

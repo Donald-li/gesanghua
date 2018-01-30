@@ -37,6 +37,7 @@ class ProjectSeasonApply < ApplicationRecord
 
   include HasAsset
   has_many_assets :images, class_name: 'Asset::ProjectSeasonApplyImage'
+  has_one_asset :cover_image, class_name: 'Asset::ProjectSeasonApplyCover'
 
   belongs_to :project
   belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id'
@@ -58,6 +59,13 @@ class ProjectSeasonApply < ApplicationRecord
   attr_accessor :approve_remark
 
   enum state: {show: 1, hidden: 2} # 状态：1:展示 2:隐藏
+  default_value_for :state, 2
+
+  enum execute_state: {default: 0, raising: 1, to_execute: 2, to_receive: 3, to_feedback: 4, done: 5} # 执行状态：0:准备中 1:筹款中 2:待执行 3:待收货 4:待反馈 5:已完成
+  default_value_for :execute_state, 0
+
+  enum project_type: {apply: 1, raise_project: 2} # 项目类型：1:申请 2:筹款项目
+  default_value_for :project_type, 1
 
   scope :sorted, ->{ order(created_at: :desc) }
 

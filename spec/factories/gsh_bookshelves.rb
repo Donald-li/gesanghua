@@ -21,10 +21,11 @@
 #  project_season_apply_id :integer                                # 项目申请ID
 #  project_season_id       :integer                                # 批次申请ID
 #  grade                   :integer                                # 所属年级
+#  student_number          :integer                                # 班级人数
 #
 
 FactoryBot.define do
   factory :gsh_bookshelf do
-    
+
   end
 end

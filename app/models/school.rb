@@ -58,7 +58,7 @@ class School < ApplicationRecord
 
   enum kind: {village_center_school: 1, small_village_village: 2, cheng_guan_primary_school: 3, other: 4} # 学校类型：1:乡村中心校 2:乡村村小 3:城关小学 4:其他
 
-  enum approve_state: {submit: 1, pass: 2, rejected: 3} # 审核状态：1:待审核 2:审核通过 3：审核不通过
+  enum approve_state: {submit: 1, pass: 2, reject: 3} # 审核状态：1:待审核 2:审核通过 3：审核不通过
   default_value_for :approve_state, 1
 
   scope :sorted, ->{ order(created_at: :desc) }
