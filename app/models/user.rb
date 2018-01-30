@@ -51,6 +51,8 @@ class User < ApplicationRecord
   has_many :vouchers
   has_many :campaign_enlists
   has_many :donate_records
+  has_many :donates, class_name: 'DonateRecord', dependent: :destroy
+
   has_many :income_records
   has_many :project_season_applies
   has_many :month_donates
@@ -92,6 +94,21 @@ class User < ApplicationRecord
   # 用于判断是否验证预留手机号码
   def validate_phone?
     #TODO
+  end
+
+  # 捐给格桑花
+  def donate_gsh(amount: 0.0, promoter: nil)
+    gsh_fund = Fund.gsh
+    donate = self.donates.build(amount: amount, fund: gsh_fund, promoter: promoter, pay_state: 'unpay')
+    donate.save
+  end
+
+  # 捐给定向
+  def donate_project(amount: 0.0, project: nil, promoter: nil)
+    return false unless project.present?
+    fund = project.fund
+    donate = self.donates.build(amount: amount, fund: fund, promoter: promoter, pay_stage: 'unpay', project: project)
+    donate.save
   end
 
   # 可开票金额
