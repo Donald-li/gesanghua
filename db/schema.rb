@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180130093427) do
+ActiveRecord::Schema.define(version: 20180130101310) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -226,6 +226,7 @@ ActiveRecord::Schema.define(version: 20180130093427) do
     t.integer "period", comment: "月捐期数"
     t.integer "month_donate_id", comment: "月捐id"
     t.string "certificate_no", comment: "捐赠证书编号"
+    t.integer "kind", comment: "记录类型: 1:系统生成 2:手动添加"
   end
 
   create_table "expenditure_records", force: :cascade, comment: "支出记录表" do |t|

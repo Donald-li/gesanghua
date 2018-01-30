@@ -258,7 +258,9 @@ Rails.application.routes.draw do
     end
     resources :beneficial_children, concerns: [:excel_upload, :excel_import]
 
-    resources :radio_projects, concerns: :switch
+    resources :radio_projects, concerns: :switch do
+      resources :radio_donate_records
+    end
   end
 
   namespace :school do
