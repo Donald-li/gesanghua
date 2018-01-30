@@ -74,8 +74,13 @@ zh:
     headmaster: '校长'
     teacher: '老师'
   project_kinds:
-    normal: '固定项目'
-    goods: '物资项目'
+    pair: '结对'
+    book: '悦读'
+    radio: '广播'
+    camp: '探索营'
+    care: '护花'
+    moive: '观影'
+    custom: '自定义'
   project_season_apply_states:
     show: '对外展示'
     hidden: '暂不展示'

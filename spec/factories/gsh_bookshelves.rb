@@ -26,6 +26,6 @@
 
 FactoryBot.define do
   factory :gsh_bookshelf do
-    
+
   end
 end

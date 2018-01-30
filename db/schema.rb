@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180130101310) do
+ActiveRecord::Schema.define(version: 20180130084215) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -226,7 +226,7 @@ ActiveRecord::Schema.define(version: 20180130101310) do
     t.integer "period", comment: "月捐期数"
     t.integer "month_donate_id", comment: "月捐id"
     t.string "certificate_no", comment: "捐赠证书编号"
-    t.integer "kind", comment: "记录类型: 1:系统生成 2:手动添加"
+    t.integer "gsh_child_id", comment: "格桑花孩子id"
   end
 
   create_table "expenditure_records", force: :cascade, comment: "支出记录表" do |t|
@@ -367,6 +367,8 @@ ActiveRecord::Schema.define(version: 20180130101310) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "idcard", comment: "身份证"
+    t.integer "semester_count", default: 0, comment: "孩子申请学期总数"
+    t.integer "done_semester_count", default: 0, comment: "孩子募款成功学期总数"
   end
 
   create_table "income_records", force: :cascade, comment: "入帐记录表" do |t|
@@ -617,6 +619,7 @@ ActiveRecord::Schema.define(version: 20180130101310) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "donate_record_amount_count", precision: 14, scale: 2, default: "0.0", comment: "累计捐助金额"
+    t.string "alias", comment: "项目别名，使用英文"
   end
 
   create_table "radio_informations", force: :cascade, comment: "广播详细信息表" do |t|

@@ -12,12 +12,16 @@
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
 #  donate_record_amount_count :decimal(14, 2)   default(0.0)          # 累计捐助金额
+#  alias                      :string                                 # 项目别名，使用英文
 #
 
 require 'rails_helper'
 
 RSpec.describe Project, type: :model do
   let(:project) { build(:project, :with_seasons) }
+  let(:fund_category) { create(:fund_category, name: '自定义物资类', describe: '自定义物资类项目财务分类')}
+  let(:fund) { create(:fund, name: '爱心早餐', fund_category: fund_category)}
+  let(:custom_project) { create(:project, name: '物资类爱心早餐', fund: fund)}
 
   it '测试项目数据完整性' do
     user = create(:user)
@@ -33,6 +37,10 @@ RSpec.describe Project, type: :model do
     expect(project.seasons.first.name).to eq '2017'
     expect(project.valid?).to be true
     expect(project.name).to eq '结对'
-    expect(project.normal?).to be true
+  end
+
+  it '测试新增自定义项目' do
+    expect(custom_project.name).to eq '物资类爱心早餐'
+    expect(custom_project.fund.id).to eq fund.id
   end
 end

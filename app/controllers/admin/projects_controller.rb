@@ -18,12 +18,13 @@ class Admin::ProjectsController < Admin::BaseController
   end
 
   def create
-    @project = Project.new(project_params.merge(kind: 2))
+    @project = Project.new(project_params)
+    @project.kind = 'custom'
 
     respond_to do |format|
       if @project.save
         @project.attach_image(params[:image_id])
-        format.html { redirect_to admin_projects_path, notice: '新增成功。' }
+        format.html { redirect_to admin_projects_path, notice: '新增自定义项目成功。' }
       else
         format.html { render :new }
       end

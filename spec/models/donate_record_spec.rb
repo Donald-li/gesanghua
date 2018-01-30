@@ -27,7 +27,7 @@
 #  period                        :integer                                # 月捐期数
 #  month_donate_id               :integer                                # 月捐id
 #  certificate_no                :string                                 # 捐赠证书编号
-#  kind                          :integer                                # 记录类型: 1:系统生成 2:手动添加
+#  gsh_child_id                  :integer                                # 格桑花孩子id
 #
 
 require 'rails_helper'

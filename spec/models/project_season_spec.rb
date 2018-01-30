@@ -29,6 +29,5 @@ RSpec.describe ProjectSeason, type: :model do
 
     expect(season.valid?).to be true
     expect(season.name).to eq '2017'
-    expect(season.project.normal?).to be true
   end
 end
