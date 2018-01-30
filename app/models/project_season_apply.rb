@@ -59,9 +59,7 @@ class ProjectSeasonApply < ApplicationRecord
 
   before_create :gen_apply_no
 
-
   enum audit_state: {submit: 1, pass: 2, reject: 3}
-
   default_value_for :audit_state, 1
 
   enum bookshelf_type: {whole: 1, supplement: 2}
