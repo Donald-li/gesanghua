@@ -28,6 +28,7 @@ class GshBookshelf < ApplicationRecord
   belongs_to :project_season_apply, optional: true
   belongs_to :project_season, optional: true
   belongs_to :school, optional: true
+  has_many :beneficial_children
 
   validates :classname, presence: true
 

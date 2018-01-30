@@ -82,6 +82,9 @@ zh:
   project_season_apply_bookshelf_types:
     whole: '图书角'
     supplement: '补书'
+  project_season_apply_audit_states:
+    submit: '审核中'
+    pass: '审核通过'
   volunteer_states:
     enable: '启用'
     disable: '禁用'
