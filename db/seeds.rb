@@ -60,9 +60,9 @@ content = %{<p>
 </p>
 }
 description = "为了使资助者与受助人保持长久的联系，同时保证资助款发挥真正的助学之用，请资助双方认真阅读填写本协议书以作书面凭证。在签定本协议之前，请资助者仔细阅读以下条款，并请严格遵守"
-Project.find_or_create_by(name: '结对', protocol: content, describe: description, kind: 'pair', fund: fc1.funds.first)
-Project.find_or_create_by(name: '悦读', protocol: content, describe: description, kind: 'book', fund: fc2.funds.first)
-Project.find_or_create_by(name: '观影', protocol: content, describe: description, kind: 'movie', fund: fc3.funds.first)
-Project.find_or_create_by(name: '探索营', protocol: content, describe: description, kind: 'camp', fund: fc4.funds.first)
-Project.find_or_create_by(name: '广播', protocol: content, describe: description, kind: 'radio', fund: fc5.funds.second)
-Project.find_or_create_by(name: '护花', protocol: content, describe: description, kind: 'care', fund: fc5.funds.second)
+Project.find_or_create_by(name: '结对', protocol: content, describe: description, kind: 'pair', fund: fc1.funds.unrestricted.first, appoint_fund: fc1.funds.restricted.first)
+Project.find_or_create_by(name: '悦读', protocol: content, describe: description, kind: 'book', fund: fc2.funds.unrestricted.first, appoint_fund: fc2.funds.restricted.first)
+Project.find_or_create_by(name: '观影', protocol: content, describe: description, kind: 'movie', fund: fc3.funds.unrestricted.first, appoint_fund: fc3.funds.restricted.first)
+Project.find_or_create_by(name: '探索营', protocol: content, describe: description, kind: 'camp', fund: fc4.funds.unrestricted.first, appoint_fund: fc4.funds.restricted.first)
+Project.find_or_create_by(name: '广播', protocol: content, describe: description, kind: 'radio', fund: fc5.funds.unrestricted.second, appoint_fund: fc5.funds.restricted.first)
+Project.find_or_create_by(name: '护花', protocol: content, describe: description, kind: 'care', fund: fc5.funds.unrestricted.second, appoint_fund: fc6.funds.restricted.first)
