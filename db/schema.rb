@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180129091736) do
+ActiveRecord::Schema.define(version: 20180130022655) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -129,7 +129,6 @@ ActiveRecord::Schema.define(version: 20180129091736) do
     t.string "contact_name", comment: "联系人"
     t.string "contact_phone", comment: "联系电话"
     t.integer "payment_state", default: 1, comment: "支付状态 1:已支付 2:已取消"
-    t.integer "income_source_id", comment: "收入来源id"
   end
 
   create_table "campaigns", force: :cascade, comment: "活动表" do |t|
@@ -483,12 +482,6 @@ ActiveRecord::Schema.define(version: 20180129091736) do
     t.datetime "updated_at", null: false
     t.string "name", comment: "名称"
     t.integer "number", comment: "配额"
-    t.integer "bookshelf_type", comment: "悦读项目申请类型"
-    t.string "contact_name", comment: "联系人姓名"
-    t.string "contact_phone", comment: "联系人电话"
-    t.integer "audit_state", comment: "审核状态"
-    t.string "abstract", comment: "简述"
-    t.string "address", comment: "详细地址"
     t.string "apply_no", comment: "项目申请编号"
     t.integer "bookshelf_type", comment: "悦读项目申请类型"
     t.string "contact_name", comment: "联系人姓名"
@@ -614,6 +607,22 @@ ActiveRecord::Schema.define(version: 20180129091736) do
     t.decimal "donate_record_amount_count", precision: 14, scale: 2, default: "0.0", comment: "累计捐助金额"
   end
 
+  create_table "radio_informations", force: :cascade, comment: "广播详细信息表" do |t|
+    t.integer "student_number", default: 0, comment: "学生总数"
+    t.integer "boarder_number", default: 0, comment: "住宿总数"
+    t.integer "dormitory_number", default: 0, comment: "宿舍楼总数"
+    t.integer "dorm_number", default: 0, comment: "宿舍总数"
+    t.integer "first_grade", default: 0, comment: "一年级"
+    t.integer "second_grade", default: 0, comment: "二年级"
+    t.integer "third_grade", default: 0, comment: "三年级"
+    t.integer "fourth_grade", default: 0, comment: "四年级"
+    t.integer "fifth_grade", default: 0, comment: "五年级"
+    t.integer "sixth_grade", default: 0, comment: "六年级"
+    t.integer "project_season_apply_id", comment: "申请id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "remarks", force: :cascade, comment: "备注信息表" do |t|
     t.text "content", comment: "内容"
     t.string "owner_type"
@@ -655,7 +664,7 @@ ActiveRecord::Schema.define(version: 20180129091736) do
     t.string "contact_phone", comment: "联系方式"
     t.string "contact_position", comment: "联系人职务"
     t.integer "kind", comment: "学校类型"
-    t.integer "user_id", comment: "申请人ID"
+    t.integer "user_id", comment: "用户id"
     t.string "school_no", comment: "学校申请编号"
     t.string "contact_idcard", comment: "联系人身份证号"
     t.string "postcode", comment: "邮政编码"

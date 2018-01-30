@@ -12,14 +12,21 @@ class Admin::RadioAppliesController < Admin::BaseController
 
   def new
     @project_apply = ProjectSeasonApply.new
+    @project_apply.build_radio_information
   end
 
   def edit
+    @child_search = BeneficialChild.where(project_season_apply: @project_apply).sorted.ransack(params[:q])
+    scope = @child_search.result
+    @children = scope.page(params[:page])
+    respond_to do |format|
+      format.html { render :edit }
+    end
   end
 
   def create
-    @project_apply = ProjectSeasonApply.new(radio_apply_params)
-
+    @project_apply = ProjectSeasonApply.new(project_apply_params)
+    @radio = @project_apply.build_radio_information(project_apply_params[:radio_information_attributes])
     respond_to do |format|
       if @project_apply.save
         format.html { redirect_to admin_radio_applies_path, notice: '新增成功。' }
@@ -31,7 +38,7 @@ class Admin::RadioAppliesController < Admin::BaseController
 
   def update
     respond_to do |format|
-      if @project_apply.update(radio_apply_params)
+      if @project_apply.update(project_apply_params)
         format.html { redirect_to admin_radio_applies_path, notice: '修改成功。' }
       else
         format.html { render :edit }
@@ -53,7 +60,7 @@ class Admin::RadioAppliesController < Admin::BaseController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def radio_apply_params
-      params.require(:radio_apply).permit!
+    def project_apply_params
+      params.require(:project_season_apply).permit!
     end
 end

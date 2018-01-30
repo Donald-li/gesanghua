@@ -1,0 +1,18 @@
+<%= simple_form_for [:admin, @child], wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'season_form'} do |f| %>
+  <%= f.error_notification %>
+  <div class="form-body form-horizontal">
+    <%= f.hidden_field :project_season_apply_id, value: @child.project_season_apply_id %>
+    <%= f.input :name, label: '姓名：', require: true, autofocus: true %>
+    <%= f.input :id_no, label: '身份证号：', require: true, autofocus: true %>
+    <%= f.input :gender, as: :select, collection: BeneficialChild.options_for_enum_select(:genders), label: '性别：', include_blank: '请选择性别', require: true, autofocus: true %>
+    <%= f.input :nation, as: :select, collection: BeneficialChild.options_for_enum_select(:nations), label: '民族：', include_blank: false, require: true, autofocus: true %>
+  </div>
+  <div class="form-actions">
+    <div class="row">
+      <div class="col-md-offset-2 col-md-9">
+        <%= f.button :submit, '提交', class: 'btn blue' %>
+        <%= link_to '取消', request.referer, class: 'btn' %>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,2 @@
+module Admin::BeneficialChildrenHelper
+end

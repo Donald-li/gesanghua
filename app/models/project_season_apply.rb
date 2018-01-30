@@ -23,7 +23,6 @@
 #  audit_state       :integer                                # 审核状态
 #  abstract          :string                                 # 简述
 #  address           :string                                 # 详细地址
-#  apply_no          :string                                 # 项目申请编号
 #
 
 class ProjectSeasonApply < ApplicationRecord
@@ -36,6 +35,10 @@ class ProjectSeasonApply < ApplicationRecord
   has_many :gsh_child_grants
   has_many :gsh_children
   has_many :gsh_bookshelves
+  has_many :beneficial_children
+
+  has_one :radio_information
+  accepts_nested_attributes_for :radio_information, update_only: true
 
   validates :province, :city, :district, presence: true
 
@@ -47,6 +50,10 @@ class ProjectSeasonApply < ApplicationRecord
 
   enum bookshelf_type: {whole: 1, supplement: 2}
   default_value_for :bookshelf_type, 1
+
+  def sliced_describe
+    self.describe.length > 90 ? self.describe.slice(0..90) : self.describe
+  end
 
   private
   def gen_apply_no
