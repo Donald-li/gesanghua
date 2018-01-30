@@ -18,15 +18,15 @@ class Admin::ReadAppliesController < Admin::BaseController
   end
 
   def create
-    @school = School.find(project_apply_params[:school_id])
-    @project_apply = ProjectSeasonApply.new(project_apply_params.merge(province: @school.province, city: @school.city, district: @school.district, project_id: 2))
-
+    # @school = School.find(project_apply_params[:school_id])
+    @project_apply = ProjectSeasonApply.new(project_apply_params.merge(project_id: 2))
+    @project_apply.attach_images(params[:image_ids])
     respond_to do |format|
-      if ProjectSeasonApply.find_by(school_id: project_apply_params[:school_id], project_id: project_apply_params[:project_id]).present?
+      if ProjectSeasonApply.find_by(school_id: project_apply_params[:school_id], project_id: 2).present?
         flash[:notice] = '此学校在本批次还有未完成的申请'
         format.html { render :new }
-      elsif @project_apply.save
-        format.html { redirect_to admin_pair_applies_path, notice: '创建成功。' }
+      elsif @project_apply.save!
+        format.html { redirect_to admin_read_applies_path, notice: '创建成功。' }
       else
         format.html { render :new }
       end
@@ -36,7 +36,7 @@ class Admin::ReadAppliesController < Admin::BaseController
   def update
     respond_to do |format|
       if @project_apply.update(project_apply_params)
-        format.html { redirect_to admin_pair_applies_path, notice: '修改成功。' }
+        format.html { redirect_to admin_read_applies_path, notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -46,7 +46,7 @@ class Admin::ReadAppliesController < Admin::BaseController
   def destroy
     @project_apply.destroy
     respond_to do |format|
-      format.html { redirect_to admin_pair_applies_path, notice: '删除成功。' }
+      format.html { redirect_to admin_read_applies_path, notice: '删除成功。' }
     end
   end
 

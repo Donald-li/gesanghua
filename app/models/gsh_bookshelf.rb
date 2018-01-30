@@ -20,6 +20,7 @@
 #  state                   :integer                                # 执行状态
 #  project_season_apply_id :integer                                # 项目申请ID
 #  project_season_id       :integer                                # 批次申请ID
+#  grade                   :integer                                # 所属年级
 #
 
 class GshBookshelf < ApplicationRecord
@@ -31,7 +32,7 @@ class GshBookshelf < ApplicationRecord
 
   validates :classname, presence: true
 
-  enum audit_state: {submit: 1, pass: 2}
+  enum audit_state: {submit: 1, pass: 2, rejected: 3}
   default_value_for :audit_state, 1
 
   enum show_state: {show: 1, hidden: 2}
@@ -39,4 +40,7 @@ class GshBookshelf < ApplicationRecord
 
   enum state: {pending: 1, complete: 2, non_execution: 3, non_reception: 4, non_feedback: 5, done: 6}
   default_value_for :state, 1
+
+  enum grade: {juniorone: 1, juniortwo: 2, juniorthree: 3, seniorone: 4, seniortwo: 5, seniorthree: 6}
+  default_value_for :grade, 1
 end
