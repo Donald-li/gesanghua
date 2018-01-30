@@ -20,7 +20,11 @@
                 <%= f.text_field :school_name_cont, class: 'form-control', placeholder: '学校名称' %>
               </div>
               <div class="form-group">
-                <%= f.label :bookshelf_type_eq, '全部类型' %>
+                <%= f.label :audit_state_eq, '申请状态' %>
+                <%= f.select :audit_state_eq, ProjectSeasonApply.options_for_select(:audit_states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
+              </div>
+              <div class="form-group">
+                <%= f.label :bookshelf_type_eq, '申请类型' %>
                 <%= f.select :bookshelf_type_eq, ProjectSeasonApply.options_for_select(:bookshelf_types, raw: true), {include_blank: '全部'}, class: 'form-control' %>
               </div>
               <div class="form-group">
