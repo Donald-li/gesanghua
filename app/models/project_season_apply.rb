@@ -16,6 +16,7 @@
 #  updated_at        :datetime         not null
 #  name              :string                                 # 名称
 #  number            :integer                                # 配额
+#  apply_no          :string                                 # 项目申请编号
 #  bookshelf_type    :integer                                # 悦读项目申请类型
 #  contact_name      :string                                 # 联系人姓名
 #  contact_phone     :string                                 # 联系人电话
