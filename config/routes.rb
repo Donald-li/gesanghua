@@ -174,6 +174,7 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :flower_fundraisings
     resources :flower_applies do
       member do
         patch :update_audit

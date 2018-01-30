@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180130042334) do
+ActiveRecord::Schema.define(version: 20180130093847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -495,6 +495,10 @@ ActiveRecord::Schema.define(version: 20180130042334) do
     t.integer "boy_number", comment: "申请男生人数"
     t.string "consignee", comment: "收货人"
     t.string "consignee_phone", comment: "收货人联系电话"
+    t.decimal "fundraising_target", precision: 14, scale: 2, default: "0.0", comment: "筹款目标金额"
+    t.decimal "raised_amount", precision: 14, scale: 2, default: "0.0", comment: "已筹金额"
+    t.integer "execute_state", comment: "执行状态 1:筹款中 2:待执行 3:待收货 4:待反馈 5:已完成"
+    t.integer "fundraising_state", comment: "对外筹款状态 1:对外筹款 2:不对外筹款"
   end
 
   create_table "project_season_apply_bookshelves", force: :cascade, comment: "项目执行年度申请书架表" do |t|
