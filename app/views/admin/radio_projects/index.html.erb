@@ -1,12 +1,12 @@
 <div class="portlet light">
   <div class="portlet-title">
     <div class="caption">
-      <i class="icon-list"></i>广播项目申请
+      <i class="icon-list"></i>广播筹款项目
     </div>
     <div class="actions">
-      <%= link_to new_admin_radio_apply_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+      <%= link_to new_admin_radio_project_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
           <i class="icon-plus"></i>
-          <span>新增申请</span>
+          <span>新增项目</span>
       <% end %>
     </div>
   </div>
@@ -14,14 +14,18 @@
     <div class="dataTables_wrapper no-footer">
       <div class="row">
         <div class="col-md-12 col-sm-12">
-          <%= search_form_for @search, url: admin_radio_applies_path, class: 'form-inline' do |f| %>
+          <%= search_form_for @search, url: admin_radio_projects_path, class: 'form-inline' do |f| %>
               <div class="form-group">
                 <%= f.label :school_name_cont, '学校名称' %>
                 <%= f.text_field :school_name_cont, class: 'form-control', placeholder: '学校名称' %>
               </div>
               <div class="form-group">
-                <%= f.label :audit_state_eq, '状态' %>
-                <%= f.select :audit_state_eq, ProjectSeasonApply.options_for_select(:audit_states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
+                <%= f.label :state_eq, '筹款状态' %>
+                <%= f.select :state_eq, ProjectSeasonApply.options_for_select(:states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
+              </div>
+              <div class="form-group">
+                <%= f.label :execute_state_eq, '执行状态' %>
+                <%= f.select :execute_state_eq, ProjectSeasonApply.options_for_select(:execute_states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
               </div>
               <div class="form-group">
                 <%= f.label :project_season_id_eq, '批次' %>
@@ -42,25 +46,25 @@
               申请编号
             </th>
             <th>
-              申请学校
+              项目名称
             </th>
             <th>
-              申请时间
+              申请学校
             </th>
             <th>
               批次
             </th>
             <th>
-              申请内容
+              申请数量
             </th>
             <th>
-              学校联系人
+              已筹/目标
             </th>
             <th>
-              联系方式
+              筹款状态
             </th>
             <th>
-              状态
+              执行状态
             </th>
             <th>
               操作
@@ -68,45 +72,39 @@
           </tr>
           </thead>
           <tbody>
-          <% @project_applies.each do |apply| %>
+          <% @projects.each do |apply| %>
               <tr>
                 <td>
                   <%= apply.apply_no %>
                 </td>
                 <td>
-                  <%= apply.school.try(:name) %>
+                  <%= apply.name %>
                 </td>
                 <td>
-                  <%= l apply.created_at %>
+                  <%= apply.school.try(:name) %>
                 </td>
                 <td>
                   <%= apply.season.try(:name) %>
                 </td>
                 <td>
-                  <%= apply.sliced_describe %>
+                  <%= apply.number %>
                 </td>
                 <td>
-                  <%= apply.school.try(:contact_name) %>
+                  <%= apply.present_amount %>/<%= apply.target_amount %>
                 </td>
                 <td>
-                  <%= apply.school.try(:contact_phone) %>
-                </td>
-                <td>
-                  <%= apply.enum_name(:audit_state) %>
-                </td>
-                <td>
-                  <% if apply.pass? %>
-                  <%= link_to edit_admin_radio_project_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
-                    <i class="fa fa-exchange"></i> 转为筹款项目
+                  <%= link_to switch_admin_radio_project_path(apply), data: {confirm: "确定#{apply.state === 'show' ? '暂不展示' : '对外展示'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{apply.state === 'show' ? 'green' : 'blue'}" do %>
+                    <%= apply.state === 'show' ? '对外展示' : '暂不展示' %>
                   <% end %>
-                  <% end %>
-                  <%= link_to admin_radio_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
-                    <i class="fa fa-gavel"></i> 审核
-                  <% end %>
-                  <%= link_to edit_admin_radio_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                </td>
+                <td>
+                  <%= apply.enum_name(:execute_state) %>
+                </td>
+                <td>
+                  <%= link_to edit_admin_radio_project_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-edit"></i> 修改
                   <% end %>
-                  <%= link_to admin_radio_apply_path(apply), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                  <%= link_to admin_radio_project_path(apply), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                       <i class="fa fa-trash-o"></i> 删除
                   <% end %>
                 </td>
@@ -117,10 +115,10 @@
       </div>
       <div class="row">
         <div class="col-md-5 col-sm-12">
-          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@project_applies) %></div>
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@projects) %></div>
         </div>
         <div class="col-md-7 col-sm-12">
-          <%= paginate @project_applies, theme: '' %>
+          <%= paginate @projects, theme: '' %>
         </div>
       </div>
     </div>

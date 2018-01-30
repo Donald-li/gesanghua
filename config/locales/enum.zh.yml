@@ -77,13 +77,21 @@ zh:
     normal: '固定项目'
     goods: '物资项目'
   project_season_apply_states:
-    show: '显示'
-    hidden: '隐藏'
+    show: '对外展示'
+    hidden: '暂不展示'
+  project_season_apply_execute_states:
+    default: '准备中'
+    raising: '筹款中'
+    raised: '筹款完成'
+    to_execute: '待执行'
+    to_receive: '待收货'
+    to_feedback: '待反馈'
+    done: '已完成'
   project_season_apply_bookshelf_types:
     whole: '图书角'
     supplement: '补书'
   project_season_apply_audit_states:
-    submit: '审核中'
+    submit: '待审核'
     pass: '审核通过'
     reject: '审核不通过'
   volunteer_states:
@@ -96,7 +104,7 @@ zh:
     normal: '普通志愿者'
     professional: '专业志愿者'
   volunteer_approve_states:
-    submit: '审核中'
+    submit: '待审核'
     pass: '审核通过'
     reject: '审核不通过'
   special_templates:
