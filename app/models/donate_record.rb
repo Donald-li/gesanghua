@@ -27,6 +27,7 @@
 #  period                        :integer                                # 月捐期数
 #  month_donate_id               :integer                                # 月捐id
 #  certificate_no                :string                                 # 捐赠证书编号
+#  kind                          :integer                                # 记录类型: 1:系统生成 2:手动添加
 #  gsh_child_id                  :integer                                # 格桑花孩子id
 #
 
@@ -54,6 +55,9 @@ class DonateRecord < ApplicationRecord
 
   enum pay_state: { unpay: 1, paid: 2 } #付款状态， 1:已付款  2:未付款
   default_value_for :pay_state, 1
+
+  enum kind: {system: 1, custom: 2} # 记录类型: 1:系统生成 2:手动添加
+  default_value_for :kind, 1
 
   enum voucher_state: {to_bill: 1, billed: 2 } #收据状态，1:未开票 2:已开票
   default_value_for :voucher_state, 1

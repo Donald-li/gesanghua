@@ -36,6 +36,12 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   let!(:user) { create(:user) }
   let!(:promoter) { create(:user) }
+  let!(:school) { create(:school, user: user) }
+  let!(:teacher) { create(:teacher, school: school, user: user) }
+  let!(:project) { create(:project) }
+  let!(:season) { create(:project_season, project: project) }
+  let!(:apply) { create(:project_season_apply, project: project, season: season, teacher: teacher, school: school) }
+  let!(:child) { create(:project_season_apply_child, project: project, season: season, apply: apply, school: school, semester: 'next_term') }
 
   it '测试每日注册用户统计功能' do
 
@@ -98,6 +104,19 @@ RSpec.describe User, type: :model do
   end
 
   it '测试用户捐一对一的指定' do
-    
+    child.approve_pass
+    gsh_child = child.gsh_child
+    project = Project.pair_project
+    user.donate_child(gsh_child: gsh_child, semester_num: 2)
+
+    donate = DonateRecord.last
+    expect(donate.user.id).to eq user.id
+    expect(donate.project.id).to eq project.id
+    expect(donate.unpay?).to be true
+    expect(donate.amount).to eq donate.gsh_child.semesters.succeed.sum(:amount)
+    expect(donate.promoter).to eq nil
+    expect(donate.fund_id).to eq project.appoint_fund.id
+    expect(donate.gsh_child.id).to eq gsh_child.id
+    expect(donate.gsh_child.semesters.succeed.count).to eq 2
   end
 end

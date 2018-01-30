@@ -14,6 +14,7 @@ class Admin::VolunteerAppliesController < Admin::BaseController
     respond_to do |format|
       approve_state = volunteer_apply_params[:approve_state] == 'pass' ? 2 : 3
       @apply.approve_state = approve_state
+      @apply.gen_volunteer_no
       if @apply.save
         @apply.audits.create(state: approve_state, user_id: current_user.id, comment: volunteer_apply_params[:approve_remark])
         format.html { redirect_to admin_volunteer_applies_path, notice: '操作成功' }

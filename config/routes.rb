@@ -135,9 +135,9 @@ Rails.application.routes.draw do
 
     resources :project_book_seasons
     resources :read_applies do
-      resources :read_students
       member do
         get :audit
+        get :students
       end
       collection do
         post :create_audit
@@ -261,7 +261,9 @@ Rails.application.routes.draw do
     end
     resources :beneficial_children, concerns: [:excel_upload, :excel_import]
 
-    resources :radio_projects, concerns: :switch
+    resources :radio_projects, concerns: :switch do
+      resources :radio_donate_records
+    end
   end
 
   namespace :school do

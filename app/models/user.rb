@@ -73,7 +73,7 @@ class User < ApplicationRecord
   default_value_for :gender, 1
 
   scope :sorted, ->{ order(created_at: :desc) }
-  scope :reverse_sorted, ->{ order(created_at: :asc) }
+  scope :reverse_sorted, ->{ sorted.reverse_order }
 
   before_create :generate_auth_token
 
@@ -112,7 +112,21 @@ class User < ApplicationRecord
   end
 
   # 捐给孩子
-  def donate_child(gsh_child: nil, promoter: nil)
+  def donate_child(gsh_child: nil, promoter: nil, semester_num: 0)
+    return false unless gsh_child.present?
+    scope = gsh_child.semesters.pending.sorted
+    return false if scope.count < semester_num || semester_num < 1
+
+    semesters = scope.limit(semester_num)
+
+    total = semesters.to_a.sum{|a| a.amount}
+
+    project = Project.pair_project
+
+    donate = self.donates.build(amount: total, fund: project.appoint_fund, promoter: promoter, pay_state: 'unpay', project: project, gsh_child: gsh_child)
+    if donate.save
+      semesters.update(donate_state: :succeed)
+    end
 
   end
 

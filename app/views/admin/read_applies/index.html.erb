@@ -103,8 +103,14 @@
                   <%= link_to edit_admin_read_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-edit"></i> 修改申请
                   <% end %>
-                  <%= link_to audit_admin_read_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                  <%= link_to audit_admin_read_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                       <i class="fa fa-check"></i> 审核操作
+                  <% end %>
+                  <% if apply.gsh_bookshelves.present? %>
+                    <% gsh_bookshelf_id = apply.gsh_bookshelves.first.id %>
+                    <%= link_to students_admin_read_apply_path(apply, q: {gsh_bookshelf_id_eq: gsh_bookshelf_id}), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
+                        <i class="fa fa-list"></i> 学生名单
+                    <% end %>
                   <% end %>
                   <%= link_to admin_read_apply_path(apply), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                       <i class="fa fa-trash-o"></i> 删除

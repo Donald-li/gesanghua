@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180130093427) do
+ActiveRecord::Schema.define(version: 20180130115929) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -227,6 +227,7 @@ ActiveRecord::Schema.define(version: 20180130093427) do
     t.integer "month_donate_id", comment: "月捐id"
     t.string "certificate_no", comment: "捐赠证书编号"
     t.integer "gsh_child_id", comment: "格桑花孩子id"
+    t.integer "kind", comment: "记录类型: 1:系统生成 2:手动添加"
   end
 
   create_table "expenditure_records", force: :cascade, comment: "支出记录表" do |t|
@@ -488,13 +489,13 @@ ActiveRecord::Schema.define(version: 20180130093427) do
     t.datetime "updated_at", null: false
     t.string "name", comment: "名称"
     t.integer "number", comment: "配额"
-    t.string "apply_no", comment: "项目申请编号"
     t.integer "bookshelf_type", comment: "悦读项目申请类型"
     t.string "contact_name", comment: "联系人姓名"
     t.string "contact_phone", comment: "联系人电话"
     t.integer "audit_state", comment: "审核状态"
     t.string "abstract", comment: "简述"
     t.string "address", comment: "详细地址"
+    t.string "apply_no", comment: "项目申请编号"
     t.integer "girl_number", comment: "申请女生人数"
     t.integer "boy_number", comment: "申请男生人数"
     t.string "consignee", comment: "收货人"
@@ -620,6 +621,7 @@ ActiveRecord::Schema.define(version: 20180130093427) do
     t.datetime "updated_at", null: false
     t.decimal "donate_record_amount_count", precision: 14, scale: 2, default: "0.0", comment: "累计捐助金额"
     t.string "alias", comment: "项目别名，使用英文"
+    t.integer "appoint_fund_id", comment: "定向指定财务分类id"
   end
 
   create_table "radio_informations", force: :cascade, comment: "广播详细信息表" do |t|

@@ -20,7 +20,7 @@ class Admin::VolunteersController < Admin::BaseController
 
   def create
     @volunteer = Volunteer.new(volunteer_params.merge(approve_state: 2, user_id: @user.id))
-
+    @volunteer.gen_volunteer_no
     respond_to do |format|
       if @volunteer.save
         format.html { redirect_to admin_volunteers_path, notice: '新增成功' }

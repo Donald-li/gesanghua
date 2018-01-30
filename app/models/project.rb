@@ -35,6 +35,7 @@ class Project < ApplicationRecord
   has_many :project_reports
 
   belongs_to :fund, optional: true
+  belongs_to :appoint_fund, class_name: 'Fund', optional: true
 
   validates :name, :protocol, presence: true
 

@@ -51,14 +51,15 @@ class Volunteer < ApplicationRecord
     self.user.try(:name)
   end
 
+  def gen_volunteer_no
+    time_string = Time.now.strftime("%y")
+    self.volunteer_no ||= Sequence.get_seq(kind: :volunteer_no, prefix: 'ZYZ' + time_string, length: 4)
+  end
+
   private
   def gen_volunteer_apply_no
     time_string = Time.now.strftime("%y%m%d")
     self.volunteer_apply_no ||= Sequence.get_seq(kind: :volunteer_apply_no, prefix: time_string, length: 4)
-  end
-
-  def gen_volunteer_no
-
   end
 
 end
