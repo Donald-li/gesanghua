@@ -71,7 +71,7 @@ RSpec.describe User, type: :model do
 
   it '测试用户捐给一对一项目' do
     amount = 313213
-    project = Pair
+    project = Project.pair_project
     user.donate_project(amount: amount, project: project)
 
     donate = DonateRecord.last

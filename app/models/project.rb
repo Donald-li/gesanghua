@@ -37,9 +37,34 @@ class Project < ApplicationRecord
 
   validates :name, :protocol, presence: true
 
-  enum kind: { normal: 1, goods: 2 } # 项目类型 1:固定项目 2:物资类项目
+  # enum kind: { normal: 1, goods: 2 } # 项目类型 1:固定项目 2:物资类项目
+  enum kind: { pair: 1, book: 2, radio: 3, care: 4, moive: 5, camp: 6, custom: 7} # 项目类型 1:一对一 2:悦读 3:广播 4:护花 5:观影 6:营 7:自定义
 
   scope :sorted, ->{ order(created_at: :asc) }
+
+  def self.pair_project
+    self.pair.first
+  end
+
+  def self.book_project
+    self.book.first
+  end
+
+  def self.radio_project
+    self.radio.first
+  end
+
+  def self.care_project
+    self.care.first
+  end
+
+  def self.movie_project
+    self.moive.first
+  end
+
+  def self.camp_project
+    self.camp.first
+  end
 
   def sliced_describe
     self.describe.length > 90 ? self.describe.slice(0..90) : self.describe

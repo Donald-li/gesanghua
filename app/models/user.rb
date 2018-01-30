@@ -107,7 +107,7 @@ class User < ApplicationRecord
   def donate_project(amount: 0.0, project: nil, promoter: nil)
     return false unless project.present?
     fund = project.fund
-    donate = self.donates.build(amount: amount, fund: fund, promoter: promoter, pay_stage: 'unpay', project: project)
+    donate = self.donates.build(amount: amount, fund: fund, promoter: promoter, pay_state: 'unpay', project: project)
     donate.save
   end
 

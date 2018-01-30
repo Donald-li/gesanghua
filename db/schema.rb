@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180130093427) do
+ActiveRecord::Schema.define(version: 20180130043331) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -616,6 +616,7 @@ ActiveRecord::Schema.define(version: 20180130093427) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "donate_record_amount_count", precision: 14, scale: 2, default: "0.0", comment: "累计捐助金额"
+    t.string "alias", comment: "项目别名，使用英文"
   end
 
   create_table "radio_informations", force: :cascade, comment: "广播详细信息表" do |t|

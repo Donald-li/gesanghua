@@ -18,7 +18,6 @@ FactoryBot.define do
   factory :project, aliases: [:pair_project] do
     name '结对'
     describe '一对一结对项目'
-    kind 'normal'
     protocol '用户协议'
 
     trait :with_seasons do
