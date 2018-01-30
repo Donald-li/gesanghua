@@ -2,16 +2,17 @@
 #
 # Table name: project_seasons # 项目执行年度表
 #
-#  id                 :integer          not null, primary key
-#  project_id         :integer                                # 关联项目表id
-#  name               :string                                 # 执行年度名称
-#  state              :integer                                # 状态 1:未执行 2:执行中
-#  junior_term_amount :decimal(14, 2)   default(0.0)          # 初中资助金额（学期）
-#  junior_year_amount :decimal(14, 2)   default(0.0)          # 初中资助金额（学年）
-#  senior_term_amount :decimal(14, 2)   default(0.0)          # 高中资助金额（学期）
-#  senior_year_amount :decimal(14, 2)   default(0.0)          # 高中资助金额（学年）
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
+#  id                   :integer          not null, primary key
+#  project_id           :integer                                # 关联项目表id
+#  name                 :string                                 # 执行年度名称
+#  state                :integer                                # 状态 1:未执行 2:执行中
+#  junior_term_amount   :decimal(14, 2)   default(0.0)          # 初中资助金额（学期）
+#  junior_year_amount   :decimal(14, 2)   default(0.0)          # 初中资助金额（学年）
+#  senior_term_amount   :decimal(14, 2)   default(0.0)          # 高中资助金额（学期）
+#  senior_year_amount   :decimal(14, 2)   default(0.0)          # 高中资助金额（学年）
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  bookshelf_univalence :decimal(14, 2)   default(0.0)          # 单个图书角金额
 #
 
 class ProjectSeason < ApplicationRecord
@@ -39,7 +40,25 @@ class ProjectSeason < ApplicationRecord
     1 # TODO: 约定为1
   end
 
+
+  def self.book_project_id
+    2 # TODO: 约定为2
+  end
+
+  def self.movie_project_id
+    3 # TODO: 约定为3
+  end
+
+  def self.camp_project_id
+    4 # TODO: 约定为4
+  end
+
+  def self.radio_project_id
+    5 # TODO: 约定为5
+  end
+
   def self.flower_project_id
     6 # TODO: 约定为6
   end
+
 end

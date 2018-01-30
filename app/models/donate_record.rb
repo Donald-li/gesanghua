@@ -26,6 +26,7 @@
 #  voucher_id                    :integer                                # 捐助记录ID
 #  period                        :integer                                # 月捐期数
 #  month_donate_id               :integer                                # 月捐id
+#  certificate_no                :string                                 # 捐赠证书编号
 #
 
 class DonateRecord < ApplicationRecord
@@ -56,6 +57,14 @@ class DonateRecord < ApplicationRecord
   default_value_for :voucher_state, 1
 
   scope :sorted, ->{ order(created_at: :desc) }
+
+  before_create :gen_donate_no
+
+  def pay_and_gen_certificate
+    self.certificate_no ||= 'ZS' + self.donate_no
+    self.pay_state = 'paid'
+    self.save
+  end
 
   def self.donate_gsh(user: nil, amount: '0.0', promoter: nil)
     self.create(user: user, amount: amount ,team: nil, fund: Fund.gsh, pay_state: 'unpay', promoter: promoter, remitter_name: promoter.try(:name), apply: nil, child: nil, project: nil)
@@ -88,6 +97,12 @@ class DonateRecord < ApplicationRecord
       json.team self.team.present? ? self.team.name : ''
       json.project self.try(:project).try(:name)
     end.attributes!
+  end
+
+  private
+  def gen_donate_no
+    time_string = Time.now.strftime("%y%m%d%H")
+    self.donate_no ||= Sequence.get_seq(kind: :donate_no, prefix: time_string, length: 7)
   end
 
 end

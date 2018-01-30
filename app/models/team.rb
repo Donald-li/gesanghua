@@ -10,6 +10,7 @@
 #  creater_id            :integer                                # 团队创建人id
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
+#  team_no               :string                                 # 团队编号
 #
 
 class Team < ApplicationRecord
@@ -20,10 +21,17 @@ class Team < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
+  before_create :gen_team_no
+
   def summary_builder
     Jbuilder.new do |json|
       json.(self, :id, :name)
     end.attributes!
+  end
+
+  private
+  def gen_team_no
+    self.team_no ||= Sequence.get_seq(kind: :team_no, prefix: 'T', length: 6)
   end
 
 end

@@ -32,5 +32,11 @@
 require 'rails_helper'
 
 RSpec.describe School, type: :model do
-  
+
+  let!(:user) { create(:user) }
+  let!(:school) { create(:school, user: user) }
+  it '测试生成学校编号' do
+    time = Time.now.strftime("%y")
+    expect(school.school_no).to eq time + '00001'
+  end
 end

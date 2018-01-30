@@ -26,6 +26,7 @@
 #  voucher_id                    :integer                                # 捐助记录ID
 #  period                        :integer                                # 月捐期数
 #  month_donate_id               :integer                                # 月捐id
+#  certificate_no                :string                                 # 捐赠证书编号
 #
 
 require 'rails_helper'
@@ -61,4 +62,15 @@ RSpec.describe DonateRecord, type: :model do
   it '测试捐助一对一指定' do
 
   end
+
+  it '测试生成捐助编号和捐助证书编号' do
+    time = Time.now.strftime("%y%m%d%H")
+    record = DonateRecord.donate_project(user: user, amount: 89.0, project: project)
+    expect(record.donate_no).to eq time + '0000001'
+
+    record.pay_and_gen_certificate
+    expect(record.certificate_no).to eq 'ZS' + time + '0000001'
+  end
+
+
 end

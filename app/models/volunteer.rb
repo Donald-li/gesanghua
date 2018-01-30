@@ -2,19 +2,21 @@
 #
 # Table name: volunteers # 志愿者表
 #
-#  id             :integer          not null, primary key
-#  level          :integer                                # 等级
-#  major_id       :integer                                # 专业id
-#  duration       :integer                                # 服务时长
-#  user_id        :integer                                # 用户
-#  job_state      :integer                                # 任务状态
-#  state          :integer                                # 状态
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  kind           :integer                                # 类型
-#  approve_state  :integer                                # 认证状态
-#  approve_time   :datetime                               # 认证时间
-#  approve_remark :text                                   # 审核备注
+#  id                 :integer          not null, primary key
+#  level              :integer                                # 等级
+#  major_id           :integer                                # 专业id
+#  duration           :integer                                # 服务时长
+#  user_id            :integer                                # 用户
+#  job_state          :integer                                # 任务状态
+#  state              :integer                                # 状态
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  kind               :integer                                # 类型
+#  approve_state      :integer                                # 认证状态
+#  approve_time       :datetime                               # 认证时间
+#  approve_remark     :text                                   # 审核备注
+#  volunteer_no       :string                                 # 志愿者编号
+#  volunteer_apply_no :string                                 # 志愿者申请编号
 #
 
 class Volunteer < ApplicationRecord
@@ -43,8 +45,20 @@ class Volunteer < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
+  before_create :gen_volunteer_apply_no
+
   def volunteer_name
     self.user.try(:name)
+  end
+
+  private
+  def gen_volunteer_apply_no
+    time_string = Time.now.strftime("%y%m%d")
+    self.volunteer_apply_no ||= Sequence.get_seq(kind: :volunteer_apply_no, prefix: time_string, length: 4)
+  end
+
+  def gen_volunteer_no
+
   end
 
 end

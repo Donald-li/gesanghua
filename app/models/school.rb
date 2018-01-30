@@ -65,6 +65,8 @@ class School < ApplicationRecord
 
   scope :can_check, ->{ where.not(approve_state: 2) }
 
+  before_create :gen_school_no
+
   def full_address
     ChinaCity.get(self.province).to_s + ChinaCity.get(self.city).to_s + ChinaCity.get(self.district).to_s + self.address.to_s
   end
@@ -75,6 +77,12 @@ class School < ApplicationRecord
 
   def short_address
     ChinaCity.get(self.city).to_s + " " + ChinaCity.get(self.district).to_s
+  end
+
+  private
+  def gen_school_no
+    time_string = Time.now.strftime("%y")
+    self.school_no ||= Sequence.get_seq(kind: :school_no, prefix: time_string, length: 5)
   end
 
 end

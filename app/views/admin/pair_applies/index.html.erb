@@ -20,7 +20,7 @@
                 <%= f.text_field :school_name_cont, class: 'form-control', placeholder: '学校名称' %>
               </div>
               <div class="form-group">
-                <%= f.label :state_eq, '审核状态' %>
+                <%= f.label :state_eq, '状态' %>
                 <%= f.select :state_eq, ProjectSeasonApply.options_for_select(:states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
               </div>
               <div class="form-group">
@@ -60,7 +60,7 @@
               联系方式
             </th>
             <th>
-              当前状态
+              状态
             </th>
             <th>
               操作
@@ -71,7 +71,7 @@
           <% @project_applies.each do |apply| %>
               <tr>
                 <td>
-                  <%= apply.id %>
+                  <%= apply.apply_no %>
                 </td>
                 <td>
                   <%= apply.school.try(:name) %>
@@ -102,7 +102,7 @@
                       <i class="fa fa-trash-o"></i> 删除
                   <% end %>
                   <%= link_to admin_pair_apply_pair_students_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
-                      <i class="fa fa-list-ul"></i> 查看名单（<%= apply.children.where(school: apply.school).count %>）
+                      <i class="fa fa-list-ul"></i> 查看名单（<%= "#{apply.children.where(school: apply.school).submit.count}/#{apply.children.where(school: apply.school).count}" %>）
                   <% end %>
                 </td>
               </tr>

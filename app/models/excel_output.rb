@@ -125,7 +125,7 @@ class ExcelOutput
     header = wb.styles.add_style :sz => 16, :b => true, :alignment => {:horizontal => :center}
     wb.add_worksheet(:name => "表") do |sheet|
       sheet.add_row ["支出名称", "支出时间", "支出分类", "支出金额", "备注", "经办人"], :style => header
-      sheet.add_row ["结对孩子支出", "2018-1-17 12:30", "结对-非指定", "2000", "好好学习", "李阿姨", "请按照模板格式填写"], types: [:string] * 6
+      sheet.add_row ["结对孩子支出", "2018/1/17 12:30", "结对-非指定", "2000", "好好学习", "李阿姨", "请按照模板格式填写"], types: [:string] * 6
       3.times do
         sheet.add_row []
       end

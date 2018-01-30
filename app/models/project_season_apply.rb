@@ -12,18 +12,27 @@
 #  city              :string                                 # 市
 #  district          :string                                 # 区/县
 #  state             :integer          default("show")       # 状态：1:展示 2:隐藏
-#  gsh_child_id      :integer                                # 关联格桑花孩子id
-#  gsh_bookshelf_id  :integer                                # 关联格桑花书架(图书角)id
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  name              :string                                 # 名称
 #  number            :integer                                # 配额
+
 #  girl_number       :integer                                # 申请女生人数
 #  boy_number        :integer                                # 申请男生人数
 #  address           :string                                 # 详细地址
 #  consignee         :string                                 # 收货人
 #  consignee_phone   :string                                 # 收货人联系电话
 #  approve_state     :integer                                # 审核状态 1:待审核 2:通过 3:不通过
+
+#  apply_no          :string                                 # 项目申请编号
+#  bookshelf_type    :integer                                # 悦读项目申请类型
+#  contact_name      :string                                 # 联系人姓名
+#  contact_phone     :string                                 # 联系人电话
+#  audit_state       :integer                                # 审核状态
+#  abstract          :string                                 # 简述
+#  address           :string                                 # 详细地址
+#  apply_no          :string                                 # 项目申请编号
+
 #
 
 class ProjectSeasonApply < ApplicationRecord
@@ -37,20 +46,51 @@ class ProjectSeasonApply < ApplicationRecord
   belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id'
   belongs_to :school, optional: true
   belongs_to :teacher, optional: true
-  belongs_to :gsh_child, optional: true
-  belongs_to :gsh_bookshelf, optional: true
   has_many :audits, as: :owner
   has_many :children, class_name: "ProjectSeasonApplyChild"
   has_many :gsh_child_grants
+  has_many :gsh_children
+  has_many :gsh_bookshelves
 
   validates :province, :city, :district, presence: true
 
   enum state: {show: 1, hidden: 2} # 状态：1:展示 2:隐藏
 
+
   enum approve_state: {submit: 1, pass: 2, rejected: 3} # 状态：1:待审核 2:通过 3:不通过
   default_value_for :approve_state, 1
 
   scope :sorted, ->{ order(created_at: :desc) }
+
+
+  before_create :gen_apply_no
+
+  enum audit_state: {submit: 1, pass: 2}
+  default_value_for :audit_state, 1
+
+  enum bookshelf_type: {whole: 1, supplement: 2}
+  default_value_for :bookshelf_type, 1
+
+  private
+  def gen_apply_no
+    if self.project_id == 1
+      kind = 'JD'
+    elsif self.project_id == 2
+      kind = 'YD'
+    elsif self.project_id == 3
+      kind = 'GY'
+    elsif self.project_id == 4
+      kind = 'TS'
+    elsif self.project_id == 5
+      kind = 'GB'
+    elsif self.project_id == 6
+      kind = 'HH'
+    else
+      kind = 'QT'
+    end
+    self.apply_no ||= Sequence.get_seq(kind: :apply_no, prefix: kind, length: 7)
+  end
+
 
   # 通过审核
   def approve_pass

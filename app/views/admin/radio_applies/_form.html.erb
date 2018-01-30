@@ -1,0 +1,119 @@
+<div class="form-body form-horizontal">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="tabbable-line boxless tabbable-reversed">
+        <ul class="nav nav-tabs">
+          <li class="active">
+            <a href="#tab_0" data-toggle="tab" aria-expanded="true"> 申请信息 </a>
+          </li>
+          <li class="">
+            <a href="#tab_1" data-toggle="tab" aria-expanded="false"> 受益学生 </a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="tab_0">
+            <%= simple_form_for [:admin, @project_apply], url: @project_apply.new_record? ? admin_radio_applies_path : admin_radio_apply_path, wrapper: :admin_form, html: {class: 'form-horizontal project_form'} do |f| %>
+              <%= f.error_notification %>
+              <div class="form-body">
+                <% if @project_apply.new_record? %>
+                  <%= f.hidden_field :project_id, value: ProjectSeason.radio_project_id %>
+                  <%= f.input :project_season_id, as: :select, label: '结对批次：', input_html: {class: 'seasons-ajax'} %>
+                <% else %>
+                  <%= static_form_control '申请年度：', @project_apply.season.name %>
+                <% end %>
+                <%= f.input :school_id, as: :select, label: '选择学校：', input_html: {class: 'schools-ajax'} %>
+                <%= f.input :describe, label: '其他说明：', placeholder: '', required: true %>
+              </div>
+              <div class="form-actions">
+                <div class="row">
+                  <div class="col-md-offset-2 col-md-9">
+                    <%= f.button :submit, '提交', class: 'btn blue' %>
+                    <%= link_to '取消', admin_radio_applies_path, class: 'btn' %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+          <div class="tab-pane" id="tab_1">
+            收益学生
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        //    表单验证
+        $(".project_form").html5Validate(function () {
+            $(this).find('[type="submit"]').attr('disabled', 'disabled');
+            this.submit();
+        });
+        // 异步加载学校列表
+        $('.schools-ajax').select2({
+            language: "zh-CN",
+            placeholder: '<%= @project_apply.school.try(:name) %>',
+            allowClear: true,
+            ajax: {
+                url: "/selects/schools",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: $.map(data.items, function (item) {
+                            return {
+                                text: item.name,
+                                id: item.id
+                            }
+                        }),
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            }
+        });
+        // 异步加载批次列表
+        $('.seasons-ajax').select2({
+            language: "zh-CN",
+            placeholder: '请选择批次',
+            allowClear: true,
+            ajax: {
+                url: "/selects/seasons",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page,
+                        project_id: <%= ProjectSeason.radio_project_id %>
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: $.map(data.items, function (item) {
+                            return {
+                                text: item.name,
+                                id: item.id
+                            }
+                        }),
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            }
+        });
+    })
+</script>

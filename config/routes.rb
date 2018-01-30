@@ -134,6 +134,7 @@ Rails.application.routes.draw do
     end
 
     resources :project_book_seasons
+    resources :read_applies
     resources :project_camp_seasons
     resources :project_radio_seasons
     resources :project_flower_seasons
@@ -242,6 +243,7 @@ Rails.application.routes.draw do
     end
 
     resources :complaints
+    resources :radio_applies
   end
 
   namespace :school do

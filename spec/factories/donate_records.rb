@@ -26,6 +26,7 @@
 #  voucher_id                    :integer                                # 捐助记录ID
 #  period                        :integer                                # 月捐期数
 #  month_donate_id               :integer                                # 月捐id
+#  certificate_no                :string                                 # 捐赠证书编号
 #
 
 FactoryBot.define do

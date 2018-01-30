@@ -53,7 +53,7 @@ class Api::V1::PairChildrenController < Api::V1::BaseController
         current_user.balance -= total
       end
       current_user.donate_records.where(project_season_apply_child: @pair).each do |record|
-        record.paid!
+        record.pay_and_gen_certificate
         IncomeRecord.create(donate_record: record, user: record.user, fund: record.fund, amount: record.amount, remitter_id: record.remitter_id, remitter_name: record.remitter_name, donor: record.donor, promoter_id: record.promoter_id, income_time: Time.now)
       end
       grants.each do |grant|

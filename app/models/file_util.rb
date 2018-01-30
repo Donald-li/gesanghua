@@ -174,7 +174,7 @@ class FileUtil
       2.upto(s.last_row) do |line|
 
         name = s.formatted_value(line, 'A')
-        expended_at = s.formatted_value(line, 'B')
+        expended_at = s.cell(line, 'B')
         fund_title = s.formatted_value(line, 'C')
         amount = s.formatted_value(line, 'D')
         remark = s.formatted_value(line, 'E')

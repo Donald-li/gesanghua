@@ -10,10 +10,16 @@
 #  creater_id            :integer                                # 团队创建人id
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
+#  team_no               :string                                 # 团队编号
 #
 
 require 'rails_helper'
 
 RSpec.describe Team, type: :model do
-  
+  let!(:user) { create(:user) }
+  let!(:team) { create(:team, creater: user) }
+
+  it '测试生成团队编号' do
+    expect(team.team_no).to eq 'T000001'
+  end
 end
