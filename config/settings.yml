@@ -24,3 +24,5 @@ wechat_app_token: "3147d1cea898763a7f677b3c"
 # 微信支付
 wechat_mch_id: "1386171602"
 wechat_pay_key: "34894D77893800F28FD98B6EDD34FFE2"
+
+children_template_file_path: '/files/受益学生名单模板.xlsx'

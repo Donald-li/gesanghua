@@ -193,4 +193,36 @@ class FileUtil
       # right_notice = "成功录入#{s_count}条，其中#{f_count}条录入失败"
       right_notice = "成功录入#{s_count}条支出记录"
     end
+
+    def self.import_beneficial_children_records(original_filename: nil, path: nil, apply_id: nil)
+      s = nil
+      if File.extname(original_filename) == '.xlsx' || File.extname(original_filename) == '.xls'
+        s = Roo::Excelx.new path
+      else
+        return
+      end
+
+      @apply = ProjectSeasonApply.find(apply_id)
+
+      2.upto(s.last_row) do |line|
+
+        name = s.formatted_value(line, 'A')
+        gender = s.cell(line, 'B')
+        id_no = s.formatted_value(line, 'C')
+        nation = s.formatted_value(line, 'D')
+
+        if gender == '男'
+          gender = 1
+        elsif gender == '女'
+          gender = 2
+        else
+          gender = ''
+        end
+
+        nation = BeneficialChild.nation_hash_name(nation)
+
+        BeneficialChild.create(project_season_apply: @apply, name: name, gender: gender, id_no: id_no, nation: nation)
+      end
+    end
+
 end

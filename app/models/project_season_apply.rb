@@ -16,7 +16,6 @@
 #  updated_at        :datetime         not null
 #  name              :string                                 # 名称
 #  number            :integer                                # 配额
-#  apply_no          :string                                 # 项目申请编号
 #  bookshelf_type    :integer                                # 悦读项目申请类型
 #  contact_name      :string                                 # 联系人姓名
 #  contact_phone     :string                                 # 联系人电话
@@ -31,10 +30,8 @@
 
 class ProjectSeasonApply < ApplicationRecord
 
-  attr_accessor :apply_image_ids
-
   include HasAsset
-  has_many_assets :project_season_apply_images, class_name: 'Asset::ProjectSeasonApplyImage'
+  has_many_assets :images, class_name: 'Asset::ProjectSeasonApplyImage'
 
   belongs_to :project
   belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id'
@@ -45,6 +42,11 @@ class ProjectSeasonApply < ApplicationRecord
   has_many :gsh_child_grants
   has_many :gsh_children
   has_many :gsh_bookshelves
+  has_many :beneficial_children
+
+  has_one :radio_information
+  accepts_nested_attributes_for :radio_information, update_only: true
+  accepts_nested_attributes_for :gsh_bookshelves, allow_destroy: true, reject_if: :all_blank
 
   validates :province, :city, :district, presence: true
 
@@ -70,6 +72,10 @@ class ProjectSeasonApply < ApplicationRecord
   def audit_reject
     self.audit_state = 'rejected'
     self.save
+
+  def sliced_describe
+    self.describe.length > 90 ? self.describe.slice(0..90) : self.describe
+
   end
 
   private

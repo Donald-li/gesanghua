@@ -244,6 +244,7 @@ Rails.application.routes.draw do
 
     resources :complaints
     resources :radio_applies
+    resources :beneficial_children, concerns: [:excel_upload, :excel_import]
   end
 
   namespace :school do
