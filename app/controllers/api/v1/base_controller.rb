@@ -29,7 +29,7 @@ class Api::V1::BaseController < ApplicationController
   end
 
   def current_user
-    @current_user = User.first if Settings.development_mode # && session[:id].blank? && request.headers['agent'].to_s == 'mobile'
+    @current_user = User.first if Settings.development_mode && session[:id].blank? && request.headers['agent'].to_s == 'mobile'
     @current_user = User.find_by(id: session[:id]) if session[:id].present? && request.headers['agent'].to_s == 'mobile'
     token = request.headers['Authorization'] || params[:auth_token]
     return nil if token.blank?
