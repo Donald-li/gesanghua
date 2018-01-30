@@ -78,14 +78,14 @@ zh:
     goods: '物资项目'
   project_season_apply_states:
     show: '显示'
-    hidden: '隐藏'  
+    hidden: '隐藏'
   project_season_apply_bookshelf_types:
     whole: '图书角'
     supplement: '补书'
   project_season_apply_audit_states:
     submit: '待审核'
     pass: '审核通过'
-    rejected: '审核不通过'
+    reject: '审核不通过'
   volunteer_states:
     enable: '启用'
     disable: '禁用'

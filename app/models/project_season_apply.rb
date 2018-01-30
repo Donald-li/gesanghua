@@ -16,6 +16,7 @@
 #  updated_at        :datetime         not null
 #  name              :string                                 # 名称
 #  number            :integer                                # 配额
+#  apply_no          :string                                 # 项目申请编号
 #  bookshelf_type    :integer                                # 悦读项目申请类型
 #  contact_name      :string                                 # 联系人姓名
 #  contact_phone     :string                                 # 联系人电话
@@ -50,13 +51,17 @@ class ProjectSeasonApply < ApplicationRecord
 
   validates :province, :city, :district, presence: true
 
+  attr_accessor :approve_remark
+
   enum state: {show: 1, hidden: 2} # 状态：1:展示 2:隐藏
 
   scope :sorted, ->{ order(created_at: :desc) }
 
   before_create :gen_apply_no
 
-  enum audit_state: {submit: 1, pass: 2, rejected: 3}
+
+  enum audit_state: {submit: 1, pass: 2, reject: 3}
+
   default_value_for :audit_state, 1
 
   enum bookshelf_type: {whole: 1, supplement: 2}
@@ -70,7 +75,7 @@ class ProjectSeasonApply < ApplicationRecord
 
   # 审核不通过
   def audit_reject
-    self.audit_state = 'rejected'
+    self.audit_state = 'reject'
     self.save
   end
 

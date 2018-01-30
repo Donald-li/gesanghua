@@ -243,7 +243,11 @@ Rails.application.routes.draw do
     end
 
     resources :complaints
-    resources :radio_applies
+    resources :radio_applies do
+      member do
+        patch :check
+      end
+    end
     resources :beneficial_children, concerns: [:excel_upload, :excel_import]
   end
 

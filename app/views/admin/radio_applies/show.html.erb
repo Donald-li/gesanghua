@@ -1,0 +1,127 @@
+<div class="portlet light portlet-fit bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="fa fa-sliders font-dark"></i>
+      <span class="caption-subject font-dark bold uppercase">审核志愿者申请</span>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="table-scrollable">
+      <table class="table table-bordered table-hover">
+        <tbody>
+        <tr>
+          <th>
+            申请编号
+          </th>
+          <th>
+            <%= @project_apply.apply_no %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            申请学校
+          </th>
+          <th>
+            <%= @project_apply.school.try(:name) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            申请年度
+          </th>
+          <th>
+            <%= @project_apply.season.try(:name) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            学生总人数
+          </th>
+          <th>
+            <%= @project_apply.radio_information.student_number %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            住宿总人数
+          </th>
+          <th>
+            <%= @project_apply.radio_information.boarder_number %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            宿舍楼数量
+          </th>
+          <th>
+            <%= @project_apply.radio_information.dormitory_number %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            宿舍数量
+          </th>
+          <th>
+            <%= @project_apply.radio_information.dorm_number %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            各年级住宿
+          </th>
+          <th>
+
+          </th>
+        </tr>
+        <tr>
+          <th>
+            收货人
+          </th>
+          <th>
+            <%= @project_apply.contact_name %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            联系方式
+          </th>
+          <th>
+            <%= @project_apply.contact_phone %>
+          </th>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="portlet-body form">
+      <%= simple_form_for [:admin, @project_apply], url: check_admin_radio_apply_path, method: :patch, wrapper: :admin_form, html: {id: 'approve-form'} do |f| %>
+        <%= f.error_notification %>
+        <div class="form-body form-horizontal">
+          <%= f.input :audit_state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApply.options_for_some_select(:audit_states, ['pass', 'reject']), label: '审核状态：', required: 'required', input_html: { class: 'approve_state', onclick: 'toggleState();'} %>
+          <div class="approve_reject">
+            <%= f.input :approve_remark, label: '审核备注：', input_html: {class: 'form-control', placeholder: ''} %>
+          </div>
+          <div class="form-actions">
+            <div class="row">
+              <div class="col-md-offset-3 col-md-9">
+                <%= f.button :submit, '提交', class: 'btn green' %>
+                <%= link_to '取消', admin_radio_applies_path, class: 'btn' %>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      <% end %>
+      </div>
+</div>
+<script type="text/javascript">
+    function toggleState(){
+        toggleRadioInput('.approve_state', {
+            reject: '.approve_reject'
+        })
+    }
+    toggleState();
+    $("#approve-form").html5Validate(function () {
+        $(this).find('[type="submit"]').attr('disabled', 'disabled');
+        this.submit();
+    });
+</script>
