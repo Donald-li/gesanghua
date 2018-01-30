@@ -26,7 +26,7 @@
 #  target_amount     :decimal(14, 2)   default(0.0)          # 目标金额
 #  present_amount    :decimal(14, 2)   default(0.0)          # 目前已筹金额
 #  execute_state     :integer          default("default")    # 执行状态：0:准备中 1:筹款中 2:待执行 3:待收货 4:待反馈 5:已完成
-#  project_type      :integer          default(1)            # 项目类型:1:申请 2:筹款项目
+#  project_type      :integer          default("apply")      # 项目类型:1:申请 2:筹款项目
 #  girl_number       :integer                                # 申请女生人数
 #  boy_number        :integer                                # 申请男生人数
 #  consignee         :string                                 # 收货人
