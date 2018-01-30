@@ -17,7 +17,7 @@
         <%= f.error_notification %>
         <div class="form-body form-horizontal">
           <%= f.hidden_field :project_season_apply_id, value: params[:id] %>
-          <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Audit.options_for_some_select(:states, ['pass', 'rejected']), label: '审核：', required: true%>
+          <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Audit.options_for_some_select(:states, ['pass', 'reject']), label: '审核：', required: true%>
           <%= f.input :comment, label: '评语：', placeholder: '请填写评语' %>
 
         </div>

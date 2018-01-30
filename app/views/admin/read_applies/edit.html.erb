@@ -1,14 +1,15 @@
 <div class="portlet light bordered">
   <div class="portlet-title">
-    <div class="caption">
+    <!-- <div class="caption">
       <i class="icon-note">审核操作</i>
       <span class="caption-subject"></span>
       <span class="caption-helper"></span>
-    </div>
+    </div> -->
     <div class="actions">
-      <div class="portlet-input input-inline input-small">
-        <div class="input-icon right">
-        </div>
+      <div class="btn-group">
+        <a href="<%= admin_read_applies_path %>" class="btn btn-xs blue">
+          <i class="fa fa-reply"></i>返回
+        </a>
       </div>
     </div>
   </div>
@@ -23,7 +24,10 @@
                 <a href="#tab_0" data-toggle="tab" aria-expanded="true"> 申请资料 </a>
               </li>
               <li class="">
-                <a href="#tab_1" data-toggle="tab" aria-expanded="false"> 受益学生 </a>
+                <a href="<%= audit_admin_read_apply_path(@project_apply) %>" > 审核申请 </a>
+              </li>
+              <li class="">
+                <a href="#tab_2" data-toggle="tab" aria-expanded="false"> 受益学生 </a>
               </li>
             </ul>
             <div class="tab-content">
@@ -71,7 +75,7 @@
                                     <%= b.input :classname, label: false, input_html:{ placeholder: '请填入班级名称'} %>
                                   </td>
                                   <td>
-                                    <%#= b.beneficial_children.count %>
+                                    <%= b.input :student_number, type: 'number', min: 0, label: false, input_html:{ placeholder: '请填入班级人数'} %>
                                   </td>
                                   <td>
                                     <%#= check_box_tag b.audit_state, 'pass', false %>
@@ -89,6 +93,7 @@
                           </div>
                         </div>
                       </div>
+                      <%= f.input :abstract, label: '申请内容：', placeholder: '请填写申请所需物品' %>
                       <%= f.input :describe, label: '申请理由：', placeholder: '请填写申请理由' %>
                       <div class="form-group">
                         <label class="col-md-2 control-label">申请图片：</label>
@@ -127,15 +132,7 @@
                       </div>
                     </div>
                 <% end %>
-
               </div>
-              <div class="tab-pane" id="tab_1">
-
-
-
-
-              </div>
-
             </div>
           </div>
         </div>
