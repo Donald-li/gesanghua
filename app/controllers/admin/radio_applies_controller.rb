@@ -1,8 +1,8 @@
 class Admin::RadioAppliesController < Admin::BaseController
-  before_action :set_project_apply, only: [:show, :edit, :update, :destroy]
+  before_action :set_project_apply, only: [:show, :edit, :update, :destroy, :check]
 
   def index
-    @search = ProjectSeasonApply.where(project_id: 5).sorted.ransack(params[:q])
+    @search = ProjectSeasonApply.where(project_id: 5).submit.sorted.ransack(params[:q])
     scope = @search.result.joins(:school)
     @project_applies = scope.page(params[:page])
   end
@@ -50,6 +50,19 @@ class Admin::RadioAppliesController < Admin::BaseController
     @project_apply.destroy
     respond_to do |format|
       format.html { redirect_to admin_radio_applies_path, notice: '删除成功。' }
+    end
+  end
+
+  def check
+    respond_to do |format|
+      audit_state = project_apply_params[:audit_state] == 'pass' ? 2 : 3
+      @project_apply.audit_state = audit_state
+      if @project_apply.save
+        @project_apply.audits.create(state: audit_state, user_id: current_user.id, comment: project_apply_params[:approve_remark])
+        format.html { redirect_to admin_radio_applies_path, notice: '审核成功' }
+      else
+        format.html { render :check }
+      end
     end
   end
 
