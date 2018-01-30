@@ -27,5 +27,5 @@
 require 'rails_helper'
 
 RSpec.describe GshBookshelf, type: :model do
-  
+
 end

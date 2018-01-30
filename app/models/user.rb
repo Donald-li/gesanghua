@@ -111,6 +111,13 @@ class User < ApplicationRecord
     donate.save
   end
 
+  # 捐给孩子
+  def donate_child(gsh_child: nil, promoter: nil)
+
+  end
+
+
+
   # 可开票金额
   def to_bill_amount
     self.donate_records.where({ created_at: (Time.now.beginning_of_year)..(Time.now.end_of_year), voucher_state: 1, pay_state: 2 }).sum(:amount)
