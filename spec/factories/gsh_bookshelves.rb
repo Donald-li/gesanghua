@@ -20,7 +20,6 @@
 #  state                   :integer                                # 执行状态
 #  project_season_apply_id :integer                                # 项目申请ID
 #  project_season_id       :integer                                # 批次申请ID
-#  grade                   :integer                                # 所属年级
 #
 
 FactoryBot.define do

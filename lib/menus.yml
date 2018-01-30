@@ -203,6 +203,10 @@ admin:
             admin_project_flower_season:
               actions:
                 'admin/project_flower_seasons': all
+            admin_project_flower_applies:
+              actions:
+                'admin/flower_applies': all
+              
     admin_campaign:
       menus:
         admin_campaigns:

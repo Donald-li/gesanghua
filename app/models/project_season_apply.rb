@@ -27,6 +27,10 @@
 #  present_amount    :decimal(14, 2)   default(0.0)          # 目前已筹金额
 #  execute_state     :integer          default("default")    # 执行状态：0:准备中 1:筹款中 2:待执行 3:待收货 4:待反馈 5:已完成
 #  project_type      :integer          default(1)            # 项目类型:1:申请 2:筹款项目
+#  girl_number       :integer                                # 申请女生人数
+#  boy_number        :integer                                # 申请男生人数
+#  consignee         :string                                 # 收货人
+#  consignee_phone   :string                                 # 收货人联系电话
 #
 
 class ProjectSeasonApply < ApplicationRecord
@@ -63,15 +67,29 @@ class ProjectSeasonApply < ApplicationRecord
   enum project_type: {apply: 1, raise_project: 2} # 项目类型：1:申请 2:筹款项目
   default_value_for :project_type, 1
 
-  scope :sorted, -> {order(created_at: :desc)}
+  scope :sorted, ->{ order(created_at: :desc) }
 
   before_create :gen_apply_no
 
+
   enum audit_state: {submit: 1, pass: 2, reject: 3}
+
   default_value_for :audit_state, 1
 
   enum bookshelf_type: {whole: 1, supplement: 2}
   default_value_for :bookshelf_type, 1
+
+  # 通过审核
+  def audit_pass
+    self.audit_state = 'pass'
+    self.save
+  end
+
+  # 审核不通过
+  def audit_reject
+    self.audit_state = 'reject'
+    self.save
+  end
 
   def sliced_describe
     self.describe.length > 90 ? self.describe.slice(0..90) : self.describe

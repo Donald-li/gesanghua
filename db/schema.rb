@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180130082951) do
+ActiveRecord::Schema.define(version: 20180130042334) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -129,6 +129,7 @@ ActiveRecord::Schema.define(version: 20180130082951) do
     t.string "contact_name", comment: "联系人"
     t.string "contact_phone", comment: "联系电话"
     t.integer "payment_state", default: 1, comment: "支付状态 1:已支付 2:已取消"
+    t.integer "income_source_id", comment: "收入来源id"
   end
 
   create_table "campaigns", force: :cascade, comment: "活动表" do |t|
@@ -490,10 +491,10 @@ ActiveRecord::Schema.define(version: 20180130082951) do
     t.integer "audit_state", comment: "审核状态"
     t.string "abstract", comment: "简述"
     t.string "address", comment: "详细地址"
-    t.decimal "target_amount", precision: 14, scale: 2, default: "0.0", comment: "目标金额"
-    t.decimal "present_amount", precision: 14, scale: 2, default: "0.0", comment: "目前已筹金额"
-    t.integer "execute_state", default: 0, comment: "执行状态：0:准备中 1:筹款中 2:待执行 3:待收货 4:待反馈 5:已完成"
-    t.integer "project_type", default: 1, comment: "项目类型:1:申请 2:筹款项目"
+    t.integer "girl_number", comment: "申请女生人数"
+    t.integer "boy_number", comment: "申请男生人数"
+    t.string "consignee", comment: "收货人"
+    t.string "consignee_phone", comment: "收货人联系电话"
   end
 
   create_table "project_season_apply_bookshelves", force: :cascade, comment: "项目执行年度申请书架表" do |t|
@@ -669,7 +670,7 @@ ActiveRecord::Schema.define(version: 20180130082951) do
     t.string "contact_phone", comment: "联系方式"
     t.string "contact_position", comment: "联系人职务"
     t.integer "kind", comment: "学校类型"
-    t.integer "user_id", comment: "用户id"
+    t.integer "user_id", comment: "申请人ID"
     t.string "school_no", comment: "学校申请编号"
     t.string "contact_idcard", comment: "联系人身份证号"
     t.string "postcode", comment: "邮政编码"

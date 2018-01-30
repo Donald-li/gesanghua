@@ -173,6 +173,16 @@ Rails.application.routes.draw do
         post :create_feedback
       end
     end
+
+    resources :flower_applies do
+      member do
+        patch :update_audit
+      end
+      collection do
+        post :create_audit
+      end
+    end
+
     resources :remarks
     resources :support_categories, concerns: [:move, :switch]
     resources :county_users, concerns: [:switch]
@@ -310,6 +320,7 @@ Rails.application.routes.draw do
         get :volunteers
         get :campaign_enlist_user
         get :seasons
+        get :flower_seasons
       end
     end
     resources :ajaxes, only: [] do
