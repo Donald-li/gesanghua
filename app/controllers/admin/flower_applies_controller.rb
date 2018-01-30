@@ -18,6 +18,9 @@ class Admin::FlowerAppliesController < Admin::BaseController
   def edit
     @audit = @project_apply.audits.last || @project_apply.audits.create
     @new_audit = @project_apply.audits.build
+    @child_search = BeneficialChild.where(project_season_apply: @project_apply).sorted.ransack(params[:q])
+    scope = @child_search.result
+    @children = scope.page(params[:page])
   end
 
   def create
