@@ -26,7 +26,7 @@ class BeneficialChild < ApplicationRecord
   scope :sorted, -> {order(created_at: :desc)}
 
   include HasAsset
-  has_one_asset :children_excel, class_name: 'Asset::BeneficialChildExcel'
+  has_one_asset :children_excel, class_name: 'Asset::BeneficialChildrenExcel'
 
   def self.read_excel(excel_id, apply_id)
     file = Asset.find(excel_id).try(:file).try(:file)
