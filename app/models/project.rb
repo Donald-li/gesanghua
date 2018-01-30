@@ -39,7 +39,7 @@ class Project < ApplicationRecord
   validates :name, :protocol, presence: true
 
   # enum kind: { normal: 1, goods: 2 } # 项目类型 1:固定项目 2:物资类项目
-  enum kind: { pair: 1, book: 2, radio: 3, care: 4, moive: 5, camp: 6, custom: 7} # 项目类型 1:一对一 2:悦读 3:广播 4:护花 5:观影 6:营 7:自定义
+  enum kind: { pair: 1, book: 2, radio: 3, care: 4, movie: 5, camp: 6, custom: 7} # 项目类型 1:一对一 2:悦读 3:广播 4:护花 5:观影 6:营 7:自定义
 
   scope :sorted, ->{ order(created_at: :asc) }
 
@@ -60,7 +60,7 @@ class Project < ApplicationRecord
   end
 
   def self.movie_project
-    self.moive.first
+    self.movie.first
   end
 
   def self.camp_project
