@@ -5,16 +5,12 @@ class Admin::FundAdjustAmountsController < Admin::BaseController
   end
 
   def create
-    @fund = Fund.new(adjust_params)
-
     respond_to do |format|
-      # Fund.adjust(@fund.id, adjust_params[:to_fund], adjust_params[:amount))
-      format.html { redirect_to admin_fund_categories_path, notice: '调整金额成功。' }
-      # if @fund_category.save
-      #   format.html { redirect_to admin_fund_categories_path, notice: '添加成功。' }
-      # else
-      #   format.html { render :new }
-      # end
+      if Fund.adjust(@fund.id, adjust_params[:to_fund], adjust_params[:amount])
+        format.html { redirect_to admin_fund_categories_path, notice: '调整金额成功。' }
+      else
+        format.html { render :new }
+      end
     end
   end
 

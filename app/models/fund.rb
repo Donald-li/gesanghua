@@ -55,17 +55,18 @@ class Fund < ApplicationRecord
     self.find 4
   end
 
-  # 调整基金金额
-  def self.adjust(from_fund, from_to, amount)
+  # 跨分类调整
+  def self.adjust(from_fund, to_fund, amount)
+    amount = amount.to_f
     return if amount < 1
 
-    from = Fund.find(fund_from)
-    to = Fund.find(fund_to)
+    from = Fund.find(from_fund)
+    to = Fund.find(to_fund)
 
     return if from.amount < amount
 
-    from.amount -= amount
-    to.amount += amount
+    from.amount = from.amount - amount
+    to.amount = to.amount + amount
 
     from.save
     to.save
