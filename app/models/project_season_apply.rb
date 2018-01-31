@@ -49,7 +49,7 @@ class ProjectSeasonApply < ApplicationRecord
   has_many :children, class_name: "ProjectSeasonApplyChild"
   has_many :gsh_child_grants
   has_many :gsh_children
-  has_many :bookshelves, class_name: 'ProjectSeasonApplyBookshelf', foreign_key: 'project_season_apply_bookshelf_id'
+  has_many :bookshelves, class_name: 'ProjectSeasonApplyBookshelf', foreign_key: 'project_season_apply_id'
   has_many :beneficial_children
   has_one :receive, as: :owner
   has_one :radio_information

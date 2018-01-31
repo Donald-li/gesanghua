@@ -8,13 +8,13 @@
 
     <div class="actions">
       <% if params[:q] %>
-        <%= link_to new_admin_beneficial_child_path(gsh_bookshelf_id: params[:q][:gsh_bookshelf_id_eq], project_season_apply_id: @project_apply.id), class: 'btn btn-xs green', 'data-no-turbolink' => true do %>
+        <%= link_to new_admin_beneficial_child_path(project_season_apply_bookshelf_id: params[:q][:project_season_apply_bookshelf_id_eq], project_season_apply_id: @project_apply.id), class: 'btn btn-xs green', 'data-no-turbolink' => true do %>
             <i class="icon-plus"></i>
             <span>新增学生</span>
         <% end %>
       <% end %>
 
-      <%= link_to excel_upload_admin_beneficial_children_path(apply_id: @project_apply.id, gsh_bookshelf_id: params[:q][:gsh_bookshelf_id_eq]), class: 'btn btn-xs yellow', 'data-no-turbolink' => true do %>
+      <%= link_to excel_upload_admin_beneficial_children_path(apply_id: @project_apply.id, project_season_apply_bookshelf_id: params[:q][:project_season_apply_bookshelf_id_eq]), class: 'btn btn-xs yellow', 'data-no-turbolink' => true do %>
         <i class="fa fa-upload"></i>
         <span>批量导入</span>
       <% end %>

@@ -28,16 +28,17 @@
               </li>
               <li class="">
                 <% if @project_apply.bookshelves.present? %>
-                  <% gsh_bookshelf_id = @project_apply.bookshelves.first.id %>
-                  <a href="<%= students_admin_read_apply_path(@project_apply, q: {gsh_bookshelf_id_eq: gsh_bookshelf_id}) %>" > 受益学生 </a>
+                  <% project_season_apply_bookshelf_id = @project_apply.bookshelves.first.id %>
+                  <a href="<%= students_admin_read_apply_path(@project_apply, q: {project_season_apply_bookshelf_id_eq: project_season_apply_bookshelf_id}) %>" > 受益学生 </a>
                 <% else %>
-                  受益学生
+                  <a href="###" > 受益学生 </a>
                 <% end %>
               </li>
             </ul>
             <div class="tab-content">
               <div class="tab-pane active" id="tab_0">
                 <%= simple_form_for [:admin, @project_apply], url: admin_read_apply_path, wrapper: :admin_form, html: {class: 'form-horizontal project_form'} do |f| %>
+                    <%= @project_apply.errors.messages %>
                     <%= f.error_notification %>
                     <div class="form-body">
                       <%= f.input :project_season_id, as: :select, collection: [@project_apply.season].compact.map {|u| [u.name, u.id]}, label: '申请批次：', require: true, input_html: {class: 'seasons-ajax'} %>
