@@ -1,0 +1,45 @@
+<div class="portlet light portlet-fit bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-note font-dark"></i>
+      <span class="caption-subject font-dark bold uppercase">收货凭证</span>
+    </div>
+    <div class="actions">
+      <%= link_to admin_radio_projects_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+        <i class="fa fa-reply"></i>
+        <span>返回</span>
+      <% end %>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="table-scrollable">
+      <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+          <th>
+            时间
+          </th>
+          <th>
+            反馈人
+          </th>
+          <th>
+            反馈内容
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>
+            <%= l @note.created_at %>
+          </td>
+          <td>
+            <%= @note.user.try(:name) %>
+          </td>
+          <td>
+            <%= @note.content %>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

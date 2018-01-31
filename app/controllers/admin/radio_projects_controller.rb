@@ -1,5 +1,5 @@
 class Admin::RadioProjectsController < Admin::BaseController
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :switch]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :switch, :shipment, :receive_note]
 
   def index
     @search = ProjectSeasonApply.where(project_id: 5).pass.raise_project.sorted.ransack(params[:q])
@@ -8,6 +8,7 @@ class Admin::RadioProjectsController < Admin::BaseController
   end
 
   def show
+    @note = @project.receive
   end
 
   def new
@@ -51,6 +52,13 @@ class Admin::RadioProjectsController < Admin::BaseController
   def switch
     @project.show? ? @project.hidden! : @project.show!
     redirect_to admin_radio_projects_url, notice:  @project.show? ? '对外展示' : '暂不展示'
+  end
+
+  def shipment
+    @project.to_receive!
+    respond_to do |format|
+      format.html { redirect_to admin_radio_projects_path, notice: '发货成功。' }
+    end
   end
 
   private

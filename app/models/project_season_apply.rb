@@ -49,8 +49,11 @@ class ProjectSeasonApply < ApplicationRecord
   has_many :gsh_children
   has_many :gsh_bookshelves
   has_many :beneficial_children
+
   has_many :continuals, as: :owner
 
+
+  has_one :receive, as: :owner
   has_one :radio_information
   accepts_nested_attributes_for :radio_information, update_only: true
   accepts_nested_attributes_for :gsh_bookshelves, allow_destroy: true, reject_if: :all_blank
@@ -91,8 +94,8 @@ class ProjectSeasonApply < ApplicationRecord
     self.save
   end
 
-  def sliced_describe
-    self.describe.length > 90 ? self.describe.slice(0..90) : self.describe
+  def sliced_abstract
+    self.abstract.length > 90 ? self.describe.slice(0..90) : self.describe
   end
 
   private

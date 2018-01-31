@@ -34,7 +34,7 @@
 class DonateRecord < ApplicationRecord
   include ActionView::Helpers::NumberHelper
 
-  belongs_to :user
+  belongs_to :user, optional: true
   belongs_to :promoter, class_name: 'User', foreign_key: 'promoter_id', optional: true
   belongs_to :project, optional: true
   belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id', optional: true
@@ -52,6 +52,12 @@ class DonateRecord < ApplicationRecord
   counter_culture :project, column_name: :donate_record_amount_count, delta_magnitude: proc {|model| model.amount}
 
   validates :amount, presence: true
+
+  attr_accessor :donate_way
+  attr_accessor :match_fund_id
+  attr_accessor :match_amount
+  attr_accessor :offline_amount
+  accepts_nested_attributes_for :income_record, update_only: true
 
   enum pay_state: { unpay: 1, paid: 2 } #付款状态， 1:已付款  2:未付款
   default_value_for :pay_state, 1

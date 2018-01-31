@@ -107,6 +107,17 @@
                   <%= link_to admin_radio_project_radio_donate_records_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                     <i class="fa fa-list"></i> 筹款管理
                   <% end %>
+                  <% if apply.to_execute? %>
+                    <%= link_to shipment_admin_radio_project_path(apply), class: 'btn btn-xs yellow', method: :put, data: {confirm: '确定发货吗？'} do %>
+                      <i class="fa fa-truck"></i> 发货
+                    <% end %>
+                  <% end %>
+                  <% if apply.to_receive? && apply.receive.present? %>
+                    <%= link_to admin_radio_project_path(apply), class: 'btn btn-xs yellow' do %>
+                      <i class="fa fa-truck"></i> 查看收货凭证
+                    <% end %>
+                  <% end %>
+                  <%  %>
                   <%= link_to admin_radio_project_radio_donate_records_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                     <i class="fa fa-file"></i> 查看反馈
                   <% end %>

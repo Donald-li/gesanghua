@@ -83,7 +83,7 @@
                   <%= apply.season.try(:name) %>
                 </td>
                 <td>
-                  <%= apply.sliced_describe %>
+                  <%= apply.sliced_abstract %>
                 </td>
                 <td>
                   <%= apply.school.try(:contact_name) %>
@@ -95,10 +95,15 @@
                   <%= apply.enum_name(:audit_state) %>
                 </td>
                 <td>
-                  <% if apply.pass? %>
+                  <% if apply.pass? && apply.apply? %>
                   <%= link_to edit_admin_radio_project_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
                     <i class="fa fa-exchange"></i> 转为筹款项目
                   <% end %>
+                  <% end %>
+                  <% if apply.raise_project? %>
+                    <%= link_to '', 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
+                      <i class="fa fa-exchange"></i> 已转为筹款项目
+                    <% end %>
                   <% end %>
                   <%= link_to admin_radio_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                     <i class="fa fa-gavel"></i> 审核
