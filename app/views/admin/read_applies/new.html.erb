@@ -55,7 +55,7 @@
                             <%#= b.hidden_field :school_id, value: 2 %>
                             <%#= b.hidden_field :project_season_id, value: @project_apply.project_season_id %>
                             <td>
-                              <%= b.input :grade, as: :select, label: false, collection: GshBookshelf.options_for_select(:grades), include_blank: false %>
+                              <%= b.input :grade, as: :select, label: false, collection: ProjectSeasonApplyBookshelf.options_for_select(:grades), include_blank: false %>
                             </td>
                             <td>
                               <%= b.input :classname, label: false, input_html:{ placeholder: '请填入班级名称'} %>
@@ -65,7 +65,7 @@
                             </td>
                             <td>
                               <%#= check_box_tag b.audit_state, 'pass', false %>
-                              <%= b.input :audit_state, as: :select, wrapper: :inline_inputs, collection: GshBookshelf.options_for_select(:audit_states), label: false %>
+                              <%= b.input :audit_state, as: :select, wrapper: :inline_inputs, collection: ProjectSeasonApplyBookshelf.options_for_select(:audit_states), label: false %>
                             </td>
                             <td>
                               <a href="#" class="destroy"><i class="fa fa-remove font-red-soft"></i></a>
@@ -84,7 +84,7 @@
                 <div class="form-group">
                   <label class="col-md-2 control-label">申请图片：</label>
                   <div class="col-sm-9">
-                    <%= webuploader_tag 'image_ids[]', label: '上传孩子图片', type: 'project_season_apply_image', asset: @project_apply.images %>
+                    <%= webuploader_tag 'image_ids[]', label: '上传申请图片', type: 'project_season_apply_image', asset: @project_apply.images %>
                     <span style="color: red">注意：左起第一张图片为展示第一张图片</span>
                   </div>
                 </div>

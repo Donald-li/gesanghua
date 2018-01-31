@@ -113,8 +113,8 @@
                         <i class="fa fa-check"></i> 审核操作
                     <% end %>
                     <% if apply.bookshelves.present? %>
-                      <% gsh_bookshelf_id = apply.bookshelves.first.id %>
-                      <%= link_to students_admin_read_apply_path(apply, q: {gsh_bookshelf_id_eq: gsh_bookshelf_id}), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
+                      <% project_season_apply_bookshelf_id = apply.bookshelves.first.id %>
+                      <%= link_to students_admin_read_apply_path(apply, q: {project_season_apply_bookshelf_id_eq: project_season_apply_bookshelf_id}), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
                           <i class="fa fa-list"></i> 学生名单
                       <% end %>
                     <% end %>

@@ -23,15 +23,15 @@
 #
 
 class ProjectSeasonApplyBookshelf < ApplicationRecord
-  belongs_to :project
-  belongs_to :project_season
-  belongs_to :project_season_apply
-  belongs_to :gsh_bookshelf, optional: true
-  belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id'
-  belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id'
-  belongs_to :school
+  belongs_to :project, optional: true
+  belongs_to :project_season, optional: true
+  belongs_to :project_season_apply, optional: true
+  belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id', optional: true
+  belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id', optional: true
+  belongs_to :school, optional: true
 
   has_many :donates, class_name: 'DonateRecord', dependent: :destroy
+  has_many :beneficial_children
 
   scope :gsh_bookshelf, -> { complete }
 
@@ -53,7 +53,6 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
-  private
 
   def gen_bookshelf_no
     self.bookshelf_no ||= Sequence.get_seq(kind: :bookshelf_no, prefix: 'TSJ1', length: 3)

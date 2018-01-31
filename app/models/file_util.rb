@@ -194,7 +194,7 @@ class FileUtil
       right_notice = "成功录入#{s_count}条支出记录"
     end
 
-    def self.import_beneficial_children_records(original_filename: nil, path: nil, apply_id: nil, gsh_bookshelf_id: nil)
+    def self.import_beneficial_children_records(original_filename: nil, path: nil, apply_id: nil, project_season_apply_bookshelf_id: nil)
       s = nil
       if File.extname(original_filename) == '.xlsx' || File.extname(original_filename) == '.xls'
         s = Roo::Excelx.new path
@@ -221,7 +221,7 @@ class FileUtil
 
         nation = BeneficialChild.nation_hash_name(nation)
 
-        BeneficialChild.create(project_season_apply: @apply, gsh_bookshelf_id: gsh_bookshelf_id, name: name, gender: gender, id_no: id_no, nation: nation)
+        BeneficialChild.create(project_season_apply: @apply, project_season_apply_bookshelf_id: project_season_apply_bookshelf_id, name: name, gender: gender, id_no: id_no, nation: nation)
       end
     end
 

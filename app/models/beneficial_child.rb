@@ -29,9 +29,9 @@ class BeneficialChild < ApplicationRecord
   include HasAsset
   has_one_asset :children_excel, class_name: 'Asset::BeneficialChildrenExcel'
 
-  def self.read_excel(excel_id, apply_id, gsh_bookshelf_id)
+  def self.read_excel(excel_id, apply_id, project_season_apply_bookshelf_id)
     file = Asset.find(excel_id).try(:file).try(:file)
-    FileUtil.import_beneficial_children_records(original_filename: file.original_filename, path: file.path, apply_id: apply_id, gsh_bookshelf_id: gsh_bookshelf_id) if file.present?
+    FileUtil.import_beneficial_children_records(original_filename: file.original_filename, path: file.path, apply_id: apply_id, project_season_apply_bookshelf_id: project_season_apply_bookshelf_id) if file.present?
   end
 
   def self.nation_hash_name(key)
