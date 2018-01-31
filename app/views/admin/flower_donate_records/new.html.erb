@@ -13,6 +13,80 @@
     </div>
   </div>
   <div class="portlet-body form">
-    重中之重做做做做做做做做做做做做做
+    <%= simple_form_for [:admin, @donate_record], url: admin_flower_project_flower_donate_records_path(@apply), wrapper: :admin_form, html: {'data-parsley-validate': true, id: 'approve-form', 'data-parsley-excluded' => "input[type=button], input[type=submit], input[type=reset], input[type=hidden], [disabled], :hidden"} do |f| %>
+      <%= f.error_notification %>
+      <div class="form-body form-horizontal">
+        <div class="form-group radio_buttons required donate_record_donate_way">
+          <label class="col-md-2 control-label radio_buttons required">捐助方式：</label>
+          <div class="col-md-9 form-inline">
+            <input type="radio" class="form-control radio_buttons donate_way" name="donate_record[donate_way]" value="offline" checked onclick="toggleState()">线下汇款
+            <input type="radio" class="form-control radio_buttons donate_way" name="donate_record[donate_way]" value="match" onclick="toggleState()">使用其他资金
+          </div>
+        </div>
+        <div class="offline">
+          <%= f.input :source_id, as: :select, collection: IncomeSource.all.sorted, include_blank: '选择捐款渠道', label: '捐款渠道：', required: true %>
+          <%= f.input :user_id, as: :select, label: '捐助人：', input_html: {class: 'users-ajax'}, required: true %>
+          <%= f.input :offline_amount, label: '捐助金额：', input_html: {type: 'number', min: 0, max: @max}, required: true %>
+        </div>
+        <div class="match">
+          <%= f.input :match_fund_id, as: :select, collection: Fund.unrestricted.sorted.map {|f| ["#{f.fund_category.name}#{f.name}(余额：#{f.amount})", f.id]}, include_blank: '选择分类', label: '财务分类：', required: true %>
+          <%= f.input :match_amount, label: '使用金额：', input_html: {type: 'number', min: 0, max: @max}, required: true %>
+        </div>
+        <div class="form-actions">
+          <div class="row">
+            <div class="col-md-offset-3 col-md-9">
+              <%= f.button :submit, '提交', class: 'btn green' %>
+              <%= link_to '取消', admin_flower_project_flower_donate_records_path(@apply), class: 'btn' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
+<script type="text/javascript">
+    function toggleState() {
+        toggleRadioInput('.donate_way', {
+            offline: '.offline',
+            match: '.match'
+        })
+    }
+
+    $(function () {
+        // 异步加载用户列表
+        $('.users-ajax').select2({
+            language: "zh-CN",
+            placeholder: '选择捐助人',
+            allowClear: true,
+            ajax: {
+                url: "/selects/users",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: $.map(data.items, function (item) {
+                            return {
+                                text: item.name,
+                                id: item.id
+                            }
+                        }),
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            }
+        })
+    })
+
+    toggleState();
+
+</script>

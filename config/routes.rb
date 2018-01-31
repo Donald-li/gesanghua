@@ -194,6 +194,9 @@ Rails.application.routes.draw do
 
     resources :flower_continual_feedbacks ,concerns: [:recommend]
     resources :flower_projects do
+      member do
+        put :shipment
+      end
       resources :flower_donate_records
       resources :flower_feedbacks, concerns: [:recommend]
     end

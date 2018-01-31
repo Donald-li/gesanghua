@@ -90,7 +90,7 @@
                   <%= apply.season.name %>
                 </td>
                 <td>
-                  <%= apply.target_amount %>/<%= apply.present_amount %>
+                  <%= apply.present_amount %>/<%= apply.target_amount %>
                 </td>
                 <td>
                   <%= apply.enum_name(:state) %>
@@ -103,19 +103,19 @@
                       <i class="fa fa-edit"></i> 修改
                   <% end %>
                   <%= link_to admin_flower_project_flower_donate_records_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                      <i class="fa fa-edit"></i> 筹款管理
+                      <i class="fa fa-list"></i> 筹款管理
                   <% end %>
                   <% if apply.to_execute? %>
-                    <%= link_to '', 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                      <i class="fa fa-edit"></i> 发货
+                    <%= link_to shipment_admin_flower_project_path(apply), class: 'btn btn-xs yellow', method: :put, data: {confirm: '确定发货吗？'} do %>
+                      <i class="fa fa-truck"></i> 发货
                     <% end %>
                   <% elsif apply.to_receive? %>
                     <%= link_to '', 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                      <i class="fa fa-edit"></i> 查看收货凭证
+                      <i class="fa fa-list"></i> 查看收货凭证
                     <% end %>
                   <% elsif apply.done? %>
                     <%= link_to admin_flower_project_flower_feedbacks_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                      <i class="fa fa-edit"></i> 查看反馈
+                      <i class="fa fa-file"></i> 查看反馈
                     <% end %>
                   <% else %>
                   <% end %>

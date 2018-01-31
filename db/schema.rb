@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180131091710) do
+ActiveRecord::Schema.define(version: 20180131110108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -226,8 +226,8 @@ ActiveRecord::Schema.define(version: 20180131091710) do
     t.integer "period", comment: "月捐期数"
     t.integer "month_donate_id", comment: "月捐id"
     t.string "certificate_no", comment: "捐赠证书编号"
-    t.integer "kind", comment: "记录类型: 1:系统生成 2:手动添加"
     t.integer "gsh_child_id", comment: "格桑花孩子id"
+    t.integer "kind", comment: "记录类型: 1:系统生成 2:手动添加"
     t.integer "project_season_apply_bookshelf_id", comment: "书架id"
   end
 
@@ -253,13 +253,20 @@ ActiveRecord::Schema.define(version: 20180131091710) do
     t.text "content", comment: "内容"
     t.string "owner_type"
     t.integer "owner_id"
-    t.integer "type", comment: "类型：receive、install、continual"
+    t.string "type", comment: "类型：receive、install、continual"
     t.integer "state", comment: "状态"
     t.integer "approve_state", comment: "审核状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "kind", comment: "反馈类型"
+    t.integer "check", comment: "查看 1: 未查看 2: 已查看"
+    t.integer "recommend", comment: "推荐 1: 正常 2: 推荐"
     t.integer "user_id", comment: "反馈人"
+    t.integer "project_id", comment: "项目id"
+    t.integer "project_season_id", comment: "批次id"
+    t.integer "project_season_apply_id", comment: "申请id"
+    t.integer "project_season_apply_child_id", comment: "孩子id"
+    t.integer "project_season_apply_bookshelf_id", comment: "书架id"
   end
 
   create_table "fund_categories", force: :cascade do |t|
@@ -469,13 +476,13 @@ ActiveRecord::Schema.define(version: 20180131091710) do
     t.datetime "updated_at", null: false
     t.string "name", comment: "名称"
     t.integer "number", comment: "配额"
+    t.string "apply_no", comment: "项目申请编号"
     t.integer "bookshelf_type", comment: "悦读项目申请类型"
     t.string "contact_name", comment: "联系人姓名"
     t.string "contact_phone", comment: "联系人电话"
     t.integer "audit_state", comment: "审核状态"
     t.string "abstract", comment: "简述"
     t.string "address", comment: "详细地址"
-    t.string "apply_no", comment: "项目申请编号"
     t.integer "girl_number", comment: "申请女生人数"
     t.integer "boy_number", comment: "申请男生人数"
     t.string "consignee", comment: "收货人"
