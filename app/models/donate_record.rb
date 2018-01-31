@@ -57,7 +57,9 @@ class DonateRecord < ApplicationRecord
   attr_accessor :match_fund_id
   attr_accessor :match_amount
   attr_accessor :offline_amount
-  accepts_nested_attributes_for :income_record, update_only: true
+  attr_accessor :balance_amount
+  attr_accessor :balance_id
+  attr_accessor :source_id
 
   enum pay_state: { unpay: 1, paid: 2 } #付款状态， 1:已付款  2:未付款
   default_value_for :pay_state, 1

@@ -96,6 +96,10 @@ class User < ApplicationRecord
     #TODO
   end
 
+  def user_balance
+    "#{self.name}(可用余额:#{self.balance.to_s})"
+  end
+
   # 捐给格桑花
   def donate_gsh(amount: 0.0, promoter: nil)
     gsh_fund = Fund.gsh

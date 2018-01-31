@@ -16,6 +16,7 @@ class Admin::StudentGrantsController < Admin::BaseController
   end
 
   def edit
+    @donate_record = DonateRecord.new
   end
 
   def create
@@ -23,35 +24,43 @@ class Admin::StudentGrantsController < Admin::BaseController
 
     respond_to do |format|
       if @grant.save
-        format.html { redirect_to admin_pair_student_list_student_grants_path(@child_apply), notice: '新增成功。' }
+        format.html {redirect_to admin_pair_student_list_student_grants_path(@child_apply), notice: '新增成功。'}
       else
-        format.html { render :new }
+        format.html {render :new}
       end
     end
   end
 
   def update
+    @donate_record = DonateRecord.new
     respond_to do |format|
-      if @grant.update(grant_params)
-        format.html { redirect_to admin_pair_student_list_student_grants_path(@child_apply), notice: '修改成功。' }
+      if @child_apply.apply.match_donate(donate_record_params, @grant.amount, @child_apply.id)
+        @grant.succeed!
+        format.html {redirect_to admin_pair_student_list_student_grants_path(@child_apply), notice: '配捐成功。'}
       else
-        format.html { render :edit }
+        flash[:notice] = '检查余额或表单'
+        format.html {render :edit}
       end
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_grant
-      @grant = GshChildGrant.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_grant
+    @grant = GshChildGrant.find(params[:id])
+  end
 
-    def set_child_apply
-      @child_apply = ProjectSeasonApplyChild.find(params[:pair_student_list_id])
-    end
+  def set_child_apply
+    @child_apply = ProjectSeasonApplyChild.find(params[:pair_student_list_id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def grant_params
-      params.require(:gsh_child_grant).permit!
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def grant_params
+    params.require(:gsh_child_grant).permit!
+  end
+
+  def donate_record_params
+    params.require(:donate_record).permit!
+  end
+
 end

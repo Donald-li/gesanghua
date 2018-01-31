@@ -12,6 +12,12 @@ class Support::SelectsController < Support::BaseController
     render json: {items: users.as_json(only: [:id, :name])}
   end
 
+  def users_balance
+    scope = User.enable.sorted.where("name like :q", q: "%#{params[:q]}%")
+    users = scope.page(params[:page])
+    render json: {items: users.as_json(only: [:id], methods: :user_balance)}
+  end
+
   def gsh_child_user
     users = User.enable.sorted.where.not(users: {id: 1}).left_joins(:gsh_child).where(gsh_children: {user_id: nil}).where("users.name like :q", q: "%#{params[:q]}%").page(params[:page])
     render json: {items: users.as_json(only: [:id, :name])}

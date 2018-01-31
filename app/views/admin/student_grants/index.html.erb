@@ -70,9 +70,9 @@
                 <% end %>
               </td>
               <td>
-                <%#= link_to admin_pair_grant_pairedit_cancel_admin_pair_grant_students_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
-                <!-- <i class="fa fa-list-ul"></i> 查看名单（<%#= grant.grant_children.count %>） -->
-                <%# end %>
+                <%= link_to edit_admin_pair_student_list_student_grant_path(@child_apply, grant), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                 <i class="fa fa-list-ul"></i> 配捐
+                <% end %>
               </td>
             </tr>
           <% end %>
