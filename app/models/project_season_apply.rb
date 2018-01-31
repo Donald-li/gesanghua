@@ -106,6 +106,33 @@ class ProjectSeasonApply < ApplicationRecord
     self.abstract.length > 90 ? self.abstract.slice(0..90) : self.abstract
   end
 
+  def match_donate(params)
+    apply = self
+    if params[:donate_way] == 'offline'
+      amount = params[:offline_amount]
+      user = User.find(params[:user_id])
+      donate_record = DonateRecord.new(params.merge(fund: apply.project.fund, pay_state: 'paid', amount: amount, project: apply.project, donor: user.name, remitter_id: user.id, remitter_name: user.name, season: apply.season, apply: apply, kind: 'custom'))
+    elsif params[:donate_way] == 'match'
+      match_fund = Fund.find(params[:match_fund_id])
+      amount = params[:match_amount]
+      match_fund.amount -= amount.to_f
+      return false if match_fund.amount < 0
+      donate_record = DonateRecord.new(params.merge(fund: apply.project.fund, pay_state: 'paid', amount: amount, project: apply.project, season: apply.season, apply: apply, kind: 'custom'))
+    elsif params[:donate_way] == 'balance'
+      amount = params[:balance_amount]
+      user = User.find(params[:user_id])
+      user.balance -= amount
+      retrun false if user.balance < 0
+      donate_record = DonateRecord.new(params.merge(fund: apply.project.fund, pay_state: 'paid', amount: amount, project: apply.project, donor: user.name, remitter_id: user.id, remitter_name: user.name, season: apply.season, apply: apply, kind: 'custom'))
+    end
+    income_record = IncomeRecord.new(donate_record: donate_record, user: donate_record.user, fund: donate_record.fund, amount: donate_record.amount, remitter_id: donate_record.remitter_id, remitter_name: donate_record.remitter_name, donor: donate_record.donor, promoter_id: donate_record.promoter_id, income_time: Time.now)
+    income_record.income_source_id = params[:income_record_attributes][:income_source_id] if params[:income_record_attributes].present?
+    donate_record.save && income_record.save
+    match_fund.save if match_fund.present?
+    user.save if user.present?
+    return true
+  end
+
   private
   def gen_apply_no
     if self.project_id == 1

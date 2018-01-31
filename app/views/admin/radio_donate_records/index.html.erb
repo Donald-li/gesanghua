@@ -86,7 +86,7 @@
                 <%= record.income_record.income_source.try(:name) if record.income_record.present? %>
               </td>
               <td>
-                <%= link_to admin_radio_project_radio_donate_record_path(@apply, record), class: 'btn btn-xs yellow' do %>
+                <%= link_to admin_radio_project_radio_donate_record_path(@apply, record), class: 'btn btn-xs blue' do %>
                   <i class="fa fa-file"></i> 查看详情
                 <% end %>
                 <% if record.custom? %>
