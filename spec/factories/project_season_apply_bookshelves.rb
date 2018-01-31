@@ -6,7 +6,6 @@
 #  project_id              :integer                                # 关联项目id
 #  project_season_id       :integer                                # 关联项目执行年度id
 #  project_season_apply_id :integer                                # 关联项目执行年度申请id
-#  gsh_bookshelf_id        :integer                                # 关联格桑花书架id
 #  classname               :string                                 # 班级名
 #  title                   :string                                 # 冠名
 #  amount                  :decimal(14, 2)   default(0.0)          # 筹款金额
