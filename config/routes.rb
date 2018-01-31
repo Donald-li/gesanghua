@@ -192,9 +192,10 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :flower_continual_feedbacks ,concerns: [:recommend]
     resources :flower_projects do
       resources :flower_donate_records
-      resources :flower_feedbacks
+      resources :flower_feedbacks, concerns: [:recommend]
     end
     resources :flower_applies do
       resources :flower_approve_logs

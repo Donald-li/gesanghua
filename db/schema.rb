@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180131071218) do
+ActiveRecord::Schema.define(version: 20180131110108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -252,7 +252,7 @@ ActiveRecord::Schema.define(version: 20180131071218) do
     t.text "content", comment: "内容"
     t.string "owner_type"
     t.integer "owner_id"
-    t.integer "type", comment: "类型：receive、install、continual"
+    t.string "type", comment: "类型：receive、install、continual"
     t.integer "state", comment: "状态"
     t.integer "approve_state", comment: "审核状态"
     t.datetime "created_at", null: false
@@ -261,6 +261,11 @@ ActiveRecord::Schema.define(version: 20180131071218) do
     t.integer "check", comment: "查看 1: 未查看 2: 已查看"
     t.integer "recommend", comment: "推荐 1: 正常 2: 推荐"
     t.integer "user_id", comment: "反馈人"
+    t.integer "project_id", comment: "项目id"
+    t.integer "project_season_id", comment: "批次id"
+    t.integer "project_season_apply_id", comment: "申请id"
+    t.integer "project_season_apply_child_id", comment: "孩子id"
+    t.integer "project_season_apply_bookshelf_id", comment: "书架id"
   end
 
   create_table "fund_categories", force: :cascade do |t|
@@ -330,6 +335,8 @@ ActiveRecord::Schema.define(version: 20180131071218) do
     t.integer "project_season_id", comment: "批次申请ID"
     t.integer "grade", comment: "所属年级"
     t.integer "student_number", comment: "班级人数"
+    t.integer "loss", comment: "书籍损耗"
+    t.integer "supplement", comment: "书籍补充"
   end
 
   create_table "gsh_child_grants", force: :cascade, comment: "格桑花孩子发放表" do |t|

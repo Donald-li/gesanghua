@@ -12,7 +12,7 @@
     </div>
   </div>
   <div class="portlet-body form">
-    <%= simple_form_for [:admin, @continual], url: admin_flower_project_flower_feedbacks_path, method: :post, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'continual_form'} do |f| %>
+    <%= simple_form_for [:admin, @continual], url: admin_flower_continual_feedbacks_path, method: :post, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'continual_form'} do |f| %>
       <%= f.error_notification %>
       <div class="form-body form-horizontal">
         <%#= f.hidden_field :project_id, value: ProjectSeason.flower_project_id %>
@@ -30,7 +30,7 @@
         <div class="row">
           <div class="col-md-offset-2 col-md-9">
             <%= f.button :submit, '提交', class: 'btn blue' %>
-            <%= link_to '取消', admin_flower_project_flower_feedbacks_path, class: 'btn' %>
+            <%= link_to '取消', admin_flower_continual_feedbacks_path, class: 'btn' %>
           </div>
         </div>
       </div>

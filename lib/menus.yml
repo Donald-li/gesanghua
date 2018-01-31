@@ -226,7 +226,7 @@ admin:
                 'admin/flower_projects': all
             admin_project_flower_feedbacks:
               actions:
-                'admin/flower_feedbacks': all
+                'admin/flower_continual_feedbacks': all
 
     admin_campaign:
       menus:
