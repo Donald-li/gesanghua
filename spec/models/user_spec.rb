@@ -53,7 +53,7 @@ RSpec.describe User, type: :model do
 
   it '测试用户捐给格桑花' do
     amount = 100000.01
-    user.donate_gsh(amount: amount)
+    user.donate_gsh(amount)
 
     donate = DonateRecord.last
     expect(donate.user.id).to eq user.id
@@ -65,7 +65,7 @@ RSpec.describe User, type: :model do
 
   it '测试有劝捐人的用户捐给格桑花' do
     amount = 999
-    user.donate_gsh(amount: amount, promoter: promoter)
+    user.donate_gsh(amount, promoter)
 
     donate = DonateRecord.last
     expect(donate.user.id).to eq user.id
@@ -78,7 +78,7 @@ RSpec.describe User, type: :model do
   it '测试用户捐给一对一项目' do
     amount = 313213
     project = Project.pair_project
-    user.donate_project(amount: amount, project: project)
+    user.donate_project(amount, project)
 
     donate = DonateRecord.last
     expect(donate.user.id).to eq user.id
@@ -92,7 +92,7 @@ RSpec.describe User, type: :model do
   it '测试用户捐给悦读项目' do
     amount = 313213
     project = Project.book_project
-    user.donate_project(amount: amount, project: project)
+    user.donate_project(amount, project)
 
     donate = DonateRecord.last
     expect(donate.user.id).to eq user.id
@@ -107,7 +107,7 @@ RSpec.describe User, type: :model do
     child.approve_pass
     gsh_child = child.gsh_child
     project = Project.pair_project
-    user.donate_child(gsh_child: gsh_child, semester_num: 2)
+    user.donate_child(gsh_child, 2)
 
     donate = DonateRecord.last
     expect(donate.user.id).to eq user.id

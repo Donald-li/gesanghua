@@ -101,14 +101,14 @@ class User < ApplicationRecord
   end
 
   # 捐给格桑花
-  def donate_gsh(amount: 0.0, promoter: nil)
+  def donate_gsh(amount=0.0, promoter=nil)
     gsh_fund = Fund.gsh
     donate = self.donates.build(amount: amount, fund: gsh_fund, promoter: promoter, pay_state: 'unpay')
     donate.save
   end
 
   # 捐定向
-  def donate_project(amount: 0.0, project: nil, promoter: nil)
+  def donate_project(amount=0.0, project=nil, promoter=nil)
     return false unless project.present?
     fund = project.fund
     donate = self.donates.build(amount: amount, fund: fund, promoter: promoter, pay_state: 'unpay', project: project)
@@ -116,7 +116,7 @@ class User < ApplicationRecord
   end
 
   # 捐孩子
-  def donate_child(gsh_child: nil, promoter: nil, semester_num: 0)
+  def donate_child(gsh_child=nil, semester_num=0, promoter=nil)
     return false unless gsh_child.present?
     scope = gsh_child.semesters.pending.sorted
     return false if scope.count < semester_num || semester_num < 1
