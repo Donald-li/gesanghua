@@ -31,6 +31,8 @@
 #  present_amount    :decimal(14, 2)   default(0.0)          # 目前已筹金额
 #  execute_state     :integer          default("default")    # 执行状态：0:准备中 1:筹款中 2:待执行 3:待收货 4:待反馈 5:已完成
 #  project_type      :integer          default("apply")      # 项目类型:1:申请 2:筹款项目
+#  class_number      :integer                                # 申请班级数
+#  student_number    :integer                                # 受益学生数
 #
 
 class ProjectSeasonApply < ApplicationRecord
@@ -40,7 +42,7 @@ class ProjectSeasonApply < ApplicationRecord
   has_one_asset :cover_image, class_name: 'Asset::ProjectSeasonApplyCover'
 
   belongs_to :project
-  belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id'
+  belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id', optional: true
   belongs_to :school, optional: true
   belongs_to :teacher, optional: true
   has_many :audits, as: :owner
@@ -53,8 +55,6 @@ class ProjectSeasonApply < ApplicationRecord
   has_one :radio_information
   accepts_nested_attributes_for :radio_information, update_only: true
   accepts_nested_attributes_for :gsh_bookshelves, allow_destroy: true, reject_if: :all_blank
-
-  validates :province, :city, :district, presence: true
 
   attr_accessor :approve_remark
 
@@ -72,11 +72,13 @@ class ProjectSeasonApply < ApplicationRecord
   before_create :gen_apply_no
 
   enum audit_state: {submit: 1, pass: 2, reject: 3}#审核状态 1:待审核 2:审核通过 3:审核不通过
-
   default_value_for :audit_state, 1
 
   enum bookshelf_type: {whole: 1, supplement: 2}
   default_value_for :bookshelf_type, 1
+
+  default_value_for :class_number, 0
+  default_value_for :student_number, 0
 
   # 通过审核
   def audit_pass
@@ -91,7 +93,7 @@ class ProjectSeasonApply < ApplicationRecord
   end
 
   def sliced_abstract
-    self.abstract.length > 90 ? self.describe.slice(0..90) : self.describe
+    self.abstract.length > 90 ? self.abstract.slice(0..90) : self.abstract
   end
 
   private

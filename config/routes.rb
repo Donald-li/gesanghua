@@ -46,6 +46,10 @@ Rails.application.routes.draw do
     collection { get :info }
   end
 
+  concern :check do
+    member { patch :check }
+  end
+
   root to: 'site/mains#show'
 
   scope module: :site do
@@ -254,19 +258,16 @@ Rails.application.routes.draw do
     end
 
     resources :complaints
-    resources :radio_applies do
-      member do
-        patch :check
-      end
-    end
+    resources :radio_applies, concerns: :check
     resources :beneficial_children, concerns: [:excel_upload, :excel_import]
-
     resources :radio_projects, concerns: :switch do
       member do
         put :shipment
       end
       resources :radio_donate_records
     end
+
+    resources :movie_applies, concerns: :check
   end
 
   namespace :school do

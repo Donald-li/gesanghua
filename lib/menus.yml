@@ -199,6 +199,11 @@ admin:
             admin_radio_projects:
               actions:
                 'admin/radio_projects': all
+        admin_project_movie:
+          menus:
+            admin_movie_applies:
+              actions:
+                'admin/movie_applies': all
         admin_project_flower:
           menus:
             admin_project_flower_season:

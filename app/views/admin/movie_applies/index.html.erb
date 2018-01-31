@@ -1,0 +1,123 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i>观影项目申请
+    </div>
+    <div class="actions">
+      <%= link_to new_admin_movie_apply_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+          <i class="icon-plus"></i>
+          <span>新增申请</span>
+      <% end %>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="dataTables_wrapper no-footer">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <%= search_form_for @search, url: admin_movie_applies_path, class: 'form-inline' do |f| %>
+              <div class="form-group">
+                <%= f.label :apply_no_or_school_name_cont, '搜索' %>
+                <%= f.text_field :apply_no_or_school_name_cont, class: 'form-control', placeholder: '编号或学校名称' %>
+              </div>
+              <div class="form-group">
+                <%= f.label :audit_state_eq, '状态' %>
+                <%= f.select :audit_state_eq, ProjectSeasonApply.options_for_select(:audit_states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
+              </div>
+              <button type="submit" class="btn btn-default grey">搜索</button>
+          <% end %>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="dataTables_filter pull-right"></div>
+        </div>
+      </div>
+      <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover" id="sample_2">
+          <thead>
+          <tr>
+            <th>
+              申请编号
+            </th>
+            <th>
+              申请学校
+            </th>
+            <th>
+              学校地区
+            </th>
+            <th>
+              申请时间
+            </th>
+            <th>
+              学校联系人
+            </th>
+            <th>
+              联系方式
+            </th>
+            <th>
+              状态
+            </th>
+            <th>
+              操作
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @project_applies.each do |apply| %>
+              <tr>
+                <td>
+                  <%= apply.apply_no %>
+                </td>
+                <td>
+                  <%= apply.school.try(:name) %>
+                </td>
+                <td>
+                  <%= apply.school.simple_address %>
+                </td>
+                <td>
+                  <%= apply.sliced_abstract %>
+                </td>
+                <td>
+                  <%= apply.school.try(:contact_name) %>
+                </td>
+                <td>
+                  <%= apply.school.try(:contact_phone) %>
+                </td>
+                <td>
+                  <%= apply.enum_name(:audit_state) %>
+                </td>
+                <td>
+                  <% if apply.pass? && apply.apply? %>
+                  <%= link_to edit_admin_movie_project_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
+                    <i class="fa fa-exchange"></i> 转为筹款项目
+                  <% end %>
+                  <% end %>
+                  <% if apply.raise_project? %>
+                    <button class="btn btn-xs green">已转为筹款项目</button>
+                  <% else %>
+                  <%= link_to admin_movie_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                    <i class="fa fa-gavel"></i> 审核
+                  <% end %>
+                  <%= link_to edit_admin_movie_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                      <i class="fa fa-edit"></i> 修改
+                  <% end %>
+                  <%= link_to admin_movie_apply_path(apply), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                      <i class="fa fa-trash-o"></i> 删除
+                  <% end %>
+                  <% end %>
+                </td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-5 col-sm-12">
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@project_applies) %></div>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <%= paginate @project_applies, theme: '' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END EXAMPLE TABLE PORTLET-->
