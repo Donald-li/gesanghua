@@ -81,8 +81,8 @@
                                   <td>
                                     <%= b.input :classname, label: false, input_html:{ placeholder: '请填入班级名称'} %>
                                   </td>
-                                  <td>
-                                    <%#= b.input :student_number, type: 'number', min: 0, label: false, input_html:{ placeholder: '请填入班级人数'} %>
+                                  <td class="children-count">
+                                    <%#= b.input :student_number, as: 'string', min: 0, label: false, input_html:{ placeholder: '请填入班级人数'} %>
                                     <%= b.object.beneficial_children.count %>
                                   </td>
                                   <td>
@@ -160,7 +160,10 @@
                 this.submit();
             });
             $("#goods").nestedAttributes({
-              bindAddTo: $("#goods_add_another")
+              bindAddTo: $("#goods_add_another"),
+              afterAdd: function(el){
+                $(el).find('.children-count').html('0')
+              }
             });
             // 异步加载学校列表
             $('.schools-ajax').select2({

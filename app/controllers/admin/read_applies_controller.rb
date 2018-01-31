@@ -38,7 +38,10 @@ class Admin::ReadAppliesController < Admin::BaseController
 
   def update
     respond_to do |format|
+      @project_apply.attach_images(params[:image_ids])
       if @project_apply.update(project_apply_params)
+        bookshelf_univalence = @project_apply.season.bookshelf_univalence
+        @project_apply.gsh_bookshelves.update_all(school_id: @project_apply.school_id, project_season_id: @project_apply.project_season_id, univalence: bookshelf_univalence)
         format.html { redirect_to admin_read_applies_path, notice: '修改成功。' }
       else
         format.html { render :edit }
@@ -73,7 +76,8 @@ class Admin::ReadAppliesController < Admin::BaseController
 
   def switch
     @project_apply.raise_project!
-    redirect_to admin_read_applies_path, notice: '操作成功'
+    @project_apply.gen_bookshelves_no
+    redirect_to edit_admin_read_project_path(@project_apply), notice: '操作成功,请填写筹款项目信息！'
   end
 
   def students
