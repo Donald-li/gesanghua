@@ -22,6 +22,11 @@ FactoryBot.define do
     describe '一对一结对项目'
     protocol '用户协议'
 
+    trait :book do
+      name '悦读'
+      describe '悦读项目'
+    end
+
     trait :with_seasons do
       after(:build) do |project|
         create_list :project_season, 2, project: project
