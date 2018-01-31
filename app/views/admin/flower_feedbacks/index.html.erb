@@ -4,7 +4,7 @@
       <i class="icon-list"></i>查看反馈
     </div>
     <div class="actions">
-      <%= link_to new_admin_flower_project_flower_feedback_path(@apply), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+      <%= link_to new_admin_flower_project_flower_feedback_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
           <i class="icon-plus"></i>
           <span>新增</span>
       <% end %>
@@ -62,35 +62,35 @@
           </tr>
           </thead>
           <tbody>
-          <% @feedbacks.each do |feedback| %>
+          <% @continuals.each do |continual| %>
               <tr>
                 <td>
-                  <%= l feedback.created_at %>
+                  <%= l continual.created_at %>
                 </td>
                 <td>
-                  <%= feedback.owner.school.name %>
+                  <%= continual.owner.school.name %>
                 </td>
                 <td>
-                  <%= feedback.owner.school.contact_name %>
-                  <%= feedback.owner.school.contact_phone %>
+                  <%= continual.owner.school.contact_name %>
+                  <%= continual.owner.school.contact_phone %>
                 </td>
                 <td>
-                  <%= feedback.content %>
+                  <%= continual.content %>
                 </td>
                 <td>
-                  <%= feedback.enum_name(:check) %>
+                  <%= continual.enum_name(:check) %>
                 </td>
                 <td>
-                  <%= link_to recommend_admin_flower_project_flower_feedback_path(feedback), data: {confirm: "确定#{feedback.recommend? ? '取消推荐该资讯' : '推荐该资讯'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{feedback.recommend? ? 'yellow' : 'default'}" do %>
+                  <%= link_to recommend_admin_flower_project_flower_feedback_path(continual), data: {confirm: "确定#{feedback.recommend? ? '取消推荐该资讯' : '推荐该资讯'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{feedback.recommend? ? 'yellow' : 'default'}" do %>
                     <%= feedback.recommend? ? '推荐' : '正常' %>
                     <i class="fa <%= feedback.recommend? ? 'fa-star' : 'fa-star-o' %>"></i>
                   <% end %>
                 </td>
                 <td>
-                  <%= link_to edit_admin_flower_project_flower_feedback_path(feedback), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                  <%= link_to edit_admin_flower_project_flower_feedback_path(continual), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-edit"></i> 修改
                   <% end %>
-                  <%= link_to admin_flower_project_flower_feedback_path(feedback), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                  <%= link_to admin_flower_project_flower_feedback_path(continual), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                     <i class="fa fa-trash-o"></i> 删除
                   <% end %>
                 </td>
@@ -101,10 +101,10 @@
       </div>
       <div class="row">
         <div class="col-md-5 col-sm-12">
-          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@feedbacks) %></div>
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@continuals) %></div>
         </div>
         <div class="col-md-7 col-sm-12">
-          <%= paginate @feedbacks, theme: '' %>
+          <%= paginate @continuals, theme: '' %>
         </div>
       </div>
     </div>

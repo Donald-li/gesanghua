@@ -1,28 +1,27 @@
 class Admin::FlowerFeedbacksController < Admin::BaseController
-  before_action :set_feedback, only: [:show, :destroy]
+  before_action :set_continual, only: [:show, :destroy]
   # before_action :set_project, only: [:index]
-  before_action :set_project_apply, only: [:index]
+  before_action :set_project_apply, only: [:index, :new, :create, :destroy]
 
   def index
-    @feedbacks = @apply.feedbacks
-    @search = @feedbacks.ransack(params[:q])
+    @continuals = @apply.continuals
+    @search = @continuals.ransack(params[:q])
     scope = @search.result
-    @feedbacks = scope.sorted.page(params[:page])
+    @continuals = scope.sorted.page(params[:page])
   end
 
   def new
-    @feedback = DonateRecord.new
+    @continual = Continual.new
   end
 
   def edit
   end
 
   def create
-    @donate_record = DonateRecord.new(donate_record_params)
-
+    @continual = Continual.new(continual_params.merge(owner_type: 'ProjectSeasonApply'))
     respond_to do |format|
-      if @donate_record.save
-        format.html { redirect_to @donate_record, notice: '新增成功。' }
+      if @continual.save
+        format.html { redirect_to admin_flower_project_flower_feedbacks_path(@apply), notice: '新增成功。' }
       else
         format.html { render :new }
       end
@@ -33,21 +32,21 @@ class Admin::FlowerFeedbacksController < Admin::BaseController
   end
 
   def destroy
-    @donate_record.destroy
+    @continual.destroy
     respond_to do |format|
-      format.html { redirect_to donate_records_url, notice: '删除成功。' }
+      format.html { redirect_to admin_flower_project_flower_feedbacks_path(@apply), notice: '删除成功。' }
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_donate_record
-      @donate_record = DonateRecord.find(params[:id])
+    def set_continual
+      @continual = Continual.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def donate_record_params
-      params.require(:donate_record).permit!
+    def continual_params
+      params.require(:continual).permit!
     end
 
     def set_project

@@ -340,6 +340,7 @@ Rails.application.routes.draw do
         get :campaign_enlist_user
         get :seasons
         get :flower_seasons
+        get :applies
       end
     end
     resources :ajaxes, only: [] do
