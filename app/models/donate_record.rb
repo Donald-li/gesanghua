@@ -74,6 +74,10 @@ class DonateRecord < ApplicationRecord
 
   scope :donate_gsh_child, ->{ where("gsh_child_id IS NOT NULL")} # 捐助给孩子的记录
 
+  scope :platform, ->{ where('user_id IS NULL') } # 平台配捐
+
+  scope :user, ->{ where('user_id IS NOT NULL') } # 用户捐款
+
   before_create :gen_donate_no
 
   def pay_and_gen_certificate
