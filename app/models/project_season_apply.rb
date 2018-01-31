@@ -77,6 +77,14 @@ class ProjectSeasonApply < ApplicationRecord
   enum bookshelf_type: {whole: 1, supplement: 2}
   # default_value_for :bookshelf_type, 1
 
+  # 生成图书角编号
+  def gen_bookshelves_no
+    self.bookshelves.pass.each do |b|
+      b.gen_bookshelf_no
+      b.save
+    end
+  end
+
   # 通过审核的班级数量
   def bookshelves_pass_count
     self.gsh_bookshelves.pass.count

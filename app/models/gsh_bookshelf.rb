@@ -55,7 +55,6 @@ class GshBookshelf < ApplicationRecord
   private
 
   def gen_bookshelf_no
-    time_string = Time.now.strftime("%y%m%d%H")
-    self.donate_no ||= Sequence.get_seq(kind: :donate_no, prefix: time_string, length: 7)
+    self.bookshelf_no ||= Sequence.get_seq(kind: :bookshelf_no, prefix: 'TSJ1', length: 3)
   end
 end

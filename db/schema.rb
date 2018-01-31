@@ -226,8 +226,8 @@ ActiveRecord::Schema.define(version: 20180131071218) do
     t.integer "period", comment: "月捐期数"
     t.integer "month_donate_id", comment: "月捐id"
     t.string "certificate_no", comment: "捐赠证书编号"
-    t.integer "kind", comment: "记录类型: 1:系统生成 2:手动添加"
     t.integer "gsh_child_id", comment: "格桑花孩子id"
+    t.integer "kind", comment: "记录类型: 1:系统生成 2:手动添加"
   end
 
   create_table "expenditure_records", force: :cascade, comment: "支出记录表" do |t|
@@ -252,7 +252,7 @@ ActiveRecord::Schema.define(version: 20180131071218) do
     t.text "content", comment: "内容"
     t.string "owner_type"
     t.integer "owner_id"
-    t.string "type", comment: "类型：receive、install、continual"
+    t.integer "type", comment: "类型：receive、install、continual"
     t.integer "state", comment: "状态"
     t.integer "approve_state", comment: "审核状态"
     t.datetime "created_at", null: false
@@ -328,6 +328,8 @@ ActiveRecord::Schema.define(version: 20180131071218) do
     t.integer "project_season_id", comment: "批次申请ID"
     t.integer "grade", comment: "所属年级"
     t.integer "student_number", comment: "班级人数"
+    t.integer "loss", comment: "书籍损耗"
+    t.integer "supplement", comment: "书籍补充"
   end
 
   create_table "gsh_child_grants", force: :cascade, comment: "格桑花孩子发放表" do |t|
@@ -490,13 +492,13 @@ ActiveRecord::Schema.define(version: 20180131071218) do
     t.datetime "updated_at", null: false
     t.string "name", comment: "名称"
     t.integer "number", comment: "配额"
-    t.string "apply_no", comment: "项目申请编号"
     t.integer "bookshelf_type", comment: "悦读项目申请类型"
     t.string "contact_name", comment: "联系人姓名"
     t.string "contact_phone", comment: "联系人电话"
     t.integer "audit_state", comment: "审核状态"
     t.string "abstract", comment: "简述"
     t.string "address", comment: "详细地址"
+    t.string "apply_no", comment: "项目申请编号"
     t.integer "girl_number", comment: "申请女生人数"
     t.integer "boy_number", comment: "申请男生人数"
     t.string "consignee", comment: "收货人"

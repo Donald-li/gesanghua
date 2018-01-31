@@ -122,7 +122,7 @@
                         <i class="fa fa-trash-o"></i> 删除
                     <% end %>
                     <% if apply.pass? %>
-                      <%= link_to '', 'data-no-turbolink' => true, class: 'btn btn-xs blue', data: {confirm: '确定要转为筹款项目吗？'} do %>
+                      <%= link_to switch_admin_read_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue', data: {confirm: '确定要转为筹款项目吗？'} do %>
                         <i class="fa fa-exchange"></i> 转为筹款项目
                       <% end %>
                     <% end %>
