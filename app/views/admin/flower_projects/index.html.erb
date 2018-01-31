@@ -4,7 +4,7 @@
       <i class="icon-list"></i>筹款项目管理
     </div>
     <div class="actions">
-      <%= link_to new_admin_flower_raise_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+      <%= link_to new_admin_flower_project_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
           <i class="icon-plus"></i>
           <span>新增项目</span>
       <% end %>
@@ -14,7 +14,7 @@
     <div class="dataTables_wrapper no-footer">
       <div class="row">
         <div class="col-md-12 col-sm-12">
-          <%= search_form_for @search, url: admin_flower_raises_path, class: 'form-inline' do |f| %>
+          <%= search_form_for @search, url: admin_flower_projects_path, class: 'form-inline' do |f| %>
               <div class="form-group">
                 <%= f.label :school_name_cont, '搜索' %>
                 <%= f.text_field :school_name_cont, class: 'form-control', placeholder: '学校名称' %>
@@ -99,10 +99,10 @@
                   <%= apply.enum_name(:execute_state) %>
                 </td>
                 <td>
-                  <%= link_to '', 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                      <i class="fa fa-edit"></i> 项目详情
+                  <%= link_to edit_admin_flower_project_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                      <i class="fa fa-edit"></i> 修改
                   <% end %>
-                  <%= link_to '', 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                  <%= link_to admin_flower_project_flower_donate_records_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-edit"></i> 筹款管理
                   <% end %>
                   <% if apply.to_execute? %>
@@ -114,7 +114,7 @@
                       <i class="fa fa-edit"></i> 查看收货凭证
                     <% end %>
                   <% elsif apply.done? %>
-                    <%= link_to '', 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                    <%= link_to admin_flower_project_flower_feedbacks_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-edit"></i> 查看反馈
                     <% end %>
                   <% else %>

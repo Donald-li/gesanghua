@@ -1,0 +1,148 @@
+<div class="portlet light bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-icon"></i>
+      <span class="caption-subject">修改项目</span>
+    </div>
+    <div class="actions">
+      <div class="portlet-input input-inline input-small">
+        <div class="input-icon right">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body form">
+    <%= simple_form_for [:admin, @project_apply], url: admin_flower_project_path, wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
+        <%= f.error_notification %>
+        <div class="form-body form-horizontal">
+          <%= f.hidden_field :project_id, value: ProjectSeason.flower_project_id %>
+          <%= f.input :school_id, collection: [@project_apply.school].compact.map {|u| [u.name, u.id]}, label: '申请学校：', input_html: {class: 'schools-ajax', data: {'parsley-required': true}} %>
+          <%= f.input :project_season_id, collection: [@project_apply.season].compact.map {|u| [u.name, u.id]}, label: '申请批次：', autofocus: true, input_html: {class: 'seasons-ajax'} %>
+          <%= f.input :name, label: '项目名称：', autofocus: true, input_html: {data: {'parsley-required': true}} %>
+          <div class="form-group">
+            <label class="col-md-2 control-label">封面：</label>
+            <div class="col-sm-9">
+              <%= webuploader_tag :cover_image_id, label: '上传封面图片', type: 'project_season_apply_cover', asset: @project_apply.cover_image, klass: 'single' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label">申请人数：</label>
+            <div class="col-sm-9">
+              <%= f.text_field :girl_number, placeholder: '女生人数', require: true, type: 'number' %>
+              <%= f.text_field :boy_number, placeholder: '男生人数', require: true, type: 'number'%>
+            </div>
+          </div>
+          <%= f.input :target_amount, label: '筹款目标：', autofocus: true, input_html: { data: {}} %>
+          <div class="form-group">
+            <label class="col-md-2 control-label">项目介绍：</label>
+            <div class="col-sm-9">
+              <%= f.cktext_area :describe, input_html: { data: {'parsley-required': true}}  %>
+            </div>
+          </div>
+          <div style="margin-bottom: 20px;" class="form-group">
+            <label class="col-md-2 control-label select required" for="project_category_id">收货地址：</label>
+            <div class="col-sm-6">
+              <div class="row city-group">
+                <div class="col-sm-3">
+                  <%= select_tag 'project_season_apply[province]', options_for_select(ChinaCity.list, @project_apply.province.presence), prompt: '省份', class: "form-control city-select" %>
+                </div>
+                <div class="col-sm-3">
+                  <%= select_tag 'project_season_apply[city]', options_for_select(ChinaCity.list(@project_apply.province.to_s), @project_apply.city.presence), prompt: '城市', class: "form-control city-select" %>
+                </div>
+                <div class="col-sm-3">
+                  <%= select_tag 'project_season_apply[district]', options_for_select(ChinaCity.list(@project_apply.city.to_s), @project_apply.district.presence), prompt: '地区', class: "form-control city-select" %>
+                </div>
+              </div>
+              <br>
+              <%= f.text_field :address, placeholder: '详细地址', require: true %>
+            </div>
+          </div>
+          <%= f.input :consignee, label: '收货人：', autofocus: true, input_html: { data: {}} %>
+          <%= f.input :consignee_phone, label: '联系电话：', autofocus: true, input_html: { data: {}} %>
+          <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApply.options_for_select(:states), label: '是否立即筹款：' %>
+        </div>
+        <div class="form-actions">
+          <div class="row">
+            <div class="col-md-offset-3 col-md-9">
+              <%= f.button :submit, '提交', class: 'btn green' %>
+              <%= link_to '取消', admin_flower_projects_path, class: 'btn' %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+    <script>
+    $(function(){
+      //上传单图，封面
+      initImageWebuploader($('#webuploader'));
+
+      // 异步加载学校列表
+      $('.schools-ajax').select2({
+          language: "zh-CN",
+          placeholder: '请选择学校',
+          allowClear: true,
+          ajax: {
+              url: "/selects/schools",
+              dataType: 'json',
+              delay: 250,
+              data: function (params) {
+                  return {
+                      q: params.term, // search term
+                      page: params.page
+                  };
+              },
+              processResults: function (data, params) {
+                  params.page = params.page || 1;
+                  return {
+                      results: $.map(data.items, function (item) {
+                          return {
+                              text: item.name,
+                              id: item.id
+                          }
+                      }),
+                      pagination: {
+                          more: (params.page * 30) < data.total_count
+                      }
+                  };
+              },
+              cache: true
+          }
+      });
+
+      // 异步加载批次列表
+      $('.seasons-ajax').select2({
+          language: "zh-CN",
+          placeholder: '请选择批次',
+          allowClear: true,
+          ajax: {
+              url: "/selects/seasons",
+              dataType: 'json',
+              delay: 250,
+              data: function (params) {
+                  return {
+                      q: params.term, // search term
+                      page: params.page,
+                      project_id: <%= ProjectSeason.flower_project_id %>
+                  };
+              },
+              processResults: function (data, params) {
+                  params.page = params.page || 1;
+                  return {
+                      results: $.map(data.items, function (item) {
+                          return {
+                              text: item.name,
+                              id: item.id
+                          }
+                      }),
+                      pagination: {
+                          more: (params.page * 30) < data.total_count
+                      }
+                  };
+              },
+              cache: true
+          }
+      });
+    })
+    </script>
+
+  </div>
+</div>

@@ -182,7 +182,10 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :flower_raises
+    resources :flower_projects do
+      resources :flower_donate_records
+      resources :flower_feedbacks
+    end
     resources :flower_applies do
       resources :flower_approve_logs
       member do

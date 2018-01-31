@@ -207,9 +207,12 @@ admin:
             admin_project_flower_applies:
               actions:
                 'admin/flower_applies': all
-            admin_project_flower_raises:
+            admin_project_flower_projects:
               actions:
-                'admin/flower_raises': all
+                'admin/flower_projects': all
+            admin_project_flower_feedbacks:
+              actions:
+                'admin/flower_feedbacks': all
 
     admin_campaign:
       menus:

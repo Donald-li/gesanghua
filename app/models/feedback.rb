@@ -12,6 +12,8 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  kind          :integer                                # 反馈类型
+#  check         :integer                                # 查看 1: 未查看 2: 已查看
+#  recommend     :integer                                # 推荐 1: 正常 2: 推荐
 #
 
 class Feedback < ApplicationRecord
@@ -24,6 +26,12 @@ class Feedback < ApplicationRecord
 
   enum state: {show: 1, hidden: 2}
   default_value_for :state, 1
+
+  enum check: {uncheck: 1, checked: 2}# 查看 1: 未查看 2: 已查看
+  default_value_for :check, 1
+
+  enum recommend: {normal: 1, recommend: 2}# 推荐 1: 正常 2: 推荐
+  default_value_for :recommend, 1
 
   enum approve_state: {submit: 1, pass: 2, reject: 3} # 审核状态 1:审核中 2:申请通过 3:申请不通过
   default_value_for :approve_state, 1

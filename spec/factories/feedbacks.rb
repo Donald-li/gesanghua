@@ -12,6 +12,8 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  kind          :integer                                # 反馈类型
+#  check         :integer                                # 查看 1: 未查看 2: 已查看
+#  recommend     :integer                                # 推荐 1: 正常 2: 推荐
 #
 
 FactoryBot.define do
