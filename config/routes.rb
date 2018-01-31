@@ -210,6 +210,7 @@ Rails.application.routes.draw do
         put :switch_job
       end
     end
+    resources :majors
     resources :tasks, concerns: [:switch] do
       resources :task_applies, only: [:index, :edit, :update]
     end

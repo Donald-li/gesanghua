@@ -89,6 +89,9 @@ admin:
         admin_income_source:
           actions:
             'admin/income_sources': all
+        admin_volunteer_major:
+          actions:
+            'admin/majors': all
 
     # 学校用户
     admin_school:
