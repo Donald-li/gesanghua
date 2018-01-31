@@ -114,9 +114,19 @@ class User < ApplicationRecord
   # 捐给孩子
   def donate_child(gsh_child: nil, promoter: nil, semester_num: 0)
     return false unless gsh_child.present?
+    scope = gsh_child.semesters.pending.sorted
+    return false if scope.count < semester_num || semester_num < 1
 
-    semesters = gsh_child.semesters.pending.take(semester_num)
+    semesters = scope.limit(semester_num)
 
+    total = semesters.to_a.sum{|a| a.amount}
+
+    project = Project.pair_project
+
+    donate = self.donates.build(amount: total, fund: project.appoint_fund, promoter: promoter, pay_state: 'unpay', project: project, gsh_child: gsh_child)
+    if donate.save
+      semesters.update(donate_state: :succeed)
+    end
 
   end
 

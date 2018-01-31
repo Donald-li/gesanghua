@@ -16,7 +16,7 @@ class SpecialAdvert < ApplicationRecord
   belongs_to :advert
 
   acts_as_list
-  scope :reverse_sorted, ->{ order(position: :asc) }
+  scope :sorted, ->{ order(position: :desc) }
 
   enum kind: {top: 1, down: 2}
 
