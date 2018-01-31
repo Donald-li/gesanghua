@@ -46,6 +46,10 @@ Rails.application.routes.draw do
     collection { get :info }
   end
 
+  concern :check do
+    member { patch :check }
+  end
+
   root to: 'site/mains#show'
 
   scope module: :site do
@@ -134,14 +138,20 @@ Rails.application.routes.draw do
     end
 
     resources :project_book_seasons
-    resources :read_applies do
+    resources :read_applies, concerns: [:switch] do
       member do
         get :audit
         get :students
       end
       collection do
+        get :supply_new
         post :create_audit
+        post :supply_create
       end
+    end
+    resources :read_projects, concerns: :switch do
+      resources :bookshelves
+      resources :donate_records
     end
     resources :project_camp_seasons
     resources :project_radio_seasons
@@ -209,6 +219,7 @@ Rails.application.routes.draw do
         put :switch_job
       end
     end
+    resources :majors
     resources :tasks, concerns: [:switch] do
       resources :task_applies, only: [:index, :edit, :update]
     end
@@ -257,19 +268,17 @@ Rails.application.routes.draw do
     end
 
     resources :complaints
-    resources :radio_applies do
-      member do
-        patch :check
-      end
-    end
+    resources :radio_applies, concerns: :check
     resources :beneficial_children, concerns: [:excel_upload, :excel_import]
-
     resources :radio_projects, concerns: :switch do
       member do
         put :shipment
       end
       resources :radio_donate_records
     end
+
+    resources :movie_applies, concerns: :check
+    resources :movie_schools
   end
 
   namespace :school do

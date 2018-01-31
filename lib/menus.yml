@@ -89,6 +89,9 @@ admin:
         admin_income_source:
           actions:
             'admin/income_sources': all
+        admin_volunteer_major:
+          actions:
+            'admin/majors': all
 
     # 学校用户
     admin_school:
@@ -183,6 +186,9 @@ admin:
             admin_read_applies:
               actions:
                 'admin/read_applies': all
+            admin_read_projects:
+              actions:
+                'admin/read_projects': all
         admin_project_camp:
           menus:
             admin_project_camp_season:
@@ -199,6 +205,14 @@ admin:
             admin_radio_projects:
               actions:
                 'admin/radio_projects': all
+        admin_project_movie:
+          menus:
+            admin_movie_applies:
+              actions:
+                'admin/movie_applies': all
+            admin_movie_schools:
+              actions:
+                'admin/movie_schools': all
         admin_project_flower:
           menus:
             admin_project_flower_season:

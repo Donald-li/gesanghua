@@ -31,7 +31,7 @@
           <%= f.input :offline_amount, label: '捐助金额：', input_html: {type: 'number', min: 0}, required: true %>
         </div>
         <div class="match">
-          <%= f.input :match_fund_id, as: :select, collection: Fund.unrestricted.map {|f| ["#{f.fund_category.name}#{f.name}(余额：#{f.amount})", f.id]}, include_blank: '选择分类', label: '财务分类：', required: true %>
+          <%= f.input :match_fund_id, as: :select, collection: Fund.unrestricted.sorted.map {|f| ["#{f.fund_category.name}#{f.name}(余额：#{f.amount})", f.id]}, include_blank: '选择分类', label: '财务分类：', required: true %>
           <%= f.input :match_amount, label: '使用金额：', input_html: {type: 'number', min: 0}, required: true %>
         </div>
         <div class="form-actions">

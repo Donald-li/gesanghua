@@ -22,6 +22,8 @@
 #  project_season_id       :integer                                # 批次申请ID
 #  grade                   :integer                                # 所属年级
 #  student_number          :integer                                # 班级人数
+#  loss                    :integer                                # 书籍损耗
+#  supplement              :integer                                # 书籍补充
 #
 
 FactoryBot.define do

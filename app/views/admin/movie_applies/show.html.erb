@@ -27,55 +27,7 @@
         </tr>
         <tr>
           <th>
-            申请年度
-          </th>
-          <th>
-            <%= @project_apply.season.try(:name) %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            学生总人数
-          </th>
-          <th>
-            <%= @project_apply.radio_information.student_number %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            住宿总人数
-          </th>
-          <th>
-            <%= @project_apply.radio_information.boarder_number %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            宿舍楼数量
-          </th>
-          <th>
-            <%= @project_apply.radio_information.dormitory_number %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            宿舍数量
-          </th>
-          <th>
-            <%= @project_apply.radio_information.dorm_number %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            各年级住宿
-          </th>
-          <th>
-
-          </th>
-        </tr>
-        <tr>
-          <th>
-            收货人
+            联系人
           </th>
           <th>
             <%= @project_apply.contact_name %>
@@ -91,7 +43,7 @@
         </tr>
         <tr>
           <th>
-            说明
+            申请理由
           </th>
           <th>
             <%= @project_apply.abstract %> <br>
@@ -104,7 +56,7 @@
       </table>
     </div>
     <div class="portlet-body form">
-      <%= simple_form_for [:admin, @project_apply], url: check_admin_radio_apply_path, method: :patch, wrapper: :admin_form, html: {id: 'approve-form'} do |f| %>
+      <%= simple_form_for [:admin, @project_apply], url: check_admin_movie_apply_path, method: :patch, wrapper: :admin_form, html: {id: 'approve-form'} do |f| %>
         <%= f.error_notification %>
         <div class="form-body form-horizontal">
           <%= f.input :audit_state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApply.options_for_some_select(:audit_states, ['pass', 'reject']), label: '审核状态：', required: 'required', input_html: { class: 'approve_state', onclick: 'toggleState();'} %>
@@ -115,7 +67,7 @@
             <div class="row">
               <div class="col-md-offset-3 col-md-9">
                 <%= f.button :submit, '提交', class: 'btn green' %>
-                <%= link_to '取消', admin_radio_applies_path, class: 'btn' %>
+                <%= link_to '取消', admin_movie_applies_path, class: 'btn' %>
               </div>
             </div>
           </div>
