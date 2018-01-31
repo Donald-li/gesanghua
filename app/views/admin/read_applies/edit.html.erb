@@ -27,8 +27,8 @@
                 <a href="<%= audit_admin_read_apply_path(@project_apply) %>" > 审核申请 </a>
               </li>
               <li class="">
-                <% if @project_apply.gsh_bookshelves.present? %>
-                  <% gsh_bookshelf_id = @project_apply.gsh_bookshelves.first.id %>
+                <% if @project_apply.bookshelves.present? %>
+                  <% gsh_bookshelf_id = @project_apply.bookshelves.first.id %>
                   <a href="<%= students_admin_read_apply_path(@project_apply, q: {gsh_bookshelf_id_eq: gsh_bookshelf_id}) %>" > 受益学生 </a>
                 <% else %>
                   受益学生
@@ -70,8 +70,8 @@
                                 </tr>
                               </thead>
                               <tbody id="goods">
-                                <% @project_apply.gsh_bookshelves.build if @project_apply.gsh_bookshelves.blank? %>
-                                <%= f.fields_for :gsh_bookshelves, wrapper: 'inline_inputs' do |b| %>
+                                <% @project_apply.bookshelves.build if @project_apply.bookshelves.blank? %>
+                                <%= f.fields_for :bookshelves, wrapper: 'inline_inputs' do |b| %>
                                 <tr>
                                   <%#= b.hidden_field :project_id, value: 2 %>
                                   <%#= b.hidden_field :project_season_id, value: @project_apply.project_season_id %>

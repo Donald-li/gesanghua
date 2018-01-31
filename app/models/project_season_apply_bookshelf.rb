@@ -48,4 +48,14 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
 
   enum grade: {juniorone: 1, juniortwo: 2, juniorthree: 3, seniorone: 4, seniortwo: 5, seniorthree: 6}
   default_value_for :grade, 1
+
+  scope :pass_done, ->{ pass.done }
+
+  scope :sorted, ->{ order(created_at: :desc) }
+
+  private
+
+  def gen_bookshelf_no
+    self.bookshelf_no ||= Sequence.get_seq(kind: :bookshelf_no, prefix: 'TSJ1', length: 3)
+  end
 end

@@ -49,12 +49,12 @@ class ProjectSeasonApply < ApplicationRecord
   has_many :children, class_name: "ProjectSeasonApplyChild"
   has_many :gsh_child_grants
   has_many :gsh_children
-  has_many :gsh_bookshelves
+  has_many :bookshelves, class_name: 'ProjectSeasonApplyBookshelf', foreign_key: 'project_season_apply_bookshelf_id'
   has_many :beneficial_children
   has_one :receive, as: :owner
   has_one :radio_information
   accepts_nested_attributes_for :radio_information, update_only: true
-  accepts_nested_attributes_for :gsh_bookshelves, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :bookshelves, allow_destroy: true, reject_if: :all_blank
 
   attr_accessor :approve_remark
 
@@ -87,12 +87,12 @@ class ProjectSeasonApply < ApplicationRecord
 
   # 通过审核的班级数量
   def bookshelves_pass_count
-    self.gsh_bookshelves.pass.count
+    self.bookshelves.pass.count
   end
 
   # 筹款完成的班级数量
   def bookshelves_done_count
-    self.gsh_bookshelves.pass_done.count
+    self.bookshelves.pass_done.count
   end
 
   default_value_for :class_number, 0
