@@ -43,13 +43,13 @@ class Admin::BeneficialChildrenController < Admin::BaseController
   def excel_import
     @project_apply = ProjectSeasonApply.find(params[:apply_id])
     respond_to do |format|
-      if BeneficialChild.read_excel(params[:children_excel_id], @project_apply.id, params[:gsh_bookshelf_id])
+      if BeneficialChild.read_excel(params[:children_excel_id], @project_apply.id, params[:project_season_apply_bookshelf_id])
         if @project_apply.project_id == ProjectSeason.radio_project_id
           format.html {redirect_to edit_admin_radio_apply_path(@project_apply, anchor: 'tab_1'), notice: '操作成功'}
         elsif @project_apply.project_id == ProjectSeason.movie_project_id
           format.html {redirect_to edit_admin_movie_apply_path(@project_apply, anchor: 'tab_1'), notice: '操作成功'}
-        elsif @project_apply. == ProjectSeason.book_project_id && params[:gsh_bookshelf_id].present?
-          format.html {redirect_to students_admin_read_apply_path(@project_apply, q: {gsh_bookshelf_id_eq: params[:gsh_bookshelf_id]}), notice: '操作成功'}
+        elsif @project_apply.project_id == ProjectSeason.book_project_id && params[:project_season_apply_bookshelf_id].present?
+          format.html {redirect_to students_admin_read_apply_path(@project_apply, q: {project_season_apply_bookshelf_id_eq: params[:project_season_apply_bookshelf_id]}), notice: '操作成功'}
         elsif @project_apply.present?
           format.html {redirect_to edit_admin_radio_apply_path(@project_apply, anchor: 'tab_1'), notice: '操作成功'}
         end

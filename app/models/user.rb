@@ -96,6 +96,10 @@ class User < ApplicationRecord
     #TODO
   end
 
+  def user_balance
+    "#{self.name}(可用余额:#{self.balance.to_s})"
+  end
+
   # 捐给格桑花
   def donate_gsh(amount: 0.0, promoter: nil)
     gsh_fund = Fund.gsh
@@ -103,7 +107,7 @@ class User < ApplicationRecord
     donate.save
   end
 
-  # 捐给定向
+  # 捐定向
   def donate_project(amount: 0.0, project: nil, promoter: nil)
     return false unless project.present?
     fund = project.fund
@@ -111,7 +115,7 @@ class User < ApplicationRecord
     donate.save
   end
 
-  # 捐给孩子
+  # 捐孩子
   def donate_child(gsh_child: nil, promoter: nil, semester_num: 0)
     return false unless gsh_child.present?
     scope = gsh_child.semesters.pending.sorted
@@ -127,9 +131,30 @@ class User < ApplicationRecord
     if donate.save
       semesters.update(donate_state: :succeed)
     end
+  end
+
+  # 捐悦读(整捐)
+  def donate_bookshelf(bookshelf=nil, promoter=nil)
+    return false unless bookshelf.present?
+    return false if bookshelf.surplus > 0
+    project = Project.book_project
+    donate = self.donates.build(amount: bookshelf.amount, promoter: promoter, fund: project.appoint_fund, project: project, bookshelf: bookshelf)
+    if donate.save
+      bookshelf.surplus = 0
+      bookshelf.state = 'complete'
+      bookshelf.save
+    end
+  end
+
+  # 捐悦读(零捐)
+  def donate_fit_bookshelf(school=nil, amount=0.0, promoter=nil)
 
   end
 
+  # 捐悦读(补书)
+  def donate_bookshelf_supply(bookshelf=nil, amount=0.0, promoter=nil)
+
+  end
 
 
   # 可开票金额

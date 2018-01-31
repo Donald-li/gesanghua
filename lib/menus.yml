@@ -205,6 +205,7 @@ admin:
             admin_radio_projects:
               actions:
                 'admin/radio_projects': all
+                'admin/radio_donate_records': all
         admin_project_movie:
           menus:
             admin_movie_applies:

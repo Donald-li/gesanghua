@@ -17,27 +17,24 @@ class Admin::RadioDonateRecordsController < Admin::BaseController
   def new
     @donate_record = DonateRecord.new
     @income_record = @donate_record.build_income_record
-    @require = true
+    @max = @apply.target_amount - @apply.present_amount
   end
 
   def create
+    @donate_record = DonateRecord.new
+    if donate_record_params[:donate_way] == 'offline'
+      amount = donate_record_params[:offline_amount]
+    elsif donate_record_params[:donate_way] == 'match'
+      amount = donate_record_params[:match_amount]
+    end
     respond_to do |format|
-      if donate_record_params[:donate_way] == 'offline'
-        amount = donate_record_params[:offline_amount]
-        @user = User.find(donate_record_params[:user_id])
-        @donate_record = DonateRecord.new(donate_record_params.merge(fund: @apply.project.fund, pay_state: 'paid', amount: amount, project: @apply.project, donor: @user.name, remitter_id: @user.id, remitter_name: @user.name, season: @apply.season, apply: @apply, kind: 'custom'))
-      else
-        @match_fund = Fund.find(donate_record_params[:match_fund_id])
-        amount = donate_record_params[:match_amount]
-        @match_fund.amount -= amount.to_f
-        @donate_record = DonateRecord.new(donate_record_params.merge(fund: @apply.project.fund, pay_state: 'paid', amount: amount, project: @apply.project, season: @apply.season, apply: @apply, kind: 'custom'))
-      end
-      @income_record = IncomeRecord.new(donate_record: @donate_record, user: @donate_record.user, fund: @donate_record.fund, amount: @donate_record.amount, remitter_id: @donate_record.remitter_id, remitter_name: @donate_record.remitter_name, donor: @donate_record.donor, promoter_id: @donate_record.promoter_id, income_time: Time.now)
-      @income_record.income_source_id = donate_record_params[:income_record_attributes][:income_source_id] if donate_record_params[:income_record_attributes].present?
-      if @donate_record.save && @income_record.save
-        @match_fund.save if @match_fund.present?
+      if @apply.match_donate(donate_record_params, amount, nil)
+        @apply.present_amount += amount.to_f
+        @apply.execute_state = 'to_execute' if @apply.present_amount == @apply.target_amount
+        @apply.save
         format.html {redirect_to admin_radio_project_radio_donate_records_path(@apply), notice: '新增成功。'}
       else
+        flash[:notice] = '检查余额或表单'
         format.html {render :new}
       end
     end

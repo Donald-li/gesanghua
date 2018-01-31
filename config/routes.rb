@@ -343,6 +343,7 @@ Rails.application.routes.draw do
       collection do
         get :schools
         get :users
+        get :users_balance
         get :gsh_child_user
         get :teacher_user
         get :school_user

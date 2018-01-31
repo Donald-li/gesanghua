@@ -22,7 +22,7 @@
             <%= link_to '下载模板', Settings.children_template_file_path %>
           </div>
         </div>
-        <%= simple_form_for :file, url: excel_import_admin_beneficial_children_path(apply_id: @project_apply.id, gsh_bookshelf_id: params[:gsh_bookshelf_id]), method: :put, wrapper: :admin_form do |f| %>
+        <%= simple_form_for :file, url: excel_import_admin_beneficial_children_path(apply_id: @project_apply.id, project_season_apply_bookshelf_id: params[:project_season_apply_bookshelf_id]), method: :put, wrapper: :admin_form do |f| %>
           <%= f.error_notification %>
           <div class="form-group">
             <label class="col-md-2 control-label">收入记录文件:</label>

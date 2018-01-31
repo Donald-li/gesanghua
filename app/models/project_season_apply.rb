@@ -49,7 +49,7 @@ class ProjectSeasonApply < ApplicationRecord
   has_many :children, class_name: "ProjectSeasonApplyChild"
   has_many :gsh_child_grants
   has_many :gsh_children
-  has_many :gsh_bookshelves
+  has_many :bookshelves, class_name: 'ProjectSeasonApplyBookshelf', foreign_key: 'project_season_apply_id'
   has_many :beneficial_children
 
   has_many :continuals, as: :owner
@@ -58,7 +58,7 @@ class ProjectSeasonApply < ApplicationRecord
   has_one :receive, as: :owner
   has_one :radio_information
   accepts_nested_attributes_for :radio_information, update_only: true
-  accepts_nested_attributes_for :gsh_bookshelves, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :bookshelves, allow_destroy: true, reject_if: :all_blank
 
   attr_accessor :approve_remark
 
@@ -81,14 +81,22 @@ class ProjectSeasonApply < ApplicationRecord
   enum bookshelf_type: {whole: 1, supplement: 2}
   # default_value_for :bookshelf_type, 1
 
+  # 生成图书角编号
+  def gen_bookshelves_no
+    self.bookshelves.pass.each do |b|
+      b.gen_bookshelf_no
+      b.save
+    end
+  end
+
   # 通过审核的班级数量
   def bookshelves_pass_count
-    self.gsh_bookshelves.pass.count
+    self.bookshelves.pass.count
   end
 
   # 筹款完成的班级数量
   def bookshelves_done_count
-    self.gsh_bookshelves.pass_done.count
+    self.bookshelves.pass_done.count
   end
 
   default_value_for :class_number, 0
@@ -108,6 +116,31 @@ class ProjectSeasonApply < ApplicationRecord
 
   def sliced_abstract
     self.abstract.length > 90 ? self.abstract.slice(0..90) : self.abstract
+  end
+
+  def match_donate(params, amount, *args)
+    child_id = args.first || nil
+    apply = self
+    if params[:donate_way] == 'offline'
+      user = User.find(params[:user_id])
+      donate_record = DonateRecord.new(params.merge(project_season_apply_child_id: child_id, fund: apply.project.fund, pay_state: 'paid', amount: amount, project: apply.project, donor: user.name, remitter_id: user.id, remitter_name: user.name, season: apply.season, apply: apply, kind: 'custom'))
+    elsif params[:donate_way] == 'match'
+      match_fund = Fund.find(params[:match_fund_id])
+      match_fund.amount -= amount.to_f
+      return false if match_fund.amount < 0
+      donate_record = DonateRecord.new(params.merge(project_season_apply_child_id: child_id, fund: apply.project.fund, pay_state: 'paid', amount: amount, project: apply.project, season: apply.season, apply: apply, kind: 'custom'))
+    elsif params[:donate_way] == 'balance'
+      user = User.find(params[:balance_id])
+      user.balance -= amount
+      return false if user.balance < 0
+      donate_record = DonateRecord.new(params.merge(project_season_apply_child_id: child_id, fund: apply.project.fund, pay_state: 'paid', amount: amount, project: apply.project, donor: user.name, remitter_id: user.id, remitter_name: user.name, season: apply.season, apply: apply, kind: 'custom'))
+    end
+    income_record = IncomeRecord.new(donate_record: donate_record, user: donate_record.user, fund: donate_record.fund, amount: amount, remitter_id: donate_record.remitter_id, remitter_name: donate_record.remitter_name, donor: donate_record.donor, promoter_id: donate_record.promoter_id, income_time: Time.now)
+    income_record.income_source_id = params[:source_id]
+    donate_record.save && income_record.save
+    match_fund.save if match_fund.present?
+    user.save if user.present?
+    return true
   end
 
   private

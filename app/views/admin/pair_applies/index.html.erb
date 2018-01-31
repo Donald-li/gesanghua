@@ -20,10 +20,6 @@
                 <%= f.text_field :school_name_cont, class: 'form-control', placeholder: '学校名称' %>
               </div>
               <div class="form-group">
-                <%= f.label :state_eq, '状态' %>
-                <%= f.select :state_eq, ProjectSeasonApply.options_for_select(:states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
-              </div>
-              <div class="form-group">
                 <%= f.label :project_season_id_eq, '批次' %>
                 <%= f.select :project_season_id_eq, ProjectSeason.where(project_id: ProjectSeason.pair_project_id).collect {|p| [p.name, p.id]}, {include_blank: '全部'}, class: 'form-control' %>
               </div>
@@ -60,9 +56,6 @@
               联系方式
             </th>
             <th>
-              状态
-            </th>
-            <th>
               操作
             </th>
           </tr>
@@ -90,9 +83,6 @@
                 </td>
                 <td>
                   <%= apply.school.try(:contact_phone) %>
-                </td>
-                <td>
-                  <%= apply.enum_name(:state) %>
                 </td>
                 <td>
                   <%= link_to edit_admin_pair_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
