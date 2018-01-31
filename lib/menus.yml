@@ -186,6 +186,9 @@ admin:
             admin_read_applies:
               actions:
                 'admin/read_applies': all
+            admin_read_projects:
+              actions:
+                'admin/read_projects': all
         admin_project_camp:
           menus:
             admin_project_camp_season:
@@ -218,7 +221,6 @@ admin:
             admin_project_flower_raises:
               actions:
                 'admin/flower_raises': all
-
     admin_campaign:
       menus:
         admin_campaigns:

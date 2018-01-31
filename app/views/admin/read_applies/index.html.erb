@@ -4,6 +4,11 @@
       <i class="icon-list"></i>悦读项目申请
     </div>
     <div class="actions">
+      <%= link_to supply_new_admin_read_applies_path, class: 'btn btn-xs green', 'data-no-turbolink' => true do %>
+          <i class="icon-plus"></i>
+          <span>新增补书申请</span>
+      <% end %>
+
       <%= link_to new_admin_read_apply_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
           <i class="icon-plus"></i>
           <span>新增图书角申请</span>
@@ -14,7 +19,7 @@
     <div class="dataTables_wrapper no-footer">
       <div class="row">
         <div class="col-md-12 col-sm-12">
-          <%= search_form_for @search, url: admin_pair_applies_path, class: 'form-inline' do |f| %>
+          <%= search_form_for @search, url: admin_read_applies_path, class: 'form-inline' do |f| %>
               <div class="form-group">
                 <%= f.label :school_name_cont, '学校名称' %>
                 <%= f.text_field :school_name_cont, class: 'form-control', placeholder: '学校名称' %>
@@ -29,7 +34,7 @@
               </div>
               <div class="form-group">
                 <%= f.label :project_id_eq, '批次' %>
-                <%= f.select :project_id_eq, ProjectSeason.where(project_id: ProjectSeason.pair_project_id).collect {|p| [p.name, p.id]}, {include_blank: '全部'}, class: 'form-control' %>
+                <%= f.select :project_id_eq, ProjectSeason.where(project_id: 2).collect {|p| [p.name, p.id]}, {include_blank: '全部'}, class: 'form-control' %>
               </div>
               <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>
@@ -100,24 +105,30 @@
                   <%= apply.enum_name(:audit_state) %>
                 </td>
                 <td>
-                  <%= link_to edit_admin_read_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                      <i class="fa fa-edit"></i> 修改申请
-                  <% end %>
-                  <%= link_to audit_admin_read_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
-                      <i class="fa fa-check"></i> 审核操作
-                  <% end %>
-                  <% if apply.gsh_bookshelves.present? %>
-                    <% gsh_bookshelf_id = apply.gsh_bookshelves.first.id %>
-                    <%= link_to students_admin_read_apply_path(apply, q: {gsh_bookshelf_id_eq: gsh_bookshelf_id}), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
-                        <i class="fa fa-list"></i> 学生名单
+                  <% if apply.apply? %>
+                    <%= link_to edit_admin_read_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                        <i class="fa fa-edit"></i> 修改申请
                     <% end %>
-                  <% end %>
-                  <%= link_to admin_read_apply_path(apply), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
-                      <i class="fa fa-trash-o"></i> 删除
-                  <% end %>
-                  <% if false %>
-                    <%= link_to admin_read_apply_pair_students_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
-                        <i class="fa fa-list-ul"></i> 查看名单（<%= apply.children.where(school: apply.school).count %>）
+                    <%= link_to audit_admin_read_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                        <i class="fa fa-check"></i> 审核操作
+                    <% end %>
+                    <% if apply.gsh_bookshelves.present? %>
+                      <% gsh_bookshelf_id = apply.gsh_bookshelves.first.id %>
+                      <%= link_to students_admin_read_apply_path(apply, q: {gsh_bookshelf_id_eq: gsh_bookshelf_id}), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
+                          <i class="fa fa-list"></i> 学生名单
+                      <% end %>
+                    <% end %>
+                    <%= link_to admin_read_apply_path(apply), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                        <i class="fa fa-trash-o"></i> 删除
+                    <% end %>
+                    <% if apply.pass? %>
+                      <%= link_to '', 'data-no-turbolink' => true, class: 'btn btn-xs blue', data: {confirm: '确定要转为筹款项目吗？'} do %>
+                        <i class="fa fa-exchange"></i> 转为筹款项目
+                      <% end %>
+                    <% end %>
+                  <% else %>
+                    <%= link_to '', 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
+                      <i class="fa fa-exchange"></i> 已转为筹款项目
                     <% end %>
                   <% end %>
                 </td>
@@ -138,3 +149,9 @@
   </div>
 </div>
 <!-- END EXAMPLE TABLE PORTLET-->
+
+<script>
+  $(function(){
+
+  })
+</script>

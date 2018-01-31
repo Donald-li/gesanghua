@@ -1,7 +1,7 @@
 <div class="portlet light bordered">
   <div class="portlet-title">
     <div class="caption">
-      <i class="icon-note">新增图书角申请</i>
+      <i class="icon-note">新增补书申请</i>
       <span class="caption-subject"></span>
       <span class="caption-helper"></span>
     </div>
@@ -18,7 +18,7 @@
       <div class="row">
         <div class="col-md-12">
 
-          <%= simple_form_for [:admin, @project_apply], url: admin_read_applies_path, wrapper: :admin_form, html: {class: 'form-horizontal project_form'} do |f| %>
+          <%= simple_form_for [:admin, @project_apply], url: supply_create_admin_read_applies_path, wrapper: :admin_form, html: {class: 'form-horizontal project_form'} do |f| %>
               <%= f.error_notification %>
               <div class="form-body">
                 <%= f.input :project_season_id, as: :select, label: '申请批次：', input_html: {class: 'seasons-ajax'} %>
@@ -41,7 +41,7 @@
                       <table class="table table-hover">
                         <thead>
                           <tr>
-                            <th> 年级 </th>
+                            <!-- <th> 年级 </th> -->
                             <th> 班级 </th>
                             <th> 人数 </th>
                             <th> 是否通过审核 </th>
@@ -54,11 +54,11 @@
                           <tr>
                             <%#= b.hidden_field :school_id, value: 2 %>
                             <%#= b.hidden_field :project_season_id, value: @project_apply.project_season_id %>
-                            <td>
+                            <!-- <td>
                               <%= b.input :grade, as: :select, label: false, collection: GshBookshelf.options_for_select(:grades), include_blank: false %>
-                            </td>
+                            </td> -->
                             <td>
-                              <%= b.input :classname, label: false, input_html:{ placeholder: '请填入班级名称'} %>
+                              <%= b.input :classname, label: false, input_html:{ placeholder: '请选择补书班级'} %>
                             </td>
                             <td>
                               <%#= b.beneficial_children.count %>

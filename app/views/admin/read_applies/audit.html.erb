@@ -27,7 +27,12 @@
                 <a href="#tab_1" data-toggle="tab" aria-expanded="false"> 审核申请 </a>
               </li>
               <li class="">
-                <a href="<%= students_admin_read_apply_path(@project_apply) %>" > 受益学生 </a>
+                <% if @project_apply.gsh_bookshelves.present? %>
+                  <% gsh_bookshelf_id = @project_apply.gsh_bookshelves.first.id %>
+                  <a href="<%= students_admin_read_apply_path(@project_apply, q: {gsh_bookshelf_id_eq: gsh_bookshelf_id}) %>" > 受益学生 </a>
+                <% else %>
+                  受益学生
+                <% end %>
               </li>
             </ul>
             <div class="tab-content">
