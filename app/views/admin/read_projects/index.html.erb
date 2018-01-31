@@ -1,0 +1,134 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i>悦读筹款项目
+    </div>
+    <div class="actions">
+
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="dataTables_wrapper no-footer">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <%= search_form_for @search, url: admin_read_projects_path, class: 'form-inline' do |f| %>
+            <div class="form-group">
+              <%= f.label :name_cont, '项目名称' %>
+              <%= f.text_field :name_cont, class: 'form-control', placeholder: '项目名称' %>
+            </div>
+            <div class="form-group">
+              <%= f.label :school_name_cont, '学校名称' %>
+              <%= f.text_field :school_name_cont, class: 'form-control', placeholder: '学校名称' %>
+            </div>
+            <div class="form-group">
+              <%= f.label :project_id_eq, '批次' %>
+              <%= f.select :project_id_eq, ProjectSeason.where(project_id: 2).collect {|p| [p.name, p.id]}, {include_blank: '全部'}, class: 'form-control' %>
+            </div>
+            <div class="form-group">
+              <%= f.label :execute_state_eq, '执行状态' %>
+              <%= f.select :execute_state_eq, ProjectSeasonApply.options_for_select(:execute_states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
+            </div>
+            <button type="submit" class="btn btn-default grey">搜索</button>
+          <% end %>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="dataTables_filter pull-right"></div>
+        </div>
+      </div>
+      <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover" id="sample_2">
+          <thead>
+          <tr>
+            <th>
+              申请编号
+            </th>
+            <th>
+              项目名称
+            </th>
+            <th>
+              申请批次
+            </th>
+            <th>
+              申请学校
+            </th>
+            <th>
+              申请/完成班级
+            </th>
+            <th>
+              目标/已筹
+            </th>
+            <th>
+              当前展示状态
+            </th>
+            <th>
+              执行状态
+            </th>
+            <th>
+              操作
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @projects.each do |project| %>
+              <tr>
+                <td>
+                  <%= project.apply_no %>
+                </td>
+                <td>
+                  <%= project.name %>
+                </td>
+                <td>
+                  <%= project.season.try(:name) %>
+                </td>
+                <td>
+                  <%= project.school.try(:name) %>
+                </td>
+                <td>
+                  <%= project.gsh_bookshelves_count %> / <%= project.bookshelves_done_count %>
+                </td>
+                <td>
+                  <%= project.target_amount %> / <%= project.present_amount %>
+                </td>
+                <td>
+                  <%= link_to '', data: {confirm: "确定#{child.state === 'show' ? '隐藏项目' : '显示项目'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{child.state === 'show' ? 'green' : 'default'}" do %>
+                      <%= child.state === 'show' ? '显示' : '隐藏' %>
+                      <i class="fa <%= child.state === 'show' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                  <% end %>
+                </td>
+                <td>
+                  <%= project.enum_name(:execute_state) %>
+                </td>
+                <td>
+                  <%= link_to edit_admin_read_project_path(project), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                      <i class="fa fa-edit"></i> 修改项目
+                  <% end %>
+                  <%= link_to '', 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
+                      <i class="fa fa-list"></i> 查看班级
+                  <% end %>
+                  <%= link_to '', 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                      <i class="fa fa-list"></i> 筹款管理
+                  <% end %>
+                </td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-5 col-sm-12">
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@projects) %></div>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <%= paginate @projects, theme: '' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END EXAMPLE TABLE PORTLET-->
+
+<script>
+  $(function(){
+
+  })
+</script>

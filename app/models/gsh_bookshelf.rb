@@ -22,6 +22,8 @@
 #  project_season_id       :integer                                # 批次申请ID
 #  grade                   :integer                                # 所属年级
 #  student_number          :integer                                # 班级人数
+#  loss                    :integer                                # 书籍损耗
+#  supplement              :integer                                # 书籍补充
 #
 
 class GshBookshelf < ApplicationRecord
@@ -45,4 +47,15 @@ class GshBookshelf < ApplicationRecord
 
   enum grade: {juniorone: 1, juniortwo: 2, juniorthree: 3, seniorone: 4, seniortwo: 5, seniorthree: 6}
   default_value_for :grade, 1
+
+  scope :pass_done, ->{ where(audit_state: 2,state: 6) }
+
+  scope :sorted, ->{ order(created_at: :desc) }
+
+  private
+
+  def gen_bookshelf_no
+    time_string = Time.now.strftime("%y%m%d%H")
+    self.donate_no ||= Sequence.get_seq(kind: :donate_no, prefix: time_string, length: 7)
+  end
 end

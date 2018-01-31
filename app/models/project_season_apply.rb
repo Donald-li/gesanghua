@@ -75,7 +75,17 @@ class ProjectSeasonApply < ApplicationRecord
   default_value_for :audit_state, 1
 
   enum bookshelf_type: {whole: 1, supplement: 2}
-  default_value_for :bookshelf_type, 1
+  # default_value_for :bookshelf_type, 1
+
+  # 通过审核的班级数量
+  def bookshelves_pass_count
+    self.gsh_bookshelves.pass.count
+  end
+
+  # 筹款完成的班级数量
+  def bookshelves_done_count
+    self.gsh_bookshelves.pass_done.count
+  end
 
   default_value_for :class_number, 0
   default_value_for :student_number, 0

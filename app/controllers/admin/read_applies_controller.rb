@@ -1,5 +1,5 @@
 class Admin::ReadAppliesController < Admin::BaseController
-  before_action :set_project_apply, only: [:show, :edit, :update, :destroy, :audit, :students]
+  before_action :set_project_apply, only: [:edit, :update, :destroy, :audit, :students]
 
   def index
     @search = ProjectSeasonApply.where(project_id: 2).sorted.ransack(params[:q])
@@ -19,7 +19,7 @@ class Admin::ReadAppliesController < Admin::BaseController
 
   def create
     # @school = School.find(project_apply_params[:school_id])
-    @project_apply = ProjectSeasonApply.new(project_apply_params.merge(project_id: 2))
+    @project_apply = ProjectSeasonApply.new(project_apply_params.merge(project_id: 2, bookshelf_type: 1))
     @project_apply.attach_images(params[:image_ids])
     @project_apply.audits.build
     respond_to do |format|
@@ -27,7 +27,8 @@ class Admin::ReadAppliesController < Admin::BaseController
         flash[:notice] = '此学校在本批次还有未完成的申请'
         format.html { render :new }
       elsif @project_apply.save!
-        @project_apply.gsh_bookshelves.update_all(school_id: @project_apply.school_id, project_season_id: @project_apply.project_season_id)
+        bookshelf_univalence = @project_apply.season.bookshelf_univalence
+        @project_apply.gsh_bookshelves.update_all(school_id: @project_apply.school_id, project_season_id: @project_apply.project_season_id, univalence: bookshelf_univalence)
         format.html { redirect_to admin_read_applies_path, notice: '创建成功。' }
       else
         format.html { render :new }
@@ -70,11 +71,38 @@ class Admin::ReadAppliesController < Admin::BaseController
     end
   end
 
+  def switch
+    @project_apply.raise_project!
+    redirect_to admin_read_applies_path, notice: '操作成功'
+  end
+
   def students
     @search = @project_apply.beneficial_children.sorted.ransack(params[:q])
     @bookshelves = @project_apply.gsh_bookshelves
     scope = @search.result
     @students = scope.page(params[:page])
+  end
+
+  def supply_new
+    @project_apply = ProjectSeasonApply.new
+  end
+
+  def supply_create
+    # @school = School.find(project_apply_params[:school_id])
+    @project_apply = ProjectSeasonApply.new(project_apply_params.merge(project_id: 2, bookshelf_type: 2))
+    @project_apply.attach_images(params[:image_ids])
+    @project_apply.audits.build
+    respond_to do |format|
+      if ProjectSeasonApply.find_by(school_id: project_apply_params[:school_id], project_id: 2).present?
+        flash[:notice] = '此学校在本批次还有未完成的申请'
+        format.html { render :new }
+      elsif @project_apply.save!
+        @project_apply.gsh_bookshelves.update_all(school_id: @project_apply.school_id, project_season_id: @project_apply.project_season_id)
+        format.html { redirect_to admin_read_applies_path, notice: '创建成功。' }
+      else
+        format.html { render :new }
+      end
+    end
   end
 
   private
