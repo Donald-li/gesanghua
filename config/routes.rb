@@ -269,6 +269,7 @@ Rails.application.routes.draw do
     end
 
     resources :movie_applies, concerns: :check
+    resources :movie_schools
   end
 
   namespace :school do

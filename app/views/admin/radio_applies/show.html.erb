@@ -89,6 +89,17 @@
             <%= @project_apply.contact_phone %>
           </th>
         </tr>
+        <tr>
+          <th>
+            说明
+          </th>
+          <th>
+            <%= @project_apply.abstract %> <br>
+            <% @project_apply.images.each do |image| %>
+              <%= image_tag image.file.url %>
+            <% end %>
+          </th>
+        </tr>
         </tbody>
       </table>
     </div>

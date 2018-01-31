@@ -207,6 +207,9 @@ admin:
             admin_movie_applies:
               actions:
                 'admin/movie_applies': all
+            admin_movie_schools:
+              actions:
+                'admin/movie_schools': all
         admin_project_flower:
           menus:
             admin_project_flower_season:
