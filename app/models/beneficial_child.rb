@@ -2,15 +2,15 @@
 #
 # Table name: beneficial_children
 #
-#  id                      :integer          not null, primary key
-#  id_no                   :string                                 # 身份证号
-#  name                    :string                                 # 姓名
-#  gender                  :integer                                # 性别
-#  nation                  :integer                                # 民族
-#  gsh_bookshelf_id        :integer                                # 图书角ID
-#  project_season_apply_id :integer                                # 项目申请ID
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
+#  id                                :integer          not null, primary key
+#  id_no                             :string                                 # 身份证号
+#  name                              :string                                 # 姓名
+#  gender                            :integer                                # 性别
+#  nation                            :integer                                # 民族
+#  project_season_apply_id           :integer                                # 项目申请ID
+#  created_at                        :datetime         not null
+#  updated_at                        :datetime         not null
+#  project_season_apply_bookshelf_id :integer                                # 书架id
 #
 
 class BeneficialChild < ApplicationRecord

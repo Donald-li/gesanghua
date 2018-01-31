@@ -49,8 +49,8 @@
                           </tr>
                         </thead>
                         <tbody id="goods">
-                          <% @project_apply.gsh_bookshelves.build if @project_apply.gsh_bookshelves.blank? %>
-                          <%= f.fields_for :gsh_bookshelves, wrapper: 'inline_inputs' do |b| %>
+                          <% @project_apply.bookshelves.build if @project_apply.bookshelves.blank? %>
+                          <%= f.fields_for :bookshelves, wrapper: 'inline_inputs' do |b| %>
                           <tr>
                             <%#= b.hidden_field :school_id, value: 2 %>
                             <%#= b.hidden_field :project_season_id, value: @project_apply.project_season_id %>
