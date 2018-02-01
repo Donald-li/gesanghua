@@ -56,7 +56,7 @@ class DonateRecord < ApplicationRecord
 
   validates :amount, presence: true
 
-  enum pay_state: {unpay: 1, paid: 2} #付款状态， 1:已付款  2:未付款
+  enum pay_state: {unpay: 1, paid: 2} #付款状态， 1:未付款 2:已付款
   default_value_for :pay_state, 1
 
   enum kind: {system: 1, custom: 2} # 记录类型: 1:系统生成 2:手动添加
