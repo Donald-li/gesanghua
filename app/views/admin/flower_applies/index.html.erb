@@ -105,16 +105,18 @@
                   <%= link_to '', 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-edit"></i> 审核操作
                   <% end %> -->
-                  <%= link_to edit_admin_flower_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                      <i class="fa fa-edit"></i> 修改审核
-                  <% end %>
-                  <% if apply.pass? && apply.apply?  %>
-                    <%= link_to switch_to_raise_admin_flower_apply_path(apply), data: {confirm: '确定要转为筹款项目吗？'}, method: :put, class: 'btn btn-xs blue' do %>
-                         转为筹款项目
+                  <% if apply.apply? %>
+                    <%= link_to edit_admin_flower_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                        <i class="fa fa-edit"></i> 修改审核
                     <% end %>
-                  <% end %>
-                  <%= link_to admin_flower_apply_path(apply), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
-                      <i class="fa fa-trash-o"></i> 删除
+                    <% if apply.pass? && apply.apply?  %>
+                      <%= link_to switch_to_raise_admin_flower_apply_path(apply), data: {confirm: '确定要转为筹款项目吗？'}, method: :put, class: 'btn btn-xs blue' do %>
+                           转为筹款项目
+                      <% end %>
+                    <% end %>
+                    <%= link_to admin_flower_apply_path(apply), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                        <i class="fa fa-trash-o"></i> 删除
+                    <% end %>
                   <% end %>
                 </td>
               </tr>
