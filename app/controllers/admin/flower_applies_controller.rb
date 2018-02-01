@@ -62,7 +62,8 @@ class Admin::FlowerAppliesController < Admin::BaseController
 
   def switch_to_raise
     @project_apply.update(project_type: 2)
-    redirect_to admin_flower_applies_path, notice: '已转为筹款项目'
+    #redirect_to admin_flower_applies_path, notice: '已转为筹款项目'
+    redirect_to edit_admin_flower_project_path(@project_apply), notice: '操作成功,请填写筹款项目信息！'
   end
 
   def new_audit

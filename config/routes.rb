@@ -154,6 +154,7 @@ Rails.application.routes.draw do
       resources :bookshelves
       resources :donate_records
     end
+    resources :read_continual_feedbacks, concerns: [:recommend]
     resources :project_camp_seasons
     resources :project_radio_seasons
     resources :project_flower_seasons
@@ -289,6 +290,7 @@ Rails.application.routes.draw do
       resources :radio_feedbacks, concerns: [:recommend]
     end
 
+    resources :movie_continual_feedbacks, concerns: [:recommend]
     resources :movie_applies, concerns: :check
     resources :movie_schools do
       resources :movie_feedbacks, concerns: [:recommend]
