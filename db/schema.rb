@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20180131110108) do
+=======
+ActiveRecord::Schema.define(version: 20180201062122) do
+>>>>>>> 悦读项目管理
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,6 +114,19 @@ ActiveRecord::Schema.define(version: 20180131110108) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "project_season_apply_bookshelf_id", comment: "书架id"
+  end
+
+  create_table "bookshelf_supplements", force: :cascade do |t|
+    t.integer "project_season_apply_bookshelf_id", comment: "书架ID"
+    t.integer "project_season_apply_id", comment: "申请ID"
+    t.integer "loss", comment: "损耗数量"
+    t.integer "upply", comment: "补充数量"
+    t.decimal "taget_amount", precision: 14, scale: 2, default: "0.0", comment: "目标金额"
+    t.decimal "balance", precision: 14, scale: 2, default: "0.0", comment: "剩余金额"
+    t.integer "state", comment: "审核状态"
+    t.text "describe", comment: "描述"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "campaign_categories", force: :cascade, comment: "活动分类表" do |t|
@@ -493,6 +510,7 @@ ActiveRecord::Schema.define(version: 20180131110108) do
     t.integer "project_type", default: 1, comment: "项目类型:1:申请 2:筹款项目"
     t.integer "class_number", comment: "申请班级数"
     t.integer "student_number", comment: "受益学生数"
+    t.text "project_describe", comment: "项目介绍"
   end
 
   create_table "project_season_apply_bookshelves", force: :cascade, comment: "项目执行年度申请书架表" do |t|
@@ -513,6 +531,7 @@ ActiveRecord::Schema.define(version: 20180131110108) do
     t.integer "show_state", comment: "显示状态 1:显示 2:隐藏"
     t.integer "state", comment: "筹款状态:"
     t.integer "grade", comment: "年级"
+    t.string "bookshelf_no", comment: "图书角编号"
   end
 
   create_table "project_season_apply_children", force: :cascade, comment: "项目执行年度申请的孩子表" do |t|

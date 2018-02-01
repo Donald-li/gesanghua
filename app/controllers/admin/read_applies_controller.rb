@@ -1,5 +1,5 @@
 class Admin::ReadAppliesController < Admin::BaseController
-  before_action :set_project_apply, only: [:edit, :update, :destroy, :audit, :students]
+  before_action :set_project_apply, only: [:edit, :update, :destroy, :audit, :students, :switch]
 
   def index
     @search = ProjectSeasonApply.where(project_id: 2).sorted.ransack(params[:q])
@@ -76,7 +76,7 @@ class Admin::ReadAppliesController < Admin::BaseController
 
   def switch
     @project_apply.raise_project!
-    @project_apply.gen_bookshelves_no
+    # @project_apply.gen_bookshelves_no
     redirect_to edit_admin_read_project_path(@project_apply), notice: '操作成功,请填写筹款项目信息！'
   end
 
