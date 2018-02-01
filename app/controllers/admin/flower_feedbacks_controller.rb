@@ -11,14 +11,14 @@ class Admin::FlowerFeedbacksController < Admin::BaseController
   end
 
   def new
-    @continual = Continual.new
+    @continual = @apply.continuals.new
   end
 
   def edit
   end
 
   def create
-    @continual = Continual.new(continual_params.merge(owner_type: 'ProjectSeasonApply', project_id: ProjectSeason.flower_project_id, project_season_apply_id: continual_params[:owner_id], project_season_id: ProjectSeasonApply.find(continual_params[:owner_id]).season.id))
+    @continual = @apply.continuals.new(continual_params.merge(owner_type: 'ProjectSeasonApply', project_id: ProjectSeason.flower_project_id, project_season_apply_id: continual_params[:owner_id], project_season_id: ProjectSeasonApply.find(continual_params[:owner_id]).season.id))
     respond_to do |format|
       if @continual.save
         format.html { redirect_to admin_flower_project_flower_feedbacks_path(@apply), notice: '新增成功。' }
