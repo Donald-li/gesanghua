@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :receife, class: 'Receive' do
-    
+  factory :receive, class: 'Receive' do
+
   end
 end

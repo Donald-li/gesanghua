@@ -197,6 +197,7 @@ Rails.application.routes.draw do
       member do
         put :shipment
       end
+      resource :flower_receive
       resources :flower_donate_records
       resources :flower_feedbacks, concerns: [:recommend]
     end
