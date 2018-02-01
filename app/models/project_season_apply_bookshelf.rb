@@ -8,8 +8,6 @@
 #  project_season_apply_id :integer                                # 关联项目执行年度申请id
 #  classname               :string                                 # 班级名
 #  title                   :string                                 # 冠名
-#  amount                  :decimal(14, 2)   default(0.0)          # 筹款金额
-#  surplus                 :decimal(14, 2)   default(0.0)          # 剩余捐款额
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  school_id               :integer                                # 学校id
@@ -21,6 +19,8 @@
 #  state                   :integer                                # 筹款状态:
 #  grade                   :integer                                # 年级
 #  bookshelf_no            :string                                 # 图书角编号
+#  target_amount           :decimal(14, 2)   default(0.0)          # 目标金额
+#  present_amount          :decimal(14, 2)   default(0.0)          # 目前已筹金额
 #
 
 class ProjectSeasonApplyBookshelf < ApplicationRecord
@@ -54,7 +54,6 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
   scope :pass_done, ->{ pass.done }
 
   scope :sorted, ->{ order(created_at: :desc) }
-
 
   def gen_bookshelf_no
     self.bookshelf_no ||= Sequence.get_seq(kind: :bookshelf_no, prefix: 'TSJ1', length: 3)

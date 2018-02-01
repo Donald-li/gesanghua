@@ -8,11 +8,11 @@
 #  loss                              :integer                                # 损耗数量
 #  upply                             :integer                                # 补充数量
 #  taget_amount                      :decimal(14, 2)   default(0.0)          # 目标金额
-#  balance                           :decimal(14, 2)   default(0.0)          # 剩余金额
 #  state                             :integer                                # 审核状态
 #  describe                          :text                                   # 描述
 #  created_at                        :datetime         not null
 #  updated_at                        :datetime         not null
+#  present_amount                    :decimal(14, 2)   default(0.0)          # 目前已筹金额
 #
 
 FactoryBot.define do
