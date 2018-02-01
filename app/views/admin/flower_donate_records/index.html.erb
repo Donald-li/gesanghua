@@ -1,7 +1,7 @@
 <div class="portlet light">
   <div class="portlet-title">
     <div class="caption">
-      <i class="icon-list"></i> 捐助记录
+      <i class="icon-list"></i><%= link_to @apply.name, admin_flower_projects_path %> > 捐助记录
     </div>
     <div class="actions">
       <%= link_to new_admin_flower_project_flower_donate_record_path(@apply), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
@@ -71,7 +71,7 @@
                 <%= record.season.name %>
               </td>
               <td>
-                <%= record.user.name %> ( <%= record.user.phone %> )
+                <%= record.user.try(:name) %> ( <%= record.user.try(:phone) %> )
               </td>
               <td>
                 <%= record.donor %> / <%= record.remitter_name %>
