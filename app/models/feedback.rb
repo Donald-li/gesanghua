@@ -26,10 +26,14 @@ class Feedback < ApplicationRecord
   belongs_to :owner, polymorphic: true
   belongs_to :user
   belongs_to :project
-  belongs_to :project_season, optional: true
-  belongs_to :project_season_apply
-  belongs_to :project_season_apply_child, optional: true
-  belongs_to :project_season_apply_bookshelf, optional: true
+  belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id', optional: true
+  belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id'
+  belongs_to :children, class_name: "ProjectSeasonApplyChild", foreign_key: 'project_season_apply_child_id', optional: true
+  belongs_to :bookshelves, class_name: 'ProjectSeasonApplyBookshelf', foreign_key: 'project_season_apply_bookshelf_id', optional: true
+  # belongs_to :project_season, optional: true
+  # belongs_to :project_season_apply
+  # belongs_to :project_season_apply_child, optional: true
+  # belongs_to :project_season_apply_bookshelf, optional: true
 
 
 
