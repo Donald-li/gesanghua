@@ -89,6 +89,22 @@ class DonateRecord < ApplicationRecord
     self.save
   end
 
+  # 捐给格桑花
+  def self.donate_gsh(user=nil, amount=0.0, promoter=nil)
+    return false unless user.present?
+    gsh_fund = Fund.gsh
+    donate = user.donates.build(amount: amount, fund: gsh_fund, promoter: promoter, pay_state: 'unpay')
+    donate.save
+  end
+
+  # 捐定向
+  def self.donate_project(user=nil, amount=0.0, project=nil, promoter=nil)
+    return false unless user.present?
+    return false unless project.present?
+    fund = project.fund
+    donate = user.donates.build(amount: amount, fund: fund, promoter: promoter, pay_state: 'unpay', project: project)
+    donate.save
+  end
 
   # 捐孩子
   def self.donate_child(user=nil, gsh_child=nil, semester_num=0, promoter=nil)
@@ -106,6 +122,20 @@ class DonateRecord < ApplicationRecord
     donate = user.donates.build(amount: total, fund: project.appoint_fund, promoter: promoter, pay_state: 'unpay', project: project, gsh_child: gsh_child)
     if donate.save
       semesters.update(donate_state: :succeed)
+    end
+  end
+
+  # 捐悦读(整捐)
+  def self.donate_bookshelf(user=nil, bookshelf=nil, promoter=nil)
+    return false unless user.present?
+    return false unless bookshelf.present?
+    return false if bookshelf.surplus > 0
+    project = Project.book_project
+    donate = user.donates.build(amount: bookshelf.amount, promoter: promoter, fund: project.appoint_fund, project: project, bookshelf: bookshelf)
+    if donate.save
+      bookshelf.surplus = 0
+      bookshelf.state = 'complete'
+      bookshelf.save
     end
   end
 
