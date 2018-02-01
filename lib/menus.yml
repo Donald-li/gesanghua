@@ -206,6 +206,7 @@ admin:
               actions:
                 'admin/radio_projects': all
                 'admin/radio_donate_records': all
+                'admin/radio_feedbacks': all
         admin_project_movie:
           menus:
             admin_movie_applies:
@@ -214,6 +215,7 @@ admin:
             admin_movie_schools:
               actions:
                 'admin/movie_schools': all
+                'admin/movie_feedbacks': all
         admin_project_flower:
           menus:
             admin_project_flower_season:
