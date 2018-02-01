@@ -92,11 +92,7 @@
                   <%= apply.school.try(:contact_phone) %>
                 </td>
                 <td>
-                  <% if apply.apply? %>
-                    <%= apply.enum_name(:audit_state) %>
-                  <% else apply.raise_project? %>
-                    已转为筹款项目
-                  <% end %>
+                  <%= apply.enum_name(:audit_state) %>
                 </td>
                 <td>
                   <!-- <%= link_to admin_flower_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
@@ -117,6 +113,8 @@
                     <%= link_to admin_flower_apply_path(apply), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                         <i class="fa fa-trash-o"></i> 删除
                     <% end %>
+                  <% else %>
+                    <button class="btn btn-xs green">已转为筹款项目</button>
                   <% end %>
                 </td>
               </tr>
