@@ -210,6 +210,9 @@ admin:
                 'admin/radio_projects': all
                 'admin/radio_donate_records': all
                 'admin/radio_feedbacks': all
+            admin_radio_continual_feedbacks:
+              actions:
+                'admin/radio_continual_feedbacks': all
         admin_project_movie:
           menus:
             admin_movie_applies:

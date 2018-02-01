@@ -284,6 +284,7 @@ Rails.application.routes.draw do
       resources :radio_donate_records
       resources :radio_feedbacks, concerns: [:recommend]
     end
+    resources :radio_continual_feedbacks, concerns: [:recommend]
 
     resources :movie_continual_feedbacks, concerns: [:recommend]
     resources :movie_applies, concerns: :check

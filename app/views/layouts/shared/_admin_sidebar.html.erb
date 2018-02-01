@@ -284,6 +284,11 @@
                   <span class="title">筹款项目</span>
                 <% end %>
               </li>
+              <li class="nav-item <%= current_nav_class(:admin_radio_continual_feedbacks) %> ">
+                <%= link_to admin_radio_continual_feedbacks_path, class: 'nav-link' do %>
+                    <span class="title">持续反馈</span>
+                <% end %>
+              </li>
             </ul>
           </li>
           <li class="nav-item <%= current_nav_class(:admin_project_movie) %>">
