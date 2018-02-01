@@ -1,5 +1,5 @@
 class Admin::StudentGrantsController < Admin::BaseController
-  before_action :set_grant, only: [:show, :edit, :update, :destroy]
+  before_action :set_grant, only: [:show, :destroy]
   before_action :set_child_apply
 
   def index
@@ -15,10 +15,6 @@ class Admin::StudentGrantsController < Admin::BaseController
     @grant = GshChildGrant.new
   end
 
-  def edit
-    @donate_record = DonateRecord.new
-  end
-
   def create
     @grant = GshChildGrant.new(grant_params.merge(school_id: @child_apply.school_id, gsh_child: @child_apply.gsh_child, project_season_apply_id: @child_apply.project_season_apply_id))
 
@@ -31,11 +27,12 @@ class Admin::StudentGrantsController < Admin::BaseController
     end
   end
 
-  def update
-    @donate_record = DonateRecord.new
+  def match
+  end
+
+  def match_donate
     respond_to do |format|
-      if @child_apply.apply.match_donate(donate_record_params, @grant.amount, @child_apply.id)
-        @grant.succeed!
+      if DonateRecord.platform_donate_child(params, @child_apply)
         format.html {redirect_to admin_pair_student_list_student_grants_path(@child_apply), notice: '配捐成功。'}
       else
         flash[:notice] = '检查余额或表单'
