@@ -61,16 +61,4 @@ RSpec.describe DonateRecord, type: :model do
     expect(donate.gsh_child.semesters.succeed.count).to eq 2
   end
 
-  it '测试捐助一对一非指定' do
-    DonateRecord.donate_project(user: user, amount: 89.0, project: project)
-
-    donate_record = DonateRecord.last
-
-    expect(donate_record.unpay?).to be true
-    expect(donate_record.amount).to eq 89.0
-    expect(donate_record.promoter).to eq nil
-    expect(donate_record.fund).to eq Fund.pari_restricted
-    expect(donate_record.project).to eq project
-  end
-
 end
