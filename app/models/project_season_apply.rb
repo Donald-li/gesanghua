@@ -51,9 +51,9 @@ class ProjectSeasonApply < ApplicationRecord
   has_many :gsh_children
   has_many :bookshelves, class_name: 'ProjectSeasonApplyBookshelf', foreign_key: 'project_season_apply_id'
   has_many :beneficial_children
+  has_many :donate_records
 
   has_many :continuals, as: :owner
-
 
   has_one :receive, as: :owner
   has_one :radio_information

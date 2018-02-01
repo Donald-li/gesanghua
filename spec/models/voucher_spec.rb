@@ -48,9 +48,4 @@ RSpec.describe Voucher, type: :model do
     expect(@voucher.save_voucher(ids)).to eq(true)
   end
 
-  it '测试生成捐赠收据申请编号' do
-    time = Time.now.strftime("%y%m%d")
-    expect(@voucher.voucher_no).to eq time + '001'
-  end
-
 end

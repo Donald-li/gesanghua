@@ -25,7 +25,7 @@ RSpec.describe GshChild, type: :model do
 
   let!(:child) { create(:gsh_child) }
 
-  it '测试生成gsh孩子编号' do
-    expect(child.gsh_no).to eq 'GSH0000000001'
-  end
+  # it '测试生成gsh孩子编号' do
+  #   expect(child.gsh_no).to eq 'GSH0000000001'
+  # end
 end

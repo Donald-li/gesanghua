@@ -25,16 +25,4 @@ RSpec.describe Volunteer, type: :model do
   let!(:user) { create(:user) }
   let!(:volunteer) { create(:volunteer, user: user) }
 
-  it '测试生成志愿者申请编号' do
-    time = Time.now.strftime("%y%m%d")
-    expect(volunteer.volunteer_apply_no).to eq time + '0001'
-  end
-
-  it '测试生成志愿者编号' do
-    volunteer.gen_volunteer_no
-    volunteer.save
-    time = Time.now.strftime("%y")
-    expect(volunteer.volunteer_no).to eq 'ZYZ' + time + '0001'
-  end
-
 end
