@@ -129,40 +129,37 @@ RSpec.describe DonateRecord, type: :model do
       @grant = @child.gsh_child.gsh_child_grants.first
     end
 
-    # it '测试线下配捐给指定申请方法' do
-    #   amount = 500
-    #   params = {donate_way: 'offline', source_id: @source.id, user_id: @user.id, match_fund_id: nil, balance_id: @user.id}
-    #   @project_season_apply.match_donate(params, amount, nil)
-    #   expect(@project_season_apply.donate_records.last.amount).to eq 500
-    # end
-    #
-    # it '测试使用其他资金配捐给指定申请方法(资金余额不足会退回)' do
-    #   amount = 500
-    #   params = {donate_way: 'match', match_fund_id: @fund.id}
-    #   expect(@project_season_apply.match_donate(params, amount, nil)).to eq false
-    # end
-    #
-    # it '测试使用其他资金配捐给指定申请方法(资金余额充足)' do
-    #   @fund.update(amount: 1000)
-    #   amount = 500
-    #   params = {donate_way: 'match', match_fund_id: @fund.id}
-    #   @project_season_apply.match_donate(params, amount, nil)
-    #   expect(@project_season_apply.donate_records.last.amount).to eq 500
-    # end
-    #
-    # it '测试用户余额配捐给指定申请方法(余额不足会退回)' do
-    #   amount = 500
-    #   params = {donate_way: 'balance', balance_id: @user.id}
-    #   expect(@project_season_apply.match_donate(params, amount, nil)).to eq false
-    # end
-    #
-    # it '测试用户余额配捐给指定申请方法(余额充足)' do
-    #   @user.update(balance: 1000)
-    #   amount = 500
-    #   params = {donate_way: 'balance', balance_id: @user.id}
-    #   @project_season_apply.match_donate(params, amount, nil)
-    #   expect(@project_season_apply.donate_records.last.amount).to eq 500
-    # end
+    it '测试线下配捐给指定申请方法' do
+      params = {donate_way: 'offline', source_id: @source.id, offline_user_id: @user.id, amount: 500}
+      DonateRecord.platform_donate_apply(params, @project_season_apply)
+      expect(@project_season_apply.donate_records.last.amount).to eq 500
+    end
+
+    it '测试使用其他资金配捐给指定申请方法(资金余额不足会退回)' do
+       @fund.update(amount: 0)
+      params = {donate_way: 'match', match_fund_id: @fund.id, amount: 500}
+      expect(DonateRecord.platform_donate_apply(params, @project_season_apply)).to eq false
+    end
+
+    it '测试使用其他资金配捐给指定申请方法(资金余额充足)' do
+      @fund.update(amount: 1000)
+      params = {donate_way: 'match', match_fund_id: @fund.id, amount: 500}
+      DonateRecord.platform_donate_apply(params, @project_season_apply)
+      expect(@project_season_apply.donate_records.last.amount).to eq 500
+    end
+
+    it '测试用户余额配捐给指定申请方法(余额不足会退回)' do
+      @user.update(balance: 0)
+      params = {donate_way: 'balance', balance_id: @user.id, amount: 500}
+      expect(DonateRecord.platform_donate_apply(params, @project_season_apply)).to eq false
+    end
+
+    it '测试用户余额配捐给指定申请方法(余额充足)' do
+      @user.update(balance: 1000)
+      params = {donate_way: 'balance', balance_id: @user.id, amount: 500}
+      DonateRecord.platform_donate_apply(params, @project_season_apply)
+      expect(@project_season_apply.donate_records.last.amount).to eq 500
+    end
 
     it '测试线下配捐给指定孩子方法' do
       params = {donate_way: 'offline', source_id: @source.id, offline_user_id: @user.id, grant_number: 2}

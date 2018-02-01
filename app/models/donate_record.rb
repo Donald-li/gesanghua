@@ -98,6 +98,16 @@ class DonateRecord < ApplicationRecord
     donate.save
   end
 
+
+  # 捐指定
+  def self.donate_apply(user = nil, amount = 0.0, apply = nil, promoter = nil, kind = 'system')
+    return false unless apply.present?
+    user_id = user.present? ? user.id : ''
+    donate = DonateRecord.new(user_id: user_id,fund: apply.project.fund, promoter: promoter, pay_state: 'unpay', amount: amount, project: apply.project, season: apply.season, apply: apply, kind: kind)
+    donate.save
+    return donate
+  end
+
   # 捐孩子
   def self.donate_child(user = nil, gsh_child = nil, semester_num = 0, promoter = nil, kind = 'system')
     # return false unless user.present?
@@ -126,6 +136,14 @@ class DonateRecord < ApplicationRecord
     end
   end
 
+  # 捐悦读(零捐)
+  def self.part_donate_bookshelf(user = nil, amount = 0, bookshelf = nil, promoter = nil, kind = 'system')
+    return false unless bookshelf.present?
+    project = Project.book_project
+    user_id = user.present? ? user.id : ''
+    DonateRecord.new(user_id: user_id,amount: bookshelf.amount, promoter: promoter, fund: project.appoint_fund, project: project, bookshelf: bookshelf)
+  end
+
   def self.donate_child_semesters(gsh_child, semester_num)
     scope = gsh_child.semesters.pending.sorted.reverse_order
     return false if scope.count < semester_num || semester_num < 1
@@ -149,25 +167,65 @@ class DonateRecord < ApplicationRecord
 
   # 配捐给申请/项目
   def self.platform_donate_apply(params, apply)
+    user = ''
+    amount = params[:amount]
     if params[:donate_way] == 'offline'
       user = User.find(params[:offline_user_id])
-      donate_record = DonateRecord.new(params.merge(fund: apply.project.fund, pay_state: 'paid', amount: amount, project: apply.project, donor: user.name, remitter_id: user.id, remitter_name: user.name, season: apply.season, apply: apply, kind: 'custom'))
     elsif params[:donate_way] == 'match'
       match_fund = Fund.find(params[:match_fund_id])
       match_fund.amount -= amount.to_f
       return false if match_fund.amount < 0
-      donate_record = DonateRecord.new(params.merge(fund: apply.project.fund, pay_state: 'paid', amount: amount, project: apply.project, season: apply.season, apply: apply, kind: 'custom'))
     elsif params[:donate_way] == 'balance'
       user = User.find(params[:balance_id])
       user.balance -= amount
       return false if user.balance < 0
-      donate_record = DonateRecord.new(params.merge(fund: apply.project.fund, pay_state: 'paid', amount: amount, project: apply.project, donor: user.name, remitter_id: user.id, remitter_name: user.name, season: apply.season, apply: apply, kind: 'custom'))
     end
-    income_record = IncomeRecord.new(donate_record: donate_record, user: donate_record.user, fund: donate_record.fund, amount: amount, remitter_id: donate_record.remitter_id, remitter_name: donate_record.remitter_name, donor: donate_record.donor, promoter_id: donate_record.promoter_id, income_time: Time.now)
-    income_record.income_source_id = params[:source_id]
+    donate_record = self.donate_apply(user, amount, apply, nil, 'custom')
+    income_record = donate_record.gen_income_record
+    income_record.income_source_id = params[:source_id] if params[:donate_way] == 'offline'
+    apply.present_amount += amount.to_f
+    apply.execute_state = 'to_execute' if apply.present_amount == apply.target_amount
     self.transaction do
       begin
-        donate_record.save && income_record.save
+        donate_record.paid!
+        income_record.save
+        apply.save
+        match_fund.save if match_fund.present?
+        user.save if user.present?
+        return true
+      rescue
+        return false
+      end
+    end
+    return false
+  end
+
+
+  # 配捐给悦读
+  def self.platform_donate_bookshelf(params, bookshelf)
+    user = ''
+    amount = params[:amount]
+    if params[:donate_way] == 'offline'
+      user = User.find(params[:offline_user_id])
+    elsif params[:donate_way] == 'match'
+      match_fund = Fund.find(params[:match_fund_id])
+      match_fund.amount -= amount.to_f
+      return false if match_fund.amount < 0
+    elsif params[:donate_way] == 'balance'
+      user = User.find(params[:balance_id])
+      user.balance -= amount
+      return false if user.balance < 0
+    end
+    donate_record = self.part_donate_bookshelf(user, amount, bookshelf, nil, 'custom')
+    income_record = donate_record.gen_income_record
+    income_record.income_source_id = params[:source_id] if params[:donate_way] == 'offline'
+    bookshelf.surplus += amount
+    bookshelf.state = 'complete' if bookshelf.surplus == bookshelf.amount
+    self.transaction do
+      begin
+        donate_record.paid!
+        income_record.save
+        bookshelf.save
         match_fund.save if match_fund.present?
         user.save if user.present?
         return true
@@ -197,7 +255,7 @@ class DonateRecord < ApplicationRecord
 
     donate_record = self.donate_child(user, child.gsh_child, semester_num, nil, 'custom')
     income_record = donate_record.gen_income_record
-    income_record.income_source_id = params[:source_id]
+    income_record.income_source_id = params[:source_id] if params[:donate_way] == 'offline'
 
     self.transaction do
       begin

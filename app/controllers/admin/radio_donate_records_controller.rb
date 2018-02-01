@@ -18,24 +18,14 @@ class Admin::RadioDonateRecordsController < Admin::BaseController
   end
 
   def create
-    render :new
-    # if params[:donate_way] == 'offline'
-    #   amount = params[:offline_amount]
-    # elsif params[:donate_way] == 'match'
-    #   amount = params[:match_amount]
-    # end
-    # respond_to do |format|
-    #   if @apply.match_donate(params, amount, nil)
-    #     @apply.present_amount += amount.to_f
-    #     @apply.execute_state = 'to_execute' if @apply.present_amount == @apply.target_amount
-    #     @apply.save
-    #     format.html {redirect_to admin_radio_project_radio_donate_records_path(@apply), notice: '新增成功。'}
-    #   else
-    #     @max = @apply.target_amount - @apply.present_amount
-    #     flash[:notice] = '检查余额或表单'
-    #     format.html {render :new}
-    #   end
-    # end
+    respond_to do |format|
+      if DonateRecord.platform_donate_apply(params, @apply)
+        format.html {redirect_to admin_radio_project_radio_donate_records_path(@apply), notice: '新增成功。'}
+      else
+        flash[:notice] = '检查余额或表单'
+        format.html {render :new}
+      end
+    end
   end
 
   def destroy

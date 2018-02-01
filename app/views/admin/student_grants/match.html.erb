@@ -35,7 +35,7 @@
         <div class="form-group">
           <label class="col-md-2 control-label">配捐年度数量：</label>
           <div class="col-sm-9">
-            <input class="statistic-form-input" type="number" name="grant_number" min="1" max="<%= @child_apply.gsh_child.gsh_child_grants.pending.count %>">
+            <input class="statistic-form-input" type="number" name="grant_number" min="1" max="<%= @child_apply.gsh_child.gsh_child_grants.pending.count %>" required>
             * 会自动按照学年顺序配捐
           </div>
         </div>

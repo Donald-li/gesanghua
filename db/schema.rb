@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20180131110108) do
-=======
 ActiveRecord::Schema.define(version: 20180201062122) do
->>>>>>> 悦读项目管理
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -243,8 +239,8 @@ ActiveRecord::Schema.define(version: 20180201062122) do
     t.integer "period", comment: "月捐期数"
     t.integer "month_donate_id", comment: "月捐id"
     t.string "certificate_no", comment: "捐赠证书编号"
-    t.integer "gsh_child_id", comment: "格桑花孩子id"
     t.integer "kind", comment: "记录类型: 1:系统生成 2:手动添加"
+    t.integer "gsh_child_id", comment: "格桑花孩子id"
     t.integer "project_season_apply_bookshelf_id", comment: "书架id"
   end
 
@@ -276,9 +272,9 @@ ActiveRecord::Schema.define(version: 20180201062122) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "kind", comment: "反馈类型"
+    t.integer "user_id", comment: "反馈人"
     t.integer "check", comment: "查看 1: 未查看 2: 已查看"
     t.integer "recommend", comment: "推荐 1: 正常 2: 推荐"
-    t.integer "user_id", comment: "反馈人"
     t.integer "project_id", comment: "项目id"
     t.integer "project_season_id", comment: "批次id"
     t.integer "project_season_apply_id", comment: "申请id"
