@@ -52,6 +52,9 @@
               申请学校
             </th>
             <th>
+              项目类型
+            </th>
+            <th>
               申请/完成班级
             </th>
             <th>
@@ -84,15 +87,18 @@
                   <%= project.school.try(:name) %>
                 </td>
                 <td>
-                  <%= project.gsh_bookshelves_count %> / <%= project.bookshelves_done_count %>
+                  <%= project.enum_name(:bookshelf_type) %>
+                </td>
+                <td>
+                  <%= project.bookshelves_count %> / <%= project.bookshelves_done_count %>
                 </td>
                 <td>
                   <%= project.target_amount %> / <%= project.present_amount %>
                 </td>
                 <td>
-                  <%= link_to '', data: {confirm: "确定#{child.state === 'show' ? '隐藏项目' : '显示项目'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{child.state === 'show' ? 'green' : 'default'}" do %>
-                      <%= child.state === 'show' ? '显示' : '隐藏' %>
-                      <i class="fa <%= child.state === 'show' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                  <%= link_to switch_admin_read_project_path(project), data: {confirm: "确定#{project.state === 'show' ? '隐藏项目' : '显示项目'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{project.state === 'show' ? 'green' : 'default'}" do %>
+                      <%= project.state === 'show' ? '对外展示' : '暂不展示' %>
+                      <i class="fa <%= project.state === 'show' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
                   <% end %>
                 </td>
                 <td>
@@ -102,10 +108,10 @@
                   <%= link_to edit_admin_read_project_path(project), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-edit"></i> 修改项目
                   <% end %>
-                  <%= link_to '', 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
+                  <%= link_to '###', 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
                       <i class="fa fa-list"></i> 查看班级
                   <% end %>
-                  <%= link_to '', 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                  <%= link_to '###', 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-list"></i> 筹款管理
                   <% end %>
                 </td>

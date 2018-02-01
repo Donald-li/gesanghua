@@ -20,6 +20,7 @@
 #  show_state              :integer                                # 显示状态 1:显示 2:隐藏
 #  state                   :integer                                # 筹款状态:
 #  grade                   :integer                                # 年级
+#  bookshelf_no            :string                                 # 图书角编号
 #
 
 FactoryBot.define do

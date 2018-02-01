@@ -15,7 +15,7 @@
 
 class BeneficialChild < ApplicationRecord
   belongs_to :project_season_apply
-  belongs_to :gsh_bookshelf, optional: true
+  belongs_to :bookshelf, class_name: 'ProjectSeasonApplyBookshelf', foreign_key: 'project_season_apply_bookshelf_id', optional: true
 
   enum gender: {male: 1, female: 2}
 
