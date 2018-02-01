@@ -43,7 +43,6 @@ class DonateRecord < ApplicationRecord
   belongs_to :child, class_name: 'ProjectSeasonApplyChild', foreign_key: 'project_season_apply_child_id', optional: true
   belongs_to :bookshelf, class_name: 'ProjectSeasonApplyBookshelf', foreign_key: 'project_season_apply_bookshelf_id', optional: true
   belongs_to :team, optional: true
-  belongs_to :project_season_apply_child, optional: true # TODO: 检查下，没用删掉
   has_one :income_record, dependent: :destroy
   belongs_to :voucher, optional: true
   belongs_to :month_donate, optional: true
