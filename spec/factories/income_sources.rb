@@ -13,6 +13,7 @@
 
 FactoryBot.define do
   factory :income_source do
-    
+    name {FFaker::NameCN.name}
+    description {FFaker::LoremCN.sentence}
   end
 end
