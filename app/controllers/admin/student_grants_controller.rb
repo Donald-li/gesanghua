@@ -36,7 +36,7 @@ class Admin::StudentGrantsController < Admin::BaseController
         format.html {redirect_to admin_pair_student_list_student_grants_path(@child_apply), notice: '配捐成功。'}
       else
         flash[:notice] = '检查余额或表单'
-        format.html {render :edit}
+        format.html {render :match}
       end
     end
   end

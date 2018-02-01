@@ -50,7 +50,6 @@ RSpec.describe ProjectSeasonApplyChild, type: :model do
     expect(gsh_child.name).to eq '李同学'
     expect(gsh_child.gsh_no).to end_with('1')
     expect(gsh_child.semester_count).to eq gsh_child.gsh_child_grants.count
-    expect(GshChildGrant.count).to eq 3
     expect(GshChildGrant.first.amount).to eq 1050.0
     expect(GshChildGrant.last.amount).to eq 2100.0
   end

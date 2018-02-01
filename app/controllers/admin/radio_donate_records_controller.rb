@@ -15,12 +15,9 @@ class Admin::RadioDonateRecordsController < Admin::BaseController
   end
 
   def new
-    @max = @apply.target_amount - @apply.present_amount
   end
 
   def create
-    byebug
-    @max = @apply.target_amount - @apply.present_amount
     render :new
     # if params[:donate_way] == 'offline'
     #   amount = params[:offline_amount]

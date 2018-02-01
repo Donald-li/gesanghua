@@ -102,15 +102,14 @@ class DonateRecord < ApplicationRecord
   def self.donate_child(user = nil, gsh_child = nil, semester_num = 0, promoter = nil, kind = 'system')
     # return false unless user.present?
     return false unless gsh_child.present?
-
     total = self.donate_child_total(gsh_child, semester_num)
-
     project = Project.pair_project
-
-    donate = self.build(user_id: user.id, amount: total, fund: project.appoint_fund, promoter: promoter, pay_state: 'unpay', project: project, gsh_child: gsh_child, kind: kind)
+    user_id = user.present? ? user.id : ''
+    donate = self.new(user_id: user_id, amount: total, fund: project.appoint_fund, promoter: promoter, pay_state: 'unpay', project: project, gsh_child: gsh_child, kind: kind)
     if donate.save
-      semesters.update(donate_state: :succeed)
+      self.donate_child_semesters(gsh_child, semester_num).update(donate_state: :succeed)
     end
+    return donate
   end
 
   # 捐悦读(整捐)
@@ -127,13 +126,14 @@ class DonateRecord < ApplicationRecord
     end
   end
 
-  def self.donate_child_total(gsh_child, semester_num)
-    scope = gsh_child.semesters.pending.sorted
+  def self.donate_child_semesters(gsh_child, semester_num)
+    scope = gsh_child.semesters.pending.sorted.reverse_order
     return false if scope.count < semester_num || semester_num < 1
+    scope.limit(semester_num)
+  end
 
-    semesters = scope.limit(semester_num)
-
-    return semesters.to_a.sum {|a| a.amount}
+  def self.donate_child_total(gsh_child, semester_num)
+    return self.donate_child_semesters(gsh_child, semester_num).to_a.sum {|a| a.amount}
   end
 
   # 计算开票金额
@@ -181,8 +181,8 @@ class DonateRecord < ApplicationRecord
   # 配捐给孩子
   def self.platform_donate_child(params, child)
     user = ''
-    semester_num = params[:grant_number]
-    amount = self.donate_child_total(child, semester_num)
+    semester_num = params[:grant_number].to_i
+    amount = self.donate_child_total(child.gsh_child, semester_num)
     if params[:donate_way] == 'offline'
       user = User.find(params[:offline_user_id])
     elsif params[:donate_way] == 'match'
@@ -195,13 +195,14 @@ class DonateRecord < ApplicationRecord
       return false if user.balance < 0
     end
 
-    donate_record = self.donate_child(user, child, semester_num, nil, 'custom')
+    donate_record = self.donate_child(user, child.gsh_child, semester_num, nil, 'custom')
     income_record = donate_record.gen_income_record
     income_record.income_source_id = params[:source_id]
 
     self.transaction do
       begin
-        donate_record.save && income_record.save
+        donate_record.paid!
+        income_record.save
         match_fund.save if match_fund.present?
         user.save if user.present?
         return true

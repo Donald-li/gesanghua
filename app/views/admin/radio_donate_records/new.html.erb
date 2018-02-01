@@ -43,7 +43,7 @@
           <div class="form-group">
             <label class="col-md-2 control-label">捐助金额：</label>
             <div class="col-sm-9">
-              <input class="statistic-form-input" type="number" name="offline_amount" min="0" max="<%= @max %>">
+              <input class="statistic-form-input" type="number" name="offline_amount" min="0" max="<%= @apply.target_amount - @apply.present_amount %>">
             </div>
           </div>
         </div>
@@ -61,7 +61,7 @@
           <div class="form-group">
             <label class="col-md-2 control-label">使用金额：</label>
             <div class="col-sm-9">
-              <input class="statistic-form-input" type="number" name="match_amount" min="0" max="<%= @max %>">
+              <input class="statistic-form-input" type="number" name="match_amount" min="0" max="<%= @apply.target_amount - @apply.present_amount %>">
             </div>
           </div>
         </div>
