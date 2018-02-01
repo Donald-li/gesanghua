@@ -21,7 +21,6 @@
 #  project_season_apply_child_id     :integer                                # 孩子id
 #  project_season_apply_bookshelf_id :integer                                # 书架id
 #
-
 #
 
 class Receive < Feedback

@@ -138,10 +138,11 @@ Rails.application.routes.draw do
     end
 
     resources :project_book_seasons
-    resources :read_applies, concerns: [:switch] do
+    resources :read_applies do
       member do
         get :audit
         get :students
+        get :switch
       end
       collection do
         get :supply_new
