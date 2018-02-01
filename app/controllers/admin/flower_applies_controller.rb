@@ -28,7 +28,7 @@ class Admin::FlowerAppliesController < Admin::BaseController
     @project_apply = @project.applies.new(project_apply_params.merge(project: @project))
 
     respond_to do |format|
-      if ProjectSeasonApply.find_by(school_id: project_apply_params[:school_id], project_id: project_apply_params[:project_id]).present?
+      if ProjectSeasonApply.find_by(school_id: project_apply_params[:school_id], project_id: project_apply_params[:project_id], project_season_id: project_apply_params[:project_season_id]).present?
         flash[:notice] = '此学校在本批次还有未完成的申请'
         format.html { render :new }
       elsif @project_apply.save
