@@ -174,7 +174,12 @@ Rails.application.routes.draw do
       end
     end
     resources :pair_student_lists, concerns: [:switch, :remarks, :share, :qrcode_download] do
-      resources :student_grants
+      resources :student_grants do
+        collection do
+          get :match
+          post :match_donate
+        end
+      end
       member do
         put :turn_over
       end

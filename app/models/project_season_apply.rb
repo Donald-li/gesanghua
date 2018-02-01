@@ -135,7 +135,7 @@ class ProjectSeasonApply < ApplicationRecord
     self.abstract.length > 90 ? self.abstract.slice(0..90) : self.abstract
   end
 
-  def match_donate(params, amount, *args)
+  def match_donate(params, amount, *args) # platform
     child_id = args.first || nil
     apply = self
     if params[:donate_way] == 'offline'
@@ -154,10 +154,17 @@ class ProjectSeasonApply < ApplicationRecord
     end
     income_record = IncomeRecord.new(donate_record: donate_record, user: donate_record.user, fund: donate_record.fund, amount: amount, remitter_id: donate_record.remitter_id, remitter_name: donate_record.remitter_name, donor: donate_record.donor, promoter_id: donate_record.promoter_id, income_time: Time.now)
     income_record.income_source_id = params[:source_id]
-    donate_record.save && income_record.save
-    match_fund.save if match_fund.present?
-    user.save if user.present?
-    return true
+    self.transaction do
+      begin
+        donate_record.save && income_record.save
+        match_fund.save if match_fund.present?
+        user.save if user.present?
+        return true
+      rescue
+        return false
+      end
+    end
+    return false
   end
 
   private
