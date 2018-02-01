@@ -39,7 +39,7 @@ class Api::V1::PairChildrenController < Api::V1::BaseController
     promoter = User.find(params[:promoter_id]) if params[:promoter_id].present?
     grants = GshChildGrant.where(id: params[:selected_grants].map {|grant| grant[:id]})
     grants.each do |grant|
-      record = DonateRecord.create(user: current_user, fund: @pair.project.fund, amount: grant[:amount].to_f, project: @pair.project, team: team, donor: params[:donor], remitter_id: current_user.id, remitter_name: current_user.name, season: @pair.season, apply: @pair.apply, project_season_apply_child: @pair)
+      record = DonateRecord.create(user: current_user, fund: @pair.project.fund, amount: grant[:amount].to_f, project: @pair.project, team: team, donor: params[:donor], remitter_id: current_user.id, remitter_name: current_user.name, season: @pair.season, apply: @pair.apply, child: @pair)
       record.update(promoter_id: promoter.id) if promoter.present?
     end
     if params[:pay_method] == 'weixin' || params[:pay_method] == 'balance_and_weixin'
@@ -52,7 +52,7 @@ class Api::V1::PairChildrenController < Api::V1::BaseController
       elsif params[:pay_method] == 'balance'
         current_user.balance -= total
       end
-      current_user.donate_records.where(project_season_apply_child: @pair).each do |record|
+      current_user.donate_records.where(child: @pair).each do |record|
         record.pay_and_gen_certificate
         IncomeRecord.create(donate_record: record, user: record.user, fund: record.fund, amount: record.amount, remitter_id: record.remitter_id, remitter_name: record.remitter_name, donor: record.donor, promoter_id: record.promoter_id, income_time: Time.now)
       end

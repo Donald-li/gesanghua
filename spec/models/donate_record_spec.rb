@@ -36,44 +36,29 @@ require 'rails_helper'
 
 RSpec.describe DonateRecord, type: :model do
   let!(:user) { create(:user) }
-  let!(:project) { create(:project, fund: Fund.pari_restricted) }
+  let!(:promoter) { create(:user) }
+  let!(:school) { create(:school, user: user) }
+  let!(:teacher) { create(:teacher, school: school, user: user) }
+  let!(:project) { create(:project, fund:Project.pair_project.fund, appoint_fund: Project.pair_project.appoint_fund) }
+  let!(:season) { create(:project_season, project: project) }
+  let!(:apply) { create(:project_season_apply, project: project, season: season, teacher: teacher, school: school) }
+  let!(:child) { create(:project_season_apply_child, project: project, season: season, apply: apply, school: school, semester: 'next_term') }
 
-  it '测试捐助格桑花' do
+  it '测试用户捐一对一的指定' do
+    child.approve_pass
+    gsh_child = child.gsh_child
+    project = Project.pair_project
+    DonateRecord.donate_child(user, gsh_child, 2)
 
-    DonateRecord.donate_gsh(user: user, amount: 101.1)
-
-    donate_record = DonateRecord.last
-
-    expect(donate_record.unpay?).to be true
-    expect(donate_record.amount).to eq 101.1
-    expect(donate_record.promoter).to eq nil
-    expect(donate_record.fund_id).to eq Fund.gsh.id
+    donate = DonateRecord.last
+    expect(donate.user.id).to eq user.id
+    expect(donate.project.id).to eq project.id
+    expect(donate.unpay?).to be true
+    expect(donate.amount).to eq donate.gsh_child.semesters.succeed.sum(:amount)
+    expect(donate.promoter).to eq nil
+    expect(donate.fund_id).to eq project.appoint_fund.id
+    expect(donate.gsh_child.id).to eq gsh_child.id
+    expect(donate.gsh_child.semesters.succeed.count).to eq 2
   end
-
-  it '测试捐助一对一非指定' do
-    DonateRecord.donate_project(user: user, amount: 89.0, project: project)
-
-    donate_record = DonateRecord.last
-
-    expect(donate_record.unpay?).to be true
-    expect(donate_record.amount).to eq 89.0
-    expect(donate_record.promoter).to eq nil
-    expect(donate_record.fund).to eq Fund.pari_restricted
-    expect(donate_record.project).to eq project
-  end
-
-  it '测试捐助一对一指定' do
-
-  end
-
-  it '测试生成捐助编号和捐助证书编号' do
-    time = Time.now.strftime("%y%m%d%H")
-    record = DonateRecord.donate_project(user: user, amount: 89.0, project: project)
-    expect(record.donate_no).to eq time + '0000001'
-
-    record.pay_and_gen_certificate
-    expect(record.certificate_no).to eq 'ZS' + time + '0000001'
-  end
-
 
 end
