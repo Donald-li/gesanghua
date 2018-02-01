@@ -11,7 +11,6 @@ class Admin::ReadProjectsController < Admin::BaseController
   end
 
   def update
-    byebug
     @project.attach_cover_image(params[:cover_image_id])
     respond_to do |format|
       if @project.update(project_params)

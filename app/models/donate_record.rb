@@ -126,11 +126,11 @@ class DonateRecord < ApplicationRecord
   def self.donate_bookshelf(user = nil, bookshelf = nil, promoter = nil)
     return false unless user.present?
     return false unless bookshelf.present?
-    return false if bookshelf.surplus > 0
+    return false if bookshelf.present_amount > 0
     project = Project.book_project
     donate = user.donates.build(amount: bookshelf.amount, promoter: promoter, fund: project.appoint_fund, project: project, bookshelf: bookshelf)
     if donate.save
-      bookshelf.surplus = 0
+      bookshelf.present_amount = bookshelf.target_amount
       bookshelf.state = 'complete'
       bookshelf.save
     end
@@ -219,8 +219,8 @@ class DonateRecord < ApplicationRecord
     donate_record = self.part_donate_bookshelf(user, amount, bookshelf, nil, 'custom')
     income_record = donate_record.gen_income_record
     income_record.income_source_id = params[:source_id] if params[:donate_way] == 'offline'
-    bookshelf.surplus += amount
-    bookshelf.state = 'complete' if bookshelf.surplus == bookshelf.amount
+    bookshelf.present_amount += amount
+    bookshelf.state = 'complete' if bookshelf.present_amount == bookshelf.target_amount
     self.transaction do
       begin
         donate_record.paid!

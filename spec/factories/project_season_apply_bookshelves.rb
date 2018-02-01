@@ -27,7 +27,7 @@ FactoryBot.define do
   factory :project_season_apply_bookshelf, aliases: [:bookshelf] do
     classname '初一一班'
     title 'GSH0001'
-    amount 2100
+    target_amount 2100
     province '630000'
     city '630100'
     district '630123'
