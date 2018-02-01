@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20180201081117) do
+=======
+ActiveRecord::Schema.define(version: 20180201094005) do
+>>>>>>> 悦读项目图书角管理
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -528,6 +532,7 @@ ActiveRecord::Schema.define(version: 20180201081117) do
     t.string "bookshelf_no", comment: "图书角编号"
     t.decimal "target_amount", precision: 14, scale: 2, default: "0.0", comment: "目标金额"
     t.decimal "present_amount", precision: 14, scale: 2, default: "0.0", comment: "目前已筹金额"
+    t.integer "book_number", comment: "书籍数量"
   end
 
   create_table "project_season_apply_children", force: :cascade, comment: "项目执行年度申请的孩子表" do |t|

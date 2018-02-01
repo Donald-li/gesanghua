@@ -15,12 +15,18 @@ class Admin::BookshelvesController < Admin::BaseController
     @bookshelf = ProjectSeasonApplyBookshelf.find(params[:id])
     # @bookshelf.attach_images(params[:image_ids])
     respond_to do |format|
-      if @apply_child.update(bookshelf_params)
-        format.html { redirect_to admin_read_projects_path(@project), notice: '修改成功。' }
+      if @bookshelf.update(bookshelf_params)
+        format.html { redirect_to admin_read_project_bookshelves_path(@project), notice: '修改成功。' }
       else
         format.html { render :edit }
       end
     end
+  end
+
+  def switch
+    @bookshelf = ProjectSeasonApplyBookshelf.find(params[:id])
+    @bookshelf.show? ? @bookshelf.hidden! : @bookshelf.show!
+    redirect_to admin_read_project_bookshelves_path(@project), notice:  @bookshelf.show? ? '对外展示' : '暂不展示'
   end
 
   private

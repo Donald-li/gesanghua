@@ -1,7 +1,7 @@
 <div class="portlet light">
   <div class="portlet-title">
     <div class="caption">
-      <i class="icon-list"></i><%= @project.name %> > 筹款班级
+      <i class="icon-list"></i><%= link_to @project.name, admin_read_projects_path %> > 图书角列表
     </div>
     <div class="actions">
 
@@ -18,7 +18,7 @@
             </div>
             <div class="form-group">
               <%= f.label :state_eq, '全部状态' %>
-              <%= f.select :state_eq, ProjectSeasonApply.options_for_select(:states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
+              <%= f.select :state_eq, ProjectSeasonApplyBookshelf.options_for_select(:states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
             </div>
             <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>
@@ -47,6 +47,12 @@
               署名信息
             </th>
             <th>
+              图书数量
+            </th>
+            <th>
+              补书次数
+            </th>
+            <th>
               当前展示状态
             </th>
             <th>
@@ -70,23 +76,29 @@
                   <%= bookshelf.beneficial_children.present? ? bookshelf.beneficial_children.count : 0 %>
                 </td>
                 <td>
-                  <%= number_to_currency(bookshelf.taget_amount) %> / <%= number_to_currency(bookshelf.present_amount) %>
+                  <%= number_to_currency(bookshelf.target_amount) %> / <%= number_to_currency(bookshelf.present_amount) %>
                 </td>
                 <td>
                   <%= bookshelf.title %>
                 </td>
                 <td>
-                  <%= link_to '###', data: {confirm: "确定#{bookshelf.state === 'show' ? '隐藏项目' : '显示项目'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{bookshelf.state === 'show' ? 'green' : 'default'}" do %>
-                      <%= bookshelf.state === 'show' ? '对外展示' : '暂不展示' %>
-                      <i class="fa <%= bookshelf.state === 'show' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                  <%= bookshelf.book_number %>
+                </td>
+                <td>
+                  <%= bookshelf.supplements.count.present? ? bookshelf.supplements.count : 0 %>
+                </td>
+                <td>
+                  <%= link_to switch_admin_read_project_bookshelf_path(@project, bookshelf), data: {confirm: "确定#{bookshelf.show_state === 'show' ? '隐藏图书角' : '显示图书角'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{bookshelf.show_state === 'show' ? 'green' : 'default'}" do %>
+                      <%= bookshelf.show_state === 'show' ? '对外展示' : '暂不展示' %>
+                      <i class="fa <%= bookshelf.show_state === 'show' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
                   <% end %>
                 </td>
                 <td>
                   <%= bookshelf.enum_name(:state) %>
                 </td>
                 <td>
-                  <%= link_to '###', 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                      <i class="fa fa-edit"></i> 修改项目
+                  <%= link_to edit_admin_read_project_bookshelf_path(@project, bookshelf), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                      <i class="fa fa-edit"></i> 修改
                   <% end %>
                 </td>
               </tr>
