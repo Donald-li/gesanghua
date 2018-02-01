@@ -280,10 +280,13 @@ Rails.application.routes.draw do
         put :shipment
       end
       resources :radio_donate_records
+      resources :radio_feedbacks, concerns: [:recommend]
     end
 
     resources :movie_applies, concerns: :check
-    resources :movie_schools
+    resources :movie_schools do
+      resources :movie_feedbacks, concerns: [:recommend]
+    end
   end
 
   namespace :school do

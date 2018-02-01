@@ -43,7 +43,6 @@ class DonateRecord < ApplicationRecord
   belongs_to :child, class_name: 'ProjectSeasonApplyChild', foreign_key: 'project_season_apply_child_id', optional: true
   belongs_to :bookshelf, class_name: 'ProjectSeasonApplyBookshelf', foreign_key: 'project_season_apply_bookshelf_id', optional: true
   belongs_to :team, optional: true
-  belongs_to :project_season_apply_child, optional: true # TODO: 检查下，没用删掉
   has_one :income_record, dependent: :destroy
   belongs_to :voucher, optional: true
   belongs_to :month_donate, optional: true
@@ -90,14 +89,24 @@ class DonateRecord < ApplicationRecord
     self.save
   end
 
-  def self.donate_gsh(user: nil, amount: 0.0, promoter: nil)
-    self.create(user: user, amount: amount ,team: nil, fund: Fund.gsh, pay_state: 'unpay', promoter: promoter, remitter_name: promoter.try(:name), apply: nil, child: nil, project: nil)
-  end
 
-  # 定项非指定
-  def self.donate_project(user: nil, amount: 0.0, promoter: nil, project: nil)
-    return unless project.present?
-    self.create(user: user, amount: amount ,team: nil, fund: project.fund, pay_state: 'unpay', promoter: promoter, remitter_name: promoter.try(:name), apply: nil, child: nil, project: project)
+  # 捐孩子
+  def self.donate_child(user=nil, gsh_child=nil, semester_num=0, promoter=nil)
+    return false unless user.present?
+    return false unless gsh_child.present?
+    scope = gsh_child.semesters.pending.sorted
+    return false if scope.count < semester_num || semester_num < 1
+
+    semesters = scope.limit(semester_num)
+
+    total = semesters.to_a.sum{|a| a.amount}
+
+    project = Project.pair_project
+
+    donate = user.donates.build(amount: total, fund: project.appoint_fund, promoter: promoter, pay_state: 'unpay', project: project, gsh_child: gsh_child)
+    if donate.save
+      semesters.update(donate_state: :succeed)
+    end
   end
 
   # 计算开票金额

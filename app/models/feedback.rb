@@ -26,7 +26,7 @@ class Feedback < ApplicationRecord
   belongs_to :owner, polymorphic: true
   belongs_to :user
   belongs_to :project
-  belongs_to :project_season
+  belongs_to :project_season, optional: true
   belongs_to :project_season_apply
   belongs_to :project_season_apply_child, optional: true
   belongs_to :project_season_apply_bookshelf, optional: true

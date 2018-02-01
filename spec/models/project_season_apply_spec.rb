@@ -40,27 +40,91 @@ require 'rails_helper'
 RSpec.describe ProjectSeasonApply, type: :model do
   before(:all) do
     @user = create(:user)
+    @source = create(:income_source, kind: 2)
     @project = create(:project)
     @project_season = create(:project_season, project_id: @project.id)
-    @project_season_apply = create(:project_season_apply, project_id: @project.id, project_season_id: @project_season.id)
+    @school = create(:school, user: @user)
+    @fund_category = create(:fund_category)
+    @fund = create(:fund, fund_category: @fund_category)
+    @project_season_apply = create(:project_season_apply, project_id: @project.id, project_season_id: @project_season.id, school: @school)
+    @child = create(:project_season_apply_child, project: @project, season: @project_season, apply: @project_season_apply, school: @school, semester: 'next_term')
+    @child.approve_pass
+    @grant = @child.gsh_child.gsh_child_grants.first
   end
 
-  it '测试生成项目编号' do
-    if @project_season_apply.project_id == 1
-      kind = 'JD'
-    elsif @project_season_apply.project_id == 2
-      kind = 'YD'
-    elsif @project_season_apply.project_id == 3
-      kind = 'GY'
-    elsif @project_season_apply.project_id == 4
-      kind = 'TS'
-    elsif @project_season_apply.project_id == 5
-      kind = 'GB'
-    elsif @project_season_apply.project_id == 6
-      kind = 'HH'
-    else
-      kind = 'QT'
+  describe '测试配捐方法' do
+    it '测试线下配捐给指定申请方法' do
+      amount = 500
+      params = {donate_way: 'offline', source_id: @source.id, user_id: @user.id, match_fund_id: nil, balance_id: @user.id}
+      @project_season_apply.match_donate(params, amount, nil)
+      expect(@project_season_apply.donate_records.last.amount).to eq 500
     end
-    expect(@project_season_apply.apply_no).to eq kind + '0000001'
+
+    it '测试使用其他资金配捐给指定申请方法(资金余额不足会退回)' do
+      amount = 500
+      params = {donate_way: 'match', match_fund_id: @fund.id}
+      expect(@project_season_apply.match_donate(params, amount, nil)).to eq false
+    end
+
+    it '测试使用其他资金配捐给指定申请方法(资金余额充足)' do
+      @fund.update(amount: 1000)
+      amount = 500
+      params = {donate_way: 'match', match_fund_id: @fund.id}
+      @project_season_apply.match_donate(params, amount, nil)
+      expect(@project_season_apply.donate_records.last.amount).to eq 500
+    end
+
+    it '测试用户余额配捐给指定申请方法(余额不足会退回)' do
+      amount = 500
+      params = {donate_way: 'balance', balance_id: @user.id}
+      expect(@project_season_apply.match_donate(params, amount, nil)).to eq false
+    end
+
+    it '测试用户余额配捐给指定申请方法(余额充足)' do
+      @user.update(balance: 1000)
+      amount = 500
+      params = {donate_way: 'balance', balance_id: @user.id}
+      @project_season_apply.match_donate(params, amount, nil)
+      expect(@project_season_apply.donate_records.last.amount).to eq 500
+    end
+
+    it '测试线下配捐给指定孩子方法' do
+      amount = @grant.amount
+      params = {donate_way: 'offline', source_id: @source.id, user_id: @user.id}
+      @project_season_apply.match_donate(params, amount, @child.id)
+      expect(@child.donates.last.amount).to eq amount
+    end
+
+    it '测试使用其他资金配捐给指定孩子方法(资金不足)' do
+      @fund.update(amount: 0)
+      amount = @grant.amount
+      params = {donate_way: 'match', match_fund_id: @fund.id}
+      expect(@project_season_apply.match_donate(params, amount, @child.id)).to eq false
+    end
+
+    it '测试使用其他资金给指定孩子方法(资金充足)' do
+      @fund.update(amount: 3000)
+      amount = @grant.amount
+      params = {donate_way: 'match', match_fund_id: @fund.id}
+      @project_season_apply.match_donate(params, amount, @child.id)
+      expect(@child.donates.last.amount).to eq amount
+    end
+
+    it '测试用户余额配捐给指定孩子方法(余额不足)' do
+      @user.update(balance: 0)
+      amount = @grant.amount
+      params = {donate_way: 'balance', balance_id: @user.id}
+      expect(@project_season_apply.match_donate(params, amount, @child.id)).to eq false
+    end
+
+    it '测试用户余额给指定孩子方法(余额充足)' do
+      @user.update(balance: 3000)
+      amount = @grant.amount
+      params = {donate_way: 'balance', balance_id: @user.id}
+      @project_season_apply.match_donate(params, amount, @child.id)
+      expect(@child.donates.last.amount).to eq amount
+    end
+
   end
+
 end

@@ -19,7 +19,7 @@ RSpec.describe Team, type: :model do
   let!(:user) { create(:user) }
   let!(:team) { create(:team, creater: user) }
 
-  it '测试生成团队编号' do
-    expect(team.team_no).to eq 'T000001'
-  end
+  # it '测试生成团队编号' do
+  #   expect(team.team_no).to eq 'T000001'
+  # end
 end
