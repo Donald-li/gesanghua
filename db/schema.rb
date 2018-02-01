@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180201062122) do
+<<<<<<< HEAD
+ActiveRecord::Schema.define(version: 20180201081117) do
+=======
+ActiveRecord::Schema.define(version: 20180201094005) do
+>>>>>>> 悦读项目图书角管理
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,11 +122,11 @@ ActiveRecord::Schema.define(version: 20180201062122) do
     t.integer "loss", comment: "损耗数量"
     t.integer "upply", comment: "补充数量"
     t.decimal "taget_amount", precision: 14, scale: 2, default: "0.0", comment: "目标金额"
-    t.decimal "balance", precision: 14, scale: 2, default: "0.0", comment: "剩余金额"
     t.integer "state", comment: "审核状态"
     t.text "describe", comment: "描述"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "present_amount", precision: 14, scale: 2, default: "0.0", comment: "目前已筹金额"
   end
 
   create_table "campaign_categories", force: :cascade, comment: "活动分类表" do |t|
@@ -239,8 +243,8 @@ ActiveRecord::Schema.define(version: 20180201062122) do
     t.integer "period", comment: "月捐期数"
     t.integer "month_donate_id", comment: "月捐id"
     t.string "certificate_no", comment: "捐赠证书编号"
-    t.integer "kind", comment: "记录类型: 1:系统生成 2:手动添加"
     t.integer "gsh_child_id", comment: "格桑花孩子id"
+    t.integer "kind", comment: "记录类型: 1:系统生成 2:手动添加"
     t.integer "project_season_apply_bookshelf_id", comment: "书架id"
   end
 
@@ -515,8 +519,6 @@ ActiveRecord::Schema.define(version: 20180201062122) do
     t.integer "project_season_apply_id", comment: "关联项目执行年度申请id"
     t.string "classname", comment: "班级名"
     t.string "title", comment: "冠名"
-    t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "筹款金额"
-    t.decimal "surplus", precision: 14, scale: 2, default: "0.0", comment: "剩余捐款额"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "school_id", comment: "学校id"
@@ -528,6 +530,9 @@ ActiveRecord::Schema.define(version: 20180201062122) do
     t.integer "state", comment: "筹款状态:"
     t.integer "grade", comment: "年级"
     t.string "bookshelf_no", comment: "图书角编号"
+    t.decimal "target_amount", precision: 14, scale: 2, default: "0.0", comment: "目标金额"
+    t.decimal "present_amount", precision: 14, scale: 2, default: "0.0", comment: "目前已筹金额"
+    t.integer "book_number", comment: "书籍数量"
   end
 
   create_table "project_season_apply_children", force: :cascade, comment: "项目执行年度申请的孩子表" do |t|

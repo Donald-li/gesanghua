@@ -1,0 +1,54 @@
+<div class="portlet light bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-note"> 编辑图书角信息 </i>
+      <span class="caption-subject"></span>
+      <span class="caption-helper"></span>
+    </div>
+    <div class="actions">
+      <div class="btn-group">
+        <a href="<%= admin_read_project_bookshelves_path(@project) %>" class="btn btn-xs blue">
+          <i class="fa fa-reply"></i>返回
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body form">
+    <div class="form-body form-horizontal">
+      <%= simple_form_for [:admin, @project, @bookshelf], url: admin_read_project_bookshelf_path, wrapper: :admin_form, html: {class: 'form-horizontal project_form'} do |f| %>
+          <%= f.error_notification %>
+          <div class="form-body">
+            <%= static_form_control '图书角编号：', @bookshelf.bookshelf_no %>
+            <%= static_form_control '申请学校：', @bookshelf.school.name %>
+            <%= f.input :classname, label: '班级名：', placeholder: '班级名', require: true %>
+            <%= f.input :title, label: '图书角署名：', placeholder: '图书角署名', require: true %>
+            <%= f.input :book_number, type: 'number', min: 0 ,label: '图书数量：', placeholder: '图书数量', require: true %>
+            <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApplyBookshelf.options_for_some_select(:states), label: '状态：'%>
+          </div>
+          <div class="form-actions">
+            <div class="row">
+              <div class="col-md-offset-2 col-md-9">
+                <%= f.button :submit, '提交', class: 'btn blue' %>
+                <%= link_to '取消', admin_read_project_bookshelves_path(@project), class: 'btn' %>
+              </div>
+            </div>
+          </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    //    表单验证
+    $(".project_form").html5Validate(function(){
+        $(this).find('[type="submit"]').attr('disabled','disabled');
+        this.submit();
+    });
+    initImageWebuploader($('#webuploader'));
+    // $("#goods").nestedAttributes({
+    //   bindAddTo: $("#goods_add_another")
+    // });
+  })
+</script>

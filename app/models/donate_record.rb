@@ -56,7 +56,7 @@ class DonateRecord < ApplicationRecord
 
   validates :amount, presence: true
 
-  enum pay_state: {unpay: 1, paid: 2} #付款状态， 1:已付款  2:未付款
+  enum pay_state: {unpay: 1, paid: 2} #付款状态， 1:未付款 2:已付款
   default_value_for :pay_state, 1
 
   enum kind: {system: 1, custom: 2} # 记录类型: 1:系统生成 2:手动添加
@@ -126,11 +126,11 @@ class DonateRecord < ApplicationRecord
   def self.donate_bookshelf(user = nil, bookshelf = nil, promoter = nil)
     return false unless user.present?
     return false unless bookshelf.present?
-    return false if bookshelf.surplus > 0
+    return false if bookshelf.present_amount > 0
     project = Project.book_project
-    donate = user.donates.build(amount: bookshelf.amount, promoter: promoter, fund: project.appoint_fund, project: project, bookshelf: bookshelf)
+    donate = user.donates.build(amount: bookshelf.target_amount, promoter: promoter, fund: project.appoint_fund, project: project, bookshelf: bookshelf)
     if donate.save
-      bookshelf.surplus = 0
+      bookshelf.present_amount = bookshelf.target_amount
       bookshelf.state = 'complete'
       bookshelf.save
     end
@@ -141,7 +141,7 @@ class DonateRecord < ApplicationRecord
     return false unless bookshelf.present?
     project = Project.book_project
     user_id = user.present? ? user.id : ''
-    DonateRecord.new(user_id: user_id,amount: bookshelf.amount, promoter: promoter, fund: project.appoint_fund, project: project, bookshelf: bookshelf)
+    DonateRecord.new(user_id: user_id,amount: amount, promoter: promoter, fund: project.appoint_fund, project: project, bookshelf: bookshelf)
   end
 
   def self.donate_child_semesters(gsh_child, semester_num)
@@ -219,8 +219,8 @@ class DonateRecord < ApplicationRecord
     donate_record = self.part_donate_bookshelf(user, amount, bookshelf, nil, 'custom')
     income_record = donate_record.gen_income_record
     income_record.income_source_id = params[:source_id] if params[:donate_way] == 'offline'
-    bookshelf.surplus += amount
-    bookshelf.state = 'complete' if bookshelf.surplus == bookshelf.amount
+    bookshelf.present_amount += amount
+    bookshelf.state = 'complete' if bookshelf.present_amount == bookshelf.target_amount
     self.transaction do
       begin
         donate_record.paid!

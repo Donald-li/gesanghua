@@ -124,14 +124,14 @@ RSpec.describe User, type: :model do
     project = Project.book_project
     season = create(:project_season, project: project)
     apply = create(:project_season_apply, project: project, season: season, teacher: teacher, school: school)
-    bookshelf = create(:project_season_apply_bookshelf, project: project, season: season, apply: apply, school: school, amount: 1000)
+    bookshelf = create(:project_season_apply_bookshelf, project: project, season: season, apply: apply, school: school, target_amount: 1000)
 
     user.donate_bookshelf(bookshelf)
     donate = DonateRecord.last
     expect(donate.user.id).to eq user.id
     expect(donate.project.id).to eq project.id
     expect(donate.unpay?).to be true
-    expect(donate.amount).to eq bookshelf.amount
+    expect(donate.amount).to eq bookshelf.target_amount
     expect(donate.promoter).to eq nil
     expect(donate.fund_id).to eq project.appoint_fund.id
     expect(donate.bookshelf.id).to eq bookshelf.id

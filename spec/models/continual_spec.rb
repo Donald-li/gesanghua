@@ -12,9 +12,9 @@
 #  created_at                        :datetime         not null
 #  updated_at                        :datetime         not null
 #  kind                              :integer                                # 反馈类型
+#  user_id                           :integer                                # 反馈人
 #  check                             :integer                                # 查看 1: 未查看 2: 已查看
 #  recommend                         :integer                                # 推荐 1: 正常 2: 推荐
-#  user_id                           :integer                                # 反馈人
 #  project_id                        :integer                                # 项目id
 #  project_season_id                 :integer                                # 批次id
 #  project_season_apply_id           :integer                                # 申请id

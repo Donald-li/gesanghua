@@ -136,11 +136,11 @@ class User < ApplicationRecord
   # 捐悦读(整捐)
   def donate_bookshelf(bookshelf=nil, promoter=nil)
     return false unless bookshelf.present?
-    return false if bookshelf.surplus > 0
+    return false if bookshelf.present_amount > 0
     project = Project.book_project
-    donate = self.donates.build(amount: bookshelf.amount, promoter: promoter, fund: project.appoint_fund, project: project, bookshelf: bookshelf)
+    donate = self.donates.build(amount: bookshelf.target_amount, promoter: promoter, fund: project.appoint_fund, project: project, bookshelf: bookshelf)
     if donate.save
-      bookshelf.surplus = 0
+      bookshelf.present_amount = bookshelf.target_amount
       bookshelf.state = 'complete'
       bookshelf.save
     end
