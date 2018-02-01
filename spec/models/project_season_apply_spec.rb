@@ -52,25 +52,6 @@ RSpec.describe ProjectSeasonApply, type: :model do
     @grant = @child.gsh_child.gsh_child_grants.first
   end
 
-  it '测试生成项目编号' do
-    if @project_season_apply.project_id == 1
-      kind = 'JD'
-    elsif @project_season_apply.project_id == 2
-      kind = 'YD'
-    elsif @project_season_apply.project_id == 3
-      kind = 'GY'
-    elsif @project_season_apply.project_id == 4
-      kind = 'TS'
-    elsif @project_season_apply.project_id == 5
-      kind = 'GB'
-    elsif @project_season_apply.project_id == 6
-      kind = 'HH'
-    else
-      kind = 'QT'
-    end
-    expect(@project_season_apply.apply_no).to eq kind + '0000001'
-  end
-
   describe '测试配捐方法' do
     it '测试线下配捐给指定申请方法' do
       amount = 500

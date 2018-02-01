@@ -66,14 +66,4 @@ RSpec.describe DonateRecord, type: :model do
 
   end
 
-  it '测试生成捐助编号和捐助证书编号' do
-    time = Time.now.strftime("%y%m%d%H")
-    record = DonateRecord.donate_project(user: user, amount: 89.0, project: project)
-    expect(record.donate_no).to eq time + '0000001'
-
-    record.pay_and_gen_certificate
-    expect(record.certificate_no).to eq 'ZS' + time + '0000001'
-  end
-
-
 end
