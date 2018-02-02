@@ -200,7 +200,7 @@ Rails.application.routes.draw do
     end
 
     resources :flower_continual_feedbacks ,concerns: [:recommend]
-    resources :flower_projects do
+    resources :flower_projects, concerns: [:switch] do
       member do
         put :shipment
       end

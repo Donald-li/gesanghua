@@ -4,10 +4,10 @@
       <i class="icon-list"></i><%= link_to @apply.name, admin_flower_projects_path %> > 查看反馈
     </div>
     <div class="actions">
-      <%= link_to new_admin_flower_project_flower_feedback_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+      <!-- <%= link_to new_admin_flower_project_flower_feedback_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
           <i class="icon-plus"></i>
           <span>新增</span>
-      <% end %>
+      <% end %> -->
     </div>
   </div>
   <div class="portlet-body">
@@ -19,10 +19,10 @@
                 <%= f.label :check_eq, '是否查看' %>
                 <%= f.select :check_eq, Feedback.options_for_select(:checks, raw: true), {include_blank: '全部'}, class: 'form-control' %>
               </div>
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <%= f.label :recommend_eq, '是否推荐' %>
                 <%= f.select :recommend_eq, Feedback.options_for_select(:recommends, raw: true), {include_blank: '全部'}, class: 'form-control' %>
-              </div>
+              </div> -->
               <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>
         </div>
@@ -49,9 +49,9 @@
             <th>
               是否查看
             </th>
-            <th>
+            <!-- <th>
               是否推荐
-            </th>
+            </th> -->
             <th>
               操作
             </th>
@@ -77,12 +77,12 @@
                 <td>
                   <%= continual.enum_name(:check) %>
                 </td>
-                <td>
+                <!-- <td>
                   <%= link_to recommend_admin_flower_project_flower_feedback_path(@apply, continual), data: {confirm: "确定#{continual.recommend? ? '取消推荐该反馈' : '推荐该反馈'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{continual.recommend? ? 'yellow' : 'default'}" do %>
                     <%= continual.recommend? ? '推荐' : '正常' %>
                     <i class="fa <%= continual.recommend? ? 'fa-star' : 'fa-star-o' %>"></i>
                   <% end %>
-                </td>
+                </td> -->
                 <td>
                   <%= link_to edit_admin_flower_project_flower_feedback_path(@apply, continual), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-edit"></i> 修改

@@ -16,7 +16,7 @@
       <%= f.error_notification %>
       <div class="form-body form-horizontal">
         <%#= f.hidden_field :project_id, value: ProjectSeason.flower_project_id %>
-        <%= f.input :owner_id, collection: [@continual.owner].compact.map {|u| [u.name, u.id]}, label: '观影项目：', input_html: {class: 'applies-ajax', data: {'parsley-required': true}} %>
+        <%= f.input :owner_id, collection: [@continual.owner].compact.map {|u| ["#{u.project.name}", u.id]}, label: '观影项目：', input_html: {class: 'applies-ajax', data: {'parsley-required': true}} %>
         <%= f.input :user_id, collection: [@continual.user].compact.map {|u| [u.name, u.id]}, label: '反馈人：', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
         <div class="form-group">
           <label class="col-md-2 control-label">反馈内容：</label>
