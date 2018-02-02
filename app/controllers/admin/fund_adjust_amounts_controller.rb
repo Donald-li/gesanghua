@@ -6,7 +6,7 @@ class Admin::FundAdjustAmountsController < Admin::BaseController
 
   def create
     respond_to do |format|
-      if Fund.adjust(@fund.id, adjust_params[:to_fund], adjust_params[:amount])
+      if Fund.platform_adjust(@fund.id, adjust_params[:to_fund], adjust_params[:amount])
         format.html { redirect_to admin_fund_categories_path, notice: '调整金额成功。' }
       else
         format.html { render :new }

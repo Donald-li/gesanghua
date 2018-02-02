@@ -316,6 +316,11 @@ zh:
   beneficial_child_genders:
     male: '男'
     female: '女'
+  cross_fund_adjustments:
+    platform: '财务分类调整'
+    donate: '配捐'
+    refund: '退款'
+
   beneficial_child_nations:
     default: '未设置'
     hanzu: '汉族'
