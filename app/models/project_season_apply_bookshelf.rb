@@ -26,7 +26,7 @@
 
 class ProjectSeasonApplyBookshelf < ApplicationRecord
 
-  before_save :gen_bookshelves_no, if: :can_gen_bookshelf_no?
+  before_save :gen_bookshelf_no, if: :can_gen_bookshelf_no?
 
   belongs_to :project, optional: true
   belongs_to :project_season, optional: true

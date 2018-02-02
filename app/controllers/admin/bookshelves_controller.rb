@@ -34,6 +34,19 @@ class Admin::BookshelvesController < Admin::BaseController
     redirect_to admin_read_project_bookshelves_path(@project), notice:  @bookshelf.show? ? '对外展示' : '暂不展示'
   end
 
+  def shipment
+    @bookshelf = ProjectSeasonApplyBookshelf.find(params[:id])
+    @bookshelf.non_reception!
+    respond_to do |format|
+      format.html { redirect_to admin_read_project_bookshelves_path(@project), notice: '发货成功。' }
+    end
+  end
+
+  def bookshelf_receive
+    @bookshelf = ProjectSeasonApplyBookshelf.find(params[:id])
+    @receive = @bookshelf.receive
+  end
+
   private
   def set_project
     @project = ProjectSeasonApply.find(params[:read_project_id])

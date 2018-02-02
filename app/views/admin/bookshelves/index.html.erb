@@ -100,6 +100,20 @@
                   <%= link_to edit_admin_read_project_bookshelf_path(@project, bookshelf), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-edit"></i> 修改
                   <% end %>
+                  <% if bookshelf.non_execution? %>
+                    <%= link_to shipment_admin_read_project_bookshelf_path(@project, bookshelf), class: 'btn btn-xs yellow', method: :put, data: {confirm: '确定发货吗？'} do %>
+                      <i class="fa fa-truck"></i> 发货
+                    <% end %>
+                  <% end %>
+                  <% if bookshelf.non_reception? %>
+                    <% if bookshelf.receive.present? %>
+                      <%= link_to bookshelf_receive_admin_read_project_bookshelf_path(@project, bookshelf), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                        <i class="fa fa-truck"></i> 查看收货凭证
+                      <% end %>
+                    <% else %>
+                      <span class="btn btn-xs default"><i class="fa fa-truck"></i> 查看收货凭证</span>
+                    <% end %>
+                  <% end %>
                 </td>
               </tr>
           <% end %>
