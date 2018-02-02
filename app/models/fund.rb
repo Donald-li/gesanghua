@@ -56,7 +56,7 @@ class Fund < ApplicationRecord
   end
 
   # 跨分类调整
-  def self.adjust(from_fund, to_fund, amount)
+  def self.platform_adjust(from_fund, to_fund, amount)
     amount = amount.to_f
     return if amount < 1
 
@@ -68,8 +68,9 @@ class Fund < ApplicationRecord
     from.amount = from.amount - amount
     to.amount = to.amount + amount
 
-    from.save
-    to.save
+    # if from.save && to_save
+    #
+    # end
   end
 
 end

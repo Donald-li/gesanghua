@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180201094005) do
+ActiveRecord::Schema.define(version: 20180202061600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -210,6 +210,15 @@ ActiveRecord::Schema.define(version: 20180201094005) do
     t.string "province", comment: "省"
     t.string "city", comment: "市"
     t.string "district", comment: "区/县"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "cross_fund_adjustments", force: :cascade do |t|
+    t.integer "kind", comment: "类型：1:平台 2:配捐 3:退款"
+    t.integer "from_fund_id", comment: "被调整分类"
+    t.integer "to_fund_id", comment: "调整到分类"
+    t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "调整金额"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
