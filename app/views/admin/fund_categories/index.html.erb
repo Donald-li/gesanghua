@@ -42,9 +42,9 @@
               <th>二级分类名称</th>
               <th>定向类型</th>
               <th>指定类型</th>
-              <th>管理费率</th>
               <th>余额</th>
               <th>历史收入</th>
+              <th>管理费</th>
               <th>
                 排序
               </th>
@@ -94,13 +94,13 @@
                   <%= fund.enum_name(:use_kind) %>
                 </td>
                 <td>
-                  <%= fund.restricted? ? "#{fund.management_rate}%" : '-' %>
-                </td>
-                <td>
                   ￥<%= number_to_currency(fund.amount) %>
                 </td>
                 <td>
                   ￥<%= number_to_currency(fund.total) %>
+                </td>
+                <td>
+                  <%= fund.restricted? ? "#{fund.management_rate}%" : '-' %>
                 </td>
                 <td>
                   <%= link_to '顶部', move_admin_fund_path(fund, to: :to_top), method: :put %>
@@ -115,7 +115,7 @@
                   <%= link_to admin_fund_path(fund), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                      <i class="fa fa-trash-o"></i> 删除
                  <% end %>
-                 <%= link_to '跨分类调整', new_admin_fund_fund_adjust_amount_path(fund), class: 'btn btn-xs yellow' %>
+                 <%= link_to '跨分类调整', new_admin_fund_fund_adjust_amount_path(fund), class: 'btn btn-xs yellow' if fund.unrestricted? %>
                 </td>
               </tr>
               <% end %>
