@@ -25,6 +25,9 @@
 #
 
 class ProjectSeasonApplyBookshelf < ApplicationRecord
+
+  before_save :gen_bookshelves_no, if: :can_gen_bookshelf_no?
+
   belongs_to :project, optional: true
   belongs_to :project_season, optional: true
   belongs_to :project_season_apply, optional: true
@@ -35,6 +38,7 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
   has_many :donates, class_name: 'DonateRecord', dependent: :destroy
   has_many :beneficial_children
   has_many :supplements, class_name: 'BookshelfSupplement', foreign_key: 'project_season_apply_bookshelf_id'
+  has_one :receive, as: :owner
 
   scope :gsh_bookshelf, -> { complete }
 
@@ -56,6 +60,12 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
+  def can_gen_bookshelf_no?
+    self.complete?
+  end
+
+
+  private
   def gen_bookshelf_no
     self.bookshelf_no ||= Sequence.get_seq(kind: :bookshelf_no, prefix: 'TSJ1', length: 3)
   end

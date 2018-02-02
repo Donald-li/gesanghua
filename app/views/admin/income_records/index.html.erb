@@ -49,6 +49,9 @@
               收入单号
             </th>
             <th>
+              收入名称
+            </th>
+            <th>
               收入分类
             </th>
             <th>
@@ -82,6 +85,12 @@
             <tr>
               <td>
                 <%= record.id %>
+              </td>
+              <td>
+                <%= record.donate_record.try(:apply).try(:name) %>申请
+                <%= record.donate_record.try(:child).try(:name) %>
+                <%= record.donate_record.try(:user).try(:name) %>
+                捐款
               </td>
               <td>
                 <%= record.fund.try(:fund_category).try(:name) %> - <%= record.fund.try(:name) %>

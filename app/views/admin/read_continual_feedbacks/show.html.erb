@@ -3,11 +3,11 @@
   <div class="portlet-title">
     <div class="caption">
       <i class="fa fa-sliders font-dark"></i>
-      <span class="caption-subject font-dark bold uppercase"><%= link_to @receive.owner.name, admin_flower_projects_path %> > 收货凭证详情</span>
+      <span class="caption-subject font-dark bold uppercase">反馈详情</span>
     </div>
     <div class="actions">
       <div class="btn-group">
-        <a href="<%= admin_flower_projects_path %>" class="btn btn-xs blue">
+        <a href="<%= admin_read_continual_feedbacks_path %>" class="btn btn-xs blue">
           <i class="fa fa-reply"></i>返回
         </a>
       </div>
@@ -22,7 +22,7 @@
             申请编号
           </th>
           <th>
-            <%= @receive.owner.apply_no %>
+            <%= @continual.owner.apply_no %>
           </th>
         </tr>
         <tr>
@@ -30,7 +30,7 @@
             项目名称
           </th>
           <th>
-            <%= @receive.owner.name %>
+            <%= @continual.owner.name %>
           </th>
         </tr>
         <tr>
@@ -38,7 +38,7 @@
             反馈人
           </th>
           <th>
-            <%= @receive.user.try(:name) %>
+            <%= @continual.user.try(:name) %>
           </th>
         </tr>
         <tr>
@@ -46,7 +46,7 @@
             反馈时间
           </th>
           <th>
-            <%= l @receive.created_at %>
+            <%= l @continual.created_at %>
           </th>
         </tr>
         <tr>
@@ -54,7 +54,7 @@
             反馈内容
           </th>
           <th>
-            <%= @receive.content.html_safe %>
+            <%= @continual.content.html_safe %>
           </th>
         </tr>
         </tbody>

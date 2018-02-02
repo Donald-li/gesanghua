@@ -181,14 +181,11 @@ class DonateRecord < ApplicationRecord
       return false if user.balance < 0
     end
     donate_record = self.donate_apply(user, amount, apply, nil, 'custom')
-    income_record = donate_record.gen_income_record
-    income_record.income_source_id = params[:source_id] if params[:donate_way] == 'offline'
     apply.present_amount += amount.to_f
     apply.execute_state = 'to_execute' if apply.present_amount == apply.target_amount
     self.transaction do
       begin
         donate_record.paid!
-        income_record.save
         apply.save
         match_fund.save if match_fund.present?
         user.save if user.present?
@@ -217,14 +214,11 @@ class DonateRecord < ApplicationRecord
       return false if user.balance < 0
     end
     donate_record = self.part_donate_bookshelf(user, amount, bookshelf, nil, 'custom')
-    income_record = donate_record.gen_income_record
-    income_record.income_source_id = params[:source_id] if params[:donate_way] == 'offline'
     bookshelf.present_amount += amount
     bookshelf.state = 'complete' if bookshelf.present_amount == bookshelf.target_amount
     self.transaction do
       begin
         donate_record.paid!
-        income_record.save
         bookshelf.save
         match_fund.save if match_fund.present?
         user.save if user.present?
@@ -252,15 +246,10 @@ class DonateRecord < ApplicationRecord
       user.balance -= amount
       return false if user.balance < 0
     end
-
     donate_record = self.donate_child(user, child.gsh_child, semester_num, nil, 'custom')
-    income_record = donate_record.gen_income_record
-    income_record.income_source_id = params[:source_id] if params[:donate_way] == 'offline'
-
     self.transaction do
       begin
         donate_record.paid!
-        income_record.save
         match_fund.save if match_fund.present?
         user.save if user.present?
         return true
@@ -283,6 +272,18 @@ class DonateRecord < ApplicationRecord
       json.amount number_to_currency(self.amount)
       json.item_name self.appoint.present? ? self.appoint.name : ''
       json.team self.team.present? ? self.team.name : ''
+      json.project self.try(:project).try(:name)
+    end.attributes!
+  end
+
+  def certificate_builder
+    Jbuilder.new do |json|
+      json.(self, :id)
+      json.project_name self.project.try(:name) || '格桑花'
+      json.amount number_to_currency(self.amount)
+      json.user_name self.user.present? ? self.user.name : '爱心人士'
+      json.time_name "#{self.created_at.year}年#{self.created_at.month}月#{self.created_at.day}日"
+      json.certificate_no self.certificate_no
       json.project self.try(:project).try(:name)
     end.attributes!
   end

@@ -93,7 +93,10 @@
                   <%= apply.present_amount %>/<%= apply.target_amount %>
                 </td>
                 <td>
-                  <%= apply.enum_name(:state) %>
+                  <%= link_to switch_admin_flower_project_path(apply), data: {confirm: "确定#{apply.state === 'show' ? '隐藏项目' : '显示项目'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{apply.state === 'show' ? 'green' : 'default'}" do %>
+                      <%= apply.state === 'show' ? '对外展示' : '暂不展示' %>
+                      <i class="fa <%= apply.state === 'show' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                  <% end %>
                 </td>
                 <td>
                   <%= apply.enum_name(:execute_state) %>
@@ -109,11 +112,18 @@
                     <%= link_to shipment_admin_flower_project_path(apply), class: 'btn btn-xs yellow', method: :put, data: {confirm: '确定发货吗？'} do %>
                       <i class="fa fa-truck"></i> 发货
                     <% end %>
-                  <% elsif apply.to_receive? && apply.receive.present? %>
-                    <%= link_to admin_flower_project_flower_receive_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                      <i class="fa fa-list"></i> 查看收货凭证
+                  <% elsif apply.to_receive? %>
+                    <% if apply.receive.present? %>
+                      <%= link_to admin_flower_project_flower_receive_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                        <i class="fa fa-truck"></i> 查看收货凭证
+                      <% end %>
+                    <% else %>
+                      <span class="btn btn-xs default"><i class="fa fa-truck"></i> 查看收货凭证</span>
                     <% end %>
                   <% elsif apply.done? %>
+                    <%= link_to admin_flower_project_flower_receive_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                      <i class="fa fa-truck"></i> 查看收货凭证
+                    <% end %>
                     <%= link_to admin_flower_project_flower_feedbacks_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-file"></i> 查看反馈
                     <% end %>

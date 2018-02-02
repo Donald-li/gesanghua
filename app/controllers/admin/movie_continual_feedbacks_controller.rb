@@ -9,6 +9,10 @@ class Admin::MovieContinualFeedbacksController < Admin::BaseController
     @continuals = scope.sorted.page(params[:page])
   end
 
+  def show
+    @continual.update(check: 2)
+  end
+
   def new
     @continual = Continual.new
   end
