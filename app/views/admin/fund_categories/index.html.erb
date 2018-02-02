@@ -94,7 +94,7 @@
                   <%= fund.enum_name(:use_kind) %>
                 </td>
                 <td>
-                  ￥<%= number_to_currency(fund.amount) %>
+                  <%= fund.unrestricted? ? "￥#{number_to_currency(fund.amount)}" : '-' %>
                 </td>
                 <td>
                   ￥<%= number_to_currency(fund.total) %>
