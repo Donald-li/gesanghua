@@ -52,7 +52,7 @@
             捐助方式
           </th>
           <th>
-            <%= @donate_record.income_record.income_source.name if @donate_record.income_record.present? %>
+            <%= @donate_record.income_record.income_source.try(:name) if @donate_record.income_record.present? %>
           </th>
         </tr>
         <tr>

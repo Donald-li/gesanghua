@@ -1,5 +1,5 @@
 class Admin::ReadProjectsController < Admin::BaseController
-  before_action :set_project, only: [:edit, :update]
+  before_action :set_project, only: [:edit, :update, :switch]
 
   def index
     @search = ProjectSeasonApply.where(project_id: 2).raise_project.sorted.ransack(params[:q])
@@ -11,13 +11,19 @@ class Admin::ReadProjectsController < Admin::BaseController
   end
 
   def update
+    @project.attach_cover_image(params[:cover_image_id])
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to admin_read_applies_path, notice: '修改成功。' }
+        format.html { redirect_to admin_read_projects_path, notice: '修改成功。' }
       else
         format.html { render :edit }
       end
     end
+  end
+
+  def switch
+    @project.show? ? @project.hidden! : @project.show!
+    redirect_to admin_read_projects_url, notice: @project.show? ? '项目已启用' : '项目已暂停'
   end
 
   private

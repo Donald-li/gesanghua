@@ -1,10 +1,10 @@
 <div class="portlet light bordered">
   <div class="portlet-title">
-    <!-- <div class="caption">
-      <i class="icon-note">审核操作</i>
+    <div class="caption">
+      <i class="icon-note"> 编辑项目信息 </i>
       <span class="caption-subject"></span>
       <span class="caption-helper"></span>
-    </div> -->
+    </div>
     <div class="actions">
       <div class="btn-group">
         <a href="<%= admin_read_projects_path %>" class="btn btn-xs blue">
@@ -15,7 +15,7 @@
   </div>
   <div class="portlet-body form">
     <div class="form-body form-horizontal">
-      <%= simple_form_for [:admin, @project], url: admin_read_path, wrapper: :admin_form, html: {class: 'form-horizontal project_form'} do |f| %>
+      <%= simple_form_for [:admin, @project], url: admin_read_project_path, wrapper: :admin_form, html: {class: 'form-horizontal project_form'} do |f| %>
           <%= f.error_notification %>
           <div class="form-body">
             <%= static_form_control '申请批次：', @project.season.name %>
@@ -25,7 +25,7 @@
             <div class="form-group">
               <label class="col-md-2 control-label">项目封面：</label>
               <div class="col-sm-9">
-                <%= webuploader_tag :cover_image_id, label: '上传封面', type: 'cover_image', asset: @project.cover_image, klass: 'single' %>
+                <%= webuploader_tag :cover_image_id, label: '上传封面', type: 'project_season_apply_cover', asset: @project.cover_image, klass: 'single' %>
               </div>
             </div>
 
@@ -47,28 +47,30 @@
                         <th> 图书角编号 </th>
                         <th> 班级 </th>
                         <th> 筹款金额 </th>
-                        <th>  </th>
+                        <th> 班级人数 </th>
                       </tr>
                     </thead>
                     <tbody id="goods">
-                      <%= f.fields_for :bookshelves, wrapper: 'inline_inputs' do |b| %>
+                      <%# @project.bookshelves.build if @project.bookshelves.blank? %>
+                      <% @project.bookshelves.each do |b| %>
                       <tr>
                         <td>
-                          <%= b.object.bookshelf_no %>
+                          <%= b.bookshelf_no %>
                         </td>
                         <td>
-                          <%= b.object.classname %>
+                          <%#= b.input :classname, label: false, input_html:{ placeholder: '请填入班级名称'} %>
+                          <%= b.classname %>
                         </td>
                         <td>
                           <%#= b.input :student_number, label: false, input_html:{ placeholder: '请填入班级人数'} %>
-                          ¥ <%= b.object.amount %>
+                          ¥ <%= b.target_amount %>
                         </td>
                         <td>
-
+                          <%= b.beneficial_children.count%>
                         </td>
-                        <td>
+                        <!-- <td>
                           <a href="#" class="destroy"><i class="fa fa-remove font-red-soft"></i></a>
-                        </td>
+                        </td> -->
                       </tr>
 
                       <% end %>
@@ -78,41 +80,20 @@
                 </div>
               </div>
             </div>
-            <%= f.input :abstract, label: '申请内容：', placeholder: '请填写申请所需物品' %>
-            <%= f.input :describe, label: '申请理由：', placeholder: '请填写申请理由' %>
-            <div class="form-group">
-              <label class="col-md-2 control-label">申请图片：</label>
+            <!-- <div class="form-group">
+              <label class="col-md-2 control-label">项目介绍：</label>
               <div class="col-sm-9">
-                <%= webuploader_tag 'image_ids[]', label: '上传孩子图片', type: 'project_season_image', asset: @project.images %>
-                <span style="color: red">注意：左起第一张图片为展示第一张图片</span>
+                <%= f.cktext_area :project_describe %>
               </div>
-            </div>
-
-            <div style="margin-bottom: 20px;" class="form-group">
-              <label class="col-md-2 control-label select required" for="project_category_id">所在地区：</label>
-              <div class="col-sm-6">
-                <div class="row city-group">
-                  <div class="col-sm-3">
-                    <%= select_tag 'project_season_apply[province]', options_for_select(ChinaCity.list, @project.province.presence), prompt: '省份', class: "form-control city-select" %>
-                  </div>
-                  <div class="col-sm-3">
-                    <%= select_tag 'project_season_apply[city]', options_for_select(ChinaCity.list(@project.province.to_s), @project.city.presence), prompt: '城市', class: "form-control city-select" %>
-                  </div>
-                  <div class="col-sm-3">
-                    <%= select_tag 'project_season_apply[district]', options_for_select(ChinaCity.list(@project.city.to_s), @project.district.presence), prompt: '地区', class: "form-control city-select" %>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <%= f.input :address, label: '详细地址地址：', placeholder: '详细地址地址', input_html: { data: {'parsley-required': true}} %>
-            <%= f.input :contact_name, label: '收货人：', placeholder: '收货人', input_html: { data: {'parsley-required': true}} %>
-            <%= f.input :contact_phone, label: '联系电话：', placeholder: '联系电话', input_html: { data: {'parsley-required': true}} %>
+            </div> -->
+            <%= f.input :project_describe, label: '项目介绍：', placeholder: '请填写项目介绍', require: true %>
+            <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApply.options_for_some_select(:states), label: '是否立即筹款：'%>
           </div>
           <div class="form-actions">
             <div class="row">
               <div class="col-md-offset-2 col-md-9">
                 <%= f.button :submit, '提交', class: 'btn blue' %>
-                <%= link_to '取消', admin_read_applies_path, class: 'btn' %>
+                <%= link_to '取消', admin_read_projects_path, class: 'btn' %>
               </div>
             </div>
           </div>
@@ -124,15 +105,14 @@
 
 <script type="text/javascript">
   $(function(){
-    initMultiImageWebuploader($('#webuploader'));
-    $('.upload-list').viewer();
     //    表单验证
     $(".project_form").html5Validate(function(){
         $(this).find('[type="submit"]').attr('disabled','disabled');
         this.submit();
     });
-    $("#goods").nestedAttributes({
-      bindAddTo: $("#goods_add_another")
-    });
+    initImageWebuploader($('#webuploader'));
+    // $("#goods").nestedAttributes({
+    //   bindAddTo: $("#goods_add_another")
+    // });
   })
 </script>

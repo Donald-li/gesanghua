@@ -1,5 +1,5 @@
 class Admin::ReadAppliesController < Admin::BaseController
-  before_action :set_project_apply, only: [:edit, :update, :destroy, :audit, :students]
+  before_action :set_project_apply, only: [:edit, :update, :destroy, :audit, :students, :switch]
 
   def index
     @search = ProjectSeasonApply.where(project_id: 2).sorted.ransack(params[:q])
@@ -28,7 +28,7 @@ class Admin::ReadAppliesController < Admin::BaseController
         format.html { render :new }
       elsif @project_apply.save!
         bookshelf_univalence = @project_apply.season.bookshelf_univalence
-        @project_apply.bookshelves.update_all(school_id: @project_apply.school_id, project_season_id: @project_apply.project_season_id, amount: bookshelf_univalence)
+        @project_apply.bookshelves.update_all(school_id: @project_apply.school_id, project_season_id: @project_apply.project_season_id, target_amount: bookshelf_univalence)
         format.html { redirect_to admin_read_applies_path, notice: '创建成功。' }
       else
         format.html { render :new }
@@ -41,7 +41,7 @@ class Admin::ReadAppliesController < Admin::BaseController
       @project_apply.attach_images(params[:image_ids])
       if @project_apply.update(project_apply_params)
         bookshelf_univalence = @project_apply.season.bookshelf_univalence
-        @project_apply.bookshelves.update_all(school_id: @project_apply.school_id, project_season_id: @project_apply.project_season_id, amount: bookshelf_univalence)
+        @project_apply.bookshelves.update_all(school_id: @project_apply.school_id, project_season_id: @project_apply.project_season_id, target_amount: bookshelf_univalence)
         format.html { redirect_to admin_read_applies_path, notice: '修改成功。' }
       else
         format.html { render :edit }
@@ -76,7 +76,7 @@ class Admin::ReadAppliesController < Admin::BaseController
 
   def switch
     @project_apply.raise_project!
-    @project_apply.gen_bookshelves_no
+    # @project_apply.gen_bookshelves_no
     redirect_to edit_admin_read_project_path(@project_apply), notice: '操作成功,请填写筹款项目信息！'
   end
 

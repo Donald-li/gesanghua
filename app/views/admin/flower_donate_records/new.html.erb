@@ -13,24 +13,51 @@
     </div>
   </div>
   <div class="portlet-body form">
-    <%= simple_form_for [:admin, @donate_record], url: admin_flower_project_flower_donate_records_path(@apply), wrapper: :admin_form, html: {'data-parsley-validate': true, id: 'approve-form', 'data-parsley-excluded' => "input[type=button], input[type=submit], input[type=reset], input[type=hidden], [disabled], :hidden"} do |f| %>
+    <%= simple_form_for [:admin, DonateRecord.new], url: admin_flower_project_flower_donate_records_path(@apply), wrapper: :admin_form, html: {'data-parsley-validate': true, id: 'approve-form', 'data-parsley-excluded' => "input[type=button], input[type=submit], input[type=reset], input[type=hidden], [disabled], :hidden"} do |f| %>
       <%= f.error_notification %>
       <div class="form-body form-horizontal">
         <div class="form-group radio_buttons required donate_record_donate_way">
           <label class="col-md-2 control-label radio_buttons required">捐助方式：</label>
           <div class="col-md-9 form-inline">
-            <input type="radio" class="form-control radio_buttons donate_way" name="donate_record[donate_way]" value="offline" checked onclick="toggleState()">线下汇款
-            <input type="radio" class="form-control radio_buttons donate_way" name="donate_record[donate_way]" value="match" onclick="toggleState()">使用其他资金
+            <input type="radio" class="form-control radio_buttons donate_way" name="donate_way" value="offline" checked onclick="toggleState()">线下汇款
+            <input type="radio" class="form-control radio_buttons donate_way" name="donate_way" value="match" onclick="toggleState()">使用其他资金
           </div>
         </div>
         <div class="offline">
-          <%= f.input :source_id, as: :select, collection: IncomeSource.all.sorted, include_blank: '选择捐款渠道', label: '捐款渠道：', required: true %>
-          <%= f.input :user_id, as: :select, label: '捐助人：', input_html: {class: 'users-ajax'}, required: true %>
-          <%= f.input :offline_amount, label: '捐助金额：', input_html: {type: 'number', min: 0, max: @max}, required: true %>
+          <div class="form-group">
+            <label class="col-md-2 control-label">捐款渠道：</label>
+            <div class="col-sm-9">
+              <select id="income" class="form-control select optional" name="source_id" required>
+                <% IncomeSource.all.sorted.each do |fc| %>
+                  <option value="<%= fc.id %>"><%= fc.name %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label">捐助人：</label>
+            <div class="col-sm-9">
+              <select id="income" class="form-control select optional users-ajax" name="offline_user_id" required></select>
+            </div>
+          </div>
         </div>
         <div class="match">
-          <%= f.input :match_fund_id, as: :select, collection: Fund.unrestricted.sorted.map {|f| ["#{f.fund_category.name}#{f.name}(余额：#{f.amount})", f.id]}, include_blank: '选择分类', label: '财务分类：', required: true %>
-          <%= f.input :match_amount, label: '使用金额：', input_html: {type: 'number', min: 0, max: @max}, required: true %>
+          <div class="form-group">
+            <label class="col-md-2 control-label">财务分类：</label>
+            <div class="col-sm-9">
+              <select id="income" class="form-control select optional" name="match_fund_id" required>
+                <% Fund.unrestricted.sorted.each do |fc| %>
+                  <option value="<%= fc.id %>"><%= "#{fc.fund_category.name}#{fc.name}(余额：#{fc.amount})" %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">金额：</label>
+          <div class="col-sm-9">
+            <input class="statistic-form-input" type="number" name="amount" min="0" max="<%= @apply.target_amount - @apply.present_amount %>" required>
+          </div>
         </div>
         <div class="form-actions">
           <div class="row">

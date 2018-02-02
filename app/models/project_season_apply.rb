@@ -16,13 +16,13 @@
 #  updated_at        :datetime         not null
 #  name              :string                                 # 名称
 #  number            :integer                                # 配额
-#  apply_no          :string                                 # 项目申请编号
 #  bookshelf_type    :integer                                # 悦读项目申请类型
 #  contact_name      :string                                 # 联系人姓名
 #  contact_phone     :string                                 # 联系人电话
 #  audit_state       :integer                                # 审核状态
 #  abstract          :string                                 # 简述
 #  address           :string                                 # 详细地址
+#  apply_no          :string                                 # 项目申请编号
 #  girl_number       :integer                                # 申请女生人数
 #  boy_number        :integer                                # 申请男生人数
 #  consignee         :string                                 # 收货人
@@ -33,10 +33,15 @@
 #  project_type      :integer          default("apply")      # 项目类型:1:申请 2:筹款项目
 #  class_number      :integer                                # 申请班级数
 #  student_number    :integer                                # 受益学生数
+#  project_describe  :text                                   # 项目介绍
 #
 
 class ProjectSeasonApply < ApplicationRecord
 
+  before_save :gen_bookshelves_no, if: :can_gen_bookshelf_no?
+  before_create :gen_apply_no
+
+  attr_accessor :cover_image_id
   include HasAsset
   has_many_assets :images, class_name: 'Asset::ProjectSeasonApplyImage'
   has_one_asset :cover_image, class_name: 'Asset::ProjectSeasonApplyCover'
@@ -50,6 +55,7 @@ class ProjectSeasonApply < ApplicationRecord
   has_many :gsh_child_grants
   has_many :gsh_children
   has_many :bookshelves, class_name: 'ProjectSeasonApplyBookshelf', foreign_key: 'project_season_apply_id'
+  has_many :supplements, class_name: 'BookshelfSupplement', foreign_key: 'project_season_apply_id'
   has_many :beneficial_children
   has_many :donate_records
 
@@ -59,6 +65,7 @@ class ProjectSeasonApply < ApplicationRecord
   has_one :radio_information
   accepts_nested_attributes_for :radio_information, update_only: true
   accepts_nested_attributes_for :bookshelves, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :supplements, allow_destroy: true, reject_if: :all_blank
 
   attr_accessor :approve_remark
 
@@ -73,13 +80,23 @@ class ProjectSeasonApply < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
-  before_create :gen_apply_no
-
   enum audit_state: {submit: 1, pass: 2, reject: 3}#审核状态 1:待审核 2:审核通过 3:审核不通过
   default_value_for :audit_state, 1
 
   enum bookshelf_type: {whole: 1, supplement: 2}
   # default_value_for :bookshelf_type, 1
+
+  def can_gen_bookshelf_no?
+    self.raise_project?
+  end
+
+  def pass_bookshelf?
+    if self.bookshelves.pass.present?
+      true
+    else
+      false
+    end
+  end
 
   # 生成图书角编号
   def gen_bookshelves_no
@@ -90,7 +107,7 @@ class ProjectSeasonApply < ApplicationRecord
   end
 
   # 通过审核的班级数量
-  def bookshelves_pass_count
+  def bookshelves_count
     self.bookshelves.pass.count
   end
 
@@ -118,7 +135,7 @@ class ProjectSeasonApply < ApplicationRecord
     self.abstract.length > 90 ? self.abstract.slice(0..90) : self.abstract
   end
 
-  def match_donate(params, amount, *args)
+  def match_donate(params, amount, *args) # platform
     child_id = args.first || nil
     apply = self
     if params[:donate_way] == 'offline'
@@ -137,10 +154,17 @@ class ProjectSeasonApply < ApplicationRecord
     end
     income_record = IncomeRecord.new(donate_record: donate_record, user: donate_record.user, fund: donate_record.fund, amount: amount, remitter_id: donate_record.remitter_id, remitter_name: donate_record.remitter_name, donor: donate_record.donor, promoter_id: donate_record.promoter_id, income_time: Time.now)
     income_record.income_source_id = params[:source_id]
-    donate_record.save && income_record.save
-    match_fund.save if match_fund.present?
-    user.save if user.present?
-    return true
+    self.transaction do
+      begin
+        donate_record.save && income_record.save
+        match_fund.save if match_fund.present?
+        user.save if user.present?
+        return true
+      rescue
+        return false
+      end
+    end
+    return false
   end
 
   private

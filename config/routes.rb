@@ -138,10 +138,11 @@ Rails.application.routes.draw do
     end
 
     resources :project_book_seasons
-    resources :read_applies, concerns: [:switch] do
+    resources :read_applies do
       member do
         get :audit
         get :students
+        get :switch
       end
       collection do
         get :supply_new
@@ -150,9 +151,10 @@ Rails.application.routes.draw do
       end
     end
     resources :read_projects, concerns: :switch do
-      resources :bookshelves
-      resources :donate_records
+      resources :read_donate_records
+      resources :bookshelves, concerns: :switch
     end
+    resources :read_continual_feedbacks, concerns: [:recommend]
     resources :project_camp_seasons
     resources :project_radio_seasons
     resources :project_flower_seasons
@@ -172,7 +174,12 @@ Rails.application.routes.draw do
       end
     end
     resources :pair_student_lists, concerns: [:switch, :remarks, :share, :qrcode_download] do
-      resources :student_grants
+      resources :student_grants do
+        collection do
+          get :match
+          post :match_donate
+        end
+      end
       member do
         put :turn_over
       end
@@ -282,7 +289,9 @@ Rails.application.routes.draw do
       resources :radio_donate_records
       resources :radio_feedbacks, concerns: [:recommend]
     end
+    resources :radio_continual_feedbacks, concerns: [:recommend]
 
+    resources :movie_continual_feedbacks, concerns: [:recommend]
     resources :movie_applies, concerns: :check
     resources :movie_schools do
       resources :movie_feedbacks, concerns: [:recommend]

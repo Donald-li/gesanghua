@@ -43,7 +43,7 @@
           <thead>
           <tr>
             <th>
-              筹款编号
+              申请编号
             </th>
             <th>
               项目名称
@@ -58,7 +58,7 @@
               批次
             </th>
             <th>
-              目标/已筹
+              已筹/目标
             </th>
             <th>
               当前展示状态
@@ -75,7 +75,7 @@
           <% @project_applies.each do |apply| %>
               <tr>
                 <td>
-                  <%= apply.id %>
+                  <%= apply.apply_no %>
                 </td>
                 <td>
                   <%= apply.name %>

@@ -121,10 +121,12 @@
                     <%= link_to admin_read_apply_path(apply), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                         <i class="fa fa-trash-o"></i> 删除
                     <% end %>
-                    <% if apply.pass? %>
+                    <% if apply.pass? && apply.pass_bookshelf? %>
                       <%= link_to switch_admin_read_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue', data: {confirm: '确定要转为筹款项目吗？'} do %>
                         <i class="fa fa-exchange"></i> 转为筹款项目
                       <% end %>
+                    <% else %>
+                      <a href="###" class="btn btn-xs red"><i class="fa fa-close"></i> 请审核班级申请 </a>
                     <% end %>
                   <% else %>
                     <%= link_to '', 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>

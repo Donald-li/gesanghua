@@ -15,23 +15,11 @@ class Admin::RadioDonateRecordsController < Admin::BaseController
   end
 
   def new
-    @donate_record = DonateRecord.new
-    @income_record = @donate_record.build_income_record
-    @max = @apply.target_amount - @apply.present_amount
   end
 
   def create
-    @donate_record = DonateRecord.new
-    if donate_record_params[:donate_way] == 'offline'
-      amount = donate_record_params[:offline_amount]
-    elsif donate_record_params[:donate_way] == 'match'
-      amount = donate_record_params[:match_amount]
-    end
     respond_to do |format|
-      if @apply.match_donate(donate_record_params, amount, nil)
-        @apply.present_amount += amount.to_f
-        @apply.execute_state = 'to_execute' if @apply.present_amount == @apply.target_amount
-        @apply.save
+      if DonateRecord.platform_donate_apply(params, @apply)
         format.html {redirect_to admin_radio_project_radio_donate_records_path(@apply), notice: '新增成功。'}
       else
         flash[:notice] = '检查余额或表单'

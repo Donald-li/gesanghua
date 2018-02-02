@@ -189,6 +189,10 @@ admin:
             admin_read_projects:
               actions:
                 'admin/read_projects': all
+                'admin/bookshelves': all
+            admin_read_continual_feedbacks:
+              actions:
+                'admin/read_continual_feedbacks': all
         admin_project_camp:
           menus:
             admin_project_camp_season:
@@ -207,6 +211,9 @@ admin:
                 'admin/radio_projects': all
                 'admin/radio_donate_records': all
                 'admin/radio_feedbacks': all
+            admin_radio_continual_feedbacks:
+              actions:
+                'admin/radio_continual_feedbacks': all
         admin_project_movie:
           menus:
             admin_movie_applies:
@@ -216,6 +223,9 @@ admin:
               actions:
                 'admin/movie_schools': all
                 'admin/movie_feedbacks': all
+            admin_movie_continual_feedbacks:
+              actions:
+                'admin/movie_continual_feedbacks': all
         admin_project_flower:
           menus:
             admin_project_flower_season:
@@ -227,6 +237,8 @@ admin:
             admin_project_flower_projects:
               actions:
                 'admin/flower_projects': all
+                'admin/flower_feedbacks': all
+                'admin/flower_donate_records': all
             admin_project_flower_feedbacks:
               actions:
                 'admin/flower_continual_feedbacks': all
