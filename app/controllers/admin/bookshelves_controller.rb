@@ -7,6 +7,11 @@ class Admin::BookshelvesController < Admin::BaseController
     @bookshelves = scope.page(params[:page])
   end
 
+  def show
+    @bookshelf = ProjectSeasonApplyBookshelf.find(params[:id])
+    @note = @bookshelf.receive
+  end
+
   def edit
     @bookshelf = ProjectSeasonApplyBookshelf.find(params[:id])
   end

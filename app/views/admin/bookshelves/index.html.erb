@@ -46,12 +46,12 @@
             <th>
               署名信息
             </th>
-            <th>
+            <!-- <th>
               图书数量
             </th>
             <th>
               补书次数
-            </th>
+            </th> -->
             <th>
               当前展示状态
             </th>
@@ -81,12 +81,12 @@
                 <td>
                   <%= bookshelf.title %>
                 </td>
-                <td>
+                <!-- <td>
                   <%= bookshelf.book_number %>
                 </td>
                 <td>
                   <%= bookshelf.supplements.count.present? ? bookshelf.supplements.count : 0 %>
-                </td>
+                </td> -->
                 <td>
                   <%= link_to switch_admin_read_project_bookshelf_path(@project, bookshelf), data: {confirm: "确定#{bookshelf.show_state === 'show' ? '隐藏图书角' : '显示图书角'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{bookshelf.show_state === 'show' ? 'green' : 'default'}" do %>
                       <%= bookshelf.show_state === 'show' ? '对外展示' : '暂不展示' %>

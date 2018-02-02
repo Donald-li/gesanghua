@@ -38,7 +38,7 @@
 
 class ProjectSeasonApply < ApplicationRecord
 
-  before_save :gen_bookshelves_no, if: :can_gen_bookshelf_no?
+  # before_save :gen_bookshelves_no, if: :can_gen_bookshelf_no?
   before_create :gen_apply_no
 
   attr_accessor :cover_image_id
@@ -86,9 +86,9 @@ class ProjectSeasonApply < ApplicationRecord
   enum bookshelf_type: {whole: 1, supplement: 2}
   # default_value_for :bookshelf_type, 1
 
-  def can_gen_bookshelf_no?
-    self.raise_project?
-  end
+  # def can_gen_bookshelf_no?
+  #   self.raise_project?
+  # end
 
   def pass_bookshelf?
     if self.bookshelves.pass.present?
@@ -99,12 +99,12 @@ class ProjectSeasonApply < ApplicationRecord
   end
 
   # 生成图书角编号
-  def gen_bookshelves_no
-    self.bookshelves.pass.each do |b|
-      b.gen_bookshelf_no
-      b.save
-    end
-  end
+  # def gen_bookshelves_no
+  #   self.bookshelves.pass.each do |b|
+  #     b.gen_bookshelf_no
+  #     b.save
+  #   end
+  # end
 
   # 通过审核的班级数量
   def bookshelves_count

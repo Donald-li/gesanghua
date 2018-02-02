@@ -21,9 +21,9 @@ class Api::V1::MainsController < Api::V1::BaseController
       if params[:pay_method] == 'balance'
         current_user.balance -= amount
       end
-      api_success(data: {pay_state: true}, message: '订单生成成功（暂时提示，应调用微信支付捐助成功后跳转结果页）')
+      api_success(data: {pay_state: true, record_id: record.id}, message: '订单生成成功（暂时提示，应调用微信支付捐助成功后跳转结果页）')
     else
-      api_success(data: {pay_state: false}, message: '支付失败，请重试')
+      api_success(data: {pay_state: false}, message: '订单生成失败，请重试')
     end
   end
 

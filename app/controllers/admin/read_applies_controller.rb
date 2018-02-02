@@ -27,8 +27,8 @@ class Admin::ReadAppliesController < Admin::BaseController
         flash[:notice] = '此学校在本批次还有未完成的申请'
         format.html { render :new }
       elsif @project_apply.save!
-        bookshelf_univalence = @project_apply.season.bookshelf_univalence
-        @project_apply.bookshelves.update_all(school_id: @project_apply.school_id, project_season_id: @project_apply.project_season_id, target_amount: bookshelf_univalence)
+        # bookshelf_univalence = @project_apply.season.bookshelf_univalence
+        @project_apply.bookshelves.update_all(school_id: @project_apply.school_id, project_season_id: @project_apply.project_season_id)
         format.html { redirect_to admin_read_applies_path, notice: '创建成功。' }
       else
         format.html { render :new }
@@ -40,8 +40,8 @@ class Admin::ReadAppliesController < Admin::BaseController
     respond_to do |format|
       @project_apply.attach_images(params[:image_ids])
       if @project_apply.update(project_apply_params)
-        bookshelf_univalence = @project_apply.season.bookshelf_univalence
-        @project_apply.bookshelves.update_all(school_id: @project_apply.school_id, project_season_id: @project_apply.project_season_id, target_amount: bookshelf_univalence)
+        # bookshelf_univalence = @project_apply.season.bookshelf_univalence
+        @project_apply.bookshelves.update_all(school_id: @project_apply.school_id, project_season_id: @project_apply.project_season_id)
         format.html { redirect_to admin_read_applies_path, notice: '修改成功。' }
       else
         format.html { render :edit }
