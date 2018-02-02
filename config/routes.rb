@@ -338,7 +338,11 @@ Rails.application.routes.draw do
         end
       end
       resources :teams
-      resources :donate_records
+      resources :donate_records, only: [:index] do
+        member do
+          get :certificate
+        end
+      end
       resources :offline_donors, only: [] do
         collection do
           get :donor_list
