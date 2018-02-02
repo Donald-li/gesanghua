@@ -79,7 +79,7 @@ zh:
     radio: '广播'
     camp: '探索营'
     care: '护花'
-    moive: '观影'
+    movie: '观影'
     custom: '自定义'
   project_season_apply_states:
     show: '对外展示'
@@ -302,6 +302,13 @@ zh:
     submit: '待审核'
     pass: '通过'
     reject: '不通过'
+  project_season_apply_bookshelf_states:
+    pending: '筹款中'
+    complete: '筹款完成'
+    non_execution: '待执行'
+    non_reception: '待收货'
+    non_feedback: '未反馈'
+    done: '已完成'
   logistic_names:
     shunfeng: '顺丰'
     shentong: '申通'

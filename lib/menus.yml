@@ -189,6 +189,7 @@ admin:
             admin_read_projects:
               actions:
                 'admin/read_projects': all
+                'admin/bookshelves': all
             admin_read_continual_feedbacks:
               actions:
                 'admin/read_continual_feedbacks': all

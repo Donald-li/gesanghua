@@ -151,8 +151,8 @@ Rails.application.routes.draw do
       end
     end
     resources :read_projects, concerns: :switch do
-      resources :bookshelves
       resources :read_donate_records
+      resources :bookshelves, concerns: :switch
     end
     resources :read_continual_feedbacks, concerns: [:recommend]
     resources :project_camp_seasons
@@ -200,7 +200,7 @@ Rails.application.routes.draw do
     end
 
     resources :flower_continual_feedbacks ,concerns: [:recommend]
-    resources :flower_projects do
+    resources :flower_projects, concerns: [:switch] do
       member do
         put :shipment
       end
