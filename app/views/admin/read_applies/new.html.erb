@@ -43,7 +43,7 @@
                           <tr>
                             <th> 年级 </th>
                             <th> 班级 </th>
-                            <th> 人数 </th>
+                            <th> 筹款金额 </th>
                             <th> 是否通过审核 </th>
                             <th> 删除操作 </th>
                           </tr>
@@ -62,6 +62,7 @@
                             </td>
                             <td>
                               <%#= b.beneficial_children.count %>
+                              <%= b.input :target_amount, type: 'number', min: 0, label: false, input_html:{class: 'target-amount', placeholder: '请填入筹款金额'}  %>
                             </td>
                             <td>
                               <%#= check_box_tag b.audit_state, 'pass', false %>
@@ -135,7 +136,10 @@
                 this.submit();
             });
             $("#goods").nestedAttributes({
-              bindAddTo: $("#goods_add_another")
+              bindAddTo: $("#goods_add_another"),
+              afterAdd: function(el){
+                $(el).find('.target-amount').val('0.0')
+              }
             });
             // 异步加载学校列表
             $('.schools-ajax').select2({

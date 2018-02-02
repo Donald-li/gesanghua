@@ -65,6 +65,7 @@
                                 <tr>
                                   <th> 年级 </th>
                                   <th> 班级 </th>
+                                  <th> 筹款金额 </th>
                                   <th> 人数 </th>
                                   <th> 是否通过审核 </th>
                                   <th> 删除操作 </th>
@@ -81,6 +82,9 @@
                                   </td>
                                   <td>
                                     <%= b.input :classname, label: false, input_html:{ placeholder: '请填入班级名称'} %>
+                                  </td>
+                                  <td>
+                                    <%= b.input :target_amount, type: 'number', min: 0, label: false, input_html:{class: 'target-amount', placeholder: '请填入筹款金额'}  %>
                                   </td>
                                   <td class="children-count">
                                     <%#= b.input :student_number, as: 'string', min: 0, label: false, input_html:{ placeholder: '请填入班级人数'} %>
@@ -164,6 +168,7 @@
               bindAddTo: $("#goods_add_another"),
               afterAdd: function(el){
                 $(el).find('.children-count').html('0')
+                $(el).find('.target-amount').val('0.0')
               }
             });
             // 异步加载学校列表
