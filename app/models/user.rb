@@ -125,11 +125,6 @@ class User < ApplicationRecord
     self.county_user.present?
   end
 
-  # 用于判断是否验证预留手机号码
-  def validate_phone?
-    #TODO
-  end
-
   def user_balance
     "#{self.name}(可用余额:#{self.balance.to_s})"
   end
