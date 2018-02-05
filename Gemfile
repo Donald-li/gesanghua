@@ -91,9 +91,6 @@ gem 'rqrcode'
 # 阿里云短信
 gem 'aliyun-sms', git: 'https://github.com/songjian/aliyun-sms.git'
 
-#  权限管理
-gem "cancan"
-
 # echarts表格
 gem 'echarts-rails'
 
