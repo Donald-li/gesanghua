@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180202061600) do
+ActiveRecord::Schema.define(version: 20180205025240) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -880,6 +880,7 @@ ActiveRecord::Schema.define(version: 20180202061600) do
     t.decimal "online_count", precision: 14, scale: 2, default: "0.0", comment: "线上捐助金额"
     t.decimal "offline_count", precision: 14, scale: 2, default: "0.0", comment: "线下捐助金额"
     t.string "auth_token", comment: "Token"
+    t.integer "manager_id", comment: "线下用户管理人id"
     t.index ["email"], name: "index_users_on_email"
     t.index ["login"], name: "index_users_on_login"
     t.index ["phone"], name: "index_users_on_phone"

@@ -56,7 +56,11 @@ class User < ApplicationRecord
   has_many :income_records
   has_many :project_season_applies
   has_many :month_donates
+
   has_many :offline_donors
+  # has_many :offline_donors, class_name: "User", foreign_key: "manager_id"
+
+  belongs_to :manager, class_name: "User", optional: true
 
   validates :password, confirmation: true, length: { minimum: 6 }, allow_blank: true
   default_value_for :password, '111111'
@@ -199,6 +203,15 @@ class User < ApplicationRecord
       json.login_name self.login
       json.avatar self.avatar
     end.attributes!
+  end
+
+  private
+  # TODO: 创建用户
+  def create_user
+  end
+
+  # TODO：创建现在捐助者
+  def create_offline_user
   end
 
 end
