@@ -16,13 +16,13 @@
         <div class="col-md-12 col-sm-12">
           <%= search_form_for @search, url: admin_flower_projects_path, class: 'form-inline' do |f| %>
               <div class="form-group">
-                <%= f.label :school_name_cont, '搜索' %>
-                <%= f.text_field :school_name_cont, class: 'form-control', placeholder: '学校名称' %>
+                <%= f.label :school_name_or_apply_no_cont, '搜索' %>
+                <%= f.text_field :school_name_or_apply_no_cont, class: 'form-control', placeholder: '学校名称、申请编号' %>
               </div>
-              <div class="form-group">
-                <%= f.label :id_eq, '筹款编号' %>
-                <%= f.text_field :id_eq, class: 'form-control', placeholder: '筹款编号' %>
-              </div>
+              <!-- <div class="form-group">
+                <%= f.label :id_eq, '申请编号' %>
+                <%= f.text_field :id_eq, class: 'form-control', placeholder: '申请编号' %>
+              </div> -->
               <div class="form-group">
                 <%= f.label :execute_state_eq, '执行状态' %>
                 <%= f.select :execute_state_eq, ProjectSeasonApply.options_for_select(:execute_states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
@@ -119,6 +119,20 @@
                       <% end %>
                     <% else %>
                       <span class="btn btn-xs default"><i class="fa fa-truck"></i> 查看收货凭证</span>
+                    <% end %>
+                  <% elsif apply.to_feedback? %>
+                    <% if apply.continuals.present? %>
+                      <%= link_to admin_flower_project_flower_receive_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                        <i class="fa fa-truck"></i> 查看收货凭证
+                      <% end %>
+                      <%= link_to admin_flower_project_flower_feedbacks_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                        <i class="fa fa-file"></i> 查看反馈
+                      <% end %>
+                    <% else %>
+                      <%= link_to admin_flower_project_flower_receive_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                        <i class="fa fa-truck"></i> 查看收货凭证
+                      <% end %>
+                      <span class="btn btn-xs default"><i class="fa fa-file"></i> 查看反馈</span>
                     <% end %>
                   <% elsif apply.done? %>
                     <%= link_to admin_flower_project_flower_receive_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>

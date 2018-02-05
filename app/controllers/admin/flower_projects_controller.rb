@@ -59,7 +59,7 @@ class Admin::FlowerProjectsController < Admin::BaseController
 
   def switch
     @project_apply.show? ? @project_apply.hidden! : @project_apply.show!
-    redirect_to admin_flower_projects_url, notice: @project_apply.show? ? '项目已启用' : '项目已暂停'
+    redirect_to admin_flower_projects_url, notice: @project_apply.show? ? '项目已对外展示' : '项目已暂不对外展示'
   end
 
   private
