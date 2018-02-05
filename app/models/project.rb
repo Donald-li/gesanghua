@@ -54,6 +54,10 @@ class Project < ApplicationRecord
     self.book.first
   end
 
+  def self.book_supply_project
+    self.book.last
+  end
+
   def self.radio_project
     self.radio.first
   end

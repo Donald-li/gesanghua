@@ -367,6 +367,8 @@ Rails.application.routes.draw do
     resources :selects, only: [] do
       collection do
         get :schools
+        get :bookshelf_schools
+        get :school_bookshelves
         get :users
         get :users_balance
         get :gsh_child_user
