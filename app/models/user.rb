@@ -33,6 +33,7 @@
 #
 
 class User < ApplicationRecord
+  ROLES = %i[superadmin admin project_manager project_operator volunteer county_user gsh_child custom_service]
 
   require 'custom_validators'
 
@@ -82,8 +83,24 @@ class User < ApplicationRecord
 
   before_create :generate_auth_token
 
+  # permit_params :name, :role
 
   has_secure_password
+
+  def roles=(roles)
+    roles = [*roles].map { |r| r.to_sym }
+    self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.inject(0, :+)
+  end
+
+  def roles
+    ROLES.reject do |r|
+      ((roles_mask.to_i || 0) & 2**ROLES.index(r)).zero?
+    end
+  end
+
+  def has_role?(role)
+    roles.include?(role)
+  end
 
   def generate_auth_token
     loop do
@@ -94,6 +111,18 @@ class User < ApplicationRecord
 
   def user_avatar
     self.profile["headimgurl"] || self.avatar.file_url(:tiny)
+  end
+
+  def teacher?
+    self.teacher.present?
+  end
+
+  def volunteer?
+    self.volunteer.present?
+  end
+
+  def county_user?
+    self.county_user.present?
   end
 
   # 用于判断是否验证预留手机号码
