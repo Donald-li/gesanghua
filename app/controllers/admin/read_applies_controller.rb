@@ -92,18 +92,18 @@ class Admin::ReadAppliesController < Admin::BaseController
 
   def supply_create
     # @school = School.find(project_apply_params[:school_id])
-    @project_apply = ProjectSeasonApply.new(project_apply_params.merge(project_id: 2, bookshelf_type: 2))
+    @project_apply = ProjectSeasonApply.new(project_apply_params.merge(project_id: Project.book_supply_project.id, bookshelf_type: 2))
     @project_apply.attach_images(params[:image_ids])
     @project_apply.audits.build
     respond_to do |format|
-      if ProjectSeasonApply.find_by(school_id: project_apply_params[:school_id], project_id: 2).present?
+      if ProjectSeasonApply.find_by(school_id: project_apply_params[:school_id], project_id: Project.book_supply_project.id).present?
         flash[:notice] = '此学校在本批次还有未完成的申请'
-        format.html { render :new }
+        format.html { render :supply_new }
       elsif @project_apply.save!
         @project_apply.bookshelves.update_all(school_id: @project_apply.school_id, project_season_id: @project_apply.project_season_id)
         format.html { redirect_to admin_read_applies_path, notice: '创建成功。' }
       else
-        format.html { render :new }
+        format.html { render :supply_new }
       end
     end
   end

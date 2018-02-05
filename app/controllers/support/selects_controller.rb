@@ -6,6 +6,18 @@ class Support::SelectsController < Support::BaseController
     render json: {items: schools.as_json(only: [:id, :name])}
   end
 
+  def bookshelf_schools
+    scope = School.joins(:bookshelves).distinct.enable.sorted.where("name like :q", q: "%#{params[:q]}%")
+    schools = scope.page(params[:page])
+    render json: {items: schools.as_json(only: [:id, :name])}
+  end
+
+  def school_bookshelves
+    scope = ProjectSeasonApplyBookshelf.pass.show.sorted.where("school_id = :school and classname like :q", school: "#{params[:school]}", q: "%#{params[:q]}%")
+    bookshelves = scope.page(params[:page])
+    render json: {items: bookshelves.as_json(only: [:id, :classname])}
+  end
+
   def users
     scope = User.enable.sorted.where("name like :q", q: "%#{params[:q]}%")
     users = scope.page(params[:page])
