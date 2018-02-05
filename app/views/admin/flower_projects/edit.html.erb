@@ -16,8 +16,8 @@
         <%= f.error_notification %>
         <div class="form-body form-horizontal">
           <%= f.hidden_field :project_id, value: ProjectSeason.flower_project_id %>
-          <%= f.input :school_id, collection: [@project_apply.school].compact.map {|u| [u.name, u.id]}, label: '申请学校：', input_html: {class: 'schools-ajax', data: {'parsley-required': true}} %>
-          <%= f.input :project_season_id, collection: [@project_apply.season].compact.map {|u| [u.name, u.id]}, label: '申请批次：', autofocus: true, input_html: {class: 'seasons-ajax'} %>
+          <%= static_form_control '申请批次：', @project_apply.season.name %>
+          <%= static_form_control '申请学校：', @project_apply.school.name %>
           <%= f.input :name, label: '项目名称：', autofocus: true, input_html: {data: {'parsley-required': true}} %>
           <div class="form-group">
             <label class="col-md-2 control-label">封面：</label>
