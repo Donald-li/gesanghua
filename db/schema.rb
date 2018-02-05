@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180205143525) do
+ActiveRecord::Schema.define(version: 20180205163242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -435,23 +435,6 @@ ActiveRecord::Schema.define(version: 20180205143525) do
     t.integer "state", comment: "捐助状态 1:捐助中 2:已结束"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "offline_donors", force: :cascade, comment: "代捐人表" do |t|
-    t.integer "user_id", comment: "用户ID"
-    t.string "name", comment: "姓名"
-    t.integer "state", comment: "状态"
-    t.integer "gender", comment: "性别，1：男 2：女"
-    t.string "email", comment: "邮箱"
-    t.string "phone", comment: "联系方式"
-    t.string "address", comment: "详细地址"
-    t.string "province", comment: "省"
-    t.string "city", comment: "市"
-    t.string "district", comment: "区"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "nickname", comment: "昵称"
-    t.string "salutation", comment: "孩子们如何称呼我"
   end
 
   create_table "pages", force: :cascade, comment: "单页面" do |t|

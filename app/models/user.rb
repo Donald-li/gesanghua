@@ -59,8 +59,7 @@ class User < ApplicationRecord
   has_many :project_season_applies
   has_many :month_donates
 
-  has_many :offline_donors
-  # has_many :offline_donors, class_name: "User", foreign_key: "manager_id"
+  has_many :offline_donors, class_name: "User", foreign_key: "manager_id"
 
   belongs_to :manager, class_name: "User", optional: true
 
@@ -80,6 +79,8 @@ class User < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
   scope :reverse_sorted, ->{ sorted.reverse_order }
+
+  scope :offline_donor, ->{where('manager_id IS NOT NULL')} # 线下用户
 
   before_create :generate_auth_token
 
@@ -111,6 +112,10 @@ class User < ApplicationRecord
 
   def user_avatar
     self.profile["headimgurl"] || self.avatar.file_url(:tiny)
+  end
+
+  def offline_donor?
+    self.manager_id.present?
   end
 
   def teacher?
@@ -230,13 +235,19 @@ class User < ApplicationRecord
     end.attributes!
   end
 
+  def offline_donor_summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :phone, :name)
+    end.attributes!
+  end
+
   private
   # TODO: 创建用户
   def create_user
   end
 
   # TODO：创建现在捐助者
-  def create_offline_user
+  def create_offline_donor
   end
 
 end
