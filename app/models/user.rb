@@ -29,6 +29,7 @@
 #  online_count    :decimal(14, 2)   default(0.0)          # 线上捐助金额
 #  offline_count   :decimal(14, 2)   default(0.0)          # 线下捐助金额
 #  auth_token      :string                                 # Token
+#  manager_id      :integer                                # 线下用户管理人id
 #
 
 class User < ApplicationRecord
