@@ -151,13 +151,14 @@ Rails.application.routes.draw do
       end
     end
     resources :read_projects, concerns: :switch do
-      resources :read_donate_records
+      # resources :read_donate_records
       resources :bookshelves, concerns: :switch do
         member do
           put :shipment
           get :bookshelf_receive
         end
       end
+      resources :bookshelf_donate_records
     end
     resources :read_continual_feedbacks, concerns: [:recommend]
     resources :project_camp_seasons

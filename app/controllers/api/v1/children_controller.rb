@@ -6,7 +6,7 @@ class Api::V1::ChildrenController < Api::V1::BaseController
     @children = @children.where(city: params[:city]) if params[:city].present?
     @children = @children.where(district: params[:district]) if params[:district].present?
     @children = @children.page(params[:page]).per(params[:per])
-    api_success(data: {children: @children.map{|child| child.detail_builder}, info: @pair.detail_builder, pagination: json_pagination(@children)})
+    api_success(data: {children: @children.map{|child| child.detail_builder if child.present?}, info: @pair.detail_builder, pagination: json_pagination(@children)})
   end
 
   def get_address_list

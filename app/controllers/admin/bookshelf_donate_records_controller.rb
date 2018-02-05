@@ -1,10 +1,11 @@
-class Admin::ReadDonateRecordsController < Admin::BaseController
+class Admin::BookshelfDonateRecordsController < Admin::BaseController
   before_action :set_donate_record, only: [:show, :destroy]
   before_action :set_project
   before_action :set_project_apply
+  before_action :set_bookshelf
 
   def index
-    @donate_records = @project.donate_records.paid
+    @donate_records = @bookshelf.donates.paid
     set_search_end_of_day(:created_at_lteq)
     @search = @donate_records.ransack(params[:q])
     scope = @search.result
@@ -48,6 +49,10 @@ class Admin::ReadDonateRecordsController < Admin::BaseController
 
   def set_project
     @project = Project.find(ProjectSeason.book_project_id)
+  end
+
+  def set_bookshelf
+    @bookshelf = ProjectSeasonApplyBookshelf.find(params[:bookshelf_id])
   end
 
   def set_project_apply
