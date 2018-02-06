@@ -1,6 +1,6 @@
 class Admin::FlowerProjectsController < Admin::BaseController
   before_action :set_project, only: [:index, :new, :create]
-  before_action :set_project_apply, only: [:show, :edit, :update, :destroy, :shipment, :switch]
+  before_action :set_project_apply, only: [:show, :edit, :update, :destroy, :shipment, :switch, :receive, :done]
 
   def index
     @search = @project.applies.raise_project.sorted.ransack(params[:q])
@@ -54,6 +54,20 @@ class Admin::FlowerProjectsController < Admin::BaseController
     @project_apply.to_receive!
     respond_to do |format|
       format.html { redirect_to admin_flower_projects_path, notice: '发货成功。' }
+    end
+  end
+
+  def receive
+    @project_apply.to_feedback!
+    respond_to do |format|
+      format.html { redirect_to admin_flower_projects_path, notice: '已收货成功。' }
+    end
+  end
+
+  def done
+    @project_apply.done!
+    respond_to do |format|
+      format.html { redirect_to admin_flower_projects_path, notice: '已完成成功。' }
     end
   end
 

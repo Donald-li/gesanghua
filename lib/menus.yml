@@ -237,7 +237,8 @@ admin:
             admin_project_flower_projects:
               actions:
                 'admin/flower_projects': all
-                'admin/flower_feedbacks': all
+                'admin/flower_installs': all
+                'admin/flower_reveives': all
                 'admin/flower_donate_records': all
             admin_project_flower_feedbacks:
               actions:

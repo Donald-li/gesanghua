@@ -59,8 +59,7 @@ class ProjectSeasonApply < ApplicationRecord
   has_many :beneficial_children
   has_many :donate_records
 
-  has_many :continuals, as: :owner
-
+  has_one :install, as: :owner
   has_one :receive, as: :owner
   has_one :radio_information
   accepts_nested_attributes_for :radio_information, update_only: true

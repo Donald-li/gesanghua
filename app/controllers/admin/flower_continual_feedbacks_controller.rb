@@ -21,7 +21,7 @@ class Admin::FlowerContinualFeedbacksController < Admin::BaseController
   end
 
   def create
-    @continual = Continual.new(continual_params.merge(owner_type: 'ProjectSeasonApply', project_id: ProjectSeason.flower_project_id, project_season_apply_id: continual_params[:owner_id], project_season_id: ProjectSeasonApply.find(continual_params[:owner_id]).season.id))
+    @continual = Continual.new(continual_params.merge(owner_type: 'Project', project_id: ProjectSeason.flower_project_id))
     respond_to do |format|
       if @continual.save
         format.html { redirect_to admin_flower_continual_feedbacks_path(@project), notice: '新增成功。' }
@@ -33,7 +33,7 @@ class Admin::FlowerContinualFeedbacksController < Admin::BaseController
 
   def update
     respond_to do |format|
-      if @continual.update(continual_params.merge(owner_type: 'ProjectSeasonApply', project_id: ProjectSeason.flower_project_id, project_season_apply_id: continual_params[:owner_id], project_season_id: ProjectSeasonApply.find(continual_params[:owner_id]).season.id))
+      if @continual.update(continual_params.merge(owner_type: 'Project', project_id: ProjectSeason.flower_project_id))
         format.html { redirect_to admin_flower_continual_feedbacks_path(@project), notice: '修改成功。' }
       else
         format.html { render :new }
@@ -66,9 +66,5 @@ class Admin::FlowerContinualFeedbacksController < Admin::BaseController
 
     def set_project
       @project = Project.find(ProjectSeason.flower_project_id)
-    end
-
-    def set_project_apply
-      @apply = ProjectSeasonApply.find(params[:flower_project_id])
     end
 end

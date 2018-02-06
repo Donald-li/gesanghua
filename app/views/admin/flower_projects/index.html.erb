@@ -120,12 +120,15 @@
                     <% else %>
                       <span class="btn btn-xs default"><i class="fa fa-truck"></i> 查看收货凭证</span>
                     <% end %>
+                    <%= link_to receive_admin_flower_project_path(apply), class: 'btn btn-xs yellow', method: :put, data: {confirm: '确定已收货吗？'} do %>
+                      <i class="fa fa-truck"></i> 已收货
+                    <% end %>
                   <% elsif apply.to_feedback? %>
-                    <% if apply.continuals.present? %>
+                    <% if apply.install.present? %>
                       <%= link_to admin_flower_project_flower_receive_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                         <i class="fa fa-truck"></i> 查看收货凭证
                       <% end %>
-                      <%= link_to admin_flower_project_flower_feedbacks_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                      <%= link_to admin_flower_project_flower_install_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                         <i class="fa fa-file"></i> 查看反馈
                       <% end %>
                     <% else %>
@@ -134,11 +137,14 @@
                       <% end %>
                       <span class="btn btn-xs default"><i class="fa fa-file"></i> 查看反馈</span>
                     <% end %>
+                    <%= link_to done_admin_flower_project_path(apply), class: 'btn btn-xs blue', method: :put, data: {confirm: '确定已完成吗？'} do %>
+                      <i class="fa fa-edit"></i> 已完成
+                    <% end %>
                   <% elsif apply.done? %>
                     <%= link_to admin_flower_project_flower_receive_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                       <i class="fa fa-truck"></i> 查看收货凭证
                     <% end %>
-                    <%= link_to admin_flower_project_flower_feedbacks_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                    <%= link_to admin_flower_project_flower_install_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-file"></i> 查看反馈
                     <% end %>
                   <% else %>
