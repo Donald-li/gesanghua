@@ -4,7 +4,9 @@ class Ability
   def initialize(user)
     alias_action :create, :read, :update, :destroy, to: :crud
 
-    can :update, :all
+    if user.has_role? :superadmin
+      can :manage, :all
+    end
 
     # if !user
     #   can :update, :all
