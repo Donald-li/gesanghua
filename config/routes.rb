@@ -211,6 +211,7 @@ Rails.application.routes.draw do
         put :shipment
         put :receive
         put :done
+        put :start_raising
       end
       resource :flower_receive
       resource :flower_install, concerns: [:recommend]
