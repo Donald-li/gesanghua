@@ -4,7 +4,6 @@ class Api::V1::BaseController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   protected
-  rescue_from(CanCan::AccessDenied){ deny_access }
 
   def user_for_paper_trail
     "#{current_user.nickname}(#{current_user.name})" if current_user

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180205093631) do
+ActiveRecord::Schema.define(version: 20180205163242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -289,7 +289,6 @@ ActiveRecord::Schema.define(version: 20180205093631) do
     t.integer "project_season_apply_id", comment: "申请id"
     t.integer "project_season_apply_child_id", comment: "孩子id"
     t.integer "project_season_apply_bookshelf_id", comment: "书架id"
-    t.string "class_name", comment: "反馈班级"
   end
 
   create_table "fund_categories", force: :cascade do |t|
@@ -436,23 +435,6 @@ ActiveRecord::Schema.define(version: 20180205093631) do
     t.integer "state", comment: "捐助状态 1:捐助中 2:已结束"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "offline_donors", force: :cascade, comment: "代捐人表" do |t|
-    t.integer "user_id", comment: "用户ID"
-    t.string "name", comment: "姓名"
-    t.integer "state", comment: "状态"
-    t.integer "gender", comment: "性别，1：男 2：女"
-    t.string "email", comment: "邮箱"
-    t.string "phone", comment: "联系方式"
-    t.string "address", comment: "详细地址"
-    t.string "province", comment: "省"
-    t.string "city", comment: "市"
-    t.string "district", comment: "区"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "nickname", comment: "昵称"
-    t.string "salutation", comment: "孩子们如何称呼我"
   end
 
   create_table "pages", force: :cascade, comment: "单页面" do |t|
@@ -882,6 +864,7 @@ ActiveRecord::Schema.define(version: 20180205093631) do
     t.decimal "offline_count", precision: 14, scale: 2, default: "0.0", comment: "线下捐助金额"
     t.string "auth_token", comment: "Token"
     t.integer "manager_id", comment: "线下用户管理人id"
+    t.integer "roles_mask", comment: "角色"
     t.index ["email"], name: "index_users_on_email"
     t.index ["login"], name: "index_users_on_login"
     t.index ["phone"], name: "index_users_on_phone"

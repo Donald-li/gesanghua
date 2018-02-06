@@ -41,19 +41,16 @@
           <thead>
             <tr>
               <th>
-                用户ID
+                昵称
               </th>
               <th>
                 姓名
               </th>
               <th>
-                昵称
+                手机号
               </th>
               <th>
-                预留手机
-              </th>
-              <th>
-                是否认证手机
+                余额
               </th>
               <th>
                 历史捐赠金额
@@ -76,25 +73,22 @@
             <% @users.each do |user| %>
             <tr>
               <td>
-                <%= user.id %>
+                <%= user.nickname %>
               </td>
               <td>
                 <%= user.name %>
               </td>
               <td>
-                <%= user.nickname %>
-              </td>
-              <td>
                 <%= user.phone %>
               </td>
               <td>
-                <%= user.validate_phone? ? "是" : "否" %>
+                ￥<%= number_to_currency(user.balance) %>
               </td>
               <td>
-                <%= user.donate_records.paid.sum(:amount) %>
+                ￥<%= number_to_currency(user.donate_records.paid.sum(:amount)) %>
               </td>
               <td>
-                <%= user.to_bill_amount %>
+                ￥<%= number_to_currency(user.to_bill_amount) %>
               </td>
               <td>
                 <%= link_to switch_admin_user_path(user), data: {confirm: "确定#{user.state === 'enable' ? '禁用该用户' : '启用该用户'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{user.state === 'enable' ? 'green' : 'default'}" do %>
@@ -142,7 +136,7 @@
                   </ul>
                 </div>
                 <%= link_to edit_admin_user_path(user), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                  <i class="fa fa-edit"></i> 修改信息
+                  <i class="fa fa-edit"></i> 修改
                 <% end %>
                 <%= link_to admin_user_donate_records_path(user), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                   <i class="fa fa-file-text-o"></i> 捐助记录

@@ -33,6 +33,7 @@
 #
 
 class User < ApplicationRecord
+  ROLES = %i[superadmin admin project_manager project_operator volunteer county_user gsh_child custom_service]
 
   require 'custom_validators'
 
@@ -58,8 +59,7 @@ class User < ApplicationRecord
   has_many :project_season_applies
   has_many :month_donates
 
-  has_many :offline_donors
-  # has_many :offline_donors, class_name: "User", foreign_key: "manager_id"
+  has_many :offline_donors, class_name: "User", foreign_key: "manager_id"
 
   belongs_to :manager, class_name: "User", optional: true
 
@@ -80,10 +80,28 @@ class User < ApplicationRecord
   scope :sorted, ->{ order(created_at: :desc) }
   scope :reverse_sorted, ->{ sorted.reverse_order }
 
+  scope :offline_donor, ->{where('manager_id IS NOT NULL')} # 线下用户
+
   before_create :generate_auth_token
 
+  # permit_params :name, :role
 
   has_secure_password
+
+  def roles=(roles)
+    roles = [*roles].map { |r| r.to_sym }
+    self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.inject(0, :+)
+  end
+
+  def roles
+    ROLES.reject do |r|
+      ((roles_mask.to_i || 0) & 2**ROLES.index(r)).zero?
+    end
+  end
+
+  def has_role?(role)
+    roles.include?(role)
+  end
 
   def generate_auth_token
     loop do
@@ -96,9 +114,20 @@ class User < ApplicationRecord
     self.profile["headimgurl"] || self.avatar.file_url(:tiny)
   end
 
-  # 用于判断是否验证预留手机号码
-  def validate_phone?
-    #TODO
+  def offline_donor?
+    self.manager_id.present?
+  end
+
+  def teacher?
+    self.teacher.present?
+  end
+
+  def volunteer?
+    self.volunteer.present?
+  end
+
+  def county_user?
+    self.county_user.present?
   end
 
   def user_balance
@@ -206,13 +235,19 @@ class User < ApplicationRecord
     end.attributes!
   end
 
+  def offline_donor_summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :phone, :name)
+    end.attributes!
+  end
+
   private
   # TODO: 创建用户
   def create_user
   end
 
   # TODO：创建现在捐助者
-  def create_offline_user
+  def create_offline_donor
   end
 
 end
