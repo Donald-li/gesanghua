@@ -117,7 +117,7 @@ Rails.application.routes.draw do
     resources :article_categories, concerns: [:move, :switch]
     resources :supports, concerns: [:move, :switch]
     resources :pages, concerns: [:move, :switch]
-    resources :projects
+    resources :projects, concerns: [:move]
     resources :school_applies do
       member do
         patch :update_audit
@@ -317,7 +317,9 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resource :main, only: [:show] do
-        post :contribute
+        get :contribute
+        post :settlement
+        post :month_contribute
         get :banners
       end
 

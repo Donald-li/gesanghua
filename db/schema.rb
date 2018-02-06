@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180206040940) do
+ActiveRecord::Schema.define(version: 20180206045110) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -162,8 +162,6 @@ ActiveRecord::Schema.define(version: 20180206040940) do
     t.datetime "sign_up_start_time", comment: "报名开始时间"
     t.integer "number", comment: "报名限制人数"
     t.string "remark", comment: "报名表备注"
-    t.integer "sign_up_state", comment: "报名状态 1:未开始报名 2:报名中 3:报名结束"
-    t.integer "campaign_state", comment: "活动状态 1:活动未开始 2:活动进行中 3:活动已结束"
   end
 
   create_table "child_periods", force: :cascade, comment: "孩子捐助学期表" do |t|
@@ -438,6 +436,8 @@ ActiveRecord::Schema.define(version: 20180206040940) do
     t.integer "state", comment: "捐助状态 1:捐助中 2:已结束"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "project_id", comment: "项目ID"
+    t.string "certificate_no", comment: "捐赠证书编号"
   end
 
   create_table "pages", force: :cascade, comment: "单页面" do |t|
@@ -629,6 +629,7 @@ ActiveRecord::Schema.define(version: 20180206040940) do
     t.decimal "donate_record_amount_count", precision: 14, scale: 2, default: "0.0", comment: "累计捐助金额"
     t.string "alias", comment: "项目别名，使用英文"
     t.integer "appoint_fund_id", comment: "定向指定财务分类id"
+    t.integer "position", comment: "位置排序"
   end
 
   create_table "radio_informations", force: :cascade, comment: "广播详细信息表" do |t|

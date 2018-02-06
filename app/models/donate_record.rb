@@ -87,6 +87,7 @@ class DonateRecord < ApplicationRecord
     gsh_fund = Fund.gsh
     donate = user.donates.build(amount: amount, fund: gsh_fund, promoter: promoter, pay_state: 'unpay')
     donate.save
+    return donate
   end
 
   # 捐定向
@@ -96,26 +97,27 @@ class DonateRecord < ApplicationRecord
     fund = project.fund
     donate = user.donates.build(amount: amount, fund: fund, promoter: promoter, pay_state: 'unpay', project: project)
     donate.save
+    return donate
   end
 
 
   # 捐指定
-  def self.donate_apply(user = nil, amount = 0.0, apply = nil, promoter = nil, kind = 'system')
+  def self.donate_apply(user = nil, amount = 0.0, apply = nil, promoter = nil)
     return false unless apply.present?
     user_id = user.present? ? user.id : ''
-    donate = DonateRecord.new(user_id: user_id,fund: apply.project.fund, promoter: promoter, pay_state: 'unpay', amount: amount, project: apply.project, season: apply.season, apply: apply, kind: kind)
+    donate = DonateRecord.new(user_id: user_id,fund: apply.project.fund, promoter: promoter, pay_state: 'unpay', amount: amount, project: apply.project, season: apply.season, apply: apply)
     donate.save
     return donate
   end
 
   # 捐孩子
-  def self.donate_child(user = nil, gsh_child = nil, semester_num = 0, promoter = nil, kind = 'system')
+  def self.donate_child(user = nil, gsh_child = nil, semester_num = 0, promoter = nil)
     # return false unless user.present?
     return false unless gsh_child.present?
     total = self.donate_child_total(gsh_child, semester_num)
     project = Project.pair_project
     user_id = user.present? ? user.id : ''
-    donate = self.new(user_id: user_id, amount: total, fund: project.appoint_fund, promoter: promoter, pay_state: 'unpay', project: project, gsh_child: gsh_child, kind: kind)
+    donate = self.new(user_id: user_id, amount: total, fund: project.appoint_fund, promoter: promoter, pay_state: 'unpay', project: project, gsh_child: gsh_child)
     if donate.save
       self.donate_child_semesters(gsh_child, semester_num).update(donate_state: :succeed)
     end
@@ -137,7 +139,7 @@ class DonateRecord < ApplicationRecord
   end
 
   # 捐悦读(零捐)
-  def self.part_donate_bookshelf(user = nil, amount = 0, bookshelf = nil, promoter = nil, kind = 'system')
+  def self.part_donate_bookshelf(user = nil, amount = 0, bookshelf = nil, promoter = nil)
     return false unless bookshelf.present?
     project = Project.book_project
     user_id = user.present? ? user.id : ''
@@ -180,12 +182,15 @@ class DonateRecord < ApplicationRecord
       user.balance -= amount
       return false if user.balance < 0
     end
-    donate_record = self.donate_apply(user, amount, apply, nil, 'custom')
+    donate_record = self.donate_apply(user, amount, apply, nil)
+    donate_record.pay_state = 'paid'
+    donate_record.kind = 'custom'
+
     apply.present_amount += amount.to_f
     apply.execute_state = 'to_execute' if apply.present_amount == apply.target_amount
     self.transaction do
       begin
-        donate_record.paid!
+        donate_record.save
         apply.save
         match_fund.save if match_fund.present?
         user.save if user.present?
@@ -213,12 +218,15 @@ class DonateRecord < ApplicationRecord
       user.balance -= amount
       return false if user.balance < 0
     end
-    donate_record = self.part_donate_bookshelf(user, amount, bookshelf, nil, 'custom')
+    donate_record = self.part_donate_bookshelf(user, amount, bookshelf, nil)
+    donate_record.pay_state = 'paid'
+    donate_record.kind = 'custom'
+
     bookshelf.present_amount += amount
     bookshelf.state = 'complete' if bookshelf.present_amount == bookshelf.target_amount
     self.transaction do
       begin
-        donate_record.paid!
+        donate_record.save
         bookshelf.save
         match_fund.save if match_fund.present?
         user.save if user.present?
@@ -246,10 +254,13 @@ class DonateRecord < ApplicationRecord
       user.balance -= amount
       return false if user.balance < 0
     end
-    donate_record = self.donate_child(user, child.gsh_child, semester_num, nil, 'custom')
+    donate_record = self.donate_child(user, child.gsh_child, semester_num, nil)
+    donate_record.pay_state = 'paid'
+    donate_record.kind = 'custom'
+
     self.transaction do
       begin
-        donate_record.paid!
+        donate_record.save
         match_fund.save if match_fund.present?
         user.save if user.present?
         return true

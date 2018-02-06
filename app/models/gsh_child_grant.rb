@@ -24,6 +24,7 @@
 #  remark                  :text
 #  operator_id             :integer                                # 异常处理人id
 #  grant_person            :string                                 # 发放人
+#  project_id              :integer                                # 项目id
 #
 
 class GshChildGrant < ApplicationRecord

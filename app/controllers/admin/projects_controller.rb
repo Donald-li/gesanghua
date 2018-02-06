@@ -1,5 +1,5 @@
 class Admin::ProjectsController < Admin::BaseController
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :move]
 
   def index
     @search = Project.sorted.ransack(params[:q])
@@ -47,6 +47,13 @@ class Admin::ProjectsController < Admin::BaseController
     respond_to do |format|
       format.html { redirect_to admin_projects_path, notice: '删除成功。' }
     end
+  end
+
+  def move
+    move_target = params[:to]
+    return unless ['higher', 'lower', 'to_top', 'to_bottom'].include?(move_target)
+    @project.send("move_#{move_target}")
+    redirect_to request.referer
   end
 
   private

@@ -12,10 +12,14 @@
 #  state          :integer                                # 捐助状态 1:捐助中 2:已结束
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  project_id     :integer                                # 项目ID
+#  certificate_no :string                                 # 捐赠证书编号
 #
 
 FactoryBot.define do
   factory :month_donate do
-    
+    start_time Time.now
+    donated_period 0
+    state 1
   end
 end

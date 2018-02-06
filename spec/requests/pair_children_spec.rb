@@ -47,7 +47,7 @@ RSpec.describe "Api::V1::PairChildren", type: :request do
                     paymethod: 'weixin', selectedGrants: child1.donate_record_builder},
            headers: api_v1_headers(login_user)
       api_v1_expect_success
-      expect(json_body[:data][:pay_state]).to eq true
+      expect(json_body[:data][:record_state]).to eq true
     end
   end
 
