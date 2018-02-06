@@ -14,6 +14,7 @@
 #  donate_record_amount_count :decimal(14, 2)   default(0.0)          # 累计捐助金额
 #  alias                      :string                                 # 项目别名，使用英文
 #  appoint_fund_id            :integer                                # 定向指定财务分类id
+#  position                   :integer                                # 位置排序
 #
 
 class Project < ApplicationRecord
@@ -44,7 +45,8 @@ class Project < ApplicationRecord
   # enum kind: { normal: 1, goods: 2 } # 项目类型 1:固定项目 2:物资类项目
   enum kind: { pair: 1, book: 2, radio: 3, care: 4, movie: 5, camp: 6, custom: 7} # 项目类型 1:一对一 2:悦读 3:广播 4:护花 5:观影 6:营 7:自定义
 
-  scope :sorted, ->{ order(created_at: :asc) }
+  acts_as_list column: :position
+  scope :sorted, ->{ order(position: :asc) }
 
   def self.pair_project
     self.pair.first

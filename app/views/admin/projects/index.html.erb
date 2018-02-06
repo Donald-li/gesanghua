@@ -47,6 +47,9 @@
               描述
             </th>
             <th>
+              排序
+            </th>
+            <th>
               操作
             </th>
           </tr>
@@ -68,6 +71,12 @@
                 </td>
                 <td>
                   <%=  project.sliced_describe %>
+                </td>
+                <td>
+                  <%= link_to '顶部', move_admin_project_path(project, to: :to_top), method: :put %>
+                  <%= link_to '上', move_admin_project_path(project, to: :higher), method: :put %>
+                  <%= link_to '下', move_admin_project_path(project, to: :lower), method: :put %>
+                  <%= link_to '底部', move_admin_project_path(project, to: :to_bottom), method: :put %>
                 </td>
                 <td>
                   <%= link_to admin_project_path(project), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>

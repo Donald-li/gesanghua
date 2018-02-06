@@ -14,6 +14,7 @@
 #  donate_record_amount_count :decimal(14, 2)   default(0.0)          # 累计捐助金额
 #  alias                      :string                                 # 项目别名，使用英文
 #  appoint_fund_id            :integer                                # 定向指定财务分类id
+#  position                   :integer                                # 位置排序
 #
 
 require 'rails_helper'
