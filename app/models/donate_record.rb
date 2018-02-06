@@ -30,6 +30,7 @@
 #  gsh_child_id                      :integer                                # 格桑花孩子id
 #  kind                              :integer                                # 记录类型: 1:系统生成 2:手动添加
 #  project_season_apply_bookshelf_id :integer                                # 书架id
+#  bookshelf_supplement_id           :integer                                # 补书ID
 #
 
 class DonateRecord < ApplicationRecord
@@ -42,6 +43,7 @@ class DonateRecord < ApplicationRecord
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id', optional: true
   belongs_to :child, class_name: 'ProjectSeasonApplyChild', foreign_key: 'project_season_apply_child_id', optional: true
   belongs_to :bookshelf, class_name: 'ProjectSeasonApplyBookshelf', foreign_key: 'project_season_apply_bookshelf_id', optional: true
+  belongs_to :supplement, class_name: 'BookshelfSupplement', foreign_key: 'bookshelf_supplement_id', optional: true
   belongs_to :team, optional: true
   has_one :income_record, dependent: :destroy
   belongs_to :voucher, optional: true

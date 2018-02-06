@@ -1,0 +1,78 @@
+<div class="portlet light portlet-fit bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-note font-dark"></i>
+      <span class="caption-subject font-dark bold uppercase">收入明细详情</span>
+    </div>
+    <div class="actions">
+      <%= link_to admin_read_project_supplement_donate_records_path(@apply), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+        <i class="fa fa-reply"></i>
+        <span>返回</span>
+      <% end %>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="table-scrollable">
+      <table class="table table-bordered table-hover">
+        <tbody>
+        <tr>
+          <th>
+            收入单号
+          </th>
+          <th>
+            <%= @donate_record.try(:donate_no) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            捐助项目
+          </th>
+          <th>
+            一对一助学项目
+          </th>
+        </tr>
+        <tr>
+          <th>
+            捐助时间
+          </th>
+          <th>
+            <%= l @donate_record.created_at %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            捐助金额
+          </th>
+          <th>
+            ￥<%= number_to_currency(@donate_record.amount) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            捐助方式
+          </th>
+          <th>
+            <%= @donate_record.income_record.income_source.try(:name) if @donate_record.income_record.present? %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            捐助人
+          </th>
+          <th>
+            <%= @donate_record.user.name %> ( <%= @donate_record.user.phone %> )
+          </th>
+        </tr>
+        <tr>
+          <th>
+            代捐人/汇款人
+          </th>
+          <th>
+            <%= @donate_record.donor %> / <%= @donate_record.remitter_name %>
+          </th>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

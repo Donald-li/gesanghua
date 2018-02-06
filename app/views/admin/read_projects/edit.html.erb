@@ -22,6 +22,7 @@
             <%= static_form_control '申请学校：', @project.school.name %>
             <%= static_form_control '申请类型：', @project.enum_name(:bookshelf_type) %>
             <%= f.input :name, label: '项目名称：', placeholder: '请填写项目名称', require: true %>
+            <%= f.input :target_amount, type: 'number', min: 0, label: '目标筹款金额：', placeholder: '请填写筹款金额', require: true %>
             <div class="form-group">
               <label class="col-md-2 control-label">项目封面：</label>
               <div class="col-sm-9">

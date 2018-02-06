@@ -153,6 +153,7 @@ Rails.application.routes.draw do
     resources :read_projects, concerns: :switch do
       # resources :read_donate_records
       resources :bookshelf_donate_records
+      resources :supplement_donate_records
       resources :bookshelves, concerns: :switch do
         member do
           put :shipment
@@ -162,7 +163,7 @@ Rails.application.routes.draw do
       resources :supplements, concerns: :switch do
         member do
           put :shipment
-          get :bookshelf_receive
+          get :supplement_receive
         end
       end
     end

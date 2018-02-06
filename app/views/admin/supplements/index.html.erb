@@ -1,0 +1,155 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i><%= link_to @project.name, admin_read_projects_path %> > 补书列表
+    </div>
+    <div class="actions">
+
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="dataTables_wrapper no-footer">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <%= search_form_for @search, url: admin_read_project_supplements_path(@project), class: 'form-inline' do |f| %>
+            <div class="form-group">
+              <%= f.label :bookshelf_classname_cont, '班级名称' %>
+              <%= f.text_field :bookshelf_classname_cont, class: 'form-control', placeholder: '班级名称' %>
+            </div>
+            <div class="form-group">
+              <%= f.label :state_eq, '全部状态' %>
+              <%= f.select :state_eq, ProjectSeasonApplyBookshelf.options_for_select(:states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
+            </div>
+            <button type="submit" class="btn btn-default grey">搜索</button>
+          <% end %>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="dataTables_filter pull-right"></div>
+        </div>
+      </div>
+      <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover" id="sample_2">
+          <thead>
+          <tr>
+            <th>
+              图书角编号
+            </th>
+            <th>
+              班级
+            </th>
+            <th>
+              班级人数
+            </th>
+            <th>
+              目标/已筹
+            </th>
+            <th>
+              署名信息
+            </th>
+            <th>
+              图书数量
+            </th>
+            <th>
+              本次损耗
+            </th>
+            <th>
+              本次补充
+            </th>
+            <th>
+              补书次数
+            </th>
+            <th>
+              当前展示状态
+            </th>
+            <th>
+              执行状态
+            </th>
+            <th>
+              操作
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @supplements.each do |supplement| %>
+              <tr>
+                <td>
+                  <%= supplement.bookshelf.bookshelf_no %>
+                </td>
+                <td>
+                  <%= supplement.bookshelf.classname %>
+                </td>
+                <td>
+                  <%= supplement.bookshelf.beneficial_children.present? ? supplement.bookshelf.beneficial_children.count : 0 %>
+                </td>
+                <td>
+                  <%= number_to_currency(supplement.target_amount) %> / <%= number_to_currency(supplement.present_amount) %>
+                </td>
+                <td>
+                  <%= supplement.bookshelf.title %>
+                </td>
+                <td>
+                  <%= supplement.bookshelf.book_number %>
+                </td>
+                <td>
+                  <%= supplement.loss %>
+                </td>
+                <td>
+                  <%= supplement.supply %>
+                </td>
+                <td>
+                  <%= supplement.bookshelf.supplements.count.present? ? supplement.bookshelf.supplements.count : 0 %>
+                </td>
+                <td>
+                  <%= link_to switch_admin_read_project_supplement_path(@project, supplement), data: {confirm: "确定#{supplement.show_state === 'show' ? '隐藏补书申请' : '显示补书申请'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{supplement.show_state === 'show' ? 'green' : 'default'}" do %>
+                      <%= supplement.show_state === 'show' ? '对外展示' : '暂不展示' %>
+                      <i class="fa <%= supplement.show_state === 'show' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                  <% end %>
+                </td>
+                <td>
+                  <%= supplement.enum_name(:state) %>
+                </td>
+                <td>
+                  <%= link_to edit_admin_read_project_supplement_path(@project, supplement), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                      <i class="fa fa-edit"></i> 修改
+                  <% end %>
+                  <%= link_to admin_read_project_supplement_donate_records_path(@project, supplement_id: supplement.id), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                    <i class="fa fa-list"></i> 筹款管理
+                  <% end %>
+                  <% if supplement.non_execution? %>
+                    <%= link_to shipment_admin_read_project_supplement_path(@project, supplement), class: 'btn btn-xs yellow', method: :put, data: {confirm: '确定发货吗？'} do %>
+                      <i class="fa fa-truck"></i> 发货
+                    <% end %>
+                  <% end %>
+                  <% if supplement.non_reception? %>
+                    <% if supplement.receive.present? %>
+                      <%= link_to supplement_receive_admin_read_project_bookshelf_path(@project, bookshelf), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                        <i class="fa fa-truck"></i> 查看收货凭证
+                      <% end %>
+                    <% else %>
+                      <span class="btn btn-xs default"><i class="fa fa-truck"></i> 查看收货凭证</span>
+                    <% end %>
+                  <% end %>
+                </td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-5 col-sm-12">
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@supplements) %></div>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <%= paginate @supplements, theme: '' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END EXAMPLE TABLE PORTLET-->
+
+<script>
+  $(function(){
+
+  })
+</script>

@@ -1,0 +1,57 @@
+<div class="portlet light bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-note"> 编辑补书信息 </i>
+      <span class="caption-subject"></span>
+      <span class="caption-helper"></span>
+    </div>
+    <div class="actions">
+      <div class="btn-group">
+        <a href="<%= admin_read_project_supplements_path(@project) %>" class="btn btn-xs blue">
+          <i class="fa fa-reply"></i>返回
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body form">
+    <div class="form-body form-horizontal">
+      <%= simple_form_for [:admin, @project, @supplement], url: admin_read_project_supplement_path, wrapper: :admin_form, html: {class: 'form-horizontal project_form'} do |f| %>
+          <%= f.error_notification %>
+          <div class="form-body">
+
+            <%= static_form_control '申请学校：', @supplement.apply.school.name %>
+            <%= static_form_control '图书角编号：', @supplement.bookshelf.bookshelf_no %>
+            <%= static_form_control '班级名：', @supplement.bookshelf.classname %>
+            <%= static_form_control '图书角署名：', @supplement.bookshelf.title %>
+            <%= static_form_control '现存书数量：', @supplement.bookshelf.title %>
+            <%= static_form_control '损耗数量：', @supplement.loss %>
+            <%= static_form_control '补充数量：', @supplement.supply %>
+            <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: BookshelfSupplement.options_for_some_select(:states), label: '状态：'%>
+          </div>
+          <div class="form-actions">
+            <div class="row">
+              <div class="col-md-offset-2 col-md-9">
+                <%= f.button :submit, '提交', class: 'btn blue' %>
+                <%= link_to '取消', admin_read_project_supplements_path(@project), class: 'btn' %>
+              </div>
+            </div>
+          </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    //    表单验证
+    $(".project_form").html5Validate(function(){
+        $(this).find('[type="submit"]').attr('disabled','disabled');
+        this.submit();
+    });
+    // initImageWebuploader($('#webuploader'));
+    // $("#goods").nestedAttributes({
+    //   bindAddTo: $("#goods_add_another")
+    // });
+  })
+</script>

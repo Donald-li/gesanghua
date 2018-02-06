@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20180206082422) do
+=======
+ActiveRecord::Schema.define(version: 20180206101757) do
+>>>>>>> 补书列表
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -243,6 +247,7 @@ ActiveRecord::Schema.define(version: 20180206082422) do
     t.integer "gsh_child_id", comment: "格桑花孩子id"
     t.integer "kind", comment: "记录类型: 1:系统生成 2:手动添加"
     t.integer "project_season_apply_bookshelf_id", comment: "书架id"
+    t.integer "bookshelf_supplement_id", comment: "补书ID"
   end
 
   create_table "expenditure_records", force: :cascade, comment: "支出记录表" do |t|

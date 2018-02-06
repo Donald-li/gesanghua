@@ -24,6 +24,9 @@ class BookshelfSupplement < ApplicationRecord
   belongs_to :bookshelf, class_name: 'ProjectSeasonApplyBookshelf', foreign_key: 'project_season_apply_bookshelf_id'
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id', optional: true
 
+  has_many :donates, class_name: 'DonateRecord', dependent: :destroy
+  has_one :receive, as: :owner
+
   enum show_state: {show: 1, hidden: 2}
   default_value_for :show_state, 1
 
@@ -34,5 +37,7 @@ class BookshelfSupplement < ApplicationRecord
   default_value_for :audit_state, 1
 
   scope :pass_done, ->{ pass.done }
-  
+
+  scope :sorted, ->{ order(created_at: :desc) }
+
 end
