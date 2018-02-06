@@ -64,7 +64,7 @@ class ProjectSeasonApply < ApplicationRecord
   has_one :radio_information
   accepts_nested_attributes_for :radio_information, update_only: true
   accepts_nested_attributes_for :bookshelves, allow_destroy: true, reject_if: :all_blank
-  accepts_nested_attributes_for :supplements, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :supplements, allow_destroy: true, reject_if: :all_blank #proc { |attributes| attributes['project_season_apply_bookshelf_id'].blank? }
 
   attr_accessor :approve_remark
 
@@ -90,7 +90,7 @@ class ProjectSeasonApply < ApplicationRecord
   # end
 
   def pass_bookshelf?
-    if self.bookshelves.pass.present?
+    if self.bookshelves.pass.present? || self.supplements.pass.present?
       true
     else
       false
@@ -104,6 +104,16 @@ class ProjectSeasonApply < ApplicationRecord
   #     b.save
   #   end
   # end
+
+  # 通过审核的补书申请数量
+  def supplements_count
+    self.supplements.pass.count
+  end
+
+  # 筹款完成的补书数量
+  def supplements_done_count
+    self.supplements.pass_done.count
+  end
 
   # 通过审核的班级数量
   def bookshelves_count

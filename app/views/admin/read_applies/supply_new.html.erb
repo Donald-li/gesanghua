@@ -61,10 +61,10 @@
                               <%= b.input :loss,type: 'number', min: 0, label: false, input_html: {class: 'loss-count', placeholder: '请填写数量'} %>
                             </td>
                             <td>
-                              <%= b.input :upply,type: 'number', min: 0, label: false, input_html: {class: 'supply-count', placeholder: '请填写数量'} %>
+                              <%= b.input :supply,type: 'number', min: 0, label: false, input_html: {class: 'supply-count', placeholder: '请填写数量'} %>
                             </td>
                             <td>
-                              <%= b.input :state, as: :select, wrapper: :inline_inputs, collection: BookshelfSupplement.options_for_select(:states), label: false %>
+                              <%= b.input :audit_state, as: :select, wrapper: :inline_inputs, collection: BookshelfSupplement.options_for_select(:audit_states), label: false %>
                             </td>
                             <td>
                               <a href="#" class="destroy"><i class="fa fa-remove font-red-soft"></i></a>
@@ -120,134 +120,111 @@
         </div>
       </div>
     </div>
-
-
-
-
-    <script type="text/javascript">
-        $(function(){
-            initMultiImageWebuploader($('#webuploader'));
-            $('.upload-list').viewer();
-            //    表单验证
-            $(".project_form").html5Validate(function(){
-                $(this).find('[type="submit"]').attr('disabled','disabled');
-                this.submit();
-            });
-            $("#goods").nestedAttributes({
-              bindAddTo: $("#goods_add_another"),
-              beforeAdd: function(el){
-                school = $('.schools-ajax').select2("val")
-                if (!school) {
-                  toastr.info('请先选择学校！', '' ,{"positionClass": "toast-top-center"})
-                } else {
-                  return true
-                }
-              },
-              afterAdd: function(el){
-                $(el).find('.loss-count').val('0')
-                $(el).find('.supply-count').val('0')
-              }
-            });
-            // 异步加载学校列表
-            $('.schools-ajax').select2({
-                language: "zh-CN",
-                placeholder: '请选择学校',
-                allowClear: true,
-                ajax: {
-                    url: "/selects/bookshelf_schools",
-                    dataType: 'json',
-                    delay: 250,
-                    data: function (params) {
-                        return {
-                            q: params.term, // search term
-                            page: params.page
-                        };
-                    },
-                    processResults: function (data, params) {
-                        params.page = params.page || 1;
-                        return {
-                            results: $.map(data.items, function (item) {
-                                return {
-                                    text: item.name,
-                                    id: item.id
-                                }
-                            }),
-                            pagination: {
-                                more: (params.page * 30) < data.total_count
-                            }
-                        };
-                    },
-                    cache: true
-                }
-            });
-            // 异步加载批次列表
-            $('.seasons-ajax').select2({
-                language: "zh-CN",
-                placeholder: '请选择批次',
-                allowClear: true,
-                ajax: {
-                    url: "/selects/seasons",
-                    dataType: 'json',
-                    delay: 250,
-                    data: function (params) {
-                        return {
-                            q: params.term, // search term
-                            page: params.page,
-                            project_id: 2
-                        };
-                    },
-                    processResults: function (data, params) {
-                        params.page = params.page || 1;
-                        return {
-                            results: $.map(data.items, function (item) {
-                                return {
-                                    text: item.name,
-                                    id: item.id
-                                }
-                            }),
-                            pagination: {
-                                more: (params.page * 30) < data.total_count
-                            }
-                        };
-                    },
-                    cache: true
-                }
-            });
-            // 异步加载班级列表
-            $('.classes-ajax').select2({
-                language: "zh-CN",
-                placeholder: '请选择班级',
-                allowClear: true,
-                ajax: {
-                    url: "/selects/school_bookshelves",
-                    dataType: 'json',
-                    delay: 250,
-                    data: function (params) {
-                        return {
-                            school: $('.schools-ajax').select2("val"),
-                            q: params.term, // search term
-                            page: params.page
-                        };
-                    },
-                    processResults: function (data, params) {
-                        params.page = params.page || 1;
-                        return {
-                            results: $.map(data.items, function (item) {
-                                return {
-                                    text: item.classname,
-                                    id: item.id
-                                }
-                            }),
-                            pagination: {
-                                more: (params.page * 30) < data.total_count
-                            }
-                        };
-                    },
-                    cache: true
-                }
-            });
-        })
-    </script>
-
   </div>
 </div>
+
+<script type="text/javascript">
+    $(function(){
+        initMultiImageWebuploader($('#webuploader'));
+        $('.upload-list').viewer();
+        //    表单验证
+        $(".project_form").html5Validate(function(){
+            $(this).find('[type="submit"]').attr('disabled','disabled');
+            this.submit();
+        });
+        $("#goods").nestedAttributes({
+          bindAddTo: $("#goods_add_another"),
+          beforeAdd: function(el){
+            school = $('.schools-ajax').select2("val")
+            if (!school) {
+              toastr.info('请先选择学校！', '' ,{"positionClass": "toast-top-center"})
+            } else {
+              return true
+            }
+          },
+          afterAdd: function(el){
+            $(el).find('.loss-count').val('0')
+            $(el).find('.supply-count').val('0')
+          }
+        });
+        // 异步加载学校列表
+        $('.schools-ajax').select2({
+            language: "zh-CN",
+            placeholder: '请选择学校',
+            allowClear: true,
+            ajax: {
+                url: "/selects/bookshelf_schools",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: $.map(data.items, function (item) {
+                            return {
+                                text: item.name,
+                                id: item.id
+                            }
+                        }),
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            }
+        });
+        // 异步加载批次列表
+        $('.seasons-ajax').select2({
+            language: "zh-CN",
+            placeholder: '请选择批次',
+            allowClear: true,
+            ajax: {
+                url: "/selects/seasons",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page,
+                        project_id: 2
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: $.map(data.items, function (item) {
+                            return {
+                                text: item.name,
+                                id: item.id
+                            }
+                        }),
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            }
+        });
+        $('.schools-ajax').change(function(event) {
+          school = $('.schools-ajax').select2("val"),
+          $.get('/selects/school_bookshelves',{school: school})
+          .done(function(data) {
+            console.log("success");
+            classes = data.items,
+            console.log('datas: ' + data)
+            console.log('classes: ' + classes)
+            classes.forEach(function(el) {
+              $(".classes-ajax").empty();
+              $(".classes-ajax").append("<option value="+ el.id +">" + el.classname + "</option>")
+            });
+          })
+        });
+    })
+</script>
