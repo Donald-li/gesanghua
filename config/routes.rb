@@ -209,10 +209,12 @@ Rails.application.routes.draw do
     resources :flower_projects, concerns: [:switch] do
       member do
         put :shipment
+        put :receive
+        put :done
       end
       resource :flower_receive
+      resource :flower_install, concerns: [:recommend]
       resources :flower_donate_records
-      resources :flower_feedbacks, concerns: [:recommend]
     end
     resources :flower_applies do
       resources :flower_approve_logs

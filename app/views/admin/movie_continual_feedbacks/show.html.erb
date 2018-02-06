@@ -17,14 +17,22 @@
     <div class="table-scrollable">
       <table class="table table-bordered table-hover">
         <tbody>
-        <tr>
-          <th>
-            申请编号
-          </th>
-          <th>
-            <%= @continual.owner.apply_no %>
-          </th>
-        </tr>
+          <tr>
+            <th>
+              反馈学校
+            </th>
+            <th>
+              <%= @continual.user.try(:teacher).try(:school).try(:name) %>
+            </th>
+          </tr>
+          <tr>
+            <th>
+              反馈班级
+            </th>
+            <th>
+              <%= @continual.class_name %>
+            </th>
+          </tr>
         <tr>
           <th>
             反馈人
