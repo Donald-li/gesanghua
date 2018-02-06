@@ -12,8 +12,13 @@ class Api::V1::DonateRecordsController < Api::V1::BaseController
   end
 
   def certificate
-    record = DonateRecord.find(params[:id])
-    api_success(data: record.certificate_builder)
+    if params[:donate_method] == 'monthDonate'
+      record = MonthDonate.find(params[:id])
+      api_success(data: record.certificate_builder)
+    else
+      record = DonateRecord.find(params[:id])
+      api_success(data: record.certificate_builder)
+    end
   end
 
 end

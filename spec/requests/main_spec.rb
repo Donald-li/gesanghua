@@ -17,26 +17,53 @@ RSpec.describe "Api::V1::Main", type: :request do
     end
   end
 
+  describe '获取可捐助项目列表' do
+    it '获取项目' do
+      get contribute_api_v1_main_path, headers: api_v1_headers(login_user)
+      api_v1_expect_success
+      expect(json_body[:data].count).to eq Project.count
+    end
+  end
+
   describe '单次捐助' do
     it '捐助给格桑花' do
-      post contribute_api_v1_main_path,
+      post settlement_api_v1_main_path,
            params: {amount: '5000', project: {"name"=>"格桑花", "value"=>"toGsh"},
-                    donor_name: '好心人', month: false,
-                    by_team: false, pay_method: 'weixin'},
+                    donor_name: '好心人', by_team: false, pay_method: 'weixin'},
            headers: api_v1_headers(login_user)
       api_v1_expect_success
-      expect(json_body[:data][:pay_state]).to eq true
+      expect(json_body[:data][:record_state]).to eq true
     end
 
     it '捐助给指定项目' do
       create(:project)
-      post contribute_api_v1_main_path,
-           params: {amount: '5000', project: {"name"=>"一对一", "value"=>"toPair"},
-                    donor_name: '好心人', month: false,
-                    by_team: false, pay_method: 'weixin'},
+      post settlement_api_v1_main_path,
+           params: {amount: '5000', project: {"name"=>"一对一", "value"=>"1"},
+                    donor_name: '好心人', by_team: false, pay_method: 'weixin'},
            headers: api_v1_headers(login_user)
       api_v1_expect_success
-      expect(json_body[:data][:pay_state]).to eq true
+      expect(json_body[:data][:record_state]).to eq true
+    end
+  end
+
+  describe '月捐' do
+    it '捐助给格桑花' do
+      post settlement_api_v1_main_path,
+           params: {amount: '5000', project: {"name"=>"格桑花", "value"=>"toGsh"},
+                    period: '3', pay_method: 'weixin'},
+           headers: api_v1_headers(login_user)
+      api_v1_expect_success
+      expect(json_body[:data][:record_state]).to eq true
+    end
+
+    it '捐助给指定项目' do
+      create(:project)
+      post settlement_api_v1_main_path,
+           params: {amount: '5000', project: {"name"=>"一对一", "value"=>"1"},
+                    period: '3', pay_method: 'weixin'},
+           headers: api_v1_headers(login_user)
+      api_v1_expect_success
+      expect(json_body[:data][:record_state]).to eq true
     end
   end
 end

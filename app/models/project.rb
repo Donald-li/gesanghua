@@ -88,6 +88,13 @@ class Project < ApplicationRecord
     end.attributes!
   end
 
+  def options_builder
+    Jbuilder.new do |json|
+      json.name self.name
+      json.value self.id
+    end.attributes!
+  end
+
   def detail_builder
     Jbuilder.new do |json|
       json.(self, :id, :name, :describe)
@@ -99,18 +106,10 @@ class Project < ApplicationRecord
   end
 
   def self.find_project(value)
-    if value == 'toPair'
-      self.first
-    elsif value == 'toRead'
-      self.find 2
-    elsif value == 'toBroadcast'
-      self.find 5
-    elsif value == 'toFlower'
-      self.find 6
-    elsif value == 'toCamp'
-      self.find 4
+    if value == 'toGsh'
+      nil
     else
-      ''
+      self.find(value.to_i)
     end
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180205163242) do
+ActiveRecord::Schema.define(version: 20180206031311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -435,6 +435,8 @@ ActiveRecord::Schema.define(version: 20180205163242) do
     t.integer "state", comment: "捐助状态 1:捐助中 2:已结束"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "project_id", comment: "项目ID"
+    t.string "certificate_no", comment: "捐赠证书编号"
   end
 
   create_table "pages", force: :cascade, comment: "单页面" do |t|

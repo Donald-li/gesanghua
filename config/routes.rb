@@ -311,7 +311,9 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resource :main, only: [:show] do
-        post :contribute
+        get :contribute
+        post :settlement
+        post :month_contribute
         get :banners
       end
 
