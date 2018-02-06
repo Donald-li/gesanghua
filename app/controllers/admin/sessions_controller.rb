@@ -12,9 +12,9 @@ class Admin::SessionsController < Admin::BaseController
     #   flash[:alert] = '验证码错误'
     #   render action: :new and return
     # end
-    user =  User.find_by(login: session_params[:login])
-    admin = user.administrator.presence
-    if admin.blank?
+    admin =  User.find_by(login: session_params[:login])
+    # admin = user.administrator.presence
+    unless admin.has_role?(:superadmin)
       flash[:alert] = '该帐号不存在'
       render(action: :new) && return
     end
@@ -23,8 +23,8 @@ class Admin::SessionsController < Admin::BaseController
       flash[:alert] = '该帐号已被停用'
       render(action: :new) && return
     end
-    if user.authenticate(session_params[:password])
-      set_current_admin(admin)
+    if admin.authenticate(session_params[:password])
+      set_current_user(admin)
       redirect_to admin_main_path
     else
       flash[:alert] = '用户密码错误'
@@ -43,11 +43,11 @@ class Admin::SessionsController < Admin::BaseController
     params.require(:administrator).permit(:login, :password)
   end
 
-  def set_current_admin(admin)
-    session[:current_admin_id] = admin.id
+  def set_current_user(admin)
+    session[:current_user_id] = admin.id
 
     # 因为后台现在只有一个登录入口，所以在这个方法里记登录日志
-    log = admin.administrator_logs.new(kind: 1, ip: request.remote_ip)
-    log.save
+    # log = admin.administrator_logs.new(kind: 1, ip: request.remote_ip)
+    # log.save
   end
 end

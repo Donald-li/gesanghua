@@ -7,9 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # 超级管理员
-admin = User.new(login: 'admin', password: 'admin!', name: 'Administrator', phone: '18888888888')
-admin.build_administrator(nickname: '超级管理员', kind: 1)
-admin.save
+superadmin = User.create(login: 'admin', password: 'admin!', name: '超级管理员', phone: '13300000000', roles: :superadmin, nickname: 'Administrator')
 
 # 财务分类 - 非定向
 fc_gesanghua = FundCategory.find_or_create_by(name: '格桑花', describe: '捐助给格桑花', kind: 'nondirectional')
