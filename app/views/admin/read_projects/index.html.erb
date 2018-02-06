@@ -90,7 +90,11 @@
                   <%= project.enum_name(:bookshelf_type) %>
                 </td>
                 <td>
-                  <%= project.bookshelves_count %> / <%= project.bookshelves_done_count %>
+                  <% if project.whole? %>
+                    <%= project.bookshelves_count %> / <%= project.bookshelves_done_count %>
+                  <% else %>
+                    <%= project.supplements_count %> / <%= project.supplements_done_count %>
+                  <% end %>
                 </td>
                 <td>
                   <%= project.target_amount %> / <%= project.present_amount %>

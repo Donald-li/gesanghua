@@ -180,7 +180,7 @@
         </ul>
       </li>
 
-      <% if(current_administrator.super_administrator?) %>
+      <% if(current_user.super_administrator?) %>
       <li class="nav-item <%= current_nav_class(:admin_administrator) %>">
         <a href="javascript:;" class="nav-link nav-toggle">
           <i class="fa fa-users"></i>

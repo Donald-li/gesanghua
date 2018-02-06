@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180206045110) do
+<<<<<<< HEAD
+ActiveRecord::Schema.define(version: 20180206082422) do
+=======
+ActiveRecord::Schema.define(version: 20180206075739) do
+>>>>>>> 新增补书申请
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,18 +25,6 @@ ActiveRecord::Schema.define(version: 20180206045110) do
     t.string "ip", comment: "ip地址"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "administrators", force: :cascade, comment: "管理员" do |t|
-    t.string "nickname", comment: "昵称"
-    t.datetime "expire_at", default: "2099-12-31 00:00:00", comment: "过期时间"
-    t.integer "state", default: 1, comment: "状态 1:正常 2:禁用"
-    t.bigint "user_id"
-    t.integer "kind", default: 2, comment: "管理员类型 1:超级管理员 2:系统管理员 3:项目管理员 4:财务人员"
-    t.integer "integer", default: 2, comment: "管理员类型 1:超级管理员 2:系统管理员 3:项目管理员 4:财务人员"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_administrators_on_user_id"
   end
 
   create_table "adverts", force: :cascade, comment: "广告表" do |t|
@@ -116,13 +108,15 @@ ActiveRecord::Schema.define(version: 20180206045110) do
     t.integer "project_season_apply_bookshelf_id", comment: "书架ID"
     t.integer "project_season_apply_id", comment: "申请ID"
     t.integer "loss", comment: "损耗数量"
-    t.integer "upply", comment: "补充数量"
-    t.decimal "taget_amount", precision: 14, scale: 2, default: "0.0", comment: "目标金额"
     t.integer "state", comment: "审核状态"
     t.text "describe", comment: "描述"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "present_amount", precision: 14, scale: 2, default: "0.0", comment: "目前已筹金额"
+    t.integer "supply", comment: "补充数量"
+    t.decimal "target_amount", precision: 14, scale: 2, default: "0.0", comment: "目标金额"
+    t.integer "audit_state", comment: "审核状态"
+    t.integer "show_state", comment: "显示状态"
   end
 
   create_table "campaign_categories", force: :cascade, comment: "活动分类表" do |t|
@@ -277,15 +271,15 @@ ActiveRecord::Schema.define(version: 20180206045110) do
     t.text "content", comment: "内容"
     t.string "owner_type"
     t.integer "owner_id"
-    t.string "type", comment: "类型：receive、install、continual"
+    t.integer "type", comment: "类型：receive、install、continual"
     t.integer "state", comment: "状态"
     t.integer "approve_state", comment: "审核状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "kind", comment: "反馈类型"
+    t.integer "user_id", comment: "反馈人"
     t.integer "check", comment: "查看 1: 未查看 2: 已查看"
     t.integer "recommend", comment: "推荐 1: 正常 2: 推荐"
-    t.integer "user_id", comment: "反馈人"
     t.integer "project_id", comment: "项目id"
     t.integer "project_season_id", comment: "批次id"
     t.integer "project_season_apply_id", comment: "申请id"
@@ -486,13 +480,13 @@ ActiveRecord::Schema.define(version: 20180206045110) do
     t.datetime "updated_at", null: false
     t.string "name", comment: "名称"
     t.integer "number", comment: "配额"
-    t.string "apply_no", comment: "项目申请编号"
     t.integer "bookshelf_type", comment: "悦读项目申请类型"
     t.string "contact_name", comment: "联系人姓名"
     t.string "contact_phone", comment: "联系人电话"
     t.integer "audit_state", comment: "审核状态"
     t.string "abstract", comment: "简述"
     t.string "address", comment: "详细地址"
+    t.string "apply_no", comment: "项目申请编号"
     t.integer "girl_number", comment: "申请女生人数"
     t.integer "boy_number", comment: "申请男生人数"
     t.string "consignee", comment: "收货人"

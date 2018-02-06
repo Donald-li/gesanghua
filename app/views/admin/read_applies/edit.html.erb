@@ -54,53 +54,94 @@
                           <i class="icon-social-dribbble font-green"></i>
                           <span class="caption-subject font-green bold uppercase">申请班级</span>
                         </div>
-                        <div class="actions">
+                        <!-- <div class="actions">
                             <a class="btn btn-info btn-xs" href="#" id="goods_add_another"><i class="fa fa-plus"></i> 添加班级</a>
-                        </div>
+                        </div> -->
                         </div>
                         <div class="portlet-body">
                           <div class="table-scrollable">
                             <table class="table table-hover">
-                              <thead>
-                                <tr>
-                                  <th> 年级 </th>
-                                  <th> 班级 </th>
-                                  <th> 筹款金额 </th>
-                                  <th> 人数 </th>
-                                  <th> 是否通过审核 </th>
-                                  <th> 删除操作 </th>
-                                </tr>
-                              </thead>
-                              <tbody id="goods">
-                                <% @project_apply.bookshelves.build if @project_apply.bookshelves.blank? %>
-                                <%= f.fields_for :bookshelves, wrapper: 'inline_inputs' do |b| %>
-                                <tr>
-                                  <%#= b.hidden_field :project_id, value: 2 %>
-                                  <%#= b.hidden_field :project_season_id, value: @project_apply.project_season_id %>
-                                  <td>
-                                    <%= b.input :grade, as: :select, label: false, collection: ProjectSeasonApplyBookshelf.options_for_select(:grades), include_blank: false %>
-                                  </td>
-                                  <td>
-                                    <%= b.input :classname, label: false, input_html:{ placeholder: '请填入班级名称'} %>
-                                  </td>
-                                  <td>
-                                    <%= b.input :target_amount, type: 'number', min: 0, label: false, input_html:{class: 'target-amount', placeholder: '请填入筹款金额'}  %>
-                                  </td>
-                                  <td class="children-count">
-                                    <%#= b.input :student_number, as: 'string', min: 0, label: false, input_html:{ placeholder: '请填入班级人数'} %>
-                                    <%= b.object.beneficial_children.count %>
-                                  </td>
-                                  <td>
-                                    <%#= check_box_tag b.audit_state, 'pass', false %>
-                                    <%= b.input :audit_state, as: :select, wrapper: :inline_inputs, collection: ProjectSeasonApplyBookshelf.options_for_select(:audit_states), label: false %>
-                                  </td>
-                                  <td>
-                                    <a href="#" class="destroy"><i class="fa fa-remove font-red-soft"></i></a>
-                                  </td>
-                                </tr>
+                              <% if @project_apply.whole? %>
+                                <thead>
+                                  <tr>
+                                    <th> 年级 </th>
+                                    <th> 班级 </th>
+                                    <th> 筹款金额 </th>
+                                    <th> 人数 </th>
+                                    <th> 是否通过审核 </th>
+                                    <th> 删除操作 </th>
+                                  </tr>
+                                </thead>
+                                <tbody id="goods">
+                                  <%# @project_apply.bookshelves.build if @project_apply.bookshelves.blank? %>
+                                  <%= f.fields_for :bookshelves, wrapper: 'inline_inputs' do |b| %>
+                                  <tr>
+                                    <%#= b.hidden_field :project_id, value: 2 %>
+                                    <%#= b.hidden_field :project_season_id, value: @project_apply.project_season_id %>
+                                    <td>
+                                      <%= b.input :grade, as: :select, label: false, collection: ProjectSeasonApplyBookshelf.options_for_select(:grades), include_blank: false %>
+                                    </td>
+                                    <td>
+                                      <%= b.input :classname, label: false, input_html:{ placeholder: '请填入班级名称'} %>
+                                    </td>
+                                    <td>
+                                      <%= b.input :target_amount, type: 'number', min: 0, label: false, input_html:{class: 'target-amount', placeholder: '请填入筹款金额'}  %>
+                                    </td>
+                                    <td class="children-count">
+                                      <%#= b.input :student_number, as: 'string', min: 0, label: false, input_html:{ placeholder: '请填入班级人数'} %>
+                                      <%= b.object.beneficial_children.count %>
+                                    </td>
+                                    <td>
+                                      <%#= check_box_tag b.audit_state, 'pass', false %>
+                                      <%= b.input :audit_state, as: :select, wrapper: :inline_inputs, collection: ProjectSeasonApplyBookshelf.options_for_select(:audit_states), label: false %>
+                                    </td>
+                                    <td>
+                                      <!-- <a href="#" class="destroy"><i class="fa fa-remove font-red-soft"></i></a> -->
+                                    </td>
+                                  </tr>
 
-                                <% end %>
-                              </tbody>
+                                  <% end %>
+                                </tbody>
+                              <% else %>
+                                <thead>
+                                  <tr>
+                                    <th> 班级 </th>
+                                    <th> 损耗数量 </th>
+                                    <th> 补书数量 </th>
+                                    <th> 筹款金额 </th>
+                                    <th> 是否通过审核 </th>
+                                    <th> 删除操作 </th>
+                                  </tr>
+                                </thead>
+                                <tbody id="goods">
+                                  <%# @project_apply.supplements.build if @project_apply.supplements.blank? %>
+                                  <%= f.fields_for :supplements, wrapper: 'inline_inputs' do |b| %>
+                                  <tr>
+                                    <%#= b.hidden_field :school_id, value: 2 %>
+                                    <%#= b.hidden_field :project_season_id, value: @project_apply.project_season_id %>
+                                    <td>
+                                      <%#= b.input :project_season_apply_bookshelf_id, as: :select, label: false, input_html: {class: 'classes-ajax'} %>
+                                      <%= b.object.bookshelf.classname %>
+                                    </td>
+                                    <td>
+                                      <%= b.input :loss,type: 'number', min: 0, label: false, input_html: {class: 'loss-count', placeholder: '请填写数量'} %>
+                                    </td>
+                                    <td>
+                                      <%= b.input :supply,type: 'number', min: 0, label: false, input_html: {class: 'supply-count', placeholder: '请填写数量'} %>
+                                    </td>
+                                    <td>
+                                      <%= b.input :target_amount, type: 'number', min: 0, label: false, input_html:{class: 'target-amount', placeholder: '请填入筹款金额'}  %>
+                                    </td>
+                                    <td>
+                                      <%= b.input :audit_state, as: :select, wrapper: :inline_inputs, collection: BookshelfSupplement.options_for_select(:audit_states), label: false %>
+                                    </td>
+                                    <td>
+                                      <!-- <a href="#" class="destroy"><i class="fa fa-remove font-red-soft"></i></a> -->
+                                    </td>
+                                  </tr>
+                                  <% end %>
+                                </tbody>
+                              <% end %>
                             </table>
 
                           </div>

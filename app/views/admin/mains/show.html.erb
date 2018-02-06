@@ -13,16 +13,16 @@
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
               <div class="mt-card-item">
                 <div class="mt-card-avatar mt-overlay-1">
-                  <%= image_tag current_administrator.user.avatar_url(:tiny) %>
+                  <%#= image_tag current_user.user_avatar %>
                 </div>
                 <div class="mt-card-content">
-                  <h3 class="mt-card-name"><%= current_administrator.nickname %></h3>
-                  <p class="mt-card-desc font-grey-mint"><%= current_administrator.user.try(:name) %></p>
+                  <h3 class="mt-card-name"><%= current_user.nickname %></h3>
+                  <p class="mt-card-desc font-grey-mint"><%= current_user.try(:name) %></p>
                 </div>
               </div>
             </div>
             <div class="col-md-9 col-sm-6 col-xs-12">
-              <h4>欢迎 <%= current_administrator.enum_name(:kind) %> <%= current_administrator.user.try(:name) %> 登录格桑花平台！</h4>
+              <h4>欢迎 <%= current_user.try(:name) %> 登录格桑花平台！</h4>
             </div>
           </div>
         </div>
