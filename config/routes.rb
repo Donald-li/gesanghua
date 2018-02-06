@@ -262,6 +262,10 @@ Rails.application.routes.draw do
     resources :teachers
     resources :campaign_categories
     resources :campaigns, concerns: [:switch] do
+      member do
+        put :switch_campaign_state
+        put :switch_sign_up_state
+      end
       resources :campaign_enlists, concerns: [:excel_output] do
         member do
           put :cancel

@@ -1,5 +1,5 @@
 class Admin::CampaignsController < Admin::BaseController
-  before_action :set_campaign, only: [:show, :edit, :update, :destroy, :switch]
+  before_action :set_campaign, only: [:show, :edit, :update, :destroy, :switch, :switch_campaign_state, :switch_sign_up_state]
 
   def index
     @search = Campaign.sorted.ransack(params[:q])
@@ -52,6 +52,16 @@ class Admin::CampaignsController < Admin::BaseController
   def switch
     @campaign.show? ? @campaign.hidden! : @campaign.show!
     redirect_to admin_campaigns_url, notice:  @campaign.show? ? '活动已展示' : '活动已隐藏'
+  end
+
+  def switch_campaign_state
+    @campaign.campaign_in_process? ? @campaign.campaign_finished! : @campaign.campaign_in_process!
+    redirect_to admin_campaigns_url, notice:  @campaign.campaign_in_process? ? '活动已开始' : '活动已结束'
+  end
+
+  def switch_sign_up_state
+    @campaign.sign_up_in_process? ? @campaign.sign_up_finished! : @campaign.sign_up_in_process!
+    redirect_to admin_campaigns_url, notice:  @campaign.sign_up_in_process? ? '报名已开始' : '报名已结束'
   end
 
   private

@@ -19,6 +19,8 @@
 #  sign_up_start_time   :datetime                               # 报名开始时间
 #  number               :integer                                # 报名限制人数
 #  remark               :string                                 # 报名表备注
+#  sign_up_state        :integer                                # 报名状态 1:未开始报名 2:报名中 3:报名结束
+#  campaign_state       :integer                                # 活动状态 1:活动未开始 2:活动进行中 3:活动已结束
 #
 
 class Campaign < ApplicationRecord
@@ -30,6 +32,12 @@ class Campaign < ApplicationRecord
 
   enum state: {show: 1, hidden: 2} # 状态：1:启用 2:禁用
   default_value_for :state, 1
+
+  enum campaign_state: {campaign_not_start: 1, campaign_in_process: 2, campaign_finished: 3} # 活动状态 1:活动未开始 2:活动进行中 3:活动已结束
+  default_value_for :campaign_state, 1
+
+  enum sign_up_state: {sign_up_not_start: 1, sign_up_in_process: 2, sign_up_finished: 3} # 报名状态 1:未开始报名 2:报名中 3:报名结束
+  default_value_for :sign_up_state, 1
 
   scope :sorted, ->{ order(created_at: :desc) }
 
