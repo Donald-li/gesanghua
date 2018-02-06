@@ -69,7 +69,7 @@ class Admin::AdministratorsController < Admin::BaseController
   end
 
   def check_super_administrator
-    if current_administrator.kind != 'super_administrator'
+    if current_user.kind != 'super_administrator'
       respond_to do |format|
         format.html {redirect_to referer_or(admin_main_url), alert: "您不是超级管理员。"}
       end
@@ -78,7 +78,7 @@ class Admin::AdministratorsController < Admin::BaseController
   end
 
   def protect_check
-    if @administrator.id === current_administrator.id || @administrator.kind === 'super_administrator'
+    if @administrator.id === current_user.id || @administrator.kind === 'super_administrator'
       respond_to do |format|
         format.html {redirect_to referer_or(admin_administrators_url), alert: "不可对该管理员执行此操作。"}
       end

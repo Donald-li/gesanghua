@@ -2,7 +2,7 @@ class Admin::ReadAppliesController < Admin::BaseController
   before_action :set_project_apply, only: [:edit, :update, :destroy, :audit, :students, :switch]
 
   def index
-    @search = ProjectSeasonApply.where(project_id: 2).sorted.ransack(params[:q])
+    @search = ProjectSeasonApply.where(project_id: [2, Project.book_supply_project.id]).sorted.ransack(params[:q])
     scope = @search.result.joins(:school)
     @project_applies = scope.page(params[:page])
   end
@@ -41,7 +41,7 @@ class Admin::ReadAppliesController < Admin::BaseController
       @project_apply.attach_images(params[:image_ids])
       if @project_apply.update(project_apply_params)
         # bookshelf_univalence = @project_apply.season.bookshelf_univalence
-        @project_apply.bookshelves.update_all(school_id: @project_apply.school_id, project_season_id: @project_apply.project_season_id)
+        # @project_apply.bookshelves.update_all(school_id: @project_apply.school_id, project_season_id: @project_apply.project_season_id)
         format.html { redirect_to admin_read_applies_path, notice: '修改成功。' }
       else
         format.html { render :edit }
@@ -95,12 +95,13 @@ class Admin::ReadAppliesController < Admin::BaseController
     @project_apply = ProjectSeasonApply.new(project_apply_params.merge(project_id: Project.book_supply_project.id, bookshelf_type: 2))
     @project_apply.attach_images(params[:image_ids])
     @project_apply.audits.build
+    byebug
     respond_to do |format|
       if ProjectSeasonApply.find_by(school_id: project_apply_params[:school_id], project_id: Project.book_supply_project.id).present?
         flash[:notice] = '此学校在本批次还有未完成的申请'
         format.html { render :supply_new }
       elsif @project_apply.save!
-        @project_apply.bookshelves.update_all(school_id: @project_apply.school_id, project_season_id: @project_apply.project_season_id)
+        # @project_apply.bookshelves.update_all(school_id: @project_apply.school_id, project_season_id: @project_apply.project_season_id)
         format.html { redirect_to admin_read_applies_path, notice: '创建成功。' }
       else
         format.html { render :supply_new }

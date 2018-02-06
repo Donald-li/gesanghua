@@ -56,11 +56,23 @@ class Admin::CampaignsController < Admin::BaseController
 
   def switch_campaign_state
     @campaign.campaign_in_process? ? @campaign.campaign_finished! : @campaign.campaign_in_process!
+    if @campaign.campaign_in_process?
+      @campaign.update(start_at: Time.now)
+    end
+    if @campaign.campaign_finished?
+      @campaign.update(end_at: Time.now)
+    end
     redirect_to admin_campaigns_url, notice:  @campaign.campaign_in_process? ? '活动已开始' : '活动已结束'
   end
 
   def switch_sign_up_state
     @campaign.sign_up_in_process? ? @campaign.sign_up_finished! : @campaign.sign_up_in_process!
+    if @campaign.sign_up_in_process?
+      @campaign.update(sign_up_start_time: Time.now)
+    end
+    if @campaign.sign_up_finished?
+      @campaign.update(sign_up_end_time: Time.now)
+    end
     redirect_to admin_campaigns_url, notice:  @campaign.sign_up_in_process? ? '报名已开始' : '报名已结束'
   end
 

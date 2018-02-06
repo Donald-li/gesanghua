@@ -20,7 +20,7 @@ class Admin::ModifyPasswordController < Admin::BaseController
   private
 
   def set_administrator
-    @administrator = Administrator.find(current_administrator.id)
+    @administrator = Administrator.find(current_user.id)
   end
 
   def modify_password_params

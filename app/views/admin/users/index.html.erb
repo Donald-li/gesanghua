@@ -97,9 +97,9 @@
                 <% end %>
               </td>
               <td>
-                <% if user.administrator.present? %>
-                  <span class="btn btn-xs yellow">管理员</span>
-                <% end %>
+                <%# if user.administrator.present? %>
+                  <!-- <span class="btn btn-xs yellow">管理员</span> -->
+                <%# end %>
                 <% if user.teacher.present? %>
                   <% if user.teacher.headmaster? %>
                     <span class="btn btn-xs yellow">校长</span>

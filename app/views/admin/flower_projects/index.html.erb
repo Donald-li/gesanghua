@@ -138,7 +138,7 @@
                       <span class="btn btn-xs default"><i class="fa fa-file"></i> 查看反馈</span>
                     <% end %>
                     <%= link_to done_admin_flower_project_path(apply), class: 'btn btn-xs blue', method: :put, data: {confirm: '确定已完成吗？'} do %>
-                      <i class="fa fa-edit"></i> 已完成
+                      <i class="fa fa-check-square-o"></i> 已完成
                     <% end %>
                   <% elsif apply.done? %>
                     <%= link_to admin_flower_project_flower_receive_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>

@@ -328,10 +328,17 @@ zh:
     platform: '财务分类调整'
     donate: '配捐'
     refund: '退款'
-  bookshelf_supplement_states:
+  bookshelf_supplement_audit_states:
     submit: '待审核'
     pass: '审核通过'
     reject: '审核不通过'
+  bookshelf_supplement_states:
+    pending: '筹款中'
+    complete: '筹款完成'
+    non_execution: '待执行'
+    non_reception: '待收货'
+    non_feedback: '未反馈'
+    done: '已完成'
   beneficial_child_nations:
     default: '未设置'
     hanzu: '汉族'

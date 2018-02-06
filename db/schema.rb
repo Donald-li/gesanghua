@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180206045110) do
+ActiveRecord::Schema.define(version: 20180206082422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,18 +21,6 @@ ActiveRecord::Schema.define(version: 20180206045110) do
     t.string "ip", comment: "ip地址"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "administrators", force: :cascade, comment: "管理员" do |t|
-    t.string "nickname", comment: "昵称"
-    t.datetime "expire_at", default: "2099-12-31 00:00:00", comment: "过期时间"
-    t.integer "state", default: 1, comment: "状态 1:正常 2:禁用"
-    t.bigint "user_id"
-    t.integer "kind", default: 2, comment: "管理员类型 1:超级管理员 2:系统管理员 3:项目管理员 4:财务人员"
-    t.integer "integer", default: 2, comment: "管理员类型 1:超级管理员 2:系统管理员 3:项目管理员 4:财务人员"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_administrators_on_user_id"
   end
 
   create_table "adverts", force: :cascade, comment: "广告表" do |t|
@@ -116,13 +104,15 @@ ActiveRecord::Schema.define(version: 20180206045110) do
     t.integer "project_season_apply_bookshelf_id", comment: "书架ID"
     t.integer "project_season_apply_id", comment: "申请ID"
     t.integer "loss", comment: "损耗数量"
-    t.integer "upply", comment: "补充数量"
-    t.decimal "taget_amount", precision: 14, scale: 2, default: "0.0", comment: "目标金额"
     t.integer "state", comment: "审核状态"
     t.text "describe", comment: "描述"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "present_amount", precision: 14, scale: 2, default: "0.0", comment: "目前已筹金额"
+    t.integer "supply", comment: "补充数量"
+    t.decimal "target_amount", precision: 14, scale: 2, default: "0.0", comment: "目标金额"
+    t.integer "audit_state", comment: "审核状态"
+    t.integer "show_state", comment: "显示状态"
   end
 
   create_table "campaign_categories", force: :cascade, comment: "活动分类表" do |t|
@@ -162,6 +152,8 @@ ActiveRecord::Schema.define(version: 20180206045110) do
     t.datetime "sign_up_start_time", comment: "报名开始时间"
     t.integer "number", comment: "报名限制人数"
     t.string "remark", comment: "报名表备注"
+    t.integer "sign_up_state", comment: "报名状态 1:未开始报名 2:报名中 3:报名结束"
+    t.integer "campaign_state", comment: "活动状态 1:活动未开始 2:活动进行中 3:活动已结束"
   end
 
   create_table "child_periods", force: :cascade, comment: "孩子捐助学期表" do |t|

@@ -34,7 +34,7 @@
 #
 
 class User < ApplicationRecord
-  ROLES = %i[superadmin admin project_manager project_operator volunteer county_user gsh_child custom_service]
+  ROLES = %i[superadmin admin project_manager project_operator financial_staff volunteer county_user gsh_child custom_service]
 
   require 'custom_validators'
 
@@ -84,8 +84,6 @@ class User < ApplicationRecord
   scope :offline_donor, ->{where('manager_id IS NOT NULL')} # 线下用户
 
   before_create :generate_auth_token
-
-  # permit_params :name, :role
 
   has_secure_password
 

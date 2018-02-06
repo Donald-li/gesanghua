@@ -6,7 +6,7 @@
 #  content                           :text                                   # 内容
 #  owner_type                        :string
 #  owner_id                          :integer
-#  type                              :string                                 # 类型：receive、install、continual
+#  type                              :integer                                # 类型：receive、install、continual
 #  state                             :integer                                # 状态
 #  approve_state                     :integer                                # 审核状态
 #  created_at                        :datetime         not null
