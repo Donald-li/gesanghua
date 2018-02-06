@@ -15,8 +15,8 @@
     <%= simple_form_for [:admin, @continual], url: admin_read_continual_feedbacks_path, method: :post, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'continual_form'} do |f| %>
       <%= f.error_notification %>
       <div class="form-body form-horizontal">
-        <%#= f.hidden_field :project_id, value: ProjectSeason.flower_project_id %>
-        <%= f.input :owner_id, collection: [@continual.owner].compact.map {|u| [u.name, u.id]}, label: '悦读项目：', input_html: {class: 'applies-ajax', data: {'parsley-required': true}} %>
+        <%= f.hidden_field :owner_id, value: ProjectSeason.book_project_id %>
+        <%= f.input :class_name, label: '反馈班级：', input_html: { data: {'parsley-required': true}} %>
         <%= f.input :user_id, collection: [@continual.user].compact.map {|u| [u.name, u.id]}, label: '反馈人：', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
         <div class="form-group">
           <label class="col-md-2 control-label">反馈内容：</label>
