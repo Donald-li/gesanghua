@@ -19,4 +19,5 @@
 require 'rails_helper'
 
 RSpec.describe MonthDonate, type: :model do
+
 end
