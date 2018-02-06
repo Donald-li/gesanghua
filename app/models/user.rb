@@ -243,11 +243,16 @@ class User < ApplicationRecord
 
   private
   # TODO: 创建用户
-  def create_user
+  def self.create_user
   end
 
-  # TODO：创建现在捐助者
-  def create_offline_donor
+  # 创建线下用户
+  def self.create_offline_donor(name, phone)
+    user = self.new
+    user.name = name
+    user.phone = phone
+    user.save
+    user
   end
 
 end

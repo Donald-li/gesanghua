@@ -17,8 +17,8 @@ senior_term_amount: 1050
 senior_year_amount: 2100
 
 # 微信公众号
-wechat_app_id: "wx7187f48a03d4d947"
-wechat_app_secret: "e3ff7c50f865535ab1eef7ea55b6c0c1"
+wechat_app_id: "wx099daa4e94c13352"
+wechat_app_secret: "wx099daa4e94c13352"
 wechat_app_token: "3147d1cea898763a7f677b3c"
 
 # 微信支付
