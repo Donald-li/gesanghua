@@ -18,6 +18,8 @@
 
 FactoryBot.define do
   factory :month_donate do
-    
+    start_time Time.now
+    donated_period 0
+    state 1
   end
 end
