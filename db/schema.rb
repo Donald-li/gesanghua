@@ -162,6 +162,8 @@ ActiveRecord::Schema.define(version: 20180206045110) do
     t.datetime "sign_up_start_time", comment: "报名开始时间"
     t.integer "number", comment: "报名限制人数"
     t.string "remark", comment: "报名表备注"
+    t.integer "sign_up_state", comment: "报名状态 1:未开始报名 2:报名中 3:报名结束"
+    t.integer "campaign_state", comment: "活动状态 1:活动未开始 2:活动进行中 3:活动已结束"
   end
 
   create_table "child_periods", force: :cascade, comment: "孩子捐助学期表" do |t|
