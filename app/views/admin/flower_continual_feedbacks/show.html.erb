@@ -19,18 +19,18 @@
         <tbody>
         <tr>
           <th>
-            申请编号
+            反馈学校
           </th>
           <th>
-            <%= @continual.owner.apply_no %>
+            <%= @continual.user.try(:teacher).try(:school).try(:name) %>
           </th>
         </tr>
         <tr>
           <th>
-            项目名称
+            反馈班级
           </th>
           <th>
-            <%= @continual.owner.name %>
+            <%= @continual.class_name %>
           </th>
         </tr>
         <tr>
