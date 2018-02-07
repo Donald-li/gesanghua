@@ -20,7 +20,7 @@
 class Project < ApplicationRecord
   include ActionView::Helpers::NumberHelper
 
-  attr_accessor :image_id
+  attr_accessor :image_id, :form_attributes
 
   include HasAsset
   has_one_asset :image, class_name: 'Asset::ProjectImage'
@@ -41,6 +41,9 @@ class Project < ApplicationRecord
   belongs_to :appoint_fund, class_name: 'Fund', optional: true
 
   validates :name, :protocol, presence: true
+
+  default_value_for :form, []
+  before_save :set_form_from_attributes
 
   # enum kind: { normal: 1, goods: 2 } # 项目类型 1:固定项目 2:物资类项目
   enum kind: { pair: 1, book: 2, radio: 3, care: 4, movie: 5, camp: 6, custom: 7} # 项目类型 1:一对一 2:悦读 3:广播 4:护花 5:观影 6:营 7:自定义
@@ -80,6 +83,18 @@ class Project < ApplicationRecord
     self.describe.length > 90 ? self.describe.slice(0..90) : self.describe
   end
 
+  # 给form添加一行
+  def build_form
+    form = self.form || []
+    form.push({key: '', label: '', type: 'text', options: [], required: false})
+    self.form = form
+  end
+
+  # 根据form的key显示标签
+  def form_label(key)
+    (self.form || []).detect{|item|item['key'] == key}.try('[]', 'label') || ''
+  end
+
   def summary_builder
     Jbuilder.new do |json|
       json.(self, :id)
@@ -113,6 +128,12 @@ class Project < ApplicationRecord
     else
       self.find(value.to_i)
     end
+  end
+
+  private
+  def set_form_from_attributes
+    return unless self.form_attributes.present?
+    self.form = self.form_attributes.values.map{|item| item['options'] = item['options'].to_s.split(',') || []; item}
   end
 
 end
