@@ -34,7 +34,7 @@ class Admin::FlowerProjectsController < Admin::BaseController
 
   def update
     respond_to do |format|
-      if @project_apply.update(project_apply_params)
+      if @project_apply.update(project_apply_params.merge(project_type: 2))
         @project_apply.attach_cover_image(params[:cover_image_id])
         format.html { redirect_to admin_flower_projects_path, notice: '修改成功。' }
       else
