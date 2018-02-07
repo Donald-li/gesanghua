@@ -20,7 +20,7 @@
                 <%= f.text_field :school_name_cont, class: 'form-control', placeholder: '学校名称' %>
               </div>
               <div class="form-group">
-                <%= f.label :state_eq, '筹款状态' %>
+                <%= f.label :state_eq, '状态' %>
                 <%= f.select :state_eq, ProjectSeasonApply.options_for_select(:states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
               </div>
               <div class="form-group">
@@ -61,7 +61,7 @@
               已筹/目标
             </th>
             <th>
-              筹款状态
+              状态
             </th>
             <th>
               执行状态
@@ -93,8 +93,8 @@
                   <%= apply.present_amount %>/<%= apply.target_amount %>
                 </td>
                 <td>
-                  <%= link_to switch_admin_radio_project_path(apply), data: {confirm: "确定#{apply.state === 'show' ? '暂不展示' : '对外展示'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{apply.state === 'show' ? 'green' : 'blue'}" do %>
-                      <%= apply.state === 'show' ? '对外展示' : '暂不展示' %>
+                  <%= link_to switch_admin_radio_project_path(apply), data: {confirm: "确定#{apply.state === 'show' ? '隐藏' : '展示'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{apply.state === 'show' ? 'green' : 'blue'}" do %>
+                      <%= apply.state === 'show' ? '显示' : '隐藏' %>
                   <% end %>
                 </td>
                 <td>
@@ -107,7 +107,7 @@
                   <%= link_to admin_radio_project_radio_donate_records_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-list"></i> 筹款管理
                   <% end %>
-                  <% if apply.to_execute? %>
+                  <% if apply.to_delivery? %>
                       <%= link_to shipment_admin_radio_project_path(apply), class: 'btn btn-xs yellow', method: :put, data: {confirm: '确定发货吗？'} do %>
                           <i class="fa fa-truck"></i> 发货
                       <% end %>

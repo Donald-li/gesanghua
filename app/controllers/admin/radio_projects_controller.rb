@@ -51,7 +51,7 @@ class Admin::RadioProjectsController < Admin::BaseController
 
   def switch
     @project.show? ? @project.hidden! : @project.show!
-    redirect_to admin_radio_projects_url, notice:  @project.show? ? '对外展示' : '暂不展示'
+    redirect_to admin_radio_projects_url, notice:  @project.show? ? '项目已显示' : '项目已隐藏'
   end
 
   def shipment
