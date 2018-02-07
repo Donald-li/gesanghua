@@ -82,16 +82,19 @@ zh:
     movie: '观影'
     custom: '自定义'
   project_season_apply_states:
-    show: '对外展示'
-    hidden: '暂不展示'
+    show: '显示'
+    hidden: '隐藏'
   project_season_apply_execute_states:
     default: '准备中'
     raising: '筹款中'
     raised: '筹款完成'
     to_execute: '待执行'
+    to_delivery: '待发货'
     to_receive: '待收货'
     to_feedback: '待反馈'
+    feedbacked: '已反馈'
     done: '已完成'
+    cancelled: '已取消'
   project_season_apply_bookshelf_types:
     whole: '图书角'
     supplement: '补书'

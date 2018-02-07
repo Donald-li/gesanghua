@@ -1,6 +1,6 @@
 class Admin::FlowerProjectsController < Admin::BaseController
   before_action :set_project, only: [:index, :new, :create]
-  before_action :set_project_apply, only: [:show, :edit, :update, :destroy, :shipment, :switch, :receive, :done, :start_raising]
+  before_action :set_project_apply, only: [:show, :edit, :update, :destroy, :shipment, :switch, :receive, :done, :cancelled]
 
   def index
     @search = @project.applies.raise_project.sorted.ransack(params[:q])
@@ -71,16 +71,16 @@ class Admin::FlowerProjectsController < Admin::BaseController
     end
   end
 
-  def start_raising
-    @project_apply.raising!
+  def cancelled
+    @project_apply.cancelled!
     respond_to do |format|
-      format.html { redirect_to admin_flower_projects_path, notice: '开始筹款成功。' }
+      format.html { redirect_to admin_flower_projects_path, notice: '已取消成功。' }
     end
   end
 
   def switch
     @project_apply.show? ? @project_apply.hidden! : @project_apply.show!
-    redirect_to admin_flower_projects_url, notice: @project_apply.show? ? '项目已对外展示' : '项目已暂不对外展示'
+    redirect_to admin_flower_projects_url, notice: @project_apply.show? ? '项目已显示' : '项目已隐藏'
   end
 
   private

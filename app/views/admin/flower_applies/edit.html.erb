@@ -23,10 +23,10 @@
               </li>
               <!-- <li class="">
                 <a href="#tab_1" data-toggle="tab" aria-expanded="false"> 受益学生 </a>
-              </li> -->
+              </li>
               <li class="">
                 <a href="#tab_2" data-toggle="tab" aria-expanded="false"> 审核信息 </a>
-              </li>
+              </li> -->
             </ul>
             <div class="tab-content">
               <div class="tab-pane active" id="tab_0">
@@ -71,8 +71,8 @@
             </div>
           </div>
           <%= f.input :address, label: '详细地址：', input_html: { data: {}} %>
-          <%= f.input :consignee, label: '收货人：', input_html: { data: {}} %>
-          <%= f.input :consignee_phone, label: '联系电话：', input_html: { data: {}} %>
+          <%= f.input :contact_name, label: '收货人：', input_html: { data: {}} %>
+          <%= f.input :contact_phone, label: '联系电话：', input_html: { data: {}} %>
         </div>
         <div class="form-actions">
           <div class="row">
@@ -85,7 +85,7 @@
     <% end %>
   </div>
 
-  <!-- <div class="tab-pane" id="tab_1">
+  <div class="tab-pane" id="tab_1">
     <div class="portlet light bordered" id="top-adverts">
       <div class="portlet-title">
         <div class="caption">
@@ -170,7 +170,7 @@
         </div>
       </div>
     </div>
-  </div> -->
+  </div>
 
   <div class="tab-pane" id="tab_2">
     <div class="portlet-body">
@@ -228,8 +228,8 @@
 <div class="portlet-body form">
 <div class="form-body form-horizontal">
 <%= f.hidden_field :project_season_apply_id, value: params[:id] %>
-<%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Audit.options_for_some_select(:states), label: '审核：', required: true%>
-<%= f.input :comment, label: '评语：', placeholder: '请填写评语' %>
+<%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Audit.options_for_some_select(:states), label: '审核状态：', required: true%>
+<%= f.input :comment, label: '备注', placeholder: '请填写备注' %>
 </div>
 </div>
 </div>
