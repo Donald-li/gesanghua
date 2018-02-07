@@ -4,7 +4,7 @@ class Admin::FlowerInstallsController < Admin::BaseController
   before_action :set_project_apply, only: [:show, :edit, :new, :create, :update, :destroy]
 
   def new
-    @install = @apply.install.new
+    @install = Install.new
   end
 
   def show

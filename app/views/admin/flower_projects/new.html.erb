@@ -28,17 +28,12 @@
           <div class="form-group">
             <label class="col-md-2 control-label">申请人数：</label>
             <div class="col-sm-9">
-              <%= f.text_field :girl_number, placeholder: '女生人数', require: true, type: 'number' %>
-              <%= f.text_field :boy_number, placeholder: '男生人数', require: true, type: 'number'%>
+              <%= f.text_field :girl_number, placeholder: '女生人数', require: true, type: 'number', min: 0 %>
+              <%= f.text_field :boy_number, placeholder: '男生人数', require: true, type: 'number', min: 0%>
             </div>
           </div>
-          <%= f.input :target_amount, label: '筹款目标：', autofocus: true, input_html: { data: {}} %>
-          <div class="form-group">
-            <label class="col-md-2 control-label">项目介绍：</label>
-            <div class="col-sm-9">
-              <%= f.cktext_area :describe, input_html: { data: {'parsley-required': true}}  %>
-            </div>
-          </div>
+          <%= f.input :target_amount, label: '筹款目标：', autofocus: true, input_html: { data: {'parsley-required': true, type: 'number', 'parsley-min': 0}} %>
+          <%= f.input :describe, label: '项目介绍：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
           <div style="margin-bottom: 20px;" class="form-group">
             <label class="col-md-2 control-label select required" for="project_category_id">收货地址：</label>
             <div class="col-sm-6">

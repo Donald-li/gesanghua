@@ -256,6 +256,9 @@ zh:
   continual_checks:
     checked: '已查看'
     uncheck: '未查看'
+  install_checks:
+    checked: '已查看'
+    uncheck: '未查看'
   feedback_recommends:
     normal: '正常'
     recommend: '推荐'
