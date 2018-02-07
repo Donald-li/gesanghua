@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20180206082422) do
-=======
-ActiveRecord::Schema.define(version: 20180206101757) do
->>>>>>> 补书列表
+ActiveRecord::Schema.define(version: 20180207051425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -499,6 +495,7 @@ ActiveRecord::Schema.define(version: 20180206101757) do
     t.integer "class_number", comment: "申请班级数"
     t.integer "student_number", comment: "受益学生数"
     t.text "project_describe", comment: "项目介绍"
+    t.jsonb "form", comment: "自定义表单{key, value}"
   end
 
   create_table "project_season_apply_bookshelves", force: :cascade, comment: "项目执行年度申请书架表" do |t|
@@ -627,6 +624,7 @@ ActiveRecord::Schema.define(version: 20180206101757) do
     t.string "alias", comment: "项目别名，使用英文"
     t.integer "appoint_fund_id", comment: "定向指定财务分类id"
     t.integer "position", comment: "位置排序"
+    t.jsonb "form", comment: "自定义表单{key, label, type, options, required}"
   end
 
   create_table "radio_informations", force: :cascade, comment: "广播详细信息表" do |t|

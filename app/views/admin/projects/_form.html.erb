@@ -29,7 +29,23 @@
       <%= f.cktext_area :protocol %>
     </div>
   </div>
+  <div class="form-group">
+    <div id="form" class="form-inline">
+      <% f.object.build_form if f.object.form.blank? %>
+      <% f.object.form.each_with_index do |form_item, i| %>
+        <div class="inline-group">
+          <%= text_field_tag "project[form_attributes][#{i}][key]", form_item['key'], placeholder: '代码'%>
+          <%= text_field_tag "project[form_attributes][#{i}][label]", form_item['label'], placeholder: '标签'%>
+          <%= select_tag "project[form_attributes][#{i}][type]", options_for_select([['文本框', 'text'], ['多行文本框', 'textarea'], ['选项', 'select']], form_item['type']), placeholder: '代码'%>
+          <label><%= check_box_tag "project[form_attributes][#{i}][required]", 'y', form_item['required']%>必填</label>
+          <a href="#" class="destroy"><i class="fa fa-remove font-red-soft"></i></a>
+        </div>
+      <% end %>
+    </div>
+    <a class="btn btn-info btn-xs" href="#" id="add-form-item"><i class="fa fa-plus"></i> 添加表单项</a>
+  </div>
 </div>
+
 <div class="form-actions">
   <div class="row">
     <div class="col-md-offset-2 col-md-9">
@@ -50,4 +66,8 @@ $(function(){
 
   $("#fund").select2();
 })
+
+$("#form").nestedAttributes({
+  bindAddTo: $("#add-form-item")
+});
 </script>
