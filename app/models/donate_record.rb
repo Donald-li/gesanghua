@@ -83,6 +83,24 @@ class DonateRecord < ApplicationRecord
     self.save
   end
 
+  #捐赠证书路径
+  def donor_certificate_path
+    path = "/images/certificates/#{self.id}/#{Encryption.md5(self.id.to_s)}.jpg"
+    local_path = Rails.root.to_s + '/public' + path
+    if !File::exist?(local_path)
+      GenDonateCertificate.create(self)
+    end
+    path
+  end
+
+  def project_name
+    self.project.try(:name) || '格桑花'
+  end
+
+  def donor_name
+    self.donor || self.user.name
+  end
+
   # 捐给格桑花
   def self.donate_gsh(user = nil, amount = 0.0, promoter = nil)
     return false unless user.present?
@@ -292,7 +310,7 @@ class DonateRecord < ApplicationRecord
   def certificate_builder
     Jbuilder.new do |json|
       json.(self, :id)
-      json.project_name self.project.try(:name) || '格桑花'
+      json.project_name self.project_name
       json.amount number_to_currency(self.amount)
       json.user_name self.user.present? ? self.user.name : '爱心人士'
       json.time_name "#{self.created_at.year}年#{self.created_at.month}月#{self.created_at.day}日"
