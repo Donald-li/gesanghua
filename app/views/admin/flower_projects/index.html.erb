@@ -61,7 +61,7 @@
               已筹/目标
             </th>
             <th>
-              当前展示状态
+              状态
             </th>
             <th>
               执行状态
@@ -94,7 +94,7 @@
                 </td>
                 <td>
                   <%= link_to switch_admin_flower_project_path(apply), data: {confirm: "确定#{apply.state === 'show' ? '隐藏项目' : '显示项目'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{apply.state === 'show' ? 'green' : 'default'}" do %>
-                      <%= apply.state === 'show' ? '对外展示' : '暂不展示' %>
+                      <%= apply.state === 'show' ? '显示' : '隐藏' %>
                       <i class="fa <%= apply.state === 'show' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
                   <% end %>
                 </td>
@@ -102,28 +102,30 @@
                   <%= apply.enum_name(:execute_state) %>
                 </td>
                 <td>
-                  <%= link_to edit_admin_flower_project_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                      <i class="fa fa-edit"></i> 修改
+                  <% if !apply.cancelled? %>
+                    <%= link_to edit_admin_flower_project_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                        <i class="fa fa-edit"></i> 修改
+                    <% end %>
+                    <%= link_to admin_flower_project_flower_donate_records_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                        <i class="fa fa-list"></i> 筹款管理
+                    <% end %>
                   <% end %>
-                  <%= link_to admin_flower_project_flower_donate_records_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                      <i class="fa fa-list"></i> 筹款管理
-                  <% end %>
-                  <% if apply.to_execute? %>
+                  <% if apply.to_delivery? %>
                     <%= link_to shipment_admin_flower_project_path(apply), class: 'btn btn-xs yellow', method: :put, data: {confirm: '确定发货吗？'} do %>
                       <i class="fa fa-truck"></i> 发货
                     <% end %>
-                  <%# elsif apply.default? %>
-                      <%#= link_to start_raising_admin_flower_project_path(apply), class: 'btn btn-xs blue', method: :put, data: {confirm: '确定开始筹款吗？'} do %>
-                        <!-- <i class="fa fa-money"></i> 开始筹款 -->
-                      <%# end %>
+                    <%= link_to cancelled_admin_flower_project_path(apply), class: 'btn btn-xs red', method: :put, data: {confirm: '确定取消项目吗？'} do %>
+                      <i class="fa fa-exclamation-triangle"></i> 取消项目
+                    <% end %>
+                  <% elsif apply.raising? %>
+                    <%= link_to cancelled_admin_flower_project_path(apply), class: 'btn btn-xs red', method: :put, data: {confirm: '确定取消项目吗？'} do %>
+                      <i class="fa fa-exclamation-triangle"></i> 取消项目
+                    <% end %>
                   <% elsif apply.to_receive? %>
                     <% if apply.receive.present? %>
                       <%= link_to admin_flower_project_flower_receive_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                         <i class="fa fa-truck"></i> 查看收货凭证
                       <% end %>
-                      <%#= link_to receive_admin_flower_project_path(apply), class: 'btn btn-xs yellow', method: :put, data: {confirm: '确定已收货吗？'} do %>
-                        <!-- <i class="fa fa-truck"></i> 已收货 -->
-                      <%# end %>
                     <% else %>
                       <span class="btn btn-xs default"><i class="fa fa-truck"></i> 查看收货凭证</span>
                     <% end %>
@@ -150,6 +152,10 @@
                     <% end %>
                     <%= link_to admin_flower_project_flower_install_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-file"></i> 查看反馈
+                    <% end %>
+                  <% elsif apply.cancelled? %>
+                    <%= link_to '', 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                      <i class="fa fa-money"></i> 项目已退款
                     <% end %>
                   <% else %>
                   <% end %>

@@ -86,10 +86,10 @@
                   <%= apply.try(:girl_number) + apply.try(:boy_number) %>人
                 </td>
                 <td>
-                  <%= apply.school.try(:contact_name) %>
+                  <%= apply.contact_name %>
                 </td>
                 <td>
-                  <%= apply.school.try(:contact_phone) %>
+                  <%= apply.contact_phone %>
                 </td>
                 <td>
                   <%= apply.enum_name(:audit_state) %>
@@ -103,7 +103,10 @@
                   <% end %> -->
                   <% if apply.apply? %>
                     <%= link_to edit_admin_flower_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                        <i class="fa fa-edit"></i> 修改审核
+                        <i class="fa fa-edit"></i> 修改
+                    <% end %>
+                    <%= link_to admin_flower_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                      <i class="fa fa-gavel"></i> 审核
                     <% end %>
                     <% if apply.pass? && apply.apply?  %>
                       <%= link_to switch_to_raise_admin_flower_apply_path(apply), data: {confirm: '确定要转为筹款项目吗？'}, method: :put, class: 'btn btn-xs green' do %>

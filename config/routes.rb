@@ -218,15 +218,16 @@ Rails.application.routes.draw do
         put :shipment
         put :receive
         put :done
-        put :start_raising
+        put :cancelled
       end
       resource :flower_receive
       resource :flower_install, concerns: [:recommend]
       resources :flower_donate_records
     end
-    resources :flower_applies do
+    resources :flower_applies, concerns: :check do
       resources :flower_approve_logs
       member do
+        get :audit
         patch :update_audit
         put :switch_to_raise
       end

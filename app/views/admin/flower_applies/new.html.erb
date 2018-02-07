@@ -49,12 +49,11 @@
                 </div>
               </div>
               <br>
-              <%= f.text_field :address, placeholder: '详细地址', require: true %>
             </div>
           </div>
-
-          <%= f.input :consignee, label: '收货人：', autofocus: true, input_html: { data: {}} %>
-          <%= f.input :consignee_phone, label: '联系电话：', autofocus: true, input_html: { data: {}} %>
+          <%= f.input :address, label: '详细地址', autofocus: true, input_html: { data: {}} %>
+          <%= f.input :contact_name, label: '收货人：', autofocus: true, input_html: { data: {}} %>
+          <%= f.input :contact_phone, label: '联系电话：', autofocus: true, input_html: { data: {}} %>
         </div>
         <div class="form-actions">
           <div class="row">

@@ -1,0 +1,90 @@
+<div class="portlet light portlet-fit bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="fa fa-sliders font-dark"></i>
+      <span class="caption-subject font-dark bold uppercase">审核护花项目</span>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="table-scrollable">
+      <table class="table table-bordered table-hover">
+        <tbody>
+        <tr>
+          <th>
+            申请编号
+          </th>
+          <th>
+            <%= @project_apply.apply_no %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            申请学校
+          </th>
+          <th>
+            <%= @project_apply.school.try(:name) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            联系人
+          </th>
+          <th>
+            <%= @project_apply.contact_name %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            联系方式
+          </th>
+          <th>
+            <%= @project_apply.contact_phone %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            申请理由
+          </th>
+          <th>
+            <%= @project_apply.abstract %> <br>
+            <% @project_apply.images.each do |image| %>
+              <%= image_tag image.file.url %>
+            <% end %>
+          </th>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="portlet-body form">
+      <%= simple_form_for [:admin, @project_apply], url: check_admin_flower_apply_path, method: :patch, wrapper: :admin_form, html: {id: 'approve-form'} do |f| %>
+        <%= f.error_notification %>
+        <div class="form-body form-horizontal">
+          <%= f.input :audit_state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApply.options_for_some_select(:audit_states, ['pass', 'reject']), label: '审核状态：', required: 'required', input_html: { class: 'approve_state', onclick: 'toggleState();'} %>
+          <div class="approve_reject">
+            <%= f.input :approve_remark, label: '审核备注：', input_html: {class: 'form-control', placeholder: ''} %>
+          </div>
+          <div class="form-actions">
+            <div class="row">
+              <div class="col-md-offset-3 col-md-9">
+                <%= f.button :submit, '提交', class: 'btn green' %>
+                <%= link_to '取消', admin_flower_applies_path, class: 'btn' %>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      <% end %>
+      </div>
+</div>
+<script type="text/javascript">
+    function toggleState(){
+        toggleRadioInput('.approve_state', {
+            reject: '.approve_reject'
+        })
+    }
+    toggleState();
+    $("#approve-form").html5Validate(function () {
+        $(this).find('[type="submit"]').attr('disabled', 'disabled');
+        this.submit();
+    });
+</script>

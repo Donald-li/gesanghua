@@ -1,6 +1,6 @@
 class Admin::FlowerAppliesController < Admin::BaseController
   before_action :set_project, only: [:index, :new, :create]
-  before_action :set_project_apply, only: [:show, :edit, :update, :destroy, :switch_to_raise]
+  before_action :set_project_apply, only: [:show, :edit, :update, :destroy, :switch_to_raise, :audit, :check]
 
   def index
     @search = @project.applies.sorted.ransack(params[:q])
@@ -65,6 +65,11 @@ class Admin::FlowerAppliesController < Admin::BaseController
     redirect_to edit_admin_flower_project_path(@project_apply), notice: '请填写筹款项目信息！'
   end
 
+  def audit
+    @audit = @project_apply.audits.last
+    @new_audit = @project_apply.audits.build
+  end
+
   def new_audit
     @project_apply = ProjectSeasonApply.find(params[:id])
     @audit = @project_apply.audits.build
@@ -97,6 +102,19 @@ class Admin::FlowerAppliesController < Admin::BaseController
         format.js
       else
         format.html { render :edit }
+      end
+    end
+  end
+
+  def check
+    respond_to do |format|
+      audit_state = project_apply_params[:audit_state] == 'pass' ? 2 : 3
+      @project_apply.audit_state = audit_state
+      if @project_apply.save
+        @project_apply.audits.create(state: audit_state, user_id: current_user.id, comment: project_apply_params[:approve_remark])
+        format.html { redirect_to admin_flower_applies_path, notice: '审核成功' }
+      else
+        format.html { render :check }
       end
     end
   end
