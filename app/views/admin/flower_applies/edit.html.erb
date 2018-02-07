@@ -6,10 +6,9 @@
       <span class="caption-helper"></span>
     </div>
     <div class="actions">
-      <%= link_to admin_flower_apply_flower_approve_logs_path(@project_apply), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
-        <!-- <i class="fa fa-download"></i> -->
+      <!-- <%= link_to admin_flower_apply_flower_approve_logs_path(@project_apply), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
         <span>操作日志</span>
-      <% end %>
+      <% end %> -->
     </div>
   </div>
   <div class="portlet-body form">
@@ -42,8 +41,8 @@
           <div class="form-group">
             <label class="col-md-2 control-label">申请人数：</label>
             <div class="col-sm-9">
-              <%= f.text_field :girl_number, placeholder: '女生人数', require: true, type: 'number' %>
-              <%= f.text_field :boy_number, placeholder: '男生人数', require: true, type: 'number'%>
+              <%= f.text_field :girl_number, placeholder: '女生人数', require: true, type: 'number', min:0 %>
+              <%= f.text_field :boy_number, placeholder: '男生人数', require: true, type: 'number', min:0 %>
             </div>
           </div>
           <%= f.input :abstract, label: '申请理由：', required: true %>
