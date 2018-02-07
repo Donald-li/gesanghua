@@ -48,7 +48,7 @@
           <th>
             <%= @project_apply.abstract %> <br>
             <% @project_apply.images.each do |image| %>
-              <%= image_tag image.file.url %>
+              <%= image_tag image.file.url(:small) %>
             <% end %>
           </th>
         </tr>
