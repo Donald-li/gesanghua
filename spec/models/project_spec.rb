@@ -15,6 +15,7 @@
 #  alias                      :string                                 # 项目别名，使用英文
 #  appoint_fund_id            :integer                                # 定向指定财务分类id
 #  position                   :integer                                # 位置排序
+#  form                       :jsonb                                  # 自定义表单{key, label, type, options, required}
 #
 
 require 'rails_helper'
