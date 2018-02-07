@@ -220,8 +220,8 @@
             classes = data.items,
             console.log('datas: ' + data)
             console.log('classes: ' + classes)
+            $(".classes-ajax").empty();
             classes.forEach(function(el) {
-              $(".classes-ajax").empty();
               $(".classes-ajax").append("<option value="+ el.id +">" + el.classname + "</option>")
             });
           })

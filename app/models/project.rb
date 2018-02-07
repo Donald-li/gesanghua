@@ -57,7 +57,7 @@ class Project < ApplicationRecord
   end
 
   def self.book_supply_project
-    self.book.last
+    self.book.second
   end
 
   def self.radio_project

@@ -23,7 +23,7 @@ class Api::V1::MainsController < Api::V1::BaseController
       record = DonateRecord.donate_gsh(current_user, amount, promoter)
     end
     record.team = current_user.team if params[:by_team] == 'true'
-    record.donor = params[:donor_name]
+    record.donor = params[:donor] if params[:donor].present?
 
     if record.save
       if params[:pay_method] == 'balance'

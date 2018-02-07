@@ -2,7 +2,7 @@ class Admin::ReadAppliesController < Admin::BaseController
   before_action :set_project_apply, only: [:edit, :update, :destroy, :audit, :students, :switch]
 
   def index
-    @search = ProjectSeasonApply.where(project_id: [2, Project.book_supply_project.id]).sorted.ransack(params[:q])
+    @search = ProjectSeasonApply.where(project_id: 2).sorted.ransack(params[:q])
     scope = @search.result.joins(:school)
     @project_applies = scope.page(params[:page])
   end
@@ -23,7 +23,7 @@ class Admin::ReadAppliesController < Admin::BaseController
     @project_apply.attach_images(params[:image_ids])
     @project_apply.audits.build
     respond_to do |format|
-      if ProjectSeasonApply.find_by(school_id: project_apply_params[:school_id], project_id: 2).present?
+      if ProjectSeasonApply.find_by(school_id: project_apply_params[:school_id], project_id: 2, bookshelf_type: 1).present?
         flash[:notice] = '此学校在本批次还有未完成的申请'
         format.html { render :new }
       elsif @project_apply.save!
@@ -92,12 +92,11 @@ class Admin::ReadAppliesController < Admin::BaseController
 
   def supply_create
     # @school = School.find(project_apply_params[:school_id])
-    @project_apply = ProjectSeasonApply.new(project_apply_params.merge(project_id: Project.book_supply_project.id, bookshelf_type: 2))
+    @project_apply = ProjectSeasonApply.new(project_apply_params.merge(project_id: 2, bookshelf_type: 2))
     @project_apply.attach_images(params[:image_ids])
     @project_apply.audits.build
-    byebug
     respond_to do |format|
-      if ProjectSeasonApply.find_by(school_id: project_apply_params[:school_id], project_id: Project.book_supply_project.id).present?
+      if ProjectSeasonApply.find_by(school_id: project_apply_params[:school_id], project_id: 2, bookshelf_type: 2).present?
         flash[:notice] = '此学校在本批次还有未完成的申请'
         format.html { render :supply_new }
       elsif @project_apply.save!

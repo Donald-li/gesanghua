@@ -33,7 +33,7 @@ class Api::V1::PairChildrenController < Api::V1::BaseController
     promoter = User.find(params[:promoter_id]) if params[:promoter_id].present?
     record = DonateRecord.donate_child(current_user, @pair.gsh_child, semester_num, promoter)
     record.team = current_user.team if params[:by_team] == 'true'
-    record.donor = params[:donor_name]
+    record.donor = params[:donor] if params[:donor].present?
 
     if record.save
       if params[:pay_method] == 'balance'

@@ -1,0 +1,65 @@
+
+<div class="portlet light portlet-fit bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="fa fa-sliders font-dark"></i>
+      <span class="caption-subject font-dark bold uppercase"><%= link_to @receive.owner.bookshelf_no, admin_read_project_bookshelves_path(@project) %> > 收货凭证详情</span>
+    </div>
+    <div class="actions">
+      <div class="btn-group">
+        <a href="<%= admin_read_project_bookshelves_path(@project) %>" class="btn btn-xs blue">
+          <i class="fa fa-reply"></i>返回
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="table-scrollable">
+      <table class="table table-bordered table-hover">
+        <tbody>
+        <tr>
+          <th>
+            图书角编号
+          </th>
+          <th>
+            <%= @receive.owner.bookshelf_no %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            班级
+          </th>
+          <th>
+            <%= @receive.owner.classname %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            反馈人
+          </th>
+          <th>
+            <%= @receive.user.try(:name) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            反馈时间
+          </th>
+          <th>
+            <%= l @receive.created_at %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            反馈内容
+          </th>
+          <th>
+            <%= @receive.content.html_safe %>
+          </th>
+        </tr>
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+</div>
