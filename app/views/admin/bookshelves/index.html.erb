@@ -34,17 +34,16 @@
             <th>
               图书角编号
             </th>
+            <%= supplement.show_state === 'show' ? '' : '暂不展示' %>
+
             <th>
               班级
             </th>
-            <th>
+            <!-- <th>
               申请人数
-            </th>
+            </th> -->
             <th>
               目标/已筹
-            </th>
-            <th>
-              署名信息
             </th>
             <!-- <th>
               图书数量
@@ -70,16 +69,16 @@
                   <%= bookshelf.bookshelf_no %>
                 </td>
                 <td>
+                  <%= bookshelf.title %>
+                </td>
+                <td>
                   <%= bookshelf.classname %>
                 </td>
-                <td>
+                <!-- <td>
                   <%= bookshelf.beneficial_children.present? ? bookshelf.beneficial_children.count : 0 %>
-                </td>
+                </td> -->
                 <td>
                   <%= number_to_currency(bookshelf.target_amount) %> / <%= number_to_currency(bookshelf.present_amount) %>
-                </td>
-                <td>
-                  <%= bookshelf.title %>
                 </td>
                 <!-- <td>
                   <%= bookshelf.book_number %>
@@ -89,7 +88,7 @@
                 </td> -->
                 <td>
                   <%= link_to switch_admin_read_project_bookshelf_path(@project, bookshelf), data: {confirm: "确定#{bookshelf.show_state === 'show' ? '隐藏图书角' : '显示图书角'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{bookshelf.show_state === 'show' ? 'green' : 'default'}" do %>
-                      <%= bookshelf.show_state === 'show' ? '对外展示' : '暂不展示' %>
+                      <%= bookshelf.show_state === 'show' ? '显示' : '隐藏' %>
                       <i class="fa <%= bookshelf.show_state === 'show' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
                   <% end %>
                 </td>

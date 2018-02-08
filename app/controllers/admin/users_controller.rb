@@ -62,7 +62,6 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def bill
-    byebug
     @voucher = @user.vouchers.build(voucher_params)
     ids = Array(params[:ids])
     respond_to do |format|

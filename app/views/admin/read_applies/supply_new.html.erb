@@ -51,20 +51,20 @@
                         <tbody id="goods">
                           <% @project_apply.supplements.build if @project_apply.supplements.blank? %>
                           <%= f.fields_for :supplements, wrapper: 'inline_inputs' do |b| %>
-                          <tr>
+                          <tr class="class-count">
                             <%#= b.hidden_field :school_id, value: 2 %>
                             <%#= b.hidden_field :project_season_id, value: @project_apply.project_season_id %>
                             <td>
-                              <%= b.input :project_season_apply_bookshelf_id, as: :select, label: false, input_html: {class: 'classes-ajax'} %>
+                              <%= b.input :project_season_apply_bookshelf_id, as: :select, collection: ['请选择学校'], label: false, input_html: {class: 'classes-ajax', onchange: "onClassChange()"} %>
                             </td>
                             <td>
-                              <%= b.input :loss,type: 'number', min: 0, label: false, input_html: {class: 'loss-count', placeholder: '请填写数量'} %>
+                              <%= b.input :loss, type: 'number', min: 0, label: false, input_html: {class: 'loss-count', placeholder: '请填写数量'} %>
                             </td>
                             <td>
-                              <%= b.input :supply,type: 'number', min: 0, label: false, input_html: {class: 'supply-count', placeholder: '请填写数量'} %>
+                              <%= b.input :supply, type: 'number', min: 0, label: false, input_html: {class: 'supply-count', placeholder: '请填写数量'} %>
                             </td>
                             <td>
-                              <%= b.input :audit_state, as: :select, wrapper: :inline_inputs, collection: BookshelfSupplement.options_for_select(:audit_states), label: false %>
+                              <%= b.input :audit_state, as: :select, wrapper: :inline_inputs, collection: BookshelfSupplement.options_for_select(:audit_states), include_blank: false, label: false %>
                             </td>
                             <td>
                               <a href="#" class="destroy"><i class="fa fa-remove font-red-soft"></i></a>
@@ -83,7 +83,7 @@
                 <div class="form-group">
                   <label class="col-md-2 control-label">申请图片：</label>
                   <div class="col-sm-9">
-                    <%= webuploader_tag 'image_ids[]', label: '上传孩子图片', type: 'project_season_apply_image', asset: @project_apply.images %>
+                    <%= webuploader_tag 'image_ids[]', label: '上传图片', type: 'project_season_apply_image', asset: @project_apply.images %>
                     <span style="color: red">注意：左起第一张图片为展示第一张图片</span>
                   </div>
                 </div>
@@ -104,7 +104,7 @@
                     </div>
                   </div>
                 </div>
-                <%= f.input :address, label: '详细地址地址：', placeholder: '详细地址地址', input_html: { data: {'parsley-required': true}} %>
+                <%= f.input :address, label: '详细地址：', placeholder: '详细地址', input_html: { data: {'parsley-required': true}} %>
                 <%= f.input :contact_name, label: '收货人：', placeholder: '收货人', input_html: { data: {'parsley-required': true}} %>
                 <%= f.input :contact_phone, label: '联系电话：', placeholder: '联系电话', input_html: { data: {'parsley-required': true}} %>
               </div>
@@ -124,6 +124,14 @@
 </div>
 
 <script type="text/javascript">
+    function onClassChange(){
+      $('.classes-ajax option').attr('disabled', false)
+      $('.classes-ajax').each(function(i,el){
+        var val = $(el).val()
+        if(!val) return
+        $('.classes-ajax option:not(:selected)[value='+val+']').attr('disabled',true)
+      })
+    }
     $(function(){
         initMultiImageWebuploader($('#webuploader'));
         $('.upload-list').viewer();
@@ -136,8 +144,15 @@
           bindAddTo: $("#goods_add_another"),
           beforeAdd: function(el){
             school = $('.schools-ajax').select2("val")
+            classes = $('.classes-ajax')[0].options.length
+            use_classes = $("#goods tr").length
+            empty_class = $('.classes-ajax').last().val()
             if (!school) {
-              toastr.info('请先选择学校！', '' ,{"positionClass": "toast-top-center"})
+              toastr.error('请先选择学校！', '' ,{"positionClass": "toast-top-center"})
+            } else if (empty_class === null) {
+              toastr.error('请选择补书班级！', '' ,{"positionClass": "toast-top-center"})
+            } else if (classes === use_classes) {
+              toastr.error('没有更多可选班级了！', '' ,{"positionClass": "toast-top-center"})
             } else {
               return true
             }
@@ -145,6 +160,10 @@
           afterAdd: function(el){
             $(el).find('.loss-count').val('0')
             $(el).find('.supply-count').val('0')
+            onClassChange()
+          },
+          afterDestroy: function(el){
+            onClassChange()
           }
         });
         // 异步加载学校列表
