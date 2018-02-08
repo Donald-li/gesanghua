@@ -138,15 +138,23 @@ class FileUtil
 
       2.upto(s.last_row) do |line|
 
-        fund_title = s.formatted_value(line, 'A')
-        income_time = s.cell(line, 'B')
-        amount = s.formatted_value(line, 'C')
-        income_source_name = s.formatted_value(line, 'D')
-        donor = s.formatted_value(line, 'E')
-        donor_phone = s.formatted_value(line, 'F')
-        user_name = s.formatted_value(line, 'G')
-        remitter_name = s.formatted_value(line, 'H')
-        remark = s.formatted_value(line, 'I')
+        title = s.formatted_value(line, 'A')
+        fund_title = s.formatted_value(line, 'B')
+        income_time = s.cell(line, 'C')
+        amount = s.formatted_value(line, 'D')
+        income_source_name = s.formatted_value(line, 'E')
+        donor = s.formatted_value(line, 'F')
+        donor_phone = s.formatted_value(line, 'G')
+        user_name = s.formatted_value(line, 'H')
+        remitter_name = s.formatted_value(line, 'I')
+        remark = s.formatted_value(line, 'J')
+        state = s.formatted_value(line, 'K')
+
+        if state == '已开票'
+          state = 'billed'
+        else
+          state = 'to_bill'
+        end
 
         fund = fund_title.present? ? FundCategory.find_by(name: fund_title.split('-').first).funds.find_by(name: fund_title.split('-').second) : nil
         income_source = IncomeSource.find_by(name: income_source_name) || nil
@@ -155,7 +163,7 @@ class FileUtil
 
         if fund.present?
           income_time = income_time.class.to_s == 'DateTime' || income_time.class.to_s == 'Date' ? income_time : Time.parse(income_time)
-          IncomeRecord.create(fund: fund, income_time: income_time, amount: amount, income_source: income_source, user: user, donor: donor, remitter_name: remitter_name, remark: remark)
+          IncomeRecord.create(title: title, fund: fund, income_time: income_time, amount: amount, income_source: income_source, user: user, donor: donor, remitter_name: remitter_name, remark: remark, voucher_state: state)
         end
 
       end

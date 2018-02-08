@@ -54,7 +54,7 @@
               申请内容
             </th>
             <th>
-              学校联系人
+              项目负责人
             </th>
             <th>
               联系方式
@@ -86,10 +86,10 @@
                   <%= apply.sliced_abstract %>
                 </td>
                 <td>
-                  <%= apply.school.try(:contact_name) %>
+                  <%= apply.try(:contact_name) %>
                 </td>
                 <td>
-                  <%= apply.school.try(:contact_phone) %>
+                  <%= apply.try(:contact_phone) %>
                 </td>
                 <td>
                   <%= apply.enum_name(:audit_state) %>

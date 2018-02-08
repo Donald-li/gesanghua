@@ -20,6 +20,8 @@
 #  updated_at       :datetime         not null
 #  income_time      :datetime                               # 入账时间
 #  remark           :text                                   # 备注
+#  voucher_state    :integer                                # 开票状态
+#  title            :string                                 # 收入名称
 #
 
 FactoryBot.define do

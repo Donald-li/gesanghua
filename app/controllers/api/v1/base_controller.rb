@@ -18,6 +18,7 @@ class Api::V1::BaseController < ApplicationController
       return empty_page
     end
   end
+
   # 错误页面返回，前端监听1804
   def empty_page
     api_error(status: 1804, message: '没有用户信息')

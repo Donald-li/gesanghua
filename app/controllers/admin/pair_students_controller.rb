@@ -1,5 +1,6 @@
 class Admin::PairStudentsController < Admin::BaseController
   before_action :set_project_apply
+  before_action :set_apply_child, only: [:show, :edit, :update, :destroy, :check]
 
   def index
     @search = @project_apply.children.where(school: @project_apply.school).sorted.ransack(params[:q])
@@ -15,7 +16,6 @@ class Admin::PairStudentsController < Admin::BaseController
   end
 
   def edit
-    @apply_child = ProjectSeasonApplyChild.find(params[:id])
     @audit = @apply_child.audits.last || @apply_child.audits.create
     @new_audit = @apply_child.audits.build
   end
@@ -35,7 +35,6 @@ class Admin::PairStudentsController < Admin::BaseController
   end
 
   def update
-    @apply_child = ProjectSeasonApplyChild.find(params[:id])
     @apply_child.attach_images(params[:image_ids])
     respond_to do |format|
       if @apply_child.update(apply_child_params)
@@ -48,13 +47,25 @@ class Admin::PairStudentsController < Admin::BaseController
   end
 
   def destroy
-    @apply_child = ProjectSeasonApplyChild.find(params[:id])
-
     @apply_child.destroy
     respond_to do |format|
       format.html { redirect_to admin_pair_apply_pair_students_path(@project_apply), notice: '删除成功。' }
     end
   end
+
+  def check
+    respond_to do |format|
+      approve_state = apply_child_params[:approve_state]
+      @apply_child.approve_state = approve_state
+      if @apply_child.save
+        @apply_child.audits.create(state: approve_state, user_id: current_user.id, comment: apply_child_params[:approve_remark])
+        format.html { redirect_to admin_pair_apply_pair_students_path(@project_apply), notice: '审核成功' }
+      else
+        format.html { render :check }
+      end
+    end
+  end
+
 
   def remarks
     @apply_child = ProjectSeasonApplyChild.find(params[:id])
@@ -110,5 +121,9 @@ class Admin::PairStudentsController < Admin::BaseController
 
     def apply_child_params
       params.require(:project_season_apply_child).permit!
+    end
+
+    def set_apply_child
+      @apply_child = ProjectSeasonApplyChild.find(params[:id])
     end
 end

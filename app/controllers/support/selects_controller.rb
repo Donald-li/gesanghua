@@ -13,7 +13,7 @@ class Support::SelectsController < Support::BaseController
   end
 
   def school_bookshelves
-    scope = ProjectSeasonApplyBookshelf.pass.show.sorted.where("school_id = :school and classname like :q", school: "#{params[:school]}", q: "%#{params[:q]}%")
+    scope = ProjectSeasonApplyBookshelf.pass_done.show.sorted.where("school_id = :school and classname like :q", school: "#{params[:school]}", q: "%#{params[:q]}%")
     bookshelves = scope.page(params[:page])
     render json: {items: bookshelves.as_json(only: [:id, :classname])}
   end
@@ -65,6 +65,12 @@ class Support::SelectsController < Support::BaseController
 
   def applies
     scope = Project.find(params[:project_id]).applies.done.sorted.where("name like :q", q: "%#{params[:q]}%")
+    applies = scope.page(params[:page])
+    render json: {items: applies.as_json(only: [:id, :name])}
+  end
+
+  def majors
+    scope = Major.sorted.where("name like :q", q: "%#{params[:q]}%")
     applies = scope.page(params[:page])
     render json: {items: applies.as_json(only: [:id, :name])}
   end

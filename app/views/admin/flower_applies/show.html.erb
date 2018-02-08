@@ -38,7 +38,7 @@
             申请人数
           </th>
           <th>
-            <%= @project_apply.try(:girl_number) + @project_apply.try(:boy_number) %>
+            <%= @project_apply.try(:girl_number).to_i + @project_apply.try(:boy_number).to_i %>
           </th>
         </tr>
         <tr>

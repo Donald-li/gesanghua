@@ -84,7 +84,7 @@
                   <%= apply.school.try(:name) %>
                 </td>
                 <td>
-                  <%= apply.try(:girl_number) + apply.try(:boy_number) %>
+                  <%= apply.try(:girl_number).to_i + apply.try(:boy_number).to_i %>
                 </td>
                 <td>
                   <%= apply.season.name %>

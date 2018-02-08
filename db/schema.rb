@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180208100809) do
+ActiveRecord::Schema.define(version: 20180208094403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -244,17 +244,6 @@ ActiveRecord::Schema.define(version: 20180208100809) do
     t.integer "kind", comment: "记录类型: 1:系统生成 2:手动添加"
     t.integer "project_season_apply_bookshelf_id", comment: "书架id"
     t.integer "bookshelf_supplement_id", comment: "补书ID"
-    t.integer "donation_id", comment: "可捐助id"
-  end
-
-  create_table "donations", force: :cascade, comment: "可捐助项目表" do |t|
-    t.string "name", comment: "名称"
-    t.string "describe", comment: "说明"
-    t.integer "state", comment: "状态： 1：显示 2：隐藏"
-    t.integer "position", comment: "排序"
-    t.integer "fund_id", comment: "基金id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "expenditure_records", force: :cascade, comment: "支出记录表" do |t|
@@ -404,6 +393,8 @@ ActiveRecord::Schema.define(version: 20180208100809) do
     t.datetime "updated_at", null: false
     t.datetime "income_time", comment: "入账时间"
     t.text "remark", comment: "备注"
+    t.integer "voucher_state", comment: "开票状态"
+    t.string "title", comment: "收入名称"
   end
 
   create_table "income_sources", force: :cascade, comment: "收入来源" do |t|
@@ -875,6 +866,8 @@ ActiveRecord::Schema.define(version: 20180208100809) do
     t.string "auth_token", comment: "Token"
     t.integer "manager_id", comment: "线下用户管理人id"
     t.integer "roles_mask", comment: "角色"
+    t.integer "kind", default: 2, comment: "用户类型 1:平台用户 2:线上用户 3:线下用户"
+    t.integer "phone_verify", default: 1, comment: "手机认证 1:未认证 2:已认证"
     t.index ["email"], name: "index_users_on_email"
     t.index ["login"], name: "index_users_on_login"
     t.index ["phone"], name: "index_users_on_phone"
@@ -906,9 +899,15 @@ ActiveRecord::Schema.define(version: 20180208100809) do
     t.integer "apply_child_id", comment: "孩子申请ID"
   end
 
+  create_table "volunteer_major_ships", force: :cascade do |t|
+    t.integer "volunteer_id", comment: "志愿者ID"
+    t.integer "major_id", comment: "专业ID"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "volunteers", force: :cascade, comment: "志愿者表" do |t|
     t.integer "level", comment: "等级"
-    t.integer "major_id", comment: "专业id"
     t.integer "duration", comment: "服务时长"
     t.integer "user_id", comment: "用户"
     t.integer "job_state", comment: "任务状态"

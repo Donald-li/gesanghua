@@ -37,7 +37,7 @@
             </ul>
             <div class="tab-content">
               <div class="tab-pane active" id="tab_0">
-                <%= simple_form_for [:admin, @project_apply], url: admin_read_apply_path, wrapper: :admin_form, html: {class: 'form-horizontal project_form'} do |f| %>
+                <%= simple_form_for [:admin, @project_apply], url: admin_read_apply_path, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'form-horizontal project_form'} do |f| %>
                     <%#= @project_apply.errors.messages %>
                     <%= f.error_notification %>
                     <div class="form-body">
@@ -79,13 +79,13 @@
                                     <%#= b.hidden_field :project_id, value: 2 %>
                                     <%#= b.hidden_field :project_season_id, value: @project_apply.project_season_id %>
                                     <td>
-                                      <%= b.input :grade, as: :select, label: false, collection: ProjectSeasonApplyBookshelf.options_for_select(:grades), include_blank: false %>
+                                      <%= b.input :grade, as: :select, label: false, collection: ProjectSeasonApplyBookshelf.options_for_select(:grades), include_blank: false, input_html: { data: {'parsley-required': true} } %>
                                     </td>
                                     <td>
-                                      <%= b.input :classname, label: false, input_html:{ placeholder: '请填入班级名称'} %>
+                                      <%= b.input :classname, label: false, input_html:{ data: {'parsley-required': true}, placeholder: '请填入班级名称'} %>
                                     </td>
                                     <td>
-                                      <%= b.input :target_amount, type: 'number', min: 0, label: false, input_html:{class: 'target-amount', placeholder: '请填入筹款金额'}  %>
+                                      <%= b.input :target_amount, type: 'number', min: 0, label: false, input_html:{data: {'parsley-required': true}, class: 'target-amount', placeholder: '请填入筹款金额'}  %>
                                     </td>
                                     <!-- <td class="children-count"> -->
                                       <%#= b.input :student_number, as: 'string', min: 0, label: false, input_html:{ placeholder: '请填入班级人数'} %>
@@ -124,13 +124,13 @@
                                       <%= b.object.bookshelf.classname %>
                                     </td>
                                     <td>
-                                      <%= b.input :loss,type: 'number', min: 0, label: false, input_html: {class: 'loss-count', placeholder: '请填写数量'} %>
+                                      <%= b.input :loss,type: 'number', min: 0, label: false, input_html: { data: {'parsley-required': true}, class: 'loss-count', placeholder: '请填写数量'} %>
                                     </td>
                                     <td>
-                                      <%= b.input :supply,type: 'number', min: 0, label: false, input_html: {class: 'supply-count', placeholder: '请填写数量'} %>
+                                      <%= b.input :supply,type: 'number', min: 0, label: false, input_html: {data: {'parsley-required': true}, class: 'supply-count', placeholder: '请填写数量'} %>
                                     </td>
                                     <td>
-                                      <%= b.input :target_amount, type: 'number', min: 0, label: false, input_html:{class: 'target-amount', placeholder: '请填入筹款金额'}  %>
+                                      <%= b.input :target_amount, type: 'number', min: 0, label: false, input_html:{data: {'parsley-required': true}, class: 'target-amount', placeholder: '请填入筹款金额'}  %>
                                     </td>
                                     <td>
                                       <%= b.input :audit_state, as: :select, wrapper: :inline_inputs, collection: BookshelfSupplement.options_for_select(:audit_states), label: false %>
@@ -147,8 +147,8 @@
                           </div>
                         </div>
                       </div>
-                      <%= f.input :abstract, label: '申请内容：', placeholder: '请填写申请所需物品' %>
-                      <%= f.input :describe, label: '申请理由：', placeholder: '请填写申请理由' %>
+                      <%= f.input :abstract, label: '申请内容：', placeholder: '请填写申请所需物品', input_html: { data: {'parsley-required': true} } %>
+                      <%= f.input :describe, label: '申请理由：', placeholder: '请填写申请理由', input_html: { data: {'parsley-required': true} } %>
                       <div class="form-group">
                         <label class="col-md-2 control-label">申请图片：</label>
                         <div class="col-sm-9">

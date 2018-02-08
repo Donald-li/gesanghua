@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # 超级管理员
-superadmin = User.create(login: 'admin', password: 'admin!', name: 'Administrator', phone: '13300000000', roles: :superadmin, nickname: '超级管理员')
+superadmin = User.create(login: 'admin', password: 'admin!', name: 'Administrator', phone: '13300000000', roles: :superadmin, nickname: '超级管理员', kind: :platform_user, phone_verify: :phone_verified)
 
 # 一级财务分类
 fc_gesanghua = FundCategory.find_or_create_by(name: '格桑花', describe: '捐助给格桑花', kind: 'nondirectional')
@@ -44,3 +44,7 @@ Project.find_or_create_by(name: '护花课程', protocol: content, describe: '�
 Project.find_or_create_by(name: '探索营', protocol: content, describe: '项目介绍', kind: 'camp', fund: fc4.funds.unrestricted.first, appoint_fund: fc4.funds.restricted.first)
 Project.find_or_create_by(name: '广播', protocol: content, describe: '项目介绍', kind: 'radio', fund: fc5.funds.unrestricted.second, appoint_fund: fc5.funds.restricted.first)
 Project.find_or_create_by(name: '护花', protocol: content, describe: '项目介绍', kind: 'care', fund: fc5.funds.unrestricted.second, appoint_fund: fc6.funds.restricted.first)
+
+# 入账渠道
+IncomeSource.find_or_create_by(name: '微信支付', description: '微信支付', kind: 'online')
+IncomeSource.find_or_create_by(name: '线下汇款', description: '线下汇款', kind: 'offline')

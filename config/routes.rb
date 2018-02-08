@@ -178,7 +178,7 @@ Rails.application.routes.draw do
     resources :pair_seasons, concerns: [:switch]
     resources :pair_donate_records, only: [:index, :show]
     resources :pair_applies do
-      resources :pair_students, concerns: [:remarks] do
+      resources :pair_students, concerns: [:remarks, :check] do
         member do
           patch :update_audit
         end
@@ -399,6 +399,7 @@ Rails.application.routes.draw do
         get :seasons
         get :flower_seasons
         get :applies
+        get :majors
       end
     end
     resources :ajaxes, only: [] do

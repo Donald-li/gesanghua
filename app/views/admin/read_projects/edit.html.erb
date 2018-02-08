@@ -15,14 +15,15 @@
   </div>
   <div class="portlet-body form">
     <div class="form-body form-horizontal">
-      <%= simple_form_for [:admin, @project], url: admin_read_project_path, wrapper: :admin_form, html: {class: 'form-horizontal project_form'} do |f| %>
+      <%= simple_form_for [:admin, @project], url: admin_read_project_path, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'form-horizontal project_form'} do |f| %>
           <%= f.error_notification %>
           <div class="form-body">
             <%= static_form_control '申请批次：', @project.season.name %>
             <%= static_form_control '申请学校：', @project.school.name %>
             <%= static_form_control '申请类型：', @project.enum_name(:bookshelf_type) %>
-            <%= f.input :name, label: '项目名称：', placeholder: '请填写项目名称', require: true %>
-            <%= f.input :target_amount, type: 'number', min: 0, label: '目标筹款金额：', placeholder: '请填写筹款金额', require: true %>
+            <%#= f.input :target_amount, type: 'number', min: 0, label: '目标筹款金额：', placeholder: '请填写筹款金额', require: true %>
+            <%= static_form_control '目标筹款金额：', @project.target_amount %>
+            <%= f.input :name, label: '项目名称：', placeholder: '请填写项目名称', input_html:{ data: {'parsley-required': true} } %>
             <div class="form-group">
               <label class="col-md-2 control-label">项目封面：</label>
               <div class="col-sm-9">
@@ -49,12 +50,12 @@
                           <th> 图书角编号 </th>
                           <th> 班级 </th>
                           <th> 筹款金额 </th>
-                          <th> 班级人数 </th>
+                          <!-- <th> 班级人数 </th> -->
                         </tr>
                       </thead>
                       <tbody id="goods">
                         <%# @project.bookshelves.build if @project.bookshelves.blank? %>
-                        <% @project.bookshelves.each do |b| %>
+                        <% @project.bookshelves.pass.each do |b| %>
                         <tr>
                           <td>
                             <%= b.bookshelf_no %>
@@ -67,9 +68,9 @@
                             <%#= b.input :student_number, label: false, input_html:{ placeholder: '请填入班级人数'} %>
                             ¥ <%= b.target_amount %>
                           </td>
-                          <td>
+                          <!-- <td>
                             <%= b.beneficial_children.count%>
-                          </td>
+                          </td> -->
                           <!-- <td>
                             <a href="#" class="destroy"><i class="fa fa-remove font-red-soft"></i></a>
                           </td> -->
@@ -85,7 +86,7 @@
                           <th> 书籍损耗 </th>
                           <th> 书籍补充 </th>
                           <th> 筹款金额 </th>
-                          <th> 班级人数 </th>
+                          <!-- <th> 班级人数 </th> -->
                         </tr>
                       </thead>
                       <tbody id="goods">
@@ -109,9 +110,9 @@
                             <%#= b.input :student_number, label: false, input_html:{ placeholder: '请填入班级人数'} %>
                             ¥ <%= b.target_amount %>
                           </td>
-                          <td>
+                          <!-- <td>
                             <%= b.bookshelf.beneficial_children.count%>
-                          </td>
+                          </td> -->
                           <!-- <td>
                             <a href="#" class="destroy"><i class="fa fa-remove font-red-soft"></i></a>
                           </td> -->
@@ -131,7 +132,7 @@
                 <%= f.cktext_area :project_describe %>
               </div>
             </div> -->
-            <%= f.input :project_describe, label: '项目介绍：', placeholder: '请填写项目介绍', require: true %>
+            <%= f.input :project_describe, label: '项目介绍：', placeholder: '请填写项目介绍', input_html: { data: {'parsley-required': true} } %>
             <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApply.options_for_some_select(:states), label: '显示状态：'%>
           </div>
           <div class="form-actions">

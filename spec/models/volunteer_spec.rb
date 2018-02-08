@@ -4,7 +4,6 @@
 #
 #  id                 :integer          not null, primary key
 #  level              :integer                                # 等级
-#  major_id           :integer                                # 专业id
 #  duration           :integer                                # 服务时长
 #  user_id            :integer                                # 用户
 #  job_state          :integer                                # 任务状态

@@ -112,12 +112,12 @@
                     <%= link_to audit_admin_read_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                         <i class="fa fa-check"></i> 审核操作
                     <% end %>
-                    <% if apply.bookshelves.present? %>
-                      <% project_season_apply_bookshelf_id = apply.bookshelves.first.id %>
-                      <%= link_to students_admin_read_apply_path(apply, q: {project_season_apply_bookshelf_id_eq: project_season_apply_bookshelf_id}), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
-                          <i class="fa fa-list"></i> 学生名单
-                      <% end %>
-                    <% end %>
+                    <%# if apply.bookshelves.present? %>
+                      <%# project_season_apply_bookshelf_id = apply.bookshelves.first.id %>
+                      <%#= link_to students_admin_read_apply_path(apply, q: {project_season_apply_bookshelf_id_eq: project_season_apply_bookshelf_id}), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
+                          <!--<i class="fa fa-list"></i> 学生名单-->
+                      <%# end %>
+                    <%# end %>
                     <%= link_to admin_read_apply_path(apply), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                         <i class="fa fa-trash-o"></i> 删除
                     <% end %>
@@ -125,8 +125,6 @@
                       <%= link_to switch_admin_read_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue', data: {confirm: '确定要转为筹款项目吗？'} do %>
                         <i class="fa fa-exchange"></i> 转为筹款项目
                       <% end %>
-                    <% else %>
-                      <a href="###" class="btn btn-xs red"><i class="fa fa-close"></i> 请审核申请 </a>
                     <% end %>
                   <% else %>
                     <span class="btn btn-xs red">

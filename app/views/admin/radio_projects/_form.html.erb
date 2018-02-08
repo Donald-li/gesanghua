@@ -1,6 +1,6 @@
 <%= simple_form_for [:admin, @project], url: @project.new_record? ? admin_radio_projects_path : admin_radio_project_path, wrapper: :admin_form, html: {class: 'form-horizontal project_form'} do |f| %>
   <%= f.error_notification %>
-  <div class="form-body">
+  <div class="form-body form-horizontal">
     <% if @project.new_record? %>
       <%= f.hidden_field :project_id, value: ProjectSeason.radio_project_id %>
       <%= f.input :project_season_id, as: :select, label: '结对批次：', input_html: {class: 'seasons-ajax'} %>
