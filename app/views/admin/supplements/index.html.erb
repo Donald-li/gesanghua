@@ -37,14 +37,14 @@
             <th>
               班级
             </th>
-            <th>
+            <!-- <th>
               班级人数
-            </th>
+            </th> -->
             <th>
               目标/已筹
             </th>
             <th>
-              署名信息
+              冠名
             </th>
             <th>
               图书数量
@@ -78,9 +78,9 @@
                 <td>
                   <%= supplement.bookshelf.classname %>
                 </td>
-                <td>
+                <!-- <td>
                   <%= supplement.bookshelf.beneficial_children.present? ? supplement.bookshelf.beneficial_children.count : 0 %>
-                </td>
+                </td> -->
                 <td>
                   <%= number_to_currency(supplement.target_amount) %> / <%= number_to_currency(supplement.present_amount) %>
                 </td>
@@ -101,7 +101,7 @@
                 </td>
                 <td>
                   <%= link_to switch_admin_read_project_supplement_path(@project, supplement), data: {confirm: "确定#{supplement.show_state === 'show' ? '隐藏补书申请' : '显示补书申请'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{supplement.show_state === 'show' ? 'green' : 'default'}" do %>
-                      <%= supplement.show_state === 'show' ? '对外展示' : '暂不展示' %>
+                      <%= supplement.show_state === 'show' ? '显示' : '隐藏' %>
                       <i class="fa <%= supplement.show_state === 'show' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
                   <% end %>
                 </td>

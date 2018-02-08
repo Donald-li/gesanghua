@@ -23,7 +23,7 @@ class Admin::ReadAppliesController < Admin::BaseController
     @project_apply.attach_images(params[:image_ids])
     @project_apply.audits.build
     respond_to do |format|
-      if ProjectSeasonApply.find_by(school_id: project_apply_params[:school_id], project_id: 2, bookshelf_type: 1).present?
+      if ProjectSeasonApply.find_by(school_id: project_apply_params[:school_id], project_season_id: project_apply_params[:project_season_id], project_id: 2, bookshelf_type: 1).present?
         flash[:notice] = '此学校在本批次还有未完成的申请'
         format.html { render :new }
       elsif @project_apply.save!
@@ -96,7 +96,7 @@ class Admin::ReadAppliesController < Admin::BaseController
     @project_apply.attach_images(params[:image_ids])
     @project_apply.audits.build
     respond_to do |format|
-      if ProjectSeasonApply.find_by(school_id: project_apply_params[:school_id], project_id: 2, bookshelf_type: 2).present?
+      if ProjectSeasonApply.find_by(school_id: project_apply_params[:school_id], project_season_id: project_apply_params[:project_season_id], project_id: 2, bookshelf_type: 2).present?
         flash[:notice] = '此学校在本批次还有未完成的申请'
         format.html { render :supply_new }
       elsif @project_apply.save!

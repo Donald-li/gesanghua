@@ -18,11 +18,11 @@
       <div class="row">
         <div class="col-md-12">
 
-          <%= simple_form_for [:admin, @project_apply], url: admin_read_applies_path, wrapper: :admin_form, html: {class: 'form-horizontal project_form'} do |f| %>
+          <%= simple_form_for [:admin, @project_apply], url: admin_read_applies_path, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'form-horizontal project_form'} do |f| %>
               <%= f.error_notification %>
               <div class="form-body">
-                <%= f.input :project_season_id, as: :select, label: '申请批次：', input_html: {class: 'seasons-ajax'} %>
-                <%= f.input :school_id, as: :select, label: '申请学校：', input_html: {class: 'schools-ajax'} %>
+                <%= f.input :project_season_id, as: :select, label: '申请批次：', require: true, input_html: {class: 'seasons-ajax', data: {'parsley-required': true}} %>
+                <%= f.input :school_id, as: :select, label: '申请学校：', require: true, input_html: {class: 'schools-ajax', data: {'parsley-required': true}} %>
                 <%#= static_form_control '学校总人数：' %>
                 <%#= static_form_control '班级总数：' %>
 
@@ -55,18 +55,18 @@
                             <%#= b.hidden_field :school_id, value: 2 %>
                             <%#= b.hidden_field :project_season_id, value: @project_apply.project_season_id %>
                             <td>
-                              <%= b.input :grade, as: :select, label: false, collection: ProjectSeasonApplyBookshelf.options_for_select(:grades), include_blank: false %>
+                              <%= b.input :grade, as: :select, label: false, collection: ProjectSeasonApplyBookshelf.options_for_select(:grades), include_blank: false, input_html:{class: 'class_grade'} %>
                             </td>
                             <td>
-                              <%= b.input :classname, label: false, input_html:{ placeholder: '请填入班级名称'} %>
+                              <%= b.input :classname, label: false, input_html:{placeholder: '请填入班级名称'} %>
                             </td>
                             <td>
                               <%#= b.beneficial_children.count %>
-                              <%= b.input :target_amount, type: 'number', min: 0, label: false, input_html:{class: 'target-amount', placeholder: '请填入筹款金额'}  %>
+                              <%= b.input :target_amount, type: 'number', min: 0, label: false, input_html:{ class: 'target-amount', placeholder: '请填入筹款金额', value: '', data: {'parsley-required': true} }  %>
                             </td>
                             <td>
                               <%#= check_box_tag b.audit_state, 'pass', false %>
-                              <%= b.input :audit_state, as: :select, wrapper: :inline_inputs, collection: ProjectSeasonApplyBookshelf.options_for_select(:audit_states), label: false %>
+                              <%= b.input :audit_state, as: :select, wrapper: :inline_inputs, collection: ProjectSeasonApplyBookshelf.options_for_select(:audit_states), include_blank: false, label: false %>
                             </td>
                             <td>
                               <a href="#" class="destroy"><i class="fa fa-remove font-red-soft"></i></a>
@@ -85,7 +85,7 @@
                 <div class="form-group">
                   <label class="col-md-2 control-label">申请图片：</label>
                   <div class="col-sm-9">
-                    <%= webuploader_tag 'image_ids[]', label: '上传申请图片', type: 'project_season_apply_image', asset: @project_apply.images %>
+                    <%= webuploader_tag 'image_ids[]', label: '上传图片', type: 'project_season_apply_image', asset: @project_apply.images %>
                     <span style="color: red">注意：左起第一张图片为展示第一张图片</span>
                   </div>
                 </div>
@@ -106,7 +106,7 @@
                     </div>
                   </div>
                 </div>
-                <%= f.input :address, label: '详细地址地址：', placeholder: '详细地址地址', input_html: { data: {'parsley-required': true}} %>
+                <%= f.input :address, label: '详细地址：', placeholder: '详细地址', input_html: { data: {'parsley-required': true}} %>
                 <%= f.input :contact_name, label: '收货人：', placeholder: '收货人', input_html: { data: {'parsley-required': true}} %>
                 <%= f.input :contact_phone, label: '联系电话：', placeholder: '联系电话', input_html: { data: {'parsley-required': true}} %>
               </div>
@@ -122,92 +122,89 @@
         </div>
       </div>
     </div>
-
-
-
-
-    <script type="text/javascript">
-        $(function(){
-            initMultiImageWebuploader($('#webuploader'));
-            $('.upload-list').viewer();
-            //    表单验证
-            $(".project_form").html5Validate(function(){
-                $(this).find('[type="submit"]').attr('disabled','disabled');
-                this.submit();
-            });
-            $("#goods").nestedAttributes({
-              bindAddTo: $("#goods_add_another"),
-              afterAdd: function(el){
-                $(el).find('.target-amount').val('0.0')
-              }
-            });
-            // 异步加载学校列表
-            $('.schools-ajax').select2({
-                language: "zh-CN",
-                placeholder: '请选择学校',
-                allowClear: true,
-                ajax: {
-                    url: "/selects/schools",
-                    dataType: 'json',
-                    delay: 250,
-                    data: function (params) {
-                        return {
-                            q: params.term, // search term
-                            page: params.page
-                        };
-                    },
-                    processResults: function (data, params) {
-                        params.page = params.page || 1;
-                        return {
-                            results: $.map(data.items, function (item) {
-                                return {
-                                    text: item.name,
-                                    id: item.id
-                                }
-                            }),
-                            pagination: {
-                                more: (params.page * 30) < data.total_count
-                            }
-                        };
-                    },
-                    cache: true
-                }
-            });
-            // 异步加载批次列表
-            $('.seasons-ajax').select2({
-                language: "zh-CN",
-                placeholder: '请选择批次',
-                allowClear: true,
-                ajax: {
-                    url: "/selects/seasons",
-                    dataType: 'json',
-                    delay: 250,
-                    data: function (params) {
-                        return {
-                            q: params.term, // search term
-                            page: params.page,
-                            project_id: 2
-                        };
-                    },
-                    processResults: function (data, params) {
-                        params.page = params.page || 1;
-                        return {
-                            results: $.map(data.items, function (item) {
-                                return {
-                                    text: item.name,
-                                    id: item.id
-                                }
-                            }),
-                            pagination: {
-                                more: (params.page * 30) < data.total_count
-                            }
-                        };
-                    },
-                    cache: true
-                }
-            });
-        })
-    </script>
-
   </div>
 </div>
+
+<script type="text/javascript">
+    $(function(){
+        initMultiImageWebuploader($('#webuploader'));
+        $('.upload-list').viewer();
+        //    表单验证
+        $(".project_form").html5Validate(function(){
+            $(this).find('[type="submit"]').attr('disabled','disabled');
+            this.submit();
+        });
+        $("#goods").nestedAttributes({
+          bindAddTo: $("#goods_add_another"),
+          afterAdd: function(el){
+            $(el).find('.target-amount').val('')
+            $(el).find('.class_grade').val(1)
+          }
+        });
+        // 异步加载学校列表
+        $('.schools-ajax').select2({
+            language: "zh-CN",
+            placeholder: '请选择学校',
+            allowClear: true,
+            ajax: {
+                url: "/selects/schools",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: $.map(data.items, function (item) {
+                            return {
+                                text: item.name,
+                                id: item.id
+                            }
+                        }),
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            }
+        });
+        // 异步加载批次列表
+        $('.seasons-ajax').select2({
+            language: "zh-CN",
+            placeholder: '请选择批次',
+            allowClear: true,
+            ajax: {
+                url: "/selects/seasons",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page,
+                        project_id: 2
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: $.map(data.items, function (item) {
+                            return {
+                                text: item.name,
+                                id: item.id
+                            }
+                        }),
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            }
+        });
+    })
+</script>
