@@ -153,10 +153,10 @@
                     <%= link_to admin_flower_project_flower_install_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-file"></i> 查看反馈
                     <% end %>
-                  <% elsif apply.cancelled? %>
-                    <%= link_to '', 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                  <!-- <% elsif apply.cancelled? && apply.donate_records.present? %>
+                    <%= link_to refunded_admin_flwer_project_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                       <i class="fa fa-money"></i> 项目已退款
-                    <% end %>
+                    <% end %> -->
                   <% else %>
                   <% end %>
                 </td>

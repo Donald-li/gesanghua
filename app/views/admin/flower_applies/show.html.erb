@@ -19,10 +19,26 @@
         </tr>
         <tr>
           <th>
+            申请批次
+          </th>
+          <th>
+            <%= @project_apply.season.try(:name) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
             申请学校
           </th>
           <th>
             <%= @project_apply.school.try(:name) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            申请人数
+          </th>
+          <th>
+            <%= @project_apply.try(:girl_number) + @project_apply.try(:boy_number) %>
           </th>
         </tr>
         <tr>

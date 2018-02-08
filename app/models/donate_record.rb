@@ -207,7 +207,7 @@ class DonateRecord < ApplicationRecord
     donate_record.kind = 'custom'
 
     apply.present_amount += amount.to_f
-    apply.execute_state = 'to_execute' if apply.present_amount == apply.target_amount
+  apply.execute_state = 'to_delivery' if apply.present_amount == apply.target_amount
     self.transaction do
       begin
         donate_record.save
