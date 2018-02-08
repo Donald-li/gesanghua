@@ -31,7 +31,7 @@ class Admin::BookshelvesController < Admin::BaseController
   def switch
     @bookshelf = ProjectSeasonApplyBookshelf.find(params[:id])
     @bookshelf.show? ? @bookshelf.hidden! : @bookshelf.show!
-    redirect_to admin_read_project_bookshelves_path(@project), notice:  @bookshelf.show? ? '对外展示' : '暂不展示'
+    redirect_to admin_read_project_bookshelves_path(@project), notice:  @bookshelf.show? ? '已显示' : '已隐藏'
   end
 
   def shipment

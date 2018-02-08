@@ -20,9 +20,14 @@
 #  updated_at       :datetime         not null
 #  income_time      :datetime                               # 入账时间
 #  remark           :text                                   # 备注
+#  voucher_state    :integer                                # 开票状态
+#  title            :string                                 # 收入名称
 #
 
 class IncomeRecord < ApplicationRecord
+
+  before_save :set_record_title
+
   belongs_to :user, optional: true
   belongs_to :fund, optional: true
   belongs_to :income_source, optional: true
@@ -35,6 +40,9 @@ class IncomeRecord < ApplicationRecord
   # belongs_to :user, polymorphic: true
 
   validates :amount, :income_time, presence: true
+
+  enum voucher_state: {to_bill: 1, billed: 2} #收据状态，1:未开票 2:已开票
+  default_value_for :voucher_state, 1
 
   include HasAsset
   has_one_asset :income_record_excel, class_name: 'Asset::IncomeRecordExcel'
@@ -64,6 +72,10 @@ class IncomeRecord < ApplicationRecord
     else
       StatisticRecord.create(kind: 2, record_time: Time.now.strftime("%Y-%m-%d"), amount: 0)
     end
+  end
+
+  def set_record_title
+    self.title = "#{record.donate_record.try(:user).try(:name)}捐助#{record.donate_record.try(:apply).try(:name)}#{record.donate_record.try(:child).try(:name)}款项" unless self.title.present?
   end
 
 end

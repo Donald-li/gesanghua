@@ -87,10 +87,7 @@
                 <%= record.id %>
               </td>
               <td>
-                <%= record.donate_record.try(:apply).try(:name) %>申请
-                <%= record.donate_record.try(:child).try(:name) %>
-                <%= record.donate_record.try(:user).try(:name) %>
-                捐款
+                <%= record.title %>
               </td>
               <td>
                 <%= record.fund.try(:fund_category).try(:name) %> - <%= record.fund.try(:name) %>
@@ -111,7 +108,7 @@
                 <%= record.donor || '-' %>/<%= record.remitter_name || '-' %>
               </td>
               <td>
-                <%= record.donate_record.present? ? record.donate_record.enum_name(:voucher_state) : '不支持开票' %>
+                <%= record.enum_name(:voucher_state) %>
               </td>
               <td>
                 <%= record.remark %>

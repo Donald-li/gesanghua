@@ -31,7 +31,7 @@ class Admin::SupplementsController < Admin::BaseController
   def switch
     @supplement = BookshelfSupplement.find(params[:id])
     @supplement.show? ? @supplement.hidden! : @supplement.show!
-    redirect_to admin_read_project_supplements_path(@project), notice:  @supplement.show? ? '对外展示' : '暂不展示'
+    redirect_to admin_read_project_supplements_path(@project), notice:  @supplement.show? ? '已显示' : '已隐藏'
   end
 
   def shipment

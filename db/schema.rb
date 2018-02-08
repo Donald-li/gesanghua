@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180207051425) do
+ActiveRecord::Schema.define(version: 20180208065316) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -393,6 +393,8 @@ ActiveRecord::Schema.define(version: 20180207051425) do
     t.datetime "updated_at", null: false
     t.datetime "income_time", comment: "入账时间"
     t.text "remark", comment: "备注"
+    t.integer "voucher_state", comment: "开票状态"
+    t.string "title", comment: "收入名称"
   end
 
   create_table "income_sources", force: :cascade, comment: "收入来源" do |t|

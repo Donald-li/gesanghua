@@ -286,6 +286,9 @@ zh:
   donate_record_voucher_states:
     to_bill: '待开票'
     billed: '已开票'
+  income_record_voucher_states:
+    to_bill: '待开票'
+    billed: '已开票'
   voucher_kinds:
     individual: '个人'
     company: '企业'
