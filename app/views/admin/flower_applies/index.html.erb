@@ -83,7 +83,7 @@
                   <%= l apply.created_at %>
                 </td>
                 <td>
-                  <%= apply.try(:girl_number) + apply.try(:boy_number) %>人
+                  <%= apply.try(:girl_number).to_i + apply.try(:boy_number).to_i %>人
                 </td>
                 <td>
                   <%= apply.contact_name %>
