@@ -398,6 +398,7 @@ Rails.application.routes.draw do
         get :seasons
         get :flower_seasons
         get :applies
+        get :majors
       end
     end
     resources :ajaxes, only: [] do

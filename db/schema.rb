@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180208065316) do
+ActiveRecord::Schema.define(version: 20180208094403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -866,6 +866,8 @@ ActiveRecord::Schema.define(version: 20180208065316) do
     t.string "auth_token", comment: "Token"
     t.integer "manager_id", comment: "线下用户管理人id"
     t.integer "roles_mask", comment: "角色"
+    t.integer "kind", default: 2, comment: "用户类型 1:平台用户 2:线上用户 3:线下用户"
+    t.integer "phone_verify", default: 1, comment: "手机认证 1:未认证 2:已认证"
     t.index ["email"], name: "index_users_on_email"
     t.index ["login"], name: "index_users_on_login"
     t.index ["phone"], name: "index_users_on_phone"
@@ -897,9 +899,15 @@ ActiveRecord::Schema.define(version: 20180208065316) do
     t.integer "apply_child_id", comment: "孩子申请ID"
   end
 
+  create_table "volunteer_major_ships", force: :cascade do |t|
+    t.integer "volunteer_id", comment: "志愿者ID"
+    t.integer "major_id", comment: "专业ID"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "volunteers", force: :cascade, comment: "志愿者表" do |t|
     t.integer "level", comment: "等级"
-    t.integer "major_id", comment: "专业id"
     t.integer "duration", comment: "服务时长"
     t.integer "user_id", comment: "用户"
     t.integer "job_state", comment: "任务状态"

@@ -110,8 +110,8 @@ zh:
     available: '可接受任务'
     leave: '请假'
   volunteer_kinds:
-    normal: '普通志愿者'
-    professional: '专业志愿者'
+    practice: '实习'
+    official: '正式'
   volunteer_approve_states:
     submit: '待审核'
     pass: '通过'
