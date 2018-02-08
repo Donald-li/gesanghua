@@ -2,7 +2,7 @@ class Admin::SupplementsController < Admin::BaseController
   before_action :set_project
 
   def index
-    @search = @project.supplements.sorted.ransack(params[:q])
+    @search = @project.supplements.pass.sorted.ransack(params[:q])
     scope = @search.result
     @supplements = scope.page(params[:page])
   end

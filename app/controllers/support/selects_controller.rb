@@ -13,7 +13,7 @@ class Support::SelectsController < Support::BaseController
   end
 
   def school_bookshelves
-    scope = ProjectSeasonApplyBookshelf.done.show.sorted.where("school_id = :school and classname like :q", school: "#{params[:school]}", q: "%#{params[:q]}%")
+    scope = ProjectSeasonApplyBookshelf.pass_done.show.sorted.where("school_id = :school and classname like :q", school: "#{params[:school]}", q: "%#{params[:q]}%")
     bookshelves = scope.page(params[:page])
     render json: {items: bookshelves.as_json(only: [:id, :classname])}
   end
