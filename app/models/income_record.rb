@@ -75,7 +75,7 @@ class IncomeRecord < ApplicationRecord
   end
 
   def set_record_title
-    self.title = "#{record.donate_record.try(:user).try(:name)}捐助#{record.donate_record.try(:apply).try(:name)}#{record.donate_record.try(:child).try(:name)}款项" unless self.title.present?
+    self.title = "#{self.donate_record.try(:user).try(:name)}捐助#{self.donate_record.try(:apply).try(:name)}#{self.donate_record.try(:child).try(:name)}款项" unless self.title.present?
   end
 
 end
