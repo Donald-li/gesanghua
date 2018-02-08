@@ -1,0 +1,96 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i>捐助管理
+    </div>
+    <div class="actions">
+      <%= link_to new_admin_donation_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+      <i class="icon-plus"></i>
+      <span>新增</span>
+      <% end %>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="dataTables_wrapper no-footer">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="dataTables_filter pull-right">
+          </div>
+        </div>
+      </div>
+      <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover" id="sample_2">
+          <thead>
+          <tr>
+            <th>
+              捐助名称
+            </th>
+            <th>
+              捐助说明
+            </th>
+            <th>
+              收入分类
+            </th>
+            <th>
+              状态
+            </th>
+            <th>
+              排序
+            </th>
+            <th>
+              操作
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @donations.each do |donation| %>
+              <tr>
+                <td>
+                  <%= donation.name %>
+                </td>
+                <td>
+                  <%= donation.describe %>
+                </td>
+                <td>
+                  <%= donation.fund.fund_category.try(:name) %> - 
+                  <%= donation.fund.try(:name) %>
+                </td>
+                <td>
+                  <%= link_to switch_admin_donation_path(donation), data: {confirm: "确定#{donation.state === 'show' ? '隐藏' : '展示'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{donation.state === 'show' ? 'green' : 'default'}" do %>
+                  <%= donation.state === 'show' ? '展示' : '隐藏' %>
+                  <i class="fa <%= donation.state === 'show' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                  <% end %>
+                </td>
+                <td>
+                  <%= link_to '顶部', move_admin_donation_path(donation, to: :to_top), method: :put %>
+                  <%= link_to '上', move_admin_donation_path(donation, to: :higher), method: :put %>
+                  <%= link_to '下', move_admin_donation_path(donation, to: :lower), method: :put %>
+                  <%= link_to '底部', move_admin_donation_path(donation, to: :to_bottom), method: :put %>
+                </td>
+                <td>
+                  <%= link_to edit_admin_donation_path(donation), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                      <i class="fa fa-edit"></i> 修改
+                  <% end %>
+                  <%= link_to '', 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                    <i class="fa fa-card"></i> 金额选项卡
+                  <% end %>
+                </td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-5 col-sm-12">
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@donations) %></div>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <%= paginate @donations, theme: 'admin' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END EXAMPLE TABLE PORTLET-->

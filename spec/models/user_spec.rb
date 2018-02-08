@@ -55,6 +55,19 @@ RSpec.describe User, type: :model do
 
   end
 
+  it '测试管理代捐人' do
+    # 新增代捐人
+    agent_user1 = user.offline_users.create_offline_user('高', '13500000001', 'male', '叔叔', 'gao@163.com', '630000', '630100', '630123', '某街道')
+    agent_user2 = user.offline_users.create_offline_user('高', '13500000002', 'male', '叔叔', '134@163.com', '630000', '630100', '630123', '某街道')
+
+    expect(user.offline_users.count).to eq 2
+
+    # 插入1条手机号已存在的记录
+    agent_user3 = user.offline_users.create_offline_user('高', '13500000002', 'male', '叔叔', '134@163.com', '630000', '630100', '630123', '某街道')
+    expect(user.offline_users.count).to eq 2
+
+  end
+
   it '测试用户捐给格桑花' do
     amount = 100000.01
     user.donate_gsh(amount)

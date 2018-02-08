@@ -62,7 +62,6 @@ class User < ApplicationRecord
   has_many :project_season_applies
   has_many :month_donates
 
-  has_many :offline_donors, class_name: "User", foreign_key: "manager_id"
   has_many :offline_users, class_name: "User", foreign_key: "manager_id"
 
   belongs_to :manager, class_name: "User", optional: true
@@ -70,7 +69,7 @@ class User < ApplicationRecord
   validates :password, confirmation: true, length: { minimum: 6 }, allow_blank: true
   default_value_for :password, '111111'
   validates :email, email: true
-  validates :phone, mobile: true
+  validates :phone, mobile: true, uniqueness: { allow_blank: true }
   validates :name, :login, presence: true
   validates :login, uniqueness: true
   default_value_for :profile, {}
@@ -247,12 +246,8 @@ class User < ApplicationRecord
   end
 
   # 创建线下用户
-  def self.create_offline_donor(name, phone)
-    user = self.new
-    user.name = name
-    user.phone = phone
-    user.save
-    user
+  def self.create_offline_user(name, phone, gender, salutation, email, province, city, district, address)
+    User.create(login: phone, name: name, phone: phone, gender: gender, salutation: salutation, email: email, province: province, city: city, district: district, address: address)
   end
 
 end

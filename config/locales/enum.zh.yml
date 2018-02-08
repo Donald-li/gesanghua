@@ -413,3 +413,6 @@ zh:
     tataerzu: '塔塔尔族'
     hezhezu: '赫哲族'
     luobazu: '珞巴族'
+  donation_states:
+    show: '显示'
+    hidden: '隐藏'

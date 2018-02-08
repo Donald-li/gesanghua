@@ -54,7 +54,7 @@
           <%= f.input :address, label: '详细地址', autofocus: true, input_html: { data: {}} %>
           <%= f.input :consignee, label: '收货人：', autofocus: true, input_html: { data: {}} %>
           <%= f.input :consignee_phone, label: '联系电话：', autofocus: true, input_html: { data: {}} %> -->
-          <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApply.options_for_select(:states), label: '状态：' %>
+          <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApply.options_for_select(:states), label: '状态：', input_html: { data: {'parsley-required': true}} %>
         </div>
         <div class="form-actions">
           <div class="row">
