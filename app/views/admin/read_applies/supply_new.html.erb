@@ -18,11 +18,11 @@
       <div class="row">
         <div class="col-md-12">
 
-          <%= simple_form_for [:admin, @project_apply], url: supply_create_admin_read_applies_path, wrapper: :admin_form, html: {class: 'form-horizontal project_form'} do |f| %>
+          <%= simple_form_for [:admin, @project_apply], url: supply_create_admin_read_applies_path, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'form-horizontal project_form'} do |f| %>
               <%= f.error_notification %>
               <div class="form-body">
-                <%= f.input :project_season_id, as: :select, label: '申请批次：', input_html: {class: 'seasons-ajax'} %>
-                <%= f.input :school_id, as: :select, label: '申请学校：', input_html: {class: 'schools-ajax'} %>
+                <%= f.input :project_season_id, as: :select, label: '申请批次：', require: true, input_html: {data: {'parsley-required': true}, class: 'seasons-ajax'} %>
+                <%= f.input :school_id, as: :select, label: '申请学校：', require: true, input_html: {data: {'parsley-required': true}, class: 'schools-ajax'} %>
                 <%#= static_form_control '学校总人数：' %>
                 <%#= static_form_control '班级总数：' %>
 
@@ -55,16 +55,16 @@
                             <%#= b.hidden_field :school_id, value: 2 %>
                             <%#= b.hidden_field :project_season_id, value: @project_apply.project_season_id %>
                             <td>
-                              <%= b.input :project_season_apply_bookshelf_id, as: :select, collection: ['请选择学校'], label: false, input_html: {class: 'classes-ajax', onchange: "onClassChange()"} %>
+                              <%= b.input :project_season_apply_bookshelf_id, as: :select, collection: ['请选择学校'], label: false, input_html: {data: {'parsley-required': true}, class: 'classes-ajax', onchange: "onClassChange()"} %>
                             </td>
                             <td>
-                              <%= b.input :loss, type: 'number', min: 0, label: false, input_html: {class: 'loss-count', placeholder: '请填写数量'} %>
+                              <%= b.input :loss, type: 'number', min: 0, label: false, input_html: {data: {'parsley-required': true}, class: 'loss-count', placeholder: '请填写数量'} %>
                             </td>
                             <td>
-                              <%= b.input :supply, type: 'number', min: 0, label: false, input_html: {class: 'supply-count', placeholder: '请填写数量'} %>
+                              <%= b.input :supply, type: 'number', min: 0, label: false, input_html: {data: {'parsley-required': true}, class: 'supply-count', placeholder: '请填写数量'} %>
                             </td>
                             <td>
-                              <%= b.input :audit_state, as: :select, wrapper: :inline_inputs, collection: BookshelfSupplement.options_for_select(:audit_states), include_blank: false, label: false %>
+                              <%= b.input :audit_state, as: :select, wrapper: :inline_inputs, collection: BookshelfSupplement.options_for_select(:audit_states), include_blank: false, label: false, input_html: {class: 'supplement_state', data: {'parsley-required': true} } %>
                             </td>
                             <td>
                               <a href="#" class="destroy"><i class="fa fa-remove font-red-soft"></i></a>
@@ -78,8 +78,8 @@
                     </div>
                   </div>
                 </div>
-                <%= f.input :abstract, label: '申请内容：', placeholder: '请填写申请所需物品' %>
-                <%= f.input :describe, label: '申请理由：', placeholder: '请填写申请理由' %>
+                <%= f.input :abstract, label: '申请内容：', placeholder: '请填写申请所需物品', input_html: { data: {'parsley-required': true} } %>
+                <%= f.input :describe, label: '申请理由：', placeholder: '请填写申请理由', input_html: { data: {'parsley-required': true} } %>
                 <div class="form-group">
                   <label class="col-md-2 control-label">申请图片：</label>
                   <div class="col-sm-9">
@@ -158,9 +158,11 @@
             }
           },
           afterAdd: function(el){
-            $(el).find('.loss-count').val('0')
-            $(el).find('.supply-count').val('0')
+            $(el).find('.loss-count').val('')
+            $(el).find('.supply-count').val('')
+            $(el).find('.supplement_state option:last').attr("selected","selected")
             onClassChange()
+            // $(el).find('.class_grade option:last').attr("selected","selected")
           },
           afterDestroy: function(el){
             onClassChange()
