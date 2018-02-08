@@ -48,3 +48,7 @@ Project.find_or_create_by(name: '护花', protocol: content, describe: '项目�
 # 入账渠道
 IncomeSource.find_or_create_by(name: '微信支付', description: '微信支付', kind: 'online')
 IncomeSource.find_or_create_by(name: '线下汇款', description: '线下汇款', kind: 'offline')
+
+Donation.create(name: '格桑花', fund: Fund.gsh, state: :show)
+Donation.create(name: '一对一', fund: Project.pair_project.fund, state: :show)
+Donation.create(name: '悦读', fund: Project.radio_project.fund, state: :show)
