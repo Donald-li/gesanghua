@@ -4,7 +4,6 @@
 #
 #  id                 :integer          not null, primary key
 #  level              :integer                                # 等级
-#  major_id           :integer                                # 专业id
 #  duration           :integer                                # 服务时长
 #  user_id            :integer                                # 用户
 #  job_state          :integer                                # 任务状态
@@ -20,10 +19,11 @@
 #
 
 class Volunteer < ApplicationRecord
-  belongs_to :major, optional: true
   belongs_to :user
   has_many :task_volunteers, dependent: :destroy
   has_many :tasks, through: :task_volunteers
+  has_many :volunteer_major_ships
+  has_many :majors, through: :volunteer_major_ships
   has_many :audits, as: :owner
   has_many :remarks, as: :owner
 
@@ -33,7 +33,7 @@ class Volunteer < ApplicationRecord
   enum state: {enable: 1, disable: 2} # 状态 1:启用 2:禁用
   default_value_for :state, 1
 
-  enum kind: {normal: 1, professional: 2} # 类型 1:普通 2:专业
+  enum kind: {practice: 1, official: 2} # 类型 1:实习 2:正式
   default_value_for :kind, 1
 
   enum approve_state: { submit: 1, pass: 2, reject: 3 } # 审核状态：1:审核中 2:申请通过 3:申请不通过

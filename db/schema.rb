@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180208065316) do
+ActiveRecord::Schema.define(version: 20180208094403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -899,9 +899,15 @@ ActiveRecord::Schema.define(version: 20180208065316) do
     t.integer "apply_child_id", comment: "孩子申请ID"
   end
 
+  create_table "volunteer_major_ships", force: :cascade do |t|
+    t.integer "volunteer_id", comment: "志愿者ID"
+    t.integer "major_id", comment: "专业ID"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "volunteers", force: :cascade, comment: "志愿者表" do |t|
     t.integer "level", comment: "等级"
-    t.integer "major_id", comment: "专业id"
     t.integer "duration", comment: "服务时长"
     t.integer "user_id", comment: "用户"
     t.integer "job_state", comment: "任务状态"
