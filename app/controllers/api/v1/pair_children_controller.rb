@@ -41,6 +41,7 @@ class Api::V1::PairChildrenController < Api::V1::BaseController
         current_user.save
         record.paid!
       end
+      @pair.hidden!  # TODO 确认支付成功时隐藏孩子
       api_success(data: {record_state: true, record_id: record.id, user_info: current_user.summary_builder.merge(auth_token: current_user.auth_token)}, message: '订单生成成功（暂时提示，应调用微信支付捐助成功后跳转结果页）')
     else
       api_success(data: {record_state: false}, message: '订单生成失败，请重试')
