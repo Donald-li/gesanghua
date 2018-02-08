@@ -80,12 +80,13 @@ class DonateRecord < ApplicationRecord
   def pay_and_gen_certificate
     self.certificate_no ||= 'ZS' + self.donate_no
     self.pay_state = 'paid'
+    self.donor_certificate_path # TODO 调用捐赠证书方法，生成证书（微信支付调通以后，需要考虑此方法的执行速度）
     self.save
   end
 
   #捐赠证书路径
   def donor_certificate_path
-    path = "/images/certificates/#{self.id}/#{Encryption.md5(self.id.to_s)}.jpg"
+    path = "/images/certificates/#{self.created_at.strftime('%Y%m%d')}/#{self.id}/#{Encryption.md5(self.id.to_s)}.jpg"
     local_path = Rails.root.to_s + '/public' + path
     if !File::exist?(local_path)
       GenDonateCertificate.create(self)
@@ -316,6 +317,7 @@ class DonateRecord < ApplicationRecord
       json.time_name "#{self.created_at.year}年#{self.created_at.month}月#{self.created_at.day}日"
       json.certificate_no self.certificate_no
       json.project self.try(:project).try(:name)
+      json.certificate self.donor_certificate_path
     end.attributes!
   end
 
