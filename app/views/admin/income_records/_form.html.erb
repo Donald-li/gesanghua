@@ -1,6 +1,7 @@
 <%= simple_form_for [:admin, @income_record], wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'category_form'} do |f| %>
   <%= f.error_notification %>
   <div class="form-body form-horizontal">
+    <%= f.input :title, label: '收入名称：', placeholder: '' %>
     <div class="form-group">
       <label class="col-md-2 control-label">收入分类：</label>
       <div class="col-sm-9">
@@ -15,9 +16,9 @@
         </select>
       </div>
     </div>
-    <%= f.input :income_source_id, as: :select, collection: IncomeSource.sorted, label: '捐助渠道：', include_blank: '选择捐助渠道', require: true%>
+    <%= f.input :income_source_id, as: :select, collection: IncomeSource.sorted, label: '入账渠道：', include_blank: '选择入账渠道', required: true%>
     <%= f.input :amount, label: '收入金额：', require: true, type: 'number' %>
-    <%= f.input :user_id, as: :select, label: '捐助人：', input_html: {class: 'users-ajax'} %>
+    <%= f.input :user_id, as: :select, collection: User.sorted, label: '捐助人：', input_html: {class: 'users-ajax'}, required: true %>
     <div class="form-group">
       <label class="col-md-2 control-label">捐助时间：</label>
       <div class="col-sm-9">
@@ -51,7 +52,7 @@
         // 异步加载学校列表
         $('.users-ajax').select2({
             language: "zh-CN",
-            placeholder: '<%= @income_record.user.try(:name) %>',
+            placeholder: '',
             allowClear: true,
             ajax: {
                 url: "/selects/users",
