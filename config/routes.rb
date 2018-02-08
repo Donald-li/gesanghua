@@ -219,6 +219,7 @@ Rails.application.routes.draw do
         put :receive
         put :done
         put :cancelled
+        put :refunded
       end
       resource :flower_receive
       resource :flower_install, concerns: [:recommend]

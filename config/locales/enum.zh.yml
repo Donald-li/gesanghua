@@ -95,6 +95,7 @@ zh:
     feedbacked: '已反馈'
     done: '已完成'
     cancelled: '已取消'
+    refunded: '已退款'
   project_season_apply_bookshelf_types:
     whole: '图书角'
     supplement: '补书'

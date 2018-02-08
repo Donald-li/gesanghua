@@ -93,8 +93,9 @@
                   <%= apply.present_amount %>/<%= apply.target_amount %>
                 </td>
                 <td>
-                  <%= link_to switch_admin_radio_project_path(apply), data: {confirm: "确定#{apply.state === 'show' ? '隐藏' : '展示'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{apply.state === 'show' ? 'green' : 'blue'}" do %>
+                  <%= link_to switch_admin_radio_project_path(apply), data: {confirm: "确定#{apply.state === 'show' ? '隐藏' : '展示'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{apply.state === 'show' ? 'green' : 'default'}" do %>
                       <%= apply.state === 'show' ? '显示' : '隐藏' %>
+                      <i class="fa <%= apply.state === 'show' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
                   <% end %>
                 </td>
                 <td>
