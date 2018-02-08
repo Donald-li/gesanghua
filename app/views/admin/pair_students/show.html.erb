@@ -2,7 +2,7 @@
   <div class="portlet-title">
     <div class="caption">
       <i class="fa fa-sliders font-dark"></i>
-      <span class="caption-subject font-dark bold uppercase">审核广播项目申请</span>
+      <span class="caption-subject font-dark bold uppercase">审核结对项目申请</span>
     </div>
   </div>
   <div class="portlet-body">
@@ -35,68 +35,92 @@
         </tr>
         <tr>
           <th>
-            学生总人数
+            姓名
           </th>
           <th>
-            <%= @project_apply.radio_information.student_number %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            住宿总人数
-          </th>
-          <th>
-            <%= @project_apply.radio_information.boarder_number %>
+            <%= @apply_child.name %>
           </th>
         </tr>
         <tr>
           <th>
-            宿舍楼数量
+            中学
           </th>
           <th>
-            <%= @project_apply.radio_information.dormitory_number %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            宿舍数量
-          </th>
-          <th>
-            <%= @project_apply.radio_information.dorm_number %>
+            <%= @apply_child.enum_name(:level) %>
           </th>
         </tr>
         <tr>
           <th>
-            各年级住宿（人）
+            年级
           </th>
           <th>
-            一年级：<%= @project_apply.radio_information.first_grade %> | 二年级：<%= @project_apply.radio_information.second_grade %> | 三年级：<%= @project_apply.radio_information.third_grade %> | 四年级：<%= @project_apply.radio_information.fourth_grade %> | 五年级：<%= @project_apply.radio_information.fifth_grade %> | 六年级：<%= @project_apply.radio_information.sixth_grade %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            收货人
-          </th>
-          <th>
-            <%= @project_apply.contact_name %>
+            <%= @apply_child.enum_name(:grade) %>
           </th>
         </tr>
         <tr>
           <th>
-            联系方式
+            学期
           </th>
           <th>
-            <%= @project_apply.contact_phone %>
+            <%= @apply_child.enum_name(:semester) %>
           </th>
         </tr>
         <tr>
           <th>
-            说明
+            身份证号
           </th>
           <th>
-            <%= @project_apply.abstract %> <br>
-            <% @project_apply.images.each do |image| %>
-              <%= image_tag image.try(:file).try(:url, :small) %>
+            <%= @apply_child.id_card %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            民族
+          </th>
+          <th>
+            <%= @apply_child.enum_name(:nation) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            性别
+          </th>
+          <th>
+            <%= @apply_child.enum_name(:gender) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            家长姓名
+          </th>
+          <th>
+            <%= @apply_child.parent_name %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            联系电话
+          </th>
+          <th>
+            <%= @apply_child.phone %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            描述
+          </th>
+          <th>
+            <%= @apply_child.description %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            孩子图片
+          </th>
+          <th>
+            <%= @apply_child.description %>
+            <% @apply_child.images.each do |image| %>
+                <%= image_tag image.try(:file).try(:url, :small) %>
             <% end %>
           </th>
         </tr>
@@ -104,10 +128,10 @@
       </table>
     </div>
     <div class="portlet-body form">
-      <%= simple_form_for [:admin, @project_apply], url: check_admin_radio_apply_path, method: :patch, wrapper: :admin_form, html: {id: 'approve-form'} do |f| %>
+      <%= simple_form_for [:admin, @apply_child], url: check_admin_pair_apply_pair_student_path(@project_apply), method: :patch, wrapper: :admin_form, html: {id: 'approve-form'} do |f| %>
         <%= f.error_notification %>
         <div class="form-body form-horizontal">
-          <%= f.input :audit_state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApply.options_for_some_select(:audit_states, ['pass', 'reject']), label: '审核状态：', required: 'required', input_html: { class: 'approve_state', onclick: 'toggleState();'} %>
+          <%= f.input :approve_state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApply.options_for_some_select(:audit_states, ['pass', 'reject']), label: '审核状态：', required: 'required', input_html: { class: 'approve_state', onclick: 'toggleState();'} %>
           <div class="approve_reject">
             <%= f.input :approve_remark, label: '审核备注：', input_html: {class: 'form-control', placeholder: ''} %>
           </div>
@@ -115,7 +139,7 @@
             <div class="row">
               <div class="col-md-offset-3 col-md-9">
                 <%= f.button :submit, '提交', class: 'btn green' %>
-                <%= link_to '取消', admin_radio_applies_path, class: 'btn' %>
+                <%= link_to '取消', admin_pair_apply_pair_students_path(@project_apply), class: 'btn' %>
               </div>
             </div>
           </div>

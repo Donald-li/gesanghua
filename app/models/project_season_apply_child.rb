@@ -54,6 +54,8 @@ class ProjectSeasonApplyChild < ApplicationRecord
   accepts_nested_attributes_for :project_season_apply_periods
   accepts_nested_attributes_for :audits
 
+  attr_accessor :approve_remark
+
   # validates :id_card, ShenfenzhengNo: true
   validates :id_card, :name, :phone, presence: true
   validates :province, :city, :district, presence: true
