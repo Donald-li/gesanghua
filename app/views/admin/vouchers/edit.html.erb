@@ -56,7 +56,7 @@
         <% end %>
         <% if @voucher.deal? %>
           <h4>物流信息</h4>
-          <%= f.fields_for :logistic do |logistic| %>
+          <%= f.fields_for :logistic, wrapper: 'inline_inputs' do |logistic| %>
             <%= logistic.input :name, collection: Logistic.options_for_select(:names), label: '物流公司：',include_blank: true, class: 'form-control' %>
             <%= logistic.input :number, label: '物流单号：', placeholder: '请填写正确的物流单号' %>
           <% end %>

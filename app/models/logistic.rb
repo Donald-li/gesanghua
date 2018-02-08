@@ -18,5 +18,16 @@ class Logistic < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
-  enum name: { shunfeng: 1, shentong: 2, zhongtong: 3 }
+  # enum name: { shunfeng: 1, shentong: 2, zhongtong: 3 }
+
+  enum name: {'shunfeng': 2, 'yuantong': 3, 'shentong': 4, 'yunda': 5, 'zhongtong': 6, 'huitongkuaidi': 7, 'tiantian': 8, 'ems': 9, 'else': 10}
+
+  def qurey_result
+    if self.else?
+      return "https://www.kuaidi100.com/"
+    else
+      return "https://www.kuaidi100.com/chaxun?com=#{self.name}&nu=#{self.number}"
+    end
+  end
+
 end

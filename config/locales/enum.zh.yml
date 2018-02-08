@@ -325,9 +325,15 @@ zh:
     non_feedback: '未反馈'
     done: '已完成'
   logistic_names:
-    shunfeng: '顺丰'
-    shentong: '申通'
-    zhongtong: '中通'
+    shunfeng: '顺丰快递'
+    yuantong: '圆通快递'
+    shentong: '申通快递'
+    yunda: '韵达快递'
+    zhongtong: '中通快递'
+    huitongkuaidi: '汇通快递'
+    tiantian: '天天快递'
+    ems: 'EMS'
+    else: '其他'
   beneficial_child_genders:
     male: '男'
     female: '女'
