@@ -106,13 +106,6 @@ class Project < ApplicationRecord
     end.attributes!
   end
 
-  def options_builder
-    Jbuilder.new do |json|
-      json.name self.name
-      json.value self.id
-    end.attributes!
-  end
-
   def detail_builder
     Jbuilder.new do |json|
       json.(self, :id, :name, :describe)

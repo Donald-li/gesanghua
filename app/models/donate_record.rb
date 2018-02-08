@@ -51,6 +51,7 @@ class DonateRecord < ApplicationRecord
   belongs_to :fund, optional: true
   belongs_to :appoint, polymorphic: true, optional: true
   belongs_to :gsh_child, optional: true
+  belongs_to :donation, optional: true
 
   counter_culture :project, column_name: :donate_record_amount_count, delta_magnitude: proc {|model| model.amount}
   counter_culture :user, column_name: :donate_count, delta_magnitude: proc {|model| model.amount}
@@ -98,6 +99,10 @@ class DonateRecord < ApplicationRecord
     self.project.try(:name) || '格桑花'
   end
 
+  def donation_name
+    self.donation.try(:name)
+  end
+
   def donor_name
     self.donor || self.user.name
   end
@@ -121,6 +126,15 @@ class DonateRecord < ApplicationRecord
     return donate
   end
 
+  # 捐可捐助
+  def self.donate_donation_project(user = nil, amount = 0.0, donation = nil, promoter = nil)
+    return false unless user.present?
+    return false unless donation.present?
+    fund = donation.fund
+    donate = user.donates.build(amount: amount, fund: fund, promoter: promoter, pay_state: 'unpay', donation: donation)
+    donate.save
+    return donate
+  end
 
   # 捐指定
   def self.donate_apply(user = nil, amount = 0.0, apply = nil, promoter = nil)
@@ -311,7 +325,7 @@ class DonateRecord < ApplicationRecord
   def certificate_builder
     Jbuilder.new do |json|
       json.(self, :id)
-      json.project_name self.project_name
+      json.donation_name self.donation.try(:name)
       json.amount number_to_currency(self.amount)
       json.user_name self.user.present? ? self.user.name : '爱心人士'
       json.time_name "#{self.created_at.year}年#{self.created_at.month}月#{self.created_at.day}日"
