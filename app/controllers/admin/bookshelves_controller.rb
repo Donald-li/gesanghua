@@ -2,7 +2,7 @@ class Admin::BookshelvesController < Admin::BaseController
   before_action :set_project
 
   def index
-    @search = @project.bookshelves.sorted.ransack(params[:q])
+    @search = @project.bookshelves.pass.sorted.ransack(params[:q])
     scope = @search.result
     @bookshelves = scope.page(params[:page])
   end

@@ -26,9 +26,11 @@ class Admin::ReadAppliesController < Admin::BaseController
       if ProjectSeasonApply.find_by(school_id: project_apply_params[:school_id], project_season_id: project_apply_params[:project_season_id], project_id: 2, bookshelf_type: 1).present?
         flash[:notice] = '此学校在本批次还有未完成的申请'
         format.html { render :new }
-      elsif @project_apply.save!
+      elsif @project_apply.save
         # bookshelf_univalence = @project_apply.season.bookshelf_univalence
         @project_apply.bookshelves.update_all(school_id: @project_apply.school_id, project_season_id: @project_apply.project_season_id)
+        @project_apply.target_amount = @project_apply.bookshelves.pass.sum(:target_amount).to_f
+        @project_apply.save
         format.html { redirect_to admin_read_applies_path, notice: '创建成功。' }
       else
         format.html { render :new }
@@ -42,6 +44,13 @@ class Admin::ReadAppliesController < Admin::BaseController
       if @project_apply.update(project_apply_params)
         # bookshelf_univalence = @project_apply.season.bookshelf_univalence
         # @project_apply.bookshelves.update_all(school_id: @project_apply.school_id, project_season_id: @project_apply.project_season_id)
+        if @project_apply.whole?
+          @project_apply.target_amount = @project_apply.bookshelves.pass.sum(:target_amount).to_f
+          @project_apply.save
+        else
+          @project_apply.target_amount = @project_apply.supplements.pass.sum(:target_amount).to_f
+          @project_apply.save
+        end
         format.html { redirect_to admin_read_applies_path, notice: '修改成功。' }
       else
         format.html { render :edit }
@@ -99,8 +108,10 @@ class Admin::ReadAppliesController < Admin::BaseController
       if ProjectSeasonApply.find_by(school_id: project_apply_params[:school_id], project_season_id: project_apply_params[:project_season_id], project_id: 2, bookshelf_type: 2).present?
         flash[:notice] = '此学校在本批次还有未完成的申请'
         format.html { render :supply_new }
-      elsif @project_apply.save!
+      elsif @project_apply.save
         # @project_apply.bookshelves.update_all(school_id: @project_apply.school_id, project_season_id: @project_apply.project_season_id)
+        @project_apply.target_amount = @project_apply.supplements.pass.sum(:target_amount).to_f
+        @project_apply.save
         format.html { redirect_to admin_read_applies_path, notice: '创建成功。' }
       else
         format.html { render :supply_new }

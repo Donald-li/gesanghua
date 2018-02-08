@@ -101,8 +101,8 @@ zh:
     supplement: '补书'
   project_season_apply_audit_states:
     submit: '待审核'
-    pass: '审核通过'
-    reject: '审核不通过'
+    pass: '通过'
+    reject: '不通过'
   volunteer_states:
     enable: '启用'
     disable: '禁用'
@@ -114,19 +114,19 @@ zh:
     professional: '专业志愿者'
   volunteer_approve_states:
     submit: '待审核'
-    pass: '审核通过'
-    reject: '审核不通过'
+    pass: '通过'
+    reject: '不通过'
   special_templates:
     single: '模板1'
     double: '模板2'
   audit_states:
     submit: '待审核'
-    pass: '审核通过'
-    reject: '审核不通过'
+    pass: '通过'
+    reject: '不通过'
   project_season_apply_child_approve_states:
     submit: '待审核'
-    pass: '审核通过'
-    reject: '审核不通过'
+    pass: '通过'
+    reject: '不通过'
   project_season_apply_child_genders:
     male: '男'
     female: '女'
@@ -226,16 +226,16 @@ zh:
     appoint: '指派任务'
   task_volunteer_approve_states:
     submit: '待审核'
-    pass: '审核通过'
-    reject: '审核不通过'
+    pass: '通过'
+    reject: '不通过'
   task_volunteer_finish_states:
     doing: '执行中'
     to_check: '待确认'
     done: '已完成'
   school_approve_states:
     submit: '待审核'
-    pass: '审核通过'
-    reject: '审核不通过'
+    pass: '通过'
+    reject: '不通过'
   report_states:
     show: '显示'
     hidden: '隐藏'
@@ -346,8 +346,8 @@ zh:
     refund: '退款'
   bookshelf_supplement_audit_states:
     submit: '待审核'
-    pass: '审核通过'
-    reject: '审核不通过'
+    pass: '通过'
+    reject: '不通过'
   bookshelf_supplement_states:
     pending: '筹款中'
     complete: '筹款完成'

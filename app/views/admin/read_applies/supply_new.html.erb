@@ -44,6 +44,7 @@
                             <th> 补书班级 </th>
                             <th> 损耗 </th>
                             <th> 补充 </th>
+                            <th> 筹款金额 </th>
                             <th> 审核状态 </th>
                             <th> 删除操作 </th>
                           </tr>
@@ -62,6 +63,9 @@
                             </td>
                             <td>
                               <%= b.input :supply, type: 'number', min: 0, label: false, input_html: {data: {'parsley-required': true}, class: 'supply-count', placeholder: '请填写数量'} %>
+                            </td>
+                            <td>
+                              <%= b.input :target_amount, type: 'number', min: 0, label: false, input_html:{ class: 'target-amount', placeholder: '请填入筹款金额', value: '', data: {'parsley-required': true} }  %>
                             </td>
                             <td>
                               <%= b.input :audit_state, as: :select, wrapper: :inline_inputs, collection: BookshelfSupplement.options_for_select(:audit_states), include_blank: false, label: false, input_html: {class: 'supplement_state', data: {'parsley-required': true} } %>
@@ -160,9 +164,10 @@
           afterAdd: function(el){
             $(el).find('.loss-count').val('')
             $(el).find('.supply-count').val('')
+            $(el).find('.target-amount').val('')
             $(el).find('.supplement_state option:last').attr("selected","selected")
             onClassChange()
-            // $(el).find('.class_grade option:last').attr("selected","selected")
+            $(el).find('.classes-ajax option:not(:disabled):last').attr("selected", "selected")
           },
           afterDestroy: function(el){
             onClassChange()
