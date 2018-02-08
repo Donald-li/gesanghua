@@ -27,6 +27,7 @@ class Donation < ApplicationRecord
 
 
   enum state: {show: 1, hidden: 2} # 状态：1:显示 2:隐藏
+  default_value_for :state, 1
 
   def options_builder
     Jbuilder.new do |json|
@@ -35,12 +36,12 @@ class Donation < ApplicationRecord
     end.attributes!
   end
 
-  def self.find_donation_project(value)
-    if value == 'toGsh'
-      nil
-    else
-      self.find(value.to_i)
-    end
-  end
+  # def self.find_donation_project(value)
+  #   if value == 'toGsh'
+  #     nil
+  #   else
+  #     self.find(value.to_i)
+  #   end
+  # end
 
 end
