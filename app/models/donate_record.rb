@@ -31,6 +31,7 @@
 #  kind                              :integer                                # 记录类型: 1:系统生成 2:手动添加
 #  project_season_apply_bookshelf_id :integer                                # 书架id
 #  bookshelf_supplement_id           :integer                                # 补书ID
+#  donation_id                       :integer                                # 可捐助id
 #
 
 class DonateRecord < ApplicationRecord
