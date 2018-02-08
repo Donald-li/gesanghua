@@ -3,34 +3,36 @@
 # Table name: users # 用户
 #
 #  id              :integer          not null, primary key
-#  openid          :string                                 # 微信openid
-#  name            :string                                 # 姓名
-#  login           :string                                 # 登录账号
-#  password_digest :string                                 # 密码
-#  state           :integer          default("enable")     # 状态 1:启用 2:禁用
-#  team_id         :integer                                # 团队ID
-#  profile         :jsonb                                  # 微信profile
-#  gender          :integer                                # 性别，1：男 2：女
-#  balance         :decimal(14, 2)   default(0.0)          # 账户余额
-#  phone           :string                                 # 联系方式
-#  email           :string                                 # 电子邮箱地址
+#  openid          :string                                       # 微信openid
+#  name            :string                                       # 姓名
+#  login           :string                                       # 登录账号
+#  password_digest :string                                       # 密码
+#  state           :integer          default("enable")           # 状态 1:启用 2:禁用
+#  team_id         :integer                                      # 团队ID
+#  profile         :jsonb                                        # 微信profile
+#  gender          :integer                                      # 性别，1：男 2：女
+#  balance         :decimal(14, 2)   default(0.0)                # 账户余额
+#  phone           :string                                       # 联系方式
+#  email           :string                                       # 电子邮箱地址
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  nickname        :string                                 # 昵称
-#  salutation      :string                                 # 孩子们如何称呼我
-#  consignee       :string                                 # 收货人
-#  province        :string                                 # 省
-#  city            :string                                 # 市
-#  district        :string                                 # 区/县
-#  address         :string                                 # 详细地址
-#  qq              :string                                 # qq号
-#  idcard          :string                                 # 身份证
-#  donate_count    :decimal(14, 2)   default(0.0)          # 捐助金额
-#  online_count    :decimal(14, 2)   default(0.0)          # 线上捐助金额
-#  offline_count   :decimal(14, 2)   default(0.0)          # 线下捐助金额
-#  auth_token      :string                                 # Token
-#  manager_id      :integer                                # 线下用户管理人id
-#  roles_mask      :integer                                # 角色
+#  nickname        :string                                       # 昵称
+#  salutation      :string                                       # 孩子们如何称呼我
+#  consignee       :string                                       # 收货人
+#  province        :string                                       # 省
+#  city            :string                                       # 市
+#  district        :string                                       # 区/县
+#  address         :string                                       # 详细地址
+#  qq              :string                                       # qq号
+#  idcard          :string                                       # 身份证
+#  donate_count    :decimal(14, 2)   default(0.0)                # 捐助金额
+#  online_count    :decimal(14, 2)   default(0.0)                # 线上捐助金额
+#  offline_count   :decimal(14, 2)   default(0.0)                # 线下捐助金额
+#  auth_token      :string                                       # Token
+#  manager_id      :integer                                      # 线下用户管理人id
+#  roles_mask      :integer                                      # 角色
+#  kind            :integer          default("online_user")      # 用户类型 1:平台用户 2:线上用户 3:线下用户
+#  phone_verify    :integer          default("phone_unverified") # 手机认证 1:未认证 2:已认证
 #
 
 class User < ApplicationRecord
@@ -61,6 +63,7 @@ class User < ApplicationRecord
   has_many :month_donates
 
   has_many :offline_donors, class_name: "User", foreign_key: "manager_id"
+  has_many :offline_users, class_name: "User", foreign_key: "manager_id"
 
   belongs_to :manager, class_name: "User", optional: true
 
@@ -81,7 +84,9 @@ class User < ApplicationRecord
   scope :sorted, ->{ order(created_at: :desc) }
   scope :reverse_sorted, ->{ sorted.reverse_order }
 
-  scope :offline_donor, ->{where('manager_id IS NOT NULL')} # 线下用户
+  enum kind: {platform_user: 1, online_user: 2, offline_user: 3} # 用户类型 1:平台用户 2:线上用户 3:线下用户
+
+  enum phone_verify: { phone_unverified: 1, phone_verified: 2} # 手机认证 1:未认证 2:已认证
 
   before_create :generate_auth_token
 
@@ -111,10 +116,6 @@ class User < ApplicationRecord
 
   def user_avatar
     self.profile["headimgurl"] || self.avatar.file_url(:tiny)
-  end
-
-  def offline_donor?
-    self.manager_id.present?
   end
 
   def teacher?
