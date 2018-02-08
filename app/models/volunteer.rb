@@ -16,6 +16,7 @@
 #  approve_remark     :text                                   # 审核备注
 #  volunteer_no       :string                                 # 志愿者编号
 #  volunteer_apply_no :string                                 # 志愿者申请编号
+#  work_state         :integer                                # 实习还是正式
 #
 
 class Volunteer < ApplicationRecord
@@ -33,8 +34,11 @@ class Volunteer < ApplicationRecord
   enum state: {enable: 1, disable: 2} # 状态 1:启用 2:禁用
   default_value_for :state, 1
 
-  enum kind: {practice: 1, official: 2} # 类型 1:实习 2:正式
+  enum kind: {normal: 1, professional: 2} # 类型 1:普通 2:专业
   default_value_for :kind, 1
+
+  enum work_state: {official: 1, practice: 2} # 类型 1:实习 2:正式
+  default_value_for :work_state, 1
 
   enum approve_state: { submit: 1, pass: 2, reject: 3 } # 审核状态：1:审核中 2:申请通过 3:申请不通过
   default_value_for :approve_state, 1
