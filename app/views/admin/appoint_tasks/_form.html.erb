@@ -9,7 +9,14 @@
           <%= webuploader_tag :cover_id, label: '上传封面', type: 'task_cover', asset: @task.cover, klass: 'single' %>
         </div>
       </div>
-
+      <% if @task.new_record? %>
+          <div class="form-group approve_reject">
+            <label class="col-md-2 control-label">选择志愿者：</label>
+            <div class="col-sm-9">
+              <select class="form-control select optional" name="appoint_ids[]" id="volunteer-ajax" required></select>
+            </div>
+          </div>
+      <% end %>
       <%= f.input :duration, label: '计划时长：', placeholder: '小时', required: true, type: 'number' %>
 
       <div class="form-group">
@@ -33,27 +40,27 @@
           <ul>
             <li>
               <label>
-                <%= check_box_tag 'task[task_types][]', 'ordinary', @task.has_type?(:ordinary)  %> 日常
+                <%= check_box_tag 'task[task_types][]', 'ordinary', @task.has_type?(:ordinary) %> 日常
               </label>
             </li>
             <li>
               <label>
-                <%= check_box_tag 'task[task_types][]', 'intensive', @task.has_type?(:intensive)  %> 重点
+                <%= check_box_tag 'task[task_types][]', 'intensive', @task.has_type?(:intensive) %> 重点
               </label>
             </li>
             <li>
               <label>
-                <%= check_box_tag 'task[task_types][]', 'urgency', @task.has_type?(:urgency)  %> 紧急
+                <%= check_box_tag 'task[task_types][]', 'urgency', @task.has_type?(:urgency) %> 紧急
               </label>
             </li>
             <li>
               <label>
-                <%= check_box_tag 'task[task_types][]', 'innovative', @task.has_type?(:innovative)  %> 创新
+                <%= check_box_tag 'task[task_types][]', 'innovative', @task.has_type?(:innovative) %> 创新
               </label>
             </li>
             <li>
               <label>
-                <%= check_box_tag 'task[task_types][]', 'difficult', @task.has_type?(:difficult)  %> 难点
+                <%= check_box_tag 'task[task_types][]', 'difficult', @task.has_type?(:difficult) %> 难点
               </label>
             </li>
           </ul>
