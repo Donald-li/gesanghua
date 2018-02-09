@@ -20,7 +20,6 @@ class Api::V1::MainsController < Api::V1::BaseController
     record = DonateRecord.donate_donation_project(current_user, amount, donation_project, promoter)
     record.team = current_user.team if params[:by_team] == 'true'
     record.donor = params[:donor] if params[:donor].present?
-    record.promoter_id = params[:promoter_id] if params[:project_id].present?
 
     if record.save
       if params[:pay_method] == 'balance'
@@ -28,7 +27,7 @@ class Api::V1::MainsController < Api::V1::BaseController
         current_user.save
         record.paid!
       end
-      api_success(data: {record_state: true, record_id: record.id, user_info: current_user.summary_builder.merge(auth_token: current_user.auth_token)}, message: '订单生成成功（暂时提示，应调用微信支付捐助成功后跳转结果页）')
+      api_success(data: {record_state: true, record_id: record.id, promoter_id: record.promoter_id, user_info: current_user.summary_builder.merge(auth_token: current_user.auth_token)}, message: '订单生成成功（暂时提示，应调用微信支付捐助成功后跳转结果页）')
     else
       api_success(data: {record_state: false}, message: '订单生成失败，请重试')
     end
@@ -39,7 +38,6 @@ class Api::V1::MainsController < Api::V1::BaseController
     plan_period = params[:period].to_i
     donation_project = Donation.find_donation_project(params[:donation_project][:value])
     record = MonthDonate.month_donate_donation_project(current_user, amount, donation_project, plan_period)
-    record.promoter_id = params[:promoter_id] if params[:project_id].present?
     if record.save
       api_success(data: {record_state: true, record_id: record.id, user_info: current_user.summary_builder.merge(auth_token: current_user.auth_token)}, message: '订单生成成功（暂时提示，应调用微信支付捐助成功后跳转结果页）')
     else
