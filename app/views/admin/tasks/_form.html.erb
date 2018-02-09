@@ -2,7 +2,7 @@
     <%= f.error_notification %>
     <div class="form-body form-horizontal">
       <%= f.input :name, label: '名称：', autofocus: true, placeholder: '名称', required: true %>
-      <%= f.input :task_category_id, as: :select, collection: TaskCategory.sorted, label: '任务分类：', required: true, include_blank: '请选择任务分类', input_html: {class: 'task-category'} %>
+      <%= f.input :task_category_id, as: :select, collection: TaskCategory.sorted, label: '任务分类：', required: true, input_html: {class: 'task-category'} %>
       <div class="form-group">
         <label class="col-md-2 control-label">任务封面：</label>
         <div class="col-sm-9">
@@ -30,7 +30,7 @@
           <%= f.text_field :end_time, class: 'datetime-picker', placeholder: '结束时间', required: true %>
         </div>
       </div>
-      <%= f.input :workplace_id, as: :select, collection: Workplace.sorted.map {|place| [place.title, place.id]}, label: '任务地点：', required: true, include_blank: '请选择任务地点', input_html: {class: 'task-workplace'} %>
+      <%= f.input :workplace_id, as: :select, collection: Workplace.sorted.map {|place| [place.title, place.id]}, label: '任务地点：', required: true, input_html: {class: 'task-workplace'} %>
 
       <%= f.input :principal_id, collection: [@task.principal].compact.map {|u| [u.name, u.id]}, label: '任务负责人：', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
       <div class="form-group">
@@ -86,10 +86,12 @@
     $(function () {
         initImageWebuploader($('#webuploader'));
         $('.task-category').select2({
-            language: "zh-CN"
+            language: "zh-CN",
+            placeholder: '请选择任务分类'
         })
         $('.task-workplace').select2({
-            language: "zh-CN"
+            language: "zh-CN",
+            placeholder: '请选择工作地点'
         })
 
         $(".user_selector").select2({
