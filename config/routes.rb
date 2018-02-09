@@ -139,7 +139,7 @@ Rails.application.routes.draw do
     end
 
     resources :project_book_seasons
-    resources :read_applies do
+    resources :read_applies, concerns: :check do
       member do
         get :audit
         get :students

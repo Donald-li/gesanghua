@@ -25,7 +25,7 @@
       <%= f.input :contact_name, label: '收货人：', placeholder: '', required: true %>
       <%= f.input :contact_phone, label: '联系电话：', placeholder: '', required: true %>
     <% else %>
-      <%= static_form_control '申请年度：', @project.season.name %>
+      <%= static_form_control '申请批次：', @project.season.name %>
       <%= static_form_control '申请学校：', @project.school.name %>
     <% end %>
     <%= f.input :name, label: '项目名称：', placeholder: '', required: true %>

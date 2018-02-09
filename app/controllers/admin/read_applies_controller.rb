@@ -1,5 +1,5 @@
 class Admin::ReadAppliesController < Admin::BaseController
-  before_action :set_project_apply, only: [:edit, :update, :destroy, :audit, :students, :switch]
+  before_action :set_project_apply, only: [:show, :edit, :update, :destroy, :audit, :students, :switch, :check]
 
   def index
     @search = ProjectSeasonApply.where(project_id: 2).sorted.ransack(params[:q])
@@ -54,6 +54,19 @@ class Admin::ReadAppliesController < Admin::BaseController
         format.html { redirect_to admin_read_applies_path, notice: '修改成功。' }
       else
         format.html { render :edit }
+      end
+    end
+  end
+
+  def check
+    respond_to do |format|
+      audit_state = project_apply_params[:audit_state]
+      @project_apply.audit_state = audit_state
+      if @project_apply.save
+        @project_apply.audits.create(state: audit_state, user_id: current_user.id, comment: project_apply_params[:approve_remark])
+        format.html { redirect_to admin_radio_applies_path, notice: '审核成功' }
+      else
+        format.html { render :check }
       end
     end
   end
