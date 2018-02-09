@@ -178,7 +178,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   end
 
   def self.city_group
-    self.all.group_by{|child| child.city}.keys.map{|key| {value: key, name: ChinaCity.get(key), district: self.district_group(key)}}
+    self.show.group_by{|child| child.city}.keys.map{|key| {value: key, name: ChinaCity.get(key), district: self.district_group(key)}}
   end
 
   def self.district_group(city)

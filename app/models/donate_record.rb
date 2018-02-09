@@ -141,7 +141,7 @@ class DonateRecord < ApplicationRecord
   def self.donate_apply(user = nil, amount = 0.0, apply = nil, promoter = nil)
     return false unless apply.present?
     user_id = user.present? ? user.id : ''
-    donate = DonateRecord.new(user_id: user_id,fund: apply.project.fund, promoter: promoter, pay_state: 'unpay', amount: amount, project: apply.project, season: apply.season, apply: apply)
+    donate = DonateRecord.new(user_id: user_id, fund: apply.project.fund, promoter: promoter, pay_state: 'unpay', amount: amount, project: apply.project, season: apply.season, apply: apply)
     donate.save
     return donate
   end
@@ -179,7 +179,7 @@ class DonateRecord < ApplicationRecord
     return false unless bookshelf.present?
     project = Project.book_project
     user_id = user.present? ? user.id : ''
-    DonateRecord.new(user_id: user_id,amount: amount, promoter: promoter, fund: project.appoint_fund, project: project, bookshelf: bookshelf)
+    DonateRecord.new(user_id: user_id, amount: amount, promoter: promoter, fund: project.appoint_fund, project: project, bookshelf: bookshelf)
   end
 
   def self.donate_child_semesters(gsh_child, semester_num)
@@ -223,7 +223,7 @@ class DonateRecord < ApplicationRecord
     donate_record.kind = 'custom'
 
     apply.present_amount += amount.to_f
-  apply.execute_state = 'to_delivery' if apply.present_amount == apply.target_amount
+    apply.execute_state = 'to_delivery' if apply.present_amount == apply.target_amount
     self.transaction do
       begin
         donate_record.save
