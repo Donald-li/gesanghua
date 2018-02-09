@@ -19,10 +19,10 @@
           <%= static_form_control 'ID：', @volunteer.user.try(:id) %>
           <%= static_form_control '姓名：', @volunteer.user.try(:name) %>
           <%= static_form_control '认证时间：', (l @volunteer.created_at) %>
-          <%= f.input :kind, as: :radio_buttons, wrapper: :inline_inputs, collection: Volunteer.options_for_select(:kinds), label: '类型：', include_blank: false %>
-          <%= f.input :major_ids, collection: Major.sorted.map{|c| [c.name,c.id]}, label: '专业：', input_html:{multiple: 'multiple', id:"major_ids"}%>
-          <%= f.input :job_state, as: :radio_buttons, wrapper: :inline_inputs, collection: Volunteer.options_for_select(:job_states), label: '工作状态：', include_blank: false %>
-          <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Volunteer.options_for_select(:states), label: '用户状态：', include_blank: false %>
+          <%= f.input :work_state, as: :radio_buttons, wrapper: :inline_inputs, collection: Volunteer.options_for_select(:work_states), label: '类型：', include_blank: false, input_html: { data: {'parsley-required': true} } %>
+          <%= f.input :major_ids, collection: Major.sorted.map{|c| [c.name,c.id]}, label: '专业：', input_html:{ multiple: 'multiple', id: "major_ids", data: {'parsley-required': true} }%>
+          <%= f.input :job_state, as: :radio_buttons, wrapper: :inline_inputs, collection: Volunteer.options_for_select(:job_states), label: '工作状态：', include_blank: false, input_html: { data: {'parsley-required': true} } %>
+          <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Volunteer.options_for_select(:states), label: '用户状态：', include_blank: false, input_html: { data: {'parsley-required': true} } %>
         </div>
         <div class="form-actions">
           <div class="row">
