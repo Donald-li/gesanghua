@@ -14,11 +14,9 @@
       <div class="col-sm-9">
         <select id="fund" class="form-control select optional" name="expenditure_record[fund_id]" required>
           <% FundCategory.reverse_sorted.each do |fc| %>
-            <optgroup label="<%= fc.name %>">
               <% fc.funds.each do |fund| %>
-                <option value="<%= fund.id %>" <%= 'selected' if @expenditure_record.fund_id == fund.id %>><%= fc.name %> - <%= fund.name %></option>
+                  <option value="<%= fund.id %>" <%= 'selected' if @expenditure_record.fund_id == fund.id %>><%= fc.name %> - <%= fund.name %></option>
               <% end %>
-            </optgroup>
           <% end %>
         </select>
       </div>
@@ -59,7 +57,9 @@
             }
         });
 
-        $("#fund").select2();
+        $("#fund").select2({
+            language: "zh-CN"
+        });
         initMultiImageWebuploader($('#webuploader'));
         $('.upload-list').viewer();
 

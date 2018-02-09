@@ -10,10 +10,10 @@
       <table class="table table-bordered table-hover">
         <tbody>
         <tr>
-          <th>
+          <th width="300px">
             申请编号
           </th>
-          <th>
+          <th colspan="3">
             <%= @project_apply.apply_no %>
           </th>
         </tr>
@@ -21,15 +21,15 @@
           <th>
             申请学校
           </th>
-          <th>
+          <th colspan="3">
             <%= @project_apply.school.try(:name) %>
           </th>
         </tr>
         <tr>
           <th>
-            申请年度
+            申请批次
           </th>
-          <th>
+          <th colspan="3">
             <%= @project_apply.season.try(:name) %>
           </th>
         </tr>
@@ -37,7 +37,7 @@
           <th>
             学生总人数
           </th>
-          <th>
+          <th colspan="3">
             <%= @project_apply.radio_information.student_number %>
           </th>
         </tr>
@@ -45,7 +45,7 @@
           <th>
             住宿总人数
           </th>
-          <th>
+          <th colspan="3">
             <%= @project_apply.radio_information.boarder_number %>
           </th>
         </tr>
@@ -53,7 +53,7 @@
           <th>
             宿舍楼数量
           </th>
-          <th>
+          <th colspan="3">
             <%= @project_apply.radio_information.dormitory_number %>
           </th>
         </tr>
@@ -61,23 +61,32 @@
           <th>
             宿舍数量
           </th>
-          <th>
+          <th colspan="3">
             <%= @project_apply.radio_information.dorm_number %>
           </th>
         </tr>
         <tr>
-          <th>
+          <th rowspan="7">
             各年级住宿（人）
           </th>
           <th>
-            一年级：<%= @project_apply.radio_information.first_grade %> | 二年级：<%= @project_apply.radio_information.second_grade %> | 三年级：<%= @project_apply.radio_information.third_grade %> | 四年级：<%= @project_apply.radio_information.fourth_grade %> | 五年级：<%= @project_apply.radio_information.fifth_grade %> | 六年级：<%= @project_apply.radio_information.sixth_grade %>
+            年级
+          </th>
+          <th>
+            住宿人数
           </th>
         </tr>
+        <tr><th>一年级</th><th><%= @project_apply.radio_information.first_grade %></th></tr>
+        <tr><th>二年级</th> <th><%= @project_apply.radio_information.second_grade %></th></tr>
+        <tr><th>三年级</th> <th><%= @project_apply.radio_information.third_grade %></th></tr>
+        <tr><th>四年级</th> <th><%= @project_apply.radio_information.fourth_grade %></th></tr>
+        <tr><th>五年级</th> <th><%= @project_apply.radio_information.fifth_grade %></th></tr>
+        <tr><th>六年级</th> <th><%= @project_apply.radio_information.sixth_grade %></th></tr>
         <tr>
           <th>
             收货人
           </th>
-          <th>
+          <th colspan="3">
             <%= @project_apply.contact_name %>
           </th>
         </tr>
@@ -85,7 +94,7 @@
           <th>
             联系方式
           </th>
-          <th>
+          <th colspan="3">
             <%= @project_apply.contact_phone %>
           </th>
         </tr>
@@ -93,7 +102,7 @@
           <th>
             说明
           </th>
-          <th>
+          <th colspan="3">
             <%= @project_apply.abstract %> <br>
             <% @project_apply.images.each do |image| %>
               <%= image_tag image.try(:file).try(:url, :small) %>
@@ -109,7 +118,7 @@
         <div class="form-body form-horizontal">
           <%= f.input :audit_state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApply.options_for_some_select(:audit_states, ['pass', 'reject']), label: '审核状态：', required: 'required', input_html: { class: 'approve_state', onclick: 'toggleState();'} %>
           <div class="approve_reject">
-            <%= f.input :approve_remark, label: '审核备注：', input_html: {class: 'form-control', placeholder: ''} %>
+            <%= f.input :approve_remark, label: '审核备注：', input_html: {class: 'form-control', placeholder: '', value: @project_apply.audits.try(:last).try(:comment)} %>
           </div>
           <div class="form-actions">
             <div class="row">

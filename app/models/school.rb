@@ -39,7 +39,7 @@ class School < ApplicationRecord
   has_one_asset :logo, class_name: 'Asset::SchoolLogo'
   has_many_assets :images, class_name: 'Asset::SchoolImage'
 
-  has_many :bookshelves, class_name: 'ProjectSeasonApplyBookshelf', foreign_key: 'project_season_apply_id'
+  has_many :bookshelves, class_name: 'ProjectSeasonApplyBookshelf' #, foreign_key: 'project_season_apply_id'
   # has_many :supplements, class_name: 'BookshelfSupplement', foreign_key: 'project_season_apply_id'
   has_many :teachers, dependent: :destroy
   has_many :book_shelves

@@ -107,10 +107,10 @@
                 <td>
                   <% if apply.apply? %>
                     <%= link_to edit_admin_read_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                        <i class="fa fa-edit"></i> 修改申请
+                        <i class="fa fa-edit"></i> 修改
                     <% end %>
-                    <%= link_to audit_admin_read_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
-                        <i class="fa fa-check"></i> 审核操作
+                    <%= link_to admin_read_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                        <i class="fa fa-check"></i> 审核
                     <% end %>
                     <%# if apply.bookshelves.present? %>
                       <%# project_season_apply_bookshelf_id = apply.bookshelves.first.id %>

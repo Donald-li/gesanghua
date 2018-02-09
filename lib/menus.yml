@@ -25,9 +25,6 @@ admin:
         admin_task_check:
           actions:
             'admin/task_achievements': all
-        admin_task_workplace:
-          actions:
-            'admin/workplaces': all
     admin_schools:
       menus:
         admin_school_list:
@@ -101,6 +98,9 @@ admin:
         admin_task_category:
           actions:
             'admin/task_categories': all
+        admin_task_workplace:
+          actions:
+            'admin/workplaces': all
 
     # 学校用户
     admin_school:

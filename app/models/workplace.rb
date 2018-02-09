@@ -22,11 +22,6 @@ class Workplace < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
-  def save_and_gen_title
-    self.title = self.full_address
-    self.save
-  end
-
   def full_address
     ChinaCity.get(self.province).to_s + ChinaCity.get(self.city).to_s + ChinaCity.get(self.district).to_s + self.address.to_s
   end
