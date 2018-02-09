@@ -21,7 +21,7 @@ class Admin::WorkplacesController < Admin::BaseController
     @workplace = Workplace.new(workplace_params)
 
     respond_to do |format|
-      if @workplace.save_and_gen_title
+      if @workplace.save
         format.html { redirect_to admin_workplaces_path, notice: '添加成功。' }
       else
         format.html { render :new }
@@ -32,7 +32,7 @@ class Admin::WorkplacesController < Admin::BaseController
   def update
     respond_to do |format|
       if @workplace.update(workplace_params)
-        @workplace.save_and_gen_title
+        @workplace.save
         format.html { redirect_to admin_workplaces_path, notice: '修改成功。' }
       else
         format.html { render :edit }
