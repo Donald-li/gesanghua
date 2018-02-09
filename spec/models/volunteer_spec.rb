@@ -16,7 +16,7 @@
 #  approve_remark     :text                                   # 审核备注
 #  volunteer_no       :string                                 # 志愿者编号
 #  volunteer_apply_no :string                                 # 志愿者申请编号
-#  work_state         :integer                                # 实习还是正式
+#  internship_state   :integer                                # 实习还是正式
 #
 
 require 'rails_helper'

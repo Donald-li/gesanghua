@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20180208112619) do
+=======
+ActiveRecord::Schema.define(version: 20180209024021) do
+>>>>>>> 志愿者实习状态修改
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -279,15 +283,15 @@ ActiveRecord::Schema.define(version: 20180208112619) do
     t.text "content", comment: "内容"
     t.string "owner_type"
     t.integer "owner_id"
-    t.string "type", comment: "类型：receive、install、continual"
+    t.integer "type", comment: "类型：receive、install、continual"
     t.integer "state", comment: "状态"
     t.integer "approve_state", comment: "审核状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "kind", comment: "反馈类型"
+    t.integer "user_id", comment: "反馈人"
     t.integer "check", comment: "查看 1: 未查看 2: 已查看"
     t.integer "recommend", comment: "推荐 1: 正常 2: 推荐"
-    t.integer "user_id", comment: "反馈人"
     t.integer "project_id", comment: "项目id"
     t.integer "project_season_id", comment: "批次id"
     t.integer "project_season_apply_id", comment: "申请id"
@@ -490,13 +494,13 @@ ActiveRecord::Schema.define(version: 20180208112619) do
     t.datetime "updated_at", null: false
     t.string "name", comment: "名称"
     t.integer "number", comment: "配额"
-    t.string "apply_no", comment: "项目申请编号"
     t.integer "bookshelf_type", comment: "悦读项目申请类型"
     t.string "contact_name", comment: "联系人姓名"
     t.string "contact_phone", comment: "联系人电话"
     t.integer "audit_state", comment: "审核状态"
     t.string "abstract", comment: "简述"
     t.string "address", comment: "详细地址"
+    t.string "apply_no", comment: "项目申请编号"
     t.integer "girl_number", comment: "申请女生人数"
     t.integer "boy_number", comment: "申请男生人数"
     t.string "consignee", comment: "收货人"
@@ -931,7 +935,7 @@ ActiveRecord::Schema.define(version: 20180208112619) do
     t.text "approve_remark", comment: "审核备注"
     t.string "volunteer_no", comment: "志愿者编号"
     t.string "volunteer_apply_no", comment: "志愿者申请编号"
-    t.integer "work_state", comment: "实习还是正式"
+    t.integer "internship_state", comment: "实习还是正式"
   end
 
   create_table "voucher_donate_records", force: :cascade, comment: "捐赠收据捐助记录表" do |t|
