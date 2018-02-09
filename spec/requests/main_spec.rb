@@ -8,6 +8,7 @@ RSpec.describe "Api::V1::Main", type: :request do
   let!(:team) { create(:team, creater: login_user) }
   let!(:team_user) { create(:user, team: team) }
   let!(:banner) { create(:advert) }
+  let!(:promoter) { create(:user) }
 
   describe '获取滚动Banner' do
     it '获取Banner' do
@@ -33,6 +34,18 @@ RSpec.describe "Api::V1::Main", type: :request do
            headers: api_v1_headers(login_user)
       api_v1_expect_success
       expect(json_body[:data][:record_state]).to eq true
+    end
+  end
+
+  describe '单次捐助(有劝捐人)' do
+    it '捐助给所选可捐助项目' do
+      post settlement_api_v1_main_path,
+           params: {amount: '5000', donation_project: {"name"=>"一对一", "value"=>"1"},
+                    donor_name: '好心人', by_team: false, pay_method: 'weixin', promoter_id: promoter.id},
+           headers: api_v1_headers(login_user)
+      api_v1_expect_success
+      expect(json_body[:data][:record_state]).to eq true
+      expect(json_body[:data][:promoter_id]).to eq promoter.id
     end
   end
 
