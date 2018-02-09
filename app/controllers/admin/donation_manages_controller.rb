@@ -1,4 +1,4 @@
-class Admin::DonationsController < Admin::BaseController
+class Admin::DonationManagesController < Admin::BaseController
   before_action :set_donation, only: [:show, :edit, :update, :destroy, :switch, :move]
 
   def index
@@ -22,7 +22,7 @@ class Admin::DonationsController < Admin::BaseController
     respond_to do |format|
       if @donation.save
         @donation.attach_logo(params[:logo_id])
-        format.html { redirect_to admin_donations_path, notice: '新增成功。' }
+        format.html { redirect_to admin_donation_manages_path, notice: '新增成功。' }
       else
         format.html { render :new }
       end
@@ -33,7 +33,7 @@ class Admin::DonationsController < Admin::BaseController
     respond_to do |format|
       if @donation.update(donation_params)
         @donation.attach_logo(params[:logo_id])
-        format.html { redirect_to admin_donations_path, notice: '修改成功。' }
+        format.html { redirect_to admin_donation_manages_path, notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -43,13 +43,13 @@ class Admin::DonationsController < Admin::BaseController
   def destroy
     @donation.destroy
     respond_to do |format|
-      format.html { redirect_to admin_donations_path, notice: '删除成功。' }
+      format.html { redirect_to admin_donation_manages_path, notice: '删除成功。' }
     end
   end
 
   def switch
     @donation.show? ? @donation.hidden! : @donation.show!
-    redirect_to admin_donations_url, notice:  @donation.show? ? '捐助已展示' : '捐助已隐藏'
+    redirect_to admin_donation_manages_url, notice:  @donation.show? ? '捐助已展示' : '捐助已隐藏'
   end
 
   def move

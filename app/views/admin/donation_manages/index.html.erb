@@ -4,7 +4,7 @@
       <i class="icon-list"></i>捐助管理
     </div>
     <div class="actions">
-      <%= link_to new_admin_donation_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+      <%= link_to new_admin_donation_manage_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
       <i class="icon-plus"></i>
       <span>新增</span>
       <% end %>
@@ -54,27 +54,27 @@
                   <%= donation.describe %>
                 </td>
                 <td>
-                  <%= donation.fund.fund_category.try(:name) %> - 
+                  <%= donation.fund.fund_category.try(:name) %> -
                   <%= donation.fund.try(:name) %>
                 </td>
                 <td>
-                  <%= link_to switch_admin_donation_path(donation), data: {confirm: "确定#{donation.state === 'show' ? '隐藏' : '展示'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{donation.state === 'show' ? 'green' : 'default'}" do %>
+                  <%= link_to switch_admin_donation_manage_path(donation), data: {confirm: "确定#{donation.state === 'show' ? '隐藏' : '展示'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{donation.state === 'show' ? 'green' : 'default'}" do %>
                   <%= donation.state === 'show' ? '展示' : '隐藏' %>
                   <i class="fa <%= donation.state === 'show' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
                   <% end %>
                 </td>
                 <td>
-                  <%= link_to '顶部', move_admin_donation_path(donation, to: :to_top), method: :put %>
-                  <%= link_to '上', move_admin_donation_path(donation, to: :higher), method: :put %>
-                  <%= link_to '下', move_admin_donation_path(donation, to: :lower), method: :put %>
-                  <%= link_to '底部', move_admin_donation_path(donation, to: :to_bottom), method: :put %>
+                  <%= link_to '顶部', move_admin_donation_manage_path(donation, to: :to_top), method: :put %>
+                  <%= link_to '上', move_admin_donation_manage_path(donation, to: :higher), method: :put %>
+                  <%= link_to '下', move_admin_donation_manage_path(donation, to: :lower), method: :put %>
+                  <%= link_to '底部', move_admin_donation_manage_path(donation, to: :to_bottom), method: :put %>
                 </td>
                 <td>
-                  <%= link_to edit_admin_donation_path(donation), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                  <%= link_to edit_admin_donation_manage_path(donation), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-edit"></i> 修改
                   <% end %>
                   <%= link_to '', 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
-                    <i class="fa fa-card"></i> 金额选项卡
+                    <i class="fa fa-credit-card"></i> 金额选项卡
                   <% end %>
                 </td>
               </tr>

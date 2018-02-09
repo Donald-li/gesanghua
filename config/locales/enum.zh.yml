@@ -110,6 +110,9 @@ zh:
     available: '可接受任务'
     leave: '请假'
   volunteer_kinds:
+    normal: '普通'
+    professional: '专业'
+  volunteer_internship_states:
     practice: '实习'
     official: '正式'
   volunteer_approve_states:

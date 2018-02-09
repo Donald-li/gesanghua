@@ -124,3 +124,7 @@
 .student-form-input {
   width: 20%
 }
+
+.select2-results__options > li[aria-selected="true"] {
+  display: none;
+}

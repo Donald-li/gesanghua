@@ -85,7 +85,7 @@ admin:
             'admin/projects': all
         admin_donation_template:
           actions:
-            'admin/donations': all
+            'admin/donation_manages': all
         admin_support_category:
           actions:
             'admin/support_categories': all
