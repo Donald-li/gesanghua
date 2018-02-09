@@ -1,0 +1,15 @@
+<%= simple_form_for [:admin, @task_category], wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'category_form'} do |f| %>
+  <%= f.error_notification %>
+  <div class="form-body form-horizontal">
+    <%= f.input :name, label: '分类名称：', autofocus: true, placeholder: '名称', required: true %>
+    <%= f.input :describe, label: '分类描述：', autofocus: true, placeholder: '描述', required: true %>
+  </div>
+  <div class="form-actions">
+    <div class="row">
+      <div class="col-md-offset-2 col-md-9">
+        <%= f.button :submit, '提交', class: 'btn blue' %>
+        <%= link_to '取消', admin_task_categories_path, class: 'btn' %>
+      </div>
+    </div>
+  </div>
+<% end %>

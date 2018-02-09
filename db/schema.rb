@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180209024021) do
+ActiveRecord::Schema.define(version: 20180209032236) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -781,6 +781,13 @@ ActiveRecord::Schema.define(version: 20180209024021) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "task_categories", force: :cascade, comment: "任务分类" do |t|
+    t.string "name", comment: "分类名称"
+    t.text "describe", comment: "分类描述"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "task_volunteers", force: :cascade, comment: "任务的志愿者表" do |t|
     t.integer "task_id", comment: "任务id"
     t.integer "volunteer_id", comment: "志愿者id"
@@ -957,6 +964,18 @@ ActiveRecord::Schema.define(version: 20180209024021) do
     t.string "tax_no", comment: "开票税号"
     t.string "voucher_no", comment: "发票编号"
     t.string "tax_company", comment: "开票单位"
+  end
+
+  create_table "workplaces", force: :cascade, comment: "任务地点" do |t|
+    t.string "title", comment: "名称"
+    t.string "province", comment: "省"
+    t.string "city", comment: "市"
+    t.string "district", comment: "区县"
+    t.string "address", comment: "详细地址"
+    t.text "describe", comment: "描述"
+    t.integer "state", default: 1, comment: "显示状态：1:显示 2:隐藏"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
