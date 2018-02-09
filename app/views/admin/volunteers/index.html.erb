@@ -92,7 +92,7 @@
                   <%= l volunteer.approve_time if volunteer.approve_time.present? %>
                 </td>
                 <td>
-                  <%= volunteer.enum_name(:work_state) %>
+                  <%= volunteer.enum_name(:internship_state) %>
                 </td>
                 <td>
                   <%= link_to switch_job_admin_volunteer_path(volunteer), data: {confirm: "确定标记为#{volunteer.leave? ? '可接受任务' : '请假'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{volunteer.available? ? 'green' : 'default'}" do %>
