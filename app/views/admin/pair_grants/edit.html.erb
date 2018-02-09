@@ -19,7 +19,7 @@
           <div class="form-group">
             <label class="col-md-2 control-label">发放时间：</label>
             <div class="col-sm-9">
-              <%= f.text_field :granted_at, label: '发放日期', placeholder: '请选择发放日期', class: 'datetime-picker', require: true %>
+              <%= f.text_field :granted_at, label: '发放日期', placeholder: '请选择发放日期', class: 'datetime-picker', required: true %>
             </div>
           </div>
           <%= f.input :grant_person, label: '发放人：', placeholder: '请填写发放人', required: true %>
@@ -58,12 +58,6 @@
                 }
                 return true;
                 }
-        });
-        $('.datetime-picker').datepicker({
-          language: 'zh-CN',
-          format: 'yyyy-mm-dd',
-          showClear: true,
-          dayViewHeaderFormat: 'yyyy mm'
         });
         initMultiImageWebuploader('.upload-wrap', null, 9);
         $('.upload-list').viewer();

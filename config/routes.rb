@@ -254,6 +254,8 @@ Rails.application.routes.draw do
     resources :tasks, concerns: [:switch] do
       resources :task_applies, only: [:index, :edit, :update]
     end
+    resources :task_categories
+    resources :workplaces, concerns: [:switch]
     resources :task_achievements
     resources :appoint_tasks do
       member do

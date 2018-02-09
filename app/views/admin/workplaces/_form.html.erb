@@ -1,0 +1,33 @@
+<%= simple_form_for [:admin, @workplace], wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'category_form'} do |f| %>
+  <%= f.error_notification %>
+  <div class="form-body form-horizontal">
+
+    <div style="margin-bottom: 20px;" class="form-group">
+      <label class="col-md-2 control-label select required" for="project_category_id">任务所在地：</label>
+      <div class="col-sm-6">
+        <div class="row city-group">
+          <div class="col-sm-3">
+            <%= select_tag 'workplace[province]', options_for_select(ChinaCity.list, @workplace.province.presence), prompt: '省份', class: "form-control city-select" %>
+          </div>
+          <div class="col-sm-3">
+            <%= select_tag 'workplace[city]', options_for_select(ChinaCity.list(@workplace.province.to_s), @workplace.city.presence), prompt: '城市', class: "form-control city-select" %>
+          </div>
+          <div class="col-sm-3">
+            <%= select_tag 'workplace[district]', options_for_select(ChinaCity.list(@workplace.city.to_s), @workplace.district.presence), prompt: '地区', class: "form-control city-select" %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= f.input :address, label: '详细地址：', autofocus: true, placeholder: '详细地址', required: true %>
+    <%= f.input :describe, label: '描述：', autofocus: true, placeholder: '' %>
+    <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Workplace.options_for_enum_select(:states), label: '状态：'%>
+  </div>
+  <div class="form-actions">
+    <div class="row">
+      <div class="col-md-offset-2 col-md-9">
+        <%= f.button :submit, '提交', class: 'btn blue' %>
+        <%= link_to '取消', admin_workplaces_path, class: 'btn' %>
+      </div>
+    </div>
+  </div>
+<% end %>

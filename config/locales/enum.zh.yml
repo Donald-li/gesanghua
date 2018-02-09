@@ -419,3 +419,7 @@ zh:
   donation_states:
     show: '显示'
     hidden: '隐藏'
+  workplace_states:
+    show: '显示'
+    hidden: '隐藏'
+
