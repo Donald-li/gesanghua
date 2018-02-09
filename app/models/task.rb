@@ -27,6 +27,8 @@
 class Task < ApplicationRecord
   TaskTypes = %i[ordinary intensive urgency innovative difficult] # 日常 重点 紧急 创新 难点
 
+  before_save :save_address_info
+
   # belongs_to :major, optional: true
   belongs_to :task_category
   belongs_to :workplace
@@ -69,6 +71,12 @@ class Task < ApplicationRecord
 
   def participant_number
     self.task_volunteers.count
+  end
+
+  def save_address_info
+    self.province = self.workplace.province
+    self.city = self.workplace.city
+    self.district = self.workplace.district
   end
 
 end
