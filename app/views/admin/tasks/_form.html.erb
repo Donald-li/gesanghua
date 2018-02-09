@@ -85,8 +85,12 @@
 <script type="text/javascript" charset="utf-8">
     $(function () {
         initImageWebuploader($('#webuploader'));
-        $('.task-category').select2()
-        $('.task-workplace').select2()
+        $('.task-category').select2({
+            language: "zh-CN"
+        })
+        $('.task-workplace').select2({
+            language: "zh-CN"
+        })
 
         $(".user_selector").select2({
             language: "zh-CN",
