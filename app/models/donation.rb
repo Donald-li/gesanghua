@@ -19,7 +19,7 @@ class Donation < ApplicationRecord
   include HasAsset
   has_one_asset :logo, class_name: 'Asset::DonationLogo'
 
-  belongs_to :fund
+  belongs_to :fund, optional: true
   has_many :donate_records
 
   acts_as_list column: :position
@@ -36,12 +36,12 @@ class Donation < ApplicationRecord
     end.attributes!
   end
 
-  # def self.find_donation_project(value)
-  #   if value == 'toGsh'
-  #     nil
-  #   else
-  #     self.find(value.to_i)
-  #   end
-  # end
+  def self.find_donation_project(value)
+    # if value == 'toGsh'
+    #   nil
+    # else
+      self.find(value.to_i)
+    # end
+  end
 
 end
