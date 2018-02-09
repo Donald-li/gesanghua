@@ -49,6 +49,10 @@ Project.find_or_create_by(name: '护花', protocol: content, describe: '项目�
 IncomeSource.find_or_create_by(name: '微信支付', description: '微信支付', kind: 'online')
 IncomeSource.find_or_create_by(name: '线下汇款', description: '线下汇款', kind: 'offline')
 
-Donation.create(name: '格桑花', describe: '不限制使用途径', fund: Fund.gsh, state: :show)
-Donation.create(name: '一对一', describe: '用于一对一助学项目', fund: Project.pair_project.fund, state: :show)
-Donation.create(name: '悦读', describe: '用于图书角建设', fund: Project.radio_project.fund, state: :show)
+# 捐助管理
+Donation.find_or_create_by(name: '格桑花', describe: '不限制使用途径', fund: Fund.gsh, state: :show)
+Donation.find_or_create_by(name: '探索营', describe: '用于探索营相关项目', fund: Project.camp_project.fund, state: :show)
+Donation.find_or_create_by(name: '一对一', describe: '用于一对一助学项目', fund: Project.pair_project.fund, state: :show)
+Donation.find_or_create_by(name: '护花', describe: '用于护花包购买', fund: Project.care_project.fund, state: :show)
+Donation.find_or_create_by(name: '广播', describe: '用于广播设备购买', fund: Project.radio_project.fund, state: :show)
+Donation.find_or_create_by(name: '悦读', describe: '用于图书角建设', fund: Project.book_project.fund, state: :show)
