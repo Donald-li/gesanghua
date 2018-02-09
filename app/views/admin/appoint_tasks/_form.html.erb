@@ -2,15 +2,16 @@
     <%= f.error_notification %>
     <div class="form-body form-horizontal">
       <%= f.input :name, label: '名称：', autofocus: true, placeholder: '名称', required: true %>
-      <%= f.input :duration, label: '时长：', placeholder: '小时', required: true, type: 'number' %>
-      <% if @task.new_record? %>
-      <div class="form-group approve_reject">
-        <label class="col-md-2 control-label">选择志愿者：</label>
+      <%= f.input :task_category_id, as: :select, collection: TaskCategory.sorted, label: '任务分类：', required: true, include_blank: '请选择任务分类', input_html: {class: 'task-category'} %>
+      <div class="form-group">
+        <label class="col-md-2 control-label">任务封面：</label>
         <div class="col-sm-9">
-          <select class="form-control select optional" name="appoint_ids[]" id="volunteer-ajax" required></select>
+          <%= webuploader_tag :cover_id, label: '上传封面', type: 'task_cover', asset: @task.cover, klass: 'single' %>
         </div>
       </div>
-        <% end %>
+
+      <%= f.input :duration, label: '计划时长：', placeholder: '小时', required: true, type: 'number' %>
+
       <div class="form-group">
         <label class="col-md-2 control-label">开始时间：</label>
         <div class="col-sm-9">
@@ -23,24 +24,43 @@
           <%= f.text_field :end_time, class: 'datetime-picker', placeholder: '结束时间', required: true %>
         </div>
       </div>
-      <div style="margin-bottom: 20px;" class="form-group">
-        <label class="col-md-2 control-label select required">任务所在地：</label>
-        <div class="col-sm-6">
-          <div class="row city-group">
-            <div class="col-sm-3">
-              <%= select_tag 'task[province]', options_for_select(ChinaCity.list, @task.province.presence), prompt: '省份', class: "form-control city-select" %>
-            </div>
-            <div class="col-sm-3">
-              <%= select_tag 'task[city]', options_for_select(ChinaCity.list(@task.province.to_s), @task.city.presence), prompt: '城市', class: "form-control city-select" %>
-            </div>
-            <div class="col-sm-3">
-              <%= select_tag 'task[district]', options_for_select(ChinaCity.list(@task.city.to_s), @task.district.presence), prompt: '地区', class: "form-control city-select" %>
-            </div>
-          </div>
+      <%= f.input :workplace_id, as: :select, collection: Workplace.sorted.map {|place| [place.title, place.id]}, label: '任务地点：', required: true, include_blank: '请选择任务地点', input_html: {class: 'task-workplace'} %>
+
+      <%= f.input :principal_id, collection: [@task.principal].compact.map {|u| [u.name, u.id]}, label: '任务负责人：', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
+      <div class="form-group">
+        <label class="col-md-2 control-label">任务类型：</label>
+        <div class="col-sm-9">
+          <ul>
+            <li>
+              <label>
+                <%= check_box_tag 'task[task_types][]', 'ordinary', @task.has_type?(:ordinary)  %> 日常
+              </label>
+            </li>
+            <li>
+              <label>
+                <%= check_box_tag 'task[task_types][]', 'intensive', @task.has_type?(:intensive)  %> 重点
+              </label>
+            </li>
+            <li>
+              <label>
+                <%= check_box_tag 'task[task_types][]', 'urgency', @task.has_type?(:urgency)  %> 紧急
+              </label>
+            </li>
+            <li>
+              <label>
+                <%= check_box_tag 'task[task_types][]', 'innovative', @task.has_type?(:innovative)  %> 创新
+              </label>
+            </li>
+            <li>
+              <label>
+                <%= check_box_tag 'task[task_types][]', 'difficult', @task.has_type?(:difficult)  %> 难点
+              </label>
+            </li>
+          </ul>
         </div>
       </div>
       <div class="form-group">
-        <label class="col-md-2 control-label">详情：</label>
+        <label class="col-md-2 control-label">任务描述：</label>
         <div class="col-sm-9">
           <%= f.cktext_area :content, input_html: {data: {'parsley-required': true}} %>
         </div>
@@ -57,6 +77,9 @@
 <% end %>
 <script type="text/javascript" charset="utf-8">
     $(function () {
+        initImageWebuploader($('#webuploader'));
+        $('.task-category').select2()
+        $('.task-workplace').select2()
         // 异步加载志愿者列表
         $('#volunteer-ajax').select2({
             language: "zh-CN",
@@ -79,6 +102,38 @@
                         results: $.map(data.items, function (item) {
                             return {
                                 text: item.volunteer_name,
+                                id: item.id
+                            }
+                        }),
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            }
+        });
+
+        $(".user_selector").select2({
+            language: "zh-CN",
+            placeholder: '请选择负责人',
+            allowClear: true,
+            ajax: {
+                url: "/selects/users",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: $.map(data.items, function (item) {
+                            return {
+                                text: item.name,
                                 id: item.id
                             }
                         }),

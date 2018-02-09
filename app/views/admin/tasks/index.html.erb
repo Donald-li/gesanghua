@@ -87,7 +87,7 @@
                 <%= l task.start_time if task.start_time.present? %> 到 <%= l task.end_time if task.end_time.present? %>
               </td>
               <td>
-                <%= task.simple_address %>
+                <%= task.workplace.try(:title) %>
               </td>
               <td>
                 <% if !task.done? %>

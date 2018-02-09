@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180209032236) do
+ActiveRecord::Schema.define(version: 20180209041608) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -820,6 +820,11 @@ ActiveRecord::Schema.define(version: 20180209032236) do
     t.datetime "start_time", comment: "任务开始时间"
     t.datetime "end_time", comment: "任务结束时间"
     t.integer "kind"
+    t.integer "task_category_id", comment: "任务分类ID"
+    t.integer "workplace_id", comment: "工作地点ID"
+    t.integer "types_mask", comment: "任务类型"
+    t.datetime "apply_end_at", comment: "申请结束时间"
+    t.integer "principal_id", comment: "任务负责人"
   end
 
   create_table "teacher_projects", force: :cascade, comment: "老师项目表" do |t|

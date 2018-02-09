@@ -9,7 +9,7 @@
 #  district   :string                                 # 区县
 #  address    :string                                 # 详细地址
 #  describe   :text                                   # 描述
-#  state      :integer          default(1)            # 显示状态：1:显示 2:隐藏
+#  state      :integer          default("show")       # 显示状态：1:显示 2:隐藏
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
