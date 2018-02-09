@@ -59,13 +59,15 @@ class Admin::PairStudentsController < Admin::BaseController
       @apply_child.approve_state = approve_state
       if @apply_child.save
         @apply_child.audits.create(state: approve_state, user_id: current_user.id, comment: apply_child_params[:approve_remark])
+        if @apply_child.pass?
+          @apply_child.approve_pass
+        end
         format.html { redirect_to admin_pair_apply_pair_students_path(@project_apply), notice: '审核成功' }
       else
         format.html { render :check }
       end
     end
   end
-
 
   def remarks
     @apply_child = ProjectSeasonApplyChild.find(params[:id])

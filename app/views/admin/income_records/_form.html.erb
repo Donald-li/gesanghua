@@ -22,7 +22,7 @@
     <div class="form-group">
       <label class="col-md-2 control-label">捐助时间：</label>
       <div class="col-sm-9">
-        <%= f.text_field :income_time, class: 'datetime-picker', value: Time.now.strftime("%Y-%m-%d %H:%M") %>
+        <%= f.text_field :income_time, class: 'datetime-picker', placeholder: '捐助时间', required: true %>
       </div>
     </div>
     <%= f.input :remark, label: '备注：', placeholder: '备注' %>
@@ -40,14 +40,8 @@
 
 <script>
     $(function(){
-        // 表单验证
-        $(".category_form").html5Validate(function(){
-            $(this).find('[type="submit"]').attr('disabled','disabled');
-            this.submit();
-        });
 
         $("#fund").select2();
-        $('.datetime-picker').datetimepicker()
 
         // 异步加载学校列表
         $('.users-ajax').select2({

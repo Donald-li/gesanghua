@@ -23,6 +23,7 @@ class Admin::TasksController < Admin::BaseController
 
     respond_to do |format|
       if @task.save
+        @task.attach_cover(params[:cover_id])
         format.html { redirect_to admin_tasks_path, notice: '发布成功。' }
       else
         format.html { render :new }
@@ -33,6 +34,7 @@ class Admin::TasksController < Admin::BaseController
   def update
     respond_to do |format|
       if @task.update(task_params)
+        @task.attach_cover(params[:cover_id])
         format.html { redirect_to admin_tasks_path, notice: '修改成功。' }
       else
         format.html { render :edit }

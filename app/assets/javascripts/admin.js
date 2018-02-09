@@ -95,4 +95,17 @@ $(function(){
     $(this).val(date)
   });
 
+    $('.datetime-picker').datetimepicker({
+        format: 'yyyy-mm-dd hh:ii',
+        language: 'zh-CN',
+        showClear: true,
+        dayViewHeaderFormat: 'yyyy-mm-dd hh:ii'
+    });
+
+    $('.datetime-picker').each(function(){
+        if(this.value.length == 0) return
+        var date = moment(this.value, 'YYYY-MM-DD hh:mm').format('YYYY-MM-DD hh:mm')
+        $(this).val(date)
+    });
+
 })

@@ -6,7 +6,7 @@
       <div class="form-group">
         <label class="col-md-2 control-label">发布时间：</label>
         <div class="col-sm-9">
-          <%= f.text_field :published_at, class: 'datetime-picker', require: true %>
+          <%= f.text_field :published_at, class: 'datetime-picker', required: true, placeholder: '发布时间' %>
         </div>
       </div>
       <%= f.input :content, label: '报告详情：', placeholder: '请填写报告详情' %>
@@ -44,7 +44,6 @@ $(function(){
         return true;
         }
   });
-  $('.datetime-picker').datetimepicker();
   initMultiImageWebuploader($('#webuploader'), null, 9);
   $('.upload-list').viewer();
 })

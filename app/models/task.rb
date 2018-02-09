@@ -27,6 +27,9 @@ class Task < ApplicationRecord
 
   validates :name, :duration, :content, presence: true
 
+  include HasAsset
+  has_one_asset :cover, class_name: 'Asset::TaskCover'
+
   enum state: {draft: 1, open: 2, picking: 3, pick_done: 4, doing: 5, done: 6} # 状态 1:创建 2:报名 3:筛选 4:筛选完成 5:进行 6:完成
   default_value_for :state, 1
 
