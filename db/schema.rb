@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180209041608) do
+ActiveRecord::Schema.define(version: 20180210030256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -247,6 +247,15 @@ ActiveRecord::Schema.define(version: 20180209041608) do
     t.integer "donation_id", comment: "可捐助id"
   end
 
+  create_table "donation_use_logs", force: :cascade, comment: "捐款使用路径" do |t|
+    t.integer "income_record_id", comment: "入账记录id"
+    t.integer "project_season_apply_id", comment: "项目批次申请id"
+    t.integer "donate_record_id", comment: "捐助记录id"
+    t.integer "user_id", comment: "用户id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "donations", force: :cascade, comment: "可捐助项目表" do |t|
     t.string "name", comment: "名称"
     t.string "describe", comment: "说明"
@@ -279,15 +288,15 @@ ActiveRecord::Schema.define(version: 20180209041608) do
     t.text "content", comment: "内容"
     t.string "owner_type"
     t.integer "owner_id"
-    t.integer "type", comment: "类型：receive、install、continual"
+    t.string "type", comment: "类型：receive、install、continual"
     t.integer "state", comment: "状态"
     t.integer "approve_state", comment: "审核状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "kind", comment: "反馈类型"
-    t.integer "user_id", comment: "反馈人"
     t.integer "check", comment: "查看 1: 未查看 2: 已查看"
     t.integer "recommend", comment: "推荐 1: 正常 2: 推荐"
+    t.integer "user_id", comment: "反馈人"
     t.integer "project_id", comment: "项目id"
     t.integer "project_season_id", comment: "批次id"
     t.integer "project_season_apply_id", comment: "申请id"
@@ -490,13 +499,13 @@ ActiveRecord::Schema.define(version: 20180209041608) do
     t.datetime "updated_at", null: false
     t.string "name", comment: "名称"
     t.integer "number", comment: "配额"
+    t.string "apply_no", comment: "项目申请编号"
     t.integer "bookshelf_type", comment: "悦读项目申请类型"
     t.string "contact_name", comment: "联系人姓名"
     t.string "contact_phone", comment: "联系人电话"
     t.integer "audit_state", comment: "审核状态"
     t.string "abstract", comment: "简述"
     t.string "address", comment: "详细地址"
-    t.string "apply_no", comment: "项目申请编号"
     t.integer "girl_number", comment: "申请女生人数"
     t.integer "boy_number", comment: "申请男生人数"
     t.string "consignee", comment: "收货人"
