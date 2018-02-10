@@ -18,13 +18,13 @@ RSpec.describe "Api::V1::Main", type: :request do
     end
   end
 
-  describe '获取可捐助项目列表' do
-    it '获取项目' do
-      get contribute_api_v1_main_path, headers: api_v1_headers(login_user)
-      api_v1_expect_success
-      expect(json_body[:data].count).to eq DonateItem.count
-    end
-  end
+  # describe '获取可捐助项目列表' do
+  #   it '获取项目' do
+  #     get contribute_api_v1_main_path, headers: api_v1_headers(login_user)
+  #     api_v1_expect_success
+  #     expect(json_body[:data].count).to eq DonateItem.count
+  #   end
+  # end
 
   describe '单次捐助' do
     it '捐助给所选可捐助项目' do
