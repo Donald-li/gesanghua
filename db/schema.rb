@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180210053816) do
+ActiveRecord::Schema.define(version: 20180210030256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,15 +32,6 @@ ActiveRecord::Schema.define(version: 20180210053816) do
     t.integer "kind_position", comment: "分类排序"
     t.integer "state", comment: "状态"
     t.integer "user_id", comment: "用户id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "amount_tabs", force: :cascade, comment: "金额选项卡表" do |t|
-    t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "金额"
-    t.string "alias", comment: "别名"
-    t.integer "state", default: 1, comment: "状态 1:显示 2:隐藏"
-    t.integer "donate_item_id", comment: "可捐助id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -224,16 +215,6 @@ ActiveRecord::Schema.define(version: 20180210053816) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "donate_items", force: :cascade, comment: "可捐助项目表" do |t|
-    t.string "name", comment: "名称"
-    t.string "describe", comment: "说明"
-    t.integer "state", comment: "状态： 1：显示 2：隐藏"
-    t.integer "position", comment: "排序"
-    t.integer "fund_id", comment: "基金id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "donate_records", force: :cascade, comment: "捐赠记录" do |t|
     t.integer "user_id", comment: "用户id"
     t.string "appoint_type", comment: "指定类型"
@@ -263,7 +244,26 @@ ActiveRecord::Schema.define(version: 20180210053816) do
     t.integer "kind", comment: "记录类型: 1:系统生成 2:手动添加"
     t.integer "project_season_apply_bookshelf_id", comment: "书架id"
     t.integer "bookshelf_supplement_id", comment: "补书ID"
-    t.integer "donate_item_id", comment: "可捐助id"
+    t.integer "donation_id", comment: "可捐助id"
+  end
+
+  create_table "donation_use_logs", force: :cascade, comment: "捐款使用路径" do |t|
+    t.integer "income_record_id", comment: "入账记录id"
+    t.integer "project_season_apply_id", comment: "项目批次申请id"
+    t.integer "donate_record_id", comment: "捐助记录id"
+    t.integer "user_id", comment: "用户id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "donations", force: :cascade, comment: "可捐助项目表" do |t|
+    t.string "name", comment: "名称"
+    t.string "describe", comment: "说明"
+    t.integer "state", comment: "状态： 1：显示 2：隐藏"
+    t.integer "position", comment: "排序"
+    t.integer "fund_id", comment: "基金id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "expenditure_records", force: :cascade, comment: "支出记录表" do |t|
