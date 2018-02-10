@@ -21,4 +21,10 @@ class AmountTab < ApplicationRecord
 
   scope :sorted, -> { order(amount: :asc) }
 
+  def summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :amount, :alias)
+    end.attributes!
+  end
+
 end

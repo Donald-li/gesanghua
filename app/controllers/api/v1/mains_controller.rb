@@ -10,7 +10,7 @@ class Api::V1::MainsController < Api::V1::BaseController
 
   def contribute
     @donate_items = DonateItem.show.sorted
-    api_success(data: @donate_items.map{|donate_item| donate_item.options_builder})
+    api_success(data: @donate_items.map{|donate_item| donate_item.summary_builder})
   end
 
   def settlement

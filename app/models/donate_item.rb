@@ -25,10 +25,11 @@ class DonateItem < ApplicationRecord
   enum state: {show: 1, hidden: 2} # 状态：1:显示 2:隐藏
   default_value_for :state, 1
 
-  def options_builder
+  def summary_builder
     Jbuilder.new do |json|
       json.name self.name
       json.value self.id
+      json.amount_tabs self.amount_tabs.show.sorted.all.map {|t| t.summary_builder}
     end.attributes!
   end
 
