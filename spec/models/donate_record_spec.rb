@@ -84,6 +84,20 @@ RSpec.describe DonateRecord, type: :model do
     expect(donate.fund_id).to eq project.fund.id
   end
 
+  it '测试有劝捐人的用户捐给一对一项目' do
+    amount = 313213
+    project = Project.pair_project
+    DonateRecord.donate_project(user, amount, project, promoter)
+
+    donate = DonateRecord.last
+    expect(donate.user.id).to eq user.id
+    expect(donate.project.id).to eq project.id
+    expect(donate.unpay?).to be true
+    expect(donate.amount).to eq amount
+    expect(donate.promoter.id).to eq promoter.id
+    expect(donate.fund_id).to eq project.fund.id
+  end
+
   it '测试用户捐一对一的指定' do
     child.approve_pass
     gsh_child = child.gsh_child
@@ -101,6 +115,23 @@ RSpec.describe DonateRecord, type: :model do
     expect(donate.gsh_child.semesters.succeed.count).to eq 2
   end
 
+  it '测试有劝捐人的用户捐一对一的指定' do
+    child.approve_pass
+    gsh_child = child.gsh_child
+    project = Project.pair_project
+    DonateRecord.donate_child(user, gsh_child, 2, promoter)
+
+    donate = DonateRecord.last
+    expect(donate.user.id).to eq user.id
+    expect(donate.project.id).to eq project.id
+    expect(donate.unpay?).to be true
+    expect(donate.amount).to eq donate.gsh_child.semesters.succeed.sum(:amount)
+    expect(donate.promoter.id).to eq promoter.id
+    expect(donate.fund_id).to eq project.appoint_fund.id
+    expect(donate.gsh_child.id).to eq gsh_child.id
+    expect(donate.gsh_child.semesters.succeed.count).to eq 2
+  end
+
   it '测试用户捐给悦读项目' do
     amount = 313213
     project = Project.book_project
@@ -112,6 +143,20 @@ RSpec.describe DonateRecord, type: :model do
     expect(donate.unpay?).to be true
     expect(donate.amount).to eq amount
     expect(donate.promoter).to eq nil
+    expect(donate.fund_id).to eq project.fund.id
+  end
+
+  it '测试有劝捐人的用户捐给悦读项目' do
+    amount = 313213
+    project = Project.book_project
+    DonateRecord.donate_project(user, amount, project, promoter)
+
+    donate = DonateRecord.last
+    expect(donate.user.id).to eq user.id
+    expect(donate.project.id).to eq project.id
+    expect(donate.unpay?).to be true
+    expect(donate.amount).to eq amount
+    expect(donate.promoter.id).to eq promoter.id
     expect(donate.fund_id).to eq project.fund.id
   end
 
