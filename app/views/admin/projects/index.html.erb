@@ -79,12 +79,13 @@
                   <%= link_to '底部', move_admin_project_path(project, to: :to_bottom), method: :put %>
                 </td>
                 <td>
+                  <%= link_to edit_admin_project_path(project), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                    <i class="fa fa-edit"></i> 修改
+                  <% end %>
                   <%= link_to admin_project_path(project), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                     <i class="fa fa-file"></i> 查看
                   <% end %>
-                  <%= link_to edit_admin_project_path(project), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                      <i class="fa fa-edit"></i> 修改
-                  <% end %>
+
                 </td>
               </tr>
           <% end %>

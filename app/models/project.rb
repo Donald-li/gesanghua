@@ -37,6 +37,7 @@ class Project < ApplicationRecord
   has_many :teachers, through: :teacher_projects
   has_many :project_reports
   has_many :continuals, as: :owner
+  belongs_to :donate_item, optional: true
 
   belongs_to :fund, optional: true
   belongs_to :appoint_fund, class_name: 'Fund', optional: true
