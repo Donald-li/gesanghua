@@ -1,0 +1,33 @@
+<div class="portlet light bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-note"></i>
+      <span class="caption-subject"><%= link_to @donate_item.name, admin_donate_items_path %> >修改金额选项卡</span>
+      <span class="caption-helper"></span>
+    </div>
+    <div class="actions">
+      <div class="portlet-input input-inline input-small">
+        <div class="input-icon right">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body form">
+    <%= simple_form_for [:admin, @amount_tab], url: admin_donate_item_donate_item_amount_tab_path(@donate_item), wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
+        <%= f.error_notification %>
+        <div class="form-body form-horizontal">
+          <%= f.input :amount, label: '金额：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+          <%= f.input :alias, label: '别名：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+          <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: AmountTab.options_for_select(:states), label: '状态：' %>
+        </div>
+        <div class="form-actions">
+          <div class="row">
+            <div class="col-md-offset-3 col-md-9">
+              <%= f.button :submit, '提交', class: 'btn green' %>
+              <%= link_to '取消', admin_donate_item_donate_item_amount_tabs_path(@amount_tab.donate_item), class: 'btn' %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+  </div>
+</div>

@@ -58,11 +58,11 @@ class MonthDonate < ApplicationRecord
     return donate
   end
 
-  def self.month_donate_donation_project(user = nil, amount = 0.0, donation = nil, plan_period = 0)
+  def self.month_donate_donate_item(user = nil, amount = 0.0, donate_item = nil, plan_period = 0)
     return false unless user.present?
-    return false unless donation.present?
-    fund = donation.fund
-    donate = user.month_donates.build(amount: amount, fund: fund, donation: donation, plan_period: plan_period, start_time: Time.now)
+    return false unless donate_item.present?
+    fund = donate_item.fund
+    donate = user.month_donates.build(amount: amount, fund: fund, donate_item: donate_item, plan_period: plan_period, start_time: Time.now)
     donate.save
     return donate
   end
@@ -70,7 +70,7 @@ class MonthDonate < ApplicationRecord
   def certificate_builder
     Jbuilder.new do |json|
       json.(self, :id)
-      json.donation_name self.donation.try(:name)
+      json.donate_item_name self.donate_item.try(:name)
       json.amount number_to_currency(self.amount)
       json.user_name self.user.present? ? self.user.name : '爱心人士'
       json.time_name "#{self.created_at.year}年#{self.created_at.month}月#{self.created_at.day}日"

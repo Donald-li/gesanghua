@@ -13,6 +13,6 @@
 #
 
 FactoryBot.define do
-  factory :donation do
+  factory :donate_item do
   end
 end

@@ -1,0 +1,80 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i><%= link_to @donate_item.name, admin_donate_items_path %> > 金额选项卡管理
+    </div>
+    <div class="actions">
+      <%= link_to new_admin_donate_item_donate_item_amount_tab_path(@donate_item), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+      <i class="icon-plus"></i>
+      <span>新增</span>
+      <% end %>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="dataTables_wrapper no-footer">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="dataTables_filter pull-right"></div>
+        </div>
+      </div>
+      <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover" id="sample_2">
+          <thead>
+            <tr>
+              <th>
+                金额
+              </th>
+              <th>
+                别名
+              </th>
+              <th>
+                状态
+              </th>
+              <th>
+                操作
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @amount_tabs.each do |amount_tab| %>
+            <tr>
+              <td>
+                <%= amount_tab.amount %>
+              </td>
+              <td>
+                <%= amount_tab.alias %>
+              </td>
+              <td>
+                <%= link_to switch_admin_donate_item_donate_item_amount_tab_path(amount_tab.donate_item, amount_tab), data: {confirm: "确定#{amount_tab.state === 'show' ? '隐藏金额选项卡' : '显示金额选项卡'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{amount_tab.state === 'show' ? 'green' : 'default'}" do %>
+                    <%= amount_tab.state === 'show' ? '显示' : '隐藏' %>
+                    <i class="fa <%= amount_tab.state === 'show' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                <% end %>
+              </td>
+              <td>
+                <%= link_to edit_admin_donate_item_donate_item_amount_tab_path(amount_tab.donate_item, amount_tab), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                  <i class="fa fa-edit"></i> 修改
+                <% end %>
+                <%= link_to admin_donate_item_donate_item_amount_tab_path(amount_tab.donate_item, amount_tab), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                  <i class="fa fa-trash-o"></i> 删除
+                <% end %>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-5 col-sm-12">
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@amount_tabs) %></div>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <%= paginate @amount_tabs, theme: '' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END EXAMPLE TABLE PORTLET-->

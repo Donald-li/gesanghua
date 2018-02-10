@@ -31,7 +31,7 @@
 #  kind                              :integer                                # 记录类型: 1:系统生成 2:手动添加
 #  project_season_apply_bookshelf_id :integer                                # 书架id
 #  bookshelf_supplement_id           :integer                                # 补书ID
-#  donation_id                       :integer                                # 可捐助id
+#  donate_item_id                    :integer                                # 可捐助id
 #
 
 class DonateRecord < ApplicationRecord
@@ -52,7 +52,7 @@ class DonateRecord < ApplicationRecord
   belongs_to :fund, optional: true
   belongs_to :appoint, polymorphic: true, optional: true
   belongs_to :gsh_child, optional: true
-  belongs_to :donation, optional: true
+  belongs_to :donate_item, optional: true
 
   counter_culture :project, column_name: :donate_record_amount_count, delta_magnitude: proc {|model| model.amount}
   counter_culture :user, column_name: :donate_count, delta_magnitude: proc {|model| model.amount}
@@ -100,8 +100,8 @@ class DonateRecord < ApplicationRecord
     self.project.try(:name) || '格桑花'
   end
 
-  def donation_name
-    self.donation.try(:name)
+  def donate_item_name
+    self.donate_item.try(:name)
   end
 
   def donor_name
@@ -128,11 +128,11 @@ class DonateRecord < ApplicationRecord
   end
 
   # 捐可捐助
-  def self.donate_donation_project(user = nil, amount = 0.0, donation = nil, promoter = nil)
+  def self.donate_donate_item(user = nil, amount = 0.0, donate_item = nil, promoter = nil)
     return false unless user.present?
-    return false unless donation.present?
-    fund = donation.fund
-    donate = user.donates.build(amount: amount, fund: fund, promoter: promoter, pay_state: 'unpay', donation: donation)
+    return false unless donate_item.present?
+    fund = donate_item.fund
+    donate = user.donates.build(amount: amount, fund: fund, promoter: promoter, pay_state: 'unpay', donate_item: donate_item)
     donate.save
     return donate
   end
@@ -326,7 +326,7 @@ class DonateRecord < ApplicationRecord
   def certificate_builder
     Jbuilder.new do |json|
       json.(self, :id)
-      json.donation_name self.donation.try(:name)
+      json.donate_item_name self.donate_item.try(:name)
       json.amount number_to_currency(self.amount)
       json.user_name self.user.present? ? self.user.name : '爱心人士'
       json.time_name "#{self.created_at.year}年#{self.created_at.month}月#{self.created_at.day}日"

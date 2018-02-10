@@ -1,27 +1,26 @@
 class Admin::DonateItemsController < Admin::BaseController
-  before_action :set_donation, only: [:show, :edit, :update, :destroy, :switch, :move]
+  before_action :set_donate_item, only: [:show, :edit, :update, :destroy, :switch, :move]
 
   def index
-    @search = Donation.sorted.ransack(params[:q])
+    @search = DonateItem.sorted.ransack(params[:q])
     scope = @search.result
-    @donations = scope.page(params[:page])
+    @donate_items = scope.page(params[:page])
   end
 
   def show
   end
 
   def new
-    @donation = Donation.new
+    @donate_item = DonateItem.new
   end
 
   def edit
   end
 
   def create
-    @donation = Donation.new(donation_params)
+    @donate_item = DonateItem.new(donate_item_params)
     respond_to do |format|
-      if @donation.save
-        @donation.attach_logo(params[:logo_id])
+      if @donate_item.save
         format.html { redirect_to admin_donate_items_path, notice: '新增成功。' }
       else
         format.html { render :new }
@@ -31,8 +30,7 @@ class Admin::DonateItemsController < Admin::BaseController
 
   def update
     respond_to do |format|
-      if @donation.update(donation_params)
-        @donation.attach_logo(params[:logo_id])
+      if @donate_item.update(donate_item_params)
         format.html { redirect_to admin_donate_items_path, notice: '修改成功。' }
       else
         format.html { render :edit }
@@ -41,32 +39,32 @@ class Admin::DonateItemsController < Admin::BaseController
   end
 
   def destroy
-    @donation.destroy
+    @donate_item.destroy
     respond_to do |format|
       format.html { redirect_to admin_donate_items_path, notice: '删除成功。' }
     end
   end
 
   def switch
-    @donation.show? ? @donation.hidden! : @donation.show!
-    redirect_to admin_donate_items_url, notice:  @donation.show? ? '捐助已展示' : '捐助已隐藏'
+    @donate_item.show? ? @donate_item.hidden! : @donate_item.show!
+    redirect_to admin_donate_items_url, notice:  @donate_item.show? ? '捐助已展示' : '捐助已隐藏'
   end
 
   def move
     move_target = params[:to]
     return unless ['higher', 'lower', 'to_top', 'to_bottom'].include?(move_target)
-    @donation.send("move_#{move_target}")
+    @donate_item.send("move_#{move_target}")
     redirect_to request.referer
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_donation
-      @donation = Donation.find(params[:id])
+    def set_donate_item
+      @donate_item = DonateItem.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def donation_params
-      params.require(:donation).permit!
+    def donate_item_params
+      params.require(:donate_item).permit!
     end
 end

@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: donations # 可捐助项目表
+# Table name: donate_items # 可捐助项目表
 #
 #  id         :integer          not null, primary key
 #  name       :string                                 # 名称
@@ -12,12 +12,7 @@
 #  updated_at :datetime         not null
 #
 
-class Donation < ApplicationRecord
-
-  attr_accessor :logo_id, :form_attributes
-
-  include HasAsset
-  has_one_asset :logo, class_name: 'Asset::DonationLogo'
+class DonateItem < ApplicationRecord
 
   belongs_to :fund, optional: true
   has_many :donate_records
@@ -37,7 +32,7 @@ class Donation < ApplicationRecord
     end.attributes!
   end
 
-  def self.find_donation_project(value)
+  def self.find_donate_item(value)
     # if value == 'toGsh'
     #   nil
     # else

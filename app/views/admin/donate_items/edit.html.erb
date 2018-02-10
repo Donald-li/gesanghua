@@ -13,30 +13,24 @@
     </div>
   </div>
   <div class="portlet-body form">
-    <%= simple_form_for [:admin, @donation], url: admin_donate_item_path, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'form-horizontal donate_item_form'} do |f| %>
+    <%= simple_form_for [:admin, @donate_item], url: admin_donate_item_path, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'form-horizontal donate_item_form'} do |f| %>
         <%= f.error_notification %>
         <div class="form-body">
           <%= f.input :name, label: '捐助名称：', autofocus: true, placeholder: '', required: true %>
-          <div class="form-group">
-            <label class="col-md-2 control-label">捐助Logo：</label>
-            <div class="col-sm-9">
-              <%= webuploader_tag :logo_id, label: '上传捐助Logo', type: 'donation_logo', asset: @donation.logo, klass: 'single' %>
-            </div>
-          </div>
           <%= f.input :describe, label: '捐助说明：', placeholder: '说明该款项用途' %>
           <div class="form-group">
             <label class="col-md-2 control-label">捐助收入分类：</label>
             <div class="col-sm-9">
-              <select id="fund" class="form-control select optional" name="donation[fund_id]" required>
+              <select id="fund" class="form-control select optional" name="donate_item[fund_id]" required>
                 <% FundCategory.sorted.each do |fc| %>
                     <% fc.funds.each do |fund| %>
-                        <option value="<%= fund.id %>" <%= 'selected' if @donation.fund_id == fund.id %>><%= fc.name %> - <%= fund.name %></option>
+                        <option value="<%= fund.id %>" <%= 'selected' if @donate_item.fund_id == fund.id %>><%= fc.name %> - <%= fund.name %></option>
                     <% end %>
                 <% end %>
               </select>
             </div>
           </div>
-          <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Donation.options_for_enum_select(:states), label: '状态：', input_html: {data: {'parsley-required': true}} %>
+          <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: DonateItem.options_for_enum_select(:states), label: '状态：', input_html: {data: {'parsley-required': true}} %>
           <div class="form-actions">
             <div class="row">
               <div class="col-md-offset-2 col-md-9">

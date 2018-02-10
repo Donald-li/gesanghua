@@ -14,8 +14,8 @@
 
 require 'rails_helper'
 
-RSpec.describe Donation, type: :model do
+RSpec.describe DonateItem, type: :model do
   let(:fund_category) { create(:fund_category, name: '自定义物资类', describe: '自定义物资类项目财务分类')}
   let(:fund) { create(:fund, name: '爱心早餐', fund_category: fund_category)}
-  let(:donation) { create(:donation, name:'一对一', describe: '所捐款项将用于一对一项目', fund: fund) }
+  let(:donate_item) { create(:donate_item, name:'一对一', describe: '所捐款项将用于一对一项目', fund: fund) }
 end

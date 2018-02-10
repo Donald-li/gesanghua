@@ -1,6 +1,8 @@
-class CreateDonations < ActiveRecord::Migration[5.1]
+class ChangeDonations < ActiveRecord::Migration[5.1]
   def change
-    create_table :donations, comment: '可捐助项目表' do |t|
+    drop_table :donations
+
+    create_table :donate_items, comment: '可捐助项目表' do |t|
       t.string :name, comment: '名称'
       t.string :describe, comment: '说明'
       t.integer :state, comment: '状态： 1：显示 2：隐藏'

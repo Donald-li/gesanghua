@@ -45,35 +45,35 @@
           </tr>
           </thead>
           <tbody>
-          <% @donations.each do |donation| %>
+          <% @donate_items.each do |donate_item| %>
               <tr>
                 <td>
-                  <%= donation.name %>
+                  <%= donate_item.name %>
                 </td>
                 <td>
-                  <%= donation.describe %>
+                  <%= donate_item.describe %>
                 </td>
                 <td>
-                  <%= donation.fund.fund_category.try(:name) %> -
-                  <%= donation.fund.try(:name) %>
+                  <%= donate_item.fund.fund_category.try(:name) %> -
+                  <%= donate_item.fund.try(:name) %>
                 </td>
                 <td>
-                  <%= link_to switch_admin_donate_item_path(donation), data: {confirm: "确定#{donation.state === 'show' ? '隐藏' : '展示'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{donation.state === 'show' ? 'green' : 'default'}" do %>
-                  <%= donation.state === 'show' ? '展示' : '隐藏' %>
-                  <i class="fa <%= donation.state === 'show' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                  <%= link_to switch_admin_donate_item_path(donate_item), data: {confirm: "确定#{donate_item.state === 'show' ? '隐藏' : '展示'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{donate_item.state === 'show' ? 'green' : 'default'}" do %>
+                  <%= donate_item.state === 'show' ? '展示' : '隐藏' %>
+                  <i class="fa <%= donate_item.state === 'show' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
                   <% end %>
                 </td>
                 <td>
-                  <%= link_to '顶部', move_admin_donate_item_path(donation, to: :to_top), method: :put %>
-                  <%= link_to '上', move_admin_donate_item_path(donation, to: :higher), method: :put %>
-                  <%= link_to '下', move_admin_donate_item_path(donation, to: :lower), method: :put %>
-                  <%= link_to '底部', move_admin_donate_item_path(donation, to: :to_bottom), method: :put %>
+                  <%= link_to '顶部', move_admin_donate_item_path(donate_item, to: :to_top), method: :put %>
+                  <%= link_to '上', move_admin_donate_item_path(donate_item, to: :higher), method: :put %>
+                  <%= link_to '下', move_admin_donate_item_path(donate_item, to: :lower), method: :put %>
+                  <%= link_to '底部', move_admin_donate_item_path(donate_item, to: :to_bottom), method: :put %>
                 </td>
                 <td>
-                  <%= link_to edit_admin_donate_item_path(donation), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                  <%= link_to edit_admin_donate_item_path(donate_item), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-edit"></i> 修改
                   <% end %>
-                  <%= link_to '', 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                  <%= link_to admin_donate_item_donate_item_amount_tabs_path(donate_item), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                     <i class="fa fa-credit-card"></i> 金额选项卡
                   <% end %>
                 </td>
@@ -84,10 +84,10 @@
       </div>
       <div class="row">
         <div class="col-md-5 col-sm-12">
-          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@donations) %></div>
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@donate_items) %></div>
         </div>
         <div class="col-md-7 col-sm-12">
-          <%= paginate @donations, theme: 'admin' %>
+          <%= paginate @donate_items, theme: 'admin' %>
         </div>
       </div>
     </div>

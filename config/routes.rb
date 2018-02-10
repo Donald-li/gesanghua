@@ -119,7 +119,7 @@ Rails.application.routes.draw do
     resources :pages, concerns: [:move, :switch]
     resources :projects, concerns: [:move]
     resources :donate_items, concerns: [:move, :switch] do
-      resources :donation_amount_tabs, concerns: [:switch]
+      resources :donate_item_amount_tabs, concerns: [:switch]
     end
     resources :school_applies do
       member do

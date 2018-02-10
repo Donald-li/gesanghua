@@ -12,13 +12,13 @@ class GenDonateCertificate
       # return if donors.blank?
       name = record.donor_name # TODO 需要考虑代捐人的情况
       # name |= '用户'
-      render_white_text(source, 100, 460, "#{record.donation_name}项目")
+      render_white_text(source, 100, 460, "#{record.donate_item_name}项目")
       render_white_line(source, 100, 477, 350)
       render_white_text(source, 100, 520, "捐赠编号：#{record.certificate_no}")
 
       render_text(source, 100, 660, "感谢您！亲爱的#{name}，")
       # content = "　　感谢为支持#{project_name}项目慷慨捐赠#{number_to_currency donors.sum(&:amount)}元。谨代表受帮助的孩子向您表示最崇高敬意和衷心感谢！\n　　特颁此证，以资纪念。"
-      content = "　　感谢您为支持格桑花西部助学#{record.donation_name}项目的慷慨捐赠。谨代表受帮助的孩子向您表示最崇高敬意和衷心感谢！"
+      content = "　　感谢您为支持格桑花西部助学#{record.donate_item_name}项目的慷慨捐赠。谨代表受帮助的孩子向您表示最崇高敬意和衷心感谢！"
       render_content(source, content)
 
       render_text(source, 548, 1035, Date.today.year.to_s)
