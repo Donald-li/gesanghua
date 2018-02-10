@@ -83,9 +83,9 @@ admin:
         admin_project_template:
           actions:
             'admin/projects': all
-        admin_donation_template:
+        admin_donate_item_template:
           actions:
-            'admin/donation_manages': all
+            'admin/donate_items': all
         admin_support_category:
           actions:
             'admin/support_categories': all

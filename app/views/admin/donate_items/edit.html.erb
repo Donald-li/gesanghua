@@ -13,7 +13,7 @@
     </div>
   </div>
   <div class="portlet-body form">
-    <%= simple_form_for [:admin, @donation], url: admin_donation_manage_path, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'form-horizontal donation_form'} do |f| %>
+    <%= simple_form_for [:admin, @donation], url: admin_donate_item_path, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'form-horizontal donate_item_form'} do |f| %>
         <%= f.error_notification %>
         <div class="form-body">
           <%= f.input :name, label: '捐助名称：', autofocus: true, placeholder: '', required: true %>
@@ -41,7 +41,7 @@
             <div class="row">
               <div class="col-md-offset-2 col-md-9">
                 <%= f.button :submit, '提交', class: 'btn blue' %>
-                <%= link_to '取消', admin_donation_manages_path, class: 'btn' %>
+                <%= link_to '取消', admin_donate_items_path, class: 'btn' %>
               </div>
             </div>
           </div>
@@ -53,7 +53,7 @@
     $(function () {
         initImageWebuploader($('#webuploader'));
         //    表单验证
-        $(".donation_form").html5Validate(function () {
+        $(".donate_item_form").html5Validate(function () {
             $(this).find('[type="submit"]').attr('disabled', 'disabled');
             this.submit();
         });

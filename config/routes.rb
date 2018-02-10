@@ -118,7 +118,9 @@ Rails.application.routes.draw do
     resources :supports, concerns: [:move, :switch]
     resources :pages, concerns: [:move, :switch]
     resources :projects, concerns: [:move]
-    resources :donation_manages, concerns: [:move, :switch]
+    resources :donate_items, concerns: [:move, :switch] do
+      resources :donation_amount_tabs, concerns: [:switch]
+    end
     resources :school_applies do
       member do
         patch :update_audit
