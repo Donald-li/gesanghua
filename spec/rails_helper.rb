@@ -95,7 +95,7 @@ RSpec.configure do |config|
     if failed_examples.blank?
       `if [ -x "$(command -v osascript)" ]; then osascript -e 'display notification "#{suite.reporter.examples.length}个测试已通过! " with title "rspec 执行成功"'; fi`
     else
-      `if [ -x "$(command -v osascript)" ]; then osascript -e 'display dialog "以下测试执行失败：\n#{failed_examples.join("\n")} " buttons {"确定"} with title "rspec执行失败！" with icon caution'; fi`
+      `if [ -x "$(command -v osascript)" ]; then osascript -e 'display dialog "以下测试执行失败：\n#{failed_examples.join("\n")} " buttons {"确定"} default button 1 with title "rspec执行失败！" with icon caution'; fi`
     end
   end
 end
