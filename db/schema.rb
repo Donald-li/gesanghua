@@ -36,6 +36,15 @@ ActiveRecord::Schema.define(version: 20180210053816) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "amount_tabs", force: :cascade, comment: "金额选项卡表" do |t|
+    t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "金额"
+    t.string "alias", comment: "别名"
+    t.integer "state", default: 1, comment: "状态 1:显示 2:隐藏"
+    t.integer "donate_item_id", comment: "可捐助id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "article_categories", force: :cascade, comment: "文章类别表" do |t|
     t.string "name", comment: "名称"
     t.integer "position", comment: "位置"
