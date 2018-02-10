@@ -33,12 +33,4 @@ class DonateItem < ApplicationRecord
     end.attributes!
   end
 
-  def self.find_donate_item(value)
-    # if value == 'toGsh'
-    #   nil
-    # else
-      self.find(value.to_i)
-    # end
-  end
-
 end
