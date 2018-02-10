@@ -27,7 +27,7 @@
       <%= f.cktext_area :protocol %>
     </div>
   </div>
-  <%= f.input :donate_item_id, collection: Advert.options_for_some_select(:kinds, ['banner']), label: '广告分类：', input_html: { data: {'parsley-required': true}} %>
+  <%= f.input :donate_item_id, collection: DonateItem.show.sorted, label: '捐助项（可选）：', prompt: "请选择捐助项", input_html: { data: {'parsley-required': true}} %>
   <div class="form-group">
     <div id="form" class="form-inline">
       <% f.object.build_form if f.object.form.blank? %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180210053816) do
+ActiveRecord::Schema.define(version: 20180210093725) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -656,6 +656,7 @@ ActiveRecord::Schema.define(version: 20180210053816) do
     t.integer "appoint_fund_id", comment: "定向指定财务分类id"
     t.integer "position", comment: "位置排序"
     t.jsonb "form", comment: "自定义表单{key, label, type, options, required}"
+    t.integer "donate_item_id", comment: "捐助项id"
   end
 
   create_table "radio_informations", force: :cascade, comment: "广播详细信息表" do |t|
