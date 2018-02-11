@@ -107,7 +107,7 @@ class Project < ApplicationRecord
       json.describe self.describe
       # json.total_amount self.fund.amount
       json.cover_url self.image_url(:tiny).to_s
-      json.donate_item self.donate_item.summary_builder
+      json.donate_item self.donate_item.try(:summary_builder)
     end.attributes!
   end
 
@@ -118,7 +118,7 @@ class Project < ApplicationRecord
       json.cover_mode self.image.present?
       json.cover_url self.image_url(:tiny).to_s
       json.num self.children.pass.outside.show.length
-      json.donate_item self.donate_item.summary_builder
+      json.donate_item self.donate_item.try(:summary_builder)
     end.attributes!
   end
 
