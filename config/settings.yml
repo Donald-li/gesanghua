@@ -26,3 +26,6 @@ wechat_mch_id: "1386171602"
 wechat_pay_key: "34894D77893800F28FD98B6EDD34FFE2"
 
 children_template_file_path: '/files/受益学生名单模板.xlsx'
+
+# 默认金额卡片
+amount_tabs: [500, 1000, 1500, 2000]
