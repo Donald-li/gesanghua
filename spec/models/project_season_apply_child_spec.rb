@@ -54,7 +54,7 @@ RSpec.describe ProjectSeasonApplyChild, type: :model do
     expect(GshChildGrant.last.amount).to eq 2100.0
   end
 
-  it '测试结对孩子捐助成功学期的统计计数' do
+  it '测试一对一孩子捐助成功学期的统计计数' do
     child.approve_pass
 
     gsh_child = child.gsh_child

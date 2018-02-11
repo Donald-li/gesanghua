@@ -16,13 +16,13 @@ RSpec.describe "Api::V1::Children", type: :request do
   #     child1.approve_pass
   #     child2.approve_pass
   #   }
-  #   it '获取结对孩子列表' do
+  #   it '获取一对一孩子列表' do
   #     get api_v1_children_path, headers: api_v1_headers(login_user)
   #     api_v1_expect_success
   #     expect(json_body[:data][:children].second[:id]).to eq child1.id
   #   end
   #
-  #   it '根据地区获取结对孩子列表' do
+  #   it '根据地区获取一对一孩子列表' do
   #     get api_v1_children_path(district: '630121'), headers: api_v1_headers(login_user)
   #     api_v1_expect_success
   #     expect(json_body[:data][:children].first[:id]).to eq child2.id

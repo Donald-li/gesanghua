@@ -10,7 +10,7 @@ namespace :demo do
     fc_expense.funds.create(name: "人员工资", management_rate: 0, describe: '仅用于人员工资、社保费用', kind: fc_gesanghua.kind, use_kind: 'unrestricted')
 
     # 基金类型
-    fc1 = FundCategory.find_or_create_by(name: '结对', describe: '结对', kind: 'directional')
+    fc1 = FundCategory.find_or_create_by(name: '一对一', describe: '一对一', kind: 'directional')
     fc2 = FundCategory.find_or_create_by(name: '悦读', describe: '悦读', kind: 'directional')
     fc3 = FundCategory.find_or_create_by(name: '观影', describe: '观影', kind: 'directional')
     fc4 = FundCategory.find_or_create_by(name: '探索营', describe: '探索营', kind: 'directional')
@@ -49,7 +49,7 @@ namespace :demo do
     </p>
     }
     description = "为了使资助者与受助人保持长久的联系，同时保证资助款发挥真正的助学之用，请资助双方认真阅读填写本协议书以作书面凭证。在签定本协议之前，请资助者仔细阅读以下条款，并请严格遵守"
-    Project.find_or_create_by(name: '结对', protocol: content, describe: description, kind: 1, fund: fc1.funds.first)
+    Project.find_or_create_by(name: '一对一', protocol: content, describe: description, kind: 1, fund: fc1.funds.first)
     Project.find_or_create_by(name: '悦读', protocol: content, describe: description, kind: 1, fund: fc2.funds.first)
     Project.find_or_create_by(name: '观影', protocol: content, describe: description, kind: 1, fund: fc3.funds.first)
     Project.find_or_create_by(name: '探索营', protocol: content, describe: description, kind: 1, fund: fc4.funds.first)
@@ -77,7 +77,7 @@ namespace :demo do
     fc_expense.funds.create(name: "人员工资", management_rate: 0, describe: '仅用于人员工资、社保费用', kind: fc_gesanghua.kind, use_kind: 'unrestricted')
 
     # 基金类型
-    fc1 = FundCategory.find_or_create_by(name: '结对', describe: '结对', kind: 'directional')
+    fc1 = FundCategory.find_or_create_by(name: '一对一', describe: '一对一', kind: 'directional')
     fc2 = FundCategory.find_or_create_by(name: '悦读', describe: '悦读', kind: 'directional')
     fc3 = FundCategory.find_or_create_by(name: '观影', describe: '观影', kind: 'directional')
     fc4 = FundCategory.find_or_create_by(name: '探索营', describe: '探索营', kind: 'directional')
@@ -116,19 +116,19 @@ namespace :demo do
     </p>
     }
     description = "为了使资助者与受助人保持长久的联系，同时保证资助款发挥真正的助学之用，请资助双方认真阅读填写本协议书以作书面凭证。在签定本协议之前，请资助者仔细阅读以下条款，并请严格遵守"
-    Project.find_or_create_by(name: '结对', protocol: content, describe: description, kind: 1, fund: fc1.funds.first)
+    Project.find_or_create_by(name: '一对一', protocol: content, describe: description, kind: 1, fund: fc1.funds.first)
     Project.find_or_create_by(name: '悦读', protocol: content, describe: description, kind: 1, fund: fc2.funds.first)
     Project.find_or_create_by(name: '观影', protocol: content, describe: description, kind: 1, fund: fc3.funds.first)
     Project.find_or_create_by(name: '探索营', protocol: content, describe: description, kind: 1, fund: fc4.funds.first)
     Project.find_or_create_by(name: '广播', protocol: content, describe: description, kind: 2, fund: fc5.funds.second)
     Project.find_or_create_by(name: '护花', protocol: content, describe: description, kind: 2, fund: fc5.funds.second)
 
-    # 生成结对项目可用年度
-    ProjectSeason.find_or_create_by(name: '2017年一对一结对助学项目', junior_term_amount: 1200, junior_year_amount: 2400, senior_term_amount: 2000, senior_year_amount: 4000, project: Project.first)
+    # 生成一对一项目可用年度
+    ProjectSeason.find_or_create_by(name: '2017年一对一一对一助学项目', junior_term_amount: 1200, junior_year_amount: 2400, senior_term_amount: 2000, senior_year_amount: 4000, project: Project.first)
     # 生成学校
     School.find_or_create_by(name: '西宁第一实验中学', address: '某街', approve_state: 2, province: '630000', city: '630100', district: '630101', number: '600', describe: '优秀中学', level: 1, contact_name: '陈俊生', contact_phone: '17866548888', user: User.last)
     # 生成申请
-    ProjectSeasonApply.find_or_create_by(name: '2017年西宁第一实验中学-一对一结对助学项目', number: 10, project_id: Project.first.id, project_season_id: ProjectSeason.first.id, school_id: School.first.id, describe: '品学兼优，家境贫寒', province: '630000', city: '630100', district: '630101', state: 1)
+    ProjectSeasonApply.find_or_create_by(name: '2017年西宁第一实验中学-一对一一对一助学项目', number: 10, project_id: Project.first.id, project_season_id: ProjectSeason.first.id, school_id: School.first.id, describe: '品学兼优，家境贫寒', province: '630000', city: '630100', district: '630101', state: 1)
     # 生成格桑花孩子
     10.times do
       gc = GshChild.find_or_create_by(school_id: School.first.id, name: Faker::Name.name, phone: '1866965' + rand(1000..9999).to_s, province: '630000', city: '630100', district: '630101')

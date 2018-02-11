@@ -11,7 +11,7 @@ class Admin::PairGrantsController < Admin::BaseController
       format.html { @grants = scope.page(params[:page]) }
       format.xlsx {
         @grants = scope.sorted.all
-        response.headers['Content-Disposition'] = 'attachment; filename= "结对发放列表" ' + Date.today.to_s + '.xlsx'
+        response.headers['Content-Disposition'] = 'attachment; filename= "一对一发放列表" ' + Date.today.to_s + '.xlsx'
       }
     end
 
@@ -19,8 +19,8 @@ class Admin::PairGrantsController < Admin::BaseController
   #
   # def excel_output
   #   ExcelOutput.pair_grants_output
-  #   file_path = Rails.root.join("public/files/结对发放" + DateTime.now.strftime("%Y-%m-%d-%s") + ".xlsx")
-  #   file_name = "结对捐助发放.xlsx"
+  #   file_path = Rails.root.join("public/files/一对一发放" + DateTime.now.strftime("%Y-%m-%d-%s") + ".xlsx")
+  #   file_name = "一对一捐助发放.xlsx"
   #   send_file(file_path, filename: file_name)
   # end
 

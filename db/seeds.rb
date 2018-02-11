@@ -12,7 +12,7 @@ superadmin = User.create(login: 'admin', password: 'admin!', name: 'Administrato
 # 一级财务分类
 fc_gesanghua = FundCategory.find_or_create_by(name: '格桑花', describe: '捐助给格桑花', kind: 'nondirectional')
 fc_expense = FundCategory.find_or_create_by(name: '办公经费', describe: '办公经费', kind: 'nondirectional')
-fc1 = FundCategory.find_or_create_by(name: '结对', describe: '结对', kind: 'directional')
+fc1 = FundCategory.find_or_create_by(name: '一对一', describe: '一对一', kind: 'directional')
 fc2 = FundCategory.find_or_create_by(name: '悦读', describe: '悦读', kind: 'directional')
 fc3 = FundCategory.find_or_create_by(name: '观影', describe: '观影', kind: 'directional')
 fc4 = FundCategory.find_or_create_by(name: '探索营', describe: '探索营', kind: 'directional')
@@ -36,7 +36,7 @@ fc4.funds.create(name: "合肥营", management_rate: 10, describe: '格桑花合
 
 # 项目模板一级分类
 content = '用户协议'
-Project.find_or_create_by(name: '结对', protocol: content, describe: '项目介绍', kind: :fixed, fund: fc1.funds.unrestricted.first, appoint_fund: fc1.funds.restricted.first)
+Project.find_or_create_by(name: '一对一', protocol: content, describe: '项目介绍', kind: :fixed, fund: fc1.funds.unrestricted.first, appoint_fund: fc1.funds.restricted.first)
 Project.find_or_create_by(name: '悦读', protocol: content, describe: '项目介绍', kind: :fixed, fund: fc2.funds.unrestricted.first, appoint_fund: fc2.funds.restricted.first)
 Project.find_or_create_by(name: '探索营', protocol: content, describe: '项目介绍', kind: :fixed, fund: fc4.funds.unrestricted.first, appoint_fund: fc4.funds.restricted.first)
 Project.find_or_create_by(name: '观影', protocol: content, describe: '项目介绍', kind: :apply, fund: nil, appoint_fund: nil)
