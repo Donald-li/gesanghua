@@ -13,11 +13,11 @@
     </div>
   </div>
   <div class="portlet-body form">
-    <%= simple_form_for [:admin, @amount_tab], url: admin_donate_item_donate_item_amount_tab_path(@donate_item), wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
+    <%= simple_form_for [:admin, @amount_tab], url: admin_donate_item_donate_item_amount_tab_path(@donate_item), wrapper: :admin_form, html: {data: {'parsley-validate': true, class: 'amount_tab_form'}} do |f| %>
         <%= f.error_notification %>
         <div class="form-body form-horizontal">
-          <%= f.input :amount, label: '金额：', autofocus: true, input_html: { data: {'parsley-required': true, 'parsley-min': 0, 'parsley-type': 'number'}} %>
-          <%= f.input :alias, label: '别名：', autofocus: true, placeholder: '最多5个字', input_html: { data: {'parsley-required': true, 'parsley-maxlength': 5}} %>
+          <%= f.input :amount, label: '金额：', autofocus: true, id: 'amount', input_html: { data: {'parsley-required': true, 'parsley-min': 0, 'parsley-type': 'number'}} %>
+          <%= f.input :alias, label: '别名：', autofocus: true, placeholder: '最多4个字', input_html: { data: {'parsley-required': true, 'parsley-maxlength': 4}} %>
           <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: AmountTab.options_for_select(:states), label: '状态：' %>
         </div>
         <div class="form-actions">
@@ -29,5 +29,23 @@
           </div>
         </div>
     <% end %>
+    <script>
+        $(function(){
+            //    表单验证
+            $(".amount_tab_form").html5Validate(function(){
+                $(this).find('[type="submit"]').attr('disabled','disabled');
+                this.submit();
+                // },  {
+                //     validate: function() {
+                //         var amount = document.getElementById("amount").val();
+                //         if (amount <= 0) {
+                //             alert("金额须大于0");
+                //             return false;
+                //         }
+                //         return true;
+                //     }
+              });
+        })
+    </script>
   </div>
 </div>
