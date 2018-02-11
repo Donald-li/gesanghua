@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: donations # 可捐助项目表
+# Table name: donate_items # 可捐助项目表
 #
 #  id         :integer          not null, primary key
 #  name       :string                                 # 名称
