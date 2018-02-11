@@ -22,9 +22,13 @@
 #  types_mask       :integer                                # 任务类型
 #  apply_end_at     :datetime                               # 申请结束时间
 #  principal_id     :integer                                # 任务负责人
+#  task_no          :string                                 # 任务编号
 #
 
 class Task < ApplicationRecord
+
+  before_create :gen_task_no
+
   TaskTypes = %i[ordinary intensive urgency innovative difficult] # 日常 重点 紧急 创新 难点
 
   # belongs_to :major, optional: true
@@ -69,6 +73,11 @@ class Task < ApplicationRecord
 
   def participant_number
     self.task_volunteers.count
+  end
+
+  def gen_task_no
+    time_string = Time.now.strftime("%y%m%d")
+    self.task_no ||= Sequence.get_seq(kind: :task_no, prefix: time_string, length: 3)
   end
 
 end

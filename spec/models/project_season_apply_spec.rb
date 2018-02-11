@@ -40,5 +40,16 @@
 require 'rails_helper'
 
 RSpec.describe ProjectSeasonApply, type: :model do
+  let!(:user) { create(:user) }
+  let!(:school) { create(:school, user: user) }
+  let!(:teacher) { create(:teacher, school: school, user: user) }
+  let!(:project) { create(:project) }
+  let!(:season) { create(:project_season, project: project) }
+  let!(:apply) { create(:project_season_apply, project: project, season: season, teacher: teacher, school: school) }
 
+  describe '测试生成申请编号' do
+    it '生成申请编号' do
+      expect(apply.apply_no.present?).to be true
+    end
+  end
 end

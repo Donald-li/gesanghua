@@ -22,10 +22,13 @@
 #  types_mask       :integer                                # 任务类型
 #  apply_end_at     :datetime                               # 申请结束时间
 #  principal_id     :integer                                # 任务负责人
+#  task_no          :string                                 # 任务编号
 #
 
 FactoryBot.define do
   factory :task do
-    
+    name { FFaker::NameCN.name }
+    duration 6
+    content { FFaker::LoremCN.sentences(5) }
   end
 end

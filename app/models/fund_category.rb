@@ -25,6 +25,6 @@ class FundCategory < ApplicationRecord
 
   enum state: {show: 1, hidden: 2} # 状态：1:显示 2:隐藏
 
-  enum kind: {nondirectional: 1, directional: 2} # 类型 1:非定向 2:定向
+  enum kind: {nondirectional: 1, directional: 2} # 类型 1:非定向 2:定项
 
 end

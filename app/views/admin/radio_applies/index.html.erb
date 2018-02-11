@@ -96,7 +96,7 @@
                 </td>
                 <td>
                   <% if apply.pass? && apply.apply? %>
-                  <%= link_to edit_admin_radio_project_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
+                  <%= link_to edit_admin_radio_project_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs green', data: {confirm: '确定要转为筹款项目吗？'} do %>
                     <i class="fa fa-exchange"></i> 转为筹款项目
                   <% end %>
                   <% end %>

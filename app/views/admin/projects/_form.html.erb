@@ -8,13 +8,26 @@
       <%= webuploader_tag :image_id, label: '上传项目封面', type: 'project_image', asset: @project.image, klass: 'single' %>
     </div>
   </div>
+  <%= f.input :kind, as: :radio_buttons, wrapper: :inline_inputs, collection: Project.options_for_some_select(:kinds, ['apply', 'goods']), label: '类型：' %>
   <div class="form-group">
-    <label class="col-md-2 control-label">财务收入分类：</label>
+    <label class="col-md-2 control-label">定项非指定收入分类：</label>
     <div class="col-sm-9">
-      <select id="fund" class="form-control select optional" name="project[fund_id]" required>
+      <select id="fund-unrestricted" class="form-control select optional" name="project[fund_id]" required>
         <% FundCategory.directional.reverse_sorted.each do |fc| %>
-            <% fc.funds.each do |fund| %>
+            <% fc.funds.unrestricted.each do |fund| %>
                 <option value="<%= fund.id %>" <%= 'selected' if @project.fund_id == fund.id %>><%= fc.name %> - <%= fund.name %></option>
+            <% end %>
+        <% end %>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-2 control-label">定项指定收入分类：</label>
+    <div class="col-sm-9">
+      <select id="fund-restricted" class="form-control select optional" name="project[appoint_fund_id]" required>
+        <% FundCategory.directional.reverse_sorted.each do |fc| %>
+            <% fc.funds.restricted.each do |fund| %>
+                <option value="<%= fund.id %>" <%= 'selected' if @project.appoint_fund_id == fund.id %>><%= fc.name %> - <%= fund.name %></option>
             <% end %>
         <% end %>
       </select>
@@ -22,26 +35,29 @@
   </div>
   <%= f.input :describe, label: '项目分类描述：', required: true %>
   <div class="form-group">
-    <label class="col-md-2 control-label">协议内容：</label>
+    <label class="col-md-2 control-label"> 协议内容：</label>
     <div class="col-sm-9">
       <%= f.cktext_area :protocol %>
     </div>
   </div>
-  <%= f.input :donate_item_id, collection: DonateItem.show.sorted, label: '捐助项（可选）：', prompt: "请选择捐助项", input_html: { data: {'parsley-required': true}} %>
+  <%= f.input :donate_item_id, collection: DonateItem.show.sorted, label: '捐助项：', prompt: "请选择捐助项", hint: '可关联捐助项', input_html: {} %>
   <div class="form-group">
-    <div id="form" class="form-inline">
-      <% f.object.build_form if f.object.form.blank? %>
-      <% f.object.form.each_with_index do |form_item, i| %>
-        <div class="inline-group">
-          <%= text_field_tag "project[form_attributes][#{i}][key]", form_item['key'], placeholder: '代码'%>
-          <%= text_field_tag "project[form_attributes][#{i}][label]", form_item['label'], placeholder: '标签'%>
-          <%= select_tag "project[form_attributes][#{i}][type]", options_for_select([['文本框', 'text'], ['多行文本框', 'textarea'], ['选项', 'select']], form_item['type']), placeholder: '代码'%>
-          <label><%= check_box_tag "project[form_attributes][#{i}][required]", 'y', form_item['required']%>必填</label>
-          <a href="#" class="destroy"><i class="fa fa-remove font-red-soft"></i></a>
-        </div>
-      <% end %>
+    <label class="col-md-2 control-label"> 自定义表单：</label>
+    <div class="col-sm-9">
+      <div id="form" class="form-inline">
+        <% f.object.build_form if f.object.form.blank? %>
+        <% f.object.form.each_with_index do |form_item, i| %>
+            <div class="inline-group">
+              <%= text_field_tag "project[form_attributes][#{i}][key]", form_item['key'], placeholder: '代码'%>
+              <%= text_field_tag "project[form_attributes][#{i}][label]", form_item['label'], placeholder: '标签'%>
+              <%= select_tag "project[form_attributes][#{i}][type]", options_for_select([['文本框', 'text'], ['多行文本框', 'textarea'], ['选项', 'select']], form_item['type']), placeholder: '代码'%>
+              <label><%= check_box_tag "project[form_attributes][#{i}][required]", 'y', form_item['required']%>必填</label>
+              <a href="#" class="destroy"><i class="fa fa-remove font-red-soft"></i></a>
+            </div>
+        <% end %>
+      </div>
+      <a class="btn btn-info btn-xs" href="#" id="add-form-item"><i class="fa fa-plus"></i> 添加表单项</a>
     </div>
-    <a class="btn btn-info btn-xs" href="#" id="add-form-item"><i class="fa fa-plus"></i> 添加表单项</a>
   </div>
 </div>
 
@@ -63,9 +79,13 @@ $(function(){
       this.submit();
   });
 
-  $("#fund").select2({
+  $("#fund-unrestricted").select2({
       language: "zh-CN"
   });
+
+    $("#fund-restricted").select2({
+        language: "zh-CN"
+    });
 })
 
 $("#form").nestedAttributes({

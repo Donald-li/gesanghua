@@ -25,4 +25,14 @@ RSpec.describe Volunteer, type: :model do
   let!(:user) { create(:user) }
   let!(:volunteer) { create(:volunteer, user: user) }
 
+  describe '测试生成志愿者编号' do
+    it '生成志愿者申请编号' do
+      expect(volunteer.volunteer_apply_no.present?).to eq true
+    end
+
+    it '生成志愿者编号' do
+      volunteer.gen_volunteer_no
+      expect(volunteer.volunteer_no.present?).to eq true
+    end
+  end
 end

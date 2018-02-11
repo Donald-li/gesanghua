@@ -26,7 +26,7 @@
 
 class IncomeRecord < ApplicationRecord
 
-  before_save :set_record_title
+  before_create :set_record_title
 
   belongs_to :user, optional: true
   belongs_to :fund, optional: true
