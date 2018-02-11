@@ -22,10 +22,20 @@
 #  types_mask       :integer                                # 任务类型
 #  apply_end_at     :datetime                               # 申请结束时间
 #  principal_id     :integer                                # 任务负责人
+#  task_no          :string                                 # 任务编号
 #
 
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
-  
+  let(:user) { create(:user) }
+  let(:task_category) { create(:task_category) }
+  let(:workplace) { create(:workplace) }
+  let(:task) { create(:task, principal: user, task_category: task_category, workplace: workplace) }
+
+  describe '测试生成任务编号' do
+    it '生成任务编号' do
+      expect(task.task_no.present?).to eq true
+    end
+  end
 end

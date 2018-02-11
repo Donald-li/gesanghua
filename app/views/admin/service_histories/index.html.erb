@@ -63,7 +63,7 @@
           <% @service_histories.each do |history| %>
               <tr>
                 <td>
-                  <%= history.id %>
+                  <%= history.task.try(:task_no) %>
                 </td>
                 <td>
                   <%= history.task.try(:name) %>

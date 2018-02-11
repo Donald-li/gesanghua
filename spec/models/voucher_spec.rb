@@ -46,6 +46,7 @@ RSpec.describe Voucher, type: :model do
     donate_records << @donate_record_3
     ids = donate_records.map{ |i| i.id }
     expect(@voucher.save_voucher(ids)).to eq(true)
+    expect(@voucher.voucher_no.present?).to eq true
   end
 
 end
