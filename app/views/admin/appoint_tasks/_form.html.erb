@@ -37,33 +37,23 @@
       <div class="form-group">
         <label class="col-md-2 control-label">任务类型：</label>
         <div class="col-sm-9">
-          <ul>
-            <li>
-              <label>
-                <%= check_box_tag 'task[task_types][]', 'ordinary', @task.has_type?(:ordinary) %> 日常
-              </label>
-            </li>
-            <li>
-              <label>
-                <%= check_box_tag 'task[task_types][]', 'intensive', @task.has_type?(:intensive) %> 重点
-              </label>
-            </li>
-            <li>
-              <label>
-                <%= check_box_tag 'task[task_types][]', 'urgency', @task.has_type?(:urgency) %> 紧急
-              </label>
-            </li>
-            <li>
-              <label>
-                <%= check_box_tag 'task[task_types][]', 'innovative', @task.has_type?(:innovative) %> 创新
-              </label>
-            </li>
-            <li>
-              <label>
-                <%= check_box_tag 'task[task_types][]', 'difficult', @task.has_type?(:difficult) %> 难点
-              </label>
-            </li>
-          </ul>
+          <div class="input-group icheck-inline">
+            <label>
+              <%= check_box_tag 'task[task_types][]', 'ordinary', @task.has_type?(:ordinary) %> 日常
+            </label>
+            <label>
+              <%= check_box_tag 'task[task_types][]', 'intensive', @task.has_type?(:intensive) %> 重点
+            </label>
+            <label>
+              <%= check_box_tag 'task[task_types][]', 'urgency', @task.has_type?(:urgency) %> 紧急
+            </label>
+            <label>
+              <%= check_box_tag 'task[task_types][]', 'innovative', @task.has_type?(:innovative) %> 创新
+            </label>
+            <label>
+              <%= check_box_tag 'task[task_types][]', 'difficult', @task.has_type?(:difficult) %> 难点
+            </label>
+          </div>
         </div>
       </div>
       <div class="form-group">
