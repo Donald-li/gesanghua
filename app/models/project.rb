@@ -118,14 +118,6 @@ class Project < ApplicationRecord
     end.attributes!
   end
 
-  def self.find_project(value)
-    if value == 'toGsh'
-      nil
-    else
-      self.find(value.to_i)
-    end
-  end
-
   private
   def set_form_from_attributes
     return unless self.form_attributes.present?

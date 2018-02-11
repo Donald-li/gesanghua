@@ -23,9 +23,6 @@
               </li>
               <!-- <li class="">
                 <a href="#tab_1" data-toggle="tab" aria-expanded="false"> 受益学生 </a>
-              </li>
-              <li class="">
-                <a href="#tab_2" data-toggle="tab" aria-expanded="false"> 审核信息 </a>
               </li> -->
             </ul>
             <div class="tab-content">
@@ -171,41 +168,6 @@
                   </div>
                 </div>
               </div>
-
-              <div class="tab-pane" id="tab_2">
-                <div class="portlet-body">
-                  <div class="table-scrollable">
-                    <table class="table table-bordered table-hover">
-                      <tbody>
-                      <tr>
-                        <th width="72px">
-                          审核状态
-                        </th>
-                        <th>
-                          <span id="check_state"><%= @audit.enum_name(:state) %></span>
-                        </th>
-                      </tr>
-                      <tr>
-                        <th>
-                          审核评语
-                        </th>
-                        <th>
-                          <span id="check_comment"><%= @audit.comment %></span>
-                        </th>
-                      </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <div class="form-actions">
-                  <div class="row">
-                    <div class="col-md-offset-2 col-md-9">
-                      <!-- <a class="btn blue" data-toggle="modal" data-target="#myModal_update" href="#responsive"> 修改审核信息 </a> -->
-                      <a class="btn blue" data-toggle="modal" data-target="#myModal_create" href="#responsive"> 审核 </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -214,63 +176,6 @@
   </div>
 </div>
 
-<% if false %>
-    <div class="modal fade" id="myModal_update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <%= simple_form_for [:admin, @project_apply, @audit], url: update_audit_admin_flower_apply_path, remote: true, wrapper: :admin_form, html: {'data-parsley-validate': true} do |f| %>
-              <%= f.error_notification %>
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">审核信息</h4>
-              </div>
-              <div class="modal-body">
-                <div class="portlet-body form">
-                  <div class="form-body form-horizontal">
-                    <%= f.hidden_field :project_season_apply_id, value: params[:id] %>
-                    <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Audit.options_for_some_select(:states), label: '审核状态：', required: true %>
-                    <%= f.input :comment, label: '备注', placeholder: '请填写备注' %>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="submit" class="btn btn-primary">提交审核</button>
-              </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-<% end %>
-
-<div class="modal fade" id="myModal_create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <%= simple_form_for [:admin, @project_apply, @new_audit], url: create_audit_admin_flower_applies_path, remote: true, wrapper: :admin_form, html: {'data-parsley-validate': true} do |f| %>
-          <%= f.error_notification %>
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">审核信息</h4>
-          </div>
-          <div class="modal-body">
-            <div class="portlet-body form">
-              <div class="form-body form-horizontal">
-                <%= f.hidden_field :project_season_apply_id, value: params[:id] %>
-                <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Audit.options_for_some_select(:states), label: '审核：', required: true %>
-                <%= f.input :comment, label: '评语：', placeholder: '请填写评语' %>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            <button type="submit" class="btn btn-primary">提交审核</button>
-          </div>
-      <% end %>
-    </div>
-  </div>
-</div>
 <script type="text/javascript">
     $(function () {
         //    表单验证
@@ -350,6 +255,3 @@
         $('.upload-list').viewer();
     })
 </script>
-
-</div>
-</div>

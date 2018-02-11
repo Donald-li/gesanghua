@@ -110,7 +110,7 @@
                         <i class="fa fa-edit"></i> 修改
                     <% end %>
                     <%= link_to admin_read_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
-                        <i class="fa fa-check"></i> 审核
+                        <i class="fa fa-gavel"></i> 审核
                     <% end %>
                     <%# if apply.bookshelves.present? %>
                       <%# project_season_apply_bookshelf_id = apply.bookshelves.first.id %>
@@ -127,9 +127,7 @@
                       <% end %>
                     <% end %>
                   <% else %>
-                    <span class="btn btn-xs red">
-                      <i class="fa fa-exchange"></i> 已转为筹款项目
-                    </span>
+                      <button class="btn btn-xs green">已转为筹款项目</button>
                   <% end %>
                 </td>
               </tr>
