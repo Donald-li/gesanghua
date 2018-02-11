@@ -6,7 +6,7 @@
     <div class="actions">
       <%= link_to new_admin_project_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
       <i class="icon-plus"></i>
-      <span>新增自定义项目</span>
+      <span>新增</span>
       <% end %>
     </div>
   </div>
@@ -41,13 +41,13 @@
               封面
             </th>
             <th>
-              收入分类
+              定项非指定财务收入分类
+            </th>
+            <th>
+              定项指定财务收入分类
             </th>
             <th>
               描述
-            </th>
-            <th>
-              排序
             </th>
             <th>
               操作
@@ -70,13 +70,10 @@
                   <%= "#{project.fund.try(:fund_category).try(:name)} - #{project.fund.try(:name)}" %>
                 </td>
                 <td>
-                  <%=  project.sliced_describe %>
+                  <%= "#{project.appoint_fund.try(:fund_category).try(:name)} - #{project.appoint_fund.try(:name)}" %>
                 </td>
                 <td>
-                  <%= link_to '顶部', move_admin_project_path(project, to: :to_top), method: :put %>
-                  <%= link_to '上', move_admin_project_path(project, to: :higher), method: :put %>
-                  <%= link_to '下', move_admin_project_path(project, to: :lower), method: :put %>
-                  <%= link_to '底部', move_admin_project_path(project, to: :to_bottom), method: :put %>
+                  <%=  project.sliced_describe %>
                 </td>
                 <td>
                   <%= link_to edit_admin_project_path(project), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>

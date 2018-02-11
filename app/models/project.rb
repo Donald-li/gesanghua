@@ -40,46 +40,48 @@ class Project < ApplicationRecord
   has_many :continuals, as: :owner
   belongs_to :donate_item, optional: true
 
-  belongs_to :fund, optional: true
-  belongs_to :appoint_fund, class_name: 'Fund', optional: true
+  belongs_to :fund, optional: true # 定项非指定
+  belongs_to :appoint_fund, class_name: 'Fund', optional: true # 定项指定
 
   validates :name, :protocol, presence: true
 
   default_value_for :form, []
   before_save :set_form_from_attributes
 
-  # enum kind: { normal: 1, goods: 2 } # 项目类型 1:固定项目 2:物资类项目
-  enum kind: { pair: 1, book: 2, radio: 3, care: 4, movie: 5, camp: 6, custom: 7} # 项目类型 1:一对一 2:悦读 3:广播 4:护花 5:观影 6:营 7:自定义
+  enum kind: { fixed: 1, apply: 2, goods: 3 } # 项目类型 1:固定类 2:申请类 2:物资类
 
-  acts_as_list column: :position
-  scope :sorted, ->{ order(position: :asc) }
+  scope :sorted, ->{ order(id: :asc) }
 
   def self.pair_project
-    self.pair.first
+    self.find 1
   end
 
   def self.book_project
-    self.book.first
+    self.find 2
   end
 
   def self.book_supply_project
-    self.book.second
+    self.find 2
   end
 
   def self.radio_project
-    self.radio.first
+    self.find 6
   end
 
   def self.care_project
-    self.care.first
+    self.find 7
   end
 
   def self.movie_project
-    self.movie.first
+    self.find 4
+  end
+
+  def self.movie_care_project
+    self.find 5
   end
 
   def self.camp_project
-    self.camp.first
+    self.find 3
   end
 
   def sliced_describe
