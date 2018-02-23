@@ -37,7 +37,7 @@ class DonateItem < ApplicationRecord
           json.array! Settings.amount_tabs do |amount_tab|
             json.id amount_tab
             json.amount amount_tab
-            json.alias amount_tab
+            json.alias ''
           end
         end
       end
