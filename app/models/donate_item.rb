@@ -30,7 +30,6 @@ class DonateItem < ApplicationRecord
     Jbuilder.new do |json|
       json.name self.name
       json.value self.id
-      # json.amount_tabs self.amount_tabs.show.sorted.map {|t| t.summary_builder}
       if self.amount_tabs.present?
         json.amount_tabs self.amount_tabs.show.sorted.map {|t| t.summary_builder}
       else
