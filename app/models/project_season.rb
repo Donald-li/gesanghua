@@ -29,7 +29,7 @@ class ProjectSeason < ApplicationRecord
   default_value_for :state, 1
 
   scope :sorted, -> { order(created_at: :desc)}
-  scope :pair, -> { where(project_id: 1) } # 结对
+  scope :pair, -> { where(project_id: 1) } # 一对一
   scope :book, -> { where(project_id: 2) } # 悦读
   scope :movie, -> { where(project_id: 3) } # 观影
   scope :camp, -> { where(project_id: 4) } # 探索营

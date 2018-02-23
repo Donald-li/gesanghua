@@ -3,7 +3,7 @@
   <div class="form-body form-horizontal">
     <% if @project.new_record? %>
       <%= f.hidden_field :project_id, value: ProjectSeason.radio_project_id %>
-      <%= f.input :project_season_id, as: :select, label: '结对批次：', input_html: {class: 'seasons-ajax'} %>
+      <%= f.input :project_season_id, as: :select, label: '一对一批次：', input_html: {class: 'seasons-ajax'} %>
       <%= f.input :school_id, as: :select, label: '选择学校：', input_html: {class: 'schools-ajax'} %>
       <div style="margin-bottom: 20px;" class="form-group">
         <label class="col-md-2 control-label select required" for="project_category_id">收货地址：</label>

@@ -17,7 +17,7 @@
               <div class="form-body">
                 <% if @project_apply.new_record? %>
                   <%= f.hidden_field :project_id, value: ProjectSeason.radio_project_id %>
-                  <%= f.input :project_season_id, as: :select, label: '结对批次：', input_html: {class: 'seasons-ajax'} %>
+                  <%= f.input :project_season_id, as: :select, label: '一对一批次：', input_html: {class: 'seasons-ajax'} %>
                 <% else %>
                   <%= static_form_control '申请批次：', @project_apply.season.name %>
                 <% end %>

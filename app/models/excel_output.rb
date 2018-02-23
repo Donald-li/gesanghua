@@ -55,7 +55,7 @@ class ExcelOutput
   #                      grant.enum_name(:state)]
   #     end
   #   end
-  #   p.serialize "public/files/结对发放" + DateTime.now.strftime("%Y-%m-%d-%s") + ".xlsx"
+  #   p.serialize "public/files/一对一发放" + DateTime.now.strftime("%Y-%m-%d-%s") + ".xlsx"
   # end
 
   def self.campaign_enlist_output(campaign)
@@ -99,7 +99,7 @@ class ExcelOutput
     header = wb.styles.add_style :sz => 16, :b => true, :alignment => {:horizontal => :center}
     wb.add_worksheet(:name => "表") do |sheet|
       sheet.add_row ["收入名称", "收入分类", "捐助时间", "捐助金额", "捐助渠道", "捐助人", "手机号码", "代捐人", "汇款人", "备注", "开票状态(已开票/未开票)"], :style => header
-      sheet.add_row ["爱心人士捐助结对非指定款项", "结对-非指定",	"2018/1/17 12:30", "2000", "微信支付", "爱心人士", "13800888888", "爱心人士", "爱心人士", "好好学习", "已开票","请按照模板格式填写"], types: [:string] * 9
+      sheet.add_row ["爱心人士捐助一对一非指定款项", "一对一-非指定",	"2018/1/17 12:30", "2000", "微信支付", "爱心人士", "13800888888", "爱心人士", "爱心人士", "好好学习", "已开票","请按照模板格式填写"], types: [:string] * 9
       3.times do
         sheet.add_row []
       end
@@ -125,7 +125,7 @@ class ExcelOutput
     header = wb.styles.add_style :sz => 16, :b => true, :alignment => {:horizontal => :center}
     wb.add_worksheet(:name => "表") do |sheet|
       sheet.add_row ["支出名称", "支出时间", "支出分类", "支出金额", "备注", "经办人"], :style => header
-      sheet.add_row ["结对孩子支出", "2018/1/17 12:30", "结对-非指定", "2000", "好好学习", "李阿姨", "请按照模板格式填写"], types: [:string] * 6
+      sheet.add_row ["一对一孩子支出", "2018/1/17 12:30", "一对一-非指定", "2000", "好好学习", "李阿姨", "请按照模板格式填写"], types: [:string] * 6
       3.times do
         sheet.add_row []
       end

@@ -21,8 +21,8 @@
 
 FactoryBot.define do
   factory :project, aliases: [:pair_project] do
-    name '结对'
-    describe '一对一结对项目'
+    name '一对一'
+    describe '一对一一对一项目'
     protocol '用户协议'
 
     trait :book do
