@@ -17,7 +17,7 @@
         <%= f.error_notification %>
         <div class="form-body form-horizontal">
           <%= f.input :amount, label: '金额：', autofocus: true, id: 'amount', input_html: { data: {'parsley-required': true, 'parsley-min': 0, 'parsley-type': 'number'}} %>
-          <%= f.input :alias, label: '别名：', autofocus: true, placeholder: '最多4个字', input_html: { data: {'parsley-required': true, 'parsley-maxlength': 4}} %>
+          <%= f.input :alias, label: '别名：', autofocus: true, placeholder: '最多5个字', input_html: { data: {'parsley-required': true, 'parsley-maxlength': 5}} %>
           <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: AmountTab.options_for_select(:states), label: '状态：' %>
         </div>
         <div class="form-actions">
