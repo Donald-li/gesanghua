@@ -238,6 +238,14 @@ zh:
   report_states:
     show: '显示'
     hidden: '隐藏'
+  grant_states:
+    waiting: '待发放'
+    granted: '已发放'
+    suspend: '暂缓'
+    cancel: '已取消'
+  grant_batch_states:
+    waiting: '待发放'
+    granted: '已发放'
   gsh_child_grant_states:
     waiting: '待发放'
     granted: '已发放'

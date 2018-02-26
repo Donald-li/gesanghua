@@ -19,10 +19,24 @@ class GrantBatch < ApplicationRecord
   belongs_to :user, optional: true
   has_many :grants, dependent: :nullify
 
-  enum state: {ungrant: 1, granted: 2} # 状态 1:待发放， 2已发放
+  enum state: {waiting: 1, granted: 2} # 状态 1:待发放， 2已发放
   default_value_for :state, 1
 
+  default_value_for(:project_id){ Project.pair_project.try(:id) }
+
+  scope :sorted, ->{ order(id: :desc) }
+
   before_create :gen_code
+
+  # 总数
+  def total_count
+    self.grants.count
+  end
+
+  # 已发放数
+  def granted_count
+    self.grants.granted.count
+  end
 
   private
   def gen_code

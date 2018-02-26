@@ -102,7 +102,7 @@ class Admin::PairGrantsController < Admin::BaseController
   # def destroy
   #   @grant.destroy
   #   respond_to do |format|
-  #     format.html { redirect_to admin_pair_grants_path, grant: '项目报告已删除。' }
+  #     format.html { redirect_to admin_pair_grants_path, notice: '项目报告已删除。' }
   #   end
   # end
 

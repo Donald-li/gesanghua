@@ -1,0 +1,5 @@
+
+ <% html = escape_javascript(render :partial => "/admin/pair_grant_batch_items/items",
+    :locals=>{grants: @grants} ) -%>
+ $('#items_list').html('<%=html%>');
+ $('#search-btn').click()
