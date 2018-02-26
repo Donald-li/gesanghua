@@ -2,7 +2,11 @@
   namespace :api do
     namespace :v1 do
       namespace :account do
-        resources :donate_records, only: [:index]
+        resources :donate_records, only: [:index] do
+          collection do
+            get :projects
+          end
+        end
       end
 
       resource :main, only: [:show] do
