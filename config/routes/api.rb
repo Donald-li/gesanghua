@@ -1,6 +1,14 @@
 
   namespace :api do
     namespace :v1 do
+      namespace :account do
+        resources :donate_records, only: [:index] do
+          collection do
+            get :projects
+          end
+        end
+      end
+
       resource :main, only: [:show] do
         get :contribute
         post :settlement
@@ -47,6 +55,8 @@
           get :donor_list
         end
       end
+
+      resources :cooperation_pairs
 
     end
 
