@@ -320,6 +320,10 @@ class DonateRecord < ApplicationRecord
       json.item_name self.appoint.present? ? self.appoint.name : ''
       json.team self.team.present? ? self.team.name : ''
       json.project self.try(:project).try(:name)
+      json.donate_name self.try(:donate_item).try(:name) || self.try(:project).try(:name)
+      json.apply_name self.try(:apply).try(:name)
+      json.project_img self.try(:project).try(:project_image)
+      json.income_source self.try(:income_record).try(:income_source).try(:name)
     end.attributes!
   end
 

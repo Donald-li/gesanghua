@@ -100,6 +100,10 @@ class Project < ApplicationRecord
     (self.form || []).detect{|item|item['key'] == key}.try('[]', 'label') || ''
   end
 
+  def project_image
+    self.image.file_url(:tiny) || ''
+  end
+
   def summary_builder
     Jbuilder.new do |json|
       json.(self, :id)

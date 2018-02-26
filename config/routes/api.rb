@@ -1,6 +1,10 @@
 
   namespace :api do
     namespace :v1 do
+      namespace :account do
+        resources :donate_records, only: [:index]
+      end
+
       resource :main, only: [:show] do
         get :contribute
         post :settlement
