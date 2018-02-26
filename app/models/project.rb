@@ -101,7 +101,7 @@ class Project < ApplicationRecord
   end
 
   def project_image
-    self.image.file_url(:tiny) || ''
+    self.try(:image).file_url(:tiny) || ''
   end
 
   def summary_builder
