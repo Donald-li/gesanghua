@@ -377,6 +377,11 @@ Rails.application.routes.draw do
           get :donor_list
         end
       end
+      resources :school_users, only: [:show] do
+        member do
+          get :school_details
+        end
+      end
 
     end
 

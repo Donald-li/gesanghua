@@ -40,7 +40,7 @@ class School < ApplicationRecord
   has_many_assets :images, class_name: 'Asset::SchoolImage'
 
   has_many :bookshelves, class_name: 'ProjectSeasonApplyBookshelf'
-  
+
   # has_many :supplements, class_name: 'BookshelfSupplement', foreign_key: 'project_season_apply_id'
   has_many :teachers, dependent: :destroy
   has_many :book_shelves
@@ -80,6 +80,42 @@ class School < ApplicationRecord
 
   def short_address
     ChinaCity.get(self.city).to_s + " " + ChinaCity.get(self.district).to_s
+  end
+
+  def summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :name)
+      json.kind self.kind === 1? '校长' : '教师'
+    end.attributes!
+  end
+
+  def detail_builder
+    Jbuilder.new do |json|
+      json.(self, :id)
+      json.name self.name
+      json.address self.address
+      json.province self.province
+      json.city self.city
+      json.district self.district
+      json.postcode self.postcode
+      json.number self.number
+      json.teacher_count self.teacher_count
+      json.logistic_count self.logistic_count
+      json.describe self.describe
+      json.contact_name self.contact_name
+      json.contact_idcard self.contact_idcard
+      json.contact_phone self.contact_phone
+      json.contact_telephone self.contact_telephone
+      json.images do
+        json.array! self.images do |img|
+          json.id img.id
+          json.thumb img.file_url(:small)
+          json.src img.file_url
+          json.w img.width
+          json.h img.height
+        end
+      end
+    end.attributes!
   end
 
   private
