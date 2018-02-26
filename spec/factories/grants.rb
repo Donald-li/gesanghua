@@ -13,6 +13,7 @@
 #  amount                  :decimal(14, 2)   default(0.0)          # 资助金额
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  grant_batch_id          :integer                                # 批次号
 #
 
 FactoryBot.define do

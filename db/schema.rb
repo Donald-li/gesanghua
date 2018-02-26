@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180211060710) do
+ActiveRecord::Schema.define(version: 20180226072637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -348,6 +348,18 @@ ActiveRecord::Schema.define(version: 20180211060710) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "grant_batches", force: :cascade, comment: "发放批次" do |t|
+    t.integer "project_id", comment: "所属项目"
+    t.string "batch_no", comment: "批次号"
+    t.string "name", comment: "名称"
+    t.text "description", comment: "描述"
+    t.integer "state", comment: "状态"
+    t.integer "user_id", comment: "发放负责人"
+    t.datetime "grant_at", comment: "发放时间"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "grants", force: :cascade, comment: "发放表" do |t|
     t.integer "project_id", comment: "归属项目ID"
     t.integer "project_season_id", comment: "项目年度ID"
@@ -359,6 +371,7 @@ ActiveRecord::Schema.define(version: 20180211060710) do
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "资助金额"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "grant_batch_id", comment: "批次号"
   end
 
   create_table "gsh_child_grants", force: :cascade, comment: "格桑花孩子发放表" do |t|
