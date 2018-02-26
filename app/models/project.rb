@@ -101,7 +101,7 @@ class Project < ApplicationRecord
   end
 
   def project_image
-    self.try(:image).file_url(:tiny) || ''
+    self.image.present? ? self.try(:image).file_url(:tiny) : ''
   end
 
   def summary_builder
