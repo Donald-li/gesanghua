@@ -19,7 +19,7 @@ RSpec.describe "Api::V1::Account::DonateRecords", type: :request do
     end
 
     it '获取项目' do
-      get projects_api_v1_account_donate_records_path
+      get projects_api_v1_account_donate_records_path, headers: api_v1_headers(login_user)
       api_v1_expect_success
     end
 
@@ -32,7 +32,7 @@ RSpec.describe "Api::V1::Account::DonateRecords", type: :request do
       child = create(:project_season_apply_child, project: project, season: season, apply: apply, school: school)
       record = create(:donate_record, project: project, season: season, apply: apply, user: login_user, appoint: child )
 
-      get record_details_api_v1_account_donate_record_path(id: record.id)
+      get record_details_api_v1_account_donate_record_path(id: record.id), headers: api_v1_headers(login_user)
       api_v1_expect_success
     end
 
