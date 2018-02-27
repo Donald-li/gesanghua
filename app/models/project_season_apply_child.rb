@@ -37,6 +37,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   # attr_accessor :image_ids
   include HasAsset
   has_many_assets :images, class_name: 'Asset::ApplyChildImage'
+  has_one_asset :avatar, class_name: 'Asset::ApplyChildAvatar' # 前台上传的个人照片作为孩子头像
 
   belongs_to :project
   belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id'
@@ -48,6 +49,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   has_many :remarks, as: :owner
   has_many :complaints, as: :owner
   has_many :donates, class_name: 'DonateRecord', dependent: :destroy
+  has_many :continuals, as: :owner
 
   has_many :period_child_ships
   has_many :project_season_apply_periods, through: :period_child_ships
@@ -247,6 +249,19 @@ class ProjectSeasonApplyChild < ApplicationRecord
         end
       end
     end.attributes!
+  end
+
+  def list_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :name, :age)
+      json.level_name self.enum_name(:level)
+      json.id_card self.secure_id_card
+    end.attributes!
+  end
+
+  def secure_id_card
+    card = self.id_card
+    return card[0] + '*' * (card.length - 2) + card[-1]
   end
 
   def donate_record_builder

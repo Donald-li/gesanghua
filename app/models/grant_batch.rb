@@ -17,7 +17,7 @@
 class GrantBatch < ApplicationRecord
   belongs_to :project
   belongs_to :user, optional: true
-  has_many :grants, dependent: :nullify
+  has_many :grants, class_name: 'GshChildGrant', foreign_key: :grant_batch_id, dependent: :nullify
 
   enum state: {waiting: 1, granted: 2} # 状态 1:待发放， 2已发放
   default_value_for :state, 1

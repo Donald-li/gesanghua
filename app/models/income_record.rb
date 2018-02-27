@@ -15,7 +15,6 @@
 #  remitter_id      :integer                                # 汇款人id
 #  donor            :string                                 # 捐赠者
 #  promoter_id      :integer                                # 劝捐人
-#  donate_record_id :integer                                # 捐助记录id
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  income_time      :datetime                               # 入账时间
@@ -35,7 +34,7 @@ class IncomeRecord < ApplicationRecord
   # belongs_to :remitter, class_name: 'User'
 
   has_many :expenditure_records
-  belongs_to :donate_record, optional: true
+  has_many :donate_records, dependent: :nullify
   # appoint_type 多态关联
   # belongs_to :user, polymorphic: true
 
@@ -75,7 +74,10 @@ class IncomeRecord < ApplicationRecord
   end
 
   def set_record_title
-    self.title = "#{self.donate_record.try(:user).try(:name)}捐助#{self.donate_record.try(:apply).try(:name)}#{self.donate_record.try(:fund).try(:name)}款项" unless self.title.present?
+    return if self.title.present?
+    donate_record = self.donate_records.first
+    return unless donate_record
+    self.title ||= "#{donate_record.try(:user).try(:name)}捐助#{donate_record.try(:apply).try(:name)}#{donate_record.try(:fund).try(:name)}款项"
   end
 
 end

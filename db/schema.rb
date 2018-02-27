@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180226072637) do
+ActiveRecord::Schema.define(version: 20180227064435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -264,6 +264,7 @@ ActiveRecord::Schema.define(version: 20180226072637) do
     t.integer "project_season_apply_bookshelf_id", comment: "书架id"
     t.integer "bookshelf_supplement_id", comment: "补书ID"
     t.integer "donate_item_id", comment: "可捐助id"
+    t.integer "income_record_id", comment: "收入记录"
   end
 
   create_table "donation_use_logs", force: :cascade, comment: "捐款使用路径" do |t|
@@ -396,6 +397,8 @@ ActiveRecord::Schema.define(version: 20180226072637) do
     t.text "remark"
     t.integer "operator_id", comment: "异常处理人id"
     t.string "grant_person", comment: "发放人"
+    t.integer "user_id", comment: "捐助人"
+    t.integer "grant_batch_id", comment: "发放批次"
     t.index ["gsh_child_id"], name: "index_gsh_child_grants_on_gsh_child_id"
     t.index ["project_season_apply_id"], name: "index_gsh_child_grants_on_project_season_apply_id"
   end
@@ -430,7 +433,6 @@ ActiveRecord::Schema.define(version: 20180226072637) do
     t.integer "remitter_id", comment: "汇款人id"
     t.string "donor", comment: "捐赠者"
     t.integer "promoter_id", comment: "劝捐人"
-    t.integer "donate_record_id", comment: "捐助记录id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "income_time", comment: "入账时间"
@@ -613,8 +615,8 @@ ActiveRecord::Schema.define(version: 20180226072637) do
     t.datetime "updated_at", null: false
     t.integer "project_season_id", comment: "年度ID"
     t.integer "position", comment: "位置"
-    t.integer "grade", comment: "结对对应年级"
-    t.integer "semester", comment: "结对对应学期"
+    t.integer "grade", comment: "一对一对应年级"
+    t.integer "semester", comment: "一对一对应学期"
   end
 
   create_table "project_season_apply_volunteers", force: :cascade, comment: "项目执行年度申请和志愿者关联表" do |t|

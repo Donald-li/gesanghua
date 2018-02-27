@@ -24,6 +24,8 @@
 #  remark                  :text
 #  operator_id             :integer                                # 异常处理人id
 #  grant_person            :string                                 # 发放人
+#  user_id                 :integer                                # 捐助人
+#  grant_batch_id          :integer                                # 发放批次
 #
 
 class GshChildGrant < ApplicationRecord
@@ -35,6 +37,8 @@ class GshChildGrant < ApplicationRecord
   belongs_to :project_season, optional: true
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id', optional: true
   belongs_to :operator, class_name: 'User', foreign_key: 'operator_id', optional: true
+  belongs_to :grant_batch, optional: true
+  belongs_to :donator, class_name: 'User', foreign_key: 'user_id', optional: true # 捐助人
 
   has_one :feedback, as: :owner
 
@@ -47,7 +51,7 @@ class GshChildGrant < ApplicationRecord
   enum balance_manage: {transfer: 1, send_back: 2} # 捐助状态 1:转捐 2:退回
   # default_value_for :balance_manage, 0
 
-  scope :sorted, ->(){ order(created_at: :desc) }
+  scope :sorted, ->(){ order(id: :desc) }
   scope :reverse_sorted, ->{ sorted.reverse_order }
 
   counter_culture :gsh_child, column_name: "semester_count"

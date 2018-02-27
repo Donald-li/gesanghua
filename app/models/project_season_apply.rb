@@ -91,6 +91,10 @@ class ProjectSeasonApply < ApplicationRecord
   #   self.raise_project?
   # end
 
+  def apply_name
+    self.season.try(:name).to_s + '-' + self.school.try(:name).to_s
+  end
+
   def pass_bookshelf?
     if self.bookshelves.pass.present? || self.supplements.pass.present?
       true

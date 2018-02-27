@@ -10,6 +10,12 @@
             get :record_details
           end
         end
+
+        resources :pair_children, only: [:index] do
+          collection do
+            get :feedback_list
+          end
+        end
       end
 
       resource :main, only: [:show] do
@@ -59,7 +65,11 @@
         end
       end
 
-      resources :cooperation_pairs
+      resources :cooperation_pairs do
+        collection do
+          get :verified_students
+        end
+      end
 
       resources :school_users do
         collection do

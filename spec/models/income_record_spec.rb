@@ -15,7 +15,6 @@
 #  remitter_id      :integer                                # 汇款人id
 #  donor            :string                                 # 捐赠者
 #  promoter_id      :integer                                # 劝捐人
-#  donate_record_id :integer                                # 捐助记录id
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  income_time      :datetime                               # 入账时间

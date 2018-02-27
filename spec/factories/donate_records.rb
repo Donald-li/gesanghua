@@ -32,6 +32,7 @@
 #  project_season_apply_bookshelf_id :integer                                # 书架id
 #  bookshelf_supplement_id           :integer                                # 补书ID
 #  donate_item_id                    :integer                                # 可捐助id
+#  income_record_id                  :integer                                # 收入记录
 #
 
 FactoryBot.define do
