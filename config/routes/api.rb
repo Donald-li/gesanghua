@@ -65,7 +65,11 @@
         end
       end
 
-      resources :cooperation_pairs
+      resources :cooperation_pairs do
+        collection do
+          get :verified_students
+        end
+      end
 
       resources :school_users do
         member do

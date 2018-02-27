@@ -251,6 +251,19 @@ class ProjectSeasonApplyChild < ApplicationRecord
     end.attributes!
   end
 
+  def list_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :name, :age)
+      json.level_name self.enum_name(:level)
+      json.id_card self.secure_id_card
+    end.attributes!
+  end
+
+  def secure_id_card
+    card = self.id_card
+    return card[0] + '*' * (card.length - 2) + card[-1]
+  end
+
   def donate_record_builder
     Jbuilder.new do |json|
         json.array! self.donate_all_records do |grant|
