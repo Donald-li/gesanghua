@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Api::V1::Children::PairChildren", type: :request do
+RSpec.describe "Api::V1::Account::PairChildren", type: :request do
 
   let!(:login_user) {create(:user)}
   let!(:pair) {create(:project)}
