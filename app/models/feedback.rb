@@ -61,9 +61,12 @@ class Feedback < ApplicationRecord
       json.name self.owner.name
       json.avatar self.child.avatar.present? ? self.child.avatar_url(:tiny).to_s : ''
       json.images do
-        json.array! self.images do |image|
-          json.(image, :id)
-          json.image image.file.url(:tiny)
+        json.array! self.images do |img|
+          json.id img.id
+          json.thumb img.file_url(:tiny)
+          json.src img.file_url
+          json.w img.width
+          json.h img.height
         end
       end
     end.attributes!
