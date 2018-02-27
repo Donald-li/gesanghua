@@ -6,7 +6,12 @@
           collection do
             get :projects
           end
+          member do
+            get :record_details
+          end
         end
+
+        resources :pair_children, only: [:index]
       end
 
       resource :main, only: [:show] do
@@ -57,6 +62,13 @@
       end
 
       resources :cooperation_pairs
+
+      resources :school_users do
+        member do
+          get :school_summary
+          get :school_details
+        end
+      end
 
     end
 

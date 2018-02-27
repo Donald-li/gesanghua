@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20180227064435) do
+=======
+ActiveRecord::Schema.define(version: 20180227042627) do
+>>>>>>> 9e74869e497f0c16fadfd9418fab76a0c53d0275
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -397,7 +401,11 @@ ActiveRecord::Schema.define(version: 20180227064435) do
     t.text "remark"
     t.integer "operator_id", comment: "异常处理人id"
     t.string "grant_person", comment: "发放人"
+<<<<<<< HEAD
     t.integer "grant_batch_id", comment: "发放批次"
+=======
+    t.integer "user_id", comment: "捐助人"
+>>>>>>> 9e74869e497f0c16fadfd9418fab76a0c53d0275
     t.index ["gsh_child_id"], name: "index_gsh_child_grants_on_gsh_child_id"
     t.index ["project_season_apply_id"], name: "index_gsh_child_grants_on_project_season_apply_id"
   end
@@ -614,8 +622,8 @@ ActiveRecord::Schema.define(version: 20180227064435) do
     t.datetime "updated_at", null: false
     t.integer "project_season_id", comment: "年度ID"
     t.integer "position", comment: "位置"
-    t.integer "grade", comment: "一对一对应年级"
-    t.integer "semester", comment: "一对一对应学期"
+    t.integer "grade", comment: "结对对应年级"
+    t.integer "semester", comment: "结对对应学期"
   end
 
   create_table "project_season_apply_volunteers", force: :cascade, comment: "项目执行年度申请和志愿者关联表" do |t|

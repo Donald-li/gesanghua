@@ -18,7 +18,7 @@ class IncomeSource < ApplicationRecord
 
   validates :name, presence: true
 
-  enum kind: {online: 1, offline: 2} # 类型： 1:线上（online） 2:线下（offline）
+  enum kind: {weixin: 1, cellphone: 2, computer: 3, offline: 4} # 类型： 1:微信 2:手机 3:PC 4:线下（offline）
   default_value_for :kind, 1
 
   acts_as_list column: :position

@@ -48,6 +48,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   has_many :remarks, as: :owner
   has_many :complaints, as: :owner
   has_many :donates, class_name: 'DonateRecord', dependent: :destroy
+  has_many :continuals
 
   has_many :period_child_ships
   has_many :project_season_apply_periods, through: :period_child_ships
