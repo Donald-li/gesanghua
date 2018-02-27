@@ -10,6 +10,8 @@
             get :record_details
           end
         end
+
+        resources :pair_children, only: [:index]
       end
 
       resource :main, only: [:show] do

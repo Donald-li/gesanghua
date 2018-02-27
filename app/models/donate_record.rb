@@ -155,7 +155,8 @@ class DonateRecord < ApplicationRecord
     user_id = user.present? ? user.id : ''
     donate = self.new(user_id: user_id, amount: total, fund: project.appoint_fund, promoter: promoter, pay_state: 'unpay', project: project, gsh_child: gsh_child)
     if donate.save
-      self.donate_child_semesters(gsh_child, semester_num).update(donate_state: :succeed)
+      self.donate_child_semesters(gsh_child, semester_num).update(donate_state: :succeed, user_id: user.id)
+      gsh_child.update(user: user)
     end
     return donate
   end

@@ -9,7 +9,6 @@
 #  description :string                                 # 描述
 #  position    :integer                                # 位置
 #  kind        :integer                                # 类型： 1:线上（online） 2:线下（offline）
-#  platform    :integer                                # 捐助渠道（通过手机/PC/微信平台捐助）
 #
 
 class IncomeSource < ApplicationRecord

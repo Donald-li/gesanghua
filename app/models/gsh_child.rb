@@ -50,6 +50,16 @@ class GshChild < ApplicationRecord
     "#{self.done_semester_count}/#{self.semester_count}"
   end
 
+  def summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :name, :gsh_no)
+      json.child_id self.apply_child.id
+      json.grants self.semesters.where(user_id: self.user_id).pluck(:title).join('/').gsub(/\s/, '').strip
+      json.donate_state self.semesters.pending.size > 0
+      json.num self.apply_child.continuals.count
+    end.attributes!
+  end
+
   private
   def gen_gsh_no
     self.gsh_no ||= Sequence.get_seq(kind: :gsh_no, prefix: 'GSH', length: 10)
