@@ -16,6 +16,7 @@
 #  grant_batch_id          :integer                                # 批次号
 #
 
+#TODO: 已废弃
 class Grant < ApplicationRecord
 
   belongs_to :project

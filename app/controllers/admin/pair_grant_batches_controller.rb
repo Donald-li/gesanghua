@@ -10,7 +10,7 @@ class Admin::PairGrantBatchesController < Admin::BaseController
     @search = @batch.grants.search(params[:q])
     @items = @search.result.includes(:gsh_child, :school).all
 
-    @grants = Grant.where('1<>1').search(params[:q]).result.page(1)
+    @grants = GshChildGrant.where('1<>1').search(params[:q]).result.page(1)
   end
 
   def new
