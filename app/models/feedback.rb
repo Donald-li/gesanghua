@@ -59,6 +59,7 @@ class Feedback < ApplicationRecord
       json.(self, :id, :content)
       json.time self.created_at.strftime("%Y-%m-%d %H:%M")
       json.name self.owner.name
+      json.avatar self.child.avatar.present? ? self.child.avatar_url(:tiny).to_s : ''
       json.images do
         json.array! self.images do |image|
           json.(image, :id)
