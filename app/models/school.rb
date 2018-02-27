@@ -101,26 +101,16 @@ class School < ApplicationRecord
       json.(self, :id)
       json.name self.name
       json.address self.address
-      json.province self.province
-      json.city self.city
-      json.district self.district
+      json.district [self.province, self.city, self.district]
       json.postcode self.postcode
-      json.number self.number
-      json.teacher_count self.teacher_count
-      json.logistic_count self.logistic_count
+      json.number_list [{id: 0, tit: '学生人数', num: self.number}, {id: 1, tit: '教师人数', num: self.teacher_count}, {id: 2, tit: '后勤人数', num: self.logistic_count}]
       json.describe self.describe
-      json.contact_name self.contact_name
-      json.contact_idcard self.contact_idcard
-      json.contact_phone self.contact_phone
-      json.contact_telephone self.contact_telephone
-      json.images do
-        json.array! self.images do |img|
-          json.id img.id
-          json.thumb img.file_url(:tiny)
-          json.src img.file_url
-          json.w img.width
-          json.h img.height
-        end
+      json.logo_src self.try(:logo).try(:file_url)
+      json.logo_mode self.try(:logo).present?
+      json.logo do
+        json.id self.try(:logo).try(:id)
+        json.url self.try(:logo).try(:file_url)
+        json.protect_token ''
       end
     end.attributes!
   end

@@ -62,9 +62,8 @@
       resources :cooperation_pairs
 
       resources :school_users do
-        member do
-          get :school_summary
-          get :school_details
+        collection do
+          post :update_school
         end
       end
 
