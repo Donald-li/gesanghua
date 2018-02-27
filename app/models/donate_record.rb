@@ -322,7 +322,7 @@ class DonateRecord < ApplicationRecord
       json.project self.try(:project).try(:name)
       json.donate_name self.try(:donate_item).try(:name) || self.try(:project).try(:name)
       json.apply_name self.try(:apply).try(:name)
-      json.project_img self.try(:project).try(:project_image)
+      json.project_image self.try(:project).try(:project_image).to_s
       json.income_source self.try(:income_record).try(:income_source).try(:name)
     end.attributes!
   end
