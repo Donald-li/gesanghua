@@ -3,9 +3,17 @@ class Api::V1::CooperationPairsController < Api::V1::BaseController
 
   def index
     # byebug
-    api_error(message: '无效项目') && return unless @pair
-    # user = User.find_by(auth_token: params)
-    api_success(data: @pair.detail_builder)
+    user = User.find_by(auth_token: params[:auth_token])
+    # 校长或者教师的项目申请
+    if user.has_role?(:headmaster) && user.school.present?
+      applies = user.school.project_season_applies.where(project_id: @pair.id).sorted.page(params[:page]).per(12)
+      api_success(data: {applies: applies.map { |r| r.pair_applies_builder }, pagination: json_pagination(applies)})
+    elsif user.has_role?(:teacher) && user.teacher?
+      applies = user.teacher.project_season_applies.where(project_id: @pair.id).sorted.page(params[:page]).per(12)
+      api_success(data: {applies: applies.map { |r| r.pair_applies_builder }, pagination: json_pagination(applies)})
+    else
+      api_success(data: [])
+    end
   end
 
   def verified_students

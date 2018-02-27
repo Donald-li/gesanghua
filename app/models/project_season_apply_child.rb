@@ -34,6 +34,8 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   require 'custom_validators'
 
+  before_update :update_pair_state, if: :can_update_pair_state?
+
   # attr_accessor :image_ids
   include HasAsset
   has_many_assets :images, class_name: 'Asset::ApplyChildImage'
@@ -273,6 +275,14 @@ class ProjectSeasonApplyChild < ApplicationRecord
           json.donate_state grant.donate_state
         end
     end.attributes!
+  end
+
+  def can_update_pair_state?
+    (self.pass? || self.reject?) && (self.apply.children.submit.count == 1)
+  end
+
+  def update_pair_state
+    self.apply.pair_complete!
   end
 
   protected
