@@ -86,6 +86,13 @@ class School < ApplicationRecord
     Jbuilder.new do |json|
       json.(self, :id, :name)
       json.kind self.kind === 1? '校长' : '教师'
+      json.user_name self.try(:user).try(:name)
+      # json.avatar_id self.try(:user).try(:avatar).try(:id)
+      # json.avatar_thumb self.try(:user).try(:avatar).try(:file_url(:tiny))
+      json.avatar_src self.try(:user).try(:avatar).try(:file_url)
+      # json.avatar_w self.try(:user).try(:avatar).try(:width)
+      # json.avatar_h self.try(:user).try(:avatar).try(:height)
+      json.avatar_mode self.try(:user).try(:avatar).present?
     end.attributes!
   end
 
@@ -109,7 +116,7 @@ class School < ApplicationRecord
       json.images do
         json.array! self.images do |img|
           json.id img.id
-          json.thumb img.file_url(:small)
+          json.thumb img.file_url(:tiny)
           json.src img.file_url
           json.w img.width
           json.h img.height

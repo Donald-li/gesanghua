@@ -1,18 +1,23 @@
 class Api::V1::SchoolUsersController < Api::V1::BaseController
 
-  def show
-    # @user = User.find(params[:id]) if params[:id].present?
-    # if @user.school.present?
-    #   @school = @user.school
-    #   api_success(data: @school.summary_builder)
-    # end
-    @school = School.find(2)
-    api_success(data: @school.detail_builder)
+  def index
+    @user = User.find_by(auth_token: params[:auth_token])
+    if @user.school.present?
+      @school = @user.school
+      api_success(data: @school.summary_builder)
+    else
+      api_success(data: [])
+    end
   end
 
-  def school_details
-    @school = School.find(2)
-    api_success(data: @school.detail_builder)
+  def show
+    @user = User.find_by(auth_token: params[:auth_token])
+    if @user.school.present?
+      @school = @user.school
+      api_success(data: @school.detail_builder)
+    else
+      api_success(data: [])
+    end
   end
 
 end
