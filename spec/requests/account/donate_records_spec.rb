@@ -23,5 +23,10 @@ RSpec.describe "Api::V1::Account::DonateRecords", type: :request do
       api_v1_expect_success
     end
 
+    it '获取捐助详情' do
+      get record_details_api_v1_account_donate_records_path(id: DonateRecord.first.id)
+      api_v1_expect_success
+    end
+
   end
 end

@@ -6,6 +6,9 @@
           collection do
             get :projects
           end
+          member do
+            get :record_details
+          end
         end
       end
 

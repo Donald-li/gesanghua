@@ -301,8 +301,10 @@ zh:
     company: '企业'
     other: '其他'
   income_source_kinds:
-    online: '线上捐助'
     offline: '线下捐助'
+    weixin: '微信端'
+    cellphone: '手机端'
+    computer: 'PC端'
   month_donate_states:
     donation: '捐助中'
     finished: '已结束'

@@ -10,4 +10,9 @@ class Api::V1::Account::DonateRecordsController < Api::V1::BaseController
     api_success(data: Project.sorted.map { |p| {id: p.id, name: p.name} })
   end
 
+  def record_details
+    donate_record = DonateRecord.find(params[:id])
+    api_success(data: donate_record.detail_builder)
+  end
+
 end
