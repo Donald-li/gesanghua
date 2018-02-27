@@ -1,0 +1,16 @@
+<%= simple_form_for [:admin, :pair, @batch], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
+    <%= f.error_notification %>
+    <div class="form-body form-horizontal">
+      <%= f.input :name, label: '名称：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :description, label: '描述：', input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: GrantBatch.options_for_select(:states), label: '状态：' %>
+    </div>
+    <div class="form-actions">
+      <div class="row">
+        <div class="col-md-offset-3 col-md-9">
+          <%= f.button :submit, '提交', class: 'btn green' %>
+          <%= link_to '取消', admin_pages_path, class: 'btn' %>
+        </div>
+      </div>
+    </div>
+<% end %>

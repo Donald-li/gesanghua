@@ -56,6 +56,8 @@
         end
       end
 
+      resources :cooperation_pairs
+
     end
 
     namespace :common do

@@ -107,6 +107,10 @@ namespace :admin do
       put :turn_over
     end
   end
+  resources :pair_grant_batches do
+    resources :items, controller: :pair_grant_batch_items, only: [:index, :create, :destroy]
+  end
+
   resources :pair_grants, concerns: [:excel_output] do
     member do
       get :edit_delay
