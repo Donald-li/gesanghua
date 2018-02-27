@@ -45,7 +45,7 @@ Project.find_or_create_by(name: '广播', protocol: content, describe: '项目�
 Project.find_or_create_by(name: '护花', protocol: content, describe: '项目介绍', kind: :goods, fund: fc6.funds.unrestricted.first, appoint_fund: fc6.funds.restricted.first)
 
 # 入账渠道
-IncomeSource.find_or_create_by(name: '微信支付', description: '微信支付', kind: 'online')
+IncomeSource.find_or_create_by(name: '微信支付', description: '微信支付', kind: 'weixin')
 IncomeSource.find_or_create_by(name: '线下汇款', description: '线下汇款', kind: 'offline')
 
 # 捐助项

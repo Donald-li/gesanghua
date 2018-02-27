@@ -17,8 +17,13 @@
 require 'rails_helper'
 
 RSpec.describe GrantBatch, type: :model do
+  let(:batch){ create(:grant_batch, project: Project.pair_project)}
+
   it '自动生成批次号' do
-    batch = create(:grant_batch)
     expect(batch.batch_no).not_to be(nil)
+  end
+
+  it '默认是结对项目' do
+    expect(batch.project_id).to eq(Project.pair_project.try(:id))
   end
 end

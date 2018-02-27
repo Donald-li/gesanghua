@@ -313,17 +313,19 @@ class DonateRecord < ApplicationRecord
 
   def detail_builder
     Jbuilder.new do |json|
-      json.(self, :id)
+      json.(self, :id, :donor, :donate_no, :remitter_name, :project_id)
       json.user_name self.user.present? ? self.user.name : '爱心人士'
       json.time self.created_at.strftime('%Y-%m-%d %H:%M:%S')
       json.amount number_to_currency(self.amount)
       json.item_name self.appoint.present? ? self.appoint.name : ''
       json.team self.team.present? ? self.team.name : ''
       json.project self.try(:project).try(:name)
+      json.user_name self.try(:user).try(:name)
       json.donate_name self.try(:donate_item).try(:name) || self.try(:project).try(:name)
       json.apply_name self.try(:apply).try(:name)
-      json.project_img self.try(:project).try(:project_image)
+      json.project_image self.try(:project).try(:project_image).to_s
       json.income_source self.try(:income_record).try(:income_source).try(:name)
+      json.income_kind self.try(:income_record).try(:income_source).present? ? self.try(:income_record).try(:income_source).enum_name(:kind) : ''
     end.attributes!
   end
 

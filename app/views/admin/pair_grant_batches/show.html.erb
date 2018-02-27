@@ -1,0 +1,72 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i>发放名单管理
+    </div>
+    <div class="actions">
+      <a href="javascript:;" class='btn btn-xs green' onclick='toggleFinder()' do %>
+          <i class="icon-plus"></i>
+          <span>添加孩子</span>
+      </a>
+      <%= link_to admin_pair_grant_batches_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+          <i class="fa fa-reply"></i>
+          <span>返回</span>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="left col-md-5 col-sm-12" style="display:none">
+      <div class="portlet box grey-cascade">
+        <div class="portlet-title">
+          <div class="caption">
+            <i class="icon-layers"></i>添加结对孩子
+          </div>
+        </div>
+        <div class="portlet-body">
+          <%= search_form_for @search, :url=> admin_pair_grant_batch_items_path(@batch), :remote => true,
+            :html => {:method => :get} do |f|%>
+            <%= f.select :project_season_id_eq, ProjectSeason.pair.sorted.enable.all.map{|s| [s.name, s.id]}, include_blank: '全部年度' %>
+            <%= f.text_field :school_name_cont, placeholder: '学校名称' %>
+            <%= f.text_field :gsh_child_name_or_gsh_child_gsh_no_cont, placeholder: '孩子姓名或编号' %>
+            <%= f.submit '搜索', :name=>nil, id: 'search-btn', :class=> "button", :disable_with => '请稍等...'  %>
+          <% end %>
+          <div class="table-scrollable" id="contents_list">
+            <%= render :partial => "/admin/pair_grant_batch_items/grants", :locals=>{:grants => @grants} %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="right col-md-12 col-sm-12">
+      <div class="portlet box grey-cascade">
+        <div class="portlet-title">
+          <div class="caption">
+            <i class="icon-heart"></i>孩子名单
+          </div>
+        </div>
+        <div class="portlet-body">
+          <%= search_form_for @search, :url=> admin_pair_grant_batch_path(@batch), :remote => true,
+            :html => {:method => :get} do |f|%>
+            <%= f.text_field :school_name_cont, placeholder: '学校名称' %>
+            <%= f.text_field :gsh_child_name_or_gsh_child_gsh_no_cont, placeholder: '孩子姓名或编号' %>
+            <%= f.submit '搜索', :name=>nil, :class=> "button", :disable_with => '请稍等...'  %>
+          <% end %>
+          <div id="items_list" class="table-scrollable">
+            <%= render :partial => "/admin/pair_grant_batch_items/items", :locals=>{:grants => @items} %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleFinder(){
+  if($('.right.col-md-7').length > 0){
+    $('.left').hide()
+    $('.right').removeClass('col-md-7').addClass('col-md-12')
+  }else{
+    $('.left').show()
+    $('.right').removeClass('col-md-12').addClass('col-md-7')
+  }
+}
+</script>

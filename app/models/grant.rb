@@ -22,6 +22,7 @@ class Grant < ApplicationRecord
   belongs_to :project_season
   belongs_to :school
   belongs_to :gsh_child
+  belongs_to :grant_batch, optional: true
   belongs_to :project_season_apply, optional: true
 
   has_many :remarks, as: :onwer

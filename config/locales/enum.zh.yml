@@ -238,6 +238,14 @@ zh:
   report_states:
     show: '显示'
     hidden: '隐藏'
+  grant_states:
+    waiting: '待发放'
+    granted: '已发放'
+    suspend: '暂缓'
+    cancel: '已取消'
+  grant_batch_states:
+    waiting: '待发放'
+    granted: '已发放'
   gsh_child_grant_states:
     waiting: '待发放'
     granted: '已发放'
@@ -293,8 +301,10 @@ zh:
     company: '企业'
     other: '其他'
   income_source_kinds:
-    online: '线上捐助'
     offline: '线下捐助'
+    weixin: '微信端'
+    cellphone: '手机端'
+    computer: 'PC端'
   month_donate_states:
     donation: '捐助中'
     finished: '已结束'
