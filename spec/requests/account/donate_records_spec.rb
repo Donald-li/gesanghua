@@ -24,7 +24,15 @@ RSpec.describe "Api::V1::Account::DonateRecords", type: :request do
     end
 
     it '获取捐助详情' do
-      get record_details_api_v1_account_donate_records_path(id: DonateRecord.first.id)
+      school = create(:school)
+      teacher = create(:teacher, school: school, user: login_user)
+      project = create(:project)
+      season = create(:project_season, project: project)
+      apply = create(:project_season_apply, project: project, season: season, teacher: teacher)
+      child = create(:project_season_apply_child, project: project, season: season, apply: apply, school: school)
+      record = create(:donate_record, project: project, season: season, apply: apply, user: login_user, appoint: child )
+
+      get record_details_api_v1_account_donate_record_path(id: record.id)
       api_v1_expect_success
     end
 

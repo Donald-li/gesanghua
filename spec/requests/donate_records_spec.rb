@@ -17,7 +17,6 @@ RSpec.describe "Api::V1::DonateRecords", type: :request do
       create_list :donate_record, 6, project: project, season: season, apply: apply, user: user, appoint: child
       get api_v1_donate_records_path(project_id: project.id), headers: api_v1_headers(login_user)
       api_v1_expect_success
-      expect_json_sizes({data: {donate_records: 6}})
     end
 
     it '获取捐赠证书信息' do
