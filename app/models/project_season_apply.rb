@@ -195,6 +195,14 @@ class ProjectSeasonApply < ApplicationRecord
     end.attributes!
   end
 
+  def detail_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :name, :apply_no, :number, :describe)
+      json.school self.school.try(:name)
+      json.season self.season.try(:name)
+    end.attributes!
+  end
+
   private
   def gen_apply_no
     if self.project_id == 1

@@ -16,10 +16,9 @@ class Api::V1::CooperationPairsController < Api::V1::BaseController
     end
   end
 
-  def verified_students
-    apply = ProjectSeasonApply.find(params[:id])
-    students = apply.children.pass.page(params[:page]).per(params[:per])
-    api_success(data: {students: students.map{|st| st.list_builder}, apply_name: apply.apply_name, pagination: json_pagination(students)})
+  def show
+    @apply = ProjectSeasonApply.find(params[:id])
+    api_success(data: @apply.detail_builder)
   end
 
   private
