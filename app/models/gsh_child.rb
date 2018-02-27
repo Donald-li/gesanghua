@@ -57,6 +57,7 @@ class GshChild < ApplicationRecord
       json.grants self.semesters.where(user_id: self.user_id).pluck(:title).join('/').gsub(/\s/, '').strip
       json.donate_state self.semesters.pending.size > 0
       json.num self.apply_child.continuals.count
+      json.avatar self.apply_child.avatar.present? ? self.apply_child.avatar_url(:tiny).to_s : ''
     end.attributes!
   end
 

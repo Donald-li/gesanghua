@@ -29,10 +29,13 @@ class Feedback < ApplicationRecord
   belongs_to :project
   belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id', optional: true
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id', optional: true
-  belongs_to :children, class_name: "ProjectSeasonApplyChild", foreign_key: 'project_season_apply_child_id', optional: true
+  belongs_to :child, class_name: "ProjectSeasonApplyChild", foreign_key: 'project_season_apply_child_id', optional: true
   belongs_to :bookshelves, class_name: 'ProjectSeasonApplyBookshelf', foreign_key: 'project_season_apply_bookshelf_id', optional: true
 
   validates :content, presence: true
+
+  include HasAsset
+  has_many_assets :images, class_name: "Asset::FeedbackImage"
 
   enum kind: {default: 0, grant: 1, continue: 2}
   default_value_for :kind, 0
@@ -50,5 +53,20 @@ class Feedback < ApplicationRecord
   default_value_for :approve_state, 1
 
   scope :sorted, ->{ order(created_at: :desc) }
+
+  def detail_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :content)
+      json.time self.created_at.strftime("%Y-%m-%d %H:%M")
+      json.name self.owner.name
+      json.images do
+        json.array! self.images do |image|
+          json.(image, :id)
+          json.image image.file.url(:tiny)
+        end
+      end
+    end.attributes!
+  end
+
 
 end
