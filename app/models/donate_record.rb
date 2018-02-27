@@ -46,7 +46,7 @@ class DonateRecord < ApplicationRecord
   belongs_to :bookshelf, class_name: 'ProjectSeasonApplyBookshelf', foreign_key: 'project_season_apply_bookshelf_id', optional: true
   belongs_to :supplement, class_name: 'BookshelfSupplement', foreign_key: 'bookshelf_supplement_id', optional: true
   belongs_to :team, optional: true
-  has_one :income_record, dependent: :destroy
+  belongs_to :income_record, optional: true
   belongs_to :voucher, optional: true
   belongs_to :month_donate, optional: true
   belongs_to :fund, optional: true
@@ -63,7 +63,7 @@ class DonateRecord < ApplicationRecord
   enum pay_state: {unpay: 1, paid: 2} #付款状态， 1:未付款 2:已付款
   default_value_for :pay_state, 1
 
-  enum kind: {system: 1, custom: 2} # 记录类型: 1:系统生成 2:手动添加
+  enum kind: {system: 1, platform: 2} # 记录类型: 1:系统生成 2:配捐
   default_value_for :kind, 1
 
   enum voucher_state: {to_bill: 1, billed: 2} #收据状态，1:未开票 2:已开票
@@ -72,8 +72,6 @@ class DonateRecord < ApplicationRecord
   scope :sorted, -> {order(created_at: :desc)}
 
   scope :donate_gsh_child, -> {where("gsh_child_id IS NOT NULL")} # 捐助给孩子的记录
-
-  scope :platform, -> {where('user_id IS NULL')} # 平台配捐
 
   scope :user, -> {where('user_id IS NOT NULL')} # 用户捐款
 
@@ -221,7 +219,7 @@ class DonateRecord < ApplicationRecord
     end
     donate_record = self.donate_apply(user, amount, apply, nil)
     donate_record.pay_state = 'paid'
-    donate_record.kind = 'custom'
+    donate_record.kind = 'platform'
 
     apply.present_amount += amount.to_f
     apply.execute_state = 'to_delivery' if apply.present_amount == apply.target_amount
@@ -257,7 +255,7 @@ class DonateRecord < ApplicationRecord
     end
     donate_record = self.part_donate_bookshelf(user, amount, bookshelf, nil)
     donate_record.pay_state = 'paid'
-    donate_record.kind = 'custom'
+    donate_record.kind = 'platform'
 
     bookshelf.present_amount += amount
     bookshelf.state = 'complete' if bookshelf.present_amount == bookshelf.target_amount
@@ -293,7 +291,7 @@ class DonateRecord < ApplicationRecord
     end
     donate_record = self.donate_child(user, child.gsh_child, semester_num, nil)
     donate_record.pay_state = 'paid'
-    donate_record.kind = 'custom'
+    donate_record.kind = 'platform'
 
     self.transaction do
       begin
@@ -309,7 +307,7 @@ class DonateRecord < ApplicationRecord
   end
 
   def gen_income_record
-    IncomeRecord.new(donate_record: self, user: self.user, fund: self.fund, amount: amount, remitter_id: self.remitter_id, remitter_name: self.remitter_name, donor: self.donor, promoter_id: self.promoter_id, income_time: Time.now)
+    self.build_income_record(donate_record: self, user: self.user, fund: self.fund, amount: amount, remitter_id: self.remitter_id, remitter_name: self.remitter_name, donor: self.donor, promoter_id: self.promoter_id, income_time: Time.now)
   end
 
   def detail_builder

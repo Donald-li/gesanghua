@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
+ActiveRecord::Schema.define(version: 20180227064435) do
+=======
 ActiveRecord::Schema.define(version: 20180227042627) do
+>>>>>>> 9e74869e497f0c16fadfd9418fab76a0c53d0275
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -264,6 +268,7 @@ ActiveRecord::Schema.define(version: 20180227042627) do
     t.integer "project_season_apply_bookshelf_id", comment: "书架id"
     t.integer "bookshelf_supplement_id", comment: "补书ID"
     t.integer "donate_item_id", comment: "可捐助id"
+    t.integer "income_record_id", comment: "收入记录"
   end
 
   create_table "donation_use_logs", force: :cascade, comment: "捐款使用路径" do |t|
@@ -396,7 +401,11 @@ ActiveRecord::Schema.define(version: 20180227042627) do
     t.text "remark"
     t.integer "operator_id", comment: "异常处理人id"
     t.string "grant_person", comment: "发放人"
+<<<<<<< HEAD
+    t.integer "grant_batch_id", comment: "发放批次"
+=======
     t.integer "user_id", comment: "捐助人"
+>>>>>>> 9e74869e497f0c16fadfd9418fab76a0c53d0275
     t.index ["gsh_child_id"], name: "index_gsh_child_grants_on_gsh_child_id"
     t.index ["project_season_apply_id"], name: "index_gsh_child_grants_on_project_season_apply_id"
   end
@@ -431,7 +440,6 @@ ActiveRecord::Schema.define(version: 20180227042627) do
     t.integer "remitter_id", comment: "汇款人id"
     t.string "donor", comment: "捐赠者"
     t.integer "promoter_id", comment: "劝捐人"
-    t.integer "donate_record_id", comment: "捐助记录id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "income_time", comment: "入账时间"
