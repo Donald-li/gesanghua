@@ -28,14 +28,7 @@ namespace :admin do
   resources :donate_items, concerns: [:move, :switch] do
     resources :donate_item_amount_tabs, concerns: [:switch]
   end
-  resources :school_applies do
-    member do
-      patch :update_audit
-    end
-    collection do
-      post :create_audit
-    end
-  end
+  resources :school_applies, concerns: :check
   resources :audit_reports, concerns: [:switch, :file_download]
   resources :financial_reports, concerns: [:switch, :file_download]
   resources :funds, concerns: [:switch, :move] do
