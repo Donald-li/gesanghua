@@ -42,6 +42,7 @@
                     <%= f.input :gender, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApplyChild.options_for_select(:genders), label: '性别：'%>
                     <%= f.input :parent_name, label: '家长姓名：', autofocus: true, placeholder: '家长姓名', required: true %>
                     <%= f.input :phone, label: '联系电话：', autofocus: true, placeholder: '联系电话', required: true %>
+                    <%= f.input :reason, label: '推荐理由：', placeholder: '推荐理由', require: true, input_html: { maxlength: 20 } %>
                     <!--<div class="form-group">-->
                       <!--<label class="col-md-2 control-label">申请学期：</label>-->
                       <!--<div class="col-sm-9">-->
