@@ -200,6 +200,7 @@ class ProjectSeasonApply < ApplicationRecord
       json.(self, :id, :name, :apply_no, :number, :describe)
       json.school self.school.try(:name)
       json.season self.season.try(:name)
+      json.state self.enum_name(:pair_state)
     end.attributes!
   end
 
