@@ -1,11 +1,12 @@
-<%= simple_form_for [:admin, @gsh_child], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
+<% url = @gsh_child.new_record? ? admin_gsh_children_path : admin_gsh_child_path(@gsh_child) %>
+<%= simple_form_for [:admin, @gsh_child], as: :gsh_child, url: url, wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
     <%= f.error_notification %>
     <div class="form-body form-horizontal">
       <% if @gsh_child.gsh_no %>
        <%= static_form_control '格桑花编号', @gsh_child.gsh_no %>
       <% end %>
       <%= f.input :user_id, collection: [@gsh_child.user].compact.map {|u| [u.name, u.id]}, label: '关联用户', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
-      <%= f.input :idcard, label: '身份证：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :id_card, label: '身份证：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
       <%= f.input :name, label: '姓名：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
       <%= f.input :phone, label: '联系方式：', autofocus: true %>
       <%= f.input :qq, label: 'QQ：', autofocus: true %>

@@ -74,7 +74,7 @@
           <% @pair_student_lists.each do |child| %>
               <tr>
                 <td>
-                  <%= child.gsh_child.gsh_no %>
+                  <%= child.gsh_no %>
                 </td>
                 <td>
                   <%= child.try(:name) %>
@@ -83,10 +83,8 @@
                   <%= child.apply.try(:school).try(:name) %> / <%= child.enum_name(:grade) %>
                 </td>
                 <td>
-                  <% if child.gsh_child.present? %>
-                    <% child.gsh_child.gsh_child_grants.sorted.all.each do |grant| %>
-                      <span class="btn btn-xs green"><%= grant.title %></span>
-                    <% end %>
+                  <% child.gsh_child_grants.sorted.all.each do |grant| %>
+                    <span class="btn btn-xs green"><%= grant.title %></span>
                   <% end %>
                 </td>
                 <td>
