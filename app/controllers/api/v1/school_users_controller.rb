@@ -24,9 +24,9 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
     @user = current_user
     @school = @user.school if @user.present?
     if @school.present?
-      province = params[:district][0]
-      city = params[:district][1]
-      district = params[:district][2]
+      province = params[:location][0]
+      city = params[:location][1]
+      district = params[:location][2]
       number = params[:number_list][0]['num']
       teacher_count = params[:number_list][1]['num']
       logistic_count = params[:number_list][2]['num']
