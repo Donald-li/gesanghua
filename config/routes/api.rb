@@ -18,6 +18,10 @@
         end
       end
 
+      namespace :gsh_plus do
+        resources :mains, only: [:index]
+      end
+
       resource :main, only: [:show] do
         get :contribute
         post :settlement

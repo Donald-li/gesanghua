@@ -28,6 +28,7 @@
 #  school_id               :integer                                # 学校ID
 #  semester                :integer                                # 学期
 #  kind                    :integer                                # 捐助形式：1对外捐助 2内部认捐
+#  donate_user_id          :integer                                # 捐助人id
 #
 
 class ProjectSeasonApplyChild < ApplicationRecord
@@ -46,6 +47,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id'
   belongs_to :gsh_child, optional: true
   belongs_to :school
+  belongs_to :user
   has_one :visit, foreign_key: 'apply_child_id'
   has_many :audits, as: :owner
   has_many :remarks, as: :owner
@@ -258,6 +260,18 @@ class ProjectSeasonApplyChild < ApplicationRecord
       json.(self, :id, :name, :age)
       json.level_name self.enum_name(:level)
       json.id_card self.secure_id_card
+    end.attributes!
+  end
+
+  def donate_children_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :name)
+      json.gsh_no self.gsh_child.try(:gsh_no)
+      json.child_id self.id
+      json.grants self.gsh_child.semesters.where(user_id: self.donate_user_id).pluck(:title).join('/').gsub(/\s/, '').strip.to_s
+      json.donate_state self.gsh_child.semesters.pending.size > 0
+      json.num self.continuals.count
+      json.avatar self.avatar.present? ? self.avatar_url(:tiny).to_s : ''
     end.attributes!
   end
 
