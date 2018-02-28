@@ -3,7 +3,7 @@ class Admin::StudentGrantsController < Admin::BaseController
   before_action :set_child_apply
 
   def index
-    @search = GshChildGrant.where(gsh_child_id: @child_apply.gsh_child_id).reverse_sorted.ransack(params[:q])
+    @search = @child_apply.gsh_child_grants.reverse_sorted.ransack(params[:q])
     scope = @search.result
     @grants = scope.page(params[:page])
   end

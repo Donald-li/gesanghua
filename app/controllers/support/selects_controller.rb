@@ -23,6 +23,13 @@ class Support::SelectsController < Support::BaseController
     users = scope.page(params[:page])
     render json: {items: users.as_json(only: [:id, :name])}
   end
+  
+  # 线下捐款
+  def income_records
+    scope = IncomeRecord.has_balance.sorted.where("title like :q", q: "%#{params[:q]}%")
+    records = scope.page(params[:page])
+    render json: {items: records.map{|r| {id: r.id, name: "#{r.title}(余额: #{r.balance.round(2)})"}}.as_json}
+  end
 
   def users_balance
     scope = User.enable.sorted.where("name like :q", q: "%#{params[:q]}%")

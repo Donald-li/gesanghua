@@ -8,6 +8,7 @@ scope module: :support do
       get :bookshelf_schools
       get :school_bookshelves
       get :users
+      get :income_records
       get :users_balance
       get :gsh_child_user
       get :teacher_user
