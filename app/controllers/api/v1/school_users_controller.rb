@@ -22,8 +22,8 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
 
   def update_school
     @user = current_user
-    @school = @user.school if @user.present?
-    if @school.present?
+    if @user.school.present?
+      @school = @user.school
       province = params[:location][0]
       city = params[:location][1]
       district = params[:location][2]
@@ -44,15 +44,17 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
 
   def get_school_teachers
     @user = current_user
-    @school = @user.school if @user.present?
-    @teachers = @school.teachers
-    api_success(data: @teachers.map{|teacher| teacher.summary_builder})
+    if @user.school.present?
+      @school = @user.school
+      @teachers = @school.teachers.sorted
+      api_success(data: @teachers.map{|teacher| teacher.summary_builder})
+    end
   end
 
   def create_teacher
     @user = current_user
-    @school = @user.school if @user.present?
-    if @school.present?
+    if @user.school.present?
+      @school = @user.school
       name = params[:name]
       phone = params[:phone]
       idcard = params[:idcard]
@@ -80,14 +82,14 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
   end
 
   def get_projects
-    @projects = Project.all
+    @projects = Project.all.sorted
     api_success(data: @projects.map{|project| project.teacher_project_summary_builder})
   end
 
   def update_teacher
     @user = current_user
-    @school = @user.school if @user.present?
-    if @school.present?
+    if @user.school.present?
+      @school = @user.school
       name = params[:name]
       phone = params[:phone]
       idcard = params[:idcard]
@@ -111,8 +113,8 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
 
   def delete_teacher
     @user = current_user
-    @school = @user.school if @user.present?
-    if @school.present?
+    if @user.school.present?
+      @school = @user.school
       @teacher = @school.teachers.find(params[:id])
       if @teacher.destroy
         api_success(data: {is_school_user: true, result: true}, message: '删除教师信息成功。')
