@@ -14,6 +14,7 @@
 #  updated_at :datetime         not null
 #
 
+# 志愿者任务地点
 class Workplace < ApplicationRecord
 
   has_many :tasks

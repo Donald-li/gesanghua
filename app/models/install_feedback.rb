@@ -23,5 +23,12 @@
 #  class_name                        :string                                 # 反馈班级
 #
 
-class Receive < Feedback
+#  check         :integer                                # 查看 1: 未查看 2: 已查看
+#  recommend     :integer                                # 推荐 1: 正常 2: 推荐
+
+#  user_id       :integer                                # 反馈人
+#
+
+# 安装反馈
+class InstallFeedback < Feedback
 end

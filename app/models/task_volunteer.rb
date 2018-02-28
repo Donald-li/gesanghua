@@ -19,6 +19,7 @@
 #  kind                :integer                                # 类型
 #
 
+# 任务志愿者关系表
 class TaskVolunteer < ApplicationRecord
   belongs_to :volunteer
   belongs_to :task, optional: true

@@ -11,6 +11,7 @@
 #  kind        :integer                                # 类型： 1:线上（online） 2:线下（offline）
 #
 
+# 收入来源
 class IncomeSource < ApplicationRecord
   has_many :income_records
 

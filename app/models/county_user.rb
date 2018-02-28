@@ -15,6 +15,9 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #
+#
+
+# 县级用户
 require 'custom_validators'
 class CountyUser < ApplicationRecord
   belongs_to :user, optional: true

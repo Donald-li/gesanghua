@@ -14,6 +14,7 @@
 #  kind       :integer          default("nondirectional") # 类型 1:非定向 2:定向
 #
 
+# 一级财务分类
 class FundCategory < ApplicationRecord
   has_many :funds
 

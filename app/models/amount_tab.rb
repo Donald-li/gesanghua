@@ -11,6 +11,7 @@
 #  updated_at     :datetime         not null
 #
 
+# 项目捐款时，金额选项
 class AmountTab < ApplicationRecord
   belongs_to :donate_item, optional: true
 

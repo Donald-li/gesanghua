@@ -18,7 +18,7 @@ chdir APP_ROOT do
   system! 'gem install bundler --conservative'
   system('bundle check') || system!('bundle install')
 
-  # Install JavaScript dependencies if using Yarn
+  # InstallFeedback JavaScript dependencies if using Yarn
   # system('bin/yarn')
 
 

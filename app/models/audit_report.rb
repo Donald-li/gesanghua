@@ -15,5 +15,6 @@
 #  user_id      :integer                                # 发布人
 #
 
+# 审计报告
 class AuditReport < Report
 end

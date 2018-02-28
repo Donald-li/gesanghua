@@ -122,7 +122,7 @@ RSpec.describe User, type: :model do
 
   it '测试用户捐一对一的指定' do
     child.approve_pass
-    gsh_child = child.gsh_child
+    gsh_child = child
     project = Project.pair_project
     user.donate_child(gsh_child, 2)
 

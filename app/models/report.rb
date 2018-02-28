@@ -15,6 +15,7 @@
 #  user_id      :integer                                # 发布人
 #
 
+# 报告类的父表
 class Report < ApplicationRecord
 
   validates :title, :content, presence: true

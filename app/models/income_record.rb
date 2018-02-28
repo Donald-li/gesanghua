@@ -23,6 +23,7 @@
 #  title            :string                                 # 收入名称
 #
 
+# 收入记录
 class IncomeRecord < ApplicationRecord
 
   before_create :set_record_title

@@ -19,6 +19,7 @@
 #  internship_state   :integer                                # 实习还是正式
 #
 
+# 志愿者
 class Volunteer < ApplicationRecord
   belongs_to :user
   has_many :task_volunteers, dependent: :destroy

@@ -9,6 +9,7 @@
 #  updated_at :datetime         not null
 #
 
+# 家访孩子关系表
 class VisitChild < ApplicationRecord
   belongs_to :child
   belongs_to :visit

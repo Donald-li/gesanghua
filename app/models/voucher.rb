@@ -20,6 +20,7 @@
 #  tax_company   :string                                 # 开票单位
 #
 
+# 捐赠收据
 class Voucher < ApplicationRecord
   require 'custom_validators'
   belongs_to :user

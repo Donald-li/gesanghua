@@ -13,6 +13,7 @@
 #  team_no               :string                                 # 团队编号
 #
 
+# 团队
 class Team < ApplicationRecord
   belongs_to :creater, class_name: 'User'
 

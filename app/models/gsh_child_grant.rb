@@ -28,12 +28,13 @@
 #  grant_batch_id          :integer                                # 发放批次
 #
 
+# 一对一孩子发放表
 class GshChildGrant < ApplicationRecord
   include HasAsset
   has_many_assets :images, class_name: 'Asset::GshChildGrantImage'
 
   belongs_to :school, optional: true
-  belongs_to :gsh_child, optional: true
+  belongs_to :gsh_child, class_name: 'ProjectSeasonApplyChild', optional: true
   belongs_to :project_season, optional: true
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id', optional: true
   belongs_to :operator, class_name: 'User', foreign_key: 'operator_id', optional: true
@@ -58,8 +59,8 @@ class GshChildGrant < ApplicationRecord
   counter_culture :gsh_child, column_name: proc {|model| model.succeed? ? 'done_semester_count' : nil }
 
   def self.gen_grant_record(gsh_child)
-    child = gsh_child.apply_child
-    apply = gsh_child.apply_child.apply
+    child = gsh_child
+    apply = gsh_child.apply
 
     if child.junior?
       term_amount = Settings.junior_term_amount

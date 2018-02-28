@@ -9,6 +9,7 @@
 #  updated_at :datetime         not null
 #
 
+# 教师项目关系表
 class TeacherProject < ApplicationRecord
   belongs_to :teacher
   belongs_to :project

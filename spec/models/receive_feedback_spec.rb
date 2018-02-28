@@ -25,6 +25,6 @@
 
 require 'rails_helper'
 
-RSpec.describe Continual, type: :model do
+RSpec.describe ReceiveFeedback, type: :model do
   
 end

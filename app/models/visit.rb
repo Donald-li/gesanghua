@@ -11,6 +11,7 @@
 #  apply_child_id :integer                                # 孩子申请ID
 #
 
+# 家访
 class Visit < ApplicationRecord
   belongs_to :owner, polymorphic: true, optional: true
 

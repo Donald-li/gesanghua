@@ -9,6 +9,7 @@
 #  updated_at                     :datetime         not null
 #
 
+# 结对孩子与学期的中间表
 class PeriodChildShip < ApplicationRecord
   belongs_to :project_season_apply_period
   belongs_to :project_season_apply_child

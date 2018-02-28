@@ -15,6 +15,7 @@
 #  bookshelf_univalence :decimal(14, 2)   default(0.0)          # 单个图书角金额
 #
 
+# 项目年度（批次）
 class ProjectSeason < ApplicationRecord
   belongs_to :project
 

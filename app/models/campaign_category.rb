@@ -8,6 +8,7 @@
 #  updated_at :datetime         not null
 #
 
+# 活动分类
 class CampaignCategory < ApplicationRecord
 
   has_many :campaigns, dependent: :destroy

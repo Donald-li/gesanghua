@@ -4,7 +4,7 @@ class Admin::FlowerInstallsController < Admin::BaseController
   before_action :set_project_apply, only: [:show, :edit, :new, :create, :update, :destroy]
 
   def new
-    @install = Install.new
+    @install = InstallFeedback.new
   end
 
   def show
@@ -48,7 +48,7 @@ class Admin::FlowerInstallsController < Admin::BaseController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_install
-      @install = Install.find(params[:id])
+      @install = InstallFeedback.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
