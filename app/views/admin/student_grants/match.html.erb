@@ -17,25 +17,25 @@
       <%= f.error_notification %>
       <div class="form-body form-horizontal">
         <div class="form-group radio_buttons required donate_record_donate_way">
-          <label class="col-md-2 control-label radio_buttons required">捐助方式：</label>
+          <label class="col-md-2 control-label">捐助方式：</label>
           <div class="col-md-9 form-inline">
-            <input type="radio" class="form-control radio_buttons donate_way" name="donate_way" value="offline" checked onclick="toggleState()">线下汇款
-            <input type="radio" class="form-control radio_buttons donate_way" name="donate_way" value="match" onclick="toggleState()">使用其他资金
-            <input type="radio" class="form-control radio_buttons donate_way" name="donate_way" value="balance" onclick="toggleState()">使用用户余额
+            <label><input type="radio" class="form-control radio_buttons donate_way" name="donate_way" value="offline" checked onclick="toggleState()">线下汇款</label>
+            <label><input type="radio" class="form-control radio_buttons donate_way" name="donate_way" value="match" onclick="toggleState()">使用其他资金</label>
+            <label><input type="radio" class="form-control radio_buttons donate_way" name="donate_way" value="balance" onclick="toggleState()">使用用户余额</label>
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-2 control-label">可配捐年度：</label>
           <div class="col-sm-9">
-              <% @child_apply.gsh_child.gsh_child_grants.pending.sorted.each do |grant| %>
-              <span class="btn btn-xs green"><%= grant.title %></span>
+              <% @child_apply.gsh_child_grants.pending.sorted.each do |grant| %>
+                <span class="btn btn-xs green"><%= grant.title %></span>
               <% end %>
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-2 control-label">配捐年度数量：</label>
           <div class="col-sm-9">
-            <input class="statistic-form-input" type="number" name="grant_number" min="1" max="<%= @child_apply.gsh_child.gsh_child_grants.pending.count %>" required>
+            <input class="statistic-form-input" type="number" name="grant_number" min="1" max="<%= @child_apply.gsh_child_grants.pending.count %>" required>
             * 会自动按照学年顺序配捐
           </div>
         </div>
@@ -43,17 +43,13 @@
           <div class="form-group">
             <label class="col-md-2 control-label">捐款渠道：</label>
             <div class="col-sm-9">
-              <select id="income" class="form-control select optional" name="source_id" required>
-                <% IncomeSource.all.sorted.each do |fc| %>
-                  <option value="<%= fc.id %>"><%= fc.name %></option>
-                <% end %>
-              </select>
+              <%= select_tag :source_id, options_for_select(IncomeSource.all.map{|s|[s.name, s.id]}), include_blank: true, class: 'form-control select optional select-two' %>
             </div>
           </div>
           <div class="form-group">
-            <label class="col-md-2 control-label">捐助人：</label>
+            <label class="col-md-2 control-label">线下捐款：</label>
             <div class="col-sm-9">
-              <select id="income" class="form-control select optional users-ajax" name="offline_user_id" required></select>
+              <select class="form-control select optional users-ajax" name="offline_donate_id" required></select>
             </div>
           </div>
         </div>
@@ -61,7 +57,7 @@
           <div class="form-group">
             <label class="col-md-2 control-label">财务分类：</label>
             <div class="col-sm-9">
-              <select id="income" class="form-control select optional" name="match_fund_id" required>
+              <select class="form-control select optional select-two" style="width:400px;" name="match_fund_id" required>
                 <% Fund.unrestricted.sorted.each do |fc| %>
                   <option value="<%= fc.id %>"><%= "#{fc.fund_category.name}#{fc.name}(余额：#{fc.amount})" %></option>
                 <% end %>
@@ -73,7 +69,7 @@
           <div class="form-group">
             <label class="col-md-2 control-label">使用余额：</label>
             <div class="col-sm-9">
-              <select id="income" class="form-control select optional users-balance-ajax" name="balance_id" required></select>
+              <select class="form-control select optional users-balance-ajax" style="width:400px;" name="balance_id" required></select>
             </div>
           </div>
         </div>
@@ -102,10 +98,10 @@
         // 异步加载用户列表
         $('.users-ajax').select2({
             language: "zh-CN",
-            placeholder: '选择捐助人',
+            placeholder: '选择线下捐款',
             allowClear: true,
             ajax: {
-                url: "/selects/users",
+                url: "/selects/income_records",
                 dataType: 'json',
                 delay: 250,
                 data: function (params) {
@@ -165,7 +161,7 @@
                 cache: true
             }
         })
-        $("#income").select2();
+        $(".select-two").select2();
     })
 
     toggleState();

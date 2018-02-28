@@ -292,6 +292,7 @@ class DonateRecord < ApplicationRecord
   end
 
   # 配捐给孩子
+  # TODO: 重构这里的逻辑
   def self.platform_donate_child(params, child)
     user = ''
     semester_num = params[:grant_number].to_i
