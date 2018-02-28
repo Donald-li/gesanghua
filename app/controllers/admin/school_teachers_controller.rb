@@ -19,11 +19,11 @@ class Admin::SchoolTeachersController < Admin::BaseController
     @teacher = @school.teachers.new(teacher_params)
     if @teacher.user.present?
       @user = @teacher.user
-      @teacher.name = @user.name
-      @teacher.phone = @user.phone
-      @teacher.qq = @user.qq
-      @teacher.openid = @user.openid
-      @teacher.idcard = @user.idcard
+      @teacher.name = @user.name? ? @user.name : @teacher.name
+      @teacher.phone = @user.phone? ? @user.phone : @teacher.phone
+      @teacher.qq = @user.qq? ? @user.qq : @teacher.qq
+      @teacher.openid = @user.openid? ? @user.openid : @teacher.openid
+      @teacher.idcard = @user.idcard? ? @user.idcard : @teacher.idcard
     end
     respond_to do |format|
       if @teacher.save
@@ -44,11 +44,11 @@ class Admin::SchoolTeachersController < Admin::BaseController
     respond_to do |format|
       if @teacher.update(teacher_params)
         if @user.present?
-          @teacher.name = @user.name
-          @teacher.phone = @user.phone
-          @teacher.qq = @user.qq
-          @teacher.openid = @user.openid
-          @teacher.idcard = @user.idcard
+          @teacher.name = @user.name? ? @user.name : @teacher.name
+          @teacher.phone = @user.phone? ? @user.phone : @teacher.phone
+          @teacher.qq = @user.qq? ? @user.qq : @teacher.qq
+          @teacher.openid = @user.openid? ? @user.openid : @teacher.openid
+          @teacher.idcard = @user.idcard? ? @user.idcard : @teacher.idcard
           @teacher.save
         end
         format.html { redirect_to referer_or(admin_school_school_teachers_url), notice: '教师信息已修改。' }

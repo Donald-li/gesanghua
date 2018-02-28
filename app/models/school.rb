@@ -101,7 +101,7 @@ class School < ApplicationRecord
       json.(self, :id)
       json.name self.name
       json.address self.address
-      json.district [self.province, self.city, self.district]
+      json.location [self.province, self.city, self.district]
       json.postcode self.postcode
       json.number_list [{id: 0, tit: '学生人数', num: self.number}, {id: 1, tit: '教师人数', num: self.teacher_count}, {id: 2, tit: '后勤人数', num: self.logistic_count}]
       json.describe self.describe

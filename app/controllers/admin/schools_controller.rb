@@ -52,28 +52,68 @@ class Admin::SchoolsController < Admin::BaseController
   end
 
   def update
+    # if @school.user.present?
+    #   @t = @school.user.teacher
+    # end
+    # if school_params[:user_id] != nil && school_params[:user_id] != ""
+    #   @user = User.find(school_params[:user_id])
+    #   @school.user = @user
+    #   if @t.present?
+    #     @t.update(kind: 2) if @school.user_id_changed?
+    #   end
+    #   Teacher.find_or_create_by(name: @user.name, phone: @user.phone, school: @school, user: @user, kind: 'headmaster')
+    # else
+    #   @school.user = nil
+    #   if @t.present?
+    #     @t.update(kind: 2)
+    #   end
+    # end
     if @school.user.present?
       @t = @school.user.teacher
-    end
-    if school_params[:user_id] != nil && school_params[:user_id] != ""
-      @user = User.find(school_params[:user_id])
-      @school.user = @user
-      if @t.present?
-        @t.update(kind: 2) if @school.user_id_changed?
+      @t.update(kind: 2) if @t.present?
+      if school_params[:user_id] != nil && school_params[:user_id] != ""
+        @user = User.find(school_params[:user_id])
+        if @user.teacher.present?
+          @user.teacher.update(kind: 1)
+        else
+          Teacher.create(name: @user.name, phone: @user.phone, school: @school, user: @user, kind: 'headmaster')
+        end
+      else
+        @school.user_id = nil
+        if Teacher.find_by(name: school_params[:contact_name], phone: school_params[:contact_phone], school: @school).present?
+          Teacher.find_by(name: school_params[:contact_name], phone: school_params[:contact_phone], school: @school).update(kind: 1)
+        else
+          Teacher.create(name: school_params[:contact_name], phone: school_params[:contact_phone], school: @school, kind: 'headmaster')
+        end
+        # Teacher.find_or_create_by(name: school_params[:contact_name], phone: school_params[:contact_phone], school: @school, kind: 'headmaster')
       end
-      Teacher.find_or_create_by(name: @user.name, phone: @user.phone, school: @school, user: @user, kind: 'headmaster')
     else
-      @school.user = nil
-      if @t.present?
-        @t.update(kind: 2)
+      if school_params[:user_id] != nil && school_params[:user_id] != ""
+        @h = @school.teachers.find_by(kind: 1)
+        @h.update(kind: 2) if @h.present?
+        @user = User.find(school_params[:user_id])
+        if @user.teacher.present?
+          @user.teacher.update(kind: 1)
+        else
+          Teacher.create(name: @user.name, phone: @user.phone, school: @school, user: @user, kind: 'headmaster')
+        end
+      else
+        @school.user_id = nil
+        if Teacher.find_by(name: school_params[:contact_name], phone: school_params[:contact_phone], school: @school).present?
+          Teacher.find_by(name: school_params[:contact_name], phone: school_params[:contact_phone], school: @school).update(kind: 1)
+        else
+          Teacher.create(name: school_params[:contact_name], phone: school_params[:contact_phone], school: @school, kind: 'headmaster')
+        end
       end
     end
     respond_to do |format|
       if @school.update(school_params)
-        @school.contact_name = @user.name
-        @school.contact_phone = @user.phone
-        @school.contact_idcard = @user.idcard
-        @school.save
+        if @user.present?
+          @school.contact_name = @user.name
+          @school.contact_phone = @user.phone
+          @school.contact_idcard = @user.idcard
+          @school.save
+        end
         @school.attach_logo(params[:logo_id])
         format.html { redirect_to referer_or(admin_schools_url), notice: '学校信息已修改。' }
       else
