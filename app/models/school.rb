@@ -37,6 +37,8 @@ class School < ApplicationRecord
 
   include HasAsset
   has_one_asset :logo, class_name: 'Asset::SchoolLogo'
+  has_one_asset :card_image, class_name: 'Asset::SchoolCardImage'
+  has_one_asset :certificate_image, class_name: 'Asset::SchoolCertificateImage'
   has_many_assets :images, class_name: 'Asset::SchoolImage'
 
   has_many :bookshelves, class_name: 'ProjectSeasonApplyBookshelf'
@@ -98,7 +100,7 @@ class School < ApplicationRecord
 
   def detail_builder
     Jbuilder.new do |json|
-      json.(self, :id)
+      json.(self, :id, :contact_name, :contact_idcard, :contact_phone, :contact_telephone)
       json.name self.name
       json.address self.address
       json.location [self.province, self.city, self.district]
@@ -111,6 +113,14 @@ class School < ApplicationRecord
         json.id self.try(:logo).try(:id)
         json.url self.try(:logo).try(:file_url)
         json.protect_token ''
+      end
+      json.card_image do
+        json.id self.try(:card_image).try(:id)
+        json.url self.card_image_url(:small).to_s
+      end
+      json.certificate_image do
+        json.id self.try(:certificate_image).try(:id)
+        json.url self.certificate_image_url(:small).to_s
       end
     end.attributes!
   end

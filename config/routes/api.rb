@@ -20,6 +20,7 @@
 
       namespace :gsh_plus do
         resources :mains, only: [:index]
+        resources :schools, only: [:create]
       end
 
       resource :main, only: [:show] do
