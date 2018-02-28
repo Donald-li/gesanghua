@@ -11,8 +11,7 @@ scope module: :site do
   resource :feedback, only: [:new, :create]
   resources :book_angles, only: [:index, :show]
 
-  # 微信支付通知接口
-  post "notify" => "orders#notify"
+
 end
 
 scope module: :user do

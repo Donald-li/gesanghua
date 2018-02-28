@@ -36,7 +36,7 @@
 #
 
 class User < ApplicationRecord
-  ROLES = %i[superadmin admin project_manager project_operator financial_staff volunteer county_user gsh_child custom_service]
+  ROLES = %i[superadmin admin project_manager project_operator financial_staff volunteer county_user gsh_child custom_service headmaster teacher]
 
   require 'custom_validators'
 

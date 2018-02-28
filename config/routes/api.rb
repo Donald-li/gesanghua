@@ -54,7 +54,7 @@
         end
       end
       resources :teams
-      resources :donate_records, only: [:index] do
+      resources :donate_records, only: [:index, :show] do
         member do
           get :certificate
         end
@@ -76,6 +76,16 @@
           post :update_school
         end
       end
+
+      # 微信支付
+      resource :wechat_payment, only: [] do
+        collection do
+          get :pay
+        end
+      end
+
+      # 微信签名
+      resource :sign_package, only: [:show]
 
     end
 

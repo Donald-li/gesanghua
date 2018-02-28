@@ -298,15 +298,15 @@ ActiveRecord::Schema.define(version: 20180227064435) do
     t.text "content", comment: "内容"
     t.string "owner_type"
     t.integer "owner_id"
-    t.string "type", comment: "类型：receive、install、continual"
+    t.integer "type", comment: "类型：receive、install、continual"
     t.integer "state", comment: "状态"
     t.integer "approve_state", comment: "审核状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "kind", comment: "反馈类型"
+    t.integer "user_id", comment: "反馈人"
     t.integer "check", comment: "查看 1: 未查看 2: 已查看"
     t.integer "recommend", comment: "推荐 1: 正常 2: 推荐"
-    t.integer "user_id", comment: "反馈人"
     t.integer "project_id", comment: "项目id"
     t.integer "project_season_id", comment: "批次id"
     t.integer "project_season_apply_id", comment: "申请id"
@@ -523,13 +523,13 @@ ActiveRecord::Schema.define(version: 20180227064435) do
     t.datetime "updated_at", null: false
     t.string "name", comment: "名称"
     t.integer "number", comment: "配额"
-    t.string "apply_no", comment: "项目申请编号"
     t.integer "bookshelf_type", comment: "悦读项目申请类型"
     t.string "contact_name", comment: "联系人姓名"
     t.string "contact_phone", comment: "联系人电话"
     t.integer "audit_state", comment: "审核状态"
     t.string "abstract", comment: "简述"
     t.string "address", comment: "详细地址"
+    t.string "apply_no", comment: "项目申请编号"
     t.integer "girl_number", comment: "申请女生人数"
     t.integer "boy_number", comment: "申请男生人数"
     t.string "consignee", comment: "收货人"
@@ -542,6 +542,7 @@ ActiveRecord::Schema.define(version: 20180227064435) do
     t.integer "student_number", comment: "受益学生数"
     t.text "project_describe", comment: "项目介绍"
     t.jsonb "form", comment: "自定义表单{key, value}"
+    t.integer "pair_state", comment: "结对审核状态"
   end
 
   create_table "project_season_apply_bookshelves", force: :cascade, comment: "项目执行年度申请书架表" do |t|

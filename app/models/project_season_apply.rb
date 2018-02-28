@@ -16,13 +16,13 @@
 #  updated_at        :datetime         not null
 #  name              :string                                 # 名称
 #  number            :integer                                # 配额
-#  apply_no          :string                                 # 项目申请编号
 #  bookshelf_type    :integer                                # 悦读项目申请类型
 #  contact_name      :string                                 # 联系人姓名
 #  contact_phone     :string                                 # 联系人电话
 #  audit_state       :integer                                # 审核状态
 #  abstract          :string                                 # 简述
 #  address           :string                                 # 详细地址
+#  apply_no          :string                                 # 项目申请编号
 #  girl_number       :integer                                # 申请女生人数
 #  boy_number        :integer                                # 申请男生人数
 #  consignee         :string                                 # 收货人
@@ -35,6 +35,7 @@
 #  student_number    :integer                                # 受益学生数
 #  project_describe  :text                                   # 项目介绍
 #  form              :jsonb                                  # 自定义表单{key, value}
+#  pair_state        :integer                                # 结对审核状态
 #
 
 class ProjectSeasonApply < ApplicationRecord
@@ -83,6 +84,9 @@ class ProjectSeasonApply < ApplicationRecord
 
   enum audit_state: {submit: 1, pass: 2, reject: 3}#审核状态 1:待审核 2:审核通过 3:审核不通过
   default_value_for :audit_state, 1
+
+  enum pair_state: {waiting_upload: 1, waiting_check: 2, pair_complete: 3}
+  default_value_for :pair_state, 1
 
   enum bookshelf_type: {whole: 1, supplement: 2}
   # default_value_for :bookshelf_type, 1
@@ -180,6 +184,23 @@ class ProjectSeasonApply < ApplicationRecord
       end
     end
     return false
+  end
+
+  def pair_applies_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :name)
+      json.created_at self.created_at.strftime("%Y-%m-%d")
+      json.state self.enum_name(:pair_state)
+      json.teacher self.teacher.try(:name)
+    end.attributes!
+  end
+
+  def detail_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :name, :apply_no, :number, :describe)
+      json.school self.school.try(:name)
+      json.season self.season.try(:name)
+    end.attributes!
   end
 
   private
