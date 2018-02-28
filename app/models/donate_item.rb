@@ -12,6 +12,7 @@
 #  updated_at :datetime         not null
 #
 
+# 直接捐款到财务分类的可捐款项
 class DonateItem < ApplicationRecord
 
   belongs_to :fund, optional: true

@@ -10,6 +10,7 @@
 #  updated_at :datetime         not null
 #
 
+# 专题文章
 class SpecialArticle < ApplicationRecord
   belongs_to :special
   belongs_to :article

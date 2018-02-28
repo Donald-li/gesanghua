@@ -9107,7 +9107,7 @@ jQuery.extend( {
 		// Aborting is no longer a cancellation
 		strAbort = "abort";
 
-		// Install callbacks on deferreds
+		// InstallFeedback callbacks on deferreds
 		completeDeferred.add( s.complete );
 		jqXHR.done( s.success );
 		jqXHR.fail( s.error );
@@ -9562,7 +9562,7 @@ jQuery.ajaxPrefilter( function( s ) {
 	}
 } );
 
-// Install script dataType
+// InstallFeedback script dataType
 jQuery.ajaxSetup( {
 	accepts: {
 		script: "text/javascript, application/javascript, " +
@@ -9677,7 +9677,7 @@ jQuery.ajaxPrefilter( "json jsonp", function( s, originalSettings, jqXHR ) {
 		// Force json dataType
 		s.dataTypes[ 0 ] = "json";
 
-		// Install callback
+		// InstallFeedback callback
 		overwritten = window[ callbackName ];
 		window[ callbackName ] = function() {
 			responseContainer = arguments;

@@ -15,6 +15,7 @@
 #  updated_at   :datetime         not null
 #
 
+# 项目报告
 class ProjectReport < ApplicationRecord
 
   validates :title, :content, :published_at, presence: true

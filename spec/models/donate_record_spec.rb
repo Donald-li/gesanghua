@@ -103,7 +103,7 @@ RSpec.describe DonateRecord, type: :model do
 
   it '测试用户捐一对一的指定' do
     child.approve_pass
-    gsh_child = child.gsh_child
+    gsh_child = child
     project = Project.pair_project
     DonateRecord.donate_child(user, gsh_child, 2)
 
@@ -120,7 +120,7 @@ RSpec.describe DonateRecord, type: :model do
 
   it '测试有劝捐人的用户捐一对一的指定' do
     child.approve_pass
-    gsh_child = child.gsh_child
+    gsh_child = child
     project = Project.pair_project
     DonateRecord.donate_child(user, gsh_child, 2, promoter)
 
@@ -217,9 +217,9 @@ RSpec.describe DonateRecord, type: :model do
     it '测试线下配捐给指定孩子方法' do
       params = {donate_way: 'offline', source_id: @source.id, offline_user_id: @user.id, grant_number: 2}
       DonateRecord.platform_donate_child(params, @child)
-      expect(@child.gsh_child.gsh_child_grants.first.succeed?).to eq true
-      expect(@child.gsh_child.gsh_child_grants.second.succeed?).to eq true
-      expect(@child.gsh_child.gsh_child_grants.last.succeed?).to eq false
+      expect(@child.gsh_child_grants.first.succeed?).to eq true
+      expect(@child.gsh_child_grants.second.succeed?).to eq true
+      expect(@child.gsh_child_grants.last.succeed?).to eq false
     end
 
     it '测试使用其他资金配捐给指定孩子方法(资金不足)' do
@@ -232,9 +232,9 @@ RSpec.describe DonateRecord, type: :model do
       @fund.update(amount: 30000)
       params = {donate_way: 'match', match_fund_id: @fund.id, grant_number: 2}
       DonateRecord.platform_donate_child(params, @child)
-      expect(@child.gsh_child.gsh_child_grants.first.succeed?).to eq true
-      expect(@child.gsh_child.gsh_child_grants.second.succeed?).to eq true
-      expect(@child.gsh_child.gsh_child_grants.last.succeed?).to eq false
+      expect(@child.gsh_child_grants.first.succeed?).to eq true
+      expect(@child.gsh_child_grants.second.succeed?).to eq true
+      expect(@child.gsh_child_grants.last.succeed?).to eq false
     end
 
     it '测试用户余额配捐给指定孩子方法(余额不足)' do
@@ -247,9 +247,9 @@ RSpec.describe DonateRecord, type: :model do
       @user.update(balance: 30000)
       params = {donate_way: 'balance', balance_id: @user.id, grant_number: 2}
       DonateRecord.platform_donate_child(params, @child)
-      expect(@child.gsh_child.gsh_child_grants.first.succeed?).to eq true
-      expect(@child.gsh_child.gsh_child_grants.second.succeed?).to eq true
-      expect(@child.gsh_child.gsh_child_grants.last.succeed?).to eq false
+      expect(@child.gsh_child_grants.first.succeed?).to eq true
+      expect(@child.gsh_child_grants.second.succeed?).to eq true
+      expect(@child.gsh_child_grants.last.succeed?).to eq false
     end
 
     it '测试线下配捐给指定图书角方法' do

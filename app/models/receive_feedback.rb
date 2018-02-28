@@ -23,8 +23,6 @@
 #  class_name                        :string                                 # 反馈班级
 #
 
-require 'rails_helper'
-
-RSpec.describe Receive, type: :model do
-  
+# 接收反馈
+class ReceiveFeedback < Feedback
 end

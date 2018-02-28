@@ -13,6 +13,7 @@
 #  updated_at          :datetime         not null
 #
 
+# 帮助中心
 class Support < ApplicationRecord
   # belongs_to :support_category
 

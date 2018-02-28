@@ -18,6 +18,11 @@
         end
       end
 
+      namespace :gsh_plus do
+        resources :mains, only: [:index]
+        resources :schools, only: [:create]
+      end
+
       resource :main, only: [:show] do
         get :contribute
         post :settlement
@@ -70,6 +75,8 @@
           get :verified_students
         end
       end
+
+      resources :cooperation_pair_students
 
       resources :school_users do
         collection do

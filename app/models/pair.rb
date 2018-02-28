@@ -19,6 +19,7 @@
 #  donate_item_id             :integer                                # 捐助项id
 #
 
+# 结对项目
 class Pair < Project
 
 end

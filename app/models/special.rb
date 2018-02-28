@@ -12,6 +12,7 @@
 #  state        :integer          default("show")       # 状态, 1:展示 2:隐藏
 #
 
+# 专题
 class Special < ApplicationRecord
   has_many :special_articles, dependent: :destroy
   has_many :articles, through: :special_articles

@@ -13,6 +13,7 @@
 #  project_season_apply_bookshelf_id :integer                                # 书架id
 #
 
+# 项目上传学生名单中的受助学生
 class BeneficialChild < ApplicationRecord
   belongs_to :project_season_apply
   belongs_to :bookshelf, class_name: 'ProjectSeasonApplyBookshelf', foreign_key: 'project_season_apply_bookshelf_id', optional: true

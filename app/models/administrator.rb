@@ -13,6 +13,7 @@
 #  updated_at :datetime         not null
 #
 
+# 管理员
 class Administrator < ApplicationRecord
 
   belongs_to :user

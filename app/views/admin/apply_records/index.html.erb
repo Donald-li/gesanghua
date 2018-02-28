@@ -38,13 +38,13 @@
           <% @apply_records.each do |apply_record| %>
               <tr>
                 <td>
-                  <%= apply_record.apply.try(:id) %>
+                  <%= apply_record.gsh_child.try(:gsh_no) %>
                 </td>
                 <td>
-                  <%= apply_record.apply.project.try(:name) %>
+                  <%= apply_record.try(:season).try(:name) %> - <%= apply_record.try(:school).try(:name) %>
                 </td>
                 <td>
-                  <%= l apply_record.apply.created_at %>
+                  <%= l apply_record.created_at if apply_record.apply.present? %>
                 </td>
               </tr>
           <% end %>

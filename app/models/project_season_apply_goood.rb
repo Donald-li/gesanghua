@@ -12,6 +12,7 @@
 #  updated_at              :datetime         not null
 #
 
+# 项目年度物资类项目申请
 class ProjectSeasonApplyGoood < ApplicationRecord
   belongs_to :project
   belongs_to :project_season

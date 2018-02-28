@@ -23,11 +23,8 @@
 #  class_name                        :string                                 # 反馈班级
 #
 
-#  check         :integer                                # 查看 1: 未查看 2: 已查看
-#  recommend     :integer                                # 推荐 1: 正常 2: 推荐
+require 'rails_helper'
 
-#  user_id       :integer                                # 反馈人
-#
-
-class Install < Feedback
+RSpec.describe ContinualFeedback, type: :model do
+  
 end

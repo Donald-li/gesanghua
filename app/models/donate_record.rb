@@ -37,6 +37,7 @@
 #  pay_result                        :string                                 # 支付结果
 #
 
+# 捐助记录
 class DonateRecord < ApplicationRecord
   include ActionView::Helpers::NumberHelper
 
@@ -54,7 +55,7 @@ class DonateRecord < ApplicationRecord
   belongs_to :month_donate, optional: true
   belongs_to :fund, optional: true
   belongs_to :appoint, polymorphic: true, optional: true
-  belongs_to :gsh_child, optional: true
+  belongs_to :gsh_child, class_name: 'ProjectSeasonApplyChild', optional: true
   belongs_to :donate_item, optional: true
 
   counter_culture :project, column_name: :donate_record_amount_count, delta_magnitude: proc {|model| model.amount}
@@ -171,7 +172,7 @@ class DonateRecord < ApplicationRecord
     donate = self.new(user_id: user_id, amount: total, fund: project.appoint_fund, promoter: promoter, pay_state: 'unpay', project: project, gsh_child: gsh_child)
     if donate.save
       self.donate_child_semesters(gsh_child, semester_num).update(donate_state: :succeed, user_id: user_id)
-      gsh_child.update(user_id: user_id)
+      gsh_child.update(donate_user_id: user_id)
     end
     return donate
   end
@@ -291,10 +292,11 @@ class DonateRecord < ApplicationRecord
   end
 
   # 配捐给孩子
+  # TODO: 重构这里的逻辑
   def self.platform_donate_child(params, child)
     user = ''
     semester_num = params[:grant_number].to_i
-    amount = self.donate_child_total(child.gsh_child, semester_num)
+    amount = self.donate_child_total(child, semester_num)
     if params[:donate_way] == 'offline'
       user = User.find(params[:offline_user_id])
     elsif params[:donate_way] == 'match'
@@ -306,7 +308,7 @@ class DonateRecord < ApplicationRecord
       user.balance -= amount
       return false if user.balance < 0
     end
-    donate_record = self.donate_child(user, child.gsh_child, semester_num, nil)
+    donate_record = self.donate_child(user, child, semester_num, nil)
     donate_record.pay_state = 'paid'
     donate_record.kind = 'platform'
 

@@ -11,6 +11,7 @@
 #  updated_at   :datetime         not null
 #
 
+# 跨分类调整
 class CrossFundAdjustment < ApplicationRecord
   belongs_to :from_fund, class_name: 'Fund', foreign_key: 'from_fund_id'
   belongs_to :to_fund, class_name: 'Fund', foreign_key: 'to_fund_id'

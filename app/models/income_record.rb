@@ -23,6 +23,7 @@
 #  title            :string                                 # 收入名称
 #
 
+# 收入记录
 class IncomeRecord < ApplicationRecord
 
   before_create :set_record_title
@@ -49,6 +50,7 @@ class IncomeRecord < ApplicationRecord
   # enum state: {}
 
   scope :sorted, -> {order(created_at: :desc)}
+  scope :has_balance, ->{where('income_records.balance > 0')}
 
   counter_culture :user, column_name: 'donate_count', delta_magnitude: proc {|model| model.amount}
   counter_culture :user, column_name: proc {|model| model.income_source.present? && !model.income_source.offline? ? 'online_count' : nil}, delta_magnitude: proc {|model| model.amount}

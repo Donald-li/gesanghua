@@ -4,7 +4,7 @@
       <i class="icon-list"></i><%= link_to @child_apply.name, admin_pair_student_lists_path %> > 资助年度
     </div>
     <div class="actions">
-      <% if @child_apply.gsh_child.semesters.pending.count > 0 %>
+      <% if @child_apply.semesters.pending.count > 0 %>
       <%= link_to match_admin_pair_student_list_student_grants_path(@child_apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
         <i class="fa fa-list-ul"></i> 配捐
       <% end %>

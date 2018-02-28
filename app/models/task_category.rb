@@ -9,6 +9,8 @@
 #  updated_at :datetime         not null
 #
 
+
+# 任务分类
 class TaskCategory < ApplicationRecord
 
   has_many :tasks

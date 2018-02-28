@@ -24,7 +24,7 @@
             <%= f.cktext_area :content, input_html: { data: {'parsley-required': true}}  %>
           </div>
         </div>
-        <%= f.input :check, as: :radio_buttons, wrapper: :inline_inputs, collection: Continual.options_for_select(:checks), label: '是否已查看：' %>
+        <%= f.input :check, as: :radio_buttons, wrapper: :inline_inputs, collection: ContinualFeedback.options_for_select(:checks), label: '是否已查看：' %>
       </div>
       <div class="form-actions">
         <div class="row">

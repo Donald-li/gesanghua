@@ -19,6 +19,7 @@
 #  donate_item_id             :integer                                # 捐助项id
 #
 
+# 项目父表
 class Project < ApplicationRecord
   include ActionView::Helpers::NumberHelper
 
@@ -37,7 +38,7 @@ class Project < ApplicationRecord
   has_many :teacher_projects
   has_many :teachers, through: :teacher_projects
   has_many :project_reports
-  has_many :continuals, as: :owner
+  has_many :continual_feedbacks, as: :owner
   belongs_to :donate_item, optional: true
 
   belongs_to :fund, optional: true # 定项非指定

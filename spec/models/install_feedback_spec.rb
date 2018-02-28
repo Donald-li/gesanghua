@@ -25,6 +25,6 @@
 
 require 'rails_helper'
 
-RSpec.describe Install, type: :model do
+RSpec.describe InstallFeedback, type: :model do
   
 end

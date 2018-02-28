@@ -15,5 +15,6 @@
 #  user_id      :integer                                # 发布人
 #
 
+# 财务报告
 class FinancialReport < Report
 end

@@ -28,8 +28,15 @@
 #  school_id               :integer                                # 学校ID
 #  semester                :integer                                # 学期
 #  kind                    :integer                                # 捐助形式：1对外捐助 2内部认捐
+#  gsh_no                  :string                                 # 格桑花孩子编号
+#  semester_count          :integer                                # 学期数
+#  done_semester_count     :integer                                # 已完成的学期数
+#  user_id                 :integer                                # 关联的用户ID
+#  donate_user_id          :integer                                # 捐助人id
+#  reason                  :string                                 # 结对申请理由
 #
 
+# 项目年度结对申请孩子
 class ProjectSeasonApplyChild < ApplicationRecord
 
   require 'custom_validators'
@@ -44,14 +51,19 @@ class ProjectSeasonApplyChild < ApplicationRecord
   belongs_to :project
   belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id'
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id'
-  belongs_to :gsh_child, optional: true
+  # belongs_to :gsh_child, optional: true
   belongs_to :school
+  belongs_to :user, optional: true
   has_one :visit, foreign_key: 'apply_child_id'
   has_many :audits, as: :owner
   has_many :remarks, as: :owner
   has_many :complaints, as: :owner
   has_many :donates, class_name: 'DonateRecord', dependent: :destroy
-  has_many :continuals, as: :owner
+  has_many :gsh_child_grants, foreign_key: :gsh_child_id, dependent: :destroy
+  #FIXME: 跟上面的关系重复了？
+  has_many :semesters, foreign_key: :gsh_child_id, class_name: 'GshChildGrant', dependent: :destroy
+  has_many :feedbacks, as: :owner
+  has_many :continual_feedbacks, as: :owner
 
   has_many :period_child_ships
   has_many :project_season_apply_periods, through: :period_child_ships
@@ -63,6 +75,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   # validates :id_card, ShenfenzhengNo: true
   validates :id_card, :name, :phone, presence: true
   validates :province, :city, :district, presence: true
+  validates :reason, length: { maximum: 20 }
 
   enum state: {show: 1, hidden: 2} # 状态：1:展示 2:隐藏
   default_value_for :state, 2
@@ -90,6 +103,8 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
+  before_create :gen_gsh_no
+
   def count_age
     birthday = ChinesePid.new("#{self.id_card}").birthday
     today = Date.today
@@ -97,13 +112,18 @@ class ProjectSeasonApplyChild < ApplicationRecord
     self.update_columns(age: child_age)
   end
 
+  # 筹款进度
+  def gift_progress
+    "#{self.done_semester_count}/#{self.semester_count}"
+  end
+
   def raise_process
-    return "#{self.gsh_child.gsh_child_grants.succeed.count} / #{self.gsh_child.gsh_child_grants.count}"
+    return "#{self.gsh_child_grants.succeed.count} / #{self.gsh_child_grants.count}"
   end
 
   def raise_condition
-    total = self.gsh_child.gsh_child_grants.count
-    num = total - self.gsh_child.gsh_child_grants.succeed.count
+    total = self.gsh_child_grants.count
+    num = total - self.gsh_child_grants.succeed.count
 
     if num == 0
       '筹款完成'
@@ -127,12 +147,12 @@ class ProjectSeasonApplyChild < ApplicationRecord
         file: nil # path to write
     )
     FileUtils.mkdir_p("public/uploads/qrcode") unless File.exists?("public/uploads/qrcode")
-    f = File.new("public/uploads/qrcode/#{self.gsh_child.gsh_no}.png", "w+")
+    f = File.new("public/uploads/qrcode/#{self.gsh_no}.png", "w+")
     f.syswrite(png)
   end
 
   def qrcode_url
-    "/uploads/qrcode/#{self.gsh_child.gsh_no}.png"
+    "/uploads/qrcode/#{self.gsh_no}.png"
   end
 
   def share_url
@@ -143,11 +163,6 @@ class ProjectSeasonApplyChild < ApplicationRecord
   # 通过审核
   def approve_pass
     self.approve_state = 'pass'
-    if self.gsh_child_id.nil?
-      self.gsh_child = self.create_gsh_child
-      # self.apply.gsh_child = self.gsh_child
-    end
-    self.save
     self.gen_grant_record
   end
 
@@ -165,7 +180,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
     Jbuilder.new do |json|
       json.(self, :id, :age, :name)
       json.level self.enum_name(:level)
-      json.gsh_no self.gsh_child.try(:gsh_no)
+      json.gsh_no self.gsh_no
       json.remarks_string self.remarks_string
     end.attributes!
   end
@@ -203,17 +218,17 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   # 受助学生的全部捐助记录
   def donate_all_records
-    self.gsh_child.gsh_child_grants.reverse_sorted
+    self.gsh_child_grants.reverse_sorted
   end
 
   # 受助学生未筹款的记录
   def donate_pending_records
-    self.gsh_child.gsh_child_grants.pending.reverse_sorted
+    self.gsh_child_grants.pending.reverse_sorted
   end
 
   # 受助学生筹款成功的记录
   def donate_succeed_records
-    self.gsh_child.gsh_child_grants.succeed.reverse_sorted
+    self.gsh_child_grants.succeed.reverse_sorted
   end
 
   def summary_builder
@@ -222,12 +237,12 @@ class ProjectSeasonApplyChild < ApplicationRecord
       json.name self.name
       json.age self.age
       json.level self.enum_name(:level)
-      json.gsh_no self.gsh_child.gsh_no
+      json.gsh_no self.gsh_no
       json.tuition self.get_tuition.to_i
       json.description self.description
       json.donate_grants self.donate_record_builder
       json.grants do
-        json.array! self.gsh_child.gsh_child_grants.granted.reverse_sorted do |grant|
+        json.array! self.gsh_child_grants.granted.reverse_sorted do |grant|
           json.(grant, :id)
           json.(grant, :amount)
           json.reporter grant.grant_person
@@ -255,9 +270,22 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   def list_builder
     Jbuilder.new do |json|
-      json.(self, :id, :name, :age)
+      json.(self, :id, :name, :age, :reason)
       json.level_name self.enum_name(:level)
       json.id_card self.secure_id_card
+      json.gender self.enum_name(:gender)
+    end.attributes!
+  end
+
+  def donate_children_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :name)
+      json.gsh_no self.gsh_no
+      json.child_id self.id
+      json.grants self.semesters.where(user_id: self.donate_user_id).pluck(:title).join('/').gsub(/\s/, '').strip.to_s
+      json.donate_state self.semesters.pending.size > 0
+      json.num self.continual_feedbacks.count
+      json.avatar self.avatar.present? ? self.avatar_url(:tiny).to_s : ''
     end.attributes!
   end
 
@@ -286,22 +314,12 @@ class ProjectSeasonApplyChild < ApplicationRecord
   end
 
   protected
-
-  def create_gsh_child
-    gsh_child = GshChild.new
-    gsh_child.school_id = self.apply.school_id
-    gsh_child.province = self.province
-    gsh_child.city = self.city
-    gsh_child.district = self.district
-    gsh_child.name = self.name
-    gsh_child.phone = self.phone
-    gsh_child.qq = self.qq
-    gsh_child.save
-    return gsh_child
-  end
-
   def gen_grant_record
-    GshChildGrant.gen_grant_record(self.gsh_child)
+    GshChildGrant.gen_grant_record(self)
   end
 
+  private
+  def gen_gsh_no
+    self.gsh_no ||= Sequence.get_seq(kind: :gsh_no, prefix: 'GSH', length: 10)
+  end
 end

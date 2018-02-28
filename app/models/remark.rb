@@ -12,6 +12,7 @@
 #  updated_at    :datetime         not null
 #
 
+# 后台的一些备注信息
 class Remark < ApplicationRecord
   belongs_to :owner, polymorphic: true
   belongs_to :operator, polymorphic: true

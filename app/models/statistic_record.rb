@@ -10,6 +10,7 @@
 #  record_time :datetime                               # 统计时间
 #
 
+# 统计记录
 class StatisticRecord < ApplicationRecord
   default_value_for :amount, 0
   enum kind: {user_register: 1, income_statistic: 2}

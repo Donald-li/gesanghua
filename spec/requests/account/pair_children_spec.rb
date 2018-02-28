@@ -25,7 +25,7 @@ RSpec.describe "Api::V1::Account::PairChildren", type: :request do
     end
 
     it '获取孩子信箱列表' do
-      Continual.create(content: '谢谢所有参与表演的音乐家们，谢谢所有无私奉献的志愿者，感谢大家对我的帮助，我一定努力学习，长大成为一个有用的人', kind: 2, user: login_user, project_id: child1.project_id, project_season_id: child1.season.id, project_season_apply_id: child1.project_season_apply_id, project_season_apply_child_id: child1.id, owner_type: 'ProjectSeasonApplyChild', owner_id: child1.id)
+      ContinualFeedback.create(content: '谢谢所有参与表演的音乐家们，谢谢所有无私奉献的志愿者，感谢大家对我的帮助，我一定努力学习，长大成为一个有用的人', kind: 2, user: login_user, project_id: child1.project_id, project_season_id: child1.season.id, project_season_apply_id: child1.project_season_apply_id, project_season_apply_child_id: child1.id, owner_type: 'ProjectSeasonApplyChild', owner_id: child1.id)
       get feedback_list_api_v1_account_pair_children_path(child_id: child1.id), headers: api_v1_headers(login_user)
       api_v1_expect_success
     end

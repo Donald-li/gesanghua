@@ -17,6 +17,7 @@
 #  openid     :string                                 # 微信openid
 #
 
+# 教师
 class Teacher < ApplicationRecord
 
   require 'custom_validators'
