@@ -1,0 +1,151 @@
+<div class="portlet light portlet-fit bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="fa fa-sliders font-dark"></i>
+      <span class="caption-subject font-dark bold uppercase">审核学校申请</span>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="table-scrollable">
+      <table class="table table-bordered table-hover">
+        <tbody>
+        <tr>
+          <th width="300px">
+            学校名称
+          </th>
+          <th>
+            <%= @school_apply.name %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            学校申请人
+          </th>
+          <th>
+            <%= @school_apply.user.try(:name) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            学校所在地
+          </th>
+          <th>
+            <%= @school_apply.simple_address %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            通讯地址
+          </th>
+          <th>
+            <%= @school_apply.address %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            校长名称
+          </th>
+          <th>
+            <%= @school_apply.contact_name %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            校长身份证号码
+          </th>
+          <th>
+            <%= @school_apply.contact_idcard %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            校长手机号码
+          </th>
+          <th>
+            <%= @school_apply.contact_phone %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            学生人数
+          </th>
+          <th>
+            <%= @school_apply.number %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            教师人数
+          </th>
+          <th>
+            <%= @school_apply.teacher_count %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            后勤人数
+          </th>
+          <th>
+            <%= @school_apply.logistic_count %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            学校简介
+          </th>
+          <th>
+            <%= @school_apply.describe %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            身份证图片
+          </th>
+          <th>
+            <%= image_tag @school_apply.card_image_url(:small) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            学校证明图片
+          </th>
+          <th>
+            <%= image_tag @school_apply.certificate_image_url(:small) %>
+          </th>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="portlet-body form">
+      <%= simple_form_for [:admin, @school_apply], url: check_admin_school_apply_path, method: :patch, wrapper: :admin_form, html: {id: 'approve-form'} do |f| %>
+          <%= f.error_notification %>
+          <div class="form-body form-horizontal">
+            <%= f.input :approve_state, as: :radio_buttons, wrapper: :inline_inputs, collection: School.options_for_some_select(:approve_states, ['pass', 'reject']), label: '审核状态：', required: 'required', input_html: { class: 'approve_state', onclick: 'toggleState();'} %>
+            <div class="approve_reject">
+              <%= f.input :approve_remark, label: '审核备注：', input_html: {class: 'form-control', placeholder: '', style: 'height: 200px'} %>
+            </div>
+            <div class="form-actions">
+              <div class="row">
+                <div class="col-md-offset-3 col-md-9">
+                  <%= f.button :submit, '提交', class: 'btn green' %>
+                  <%= link_to '取消', admin_school_applies_path, class: 'btn' %>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+      <% end %>
+      </div>
+</div>
+<script type="text/javascript">
+    function toggleState(){
+        toggleRadioInput('.approve_state', {
+            reject: '.approve_reject'
+        })
+    }
+    toggleState();
+    $("#approve-form").html5Validate(function () {
+        $(this).find('[type="submit"]').attr('disabled', 'disabled');
+        this.submit();
+    });
+</script>

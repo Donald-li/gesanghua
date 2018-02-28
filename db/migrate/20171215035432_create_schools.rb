@@ -4,7 +4,7 @@ class CreateSchools < ActiveRecord::Migration[5.1]
       t.string :name, comment: '学校名称'
       t.string :address, comment: '地址'
       t.integer :approve_state, comment: '审核状态：1:待审核 2:通过 3:不通过', default: 1
-      t.string :approve_remark, comment: '审核备注'
+      t.text :approve_remark, comment: '审核备注'
       t.string :province, comment: '省'
       t.string :city, comment: '市'
       t.string :district, comment: '区/县'
