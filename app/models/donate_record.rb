@@ -33,6 +33,8 @@
 #  bookshelf_supplement_id           :integer                                # 补书ID
 #  donate_item_id                    :integer                                # 可捐助id
 #  income_record_id                  :integer                                # 收入记录
+#  title                             :string                                 # 捐赠标题
+#  pay_result                        :string                                 # 支付结果
 #
 
 class DonateRecord < ApplicationRecord
