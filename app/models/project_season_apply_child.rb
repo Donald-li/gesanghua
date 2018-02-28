@@ -29,6 +29,7 @@
 #  semester                :integer                                # 学期
 #  kind                    :integer                                # 捐助形式：1对外捐助 2内部认捐
 #  donate_user_id          :integer                                # 捐助人id
+#  reason                  :string                                 # 结对申请理由
 #
 
 class ProjectSeasonApplyChild < ApplicationRecord
@@ -63,8 +64,9 @@ class ProjectSeasonApplyChild < ApplicationRecord
   attr_accessor :approve_remark
 
   # validates :id_card, ShenfenzhengNo: true
-  validates :id_card, :name, :phone, presence: true
+  validates :id_card, :name, :phone, :reason, presence: true
   validates :province, :city, :district, presence: true
+  validates :reason, length: { maximum: 20 }
 
   enum state: {show: 1, hidden: 2} # 状态：1:展示 2:隐藏
   default_value_for :state, 2
@@ -257,9 +259,10 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   def list_builder
     Jbuilder.new do |json|
-      json.(self, :id, :name, :age)
+      json.(self, :id, :name, :age, :reason)
       json.level_name self.enum_name(:level)
       json.id_card self.secure_id_card
+      json.gender self.enum_name(:gender)
     end.attributes!
   end
 

@@ -29,6 +29,7 @@
 #  semester                :integer                                # 学期
 #  kind                    :integer                                # 捐助形式：1对外捐助 2内部认捐
 #  donate_user_id          :integer                                # 捐助人id
+#  reason                  :string                                 # 结对申请理由
 #
 
 FactoryBot.define do

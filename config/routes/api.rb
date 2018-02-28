@@ -75,6 +75,8 @@
         end
       end
 
+      resources :cooperation_pair_students
+
       resources :school_users do
         collection do
           post :update_school
