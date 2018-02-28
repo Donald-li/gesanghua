@@ -11,6 +11,7 @@
 #  updated_at :datetime         not null
 #
 
+# 帮助分类
 class SupportCategory < ApplicationRecord
   has_many :supports
 

@@ -15,6 +15,7 @@
 #  updated_at    :datetime         not null
 #
 
+# 轮播图片
 class Advert < ApplicationRecord
   include BufferCount
   has_buffer_count

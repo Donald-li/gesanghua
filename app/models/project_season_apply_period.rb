@@ -17,6 +17,7 @@
 #  semester          :integer                                # 结对对应学期
 #
 
+# 一对一项目申请期间学期
 class ProjectSeasonApplyPeriod < ApplicationRecord
 
   acts_as_list column: :position

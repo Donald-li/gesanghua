@@ -19,6 +19,7 @@
 #  donate_item_id             :integer                                # 捐助项id
 #
 
+# 护花项目
 class Flower < Project
 
   # attr_accessor :image_id

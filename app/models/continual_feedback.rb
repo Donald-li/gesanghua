@@ -23,5 +23,6 @@
 #  class_name                        :string                                 # 反馈班级
 #
 
-class Continual < Feedback
+# 持续反馈
+class ContinualFeedback < Feedback
 end

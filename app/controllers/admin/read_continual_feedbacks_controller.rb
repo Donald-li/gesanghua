@@ -14,14 +14,14 @@ class Admin::ReadContinualFeedbacksController < Admin::BaseController
   end
 
   def new
-    @continual = Continual.new
+    @continual = ContinualFeedback.new
   end
 
   def edit
   end
 
   def create
-    @continual = Continual.new(continual_params.merge(owner_type: 'Project', project_id: ProjectSeason.book_project_id))
+    @continual = ContinualFeedback.new(continual_params.merge(owner_type: 'Project', project_id: ProjectSeason.book_project_id))
     respond_to do |format|
       if @continual.save
         format.html { redirect_to admin_read_continual_feedbacks_path(@project), notice: '新增成功。' }
@@ -56,7 +56,7 @@ class Admin::ReadContinualFeedbacksController < Admin::BaseController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_continual
-      @continual = Continual.find(params[:id])
+      @continual = ContinualFeedback.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

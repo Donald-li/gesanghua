@@ -9,6 +9,7 @@
 #  updated_at       :datetime         not null
 #
 
+# 捐赠收据对应的捐款记录
 class VoucherDonateRecord < ApplicationRecord
   belongs_to :voucher
   belongs_to :donate_record

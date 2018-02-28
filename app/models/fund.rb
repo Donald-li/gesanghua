@@ -17,6 +17,7 @@
 #  use_kind         :integer          default("unrestricted")   # 指定类型 1:非指定 2:指定
 #
 
+# 二级财务分类
 class Fund < ApplicationRecord
   belongs_to :fund_category
   has_many :donate_records
@@ -51,7 +52,7 @@ class Fund < ApplicationRecord
   end
 
   # 一对一非指定分类
-  def self.pari_restricted
+  def self.pari_unrestricted
     self.find 4
   end
 

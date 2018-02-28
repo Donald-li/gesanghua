@@ -19,6 +19,7 @@
 #  donate_item_id             :integer                                # 捐助项id
 #
 
+# 项目父表
 class Project < ApplicationRecord
   include ActionView::Helpers::NumberHelper
 

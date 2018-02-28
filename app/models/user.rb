@@ -35,6 +35,7 @@
 #  phone_verify    :integer          default("phone_unverified") # 手机认证 1:未认证 2:已认证
 #
 
+# 用户
 class User < ApplicationRecord
   ROLES = %i[superadmin admin project_manager project_operator financial_staff volunteer county_user gsh_child custom_service]
 
@@ -52,7 +53,7 @@ class User < ApplicationRecord
   has_one :teacher
   has_one :volunteer
   has_one :county_user
-  has_many :gsh_children
+  has_many :gsh_children, class_name: 'ProjectSeasonApplyChild', foreign_key: :user_id, dependent: :nullify
   has_many :vouchers
   has_many :campaign_enlists
   has_many :donate_records

@@ -25,6 +25,7 @@
 #  task_no          :string                                 # 任务编号
 #
 
+# 志愿者任务
 class Task < ApplicationRecord
 
   before_create :gen_task_no

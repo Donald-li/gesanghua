@@ -17,6 +17,7 @@
 #  show_state                        :integer                                # 显示状态
 #
 
+# 图书角书架补书
 class BookshelfSupplement < ApplicationRecord
 
   validates :loss, :supply, presence: true
@@ -25,7 +26,7 @@ class BookshelfSupplement < ApplicationRecord
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id', optional: true
 
   has_many :donates, class_name: 'DonateRecord', dependent: :destroy
-  has_one :receive, as: :owner
+  has_one :receive_feedback, as: :owner
 
   enum show_state: {show: 1, hidden: 2}
   default_value_for :show_state, 1

@@ -14,6 +14,7 @@
 #  updated_at  :datetime         not null
 #
 
+# 一对一发放批次
 class GrantBatch < ApplicationRecord
   belongs_to :project
   belongs_to :user, optional: true

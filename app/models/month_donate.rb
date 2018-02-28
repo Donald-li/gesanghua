@@ -16,6 +16,7 @@
 #  certificate_no :string                                 # 捐赠证书编号
 #
 
+# 月捐
 class MonthDonate < ApplicationRecord
   include ActionView::Helpers::NumberHelper
 

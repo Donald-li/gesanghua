@@ -10,6 +10,7 @@
 #  updated_at        :datetime         not null
 #
 
+# 设置年度可申请的物品
 class ProjectSeasonGoods < ApplicationRecord
   belongs_to :project
   belongs_to :project_season, optional: true

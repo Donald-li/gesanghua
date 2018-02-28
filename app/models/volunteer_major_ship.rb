@@ -9,6 +9,7 @@
 #  updated_at   :datetime         not null
 #
 
+# 志愿者专业关系表
 class VolunteerMajorShip < ApplicationRecord
   belongs_to :volunteer
   belongs_to :major

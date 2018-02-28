@@ -8,6 +8,7 @@
 #  updated_at :datetime         not null
 #
 
+# 志愿者专业
 class Major < ApplicationRecord
   has_many :tasks
   has_many :volunteer_major_ships

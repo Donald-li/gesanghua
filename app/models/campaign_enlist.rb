@@ -16,6 +16,7 @@
 #  income_source_id :integer                                # 收入来源id
 #
 
+# 活动报名
 class CampaignEnlist < ApplicationRecord
 
   require 'custom_validators'

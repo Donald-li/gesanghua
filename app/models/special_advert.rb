@@ -11,6 +11,7 @@
 #  kind       :integer                                # 类型
 #
 
+# 专题广告图
 class SpecialAdvert < ApplicationRecord
   belongs_to :special
   belongs_to :advert

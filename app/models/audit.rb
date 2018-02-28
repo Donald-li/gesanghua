@@ -12,6 +12,7 @@
 #  updated_at :datetime         not null
 #
 
+# 审核表
 class Audit < ApplicationRecord
   belongs_to :owner, polymorphic: true, optional: true
   belongs_to :user, optional: true

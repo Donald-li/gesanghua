@@ -50,7 +50,7 @@ class Admin::MovieFeedbacksController < Admin::BaseController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_install
-      @install = Install.find(params[:id])
+      @install = InstallFeedback.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -14,6 +14,7 @@
 #  updated_at    :datetime         not null
 #
 
+# 举报
 class Complaint < ApplicationRecord
   belongs_to :owner, polymorphic: true
 

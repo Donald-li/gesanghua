@@ -29,6 +29,7 @@
 #  contact_telephone :string                                 # 联系人座机号码
 #
 
+# 学校
 class School < ApplicationRecord
 
   require 'custom_validators'

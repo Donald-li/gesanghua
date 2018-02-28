@@ -24,6 +24,7 @@
 #  book_number             :integer                                # 书籍数量
 #
 
+# 项目年度图书角申请
 class ProjectSeasonApplyBookshelf < ApplicationRecord
 
   before_save :gen_bookshelf_no, if: :can_gen_bookshelf_no?
@@ -36,7 +37,7 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
   has_many :donates, class_name: 'DonateRecord', dependent: :destroy
   has_many :beneficial_children
   has_many :supplements, class_name: 'BookshelfSupplement', foreign_key: 'project_season_apply_bookshelf_id'
-  has_one :receive, as: :owner
+  has_one :receive_feedback, as: :owner
 
   scope :gsh_bookshelf, -> { complete }
 

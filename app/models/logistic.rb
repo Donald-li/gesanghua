@@ -11,6 +11,7 @@
 #  updated_at :datetime         not null
 #
 
+# 物流信息
 class Logistic < ApplicationRecord
   belongs_to :owner, polymorphic: true
 
@@ -24,9 +25,9 @@ class Logistic < ApplicationRecord
 
   def qurey_result
     if self.else?
-      return "https://www.kuaidi100.com/"
+      "https://www.kuaidi100.com/"
     else
-      return "https://www.kuaidi100.com/chaxun?com=#{self.name}&nu=#{self.number}"
+      "https://www.kuaidi100.com/chaxun?com=#{self.name}&nu=#{self.number}"
     end
   end
 

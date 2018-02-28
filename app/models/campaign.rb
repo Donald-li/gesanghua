@@ -23,6 +23,7 @@
 #  campaign_state       :integer                                # 活动状态 1:活动未开始 2:活动进行中 3:活动已结束
 #
 
+# 活动
 class Campaign < ApplicationRecord
   belongs_to :project, optional: true
   belongs_to :campaign_category

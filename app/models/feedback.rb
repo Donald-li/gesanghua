@@ -23,6 +23,7 @@
 #  class_name                        :string                                 # 反馈班级
 #
 
+# 反馈表
 class Feedback < ApplicationRecord
   belongs_to :owner, polymorphic: true
   belongs_to :user

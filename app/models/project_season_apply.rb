@@ -37,6 +37,7 @@
 #  form              :jsonb                                  # 自定义表单{key, value}
 #
 
+# 所有项目年度申请表
 class ProjectSeasonApply < ApplicationRecord
 
   # before_save :gen_bookshelves_no, if: :can_gen_bookshelf_no?
@@ -54,14 +55,14 @@ class ProjectSeasonApply < ApplicationRecord
   has_many :audits, as: :owner
   has_many :children, class_name: "ProjectSeasonApplyChild"
   has_many :gsh_child_grants
-  has_many :gsh_children
+  has_many :gsh_children, class_name: 'ProjectSeasonApplyChild', dependent: :destroy
   has_many :bookshelves, class_name: 'ProjectSeasonApplyBookshelf', foreign_key: 'project_season_apply_id'
   has_many :supplements, class_name: 'BookshelfSupplement', foreign_key: 'project_season_apply_id'
   has_many :beneficial_children
   has_many :donate_records
 
-  has_one :install, as: :owner
-  has_one :receive, as: :owner
+  has_one :install_feedback, as: :owner
+  has_one :receive_feedback, as: :owner
   has_one :radio_information
   accepts_nested_attributes_for :radio_information, update_only: true
   accepts_nested_attributes_for :bookshelves, allow_destroy: true, reject_if: :all_blank

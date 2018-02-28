@@ -10,6 +10,7 @@
 #  updated_at       :datetime         not null
 #
 
+# 管理员登录日志
 class AdministratorLog < ApplicationRecord
   belongs_to :administrator
 

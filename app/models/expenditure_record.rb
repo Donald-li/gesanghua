@@ -20,6 +20,7 @@
 #  amount           :decimal(14, 2)   default(0.0)          # 支出金额
 #
 
+# 支出记录
 class ExpenditureRecord < ApplicationRecord
   include HasAsset
   has_many_assets :images, class_name: 'Asset::ExpenditureRecordImage'
