@@ -28,12 +28,20 @@
 #  school_id               :integer                                # 学校ID
 #  semester                :integer                                # 学期
 #  kind                    :integer                                # 捐助形式：1对外捐助 2内部认捐
+#  gsh_no                  :string                                 # 格桑花孩子编号
+#  semester_count          :integer                                # 学期数
+#  done_semester_count     :integer                                # 已完成的学期数
+#  user_id                 :integer                                # 关联的用户ID
+#  donate_user_id          :integer                                # 捐助人id
+#  reason                  :string                                 # 结对申请理由
 #
 
 # 项目年度结对申请孩子
 class ProjectSeasonApplyChild < ApplicationRecord
 
   require 'custom_validators'
+
+  before_update :update_pair_state, if: :can_update_pair_state?
 
   # attr_accessor :image_ids
   include HasAsset
@@ -45,6 +53,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id'
   # belongs_to :gsh_child, optional: true
   belongs_to :school
+  belongs_to :user, optional: true
   has_one :visit, foreign_key: 'apply_child_id'
   has_many :audits, as: :owner
   has_many :remarks, as: :owner
@@ -54,6 +63,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   #FIXME: 跟上面的关系重复了？
   has_many :semesters, foreign_key: :gsh_child_id, class_name: 'GshChildGrant', dependent: :destroy
   has_many :feedbacks, as: :owner
+  has_many :continual_feedbacks, as: :owner
 
   has_many :period_child_ships
   has_many :project_season_apply_periods, through: :period_child_ships
@@ -65,6 +75,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   # validates :id_card, ShenfenzhengNo: true
   validates :id_card, :name, :phone, presence: true
   validates :province, :city, :district, presence: true
+  validates :reason, length: { maximum: 20 }
 
   enum state: {show: 1, hidden: 2} # 状态：1:展示 2:隐藏
   default_value_for :state, 2
@@ -257,6 +268,32 @@ class ProjectSeasonApplyChild < ApplicationRecord
     end.attributes!
   end
 
+  def list_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :name, :age, :reason)
+      json.level_name self.enum_name(:level)
+      json.id_card self.secure_id_card
+      json.gender self.enum_name(:gender)
+    end.attributes!
+  end
+
+  def donate_children_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :name)
+      json.gsh_no self.gsh_no
+      json.child_id self.id
+      json.grants self.semesters.where(user_id: self.donate_user_id).pluck(:title).join('/').gsub(/\s/, '').strip.to_s
+      json.donate_state self.semesters.pending.size > 0
+      json.num self.continual_feedbacks.count
+      json.avatar self.avatar.present? ? self.avatar_url(:tiny).to_s : ''
+    end.attributes!
+  end
+
+  def secure_id_card
+    card = self.id_card
+    return card[0] + '*' * (card.length - 2) + card[-1]
+  end
+
   def donate_record_builder
     Jbuilder.new do |json|
         json.array! self.donate_all_records do |grant|
@@ -266,6 +303,14 @@ class ProjectSeasonApplyChild < ApplicationRecord
           json.donate_state grant.donate_state
         end
     end.attributes!
+  end
+
+  def can_update_pair_state?
+    (self.pass? || self.reject?) && (self.apply.children.submit.count == 1)
+  end
+
+  def update_pair_state
+    self.apply.pair_complete!
   end
 
   protected

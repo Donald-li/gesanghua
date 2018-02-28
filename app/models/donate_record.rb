@@ -33,6 +33,8 @@
 #  bookshelf_supplement_id           :integer                                # 补书ID
 #  donate_item_id                    :integer                                # 可捐助id
 #  income_record_id                  :integer                                # 收入记录
+#  title                             :string                                 # 捐赠标题
+#  pay_result                        :string                                 # 支付结果
 #
 
 # 捐助记录
@@ -117,12 +119,26 @@ class DonateRecord < ApplicationRecord
     return donate
   end
 
+  def wechat_prepay_js(remote_ip)
+      prepay_id = get_wechat_prepay_id(remote_ip)
+      package_str = "prepay_id=#{prepay_id}"
+      prepay_js = {
+        appId: Settings.wechat_app_id,
+        nonceStr: SecureRandom.uuid.tr('-', ''),
+        package: package_str,
+        timeStamp: Time.now.getutc.to_i.to_s,
+        signType: 'MD5'
+      }
+      pay_sign = WxPay::Sign.generate(prepay_js)
+      prepay_js.merge(paySign: pay_sign)
+    end
+
   # 捐定向
   def self.donate_project(user = nil, amount = 0.0, project = nil, promoter = nil)
     return false unless user.present?
     return false unless project.present?
     fund = project.fund
-    donate = user.donates.build(amount: amount, fund: fund, promoter: promoter, pay_state: 'unpay', project: project)
+    donate = user.donates.build(amount: amount, fund: fund, promoter: promoter, pay_state: 'unpay', project: project, title: '捐助定向')
     donate.save
     return donate
   end
@@ -156,7 +172,7 @@ class DonateRecord < ApplicationRecord
     donate = self.new(user_id: user_id, amount: total, fund: project.appoint_fund, promoter: promoter, pay_state: 'unpay', project: project, gsh_child: gsh_child)
     if donate.save
       self.donate_child_semesters(gsh_child, semester_num).update(donate_state: :succeed, user_id: user_id)
-      gsh_child.update(user_id: user_id)
+      gsh_child.update(donate_user_id: user_id)
     end
     return donate
   end
@@ -347,6 +363,23 @@ class DonateRecord < ApplicationRecord
   def gen_donate_no
     time_string = Time.now.strftime("%y%m%d%H")
     self.donate_no ||= Sequence.get_seq(kind: :donate_no, prefix: time_string, length: 7)
+  end
+
+  def get_wechat_prepay_id(remote_ip)
+    notify_url = Settings.app_host + "/payment/wechat_payments/notify"
+    params = {
+      body: '需要一个商品名称',
+      out_trade_no: self.donate_no,
+      # total_fee: Settings.pay_1_mode ? 1 : (self.amount * 100).to_i,
+      total_fee: 1,
+      # (self.amount * 100).to_i,
+      spbill_create_ip: remote_ip,
+      notify_url: notify_url,
+      trade_type: 'JSAPI', # could be "JSAPI" or "NATIVE",
+      openid: self.user.openid# required when trade_type is `JSAPI`
+    }
+    res = WxPay::Service.invoke_unifiedorder params
+    return res['prepay_id']
   end
 
 end

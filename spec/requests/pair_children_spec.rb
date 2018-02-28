@@ -51,4 +51,13 @@ RSpec.describe "Api::V1::PairChildren", type: :request do
     end
   end
 
+  describe '获取审核通过的孩子列表' do
+    it '获取孩子列表' do
+      child1.approve_pass
+      child2.approve_pass
+      get verified_students_api_v1_cooperation_pairs_path(id: apply.id), headers: api_v1_headers(login_user)
+      api_v1_expect_success
+    end
+  end
+
 end

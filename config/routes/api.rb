@@ -18,6 +18,11 @@
         end
       end
 
+      namespace :gsh_plus do
+        resources :mains, only: [:index]
+        resources :schools, only: [:create]
+      end
+
       resource :main, only: [:show] do
         get :contribute
         post :settlement
@@ -54,7 +59,7 @@
         end
       end
       resources :teams
-      resources :donate_records, only: [:index] do
+      resources :donate_records, only: [:index, :show] do
         member do
           get :certificate
         end
@@ -65,14 +70,29 @@
         end
       end
 
-      resources :cooperation_pairs
-
-      resources :school_users do
-        member do
-          get :school_summary
-          get :school_details
+      resources :cooperation_pairs do
+        collection do
+          get :verified_students
         end
       end
+
+      resources :cooperation_pair_students
+
+      resources :school_users do
+        collection do
+          post :update_school
+        end
+      end
+
+      # 微信支付
+      resource :wechat_payment, only: [] do
+        collection do
+          get :pay
+        end
+      end
+
+      # 微信签名
+      resource :sign_package, only: [:show]
 
     end
 

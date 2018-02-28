@@ -38,6 +38,8 @@ class School < ApplicationRecord
 
   include HasAsset
   has_one_asset :logo, class_name: 'Asset::SchoolLogo'
+  has_one_asset :card_image, class_name: 'Asset::SchoolCardImage'
+  has_one_asset :certificate_image, class_name: 'Asset::SchoolCertificateImage'
   has_many_assets :images, class_name: 'Asset::SchoolImage'
 
   has_many :bookshelves, class_name: 'ProjectSeasonApplyBookshelf'
@@ -99,29 +101,27 @@ class School < ApplicationRecord
 
   def detail_builder
     Jbuilder.new do |json|
-      json.(self, :id)
+      json.(self, :id, :contact_name, :contact_idcard, :contact_phone, :contact_telephone)
       json.name self.name
       json.address self.address
-      json.province self.province
-      json.city self.city
-      json.district self.district
+      json.location [self.province, self.city, self.district]
       json.postcode self.postcode
-      json.number self.number
-      json.teacher_count self.teacher_count
-      json.logistic_count self.logistic_count
+      json.number_list [{id: 0, tit: '学生人数', num: self.number}, {id: 1, tit: '教师人数', num: self.teacher_count}, {id: 2, tit: '后勤人数', num: self.logistic_count}]
       json.describe self.describe
-      json.contact_name self.contact_name
-      json.contact_idcard self.contact_idcard
-      json.contact_phone self.contact_phone
-      json.contact_telephone self.contact_telephone
-      json.images do
-        json.array! self.images do |img|
-          json.id img.id
-          json.thumb img.file_url(:tiny)
-          json.src img.file_url
-          json.w img.width
-          json.h img.height
-        end
+      json.logo_src self.try(:logo).try(:file_url)
+      json.logo_mode self.try(:logo).present?
+      json.logo do
+        json.id self.try(:logo).try(:id)
+        json.url self.try(:logo).try(:file_url)
+        json.protect_token ''
+      end
+      json.card_image do
+        json.id self.try(:card_image).try(:id)
+        json.url self.card_image_url(:small).to_s
+      end
+      json.certificate_image do
+        json.id self.try(:certificate_image).try(:id)
+        json.url self.certificate_image_url(:small).to_s
       end
     end.attributes!
   end

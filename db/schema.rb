@@ -241,6 +241,8 @@ ActiveRecord::Schema.define(version: 20180228101151) do
     t.integer "bookshelf_supplement_id", comment: "补书ID"
     t.integer "donate_item_id", comment: "可捐助id"
     t.integer "income_record_id", comment: "收入记录"
+    t.string "title", comment: "捐赠标题"
+    t.string "pay_result", comment: "支付结果"
   end
 
   create_table "expenditure_records", force: :cascade, comment: "支出记录表" do |t|
@@ -478,6 +480,7 @@ ActiveRecord::Schema.define(version: 20180228101151) do
     t.integer "student_number", comment: "受益学生数"
     t.text "project_describe", comment: "项目介绍"
     t.jsonb "form", comment: "自定义表单{key, value}"
+    t.integer "pair_state", comment: "结对审核状态"
   end
 
   create_table "project_season_apply_bookshelves", force: :cascade, comment: "项目执行年度申请书架表" do |t|
@@ -532,6 +535,8 @@ ActiveRecord::Schema.define(version: 20180228101151) do
     t.integer "semester_count", comment: "学期数"
     t.integer "done_semester_count", comment: "已完成的学期数"
     t.integer "user_id", comment: "关联的用户ID"
+    t.integer "donate_user_id", comment: "捐助人id"
+    t.string "reason", comment: "结对申请理由"
   end
 
   create_table "project_season_apply_gooods", force: :cascade, comment: "项目执行年度申请的物品表" do |t|

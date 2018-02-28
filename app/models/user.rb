@@ -37,7 +37,7 @@
 
 # 用户
 class User < ApplicationRecord
-  ROLES = %i[superadmin admin project_manager project_operator financial_staff volunteer county_user gsh_child custom_service]
+  ROLES = %i[superadmin admin project_manager project_operator financial_staff volunteer county_user gsh_child custom_service headmaster teacher]
 
   require 'custom_validators'
 
@@ -53,7 +53,9 @@ class User < ApplicationRecord
   has_one :teacher
   has_one :volunteer
   has_one :county_user
-  has_many :gsh_children, class_name: 'ProjectSeasonApplyChild', foreign_key: :user_id, dependent: :nullify
+  has_one :school
+  has_one :gsh_child, class_name: 'ProjectSeasonApplyChild',foreign_key: :user_id
+  has_many :children, class_name: 'ProjectSeasonApplyChild', foreign_key: 'donate_user_id', dependent: :nullify # 我捐助的孩子们
   has_many :vouchers
   has_many :campaign_enlists
   has_many :donate_records
@@ -132,6 +134,14 @@ class User < ApplicationRecord
 
   def user_balance
     "#{self.name}(可用余额:#{self.balance.to_s})"
+  end
+
+  def school_approve_state
+    self.school.present? ? self.school.approve_state : 'default'
+  end
+
+  def volunteer_approve_state
+    self.volunteer.present? ? self.school.approve_state : 'default'
   end
 
   # 捐给格桑花
