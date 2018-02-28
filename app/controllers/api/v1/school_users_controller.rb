@@ -1,7 +1,7 @@
 class Api::V1::SchoolUsersController < Api::V1::BaseController
 
   def index
-    @user = User.find_by(auth_token: params[:auth_token])
+    @user = current_user
     if @user.school.present?
       @school = @user.school
       api_success(data: @school.summary_builder)
@@ -11,7 +11,7 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
   end
 
   def show
-    @user = User.find_by(auth_token: params[:auth_token])
+    @user = current_user
     if @user.school.present?
       @school = @user.school
       api_success(data: @school.detail_builder)
@@ -21,7 +21,7 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
   end
 
   def update_school
-    @user = User.find_by(auth_token: params[:auth_token])
+    @user = current_user
     @school = @user.school if @user.present?
     if @school.present?
       province = params[:district][0]
