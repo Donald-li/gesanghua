@@ -55,7 +55,7 @@ class Admin::MovieAppliesController < Admin::BaseController
 
   def check
     respond_to do |format|
-      audit_state = project_apply_params[:audit_state] == 'pass' ? 2 : 3
+      audit_state = project_apply_params[:audit_state] == 'pass' ? 'pass' : 'reject'
       @project_apply.audit_state = audit_state
       if @project_apply.save
         @project_apply.audits.create(state: audit_state, user_id: current_user.id, comment: project_apply_params[:approve_remark])
