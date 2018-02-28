@@ -64,7 +64,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   attr_accessor :approve_remark
 
   # validates :id_card, ShenfenzhengNo: true
-  validates :id_card, :name, :phone, :reason, presence: true
+  validates :id_card, :name, :phone, presence: true
   validates :province, :city, :district, presence: true
   validates :reason, length: { maximum: 20 }
 
