@@ -25,6 +25,11 @@
 
 FactoryBot.define do
   factory :income_record do
-    
+    fund
+    remitter_name {Faker::Name.name}
+    title {Faker::Lorem.sentences}
+    amount {Faker::Number.decimal(2)}
+    balance {Faker::Number.decimal(2)}
+    income_time {Time.now}
   end
 end
