@@ -37,8 +37,8 @@ RSpec.describe IncomeRecord, type: :model do
 
     IncomeRecord.update_income_statistic_record
 
-    expect(StatisticRecord.income_statistic.where(record_time: Time.now.beginning_of_day..Time.now.end_of_day).first.amount).to eq 200
-    expect(StatisticRecord.income_statistic.where(record_time: (Time.now - 1.day).beginning_of_day..(Time.now - 1.day).end_of_day).first.amount).to eq 300
+    expect(StatisticRecord.income_statistic.where(record_time: Time.now.beginning_of_day..Time.now.end_of_day).first.amount) === IncomeRecord.where(income_time: Time.now.beginning_of_day..Time.now.end_of_day).pluck(:amount).reduce(:+)
+    expect(StatisticRecord.income_statistic.where(record_time: (Time.now - 1.day).beginning_of_day..(Time.now - 1.day).end_of_day).first.amount) === IncomeRecord.where(income_time: (Time.now - 1.day).beginning_of_day..(Time.now - 1.day).end_of_day).pluck(:amount).reduce(:+)
 
   end
 end
