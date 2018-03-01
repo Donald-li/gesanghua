@@ -89,7 +89,14 @@ class School < ApplicationRecord
     Jbuilder.new do |json|
       json.(self, :id, :name)
       json.kind self.kind === 1? '校长' : '教师'
+      json.user_nickname self.try(:user).try(:nickname)
       json.user_name self.try(:user).try(:name)
+      json.contact_telephone self.try(:contact_telephone)
+      json.user_avatar do
+        json.id self.try(:user).try(:avatar).try(:id)
+        json.url self.try(:user).try(:avatar).try(:file_url)
+        json.protect_token ''
+      end
       # json.avatar_id self.try(:user).try(:avatar).try(:id)
       # json.avatar_thumb self.try(:user).try(:avatar).try(:file_url(:tiny))
       json.avatar_src self.try(:user).try(:avatar).try(:file_url)
