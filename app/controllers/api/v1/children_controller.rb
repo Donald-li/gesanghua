@@ -2,7 +2,7 @@ class Api::V1::ChildrenController < Api::V1::BaseController
   before_action :set_pair
 
   def index
-    @children = ProjectSeasonApplyChild.pass.outside.show.sorted
+    @children = ProjectSeasonApplyChild.where(project: Project.pair_project).pass.outside.show.sorted
     @children = @children.where(city: params[:city]) if params[:city].present?
     @children = @children.where(district: params[:district]) if params[:district].present?
     @children = @children.page(params[:page]).per(params[:per])

@@ -21,6 +21,7 @@
 #  project_season_apply_child_id     :integer                                # 孩子id
 #  project_season_apply_bookshelf_id :integer                                # 书架id
 #  class_name                        :string                                 # 反馈班级
+#  gsh_child_grant_id                :integer                                # 学生某学期的持续反馈（感谢信）
 #
 
 require 'rails_helper'

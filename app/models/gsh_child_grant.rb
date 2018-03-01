@@ -42,6 +42,7 @@ class GshChildGrant < ApplicationRecord
   belongs_to :donator, class_name: 'User', foreign_key: 'user_id', optional: true # 捐助人
 
   has_one :feedback, as: :owner
+  has_many :thank_notes, class_name: 'Feedback', foreign_key: 'gsh_child_grant_id'
 
   enum state: {waiting: 1, granted: 2, suspend: 3, cancel: 4}
   default_value_for :state, 1
@@ -89,7 +90,10 @@ class GshChildGrant < ApplicationRecord
 
   def summary_builder
     Jbuilder.new do |json|
-        json.(self, :id, :title, :amount, :donate_state)
+        json.(self, :id, :title, :amount, :donate_state, :grant_batch_id)
+        json.child_name gsh_child.name
+        json.gsh_no gsh_child.gsh_no
+        json.state self.enum_name(:state)
     end.attributes!
   end
 

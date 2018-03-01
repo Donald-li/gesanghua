@@ -16,7 +16,7 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
       @school = @user.school
       api_success(data: @school.detail_builder)
     else
-      api_success(data: [], message: '您不是学校用户！')
+      api_success(data: false, message: '您不是学校用户！')
     end
   end
 

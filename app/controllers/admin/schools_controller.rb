@@ -5,7 +5,7 @@ class Admin::SchoolsController < Admin::BaseController
   def index
     respond_to do |format|
       format.html do # HTML页面
-        @search = School.sorted.ransack(params[:q])
+        @search = School.sorted.pass.ransack(params[:q])
         scope = @search.result
         @schools = scope.page(params[:page])
       end

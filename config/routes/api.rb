@@ -24,6 +24,7 @@
         resources :gsh_children, only: [] do
           collection do
             post :match_identity
+            get :confirm_identity
           end
         end
       end
@@ -86,6 +87,7 @@
           get :qrcode
           get :checked_list
           post :submit_list
+          get :child_grants
         end
       end
 
@@ -118,6 +120,12 @@
 
       # 微信签名
       resource :sign_package, only: [:show]
+
+      namespace :staff do
+        resources :grant_batches, only: [:index, :show] do
+          resources :grants, only: [:index, :show]
+        end
+      end
 
     end
 
