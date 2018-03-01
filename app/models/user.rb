@@ -60,6 +60,7 @@ class User < ApplicationRecord
   has_many :campaign_enlists
   has_many :donate_records, dependent: :nullify
   has_many :donates, class_name: 'DonateRecord', dependent: :destroy
+  has_many :visits
 
   has_many :income_records
   has_many :project_season_applies

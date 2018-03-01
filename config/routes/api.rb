@@ -101,6 +101,13 @@
         end
       end
 
+      resources :home_visits do
+        collection do
+          get :qrcode
+          get :get_child
+        end
+      end
+
       resources :school_users do
         collection do
           post :update_school

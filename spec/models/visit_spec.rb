@@ -9,6 +9,7 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  apply_child_id :integer                                # 孩子申请ID
+#  user_id        :integer                                # 用户ID
 #
 
 require 'rails_helper'
