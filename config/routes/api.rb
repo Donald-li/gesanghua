@@ -87,6 +87,7 @@
           get :qrcode
           get :checked_list
           post :submit_list
+          get :child_grants
         end
       end
 

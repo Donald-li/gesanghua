@@ -46,4 +46,9 @@ class Api::V1::CooperationPairStudentsController < Api::V1::BaseController
     api_success(data: {students: students.map { |r| r.list_builder }, pagination: json_pagination(students)})
   end
 
+  def child_grants
+    child_grants = ProjectSeasonApplyChild.where(id: params[:id], approve_state: 'pass', project: Project.pair_project)
+    api_success(data: {child_grants: child_grants.map{|grant| grant.donate_record_builder}})
+  end
+
 end
