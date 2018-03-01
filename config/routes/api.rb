@@ -82,7 +82,13 @@
         end
       end
 
-      resources :cooperation_pair_students
+      resources :cooperation_pair_students do
+        collection do
+          get :qrcode
+          get :checked_list
+          post :submit_list
+        end
+      end
 
       resources :school_users do
         collection do
