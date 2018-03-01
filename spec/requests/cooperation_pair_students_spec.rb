@@ -15,7 +15,7 @@ RSpec.describe "Api::V1::CooperationPairStudents", type: :request do
       child1.approve_pass
       get child_grants_api_v1_cooperation_pair_students_path,
            params: {
-               id: child1.id
+               id: child1.gsh_child.id
            }, headers: api_v1_headers(login_user)
       api_v1_expect_success
     end

@@ -12,6 +12,7 @@ RSpec.describe "Api::V1::GshPlus::GshChildren", type: :request do
 
   describe '格桑花+认证格桑花孩子' do
     it '匹配格桑花孩子' do
+      child1.approve_pass
       post match_identity_api_v1_gsh_plus_gsh_children_path,
            params: {
                child: {name: child1.name, id_card: child1.id_card}

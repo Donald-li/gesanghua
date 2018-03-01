@@ -25,7 +25,15 @@ RSpec.describe "Api::V1::Account::PairChildren", type: :request do
     end
 
     it '获取孩子信箱列表' do
-      ContinualFeedback.create(content: '谢谢所有参与表演的音乐家们，谢谢所有无私奉献的志愿者，感谢大家对我的帮助，我一定努力学习，长大成为一个有用的人', kind: 2, user: login_user, project_id: child1.project_id, project_season_id: child1.season.id, project_season_apply_id: child1.project_season_apply_id, project_season_apply_child_id: child1.id, owner_type: 'ProjectSeasonApplyChild', owner_id: child1.id)
+      child1.approve_pass
+      post settlement_api_v1_pair_children_path,
+           params: {id: child1.id, by_team: false,
+                    donor_name: '好心人', total_amount: '2100',
+                    paymethod: 'weixin', selectedGrants: child1.donate_record_builder},
+           headers: api_v1_headers(login_user)
+      api_v1_expect_success
+
+      ContinualFeedback.create(content: '谢谢所有参与表演的音乐家们，谢谢所有无私奉献的志愿者，感谢大家对我的帮助，我一定努力学习，长大成为一个有用的人', kind: 2, user: login_user, project_id: child1.project_id, project_season_id: child1.season.id, project_season_apply_id: child1.project_season_apply_id, project_season_apply_child_id: child1.id, owner_type: 'ProjectSeasonApplyChild', owner_id: child1.id, gsh_child_grant_id: child1.gsh_child_grants.first.id)
       get feedback_list_api_v1_account_pair_children_path(child_id: child1.id), headers: api_v1_headers(login_user)
       api_v1_expect_success
     end
