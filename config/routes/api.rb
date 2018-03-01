@@ -130,7 +130,7 @@
 
       namespace :staff do
         resources :grant_batches, only: [:index, :show] do
-          resources :grants, only: [:index, :show]
+          resources :grants, only: [:index, :show, :update]
         end
       end
 
