@@ -10,10 +10,10 @@ class Api::V1::PairFeedbacksController < Api::V1::BaseController
   end
 
   def create_pair_feedback
-    @project = Project.find(1)
+    @project = Project.pair_project
     @user = current_user
     @child = ProjectSeasonApplyChild.find(params[:child_id])
-    @feedback = ContinualFeedback.new(project_season_apply_child_id: params[:child_id], content: params[:content], owner: @child, project: @project, user: @user)
+    @feedback = ContinualFeedback.new(project_season_apply_child_id: params[:child_id], content: params[:content], owner: @child, project: @project, user: @user, gsh_child_grant_id: params[:grant_id])
     if @feedback.save
       @feedback.attach_images(params[:images].map{|image| image[:id]}) if params[:images].present?
       api_success(message: '您的反馈已提交')

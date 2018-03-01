@@ -47,8 +47,8 @@ class Api::V1::CooperationPairStudentsController < Api::V1::BaseController
   end
 
   def child_grants
-    child_grants = ProjectSeasonApplyChild.where(id: params[:id], approve_state: 'pass', project: Project.pair_project)
-    api_success(data: {child_grants: child_grants.map{|grant| grant.donate_record_builder}})
+    children = ProjectSeasonApplyChild.where(id: params[:id], approve_state: 'pass', project: Project.pair_project)
+    api_success(data: {pair_records: children.map{|child| child.donate_record_builder}, child_info: children.first.child_info_builder})
   end
 
 end
