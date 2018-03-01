@@ -23,7 +23,7 @@ class Admin::SchoolTeachersController < Admin::BaseController
       @teacher.phone = @user.phone? ? @user.phone : @teacher.phone
       @teacher.qq = @user.qq? ? @user.qq : @teacher.qq
       @teacher.openid = @user.openid? ? @user.openid : @teacher.openid
-      @teacher.idcard = @user.idcard? ? @user.idcard : @teacher.idcard
+      @teacher.id_card = @user.id_card? ? @user.id_card : @teacher.id_card
     end
     respond_to do |format|
       if @teacher.save
@@ -48,7 +48,7 @@ class Admin::SchoolTeachersController < Admin::BaseController
           @teacher.phone = @user.phone? ? @user.phone : @teacher.phone
           @teacher.qq = @user.qq? ? @user.qq : @teacher.qq
           @teacher.openid = @user.openid? ? @user.openid : @teacher.openid
-          @teacher.idcard = @user.idcard? ? @user.idcard : @teacher.idcard
+          @teacher.id_card = @user.id_card? ? @user.id_card : @teacher.id_card
           @teacher.save
         end
         format.html { redirect_to referer_or(admin_school_school_teachers_url), notice: '教师信息已修改。' }

@@ -51,7 +51,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   belongs_to :project
   belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id'
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id'
-  # belongs_to :gsh_child, optional: true
+  belongs_to :gsh_child, optional: true
   belongs_to :school
   belongs_to :user, optional: true
   has_one :visit, foreign_key: 'apply_child_id'
@@ -164,6 +164,12 @@ class ProjectSeasonApplyChild < ApplicationRecord
   # 通过审核
   def approve_pass
     self.approve_state = 'pass'
+    if self.gsh_child_id.nil?
+      self.gsh_child = self.create_gsh_child
+      # self.apply.gsh_child = self.gsh_child
+    end
+    self.save
+
     self.gen_grant_record
   end
 

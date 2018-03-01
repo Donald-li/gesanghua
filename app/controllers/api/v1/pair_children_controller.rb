@@ -31,7 +31,7 @@ class Api::V1::PairChildrenController < Api::V1::BaseController
   def settlement
     semester_num = params[:selected_grants].count
     promoter = User.find(params[:promoter_id]) if params[:promoter_id].present?
-    record = DonateRecord.donate_child(current_user, @pair, semester_num, promoter)
+    record = DonateRecord.donate_child(user: current_user, gsh_child: @pair, semester_num: semester_num, promoter: promoter)
     record.team = current_user.team if params[:by_team] == 'true'
     record.donor = params[:donor] if params[:donor].present?
 

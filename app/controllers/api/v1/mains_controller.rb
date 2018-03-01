@@ -17,7 +17,7 @@ class Api::V1::MainsController < Api::V1::BaseController
     amount = params[:amount].to_f
     promoter = User.find(params[:promoter_id]) if params[:promoter_id].present?
     donate_item = DonateItem.find(params[:donate_item][:value])
-    record = DonateRecord.donate_donate_item(current_user, amount, donate_item, promoter)
+    record = DonateRecord.donate_donate_item(user: current_user, amount: amount, donate_item: donate_item, promoter: promoter)
     record.team = current_user.team if params[:by_team] == 'true'
     record.donor = params[:donor] if params[:donor].present?
 

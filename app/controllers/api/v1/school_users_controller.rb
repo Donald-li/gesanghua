@@ -57,12 +57,12 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
       @school = @user.school
       name = params[:name]
       phone = params[:phone]
-      idcard = params[:idcard]
+      id_card = params[:id_card]
       qq = params[:qq]
       openid = params[:openid]
       teacher_projects = params[:teacher_projects]
-      @teacher = @school.teachers.new(name: name, phone: phone, idcard: idcard, qq: qq, openid: openid)
-      # @teacher.new(name: name, phone: phone, idcard: idcard, qq: qq, openid: openid)
+      @teacher = @school.teachers.new(name: name, phone: phone, id_card: id_card, qq: qq, openid: openid)
+      # @teacher.new(name: name, phone: phone, id_card: id_card, qq: qq, openid: openid)
       if @teacher.save
         teacher_projects.each do |teacher_project|
           TeacherProject.create(project_id: teacher_project, teacher: @teacher)
@@ -92,12 +92,12 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
       @school = @user.school
       name = params[:name]
       phone = params[:phone]
-      idcard = params[:idcard]
+      id_card = params[:id_card]
       qq = params[:qq]
       openid = params[:openid]
       teacher_projects = params[:teacher_projects]
       @teacher = Teacher.find(params[:id])
-      if @teacher.update(name: name, phone: phone, idcard: idcard, qq: qq, openid: openid)
+      if @teacher.update(name: name, phone: phone, id_card: id_card, qq: qq, openid: openid)
         TeacherProject.where(teacher: @teacher).destroy_all
         teacher_projects.each do |teacher_project|
           TeacherProject.create(project_id: teacher_project, teacher: @teacher)

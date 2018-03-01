@@ -12,7 +12,7 @@
 #  state      :integer          default("show")       # 老师状态: 1:启用 2:禁用
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  idcard     :string                                 # 身份证
+#  id_card    :string                                 # 身份证
 #  qq         :string                                 # QQ
 #  openid     :string                                 # 微信openid
 #
@@ -30,7 +30,7 @@ class Teacher < ApplicationRecord
 
   validates :name, :phone, presence: true
   validates :phone, uniqueness: true
-  validates :idcard, shenfenzheng_no: true
+  validates :id_card, shenfenzheng_no: true
   validates :qq, qq: true
 
   enum state: {show: 1, hidden: 2} # 状态：1:启用 2:禁用
@@ -51,7 +51,7 @@ class Teacher < ApplicationRecord
       json.(self, :id)
       json.name self.name
       json.phone self.phone
-      json.idcard self.try(:idcard)
+      json.id_card self.try(:id_card)
       json.qq self.try(:qq)
       json.openid self.try(:openid)
       json.teacher_projects do

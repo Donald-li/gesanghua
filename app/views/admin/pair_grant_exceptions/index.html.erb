@@ -13,8 +13,8 @@
         <div class="col-md-12 col-sm-12">
           <%= search_form_for @search, url: admin_pair_grants_path, class: 'form-inline' do |f| %>
               <div class="form-group">
-                <%= f.label :grant_no_or_gsh_child_name_or_gsh_child_idcard_cont, '搜索学生' %>
-                <%= f.text_field :grant_no_or_gsh_child_name_or_gsh_child_idcard_cont, class: 'form-control', placeholder: '发放编号、学生信息' %>
+                <%= f.label :grant_no_or_gsh_child_name_or_gsh_child_id_card_cont, '搜索学生' %>
+                <%= f.text_field :grant_no_or_gsh_child_name_or_gsh_child_id_card_cont, class: 'form-control', placeholder: '发放编号、学生信息' %>
               </div>
               <div class="form-group">
                 <%= f.label :school_name_cont, '搜索学校' %>

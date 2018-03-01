@@ -22,7 +22,7 @@
 #  kind              :integer                                # 学校类型
 #  user_id           :integer                                # 申请人ID
 #  school_no         :string                                 # 学校申请编号
-#  contact_idcard    :string                                 # 联系人身份证号
+#  contact_id_card   :string                                 # 联系人身份证号
 #  postcode          :string                                 # 邮政编码
 #  teacher_count     :integer                                # 教师人数
 #  logistic_count    :integer                                # 后勤人数
@@ -54,7 +54,7 @@ class School < ApplicationRecord
 
   validates :name, :province, :city, :district, presence: true
   validates :contact_phone, mobile: true
-  validates :contact_idcard, shenfenzheng_no: true
+  validates :contact_id_card, shenfenzheng_no: true
 
   enum state: {enable: 1, disable: 2} # 状态：1:启用 2:禁用
   default_value_for :state, 1
@@ -108,7 +108,7 @@ class School < ApplicationRecord
 
   def detail_builder
     Jbuilder.new do |json|
-      json.(self, :id, :contact_name, :contact_idcard, :contact_phone, :contact_telephone)
+      json.(self, :id, :contact_name, :contact_id_card, :contact_phone, :contact_telephone)
       json.name self.name
       json.address self.address
       json.location [self.province, self.city, self.district]

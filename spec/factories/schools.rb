@@ -22,7 +22,7 @@
 #  kind              :integer                                # 学校类型
 #  user_id           :integer                                # 申请人ID
 #  school_no         :string                                 # 学校申请编号
-#  contact_idcard    :string                                 # 联系人身份证号
+#  contact_id_card   :string                                 # 联系人身份证号
 #  postcode          :string                                 # 邮政编码
 #  teacher_count     :integer                                # 教师人数
 #  logistic_count    :integer                                # 后勤人数

@@ -21,7 +21,7 @@ class Admin::TeachersController < Admin::BaseController
           @teacher.phone = @user.phone
           @teacher.qq = @user.qq
           @teacher.openid = @user.openid
-          @teacher.idcard = @user.idcard
+          @teacher.id_card = @user.id_card
           @teacher.save
         end
         format.html { redirect_to referer_or(admin_teachers_url), notice: '教师信息已修改。' }

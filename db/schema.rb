@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180301081502) do
+ActiveRecord::Schema.define(version: 20180301104841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -240,9 +240,9 @@ ActiveRecord::Schema.define(version: 20180301081502) do
     t.integer "project_season_apply_bookshelf_id", comment: "书架id"
     t.integer "bookshelf_supplement_id", comment: "补书ID"
     t.integer "donate_item_id", comment: "可捐助id"
+    t.integer "income_record_id", comment: "收入记录"
     t.string "title", comment: "捐赠标题"
     t.string "pay_result", comment: "支付结果"
-    t.integer "income_record_id", comment: "收入记录"
   end
 
   create_table "expenditure_records", force: :cascade, comment: "支出记录表" do |t|
@@ -353,10 +353,29 @@ ActiveRecord::Schema.define(version: 20180301081502) do
     t.text "remark"
     t.integer "operator_id", comment: "异常处理人id"
     t.string "grant_person", comment: "发放人"
-    t.integer "user_id", comment: "捐助人"
     t.integer "grant_batch_id", comment: "发放批次"
+    t.integer "user_id", comment: "捐助人"
     t.index ["gsh_child_id"], name: "index_gsh_child_grants_on_gsh_child_id"
     t.index ["project_season_apply_id"], name: "index_gsh_child_grants_on_project_season_apply_id"
+  end
+
+  create_table "gsh_children", force: :cascade, comment: "格桑花孩子表" do |t|
+    t.string "name", comment: "孩子姓名"
+    t.integer "kind", comment: "类型"
+    t.integer "integer", comment: "类型"
+    t.string "workstation", comment: "工作地点"
+    t.string "province", comment: "省"
+    t.string "city", comment: "市"
+    t.string "district", comment: "区/县"
+    t.string "gsh_no", comment: "格桑花孩子编号"
+    t.string "phone", comment: "联系电话"
+    t.string "qq", comment: "qq号"
+    t.integer "user_id", comment: "关联用户id"
+    t.string "id_card", comment: "身份证"
+    t.integer "semester_count", default: 0, comment: "孩子申请学期总数"
+    t.integer "done_semester_count", default: 0, comment: "孩子募款成功学期总数"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "income_records", force: :cascade, comment: "入帐记录表" do |t|
@@ -532,12 +551,12 @@ ActiveRecord::Schema.define(version: 20180301081502) do
     t.integer "school_id", comment: "学校ID"
     t.integer "semester", comment: "学期"
     t.integer "kind", comment: "捐助形式：1对外捐助 2内部认捐"
-    t.integer "donate_user_id", comment: "捐助人id"
-    t.string "reason", comment: "结对申请理由"
     t.string "gsh_no", comment: "格桑花孩子编号"
     t.integer "semester_count", comment: "学期数"
     t.integer "done_semester_count", comment: "已完成的学期数"
     t.integer "user_id", comment: "关联的用户ID"
+    t.integer "donate_user_id", comment: "捐助人id"
+    t.string "reason", comment: "结对申请理由"
   end
 
   create_table "project_season_apply_gooods", force: :cascade, comment: "项目执行年度申请的物品表" do |t|
@@ -639,7 +658,7 @@ ActiveRecord::Schema.define(version: 20180301081502) do
     t.string "name", comment: "学校名称"
     t.string "address", comment: "地址"
     t.integer "approve_state", default: 1, comment: "审核状态：1:待审核 2:通过 3:不通过"
-    t.text "approve_remark", comment: "审核备注"
+    t.string "approve_remark", comment: "审核备注"
     t.string "province", comment: "省"
     t.string "city", comment: "市"
     t.string "district", comment: "区/县"
@@ -655,7 +674,7 @@ ActiveRecord::Schema.define(version: 20180301081502) do
     t.integer "kind", comment: "学校类型"
     t.integer "user_id", comment: "申请人ID"
     t.string "school_no", comment: "学校申请编号"
-    t.string "contact_idcard", comment: "联系人身份证号"
+    t.string "contact_id_card", comment: "联系人身份证号"
     t.string "postcode", comment: "邮政编码"
     t.integer "teacher_count", comment: "教师人数"
     t.integer "logistic_count", comment: "后勤人数"
@@ -801,7 +820,7 @@ ActiveRecord::Schema.define(version: 20180301081502) do
     t.integer "state", default: 1, comment: "老师状态: 1:启用 2:禁用"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "idcard", comment: "身份证"
+    t.string "id_card", comment: "身份证"
     t.string "qq", comment: "QQ"
     t.string "openid", comment: "微信openid"
   end
@@ -839,7 +858,7 @@ ActiveRecord::Schema.define(version: 20180301081502) do
     t.string "district", comment: "区/县"
     t.string "address", comment: "详细地址"
     t.string "qq", comment: "qq号"
-    t.string "idcard", comment: "身份证"
+    t.string "id_card", comment: "身份证"
     t.decimal "donate_count", precision: 14, scale: 2, default: "0.0", comment: "捐助金额"
     t.decimal "online_count", precision: 14, scale: 2, default: "0.0", comment: "线上捐助金额"
     t.decimal "offline_count", precision: 14, scale: 2, default: "0.0", comment: "线下捐助金额"

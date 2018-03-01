@@ -33,7 +33,7 @@ class Admin::SchoolsController < Admin::BaseController
       @user = @school.user
       @school.contact_name = @user.name
       @school.contact_phone = @user.phone
-      @school.contact_idcard = @user.idcard
+      @school.contact_id_card = @user.id_card
       Teacher.find_or_create_by(name: @school.contact_name, phone: @school.contact_phone, school: @school, user: @user, kind: 'headmaster')
     else
       Teacher.create(name: @school.contact_name, phone: @school.contact_phone, school: @school, kind: 'headmaster')
@@ -111,7 +111,7 @@ class Admin::SchoolsController < Admin::BaseController
         if @user.present?
           @school.contact_name = @user.name
           @school.contact_phone = @user.phone
-          @school.contact_idcard = @user.idcard
+          @school.contact_id_card = @user.id_card
           @school.save
         end
         @school.attach_logo(params[:logo_id])
