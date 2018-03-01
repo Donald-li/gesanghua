@@ -46,7 +46,7 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
     @user = current_user
     if @user.school.present?
       @school = @user.school
-      @teachers = @school.teachers.sorted
+      @teachers = @school.teachers.teacher.sorted
       api_success(data: @teachers.map{|teacher| teacher.summary_builder})
     end
   end
