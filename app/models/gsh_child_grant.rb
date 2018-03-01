@@ -90,7 +90,10 @@ class GshChildGrant < ApplicationRecord
 
   def summary_builder
     Jbuilder.new do |json|
-        json.(self, :id, :title, :amount, :donate_state)
+        json.(self, :id, :title, :amount, :donate_state, :grant_batch_id)
+        json.child_name gsh_child.name
+        json.gsh_no gsh_child.gsh_no
+        json.state self.enum_name(:state)
     end.attributes!
   end
 

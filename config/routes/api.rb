@@ -103,6 +103,12 @@
         end
       end
 
+      resources :pair_feedbacks do
+        collection do
+          get :find_child
+          post :create_pair_feedback
+        end
+      end
       # 微信支付
       resource :wechat_payment, only: [] do
         collection do
@@ -112,6 +118,12 @@
 
       # 微信签名
       resource :sign_package, only: [:show]
+
+      namespace :staff do
+        resources :grant_batches, only: [:index, :show] do
+          resources :grants, only: [:index, :show]
+        end
+      end
 
     end
 
