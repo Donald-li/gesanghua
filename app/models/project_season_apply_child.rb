@@ -75,7 +75,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   # validates :id_card, ShenfenzhengNo: true
   validates :id_card, :name, :phone, presence: true
   validates :province, :city, :district, presence: true
-  validates :reason, length: { maximum: 20 }
+  validates :reason, length: {maximum: 20}
 
   enum state: {show: 1, hidden: 2} # 状态：1:展示 2:隐藏
   default_value_for :state, 2
@@ -83,7 +83,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   enum approve_state: {submit: 1, pass: 2, reject: 3} # 状态：1:待审核 2:通过 3:不通过
   default_value_for :approve_state, 1
 
-  enum gender: {male: 1, female: 2,} # 状态：1:男 2:女
+  enum gender: {male: 1, female: 2, } # 状态：1:男 2:女
   default_value_for :gender, 1
 
   enum level: {junior: 1, senior: 2} # 状态：1:初中 2:高中
@@ -98,10 +98,10 @@ class ProjectSeasonApplyChild < ApplicationRecord
   enum semester: {last_term: 1, next_term: 2} # 学期： 1:上学期 2:下学期
   default_value_for :semester, 1
 
-  enum nation: {'default': 0, 'hanzu': 1, 'zhuangzu': 2, 'manzu': 3, 'huizu': 4, 'miaozu': 5, 'weizu': 6, 'tujiazu': 7, 'yizu': 8, 'mengguzu': 9, 'zangzu': 10, 'buyizu': 11, 'dongzu': 12, 'yaozu': 13, 'chaoxianzu': 14, 'baizu': 15, 'hanizu': 16, 'hasakezu': 17, 'lizu': 18, 'daizu': 19, 'shezu': 20, 'lisuzu': 21, 'gelaozu': 22, 'dongxiangzu': 23, 'gaoshanzu': 24, 'lahuzu': 25, 'shuizu': 26, 'wazu': 27, 'naxizu': 28, 'qiangzu': 29, 'tuzu': 30, 'mulaozu': 31, 'xibozu': 32, 'keerkezizu': 33, 'dawoerzu': 34, 'jingpozu': 35, 'maonanzu': 36, 'salazu': 37, 'bulangzu': 38, 'tajikezu': 39, 'achangzu': 40, 'pumizu': 41, 'ewenkezu': 42, 'nuzu': 43, 'jingzu': 44, 'jinuozu': 45, 'deangzu': 46, 'baoanzu': 47, 'eluosizu': 48, 'yuguzu': 49, 'wuzibiekezu': 50, 'menbazu': 51, 'elunchunzu': 52, 'dulongzu': 53, 'tataerzu': 54, 'hezhezu': 55, 'luobazu': 56 }
+  enum nation: {'default': 0, 'hanzu': 1, 'zhuangzu': 2, 'manzu': 3, 'huizu': 4, 'miaozu': 5, 'weizu': 6, 'tujiazu': 7, 'yizu': 8, 'mengguzu': 9, 'zangzu': 10, 'buyizu': 11, 'dongzu': 12, 'yaozu': 13, 'chaoxianzu': 14, 'baizu': 15, 'hanizu': 16, 'hasakezu': 17, 'lizu': 18, 'daizu': 19, 'shezu': 20, 'lisuzu': 21, 'gelaozu': 22, 'dongxiangzu': 23, 'gaoshanzu': 24, 'lahuzu': 25, 'shuizu': 26, 'wazu': 27, 'naxizu': 28, 'qiangzu': 29, 'tuzu': 30, 'mulaozu': 31, 'xibozu': 32, 'keerkezizu': 33, 'dawoerzu': 34, 'jingpozu': 35, 'maonanzu': 36, 'salazu': 37, 'bulangzu': 38, 'tajikezu': 39, 'achangzu': 40, 'pumizu': 41, 'ewenkezu': 42, 'nuzu': 43, 'jingzu': 44, 'jinuozu': 45, 'deangzu': 46, 'baoanzu': 47, 'eluosizu': 48, 'yuguzu': 49, 'wuzibiekezu': 50, 'menbazu': 51, 'elunchunzu': 52, 'dulongzu': 53, 'tataerzu': 54, 'hezhezu': 55, 'luobazu': 56}
   default_value_for :nation, 0
 
-  scope :sorted, ->{ order(created_at: :desc) }
+  scope :sorted, -> {order(created_at: :desc)}
 
   before_create :gen_gsh_no
 
@@ -192,15 +192,15 @@ class ProjectSeasonApplyChild < ApplicationRecord
   end
 
   def remarks_string
-    self.remarks.map{|remark| remark.content}.join('、').slice(0..8)
+    self.remarks.map {|remark| remark.content}.join('、').slice(0..8)
   end
 
   def self.city_group
-    self.show.group_by{|child| child.city}.keys.map{|key| {value: key, name: ChinaCity.get(key), district: self.district_group(key)}}
+    self.show.group_by {|child| child.city}.keys.map {|key| {value: key, name: ChinaCity.get(key), district: self.district_group(key)}}
   end
 
   def self.district_group(city)
-    self.where(city: city).group_by{|child| child.district}.keys.map{|key| {value: key, name: ChinaCity.get(key)}}
+    self.where(city: city).group_by {|child| child.district}.keys.map {|key| {value: key, name: ChinaCity.get(key)}}
   end
 
   def get_tuition
@@ -294,14 +294,22 @@ class ProjectSeasonApplyChild < ApplicationRecord
     return card[0] + '*' * (card.length - 2) + card[-1]
   end
 
+  def pair_record_builder
+    Jbuilder.new do |json|
+      json.(self, :id)
+      json.school_name self.school.try(:name)
+      json.donate_grants self.donate_record_builder
+    end.attributes!
+  end
+
   def donate_record_builder
     Jbuilder.new do |json|
-        json.array! self.donate_all_records do |grant|
-          json.(grant, :id)
-          json.(grant, :title)
-          json.(grant, :amount)
-          json.donate_state grant.donate_state
-        end
+      json.array! self.donate_all_records do |grant|
+        json.(grant, :id)
+        json.(grant, :title)
+        json.(grant, :amount)
+        json.donate_state grant.donate_state
+      end
     end.attributes!
   end
 

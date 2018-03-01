@@ -24,6 +24,7 @@
         resources :gsh_children, only: [] do
           collection do
             post :match_identity
+            get :confirm_identity
           end
         end
       end

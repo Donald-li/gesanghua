@@ -19,6 +19,15 @@ RSpec.describe "Api::V1::GshPlus::GshChildren", type: :request do
       api_v1_expect_success
       expect(json_body[:data]).to eq true
     end
+
+    it '确认格桑花孩子' do
+      child1.approve_pass
+      get confirm_identity_api_v1_gsh_plus_gsh_children_path,
+           params: {
+               id_card: child1.id_card
+           }, headers: api_v1_headers(login_user)
+      api_v1_expect_success
+    end
   end
 
 end
