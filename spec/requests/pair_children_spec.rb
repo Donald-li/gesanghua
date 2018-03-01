@@ -7,8 +7,8 @@ RSpec.describe "Api::V1::PairChildren", type: :request do
   let!(:season) { create(:project_season, project: pair) }
   let!(:apply) { create(:project_season_apply, season: season, project: pair) }
   let!(:school) { create(:school) }
-  let!(:child1) { create(:project_season_apply_child, state: 1, approve_state: 2, kind: 1, project: pair, season: season, apply: apply, school: school) }
-  let!(:child2) { create(:project_season_apply_child, name: '陈同学',district: '630121', state: 1, approve_state: 2, kind: 1, project: pair, season: season, apply: apply, school: school) }
+  let!(:child1) { create(:project_season_apply_child, state: 1, approve_state: 2, kind: 1, project: pair, season: season, apply: apply, school: school, id_card: '110229190001010913') }
+  let!(:child2) { create(:project_season_apply_child, name: '陈同学',district: '630121', state: 1, approve_state: 2, kind: 1, project: pair, season: season, apply: apply, school: school, id_card: '110229190001010913') }
 
   describe '测试获得孩子信息' do
     it '获取孩子信息' do

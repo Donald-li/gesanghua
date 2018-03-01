@@ -7,7 +7,7 @@ RSpec.describe "Api::V1::GshPlus::Main", type: :request do
   let!(:season) { create(:project_season, project: pair) }
   let!(:apply) { create(:project_season_apply, season: season, project: pair) }
   let!(:school) { create(:school, user: login_user, approve_state: 'pass') }
-  let!(:child1) { create(:project_season_apply_child, state: 1, approve_state: 2, kind: 1, project: pair, season: season, apply: apply, school: school) }
+  let!(:child1) { create(:project_season_apply_child, state: 1, approve_state: 2, kind: 1, project: pair, season: season, apply: apply, school: school, id_card: '110229190001010913') }
 
   describe '格桑花+引导页' do
     it '获取申请状态' do

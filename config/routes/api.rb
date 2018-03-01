@@ -21,6 +21,11 @@
       namespace :gsh_plus do
         resources :mains, only: [:index]
         resources :schools, only: [:create]
+        resources :gsh_children, only: [] do
+          collection do
+            post :match_identity
+          end
+        end
       end
 
       resource :main, only: [:show] do
