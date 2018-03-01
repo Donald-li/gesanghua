@@ -86,6 +86,12 @@
       resources :school_users do
         collection do
           post :update_school
+          get :get_school_teachers
+          post :create_teacher
+          get :get_projects
+          get :get_teacher
+          post :update_teacher
+          post :delete_teacher
         end
       end
 

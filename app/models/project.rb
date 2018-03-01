@@ -127,6 +127,13 @@ class Project < ApplicationRecord
     end.attributes!
   end
 
+  def teacher_project_summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id)
+      json.tit self.name
+    end.attributes!
+  end
+
   private
   def set_form_from_attributes
     return unless self.form_attributes.present?
