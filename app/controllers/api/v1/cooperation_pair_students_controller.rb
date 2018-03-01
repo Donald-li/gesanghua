@@ -53,8 +53,9 @@ class Api::V1::CooperationPairStudentsController < Api::V1::BaseController
   end
 
   def child_grants
-    children = ProjectSeasonApplyChild.where(id: params[:id], approve_state: 'pass', project: Project.pair_project)
-    api_success(data: {pair_records: children.map{|child| child.donate_record_builder}, child_info: children.first.try(:child_info_builder)})
+    gsh_child = GshChild.find(params[:id])
+    children = gsh_child.project_season_apply_children.where(project: Project.pair_project)
+    api_success(data: {pair_records: children.map{|child| child.donate_record_builder}, child_info: gsh_child.child_info_builder})
   end
 
 end

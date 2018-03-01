@@ -2,7 +2,7 @@ class RecreateGshChildren < ActiveRecord::Migration[5.1]
   def change
     create_table :gsh_children, comment: '格桑花孩子表' do |t|
       t.string :name, comment: '孩子姓名'
-      t.integer :kind, :integer, comment: '类型'
+      t.integer :kind, comment: '类型'
       t.string :workstation, comment: '工作地点'
       t.string :name, comment: "孩子姓名"
       t.string :province, comment: "省"

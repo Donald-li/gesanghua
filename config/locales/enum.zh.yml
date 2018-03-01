@@ -250,6 +250,9 @@ zh:
   grant_batch_states:
     waiting: '待发放'
     granted: '已发放'
+  gsh_child_kinds:
+    worker: '在职'
+    student: '在校'
   gsh_child_grant_states:
     waiting: '待发放'
     granted: '已发放'

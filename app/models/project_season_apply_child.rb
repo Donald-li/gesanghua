@@ -165,11 +165,10 @@ class ProjectSeasonApplyChild < ApplicationRecord
   def approve_pass
     self.approve_state = 'pass'
     if self.gsh_child_id.nil?
-      self.gsh_child = self.create_gsh_child
+      self.gsh_child = GshChild.find_by(id_card: self.id_card) || self.create_gsh_child
       # self.apply.gsh_child = self.gsh_child
     end
     self.save
-
     self.gen_grant_record
   end
 
@@ -282,6 +281,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
       json.age self.age
       json.level self.enum_name(:level)
       json.gsh_no self.gsh_no
+      json.location [self.province, self.city, self.district]
       json.avatar self.avatar.present? ? self.avatar_url(:tiny).to_s : ''
     end.attributes!
   end
@@ -349,6 +349,21 @@ class ProjectSeasonApplyChild < ApplicationRecord
   end
 
   protected
+
+  def create_gsh_child
+    gsh_child = GshChild.new
+    gsh_child.province = self.province
+    gsh_child.city = self.city
+    gsh_child.district = self.district
+    gsh_child.name = self.name
+    gsh_child.phone = self.phone
+    gsh_child.qq = self.qq
+    gsh_child.id_card = self.id_card
+    gsh_child.save
+    return gsh_child
+  end
+
+
   def gen_grant_record
     GshChildGrant.gen_grant_record(self)
   end

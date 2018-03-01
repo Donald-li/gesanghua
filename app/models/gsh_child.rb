@@ -34,6 +34,9 @@ class GshChild < ApplicationRecord
   validates :qq, qq: true
   validates :id_card, shenfenzheng_no: true
 
+  enum kind: {student: 1, worker: 2}
+  default_value_for :kind, 1
+
   scope :sorted, ->{ order(created_at: :desc) }
 
   before_create :gen_gsh_no
@@ -46,6 +49,18 @@ class GshChild < ApplicationRecord
       json.donate_state self.semesters.pending.size > 0
       json.num self.apply_child.feedbacks.continue.count
       json.avatar self.apply_child.avatar.present? ? self.apply_child.avatar_url(:tiny).to_s : ''
+    end.attributes!
+  end
+
+  def child_info_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :id_card, :workstation)
+      json.name self.name
+      json.kind self.kind
+      json.kind_name self.enum_name(:kind)
+      json.gsh_no self.gsh_no
+      json.location [self.province, self.city, self.district]
+      # json.avatar self.avatar.present? ? self.avatar_url(:tiny).to_s : ''
     end.attributes!
   end
 

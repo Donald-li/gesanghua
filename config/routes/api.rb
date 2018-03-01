@@ -25,6 +25,9 @@
           collection do
             post :match_identity
             get :confirm_identity
+            post :confirm
+            get :edit_child
+            post :update_child
           end
         end
       end
