@@ -6,7 +6,7 @@
 #  name              :string                                 # 学校名称
 #  address           :string                                 # 地址
 #  approve_state     :integer          default("submit")     # 审核状态：1:待审核 2:通过 3:不通过
-#  approve_remark    :text                                   # 审核备注
+#  approve_remark    :string                                 # 审核备注
 #  province          :string                                 # 省
 #  city              :string                                 # 市
 #  district          :string                                 # 区/县

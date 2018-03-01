@@ -277,6 +277,13 @@ class ProjectSeasonApplyChild < ApplicationRecord
     end.attributes!
   end
 
+  def pair_feedback_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :name, :id_card)
+      # json.id_card self.secure_id_card
+    end.attributes!
+  end
+
   def donate_children_builder
     Jbuilder.new do |json|
       json.(self, :id, :name)

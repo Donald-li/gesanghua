@@ -95,6 +95,12 @@
         end
       end
 
+      resources :pair_feedbacks do
+        collection do
+          get :find_child
+          post :create_pair_feedback
+        end
+      end
       # 微信支付
       resource :wechat_payment, only: [] do
         collection do
