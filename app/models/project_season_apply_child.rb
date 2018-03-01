@@ -311,6 +311,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
         json.(grant, :amount)
         json.school_name grant.school.try(:name)
         json.donate_state grant.donate_state
+        json.note_count grant.thank_notes.count
       end
     end.attributes!
   end

@@ -42,6 +42,7 @@ class GshChildGrant < ApplicationRecord
   belongs_to :donator, class_name: 'User', foreign_key: 'user_id', optional: true # 捐助人
 
   has_one :feedback, as: :owner
+  has_many :thank_notes, class_name: 'Feedback', foreign_key: 'gsh_child_grant_id'
 
   enum state: {waiting: 1, granted: 2, suspend: 3, cancel: 4}
   default_value_for :state, 1
