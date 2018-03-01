@@ -3,7 +3,7 @@ class Admin::PairStudentsController < Admin::BaseController
   before_action :set_apply_child, only: [:show, :edit, :update, :destroy, :check]
 
   def index
-    @search = @project_apply.children.where(school: @project_apply.school).sorted.ransack(params[:q])
+    @search = @project_apply.children.where(school: @project_apply.school).check_list.sorted.ransack(params[:q])
     scope = @search.result
     @children = scope.page(params[:page])
   end
@@ -17,11 +17,11 @@ class Admin::PairStudentsController < Admin::BaseController
 
   def edit
     @audit = @apply_child.audits.last || @apply_child.audits.create
-    @new_audit = @apply_child.audits.build
+    @new_audit = @apply_child.audits.build(state: 2)
   end
 
   def create
-    @apply_child = @project_apply.children.build(apply_child_params.merge(province: @project_apply.province, city: @project_apply.city, district: @project_apply.district, approve_state: 1))
+    @apply_child = @project_apply.children.build(apply_child_params.merge(province: @project_apply.province, city: @project_apply.city, district: @project_apply.district, approve_state: 2))
     @apply_child.audits.build
     @apply_child.attach_images(params[:image_ids])
     respond_to do |format|
