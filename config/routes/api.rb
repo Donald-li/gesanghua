@@ -1,6 +1,8 @@
 
   namespace :api do
     namespace :v1 do
+      resource :session, only: :create
+
       namespace :account do
         resources :donate_records, only: [:index] do
           collection do
