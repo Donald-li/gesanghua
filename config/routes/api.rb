@@ -83,9 +83,14 @@
       end
 
       resources :cooperation_pair_students do
+        member do
+          get :edit_reason
+          patch :update_reason
+        end
         collection do
           get :qrcode
           get :checked_list
+          get :get_school
           post :submit_list
           get :child_grants
         end

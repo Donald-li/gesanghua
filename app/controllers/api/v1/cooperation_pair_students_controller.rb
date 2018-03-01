@@ -10,16 +10,16 @@ class Api::V1::CooperationPairStudentsController < Api::V1::BaseController
     user = current_user.id
     @apply = ProjectSeasonApply.find(params[:id])
     school = @apply.school.id
-    url = "http://localhost:8080/cooperation/cooperation-school-one-apply/#{@apply.id}/apply-students/new?user=#{user}&school=#{school}"
+    url = "http://localhost:8080/cooperation/student-apply?type=student_apply&id=#{@apply.id}&user=#{user}&school=#{school}"
     api_success(data: {qrcode_url: url})
   end
 
-  def edit
+  def edit_reason
     @student = ProjectSeasonApplyChild.find(params[:id])
     api_success(data: {apply_student: @student.list_builder})
   end
 
-  def update
+  def update_reason
     @student = ProjectSeasonApplyChild.find(params[:id])
     if @student.update_attributes(
       reason: params[:cooperation_pair_student][:reason]
@@ -38,6 +38,12 @@ class Api::V1::CooperationPairStudentsController < Api::V1::BaseController
     else
       return api_error(message: "提交失败，请检查")
     end
+  end
+
+  def get_school
+    @apply = ProjectSeasonApply.find(params[:id])
+    school = @apply.school.name
+    api_success(data: {school_name: school})
   end
 
   def checked_list
