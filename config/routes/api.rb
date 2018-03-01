@@ -24,6 +24,7 @@
         resources :gsh_children, only: [] do
           collection do
             post :match_identity
+            get :confirm_identity
           end
         end
       end
@@ -86,6 +87,7 @@
           get :qrcode
           get :checked_list
           post :submit_list
+          get :child_grants
         end
       end
 
@@ -98,9 +100,17 @@
           get :get_teacher
           post :update_teacher
           post :delete_teacher
+          get :get_school_user
+          post :update_school_user
         end
       end
 
+      resources :pair_feedbacks do
+        collection do
+          get :find_child
+          post :create_pair_feedback
+        end
+      end
       # 微信支付
       resource :wechat_payment, only: [] do
         collection do
@@ -110,6 +120,12 @@
 
       # 微信签名
       resource :sign_package, only: [:show]
+
+      namespace :staff do
+        resources :grant_batches, only: [:index, :show] do
+          resources :grants, only: [:index, :show]
+        end
+      end
 
     end
 

@@ -16,7 +16,7 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
       @school = @user.school
       api_success(data: @school.detail_builder)
     else
-      api_success(data: [], message: '您不是学校用户！')
+      api_success(data: false, message: '您不是学校用户！')
     end
   end
 
@@ -46,7 +46,7 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
     @user = current_user
     if @user.school.present?
       @school = @user.school
-      @teachers = @school.teachers.sorted
+      @teachers = @school.teachers.teacher.sorted
       api_success(data: @teachers.map{|teacher| teacher.summary_builder})
     end
   end
@@ -125,4 +125,30 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
       api_success(data: {is_school_user: false}, message: '您不是学校用户！')
     end
   end
+
+  def get_school_user
+    @user = current_user
+    if @user.school.present?
+      @school = @user.school
+      api_success(data: {is_school_user: true, seach_result: @school.summary_builder})
+    else
+      api_success(data: {is_school_user: false}, message: '您不是学校用户！')
+    end
+  end
+
+  def update_school_user
+    @user = current_user
+    if @user.school.present?
+      @school = @user.school
+      if @user.update(name: params[:user_name], nickname: params[:user_nickname]) && @school.update(contact_telephone: params[:contact_telephone])
+        @user.attach_avatar(params[:avatar][:id]) if params[:avatar].present?
+        api_success(data: {is_school_user: true, result: true}, message: '用户信息修改成功！')
+      else
+        api_success(data: {is_school_user: true, result: false}, message: '修改用户信息失败，请重试！')
+      end
+    else
+      api_success(data: {is_school_user: false}, message: '您不是学校用户！')
+    end
+  end
+
 end
