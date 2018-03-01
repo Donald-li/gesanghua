@@ -52,9 +52,10 @@
             捐助方式
           </th>
           <th>
-            <%= @donate_record.income_record.income_source.name if @donate_record.income_record.present? %>
+            <%= @donate_record.income_record.income_source.try(:name) if @donate_record.income_record.present? %>
           </th>
         </tr>
+        <% if @donate_record.user %>
         <tr>
           <th>
             捐助人
@@ -63,12 +64,21 @@
             <%= @donate_record.user.name %> ( <%= @donate_record.user.phone %> )
           </th>
         </tr>
+        <% end %>
         <tr>
           <th>
             代捐人/汇款人
           </th>
           <th>
             <%= @donate_record.donor %> / <%= @donate_record.remitter_name %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            状态
+          </th>
+          <th>
+            <%= @donate_record.enum_name(:pay_state) %>
           </th>
         </tr>
         </tbody>

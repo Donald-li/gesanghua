@@ -108,6 +108,11 @@ class ProjectSeasonApply < ApplicationRecord
     end
   end
 
+  # 项目是否可以退款
+  def can_refund?
+    self.pass? && self.raise_project? && (self.raising? || self.canceled?)
+  end
+
   # 生成图书角编号
   # def gen_bookshelves_no
   #   self.bookshelves.pass.each do |b|

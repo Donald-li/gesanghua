@@ -15,7 +15,11 @@ namespace :admin do
       get :invoices
       post :bill
     end
-    resources :donate_records, only: [:index, :destroy]
+    resources :donate_records, only: [:index, :destroy] do
+      member do
+        post :refund # 退款
+      end
+    end
   end
   resources :administrators, concerns: :switch
   resources :audits, only: [:index, :show]

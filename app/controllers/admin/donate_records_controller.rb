@@ -10,6 +10,17 @@ class Admin::DonateRecordsController < Admin::BaseController
     # @donante_amount = @donate_records.sum(:amount)
   end
 
+  # 退款
+  def refund
+    @donate_record = DonateRecord.find(params[:id])
+    if @donate_record.can_refund? && @donate_record.try(:apply).try(:can_refund?)
+      @donate_record.do_refund!
+      redirect_back fallback_location: admin_user_donate_records_url(@donate_record.user_id), notice: '退款成功'
+    else
+      redirect_back fallback_location: admin_user_donate_records_url(@donate_record.user_id), alert: '退款失败'
+    end
+  end
+
   def destroy
     @donate_record = DonateRecord.find(params[:id])
     @donate_record.destroy
@@ -17,7 +28,6 @@ class Admin::DonateRecordsController < Admin::BaseController
       format.html { redirect_to referer_or(admin_user_donate_records_url(@user,@donate_record)), article: '捐助记录已删除。' }
     end
   end
-
 
   private
 

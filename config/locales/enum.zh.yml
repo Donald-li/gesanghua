@@ -294,6 +294,13 @@ zh:
   voucher_states:
     pending: '未处理'
     deal: '已处理'
+  donate_record_pay_states:
+    unpay: '未支付'
+    paid: '已支付'
+    refund: '已退款'
+  donate_record_kinds:
+    system: '线上捐款'
+    platform: '配捐'
   donate_record_voucher_states:
     to_bill: '待开票'
     billed: '已开票'

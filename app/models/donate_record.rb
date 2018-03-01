@@ -64,7 +64,7 @@ class DonateRecord < ApplicationRecord
 
   validates :amount, presence: true
 
-  enum pay_state: {unpay: 1, paid: 2} #付款状态， 1:未付款 2:已付款
+  enum pay_state: {unpay: 1, paid: 2, refund: 3} #付款状态， 1:未付款 2:已付款 3:已退款
   default_value_for :pay_state, 1
 
   enum kind: {system: 1, platform: 2} # 记录类型: 1:系统生成 2:配捐
@@ -80,6 +80,27 @@ class DonateRecord < ApplicationRecord
   scope :user, -> {where('user_id IS NOT NULL')} # 用户捐款
 
   before_create :gen_donate_no
+
+  # 项目是否可以退款
+  def can_refund?
+    self.paid? && self.user && self.system?
+  end
+
+  # 退款
+  def do_refund!
+    user = self.user
+    return unless user
+    self.transaction do
+      begin
+        User.update_counters(user.id, self.amount)
+        self.pay_state = :refund
+        self.save!
+        return true
+      rescue
+        return false
+      end
+    end
+  end
 
   def pay_and_gen_certificate
     self.certificate_no ||= 'ZS' + self.donate_no

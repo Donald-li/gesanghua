@@ -58,7 +58,7 @@ class User < ApplicationRecord
   has_many :children, class_name: 'ProjectSeasonApplyChild', foreign_key: 'donate_user_id', dependent: :nullify # 我捐助的孩子们
   has_many :vouchers
   has_many :campaign_enlists
-  has_many :donate_records
+  has_many :donate_records, dependent: :nullify
   has_many :donates, class_name: 'DonateRecord', dependent: :destroy
 
   has_many :income_records

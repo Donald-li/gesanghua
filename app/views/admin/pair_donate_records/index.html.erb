@@ -33,6 +33,9 @@
                 收入单号
               </th>
               <th>
+                捐助类型
+              </th>
+              <th>
                 受捐人
               </th>
               <th>
@@ -59,13 +62,18 @@
             <% @donate_records.each do |record| %>
             <tr>
               <td>
-                <%= record.id %>
+                <%= record.donate_no %>
               </td>
               <td>
-                <%= record.child.name %>
+                <%= record.enum_name(:kind) %>
               </td>
               <td>
+                <%= record.child.try(:name) %>
+              </td>
+              <td>
+                <% if record.user %>
                 <%= record.user.name %> ( <%= record.user.phone %> )
+                <% end %>
               </td>
               <td>
                 <%= record.donor %> / <%= record.remitter_name %>
@@ -82,6 +90,11 @@
               <td>
                 <%= link_to admin_pair_donate_record_path(record), class: 'btn btn-xs yellow' do %>
                   <i class="fa fa-file"></i> 查看详情
+                <% end %>
+                <% if record.can_refund? && record.apply.can_refund? %>
+                  <%= link_to refund_admin_user_donate_record_path(record.user_id, record), method: :post, data: {confirm: '捐款将退回到用户的余额中，确定要进行退款吗？'}, class: 'btn btn-xs red' do %>
+                    <i class="fa fa-file"></i> 退款
+                  <% end %>
                 <% end %>
               </td>
             </tr>
