@@ -107,7 +107,7 @@
 
       resources :pair_feedbacks do
         collection do
-          get :find_child
+          post :find_child
           post :create_pair_feedback
         end
       end

@@ -1,7 +1,7 @@
 class Api::V1::PairFeedbacksController < Api::V1::BaseController
 
   def find_child
-    @child = ProjectSeasonApplyChild.find_by(id_card: params[:idcard])
+    @child = ProjectSeasonApplyChild.find_by(id_card: params[:idcard], approve_state: 'pass')
     if @child.present?
       api_success(data: {seach_values: @child.pair_feedback_builder, result: true})
     else

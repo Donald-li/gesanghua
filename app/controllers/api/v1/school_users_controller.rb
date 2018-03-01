@@ -4,9 +4,9 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
     @user = current_user
     if @user.school.present?
       @school = @user.school
-      api_success(data: @school.summary_builder)
+      api_success(data: {is_school_user: true, seach_result: @school.summary_builder})
     else
-      api_success(data: [], message: '您不是学校用户！')
+      api_success(data: {is_school_user: false}, message: '您不是学校用户！')
     end
   end
 
