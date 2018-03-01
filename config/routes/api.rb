@@ -117,6 +117,12 @@
       # 微信签名
       resource :sign_package, only: [:show]
 
+      namespace :staff do
+        resources :grant_batches, only: [:index, :show] do
+          resources :grants, only: [:index, :show]
+        end
+      end
+
     end
 
     namespace :common do
