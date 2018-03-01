@@ -54,7 +54,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   belongs_to :gsh_child, optional: true
   belongs_to :school
   belongs_to :user, optional: true
-  has_one :visit, foreign_key: 'apply_child_id'
+  has_many :visits, foreign_key: 'apply_child_id'
   has_many :audits, as: :owner
   has_many :remarks, as: :owner
   has_many :complaints, as: :owner
