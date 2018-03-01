@@ -638,7 +638,7 @@ ActiveRecord::Schema.define(version: 20180228101151) do
     t.string "name", comment: "学校名称"
     t.string "address", comment: "地址"
     t.integer "approve_state", default: 1, comment: "审核状态：1:待审核 2:通过 3:不通过"
-    t.string "approve_remark", comment: "审核备注"
+    t.text "approve_remark", comment: "审核备注"
     t.string "province", comment: "省"
     t.string "city", comment: "市"
     t.string "district", comment: "区/县"
