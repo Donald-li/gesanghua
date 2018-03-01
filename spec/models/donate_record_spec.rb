@@ -105,7 +105,7 @@ RSpec.describe DonateRecord, type: :model do
     child.approve_pass
     gsh_child = child
     project = Project.pair_project
-    DonateRecord.donate_child(user, gsh_child, 2)
+    DonateRecord.donate_child(user: user , gsh_child: gsh_child, semester_num: 2)
 
     donate = DonateRecord.last
     expect(donate.user.id).to eq user.id
@@ -122,7 +122,7 @@ RSpec.describe DonateRecord, type: :model do
     child.approve_pass
     gsh_child = child
     project = Project.pair_project
-    DonateRecord.donate_child(user, gsh_child, 2, promoter)
+    DonateRecord.donate_child(user: user, gsh_child: gsh_child, semester_num: 2, promoter: promoter)
 
     donate = DonateRecord.last
     expect(donate.user.id).to eq user.id
@@ -173,6 +173,7 @@ RSpec.describe DonateRecord, type: :model do
       @school = create(:school, user: @user)
       @fund_category = create(:fund_category)
       @fund = create(:fund, fund_category: @fund_category)
+      @income_record = create(:income_record, amount: 5000, balance: 5000, fund: @fund)
       @project_season_apply = create(:project_season_apply, project_id: @project.id, project_season_id: @project_season.id, school: @school)
       @child = create(:project_season_apply_child, project: @project, season: @project_season, apply: @project_season_apply, school: @school, semester: 'next_term')
       @child.approve_pass
@@ -183,9 +184,11 @@ RSpec.describe DonateRecord, type: :model do
     end
 
     it '测试线下配捐给指定申请方法' do
-      params = {donate_way: 'offline', source_id: @source.id, offline_user_id: @user.id, amount: 500}
+      params = {donate_way: 'offline', source_id: @source.id, offline_record_id: @income_record.id, amount: 500}
       DonateRecord.platform_donate_apply(params, @project_season_apply)
       expect(@project_season_apply.donate_records.last.amount).to eq 500
+      expect(@project_season_apply.donate_records.last.income_record_id).to eq(@income_record.id)
+      expect(@income_record.reload.balance).to eq 4500
     end
 
     it '测试使用其他资金配捐给指定申请方法(资金余额不足会退回)' do
@@ -215,11 +218,14 @@ RSpec.describe DonateRecord, type: :model do
     end
 
     it '测试线下配捐给指定孩子方法' do
-      params = {donate_way: 'offline', source_id: @source.id, offline_user_id: @user.id, grant_number: 2}
+      params = {donate_way: 'offline', source_id: @source.id, offline_record_id: @income_record.id, grant_number: 2}
       DonateRecord.platform_donate_child(params, @child)
       expect(@child.gsh_child_grants.first.succeed?).to eq true
       expect(@child.gsh_child_grants.second.succeed?).to eq true
       expect(@child.gsh_child_grants.last.succeed?).to eq false
+      expect(DonateRecord.last.amount).to eq 3150
+      expect(DonateRecord.last.income_record_id).to eq(@income_record.id)
+      expect(@income_record.reload.balance).to eq 1850
     end
 
     it '测试使用其他资金配捐给指定孩子方法(资金不足)' do
@@ -253,7 +259,7 @@ RSpec.describe DonateRecord, type: :model do
     end
 
     it '测试线下配捐给指定图书角方法' do
-      params = {donate_way: 'offline', source_id: @source.id, offline_user_id: @user.id, amount: 500}
+      params = {donate_way: 'offline', source_id: @source.id, offline_record_id: @income_record.id, amount: 500}
       DonateRecord.platform_donate_bookshelf(params, @bookshelf)
       expect(@bookshelf.donates.last.amount).to eq 500
     end
