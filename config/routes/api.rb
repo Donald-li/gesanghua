@@ -1,6 +1,8 @@
 
   namespace :api do
     namespace :v1 do
+      resource :session, only: :create
+
       namespace :account do
         resources :donate_records, only: [:index] do
           collection do
@@ -131,7 +133,7 @@
 
       namespace :staff do
         resources :grant_batches, only: [:index, :show] do
-          resources :grants, only: [:index, :show]
+          resources :grants, only: [:index, :show, :update]
         end
       end
 

@@ -14,9 +14,9 @@
         <label class="col-md-2 control-label">选择地区：</label>
         <div class="col-sm-9">
           <div class="city-group">
-            <%= select_tag 'gsh_child[province]', options_for_select(ChinaCity.list, @gsh_child.province.presence), prompt: '省份', class: "city-select" %>
-            <%= select_tag 'gsh_child[city]', options_for_select(ChinaCity.list(@gsh_child.province.to_s), @gsh_child.city.presence), prompt: '城市', class: "city-select" %>
-            <%= select_tag 'gsh_child[district]', options_for_select(ChinaCity.list(@gsh_child.city.to_s), @gsh_child.district.presence), prompt: '地区', class: "city-select" %>
+            <%= select_tag 'gsh_child[province]', options_for_select(ChinaCity.list, @gsh_child.province.presence), prompt: '省份', class: "city-select", data: {'parsley-required': true} %>
+            <%= select_tag 'gsh_child[city]', options_for_select(ChinaCity.list(@gsh_child.province.to_s), @gsh_child.city.presence), prompt: '城市', class: "city-select", data: {'parsley-required': true} %>
+            <%= select_tag 'gsh_child[district]', options_for_select(ChinaCity.list(@gsh_child.city.to_s), @gsh_child.district.presence), prompt: '地区', class: "city-select", data: {'parsley-required': true} %>
           </div>
         </div>
       </div>

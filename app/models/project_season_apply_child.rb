@@ -104,7 +104,9 @@ class ProjectSeasonApplyChild < ApplicationRecord
   scope :sorted, -> {order(created_at: :desc)}
   scope :check_list, -> {where(approve_state: [1, 2, 3])}
 
-  before_create :gen_gsh_no
+  def gsh_no
+    self.gsh_child.try(:gsh_no)
+  end
 
   def count_age
     birthday = ChinesePid.new("#{self.id_card}").birthday
