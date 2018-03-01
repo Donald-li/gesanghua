@@ -205,6 +205,7 @@ class ProjectSeasonApply < ApplicationRecord
     end.attributes!
   end
 
+
   private
   def gen_apply_no
     if self.project_id == 1

@@ -80,8 +80,8 @@ class ProjectSeasonApplyChild < ApplicationRecord
   enum state: {show: 1, hidden: 2} # 状态：1:展示 2:隐藏
   default_value_for :state, 2
 
-  enum approve_state: {submit: 1, pass: 2, reject: 3} # 状态：1:待审核 2:通过 3:不通过
-  default_value_for :approve_state, 1
+  enum approve_state: {draft: 0, submit: 1, pass: 2, reject: 3} # 状态：1:待审核 2:通过 3:不通过
+  default_value_for :approve_state, 0
 
   enum gender: {male: 1, female: 2,} # 状态：1:男 2:女
   default_value_for :gender, 1
@@ -102,6 +102,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   default_value_for :nation, 0
 
   scope :sorted, ->{ order(created_at: :desc) }
+  scope :check_list, -> { where(approve_state: [1,2,3]) }
 
   before_create :gen_gsh_no
 
