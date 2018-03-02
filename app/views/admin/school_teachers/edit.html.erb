@@ -23,6 +23,31 @@
           <%= f.input :qq, label: 'QQ号：', autofocus: true, input_html: { data: {}} %>
           <%= f.input :openid, label: '微信号：', autofocus: true, input_html: { data: {}} %>
           <%= f.input :id_card, label: '身份证号：', autofocus: true, input_html: { data: {}} %>
+          <div class="form-group">
+            <label class="col-md-2 control-label">项目权限：</label>
+            <div class="col-sm-9">
+              <div class="input-group icheck-inline">
+                <label>
+                  <%= check_box_tag 'teacher_projects[]', '1', @teacher.teacher_projects.find_by(project_id: 1).present? %> 一对一
+                </label>
+                <label>
+                  <%= check_box_tag 'teacher_projects[]', '2', @teacher.teacher_projects.find_by(project_id: 2).present? %> 悦读
+                </label>
+                <label>
+                  <%= check_box_tag 'teacher_projects[]', '7', @teacher.teacher_projects.find_by(project_id: 7).present? %> 广播
+                </label>
+                <label>
+                  <%= check_box_tag 'teacher_projects[]', '8', @teacher.teacher_projects.find_by(project_id: 8).present? %> 护花
+                </label>
+                <label>
+                  <%= check_box_tag 'teacher_projects[]', '6', @teacher.teacher_projects.find_by(project_id: 6).present? %> 探索营
+                </label>
+                <label>
+                  <%= check_box_tag 'teacher_projects[]', '4', @teacher.teacher_projects.find_by(project_id: 4).present? %> 观影
+                </label>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="form-actions">
           <div class="row">
