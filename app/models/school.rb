@@ -6,7 +6,7 @@
 #  name              :string                                 # 学校名称
 #  address           :string                                 # 地址
 #  approve_state     :integer          default("submit")     # 审核状态：1:待审核 2:通过 3:不通过
-#  approve_remark    :text                                   # 审核备注
+#  approve_remark    :string                                 # 审核备注
 #  province          :string                                 # 省
 #  city              :string                                 # 市
 #  district          :string                                 # 区/县
@@ -88,7 +88,7 @@ class School < ApplicationRecord
   def summary_builder
     Jbuilder.new do |json|
       json.(self, :id, :name)
-      json.kind self.kind === 1? '校长' : '教师'
+      json.kind '校长'
       json.user_nickname self.try(:user).try(:nickname)
       json.user_name self.try(:user).try(:name)
       json.contact_telephone self.try(:contact_telephone)
