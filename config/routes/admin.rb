@@ -93,6 +93,7 @@ namespace :admin do
       end
     end
   end
+  resources :home_visits, only: [:index, :show]
   resources :pair_student_lists, concerns: [:switch, :remarks, :share, :qrcode_download] do
     resources :student_grants do
       collection do

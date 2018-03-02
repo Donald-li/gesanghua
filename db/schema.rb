@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180301104841) do
+ActiveRecord::Schema.define(version: 20180302100956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -556,6 +556,20 @@ ActiveRecord::Schema.define(version: 20180301104841) do
     t.integer "semester_count", comment: "学期数"
     t.integer "done_semester_count", comment: "已完成的学期数"
     t.integer "user_id", comment: "关联的用户ID"
+    t.string "teacher_name", comment: "班主任"
+    t.string "father", comment: "父亲"
+    t.string "father_job", comment: "父亲职业"
+    t.string "mother", comment: "母亲"
+    t.string "mother_job", comment: "母亲职业"
+    t.string "guardian", comment: "监护人"
+    t.string "guardian_relation", comment: "与监护人关系"
+    t.string "guardian_phone", comment: "监护人电话"
+    t.string "address", comment: "家庭住址"
+    t.decimal "family_income", precision: 14, scale: 2, default: "0.0", comment: "家庭年收入"
+    t.decimal "family_expenditure", precision: 14, scale: 2, default: "0.0", comment: "家庭年支出"
+    t.string "income_source", comment: "收入来源"
+    t.string "family_condition", comment: "家庭情况"
+    t.string "brothers", comment: "兄弟姐妹"
   end
 
   create_table "project_season_apply_gooods", force: :cascade, comment: "项目执行年度申请的物品表" do |t|

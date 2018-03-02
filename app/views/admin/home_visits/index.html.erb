@@ -1,0 +1,76 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i><%= link_to @child.apply.school.try(:name), admin_pair_applies_path %> > <%= link_to @child.name, admin_pair_apply_pair_students_path(@child.apply.id) %> > 家访记录
+    </div>
+    <div class="actions">
+
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="dataTables_wrapper no-footer">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="dataTables_filter pull-right"></div>
+        </div>
+      </div>
+      <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover" id="sample_2">
+          <thead>
+          <tr>
+            <th>
+              申请编号
+            </th>
+            <th>
+              姓名
+            </th>
+            <th>
+              年龄
+            </th>
+            <th>
+              调查人
+            </th>
+            <th>
+              操作
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @visits.each do |visit| %>
+              <tr>
+                <td>
+                  <%= visit.id %>
+                </td>
+                <td>
+                  <%= visit.apply_child.try(:name) %>
+                </td>
+                <td>
+                  <%= visit.apply_child.age %>
+                </td>
+                <td>
+                  <%= visit.try(:user).name %>
+                </td>
+                <td>
+                  <%= link_to admin_home_visit_path(visit), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                      <i class="fa fa-eye"></i> 查看
+                  <% end %>
+                </td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-5 col-sm-12">
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@visits) %></div>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <%= paginate @visits, theme: '' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END EXAMPLE TABLE PORTLET-->

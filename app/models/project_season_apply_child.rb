@@ -28,12 +28,26 @@
 #  school_id               :integer                                # 学校ID
 #  semester                :integer                                # 学期
 #  kind                    :integer                                # 捐助形式：1对外捐助 2内部认捐
+#  reason                  :string                                 # 结对申请理由
+#  donate_user_id          :integer                                # 捐助人id
 #  gsh_no                  :string                                 # 格桑花孩子编号
 #  semester_count          :integer                                # 学期数
 #  done_semester_count     :integer                                # 已完成的学期数
 #  user_id                 :integer                                # 关联的用户ID
-#  donate_user_id          :integer                                # 捐助人id
-#  reason                  :string                                 # 结对申请理由
+#  teacher_name            :string                                 # 班主任
+#  father                  :string                                 # 父亲
+#  father_job              :string                                 # 父亲职业
+#  mother                  :string                                 # 母亲
+#  mother_job              :string                                 # 母亲职业
+#  guardian                :string                                 # 监护人
+#  guardian_relation       :string                                 # 与监护人关系
+#  guardian_phone          :string                                 # 监护人电话
+#  address                 :string                                 # 家庭住址
+#  family_income           :decimal(14, 2)   default(0.0)          # 家庭年收入
+#  family_expenditure      :decimal(14, 2)   default(0.0)          # 家庭年支出
+#  income_source           :string                                 # 收入来源
+#  family_condition        :string                                 # 家庭情况
+#  brothers                :string                                 # 兄弟姐妹
 #
 
 # 项目年度结对申请孩子

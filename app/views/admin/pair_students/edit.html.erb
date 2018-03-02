@@ -18,7 +18,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="tabbable-line boxless tabbable-reversed">
-            <ul class="nav nav-tabs">
+            <!-- <ul class="nav nav-tabs">
               <li class="active">
                 <a href="#tab_0" data-toggle="tab" aria-expanded="true"> 申请资料 </a>
               </li>
@@ -27,7 +27,7 @@
               </li>
             </ul>
             <div class="tab-content">
-              <div class="tab-pane active" id="tab_0">
+              <div class="tab-pane active" id="tab_0"> -->
                 <%= simple_form_for [:admin, @project_apply, @apply_child], url: admin_pair_apply_pair_student_path, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'child_form'} do |f| %>
                     <%= f.error_notification %>
                     <%= f.hidden_field :school_id, value: @project_apply.school_id %>
@@ -77,13 +77,7 @@
                   </div>
                 <% end %>
               </div>
-              <div class="tab-pane" id="tab_1">
-                <% if @apply_child.visit.present? %>
-                  <% visit = @apply_child.visit %>
-                  <%= static_form_control '内容：', visit.content %>
-                <% end %>
-              </div>
-            </div>
+            <!-- </div> -->
           </div>
         </div>
       </div>

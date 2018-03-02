@@ -1,0 +1,122 @@
+<div class="portlet light portlet-fit bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="fa fa-sliders font-dark"></i>
+      <span class="caption-subject font-dark bold uppercase"><%= @visit.apply_child.name %>家访记录<%= @visit.apply_child.id %></span>
+    </div>
+    <div class="actions">
+      <%= link_to admin_home_visits_path(id: @visit.apply_child.id), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+        <i class="fa fa-reply"></i>
+        <span>返回</span>
+      <% end %>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="table-scrollable">
+      <table class="table table-bordered table-hover">
+        <tbody>
+        <tr>
+          <th>
+            学生信息
+          </th>
+        </tr>
+        <tr>
+          <th>
+            学生姓名
+          </th>
+          <th>
+            <%= @visit.apply_child.name %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            身份证号
+          </th>
+          <th>
+            <%= @visit.apply_child.id_card %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            年龄
+          </th>
+          <th>
+            <%= @visit.apply_child.age %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            调查人信息
+          </th>
+        </tr>
+        <tr>
+          <th>
+            调查人员
+          </th>
+          <th>
+
+          </th>
+        </tr>
+        <tr>
+          <th>
+            陪同人员
+          </th>
+          <th>
+
+          </th>
+        </tr>
+        <tr>
+          <th>
+            调查时间
+          </th>
+          <th>
+
+          </th>
+        </tr>
+        <tr>
+          <th>
+            家庭情况
+          </th>
+        </tr>
+        <tr>
+          <th>
+            基本情况
+          </th>
+          <th>
+
+          </th>
+        </tr>
+        <tr>
+          <th>
+            家庭人数
+          </th>
+          <th>
+
+          </th>
+        </tr>
+
+        <tr>
+          <th>
+            家长授权书
+          </th>
+          <th>
+
+          </th>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+    function toggleState(){
+        toggleRadioInput('.approve_state', {
+            reject: '.approve_reject'
+        })
+    }
+    toggleState();
+    $("#approve-form").html5Validate(function () {
+        $(this).find('[type="submit"]').attr('disabled', 'disabled');
+        this.submit();
+    });
+</script>
