@@ -132,6 +132,7 @@
       resource :wechat_payment, only: [] do
         collection do
           get :pay
+          get :h5
         end
       end
 
