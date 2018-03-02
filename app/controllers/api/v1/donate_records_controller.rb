@@ -1,4 +1,5 @@
 class Api::V1::DonateRecordsController < Api::V1::BaseController
+  skip_before_action :login? unless Settings.development_mode
 
   def index
     if params[:type] == 'child'

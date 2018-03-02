@@ -141,18 +141,22 @@ class DonateRecord < ApplicationRecord
   end
 
   def wechat_prepay_js(remote_ip)
-      prepay_id = get_wechat_prepay_id(remote_ip)
-      package_str = "prepay_id=#{prepay_id}"
-      prepay_js = {
-        appId: Settings.wechat_app_id,
-        nonceStr: SecureRandom.uuid.tr('-', ''),
-        package: package_str,
-        timeStamp: Time.now.getutc.to_i.to_s,
-        signType: 'MD5'
-      }
-      pay_sign = WxPay::Sign.generate(prepay_js)
-      prepay_js.merge(paySign: pay_sign)
-    end
+    prepay_id = get_wechat_prepay_id(remote_ip)
+    package_str = "prepay_id=#{prepay_id}"
+    prepay_js = {
+      appId: Settings.wechat_app_id,
+      nonceStr: SecureRandom.uuid.tr('-', ''),
+      package: package_str,
+      timeStamp: Time.now.getutc.to_i.to_s,
+      signType: 'MD5'
+    }
+    pay_sign = WxPay::Sign.generate(prepay_js)
+    prepay_js.merge(paySign: pay_sign)
+  end
+
+  def wechat_prepay_h5(remote_ip)
+    return get_wechat_prepay_mweb(remote_ip)
+  end
 
   # 捐定向
   def self.donate_project(user = nil, amount = 0.0, project = nil, promoter = nil)
@@ -419,6 +423,23 @@ class DonateRecord < ApplicationRecord
     }
     res = WxPay::Service.invoke_unifiedorder params
     return res['prepay_id']
+  end
+
+  def get_wechat_prepay_mweb(remote_ip)
+    notify_url = Settings.app_host + "/payment/wechat_payments/notify"
+    params = {
+      body: '需要一个商品名称',
+      out_trade_no: self.donate_no,
+      # total_fee: Settings.pay_1_mode ? 1 : (self.amount * 100).to_i,
+      total_fee: 1,
+      # (self.amount * 100).to_i,
+      spbill_create_ip: remote_ip,
+      notify_url: notify_url,
+      trade_type: 'MWEB', # could be "JSAPI" or "NATIVE",
+      openid: self.user.openid# required when trade_type is `JSAPI`
+    }
+    res = WxPay::Service.invoke_unifiedorder params
+    return res['mweb_url']
   end
 
 end
