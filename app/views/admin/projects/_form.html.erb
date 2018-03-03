@@ -49,8 +49,10 @@
         <% f.object.form.each_with_index do |form_item, i| %>
             <div class="inline-group">
               <%= text_field_tag "project[form_attributes][#{i}][key]", form_item['key'], placeholder: '代码'%>
-              <%= text_field_tag "project[form_attributes][#{i}][label]", form_item['label'], placeholder: '标签'%>
+              <%= text_field_tag "project[form_attributes][#{i}][label]", form_item['label'], placeholder: '标题'%>
+              <%= text_field_tag "project[form_attributes][#{i}][placeholder]", form_item['placeholder'], placeholder: '提示'%>
               <%= select_tag "project[form_attributes][#{i}][type]", options_for_select([['文本框', 'text'], ['多行文本框', 'textarea'], ['选项', 'select']], form_item['type']), placeholder: '代码'%>
+              <%= text_field_tag "project[form_attributes][#{i}][options]", form_item['options'].join('|'), placeholder: '选择项，用英文|隔开' %>
               <label><%= check_box_tag "project[form_attributes][#{i}][required]", 'y', form_item['required']%>必填</label>
               <a href="#" class="destroy"><i class="fa fa-remove font-red-soft"></i></a>
             </div>

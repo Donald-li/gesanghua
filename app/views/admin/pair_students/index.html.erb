@@ -117,6 +117,9 @@
                   <%= link_to admin_pair_apply_pair_student_path(@project_apply,child), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                       <i class="fa fa-gavel"></i> 审核
                   <% end %>
+                  <%= link_to admin_home_visits_path(id: child.id), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
+                      <i class="fa fa-list"></i> 家访记录
+                  <% end %>
                   <%= link_to remarks_admin_pair_apply_pair_student_path(@project_apply,child), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                       <i class="fa fa-tags"></i> 查看备注
                   <% end %>

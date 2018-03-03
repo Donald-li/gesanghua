@@ -48,9 +48,16 @@ RSpec.describe ProjectSeasonApply, type: :model do
   let!(:season) { create(:project_season, project: project) }
   let!(:apply) { create(:project_season_apply, project: project, season: season, teacher: teacher, school: school) }
 
-  describe '测试生成申请编号' do
-    it '生成申请编号' do
-      expect(apply.apply_no.present?).to be true
-    end
+  it '生成申请编号' do
+    expect(apply.apply_no.present?).to be true
+  end
+
+  it '测试动态表单的展示' do
+    project.form = [ { "key": "name", "type": "text", "label": "姓名", "options": [], "required": "y" }, { "key": "telphone", "type": "text", "label": "电话", "options": [], "required": "y" }, { "key": "gender", "type": "select", "label": "性别", "options": [ "男", "女" ] }, { "key": "grade", "type": "select", "label": "年级", "options": [ "初一", "初二", "初三", "高一", "高二", "高三" ], "required": "y" }, { "key": "desc", "type": "textarea", "label": "说明", "options": [] } ]
+    project.save
+    apply.form = { "name": "王二小", "telphone": "13899998888", "gender": [ "男" ] }
+    apply.save
+    # pp apply.form_builder
+    expect(apply.form_builder.length).to eq(project.form.length)
   end
 end

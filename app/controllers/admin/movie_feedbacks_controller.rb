@@ -15,7 +15,7 @@ class Admin::MovieFeedbacksController < Admin::BaseController
   end
 
   def create
-    @install = @apply.installs.new(install_params.merge(owner_type: 'ProjectSeasonApply', project_id: ProjectSeason.movie_project_id, project_season_apply_id: install_params[:owner_id]))
+    @install = @apply.install_feedbacks.new(install_params.merge(owner_type: 'ProjectSeasonApply', project_id: ProjectSeason.movie_project_id, project_season_apply_id: install_params[:owner_id]))
     respond_to do |format|
       if @install.save
         format.html { redirect_to admin_movie_school_movie_feedbacks_path(@apply), notice: '新增成功。' }

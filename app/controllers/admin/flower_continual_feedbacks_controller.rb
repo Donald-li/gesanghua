@@ -3,10 +3,10 @@ class Admin::FlowerContinualFeedbacksController < Admin::BaseController
   before_action :set_project, only: [:index, :new, :create, :update, :destroy, :recommend]
 
   def index
-    @continuals = @project.continuals
-    @search = @continuals.ransack(params[:q])
+    @continual_feedbacks = @project.continual_feedbacks
+    @search = @continual_feedbacks.ransack(params[:q])
     scope = @search.result
-    @continuals = scope.sorted.page(params[:page])
+    @continual_feedbacks = scope.sorted.page(params[:page])
   end
 
   def show

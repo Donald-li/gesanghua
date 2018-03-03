@@ -62,7 +62,7 @@
           </tr>
           </thead>
           <tbody>
-          <% @continuals.each do |continual| %>
+          <% @continual_feedbacks.each do |continual| %>
               <tr>
                 <td>
                   <%= l continual.created_at %>
@@ -104,10 +104,10 @@
       </div>
       <div class="row">
         <div class="col-md-5 col-sm-12">
-          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@continuals) %></div>
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@continual_feedbacks) %></div>
         </div>
         <div class="col-md-7 col-sm-12">
-          <%= paginate @continuals, theme: '' %>
+          <%= paginate @continual_feedbacks, theme: '' %>
         </div>
       </div>
     </div>
