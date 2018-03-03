@@ -69,7 +69,7 @@ class ProjectSeasonApply < ApplicationRecord
   accepts_nested_attributes_for :bookshelves, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :supplements, allow_destroy: true, reject_if: :all_blank #proc { |attributes| attributes['project_season_apply_bookshelf_id'].blank? }
 
-  default_value_for :form, []
+  default_value_for :form, {}
   attr_accessor :approve_remark
 
   enum state: {show: 1, hidden: 2} # 状态：1:展示 2:隐藏
@@ -190,6 +190,18 @@ class ProjectSeasonApply < ApplicationRecord
       end
     end
     return false
+  end
+
+  # 动态表单内容的builder
+  def form_builder
+    project = self.project
+    Jbuilder.new do |json|
+      json.array!(project.form) do |item|
+        json.label item['label']
+        json.key item['key']
+        json.value self.form[item['key']] || ''
+      end
+    end.attributes!
   end
 
   def pair_applies_builder

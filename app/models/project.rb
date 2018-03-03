@@ -92,7 +92,7 @@ class Project < ApplicationRecord
   # 给form添加一行
   def build_form
     form = self.form || []
-    form.push({key: '', label: '', type: 'text', options: [], required: false})
+    form.push({key: '', label: '', placeholder: '', type: 'text', options: [], required: false})
     self.form = form
   end
 
@@ -118,7 +118,7 @@ class Project < ApplicationRecord
 
   def detail_builder
     Jbuilder.new do |json|
-      json.(self, :id, :name, :describe)
+      json.(self, :id, :name, :describe, :form)
       json.total self.donate_record_amount_count
       json.cover_mode self.image.present?
       json.cover_url self.image_url(:tiny).to_s
@@ -137,7 +137,7 @@ class Project < ApplicationRecord
   private
   def set_form_from_attributes
     return unless self.form_attributes.present?
-    self.form = self.form_attributes.values.map{|item| item['options'] = item['options'].to_s.split(',') || []; item}
+    self.form = self.form_attributes.values.map{|item| item['options'] = item['options'].to_s.split('|') || []; item}
   end
 
 end
