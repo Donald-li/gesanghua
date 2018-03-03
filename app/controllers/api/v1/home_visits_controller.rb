@@ -13,7 +13,7 @@ class Api::V1::HomeVisitsController < Api::V1::BaseController
   def qrcode
     user = current_user.id
     @child = ProjectSeasonApplyChild.find(params[:id])
-    url = "http://localhost:8080/cooperation/link-to-visit?type=home_visit&id=#{@child.id}&user=#{user}"
+    url = "http://#{Settings.app_host}/cooperation/link-to-visit?type=home_visit&id=#{@child.id}&user=#{user}"
     api_success(data: {qrcode_url: url})
   end
 

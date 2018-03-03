@@ -8,7 +8,7 @@ logo_img: ''
 send_sms: true
 
 # 开发模式
-development_mode: false
+development_mode: true
 
 # 配置学费
 junior_term_amount: 1050
@@ -17,8 +17,8 @@ senior_term_amount: 1050
 senior_year_amount: 2100
 
 # 微信公众号
-wechat_app_id: "wx7187f48a03d4d947"
-wechat_app_secret: "e3ff7c50f865535ab1eef7ea55b6c0c1"
+wechat_app_id: "wx771c54fb737861a3"
+wechat_app_secret: "727a1fe9d8216c3ba8bfb21be61ec6bd"
 wechat_app_token: "3147d1cea898763a7f677b3c"
 
 # 微信支付

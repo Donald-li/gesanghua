@@ -27,6 +27,11 @@ class Admin::SchoolTeachersController < Admin::BaseController
     end
     respond_to do |format|
       if @teacher.save
+        if teacher_projects_params.present?
+          teacher_projects_params.each do |teacher_project|
+            TeacherProject.create(teacher: @teacher, project_id: teacher_project)
+          end
+        end
         format.html { redirect_to admin_school_school_teachers_path(@school), notice: '教师创建成功。' }
       else
         format.html { render :new }
@@ -50,6 +55,12 @@ class Admin::SchoolTeachersController < Admin::BaseController
           @teacher.openid = @user.openid? ? @user.openid : @teacher.openid
           @teacher.id_card = @user.id_card? ? @user.id_card : @teacher.id_card
           @teacher.save
+        end
+        @teacher.teacher_projects.destroy_all
+        if teacher_projects_params.present?
+          teacher_projects_params.each do |teacher_project|
+            TeacherProject.create(teacher: @teacher, project_id: teacher_project)
+          end
         end
         format.html { redirect_to referer_or(admin_school_school_teachers_url), notice: '教师信息已修改。' }
       else
@@ -78,5 +89,9 @@ class Admin::SchoolTeachersController < Admin::BaseController
     # Never trust parameters from the scary internet, only allow the white list through.
     def teacher_params
       params.require(:teacher).permit!
+    end
+
+    def teacher_projects_params
+      params[:teacher_projects]
     end
 end

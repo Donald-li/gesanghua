@@ -10,7 +10,7 @@ class Api::V1::CooperationPairStudentsController < Api::V1::BaseController
     user = current_user.id
     @apply = ProjectSeasonApply.find(params[:id])
     school = @apply.school.id
-    url = "http://localhost:8080/cooperation/student-apply?type=student_apply&id=#{@apply.id}&user=#{user}&school=#{school}"
+    url = "http://#{Settings.app_host}/cooperation/student-apply?type=student_apply&id=#{@apply.id}&user=#{user}&school=#{school}"
     api_success(data: {qrcode_url: url})
   end
 
@@ -50,12 +50,6 @@ class Api::V1::CooperationPairStudentsController < Api::V1::BaseController
     @apply = ProjectSeasonApply.find(params[:id])
     students = @apply.children.pass.sorted.page(params[:page]).per(params[:per])
     api_success(data: {students: students.map { |r| r.list_builder }, pagination: json_pagination(students)})
-  end
-
-  def child_grants
-    gsh_child = GshChild.find(params[:id])
-    children = gsh_child.project_season_apply_children.where(project: Project.pair_project)
-    api_success(data: {pair_records: children.map{|child| child.donate_record_builder}, child_info: gsh_child.child_info_builder})
   end
 
 end
