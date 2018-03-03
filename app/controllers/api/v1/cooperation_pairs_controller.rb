@@ -5,10 +5,10 @@ class Api::V1::CooperationPairsController < Api::V1::BaseController
     # byebug
     user = current_user
     # 校长或者教师的项目申请
-    if user.school.present?
+    if user.has_role?(:headmaster) && user.school.present?
       applies = user.school.project_season_applies.where(project_id: @pair.id).sorted.page(params[:page]).per(params[:id])
       api_success(data: {applies: applies.map { |r| r.pair_applies_builder }, pagination: json_pagination(applies)})
-    elsif user.teacher?
+    elsif user.has_role?(:teacher) && user.teacher?
       applies = user.teacher.project_season_applies.where(project_id: @pair.id).sorted.page(params[:page]).per(params[:id])
       api_success(data: {applies: applies.map { |r| r.pair_applies_builder }, pagination: json_pagination(applies)})
     else

@@ -24,6 +24,10 @@ class Admin::SchoolTeachersController < Admin::BaseController
       @teacher.qq = @user.qq? ? @user.qq : @teacher.qq
       @teacher.openid = @user.openid? ? @user.openid : @teacher.openid
       @teacher.id_card = @user.id_card? ? @user.id_card : @teacher.id_card
+      if !@user.has_role?(:teacher)
+        @user.roles = @user.roles.push(:teacher)
+        @user.save
+      end
     end
     respond_to do |format|
       if @teacher.save
@@ -43,8 +47,19 @@ class Admin::SchoolTeachersController < Admin::BaseController
   end
 
   def update
+    @u = @teacher.user if @teacher.user.present?
+    if @u.present?
+      if @u.has_role?(:teacher)
+        @u.roles = @u.roles-[:teacher]
+        @u.save
+      end
+    end
     if teacher_params[:user_id] !=nil && teacher_params[:user_id] != ""
       @user = User.find(teacher_params[:user_id])
+      if !@user.has_role?(:teacher)
+        @user.roles = @user.roles.push(:teacher)
+        @user.save
+      end
     end
     respond_to do |format|
       if @teacher.update(teacher_params)
@@ -71,6 +86,12 @@ class Admin::SchoolTeachersController < Admin::BaseController
 
   def destroy
     @teacher.destroy
+    if @teacher.user.present?
+      if @teacher.user.has_role?(:teacher)
+        @teacher.user.roles = @teacher.user.roles-[:teacher]
+        @teacher.user.save
+      end
+    end
     respond_to do |format|
       format.html { redirect_to referer_or(admin_school_school_teachers_url), notice: '教师已删除。' }
     end
