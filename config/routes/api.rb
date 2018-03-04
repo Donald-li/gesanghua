@@ -137,6 +137,13 @@
         end
       end
 
+      # 支付宝支付
+      resource :alipay_payment, only: [] do
+        collection do
+          get :h5
+        end
+      end
+
       # 微信签名
       resource :sign_package, only: [:show]
 

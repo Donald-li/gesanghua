@@ -111,10 +111,13 @@ gem 'cancancan', '~> 2.0'
 
 # gem 'simplecov', :require => false, :group => :test
 
-#微信
+# 微信
 gem 'weixin_rails_middleware', github: 'Modernech/weixin_rails_middleware'
 gem 'weixin_authorize'
 gem 'wx_pay'
+
+# 支付宝
+gem 'alipay', '~> 0.15.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

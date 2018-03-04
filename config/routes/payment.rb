@@ -12,7 +12,7 @@ namespace :payment do
   # 支付宝
   resources :alipay_payments, only: [] do
     collection do
-      get :notify
+      post :notify
       get :success
       get :failure
     end

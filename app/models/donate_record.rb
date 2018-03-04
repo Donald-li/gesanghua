@@ -158,6 +158,10 @@ class DonateRecord < ApplicationRecord
     return get_wechat_prepay_mweb(remote_ip)
   end
 
+  def alipay_prepay_h5
+    return get_alipay_prepay_mweb
+  end
+
   # 捐定向
   def self.donate_project(user = nil, amount = 0.0, project = nil, promoter = nil)
     return false unless user.present?
@@ -440,6 +444,31 @@ class DonateRecord < ApplicationRecord
     }
     res = WxPay::Service.invoke_unifiedorder params
     return res['mweb_url']
+  end
+
+  def get_alipay_prepay_mweb
+    require 'alipay'
+    notify_url = Settings.app_host + "/payment/alipay_payments/notify"
+    quit_url = Settings.app_host + '/m/'
+
+    @client = Alipay::Client.new(
+      url: Settings.alipay_api,
+      app_id: Settings.alipay_app_id,
+      app_private_key: Settings.alipay_app_private_key,
+      alipay_public_key: Settings.alipay_public_key
+    )
+    url = @client.page_execute_url(
+      method: 'alipay.trade.wap.pay',
+      return_url: quit_url,
+      notify_url: notify_url,
+      biz_content: {
+       out_trade_no: self.donate_no,
+       product_code: 'QUICK_WAP_WAY',
+       total_amount: '0.01',
+       subject: 'Example: 456',
+       quit_url: quit_url
+      }.to_json
+    )
   end
 
 end

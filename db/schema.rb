@@ -240,9 +240,9 @@ ActiveRecord::Schema.define(version: 20180302100956) do
     t.integer "project_season_apply_bookshelf_id", comment: "书架id"
     t.integer "bookshelf_supplement_id", comment: "补书ID"
     t.integer "donate_item_id", comment: "可捐助id"
-    t.integer "income_record_id", comment: "收入记录"
     t.string "title", comment: "捐赠标题"
     t.string "pay_result", comment: "支付结果"
+    t.integer "income_record_id", comment: "收入记录"
   end
 
   create_table "expenditure_records", force: :cascade, comment: "支出记录表" do |t|
