@@ -3,6 +3,7 @@
  *= require_tree ./common
  *= require_self
 */
+
 .page-header.navbar.navbar-fixed-top, .page-header.navbar.navbar-static-top{
   z-index: 1000 !important;
 }
@@ -29,6 +30,30 @@
   }
 }
 
+.page-header-inner{
+  .module-nav{
+    width: 600px;
+    .nav-tabs.nav-justified{
+      margin-left: 50px;
+      padding-top: 6px;
+      li{
+        a{
+          color: #555;
+          font-size: 16px;
+          line-height: 30px;
+          border-bottom: 0px;
+        }
+      }
+      li.active{
+
+        a {
+          background-color: #e9ecf3;
+          color: #337ab7;
+        }
+      }
+    }
+  }
+}
 .login {
   .logo-text {
     font-size: 60px;

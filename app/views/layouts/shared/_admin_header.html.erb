@@ -1,0 +1,78 @@
+<div class="page-header navbar navbar-fixed-top">
+  <!-- BEGIN HEADER INNER -->
+  <div class="page-header-inner ">
+    <!-- BEGIN LOGO -->
+    <div class="page-logo">
+      <%= link_to admin_main_path, class: 'logo-text' do %>格桑花平台<% end %>
+      <!--<a href="javascript:;"><img src="/admin/assets/layouts/layout4/img/logo-light.png" width="106" alt="logo" class="logo-default" /> </a>-->
+      <div class="menu-toggler sidebar-toggler">
+        <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+      </div>
+    </div>
+    <!-- END LOGO -->
+    <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+    <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
+    <!-- END RESPONSIVE MENU TOGGLER -->
+    <div class="module-nav page-actions">
+      <ul class="nav nav-tabs nav-justified">
+          <li class="<%= current_nav_class(:admin_operation) %>" data-toggle="tab">
+              <a href="#" data-content="menus-operate"> <i class="fa fa-desktop"></i>运营管理 </a>
+          </li>
+          <li class="<%= current_nav_class(:admin_project) %>" data-toggle="tab">
+              <a href="#" data-content="menus-project"> <i class="fa fa-heart"></i>项目管理 </a>
+          </li>
+          <li class="<%= current_nav_class(:admin_system) %>" data-toggle="tab">
+              <a href="#" data-content="menus-system"> <i class="fa fa-cogs"></i>系统管理 </a>
+          </li>
+          <li class="<%= current_nav_class(:admin_statistic) %>" data-toggle="tab">
+              <a href="#" data-content="menus-report"> <i class="fa fa-pie-chart"></i>统计报表 </a>
+          </li>
+          <li class="<%= current_nav_class(:admin_finance) %>" data-toggle="tab">
+              <a href="#" data-content="menus-financial"> <i class="fa fa-yen"></i>财务管理 </a>
+          </li>
+      </ul>
+    </div>
+    <!-- BEGIN PAGE TOP -->
+    <div class="page-top">
+      <!-- BEGIN TOP NAVIGATION MENU -->
+      <div class="top-menu">
+        <ul class="nav navbar-nav pull-right">
+          <!-- BEGIN USER LOGIN DROPDOWN -->
+          <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+          <li class="dropdown dropdown-user dropdown-dark">
+            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+              <span class="username username-hide-on-mobile"> <%= current_user.nickname %> </span>
+              <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
+            </a>
+            <ul class="dropdown-menu dropdown-menu-default">
+              <li>
+                <%= link_to admin_logout_path, method: :delete do %>
+                  <i class="icon-logout"></i>退出
+                <% end %>
+              </li>
+            </ul>
+          </li>
+          <!-- END USER LOGIN DROPDOWN -->
+        </ul>
+      </div>
+      <!-- END TOP NAVIGATION MENU -->
+    </div>
+    <!-- END PAGE TOP -->
+  </div>
+  <!-- END HEADER INNER -->
+</div>
+
+<script>
+  $(function(){
+    $('.module-menus').hide().removeClass('hide')
+    var active = $('.module-nav li.active a').data('content')
+    if(active) $('.module-menus.'+active).show()
+    $('.module-nav li a').on('click', function(ev){
+      var className = $(ev.target).data('content')
+      if(className){
+        $('.module-menus').hide()
+        $('.module-menus.'+className).show()
+      }
+    })
+  })
+</script>

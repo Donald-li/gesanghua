@@ -4,75 +4,87 @@ admin:
     admin_main:
       actions:
         'admin/mains': all
-    admin_user:
-      actions:
-        'admin/users': all
-    admin_volunteers:
-      menus:
-        admin_volunteer_list:
-          actions:
-            'admin/volunteers': all
-            'admin/service_histories': all
-            'admin/task_volunteers': all
-        admin_volunteer_apply:
-          actions:
-            'admin/volunteer_applies': all
-        admin_task_list:
-          actions:
-            'admin/tasks': all
-            'admin/task_applies': all
-            'admin/appoint_tasks': all
-        admin_task_check:
-          actions:
-            'admin/task_achievements': all
-    admin_schools:
-      menus:
-        admin_school_list:
-          actions:
-            'admin/schools': all
-        admin_school_applies:
-          actions:
-            'admin/school_applies': all
 
-    admin_user_main:
-      menus:
-        admin_user_county_users:
-          actions:
-            'admin/county_users': all
-        admin_user_gsh_children:
-          actions:
-            'admin/gsh_children': all
-        admin_user_teachers:
-          actions:
-            'admin/teachers': all
-
-
-    # 平台管理
-    admin_platform_content:
-      menus:
-        admin_content_adverts:
-          actions:
-            'admin/adverts': all
-        admin_content_articles:
-          actions:
-            'admin/articles': all
-        admin_content_supports:
-          actions:
-            'admin/supports': all
-        admin_content_pages:
-          actions:
-            'admin/pages': all
-        admin_content_specials:
-          actions:
-            'admin/specials': all
-            'admin/special_adverts': all
-            'admin/special_articles': all
-
-    # 运营管理
     admin_operation:
       menus:
         admin_user:
+          actions:
+            'admin/users': all
+        admin_volunteers:
           menus:
+            admin_volunteer_list:
+              actions:
+                'admin/volunteers': all
+                'admin/service_histories': all
+                'admin/task_volunteers': all
+            admin_volunteer_apply:
+              actions:
+                'admin/volunteer_applies': all
+            admin_task_list:
+              actions:
+                'admin/tasks': all
+                'admin/task_applies': all
+                'admin/appoint_tasks': all
+            admin_task_check:
+              actions:
+                'admin/task_achievements': all
+        admin_schools:
+          menus:
+            admin_school_list:
+              actions:
+                'admin/schools': all
+            admin_school_applies:
+              actions:
+                'admin/school_applies': all
+
+        admin_user_main:
+          menus:
+            admin_user_county_users:
+              actions:
+                'admin/county_users': all
+            admin_user_gsh_children:
+              actions:
+                'admin/gsh_children': all
+            admin_user_teachers:
+              actions:
+                'admin/teachers': all
+
+        admin_campaign:
+          menus:
+            admin_campaigns:
+              actions:
+                admin/campaigns: all
+            admin_campaign_categories:
+              actions:
+                admin/campaign_categories: all
+        admin_complaint:
+          actions:
+            admin/complaints: all
+        admin_month_donate:
+          actions:
+            admin/month_donates: all
+
+        # 平台管理
+        admin_platform_content:
+          menus:
+            admin_content_adverts:
+              actions:
+                'admin/adverts': all
+            admin_content_articles:
+              actions:
+                'admin/articles': all
+            admin_content_supports:
+              actions:
+                'admin/supports': all
+            admin_content_pages:
+              actions:
+                'admin/pages': all
+            admin_content_specials:
+              actions:
+                'admin/specials': all
+                'admin/special_adverts': all
+                'admin/special_articles': all
+
 
 
     admin_system:
@@ -102,12 +114,17 @@ admin:
           actions:
             'admin/workplaces': all
 
-    # 学校用户
-    admin_school:
-      menus:
-        admin_school_applies:
-          actions:
-            'admin/school_applies': all
+        # 管理员列表
+        admin_administrator:
+          menus:
+            admin_administrators:
+              actions:
+                'admin/administrators': all
+            admin_audits:
+              actions:
+                'admin/audits': all
+            admin_platform_content:
+              menus:
 
     # 统计报表
     admin_statistic:
@@ -119,17 +136,6 @@ admin:
           actions:
             admin/donate_statistics: all
 
-    # 管理员列表
-    admin_administrator:
-      menus:
-        admin_administrators:
-          actions:
-            'admin/administrators': all
-        admin_audits:
-          actions:
-            'admin/audits': all
-        admin_platform_content:
-          menus:
     # 财务
     admin_finance:
       menus:
@@ -275,18 +281,3 @@ admin:
             admin_project_flower_feedbacks:
               actions:
                 'admin/flower_continual_feedbacks': all
-
-    admin_campaign:
-      menus:
-        admin_campaigns:
-          actions:
-            admin/campaigns: all
-        admin_campaign_categories:
-          actions:
-            admin/campaign_categories: all
-    admin_complaint:
-      actions:
-        admin/complaints: all
-    admin_month_donate:
-      actions:
-        admin/month_donates: all
