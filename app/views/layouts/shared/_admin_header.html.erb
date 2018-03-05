@@ -64,6 +64,7 @@
 
 <script>
   $(function(){
+    if($('.module-nav li.active').length==0) $('.module-nav li:first').addClass('active')
     $('.module-menus').hide().removeClass('hide')
     var active = $('.module-nav li.active a').data('content')
     if(active) $('.module-menus.'+active).show()
