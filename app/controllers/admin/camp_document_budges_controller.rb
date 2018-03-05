@@ -1,2 +1,2 @@
-class Admin::CampDocumentBudgesController < ApplicationController
+class Admin::CampDocumentBudgesController < Admin::BaseController
 end

@@ -1,0 +1,2 @@
+class CompDocumentSummary < ApplicationRecord
+end

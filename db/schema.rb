@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180304235448) do
+ActiveRecord::Schema.define(version: 20180305035534) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -145,7 +145,16 @@ ActiveRecord::Schema.define(version: 20180304235448) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "camp_document_resources", force: :cascade, comment: "拓展营资源表" do |t|
+  create_table "camp_document_volunteers", force: :cascade, comment: "拓展营志愿者表" do |t|
+    t.integer "project_id", comment: "项目"
+    t.integer "user_id", comment: "用户"
+    t.integer "volunteer_id", comment: "志愿者"
+    t.string "remark", comment: "营备注"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "camp_project_resources", force: :cascade, comment: "拓展营资源表" do |t|
     t.integer "project_id", comment: "项目"
     t.integer "user_id", comment: "用户"
     t.string "company", comment: "单位名称"
@@ -198,6 +207,19 @@ ActiveRecord::Schema.define(version: 20180304235448) do
     t.string "remark", comment: "报名表备注"
     t.integer "sign_up_state", comment: "报名状态 1:未开始报名 2:报名中 3:报名结束"
     t.integer "campaign_state", comment: "活动状态 1:活动未开始 2:活动进行中 3:活动已结束"
+  end
+
+  create_table "comp_document_summaries", force: :cascade, comment: "拓展营总结" do |t|
+    t.integer "project_id", comment: "项目"
+    t.integer "user_id", comment: "用户"
+    t.datetime "submit_at", comment: "提交时间"
+    t.string "submit_user", comment: "提交用户"
+    t.string "free_resource", comment: "本营免费资源"
+    t.decimal "resource_value", precision: 14, scale: 2, default: "0.0", comment: "免费资源价值"
+    t.decimal "donate_amount", precision: 14, scale: 2, default: "0.0", comment: "本营筹款多少"
+    t.integer "publicize_count", comment: "本营宣传次数"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "complaints", force: :cascade, comment: "举报表" do |t|
