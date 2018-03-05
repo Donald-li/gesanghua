@@ -1,0 +1,21 @@
+<%= simple_form_for [:admin, @camp_document_estimate], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
+    <%= f.error_notification %>
+    <div class="form-body form-horizontal">
+      <%= f.input :item, label: '费用类别：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :amount, label: '预计花费：', input_html: { data: {'parsley-number': true}} %>
+      <%= f.input :remark, as: :text, label: '备注：' %>
+    </div>
+    <div class="form-actions">
+      <div class="row">
+        <div class="col-md-offset-3 col-md-9">
+          <%= f.button :submit, '提交', class: 'btn green' %>
+          <%= link_to '取消', admin_camp_document_estimates_path, class: 'btn' %>
+        </div>
+      </div>
+    </div>
+<% end %>
+<script>
+  $(function(){
+    initImageWebuploader($('#webuploader'));
+  })
+</script>

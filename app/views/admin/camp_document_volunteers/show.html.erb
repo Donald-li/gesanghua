@@ -1,0 +1,63 @@
+
+<div class="portlet light portlet-fit bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="fa fa-sliders font-dark"></i>
+      <span class="caption-subject font-dark bold uppercase">单页面详情</span>
+    </div>
+    <div class="actions">
+      <div class="btn-group">
+        <a href="<%= edit_admin_page_path(@page) %>" class="btn btn-xs blue">
+          <i class="fa fa-edit"></i>修改单页面
+        </a>
+      </div>
+      <div class="btn-group">
+        <a href="<%= admin_pages_path %>" class="btn btn-xs blue">
+          <i class="fa fa-reply"></i>返回
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="table-scrollable">
+      <table class="table table-bordered table-hover">
+        <tbody>
+        <tr>
+
+          <th>
+            单页面标题
+          </th>
+          <th>
+            <%= @page.title %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            单页面别名
+          </th>
+          <th>
+            <%= @page.alias %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            详情
+          </th>
+          <th>
+            <%= @page.content.html_safe %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            状态
+          </th>
+          <th>
+            <%= @page.enum_name(:state) %>
+          </th>
+        </tr>
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+</div>

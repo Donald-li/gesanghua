@@ -12,4 +12,10 @@
 #
 
 class CampDocumentVolunteer < ApplicationRecord
+  belongs_to :project_season
+  belongs_to :user
+  belongs_to :volunteer
+
+  scope :sorted, ->{order(id: :asc)}
+  scope :in_season, ->(project_season){where(project_season: project_season)}
 end

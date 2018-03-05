@@ -12,5 +12,12 @@
 #  updated_at :datetime         not null
 #
 
-class CammpDocumentEstinate < ApplicationRecord
+FactoryBot.define do
+  factory :camp_document_estimate do
+    project_id 1
+    user_id 1
+    item "MyString"
+    amount "9.99"
+    remark "MyString"
+  end
 end

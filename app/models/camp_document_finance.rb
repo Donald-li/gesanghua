@@ -14,4 +14,13 @@
 #
 
 class CampDocumentFinance < ApplicationRecord
+  belongs_to :project_season
+  belongs_to :user
+
+  validates :item, presence: true
+  validates :budge, numericality: {greater_than_or_equal_to: 0}
+  validates :amount, numericality: {greater_than_or_equal_to: 0, allow_blank: true}
+
+  scope :sorted, ->{order(id: :asc)}
+  scope :in_season, ->(project_season){where(project_season: project_season)}
 end

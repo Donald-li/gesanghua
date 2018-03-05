@@ -16,5 +16,9 @@
 #  updated_at        :datetime         not null
 #
 
-class CampDocumentResource < ApplicationRecord
+class CampProjectResource < ApplicationRecord
+  belongs_to :project_season
+  belongs_to :user
+
+  scope :sorted, ->{order(id: :asc)}
 end

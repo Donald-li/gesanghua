@@ -1,2 +1,2 @@
-class Admin::CampDocumentSummariesController < Admin::BaseController
+class Admin::CampDocumentSummariesController < Admin::CampDocumentBaseController
 end

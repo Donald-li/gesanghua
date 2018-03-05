@@ -12,12 +12,14 @@
 #  updated_at :datetime         not null
 #
 
-FactoryBot.define do
-  factory :cammp_document_estinate do
-    project_id 1
-    user_id 1
-    item "MyString"
-    amount "9.99"
-    remark "MyString"
-  end
+class CampDocumentEstimate < ApplicationRecord
+  belongs_to :project_season
+  belongs_to :user
+
+  validates :item, presence: true
+  validates :amount, numericality: {greater_than_or_equal_to: 0}
+
+  scope :sorted, ->{order(id: :asc)}
+  scope :in_season, ->(project_season){where(project_season: project_season)}
+
 end

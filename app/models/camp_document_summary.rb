@@ -15,5 +15,14 @@
 #  updated_at      :datetime         not null
 #
 
-class CompDocumentSummary < ApplicationRecord
+class CampDocumentSummary < ApplicationRecord
+  belongs_to :project_season
+  belongs_to :user
+
+  validates :free_resource, :donate_amount, presence: true
+  validates :resource_value, numericality: {greater_than_or_equal_to: 0}
+  validates :donate_amount, numericality: {greater_than_or_equal_to: 0}
+
+  scope :sorted, ->{order(id: :asc)}
+  scope :in_season, ->(project_season){where(project_season: project_season)}
 end
