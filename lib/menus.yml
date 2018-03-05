@@ -211,6 +211,20 @@ admin:
             admin_project_camp_season:
               actions:
                 'admin/project_camp_seasons': all
+            admin_project_camp_document:
+              menus:
+                admin_camp_document_estimates:
+                  actions:
+                    'admin/camp_document_estimates': all
+                admin_camp_document_budges:
+                  actions:
+                    'admin/camp_document_budges': all
+                admin_camp_document_finances:
+                  actions:
+                    'admin/camp_document_finances': all
+                admin_camp_document_resources:
+                  actions:
+                    'admin/camp_document_resources': all
         admin_project_radio:
           menus:
             admin_project_radio_season:

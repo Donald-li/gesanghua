@@ -1,0 +1,2 @@
+module Admin::CampDocumentBudgesHelper
+end

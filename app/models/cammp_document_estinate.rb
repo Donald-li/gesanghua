@@ -1,0 +1,2 @@
+class CammpDocumentEstinate < ApplicationRecord
+end

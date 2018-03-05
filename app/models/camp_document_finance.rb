@@ -1,0 +1,2 @@
+class CampDocumentFinance < ApplicationRecord
+end
