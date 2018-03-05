@@ -24,6 +24,7 @@ class Admin::PairStudentsController < Admin::BaseController
     @apply_child = @project_apply.children.build(apply_child_params.merge(province: @project_apply.province, city: @project_apply.city, district: @project_apply.district, approve_state: 2))
     @apply_child.audits.build
     @apply_child.attach_images(params[:image_ids])
+    @apply_child.attach_avatar(params[:avatar_id])
     respond_to do |format|
       if @apply_child.save
         @apply_child.count_age
@@ -36,6 +37,7 @@ class Admin::PairStudentsController < Admin::BaseController
 
   def update
     @apply_child.attach_images(params[:image_ids])
+    @apply_child.attach_avatar(params[:avatar_id])
     respond_to do |format|
       if @apply_child.update(apply_child_params)
         @apply_child.count_age

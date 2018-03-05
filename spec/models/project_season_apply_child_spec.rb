@@ -48,6 +48,7 @@
 #  income_source           :string                                 # 收入来源
 #  family_condition        :string                                 # 家庭情况
 #  brothers                :string                                 # 兄弟姐妹
+#  teacher_phone           :string                                 # 班主任联系方式
 #
 
 require 'rails_helper'

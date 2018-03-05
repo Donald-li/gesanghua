@@ -33,6 +33,12 @@
                     <%= f.hidden_field :school_id, value: @project_apply.school_id %>
                     <%= f.hidden_field :project_id, value: @project_apply.project_id %>
                     <%= f.hidden_field :project_season_id, value: @project_apply.project_season_id %>
+                    <div class="form-group">
+                      <label class="col-md-2 control-label">孩子头像：</label>
+                      <div class="col-sm-9">
+                        <%= webuploader_tag :avatar_id, label: '上传图片', type: 'apply_child_avatar', asset: @apply_child.avatar, klass: 'single', id: 'single-upload' %>
+                      </div>
+                    </div>
                     <%= f.input :name, label: '姓名：', autofocus: true, placeholder: '姓名', required: true %>
                     <%= f.input :level, as: :select, label: '中学：', collection: ProjectSeasonApplyChild.options_for_enum_select(:levels), include_blank: false %>
                     <%= f.input :grade, as: :select, label: '年级：', collection: ProjectSeasonApplyChild.options_for_enum_select(:grades), include_blank: false %>
@@ -104,6 +110,7 @@
     // }
     );
     initMultiImageWebuploader($('#webuploader'));
+    initImageWebuploader($('#single-upload'));
     $('.upload-list').viewer();
   })
 

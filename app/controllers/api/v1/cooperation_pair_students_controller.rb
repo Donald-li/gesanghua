@@ -6,6 +6,23 @@ class Api::V1::CooperationPairStudentsController < Api::V1::BaseController
     api_success(data: {apply_students: apply_students.map { |r| r.list_builder }, pagination: json_pagination(apply_students)})
   end
 
+  def new
+
+  end
+
+  def create
+
+  end
+
+  def edit
+    @student = ProjectSeasonApplyChild.find(params[:id])
+    api_success(data: {student: @student.whole_builder})
+  end
+
+  def update
+
+  end
+
   def qrcode
     user = current_user.id
     @apply = ProjectSeasonApply.find(params[:id])
