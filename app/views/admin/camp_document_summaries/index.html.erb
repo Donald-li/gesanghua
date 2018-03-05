@@ -1,24 +1,20 @@
 <div class="portlet light">
   <div class="portlet-title">
     <div class="caption">
-      <i class="icon-list"></i><%= @current_camp.name %> > 决算管理
+      <i class="icon-list"></i><%= @current_camp.name %> > 总结
     </div>
     <div class="actions">
       <%= link_to admin_project_camp_seasons_path(return_camp: controller_path), class: 'btn btn-xs green', 'data-no-turbolink' => true do %>
           <i class="icon-plus"></i>
           <span>切换探索营</span>
       <% end %>
-      <%= link_to new_admin_camp_document_finance_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+      <%= link_to new_admin_camp_document_summary_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
           <i class="icon-plus"></i>
           <span>新增</span>
       <% end %>
     </div>
   </div>
   <div class="portlet-body">
-    <div class="body-info">
-      预计花费合计： <%= number_to_currency @search.result.sum(:budge) %> &nbsp;&nbsp;&nbsp;&nbsp;
-      实际花费合计： <%= number_to_currency @search.result.sum(:amount) %>
-    </div>
     <div class="dataTables_wrapper no-footer">
       <div class="row">
         <div class="col-md-6 col-sm-12">
@@ -31,16 +27,13 @@
           <thead>
           <tr>
             <th>
-              费用类别
+              提交时间
             </th>
             <th>
-              预计花费
+              提交人
             </th>
             <th>
-              实际花费
-            </th>
-            <th>
-              备注
+              总结报告
             </th>
             <th>
               操作
@@ -48,25 +41,22 @@
           </tr>
           </thead>
           <tbody>
-          <% @camp_document_finances.each do |camp_document_finance| %>
+          <% @camp_document_summaries.each do |camp_document_summary| %>
               <tr>
                 <td>
-                  <%= camp_document_finance.item %>
+                  <%=l camp_document_summary.created_at %>
                 </td>
                 <td>
-                  <%= number_to_currency camp_document_finance.budge %>
+                  <%= camp_document_summary.user.try(:name) %>
                 </td>
                 <td>
-                  <%= number_to_currency camp_document_finance.amount %>
+                  <%= link_to camp_document_summary.report.file_name, camp_document_summary.report_url(nil), target: '_blank' if camp_document_summary.report %>
                 </td>
                 <td>
-                  <%= camp_document_finance.remark %>
-                </td>
-                <td>
-                  <%= link_to edit_admin_camp_document_finance_path(camp_document_finance), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                  <%= link_to edit_admin_camp_document_summary_path(camp_document_summary), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-edit"></i> 修改
                   <% end %>
-                  <%= link_to admin_camp_document_finance_path(camp_document_finance), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                  <%= link_to admin_camp_document_summary_path(camp_document_summary), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                       <i class="fa fa-trash-o"></i> 删除
                   <% end %>
                 </td>
@@ -77,10 +67,10 @@
       </div>
       <div class="row">
         <div class="col-md-5 col-sm-12">
-          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@camp_document_finances) %></div>
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@camp_document_summaries) %></div>
         </div>
         <div class="col-md-7 col-sm-12">
-          <%= paginate @camp_document_finances, theme: 'admin' %>
+          <%= paginate @camp_document_summaries, theme: 'admin' %>
         </div>
       </div>
     </div>

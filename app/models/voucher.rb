@@ -21,8 +21,8 @@
 #
 
 # 捐赠收据
+require 'custom_validators'
 class Voucher < ApplicationRecord
-  require 'custom_validators'
   belongs_to :user
   has_one :logistic, as: :owner
   accepts_nested_attributes_for :logistic, reject_if: :all_blank

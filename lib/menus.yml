@@ -217,7 +217,7 @@ admin:
             admin_project_camp_season:
               actions:
                 'admin/project_camp_seasons': all
-            admin_camp_resourcs:
+            admin_camp_project_resources:
               actions:
                 'admin/camp_project_resources': all
             admin_camp_document:

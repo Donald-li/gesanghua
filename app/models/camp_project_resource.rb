@@ -1,9 +1,8 @@
 # == Schema Information
 #
-# Table name: camp_document_resources # 拓展营资源表
+# Table name: camp_project_resources # 拓展营资源表
 #
 #  id                :integer          not null, primary key
-#  project_id        :integer                                # 项目
 #  user_id           :integer                                # 用户
 #  company           :string                                 # 单位名称
 #  resource          :string                                 # 资源名称
@@ -15,10 +14,16 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
+require 'custom_validators'
 
 class CampProjectResource < ApplicationRecord
-  belongs_to :project_season
+
   belongs_to :user
 
   scope :sorted, ->{order(id: :asc)}
+
+  validates :company, :resource, :contact_name, :gsh_contact_name, presence: true
+  validates :contact_phone, :gsh_contact_phone, presence: true
+  validates :contact_phone, :gsh_contact_phone, phone: true
+
 end

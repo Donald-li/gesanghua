@@ -1,0 +1,26 @@
+<%= simple_form_for [:admin, @camp_project_resource], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
+    <%= f.error_notification %>
+    <div class="form-body form-horizontal">
+      <%= f.input :company, label: '单位名称：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :resource, label: '资源：', input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :contact_name, label: '资源联系人：', input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :contact_phone, label: '联系电话：', input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :gsh_contact_name, label: '格桑花联系人：', input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :gsh_contact_phone, label: '联系电话：', input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :remark, as: :text, label: '资源说明：' %>
+
+    </div>
+    <div class="form-actions">
+      <div class="row">
+        <div class="col-md-offset-3 col-md-9">
+          <%= f.button :submit, '提交', class: 'btn green' %>
+          <%= link_to '取消', admin_camp_project_resources_path, class: 'btn' %>
+        </div>
+      </div>
+    </div>
+<% end %>
+<script>
+  $(function(){
+    initImageWebuploader($('#webuploader'));
+  })
+</script>

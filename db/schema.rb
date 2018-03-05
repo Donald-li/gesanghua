@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180305090020) do
+ActiveRecord::Schema.define(version: 20180305133716) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -148,8 +148,6 @@ ActiveRecord::Schema.define(version: 20180305090020) do
   create_table "camp_document_summaries", force: :cascade, comment: "拓展营总结" do |t|
     t.integer "project_season_id", comment: "项目"
     t.integer "user_id", comment: "用户"
-    t.datetime "submit_at", comment: "提交时间"
-    t.string "submit_user", comment: "提交用户"
     t.string "free_resource", comment: "本营免费资源"
     t.decimal "resource_value", precision: 14, scale: 2, default: "0.0", comment: "免费资源价值"
     t.decimal "donate_amount", precision: 14, scale: 2, default: "0.0", comment: "本营筹款多少"
@@ -168,7 +166,6 @@ ActiveRecord::Schema.define(version: 20180305090020) do
   end
 
   create_table "camp_project_resources", force: :cascade, comment: "拓展营资源表" do |t|
-    t.integer "project_season_id", comment: "项目"
     t.integer "user_id", comment: "用户"
     t.string "company", comment: "单位名称"
     t.string "resource", comment: "资源名称"
@@ -628,6 +625,7 @@ ActiveRecord::Schema.define(version: 20180305090020) do
     t.string "income_source", comment: "收入来源"
     t.string "family_condition", comment: "家庭情况"
     t.string "brothers", comment: "兄弟姐妹"
+    t.string "teacher_phone", comment: "班主任联系方式"
   end
 
   create_table "project_season_apply_gooods", force: :cascade, comment: "项目执行年度申请的物品表" do |t|
