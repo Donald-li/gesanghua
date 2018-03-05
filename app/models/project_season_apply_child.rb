@@ -48,6 +48,7 @@
 #  income_source           :string                                 # 收入来源
 #  family_condition        :string                                 # 家庭情况
 #  brothers                :string                                 # 兄弟姐妹
+#  teacher_phone           :string                                 # 班主任联系方式
 #
 
 # 项目年度结对申请孩子
@@ -57,7 +58,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   before_update :update_pair_state, if: :can_update_pair_state?
 
-  # attr_accessor :image_ids
+  attr_accessor :avatar_id
   include HasAsset
   has_many_assets :images, class_name: 'Asset::ApplyChildImage'
   has_one_asset :avatar, class_name: 'Asset::ApplyChildAvatar' # 前台上传的个人照片作为孩子头像
@@ -77,7 +78,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   #FIXME: 跟上面的关系重复了？
   has_many :semesters, foreign_key: :gsh_child_id, class_name: 'GshChildGrant', dependent: :destroy
   has_many :feedbacks, as: :owner
-  has_many :continual_feedbacks, as: :owner
+  has_many :continual_feedbacks
 
   has_many :period_child_ships
   has_many :project_season_apply_periods, through: :period_child_ships
@@ -343,6 +344,19 @@ class ProjectSeasonApplyChild < ApplicationRecord
     end.attributes!
   end
 
+  def granted_record_builder
+    Jbuilder.new do |json|
+      json.array! self.donate_all_records.granted do |grant|
+        json.(grant, :id)
+        json.(grant, :title)
+        json.(grant, :amount)
+        json.school_name grant.school.try(:name)
+        json.donate_state grant.donate_state
+        json.note_count grant.thank_notes.count
+      end
+    end.attributes!
+  end
+
   def donate_record_builder
     Jbuilder.new do |json|
       json.array! self.donate_all_records do |grant|
@@ -352,6 +366,27 @@ class ProjectSeasonApplyChild < ApplicationRecord
         json.school_name grant.school.try(:name)
         json.donate_state grant.donate_state
         json.note_count grant.thank_notes.count
+      end
+    end.attributes!
+  end
+
+  def whole_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :name, :id_card, :teacher_name, :teacher_phone, :description, :father, :father_job, :mother, :mother_job, :guardian, :guardian_relation, :guardian_phone, :address, :family_income, :family_expenditure, :income_source, :family_condition, :brothers)
+      json.level self.enum_name(:level)
+      json.nation self.enum_name(:nation)
+      json.grade self.enum_name(:grade)
+      json.semester self.enum_name(:semester)
+      json.avatar do
+        json.id self.try(:avatar).try(:id)
+        json.url self.try(:avatar).try(:file_url)
+        json.protect_token ''
+      end
+      json.images do
+        json.array! self.images do |image|
+          json.(image, :id)
+          json.image image.file.url
+        end
       end
     end.attributes!
   end

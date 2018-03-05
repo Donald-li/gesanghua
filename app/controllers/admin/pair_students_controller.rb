@@ -21,11 +21,13 @@ class Admin::PairStudentsController < Admin::BaseController
   end
 
   def create
-    @apply_child = @project_apply.children.build(apply_child_params.merge(province: @project_apply.province, city: @project_apply.city, district: @project_apply.district, approve_state: 2))
+    @apply_child = @project_apply.children.build(apply_child_params.merge(province: @project_apply.province, city: @project_apply.city, district: @project_apply.district))
     @apply_child.audits.build
     @apply_child.attach_images(params[:image_ids])
+    @apply_child.attach_avatar(params[:avatar_id])
     respond_to do |format|
-      if @apply_child.save
+      if @apply_child.approve_pass
+
         @apply_child.count_age
         format.html { redirect_to admin_pair_apply_pair_students_path(@project_apply), notice: '新增成功。' }
       else
@@ -36,6 +38,7 @@ class Admin::PairStudentsController < Admin::BaseController
 
   def update
     @apply_child.attach_images(params[:image_ids])
+    @apply_child.attach_avatar(params[:avatar_id])
     respond_to do |format|
       if @apply_child.update(apply_child_params)
         @apply_child.count_age

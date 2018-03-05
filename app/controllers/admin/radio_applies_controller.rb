@@ -12,7 +12,7 @@ class Admin::RadioAppliesController < Admin::BaseController
 
   def new
     @project_apply = ProjectSeasonApply.new
-    @project_apply.build_radio_information
+    # @project_apply.build_radio_information
   end
 
   def edit
@@ -26,7 +26,7 @@ class Admin::RadioAppliesController < Admin::BaseController
 
   def create
     @project_apply = ProjectSeasonApply.new(project_apply_params)
-    @radio = @project_apply.build_radio_information(project_apply_params[:radio_information_attributes])
+    # @radio = @project_apply.build_radio_information(project_apply_params[:radio_information_attributes])
     respond_to do |format|
       if @project_apply.save
         @project_apply.attach_images(params[:image_ids])

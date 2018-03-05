@@ -22,19 +22,19 @@
                   <%= static_form_control '申请批次：', @project_apply.season.name %>
                 <% end %>
                 <%= f.input :school_id, as: :select, label: '选择学校：', input_html: {class: 'schools-ajax'} %>
-                <%= f.fields_for :radio_information, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'form-horizontal'} do |radio| %>
-                  <%= radio.input :student_number, label: '学生总人数：', placeholder: '', required: true, type: 'number', min: 0 %>
-                  <%= radio.input :boarder_number, label: '住宿总人数：', placeholder: '', required: true, type: 'number', min: 0 %>
-                  <%= radio.input :dormitory_number, label: '宿舍楼数量：', placeholder: '', required: true, type: 'number', min: 0 %>
-                  <%= radio.input :dorm_number, label: '宿舍数量：', placeholder: '', required: true, type: 'number', min: 0 %>
-                  <h5 style="margin-left: 77px">各年级住宿（人）</h5>
-                  <%= radio.input :first_grade, label: '一年级：', placeholder: '', required: true, input_html: {class: 'student-form-input', type: 'number', min: 0} %>
-                  <%= radio.input :second_grade, label: '二年级：', placeholder: '', required: true, input_html: {class: 'student-form-input', type: 'number', min: 0} %>
-                  <%= radio.input :third_grade, label: '三年级：', placeholder: '', required: true, input_html: {class: 'student-form-input', type: 'number', min: 0} %>
-                  <%= radio.input :fourth_grade, label: '四年级：', placeholder: '', required: true, input_html: {class: 'student-form-input', type: 'number', min: 0} %>
-                  <%= radio.input :fifth_grade, label: '五年级：', placeholder: '', required: true, input_html: {class: 'student-form-input', type: 'number', min: 0} %>
-                  <%= radio.input :sixth_grade, label: '六年级：', placeholder: '', required: true, input_html: {class: 'student-form-input', type: 'number', min: 0} %>
-                <% end %>
+                <%#= f.fields_for :radio_information, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'form-horizontal'} do |radio| %>
+                  <%#= radio.input :student_number, label: '学生总人数：', placeholder: '', required: true, type: 'number', min: 0 %>
+                  <%#= radio.input :boarder_number, label: '住宿总人数：', placeholder: '', required: true, type: 'number', min: 0 %>
+                  <%#= radio.input :dormitory_number, label: '宿舍楼数量：', placeholder: '', required: true, type: 'number', min: 0 %>
+                  <%#= radio.input :dorm_number, label: '宿舍数量：', placeholder: '', required: true, type: 'number', min: 0 %>
+                  <!--<h5 style="margin-left: 77px">各年级住宿（人）</h5>-->
+                  <%#= radio.input :first_grade, label: '一年级：', placeholder: '', required: true, input_html: {class: 'student-form-input', type: 'number', min: 0} %>
+                  <%#= radio.input :second_grade, label: '二年级：', placeholder: '', required: true, input_html: {class: 'student-form-input', type: 'number', min: 0} %>
+                  <%#= radio.input :third_grade, label: '三年级：', placeholder: '', required: true, input_html: {class: 'student-form-input', type: 'number', min: 0} %>
+                  <%#= radio.input :fourth_grade, label: '四年级：', placeholder: '', required: true, input_html: {class: 'student-form-input', type: 'number', min: 0} %>
+                  <%#= radio.input :fifth_grade, label: '五年级：', placeholder: '', required: true, input_html: {class: 'student-form-input', type: 'number', min: 0} %>
+                  <%#= radio.input :sixth_grade, label: '六年级：', placeholder: '', required: true, input_html: {class: 'student-form-input', type: 'number', min: 0} %>
+                <%# end %>
                 <%= f.input :abstract, label: '其他说明：', placeholder: '', required: true %>
                 <div class="form-group">
                   <label class="col-md-2 control-label"></label>

@@ -6,6 +6,23 @@ class Api::V1::CooperationPairStudentsController < Api::V1::BaseController
     api_success(data: {apply_students: apply_students.map { |r| r.list_builder }, pagination: json_pagination(apply_students)})
   end
 
+  def new
+
+  end
+
+  def create
+
+  end
+
+  def edit
+    @student = ProjectSeasonApplyChild.find(params[:id])
+    api_success(data: {student: @student.whole_builder})
+  end
+
+  def update
+
+  end
+
   def qrcode
     user = current_user.id
     @apply = ProjectSeasonApply.find(params[:id])
@@ -55,7 +72,7 @@ class Api::V1::CooperationPairStudentsController < Api::V1::BaseController
   def child_grants
     gsh_child = GshChild.find(params[:id])
     children = gsh_child.project_season_apply_children.where(project: Project.pair_project)
-    api_success(data: {pair_records: children.map{|child| child.donate_record_builder}, child_info: gsh_child.child_info_builder})
+    api_success(data: {pair_records: children.map{|child| child.granted_record_builder}, child_info: gsh_child.child_info_builder})
   end
 
 end
