@@ -397,7 +397,6 @@ ActiveRecord::Schema.define(version: 20180304235448) do
   create_table "gsh_children", force: :cascade, comment: "格桑花孩子表" do |t|
     t.string "name", comment: "孩子姓名"
     t.integer "kind", comment: "类型"
-    t.integer "integer", comment: "类型"
     t.string "workstation", comment: "工作地点"
     t.string "province", comment: "省"
     t.string "city", comment: "市"
@@ -629,8 +628,8 @@ ActiveRecord::Schema.define(version: 20180304235448) do
     t.datetime "updated_at", null: false
     t.integer "project_season_id", comment: "年度ID"
     t.integer "position", comment: "位置"
-    t.integer "grade", comment: "一对一对应年级"
-    t.integer "semester", comment: "一对一对应学期"
+    t.integer "grade", comment: "结对对应年级"
+    t.integer "semester", comment: "结对对应学期"
   end
 
   create_table "project_season_apply_volunteers", force: :cascade, comment: "项目执行年度申请和志愿者关联表" do |t|

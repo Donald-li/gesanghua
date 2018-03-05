@@ -12,14 +12,14 @@ RSpec.describe "Api::V1::CooperationPairStudents", type: :request do
 
   describe '协作平台' do
     # 这个代码删掉了
-    # it '结对反馈管理-获取孩子一对一捐助信息' do
-    #   child1.approve_pass
-    #   get child_grants_api_v1_cooperation_pair_students_path,
-    #        params: {
-    #            id: child1.gsh_child.id
-    #        }, headers: api_v1_headers(login_user)
-    #   api_v1_expect_success
-    # end
+    it '结对反馈管理-获取孩子一对一捐助信息' do
+      child1.approve_pass
+      get child_grants_api_v1_cooperation_pair_students_path,
+           params: {
+               id: child1.gsh_child.id
+           }, headers: api_v1_headers(login_user)
+      api_v1_expect_success
+    end
   end
 
 end

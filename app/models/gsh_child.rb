@@ -27,6 +27,7 @@ class GshChild < ApplicationRecord
   belongs_to :user, optional: true
 
   has_many :project_season_apply_children, dependent: :destroy
+  has_many :continual_feedbacks, as: :owner
 
   validates :name, presence: true
   validates :province, :city, :district, presence: true
@@ -61,6 +62,13 @@ class GshChild < ApplicationRecord
       json.gsh_no self.gsh_no
       json.location [self.province, self.city, self.district]
       # json.avatar self.avatar.present? ? self.avatar_url(:tiny).to_s : ''
+    end.attributes!
+  end
+
+  def pair_feedback_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :name, :id_card)
+      # json.id_card self.secure_id_card
     end.attributes!
   end
 
