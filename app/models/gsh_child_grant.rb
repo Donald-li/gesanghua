@@ -35,6 +35,8 @@ class GshChildGrant < ApplicationRecord
 
   belongs_to :school, optional: true
   belongs_to :gsh_child, class_name: 'ProjectSeasonApplyChild', optional: true
+  # # TODO 上面关系的覆写
+  # belongs_to :apply_child, class_name: 'ProjectSeasonApplyChild', optional: true
   belongs_to :project_season, optional: true
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id', optional: true
   belongs_to :operator, class_name: 'User', foreign_key: 'operator_id', optional: true

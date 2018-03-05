@@ -77,7 +77,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   #FIXME: 跟上面的关系重复了？
   has_many :semesters, foreign_key: :gsh_child_id, class_name: 'GshChildGrant', dependent: :destroy
   has_many :feedbacks, as: :owner
-  has_many :continual_feedbacks, as: :owner
+  has_many :continual_feedbacks
 
   has_many :period_child_ships
   has_many :project_season_apply_periods, through: :period_child_ships
@@ -345,7 +345,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   def donate_record_builder
     Jbuilder.new do |json|
-      json.array! self.donate_all_records do |grant|
+      json.array! self.donate_all_records.granted do |grant|
         json.(grant, :id)
         json.(grant, :title)
         json.(grant, :amount)
