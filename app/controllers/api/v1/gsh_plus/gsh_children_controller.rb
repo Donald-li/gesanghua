@@ -33,6 +33,7 @@ class Api::V1::GshPlus::GshChildrenController < Api::V1::BaseController
   def update_child
     gsh_child = GshChild.find_by(id: params[:child_id])
     if gsh_child.update(province: params[:location][0], city: params[:location][1], district: params[:location][2], workstation: params[:workstation], kind: params[:kind])
+      gsh_child.attach_avatar(params[:avatar_id])
       api_success(message: '修改成功', data: true)
     else
       api_success(message: '修改失败', data: false)
