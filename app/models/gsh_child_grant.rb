@@ -35,8 +35,8 @@ class GshChildGrant < ApplicationRecord
 
   belongs_to :school, optional: true
   belongs_to :gsh_child, class_name: 'ProjectSeasonApplyChild', optional: true
-  # # TODO 上面关系的覆写
-  # belongs_to :apply_child, class_name: 'ProjectSeasonApplyChild', optional: true
+  # TPDP
+  belongs_to :apply_child, class_name: 'ProjectSeasonApplyChild', optional: true
   belongs_to :project_season, optional: true
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id', optional: true
   belongs_to :operator, class_name: 'User', foreign_key: 'operator_id', optional: true
@@ -92,10 +92,10 @@ class GshChildGrant < ApplicationRecord
 
   def summary_builder
     Jbuilder.new do |json|
-        json.(self, :id, :title, :amount, :donate_state, :grant_batch_id)
-        json.child_name gsh_child.name
-        json.gsh_no gsh_child.gsh_no
-        json.state self.enum_name(:state)
+      json.(self, :id, :title, :amount, :donate_state, :grant_batch_id)
+      json.child_name gsh_child.name
+      json.gsh_no gsh_child.gsh_no
+      json.state self.enum_name(:state)
     end.attributes!
   end
 

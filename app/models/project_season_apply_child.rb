@@ -344,9 +344,22 @@ class ProjectSeasonApplyChild < ApplicationRecord
     end.attributes!
   end
 
-  def donate_record_builder
+  def granted_record_builder
     Jbuilder.new do |json|
       json.array! self.donate_all_records.granted do |grant|
+        json.(grant, :id)
+        json.(grant, :title)
+        json.(grant, :amount)
+        json.school_name grant.school.try(:name)
+        json.donate_state grant.donate_state
+        json.note_count grant.thank_notes.count
+      end
+    end.attributes!
+  end
+
+  def donate_record_builder
+    Jbuilder.new do |json|
+      json.array! self.donate_all_records do |grant|
         json.(grant, :id)
         json.(grant, :title)
         json.(grant, :amount)
