@@ -36,13 +36,13 @@ fc4.funds.create(name: "合肥营", management_rate: 10, describe: '格桑花合
 
 # 项目模板一级分类
 content = '用户协议'
-Project.find_or_create_by(name: '一对一', protocol: content, describe: '项目介绍', kind: :fixed, fund: fc1.funds.unrestricted.first, appoint_fund: fc1.funds.restricted.first)
-Project.find_or_create_by(name: '悦读', protocol: content, describe: '项目介绍', kind: :fixed, fund: fc2.funds.unrestricted.first, appoint_fund: fc2.funds.restricted.first)
-Project.find_or_create_by(name: '探索营', protocol: content, describe: '项目介绍', kind: :fixed, fund: fc4.funds.unrestricted.first, appoint_fund: fc4.funds.restricted.first)
-Project.find_or_create_by(name: '观影', protocol: content, describe: '项目介绍', kind: :apply, fund: nil, appoint_fund: nil)
-Project.find_or_create_by(name: '护花课程', protocol: content, describe: '项目介绍', kind: :apply, fund: nil, appoint_fund: nil)
-Project.find_or_create_by(name: '广播', protocol: content, describe: '项目介绍', kind: :goods, fund: fc5.funds.unrestricted.first, appoint_fund: fc5.funds.restricted.first)
-Project.find_or_create_by(name: '护花', protocol: content, describe: '项目介绍', kind: :goods, fund: fc6.funds.unrestricted.first, appoint_fund: fc6.funds.restricted.first)
+Project.find_or_create_by(name: '一对一', alias: 'pair', protocol: content, describe: '项目介绍', kind: :fixed, fund: fc1.funds.unrestricted.first, appoint_fund: fc1.funds.restricted.first)
+Project.find_or_create_by(name: '悦读', alias: 'book', protocol: content, describe: '项目介绍', kind: :fixed, fund: fc2.funds.unrestricted.first, appoint_fund: fc2.funds.restricted.first)
+Project.find_or_create_by(name: '探索营', alias: 'camp', protocol: content, describe: '项目介绍', kind: :fixed, fund: fc4.funds.unrestricted.first, appoint_fund: fc4.funds.restricted.first)
+Project.find_or_create_by(name: '观影', alias: 'movie', protocol: content, describe: '项目介绍', kind: :apply, fund: nil, appoint_fund: nil)
+Project.find_or_create_by(name: '护花课程', alias: 'movie_care', protocol: content, describe: '项目介绍', kind: :apply, fund: nil, appoint_fund: nil)
+Project.find_or_create_by(name: '广播', alias: 'radio', protocol: content, describe: '项目介绍', kind: :goods, fund: fc5.funds.unrestricted.first, appoint_fund: fc5.funds.restricted.first)
+Project.find_or_create_by(name: '护花', alias: 'care', protocol: content, describe: '项目介绍', kind: :goods, fund: fc6.funds.unrestricted.first, appoint_fund: fc6.funds.restricted.first)
 
 # 入账渠道
 IncomeSource.find_or_create_by(name: '微信支付', description: '微信支付', kind: 'weixin')
