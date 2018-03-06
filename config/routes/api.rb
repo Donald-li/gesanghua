@@ -25,6 +25,8 @@ namespace :api do
           post :update_user
         end
       end
+
+      resources :my_reads
     end
 
     namespace :gsh_plus do

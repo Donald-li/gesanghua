@@ -18,7 +18,7 @@ class Admin::BookshelvesController < Admin::BaseController
 
   def update
     @bookshelf = ProjectSeasonApplyBookshelf.find(params[:id])
-    # @bookshelf.attach_images(params[:image_ids])
+    @bookshelf.attach_image(params[:image_id])
     respond_to do |format|
       if @bookshelf.update(bookshelf_params)
         format.html { redirect_to admin_read_project_bookshelves_path(@project), notice: '修改成功。' }

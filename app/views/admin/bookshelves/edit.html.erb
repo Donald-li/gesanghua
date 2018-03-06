@@ -18,6 +18,12 @@
       <%= simple_form_for [:admin, @project, @bookshelf], url: admin_read_project_bookshelf_path, wrapper: :admin_form, html: {class: 'form-horizontal project_form'} do |f| %>
           <%= f.error_notification %>
           <div class="form-body">
+            <div class="form-group">
+              <label class="col-md-2 control-label">图书角照片：</label>
+              <div class="col-sm-9">
+                <%= webuploader_tag :image_id, label: '上传图片', type: 'bookshelf_image', asset: @bookshelf.image, klass: 'single' %>
+              </div>
+            </div>
             <%= static_form_control '图书角编号：', @bookshelf.bookshelf_no %>
             <%= static_form_control '申请学校：', @bookshelf.school.name %>
             <%= f.input :classname, label: '班级名：', placeholder: '班级名', require: true %>
