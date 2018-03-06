@@ -74,7 +74,7 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
   end
 
   def self.district_group(city)
-    self.show.select{|book| book.school if book.school.city == city}.group_by {|item| item.district}.keys.map {|key| {value: key, name: ChinaCity.get(key)}}
+    School.where(id: self.show.pluck(:school_id), city: city).group_by {|item| item.district}.keys.map {|key| {value: key, name: ChinaCity.get(key)}}
   end
 
   private

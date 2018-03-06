@@ -115,11 +115,11 @@ class ProjectSeasonApply < ApplicationRecord
   end
 
   def self.city_group(project_id)
-    self.show.where(project_id: project_id).select{|apply| apply.school}.group_by {|school| school.city}.keys.map {|key| {value: key, name: ChinaCity.get(key), district: self.district_group(key, project_id)}}
+    self.show.where(project_id: project_id).map{|apply| apply.school}.group_by {|school| school.city}.keys.map {|key| {value: key, name: ChinaCity.get(key), district: self.district_group(key, project_id)}}
   end
 
   def self.district_group(city, project_id)
-    self.show.where(project_id: project_id).select{|apply| apply.school if apply.school.city == city}.group_by {|school| school.district}.keys.map {|key| {value: key, name: ChinaCity.get(key)}}
+    School.where(id: self.show.where(project_id: project_id).pluck(:school_id), city: city).group_by {|school| school.district}.keys.map {|key| {value: key, name: ChinaCity.get(key)}}
   end
 
   # 项目是否可以退款
