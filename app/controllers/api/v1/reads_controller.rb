@@ -12,8 +12,8 @@ class Api::V1::ReadsController < Api::V1::BaseController
 
   def applies_list
     @book_applies = ProjectSeasonApply.where(project: Project.book_project).pass.show.sorted
-    @book_applies = @book_applies.where(school_city: params[:city]) if params[:city].present?
-    @book_applies = @book_applies.where(school_district: params[:district]) if params[:district].present?
+    @book_applies = @book_applies.where(school_id: School.where(city: params[:city]).pluck(:id)) if params[:city].present?
+    @book_applies = @book_applies.where(school_id: School.where(district: params[:district]).pluck(:id)) if params[:district].present?
     @book_applies = @book_applies.page(params[:page]).per(params[:per])
     api_success(data: {read_list: @book_applies.collect{|item| item.summary_builder}, pagination: json_pagination(@book_applies)})
   end

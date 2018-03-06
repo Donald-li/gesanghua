@@ -30,35 +30,11 @@ class ProjectSeason < ApplicationRecord
   default_value_for :state, 1
 
   scope :sorted, -> { order(created_at: :desc)}
-  scope :pair, -> { where(project_id: 1) } # 一对一
-  scope :book, -> { where(project_id: 2) } # 悦读
-  scope :movie, -> { where(project_id: 3) } # 观影
-  scope :camp, -> { where(project_id: 4) } # 探索营
-  scope :radio, -> { where(project_id: 5) } # 广播
-  scope :flower, -> { where(project_id: 6) } # 护花
-
-  def self.pair_project_id
-    1 # TODO: 约定为1
-  end
-
-  def self.book_project_id
-    2 # TODO: 约定为2
-  end
-
-  def self.movie_project_id
-    4 # TODO: 约定为4
-  end
-
-  def self.camp_project_id
-    3 # TODO: 约定为3
-  end
-
-  def self.radio_project_id
-    6 # TODO: 约定为6
-  end
-
-  def self.flower_project_id
-    7 # TODO: 约定为7
-  end
+  scope :pair, -> { where(project_id: Project.pair_project.id) } # 一对一
+  scope :book, -> { where(project_id: Project.book_project.id) } # 悦读
+  scope :movie, -> { where(project_id: Project.movie_project.id) } # 观影
+  scope :camp, -> { where(project_id: Project.camp_project.id) } # 探索营
+  scope :radio, -> { where(project_id: Project.radio_project.id) } # 广播
+  scope :flower, -> { where(project_id: Project.care_project.id) } # 护花
 
 end

@@ -47,7 +47,7 @@ class Admin::RadioDonateRecordsController < Admin::BaseController
   end
 
   def set_project
-    @project = Project.find(ProjectSeason.radio_project_id)
+    @project = Project.find(Project.radio_project.id)
   end
 
   def set_project_apply

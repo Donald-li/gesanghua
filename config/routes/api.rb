@@ -146,6 +146,8 @@ namespace :api do
       end
     end
 
+    resources :activities
+
     resources :home_visits do
       collection do
         get :qrcode

@@ -25,7 +25,7 @@
               </div>
               <div class="form-group">
                 <%= f.label :project_season_id_eq, '批次' %>
-                <%= f.select :project_season_id_eq, ProjectSeason.where(project_id: ProjectSeason.radio_project_id).collect {|p| [p.name, p.id]}, {include_blank: '全部'}, class: 'form-control' %>
+                <%= f.select :project_season_id_eq, ProjectSeason.where(project_id: Project.radio_project.id).collect {|p| [p.name, p.id]}, {include_blank: '全部'}, class: 'form-control' %>
               </div>
               <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>

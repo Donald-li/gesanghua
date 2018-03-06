@@ -21,7 +21,7 @@ class Admin::MovieContinualFeedbacksController < Admin::BaseController
   end
 
   def create
-    @continual = ContinualFeedback.new(continual_params.merge(owner_type: 'Project', project_id: ProjectSeason.movie_project_id))
+    @continual = ContinualFeedback.new(continual_params.merge(owner_type: 'Project', project_id: Project.movie_project.id))
     respond_to do |format|
       if @continual.save
         format.html { redirect_to admin_movie_continual_feedbacks_path(@project), notice: '新增成功。' }
@@ -33,7 +33,7 @@ class Admin::MovieContinualFeedbacksController < Admin::BaseController
 
   def update
     respond_to do |format|
-      if @continual.update(continual_params.merge(owner_type: 'Project', project_id: ProjectSeason.movie_project_id))
+      if @continual.update(continual_params.merge(owner_type: 'Project', project_id: Project.movie_project.id))
         format.html { redirect_to admin_movie_continual_feedbacks_path(@project), notice: '修改成功。' }
       else
         format.html { render :new }
@@ -65,6 +65,6 @@ class Admin::MovieContinualFeedbacksController < Admin::BaseController
     end
 
     def set_project
-      @project = Project.find(ProjectSeason.movie_project_id)
+      @project = Project.find(Project.movie_project.id)
     end
 end

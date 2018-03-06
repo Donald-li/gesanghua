@@ -48,4 +48,23 @@ class Campaign < ApplicationRecord
   has_one_asset :image, class_name: 'Asset::CampaignImage'
   has_one_asset :banner, class_name: 'Asset::CampaignBanner'
 
+  def summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :name, :campaign_state, :sign_up_state)
+      json.apply_end_time self.sign_up_end_time.strftime('%Y年%m月%d日')
+      json.price self.price.to_i
+      json.banner self.try(:image).try(:file_url)
+    end.attributes!
+  end
+
+  def detail_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :name, :number, :campaign_state, :sign_up_state)
+      json.start_time self.start_time.strftime('%Y年%m月%d日')
+      json.end_time self.end_time.strftime('%Y年%m月%d日')
+      json.price self.price.to_i
+      json.banner self.try(:image).try(:file_url)
+    end.attributes!
+  end
+
 end
