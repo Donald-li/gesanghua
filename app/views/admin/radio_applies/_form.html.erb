@@ -16,7 +16,7 @@
               <%= f.error_notification %>
               <div class="form-body">
                 <% if @project_apply.new_record? %>
-                  <%= f.hidden_field :project_id, value: ProjectSeason.radio_project_id %>
+                  <%= f.hidden_field :project_id, value: Project.radio_project.id %>
                   <%= f.input :project_season_id, as: :select, label: '一对一批次：', input_html: {class: 'seasons-ajax'} %>
                 <% else %>
                   <%= static_form_control '申请批次：', @project_apply.season.name %>
@@ -222,7 +222,7 @@
                     return {
                         q: params.term, // search term
                         page: params.page,
-                        project_id: <%= ProjectSeason.radio_project_id %>
+                        project_id: <%= Project.radio_project.id %>
                     };
                 },
                 processResults: function (data, params) {

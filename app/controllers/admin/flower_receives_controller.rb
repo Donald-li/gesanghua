@@ -16,7 +16,7 @@ class Admin::FlowerReceivesController < Admin::BaseController
   end
 
   def create
-    @receive = @apply.receive.new(receive_params.merge(owner_type: 'ProjectSeasonApply', project_id: ProjectSeason.flower_project_id, project_season_apply_id: receive_params[:owner_id], project_season_id: ProjectSeasonApply.find(receive_params[:owner_id]).season.id))
+    @receive = @apply.receive.new(receive_params.merge(owner_type: 'ProjectSeasonApply', project_id: Project.care_project.id, project_season_apply_id: receive_params[:owner_id], project_season_id: ProjectSeasonApply.find(receive_params[:owner_id]).season.id))
     respond_to do |format|
       if @receive.save
         format.html { redirect_to admin_flower_project_flower_receive_path(@apply), notice: '新增成功。' }
@@ -29,7 +29,7 @@ class Admin::FlowerReceivesController < Admin::BaseController
   def update
     @receive = @apply.receive
     respond_to do |format|
-      if @receive.update(receive_params.merge(owner_type: 'ProjectSeasonApply', project_id: ProjectSeason.flower_project_id, project_season_apply_id: receive_params[:owner_id], project_season_id: ProjectSeasonApply.find(receive_params[:owner_id]).season.id))
+      if @receive.update(receive_params.merge(owner_type: 'ProjectSeasonApply', project_id: Project.care_project.id, project_season_apply_id: receive_params[:owner_id], project_season_id: ProjectSeasonApply.find(receive_params[:owner_id]).season.id))
         format.html { redirect_to admin_flower_project_flower_receive_path(@apply), notice: '修改成功。' }
       else
         format.html { render :new }
@@ -57,7 +57,7 @@ class Admin::FlowerReceivesController < Admin::BaseController
     end
 
     def set_project
-      @project = Project.find(ProjectSeason.flower_project_id)
+      @project = Project.find(Project.care_project.id)
     end
 
     def set_project_apply

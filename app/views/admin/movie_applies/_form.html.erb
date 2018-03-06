@@ -16,7 +16,7 @@
               <%= f.error_notification %>
               <div class="form-body">
                 <% if @project_apply.new_record? %>
-                  <%= f.hidden_field :project_id, value: ProjectSeason.movie_project_id %>
+                  <%= f.hidden_field :project_id, value: Project.movie_project.id %>
                 <% end %>
                 <%= f.input :school_id, as: :select, label: '选择学校：', input_html: {class: 'schools-ajax'} %>
                 <%= f.input :class_number, label: '申请班级数：', placeholder: '', required: true, input_html: {type: 'number', min: 0} %>

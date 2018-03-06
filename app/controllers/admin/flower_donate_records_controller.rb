@@ -47,7 +47,7 @@ class Admin::FlowerDonateRecordsController < Admin::BaseController
     end
 
     def set_project
-      @project = Project.find(ProjectSeason.flower_project_id)
+      @project = Project.find(Project.care_project.id)
     end
 
     def set_project_apply

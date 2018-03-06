@@ -276,6 +276,7 @@ class User < ApplicationRecord
       json.location [self.province, self.city, self.district]
       json.address self.address
       json.phone self.phone
+      json.team_mode self.team.present?
       json.avatar_image  do
         json.id self.try(:avatar).try(:id)
         json.url self.try(:avatar).try(:file_url)

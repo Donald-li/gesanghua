@@ -2,7 +2,7 @@ class Admin::MovieSchoolsController < Admin::BaseController
   before_action :set_project_apply, only: [:show, :edit, :update, :destroy]
 
   def index
-    @search = ProjectSeasonApply.where(project_id: ProjectSeason.movie_project_id).pass.sorted.ransack(params[:q])
+    @search = ProjectSeasonApply.where(project_id: Project.movie_project.id).pass.sorted.ransack(params[:q])
     scope = @search.result
     @project_applies = scope.page(params[:page])
   end

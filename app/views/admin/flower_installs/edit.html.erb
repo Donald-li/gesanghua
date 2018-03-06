@@ -15,7 +15,7 @@
     <%= simple_form_for [:admin, @install], url: admin_flower_project_flower_feedback_path, method: :put, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'install_form'} do |f| %>
       <%= f.error_notification %>
       <div class="form-body form-horizontal">
-        <%#= f.hidden_field :project_id, value: ProjectSeason.flower_project_id %>
+        <%#= f.hidden_field :project_id, value: Project.care_project.id %>
         <%= f.hidden_field :owner_id, value: @install.owner_id %>
         <%#= f.input :owner_id, collection: [@install.owner].compact.map {|u| [u.name, u.id]}, label: '护花项目：', input_html: {class: 'applies-ajax', data: {'parsley-required': true}} %>
         <%= f.input :user_id, collection: [@install.user].compact.map {|u| [u.name, u.id]}, label: '反馈人：', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
@@ -58,7 +58,7 @@
                         return {
                             q: params.term, // search term
                             page: params.page,
-                            project_id: <%= ProjectSeason.flower_project_id %>
+                            project_id: <%= Project.care_project.id %>
                         };
                     },
                     processResults: function (data, params) {
