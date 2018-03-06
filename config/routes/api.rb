@@ -53,7 +53,7 @@ namespace :api do
         get 'description/:name', to: 'projects#description', as: 'description'
       end
     end
-    
+
     resource :pair, only: [:show]
     resources :children do
       collection do
