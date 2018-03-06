@@ -296,8 +296,8 @@ class User < ApplicationRecord
   end
 
   # 创建线下用户
-  def self.create_offline_user(name, phone, gender, salutation, email, province, city, district, address)
-    User.create(login: phone, name: name, phone: phone, gender: gender, salutation: salutation, email: email, province: province, city: city, district: district, address: address)
+  def self.create_offline_user(name, phone, gender, salutation, email, province, city, district, address, nickname, use_nickname)
+    User.create(login: phone, name: name, phone: phone, gender: gender, salutation: salutation, email: email, province: province, city: city, district: district, address: address, nickname: nickname, use_nickname: use_nickname)
   end
 
 end

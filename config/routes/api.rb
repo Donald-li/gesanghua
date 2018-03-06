@@ -119,7 +119,10 @@ namespace :api do
       collection do
         get :donor_list
         get :get_current_user
+        get :get_donor_info
         post :delete_donor
+        post :create_donor
+        post :update_donor
       end
     end
 
