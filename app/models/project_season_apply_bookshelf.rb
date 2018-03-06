@@ -70,11 +70,11 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
   end
 
   def self.city_group
-    self.show.group_by {|item| item.city}.keys.map {|key| {value: key, name: ChinaCity.get(key), district: self.district_group(key)}}
+    self.show.group_by {|item| item.school.city}.keys.map {|key| {value: key, name: ChinaCity.get(key), district: self.district_group(key)}}
   end
 
   def self.district_group(city)
-    self.where(city: city).group_by {|item| item.district}.keys.map {|key| {value: key, name: ChinaCity.get(key)}}
+    self.show.map{|book| book.school if book.school.city == city}.group_by {|item| item.district}.keys.map {|key| {value: key, name: ChinaCity.get(key)}}
   end
 
   private

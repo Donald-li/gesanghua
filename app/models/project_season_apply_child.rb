@@ -222,7 +222,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   end
 
   def self.district_group(city)
-    self.where(city: city).group_by {|child| child.district}.keys.map {|key| {value: key, name: ChinaCity.get(key)}}
+    self.show.where(city: city).group_by {|child| child.district}.keys.map {|key| {value: key, name: ChinaCity.get(key)}}
   end
 
   def get_tuition
