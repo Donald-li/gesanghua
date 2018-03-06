@@ -197,6 +197,12 @@ namespace :api do
       resources :grant_batches, only: [:index, :show] do
         resources :grants, only: [:index, :show, :update]
       end
+
+      resources :staffs, only: [:index] do
+        collection do
+          get :volunteer_list
+        end
+      end
     end
 
   end
