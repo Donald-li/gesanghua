@@ -63,6 +63,20 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
     self.complete?
   end
 
+  def self.address_group
+    Jbuilder.new do |json|
+      json.city self.city_group
+    end.attributes!
+  end
+
+  def self.city_group
+    self.show.group_by {|item| item.city}.keys.map {|key| {value: key, name: ChinaCity.get(key), district: self.district_group(key)}}
+  end
+
+  def self.district_group(city)
+    self.where(city: city).group_by {|item| item.district}.keys.map {|key| {value: key, name: ChinaCity.get(key)}}
+  end
+
   private
   def gen_bookshelf_no
     self.bookshelf_no ||= Sequence.get_seq(kind: :bookshelf_no, prefix: 'TSJ1', length: 3)
