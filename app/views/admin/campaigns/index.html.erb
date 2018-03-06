@@ -56,9 +56,6 @@
                 活动状态
               </th>
               <th>
-                报名状态
-              </th>
-              <th>
                 操作
               </th>
             </tr>
@@ -88,34 +85,7 @@
                 <% end %>
               </td>
               <td>
-                <!-- <%# if campaign.start_at != nil %>
-                  <%# if Time.now >= campaign.start_at && Time.now <= campaign.end_at %>
-                    <span class="btn btn-xs green">进行中</span>
-                  <%# elsif Time.now < campaign.start_at %>
-                    <span class="btn btn-xs green">未开始</span>
-                  <%# elsif Time.now > campaign.end_at %>
-                    <span class="btn btn-xs green">已结束</span>
-                  <%# end %>
-                <%# else %>
-                  <span class="btn btn-xs green">未开始</span>
-                <%# end %> -->
-                <%= link_to switch_campaign_state_admin_campaign_path(campaign), data: {confirm: "确定#{campaign.campaign_state === 'campaign_in_process' ? '结束该活动' : '开始该活动'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs green" do %>
-                <%= campaign.enum_name(:campaign_state) %>
-                <% end %>
-              </td>
-              <td>
-                <!-- <%# if campaign.sign_up_start_time != nil %>
-                  <%# if Time.now >= campaign.sign_up_start_time && Time.now <= campaign.sign_up_end_time %>
-                    <span class="btn btn-xs green">报名中</span>
-                  <%# elsif Time.now < campaign.sign_up_start_time %>
-                    <span class="btn btn-xs green">未开始报名</span>
-                  <%# elsif Time.now > campaign.sign_up_end_time %>
-                    <span class="btn btn-xs green">报名结束</span>
-                  <%# end %>
-                <%# end %> -->
-                <%= link_to switch_sign_up_state_admin_campaign_path(campaign), data: {confirm: "确定#{campaign.sign_up_state === 'sign_up_in_process' ? '报名结束' : '开始报名'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs green" do %>
-                <%= campaign.enum_name(:sign_up_state) %>
-                <% end %>
+                <%= campaign.summary_state_name %>
               </td>
               <td>
                 <%= link_to edit_admin_campaign_path(campaign), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
