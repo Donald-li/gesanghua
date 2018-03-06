@@ -3,7 +3,7 @@ class Admin::ProjectFlowerSeasonsController < Admin::BaseController
   before_action :set_project
 
   def index
-    @search = ProjectSeason.flower.sorted.ransack(params[:q])
+    @search = @project.seasons.sorted.ransack(params[:q])
     scope = @search.result
     @seasons = scope.page(params[:page])
   end
@@ -50,7 +50,7 @@ class Admin::ProjectFlowerSeasonsController < Admin::BaseController
 
   private
     def set_project
-      @project = Project.find 6
+      @project = Project.care_project
     end
 
     def set_season

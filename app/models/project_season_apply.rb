@@ -108,6 +108,20 @@ class ProjectSeasonApply < ApplicationRecord
     end
   end
 
+  def self.address_group(project_id)
+    Jbuilder.new do |json|
+      json.city self.city_group(project_id)
+    end.attributes!
+  end
+
+  def self.city_group(project_id)
+    self.show.where(project_id: project_id).map{|apply| apply.school}.group_by {|school| school.city}.keys.map {|key| {value: key, name: ChinaCity.get(key), district: self.district_group(key, project_id)}}
+  end
+
+  def self.district_group(city, project_id)
+    School.where(id: self.show.where(project_id: project_id).pluck(:school_id), city: city).group_by {|school| school.district}.keys.map {|key| {value: key, name: ChinaCity.get(key)}}
+  end
+
   # 项目是否可以退款
   def can_refund?
     self.pass? && self.raise_project? && (self.raising? || self.canceled?)

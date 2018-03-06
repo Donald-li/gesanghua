@@ -118,7 +118,7 @@
                           <i class="fa fa-truck"></i> 查看收货凭证
                       <% end %>
                   <% end %>
-                  <% if apply.install.present? %>
+                  <% if apply.install_feedback.present? %>
                       <%= link_to admin_radio_project_radio_feedbacks_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                           <i class="fa fa-file"></i> 查看反馈
                       <% end %>
