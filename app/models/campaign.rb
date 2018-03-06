@@ -81,7 +81,7 @@ class Campaign < ApplicationRecord
 
   def summary_builder
     Jbuilder.new do |json|
-      json.(self, :id, :name, :price, :start_time, :end_time, :sign_up_end_time, :campaign_state, :sign_up_state)
+      json.(self, :id, :name, :price, :start_time, :end_time, :sign_up_end_time)
       json.state_name self.summary_state_name
       json.image self.image_url(:tiny)
       json.banner self.banner_url(:tiny)
