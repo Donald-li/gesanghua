@@ -61,6 +61,10 @@ class ProjectSeasonApplyChild < ApplicationRecord
   include HasAsset
   has_many_assets :images, class_name: 'Asset::ApplyChildImage'
   has_one_asset :avatar, class_name: 'Asset::ApplyChildAvatar' # 前台上传的个人照片作为孩子头像
+  has_one_asset :id_image, class_name: 'Asset::ApplyChildIdCard'
+  has_one_asset :residence, class_name: 'Asset::ApplyChildResidence'
+  has_one_asset :poverty, class_name: 'Asset::ApplyChildPoverty'
+  has_one_asset :family_image, class_name: 'Asset::ApplyChildFamilyImage'
 
   belongs_to :project
   belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id'
@@ -87,7 +91,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   attr_accessor :approve_remark
 
   # validates :id_card, ShenfenzhengNo: true
-  validates :id_card, :name, :phone, presence: true
+  validates :id_card, :name, presence: true
   validates :province, :city, :district, presence: true
   validates :reason, length: {maximum: 20}
 
@@ -372,20 +376,34 @@ class ProjectSeasonApplyChild < ApplicationRecord
   def whole_builder
     Jbuilder.new do |json|
       json.(self, :id, :name, :id_card, :teacher_name, :teacher_phone, :description, :father, :father_job, :mother, :mother_job, :guardian, :guardian_relation, :guardian_phone, :address, :family_income, :family_expenditure, :income_source, :family_condition, :brothers)
-      json.level self.enum_name(:level)
-      json.nation self.enum_name(:nation)
-      json.grade self.enum_name(:grade)
-      json.semester self.enum_name(:semester)
+      json.level self.level
+      json.nation self.nation
+      json.grade self.grade
+      json.semester self.semester
       json.avatar do
         json.id self.try(:avatar).try(:id)
         json.url self.try(:avatar).try(:file_url)
-        json.protect_token ''
+        json.protect_token self.try(:avatar).try(:protect_token)
       end
-      json.images do
-        json.array! self.images do |image|
-          json.(image, :id)
-          json.image image.file.url
-        end
+      json.id_image do
+        json.id self.try(:id_image).try(:id)
+        json.url self.try(:id_image).try(:file_url)
+        json.protect_token self.try(:id_image).try(:protect_token)
+      end
+      json.residence do
+        json.id self.try(:residence).try(:id)
+        json.url self.try(:residence).try(:file_url)
+        json.protect_token self.try(:residence).try(:protect_token)
+      end
+      json.poverty do
+        json.id self.try(:poverty).try(:id)
+        json.url self.try(:poverty).try(:file_url)
+        json.protect_token self.try(:poverty).try(:protect_token)
+      end
+      json.family_image do
+        json.id self.try(:family_image).try(:id)
+        json.url self.try(:family_image).try(:file_url)
+        json.protect_token self.try(:family_image).try(:protect_token)
       end
     end.attributes!
   end

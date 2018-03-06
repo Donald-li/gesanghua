@@ -22,7 +22,7 @@
           <div class="form-group">
             <label class="col-md-2 control-label">孩子头像：</label>
             <div class="col-sm-9">
-              <%= webuploader_tag :avatar_id, label: '上传图片', type: 'apply_child_avatar', asset: @apply_child.avatar, klass: 'single', id: 'single-upload' %>
+              <%= webuploader_tag :avatar_id, label: '上传图片', type: 'apply_child_avatar', asset: @apply_child.avatar, klass: 'single', id: 'single-upload1' %>
             </div>
           </div>
           <%= f.input :name, label: '姓名：', autofocus: true, placeholder: '姓名', required: true %>
@@ -37,12 +37,36 @@
           <%= f.input :reason, label: '推荐理由：', placeholder: '推荐理由', input_html: { maxlength: 20 } %>
           <%= f.input :description, label: '描述：', placeholder: '描述' %>
           <div class="form-group">
+            <label class="col-md-2 control-label">上传身份证：</label>
+            <div class="col-sm-9">
+              <%= webuploader_tag :id_image_id, label: '上传图片', type: 'apply_child_id_card', asset: @apply_child.id_image, klass: 'single', id: 'single-upload2' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label">上传户口本：</label>
+            <div class="col-sm-9">
+              <%= webuploader_tag :residence_id, label: '上传图片', type: 'apply_child_residence', asset: @apply_child.residence, klass: 'single', id: 'single-upload3' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label">上传扶贫卡：</label>
+            <div class="col-sm-9">
+              <%= webuploader_tag :poverty_id, label: '上传图片', type: 'apply_child_poverty', asset: @apply_child.poverty, klass: 'single', id: 'single-upload4' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label">上传家庭照：</label>
+            <div class="col-sm-9">
+              <%= webuploader_tag :family_image_id, label: '上传图片', type: 'apply_child_family_image', asset: @apply_child.family_image, klass: 'single', id: 'single-upload5' %>
+            </div>
+          </div>
+          <!-- <div class="form-group">
             <label class="col-md-2 control-label">孩子图片：</label>
             <div class="col-sm-9">
               <%= webuploader_tag 'image_ids[]', label: '上传孩子图片', type: 'apply_child_image', asset: @apply_child.images %>
               <span style="color: red">注意：左起第一张图片为展示第一张图片</span>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="form-actions">
           <div class="row">
@@ -74,9 +98,14 @@
     // }
     );
 
-    initMultiImageWebuploader($('#webuploader'));
-    initImageWebuploader($('#single-upload'));
-    $('.upload-list').viewer();
+    // initMultiImageWebuploader($('#webuploader'));
+    // initImageWebuploader($('#single-upload'));
+    initImageWebuploader($('#single-upload1'));
+    initImageWebuploader($('#single-upload2'));
+    initImageWebuploader($('#single-upload3'));
+    initImageWebuploader($('#single-upload4'));
+    initImageWebuploader($('#single-upload5'));
+    // $('.upload-list').viewer();
   })
 
     // $(function() {
