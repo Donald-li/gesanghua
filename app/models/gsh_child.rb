@@ -43,6 +43,8 @@ class GshChild < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
+  scope :visible, ->{ where('semester_count > done_semester_count') } # 前端列表可见
+
   before_create :gen_gsh_no
 
   def summary_builder

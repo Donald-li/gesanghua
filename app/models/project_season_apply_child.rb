@@ -52,9 +52,8 @@
 #
 
 # 项目年度结对申请孩子
+require 'custom_validators'
 class ProjectSeasonApplyChild < ApplicationRecord
-
-  require 'custom_validators'
 
   before_update :update_pair_state, if: :can_update_pair_state?
 

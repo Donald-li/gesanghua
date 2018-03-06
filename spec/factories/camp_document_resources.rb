@@ -17,8 +17,8 @@
 #
 
 FactoryBot.define do
-  factory :camp_document_resource do
-    project_id 1
+  factory :camp_project_resource do
+    project_season_id 1
     user_id 1
     company "MyString"
     resource "MyString"

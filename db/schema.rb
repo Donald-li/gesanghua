@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180305035534) do
+ActiveRecord::Schema.define(version: 20180305133716) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,8 +124,8 @@ ActiveRecord::Schema.define(version: 20180305035534) do
     t.integer "show_state", comment: "显示状态"
   end
 
-  create_table "cammp_document_estinates", force: :cascade, comment: "拓展营概算表" do |t|
-    t.integer "project_id", comment: "项目"
+  create_table "camp_document_estimates", force: :cascade, comment: "拓展营概算表" do |t|
+    t.integer "project_season_id", comment: "项目"
     t.integer "user_id", comment: "用户"
     t.string "item", comment: "项"
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "金额"
@@ -135,7 +135,7 @@ ActiveRecord::Schema.define(version: 20180305035534) do
   end
 
   create_table "camp_document_finances", force: :cascade, comment: "拓展营预决算表" do |t|
-    t.integer "project_id", comment: "项目"
+    t.integer "project_season_id", comment: "项目"
     t.integer "user_id", comment: "用户"
     t.string "item", comment: "项"
     t.decimal "budge", precision: 14, scale: 2, default: "0.0", comment: "预算"
@@ -145,8 +145,19 @@ ActiveRecord::Schema.define(version: 20180305035534) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "camp_document_summaries", force: :cascade, comment: "拓展营总结" do |t|
+    t.integer "project_season_id", comment: "项目"
+    t.integer "user_id", comment: "用户"
+    t.string "free_resource", comment: "本营免费资源"
+    t.decimal "resource_value", precision: 14, scale: 2, default: "0.0", comment: "免费资源价值"
+    t.decimal "donate_amount", precision: 14, scale: 2, default: "0.0", comment: "本营筹款多少"
+    t.integer "publicize_count", comment: "本营宣传次数"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "camp_document_volunteers", force: :cascade, comment: "拓展营志愿者表" do |t|
-    t.integer "project_id", comment: "项目"
+    t.integer "project_season_id", comment: "项目"
     t.integer "user_id", comment: "用户"
     t.integer "volunteer_id", comment: "志愿者"
     t.string "remark", comment: "营备注"
@@ -155,7 +166,6 @@ ActiveRecord::Schema.define(version: 20180305035534) do
   end
 
   create_table "camp_project_resources", force: :cascade, comment: "拓展营资源表" do |t|
-    t.integer "project_id", comment: "项目"
     t.integer "user_id", comment: "用户"
     t.string "company", comment: "单位名称"
     t.string "resource", comment: "资源名称"
@@ -207,19 +217,6 @@ ActiveRecord::Schema.define(version: 20180305035534) do
     t.string "remark", comment: "报名表备注"
     t.integer "sign_up_state", comment: "报名状态 1:未开始报名 2:报名中 3:报名结束"
     t.integer "campaign_state", comment: "活动状态 1:活动未开始 2:活动进行中 3:活动已结束"
-  end
-
-  create_table "comp_document_summaries", force: :cascade, comment: "拓展营总结" do |t|
-    t.integer "project_id", comment: "项目"
-    t.integer "user_id", comment: "用户"
-    t.datetime "submit_at", comment: "提交时间"
-    t.string "submit_user", comment: "提交用户"
-    t.string "free_resource", comment: "本营免费资源"
-    t.decimal "resource_value", precision: 14, scale: 2, default: "0.0", comment: "免费资源价值"
-    t.decimal "donate_amount", precision: 14, scale: 2, default: "0.0", comment: "本营筹款多少"
-    t.integer "publicize_count", comment: "本营宣传次数"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "complaints", force: :cascade, comment: "举报表" do |t|
@@ -410,8 +407,8 @@ ActiveRecord::Schema.define(version: 20180305035534) do
     t.text "remark"
     t.integer "operator_id", comment: "异常处理人id"
     t.string "grant_person", comment: "发放人"
-    t.integer "user_id", comment: "捐助人"
     t.integer "grant_batch_id", comment: "发放批次"
+    t.integer "user_id", comment: "捐助人"
     t.index ["gsh_child_id"], name: "index_gsh_child_grants_on_gsh_child_id"
     t.index ["project_season_apply_id"], name: "index_gsh_child_grants_on_project_season_apply_id"
   end
@@ -419,7 +416,6 @@ ActiveRecord::Schema.define(version: 20180305035534) do
   create_table "gsh_children", force: :cascade, comment: "格桑花孩子表" do |t|
     t.string "name", comment: "孩子姓名"
     t.integer "kind", comment: "类型"
-    t.integer "integer", comment: "类型"
     t.string "workstation", comment: "工作地点"
     t.string "province", comment: "省"
     t.string "city", comment: "市"
@@ -608,12 +604,12 @@ ActiveRecord::Schema.define(version: 20180305035534) do
     t.integer "school_id", comment: "学校ID"
     t.integer "semester", comment: "学期"
     t.integer "kind", comment: "捐助形式：1对外捐助 2内部认捐"
-    t.integer "donate_user_id", comment: "捐助人id"
-    t.string "reason", comment: "结对申请理由"
     t.string "gsh_no", comment: "格桑花孩子编号"
     t.integer "semester_count", comment: "学期数"
     t.integer "done_semester_count", comment: "已完成的学期数"
     t.integer "user_id", comment: "关联的用户ID"
+    t.integer "donate_user_id", comment: "捐助人id"
+    t.string "reason", comment: "结对申请理由"
     t.string "teacher_name", comment: "班主任"
     t.string "father", comment: "父亲"
     t.string "father_job", comment: "父亲职业"
@@ -628,6 +624,7 @@ ActiveRecord::Schema.define(version: 20180305035534) do
     t.string "income_source", comment: "收入来源"
     t.string "family_condition", comment: "家庭情况"
     t.string "brothers", comment: "兄弟姐妹"
+    t.string "teacher_phone", comment: "班主任联系方式"
   end
 
   create_table "project_season_apply_gooods", force: :cascade, comment: "项目执行年度申请的物品表" do |t|
@@ -729,7 +726,7 @@ ActiveRecord::Schema.define(version: 20180305035534) do
     t.string "name", comment: "学校名称"
     t.string "address", comment: "地址"
     t.integer "approve_state", default: 1, comment: "审核状态：1:待审核 2:通过 3:不通过"
-    t.text "approve_remark", comment: "审核备注"
+    t.string "approve_remark", comment: "审核备注"
     t.string "province", comment: "省"
     t.string "city", comment: "市"
     t.string "district", comment: "区/县"

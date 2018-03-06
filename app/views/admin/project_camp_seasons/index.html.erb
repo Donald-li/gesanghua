@@ -46,6 +46,9 @@
                   <%= season.name %>
                 </td>
                 <td>
+                  <%= link_to (params[:return_camp] ? url_for(controller: params[:return_camp], action: :index, current_camp: season.id) : admin_camp_document_estimates_path(current_camp: season.id)), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
+                      <i class="fa fa-file"></i> 营资料管理
+                  <% end %>
                   <%= link_to edit_admin_project_camp_season_path(season), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-edit"></i> 修改
                   <% end %>

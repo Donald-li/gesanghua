@@ -17,9 +17,9 @@
 #
 
 # 活动报名
+require 'custom_validators'
 class CampaignEnlist < ApplicationRecord
 
-  require 'custom_validators'
 
   belongs_to :campaign
   belongs_to :user
@@ -27,7 +27,7 @@ class CampaignEnlist < ApplicationRecord
   belongs_to :income_source
 
   validates :number, presence: true
-  
+
   validates :contact_phone, phone: true
 
   #default_vaule_for :number, 1

@@ -47,12 +47,20 @@ namespace :api do
         post :callback
       end
     end
+
+    resources :projects, only: [] do
+      collection do
+        get 'description/:name', to: 'projects#description', as: 'description'
+      end
+    end
+    
     resource :pair, only: [:show]
     resources :children do
       collection do
         get :get_address_list
       end
     end
+
     resource :read, only: [:show] do
       member do
         get :get_address_list
