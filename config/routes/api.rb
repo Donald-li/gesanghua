@@ -18,6 +18,13 @@
             get :feedback_list
           end
         end
+
+        resources :users, only: [:index] do
+          collection do
+            get :get_user_details
+            post :update_user
+          end
+        end
       end
 
       namespace :gsh_plus do
@@ -79,6 +86,8 @@
       resources :offline_donors, only: [] do
         collection do
           get :donor_list
+          get :get_current_user
+          post :delete_donor
         end
       end
 

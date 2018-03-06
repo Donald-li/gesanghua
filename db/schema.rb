@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180304235448) do
+ActiveRecord::Schema.define(version: 20180306022558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -915,6 +915,8 @@ ActiveRecord::Schema.define(version: 20180304235448) do
     t.integer "roles_mask", comment: "角色"
     t.integer "kind", default: 2, comment: "用户类型 1:平台用户 2:线上用户 3:线下用户"
     t.integer "phone_verify", default: 1, comment: "手机认证 1:未认证 2:已认证"
+    t.decimal "promoter_amount_count", precision: 14, scale: 2, default: "0.0", comment: "累计劝捐额"
+    t.integer "use_nickname", comment: "使用昵称"
     t.index ["email"], name: "index_users_on_email"
     t.index ["login"], name: "index_users_on_login"
     t.index ["phone"], name: "index_users_on_phone"
