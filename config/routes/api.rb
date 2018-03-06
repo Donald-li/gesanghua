@@ -64,9 +64,17 @@ namespace :api do
     resource :read, only: [:show] do
       member do
         get :get_address_list
-        get :bookshelves_list
+        get :applies_list
       end
     end
+
+    resource :radio, only: [:show] do
+      member do
+        get :get_address_list
+        get :applies_list
+      end
+    end
+
     resources :project_reports, only: :index
     resources :grant_reports, only: :index
     resources :visit_reports, only: :index

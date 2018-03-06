@@ -21,7 +21,7 @@ RSpec.describe "Api::V1::Reads", type: :request do
     end
 
     it '悦读列表' do
-      get bookshelves_list_api_v1_read_path, headers: api_v1_headers(login_user)
+      get applies_list_api_v1_read_path, headers: api_v1_headers(login_user)
       api_v1_expect_success
     end
   end

@@ -2,7 +2,7 @@ class Admin::RadioProjectsController < Admin::BaseController
   before_action :set_project, only: [:show, :edit, :update, :destroy, :switch, :shipment, :receive_note]
 
   def index
-    @search = ProjectSeasonApply.where(project_id: 5).pass.raise_project.sorted.ransack(params[:q])
+    @search = ProjectSeasonApply.where(project_id: Project.radio_project.id).pass.raise_project.sorted.ransack(params[:q])
     scope = @search.result.joins(:school)
     @projects = scope.page(params[:page])
   end
