@@ -1,0 +1,29 @@
+<%= simple_form_for [:admin, @camp_document_summary], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
+    <%= f.error_notification %>
+    <div class="form-body form-horizontal">
+      <%= static_form_control '探索营', @current_camp.name %>
+      <%= f.input :free_resource, as: :text, label: '免费资源：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :resource_value, label: '免费资源价值：' %>
+      <%= f.input :donate_amount, label: '本营筹款多少：' %>
+      <%= f.input :publicize_count, label: '本营宣传次数' %>
+      <div class="form-group">
+        <label class="col-md-2 control-label">报告附件：</label>
+        <div class="col-sm-9">
+          <%= webuploader_file 'report_id', id: 'file-upload', label: '报告附件', type: 'report_file', asset: @camp_document_summary.report %>
+        </div>
+      </div>
+    </div>
+    <div class="form-actions">
+      <div class="row">
+        <div class="col-md-offset-3 col-md-9">
+          <%= f.button :submit, '提交', class: 'btn green' %>
+          <%= link_to '取消', admin_camp_document_summaries_path, class: 'btn' %>
+        </div>
+      </div>
+    </div>
+<% end %>
+<script>
+  $(function(){
+    initAssetWebuploader($('#file-upload'));
+  })
+</script>

@@ -102,7 +102,37 @@ class Project < ApplicationRecord
   end
 
   def project_image
-    self.image_url(:tiny)
+    ActionController::Base.helpers.asset_path(self.image_url(:tiny))
+  end
+
+  # 可捐助数量
+  def to_donate_num
+    if self.id == 1
+      GshChild.visible.count
+    elsif self.id == 2
+      ProjectSeasonApplyBookshelf.pending.count
+    elsif self.id == 6
+      self.applies.to_delivery.count
+    elsif self.id == 7
+      self.applies.to_delivery.count
+    else
+      0
+    end
+  end
+
+  # 项目单位
+  def unit
+    if self.id == 1
+      '个孩子'
+    elsif self.id == 2
+      '个书架'
+    elsif self.id == 6
+      '个项目'
+    elsif self.id == 7
+      '个项目'
+    else
+      '个'
+    end
   end
 
   def summary_builder
@@ -120,9 +150,10 @@ class Project < ApplicationRecord
     Jbuilder.new do |json|
       json.(self, :id, :name, :describe, :form)
       json.total self.donate_record_amount_count
-      json.cover_mode self.image.present?
-      json.cover_url self.image_url(:tiny).to_s
-      json.num self.children.pass.outside.show.length
+      json.cover_url self.project_image
+      # json.num self.children.pass.outside.show.length
+      json.num self.to_donate_num
+      json.unit self.unit
       json.donate_item self.donate_item.try(:summary_builder)
     end.attributes!
   end

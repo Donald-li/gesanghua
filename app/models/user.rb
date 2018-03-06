@@ -38,10 +38,9 @@
 #
 
 # 用户
+require 'custom_validators'
 class User < ApplicationRecord
   ROLES = %i[superadmin admin project_manager project_operator financial_staff volunteer county_user gsh_child custom_service headmaster teacher]
-
-  require 'custom_validators'
 
   attr_accessor :avatar_id
 

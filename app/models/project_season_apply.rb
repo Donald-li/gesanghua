@@ -222,6 +222,16 @@ class ProjectSeasonApply < ApplicationRecord
     end.attributes!
   end
 
+  def summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :name, :apply_no)
+      json.last_amount self.target_amount - self.present_amount
+      json.total_count self.bookshelves.pass.count
+      json.done_count self.bookshelves.pass.complete.count
+      json.cover_mode self.cover_image.present?
+      json.cover_url self.cover_image_url(:small).to_s
+    end.attributes!
+  end
 
   private
   def gen_apply_no

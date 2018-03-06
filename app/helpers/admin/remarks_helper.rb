@@ -1,2 +1,0 @@
-module Admin::RemarksHelper
-end

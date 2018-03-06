@@ -5,6 +5,7 @@
 #  id                  :integer          not null, primary key
 #  name                :string                                 # 孩子姓名
 #  kind                :integer                                # 类型
+#  integer             :integer                                # 类型
 #  workstation         :string                                 # 工作地点
 #  province            :string                                 # 省
 #  city                :string                                 # 市
@@ -34,10 +35,15 @@ class GshChild < ApplicationRecord
   validates :qq, qq: true
   validates :id_card, shenfenzheng_no: true
 
+  include HasAsset
+  has_one_asset :avatar, class_name: 'Asset::GshChildAvatar'
+
   enum kind: {student: 1, worker: 2}
   default_value_for :kind, 1
 
   scope :sorted, ->{ order(created_at: :desc) }
+
+  scope :visible, ->{ where('semester_count > done_semester_count') } # 前端列表可见
 
   before_create :gen_gsh_no
 
@@ -48,7 +54,7 @@ class GshChild < ApplicationRecord
       json.grants self.semesters.where(user_id: self.user_id).pluck(:title).join('/').gsub(/\s/, '').strip
       json.donate_state self.semesters.pending.size > 0
       json.num self.apply_child.feedbacks.continue.count
-      json.avatar self.apply_child.avatar.present? ? self.apply_child.avatar_url(:tiny).to_s : ''
+      json.avatar self.avatar.present? ? self.avatar_url(:tiny).to_s : ''
     end.attributes!
   end
 
@@ -60,7 +66,10 @@ class GshChild < ApplicationRecord
       json.kind_name self.enum_name(:kind)
       json.gsh_no self.gsh_no
       json.location [self.province, self.city, self.district]
-      # json.avatar self.avatar.present? ? self.avatar_url(:tiny).to_s : ''
+      json.avatar do
+        json.id self.try(:avatar).try(:id)
+        json.url self.avatar_url(:tiny).to_s
+      end
     end.attributes!
   end
 

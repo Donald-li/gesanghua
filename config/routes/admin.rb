@@ -151,8 +151,11 @@ namespace :admin do
 
   resources :camp_document_estimates # 拓展营概算
   resources :camp_document_budges # 拓展营预算
-  resources :camp_document_finances, except: [:new, :create] # 拓展营决算
-  resources :camp_document_resources # 拓展营资源
+  resources :camp_document_finances # 拓展营决算
+  resources :camp_document_volunteers # 拓展营志愿者
+  resources :camp_document_summaries # 拓展营总结
+
+  resources :camp_project_resources # 拓展营资源
 
   resources :remarks
   resources :support_categories, concerns: [:move, :switch]

@@ -15,8 +15,9 @@ class Api::V1::PairFeedbacksController < Api::V1::BaseController
     @user = current_user
     # @child = ProjectSeasonApplyChild.find(params[:child_id])
     @child = GshChild.find(params[:child_id])
+    @grant = GshChildGrant.find(params[:grant_id])
     # @feedback = ContinualFeedback.new(project_season_apply_child_id: params[:child_id], content: params[:content], owner: @child, project: @project, user: @user, gsh_child_grant_id: params[:grant_id])
-    @feedback = ContinualFeedback.new(content: params[:content], owner: @child, project: @project, user: @user, gsh_child_grant_id: params[:grant_id])
+    @feedback = ContinualFeedback.new(content: params[:content], owner: @child, project: @project, user: @user, gsh_child_grant: @grant, season: @grant.gsh_child.season, apply: @grant.gsh_child.apply, child: @grant.gsh_child)
     if @feedback.save
       @feedback.attach_images(params[:images].map{|image| image[:id]}) if params[:images].present?
       api_success(message: '您的反馈已提交')

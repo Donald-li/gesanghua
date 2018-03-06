@@ -2,7 +2,7 @@
   <!-- BEGIN SIDEBAR -->
   <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
   <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-  <div class="page-sidebar navbar-collapse collapse">
+  <div class="page-menus page-sidebar navbar-collapse collapse">
     <!-- BEGIN SIDEBAR MENU -->
     <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
     <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
@@ -17,6 +17,8 @@
             <span class="title">管理首页</span>
         <% end %>
       </li>
+    </ul>
+    <ul class="page-sidebar-menu module-menus menus-operate hide" data-keep-expanded="false" data-slide-speed="200">
       <li class="heading">
         <h3 class="uppercase">运营管理</h3>
       </li>
@@ -168,231 +170,6 @@
             <% end %>
         <% end %>
       </li>
-
-      <% if can? :manage, Project %>
-      <li class="nav-item  <%= current_nav_class(:admin_project) %> ">
-        <a href="javascript:;" class="nav-link nav-toggle">
-          <% to_prove_apply = 0 %>
-          <% submited = 0 %>
-          <i class="fa fa-cubes"></i>
-          <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">项目管理</span>
-          <span class="arrow <%= current_nav_class(:admin_project, current: :open) %>"></span>
-        </a>
-        <ul class="sub-menu">
-          <li class="nav-item  <%= current_nav_class(:admin_pair) %> ">
-            <a href="javascript:;" class="nav-link nav-toggle">
-              <% to_prove_apply = 0 %>
-              <% submited = 0 %>
-              <i class="fa fa-handshake-o"></i>
-              <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">一对一</span>
-              <span class="arrow <%= current_nav_class(:admin_pair, current: :open) %>"></span>
-            </a>
-            <ul class="sub-menu">
-              <li class="nav-item <%= current_nav_class(:admin_pair_season) %> ">
-                <%= link_to admin_pair_seasons_path, class: 'nav-link' do %>
-                  <i class=""></i>
-                  <span class="title">批次管理</span>
-                <% end %>
-              </li>
-              <li class="nav-item <%= current_nav_class(:admin_pair_applies) %> ">
-                <%= link_to admin_pair_applies_path, class: 'nav-link' do %>
-                    <span class="title">配额管理</span>
-                <% end %>
-              </li>
-              <li class="nav-item <%= current_nav_class(:admin_pair_lists) %> ">
-                <%= link_to admin_pair_student_lists_path, class: 'nav-link' do %>
-                    <span class="title">捐助管理</span>
-                <% end %>
-              </li><li class="nav-item <%= current_nav_class(:admin_pair_donate_records) %> ">
-                <%= link_to admin_pair_donate_records_path, class: 'nav-link' do %>
-                    <span class="title">捐助记录</span>
-                <% end %>
-              </li>
-              <li class="nav-item <%= current_nav_class(:admin_pair_grant_batch) %> ">
-                <%= link_to admin_pair_grant_batches_path, class: 'nav-link' do %>
-                  <i class=""></i>
-                  <span class="title">发放批次</span>
-                <% end %>
-              </li>
-              <li class="nav-item <%= current_nav_class(:admin_pair_grants) %> ">
-                <%= link_to admin_pair_grants_path, class: 'nav-link' do %>
-                    <span class="title">发放管理</span>
-                <% end %>
-              </li>
-              <li class="nav-item <%= current_nav_class(:admin_pair_reports) %> ">
-                <%= link_to admin_pair_reports_path, class: 'nav-link' do %>
-                    <span class="title">报告管理</span>
-                <% end %>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item <%= current_nav_class(:admin_project_book) %>">
-            <a href="javascript:;" class="nav-link nav-toggle">
-              <% to_prove_apply = 0 %>
-              <% submited = 0 %>
-              <i class="fa fa-book"></i>
-              <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">悦读</span>
-              <span class="arrow <%= current_nav_class(:admin_project_book, current: :open) %>"></span>
-            </a>
-            <ul class="sub-menu">
-              <li class="nav-item <%= current_nav_class(:admin_project_book_season) %>">
-                <%= link_to admin_project_book_seasons_path, class: 'nav-link' do %>
-                  <i class=""></i>
-                  <span class="title">批次管理</span>
-                <% end %>
-              </li>
-              <li class="nav-item <%= current_nav_class(:admin_read_applies) %> ">
-                <%= link_to admin_read_applies_path, class: 'nav-link' do %>
-                    <span class="title">项目申请</span>
-                <% end %>
-              </li>
-              <li class="nav-item <%= current_nav_class(:admin_read_projects) %> ">
-                <%= link_to admin_read_projects_path, class: 'nav-link' do %>
-                    <span class="title">筹款项目管理</span>
-                <% end %>
-              </li>
-              <li class="nav-item <%= current_nav_class(:admin_read_continual_feedbacks) %> ">
-                <%= link_to admin_read_continual_feedbacks_path, class: 'nav-link' do %>
-                    <span class="title">持续反馈</span>
-                <% end %>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item <%= current_nav_class(:admin_project_camp) %>">
-            <a href="javascript:;" class="nav-link nav-toggle">
-              <% to_prove_apply = 0 %>
-              <% submited = 0 %>
-              <i class="fa fa-child"></i>
-              <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">探索营</span>
-              <span class="arrow <%= current_nav_class(:admin_project_camp, current: :open) %>"></span>
-            </a>
-            <ul class="sub-menu">
-              <li class="nav-item <%= current_nav_class(:admin_project_camp_season) %>">
-                <%= link_to admin_project_camp_seasons_path, class: 'nav-link' do %>
-                  <i class=""></i>
-                  <span class="title">批次管理</span>
-                <% end %>
-              </li>
-              <li class="nav-item <%= current_nav_class(:admin_camp_document_estimates) %>">
-                <%= link_to admin_camp_document_estimates_path, class: 'nav-link' do %>
-                  <i class=""></i>
-                  <span class="title">概算管理</span>
-                <% end %>
-              </li>
-              <li class="nav-item <%= current_nav_class(:admin_camp_document_budges) %>">
-                <%= link_to admin_camp_document_budges_path, class: 'nav-link' do %>
-                  <i class=""></i>
-                  <span class="title">预算管理</span>
-                <% end %>
-              </li>
-              <li class="nav-item <%= current_nav_class(:admin_camp_document_finances) %>">
-                <%= link_to admin_camp_document_finances_path, class: 'nav-link' do %>
-                  <i class=""></i>
-                  <span class="title">决算管理</span>
-                <% end %>
-              </li>
-              <li class="nav-item <%= current_nav_class(:admin_camp_document_resources) %>">
-                <%= link_to admin_camp_document_resources_path, class: 'nav-link' do %>
-                  <i class=""></i>
-                  <span class="title">资源管理</span>
-                <% end %>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item <%= current_nav_class(:admin_project_radio) %>">
-            <a href="javascript:;" class="nav-link nav-toggle">
-              <% to_prove_apply = 0 %>
-              <% submited = 0 %>
-              <i class="fa fa-volume-up"></i>
-              <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">广播</span>
-              <span class="arrow <%= current_nav_class(:admin_project_radio, current: :open) %>"></span>
-            </a>
-            <ul class="sub-menu">
-              <li class="nav-item <%= current_nav_class(:admin_project_radio_season) %>">
-                <%= link_to admin_project_radio_seasons_path, class: 'nav-link' do %>
-                  <i class="fa fa-align-justify"></i>
-                  <span class="title">批次管理</span>
-                <% end %>
-              </li>
-              <li class="nav-item <%= current_nav_class(:admin_radio_applies) %> ">
-                <%= link_to admin_radio_applies_path, class: 'nav-link' do %>
-                  <span class="title">申请管理</span>
-                <% end %>
-              </li>
-              <li class="nav-item <%= current_nav_class(:admin_radio_projects) %> ">
-                <%= link_to admin_radio_projects_path, class: 'nav-link' do %>
-                  <span class="title">筹款项目</span>
-                <% end %>
-              </li>
-              <li class="nav-item <%= current_nav_class(:admin_radio_continual_feedbacks) %> ">
-                <%= link_to admin_radio_continual_feedbacks_path, class: 'nav-link' do %>
-                    <span class="title">持续反馈</span>
-                <% end %>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item <%= current_nav_class(:admin_project_movie) %>">
-            <a href="javascript:;" class="nav-link nav-toggle">
-              <% to_prove_apply = 0 %>
-              <% submited = 0 %>
-              <i class="fa fa-video-camera"></i>
-              <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">观影</span>
-              <span class="arrow <%= current_nav_class(:admin_project_movie, current: :open) %>"></span>
-            </a>
-            <ul class="sub-menu">
-              <li class="nav-item <%= current_nav_class(:admin_movie_applies) %> ">
-                <%= link_to admin_movie_applies_path, class: 'nav-link' do %>
-                  <span class="title">申请管理</span>
-                <% end %>
-              </li>
-              <li class="nav-item <%= current_nav_class(:admin_movie_schools) %> ">
-                <%= link_to admin_movie_schools_path, class: 'nav-link' do %>
-                  <span class="title">学校管理</span>
-                <% end %>
-              </li>
-              <li class="nav-item <%= current_nav_class(:admin_movie_continual_feedbacks) %> ">
-                <%= link_to admin_movie_continual_feedbacks_path, class: 'nav-link' do %>
-                    <span class="title">持续反馈</span>
-                <% end %>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item <%= current_nav_class(:admin_project_flower) %>">
-            <a href="javascript:;" class="nav-link nav-toggle">
-              <% to_prove_apply = 0 %>
-              <% submited = 0 %>
-              <i class="fa fa-futbol-o"></i>
-              <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">护花</span>
-              <span class="arrow <%= current_nav_class(:admin_project_flower, current: :open) %>"></span>
-            </a>
-            <ul class="sub-menu">
-              <li class="nav-item <%= current_nav_class(:admin_project_flower_season) %>">
-                <%= link_to admin_project_flower_seasons_path, class: 'nav-link' do %>
-                  <i class="fa fa-align-justify"></i>
-                  <span class="title">批次管理</span>
-                <% end %>
-                <li class="nav-item <%= current_nav_class(:admin_project_flower_applies) %> ">
-                  <%= link_to admin_flower_applies_path, class: 'nav-link' do %>
-                      <span class="title">护花物资申请</span>
-                  <% end %>
-                </li>
-                <li class="nav-item <%= current_nav_class(:admin_project_flower_projects) %> ">
-                  <%= link_to admin_flower_projects_path, class: 'nav-link' do %>
-                      <span class="title">筹款项目管理</span>
-                  <% end %>
-                </li>
-                <li class="nav-item <%= current_nav_class(:admin_project_flower_feedbacks) %> ">
-                  <%= link_to admin_flower_continual_feedbacks_path, class: 'nav-link' do %>
-                      <span class="title">持续反馈</span>
-                  <% end %>
-                </li>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <% end %>
-
       <li class="nav-item <%= current_nav_class(:admin_campaign) %>">
         <%= link_to '', class: 'nav-link' do %>
             <% new = 0 %>
@@ -475,8 +252,252 @@
           </li>
         </ul>
       </li>
+    </ul>
 
+    <% if can? :manage, Project %>
+    <ul class="page-sidebar-menu module-menus menus-project hide" data-keep-expanded="false" data-slide-speed="200">
+      <li class="heading">
+        <h3 class="uppercase">项目管理</h3>
+      </li>
 
+      <% to_prove_apply = 0 %>
+      <% submited = 0 %>
+      <li class="nav-item  <%= current_nav_class(:admin_pair) %> ">
+        <a href="javascript:;" class="nav-link nav-toggle">
+          <% to_prove_apply = 0 %>
+          <% submited = 0 %>
+          <i class="fa fa-handshake-o"></i>
+          <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">一对一</span>
+          <span class="arrow <%= current_nav_class(:admin_pair, current: :open) %>"></span>
+        </a>
+        <ul class="sub-menu">
+          <li class="nav-item <%= current_nav_class(:admin_pair_season) %> ">
+            <%= link_to admin_pair_seasons_path, class: 'nav-link' do %>
+              <i class=""></i>
+              <span class="title">批次管理</span>
+            <% end %>
+          </li>
+          <li class="nav-item <%= current_nav_class(:admin_pair_applies) %> ">
+            <%= link_to admin_pair_applies_path, class: 'nav-link' do %>
+                <span class="title">配额管理</span>
+            <% end %>
+          </li>
+          <li class="nav-item <%= current_nav_class(:admin_pair_lists) %> ">
+            <%= link_to admin_pair_student_lists_path, class: 'nav-link' do %>
+                <span class="title">捐助管理</span>
+            <% end %>
+          </li><li class="nav-item <%= current_nav_class(:admin_pair_donate_records) %> ">
+            <%= link_to admin_pair_donate_records_path, class: 'nav-link' do %>
+                <span class="title">捐助记录</span>
+            <% end %>
+          </li>
+          <li class="nav-item <%= current_nav_class(:admin_pair_grant_batch) %> ">
+            <%= link_to admin_pair_grant_batches_path, class: 'nav-link' do %>
+              <i class=""></i>
+              <span class="title">发放批次</span>
+            <% end %>
+          </li>
+          <li class="nav-item <%= current_nav_class(:admin_pair_grants) %> ">
+            <%= link_to admin_pair_grants_path, class: 'nav-link' do %>
+                <span class="title">发放管理</span>
+            <% end %>
+          </li>
+          <li class="nav-item <%= current_nav_class(:admin_pair_reports) %> ">
+            <%= link_to admin_pair_reports_path, class: 'nav-link' do %>
+                <span class="title">报告管理</span>
+            <% end %>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item <%= current_nav_class(:admin_project_book) %>">
+        <a href="javascript:;" class="nav-link nav-toggle">
+          <% to_prove_apply = 0 %>
+          <% submited = 0 %>
+          <i class="fa fa-book"></i>
+          <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">悦读</span>
+          <span class="arrow <%= current_nav_class(:admin_project_book, current: :open) %>"></span>
+        </a>
+        <ul class="sub-menu">
+          <li class="nav-item <%= current_nav_class(:admin_project_book_season) %>">
+            <%= link_to admin_project_book_seasons_path, class: 'nav-link' do %>
+              <i class=""></i>
+              <span class="title">批次管理</span>
+            <% end %>
+          </li>
+          <li class="nav-item <%= current_nav_class(:admin_read_applies) %> ">
+            <%= link_to admin_read_applies_path, class: 'nav-link' do %>
+                <span class="title">项目申请</span>
+            <% end %>
+          </li>
+          <li class="nav-item <%= current_nav_class(:admin_read_projects) %> ">
+            <%= link_to admin_read_projects_path, class: 'nav-link' do %>
+                <span class="title">筹款项目管理</span>
+            <% end %>
+          </li>
+          <li class="nav-item <%= current_nav_class(:admin_read_continual_feedbacks) %> ">
+            <%= link_to admin_read_continual_feedbacks_path, class: 'nav-link' do %>
+                <span class="title">持续反馈</span>
+            <% end %>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item <%= current_nav_class(:admin_project_camp) %>">
+        <a href="javascript:;" class="nav-link nav-toggle">
+          <% to_prove_apply = 0 %>
+          <% submited = 0 %>
+          <i class="fa fa-child"></i>
+          <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">探索营</span>
+          <span class="arrow <%= current_nav_class(:admin_project_camp, current: :open) %>"></span>
+        </a>
+        <ul class="sub-menu">
+          <li class="nav-item <%= current_nav_class(:admin_project_camp_season) %>">
+            <%= link_to admin_project_camp_seasons_path, class: 'nav-link' do %>
+              <i class=""></i>
+              <span class="title">批次管理</span>
+            <% end %>
+          </li>
+          <li class="nav-item <%= current_nav_class(:admin_camp_document) %>">
+            <a href="javascript:;" class="nav-link nav-toggle">
+              <% to_prove_apply = 0 %>
+              <% submited = 0 %>
+              <i class=""></i>
+              <span class="title">营资料管理</span>
+              <span class="arrow <%= current_nav_class(:admin_camp_document, current: :open) %>"></span>
+            </a>
+            <ul class="sub-menu">
+              <li class="nav-item <%= current_nav_class(:admin_camp_document_estimates) %>">
+                <%= link_to admin_camp_document_estimates_path, class: 'nav-link' do %>
+                  <i class=""></i>
+                  <span class="title">概算管理</span>
+                <% end %>
+              </li>
+              <li class="nav-item <%= current_nav_class(:admin_camp_document_budges) %>">
+                <%= link_to admin_camp_document_budges_path, class: 'nav-link' do %>
+                  <i class=""></i>
+                  <span class="title">预算管理</span>
+                <% end %>
+              </li>
+              <li class="nav-item <%= current_nav_class(:admin_camp_document_finances) %>">
+                <%= link_to admin_camp_document_finances_path, class: 'nav-link' do %>
+                  <i class=""></i>
+                  <span class="title">决算管理</span>
+                <% end %>
+              </li>
+              <li class="nav-item <%= current_nav_class(:admin_camp_document_volunteers) %>">
+                <%= link_to admin_camp_document_volunteers_path, class: 'nav-link' do %>
+                  <i class=""></i>
+                  <span class="title">志愿者名单</span>
+                <% end %>
+              </li>
+              <li class="nav-item <%= current_nav_class(:admin_camp_document_summaries) %>">
+                <%= link_to admin_camp_document_summaries_path, class: 'nav-link' do %>
+                  <i class=""></i>
+                  <span class="title">总结</span>
+                <% end %>
+              </li>
+            </ul>
+          <li class="nav-item <%= current_nav_class(:admin_camp_project_resources) %>">
+            <%= link_to admin_camp_project_resources_path, class: 'nav-link' do %>
+              <i class=""></i>
+              <span class="title">资源管理</span>
+            <% end %>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item <%= current_nav_class(:admin_project_radio) %>">
+        <a href="javascript:;" class="nav-link nav-toggle">
+          <% to_prove_apply = 0 %>
+          <% submited = 0 %>
+          <i class="fa fa-volume-up"></i>
+          <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">广播</span>
+          <span class="arrow <%= current_nav_class(:admin_project_radio, current: :open) %>"></span>
+        </a>
+        <ul class="sub-menu">
+          <li class="nav-item <%= current_nav_class(:admin_project_radio_season) %>">
+            <%= link_to admin_project_radio_seasons_path, class: 'nav-link' do %>
+              <i class="fa fa-align-justify"></i>
+              <span class="title">批次管理</span>
+            <% end %>
+          </li>
+          <li class="nav-item <%= current_nav_class(:admin_radio_applies) %> ">
+            <%= link_to admin_radio_applies_path, class: 'nav-link' do %>
+              <span class="title">申请管理</span>
+            <% end %>
+          </li>
+          <li class="nav-item <%= current_nav_class(:admin_radio_projects) %> ">
+            <%= link_to admin_radio_projects_path, class: 'nav-link' do %>
+              <span class="title">筹款项目</span>
+            <% end %>
+          </li>
+          <li class="nav-item <%= current_nav_class(:admin_radio_continual_feedbacks) %> ">
+            <%= link_to admin_radio_continual_feedbacks_path, class: 'nav-link' do %>
+                <span class="title">持续反馈</span>
+            <% end %>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item <%= current_nav_class(:admin_project_movie) %>">
+        <a href="javascript:;" class="nav-link nav-toggle">
+          <% to_prove_apply = 0 %>
+          <% submited = 0 %>
+          <i class="fa fa-video-camera"></i>
+          <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">观影</span>
+          <span class="arrow <%= current_nav_class(:admin_project_movie, current: :open) %>"></span>
+        </a>
+        <ul class="sub-menu">
+          <li class="nav-item <%= current_nav_class(:admin_movie_applies) %> ">
+            <%= link_to admin_movie_applies_path, class: 'nav-link' do %>
+              <span class="title">申请管理</span>
+            <% end %>
+          </li>
+          <li class="nav-item <%= current_nav_class(:admin_movie_schools) %> ">
+            <%= link_to admin_movie_schools_path, class: 'nav-link' do %>
+              <span class="title">学校管理</span>
+            <% end %>
+          </li>
+          <li class="nav-item <%= current_nav_class(:admin_movie_continual_feedbacks) %> ">
+            <%= link_to admin_movie_continual_feedbacks_path, class: 'nav-link' do %>
+                <span class="title">持续反馈</span>
+            <% end %>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item <%= current_nav_class(:admin_project_flower) %>">
+        <a href="javascript:;" class="nav-link nav-toggle">
+          <% to_prove_apply = 0 %>
+          <% submited = 0 %>
+          <i class="fa fa-futbol-o"></i>
+          <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">护花</span>
+          <span class="arrow <%= current_nav_class(:admin_project_flower, current: :open) %>"></span>
+        </a>
+        <ul class="sub-menu">
+          <li class="nav-item <%= current_nav_class(:admin_project_flower_season) %>">
+            <%= link_to admin_project_flower_seasons_path, class: 'nav-link' do %>
+              <i class="fa fa-align-justify"></i>
+              <span class="title">批次管理</span>
+            <% end %>
+            <li class="nav-item <%= current_nav_class(:admin_project_flower_applies) %> ">
+              <%= link_to admin_flower_applies_path, class: 'nav-link' do %>
+                  <span class="title">护花物资申请</span>
+              <% end %>
+            </li>
+            <li class="nav-item <%= current_nav_class(:admin_project_flower_projects) %> ">
+              <%= link_to admin_flower_projects_path, class: 'nav-link' do %>
+                  <span class="title">筹款项目管理</span>
+              <% end %>
+            </li>
+            <li class="nav-item <%= current_nav_class(:admin_project_flower_feedbacks) %> ">
+              <%= link_to admin_flower_continual_feedbacks_path, class: 'nav-link' do %>
+                  <span class="title">持续反馈</span>
+              <% end %>
+            </li>
+          </li>
+        </ul>
+      </li>
+      <% end %>
+    </ul>
+
+    <ul class="page-sidebar-menu module-menus menus-system hide" data-keep-expanded="false" data-slide-speed="200">
       <li class="heading">
         <h3 class="uppercase">系统管理</h3>
       </li>
@@ -560,94 +581,80 @@
             </ul>
           </li>
       <% end %>
-
+    </ul>
+    <ul class="page-sidebar-menu module-menus menus-report hide" data-keep-expanded="false" data-slide-speed="200">
       <li class="heading">
         <h3 class="uppercase">统计报表</h3>
       </li>
-      <li class="nav-item <%= current_nav_class(:admin_statistic) %>">
-        <a href="javascript:;" class="nav-link nav-toggle">
-          <i class="fa fa-area-chart"></i>
-          <span class="title">统计报表</span>
-          <span class="arrow <%= current_nav_class(:admin_statistic, current: :open) %>"></span>
-        </a>
-        <ul class="sub-menu">
-          <li class="nav-item  <%= current_nav_class(:admin_data_statistic) %>">
-            <%= link_to admin_data_statistic_path, class: 'nav-link nav-toggle' do %>
-              <i class="icon-bar-chart"></i>
-              <span class="title">数据统计</span>
-            <% end %>
-          </li>
-          <li class="nav-item  <%= current_nav_class(:admin_donate_statistic) %>">
-            <%= link_to admin_donate_statistic_path, class: 'nav-link nav-toggle' do %>
-              <i class="fa fa-list"></i>
-              <span class="title">捐助统计</span>
-            <% end %>
-          </li>
-        </ul>
+
+      <li class="nav-item  <%= current_nav_class(:admin_data_statistic) %>">
+        <%= link_to admin_data_statistic_path, class: 'nav-link nav-toggle' do %>
+          <i class="icon-bar-chart"></i>
+          <span class="title">数据统计</span>
+        <% end %>
+      </li>
+      <li class="nav-item  <%= current_nav_class(:admin_donate_statistic) %>">
+        <%= link_to admin_donate_statistic_path, class: 'nav-link nav-toggle' do %>
+          <i class="fa fa-list"></i>
+          <span class="title">捐助统计</span>
+        <% end %>
       </li>
 
+    </ul>
+    <ul class="page-sidebar-menu module-menus menus-financial hide" data-keep-expanded="false" data-slide-speed="200">
       <li class="heading">
         <h3 class="uppercase">财务管理</h3>
       </li>
-      <li class="nav-item <%= current_nav_class(:admin_finance) %>">
 
+      <li class="nav-item  <%= current_nav_class(:admin_finance_pair) %> ">
         <a href="javascript:;" class="nav-link nav-toggle">
-          <i class="fa fa-archive"></i>
-          <span class="title">财务管理</span>
-          <span class="arrow <%= current_nav_class(:admin_finance, current: :open) %>"></span>
+          <% to_prove_apply = 0 %>
+          <% submited = 0 %>
+          <i class="fa fa-handshake-o"></i>
+          <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">一对一</span>
+          <span class="arrow <%= current_nav_class(:admin_finance_pair, current: :open) %>"></span>
         </a>
         <ul class="sub-menu">
-
-          <li class="nav-item  <%= current_nav_class(:admin_finance_pair) %> ">
-            <a href="javascript:;" class="nav-link nav-toggle">
-              <% to_prove_apply = 0 %>
-              <% submited = 0 %>
-              <i class="fa fa-handshake-o"></i>
-              <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">一对一</span>
-              <span class="arrow <%= current_nav_class(:admin_finance_pair, current: :open) %>"></span>
-            </a>
-            <ul class="sub-menu">
-              <li class="nav-item <%= current_nav_class(:admin_pair_grant_exceptions) %> ">
-                <%= link_to admin_pair_grant_exceptions_path, class: 'nav-link' do %>
-                    <span class="title">发放异常处理</span>
-                <% end %>
-              </li>
-            </ul>
-          </li>
-
-          <li class="nav-item  <%= current_nav_class(:admin_audit_reports) %>">
-            <%= link_to admin_audit_reports_path, class: 'nav-link' do %>
-                <span class="title">审计报告</span>
-            <% end %>
-          </li>
-          <li class="nav-item  <%= current_nav_class(:admin_financial_reports) %>">
-            <%= link_to admin_financial_reports_path, class: 'nav-link' do %>
-                <span class="title">财务报告</span>
-            <% end %>
-          </li>
-          <li class="nav-item  <%= current_nav_class(:admin_income_record) %>">
-            <%= link_to admin_income_records_path, class: 'nav-link' do %>
-              <span class="title">收入记录</span>
-            <% end %>
-          </li>
-          <li class="nav-item  <%= current_nav_class(:admin_expenditure_record) %>">
-            <%= link_to admin_expenditure_records_path, class: 'nav-link' do %>
-              <span class="title">支出记录</span>
-            <% end %>
-          </li>
-          <li class="nav-item  <%= current_nav_class(:admin_voucherss) %>">
-            <%= link_to admin_vouchers_path, class: 'nav-link' do %>
-              <span class="title">捐赠收据</span>
-            <% end %>
-          </li>
-          <li class="nav-item  <%= current_nav_class(:admin_fund_categories) %>">
-            <%= link_to admin_fund_categories_path, class: 'nav-link nav-toggle' do %>
-                <i class="fa fa-archive"></i>
-                <span class="title">收入分类管理</span>
+          <li class="nav-item <%= current_nav_class(:admin_pair_grant_exceptions) %> ">
+            <%= link_to admin_pair_grant_exceptions_path, class: 'nav-link' do %>
+                <span class="title">发放异常处理</span>
             <% end %>
           </li>
         </ul>
       </li>
+
+      <li class="nav-item  <%= current_nav_class(:admin_audit_reports) %>">
+        <%= link_to admin_audit_reports_path, class: 'nav-link' do %>
+            <span class="title">审计报告</span>
+        <% end %>
+      </li>
+      <li class="nav-item  <%= current_nav_class(:admin_financial_reports) %>">
+        <%= link_to admin_financial_reports_path, class: 'nav-link' do %>
+            <span class="title">财务报告</span>
+        <% end %>
+      </li>
+      <li class="nav-item  <%= current_nav_class(:admin_income_record) %>">
+        <%= link_to admin_income_records_path, class: 'nav-link' do %>
+          <span class="title">收入记录</span>
+        <% end %>
+      </li>
+      <li class="nav-item  <%= current_nav_class(:admin_expenditure_record) %>">
+        <%= link_to admin_expenditure_records_path, class: 'nav-link' do %>
+          <span class="title">支出记录</span>
+        <% end %>
+      </li>
+      <li class="nav-item  <%= current_nav_class(:admin_voucherss) %>">
+        <%= link_to admin_vouchers_path, class: 'nav-link' do %>
+          <span class="title">捐赠收据</span>
+        <% end %>
+      </li>
+      <li class="nav-item  <%= current_nav_class(:admin_fund_categories) %>">
+        <%= link_to admin_fund_categories_path, class: 'nav-link nav-toggle' do %>
+            <i class="title"></i>
+            <span class="title">收入分类管理</span>
+        <% end %>
+      </li>
+
 
     </ul>
     <!-- END SIDEBAR MENU -->

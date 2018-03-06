@@ -1,0 +1,52 @@
+<%= simple_form_for [:admin, @camp_document_volunteer], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
+    <%= f.error_notification %>
+    <div class="form-body form-horizontal">
+      <%= f.input :volunteer_id, collection: [@camp_document_volunteer.volunteer].compact.map {|u| [u.volunteer_name, u.id]}, label: '志愿者', prompt: "请选择志愿者", input_html: {class: 'volunteer_selector'} %>
+      <%= f.input :remark, as: :text, label: '任务备注：' %>
+    </div>
+    <div class="form-actions">
+      <div class="row">
+        <div class="col-md-offset-3 col-md-9">
+          <%= f.button :submit, '提交', class: 'btn green' %>
+          <%= link_to '取消', admin_camp_document_volunteers_path, class: 'btn' %>
+        </div>
+      </div>
+    </div>
+<% end %>
+
+<script>
+$(function(){
+
+    $(".volunteer_selector").select2({
+      language: "zh-CN",
+      placeholder: '请选择志愿者',
+      allowClear: true,
+      ajax: {
+        url: "/selects/volunteers",
+        dataType: 'json',
+        delay: 250,
+        data: function (params) {
+          return {
+            q: params.term, // search term
+            page: params.page
+          };
+        },
+        processResults: function (data, params) {
+          params.page = params.page || 1;
+          return {
+              results: $.map(data.items, function (item) {
+                return {
+                  text: item.volunteer_name,
+                  id: item.id
+              }
+            }),
+            pagination: {
+              more: (params.page * 30) < data.total_count
+            }
+          };
+        },
+        cache: true
+      }
+    });
+  })
+</script>

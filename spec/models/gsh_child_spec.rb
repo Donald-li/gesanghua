@@ -5,6 +5,7 @@
 #  id                  :integer          not null, primary key
 #  name                :string                                 # 孩子姓名
 #  kind                :integer                                # 类型
+#  integer             :integer                                # 类型
 #  workstation         :string                                 # 工作地点
 #  province            :string                                 # 省
 #  city                :string                                 # 市
@@ -24,9 +25,13 @@ require 'rails_helper'
 
 RSpec.describe GshChild, type: :model do
 
-  let!(:child) { create(:gsh_child) }
+  let!(:child) { create(:gsh_child, semester_count: 3, done_semester_count: 1) }
 
   it '测试生成gsh孩子编号' do
     expect(child.gsh_no.start_with?('GSH0')).to be(true)
+  end
+
+  it '测试前端列表可见孩子' do
+    expect(GshChild.visible.count).to eq 1
   end
 end

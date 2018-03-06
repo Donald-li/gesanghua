@@ -1,2 +1,0 @@
-module Admin::FinancialReportsHelper
-end
