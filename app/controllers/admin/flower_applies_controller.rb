@@ -121,7 +121,7 @@ class Admin::FlowerAppliesController < Admin::BaseController
 
   private
   def set_project
-    @project = Project.find(6)
+    @project = Project.care_project
   end
   # Use callbacks to share common setup or constraints between actions.
   def set_project_apply

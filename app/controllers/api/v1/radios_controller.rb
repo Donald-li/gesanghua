@@ -15,7 +15,7 @@ class Api::V1::RadiosController < Api::V1::BaseController
     @radio_applies = @radio_applies.where(school_city: params[:city]) if params[:city].present?
     @radio_applies = @radio_applies.where(school_district: params[:district]) if params[:district].present?
     @radio_applies = @radio_applies.page(params[:page]).per(params[:per])
-    api_success(data: {radio_list: @radio_applies.map{|item| item.summary_builder if item.present?}, pagination: json_pagination(@radio_applies)})
+    api_success(data: {radio_list: @radio_applies.collect{|item| item.summary_builder}, pagination: json_pagination(@radio_applies)})
   end
 
   private

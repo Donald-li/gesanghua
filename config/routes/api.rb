@@ -75,6 +75,13 @@ namespace :api do
       end
     end
 
+    resource :flower, only: [:show] do
+      member do
+        get :get_address_list
+        get :applies_list
+      end
+    end
+
     resource :radio, only: [:show] do
       member do
         get :get_address_list

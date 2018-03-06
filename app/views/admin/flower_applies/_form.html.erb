@@ -98,7 +98,8 @@
                 data: function (params) {
                     return {
                         q: params.term, // search term
-                        page: params.page
+                        page: params.page,
+                        project_id: <%= Project.care_project.id %>
                     };
                 },
                 processResults: function (data, params) {
