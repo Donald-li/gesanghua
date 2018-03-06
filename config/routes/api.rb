@@ -21,6 +21,7 @@ namespace :api do
       resources :users, only: [:index] do
         collection do
           get :get_user_details
+          get :get_user_promoter_record
           post :update_user
         end
       end
