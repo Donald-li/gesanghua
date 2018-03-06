@@ -11,7 +11,57 @@ class Api::V1::CooperationPairStudentsController < Api::V1::BaseController
   end
 
   def create
+    apply = ProjectSeasonApply.find(params[:apply_id])
+    school_id = apply.school_id
+    season_id = apply.project_season_id
+    project_id = apply.project_id
+    nation = params[:nation].first if params[:nation]
+    level = params[:level].first if params[:level]
+    grade = params[:grade].first if params[:grade]
+    semester = params[:semester].first if params[:semester]
 
+    @student = ProjectSeasonApplyChild.new(
+      project_season_apply_id: apply.id,
+      school_id: school_id,
+      project_season_id: season_id,
+      project_id: project_id,
+      name: params[:name],
+      id_card: params[:id_card],
+      nation: nation,
+      level: level,
+      grade: grade,
+      semester: semester,
+      teacher_name: params[:teacher_name],
+      teacher_phone: params[:teacher_phone],
+      description: params[:description],
+      father: params[:father],
+      father_job: params[:father_job],
+      mother: params[:mother],
+      mother_job: params[:mother_job],
+      guardian: params[:guardian],
+      guardian_relation: params[:guardian_relation],
+      guardian_phone: params[:guardian_phone],
+      address: params[:address],
+      family_income: params[:family_income],
+      family_expenditure: params[:family_expenditure],
+      income_source: params[:income_source],
+      family_condition: params[:family_condition],
+      brothers: params[:brothers],
+      province: apply.province,
+      city: apply.city,
+      district: apply.district
+    )
+    if @student.save
+      @student.count_age
+      @student.attach_avatar(params[:avatar][:id]) if params[:avatar].present?
+      @student.attach_id_image(params[:id_image][0][:id]) if params[:id_image][0].present?
+      @student.attach_residence(params[:residence][0][:id]) if params[:residence][0].present?
+      @student.attach_poverty(params[:poverty][0][:id]) if params[:poverty][0].present?
+      @student.attach_family_image(params[:family_image][0][:id]) if params[:family_image][0].present?
+      api_success(data: {result: true, apply_id: @student.project_season_apply_id}, message: '孩子信息提交成功！')
+    else
+      api_success(data: {result: false}, message: '孩子信息提交失败，请重试！')
+    end
   end
 
   def edit
@@ -20,7 +70,46 @@ class Api::V1::CooperationPairStudentsController < Api::V1::BaseController
   end
 
   def update
-
+    @student = ProjectSeasonApplyChild.find(params[:student_id])
+    nation = params[:nation].first if params[:nation]
+    level = params[:level].first if params[:level]
+    grade = params[:grade].first if params[:grade]
+    semester = params[:semester].first if params[:semester]
+    if @student.update(
+        name: params[:name],
+        id_card: params[:id_card],
+        nation: nation,
+        level: level,
+        grade: grade,
+        semester: semester,
+        teacher_name: params[:teacher_name],
+        teacher_phone: params[:teacher_phone],
+        description: params[:description],
+        father: params[:father],
+        father_job: params[:father_job],
+        mother: params[:mother],
+        mother_job: params[:mother_job],
+        guardian: params[:guardian],
+        guardian_relation: params[:guardian_relation],
+        guardian_phone: params[:guardian_phone],
+        address: params[:address],
+        family_income: params[:family_income],
+        family_expenditure: params[:family_expenditure],
+        income_source: params[:income_source],
+        family_condition: params[:family_condition],
+        brothers: params[:brothers]
+      )
+      @student.count_age
+      @student.attach_avatar(params[:avatar][:id]) if params[:avatar].present?
+      @student.attach_id_image(params[:id_image][0][:id]) if params[:id_image][0].present?
+      @student.attach_residence(params[:residence][0][:id]) if params[:residence][0].present?
+      @student.attach_poverty(params[:poverty][0][:id]) if params[:poverty][0].present?
+      @student.attach_family_image(params[:family_image][0][:id]) if params[:family_image][0].present?
+      byebug
+      api_success(data: {result: true, apply_id: @student.project_season_apply_id}, message: '孩子信息提交成功！')
+    else
+      api_success(data: {result: false}, message: '孩子信息提交失败，请重试！')
+    end
   end
 
   def qrcode
