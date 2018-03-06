@@ -60,6 +60,8 @@ class DonateRecord < ApplicationRecord
 
   counter_culture :project, column_name: :donate_record_amount_count, delta_magnitude: proc {|model| model.amount}
   counter_culture :user, column_name: :donate_count, delta_magnitude: proc {|model| model.amount}
+  counter_culture :user, column_name: proc{|model| model.promoter.present? && model.pay_state == 'paid' ? 'promoter_amount_count' : nil}, delta_magnitude: proc {|model| model.amount }
+
   # TODO: 统计用户线上和线下捐助金额
 
   validates :amount, presence: true
