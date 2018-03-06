@@ -2,37 +2,39 @@
 #
 # Table name: users # 用户
 #
-#  id              :integer          not null, primary key
-#  openid          :string                                       # 微信openid
-#  name            :string                                       # 姓名
-#  login           :string                                       # 登录账号
-#  password_digest :string                                       # 密码
-#  state           :integer          default("enable")           # 状态 1:启用 2:禁用
-#  team_id         :integer                                      # 团队ID
-#  profile         :jsonb                                        # 微信profile
-#  gender          :integer                                      # 性别，1：男 2：女
-#  balance         :decimal(14, 2)   default(0.0)                # 账户余额
-#  phone           :string                                       # 联系方式
-#  email           :string                                       # 电子邮箱地址
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  nickname        :string                                       # 昵称
-#  salutation      :string                                       # 孩子们如何称呼我
-#  consignee       :string                                       # 收货人
-#  province        :string                                       # 省
-#  city            :string                                       # 市
-#  district        :string                                       # 区/县
-#  address         :string                                       # 详细地址
-#  qq              :string                                       # qq号
-#  id_card         :string                                       # 身份证
-#  donate_count    :decimal(14, 2)   default(0.0)                # 捐助金额
-#  online_count    :decimal(14, 2)   default(0.0)                # 线上捐助金额
-#  offline_count   :decimal(14, 2)   default(0.0)                # 线下捐助金额
-#  auth_token      :string                                       # Token
-#  manager_id      :integer                                      # 线下用户管理人id
-#  roles_mask      :integer                                      # 角色
-#  kind            :integer          default("online_user")      # 用户类型 1:平台用户 2:线上用户 3:线下用户
-#  phone_verify    :integer          default("phone_unverified") # 手机认证 1:未认证 2:已认证
+#  id                    :integer          not null, primary key
+#  openid                :string                                       # 微信openid
+#  name                  :string                                       # 姓名
+#  login                 :string                                       # 登录账号
+#  password_digest       :string                                       # 密码
+#  state                 :integer          default("enable")           # 状态 1:启用 2:禁用
+#  team_id               :integer                                      # 团队ID
+#  profile               :jsonb                                        # 微信profile
+#  gender                :integer                                      # 性别，1：男 2：女
+#  balance               :decimal(14, 2)   default(0.0)                # 账户余额
+#  phone                 :string                                       # 联系方式
+#  email                 :string                                       # 电子邮箱地址
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  nickname              :string                                       # 昵称
+#  salutation            :string                                       # 孩子们如何称呼我
+#  consignee             :string                                       # 收货人
+#  province              :string                                       # 省
+#  city                  :string                                       # 市
+#  district              :string                                       # 区/县
+#  address               :string                                       # 详细地址
+#  qq                    :string                                       # qq号
+#  id_card               :string                                       # 身份证
+#  donate_count          :decimal(14, 2)   default(0.0)                # 捐助金额
+#  online_count          :decimal(14, 2)   default(0.0)                # 线上捐助金额
+#  offline_count         :decimal(14, 2)   default(0.0)                # 线下捐助金额
+#  auth_token            :string                                       # Token
+#  manager_id            :integer                                      # 线下用户管理人id
+#  roles_mask            :integer                                      # 角色
+#  kind                  :integer          default("online_user")      # 用户类型 1:平台用户 2:线上用户 3:线下用户
+#  phone_verify          :integer          default("phone_unverified") # 手机认证 1:未认证 2:已认证
+#  promoter_amount_count :decimal(14, 2)   default(0.0)                # 累计劝捐额
+#  use_nickname          :integer                                      # 使用昵称
 #
 
 # 用户
@@ -82,6 +84,9 @@ class User < ApplicationRecord
 
   enum gender: {male: 1, female: 2} #性别 1:男 2:女
   default_value_for :gender, 1
+
+  enum use_nickname: {true: 1, false: 2} #使用昵称 1:是 2:否
+  default_value_for :use_nickname, 2
 
   scope :sorted, ->{ order(created_at: :desc) }
   scope :reverse_sorted, ->{ sorted.reverse_order }
@@ -229,11 +234,32 @@ class User < ApplicationRecord
     record.update(amount: amount)
   end
 
+  def role_tag
+    if self.donate_records.present?
+      '爱心人士'
+    elsif self.has_role?(:headmaster)
+      '校长'
+    elsif self.has_role?(:teacher)
+      '教师'
+    elsif self.has_role?(:county_user)
+      '县教育局'
+    elsif self.has_role?(:volunteer)
+      '志愿者'
+    elsif self.has_role?(:custom_service)
+      '工作人员'
+    end
+  end
+
   def summary_builder
     Jbuilder.new do |json|
       json.(self, :id, :nickname)
       json.login_name self.login
-      json.avatar self.avatar
+      json.avatar self.try(:avatar)
+      json.avatar_src self.try(:avatar).try(:file_url)
+      json.balance self.balance
+      json.donate_count self.donate_count
+      json.promoter_count self.promoter_amount_count
+      json.role_tag self.role_tag
     end.attributes!
   end
 
@@ -242,6 +268,20 @@ class User < ApplicationRecord
       json.(self, :id, :nickname)
       json.login_name self.login
       json.avatar self.avatar
+      json.name self.name
+      json.gender self.gender == 'male'? ['男'] : ['女']
+      json.use_nickname self.use_nickname == 'true'? true : false
+      json.salutation self.salutation
+      json.email self.email
+      json.location [self.province, self.city, self.district]
+      json.address self.address
+      json.phone self.phone
+      json.team_mode self.team.present?
+      json.avatar_image  do
+        json.id self.try(:avatar).try(:id)
+        json.url self.try(:avatar).try(:file_url)
+        json.protect_token ''
+      end
     end.attributes!
   end
 
@@ -257,8 +297,8 @@ class User < ApplicationRecord
   end
 
   # 创建线下用户
-  def self.create_offline_user(name, phone, gender, salutation, email, province, city, district, address)
-    User.create(login: phone, name: name, phone: phone, gender: gender, salutation: salutation, email: email, province: province, city: city, district: district, address: address)
+  def self.create_offline_user(name, phone, gender, salutation, email, province, city, district, address, nickname, use_nickname)
+    User.create(login: phone, name: name, phone: phone, gender: gender, salutation: salutation, email: email, province: province, city: city, district: district, address: address, nickname: nickname, use_nickname: use_nickname)
   end
 
 end

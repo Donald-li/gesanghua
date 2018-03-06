@@ -15,7 +15,7 @@ class Admin::MovieFeedbacksController < Admin::BaseController
   end
 
   def create
-    @install = @apply.install_feedbacks.new(install_params.merge(owner_type: 'ProjectSeasonApply', project_id: ProjectSeason.movie_project_id, project_season_apply_id: install_params[:owner_id]))
+    @install = @apply.install_feedbacks.new(install_params.merge(owner_type: 'ProjectSeasonApply', project_id: Project.movie_project.id, project_season_apply_id: install_params[:owner_id]))
     respond_to do |format|
       if @install.save
         format.html { redirect_to admin_movie_school_movie_feedbacks_path(@apply), notice: '新增成功。' }
@@ -27,7 +27,7 @@ class Admin::MovieFeedbacksController < Admin::BaseController
 
   def update
     respond_to do |format|
-      if @install.update(install_params.merge(owner_type: 'ProjectSeasonApply', project_id: ProjectSeason.movie_project_id, project_season_apply_id: install_params[:owner_id]))
+      if @install.update(install_params.merge(owner_type: 'ProjectSeasonApply', project_id: Project.movie_project.id, project_season_apply_id: install_params[:owner_id]))
         format.html { redirect_to admin_movie_school_movie_feedbacks_path(@apply), notice: '修改成功。' }
       else
         format.html { render :new }
@@ -59,7 +59,7 @@ class Admin::MovieFeedbacksController < Admin::BaseController
     end
 
     def set_project
-      @project = Project.find(ProjectSeason.movie_project_id)
+      @project = Project.find(Project.movie_project.id)
     end
 
     def set_project_apply

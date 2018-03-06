@@ -11,7 +11,7 @@ class Admin::PairSeasonsController < Admin::BaseController
   end
 
   def new
-    @season = ProjectSeason.new(project_id: ProjectSeason.pair_project_id)
+    @season = ProjectSeason.new(project_id: Project.pair_project.id)
     @season.junior_term_amount = 1050
     @season.junior_year_amount = 2100
     @season.senior_term_amount = 1050

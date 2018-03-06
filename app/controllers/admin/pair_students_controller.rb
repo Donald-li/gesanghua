@@ -23,8 +23,12 @@ class Admin::PairStudentsController < Admin::BaseController
   def create
     @apply_child = @project_apply.children.build(apply_child_params.merge(province: @project_apply.province, city: @project_apply.city, district: @project_apply.district))
     @apply_child.audits.build
-    @apply_child.attach_images(params[:image_ids])
+    # @apply_child.attach_images(params[:image_ids])
     @apply_child.attach_avatar(params[:avatar_id])
+    @apply_child.attach_id_image(params[:id_image_id])
+    @apply_child.attach_residence(params[:residence_id])
+    @apply_child.attach_poverty(params[:poverty_id])
+    @apply_child.attach_family_image(params[:family_image_id])
     respond_to do |format|
       if @apply_child.approve_pass
 
@@ -37,8 +41,13 @@ class Admin::PairStudentsController < Admin::BaseController
   end
 
   def update
-    @apply_child.attach_images(params[:image_ids])
+    # @apply_child.attach_images(params[:image_ids])
+    byebug
     @apply_child.attach_avatar(params[:avatar_id])
+    @apply_child.attach_id_image(params[:id_image_id])
+    @apply_child.attach_residence(params[:residence_id])
+    @apply_child.attach_poverty(params[:poverty_id])
+    @apply_child.attach_family_image(params[:family_image_id])
     respond_to do |format|
       if @apply_child.update(apply_child_params)
         @apply_child.count_age

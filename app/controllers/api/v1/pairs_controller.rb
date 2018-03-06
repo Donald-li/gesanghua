@@ -8,6 +8,6 @@ class Api::V1::PairsController < Api::V1::BaseController
 
   private
   def set_pair
-    @pair = Project.first
+    @pair = Project.pair_project
   end
 end

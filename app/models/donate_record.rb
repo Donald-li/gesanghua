@@ -60,6 +60,8 @@ class DonateRecord < ApplicationRecord
 
   counter_culture :project, column_name: :donate_record_amount_count, delta_magnitude: proc {|model| model.amount}
   counter_culture :user, column_name: :donate_count, delta_magnitude: proc {|model| model.amount}
+  counter_culture :promoter, column_name: proc{|model| model.promoter.present? && model.pay_state == 'paid' ? 'promoter_amount_count' : nil}, delta_magnitude: proc {|model| model.amount }
+
   # TODO: 统计用户线上和线下捐助金额
 
   validates :amount, presence: true
@@ -404,6 +406,31 @@ class DonateRecord < ApplicationRecord
       json.project self.try(:project).try(:name)
       json.certificate self.donor_certificate_path
     end.attributes!
+  end
+
+  def promoter_record_builder
+    Jbuilder.new do |json|
+      json.(self, :id)
+      json.amount number_to_currency(self.amount)
+      json.created_at "#{self.created_at.year}年#{self.created_at.month}月#{self.created_at.day}日"
+      json.user_name self.user.present? ? self.user.name : '爱心人士'
+      json.fund_name self.try(:fund).try(:name)
+      json.project_name self.try(:project).try(:name)
+      json.apply_name self.try(:apply).try(:name)
+      json.child_name self.try(:child).try(:name)
+      json.show_name self.donate_apply_name
+      json.promoter_amount_count number_to_currency(self.promoter.promoter_amount_count)
+    end.attributes!
+  end
+
+  def donate_apply_name
+    if self.apply.present?
+      self.apply.try(:name)
+    elsif self.child.present?
+      self.child.try(:name)
+    elsif self.fund.present?
+      self.fund.fund_category.try(:name)
+    end
   end
 
   private

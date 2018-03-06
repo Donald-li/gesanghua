@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180306021434) do
+ActiveRecord::Schema.define(version: 20180306121418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -206,8 +206,6 @@ ActiveRecord::Schema.define(version: 20180306021434) do
     t.datetime "start_time", comment: "预计开始时间"
     t.datetime "end_time", comment: "预计结束时间"
     t.datetime "sign_up_end_time", comment: "报名截止时间"
-    t.datetime "start_at", comment: "活动开始时间"
-    t.datetime "end_at", comment: "活动结束时间"
     t.integer "state", default: 1, comment: "状态，1：展示 2：隐藏"
     t.integer "project_id", comment: "关联项目ID"
     t.integer "campaign_category_id", comment: "活动分类ID"
@@ -216,8 +214,6 @@ ActiveRecord::Schema.define(version: 20180306021434) do
     t.datetime "sign_up_start_time", comment: "报名开始时间"
     t.integer "number", comment: "报名限制人数"
     t.string "remark", comment: "报名表备注"
-    t.integer "sign_up_state", comment: "报名状态 1:未开始报名 2:报名中 3:报名结束"
-    t.integer "campaign_state", comment: "活动状态 1:活动未开始 2:活动进行中 3:活动已结束"
     t.jsonb "form", comment: "报名表单定义"
   end
 
@@ -938,6 +934,8 @@ ActiveRecord::Schema.define(version: 20180306021434) do
     t.integer "roles_mask", comment: "角色"
     t.integer "kind", default: 2, comment: "用户类型 1:平台用户 2:线上用户 3:线下用户"
     t.integer "phone_verify", default: 1, comment: "手机认证 1:未认证 2:已认证"
+    t.decimal "promoter_amount_count", precision: 14, scale: 2, default: "0.0", comment: "累计劝捐额"
+    t.integer "use_nickname", comment: "使用昵称"
     t.index ["email"], name: "index_users_on_email"
     t.index ["login"], name: "index_users_on_login"
     t.index ["phone"], name: "index_users_on_phone"

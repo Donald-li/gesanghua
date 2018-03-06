@@ -62,6 +62,31 @@ class Volunteer < ApplicationRecord
     self.volunteer_no ||= Sequence.get_seq(kind: :volunteer_no, prefix: 'ZYZ' + time_string, length: 4)
   end
 
+  def volunteer_state
+    if self.enable?
+      if self.available?
+        '服务中'
+      else
+        '请假中'
+      end
+    else
+      '身份冻结'
+    end
+  end
+
+  def summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id)
+      json.user_nickname self.try(:user).try(:nickname)
+      json.user_phone self.try(:user).try(:phone)
+      json.user_province ChinaCity.get(self.try(:user).try(:province)).to_s
+      json.user_city ChinaCity.get(self.try(:user).try(:city)).to_s
+      json.state self.volunteer_state
+      json.practice self.practice? ? '实习中' : ''
+      json.user_avatar_src self.try(:user).try(:avatar).try(:file_url)
+    end.attributes!
+  end
+
   private
   def gen_volunteer_apply_no
     time_string = Time.now.strftime("%y%m%d")

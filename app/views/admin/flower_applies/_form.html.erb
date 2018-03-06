@@ -1,7 +1,7 @@
 <%= simple_form_for [:admin, @project_apply], url: admin_flower_applies_path, wrapper: :admin_form, html: {data: {'parsley-validate': true}, class: 'form-horizontal project_form'} do |f| %>
     <%= f.error_notification %>
     <div class="form-body">
-      <%= f.hidden_field :project_id, value: ProjectSeason.flower_project_id %>
+      <%= f.hidden_field :project_id, value: Project.care_project.id %>
       <%#= f.input :id, label: '申请编号：', autofocus: true, input_html: { data: {}} %>
       <%= f.input :school_id, as: :select, label: '申请学校：', input_html: {class: 'schools-ajax'} %>
       <%= f.input :project_season_id, as: :select, label: '申请批次：', input_html: {class: 'seasons-ajax'} %>
@@ -98,7 +98,8 @@
                 data: function (params) {
                     return {
                         q: params.term, // search term
-                        page: params.page
+                        page: params.page,
+                        project_id: <%= Project.care_project.id %>
                     };
                 },
                 processResults: function (data, params) {

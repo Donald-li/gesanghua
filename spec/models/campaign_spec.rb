@@ -9,8 +9,6 @@
 #  start_time           :datetime                               # 预计开始时间
 #  end_time             :datetime                               # 预计结束时间
 #  sign_up_end_time     :datetime                               # 报名截止时间
-#  start_at             :datetime                               # 活动开始时间
-#  end_at               :datetime                               # 活动结束时间
 #  state                :integer          default("show")       # 状态，1：展示 2：隐藏
 #  project_id           :integer                                # 关联项目ID
 #  campaign_category_id :integer                                # 活动分类ID
@@ -19,8 +17,7 @@
 #  sign_up_start_time   :datetime                               # 报名开始时间
 #  number               :integer                                # 报名限制人数
 #  remark               :string                                 # 报名表备注
-#  sign_up_state        :integer                                # 报名状态 1:未开始报名 2:报名中 3:报名结束
-#  campaign_state       :integer                                # 活动状态 1:活动未开始 2:活动进行中 3:活动已结束
+#  form                 :jsonb                                  # 报名表单定义
 #
 
 require 'rails_helper'
