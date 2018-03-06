@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180305133716) do
+ActiveRecord::Schema.define(version: 20180306022558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -407,8 +407,8 @@ ActiveRecord::Schema.define(version: 20180305133716) do
     t.text "remark"
     t.integer "operator_id", comment: "异常处理人id"
     t.string "grant_person", comment: "发放人"
-    t.integer "grant_batch_id", comment: "发放批次"
     t.integer "user_id", comment: "捐助人"
+    t.integer "grant_batch_id", comment: "发放批次"
     t.index ["gsh_child_id"], name: "index_gsh_child_grants_on_gsh_child_id"
     t.index ["project_season_apply_id"], name: "index_gsh_child_grants_on_project_season_apply_id"
   end
@@ -604,12 +604,12 @@ ActiveRecord::Schema.define(version: 20180305133716) do
     t.integer "school_id", comment: "学校ID"
     t.integer "semester", comment: "学期"
     t.integer "kind", comment: "捐助形式：1对外捐助 2内部认捐"
+    t.integer "donate_user_id", comment: "捐助人id"
+    t.string "reason", comment: "结对申请理由"
     t.string "gsh_no", comment: "格桑花孩子编号"
     t.integer "semester_count", comment: "学期数"
     t.integer "done_semester_count", comment: "已完成的学期数"
     t.integer "user_id", comment: "关联的用户ID"
-    t.integer "donate_user_id", comment: "捐助人id"
-    t.string "reason", comment: "结对申请理由"
     t.string "teacher_name", comment: "班主任"
     t.string "father", comment: "父亲"
     t.string "father_job", comment: "父亲职业"
@@ -648,8 +648,8 @@ ActiveRecord::Schema.define(version: 20180305133716) do
     t.datetime "updated_at", null: false
     t.integer "project_season_id", comment: "年度ID"
     t.integer "position", comment: "位置"
-    t.integer "grade", comment: "一对一对应年级"
-    t.integer "semester", comment: "一对一对应学期"
+    t.integer "grade", comment: "结对对应年级"
+    t.integer "semester", comment: "结对对应学期"
   end
 
   create_table "project_season_apply_volunteers", force: :cascade, comment: "项目执行年度申请和志愿者关联表" do |t|
@@ -935,6 +935,8 @@ ActiveRecord::Schema.define(version: 20180305133716) do
     t.integer "roles_mask", comment: "角色"
     t.integer "kind", default: 2, comment: "用户类型 1:平台用户 2:线上用户 3:线下用户"
     t.integer "phone_verify", default: 1, comment: "手机认证 1:未认证 2:已认证"
+    t.decimal "promoter_amount_count", precision: 14, scale: 2, default: "0.0", comment: "累计劝捐额"
+    t.integer "use_nickname", comment: "使用昵称"
     t.index ["email"], name: "index_users_on_email"
     t.index ["login"], name: "index_users_on_login"
     t.index ["phone"], name: "index_users_on_phone"
