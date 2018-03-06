@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180305133716) do
+ActiveRecord::Schema.define(version: 20180306021434) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -196,6 +196,7 @@ ActiveRecord::Schema.define(version: 20180305133716) do
     t.string "contact_phone", comment: "联系电话"
     t.integer "payment_state", default: 1, comment: "支付状态 1:已支付 2:已取消"
     t.integer "income_source_id", comment: "收入来源id"
+    t.jsonb "form", comment: "报名表单"
   end
 
   create_table "campaigns", force: :cascade, comment: "活动表" do |t|
@@ -217,6 +218,7 @@ ActiveRecord::Schema.define(version: 20180305133716) do
     t.string "remark", comment: "报名表备注"
     t.integer "sign_up_state", comment: "报名状态 1:未开始报名 2:报名中 3:报名结束"
     t.integer "campaign_state", comment: "活动状态 1:活动未开始 2:活动进行中 3:活动已结束"
+    t.jsonb "form", comment: "报名表单定义"
   end
 
   create_table "complaints", force: :cascade, comment: "举报表" do |t|
@@ -416,6 +418,7 @@ ActiveRecord::Schema.define(version: 20180305133716) do
   create_table "gsh_children", force: :cascade, comment: "格桑花孩子表" do |t|
     t.string "name", comment: "孩子姓名"
     t.integer "kind", comment: "类型"
+    t.integer "integer", comment: "类型"
     t.string "workstation", comment: "工作地点"
     t.string "province", comment: "省"
     t.string "city", comment: "市"

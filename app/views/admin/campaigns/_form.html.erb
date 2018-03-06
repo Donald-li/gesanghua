@@ -39,6 +39,26 @@
           <%= f.cktext_area :content, input_html: { data: {'parsley-required': true}}  %>
         </div>
       </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label"> 报名表单项：</label>
+        <div class="col-sm-9">
+          <div id="form" class="form-inline">
+            <% f.object.build_form if f.object.form.blank? %>
+            <% f.object.form.each_with_index do |form_item, i| %>
+                <div class="inline-group">
+                  <%= text_field_tag "campaign[form_attributes][#{i}][key]", form_item['key'], placeholder: '代码'%>
+                  <%= text_field_tag "campaign[form_attributes][#{i}][label]", form_item['label'], placeholder: '标题'%>
+                  <%= text_field_tag "campaign[form_attributes][#{i}][placeholder]", form_item['placeholder'], placeholder: '提示'%>
+                  <%= select_tag "campaign[form_attributes][#{i}][type]", options_for_select([['文本框', 'text'], ['多行文本框', 'textarea'], ['选项', 'select']], form_item['type']), placeholder: '代码'%>
+                  <%= text_field_tag "campaign[form_attributes][#{i}][options]", form_item['options'].join('|'), placeholder: '选择项，用英文|隔开' %>
+                  <label><%= check_box_tag "campaign[form_attributes][#{i}][required]", 'y', form_item['required']%>必填</label>
+                  <a href="#" class="destroy"><i class="fa fa-remove font-red-soft"></i></a>
+                </div>
+            <% end %>
+          </div>
+          <a class="btn btn-info btn-xs" href="#" id="add-form-item"><i class="fa fa-plus"></i> 添加表单项</a>
+        </div>
+      </div>
       <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Campaign.options_for_select(:states), label: '状态：' %>
       <%= f.input :remark, label: '报名表备注内容：', placeholder: '' %>
     </div>
@@ -51,6 +71,7 @@
       </div>
     </div>
 <% end %>
+
 <script>
 $(function(){
   //上传单图，活动封面
@@ -58,29 +79,9 @@ $(function(){
   //上传活动详情页banner
   initImageWebuploader($('#banner_id'));
 
-  // // 表单验证
-  // $(".campaign_form").html5Validate(function(){
-  //     $(this).find('[type="submit"]').attr('disabled','disabled');
-  //     this.submit();
-  //     },  {
-  //       validate: function() {
-  //         var start_time = document.getElementById("start_time");
-  //         var end_time = document.getElementById("end_time");
-  //         if (start_time.value > end_time.value) {
-  //             alert("活动开始时间不得晚于结束时间");
-  //             return false;
-  //         }
-  //         return true;
-  //     },  {
-  //       validate: function() {
-  //         var sign_up_start_time = document.getElementById("sign_up_start_time");
-  //         var sign_up_end_time = document.getElementById("sign_up_end_time");
-  //         if (sign_up_start_time.value > sign_up_end_time.value) {
-  //             alert("报名开始时间不得晚于结束时间");
-  //             return false;
-  //         }
-  //         return true;
-  //     }
-  // });
+  $("#form").nestedAttributes({
+    bindAddTo: $("#add-form-item")
+  });
+
 })
 </script>

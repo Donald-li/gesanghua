@@ -73,10 +73,10 @@
                 <%= campaign.name %>
               </td>
               <td>
-                <%= campaign.start_time.strftime('%Y-%m-%d') %>至<%= campaign.end_time.strftime('%Y-%m-%d') %>
+                <%= campaign.start_time.strftime('%Y-%m-%d') if campaign.start_time %>至<%= campaign.end_time.strftime('%Y-%m-%d') if campaign.end_time %>
               </td>
               <td>
-                <%= campaign.sign_up_end_time.strftime('%Y-%m-%d') %>
+                <%= campaign.sign_up_end_time.strftime('%Y-%m-%d') if campaign.sign_up_end_time %>
               </td>
               <td>
                 <%= campaign.campaign_category.try(:name) %>

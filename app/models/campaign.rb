@@ -25,6 +25,8 @@
 
 # 活动
 class Campaign < ApplicationRecord
+  attr_accessor :form_attributes
+
   belongs_to :project, optional: true
   belongs_to :campaign_category
   has_many :campaign_enlists, dependent: :destroy
@@ -42,10 +44,72 @@ class Campaign < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
+  default_value_for :form, []
+  before_save :set_form_from_attributes
+
   attr_accessor :image_id
 
   include HasAsset
   has_one_asset :image, class_name: 'Asset::CampaignImage'
   has_one_asset :banner, class_name: 'Asset::CampaignBanner'
 
+  # 给form添加一行
+  def build_form
+    form = self.form || []
+    form.push({key: '', label: '', placeholder: '', type: 'text', options: [], required: false})
+    self.form = form
+  end
+
+  # 状态
+  def summary_state_name
+   if Time.now >= self.end_time
+     '活动已结束'
+   elsif Time.now < self.start_time
+     '活动未开始'
+   else
+     '活动进行中'
+   end
+  end
+
+  def detail_state_name(user=nil)
+    if user && self.campaign_enlists.paid.exists?(user_id: user.id)
+      '已报名'
+    elsif Time.now >= self.end_time
+      '活动已结束'
+    elsif Time.now >= self.sign_up_end_time
+      '报名结束'
+    elsif self.number.to_i > 0 && self.campaign_enlists.paid.count > self.number
+      '名额已满'
+    elsif Time.now < self.sign_up_start_time
+      '未开始报名'
+    else
+      '立即报名'
+    end
+  end
+
+  def summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :name, :price, :start_time, :end_time, :sign_up_end_time, :campaign_state, :sign_up_state)
+      json.state_name self.summary_state_name
+      json.image self.image_url(:tiny)
+      json.banner self.banner_url(:tiny)
+    end.attributes!
+  end
+
+  def detail_builder(user=nil)
+    Jbuilder.new do |json|
+      json.merge! self.summary_builder
+      json.number self.number.to_i
+      json.enlist_count self.campaign_enlists.paid.count
+      json.form self.form
+      json.content self.content
+      json.state_name self.detail_state_name(user)
+    end.attributes!
+  end
+
+  private
+  def set_form_from_attributes
+    return unless self.form_attributes.present?
+    self.form = self.form_attributes.values.map{|item| item['options'] = item['options'].to_s.split('|') || []; item}
+  end
 end

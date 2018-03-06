@@ -64,6 +64,12 @@
       resources :grant_reports, only: :index
       resources :visit_reports, only: :index
       resources :projects, only: :show
+      resources :campaigns, only: [:index, :show] do
+        member do
+          post :apply
+          get :success
+        end
+      end
       resources :pair_children, only: :show do
         collection do
           post :complaint
