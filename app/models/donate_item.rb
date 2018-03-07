@@ -29,8 +29,9 @@ class DonateItem < ApplicationRecord
 
   def summary_builder
     Jbuilder.new do |json|
-      json.name self.name
+      json.(self, :name)
       json.value self.id
+      json.project_name self.project.try(:alias)
       if self.amount_tabs.present?
         json.amount_tabs self.amount_tabs.show.sorted.map {|t| t.summary_builder}
       else
