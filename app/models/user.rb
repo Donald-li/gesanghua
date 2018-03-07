@@ -35,6 +35,7 @@
 #  phone_verify          :integer          default("phone_unverified") # 手机认证 1:未认证 2:已认证
 #  promoter_amount_count :decimal(14, 2)   default(0.0)                # 累计劝捐额
 #  use_nickname          :integer                                      # 使用昵称
+#  join_team_time        :datetime                                     # 加入团队时间
 #
 
 # 用户
@@ -260,12 +261,13 @@ class User < ApplicationRecord
       json.donate_count self.donate_count
       json.promoter_count self.promoter_amount_count
       json.role_tag self.role_tag
+      json.join_team_time self.join_team_time.strftime("%Y-%m-%d") if self.join_team_time.present?
     end.attributes!
   end
 
   def detail_builder
     Jbuilder.new do |json|
-      json.(self, :id, :nickname)
+      json.(self, :id, :nickname, :team_id)
       json.login_name self.login
       json.avatar self.avatar
       json.name self.name
@@ -276,7 +278,7 @@ class User < ApplicationRecord
       json.location [self.province, self.city, self.district]
       json.address self.address
       json.phone self.phone
-      json.team_mode self.team.present?
+      json.has_team self.team.present?
       json.avatar_image  do
         json.id self.try(:avatar).try(:id)
         json.url self.try(:avatar).try(:file_url)

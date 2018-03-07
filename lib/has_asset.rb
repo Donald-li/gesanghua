@@ -12,7 +12,7 @@ module HasAsset
       define_method("#{key}_url") do |version|
         if self.try(key).try(:file).present?
           if version
-            self.try(key).try(:file).try(version)
+            self.try(key).try(:file).try(:url, version)
           else
             self.try(key).try(:file).try(:url)
           end

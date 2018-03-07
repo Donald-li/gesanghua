@@ -23,8 +23,19 @@ namespace :api do
           get :get_user_details
           get :get_user_promoter_record
           post :update_user
+          get :has_team
         end
       end
+
+      resources :teams do
+        collection do
+          get :team_info
+          get :member
+          get :donate_records
+        end
+      end
+
+      resources :my_reads
     end
 
     namespace :gsh_plus do
@@ -53,6 +64,24 @@ namespace :api do
       collection do
         get :authorize
         post :callback
+      end
+    end
+
+    resources :project_reports, only: :index
+    resources :grant_reports, only: :index
+    resources :visit_reports, only: :index
+    resources :projects, only: :show
+    resources :campaigns, only: [:index, :show] do
+      member do
+        post :apply
+        get :success
+      end
+    end
+    resources :pair_children, only: :show do
+      collection do
+        post :complaint
+        get :contribute
+        post :settlement
       end
     end
 
@@ -145,8 +174,6 @@ namespace :api do
         get :child_grants
       end
     end
-
-    resources :activities
 
     resources :home_visits do
       collection do

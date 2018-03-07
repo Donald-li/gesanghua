@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Api::V1::Team", type: :request do
 
   let!(:login_user) { create(:user) }
-  let!(:team) { create(:team, creater: login_user) }
+  let!(:team) { create(:team, creater: login_user, manager: login_user) }
   let!(:team_user) { create(:user, team: team) }
 
   describe '捐助团队' do

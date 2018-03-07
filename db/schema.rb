@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180306022558) do
+ActiveRecord::Schema.define(version: 20180306121418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -196,6 +196,7 @@ ActiveRecord::Schema.define(version: 20180306022558) do
     t.string "contact_phone", comment: "联系电话"
     t.integer "payment_state", default: 1, comment: "支付状态 1:已支付 2:已取消"
     t.integer "income_source_id", comment: "收入来源id"
+    t.jsonb "form", comment: "报名表单"
   end
 
   create_table "campaigns", force: :cascade, comment: "活动表" do |t|
@@ -205,8 +206,6 @@ ActiveRecord::Schema.define(version: 20180306022558) do
     t.datetime "start_time", comment: "预计开始时间"
     t.datetime "end_time", comment: "预计结束时间"
     t.datetime "sign_up_end_time", comment: "报名截止时间"
-    t.datetime "start_at", comment: "活动开始时间"
-    t.datetime "end_at", comment: "活动结束时间"
     t.integer "state", default: 1, comment: "状态，1：展示 2：隐藏"
     t.integer "project_id", comment: "关联项目ID"
     t.integer "campaign_category_id", comment: "活动分类ID"
@@ -215,8 +214,7 @@ ActiveRecord::Schema.define(version: 20180306022558) do
     t.datetime "sign_up_start_time", comment: "报名开始时间"
     t.integer "number", comment: "报名限制人数"
     t.string "remark", comment: "报名表备注"
-    t.integer "sign_up_state", comment: "报名状态 1:未开始报名 2:报名中 3:报名结束"
-    t.integer "campaign_state", comment: "活动状态 1:活动未开始 2:活动进行中 3:活动已结束"
+    t.jsonb "form", comment: "报名表单定义"
   end
 
   create_table "complaints", force: :cascade, comment: "举报表" do |t|
@@ -648,8 +646,8 @@ ActiveRecord::Schema.define(version: 20180306022558) do
     t.datetime "updated_at", null: false
     t.integer "project_season_id", comment: "年度ID"
     t.integer "position", comment: "位置"
-    t.integer "grade", comment: "结对对应年级"
-    t.integer "semester", comment: "结对对应学期"
+    t.integer "grade", comment: "一对一对应年级"
+    t.integer "semester", comment: "一对一对应学期"
   end
 
   create_table "project_season_apply_volunteers", force: :cascade, comment: "项目执行年度申请和志愿者关联表" do |t|
@@ -726,7 +724,7 @@ ActiveRecord::Schema.define(version: 20180306022558) do
     t.string "name", comment: "学校名称"
     t.string "address", comment: "地址"
     t.integer "approve_state", default: 1, comment: "审核状态：1:待审核 2:通过 3:不通过"
-    t.string "approve_remark", comment: "审核备注"
+    t.text "approve_remark", comment: "审核备注"
     t.string "province", comment: "省"
     t.string "city", comment: "市"
     t.string "district", comment: "区/县"
@@ -902,6 +900,14 @@ ActiveRecord::Schema.define(version: 20180306022558) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "team_no", comment: "团队编号"
+    t.integer "kind", comment: "分类：社会（society）高校（college）"
+    t.string "province", comment: "省"
+    t.string "city", comment: "市"
+    t.string "district", comment: "区县"
+    t.string "address", comment: "详细地址"
+    t.text "describe", comment: "简介"
+    t.string "school_name", comment: "高校名称"
+    t.integer "manage_id", comment: "负责人"
   end
 
   create_table "users", force: :cascade, comment: "用户" do |t|
@@ -937,6 +943,7 @@ ActiveRecord::Schema.define(version: 20180306022558) do
     t.integer "phone_verify", default: 1, comment: "手机认证 1:未认证 2:已认证"
     t.decimal "promoter_amount_count", precision: 14, scale: 2, default: "0.0", comment: "累计劝捐额"
     t.integer "use_nickname", comment: "使用昵称"
+    t.datetime "join_team_time", comment: "加入团队时间"
     t.index ["email"], name: "index_users_on_email"
     t.index ["login"], name: "index_users_on_login"
     t.index ["phone"], name: "index_users_on_phone"

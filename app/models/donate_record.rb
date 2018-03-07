@@ -384,6 +384,7 @@ class DonateRecord < ApplicationRecord
       json.time self.created_at.strftime('%Y-%m-%d %H:%M:%S')
       json.amount number_to_currency(self.amount)
       json.item_name self.appoint.present? ? self.appoint.name : ''
+      json.by_team self.team.present?
       json.team self.team.present? ? self.team.name : ''
       json.project self.try(:project).try(:name)
       json.user_name self.try(:user).try(:name)

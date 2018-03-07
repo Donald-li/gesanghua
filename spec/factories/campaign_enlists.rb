@@ -14,6 +14,7 @@
 #  contact_phone    :string                                 # 联系电话
 #  payment_state    :integer          default("paid")       # 支付状态 1:已支付 2:已取消
 #  income_source_id :integer                                # 收入来源id
+#  form             :jsonb                                  # 报名表单
 #
 
 FactoryBot.define do

@@ -445,3 +445,6 @@ zh:
   amount_tab_states:
     show: '显示'
     hidden: '隐藏'
+  team_kinds:
+    society: '社会团队'
+    college: '高校团队'

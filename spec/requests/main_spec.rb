@@ -5,7 +5,7 @@ RSpec.describe "Api::V1::Main", type: :request do
   let!(:fund_category) { create(:fund_category, name: '格桑花') }
   let!(:fund) { create(:fund, name: '格桑花非指定', fund_category: fund_category) }
   let!(:login_user) { create(:user) }
-  let!(:team) { create(:team, creater: login_user) }
+  let!(:team) { create(:team, creater: login_user, manager: login_user) }
   let!(:team_user) { create(:user, team: team) }
   let!(:banner) { create(:advert) }
   let!(:promoter) { create(:user) }

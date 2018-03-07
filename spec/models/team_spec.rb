@@ -11,6 +11,14 @@
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
 #  team_no               :string                                 # 团队编号
+#  kind                  :integer                                # 分类：社会（society）高校（college）
+#  province              :string                                 # 省
+#  city                  :string                                 # 市
+#  district              :string                                 # 区县
+#  address               :string                                 # 详细地址
+#  describe              :text                                   # 简介
+#  school_name           :string                                 # 高校名称
+#  manage_id             :integer                                # 负责人
 #
 
 require 'rails_helper'

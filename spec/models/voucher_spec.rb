@@ -29,7 +29,7 @@ RSpec.describe Voucher, type: :model do
     @user2 = create(:user)
     @project = create(:project)
     @school = create(:school)
-    @team = create(:team, creater_id: @user.id)
+    @team = create(:team, creater_id: @user.id, manage_id: @user.id)
     @project_season = create(:project_season, project_id: @project.id)
     @project_season_apply = create(:project_season_apply, project_id: @project.id, project_season_id: @project_season.id)
     @project_season_apply_child = create(:project_season_apply_child, project_id: @project.id, project_season_id: @project_season.id, project_season_apply_id: @project_season_apply.id, school_id: @school.id)
