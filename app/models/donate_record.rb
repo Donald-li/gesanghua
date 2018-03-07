@@ -165,11 +165,19 @@ class DonateRecord < ApplicationRecord
   end
 
   # 捐定向
-  def self.donate_project(user = nil, amount = 0.0, project = nil, promoter = nil)
+  def self.donate_project(user = nil, amount = 0.0, project = nil, promoter = nil, item = nil)
     return false unless user.present?
     return false unless project.present?
     fund = project.fund
     donate = user.donates.build(amount: amount, fund: fund, promoter: promoter, pay_state: 'unpay', project: project, title: '捐助定向')
+    donate.team_id = user.team_id
+    appoint = project.children.find(item) if project.id == 1 # 孩子
+    appoint = project.bookshelves.find(item) if project.id == 2 # 书架
+    if appoint.present?
+      donate.appoint = appoint
+      donate.apply = appoint.apply
+      donate.season = appoint.season
+    end
     donate.save
     return donate
   end
@@ -387,7 +395,6 @@ class DonateRecord < ApplicationRecord
       json.by_team self.team.present?
       json.team self.team.present? ? self.team.name : ''
       json.project self.try(:project).try(:name)
-      json.user_name self.try(:user).try(:name)
       json.donate_name self.try(:donate_item).try(:name) || self.try(:project).try(:name)
       json.apply_name self.try(:apply).try(:name)
       json.project_image self.try(:project).try(:project_image).to_s

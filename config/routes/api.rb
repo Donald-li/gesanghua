@@ -91,6 +91,8 @@ namespace :api do
       end
     end
 
+    resources :applies, only: [:index, :show]
+
     resource :pair, only: [:show]
     resources :children do
       collection do
@@ -143,6 +145,12 @@ namespace :api do
         get :certificate
       end
     end
+
+    # 收货&安装反馈接口
+    resources :feedbacks, only: [:index]
+
+    # 捐助接口
+    resources :donation, only: [:create]
 
     resources :offline_donors, only: [] do
       collection do
