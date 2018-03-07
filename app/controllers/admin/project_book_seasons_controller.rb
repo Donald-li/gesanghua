@@ -3,7 +3,7 @@ class Admin::ProjectBookSeasonsController < Admin::BaseController
   before_action :set_project
 
   def index
-    @search = ProjectSeason.book.sorted.ransack(params[:q])
+    @search = ProjectSeason.read.sorted.ransack(params[:q])
     scope = @search.result
     @seasons = scope.page(params[:page])
   end

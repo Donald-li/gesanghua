@@ -227,6 +227,30 @@ class ProjectSeasonApply < ApplicationRecord
     end.attributes!
   end
 
+
+  # 悦读申请摘要
+  def read_apply_summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :name, :apply_no)
+      json.last_amount self.target_amount - self.present_amount
+      json.total_count self.bookshelves.pass.count
+      json.done_count self.bookshelves.pass.complete.count
+      json.cover_mode self.cover_image.present?
+      json.cover_url self.cover_image_url(:small).to_s
+    end.attributes!
+  end
+
+  # 悦读申请详情
+  def read_apply_detail_builder
+    Jbuilder.new do |json|
+      json.merge! read_apply_summary_builder
+      json.(self, :project_describe)
+      json.season_name self.season.name
+      json.donate_items self.bookshelves.map{|b| b.summary_builder}
+    end.attributes!
+  end
+
+
   def detail_builder
     Jbuilder.new do |json|
       json.(self, :id, :name, :apply_no, :number, :describe)

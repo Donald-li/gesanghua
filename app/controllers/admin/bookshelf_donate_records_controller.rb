@@ -48,7 +48,7 @@ class Admin::BookshelfDonateRecordsController < Admin::BaseController
   end
 
   def set_project
-    @project = Project.find(Project.book_project.id)
+    @project = Project.find(Project.read_project.id)
   end
 
   def set_bookshelf

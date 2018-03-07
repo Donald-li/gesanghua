@@ -57,7 +57,7 @@ class Project < ApplicationRecord
     self.find 1
   end
 
-  def self.book_project
+  def self.read_project
     self.find 2
   end
 

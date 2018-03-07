@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :book_project do
+  factory :read_project do
     
   end
 end

@@ -64,6 +64,10 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
+  def name
+    self.classname
+  end
+
   def can_gen_bookshelf_no?
     self.complete?
   end
@@ -96,6 +100,18 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
       json.apply_name self.apply.name
       json.title self.show_title
       json.image self.try(:image).try(:file_url)
+    end.attributes!
+  end
+
+  def summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :classname, :title, :bookshelf_no, :target_amount, :present_amount, :state)
+    end.attributes!
+  end
+
+  def detail_builder
+    Jbuilder.new do |json|
+      json.merge! summary_builder
     end.attributes!
   end
 

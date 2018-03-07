@@ -37,7 +37,7 @@ fc4.funds.create(name: "合肥营", management_rate: 10, describe: '格桑花合
 # 项目模板一级分类
 content = '用户协议'
 Project.find_or_create_by(name: '一对一', alias: 'pair', protocol: content, describe: '项目介绍', kind: :fixed, fund: fc1.funds.unrestricted.first, appoint_fund: fc1.funds.restricted.first)
-Project.find_or_create_by(name: '悦读', alias: 'book', protocol: content, describe: '项目介绍', kind: :fixed, fund: fc2.funds.unrestricted.first, appoint_fund: fc2.funds.restricted.first)
+Project.find_or_create_by(name: '悦读', alias: 'read', protocol: content, describe: '项目介绍', kind: :fixed, fund: fc2.funds.unrestricted.first, appoint_fund: fc2.funds.restricted.first)
 Project.find_or_create_by(name: '探索营', alias: 'camp', protocol: content, describe: '项目介绍', kind: :fixed, fund: fc4.funds.unrestricted.first, appoint_fund: fc4.funds.restricted.first)
 Project.find_or_create_by(name: '观影', alias: 'movie', protocol: content, describe: '项目介绍', kind: :apply, fund: nil, appoint_fund: nil)
 Project.find_or_create_by(name: '护花课程', alias: 'movie_care', protocol: content, describe: '项目介绍', kind: :apply, fund: nil, appoint_fund: nil)
@@ -51,7 +51,7 @@ IncomeSource.find_or_create_by(name: '线下汇款', description: '线下汇款'
 # 捐助项
 DonateItem.find_or_create_by(name: '格桑花', describe: '不限制使用途径', fund: Fund.gsh, state: :show)
 DonateItem.find_or_create_by(name: '一对一', describe: '用于一对一助学项目', fund: Project.pair_project.fund, state: :show)
-DonateItem.find_or_create_by(name: '悦读', describe: '用于图书角建设', fund: Project.book_project.fund, state: :show)
+DonateItem.find_or_create_by(name: '悦读', describe: '用于图书角建设', fund: Project.read_project.fund, state: :show)
 DonateItem.find_or_create_by(name: '探索营', describe: '用于探索营相关项目', fund: Project.camp_project.fund, state: :show)
 DonateItem.find_or_create_by(name: '护花', describe: '用于护花包购买', fund: Fund.find(14), state: :show)
 DonateItem.find_or_create_by(name: '广播', describe: '用于广播设备购买', fund: Fund.find(12), state: :show)

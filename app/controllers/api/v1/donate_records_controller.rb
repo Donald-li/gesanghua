@@ -3,9 +3,9 @@ class Api::V1::DonateRecordsController < Api::V1::BaseController
 
   def index
     if params[:type] == 'child'
-      donate_records = DonateRecord.where(project_season_apply_child_id: params[:item_id]).sorted.page(params[:page]).per(7)
-    # elsif params[:type] == 'project' ?
-    #   donate_records = DonateRecord.where(project_id: params[:item_id]).sorted.page(params[:page]).per(7)
+      donate_records = DonateRecord.where(project_season_apply_child_id: params[:item_id]).paid.sorted.page(params[:page]).per(7)
+    elsif params[:type] == 'read'
+      donate_records = DonateRecord.where(project_season_apply_id: params[:item_id]).paid.sorted.page(params[:page]).per(7)
     else
       donate_records = DonateRecord.sorted.page(params[:page]).per(7)
     end

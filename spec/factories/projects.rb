@@ -25,7 +25,7 @@ FactoryBot.define do
     describe '一对一一对一项目'
     protocol '用户协议'
 
-    trait :book do
+    trait :read do
       name '悦读'
       describe '悦读项目'
     end
