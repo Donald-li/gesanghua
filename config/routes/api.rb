@@ -119,6 +119,9 @@ namespace :api do
       end
     end
 
+    resources :receive_feedbacks, only: [:create]
+    resources :install_feedbacks, only: [:create]
+
     resources :project_reports, only: :index
     resources :grant_reports, only: :index
     resources :visit_reports, only: :index

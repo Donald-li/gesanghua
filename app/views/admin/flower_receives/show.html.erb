@@ -54,7 +54,10 @@
             反馈内容
           </th>
           <th>
-            <%= @receive.content.html_safe %>
+            <%= @receive.content.html_safe %> <br>
+            <% @receive.images.each do |image| %>
+              <%= image_tag image.try(:file).try(:url, :tiny) %>
+            <% end %>
           </th>
         </tr>
         </tbody>
