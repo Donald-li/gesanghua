@@ -27,5 +27,6 @@ FactoryBot.define do
     member_count '10'
     current_donate_amount '11.11'
     total_donate_amount '66.55'
+    kind 1
   end
 end

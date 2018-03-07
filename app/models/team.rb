@@ -24,7 +24,7 @@
 # 团队
 class Team < ApplicationRecord
   belongs_to :creater, class_name: 'User', foreign_key: 'creater_id'
-  belongs_to :manager, class_name: 'User', foreign_key: 'manage_id'
+  belongs_to :manager, class_name: 'User', foreign_key: 'manage_id', optional: true
 
   has_many :users
   has_many :donate_records
