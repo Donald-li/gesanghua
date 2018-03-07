@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180306022558) do
+ActiveRecord::Schema.define(version: 20180306105020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -321,15 +321,15 @@ ActiveRecord::Schema.define(version: 20180306022558) do
     t.text "content", comment: "内容"
     t.string "owner_type"
     t.integer "owner_id"
-    t.integer "type", comment: "类型：receive、install、continual"
+    t.string "type", comment: "类型：receive、install、continual"
     t.integer "state", comment: "状态"
     t.integer "approve_state", comment: "审核状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "kind", comment: "反馈类型"
-    t.integer "user_id", comment: "反馈人"
     t.integer "check", comment: "查看 1: 未查看 2: 已查看"
     t.integer "recommend", comment: "推荐 1: 正常 2: 推荐"
+    t.integer "user_id", comment: "反馈人"
     t.integer "project_id", comment: "项目id"
     t.integer "project_season_id", comment: "批次id"
     t.integer "project_season_apply_id", comment: "申请id"
@@ -534,13 +534,13 @@ ActiveRecord::Schema.define(version: 20180306022558) do
     t.datetime "updated_at", null: false
     t.string "name", comment: "名称"
     t.integer "number", comment: "配额"
+    t.string "apply_no", comment: "项目申请编号"
     t.integer "bookshelf_type", comment: "悦读项目申请类型"
     t.string "contact_name", comment: "联系人姓名"
     t.string "contact_phone", comment: "联系人电话"
     t.integer "audit_state", comment: "审核状态"
     t.string "abstract", comment: "简述"
     t.string "address", comment: "详细地址"
-    t.string "apply_no", comment: "项目申请编号"
     t.integer "girl_number", comment: "申请女生人数"
     t.integer "boy_number", comment: "申请男生人数"
     t.string "consignee", comment: "收货人"
@@ -604,8 +604,8 @@ ActiveRecord::Schema.define(version: 20180306022558) do
     t.integer "school_id", comment: "学校ID"
     t.integer "semester", comment: "学期"
     t.integer "kind", comment: "捐助形式：1对外捐助 2内部认捐"
-    t.string "reason", comment: "结对申请理由"
     t.integer "donate_user_id", comment: "捐助人id"
+    t.string "reason", comment: "结对申请理由"
     t.string "gsh_no", comment: "格桑花孩子编号"
     t.integer "semester_count", comment: "学期数"
     t.integer "done_semester_count", comment: "已完成的学期数"
@@ -648,8 +648,8 @@ ActiveRecord::Schema.define(version: 20180306022558) do
     t.datetime "updated_at", null: false
     t.integer "project_season_id", comment: "年度ID"
     t.integer "position", comment: "位置"
-    t.integer "grade", comment: "结对对应年级"
-    t.integer "semester", comment: "结对对应学期"
+    t.integer "grade", comment: "一对一对应年级"
+    t.integer "semester", comment: "一对一对应学期"
   end
 
   create_table "project_season_apply_volunteers", force: :cascade, comment: "项目执行年度申请和志愿者关联表" do |t|
@@ -726,7 +726,7 @@ ActiveRecord::Schema.define(version: 20180306022558) do
     t.string "name", comment: "学校名称"
     t.string "address", comment: "地址"
     t.integer "approve_state", default: 1, comment: "审核状态：1:待审核 2:通过 3:不通过"
-    t.string "approve_remark", comment: "审核备注"
+    t.text "approve_remark", comment: "审核备注"
     t.string "province", comment: "省"
     t.string "city", comment: "市"
     t.string "district", comment: "区/县"
@@ -902,6 +902,14 @@ ActiveRecord::Schema.define(version: 20180306022558) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "team_no", comment: "团队编号"
+    t.integer "kind", comment: "分类：社会（society）高校（college）"
+    t.string "province", comment: "省"
+    t.string "city", comment: "市"
+    t.string "district", comment: "区县"
+    t.string "address", comment: "详细地址"
+    t.text "describe", comment: "简介"
+    t.string "school_name", comment: "高校名称"
+    t.integer "manage_id", comment: "负责人"
   end
 
   create_table "users", force: :cascade, comment: "用户" do |t|
@@ -937,6 +945,7 @@ ActiveRecord::Schema.define(version: 20180306022558) do
     t.integer "phone_verify", default: 1, comment: "手机认证 1:未认证 2:已认证"
     t.decimal "promoter_amount_count", precision: 14, scale: 2, default: "0.0", comment: "累计劝捐额"
     t.integer "use_nickname", comment: "使用昵称"
+    t.datetime "join_team_time", comment: "加入团队时间"
     t.index ["email"], name: "index_users_on_email"
     t.index ["login"], name: "index_users_on_login"
     t.index ["phone"], name: "index_users_on_phone"

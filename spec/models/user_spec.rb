@@ -35,6 +35,7 @@
 #  phone_verify          :integer          default("phone_unverified") # 手机认证 1:未认证 2:已认证
 #  promoter_amount_count :decimal(14, 2)   default(0.0)                # 累计劝捐额
 #  use_nickname          :integer                                      # 使用昵称
+#  join_team_time        :datetime                                     # 加入团队时间
 #
 
 require 'rails_helper'

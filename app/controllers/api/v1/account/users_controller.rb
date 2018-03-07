@@ -46,4 +46,10 @@ class Api::V1::Account::UsersController < Api::V1::BaseController
     @promoter_records = DonateRecord.where(promoter_id: user.id, pay_state: 'paid')
     api_success(data: {promoter_records: @promoter_records.map{|promoter_record| promoter_record.promoter_record_builder}, user: user.summary_builder})
   end
+
+  def has_team
+    user = current_user
+    api_success(data: user.detail_builder)
+  end
+
 end

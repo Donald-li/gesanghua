@@ -23,6 +23,15 @@ namespace :api do
           get :get_user_details
           get :get_user_promoter_record
           post :update_user
+          get :has_team
+        end
+      end
+
+      resources :teams do
+        collection do
+          get :team_info
+          get :member
+          get :donate_records
         end
       end
     end
