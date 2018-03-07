@@ -171,8 +171,8 @@ class DonateRecord < ApplicationRecord
     fund = project.fund
     donate = user.donates.build(amount: amount, fund: fund, promoter: promoter, pay_state: 'unpay', project: project, title: '捐助定向')
     donate.team_id = user.team_id
-    appoint = project.children.find(item) if project.id == 1 # 孩子
-    appoint = project.bookshelves.find(item) if project.id == 2 # 书架
+    appoint = project.children.find(item) if item.present? && project.id == 1 # 孩子
+    appoint = project.bookshelves.find(item) if item.present? && project.id == 2 # 书架
     if appoint.present?
       donate.appoint = appoint
       donate.apply = appoint.apply
