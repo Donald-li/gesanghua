@@ -54,11 +54,13 @@ namespace :api do
     end
 
     resource :main, only: [:show] do
-      get :contribute
       post :settlement
       post :month_contribute
       get :banners
     end
+
+    # 捐助项
+    resources :donate_items, only: [:index]
 
     resource :wechat do
       collection do

@@ -8,11 +8,6 @@ class Api::V1::MainsController < Api::V1::BaseController
     api_success(data: @banners.map {|banner| banner.summary_builder})
   end
 
-  def contribute
-    @donate_items = DonateItem.show.sorted
-    api_success(data: @donate_items.map{|donate_item| donate_item.summary_builder})
-  end
-
   def settlement
     amount = params[:amount].to_f
     promoter = User.find(params[:promoter_id]) if params[:promoter_id].present?
