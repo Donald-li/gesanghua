@@ -41,6 +41,7 @@
     </div>
   </div>
   <%= f.input :donate_item_id, collection: DonateItem.show.sorted, label: '捐助项：', prompt: "请选择捐助项", hint: '可关联捐助项', input_html: {} %>
+  <% if @project.goods? %>
   <div class="form-group">
     <label class="col-md-2 control-label"> 自定义表单：</label>
     <div class="col-sm-9">
@@ -62,6 +63,7 @@
     </div>
   </div>
 </div>
+<% end %>
 
 <div class="form-actions">
   <div class="row">

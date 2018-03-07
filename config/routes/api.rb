@@ -34,6 +34,8 @@ namespace :api do
           get :donate_records
         end
       end
+
+      resources :my_reads
     end
 
     namespace :gsh_plus do
@@ -62,6 +64,24 @@ namespace :api do
       collection do
         get :authorize
         post :callback
+      end
+    end
+
+    resources :project_reports, only: :index
+    resources :grant_reports, only: :index
+    resources :visit_reports, only: :index
+    resources :projects, only: :show
+    resources :campaigns, only: [:index, :show] do
+      member do
+        post :apply
+        get :success
+      end
+    end
+    resources :pair_children, only: :show do
+      collection do
+        post :complaint
+        get :contribute
+        post :settlement
       end
     end
 
@@ -128,7 +148,10 @@ namespace :api do
       collection do
         get :donor_list
         get :get_current_user
+        get :get_donor_info
         post :delete_donor
+        post :create_donor
+        post :update_donor
       end
     end
 
@@ -200,6 +223,12 @@ namespace :api do
     namespace :staff do
       resources :grant_batches, only: [:index, :show] do
         resources :grants, only: [:index, :show, :update]
+      end
+
+      resources :staffs, only: [:index] do
+        collection do
+          get :volunteer_list
+        end
       end
     end
 

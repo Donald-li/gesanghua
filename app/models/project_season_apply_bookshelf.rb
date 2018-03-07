@@ -27,6 +27,11 @@
 # 项目年度图书角申请
 class ProjectSeasonApplyBookshelf < ApplicationRecord
 
+  attr_accessor :image_id
+
+  include HasAsset
+  has_one_asset :image, class_name: 'Asset::BookshelfImage'
+
   before_save :gen_bookshelf_no, if: :can_gen_bookshelf_no?
 
   belongs_to :project, optional: true
@@ -75,6 +80,23 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
 
   def self.district_group(city)
     School.where(id: self.show.pluck(:school_id), city: city).group_by {|item| item.district}.keys.map {|key| {value: key, name: ChinaCity.get(key)}}
+  end
+
+  def show_title
+    if self.title.present?
+      return self.title
+    else
+      return self.classname
+    end
+  end
+
+  def summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :classname, :bookshelf_no, :book_number)
+      json.apply_name self.apply.name
+      json.title self.show_title
+      json.image self.try(:image).try(:file_url)
+    end.attributes!
   end
 
   private
