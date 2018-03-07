@@ -53,6 +53,20 @@ class Team < ApplicationRecord
     end.attributes!
   end
 
+  def detail_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :name, :address, :describe)
+      json.logo_mode self.logo.present?
+      json.logo_url self.logo_url(:small).to_s
+      json.logo do
+        json.id self.try(:logo).try(:id)
+        json.url self.try(:logo).try(:file_url)
+        json.protect_token ''
+      end
+      json.location [self.province, self.city, self.district]
+    end.attributes!
+  end
+
   def user_status(user_id)
     if self.users.pluck(:id).include?(user_id)
       if self.manage_id == user_id

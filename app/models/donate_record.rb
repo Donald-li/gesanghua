@@ -61,6 +61,8 @@ class DonateRecord < ApplicationRecord
   counter_culture :project, column_name: :donate_record_amount_count, delta_magnitude: proc {|model| model.amount}
   counter_culture :user, column_name: :donate_count, delta_magnitude: proc {|model| model.amount}
   counter_culture :promoter, column_name: proc{|model| model.promoter.present? && model.pay_state == 'paid' ? 'promoter_amount_count' : nil}, delta_magnitude: proc {|model| model.amount }
+  counter_culture :team, column_name: proc{|model| model.team.present? && model.pay_state == 'paid' ? 'total_donate_amount' : nil}, delta_magnitude: proc {|model| model.amount }
+  counter_culture :team, column_name: proc{|model| model.team.present? && model.pay_state == 'paid' ? 'current_donate_amount' : nil}, delta_magnitude: proc {|model| model.amount }
 
   # TODO: 统计用户线上和线下捐助金额
 
@@ -385,7 +387,7 @@ class DonateRecord < ApplicationRecord
       json.amount number_to_currency(self.amount)
       json.item_name self.appoint.present? ? self.appoint.name : ''
       json.by_team self.team.present?
-      json.team self.team.present? ? self.team.name : ''
+      json.team_name self.team.present? ? self.team.name : ''
       json.project self.try(:project).try(:name)
       json.user_name self.try(:user).try(:name)
       json.donate_name self.try(:donate_item).try(:name) || self.try(:project).try(:name)

@@ -32,6 +32,10 @@ namespace :api do
           get :team_info
           get :member
           get :donate_records
+          post :turn_team
+          get :dismiss
+          post :join_team
+          post :exit_team
         end
       end
 
