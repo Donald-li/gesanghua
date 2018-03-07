@@ -54,7 +54,6 @@ namespace :api do
     end
 
     resource :main, only: [:show] do
-      post :settlement
       post :month_contribute
       get :banners
     end
@@ -155,7 +154,12 @@ namespace :api do
     resources :feedbacks, only: [:index]
 
     # 捐助接口
-    resources :donation, only: [:create]
+    resource :donate, only: [] do
+      collection do
+        post :project
+        post :gsh
+      end
+    end
 
     resources :offline_donors, only: [] do
       collection do
