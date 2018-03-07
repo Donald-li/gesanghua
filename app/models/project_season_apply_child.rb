@@ -322,6 +322,13 @@ class ProjectSeasonApplyChild < ApplicationRecord
     end.attributes!
   end
 
+  def pair_visit_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :name, :age)
+      json.id_card self.secure_id_card
+    end.attributes!
+  end
+
   def donate_children_builder
     Jbuilder.new do |json|
       json.(self, :id, :name)
