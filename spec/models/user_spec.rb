@@ -111,7 +111,7 @@ RSpec.describe User, type: :model do
 
   it '测试用户捐给悦读项目' do
     amount = 313213
-    project = Project.book_project
+    project = Project.read_project
     user.donate_project(amount, project)
 
     donate = DonateRecord.last
@@ -141,7 +141,7 @@ RSpec.describe User, type: :model do
   end
 
   it '测试悦读项目整捐' do
-    project = Project.book_project
+    project = Project.read_project
     season = create(:project_season, project: project)
     apply = create(:project_season_apply, project: project, season: season, teacher: teacher, school: school)
     bookshelf = create(:project_season_apply_bookshelf, project: project, season: season, apply: apply, school: school, target_amount: 1000)

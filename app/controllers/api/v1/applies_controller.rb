@@ -3,7 +3,7 @@ class Api::V1::AppliesController < Api::V1::BaseController
   before_action :set_apply, only: [:show]
 
   def index
-    @book_applies = ProjectSeasonApply.where(project: Project.book_project).pass.show.sorted
+    @book_applies = ProjectSeasonApply.where(project: Project.read_project).pass.show.sorted
     @book_applies = @book_applies.where(school_city: params[:city]) if params[:city].present?
     @book_applies = @book_applies.where(school_district: params[:district]) if params[:district].present?
     @book_applies = @book_applies.page(params[:page]).per(params[:per])

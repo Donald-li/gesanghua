@@ -31,7 +31,7 @@ class ProjectSeason < ApplicationRecord
 
   scope :sorted, -> { order(created_at: :desc)}
   scope :pair, -> { where(project_id: Project.pair_project.id) } # 一对一
-  scope :book, -> { where(project_id: Project.book_project.id) } # 悦读
+  scope :read, -> { where(project_id: Project.read_project.id) } # 悦读
   scope :movie, -> { where(project_id: Project.movie_project.id) } # 观影
   scope :camp, -> { where(project_id: Project.camp_project.id) } # 探索营
   scope :radio, -> { where(project_id: Project.radio_project.id) } # 广播

@@ -221,7 +221,7 @@ class DonateRecord < ApplicationRecord
     return false unless user.present?
     return false unless bookshelf.present?
     return false if bookshelf.present_amount > 0
-    project = Project.book_project
+    project = Project.read_project
     donate = user.donates.build(amount: bookshelf.target_amount, promoter: promoter, income_record: income_record, fund: project.appoint_fund, project: project, bookshelf: bookshelf)
     if donate.save
       bookshelf.present_amount = bookshelf.target_amount
@@ -233,7 +233,7 @@ class DonateRecord < ApplicationRecord
   # 捐悦读(零捐)
   def self.part_donate_bookshelf(user: nil, amount: 0, bookshelf: nil, income_record: nil, promoter: nil)
     return false unless bookshelf.present?
-    project = Project.book_project
+    project = Project.read_project
     user_id = user.present? ? user.id : ''
     DonateRecord.new(user_id: user_id, amount: amount, promoter: promoter, income_record: income_record, fund: project.appoint_fund, project: project, bookshelf: bookshelf)
   end
