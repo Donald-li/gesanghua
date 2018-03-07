@@ -42,7 +42,6 @@ class Admin::PairStudentsController < Admin::BaseController
 
   def update
     # @apply_child.attach_images(params[:image_ids])
-    byebug
     @apply_child.attach_avatar(params[:avatar_id])
     @apply_child.attach_id_image(params[:id_image_id])
     @apply_child.attach_residence(params[:residence_id])

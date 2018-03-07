@@ -105,7 +105,6 @@ class Api::V1::CooperationPairStudentsController < Api::V1::BaseController
       @student.attach_residence(params[:residence][0][:id]) if params[:residence][0].present?
       @student.attach_poverty(params[:poverty][0][:id]) if params[:poverty][0].present?
       @student.attach_family_image(params[:family_image][0][:id]) if params[:family_image][0].present?
-      byebug
       api_success(data: {result: true, apply_id: @student.project_season_apply_id}, message: '孩子信息提交成功！')
     else
       api_success(data: {result: false}, message: '孩子信息提交失败，请重试！')

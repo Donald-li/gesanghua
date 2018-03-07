@@ -34,24 +34,24 @@ fc4.funds.create(name: "苏州营", management_rate: 10, describe: '格桑花苏
 fc4.funds.create(name: "常州营", management_rate: 10, describe: '格桑花常州营', kind: fc4.kind, use_kind: 'restricted')
 fc4.funds.create(name: "合肥营", management_rate: 10, describe: '格桑花合肥营', kind: fc4.kind, use_kind: 'restricted')
 
+# 捐助项
+di_gsh = DonateItem.find_or_create_by(name: '格桑花', describe: '不限制使用途径', fund: Fund.gsh, state: :show)
+di_pair = DonateItem.find_or_create_by(name: '一对一', describe: '用于一对一助学项目', fund: fc1.funds.unrestricted.first, state: :show)
+di_read = DonateItem.find_or_create_by(name: '悦读', describe: '用于图书角建设', fund: fc2.funds.unrestricted.first, state: :show)
+di_camp = DonateItem.find_or_create_by(name: '探索营', describe: '用于探索营相关项目', fund: fc4.funds.unrestricted.first, state: :show)
+di_care = DonateItem.find_or_create_by(name: '护花', describe: '用于护花包购买', fund: fc6.funds.unrestricted.first, state: :show)
+di_radio = DonateItem.find_or_create_by(name: '广播', describe: '用于广播设备购买', fund: fc5.funds.unrestricted.first, state: :show)
+
 # 项目模板一级分类
 content = '用户协议'
-Project.find_or_create_by(name: '一对一', alias: 'pair', protocol: content, describe: '项目介绍', kind: :fixed, fund: fc1.funds.unrestricted.first, appoint_fund: fc1.funds.restricted.first)
-Project.find_or_create_by(name: '悦读', alias: 'read', protocol: content, describe: '项目介绍', kind: :fixed, fund: fc2.funds.unrestricted.first, appoint_fund: fc2.funds.restricted.first)
-Project.find_or_create_by(name: '探索营', alias: 'camp', protocol: content, describe: '项目介绍', kind: :fixed, fund: fc4.funds.unrestricted.first, appoint_fund: fc4.funds.restricted.first)
+Project.find_or_create_by(name: '一对一', alias: 'pair', protocol: content, describe: '项目介绍', kind: :fixed, fund: fc1.funds.unrestricted.first, appoint_fund: fc1.funds.restricted.first, donate_item: di_pair)
+Project.find_or_create_by(name: '悦读', alias: 'read', protocol: content, describe: '项目介绍', kind: :fixed, fund: fc2.funds.unrestricted.first, appoint_fund: fc2.funds.restricted.first, donate_item: di_read)
+Project.find_or_create_by(name: '探索营', alias: 'camp', protocol: content, describe: '项目介绍', kind: :fixed, fund: fc4.funds.unrestricted.first, appoint_fund: fc4.funds.restricted.first, donate_item: di_camp)
 Project.find_or_create_by(name: '观影', alias: 'movie', protocol: content, describe: '项目介绍', kind: :apply, fund: nil, appoint_fund: nil)
 Project.find_or_create_by(name: '护花课程', alias: 'movie_care', protocol: content, describe: '项目介绍', kind: :apply, fund: nil, appoint_fund: nil)
-Project.find_or_create_by(name: '广播', alias: 'radio', protocol: content, describe: '项目介绍', kind: :goods, fund: fc5.funds.unrestricted.first, appoint_fund: fc5.funds.restricted.first)
-Project.find_or_create_by(name: '护花', alias: 'care', protocol: content, describe: '项目介绍', kind: :goods, fund: fc6.funds.unrestricted.first, appoint_fund: fc6.funds.restricted.first)
+Project.find_or_create_by(name: '广播', alias: 'radio', protocol: content, describe: '项目介绍', kind: :goods, fund: fc5.funds.unrestricted.first, appoint_fund: fc5.funds.restricted.first, donate_item: di_radio)
+Project.find_or_create_by(name: '护花', alias: 'care', protocol: content, describe: '项目介绍', kind: :goods, fund: fc6.funds.unrestricted.first, appoint_fund: fc6.funds.restricted.first, donate_item: di_care)
 
 # 入账渠道
 IncomeSource.find_or_create_by(name: '微信支付', description: '微信支付', kind: 'weixin')
 IncomeSource.find_or_create_by(name: '线下汇款', description: '线下汇款', kind: 'offline')
-
-# 捐助项
-DonateItem.find_or_create_by(name: '格桑花', describe: '不限制使用途径', fund: Fund.gsh, state: :show)
-DonateItem.find_or_create_by(name: '一对一', describe: '用于一对一助学项目', fund: Project.pair_project.fund, state: :show)
-DonateItem.find_or_create_by(name: '悦读', describe: '用于图书角建设', fund: Project.read_project.fund, state: :show)
-DonateItem.find_or_create_by(name: '探索营', describe: '用于探索营相关项目', fund: Project.camp_project.fund, state: :show)
-DonateItem.find_or_create_by(name: '护花', describe: '用于护花包购买', fund: Fund.find(14), state: :show)
-DonateItem.find_or_create_by(name: '广播', describe: '用于广播设备购买', fund: Fund.find(12), state: :show)
