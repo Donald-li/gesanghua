@@ -167,11 +167,19 @@ class DonateRecord < ApplicationRecord
   end
 
   # 捐定向
-  def self.donate_project(user = nil, amount = 0.0, project = nil, promoter = nil)
+  def self.donate_project(user = nil, amount = 0.0, project = nil, promoter = nil, item = nil)
     return false unless user.present?
     return false unless project.present?
     fund = project.fund
     donate = user.donates.build(amount: amount, fund: fund, promoter: promoter, pay_state: 'unpay', project: project, title: '捐助定向')
+    donate.team_id = user.team_id
+    appoint = project.children.find(item) if item.present? && project.id == 1 # 孩子
+    appoint = project.bookshelves.find(item) if item.present? && project.id == 2 # 书架
+    if appoint.present?
+      donate.appoint = appoint
+      donate.apply = appoint.apply
+      donate.season = appoint.season
+    end
     donate.save
     return donate
   end
@@ -215,7 +223,7 @@ class DonateRecord < ApplicationRecord
     return false unless user.present?
     return false unless bookshelf.present?
     return false if bookshelf.present_amount > 0
-    project = Project.book_project
+    project = Project.read_project
     donate = user.donates.build(amount: bookshelf.target_amount, promoter: promoter, income_record: income_record, fund: project.appoint_fund, project: project, bookshelf: bookshelf)
     if donate.save
       bookshelf.present_amount = bookshelf.target_amount
@@ -227,7 +235,7 @@ class DonateRecord < ApplicationRecord
   # 捐悦读(零捐)
   def self.part_donate_bookshelf(user: nil, amount: 0, bookshelf: nil, income_record: nil, promoter: nil)
     return false unless bookshelf.present?
-    project = Project.book_project
+    project = Project.read_project
     user_id = user.present? ? user.id : ''
     DonateRecord.new(user_id: user_id, amount: amount, promoter: promoter, income_record: income_record, fund: project.appoint_fund, project: project, bookshelf: bookshelf)
   end
@@ -389,7 +397,6 @@ class DonateRecord < ApplicationRecord
       json.by_team self.team.present?
       json.team_name self.team.present? ? self.team.name : ''
       json.project self.try(:project).try(:name)
-      json.user_name self.try(:user).try(:name)
       json.donate_name self.try(:donate_item).try(:name) || self.try(:project).try(:name)
       json.apply_name self.try(:apply).try(:name)
       json.project_image self.try(:project).try(:project_image).to_s

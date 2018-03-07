@@ -58,11 +58,12 @@ namespace :api do
     end
 
     resource :main, only: [:show] do
-      get :contribute
-      post :settlement
       post :month_contribute
       get :banners
     end
+
+    # 捐助项
+    resources :donate_items, only: [:index]
 
     resource :wechat do
       collection do
@@ -95,6 +96,8 @@ namespace :api do
       end
     end
 
+    resources :applies, only: [:index, :show]
+
     resource :pair, only: [:show]
     resources :children do
       collection do
@@ -123,6 +126,9 @@ namespace :api do
       end
     end
 
+    resources :receive_feedbacks, only: [:create]
+    resources :install_feedbacks, only: [:create]
+
     resources :project_reports, only: :index
     resources :grant_reports, only: :index
     resources :visit_reports, only: :index
@@ -145,6 +151,17 @@ namespace :api do
     resources :donate_records, only: [:index, :show] do
       member do
         get :certificate
+      end
+    end
+
+    # 收货&安装反馈接口
+    resources :feedbacks, only: [:index]
+
+    # 捐助接口
+    resource :donate, only: [] do
+      collection do
+        post :project
+        post :gsh
       end
     end
 

@@ -18,17 +18,9 @@ RSpec.describe "Api::V1::Main", type: :request do
     end
   end
 
-  describe '获取可捐助项目列表' do
-    it '获取项目' do
-      get contribute_api_v1_main_path, headers: api_v1_headers(login_user)
-      api_v1_expect_success
-      expect(json_body[:data].count).to eq DonateItem.show.count
-    end
-  end
-
   describe '单次捐助' do
     it '捐助给所选可捐助项目' do
-      post settlement_api_v1_main_path,
+      post gsh_api_v1_donate_path,
            params: {amount: '5000', donate_item: {"name"=>"一对一", "value"=>"1"},
                     donor_name: '好心人', by_team: false, pay_method: 'weixin'},
            headers: api_v1_headers(login_user)
@@ -39,7 +31,7 @@ RSpec.describe "Api::V1::Main", type: :request do
 
   describe '单次捐助(有劝捐人)' do
     it '捐助给所选可捐助项目' do
-      post settlement_api_v1_main_path,
+      post gsh_api_v1_donate_path,
            params: {amount: '5000', donate_item: {"name"=>"一对一", "value"=>"1"},
                     donor_name: '好心人', by_team: false, pay_method: 'weixin', promoter_id: promoter.id},
            headers: api_v1_headers(login_user)
@@ -51,7 +43,7 @@ RSpec.describe "Api::V1::Main", type: :request do
 
   describe '月捐' do
     it '捐助给所选可捐助项目' do
-      post settlement_api_v1_main_path,
+      post gsh_api_v1_donate_path,
            params: {amount: '5000', donate_item: {"name"=>"一对一", "value"=>"1"},
                     period: '3', pay_method: 'weixin'},
            headers: api_v1_headers(login_user)

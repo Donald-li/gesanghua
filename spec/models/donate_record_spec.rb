@@ -137,7 +137,7 @@ RSpec.describe DonateRecord, type: :model do
 
   it '测试用户捐给悦读项目' do
     amount = 313213
-    project = Project.book_project
+    project = Project.read_project
     DonateRecord.donate_project(user, amount, project)
 
     donate = DonateRecord.last
@@ -151,7 +151,7 @@ RSpec.describe DonateRecord, type: :model do
 
   it '测试有劝捐人的用户捐给悦读项目' do
     amount = 313213
-    project = Project.book_project
+    project = Project.read_project
     DonateRecord.donate_project(user, amount, project, promoter)
 
     donate = DonateRecord.last
@@ -177,10 +177,10 @@ RSpec.describe DonateRecord, type: :model do
       @project_season_apply = create(:project_season_apply, project_id: @project.id, project_season_id: @project_season.id, school: @school)
       @child = create(:project_season_apply_child, project: @project, season: @project_season, apply: @project_season_apply, school: @school, semester: 'next_term')
       @child.approve_pass
-      @book_project = Project.book_project
-      @book_season = create(:project_season, project: @book_project)
-      @book_apply = create(:project_season_apply, project: @book_project, season: @book_season, school: @school)
-      @bookshelf = create(:project_season_apply_bookshelf, project: @book_project, season: @book_season, apply: @book_apply, school: @school, target_amount: 1000)
+      @read_project = Project.read_project
+      @book_season = create(:project_season, project: @read_project)
+      @book_apply = create(:project_season_apply, project: @read_project, season: @book_season, school: @school)
+      @bookshelf = create(:project_season_apply_bookshelf, project: @read_project, season: @book_season, apply: @book_apply, school: @school, target_amount: 1000)
     end
 
     it '测试线下配捐给指定申请方法' do

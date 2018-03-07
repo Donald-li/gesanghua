@@ -122,7 +122,7 @@
                       <i class="fa fa-exclamation-triangle"></i> 取消项目
                     <% end %>
                   <% elsif apply.to_receive? %>
-                    <% if apply.receive.present? %>
+                    <% if apply.receive_feedback.present? %>
                       <%= link_to admin_flower_project_flower_receive_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                         <i class="fa fa-truck"></i> 查看收货凭证
                       <% end %>
@@ -130,7 +130,7 @@
                       <span class="btn btn-xs default"><i class="fa fa-truck"></i> 查看收货凭证</span>
                     <% end %>
                   <% elsif apply.to_feedback? %>
-                    <% if apply.install.present? %>
+                    <% if apply.install_feedback.present? %>
                       <%= link_to admin_flower_project_flower_receive_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                         <i class="fa fa-truck"></i> 查看收货凭证
                       <% end %>

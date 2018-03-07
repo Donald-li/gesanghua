@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180306121418) do
+ActiveRecord::Schema.define(version: 20180306122118) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -646,8 +646,8 @@ ActiveRecord::Schema.define(version: 20180306121418) do
     t.datetime "updated_at", null: false
     t.integer "project_season_id", comment: "年度ID"
     t.integer "position", comment: "位置"
-    t.integer "grade", comment: "一对一对应年级"
-    t.integer "semester", comment: "一对一对应学期"
+    t.integer "grade", comment: "结对对应年级"
+    t.integer "semester", comment: "结对对应学期"
   end
 
   create_table "project_season_apply_volunteers", force: :cascade, comment: "项目执行年度申请和志愿者关联表" do |t|
@@ -724,7 +724,7 @@ ActiveRecord::Schema.define(version: 20180306121418) do
     t.string "name", comment: "学校名称"
     t.string "address", comment: "地址"
     t.integer "approve_state", default: 1, comment: "审核状态：1:待审核 2:通过 3:不通过"
-    t.text "approve_remark", comment: "审核备注"
+    t.string "approve_remark", comment: "审核备注"
     t.string "province", comment: "省"
     t.string "city", comment: "市"
     t.string "district", comment: "区/县"
@@ -974,6 +974,21 @@ ActiveRecord::Schema.define(version: 20180306121418) do
     t.datetime "updated_at", null: false
     t.integer "apply_child_id", comment: "孩子申请ID"
     t.integer "user_id", comment: "用户ID"
+    t.string "investigador", comment: "调查人员"
+    t.string "escort", comment: "陪同人员"
+    t.datetime "survey_time", comment: "调查时间"
+    t.integer "family_size", comment: "家庭人数"
+    t.string "family_basic", comment: "家庭基本情况"
+    t.text "basic_information", comment: "基本情况"
+    t.text "income_information", comment: "收入情况"
+    t.text "expenditure_information", comment: "支出情况"
+    t.string "lodge", comment: "是否寄宿"
+    t.decimal "lodge_cost", precision: 14, scale: 2, default: "0.0", comment: "住宿费用"
+    t.text "other_subsidize", comment: "其他资助"
+    t.text "prize_information", comment: "获奖情况"
+    t.text "study_information", comment: "学习情况"
+    t.decimal "tuition_fee", precision: 14, scale: 2, default: "0.0", comment: "学杂费"
+    t.string "sponsor_fee", comment: "是否赞助生活费"
   end
 
   create_table "volunteer_major_ships", force: :cascade do |t|
