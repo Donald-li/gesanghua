@@ -409,7 +409,7 @@ class DonateRecord < ApplicationRecord
       json.income_kind self.try(:income_record).try(:income_source).present? ? self.try(:income_record).try(:income_source).enum_name(:kind) : ''
     end.attributes!
   end
-
+ 
   def certificate_builder
     Jbuilder.new do |json|
       json.(self, :id)
