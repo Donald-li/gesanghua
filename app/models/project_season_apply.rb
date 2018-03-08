@@ -220,7 +220,8 @@ class ProjectSeasonApply < ApplicationRecord
 
   def pair_applies_builder
     Jbuilder.new do |json|
-      json.(self, :id, :name)
+      json.(self, :id)
+      json.name self.apply_name
       json.created_at self.created_at.strftime("%Y-%m-%d")
       json.state self.enum_name(:pair_state)
       json.teacher self.teacher.try(:name)
@@ -253,7 +254,8 @@ class ProjectSeasonApply < ApplicationRecord
 
   def detail_builder
     Jbuilder.new do |json|
-      json.(self, :id, :name, :apply_no, :number, :describe)
+      json.(self, :id, :apply_no, :number, :describe)
+      json.name self.apply_name
       json.school self.school.try(:name)
       json.season self.season.try(:name)
       json.state self.enum_name(:pair_state)
@@ -262,7 +264,8 @@ class ProjectSeasonApply < ApplicationRecord
 
   def summary_builder
     Jbuilder.new do |json|
-      json.(self, :id, :name, :apply_no)
+      json.(self, :id, :apply_no)
+      json.name self.apply_name
       json.last_amount self.target_amount - self.present_amount
       json.total_count self.bookshelves.pass.count
       json.done_count self.bookshelves.pass.complete.count
