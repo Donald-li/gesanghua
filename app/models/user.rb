@@ -60,6 +60,7 @@ class User < ApplicationRecord
   has_many :children, class_name: 'ProjectSeasonApplyChild', foreign_key: 'donate_user_id', dependent: :nullify # 我捐助的孩子们
   has_many :vouchers
   has_many :campaign_enlists
+  has_many :campaigns, through: :campaign_enlists
   has_many :donate_records, dependent: :nullify
   has_many :donates, class_name: 'DonateRecord', dependent: :destroy
   has_many :visits
@@ -151,63 +152,6 @@ class User < ApplicationRecord
   def volunteer_approve_state
     self.volunteer.present? ? self.school.approve_state : 'default'
   end
-
-  # 捐给格桑花
-  def donate_gsh(amount=0.0, promoter=nil)
-    gsh_fund = Fund.gsh
-    donate = self.donates.build(amount: amount, fund: gsh_fund, promoter: promoter, pay_state: 'unpay')
-    donate.save
-  end
-
-  # 捐定向
-  def donate_project(amount=0.0, project=nil, promoter=nil)
-    return false unless project.present?
-    fund = project.fund
-    donate = self.donates.build(amount: amount, fund: fund, promoter: promoter, pay_state: 'unpay', project: project)
-    donate.save
-  end
-
-  # 捐孩子
-  def donate_child(gsh_child=nil, semester_num=0, promoter=nil)
-    return false unless gsh_child.present?
-    scope = gsh_child.semesters.pending.sorted
-    return false if scope.count < semester_num || semester_num < 1
-
-    semesters = scope.limit(semester_num)
-
-    total = semesters.to_a.sum{|a| a.amount}
-
-    project = Project.pair_project
-
-    donate = self.donates.build(amount: total, fund: project.appoint_fund, promoter: promoter, pay_state: 'unpay', project: project, gsh_child: gsh_child)
-    if donate.save
-      semesters.update(donate_state: :succeed)
-    end
-  end
-
-  # 捐悦读(整捐)
-  def donate_bookshelf(bookshelf=nil, promoter=nil)
-    return false unless bookshelf.present?
-    return false if bookshelf.present_amount > 0
-    project = Project.read_project
-    donate = self.donates.build(amount: bookshelf.target_amount, promoter: promoter, fund: project.appoint_fund, project: project, bookshelf: bookshelf)
-    if donate.save
-      bookshelf.present_amount = bookshelf.target_amount
-      bookshelf.state = 'complete'
-      bookshelf.save
-    end
-  end
-
-  # 捐悦读(零捐)
-  def donate_fit_bookshelf(school=nil, amount=0.0, promoter=nil)
-
-  end
-
-  # 捐悦读(补书)
-  def donate_bookshelf_supply(bookshelf=nil, amount=0.0, promoter=nil)
-
-  end
-
 
   # 可开票金额
   def to_bill_amount

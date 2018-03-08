@@ -31,6 +31,7 @@
 class Visit < ApplicationRecord
 
   attr_accessor :image_id
+  attr_accessor :member_ids
 
   include HasAsset
   has_one_asset :image, class_name: 'Asset::VisitImage'
@@ -38,6 +39,7 @@ class Visit < ApplicationRecord
   belongs_to :owner, polymorphic: true, optional: true
 
   has_many :visit_children
+  has_many :members, class_name: 'FamilyMember', foreign_key: :visit_id
 
   belongs_to :apply_child, class_name: 'ProjectSeasonApplyChild', optional: true
   belongs_to :user

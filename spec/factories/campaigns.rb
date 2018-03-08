@@ -23,14 +23,13 @@
 FactoryBot.define do
   factory :campaign do
     name "MyString"
-    number 1
-    price "9.99"
+    number 10
+    price "200"
     content "MyText"
     start_time "2017-12-15 14:38:03"
     end_time "2017-12-15 14:38:03"
-    sign_up_end_time "2017-12-15 14:38:03"
-    start_at "2017-12-15 14:38:03"
-    end_at "2017-12-15 14:38:03"
+    sign_up_start_time "2017-12-01 14:38:03"
+    sign_up_end_time "2017-12-07 14:38:03"
     state 1
     project_id 1
     campaign_category_id 1

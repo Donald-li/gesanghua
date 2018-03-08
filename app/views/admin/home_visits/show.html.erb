@@ -54,7 +54,7 @@
             调查人员
           </th>
           <th>
-
+            <%= @visit.investigador %>
           </th>
         </tr>
         <tr>
@@ -62,6 +62,7 @@
             陪同人员
           </th>
           <th>
+            <%= @visit.escort %>
 
           </th>
         </tr>
@@ -70,7 +71,7 @@
             调查时间
           </th>
           <th>
-
+            <%= @visit.survey_time.strftime('%Y-%m-%d') %>
           </th>
         </tr>
         <tr>
@@ -83,7 +84,7 @@
             基本情况
           </th>
           <th>
-
+            <%= @visit.family_basic %>
           </th>
         </tr>
         <tr>
@@ -91,16 +92,147 @@
             家庭人数
           </th>
           <th>
-
+            <%= @visit.family_size %>
           </th>
         </tr>
-
+        <tr>
+          <th>
+            家庭成员
+          </th>
+        </tr>
+        <tr>
+          <th>
+            成员姓名
+          </th>
+          <th>
+            年龄
+          </th>
+          <th>
+            关系
+          </th>
+          <th>
+            职业
+          </th>
+          <th>
+            健康状况
+          </th>
+          <th>
+            工作情况
+          </th>
+        </tr>
+          <% @visit.members.each do |member| %>
+            <tr>
+              <th>
+                <%= member.name %>
+              </th>
+              <th>
+                <%= member.age %>
+              </th>
+              <th>
+                <%= member.relationship %>
+              </th>
+              <th>
+                <%= member.profession %>
+              </th>
+              <th>
+                <%= member.health_condition %>
+              </th>
+              <th>
+                <%= member.job_condition %>
+              </th>
+            </tr>
+          <% end %>
+        <tr>
+          <th>
+            基本情况
+          </th>
+          <th>
+            <%= @visit.basic_information %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            收入情况
+          </th>
+          <th>
+            <%= @visit.income_information %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            支出情况
+          </th>
+          <th>
+            <%= @visit.expenditure_information %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            学习与受资助情况
+          </th>
+        </tr>
+        <tr>
+          <th>
+            是否住校
+          </th>
+          <th>
+            <%= @visit.lodge %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            住校期间产生的退款
+          </th>
+          <th>
+            ¥ <%= @visit.lodge_cost %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            其他资助
+          </th>
+          <th>
+            <%= @visit.other_subsidize %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            获奖情况
+          </th>
+          <th>
+            <%= @visit.prize_information %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            学习情况
+          </th>
+          <th>
+            <%= @visit.study_information %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            学杂费
+          </th>
+          <th>
+            ¥ <%= @visit.tuition_fee %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            是否赞助生活
+          </th>
+          <th>
+            <%= @visit.sponsor_fee %>
+          </th>
+        </tr>
         <tr>
           <th>
             家长授权书
           </th>
           <th>
-
+            <%= image_tag @visit.image.try(:file).try(:url) %>
           </th>
         </tr>
         </tbody>

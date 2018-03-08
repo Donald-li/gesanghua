@@ -3,7 +3,7 @@ class Admin::PairGrantsController < Admin::BaseController
 
   def index
     set_search_end_of_day(:published_at_lteq)
-    @search = GshChildGrant.sorted.ransack(params[:q])
+    @search = GshChildGrant.joins(:gsh_child).sorted.ransack(params[:q])
     scope = @search.result
     scope = scope.includes(:school, :gsh_child)
 

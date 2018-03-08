@@ -27,6 +27,7 @@ class Campaign < ApplicationRecord
   belongs_to :project, optional: true
   belongs_to :campaign_category
   has_many :campaign_enlists, dependent: :destroy
+  has_many :users, through: :campaign_enlists
 
   validates :name, :start_time, :end_time, :sign_up_start_time, :sign_up_end_time, presence: true
 
@@ -63,6 +64,19 @@ class Campaign < ApplicationRecord
    end
   end
 
+  # 状态
+  def state_name
+    if Time.now >= self.end_time
+      '活动已结束'
+    elsif Time.now < self.start_time && Time.now > self.sign_up_start_time && Time.now < self.sign_up_end_time
+      '活动报名中'
+    elsif Time.now < self.sign_up_start_time
+      '活动未开始'
+    else
+      '活动进行中'
+    end
+  end
+
   def detail_state_name(user=nil)
     if user && self.campaign_enlists.paid.exists?(user_id: user.id)
       '已报名'
@@ -79,12 +93,14 @@ class Campaign < ApplicationRecord
     end
   end
 
-  def summary_builder
+  def summary_builder(user=nil)
     Jbuilder.new do |json|
       json.(self, :id, :name, :price, :start_time, :end_time, :sign_up_end_time)
       json.state_name self.summary_state_name
-      json.image self.image_url(:tiny)
+      json.image_mode self.image.present?
+      json.image self.image_url(:tiny).to_s
       json.banner self.banner_url(:tiny)
+      json.pay_amount self.campaign_enlists.find_by(user_id: user.id).total if user.present?
     end.attributes!
   end
 
