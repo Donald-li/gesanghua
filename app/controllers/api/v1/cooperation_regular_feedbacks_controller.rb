@@ -9,7 +9,7 @@ class Api::V1::CooperationRegularFeedbacksController < Api::V1::BaseController
   def create
     feedback = ContinualFeedback.new(owner: @project, school: current_user.school, content: params[:content], user: current_user, project: @project)
     if feedback.save
-      feedback.attach_images(params[:images].pluck(:id))
+      feedback.attach_images(params[:images].pluck(:id)) if params[:images].present?
       api_success(data: true, message: '你的反馈已提交~')
     else
       api_success(data: false, message: '反馈失败，请重试~')
