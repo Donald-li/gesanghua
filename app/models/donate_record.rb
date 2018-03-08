@@ -106,6 +106,7 @@ class DonateRecord < ApplicationRecord
     end
   end
 
+  # 生成捐赠编号
   def pay_and_gen_certificate
     self.certificate_no ||= 'ZS' + self.donate_no
     self.pay_state = 'paid'
