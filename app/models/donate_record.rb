@@ -422,7 +422,7 @@ class DonateRecord < ApplicationRecord
     Jbuilder.new do |json|
       json.(self, :id)
       json.amount number_to_currency(self.amount)
-      json.created_at "#{self.created_at.year}年#{self.created_at.month}月#{self.created_at.day}日"
+      json.created_at self.created_at.strftime("%Y-%m-%d %H:%M:%S")
       json.user_name self.user.present? ? self.user.name : '爱心人士'
       json.fund_name self.try(:fund).try(:name)
       json.project_name self.try(:project).try(:name)
