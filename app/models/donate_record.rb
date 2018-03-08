@@ -145,6 +145,7 @@ class DonateRecord < ApplicationRecord
     return donate
   end
 
+  # 返回微信支付js
   def wechat_prepay_js(remote_ip)
     prepay_id = get_wechat_prepay_id(remote_ip)
     package_str = "prepay_id=#{prepay_id}"
@@ -159,10 +160,12 @@ class DonateRecord < ApplicationRecord
     prepay_js.merge(paySign: pay_sign)
   end
 
+  # 返回微信支付按钮
   def wechat_prepay_h5(remote_ip)
     return get_wechat_prepay_mweb(remote_ip)
   end
 
+  # 返回支付宝支付按钮
   def alipay_prepay_h5
     return get_alipay_prepay_mweb
   end
@@ -390,7 +393,7 @@ class DonateRecord < ApplicationRecord
 
   def detail_builder
     Jbuilder.new do |json|
-      json.(self, :id, :donor, :donate_no, :remitter_name, :project_id)
+      json.(self, :id, :donor, :donate_no, :remitter_name, :project_id, :pay_state)
       json.user_name self.user.present? ? self.user.name : '爱心人士'
       json.time self.created_at.strftime('%Y-%m-%d %H:%M:%S')
       json.amount number_to_currency(self.amount)
