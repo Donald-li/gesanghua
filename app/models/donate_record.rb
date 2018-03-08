@@ -393,7 +393,7 @@ class DonateRecord < ApplicationRecord
 
   def detail_builder
     Jbuilder.new do |json|
-      json.(self, :id, :donor, :donate_no, :remitter_name, :project_id, :pay_state)
+      json.(self, :id, :donor, :donate_no, :remitter_name, :project_id, :pay_state, :promoter_id)
       json.user_name self.user.present? ? self.user.name : '爱心人士'
       json.time self.created_at.strftime('%Y-%m-%d %H:%M:%S')
       json.amount number_to_currency(self.amount)
