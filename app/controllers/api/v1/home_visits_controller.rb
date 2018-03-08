@@ -23,7 +23,6 @@ class Api::V1::HomeVisitsController < Api::V1::BaseController
   end
 
   def create
-    byebug
     @child = ProjectSeasonApplyChild.find(params[:id])
     if params[:user_id].present?
       user_id = params[:user_id]
@@ -84,7 +83,6 @@ class Api::V1::HomeVisitsController < Api::V1::BaseController
       tuition_fee: params[:tuition_fee],
       sponsor_fee: sponsor_fee
       )
-      byebug
       @visit.attach_image(params[:image][0][:id]) if params[:image][0].present?
       api_success(data: {result: true, child_id: @visit.apply_child_id}, message: '孩子家访信息提交成功！')
     else
