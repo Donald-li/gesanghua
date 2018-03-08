@@ -29,6 +29,8 @@ class Api::V1::HomeVisitsController < Api::V1::BaseController
     else
       user_id = current_user.id
     end
+    member_ids = params[:member_ids].pluck(:id)
+    family_members = FamilyMember.where(id: member_ids)
     @visit = @child.visits.build(
       user_id: user_id,
       investigador: params[:investigador],
@@ -49,6 +51,7 @@ class Api::V1::HomeVisitsController < Api::V1::BaseController
     )
     if @visit.save
       @visit.attach_image(params[:image][0][:id]) if params[:image][0].present?
+      family_members.update_all(visit_id: @visit.id)
       api_success(data: {result: true, child_id: @child.id}, message: '孩子家访信息提交成功！')
     else
       api_success(data: {result: false}, message: '孩子家访信息提交失败，请重试！')
@@ -66,6 +69,8 @@ class Api::V1::HomeVisitsController < Api::V1::BaseController
     lodge = params[:lodge].first if params[:lodge]
     grade = params[:grade].first if params[:grade]
     sponsor_fee = params[:sponsor_fee].first if params[:sponsor_fee]
+    member_ids = params[:member_ids].pluck(:id)
+    family_members = FamilyMember.where(id: member_ids)
     if @visit.update(
       investigador: params[:investigador],
       escort: params[:escort],
@@ -84,6 +89,7 @@ class Api::V1::HomeVisitsController < Api::V1::BaseController
       sponsor_fee: sponsor_fee
       )
       @visit.attach_image(params[:image][0][:id]) if params[:image][0].present?
+      family_members.update_all(visit_id: @visit.id)
       api_success(data: {result: true, child_id: @visit.apply_child_id}, message: '孩子家访信息提交成功！')
     else
       api_success(data: {result: false}, message: '孩子家访信息提交失败，请重试！')

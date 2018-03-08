@@ -214,6 +214,8 @@ namespace :api do
       end
     end
 
+    resources :family_members
+
     resources :school_users do
       collection do
         post :update_school
