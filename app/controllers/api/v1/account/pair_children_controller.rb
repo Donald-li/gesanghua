@@ -2,7 +2,7 @@ class Api::V1::Account::PairChildrenController < Api::V1::BaseController
 
   def index
     children = current_user.children.sorted.page(params[:page]).per(params[:per])
-    api_success(data: {children: children.map { |r| r.donate_children_builder }, pagination: json_pagination(children)})
+    api_success(data: {children: children.map { |r| r.donate_children_builder(current_user) }, pagination: json_pagination(children)})
   end
 
   def feedback_list

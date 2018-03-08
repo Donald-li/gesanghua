@@ -329,14 +329,14 @@ class ProjectSeasonApplyChild < ApplicationRecord
     end.attributes!
   end
 
-  def donate_children_builder
+  def donate_children_builder(user)
     Jbuilder.new do |json|
       json.(self, :id, :name)
       json.gsh_no self.gsh_no
       json.child_id self.id
       json.grants self.semesters.where(user_id: self.donate_user_id).pluck(:title).join('/').gsub(/\s/, '').strip.to_s
       json.donate_state self.semesters.pending.size > 0
-      json.num self.continual_feedbacks.count
+      json.num ContinualFeedback.where(gsh_child_grant_id: self.gsh_child_grants.where(user_id: user.id).pluck(:id)).count
       json.avatar_mode self.avatar.present?
       json.avatar self.avatar_url(:tiny).to_s
     end.attributes!
