@@ -399,6 +399,7 @@ class DonateRecord < ApplicationRecord
       json.project self.try(:project).try(:name)
       json.donate_name self.try(:donate_item).try(:name) || self.try(:project).try(:name)
       json.apply_name self.try(:apply).try(:name)
+      json.project_image_mode self.project.image.present?
       json.project_image self.try(:project).try(:project_image).to_s
       json.income_source self.try(:income_record).try(:income_source).try(:name)
       json.income_kind self.try(:income_record).try(:income_source).present? ? self.try(:income_record).try(:income_source).enum_name(:kind) : ''

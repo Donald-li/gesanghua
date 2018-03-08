@@ -337,7 +337,8 @@ class ProjectSeasonApplyChild < ApplicationRecord
       json.grants self.semesters.where(user_id: self.donate_user_id).pluck(:title).join('/').gsub(/\s/, '').strip.to_s
       json.donate_state self.semesters.pending.size > 0
       json.num self.continual_feedbacks.count
-      json.avatar self.avatar.present? ? self.avatar_url(:tiny).to_s : ''
+      json.avatar_mode self.avatar.present?
+      json.avatar self.avatar_url(:tiny).to_s
     end.attributes!
   end
 
