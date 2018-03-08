@@ -39,6 +39,8 @@ namespace :api do
         end
       end
 
+      resources :campaigns, only: [:index]
+
       resources :my_reads
     end
 
