@@ -2,6 +2,7 @@ namespace :api do
   namespace :v1 do
     resource :session, only: :create
 
+    # 账号
     namespace :account do
       resources :donate_records, only: [:index] do
         collection do

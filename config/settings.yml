@@ -7,9 +7,6 @@ logo_img: ''
 # 短信设置
 send_sms: true
 
-# 开发模式
-development_mode: true
-
 # 配置学费
 junior_term_amount: 1050
 junior_year_amount: 2100

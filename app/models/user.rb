@@ -79,6 +79,8 @@ class User < ApplicationRecord
   validates :phone, mobile: true, uniqueness: { allow_blank: true }
   validates :name, :login, presence: true
   validates :login, uniqueness: true
+  validates :balance, numericality: { greater_than_or_equal_to: 0 }
+
   default_value_for :profile, {}
 
   enum state: {enable: 1, disable: 2} #状态 1:启用 2:禁用
@@ -250,6 +252,12 @@ class User < ApplicationRecord
     elsif self.has_role?(:custom_service)
       '工作人员'
     end
+  end
+
+  # 扣用户余额
+  def deduct_balance(amount)
+    self.balance -= amount
+    self.save
   end
 
   def summary_builder
