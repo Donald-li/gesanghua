@@ -3,6 +3,7 @@ class Api::V1::DonatesController < Api::V1::BaseController
   # 捐助相关接口
   def item
     type = params[:type]
+    amount = params[:amount].to_f
 
     if type == 'project'
       project_alias = params[:project]
@@ -11,8 +12,7 @@ class Api::V1::DonatesController < Api::V1::BaseController
 
       if(record)
         if params[:pay_method] == 'balance'
-          current_user.balance -= total
-          current_user.save
+          current_user.deduct_balance(amount)
           record.paid!
         end
         api_success(data: {record_state: true, order_id: record.id, pay_state: record.pay_state, user_info: current_user.summary_builder.merge(auth_token: current_user.auth_token)}.camelize_keys!, message: '订单生成成功')
@@ -32,11 +32,11 @@ class Api::V1::DonatesController < Api::V1::BaseController
 
     if record.save
       if params[:pay_method] == 'balance'
-        current_user.balance -= amount
-        current_user.save
-        record.paid!
+        if current_user.deduct_balance(amount)
+          record.paid!
+        end
       end
-      api_success(data: {record_state: true, record_id: record.id, promoter_id: record.promoter_id, user_info: current_user.summary_builder.merge(auth_token: current_user.auth_token)}, message: '订单生成成功（暂时提示，应调用微信支付捐助成功后跳转结果页）')
+      api_success(data: record.detail_builder.merge(recordState: true), message: '订单生成成功')
     else
       api_success(data: {record_state: false}, message: '订单生成失败，请重试')
     end
