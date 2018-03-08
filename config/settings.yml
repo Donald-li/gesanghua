@@ -7,6 +7,9 @@ logo_img: ''
 # 短信设置
 send_sms: true
 
+# 开发模式，设为true，可跳过登录
+development_mode: false
+
 # 配置学费
 junior_term_amount: 1050
 junior_year_amount: 2100
