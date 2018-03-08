@@ -157,4 +157,13 @@ RSpec.describe User, type: :model do
     expect(donate.bookshelf.id).to eq bookshelf.id
     expect(donate.bookshelf.complete?).to be true
   end
+
+  it '扣用户余额' do
+    user.update(balance: 100)
+    User.find(user.id).deduct_balance(50)
+    expect(User.find(user.id).balance).to eq 50
+    User.find(user.id).deduct_balance(100)
+    expect(User.find(user.id).balance).to eq 50
+  end
+
 end
