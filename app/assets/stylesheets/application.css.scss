@@ -1,18 +1,66 @@
- /*
-  * This is a manifest file that'll be compiled into application.css, which will include all the files
-  * listed below.
-  *
-  * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
-  * vendor/assets/stylesheets directory can be referenced here using a relative path.
-  *
-  * You're free to add application-wide styles to this file and they'll appear at the bottom of the
-  * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
-  * files in this directory. Styles in this file should be added after the last require_* statement.
-  * It is generally better to create a new file per style scope.
-  *
-  *= require "plugins/uploader"
-  *= require "plugins/bootstrap-stars"
-  *= require_self
-  */
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require "plugins/uploader"
+ *= require "plugins/bootstrap-stars"
+ *= require_self
+ */
 
- //bootstrap  reset
+//bootstrap  reset
+// 通用样式
+//主标题
+$color-theme: #2a2a2c;
+//副标题及段落文字
+$color-subtitle: #3d3d40;
+//提示
+$color-section: #8d8d8d;
+//主色
+$color-info: #d632aa;
+//主色
+$color-border: #8b54e3;
+//渐变
+$color-button: -webkit-linear-gradient(left top, #d22ca4, #8b54e3);
+//边框
+$border: #e6e6e6;
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  background-color: #fff;
+  font-family: '兰亭黑-简', 'Microsoft YaHei', 'Arial', 'Simsun';
+  margin: 0;
+  padding: 0;
+}
+span{
+  display: inline-block;
+}
+//清浮动
+.clear-fix:after {
+  display: block;
+  content: "";
+  clear: both;
+}
+//首页头部隐藏条
+.bullet {
+  text-align: center;
+  width: 100%;
+  height: 45px;
+
+}
