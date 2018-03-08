@@ -1,0 +1,52 @@
+.br-theme-bootstrap-stars .br-widget {
+    white-space: nowrap;
+}
+
+.br-theme-bootstrap-stars .br-widget a {
+    font: normal normal normal 18px/1 'Glyphicons Halflings';
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    text-decoration: none;
+    margin-right: 2px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.br-theme-bootstrap-stars .br-widget a:after {
+    content: '\e006';
+    color: #dadada;
+}
+
+.br-theme-bootstrap-stars .br-widget a.br-active:after {
+    color: #f68f30;
+}
+
+.br-theme-bootstrap-stars .br-widget a.br-selected:after {
+    color: #f68f30;
+}
+
+.br-theme-bootstrap-stars .br-widget .br-current-rating {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 5px;
+    color: darkgrey;
+
+}
+.br-current-rating:after{content: '分'}
+
+.br-theme-bootstrap-stars .br-readonly a {
+    cursor: default;
+}
+
+@media print {
+    .br-theme-bootstrap-stars .br-widget a:after {
+        content: '\e007';
+        color: black;
+    }
+
+    .br-theme-bootstrap-stars .br-widget a.br-active:after,
+    .br-theme-bootstrap-stars .br-widget a.br-selected:after {
+        content: '\e006';
+        color: black;
+    }
+}
