@@ -22,6 +22,7 @@
 #  project_season_apply_bookshelf_id :integer                                # 书架id
 #  class_name                        :string                                 # 反馈班级
 #  gsh_child_grant_id                :integer                                # 学生某学期的持续反馈（感谢信）
+#  school_id                         :integer                                # 学校id
 #
 
 # 反馈表
@@ -29,6 +30,7 @@ class Feedback < ApplicationRecord
   belongs_to :owner, polymorphic: true
   belongs_to :user
   belongs_to :project
+  belongs_to :school, optional: true
   belongs_to :gsh_child_grant, optional: true
   belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id', optional: true
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id', optional: true

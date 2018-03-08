@@ -199,6 +199,14 @@ namespace :api do
       end
     end
 
+    resources :cooperation_regular_feedbacks do
+      collection do
+        get :feedback_list
+        get :qrcode
+        get :get_info
+      end
+    end
+
     resources :home_visits do
       collection do
         get :qrcode
