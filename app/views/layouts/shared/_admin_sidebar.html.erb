@@ -39,13 +39,13 @@
         <a href="javascript:;" class="nav-link nav-toggle">
           <% to_prove_admin = School.can_check.count %>
           <i class="fa fa-building"></i>
-          <span class="title <%= 'font-red-soft' if to_prove_admin > 0 %>">学校用户</span>
+          <span class="title <%= 'font-red-soft' if to_prove_admin > 0 %>">学校管理</span>
           <span class="arrow <%= current_nav_class(:admin_schools, current: :open) %>"></span>
         </a>
         <ul class="sub-menu">
           <li class="nav-item <%= current_nav_class(:admin_school_applies) %> ">
             <%= link_to admin_school_applies_path, class: 'nav-link' do %>
-                <span class="title">学校申请</span>
+                <span class="title">新申请</span>
                 <% if to_prove_admin > 0 %>
                     <span class="badge badge-danger"><%= to_prove_admin %></span>
                 <% end %>
@@ -53,7 +53,7 @@
           </li>
           <li class="nav-item <%= current_nav_class(:admin_school_list) %> ">
             <%= link_to admin_schools_path, class: 'nav-link' do %>
-                <span class="title">学校用户</span>
+                <span class="title">学校列表</span>
             <% end %>
           </li>
         </ul>

@@ -1,5 +1,4 @@
 class Api::V1::AppliesController < Api::V1::BaseController
-  before_action :set_project
   before_action :set_apply, only: [:show]
 
   def index
@@ -13,18 +12,18 @@ class Api::V1::AppliesController < Api::V1::BaseController
   def show
     api_error(message: '无效项目') && return unless @apply
 
-    if @project.id == 2 # 悦读
+    if @apply.project.alias == 'read' # 悦读
       api_success(data: @apply.read_apply_detail_builder)
+    elsif @apply.project.alias == 'radio' # 广播
+      api_success(data: @apply.radio_apply_detail_builder)
+    elsif @apply.project.alias == 'care'
+      api_success(data: @apply.care_apply_detail_builder)
     end
   end
 
   private
-  def set_project
-    @project = Project.find_by(alias: params[:project_name]) || Project.pair_project
-  end
-
   def set_apply
-    @apply = ProjectSeasonApply.find_by(project: @project, id: params[:id])
+    @apply = ProjectSeasonApply.find(params[:id])
   end
 
 end
