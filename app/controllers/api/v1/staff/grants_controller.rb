@@ -10,8 +10,28 @@ class Api::V1::Staff::GrantsController < Api::V1::BaseController
   end
 
   def update
-    @grant.update(grant_params)
-    api_success(message: '发放成功')
+    @image_ids = params[:feedback][:images].pluck(:id)
+    if @grant.update(
+        grant_person: params[:feedback][:grant_person],
+        granted_at: params[:feedback][:granted_at],
+        grant_remark: params[:feedback][:grant_remark],
+        state: 2
+      )
+      # @feedback = @grant.build_feedback(
+      #   project_id: Project.pair_project.id,
+      #   user_id: current_user.id,
+      #   gsh_child_grant_id: @grant.id,
+      #   content: params[:feedback][:grant_remark]
+      # )
+      # @feedback.save
+      @grant.attach_images(@image_ids)
+      # @feedback.attach_images(@image_ids)
+      api_success(data: {result: true, grant_id: @grant.id}, message: '发放成功')
+      return true
+    else
+      api_success(data: {result: false}, message: '发放成功，请重试！')
+      return false
+    end
   end
 
   def show
