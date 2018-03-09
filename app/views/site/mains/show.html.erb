@@ -34,21 +34,35 @@
         </div>
         <div class="bul-img-co">
           <p>捐助动态</p>
-          <div style="overflow: hidden; position: relative; height: 114px;" id="news-container">
-            <ul style="position: absolute; margin: 0pt; padding: 0pt; top: 0px;">
-              <li>
-                <div> 4) jugbit.com jquery vticker more info more info more info more info more info</div>
-              </li>
-              <li>
-                <div> 1) Lorem ipsum dolor sit amet, porta at, imperdiet id neque. more info</div>
-              </li>
-              <li>
-                <div> 2) Lorem ipsum dolor sit amet, consectetur adipiscing elit. more info</div>
-              </li>
-              <li>
-                <div> 3) Lorem ipsum dolor sit amet more info more info more info more info</div>
-              </li>
-            </ul>
+          <!--<div style="overflow: hidden; position: relative; height: 114px;" id="news-container">-->
+            <!--<ul style="position: absolute; margin: 0pt; padding: 0pt; top: 0px;">-->
+              <!--<li>-->
+                <!--<div> 4) jugbit.com jquery vticker more info more info more info more info more info</div>-->
+              <!--</li>-->
+              <!--<li>-->
+                <!--<div> 1) Lorem ipsum dolor sit amet, porta at, imperdiet id neque. more info</div>-->
+              <!--</li>-->
+              <!--<li>-->
+                <!--<div> 2) Lorem ipsum dolor sit amet, consectetur adipiscing elit. more info</div>-->
+              <!--</li>-->
+              <!--<li>-->
+                <!--<div> 3) Lorem ipsum dolor sit amet more info more info more info more info</div>-->
+              <!--</li>-->
+            <!--</ul>-->
+          <!--</div>-->
+          <div class="swiperfont-container">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">Slide 1</div>
+              <div class="swiper-slide">Slide 2</div>
+              <div class="swiper-slide">Slide 3</div>
+              <div class="swiper-slide">Slide 4</div>
+              <div class="swiper-slide">Slide 5</div>
+              <div class="swiper-slide">Slide 6</div>
+              <div class="swiper-slide">Slide 7</div>
+              <div class="swiper-slide">Slide 8</div>
+              <div class="swiper-slide">Slide 9</div>
+              <div class="swiper-slide">Slide 10</div>
+            </div>
           </div>
         </div>
 
@@ -215,19 +229,7 @@
 
   <p>Copyright(c) 2005-2015 青海格桑花教育救助会 版权所有 All Rights Reserved 青ICP备10200056号</p>
 </footer>
-<script type="text/javascript" src="jquery.vticker-min.js" charset="utf-8"></script>
 <script>
-    $(function () {
-        $('#news-container').vTicker({
-            speed: 500,
-            pause: 2000,
-            animation: 'fade',
-            mousePause: false,
-            showItems: 3
-        })
-    })
-
-
     var mySwiper = new Swiper('.swiper-container', {
         slidesPerView: 'auto',
         centeredSlides: true,
@@ -238,4 +240,9 @@
             prevEl: '.swiper-button-prev'
         }
     })
+    var swiper = new Swiper('.swiperfont-container', {
+        direction: 'vertical',
+        autoplay:true,
+        loop : true,
+    });
 </script>
