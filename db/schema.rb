@@ -315,6 +315,18 @@ ActiveRecord::Schema.define(version: 20180309041339) do
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "支出金额"
   end
 
+  create_table "family_members", force: :cascade, comment: "家庭成员表" do |t|
+    t.integer "visit_id", comment: "家访表ID"
+    t.string "name", comment: "成员姓名"
+    t.integer "age", comment: "年龄"
+    t.string "relationship", comment: "关系"
+    t.string "profession", comment: "职业"
+    t.text "health_condition", comment: "健康状况"
+    t.text "job_condition", comment: "工作情况"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "feedbacks", force: :cascade, comment: "反馈表" do |t|
     t.text "content", comment: "内容"
     t.string "owner_type"
