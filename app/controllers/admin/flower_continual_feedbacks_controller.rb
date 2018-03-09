@@ -3,7 +3,7 @@ class Admin::FlowerContinualFeedbacksController < Admin::BaseController
   before_action :set_project, only: [:index, :new, :create, :update, :destroy, :recommend]
 
   def index
-    @continual_feedbacks = @project.continual_feedbacks
+    @continual_feedbacks = ContinualFeedback.where(project_id: [Project.care_project.id, Project.movie_care_project.id])
     @search = @continual_feedbacks.ransack(params[:q])
     scope = @search.result
     @continual_feedbacks = scope.sorted.page(params[:page])
@@ -13,27 +13,12 @@ class Admin::FlowerContinualFeedbacksController < Admin::BaseController
     @continual.update(check: 2)
   end
 
-  def new
-    @continual = ContinualFeedback.new
-  end
-
   def edit
-  end
-
-  def create
-    @continual = ContinualFeedback.new(continual_params.merge(owner_type: 'Project', project_id: Project.care_project.id))
-    respond_to do |format|
-      if @continual.save
-        format.html { redirect_to admin_flower_continual_feedbacks_path(@project), notice: '新增成功。' }
-      else
-        format.html { render :new }
-      end
-    end
   end
 
   def update
     respond_to do |format|
-      if @continual.update(continual_params.merge(owner_type: 'Project', project_id: Project.care_project.id))
+      if @continual.update(continual_params)
         format.html { redirect_to admin_flower_continual_feedbacks_path(@project), notice: '修改成功。' }
       else
         format.html { render :new }

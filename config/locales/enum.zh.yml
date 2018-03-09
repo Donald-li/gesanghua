@@ -271,10 +271,10 @@ zh:
   feedback_checks:
     checked: '已查看'
     uncheck: '未查看'
-  continual_checks:
+  continual_feedback_checks:
     checked: '已查看'
     uncheck: '未查看'
-  install_checks:
+  install_feedback_checks:
     checked: '已查看'
     uncheck: '未查看'
   feedback_recommends:
