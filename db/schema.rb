@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180308075204) do
+ActiveRecord::Schema.define(version: 20180309041339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -696,6 +696,8 @@ ActiveRecord::Schema.define(version: 20180308075204) do
     t.integer "position", comment: "位置排序"
     t.jsonb "form", comment: "自定义表单{key, label, type, options, required}"
     t.integer "donate_item_id", comment: "捐助项id"
+    t.integer "accept_feedback_state", comment: "是否接受定期反馈：1:open_feedback 2:close_feedback"
+    t.integer "feedback_period", comment: "建议定期反馈次数/年"
   end
 
   create_table "remarks", force: :cascade, comment: "备注信息表" do |t|

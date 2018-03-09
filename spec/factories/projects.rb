@@ -17,6 +17,8 @@
 #  position                   :integer                                # 位置排序
 #  form                       :jsonb                                  # 自定义表单{key, label, type, options, required}
 #  donate_item_id             :integer                                # 捐助项id
+#  accept_feedback_state      :integer                                # 是否接受定期反馈：1:open_feedback 2:close_feedback
+#  feedback_period            :integer                                # 建议定期反馈次数/年
 #
 
 FactoryBot.define do

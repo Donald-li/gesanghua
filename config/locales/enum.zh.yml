@@ -77,6 +77,9 @@ zh:
     fixed: '固定类'
     apply: '申请类'
     goods: '物资类'
+  project_accept_feedback_states:
+    close_feedback: '关闭'
+    open_feedback: '开启'
   project_season_apply_states:
     show: '显示'
     hidden: '隐藏'
