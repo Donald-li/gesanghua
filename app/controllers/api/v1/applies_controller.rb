@@ -15,6 +15,8 @@ class Api::V1::AppliesController < Api::V1::BaseController
 
     if @project.id == 2 # 悦读
       api_success(data: @apply.read_apply_detail_builder)
+    elsif @project.id == 6 # 广播
+      api_success(data: @apply.radio_apply_detail_builder)
     end
   end
 
