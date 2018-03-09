@@ -27,7 +27,7 @@ class Api::V1::CooperationRegularFeedbacksController < Api::V1::BaseController
   end
 
   def get_info
-    api_success(data: {school_name: current_user.school.name, project_name: @project.name})
+    api_success(data: {school_name: current_user.teacher.try(:school).try(:name), project_name: @project.name})
   end
 
   private

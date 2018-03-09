@@ -4,6 +4,7 @@ RSpec.describe "Api::V1::CooperationRegularFeedbacks", type: :request do
 
   let!(:login_user) { create(:user) }
   let!(:school) { create(:school, user: login_user) }
+  let!(:teacher) {create(:teacher, user: login_user, school: school)}
   let!(:project1) { create(:project) }
   let!(:project2) { create(:project) }
   let!(:project3) { create(:project) }

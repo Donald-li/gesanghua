@@ -141,10 +141,6 @@ class User < ApplicationRecord
     self.county_user.present?
   end
 
-  def is_headmaster?
-    self.has_role?(:headmaster)
-  end
-
   def is_school_headmaster?
     if self.teacher.try(:school).try(:user) === self
       'headmaster'
