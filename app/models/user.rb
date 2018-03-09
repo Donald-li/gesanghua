@@ -237,12 +237,14 @@ class User < ApplicationRecord
         json.url self.try(:avatar).try(:file_url)
         json.protect_token ''
       end
+      json.show_name self.nickname.present?? self.nickname : self.name
     end.attributes!
   end
 
   def offline_donor_summary_builder
     Jbuilder.new do |json|
       json.(self, :id, :phone, :name, :nickname)
+      json.show_name self.nickname.present?? self.nickname : self.name
     end.attributes!
   end
 
