@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180308075204) do
+ActiveRecord::Schema.define(version: 20180309041339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -315,31 +315,19 @@ ActiveRecord::Schema.define(version: 20180308075204) do
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "支出金额"
   end
 
-  create_table "family_members", force: :cascade, comment: "家庭成员表" do |t|
-    t.integer "visit_id", comment: "家访表ID"
-    t.string "name", comment: "成员姓名"
-    t.integer "age", comment: "年龄"
-    t.string "relationship", comment: "关系"
-    t.string "profession", comment: "职业"
-    t.text "health_condition", comment: "健康状况"
-    t.text "job_condition", comment: "工作情况"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "feedbacks", force: :cascade, comment: "反馈表" do |t|
     t.text "content", comment: "内容"
     t.string "owner_type"
     t.integer "owner_id"
-    t.integer "type", comment: "类型：receive、install、continual"
+    t.string "type", comment: "类型：receive、install、continual"
     t.integer "state", comment: "状态"
     t.integer "approve_state", comment: "审核状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "kind", comment: "反馈类型"
-    t.integer "user_id", comment: "反馈人"
     t.integer "check", comment: "查看 1: 未查看 2: 已查看"
     t.integer "recommend", comment: "推荐 1: 正常 2: 推荐"
+    t.integer "user_id", comment: "反馈人"
     t.integer "project_id", comment: "项目id"
     t.integer "project_season_id", comment: "批次id"
     t.integer "project_season_apply_id", comment: "申请id"
@@ -545,13 +533,13 @@ ActiveRecord::Schema.define(version: 20180308075204) do
     t.datetime "updated_at", null: false
     t.string "name", comment: "名称"
     t.integer "number", comment: "配额"
+    t.string "apply_no", comment: "项目申请编号"
     t.integer "bookshelf_type", comment: "悦读项目申请类型"
     t.string "contact_name", comment: "联系人姓名"
     t.string "contact_phone", comment: "联系人电话"
     t.integer "audit_state", comment: "审核状态"
     t.string "abstract", comment: "简述"
     t.string "address", comment: "详细地址"
-    t.string "apply_no", comment: "项目申请编号"
     t.integer "girl_number", comment: "申请女生人数"
     t.integer "boy_number", comment: "申请男生人数"
     t.string "consignee", comment: "收货人"
@@ -615,8 +603,8 @@ ActiveRecord::Schema.define(version: 20180308075204) do
     t.integer "school_id", comment: "学校ID"
     t.integer "semester", comment: "学期"
     t.integer "kind", comment: "捐助形式：1对外捐助 2内部认捐"
-    t.string "reason", comment: "结对申请理由"
     t.integer "donate_user_id", comment: "捐助人id"
+    t.string "reason", comment: "结对申请理由"
     t.string "gsh_no", comment: "格桑花孩子编号"
     t.integer "semester_count", comment: "学期数"
     t.integer "done_semester_count", comment: "已完成的学期数"
@@ -659,8 +647,8 @@ ActiveRecord::Schema.define(version: 20180308075204) do
     t.datetime "updated_at", null: false
     t.integer "project_season_id", comment: "年度ID"
     t.integer "position", comment: "位置"
-    t.integer "grade", comment: "结对对应年级"
-    t.integer "semester", comment: "结对对应学期"
+    t.integer "grade", comment: "一对一对应年级"
+    t.integer "semester", comment: "一对一对应学期"
   end
 
   create_table "project_season_apply_volunteers", force: :cascade, comment: "项目执行年度申请和志愿者关联表" do |t|
@@ -708,6 +696,8 @@ ActiveRecord::Schema.define(version: 20180308075204) do
     t.integer "position", comment: "位置排序"
     t.jsonb "form", comment: "自定义表单{key, label, type, options, required}"
     t.integer "donate_item_id", comment: "捐助项id"
+    t.integer "accept_feedback_state", comment: "是否接受定期反馈：1:open_feedback 2:close_feedback"
+    t.integer "feedback_period", comment: "建议定期反馈次数/年"
   end
 
   create_table "remarks", force: :cascade, comment: "备注信息表" do |t|
@@ -737,7 +727,7 @@ ActiveRecord::Schema.define(version: 20180308075204) do
     t.string "name", comment: "学校名称"
     t.string "address", comment: "地址"
     t.integer "approve_state", default: 1, comment: "审核状态：1:待审核 2:通过 3:不通过"
-    t.string "approve_remark", comment: "审核备注"
+    t.text "approve_remark", comment: "审核备注"
     t.string "province", comment: "省"
     t.string "city", comment: "市"
     t.string "district", comment: "区/县"

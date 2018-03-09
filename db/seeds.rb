@@ -44,13 +44,13 @@ di_radio = DonateItem.find_or_create_by(name: '广播', describe: '用于广播�
 
 # 项目模板一级分类
 content = '用户协议'
-Project.find_or_create_by(name: '一对一', alias: 'pair', protocol: content, describe: '项目介绍', kind: :fixed, fund: fc1.funds.unrestricted.first, appoint_fund: fc1.funds.restricted.first, donate_item: di_pair)
-Project.find_or_create_by(name: '悦读', alias: 'read', protocol: content, describe: '项目介绍', kind: :fixed, fund: fc2.funds.unrestricted.first, appoint_fund: fc2.funds.restricted.first, donate_item: di_read)
-Project.find_or_create_by(name: '探索营', alias: 'camp', protocol: content, describe: '项目介绍', kind: :fixed, fund: fc4.funds.unrestricted.first, appoint_fund: fc4.funds.restricted.first, donate_item: di_camp)
-Project.find_or_create_by(name: '观影', alias: 'movie', protocol: content, describe: '项目介绍', kind: :apply, fund: nil, appoint_fund: nil)
-Project.find_or_create_by(name: '护花课程', alias: 'movie_care', protocol: content, describe: '项目介绍', kind: :apply, fund: nil, appoint_fund: nil)
-Project.find_or_create_by(name: '广播', alias: 'radio', protocol: content, describe: '项目介绍', kind: :goods, fund: fc5.funds.unrestricted.first, appoint_fund: fc5.funds.restricted.first, donate_item: di_radio)
-Project.find_or_create_by(name: '护花', alias: 'care', protocol: content, describe: '项目介绍', kind: :goods, fund: fc6.funds.unrestricted.first, appoint_fund: fc6.funds.restricted.first, donate_item: di_care)
+Project.find_or_create_by(name: '一对一', alias: 'pair', protocol: content, describe: '项目介绍', kind: :fixed, fund: fc1.funds.unrestricted.first, appoint_fund: fc1.funds.restricted.first, donate_item: di_pair, accept_feedback_state: 'close_feedback')
+Project.find_or_create_by(name: '悦读', alias: 'read', protocol: content, describe: '项目介绍', kind: :fixed, fund: fc2.funds.unrestricted.first, appoint_fund: fc2.funds.restricted.first, donate_item: di_read, accept_feedback_state: 'open_feedback', feedback_period: 4)
+Project.find_or_create_by(name: '探索营', alias: 'camp', protocol: content, describe: '项目介绍', kind: :fixed, fund: fc4.funds.unrestricted.first, appoint_fund: fc4.funds.restricted.first, donate_item: di_camp, accept_feedback_state: 'close_feedback')
+Project.find_or_create_by(name: '观影', alias: 'movie', protocol: content, describe: '项目介绍', kind: :apply, fund: nil, appoint_fund: nil, accept_feedback_state: 'open_feedback', feedback_period: 4)
+Project.find_or_create_by(name: '护花课程', alias: 'movie_care', protocol: content, describe: '项目介绍', kind: :apply, fund: nil, appoint_fund: nil, accept_feedback_state: 'open_feedback', feedback_period: 4)
+Project.find_or_create_by(name: '广播', alias: 'radio', protocol: content, describe: '项目介绍', kind: :goods, fund: fc5.funds.unrestricted.first, appoint_fund: fc5.funds.restricted.first, donate_item: di_radio, accept_feedback_state: 'open_feedback', feedback_period: 4)
+Project.find_or_create_by(name: '护花', alias: 'care', protocol: content, describe: '项目介绍', kind: :goods, fund: fc6.funds.unrestricted.first, appoint_fund: fc6.funds.restricted.first, donate_item: di_care, accept_feedback_state: 'open_feedback', feedback_period: 4)
 
 # 入账渠道
 IncomeSource.find_or_create_by(name: '微信支付', description: '微信支付', kind: 'weixin')

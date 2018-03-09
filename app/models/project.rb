@@ -17,6 +17,8 @@
 #  position                   :integer                                # 位置排序
 #  form                       :jsonb                                  # 自定义表单{key, label, type, options, required}
 #  donate_item_id             :integer                                # 捐助项id
+#  accept_feedback_state      :integer                                # 是否接受定期反馈：1:open_feedback 2:close_feedback
+#  feedback_period            :integer                                # 建议定期反馈次数/年
 #
 
 # 项目父表
@@ -50,6 +52,8 @@ class Project < ApplicationRecord
   before_save :set_form_from_attributes
 
   enum kind: { fixed: 1, apply: 2, goods: 3 } # 项目类型 1:固定类 2:申请类 2:物资类
+  enum accept_feedback_state: {close_feedback: 1, open_feedback: 2} # 是否开启定期反馈 1:关闭2:开启
+  default_value_for :accept_feedback_state, 1
 
   scope :sorted, ->{ order(id: :asc) }
 
@@ -145,6 +149,7 @@ class Project < ApplicationRecord
       json.cover_mode self.image.present?
       json.cover_url self.image_url(:tiny).to_s
       json.donate_item self.donate_item.try(:summary_builder)
+      json.feedback_period self.feedback_period
     end.attributes!
   end
 
