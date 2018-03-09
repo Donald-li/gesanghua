@@ -50,7 +50,9 @@ class Api::V1::OfflineDonorsController < Api::V1::BaseController
     else
       use_nickname = 'false'
     end
-    if @donor = User.create_offline_user(name, phone, gender, salutation, email, province, city, district, address, nickname, use_nickname)
+    @donor = User.new(login: phone, name: name, phone: phone, gender: gender, salutation: salutation, email: email, province: province, city: city, district: district, address: address, nickname: nickname, use_nickname: use_nickname)
+    # if @donor = User.create_offline_user(name, phone, gender, salutation, email, province, city, district, address, nickname, use_nickname)
+    if @donor.save
       @donor.update(manager_id: @user.id)
       api_success(data: {result: true}, message: '创建捐助人信息成功。')
     else

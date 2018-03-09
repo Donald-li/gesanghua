@@ -315,6 +315,18 @@ ActiveRecord::Schema.define(version: 20180309074237) do
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "支出金额"
   end
 
+  create_table "family_members", force: :cascade, comment: "家庭成员表" do |t|
+    t.integer "visit_id", comment: "家访表ID"
+    t.string "name", comment: "成员姓名"
+    t.integer "age", comment: "年龄"
+    t.string "relationship", comment: "关系"
+    t.string "profession", comment: "职业"
+    t.text "health_condition", comment: "健康状况"
+    t.text "job_condition", comment: "工作情况"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "feedbacks", force: :cascade, comment: "反馈表" do |t|
     t.text "content", comment: "内容"
     t.string "owner_type"
@@ -647,8 +659,8 @@ ActiveRecord::Schema.define(version: 20180309074237) do
     t.datetime "updated_at", null: false
     t.integer "project_season_id", comment: "年度ID"
     t.integer "position", comment: "位置"
-    t.integer "grade", comment: "一对一对应年级"
-    t.integer "semester", comment: "一对一对应学期"
+    t.integer "grade", comment: "结对对应年级"
+    t.integer "semester", comment: "结对对应学期"
   end
 
   create_table "project_season_apply_volunteers", force: :cascade, comment: "项目执行年度申请和志愿者关联表" do |t|
@@ -727,7 +739,7 @@ ActiveRecord::Schema.define(version: 20180309074237) do
     t.string "name", comment: "学校名称"
     t.string "address", comment: "地址"
     t.integer "approve_state", default: 1, comment: "审核状态：1:待审核 2:通过 3:不通过"
-    t.text "approve_remark", comment: "审核备注"
+    t.string "approve_remark", comment: "审核备注"
     t.string "province", comment: "省"
     t.string "city", comment: "市"
     t.string "district", comment: "区/县"
