@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180309041339) do
+ActiveRecord::Schema.define(version: 20180309074237) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -748,6 +748,7 @@ ActiveRecord::Schema.define(version: 20180309041339) do
     t.integer "teacher_count", comment: "教师人数"
     t.integer "logistic_count", comment: "后勤人数"
     t.string "contact_telephone", comment: "联系人座机号码"
+    t.integer "creater_id", comment: "申请人ID"
   end
 
   create_table "sequences", force: :cascade do |t|

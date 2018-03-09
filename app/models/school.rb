@@ -20,13 +20,14 @@
 #  contact_phone     :string                                 # 联系方式
 #  contact_position  :string                                 # 联系人职务
 #  kind              :integer                                # 学校类型
-#  user_id           :integer                                # 申请人ID
+#  user_id           :integer                                # 校长ID
 #  school_no         :string                                 # 学校申请编号
 #  contact_id_card   :string                                 # 联系人身份证号
 #  postcode          :string                                 # 邮政编码
 #  teacher_count     :integer                                # 教师人数
 #  logistic_count    :integer                                # 后勤人数
 #  contact_telephone :string                                 # 联系人座机号码
+#  creater_id        :integer                                # 申请人ID
 #
 
 # 学校
@@ -50,7 +51,8 @@ class School < ApplicationRecord
   has_many :project_season_applies
   has_many :gsh_children
   has_many :audits, as: :owner
-  belongs_to :user, optional: true
+  belongs_to :user, optional: true # 校长user
+  belongs_to :creater, class_name: 'User', foreign_key: :creater_id, optional: true
 
   validates :name, :province, :city, :district, presence: true
   validates :contact_phone, mobile: true
@@ -131,6 +133,20 @@ class School < ApplicationRecord
         json.url self.certificate_image_url(:small).to_s
       end
     end.attributes!
+  end
+
+  #  name       :string                                 # 老师姓名
+  #  nickname   :string                                 # 老师昵称
+  #  user_id    :integer                                # 用户ID
+  #  school_id  :integer                                # 学校ID
+  #  kind       :integer          default("teacher")    # 老师类型：1:校长 2:老师
+  #  phone      :string                                 # 老师电话号码
+  #  state      :integer          default("show")       # 老师状态: 1:启用 2:禁用
+  #  created_at :datetime         not null
+  #  updated_at :datetime         not null
+  #  id_card    :string
+  def gen_school_user
+    Teacher.create(name: self.contact_name, school: self, kind: 'headmaster', phone: self.contact_phone, id_card: self.contact_id_card)
   end
 
   private

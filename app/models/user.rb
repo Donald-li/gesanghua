@@ -55,7 +55,7 @@ class User < ApplicationRecord
   has_one :teacher
   has_one :volunteer
   has_one :county_user
-  has_one :school
+  has_one :school, foreign_key: 'creater_id'
   has_one :gsh_child
   has_many :children, class_name: 'ProjectSeasonApplyChild', foreign_key: 'donate_user_id', dependent: :nullify # 我捐助的孩子们
   has_many :vouchers
@@ -141,12 +141,32 @@ class User < ApplicationRecord
     self.county_user.present?
   end
 
+  def is_headmaster?
+    self.has_role?(:headmaster)
+  end
+
+  def is_school_headmaster?
+    if self.teacher.try(:school).try(:user) === self
+      'headmaster'
+    elsif self.teacher.try(:school).present?
+      'teacher'
+    else
+      'normal'
+    end
+  end
+
   def user_balance
     "#{self.name}(可用余额:#{self.balance.to_s})"
   end
 
   def school_approve_state
-    self.school.present? ? self.school.approve_state : 'default'
+    if self.teacher?
+      self.teacher.school.approve_state
+    elsif self.school.present?
+      self.school.approve_state
+    else
+      'default'
+    end
   end
 
   def volunteer_approve_state
@@ -168,10 +188,6 @@ class User < ApplicationRecord
 
   def short_address
     ChinaCity.get(self.city).to_s + " " + ChinaCity.get(self.district).to_s
-  end
-
-  def has_volunteer?
-    self.volunteer.present?
   end
 
   def self.update_user_statistic_record

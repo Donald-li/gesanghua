@@ -9,7 +9,7 @@ class Api::V1::GshPlus::SchoolsController < Api::V1::BaseController
         api_success(message: '申请失败，请重试', data: false)
       end
     else
-      school = School.new(school_params.except(:location, :number_list).merge(province: school_params[:location][0], city: school_params[:location][1], district: school_params[:location][2], number: params[:item_list][0][:num], teacher_count: params[:item_list][1][:num], logistic_count: params[:item_list][2][:num], user: current_user))
+      school = School.new(school_params.except(:location, :number_list).merge(province: school_params[:location][0], city: school_params[:location][1], district: school_params[:location][2], number: params[:item_list][0][:num], teacher_count: params[:item_list][1][:num], logistic_count: params[:item_list][2][:num], creater: current_user))
       if school.save
         school.attach_card_image(params[:card_image].first[:id].to_i) if params[:card_image].present?
         school.attach_certificate_image(params[:certificate_image].first[:id].to_i) if params[:certificate_image].present?

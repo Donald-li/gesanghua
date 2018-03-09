@@ -124,7 +124,7 @@
                   </a>
                   <ul class="dropdown-menu">
                     <li>
-                      <% if user.has_volunteer? %>
+                      <% if user.volunteer? %>
                         <a href="<%= edit_admin_volunteer_path(user_id: user.id, id: user.volunteer.id) %>"> 修改志愿者角色 </a>
                       <% else %>
                           <a href="<%= new_admin_volunteer_path(user_id: user.id) %>"> 新增志愿者角色 </a>

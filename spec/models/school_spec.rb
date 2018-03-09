@@ -27,6 +27,7 @@
 #  teacher_count     :integer                                # 教师人数
 #  logistic_count    :integer                                # 后勤人数
 #  contact_telephone :string                                 # 联系人座机号码
+#  creater_id        :integer                                # 申请人ID
 #
 
 require 'rails_helper'
