@@ -276,17 +276,17 @@ class ProjectSeasonApply < ApplicationRecord
 
   private
   def gen_apply_no
-    if self.project_id == 1
+    if self.project_id == Project.pair_project.id
       kind = 'JD'
-    elsif self.project_id == 2
+    elsif self.project_id == Project.read_project.id || self.project_id == Project.book_supply_project.id
       kind = 'YD'
-    elsif self.project_id == 3
+    elsif self.project_id == Project.movie_project.id
       kind = 'GY'
-    elsif self.project_id == 4
+    elsif self.project_id == Project.camp_project.id
       kind = 'TS'
-    elsif self.project_id == 5
+    elsif self.project_id == Project.radio_project.id
       kind = 'GB'
-    elsif self.project_id == 6
+    elsif self.project_id == Project.care_project.id || self.project_id == Project.movie_care_project.id
       kind = 'HH'
     else
       kind = 'QT'
