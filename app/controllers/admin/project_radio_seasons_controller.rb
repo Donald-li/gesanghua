@@ -50,7 +50,7 @@ class Admin::ProjectRadioSeasonsController < Admin::BaseController
 
   private
     def set_project
-      @project = Project.find 5
+      @project = Project.radio_project
     end
 
     def set_season
