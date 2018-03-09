@@ -194,6 +194,7 @@ class DonateRecord < ApplicationRecord
     return false unless donate_item.present?
     fund = donate_item.fund
     donate = user.donates.build(amount: amount, fund: fund, income_record: income_record, promoter: promoter, pay_state: 'unpay', donate_item: donate_item)
+    donate.project = donate_item.project if donate_item.project.present?
     donate.save
     return donate
   end
