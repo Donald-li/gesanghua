@@ -1,5 +1,5 @@
 class Api::V1::BaseController < ApplicationController
-  before_action :login? unless Settings.development_mode  # Settings.amount_tabs
+  before_action :login?
   before_action :set_paper_trail_whodunnit
   skip_before_action :verify_authenticity_token
 
@@ -68,7 +68,7 @@ class Api::V1::BaseController < ApplicationController
   end
 
   def login?
-    if current_user.present?
+    if current_user.present? || Settings.wechat_development_mode
       return true
     else
       api_error(status: 402, message: '用户未登录')
