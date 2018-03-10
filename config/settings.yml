@@ -10,8 +10,8 @@ send_sms: true
 # 开发模式
 development_mode: false
 
-# 微信开发模式
-wechat_development_mode: false
+# 支付1分钱模式
+pay_1_mode: true
 
 # 配置学费
 junior_term_amount: 1050

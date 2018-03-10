@@ -68,7 +68,7 @@ class Api::V1::BaseController < ApplicationController
   end
 
   def login?
-    if current_user.present? || Settings.wechat_development_mode
+    if current_user.present? || Settings.development_mode
       return true
     else
       api_error(status: 402, message: '用户未登录')
