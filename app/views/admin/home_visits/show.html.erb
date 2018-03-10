@@ -95,53 +95,7 @@
             <%= @visit.family_size %>
           </th>
         </tr>
-        <tr>
-          <th>
-            家庭成员
-          </th>
-        </tr>
-        <tr>
-          <th>
-            成员姓名
-          </th>
-          <th>
-            年龄
-          </th>
-          <th>
-            关系
-          </th>
-          <th>
-            职业
-          </th>
-          <th>
-            健康状况
-          </th>
-          <th>
-            工作情况
-          </th>
-        </tr>
-          <% @visit.members.each do |member| %>
-            <tr>
-              <th>
-                <%= member.name %>
-              </th>
-              <th>
-                <%= member.age %>
-              </th>
-              <th>
-                <%= member.relationship %>
-              </th>
-              <th>
-                <%= member.profession %>
-              </th>
-              <th>
-                <%= member.health_condition %>
-              </th>
-              <th>
-                <%= member.job_condition %>
-              </th>
-            </tr>
-          <% end %>
+
         <tr>
           <th>
             基本情况
@@ -235,6 +189,57 @@
             <%= image_tag @visit.image.try(:file).try(:url) %>
           </th>
         </tr>
+        </tbody>
+      </table>
+      <table  class="table table-bordered table-hover">
+        <tbody>
+          <tr>
+            <th>
+              家庭成员
+            </th>
+          </tr>
+          <tr>
+            <th>
+              成员姓名
+            </th>
+            <th>
+              年龄
+            </th>
+            <th>
+              关系
+            </th>
+            <th>
+              职业
+            </th>
+            <th>
+              健康状况
+            </th>
+            <th>
+              工作情况
+            </th>
+          </tr>
+            <% @visit.members.each do |member| %>
+              <tr>
+                <th>
+                  <%= member.name %>
+                </th>
+                <th>
+                  <%= member.age %>
+                </th>
+                <th>
+                  <%= member.relationship %>
+                </th>
+                <th>
+                  <%= member.profession %>
+                </th>
+                <th>
+                  <%= member.health_condition %>
+                </th>
+                <th>
+                  <%= member.job_condition %>
+                </th>
+              </tr>
+            <% end %>
         </tbody>
       </table>
     </div>

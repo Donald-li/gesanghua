@@ -1,5 +1,5 @@
 class Api::V1::SessionsController < Api::V1::BaseController
-  skip_before_action :login? unless Settings.development_mode
+  skip_before_action :login?
 
   def create
     user = User.where('phone = ? or email = ?', session_params[:login], session_params[:login]).first
