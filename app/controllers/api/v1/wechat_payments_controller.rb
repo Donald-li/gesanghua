@@ -1,5 +1,5 @@
 class Api::V1::WechatPaymentsController < Api::V1::BaseController
-  skip_before_action :login? unless Settings.development_mode
+  skip_before_action :login?
 
   def pay
     donation = DonateRecord.find params[:order_id]

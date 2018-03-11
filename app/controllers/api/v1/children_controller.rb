@@ -3,10 +3,11 @@ class Api::V1::ChildrenController < Api::V1::BaseController
 
   def index
     @children = ProjectSeasonApplyChild.where(project: Project.pair_project).pass.outside.show.sorted
+    total = @children.count
     @children = @children.where(city: params[:city]) if params[:city].present?
     @children = @children.where(district: params[:district]) if params[:district].present?
     @children = @children.page(params[:page]).per(params[:per])
-    api_success(data: {children: @children.map{|child| child.detail_builder if child.present?}, pagination: json_pagination(@children)})
+    api_success(data: {children: @children.map{|child| child.detail_builder if child.present?}, total: total, pagination: json_pagination(@children)})
   end
 
   def get_address_list

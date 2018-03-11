@@ -46,8 +46,8 @@ class Team < ApplicationRecord
       json.city_name ChinaCity.get(self.city)
       json.district_name ChinaCity.get(self.district)
       json.create_time self.created_at.strftime("%Y-%m-%d %H:%M")
-      json.creater_name self.creater.try(:name)
-      json.manager_name self.manager.try(:name)
+      json.creater_name self.creater.try(:nickname)
+      json.manager_name self.manager.try(:nickname)
       json.logo_mode self.logo.present?
       json.logo_url self.logo_url(:small).to_s
     end.attributes!
