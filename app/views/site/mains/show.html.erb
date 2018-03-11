@@ -1,7 +1,40 @@
 <div class="bullet">
   <span>青海格桑花教育救助会 “护花健康包” 采购公告</span>
-  <span></span>
+  <span class="iconfont icon-ico-wechat1 bullet-tit-icon"></span>
 </div>
+<nav class="bul-nav clearfix">
+  <div class="bul-img pull-left"><%= image_tag 'gsh-logo-nav.png' %></div>
+  <div class="bul-nav-cont clearfix">
+    <div class="pull-left"style="position: relative;">
+      <ul class="bul-nav-ul">
+        <li>首页</li>
+        <li id="navshow">
+          项目中心
+          <span class="iconfont icon-ico-arrow"></span>
+          <ul class="bul-nav-heide">
+            <li class="gsh-arrows-1">
+              <%= image_tag 'gsh-arrows.png' %>
+            </li>
+            <li>一对一助学</li>
+            <li>护花项目</li>
+            <li>广播项目</li>
+            <li>观影项目</li>
+            <li>探索营</li>
+          </ul>
+        </li>
+        <li>公益活动</li>
+        <li>新闻资讯</li>
+        <li>财务公开</li>
+        <li>关于我们</li>
+      </ul>
+
+    </div>
+
+    <div class="bul-nav-wy pull-right"><span class="iconfont icon-ico-donation"></span>我要捐助</div>
+  </div>
+  <div class="bul-nav-sh pull-right"><span class="iconfont icon-ico-search"></span></div>
+  <div class="bul-nav-dl pull-right">登录</div>
+</nav>
 <div class="bul-swiper">
   <div class="swiper-container">
     <div class="swiper-wrapper">
@@ -16,6 +49,7 @@
         <%= image_tag 'application.jpg' %>
       </div>
     </div>
+    <div class="swiper-pagination"></div>
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
   </div>
@@ -34,36 +68,68 @@
         </div>
         <div class="bul-img-co">
           <p>捐助动态</p>
-          <!--<div style="overflow: hidden; position: relative; height: 114px;" id="news-container">-->
-            <!--<ul style="position: absolute; margin: 0pt; padding: 0pt; top: 0px;">-->
-              <!--<li>-->
-                <!--<div> 4) jugbit.com jquery vticker more info more info more info more info more info</div>-->
-              <!--</li>-->
-              <!--<li>-->
-                <!--<div> 1) Lorem ipsum dolor sit amet, porta at, imperdiet id neque. more info</div>-->
-              <!--</li>-->
-              <!--<li>-->
-                <!--<div> 2) Lorem ipsum dolor sit amet, consectetur adipiscing elit. more info</div>-->
-              <!--</li>-->
-              <!--<li>-->
-                <!--<div> 3) Lorem ipsum dolor sit amet more info more info more info more info</div>-->
-              <!--</li>-->
-            <!--</ul>-->
-          <!--</div>-->
-          <div class="swiperfont-container">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide">Slide 1</div>
-              <div class="swiper-slide">Slide 2</div>
-              <div class="swiper-slide">Slide 3</div>
-              <div class="swiper-slide">Slide 4</div>
-              <div class="swiper-slide">Slide 5</div>
-              <div class="swiper-slide">Slide 6</div>
-              <div class="swiper-slide">Slide 7</div>
-              <div class="swiper-slide">Slide 8</div>
-              <div class="swiper-slide">Slide 9</div>
-              <div class="swiper-slide">Slide 10</div>
-            </div>
+          <div style="overflow: hidden; position: relative; height: 114px;" id="news-container">
+            <div class="bul-xian"></div>
+            <ul style="position: absolute; margin: 0pt; padding: 0pt; top: 0px;">
+              <li>
+                <div class="clearfix">
+                  <span class="iconfont icon-yuan bul-yuan "></span>
+                  <span class="bul-time pull-left">01月28日 12:21</span>
+                  <span class="bul-name pull-left">苏* 捐助一对一项目</span>
+                  <span class="bul-moy pull-right">2999.00元</span>
+                </div>
+              </li>
+              <li>
+                <div class="clearfix">
+                  <span class="iconfont icon-yuan bul-yuan "></span>
+                  <span class="bul-time pull-left">01月28日 12:21</span>
+                  <span class="bul-name pull-left">苏* 捐助一对一项目</span>
+                  <span class="bul-moy pull-right">2999.00元</span>
+                </div>
+              </li>
+              <li>
+                <div class="clearfix">
+                  <span class="iconfont icon-yuan bul-yuan "></span>
+                  <span class="bul-time pull-left">01月28日 12:21</span>
+                  <span class="bul-name pull-left">苏* 捐助一对一项目</span>
+                  <span class="bul-moy pull-right">2999.00元</span>
+                </div>
+              </li>
+              <li>
+                <div class="clearfix">
+                  <span class="iconfont icon-yuan bul-yuan "></span>
+                  <span class="bul-time pull-left">01月28日 12:21</span>
+                  <span class="bul-name pull-left">苏* 捐助一对一项目</span>
+                  <span class="bul-moy pull-right">2999.00元</span>
+                </div>
+              </li>
+              <li>
+                <div class="clearfix">
+                  <span class="iconfont icon-yuan bul-yuan "></span>
+                  <span class="bul-time pull-left">01月28日 12:21</span>
+                  <span class="bul-name pull-left">苏* 捐助一对一项目</span>
+                  <span class="bul-moy pull-right">2999.00元</span>
+                </div>
+              </li>
+              <li>
+                <div class="clearfix">
+                  <span class="iconfont icon-yuan bul-yuan "></span>
+                  <span class="bul-time pull-left">01月28日 12:21</span>
+                  <span class="bul-name pull-left">苏* 捐助一对一项目</span>
+                  <span class="bul-moy pull-right">2999.00元</span>
+                </div>
+              </li>
+              <li>
+                <div class="clearfix">
+                  <span class="iconfont icon-yuan bul-yuan "></span>
+                  <span class="bul-time pull-left">01月28日 12:21</span>
+                  <span class="bul-name pull-left">苏* 捐助一对一项目</span>
+                  <span class="bul-moy pull-right">2999.00元</span>
+                </div>
+              </li>
+            </ul>
           </div>
+
         </div>
 
       </div>
@@ -77,33 +143,39 @@
 <div class="bul-content">
   <div>
     <div class="bul-mouse">
-      <div>
+      <div id="show1">
         <p class="mouse-1">我们可以</p>
         <p class="mouse-2">为西部孩子提供帮助</p>
       </div>
-      <div>
+      <div id="show2">
         <p class="mouse-1">我们可以</p>
         <p class="mouse-2">为西部孩子提供帮助</p>
       </div>
-      <div>
+      <div id="show3">
         <p class="mouse-1">我们可以</p>
         <p class="mouse-2">为西部孩子提供帮助</p>
       </div>
     </div>
-    <div class="bul-mouse-show" style="visibility: hidden;">
-      <div>
+    <div class="bul-mouse-show">
+      <div id="show11">
+        <%= image_tag 'gsh-arrows-2.png' %>
         <div class="mouse-show">
-          <p class="mouse-show-1">关注西部教育，帮助西部孩子 健康成长</p>
+
+          <p class="mouse-show-1">1关注西部教育，帮助西部孩子 健康成长</p>
         </div>
       </div>
-      <div>
+      <div id="show12">
+        <%= image_tag 'gsh-arrows-2.png' %>
         <div class="mouse-show">
-          <p class="mouse-show-1">关注西部教育，帮助西部孩子 健康成长</p>
+
+          <p class="mouse-show-1">2关注西部教育，帮助西部孩子 健康成长</p>
         </div>
       </div>
-      <div>
+      <div id="show13">
+        <%= image_tag 'gsh-arrows-2.png' %>
         <div class="mouse-show">
-          <p class="mouse-show-1">关注西部教育，帮助西部孩子 健康成长</p>
+
+          <p class="mouse-show-1">3关注西部教育，帮助西部孩子 健康成长</p>
         </div>
       </div>
     </div>
@@ -185,6 +257,7 @@
 
 </div>
 <div class="collaboration">
+  <p>合作伙伴</p>
   <div>
     <span>1</span>
     <span>2</span>
@@ -220,29 +293,71 @@
       <p class="footer-2">志愿者查询</p>
       <p class="footer-3">志愿者申请</p>
     </div>
-    <div class="pull-right">
+    <div class="pull-right" style="position: relative;">
       <p class="right-foot-3">关注格桑花西部助学</p>
       <div class="right-foot-1"><span class="iconfont icon-ico-wechat1"></span>关注微信</div>
       <div class="right-foot-2"><span class="iconfont icon-ico-wechat1"></span>关注微博</div>
+      <div class="bul-pos1">
+        <div id="container2">
+          <canvas></canvas>
+        </div>
+      </div>
+      <div class="bul-pos2">
+        <div id="container3">
+          <canvas></canvas>
+        </div>
+      </div>
     </div>
   </div>
 
   <p>Copyright(c) 2005-2015 青海格桑花教育救助会 版权所有 All Rights Reserved 青ICP备10200056号</p>
 </footer>
+
+<div class="bul-top-2"><span class="iconfont icon-ico-wechat1"></span></div>
+<div class="bul-pos4">
+  <div id="container4">
+    <canvas></canvas>
+  </div>
+</div>
 <script>
+
+    $('#show1').mousemove(function () {
+        $('#show11').css("visibility", "visible")
+    });
+    $('#show1').mouseout(function () {
+        $('#show11').css("visibility", "hidden")
+    });
+    $('#show2').mousemove(function () {
+        $('#show12').css("visibility", "visible")
+    });
+    $('#show2').mouseout(function () {
+        $('#show12').css("visibility", "hidden")
+    });
+    $('#show3').mousemove(function () {
+        $('#show13').css("visibility", "visible")
+    });
+    $('#show3').mouseout(function () {
+        $('#show13').css("visibility", "hidden")
+    });
+
+    $('#news-container').vTicker({
+        speed: 500,
+        pause: 2000,
+        animation: 'fade',
+        mousePause: false,
+        showItems: 3
+    })
     var mySwiper = new Swiper('.swiper-container', {
         slidesPerView: 'auto',
         centeredSlides: true,
         loop: true,
         autoplay: true,
+        pagination: {
+            el: '.swiper-pagination'
+        },
         navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev'
         }
-    })
-    var swiper = new Swiper('.swiperfont-container', {
-        direction: 'vertical',
-        autoplay:true,
-        loop : true,
     });
 </script>

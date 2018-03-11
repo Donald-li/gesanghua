@@ -45,6 +45,12 @@ namespace :api do
       resources :my_reads
     end
 
+    resources :bookshelves, only: [:index, :show] do
+      member do
+        post :define_name
+      end
+    end
+
     namespace :gsh_plus do
       resources :mains, only: [:index]
       resources :schools, only: [:create]
@@ -163,7 +169,7 @@ namespace :api do
     # 捐助接口
     resource :donate, only: [] do
       collection do
-        post :project
+        post :item
         post :gsh
       end
     end

@@ -1,14 +1,17 @@
 root_url: 'http://gesanghua.wikiflyer.cn/'
 app_host: 'gesanghua.wikiflyer.cn'
-app_name: '格桑花项目'
-app_desc: '格桑花项目'
+app_name: '格桑花'
+app_desc: '格桑花'
 logo_img: ''
 
 # 短信设置
 send_sms: true
 
-# 开发模式，设为true，可跳过登录
+# 开发模式
 development_mode: false
+
+# 支付1分钱模式
+pay_1_mode: true
 
 # 配置学费
 junior_term_amount: 1050
