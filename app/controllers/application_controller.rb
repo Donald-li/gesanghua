@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    @current_user = User.first if Settings.development_mode
+    @current_user = User.last if Settings.development_mode
     @current_user ||= (login_from_session )
   end
 
