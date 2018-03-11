@@ -1,7 +1,7 @@
 class Api::V1::SchoolUsersController < Api::V1::BaseController
 
   def index
-    @school = current_user.teacher.school
+    @school = current_user.teacher.try(:school)
     if @school.present?
         api_success(data: {is_school_user: true, seach_result: @school.summary_builder})
     else
@@ -10,7 +10,7 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
   end
 
   def show
-    @school = current_user.teacher.school
+    @school = current_user.teacher.try(:school)
     if @school.present?
         api_success(data: @school.detail_builder)
     else
@@ -35,7 +35,7 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
   end
 
   def get_school_teachers
-    @school = current_user.teacher.school
+    @school = current_user.teacher.try(:school)
     if @school.present?
       @teachers = @school.teachers.teacher.sorted
       api_success(data: {is_school_user: true, seach_result: @teachers.map{|teacher| teacher.summary_builder}})
@@ -45,7 +45,7 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
   end
 
   def create_teacher
-    @school = current_user.teacher.school
+    @school = current_user.teacher.try(:school)
     if @school.present?
       name = params[:name]
       phone = params[:phone]
@@ -79,7 +79,7 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
   end
 
   def update_teacher
-    @school = current_user.teacher.school
+    @school = current_user.teacher.try(:school)
     if @school.present?
       name = params[:name]
       phone = params[:phone]
@@ -103,7 +103,7 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
   end
 
   def delete_teacher
-    @school = current_user.teacher.school
+    @school = current_user.teacher.try(:school)
     if @school.present?
       @teacher = @school.teachers.find(params[:id])
       if @teacher.destroy
@@ -117,7 +117,7 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
   end
 
   def get_school_user
-    @school = current_user.teacher.school
+    @school = current_user.teacher.try(:school)
     if @school.present?
       api_success(data: {is_school_user: true, seach_result: @school.summary_builder})
     else
@@ -126,7 +126,7 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
   end
 
   def update_school_user
-    @school = current_user.teacher.school
+    @school = current_user.teacher.try(:school)
     if @school.present?
       if current_user.update(name: params[:user_name], nickname: params[:user_nickname]) && @school.update(contact_telephone: params[:contact_telephone])
         current_user.attach_avatar(params[:avatar][:id]) if params[:avatar].present?
