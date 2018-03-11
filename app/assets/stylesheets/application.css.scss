@@ -65,6 +65,10 @@ span {
 .pull-left {
   float: left;
 }
+//小手
+.cur{
+  cursor: pointer;
+}
 //轮播按钮
 .swiper-button-prev, .swiper-container-rtl .swiper-button-next{
   background-color: #000;
@@ -156,18 +160,19 @@ span {
       z-index: 22;
       list-style: none;
       background: #fff;
-      display: none;
-      border-radius: 10px;
+      border-radius: 4px;
       padding-top: 10px;
       padding-bottom: 10px;
-
+      display: none;
+      box-shadow: 0px 0px 2px 3px #adadad33;
       .gsh-arrows-1{
         position: absolute;
-        left:70px;
-        top:2px;
+        left: 70px;
+        top: -7px;
         width: 14px;
         height: 9px;
         line-height: 0;
+        z-index: 2;
       }
       .gsh-arrows-1:hover{
         background: #fff;
