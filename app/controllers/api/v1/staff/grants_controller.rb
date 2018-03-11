@@ -27,10 +27,8 @@ class Api::V1::Staff::GrantsController < Api::V1::BaseController
       @grant.attach_images(@image_ids)
       # @feedback.attach_images(@image_ids)
       api_success(data: {result: true, grant_id: @grant.id}, message: '发放成功')
-      return true
     else
       api_success(data: {result: false}, message: '发放成功，请重试！')
-      return false
     end
   end
 
