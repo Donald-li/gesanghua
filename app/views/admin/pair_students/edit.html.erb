@@ -33,21 +33,38 @@
                     <%= f.hidden_field :school_id, value: @project_apply.school_id %>
                     <%= f.hidden_field :project_id, value: @project_apply.project_id %>
                     <%= f.hidden_field :project_season_id, value: @project_apply.project_season_id %>
+                    <h3>基本信息</h3>
                     <div class="form-group">
                       <label class="col-md-2 control-label">孩子头像：</label>
                       <div class="col-sm-9">
                         <%= webuploader_tag :avatar_id, label: '上传图片', type: 'apply_child_avatar', asset: @apply_child.avatar, klass: 'single', id: 'single-upload1' %>
                       </div>
                     </div>
-                    <%= f.input :name, label: '姓名：', autofocus: true, placeholder: '姓名', required: true %>
-                    <%= f.input :level, as: :select, label: '中学：', collection: ProjectSeasonApplyChild.options_for_enum_select(:levels), include_blank: false %>
-                    <%= f.input :grade, as: :select, label: '年级：', collection: ProjectSeasonApplyChild.options_for_enum_select(:grades), include_blank: false %>
-                    <%= f.input :semester, as: :select, label: '学期：', collection: ProjectSeasonApplyChild.options_for_enum_select(:semesters), include_blank: false %>
+                    <%= f.input :name, label: '真实姓名：', autofocus: true, placeholder: '姓名', required: true %>
+                    <%= f.input :gender, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApplyChild.options_for_select(:genders), label: '性别：'%>
                     <%= f.input :id_card, label: '身份证号：', autofocus: true, placeholder: '身份证号', required: true %>
                     <%= f.input :nation, as: :select, label: '民族：', collection: ProjectSeasonApplyChild.options_for_enum_select(:nations), include_blank: false %>
-                    <%= f.input :gender, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApplyChild.options_for_select(:genders), label: '性别：'%>
-                    <%= f.input :parent_name, label: '家长姓名：', autofocus: true, placeholder: '家长姓名', required: true %>
-                    <%= f.input :phone, label: '联系电话：', autofocus: true, placeholder: '联系电话', required: true %>
+                    <%= f.input :level, as: :select, label: '学历：', collection: ProjectSeasonApplyChild.options_for_enum_select(:levels), include_blank: false %>
+                    <%= f.input :grade, as: :select, label: '年级：', collection: ProjectSeasonApplyChild.options_for_enum_select(:grades), include_blank: false %>
+                    <%= f.input :semester, as: :select, label: '学期：', collection: ProjectSeasonApplyChild.options_for_enum_select(:semesters), include_blank: false %>
+                    <%= f.input :teacher_name, label: '班主任：', autofocus: true, placeholder: '填写班主任姓名', required: true %>
+                    <%= f.input :teacher_phone, label: '联系方式：', autofocus: true, placeholder: '填写班主任联系方式', required: true %>
+                    <%= f.input :description, label: '自我介绍：', autofocus: true, placeholder: '自我介绍', required: true %>
+                    <h3>家庭信息</h3>
+                    <%= f.input :father, label: '父亲：', autofocus: true, placeholder: '父亲', required: true %>
+                    <%= f.input :father_job, label: '父亲职业：', autofocus: true, placeholder: '父亲职业' %>
+                    <%= f.input :mother, label: '母亲：', autofocus: true, placeholder: '母亲', required: true %>
+                    <%= f.input :mother_job, label: '母亲职业：', autofocus: true, placeholder: '母亲职业', required: true %>
+                    <%= f.input :guardian, label: '监护人：', autofocus: true, placeholder: '监护人', required: true %>
+                    <%= f.input :guardian_relation, label: '与其关系：', autofocus: true, placeholder: '与其关系', required: true %>
+                    <%= f.input :guardian_phone, label: '联系方式：', autofocus: true, placeholder: '联系方式', required: true %>
+                    <%= f.input :address, label: '家庭住址：', autofocus: true, placeholder: '家庭住址', required: true %>
+                    <%= f.input :family_income, label: '家庭年收入：', autofocus: true, placeholder: '家庭年收入', required: true %>
+                    <%= f.input :family_expenditure, label: '家庭年支出：', autofocus: true, placeholder: '家庭年支出', required: true %>
+                    <%= f.input :income_source, label: '收入来源：', autofocus: true, placeholder: '收入来源', required: true %>
+                    <%= f.input :family_condition, label: '家庭情况：', autofocus: true, placeholder: '家庭情况', required: true %>
+                    <%= f.input :brothers, label: '兄弟姐妹：', autofocus: true, placeholder: '兄弟姐妹', required: true %>
+                    <h3>推荐理由</h3>
                     <%= f.input :reason, label: '推荐理由：', placeholder: '推荐理由', input_html: { maxlength: 20 } %>
                     <!--<div class="form-group">-->
                       <!--<label class="col-md-2 control-label">申请学期：</label>-->
