@@ -29,7 +29,7 @@ class ProjectSeason < ApplicationRecord
   enum state: {enable: 1, disable: 2}
   default_value_for :state, 1
 
-  scope :sorted, -> { order(created_at: :desc)}
+  scope :sorted, -> { order(id: :desc)}
   scope :pair, -> { where(project_id: Project.pair_project.id) } # 一对一
   scope :read, -> { where(project_id: Project.read_project.id) } # 悦读
   scope :movie, -> { where(project_id: Project.movie_project.id) } # 观影
