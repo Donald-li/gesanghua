@@ -1,22 +1,22 @@
-<%= simple_form_for [:admin, @project], url: @project.new_record? ? admin_radio_projects_path : admin_radio_project_path, wrapper: :admin_form, html: {class: 'form-horizontal project_form'} do |f| %>
+<%= simple_form_for [:admin, @project], url: @project.new_record? ? admin_radio_projects_path : admin_radio_project_path, wrapper: :admin_form, html: {class: 'form-horizontal project_form', 'data-parsley-validate': true} do |f| %>
   <%= f.error_notification %>
   <div class="form-body form-horizontal">
     <% if @project.new_record? %>
       <%= f.hidden_field :project_id, value: Project.radio_project.id %>
-      <%= f.input :project_season_id, as: :select, label: '一对一批次：', input_html: {class: 'seasons-ajax'} %>
-      <%= f.input :school_id, as: :select, label: '选择学校：', input_html: {class: 'schools-ajax'} %>
+      <%= f.input :project_season_id, as: :select, label: '一对一批次：', input_html: {class: 'seasons-ajax'}, reqquired: true %>
+      <%= f.input :school_id, as: :select, label: '选择学校：', input_html: {class: 'schools-ajax'}, reqquired: true %>
       <div style="margin-bottom: 20px;" class="form-group">
         <label class="col-md-2 control-label select required" for="project_category_id">收货地址：</label>
         <div class="col-sm-6">
           <div class="row city-group">
             <div class="col-sm-3">
-              <%= select_tag 'project_season_apply[province]', options_for_select(ChinaCity.list, @project.province.presence), prompt: '省份', class: "form-control city-select", require: true %>
+              <%= select_tag 'project_season_apply[province]', options_for_select(ChinaCity.list, @project.province.presence), prompt: '省份', class: "form-control city-select", required: true %>
             </div>
             <div class="col-sm-3">
-              <%= select_tag 'project_season_apply[city]', options_for_select(ChinaCity.list(@project.province.to_s), @project.city.presence), prompt: '城市', class: "form-control city-select", require: true %>
+              <%= select_tag 'project_season_apply[city]', options_for_select(ChinaCity.list(@project.province.to_s), @project.city.presence), prompt: '城市', class: "form-control city-select", required: true %>
             </div>
             <div class="col-sm-3">
-              <%= select_tag 'project_season_apply[district]', options_for_select(ChinaCity.list(@project.city.to_s), @project.district.presence), prompt: '地区', class: "form-control city-select", require: true %>
+              <%= select_tag 'project_season_apply[district]', options_for_select(ChinaCity.list(@project.city.to_s), @project.district.presence), prompt: '地区', class: "form-control city-select", required: true %>
             </div>
           </div>
         </div>
@@ -56,11 +56,6 @@
 </script>
 <script type="text/javascript">
     $(function () {
-        //    表单验证
-        // $(".project_form").html5Validate(function () {
-        //     $(this).find('[type="submit"]').attr('disabled', 'disabled');
-        //     this.submit();
-        // });
         // 异步加载学校列表
         $('.schools-ajax').select2({
             language: "zh-CN",

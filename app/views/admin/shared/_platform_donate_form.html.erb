@@ -1,4 +1,4 @@
-<%= simple_form_for [:admin, DonateRecord.new], url: url, method: :post, wrapper: :admin_form, html: {'data-parsley-validate': true, id: 'approve-form', 'data-parsley-excluded' => "input[type=button], input[type=submit], input[type=reset], input[type=hidden], [disabled], :hidden"} do |f| %>
+<%= simple_form_for [:admin, DonateRecord.new], url: url, method: :post, wrapper: :admin_form, html: {id: 'approve-form', 'data-parsley-validate': true} do |f| %>
   <%= f.error_notification %>
   <div class="form-body form-horizontal">
     <div class="form-group radio_buttons required donate_record_donate_way">

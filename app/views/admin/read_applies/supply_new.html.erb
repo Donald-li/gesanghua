@@ -139,11 +139,6 @@
     $(function(){
         initMultiImageWebuploader($('#webuploader'));
         $('.upload-list').viewer();
-        //    表单验证
-        $(".project_form").html5Validate(function(){
-            $(this).find('[type="submit"]').attr('disabled','disabled');
-            this.submit();
-        });
         $("#goods").nestedAttributes({
           bindAddTo: $("#goods_add_another"),
           beforeAdd: function(el){

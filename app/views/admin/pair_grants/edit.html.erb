@@ -25,7 +25,7 @@
           <%= f.input :grant_person, label: '发放人：', placeholder: '请填写发放人', required: true %>
           <%= f.input :grant_remark, label: '发放说明：', placeholder: '请填写发放说明', required: true %>
           <div class="form-group">
-            <label class="col-md-2 control-label">发放证明：</label>
+            <label class="col-md-2 control-label">发放证明(最多9张)：</label>
             <div class="col-sm-9">
               <%= webuploader_tag 'image_ids[]', label: '上传发放证明图片', type: 'gsh_child_grant_image', asset: @grant.images %>
             </div>
@@ -45,20 +45,14 @@
 
 <script type="text/javascript">
     $(function(){
-        //    表单验证
-        $(".grant_form").html5Validate(function(){
-            $(this).find('[type="submit"]').attr('disabled','disabled');
-            this.submit();
-          }, {
-            validate: function() {
-                var ima_length = document.getElementById("webuploader").getElementsByTagName("li").length;
-                if (ima_length > 9) {
-                    alert("最多上传9张图片");
-                    return false;
-                }
-                return true;
-                }
-        });
+//        $(".grant_form").parsley().on('form:submit', function () {
+//            var ima_length = document.getElementById("webuploader").getElementsByTagName("li").length;
+//            if (ima_length > 9) {
+//                alert("最多上传9张图片");
+//                return false;
+//            }
+//            return true;
+//        })
         initMultiImageWebuploader('.upload-wrap', null, 9);
         $('.upload-list').viewer();
     })

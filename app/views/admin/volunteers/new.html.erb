@@ -36,11 +36,6 @@
 
     <script>
         $(function(){
-            //    表单验证
-            $(".volunteer_form").html5Validate(function(){
-                $(this).find('[type="submit"]').attr('disabled','disabled');
-                this.submit();
-            });
           $('#major_ids').select2({
               language: "zh-CN",
               placeholder: '请选择专业',

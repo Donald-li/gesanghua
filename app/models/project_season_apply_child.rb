@@ -273,7 +273,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
           json.(grant, :amount)
           json.reporter grant.grant_person
           json.content grant.grant_remark
-          json.reported_at grant.granted_at.strftime("%Y-%m-%d")
+          json.reported_at grant.granted_at.strftime("%Y-%m-%d") if grant.granted_at.present?
           json.report_images do
             json.array! grant.images do |img|
               json.id img.id

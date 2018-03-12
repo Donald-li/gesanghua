@@ -46,11 +46,6 @@
 <script type="text/javascript">
     $(function () {
         initImageWebuploader($('#webuploader'));
-        //    表单验证
-        $(".donate_item_form").html5Validate(function () {
-            $(this).find('[type="submit"]').attr('disabled', 'disabled');
-            this.submit();
-        });
 
         $("#fund").select2({
             language: "zh-CN"

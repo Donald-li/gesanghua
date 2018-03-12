@@ -389,7 +389,9 @@ class DonateRecord < ApplicationRecord
   end
 
   def gen_income_record
-    self.build_income_record(donate_record: self, user: self.user, fund: self.fund, amount: amount, remitter_id: self.remitter_id, remitter_name: self.remitter_name, donor: self.donor, promoter_id: self.promoter_id, income_time: Time.now)
+    income_record = self.build_income_record(user: self.user, fund: self.fund, amount: amount, remitter_id: self.remitter_id, remitter_name: self.remitter_name, donor: self.donor, promoter_id: self.promoter_id, income_time: Time.now)
+    self.income_record = income_record
+    self.save
   end
 
   def detail_builder

@@ -11,7 +11,7 @@
       </div>
       <%= f.input :content, label: '报告详情：', placeholder: '请填写报告详情' %>
       <div class="form-group">
-        <label class="col-md-2 control-label">报告图片：</label>
+        <label class="col-md-2 control-label">报告图片(最多9张)：</label>
         <div class="col-sm-9">
           <%= webuploader_tag 'image_ids[]', label: '上传报告图片', type: 'project_report_image', asset: @report.images %>
         </div>
@@ -30,20 +30,6 @@
 <% end %>
 <script>
 $(function(){
-  // 表单验证
-  $(".report_form").html5Validate(function(){
-      $(this).find('[type="submit"]').attr('disabled','disabled');
-      this.submit();
-  }, {
-    validate: function() {
-        var ima_length = document.getElementById("webuploader").getElementsByTagName("li").length;
-        if (ima_length > 9) {
-            alert("最多上传9张图片");
-            return false;
-        }
-        return true;
-        }
-  });
   initMultiImageWebuploader($('#webuploader'), null, 9);
   $('.upload-list').viewer();
 })

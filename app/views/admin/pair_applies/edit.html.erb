@@ -13,12 +13,12 @@
     </div>
   </div>
   <div class="portlet-body form">
-    <%= simple_form_for [:admin, @project_apply], url: admin_pair_apply_path, wrapper: :admin_form, html: {class: 'form-horizontal project_form'} do |f| %>
+    <%= simple_form_for [:admin, @project_apply], url: admin_pair_apply_path, wrapper: :admin_form, html: {class: 'form-horizontal project_form', 'data-parsley-validate': true} do |f| %>
         <%= f.error_notification %>
         <div class="form-body">
           <%= static_form_control '申请批次：', @project_apply.season.name %>
           <%= f.input :number, label: '配额数量：', placeholder: '学生数量', required: true, type: 'number' %>
-          <%= f.input :school_id, as: :select, label: '选择学校：', input_html: {class: 'schools-ajax'} %>
+          <%= f.input :school_id, as: :select, label: '选择学校：', input_html: {class: 'schools-ajax'}, required: true %>
           <%= f.input :describe, label: '申请要求：', placeholder: '要求', required: true %>
         </div>
         <div class="form-actions">
@@ -32,11 +32,6 @@
     <% end %>
     <script type="text/javascript">
         $(function(){
-            //    表单验证
-            $(".project_form").html5Validate(function(){
-                $(this).find('[type="submit"]').attr('disabled','disabled');
-                this.submit();
-            });
             // 异步加载学校列表
             $('.schools-ajax').select2({
                 language: "zh-CN",

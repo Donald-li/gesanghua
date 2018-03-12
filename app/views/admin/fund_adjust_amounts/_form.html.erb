@@ -28,11 +28,6 @@
 
 <script>
     $(function(){
-        // 表单验证
-        $(".category_form").html5Validate(function(){
-            $(this).find('[type="submit"]').attr('disabled','disabled');
-            this.submit();
-        });
 
         $("#fund").select2({
             language: "zh-CN"

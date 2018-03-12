@@ -12,7 +12,7 @@
         </ul>
         <div class="tab-content">
           <div class="tab-pane active" id="tab_0">
-            <%= simple_form_for [:admin, @project_apply], url: @project_apply.new_record? ? admin_movie_applies_path : admin_movie_apply_path, wrapper: :admin_form, html: {class: 'form-horizontal project_form'} do |f| %>
+            <%= simple_form_for [:admin, @project_apply], url: @project_apply.new_record? ? admin_movie_applies_path : admin_movie_apply_path, wrapper: :admin_form, html: {class: 'form-horizontal project_form', 'data-parsley-validate': true} do |f| %>
               <%= f.error_notification %>
               <div class="form-body">
                 <% if @project_apply.new_record? %>
@@ -139,11 +139,6 @@
 
 <script type="text/javascript">
     $(function () {
-        //    表单验证
-        // $(".project_form").html5Validate(function () {
-        //     $(this).find('[type="submit"]').attr('disabled', 'disabled');
-        //     this.submit();
-        // });
         // 异步加载学校列表
         $('.schools-ajax').select2({
             language: "zh-CN",

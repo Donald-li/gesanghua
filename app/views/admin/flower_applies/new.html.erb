@@ -17,13 +17,13 @@
         <%= f.error_notification %>
         <div class="form-body">
           <%= f.hidden_field :project_id, value: Project.care_project.id %>
-          <%= f.input :school_id, collection: [@project_apply.school].compact.map {|u| [u.name, u.id]}, label: '申请学校：', input_html: {class: 'schools-ajax'} %>
-          <%= f.input :project_season_id, collection: [@project_apply.season].compact.map {|u| [u.name, u.id]}, label: '申请批次：', input_html: {class: 'seasons-ajax'} %>
+          <%= f.input :school_id, collection: [@project_apply.school].compact.map {|u| [u.name, u.id]}, label: '申请学校：', input_html: {class: 'schools-ajax'}, required: true  %>
+          <%= f.input :project_season_id, collection: [@project_apply.season].compact.map {|u| [u.name, u.id]}, label: '申请批次：', input_html: {class: 'seasons-ajax'}, required: true  %>
           <div class="form-group">
             <label class="col-md-2 control-label">申请人数：</label>
             <div class="col-sm-9">
-              <%= f.text_field :girl_number, placeholder: '女生人数', require: true, type: 'number', min:0 %>
-              <%= f.text_field :boy_number, placeholder: '男生人数', require: true, type: 'number', min:0 %>
+              <%= f.text_field :girl_number, placeholder: '女生人数', required: true, type: 'number', min:0 %>
+              <%= f.text_field :boy_number, placeholder: '男生人数', required: true, type: 'number', min:0 %>
             </div>
           </div>
           <%= f.input :abstract, label: '申请理由：', required: true %>
@@ -39,21 +39,21 @@
             <div class="col-sm-6">
               <div class="row city-group">
                 <div class="col-sm-3">
-                  <%= select_tag 'project_season_apply[province]', options_for_select(ChinaCity.list, @project_apply.province.presence), prompt: '省份', class: "form-control city-select" %>
+                  <%= select_tag 'project_season_apply[province]', options_for_select(ChinaCity.list, @project_apply.province.presence), prompt: '省份', class: "form-control city-select", html: {data: {'parsley-required': true}}, required: true  %>
                 </div>
                 <div class="col-sm-3">
-                  <%= select_tag 'project_season_apply[city]', options_for_select(ChinaCity.list(@project_apply.province.to_s), @project_apply.city.presence), prompt: '城市', class: "form-control city-select" %>
+                  <%= select_tag 'project_season_apply[city]', options_for_select(ChinaCity.list(@project_apply.province.to_s), @project_apply.city.presence), prompt: '城市', class: "form-control city-select", required: true  %>
                 </div>
                 <div class="col-sm-3">
-                  <%= select_tag 'project_season_apply[district]', options_for_select(ChinaCity.list(@project_apply.city.to_s), @project_apply.district.presence), prompt: '地区', class: "form-control city-select" %>
+                  <%= select_tag 'project_season_apply[district]', options_for_select(ChinaCity.list(@project_apply.city.to_s), @project_apply.district.presence), prompt: '地区', class: "form-control city-select", required: true  %>
                 </div>
               </div>
               <br>
             </div>
           </div>
-          <%= f.input :address, label: '详细地址', autofocus: true, input_html: { data: {}} %>
-          <%= f.input :contact_name, label: '收货人：', autofocus: true, input_html: { data: {}} %>
-          <%= f.input :contact_phone, label: '联系电话：', autofocus: true, input_html: { data: {}} %>
+          <%= f.input :address, label: '详细地址', autofocus: true, input_html: { data: {}}, required: true  %>
+          <%= f.input :contact_name, label: '收货人：', autofocus: true, input_html: { data: {}}, required: true  %>
+          <%= f.input :contact_phone, label: '联系电话：', autofocus: true, input_html: { data: {}}, required: true  %>
         </div>
         <div class="form-actions">
           <div class="row">
@@ -67,11 +67,6 @@
 
     <script type="text/javascript">
         $(function(){
-            //    表单验证
-            $(".project_form").html5Validate(function(){
-                $(this).find('[type="submit"]').attr('disabled','disabled');
-                this.submit();
-            });
             // 异步加载学校列表
             $('.schools-ajax').select2({
                 language: "zh-CN",

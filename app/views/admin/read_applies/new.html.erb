@@ -95,13 +95,13 @@
                   <div class="col-sm-6">
                     <div class="row city-group">
                       <div class="col-sm-3">
-                        <%= select_tag 'project_season_apply[province]', options_for_select(ChinaCity.list, @project_apply.province.presence), prompt: '省份', class: "form-control city-select" %>
+                        <%= select_tag 'project_season_apply[province]', options_for_select(ChinaCity.list, @project_apply.province.presence), prompt: '省份', class: "form-control city-select", required: true %>
                       </div>
                       <div class="col-sm-3">
-                        <%= select_tag 'project_season_apply[city]', options_for_select(ChinaCity.list(@project_apply.province.to_s), @project_apply.city.presence), prompt: '城市', class: "form-control city-select" %>
+                        <%= select_tag 'project_season_apply[city]', options_for_select(ChinaCity.list(@project_apply.province.to_s), @project_apply.city.presence), prompt: '城市', class: "form-control city-select", required: true %>
                       </div>
                       <div class="col-sm-3">
-                        <%= select_tag 'project_season_apply[district]', options_for_select(ChinaCity.list(@project_apply.city.to_s), @project_apply.district.presence), prompt: '地区', class: "form-control city-select" %>
+                        <%= select_tag 'project_season_apply[district]', options_for_select(ChinaCity.list(@project_apply.city.to_s), @project_apply.district.presence), prompt: '地区', class: "form-control city-select", required: true %>
                       </div>
                     </div>
                   </div>
@@ -128,12 +128,7 @@
 <script type="text/javascript">
     $(function(){
         initMultiImageWebuploader($('#webuploader'));
-        $('.upload-list').viewer();
-        //    表单验证
-        $(".project_form").html5Validate(function(){
-            $(this).find('[type="submit"]').attr('disabled','disabled');
-            this.submit();
-        });
+//        $('.upload-list').viewer();
         $("#goods").nestedAttributes({
           bindAddTo: $("#goods_add_another"),
           afterAdd: function(el){

@@ -18,7 +18,7 @@
         <%#= f.hidden_field :project_id, value: Project.radio_project.id %>
         <%= f.hidden_field :owner_id, value: @continual.owner_id %>
         <%#= f.input :owner_id, collection: [@continual.owner].compact.map {|u| [u.name, u.id]}, label: '护花项目：', input_html: {class: 'applies-ajax', data: {'parsley-required': true}} %>
-        <%= f.input :user_id, collection: [@continual.user].compact.map {|u| [u.name, u.id]}, label: '反馈人：', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
+        <%= f.input :user_id, collection: [@continual.user].compact.map {|u| [u.name, u.id]}, label: '反馈人：', prompt: "请选择用户", input_html: {class: 'user_selector'}, required: true %>
         <div class="form-group">
           <label class="col-md-2 control-label">反馈内容：</label>
           <div class="col-sm-9">
@@ -39,11 +39,6 @@
 
     <script>
         $(function(){
-            // 表单验证
-            $(".continual_form").html5Validate(function(){
-                $(this).find('[type="submit"]').attr('disabled','disabled');
-                this.submit();
-            });
 
             // 异步加载筹款项目
             $('.applies-ajax').select2({

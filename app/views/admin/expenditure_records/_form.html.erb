@@ -42,20 +42,14 @@
 
 <script>
     $(function(){
-        // 表单验证
-        $(".category_form").html5Validate(function(){
-            $(this).find('[type="submit"]').attr('disabled','disabled');
-            this.submit();
-        },  {
-            validate: function() {
-                var ima_length = document.getElementById("webuploader").getElementsByTagName("li").length;
-                if (ima_length <= 1) {
-                    alert("请上传凭证");
-                    return false;
-                }
-                return true;
+        $(".category_form").parsley().on('form:submit', function () {
+            var ima_length = document.getElementById("webuploader").getElementsByTagName("li").length;
+            if (ima_length <= 1) {
+                alert("请上传凭证");
+                return false;
             }
-        });
+            return true;
+        })
 
         $("#fund").select2({
             language: "zh-CN"

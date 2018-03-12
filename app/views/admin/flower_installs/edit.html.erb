@@ -39,11 +39,6 @@
 
     <script>
         $(function(){
-            // 表单验证
-            $(".install_form").html5Validate(function(){
-                $(this).find('[type="submit"]').attr('disabled','disabled');
-                this.submit();
-            });
 
             // 异步加载筹款项目
             $('.applies-ajax').select2({

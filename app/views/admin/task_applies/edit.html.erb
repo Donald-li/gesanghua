@@ -45,14 +45,14 @@
       </table>
     </div>
     <div class="portlet-body form">
-      <%= simple_form_for [:admin, @task_apply], url: admin_task_task_apply_path(@task), method: :patch, wrapper: :admin_form, html: {id: 'approve-form'} do |f| %>
+      <%= simple_form_for [:admin, @task_apply], url: admin_task_task_apply_path(@task), method: :patch, wrapper: :admin_form, html: {id: 'approve-form', 'data-parsley-validate': true} do |f| %>
           <%= f.error_notification %>
           <div class="form-body form-horizontal">
             <%= f.input :approve_state, as: :radio_buttons, wrapper: :inline_inputs, collection: TaskVolunteer.options_for_some_select(:approve_states, ['pass', 'reject']), label: '审核状态：', required: 'required', input_html: { class: 'approve_state', onclick: 'toggleState();'} %>
             <div class="form-group approve_reject">
               <label class="col-md-2 control-label">备注：</label>
               <div class="col-sm-9">
-                <textarea name="approve_remark" style="width: 800px; height: 200px"></textarea>
+                <textarea name="approve_remark" style="width: 800px; height: 200px" required></textarea>
               </div>
             </div>
             <div class="form-actions">
@@ -75,8 +75,4 @@
         })
     }
     toggleState();
-    $("#approve-form").html5Validate(function () {
-        $(this).find('[type="submit"]').attr('disabled', 'disabled');
-        this.submit();
-    });
 </script>

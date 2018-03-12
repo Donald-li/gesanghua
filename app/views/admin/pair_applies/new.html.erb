@@ -13,13 +13,13 @@
     </div>
   </div>
   <div class="portlet-body form">
-    <%= simple_form_for [:admin, @project_apply], url: admin_pair_applies_path, wrapper: :admin_form, html: {class: 'form-horizontal project_form'} do |f| %>
+    <%= simple_form_for [:admin, @project_apply], url: admin_pair_applies_path, wrapper: :admin_form, html: {class: 'form-horizontal project_form', 'data-parsley-validate': true} do |f| %>
       <%= f.error_notification %>
       <div class="form-body">
         <%= f.hidden_field :project_id, value: Project.pair_project.id %>
-        <%= f.input :project_season_id, as: :select, label: '一对一批次：', input_html: {class: 'seasons-ajax'} %>
+        <%= f.input :project_season_id, as: :select, label: '一对一批次：', input_html: {class: 'seasons-ajax'}, required: true %>
         <%= f.input :number, label: '配额数量：', placeholder: '学生数量', required: true, type: 'number' %>
-        <%= f.input :school_id, as: :select, label: '选择学校：', input_html: {class: 'schools-ajax'} %>
+        <%= f.input :school_id, as: :select, label: '选择学校：', input_html: {class: 'schools-ajax'}, required: true %>
         <%= f.input :describe, label: '申请要求：', placeholder: '要求', required: true %>
       </div>
       <div class="form-actions">
@@ -35,11 +35,6 @@
 </div>
 <script type="text/javascript">
     $(function () {
-        //    表单验证
-        $(".project_form").html5Validate(function () {
-            $(this).find('[type="submit"]').attr('disabled', 'disabled');
-            this.submit();
-        });
         // 异步加载学校列表
         $('.schools-ajax').select2({
             language: "zh-CN",

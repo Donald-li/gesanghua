@@ -50,12 +50,6 @@
     $(function(){
         initImageWebuploader($('#webuploader'));
 
-        // 表单验证
-        $(".school_form").html5Validate(function(){
-            $(this).find('[type="submit"]').attr('disabled','disabled');
-            this.submit();
-        });
-
         $(".school_form .user_selector").select2({
           language: "zh-CN",
           placeholder: '请选择用户',

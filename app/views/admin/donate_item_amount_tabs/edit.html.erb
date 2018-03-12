@@ -29,23 +29,5 @@
           </div>
         </div>
     <% end %>
-    <script>
-        $(function(){
-            //    表单验证
-            $(".amount_tab_form").html5Validate(function(){
-                $(this).find('[type="submit"]').attr('disabled','disabled');
-                this.submit();
-                // },  {
-                //     validate: function() {
-                //         var amount = document.getElementById("amount").val();
-                //         if (amount <= 0) {
-                //             alert("金额须大于0");
-                //             return false;
-                //         }
-                //         return true;
-                //     }
-              });
-        })
-    </script>
   </div>
 </div>

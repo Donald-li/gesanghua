@@ -151,11 +151,6 @@
 
 <script type="text/javascript">
   $(function(){
-    //    表单验证
-    $(".project_form").html5Validate(function(){
-        $(this).find('[type="submit"]').attr('disabled','disabled');
-        this.submit();
-    });
     initImageWebuploader($('#webuploader'));
     // $("#goods").nestedAttributes({
     //   bindAddTo: $("#goods_add_another")

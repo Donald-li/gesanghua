@@ -152,3 +152,12 @@
 .select2-results__options > li[aria-selected="true"] {
   display: none;
 }
+.parsley-errors-list {
+  margin-bottom: 0;
+  padding:5px;
+  &  > li{
+    list-style: none;
+    color: red;
+    font-size: 12px;
+  }
+}
