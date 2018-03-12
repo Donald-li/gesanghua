@@ -66,7 +66,7 @@
 <% end %>
   <%= f.input :accept_feedback_state, as: :radio_buttons, wrapper: :inline_inputs, collection: Project.options_for_enum_select(:accept_feedback_states), label: '是否开启定期反馈：', input_html: { class: 'feedback_state', onclick: 'toggleState();'} %>
   <div class="open_period">
-    <%= f.input :feedback_period, label: '定期反馈周期(每年)：', input_html: {type: 'number', min: 1} %>
+    <%= f.input :feedback_period, label: '定期反馈周期(每年)：', required: true, input_html: {type: 'number', min: 1} %>
   </div>
 <div class="form-actions">
   <div class="row">
@@ -81,18 +81,18 @@
 $(function(){
   initImageWebuploader($('#webuploader'));
   //    表单验证
-  $(".project_form").html5Validate(function(){
-      $(this).find('[type="submit"]').attr('disabled','disabled');
-      this.submit();
-  });
+  // $(".project_form").html5Validate(function(){
+  //     $(this).find('[type="submit"]').attr('disabled','disabled');
+  //     this.submit();
+  // });
 
   $("#fund-unrestricted").select2({
       language: "zh-CN"
   });
 
-    $("#fund-restricted").select2({
-        language: "zh-CN"
-    });
+  $("#fund-restricted").select2({
+      language: "zh-CN"
+  });
 })
 
 $("#form").nestedAttributes({

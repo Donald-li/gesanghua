@@ -27,3 +27,5 @@ Parsley.addMessages('zh-cn', {
 });
 
 Parsley.setLocale('zh-cn');
+
+Parsley.options.excluded = 'input[type=button], input[type=submit], input[type=reset], input[type=hidden], :hidden'
