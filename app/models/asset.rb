@@ -38,7 +38,7 @@ class Asset < ApplicationRecord
     return if self.file.file.blank?
     self.file_name = self.file.file.filename.to_s
     self.file_size = self.file.size
-    if self.file.content_type.start_with? 'image/'
+    if self.file.content_type.start_with?('image/') && !self.file.content_type.include?('svg')
       self.width, self.height = ::MiniMagick::Image.open(file.file.path)[:dimensions]
     end
   end

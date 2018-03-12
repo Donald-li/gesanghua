@@ -156,8 +156,8 @@ function initImageWebuploader(el, config) {
       pick: { id: picker, multiple: false },
       accept: {
         title: '请选择单张图片',
-        extensions: 'gif,jpg,jpeg,bmp,png',
-        mimeTypes: 'image/gif,image/jpeg,image/bmp,image/png'
+        extensions: 'gif,jpg,jpeg,bmp,png,svg',
+        mimeTypes: 'image/gif,image/jpeg,image/bmp,image/png,image/svg+xml'
       }
     }
   }, config)
@@ -175,8 +175,8 @@ function initMultiImageWebuploader(el, config, image_count) {
       pick: { id: picker, multiple: true },
       accept: {
         title: '请选择多张图片',
-        extensions: 'gif,jpg,jpeg,bmp,png',
-        mimeTypes: 'image/gif,image/jpeg,image/bmp,image/png'
+        extensions: 'gif,jpg,jpeg,bmp,png,svg',
+        mimeTypes: 'image/gif,image/jpeg,image/bmp,image/png,image/svg+xml'
       }
     }
   }, config)

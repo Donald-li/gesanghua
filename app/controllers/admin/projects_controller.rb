@@ -23,6 +23,7 @@ class Admin::ProjectsController < Admin::BaseController
     respond_to do |format|
       if @project.save
         @project.attach_image(params[:image_id])
+        @project.attach_icon(params[:icon_id])
         format.html { redirect_to admin_projects_path, notice: '新增自定义项目成功。' }
       else
         format.html { render :new }
@@ -34,6 +35,7 @@ class Admin::ProjectsController < Admin::BaseController
     respond_to do |format|
       if @project.update(project_params)
         @project.attach_image(params[:image_id])
+        @project.attach_icon(params[:icon_id])
         format.html { redirect_to admin_projects_path, notice: '修改成功。' }
       else
         format.html { render :edit }

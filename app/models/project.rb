@@ -26,9 +26,11 @@ class Project < ApplicationRecord
   include ActionView::Helpers::NumberHelper
 
   attr_accessor :image_id, :form_attributes
+  attr_accessor :icon_id, :form_attributes
 
   include HasAsset
   has_one_asset :image, class_name: 'Asset::ProjectImage'
+  has_one_asset :icon, class_name: 'Asset::ProjectIcon'
 
   has_many :seasons, class_name: 'ProjectSeason', dependent: :destroy
   has_many :applies, class_name: 'ProjectSeasonApply', dependent: :destroy
@@ -147,13 +149,11 @@ class Project < ApplicationRecord
 
   def summary_builder
     Jbuilder.new do |json|
-      json.(self, :id)
-      json.name self.name
-      json.describe self.describe
-      # json.total_amount self.fund.amount
+      json.(self, :id, :name, :describe, :alias, :apply_kind)
       json.last_feedback_time self.continual_feedbacks.present? ? self.continual_feedbacks.last.created_at.strftime("%Y-%m-%d %H:%M") : ''
       json.cover_mode self.image.present?
       json.cover_url self.image_url(:tiny).to_s
+      json.icon_url self.icon_url(nil)
       json.donate_item self.donate_item.try(:summary_builder)
       json.feedback_period self.feedback_period
     end.attributes!
@@ -161,13 +161,10 @@ class Project < ApplicationRecord
 
   def detail_builder
     Jbuilder.new do |json|
-      json.(self, :id, :name, :describe, :form)
+      json.merge! summary_builder
       json.total self.donate_record_amount_count
-      json.cover_url self.project_image
-      # json.num self.children.pass.outside.show.length
       json.num self.to_donate_num
       json.unit self.unit
-      json.donate_item self.donate_item.try(:summary_builder)
     end.attributes!
   end
 

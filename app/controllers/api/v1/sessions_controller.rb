@@ -11,7 +11,7 @@ class Api::V1::SessionsController < Api::V1::BaseController
     end
     if user.authenticate(session_params[:password])
       set_current_user(user)
-      return api_success(message: 'login', data: user.summary_builder.merge(auth_token: user.auth_token))
+      return api_success(message: 'login', data: user.session_builder)
     else
       return api_error(message: '用户密码错误')
     end

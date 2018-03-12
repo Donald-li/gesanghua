@@ -56,7 +56,7 @@ namespace :api do
       resources :schools, only: [:create]
       resources :project_applies, only: [:new, :show] # 项目申请
       resources :read_project_applies, only: [:new, :create] # 悦读项目申请
-      
+
       resources :gsh_children, only: [] do
         collection do
           post :match_identity
@@ -101,7 +101,7 @@ namespace :api do
       end
     end
 
-    resources :projects, only: [] do
+    resources :projects, only: [:index] do
       collection do
         get 'description/:name', to: 'projects#description', as: 'description'
       end

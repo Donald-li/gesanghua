@@ -129,8 +129,18 @@ class User < ApplicationRecord
     self.profile["headimgurl"] || self.avatar.file_url(:tiny)
   end
 
+  def headmaster?
+    self.teacher.present? && self.teacher.headmaster?
+  end
+
   def teacher?
-    self.teacher.present?
+    self.headmaster? || self.teacher.present?
+  end
+
+  # 作为校长或老师管理的项目
+  def manage_projects
+    return Project.visible if self.headmaster?
+    return self.teacher.projects.visible.ids if self.teacher
   end
 
   def volunteer?
@@ -233,8 +243,8 @@ class User < ApplicationRecord
       json.merge! summary_builder
       json.auth_token self.auth_token
       json.roles self.roles
-      json.project_ids self.teacher.projects.visible.ids if self.teacher?
-    end
+      json.project_ids self.manage_projects.ids if self.headmaster? || self.teacher?
+    end.attributes!
   end
 
   def detail_builder

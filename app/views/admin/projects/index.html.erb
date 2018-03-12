@@ -38,13 +38,16 @@
               类型
             </th>
             <th>
+              图标
+            </th>
+            <th>
               封面
             </th>
             <th>
-              定项非指定财务收入分类
+              财务分类-定项非指定
             </th>
             <th>
-              定项指定财务收入分类
+              财务分类-定项指定
             </th>
             <th>
               描述
@@ -62,6 +65,9 @@
                 </td>
                 <td>
                   <%= project.enum_name(:kind) %>
+                </td>
+                <td>
+                  <%= image_tag project.icon_url(nil), width:30, height:30 %>
                 </td>
                 <td>
                   <%= image_tag project.image_url(:tiny), width:92, height:30 %>
