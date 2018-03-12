@@ -4,7 +4,7 @@ jQuery(document).ready(function($) {
 				$("#toTop").css({
 					width: '40px',
 					height: '40px',
-					bottom:'400px',
+					bottom:'90px',
 					right:'15px',
 					position:'fixed',
 					cursor:'pointer',
@@ -15,7 +15,7 @@ jQuery(document).ready(function($) {
                     lineHeight:'40px'
 				});
                 $(".toTop").css({
-                    fontSize:'14px',
+                    fontSize:'22px',
                     color:'#868686',
                     marginRight:'0',
                     transform:'rotate(-90deg)',
@@ -36,7 +36,7 @@ jQuery(document).ready(function($) {
 								/* Act on the event */
 								$("html,body").animate({
 									scrollTop:"0px"},
-									666
+									300
 									)
 							});
 				}

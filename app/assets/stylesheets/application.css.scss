@@ -48,6 +48,9 @@ body {
   margin: 0;
   padding: 0;
   border: none;
+  p{
+    margin-bottom: 0;
+  }
 }
 
 a {
@@ -57,6 +60,7 @@ a {
 span {
   display: inline-block;
 }
+
 
 .pull-right {
   float: right;
@@ -116,7 +120,7 @@ span {
       margin-top: 20px;
       width: 140px;
       height: 36px;
-      line-height: 36px;
+      line-height: 32px;
       text-align: center;
       color: $color-border;
       font-size: 14px;
@@ -129,13 +133,14 @@ span {
     }
     .bul-nav-wy:hover{
       color: #fff;
-      background: $color-button;
+      //background: $color-button;
       border: none;
       .iconfont {
         color: #fff;
 
       }
     }
+
     .bul-nav-ul > li{
       float: left;
       width: 120px;
@@ -147,9 +152,8 @@ span {
       .iconfont{
         margin-right: 0;
         font-size: 14px;
-        color: #2a2a2c;
+        color: $color-subtitle;
         margin-left: 5px;
-        transform:rotate(90deg);
 
       }
     }
@@ -198,7 +202,7 @@ span {
     border-left: 1px solid #d2d2d2;
   }
   .bul-nav-sh {
-    width: 90px;
+    width: 80px;
     font-size: 16px;
     color: #2a2a2c;
     border-left: 1px solid #d2d2d2;
@@ -251,6 +255,43 @@ span {
     background: $color-border;
 
   }
+  .swiper-button-next, .swiper-button-prev{
+    background-image: none;
+    opacity: .5;
+    width: 38px;
+    height: 60px;
+  }
+  .swiper-button-prev{
+     left:70px
+   }
+  .swiper-button-next{
+    right:70px
+  }
+  .bul-icon-next{
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 11;
+    color: #9e9e9e;
+    width: 100%;
+    height: 100%;
+    font-size: 30px;
+    text-align: center;
+    transform: rotate(180deg);
+    line-height: 60px;
+  }
+  .bul-icon-prev{
+    position: absolute;
+    left:0;
+    top:0;
+    z-index: 11;
+    color: #9e9e9e;
+    width: 100%;
+    height: 100%;
+    font-size: 30px;
+    text-align: center;
+    line-height: 60px;
+  }
 }
 
 .bul-ai {
@@ -285,14 +326,20 @@ span {
           font-size: 18px;
           margin-bottom: 0;
           & > span {
-            padding: 0 14px;
+            padding: 0 12px;
             color: $color-info;
+            font-size: 22px;
           }
         }
         & > p:nth-child(2) {
           color: #262626;
           font-size: 12px;
           margin-bottom: 0;
+          line-height: 34px;
+          .iconfont{
+            transform:rotate(-90deg);
+            margin-right: 4px;
+          }
         }
       }
       .bul-img-co {
@@ -381,11 +428,8 @@ span {
     display: flex;
     text-align: center;
     margin: 0 auto;
-    & > span {
+    & > div {
       flex: 1;
-    }
-    & > span:hover {
-      color: red;
     }
   }
 }
@@ -397,11 +441,11 @@ span {
     font-weight: 700;
     font-size: 26px;
     color: $color-theme;
+    margin-bottom: 14px;
   }
   & > p:nth-child(2) {
     font-size: 18px;
     color: $color-theme;
-    font-family: '兰亭黑-简';
   }
 }
 
@@ -443,7 +487,7 @@ span {
       border-radius: 4px;
       color: #fff;
       font-weight: 700;
-
+      box-shadow: 0px 2px 7px 2px #d632aa4d;
     }
     & > img{
       position: absolute;
@@ -475,22 +519,21 @@ span {
       font-size: 16px;
     }
     .bul-but {
-      padding: 40px;
+      padding: 34px;
       & > div {
         width: 205px;
         height: 44px;
         font-size: 16px;
-        line-height: 44px;
+        line-height: 40px;
         border-radius: 4px;
-      }
-      & > div:nth-child(1) {
-        color: $color-border;
-        background-color: #fff;
-        border: 1px solid #fff;
-      }
-      & > div:nth-child(2) {
         color: #fff;
         border: 1px solid #fff;
+      }
+      & > div:hover{
+        background-color: #fff;
+        color: $color-border;
+        border: 1px solid #fff;
+
       }
     }
   }
@@ -500,12 +543,13 @@ span {
   width: 196px;
   height: 40px;
   text-align: center;
-  line-height: 40px;
+  line-height: 36px;
   font-size: 16px;
   color: $color-subtitle;
-  border: 1px solid $color-subtitle;
   margin: 50px auto;
   border-radius: 20px;
+  border: 1px solid $color-subtitle;
+
 }
 
 .gsh-img {
@@ -519,10 +563,10 @@ span {
 
 .gsh-cont-1 {
   text-align: left;
-  font-size: 14px;
+  font-size: 13px;
   color: $color-section;
   margin-top: 28px;
-  margin-bottom: 18px;
+  margin-bottom: 10px;
 }
 
 .gsh-cont-2 {
@@ -587,7 +631,7 @@ span {
 
 .item {
   padding-top: 15px;
-  padding-bottom: 15px;
+  padding-bottom: 30px;
 }
 //底部
 .bul-footer {
@@ -681,12 +725,28 @@ span {
 
 .bul-pos4 {
   position: fixed;
-  right: 53px;
-  bottom: 438px;
-  width: 100px;
+  right: 56px;
+  bottom: 70px;
+  width: 218px;
   height: 100px;
-  display: none;
   z-index: 9999;
+  display: none;
+  background-color: #fff;
+  box-shadow: -3px 2px 10px 2px #8b8b8b2e;
+
+  .bul-pos4-cont{
+    font-size: 14px;
+    color: #2a2a2c;
+    height: 100px;
+    padding-top: 30px;
+    padding-right: 14px;
+    & > p:nth-child(1){
+      font-weight: 700;
+    }
+    & > p:nth-child(2){
+      font-size: 13px;
+    }
+  }
 }
 
 .iconfont {
@@ -695,7 +755,7 @@ span {
 
 .bul-top-2 {
   position: fixed;
-  bottom: 440px;
+  bottom: 130px;
   right: 15px;
   width: 40px;
   height: 40px;
@@ -703,11 +763,107 @@ span {
   border: 1px solid $border;
   background-color: #fff;
   color: #868686;
-  font-size: 14px;
   z-index: 999999;
   text-align: center;
   .iconfont {
     margin-right: 0;
+    font-size: 28px;
   }
 }
+.bul-top-2:hover{
+  border: 1px solid $color-border;
+  background-color: $color-border;
+  .iconfont{
+    color: #fff;
+  }
+}
+//动态滑动
+.button {
+  display: block;
+  background: none;
+  color: inherit;
+  vertical-align: middle;
+  position: relative;
+  z-index: 1;
+  -webkit-backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+}
+.button:focus {
+  outline: none;
+}
+.button--rayen {
+  overflow: hidden;
+  padding: 0;
+  width: 140px;
+  height: 36px;
+}
+.button--rayen.button--inverted {
+  color: #fff;
+}
+.button--rayen::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: $color-button;
+  -webkit-transform: translate3d(-100%, 0, 0);
+  transform: translate3d(-100%, 0, 0);
+}
+.button--rayen::before,
+.button--rayen > span {
+  -webkit-transition: -webkit-transform 0.3s;
+  transition: transform 0.3s;
+  -webkit-transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+  transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+}
+.button--rayen:hover::before {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.button--rayen:hover > span {
+  -webkit-transform: translate3d(0, 100%, 0);
+  transform: translate3d(0, 100%, 0);
+}
 
+//======
+.button--but{
+  overflow: hidden;
+  padding: 0;
+  width: 196px;
+  height: 40px;
+}
+.button--but.button--inverted {
+  color: #fff;
+}
+.bul-buton:hover{
+  border:none;
+}
+.button--but::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: $color-border;
+  color: #fff;
+  -webkit-transform: translate3d(-100%, 0, 0);
+  transform: translate3d(-100%, 0, 0);
+}
+.button--but::before,
+.button--but > span {
+  -webkit-transition: -webkit-transform 0.3s;
+  transition: transform 0.3s;
+  -webkit-transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+  transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+}
+.button--but:hover::before {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.button--but:hover > span {
+  -webkit-transform: translate3d(0, 100%, 0);
+  transform: translate3d(0, 100%, 0);
+}
