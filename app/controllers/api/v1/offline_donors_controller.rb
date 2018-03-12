@@ -66,9 +66,9 @@ class Api::V1::OfflineDonorsController < Api::V1::BaseController
     nickname = params[:nickname]
     phone = params[:phone]
     email = params[:email]
-    province = params[:location][0]
-    city = params[:location][1]
-    district = params[:location][2]
+    province = params[:location][0] if params[:location].present?
+    city = params[:location][1] if params[:location].present?
+    district = params[:location][2] if params[:location].present?
     address  = params[:address]
     if params[:use_nickname]
       use_nickname = 'true'

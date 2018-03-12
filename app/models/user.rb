@@ -194,9 +194,7 @@ class User < ApplicationRecord
   end
 
   def role_tag
-    if self.donate_records.present?
-      '爱心人士'
-    elsif self.has_role?(:headmaster)
+    if self.has_role?(:headmaster)
       '校长'
     elsif self.has_role?(:teacher)
       '教师'
@@ -206,6 +204,8 @@ class User < ApplicationRecord
       '志愿者'
     elsif self.has_role?(:custom_service)
       '工作人员'
+    elsif self.donate_records.present?
+      '爱心人士'
     end
   end
 
