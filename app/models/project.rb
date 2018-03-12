@@ -56,6 +56,7 @@ class Project < ApplicationRecord
   default_value_for :accept_feedback_state, 1
 
   scope :sorted, ->{ order(id: :asc) }
+  scope :visible, ->{}
 
   def self.pair_project
     self.find 1

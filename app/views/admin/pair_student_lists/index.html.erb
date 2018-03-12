@@ -83,8 +83,8 @@
                   <%= child.apply.try(:school).try(:name) %> / <%= child.enum_name(:grade) %>
                 </td>
                 <td>
-                  <% child.gsh_child_grants.sorted.all.each do |grant| %>
-                    <span class="btn btn-xs green"><%= grant.title %></span>
+                  <% child.gsh_child_grants.sorted.reverse.each do |grant| %>
+                    <span class="btn btn-xs <%= grant.pending? ? 'yellow' : 'green' %>" title="<%= grant.pending? ? '未筹款' : '已筹款' %>"><%= grant.title %></span>
                   <% end %>
                 </td>
                 <td>

@@ -36,9 +36,9 @@ class Admin::SchoolAppliesController < Admin::BaseController
       approve_state = school_apply_params[:approve_state] == 'pass' ? 'pass' : 'reject'
       @school_apply.approve_state = approve_state
       if @school_apply.save
-        if approve_state == 'pass'
-          @school_apply.gen_school_user
-        end
+        # if approve_state == 'pass'
+        #   @school_apply.gen_school_user
+        # end
         @school_apply.audits.create(state: approve_state, user_id: current_user.id, comment: school_apply_params[:approve_remark])
         format.html { redirect_to admin_school_applies_path, notice: '操作成功' }
       else

@@ -122,7 +122,7 @@ window.Parsley.addValidator('huixiang', {
   priority: 32
 });
 
-//姓名
+//姓名 data-parsley-name: true
 window.Parsley.addValidator('name', {
   requirementType: 'string',
   validateString: function (value, requirement) {

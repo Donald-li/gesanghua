@@ -194,9 +194,7 @@ class User < ApplicationRecord
   end
 
   def role_tag
-    if self.donate_records.present?
-      '爱心人士'
-    elsif self.has_role?(:headmaster)
+    if self.has_role?(:headmaster)
       '校长'
     elsif self.has_role?(:teacher)
       '教师'
@@ -206,6 +204,8 @@ class User < ApplicationRecord
       '志愿者'
     elsif self.has_role?(:custom_service)
       '工作人员'
+    elsif self.donate_records.present?
+      '爱心人士'
     end
   end
 
@@ -219,14 +219,22 @@ class User < ApplicationRecord
     Jbuilder.new do |json|
       json.(self, :id, :nickname)
       json.login_name self.login
-      json.avatar self.try(:avatar)
-      json.avatar_src self.try(:avatar).try(:file_url)
+      json.user_avatar self.try(:avatar).try(:file_url)
       json.balance self.balance
       json.donate_count self.donate_count
       json.promoter_count self.promoter_amount_count
       json.role_tag self.role_tag
       json.join_team_time self.join_team_time.strftime("%Y-%m-%d") if self.join_team_time.present?
     end.attributes!
+  end
+
+  def session_builder
+    Jbuilder.new do |json|
+      json.merge! summary_builder
+      json.auth_token self.auth_token
+      json.roles self.roles
+      json.project_ids self.teacher.projects.visible.ids if self.teacher?
+    end
   end
 
   def detail_builder

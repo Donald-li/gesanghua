@@ -175,7 +175,7 @@ class DonateRecord < ApplicationRecord
     return false unless user.present?
     return false unless project.present?
     fund = project.fund
-    donate = user.donates.build(amount: amount, fund: fund, promoter: promoter, pay_state: 'unpay', project: project, title: '捐助定向')
+    donate = user.donates.build(amount: amount, fund: fund, promoter: promoter, pay_state: 'unpay', project: project, title: "捐助#{project.name}定向")
     donate.team_id = user.team_id
     appoint = project.children.find(item) if item.present? && project.id == 1 # 孩子
     appoint = project.bookshelves.find(item) if item.present? && project.id == 2 # 书架

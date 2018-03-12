@@ -52,8 +52,8 @@
               <%= text_field_tag "project[form_attributes][#{i}][key]", form_item['key'], placeholder: '代码'%>
               <%= text_field_tag "project[form_attributes][#{i}][label]", form_item['label'], placeholder: '标题'%>
               <%= text_field_tag "project[form_attributes][#{i}][placeholder]", form_item['placeholder'], placeholder: '提示'%>
-              <%= select_tag "project[form_attributes][#{i}][type]", options_for_select([['文本框', 'text'], ['多行文本框', 'textarea'], ['选项', 'select']], form_item['type']), placeholder: '代码'%>
-              <%= text_field_tag "project[form_attributes][#{i}][options]", form_item['options'].join('|'), placeholder: '选择项，用英文|隔开' %>
+              <%= select_tag "project[form_attributes][#{i}][type]", options_for_select([['文本框', 'text'], ['多行文本框', 'textarea'], ['数字选择', 'number'], ['选项', 'select']], form_item['type']), placeholder: '代码'%>
+              <%= text_field_tag "project[form_attributes][#{i}][options]", form_item['options'].join('|'), placeholder: '选择项用英文|隔开，数字最小值|最大值' %>
               <label><%= check_box_tag "project[form_attributes][#{i}][required]", 'y', form_item['required']%>必填</label>
               <a href="#" class="destroy"><i class="fa fa-remove font-red-soft"></i></a>
             </div>
@@ -66,7 +66,7 @@
 <% end %>
   <%= f.input :accept_feedback_state, as: :radio_buttons, wrapper: :inline_inputs, collection: Project.options_for_enum_select(:accept_feedback_states), label: '是否开启定期反馈：', input_html: { class: 'feedback_state', onclick: 'toggleState();'} %>
   <div class="open_period">
-    <%= f.input :feedback_period, label: '定期反馈周期(每年)：', input_html: {type: 'number', min: 1} %>
+    <%= f.input :feedback_period, label: '定期反馈周期(每年)：', required: true, input_html: {type: 'number', min: 1} %>
   </div>
 <div class="form-actions">
   <div class="row">
@@ -81,18 +81,18 @@
 $(function(){
   initImageWebuploader($('#webuploader'));
   //    表单验证
-  $(".project_form").html5Validate(function(){
-      $(this).find('[type="submit"]').attr('disabled','disabled');
-      this.submit();
-  });
+  // $(".project_form").html5Validate(function(){
+  //     $(this).find('[type="submit"]').attr('disabled','disabled');
+  //     this.submit();
+  // });
 
   $("#fund-unrestricted").select2({
       language: "zh-CN"
   });
 
-    $("#fund-restricted").select2({
-        language: "zh-CN"
-    });
+  $("#fund-restricted").select2({
+      language: "zh-CN"
+  });
 })
 
 $("#form").nestedAttributes({
