@@ -52,8 +52,13 @@ class Project < ApplicationRecord
   before_save :set_form_from_attributes
 
   enum kind: { fixed: 1, apply: 2, goods: 3 } # 项目类型 1:固定类 2:申请类 2:物资类
-  enum accept_feedback_state: {close_feedback: 1, open_feedback: 2} # 是否开启定期反馈 1:关闭2:开启
+  default_value_for :kind, 2
+
+  enum accept_feedback_state: {close_feedback: 1, open_feedback: 2} # 是否开启定期反馈 1:关闭 2:开启
   default_value_for :accept_feedback_state, 1
+
+  enum apply_kind: { platform_assign: 1, user_apply: 2}
+  default_value_for :apply_kind, 1
 
   scope :sorted, ->{ order(id: :asc) }
   scope :visible, ->{}
