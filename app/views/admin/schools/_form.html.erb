@@ -1,4 +1,4 @@
-<%= simple_form_for [:admin, @school], wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'school_form'} do |f| %>
+<%= simple_form_for [:admin, @school], url: @school.new_record? ? admin_schools_path : admin_school_path, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'school_form'} do |f| %>
   <%= f.error_notification %>
   <div class="form-body form-horizontal">
     <div class="form-group">
@@ -8,6 +8,11 @@
         </div>
     </div>
     <%= f.input :name, label: '学校全称：', autofocus: true, placeholder: '学校全称', input_html: { data: {'parsley-required': true}} %>
+    <% if @school.new_record? %>
+      <%= f.input :creater_id, collection: [@school.creater].compact.map {|u| [u.name, u.id]}, label: '学校申请人', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
+    <% else %>
+      <%= static_form_control '学校申请人：', @school.try(:creater).try(:name) %>
+    <% end %>
     <%= f.input :user_id, collection: [@school.user].compact.map {|u| [u.name, u.id]}, label: '指定为校长', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
     <div style="margin-bottom: 20px;" class="form-group">
       <label class="col-md-2 control-label select required" for="project_category_id">所在地区：</label>
@@ -62,6 +67,38 @@
           allowClear: true,
           ajax: {
             url: "/selects/school_user",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+              return {
+                q: params.term, // search term
+                page: params.page
+              };
+            },
+            processResults: function (data, params) {
+              params.page = params.page || 1;
+              return {
+                  results: $.map(data.items, function (item) {
+                    return {
+                      text: item.name,
+                      id: item.id
+                  }
+                }),
+                pagination: {
+                  more: (params.page * 30) < data.total_count
+                }
+              };
+            },
+            cache: true
+          }
+        });
+
+        $(".school_form .user_selector").select2({
+          language: "zh-CN",
+          placeholder: '请选择用户',
+          allowClear: true,
+          ajax: {
+            url: "/selects/users",
             dataType: 'json',
             delay: 250,
             data: function (params) {
