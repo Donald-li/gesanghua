@@ -17,13 +17,11 @@ class Api::V1::WechatsController < Api::V1::BaseController
     userinfo = get_userinfo
     user = User.where(openid: userinfo.result['openid']).first || User.new
     user.attributes = { openid: userinfo.result["openid"], gender: userinfo.result["sex"], name: userinfo.result["nickname"], login: userinfo.result["nickname"], nickname: userinfo.result["nickname"], profile: userinfo.result }
-    # user.password = '11111111'
-    # user.password_confirmation = '11111111'
     if user.disable?
       raise ActionController::RoutingError.new('Not Found')
     elsif user.save
       set_current_user(user)
-      return api_success(message: 'login', data: user.summary_builder.merge(auth_token: user.auth_token))
+      return api_success(message: 'login', data: user.session_builder)
     end
   end
 
