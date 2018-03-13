@@ -92,6 +92,8 @@ class ProjectSeasonApply < ApplicationRecord
   enum bookshelf_type: {whole: 1, supplement: 2}
   # default_value_for :bookshelf_type, 1
 
+  before_create :gen_code
+
   # def can_gen_bookshelf_no?
   #   self.raise_project?
   # end
@@ -403,6 +405,17 @@ class ProjectSeasonApply < ApplicationRecord
       kind = 'QT'
     end
     self.apply_no ||= Sequence.get_seq(kind: :apply_no, prefix: kind, length: 7)
+  end
+
+  def gen_code
+    loop do
+      code = SecureRandom.base58
+      child = ProjectSeasonApplyChild.find_by(code: code)
+      unless child.present?
+        self.code = code
+        break
+      end
+    end
   end
 
 end

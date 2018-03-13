@@ -118,8 +118,8 @@ class Api::V1::CooperationPairStudentsController < Api::V1::BaseController
   def qrcode
     user = current_user.id
     @apply = ProjectSeasonApply.find(params[:id])
-    school = @apply.school.id
-    url = "http://#{Settings.app_host}/cooperation/student-apply?type=student_apply&id=#{@apply.id}&user=#{user}&school=#{school}"
+    school = @apply.school
+    url = URI::encode "http://#{Settings.app_host}/form/pair-guide?code=#{@apply.code}&school_name=#{school.name}"
     api_success(data: {qrcode_url: url})
   end
 
