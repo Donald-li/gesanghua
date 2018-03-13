@@ -194,7 +194,7 @@ class ProjectSeasonApply < ApplicationRecord
     province = ChinaCity.get(self.province).to_s
     city = ChinaCity.get(self.city).to_s
     district = ChinaCity.get(self.district).to_s
-    return province + city + district + self.address
+    return province + city + district + self.address.to_s
   end
 
   def sliced_abstract
