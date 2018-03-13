@@ -61,7 +61,7 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
         end
         api_success(data: {is_school_user: true, result: true}, message: '新建教师信息成功。')
       else
-        api_success(data: {is_school_user: true, result: false}, message: '新建教师信息失败，请重试！')
+        api_success(data: {is_school_user: true, result: false}, message: @teacher.errors.full_messages.first)
       end
     else
       api_success(data: {is_school_user: false}, message: '您不是学校用户！')

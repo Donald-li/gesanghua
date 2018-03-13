@@ -1,0 +1,6 @@
+zh:
+  activerecord:
+    attributes:
+      teacher:
+        name: '真实姓名'
+        phone: '手机号码'
