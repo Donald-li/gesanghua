@@ -135,6 +135,12 @@ class School < ApplicationRecord
     end.attributes!
   end
 
+  def apply_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :name)
+    end.attributes!
+  end
+
   #  name       :string                                 # 老师姓名
   #  nickname   :string                                 # 老师昵称
   #  user_id    :integer                                # 用户ID

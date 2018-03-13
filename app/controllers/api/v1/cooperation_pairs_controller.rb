@@ -5,7 +5,7 @@ class Api::V1::CooperationPairsController < Api::V1::BaseController
     # byebug
     user = current_user
     # 校长或者教师的项目申请
-    if user.school.present?
+    if user.headmaster?
       applies = user.school.project_season_applies.where(project_id: @pair.id).sorted.page(params[:page]).per(params[:id])
       api_success(data: {applies: applies.map { |r| r.pair_applies_builder }, pagination: json_pagination(applies)})
     elsif user.teacher?

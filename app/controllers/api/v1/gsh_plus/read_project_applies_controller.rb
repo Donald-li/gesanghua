@@ -5,7 +5,8 @@ class Api::V1::GshPlus::ReadProjectAppliesController < Api::V1::BaseController
     user = current_user
     @school = user.teacher.school
     @seasons = Project.read_project.seasons.enable.all
-    api_success(data: {seasons: @seasons.map{|s| {name: s.name, value: s.id.to_s}}, school: {id: @school.id, name: @school.name}})
+    @school = current_user.teacher.school
+    api_success(data: {seasons: @seasons.map{|s| {name: s.name, value: s.id.to_s}}, school: @school.apply_builder})
   end
 
   def show

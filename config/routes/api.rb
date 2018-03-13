@@ -45,11 +45,13 @@ namespace :api do
       resources :my_reads
     end
 
-    resources :bookshelves, only: [:index, :show, :edit, :create, :update] do
+    resources :bookshelves do
       member do
         post :define_name
       end
     end
+
+    resources :read_applies
 
     namespace :gsh_plus do
       resources :mains, only: [:index]
