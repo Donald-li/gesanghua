@@ -114,17 +114,16 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
     end.attributes!
   end
 
-<<<<<<< HEAD
   def class_summary_builder
       Jbuilder.new do |json|
         json.(self, :id, :classname, :student_number)
       end.attributes!
-=======
+  end
+  
   def apply_builder
     Jbuilder.new do |json|
       json.(self, :id, :classname, :student_number)
     end.attributes!
->>>>>>> f88a814c54fc9a1c4c6c19d2b98d7b2eb24e8525
   end
 
   def detail_builder
