@@ -22,6 +22,7 @@
 #  target_amount           :decimal(14, 2)   default(0.0)          # 目标金额
 #  present_amount          :decimal(14, 2)   default(0.0)          # 目前已筹金额
 #  book_number             :integer                                # 书籍数量
+#  student_number          :integer                                # 班级学生人数
 #
 
 FactoryBot.define do

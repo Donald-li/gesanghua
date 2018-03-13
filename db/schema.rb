@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180312033236) do
+ActiveRecord::Schema.define(version: 20180313083238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -587,6 +587,7 @@ ActiveRecord::Schema.define(version: 20180312033236) do
     t.decimal "target_amount", precision: 14, scale: 2, default: "0.0", comment: "目标金额"
     t.decimal "present_amount", precision: 14, scale: 2, default: "0.0", comment: "目前已筹金额"
     t.integer "book_number", comment: "书籍数量"
+    t.integer "student_number", default: 0, comment: "班级学生人数"
   end
 
   create_table "project_season_apply_children", force: :cascade, comment: "项目执行年度申请的孩子表" do |t|
@@ -659,8 +660,8 @@ ActiveRecord::Schema.define(version: 20180312033236) do
     t.datetime "updated_at", null: false
     t.integer "project_season_id", comment: "年度ID"
     t.integer "position", comment: "位置"
-    t.integer "grade", comment: "一对一对应年级"
-    t.integer "semester", comment: "一对一对应学期"
+    t.integer "grade", comment: "结对对应年级"
+    t.integer "semester", comment: "结对对应学期"
   end
 
   create_table "project_season_apply_volunteers", force: :cascade, comment: "项目执行年度申请和志愿者关联表" do |t|
@@ -740,7 +741,7 @@ ActiveRecord::Schema.define(version: 20180312033236) do
     t.string "name", comment: "学校名称"
     t.string "address", comment: "地址"
     t.integer "approve_state", default: 1, comment: "审核状态：1:待审核 2:通过 3:不通过"
-    t.text "approve_remark", comment: "审核备注"
+    t.string "approve_remark", comment: "审核备注"
     t.string "province", comment: "省"
     t.string "city", comment: "市"
     t.string "district", comment: "区/县"

@@ -30,7 +30,7 @@ module HasAsset
     end
 
     def has_many_assets(key='assets', class_name: 'Asset')
-      has_many key, class_name: class_name, as: :owner, dependent: :destroy
+      has_many key, ->{ order(position: :asc)}, class_name: class_name, as: :owner, dependent: :destroy
       accepts_nested_attributes_for key, allow_destroy: true
       define_method("attach_#{key}") do |ids|
         self.send("#{key.to_s.singularize}_ids=", ids)

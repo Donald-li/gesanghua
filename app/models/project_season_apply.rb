@@ -170,6 +170,33 @@ class ProjectSeasonApply < ApplicationRecord
     self.save
   end
 
+  def apply_state
+    if self.apply?
+      if self.submit?
+        '待审核'
+      elsif self.pass?
+        '审核完成'
+      elsif self.reject?
+        '审核未通过'
+      end
+    elsif self.raise_project?
+      if self.done?
+        '已完成'
+      elsif self.cancelled?
+        '已取消'
+      else
+        '执行中'
+      end
+    end
+  end
+
+  def receive_address
+    province = ChinaCity.get(self.province).to_s
+    city = ChinaCity.get(self.city).to_s
+    district = ChinaCity.get(self.district).to_s
+    return province + city + district + self.address
+  end
+
   def sliced_abstract
     self.abstract.length > 90 ? self.abstract.slice(0..90) : self.abstract
   end
@@ -228,6 +255,16 @@ class ProjectSeasonApply < ApplicationRecord
     end.attributes!
   end
 
+  def read_applies_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :target_amount, :present_amount)
+      json.name self.apply_name
+      json.created_at self.created_at.strftime("%Y-%m-%d")
+      json.state self.apply_state
+      # json.teacher self.teacher.try(:name)
+      json.teacher self.teacher.present? ? self.teacher.try(:name) : self.contact_name
+    end.attributes!
+  end
 
   # 悦读申请摘要
   def read_apply_summary_builder
@@ -248,6 +285,36 @@ class ProjectSeasonApply < ApplicationRecord
       json.(self, :project_describe)
       json.season_name self.season.name
       json.donate_items self.bookshelves.map{|b| b.summary_builder}
+      json.describe self.describe
+      json.images do
+        json.array! self.images do |img|
+          json.id img.id
+          json.thumb img.file_url(:medium)
+          json.src img.file_url
+          json.w img.width
+          json.h img.height
+        end
+      end
+      json.receive_address self.receive_address
+      json.contact_name self.contact_name
+      json.contact_phone self.contact_phone
+      json.apply_name self.apply_name
+      json.school_name self.try(:school).try(:name)
+      json.student_number self.student_number
+      json.class_number self.class_number
+    end.attributes!
+  end
+
+  def read_apply_submit_form_summary_builder
+    Jbuilder.new do |json|
+      json.season [self.season.id.to_s]
+      json.class_number self.class_number
+      json.student_number self.student_number
+      json.contact_name self.contact_name
+      json.contact_phone self.contact_phone
+      json.location [self.province, self.city, self.district]
+      json.address self.address
+      json.student_number self.student_number
     end.attributes!
   end
 

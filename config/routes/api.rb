@@ -45,7 +45,7 @@ namespace :api do
       resources :my_reads
     end
 
-    resources :bookshelves, only: [:index, :show] do
+    resources :bookshelves, only: [:index, :show, :edit, :create, :update] do
       member do
         post :define_name
       end
@@ -192,6 +192,8 @@ namespace :api do
         get :verified_students
       end
     end
+
+    resources :cooperation_reads
 
     resources :cooperation_pair_students do
       member do
