@@ -56,6 +56,9 @@
               联系方式
             </th>
             <th>
+              配额状态
+            </th>
+            <th>
               操作
             </th>
           </tr>
@@ -85,6 +88,9 @@
                   <%= apply.school.try(:contact_phone) %>
                 </td>
                 <td>
+                  <%= apply.enum_name(:pair_state) %>
+                </td>
+                <td>
                   <%= link_to edit_admin_pair_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-edit"></i> 修改
                   <% end %>
@@ -92,7 +98,7 @@
                       <i class="fa fa-trash-o"></i> 删除
                   <% end %>
                   <%= link_to admin_pair_apply_pair_students_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
-                      <i class="fa fa-list-ul"></i> 查看名单（<%= "#{apply.children.where(school: apply.school).submit.count}/#{apply.children.where(school: apply.school).count}" %>）
+                      <i class="fa fa-list-ul"></i> 查看名单
                   <% end %>
                 </td>
               </tr>
