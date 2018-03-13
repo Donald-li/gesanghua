@@ -22,14 +22,10 @@
 #  target_amount           :decimal(14, 2)   default(0.0)          # 目标金额
 #  present_amount          :decimal(14, 2)   default(0.0)          # 目前已筹金额
 #  book_number             :integer                                # 书籍数量
-<<<<<<< HEAD
-#  student_number          :integer                                # 班级学生人数
-=======
 #  student_number          :integer                                # 班级人数
 #  contact_name            :string                                 # 联系人
 #  contact_phone           :string                                 # 联系电话
 #  address                 :string                                 # 详细地址
->>>>>>> f88a814c54fc9a1c4c6c19d2b98d7b2eb24e8525
 #
 
 FactoryBot.define do
