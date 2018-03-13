@@ -22,7 +22,7 @@ class Admin::PairAppliesController < Admin::BaseController
     @project_apply = ProjectSeasonApply.new(project_apply_params.merge(province: @school.province, city: @school.city, district: @school.district))
 
     respond_to do |format|
-      if ProjectSeasonApply.find_by(school_id: project_apply_params[:school_id], project_id: project_apply_params[:project_id]).present?
+      if ProjectSeasonApply.find_by(school_id: project_apply_params[:school_id], id: project_apply_params[:id]).present?
         flash[:notice] = '此学校在本批次还有未完成的申请'
         format.html { render :new }
       elsif @project_apply.save
