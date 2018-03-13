@@ -410,7 +410,7 @@ class ProjectSeasonApply < ApplicationRecord
   def gen_code
     loop do
       code = SecureRandom.base58
-      child = ProjectSeasonApplyChild.find_by(code: code)
+      child = ProjectSeasonApply.find_by(code: code)
       unless child.present?
         self.code = code
         break
