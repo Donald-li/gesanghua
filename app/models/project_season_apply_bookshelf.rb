@@ -22,6 +22,10 @@
 #  target_amount           :decimal(14, 2)   default(0.0)          # 目标金额
 #  present_amount          :decimal(14, 2)   default(0.0)          # 目前已筹金额
 #  book_number             :integer                                # 书籍数量
+#  student_number          :integer                                # 班级人数
+#  contact_name            :string                                 # 联系人
+#  contact_phone           :string                                 # 联系电话
+#  address                 :string                                 # 详细地址
 #
 
 # 项目年度图书角申请
@@ -106,6 +110,12 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
   def summary_builder
     Jbuilder.new do |json|
       json.(self, :id, :classname, :title, :bookshelf_no, :target_amount, :present_amount, :state)
+    end.attributes!
+  end
+
+  def apply_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :classname, :student_number)
     end.attributes!
   end
 
