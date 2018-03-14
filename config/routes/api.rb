@@ -52,6 +52,14 @@ namespace :api do
       end
     end
 
+    resources :bookshelf_supplements
+
+    resources :read_supplements do
+      member do
+        get :class_list
+      end
+    end
+
     resources :read_applies
 
     namespace :gsh_plus do

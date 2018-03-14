@@ -588,7 +588,7 @@ ActiveRecord::Schema.define(version: 20180313090437) do
     t.decimal "target_amount", precision: 14, scale: 2, default: "0.0", comment: "目标金额"
     t.decimal "present_amount", precision: 14, scale: 2, default: "0.0", comment: "目前已筹金额"
     t.integer "book_number", comment: "书籍数量"
-    t.integer "student_number", default: 0, comment: "班级学生人数"
+    t.integer "student_number", comment: "班级人数"
     t.string "contact_name", comment: "联系人"
     t.string "contact_phone", comment: "联系电话"
     t.string "address", comment: "详细地址"
@@ -664,8 +664,8 @@ ActiveRecord::Schema.define(version: 20180313090437) do
     t.datetime "updated_at", null: false
     t.integer "project_season_id", comment: "年度ID"
     t.integer "position", comment: "位置"
-    t.integer "grade", comment: "结对对应年级"
-    t.integer "semester", comment: "结对对应学期"
+    t.integer "grade", comment: "一对一对应年级"
+    t.integer "semester", comment: "一对一对应学期"
   end
 
   create_table "project_season_apply_volunteers", force: :cascade, comment: "项目执行年度申请和志愿者关联表" do |t|
@@ -745,7 +745,7 @@ ActiveRecord::Schema.define(version: 20180313090437) do
     t.string "name", comment: "学校名称"
     t.string "address", comment: "地址"
     t.integer "approve_state", default: 1, comment: "审核状态：1:待审核 2:通过 3:不通过"
-    t.string "approve_remark", comment: "审核备注"
+    t.text "approve_remark", comment: "审核备注"
     t.string "province", comment: "省"
     t.string "city", comment: "市"
     t.string "district", comment: "区/县"
@@ -759,7 +759,7 @@ ActiveRecord::Schema.define(version: 20180313090437) do
     t.string "contact_phone", comment: "联系方式"
     t.string "contact_position", comment: "联系人职务"
     t.integer "kind", comment: "学校类型"
-    t.integer "user_id", comment: "申请人ID"
+    t.integer "user_id", comment: "校长ID"
     t.string "school_no", comment: "学校申请编号"
     t.string "contact_id_card", comment: "联系人身份证号"
     t.string "postcode", comment: "邮政编码"

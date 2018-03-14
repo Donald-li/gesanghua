@@ -41,4 +41,25 @@ class BookshelfSupplement < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
+  def class_list_summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :target_amount, :present_amount)
+      json.bookshelf_no self.bookshelf.bookshelf_no
+      json.apply_name self.apply.try(:name)
+      json.title self.bookshelf.show_title
+      json.state self.enum_name(:state)
+    end.attributes!
+  end
+
+  def summary_builder
+    Jbuilder.new do |json|
+      json.id self.id
+      json.class_id [self.bookshelf.id.to_s]
+      json.class_name self.bookshelf.classname
+      json.loss self.loss
+      json.supply self.supply
+    end.attributes!
+  end
+
+
 end

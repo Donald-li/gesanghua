@@ -263,6 +263,7 @@ class ProjectSeasonApply < ApplicationRecord
       json.name self.apply_name
       json.created_at self.created_at.strftime("%Y-%m-%d")
       json.state self.apply_state
+      json.bookshelf_type self.bookshelf_type == 'whole'? '新图书角' : '图书角补书'
       # json.teacher self.teacher.try(:name)
       json.teacher self.teacher.present? ? self.teacher.try(:name) : self.contact_name
     end.attributes!
@@ -317,6 +318,17 @@ class ProjectSeasonApply < ApplicationRecord
       json.location [self.province, self.city, self.district]
       json.address self.address
       json.student_number self.student_number
+      json.describe self.describe
+    end.attributes!
+  end
+
+  def read_supply_receive_info_summary_builder
+    Jbuilder.new do |json|
+      json.id self.id
+      json.contact_name self.contact_name
+      json.contact_phone self.contact_phone
+      json.location [self.province, self.city, self.district]
+      json.address self.address
     end.attributes!
   end
 
