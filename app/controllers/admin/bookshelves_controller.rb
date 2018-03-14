@@ -44,7 +44,12 @@ class Admin::BookshelvesController < Admin::BaseController
 
   def bookshelf_receive
     @bookshelf = ProjectSeasonApplyBookshelf.find(params[:id])
-    @receive = @bookshelf.receive
+    @receive = @bookshelf.receive_feedback
+  end
+
+  def bookshelf_install
+    @bookshelf = ProjectSeasonApplyBookshelf.find(params[:id])
+    @install = @bookshelf.install_feedback
   end
 
   private

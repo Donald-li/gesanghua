@@ -30,6 +30,7 @@ class Api::V1::CooperationReadsController < Api::V1::BaseController
     user = current_user
     @school = user.teacher.school
     @apply = @read.applies.new
+    @apply.bookshelf_type = 1
     @apply.project_season_id = params[:read_apply][:season][0]
     @apply.class_number = params[:read_apply][:class_number]
     @apply.student_number = params[:read_apply][:student_number]

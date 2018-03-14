@@ -65,6 +65,7 @@ namespace :admin do
       member do
         put :shipment
         get :bookshelf_receive
+        get :bookshelf_install
       end
     end
     resources :supplements, concerns: :switch do

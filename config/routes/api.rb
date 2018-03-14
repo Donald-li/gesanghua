@@ -48,6 +48,7 @@ namespace :api do
     resources :bookshelves do
       member do
         post :define_name
+        get :class_list
       end
     end
 

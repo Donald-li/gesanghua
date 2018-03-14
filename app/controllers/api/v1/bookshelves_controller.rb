@@ -34,6 +34,12 @@ class Api::V1::BookshelvesController < Api::V1::BaseController
     end
   end
 
+  def class_list
+    @apply = ProjectSeasonApply.find(params[:id])
+    @bookshelves = @apply.bookshelves.pass.sorted
+    api_success(data: @bookshelves.map { |b| b.class_list_summary_builder })
+  end
+
   private
   def set_bookshelf
     @bookshelf = ProjectSeasonApplyBookshelf.find(params[:id])

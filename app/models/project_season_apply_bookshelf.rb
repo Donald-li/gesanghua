@@ -47,6 +47,7 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
   has_many :beneficial_children
   has_many :supplements, class_name: 'BookshelfSupplement', foreign_key: 'project_season_apply_bookshelf_id'
   has_one :receive_feedback, as: :owner
+  has_one :install_feedback, as: :owner
 
   scope :gsh_bookshelf, -> { complete }
 
@@ -119,10 +120,19 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
         json.(self, :id, :classname, :student_number)
       end.attributes!
   end
-  
+
   def apply_builder
     Jbuilder.new do |json|
       json.(self, :id, :classname, :student_number)
+    end.attributes!
+  end
+
+  def class_list_summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :bookshelf_no, :target_amount, :present_amount)
+      json.apply_name self.apply.try(:name)
+      json.title self.show_title
+      json.state self.enum_name(:state)
     end.attributes!
   end
 
