@@ -204,6 +204,7 @@ namespace :api do
     end
 
     resources :cooperation_reads, except: [:destroy]
+    resources :cooperation_radios, except: [:destroy]
 
     resources :cooperation_pair_students do
       member do

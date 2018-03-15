@@ -201,7 +201,7 @@ class ProjectSeasonApply < ApplicationRecord
   end
 
   def sliced_abstract
-    self.abstract.length > 90 ? self.abstract.slice(0..90) : self.abstract
+    self.abstract && self.abstract.length > 90 ? self.abstract.slice(0..90) : self.abstract
   end
 
   def match_donate(params, amount, *args) # platform

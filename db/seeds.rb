@@ -55,8 +55,8 @@ p = Project.find_or_initialize_by(name: '悦读')
 p.update(name: '悦读', alias: 'read', protocol: content, describe: '项目介绍', kind: :fixed,
   fund: fc2.funds.unrestricted.first, appoint_fund: fc2.funds.restricted.first, donate_item: di_read,
   accept_feedback_state: 'open_feedback', feedback_period: 4,
-  form: [{"key"=>"books_count", "type"=>"number", "label"=>"现有图书", "options"=>["0"], "placeholder"=>""},
-  {"key"=>"suit_count", "type"=>"number", "label"=>"适合阅读", "options"=>["0"], "placeholder"=>""}]
+  form: [{"key"=>"books_count", "type"=>"number", "label"=>"现有图书", "options"=>["0"], "placeholder"=>"", "required"=>true},
+  {"key"=>"suit_count", "type"=>"number", "label"=>"适合阅读", "options"=>["0"], "placeholder"=>"", "required"=>true}]
 )
 
 p = Project.find_or_initialize_by(name: '探索营')
@@ -76,24 +76,24 @@ p = Project.find_or_initialize_by(name: '广播')
 p.update(name: '广播', alias: 'radio', protocol: content, describe: '项目介绍', kind: :goods,
   fund: fc5.funds.unrestricted.first, appoint_fund: fc5.funds.restricted.first, donate_item: di_radio,
   accept_feedback_state: 'open_feedback', feedback_period: 4,
-  form: [{"key"=>"building_count", "type"=>"number", "label"=>"宿舍栋数", "options"=>["0", "999"], "placeholder"=>""},
-   {"key"=>"room_count", "type"=>"number", "label"=>"宿舍数量", "options"=>["0", "999"], "placeholder"=>""},
-   {"key"=>"grade1", "type"=>"number", "label"=>"一年级住宿人数", "options"=>["0", "999"], "placeholder"=>""},
-   {"key"=>"grade2", "type"=>"number", "label"=>"二年级住宿人数", "options"=>["0", "999"], "placeholder"=>""},
-   {"key"=>"grade3", "type"=>"number", "label"=>"三年级住宿人数", "options"=>["0", "999"], "placeholder"=>""},
-   {"key"=>"grade4", "type"=>"number", "label"=>"四年级住宿人数", "options"=>["0", "999"], "placeholder"=>""},
-   {"key"=>"grade5", "type"=>"number", "label"=>"五年级住宿人数", "options"=>["0", "999"], "placeholder"=>""},
-   {"key"=>"grade6", "type"=>"number", "label"=>"六年级住宿人数", "options"=>["0", "999"], "placeholder"=>""},
-   {"key"=>"amp_count", "type"=>"number", "label"=>"现有功放", "options"=>["0", "999"], "placeholder"=>""},
-   {"key"=>"speaker_count", "type"=>"number", "label"=>"现有喇叭", "options"=>["0", "999"], "placeholder"=>""}]
+  form: [{"key"=>"building_count", "type"=>"number", "label"=>"宿舍栋数", "options"=>["0", "999"], "placeholder"=>"", "required"=>true},
+   {"key"=>"room_count", "type"=>"number", "label"=>"宿舍数量", "options"=>["0", "999"], "placeholder"=>"", "required"=>true},
+   {"key"=>"grade1", "type"=>"number", "label"=>"一年级住宿人数", "options"=>["0", "999"], "placeholder"=>"", "required"=>true},
+   {"key"=>"grade2", "type"=>"number", "label"=>"二年级住宿人数", "options"=>["0", "999"], "placeholder"=>"", "required"=>true},
+   {"key"=>"grade3", "type"=>"number", "label"=>"三年级住宿人数", "options"=>["0", "999"], "placeholder"=>"", "required"=>true},
+   {"key"=>"grade4", "type"=>"number", "label"=>"四年级住宿人数", "options"=>["0", "999"], "placeholder"=>"", "required"=>true},
+   {"key"=>"grade5", "type"=>"number", "label"=>"五年级住宿人数", "options"=>["0", "999"], "placeholder"=>"", "required"=>true},
+   {"key"=>"grade6", "type"=>"number", "label"=>"六年级住宿人数", "options"=>["0", "999"], "placeholder"=>"", "required"=>true},
+   {"key"=>"amp_count", "type"=>"number", "label"=>"现有功放", "options"=>["0", "999"], "placeholder"=>"", "required"=>true},
+   {"key"=>"speaker_count", "type"=>"number", "label"=>"现有喇叭", "options"=>["0", "999"], "placeholder"=>"", "required"=>true}]
   )
 
 p = Project.find_or_initialize_by(name: '护花')
 p.update(name: '护花', alias: 'care', protocol: content, describe: '项目介绍', kind: :goods,
   fund: fc6.funds.unrestricted.first, appoint_fund: fc6.funds.restricted.first, donate_item: di_care,
   accept_feedback_state: 'open_feedback', feedback_period: 4,
-  form: [{"key"=>"girls_count", "type"=>"number", "label"=>"女生数", "options"=>["0", "999"], "placeholder"=>""},
-   {"key"=>"boys_count", "type"=>"number", "label"=>"男生数", "options"=>["0", "999"], "placeholder"=>""}]
+  form: [{"key"=>"girls_count", "type"=>"number", "label"=>"女生数", "options"=>["0", "999"], "placeholder"=>"", "required"=>true},
+   {"key"=>"boys_count", "type"=>"number", "label"=>"男生数", "options"=>["0", "999"], "placeholder"=>"", "required"=>true}]
 )
 
 # 入账渠道
