@@ -66,7 +66,6 @@ namespace :api do
       resources :mains, only: [:index]
       resources :schools, only: [:create]
       resources :project_applies, only: [:new, :show] # 项目申请
-      resources :read_project_applies, only: [:new, :create] # 悦读项目申请
 
       resources :gsh_children, only: [] do
         collection do
