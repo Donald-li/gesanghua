@@ -197,6 +197,12 @@ namespace :api do
       end
     end
 
+    resources :cooperation_checks, only: [:index] do
+      member do
+        patch :identity_user_info
+      end
+    end
+
     resources :cooperation_pairs do
       collection do
         get :verified_students

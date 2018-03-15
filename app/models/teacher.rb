@@ -46,6 +46,14 @@ class Teacher < ApplicationRecord
     end.attributes!
   end
 
+  def identity_teacher_summary_builder
+    Jbuilder.new do |json|
+      json.merge! summary_builder
+      json.school_name self.school.name
+      json.kind self.enum_name(:kind)
+    end.attributes!
+  end
+
   def detail_builder
     Jbuilder.new do |json|
       json.(self, :id)
