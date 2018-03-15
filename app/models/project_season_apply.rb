@@ -309,9 +309,11 @@ class ProjectSeasonApply < ApplicationRecord
     end.attributes!
   end
 
+  # 悦读项目表单
   def read_apply_submit_form_summary_builder
     Jbuilder.new do |json|
       json.season [self.season.id.to_s]
+      json.dynamic_form self.form
       json.class_number self.class_number
       json.student_number self.student_number
       json.contact_name self.contact_name

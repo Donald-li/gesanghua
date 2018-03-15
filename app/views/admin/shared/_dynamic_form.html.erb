@@ -1,0 +1,10 @@
+
+<% form = apply.project.form_submit(apply.form) %>
+<% form.each do |item| %>
+<div class="form-group">
+  <label class="col-md-2 control-label"><%= item.first %>：</label>
+  <div class="col-sm-9">
+    <%= item.second %>
+  </div>
+</div>
+<% end %>

@@ -41,8 +41,9 @@ class GrantBatch < ApplicationRecord
 
   def summary_builder
     Jbuilder.new do |json|
-      json.(self, :id, :batch_no, :project_id, :name, :state, :user_id, :created_at, :description)
+      json.(self, :id, :batch_no, :project_id, :name, :state, :user_id, :description)
       json.total_count self.total_count
+      json.created_at self.created_at.strftime("%Y-%m-%d %H:%M")
       json.granted_count self.granted_count
     end.attributes!
   end
