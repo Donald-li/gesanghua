@@ -16,13 +16,13 @@
 #  updated_at        :datetime         not null
 #  name              :string                                 # 名称
 #  number            :integer                                # 配额
+#  apply_no          :string                                 # 项目申请编号
 #  bookshelf_type    :integer                                # 悦读项目申请类型
 #  contact_name      :string                                 # 联系人姓名
 #  contact_phone     :string                                 # 联系人电话
 #  audit_state       :integer                                # 审核状态
 #  abstract          :string                                 # 简述
 #  address           :string                                 # 详细地址
-#  apply_no          :string                                 # 项目申请编号
 #  girl_number       :integer                                # 申请女生人数
 #  boy_number        :integer                                # 申请男生人数
 #  consignee         :string                                 # 收货人
@@ -36,6 +36,7 @@
 #  project_describe  :text                                   # 项目介绍
 #  form              :jsonb                                  # 自定义表单{key, value}
 #  pair_state        :integer                                # 结对审核状态
+#  code              :string                                 # code
 #
 
 # 所有项目年度申请表
