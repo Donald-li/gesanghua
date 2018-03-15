@@ -241,6 +241,7 @@ class User < ApplicationRecord
       json.auth_token self.auth_token
       json.roles self.roles
       json.project_ids self.manage_projects.ids if self.headmaster? || self.teacher?
+      json.has_team self.team.present?
     end.attributes!
   end
 
