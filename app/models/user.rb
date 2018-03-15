@@ -226,13 +226,10 @@ class User < ApplicationRecord
 
   def summary_builder
     Jbuilder.new do |json|
-      json.(self, :id, :nickname)
+      json.(self, :id, :nickname, :balance, :donate_count, :role_tag, :team_id)
       json.login_name self.login
       json.user_avatar self.try(:avatar).try(:file_url)
-      json.balance self.balance
-      json.donate_count self.donate_count
       json.promoter_count self.promoter_amount_count
-      json.role_tag self.role_tag
       json.join_team_time self.join_team_time.strftime("%Y-%m-%d") if self.join_team_time.present?
     end.attributes!
   end
