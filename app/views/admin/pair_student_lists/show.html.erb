@@ -19,6 +19,14 @@
         <tbody>
         <tr>
           <th width="72px">
+            孩子头像
+          </th>
+          <th>
+            <%= image_tag @pair_student_list.avatar.try(:file).try(:url, :small) %>
+          </th>
+        </tr>
+        <tr>
+          <th width="72px">
             姓名
           </th>
           <th>
@@ -95,6 +103,38 @@
           </th>
           <th>
             <%= @pair_student_list.description %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            身份证
+          </th>
+          <th>
+            <%= image_tag @pair_student_list.id_image.try(:file).try(:url, :small) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            户口本
+          </th>
+          <th>
+            <%= image_tag @pair_student_list.residence.try(:file).try(:url, :small) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            扶贫卡
+          </th>
+          <th>
+            <%= image_tag @pair_student_list.poverty.try(:file).try(:url, :small) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            家庭照
+          </th>
+          <th>
+            <%= image_tag @pair_student_list.family_image.try(:file).try(:url, :small) %>
           </th>
         </tr>
 
