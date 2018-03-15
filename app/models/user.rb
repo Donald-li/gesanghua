@@ -230,6 +230,7 @@ class User < ApplicationRecord
       json.login_name self.login
       json.user_avatar self.try(:avatar).try(:file_url)
       json.promoter_count self.promoter_amount_count
+      json.team_name self.team.present? ? self.team.name : ''
       json.join_team_time self.join_team_time.strftime("%Y-%m-%d") if self.join_team_time.present?
     end.attributes!
   end
