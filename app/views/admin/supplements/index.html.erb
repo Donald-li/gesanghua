@@ -121,8 +121,8 @@
                     <% end %>
                   <% end %>
                   <% if supplement.non_reception? %>
-                    <% if supplement.receive.present? %>
-                      <%= link_to supplement_receive_admin_read_project_bookshelf_path(@project, bookshelf), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                    <% if supplement.receive_feedback.present? %>
+                      <%= link_to supplement_receive_admin_read_project_supplement_path(@project, supplement), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                         <i class="fa fa-truck"></i> 查看收货凭证
                       <% end %>
                     <% else %>

@@ -276,7 +276,7 @@ class ProjectSeasonApply < ApplicationRecord
       json.(self, :id, :name, :apply_no)
       json.last_amount self.target_amount - self.present_amount
       json.total_count self.bookshelves.pass.count
-      json.done_count self.bookshelves.pass.complete.count
+      json.done_count self.bookshelves.pass.to_delivery.count
       json.cover_mode self.cover_image.present?
       json.cover_url self.cover_image_url(:small).to_s
     end.attributes!
@@ -339,7 +339,7 @@ class ProjectSeasonApply < ApplicationRecord
       json.(self, :id, :name, :apply_no, :target_amount, :present_amount)
       json.last_amount self.target_amount - self.present_amount
       json.total_count self.bookshelves.pass.count
-      json.done_count self.bookshelves.pass.complete.count
+      json.done_count self.bookshelves.pass.to_delivery.count
       json.cover_mode self.cover_image.present?
       json.cover_url self.cover_image_url(:small).to_s
     end.attributes!
@@ -361,7 +361,7 @@ class ProjectSeasonApply < ApplicationRecord
       json.(self, :id, :name, :apply_no, :target_amount, :present_amount)
       json.last_amount self.target_amount - self.present_amount
       json.total_count self.bookshelves.pass.count
-      json.done_count self.bookshelves.pass.complete.count
+      json.done_count self.bookshelves.pass.to_delivery.count
       json.cover_mode self.cover_image.present?
       json.cover_url self.cover_image_url(:small).to_s
     end.attributes!
@@ -394,7 +394,7 @@ class ProjectSeasonApply < ApplicationRecord
       json.name self.apply_name
       json.last_amount self.target_amount - self.present_amount
       json.total_count self.bookshelves.pass.count
-      json.done_count self.bookshelves.pass.complete.count
+      json.done_count self.bookshelves.pass.to_delivery.count
       json.cover_mode self.cover_image.present?
       json.cover_url self.cover_image_url(:small).to_s
     end.attributes!

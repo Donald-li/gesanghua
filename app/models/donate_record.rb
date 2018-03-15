@@ -335,7 +335,7 @@ class DonateRecord < ApplicationRecord
         donate_record.kind = 'platform'
 
         bookshelf.present_amount += amount
-        bookshelf.state = 'complete' if bookshelf.present_amount == bookshelf.target_amount
+        bookshelf.state = 'to_delivery' if bookshelf.present_amount == bookshelf.target_amount
 
         donate_record.save!
         bookshelf.save!

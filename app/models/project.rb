@@ -123,7 +123,7 @@ class Project < ApplicationRecord
     if self.id == 1
       GshChild.visible.count
     elsif self.id == 2
-      ProjectSeasonApplyBookshelf.pending.count
+      ProjectSeasonApplyBookshelf.raising.count
     elsif self.id == 6
       self.applies.to_delivery.count
     elsif self.id == 7

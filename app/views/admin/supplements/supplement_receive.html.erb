@@ -3,7 +3,7 @@
   <div class="portlet-title">
     <div class="caption">
       <i class="fa fa-sliders font-dark"></i>
-      <span class="caption-subject font-dark bold uppercase"><%= link_to @receive.owner.bookshelf_no, admin_read_project_bookshelves_path(@project) %> > 收货凭证详情</span>
+      <span class="caption-subject font-dark bold uppercase"><%= link_to @receive.owner.bookshelf.bookshelf_no, admin_read_project_bookshelves_path(@project) %> > 收货凭证详情</span>
     </div>
     <div class="actions">
       <div class="btn-group">
@@ -22,7 +22,7 @@
             图书角编号
           </th>
           <th>
-            <%= @receive.owner.bookshelf_no %>
+            <%= @receive.owner.bookshelf.bookshelf_no %>
           </th>
         </tr>
         <tr>
@@ -30,7 +30,7 @@
             班级
           </th>
           <th>
-            <%= @receive.owner.classname %>
+            <%= @receive.owner.bookshelf.classname %>
           </th>
         </tr>
         <tr>

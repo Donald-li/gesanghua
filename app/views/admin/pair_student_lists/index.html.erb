@@ -97,8 +97,8 @@
                   <%= child.raise_condition %>
                 </td>
                 <td>
-                  <%= link_to turn_over_admin_pair_student_list_path(child), data: {confirm: "确定#{child.kind === 'outside' ? '内部认捐' : '对外筹款'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{child.kind === 'inside' ? 'green' : 'blue'}" do %>
-                      <%= child.kind === 'outside' ? '对外筹款' : '内部认捐' %>
+                  <%= link_to turn_over_admin_pair_student_list_path(child), data: {confirm: "确定#{child.kind === 'outside' ? '知道地址可见' : '平台可见'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{child.kind === 'inside' ? 'green' : 'blue'}" do %>
+                      <%= child.kind === 'outside' ? '平台可见' : '知道地址可见' %>
                       <i class="fa <%= child.kind === 'outside' ? 'fa-square-o' : 'fa-check-square-o' %>"></i>
                   <% end %>
                 </td>

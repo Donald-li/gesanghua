@@ -49,7 +49,7 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
   has_one :receive_feedback, as: :owner
   has_one :install_feedback, as: :owner
 
-  scope :gsh_bookshelf, -> { complete }
+  scope :gsh_bookshelf, -> { to_delivery }
 
   validates :classname, presence: true
 
@@ -59,7 +59,7 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
   enum show_state: {show: 1, hidden: 2}
   default_value_for :show_state, 1
 
-  enum state: {pending: 1, complete: 2, non_execution: 3, non_reception: 4, non_feedback: 5, done: 6}
+  enum state: {raising: 1, to_delivery: 2, to_receive: 3, to_feedback: 4, feedbacked: 5, done: 6, cancelled: 7}
   default_value_for :state, 1
 
   enum grade: {juniorone: 1, juniortwo: 2, juniorthree: 3, seniorone: 4, seniortwo: 5, seniorthree: 6}
@@ -74,7 +74,7 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
   end
 
   def can_gen_bookshelf_no?
-    self.complete?
+    self.to_delivery?
   end
 
   def self.address_group
