@@ -114,6 +114,12 @@ class Project < ApplicationRecord
     (self.form || []).detect{|item|item['key'] == key}.try('[]', 'label') || ''
   end
 
+  def form_submit(form)
+    self.form.map do |i|
+      [form_label(i['key']), form[i['key']]]
+    end
+  end
+
   def project_image
     ActionController::Base.helpers.asset_path(self.image_url(:tiny))
   end

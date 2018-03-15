@@ -33,7 +33,7 @@ class Api::V1::BaseController < ApplicationController
   end
 
   def current_user
-    @current_user = User.first if Settings.development_mode
+    @current_user = User.last if Settings.development_mode
     @current_user = User.find_by(id: session[:id]) if session[:id].present?
     token = request.headers['Authorization'] || params[:auth_token]
     return nil if token.blank?
