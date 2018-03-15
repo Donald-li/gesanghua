@@ -78,7 +78,7 @@
           <% @grants.each do |grant| %>
               <tr>
                 <td>
-                  <%= grant.grant_no %>
+                  <%= grant.gsh_child.try(:gsh_no) %>
                 </td>
                 <td>
                   <%= grant.try(:gsh_child).try(:name) %>

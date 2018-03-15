@@ -30,6 +30,7 @@
 
 # 一对一孩子发放表
 class GshChildGrant < ApplicationRecord
+
   include HasAsset
   has_many_assets :images, class_name: 'Asset::GshChildGrantImage'
 
