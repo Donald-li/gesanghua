@@ -44,7 +44,7 @@ class Admin::SupplementsController < Admin::BaseController
 
   def supplement_receive
     @supplement = BookshelfSupplement.find(params[:id])
-    @receive = @supplement.receive
+    @receive = @supplement.receive_feedback
   end
 
   private

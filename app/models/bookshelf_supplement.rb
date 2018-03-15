@@ -27,6 +27,7 @@ class BookshelfSupplement < ApplicationRecord
 
   has_many :donates, class_name: 'DonateRecord', dependent: :destroy
   has_one :receive_feedback, as: :owner
+  has_one :install_feedback, as: :owner
 
   enum show_state: {show: 1, hidden: 2}
   default_value_for :show_state, 1
