@@ -312,6 +312,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
       json.level_name self.enum_name(:level)
       json.id_card self.secure_id_card
       json.gender self.enum_name(:gender)
+      json.visit_number self.visits.count
     end.attributes!
   end
 
