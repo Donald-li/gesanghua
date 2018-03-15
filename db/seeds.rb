@@ -7,7 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # 超级管理员
-superadmin = User.create(login: 'admin', password: 'admin!', name: 'Administrator', phone: '13300000000', roles: :superadmin, nickname: '超级管理员', kind: :platform_user, phone_verify: :phone_verified)
+u = User.find_or_initialize_by(login: 'admin')
+u.update(login: 'admin', password: 'admin!', name: 'Administrator', phone: '13300000000', roles: :superadmin, nickname: '超级管理员', kind: :platform_user, phone_verify: :phone_verified)
 
 # 一级财务分类
 fc_gesanghua = FundCategory.find_or_create_by(name: '格桑花', describe: '捐助给格桑花', kind: 'nondirectional')
@@ -20,9 +21,9 @@ fc5 = FundCategory.find_or_create_by(name: '广播', describe: '广播', kind: '
 fc6 = FundCategory.find_or_create_by(name: '护花', describe: '护花', kind: 'directional')
 
 # 二级财务分类
-fc_gesanghua.funds.create(name: "格桑花", management_rate: 0, describe: '格桑花非定向基金池', kind: fc_gesanghua.kind, use_kind: 'unrestricted')
-fc_expense.funds.create(name: "行政费用", management_rate: 0, describe: '办公室租用、办公用品', kind: fc_gesanghua.kind, use_kind: 'unrestricted')
-fc_expense.funds.create(name: "人员工资", management_rate: 0, describe: '仅用于人员工资、社保费用', kind: fc_gesanghua.kind, use_kind: 'unrestricted')
+fc_gesanghua.funds.find_or_create_by(name: "格桑花", management_rate: 0, describe: '格桑花非定向基金池', kind: fc_gesanghua.kind, use_kind: 'unrestricted')
+fc_expense.funds.find_or_create_by(name: "行政费用", management_rate: 0, describe: '办公室租用、办公用品', kind: fc_gesanghua.kind, use_kind: 'unrestricted')
+fc_expense.funds.find_or_create_by(name: "人员工资", management_rate: 0, describe: '仅用于人员工资、社保费用', kind: fc_gesanghua.kind, use_kind: 'unrestricted')
 
 FundCategory.directional.each do |fc|
   Fund.find_or_create_by(name: "非指定", management_rate: 0, describe: '定向非指定', fund_category_id: fc.id, kind: fc.kind, use_kind: 'unrestricted')
@@ -30,9 +31,9 @@ FundCategory.directional.each do |fc|
 end
 
 # 探索营 - 二级财务分类
-fc4.funds.create(name: "苏州营", management_rate: 10, describe: '格桑花苏州营', kind: fc4.kind, use_kind: 'restricted')
-fc4.funds.create(name: "常州营", management_rate: 10, describe: '格桑花常州营', kind: fc4.kind, use_kind: 'restricted')
-fc4.funds.create(name: "合肥营", management_rate: 10, describe: '格桑花合肥营', kind: fc4.kind, use_kind: 'restricted')
+fc4.funds.find_or_create_by(name: "苏州营", management_rate: 10, describe: '格桑花苏州营', kind: fc4.kind, use_kind: 'restricted')
+fc4.funds.find_or_create_by(name: "常州营", management_rate: 10, describe: '格桑花常州营', kind: fc4.kind, use_kind: 'restricted')
+fc4.funds.find_or_create_by(name: "合肥营", management_rate: 10, describe: '格桑花合肥营', kind: fc4.kind, use_kind: 'restricted')
 
 # 捐助项
 di_gsh = DonateItem.find_or_create_by(name: '格桑花', describe: '不限制使用途径', fund: Fund.gsh, state: :show)
@@ -44,13 +45,56 @@ di_radio = DonateItem.find_or_create_by(name: '广播', describe: '用于广播�
 
 # 项目模板一级分类
 content = '用户协议'
-Project.find_or_create_by(name: '一对一', alias: 'pair', protocol: content, describe: '项目介绍', kind: :fixed, fund: fc1.funds.unrestricted.first, appoint_fund: fc1.funds.restricted.first, donate_item: di_pair, accept_feedback_state: 'close_feedback')
-Project.find_or_create_by(name: '悦读', alias: 'read', protocol: content, describe: '项目介绍', kind: :fixed, fund: fc2.funds.unrestricted.first, appoint_fund: fc2.funds.restricted.first, donate_item: di_read, accept_feedback_state: 'open_feedback', feedback_period: 4)
-Project.find_or_create_by(name: '探索营', alias: 'camp', protocol: content, describe: '项目介绍', kind: :fixed, fund: fc4.funds.unrestricted.first, appoint_fund: fc4.funds.restricted.first, donate_item: di_camp, accept_feedback_state: 'close_feedback')
-Project.find_or_create_by(name: '观影', alias: 'movie', protocol: content, describe: '项目介绍', kind: :apply, fund: nil, appoint_fund: nil, accept_feedback_state: 'open_feedback', feedback_period: 4)
-Project.find_or_create_by(name: '护花课程', alias: 'movie_care', protocol: content, describe: '项目介绍', kind: :apply, fund: nil, appoint_fund: nil, accept_feedback_state: 'open_feedback', feedback_period: 4)
-Project.find_or_create_by(name: '广播', alias: 'radio', protocol: content, describe: '项目介绍', kind: :goods, fund: fc5.funds.unrestricted.first, appoint_fund: fc5.funds.restricted.first, donate_item: di_radio, accept_feedback_state: 'open_feedback', feedback_period: 4)
-Project.find_or_create_by(name: '护花', alias: 'care', protocol: content, describe: '项目介绍', kind: :goods, fund: fc6.funds.unrestricted.first, appoint_fund: fc6.funds.restricted.first, donate_item: di_care, accept_feedback_state: 'open_feedback', feedback_period: 4)
+
+p = Project.find_or_initialize_by(name: '一对一')
+p.update(name: '一对一', alias: 'pair', protocol: content, describe: '项目介绍', kind: :fixed,
+  fund: fc1.funds.unrestricted.first, appoint_fund: fc1.funds.restricted.first, donate_item: di_pair,
+  accept_feedback_state: 'close_feedback')
+
+p = Project.find_or_initialize_by(name: '悦读')
+p.update(name: '悦读', alias: 'read', protocol: content, describe: '项目介绍', kind: :fixed,
+  fund: fc2.funds.unrestricted.first, appoint_fund: fc2.funds.restricted.first, donate_item: di_read,
+  accept_feedback_state: 'open_feedback', feedback_period: 4,
+  form: [{"key"=>"books_count", "type"=>"number", "label"=>"现有图书", "options"=>["0"], "placeholder"=>""},
+  {"key"=>"suit_count", "type"=>"number", "label"=>"适合阅读", "options"=>["0"], "placeholder"=>""}]
+)
+
+p = Project.find_or_initialize_by(name: '探索营')
+p.update(name: '探索营', alias: 'camp', protocol: content, describe: '项目介绍', kind: :fixed,
+  fund: fc4.funds.unrestricted.first, appoint_fund: fc4.funds.restricted.first, donate_item: di_camp,
+  accept_feedback_state: 'close_feedback')
+
+p = Project.find_or_initialize_by(name: '观影')
+p.update(name: '观影', alias: 'movie', protocol: content, describe: '项目介绍', kind: :apply,
+  fund: nil, appoint_fund: nil, accept_feedback_state: 'open_feedback', feedback_period: 4)
+
+p = Project.find_or_initialize_by(name: '护花课程')
+p.update(name: '护花课程', alias: 'movie_care', protocol: content, describe: '项目介绍', kind: :apply,
+  fund: nil, appoint_fund: nil, accept_feedback_state: 'open_feedback', feedback_period: 4)
+
+p = Project.find_or_initialize_by(name: '广播')
+p.update(name: '广播', alias: 'radio', protocol: content, describe: '项目介绍', kind: :goods,
+  fund: fc5.funds.unrestricted.first, appoint_fund: fc5.funds.restricted.first, donate_item: di_radio,
+  accept_feedback_state: 'open_feedback', feedback_period: 4,
+  form: [{"key"=>"building_count", "type"=>"number", "label"=>"宿舍栋数", "options"=>["0", "999"], "placeholder"=>""},
+   {"key"=>"room_count", "type"=>"number", "label"=>"宿舍数量", "options"=>["0", "999"], "placeholder"=>""},
+   {"key"=>"grade1", "type"=>"number", "label"=>"一年级住宿人数", "options"=>["0", "999"], "placeholder"=>""},
+   {"key"=>"grade2", "type"=>"number", "label"=>"二年级住宿人数", "options"=>["0", "999"], "placeholder"=>""},
+   {"key"=>"grade3", "type"=>"number", "label"=>"三年级住宿人数", "options"=>["0", "999"], "placeholder"=>""},
+   {"key"=>"grade4", "type"=>"number", "label"=>"四年级住宿人数", "options"=>["0", "999"], "placeholder"=>""},
+   {"key"=>"grade5", "type"=>"number", "label"=>"五年级住宿人数", "options"=>["0", "999"], "placeholder"=>""},
+   {"key"=>"grade6", "type"=>"number", "label"=>"六年级住宿人数", "options"=>["0", "999"], "placeholder"=>""},
+   {"key"=>"amp_count", "type"=>"number", "label"=>"现有功放", "options"=>["0", "999"], "placeholder"=>""},
+   {"key"=>"speaker_count", "type"=>"number", "label"=>"现有喇叭", "options"=>["0", "999"], "placeholder"=>""}]
+  )
+
+p = Project.find_or_initialize_by(name: '护花')
+p.update(name: '护花', alias: 'care', protocol: content, describe: '项目介绍', kind: :goods,
+  fund: fc6.funds.unrestricted.first, appoint_fund: fc6.funds.restricted.first, donate_item: di_care,
+  accept_feedback_state: 'open_feedback', feedback_period: 4,
+  form: [{"key"=>"girls_count", "type"=>"number", "label"=>"女生数", "options"=>["0", "999"], "placeholder"=>""},
+   {"key"=>"boys_count", "type"=>"number", "label"=>"男生数", "options"=>["0", "999"], "placeholder"=>""}]
+)
 
 # 入账渠道
 IncomeSource.find_or_create_by(name: '微信支付', description: '微信支付', kind: 'weixin')
