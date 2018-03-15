@@ -32,7 +32,7 @@ class BookshelfSupplement < ApplicationRecord
   enum show_state: {show: 1, hidden: 2}
   default_value_for :show_state, 1
 
-  enum state: {pending: 1, complete: 2, non_execution: 3, non_reception: 4, non_feedback: 5, done: 6}
+  enum state: {raising: 1, to_delivery: 2, to_receive: 3, to_feedback: 4, feedbacked: 5, done: 6, cancelled: 7}
   default_value_for :state, 1
 
   enum audit_state: {submit: 1, pass: 2, reject: 3}

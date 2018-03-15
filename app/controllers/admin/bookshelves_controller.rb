@@ -36,7 +36,7 @@ class Admin::BookshelvesController < Admin::BaseController
 
   def shipment
     @bookshelf = ProjectSeasonApplyBookshelf.find(params[:id])
-    @bookshelf.non_reception!
+    @bookshelf.to_receive!
     respond_to do |format|
       format.html { redirect_to admin_read_project_bookshelves_path(@project), notice: '发货成功。' }
     end
