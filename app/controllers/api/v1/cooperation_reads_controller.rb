@@ -7,10 +7,10 @@ class Api::V1::CooperationReadsController < Api::V1::BaseController
     if user.teacher.present?
       if user.has_role?(:headmaster)
         applies = user.teacher.school.project_season_applies.where(project_id: @read.id).sorted.page(params[:page])
-        api_success(data: {applies: applies.map { |r| r.read_apply_builder }, pagination: json_pagination(applies)})
+        api_success(data: {applies: applies.map { |r| r.read_applies_builder }, pagination: json_pagination(applies)})
       elsif user.has_role?(:teacher)
         applies = user.teacher.project_season_applies.where(project_id: @read.id).sorted.page(params[:page])
-        api_success(data: {applies: applies.map { |r| r.read_apply_builder }, pagination: json_pagination(applies)})
+        api_success(data: {applies: applies.map { |r| r.read_applies_builder }, pagination: json_pagination(applies)})
       else
       end
     else
