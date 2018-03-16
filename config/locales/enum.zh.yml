@@ -339,12 +339,12 @@ zh:
     visit_report: '回访报告'
     grant_report: '发放报告'
   project_season_apply_bookshelf_grades:
-    juniorone: '初中一年级'
-    juniortwo: '初中二年级'
-    juniorthree: '初中三年级'
-    seniorone: '高中一年级'
-    seniortwo: '高中二年级'
-    seniorthree: '高中三年级'
+    juniorone: '初一'
+    juniortwo: '初二'
+    juniorthree: '初三'
+    seniorone: '高一'
+    seniortwo: '高二'
+    seniorthree: '高三'
   project_season_apply_bookshelf_audit_states:
     submit: '待审核'
     pass: '通过'
