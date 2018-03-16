@@ -63,7 +63,7 @@
                                   <tr>
                                     <th> 年级 </th>
                                     <th> 班级 </th>
-                                    <th> 筹款金额 </th>
+                                    <!-- <th> 筹款金额 </th> -->
                                     <!-- <th> 人数 </th> -->
                                     <th> 是否通过审核 </th>
                                     <th> 删除操作 </th>
@@ -81,9 +81,9 @@
                                     <td>
                                       <%= b.input :classname, label: false, input_html:{ data: {'parsley-required': true}, placeholder: '请填入班级名称'} %>
                                     </td>
-                                    <td>
-                                      <%= b.input :target_amount, type: 'number', min: 0, label: false, input_html:{data: {'parsley-required': true}, class: 'target-amount', placeholder: '请填入筹款金额'}  %>
-                                    </td>
+                                    <!-- <td>
+                                      <%#= b.input :target_amount, type: 'number', min: 0, label: false, input_html:{data: {'parsley-required': true}, class: 'target-amount', placeholder: '请填入筹款金额'}  %>
+                                    </td> -->
                                     <!-- <td class="children-count"> -->
                                       <%#= b.input :student_number, as: 'string', min: 0, label: false, input_html:{ placeholder: '请填入班级人数'} %>
                                       <%#= b.object.beneficial_children.count %>
@@ -105,7 +105,7 @@
                                     <th> 班级 </th>
                                     <th> 损耗数量 </th>
                                     <th> 补书数量 </th>
-                                    <th> 筹款金额 </th>
+                                    <!-- <th> 筹款金额 </th> -->
                                     <th> 是否通过审核 </th>
                                     <th> 删除操作 </th>
                                   </tr>
@@ -126,9 +126,9 @@
                                     <td>
                                       <%= b.input :supply,type: 'number', min: 0, label: false, input_html: {data: {'parsley-required': true}, class: 'supply-count', placeholder: '请填写数量'} %>
                                     </td>
-                                    <td>
-                                      <%= b.input :target_amount, type: 'number', min: 0, label: false, input_html:{data: {'parsley-required': true}, class: 'target-amount', placeholder: '请填入筹款金额'}  %>
-                                    </td>
+                                    <!-- <td>
+                                      <%#= b.input :target_amount, type: 'number', min: 0, label: false, input_html:{data: {'parsley-required': true}, class: 'target-amount', placeholder: '请填入筹款金额'}  %>
+                                    </td> -->
                                     <td>
                                       <%= b.input :audit_state, as: :select, wrapper: :inline_inputs, collection: BookshelfSupplement.options_for_select(:audit_states), label: false %>
                                     </td>
@@ -146,7 +146,7 @@
                       </div>
                       <%= f.input :abstract, label: '申请内容：', placeholder: '请填写申请所需物品', input_html: { data: {'parsley-required': true} } %>
                       <%= f.input :describe, label: '申请理由：', placeholder: '请填写申请理由', input_html: { data: {'parsley-required': true} } %>
-                      
+
                       <%= render '/admin/shared/dynamic_form', apply: @project_apply %>
 
                       <div class="form-group">

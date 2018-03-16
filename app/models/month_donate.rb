@@ -36,12 +36,6 @@ class MonthDonate < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
-  def pay_and_gen_certificate
-    self.certificate_no ||= 'ZS' + self.donate_no
-    self.pay_state = 'paid'
-    self.save
-  end
-
   def self.month_donate_gsh(user = nil, amount = 0.0, plan_period = 0)
     return false unless user.present?
     gsh_fund = Fund.gsh
@@ -67,18 +61,5 @@ class MonthDonate < ApplicationRecord
     donate.save
     return donate
   end
-
-  def certificate_builder
-    Jbuilder.new do |json|
-      json.(self, :id)
-      json.donate_item_name self.donate_item.try(:name)
-      json.amount number_to_currency(self.amount)
-      json.user_name self.user.present? ? self.user.name : '爱心人士'
-      json.time_name "#{self.created_at.year}年#{self.created_at.month}月#{self.created_at.day}日"
-      json.certificate_no self.certificate_no
-      json.project self.try(:project).try(:name)
-    end.attributes!
-  end
-
 
 end

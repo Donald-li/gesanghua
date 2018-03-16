@@ -58,7 +58,7 @@ class ProjectSeasonApply < ApplicationRecord
   has_many :children, class_name: "ProjectSeasonApplyChild"
   has_many :gsh_child_grants
   has_many :gsh_children, class_name: 'ProjectSeasonApplyChild', dependent: :destroy
-  has_many :bookshelves, class_name: 'ProjectSeasonApplyBookshelf', foreign_key: 'project_season_apply_id'
+  has_many :bookshelves, ->{order(id: :asc)}, class_name: 'ProjectSeasonApplyBookshelf', foreign_key: 'project_season_apply_id'
   has_many :supplements, class_name: 'BookshelfSupplement', foreign_key: 'project_season_apply_id'
   has_many :beneficial_children
   has_many :donate_records

@@ -21,8 +21,7 @@
             <%= static_form_control '申请批次：', @project.season.name %>
             <%= static_form_control '申请学校：', @project.school.name %>
             <%= static_form_control '申请类型：', @project.enum_name(:bookshelf_type) %>
-            <%#= f.input :target_amount, type: 'number', min: 0, label: '目标筹款金额：', placeholder: '请填写筹款金额', require: true %>
-            <%= static_form_control '目标筹款金额：', @project.target_amount %>
+            <!-- <%= static_form_control '目标筹款金额：', @project.target_amount %> -->
             <%= f.input :name, label: '项目名称：', placeholder: '请填写项目名称', input_html:{ data: {'parsley-required': true} } %>
             <div class="form-group">
               <label class="col-md-2 control-label">项目封面：</label>
@@ -37,9 +36,6 @@
                 <i class="icon-social-dribbble font-green"></i>
                 <span class="caption-subject font-green bold uppercase">筹款班级</span>
               </div>
-              <!-- <div class="actions">
-                <a class="btn btn-info btn-xs" href="#" id="goods_add_another"><i class="fa fa-plus"></i> 添加班级</a>
-              </div> -->
               </div>
               <div class="portlet-body">
                 <div class="table-scrollable">
@@ -50,32 +46,26 @@
                           <th> 图书角编号 </th>
                           <th> 班级 </th>
                           <th> 筹款金额 </th>
-                          <!-- <th> 班级人数 </th> -->
                         </tr>
                       </thead>
                       <tbody id="goods">
-                        <%# @project.bookshelves.build if @project.bookshelves.blank? %>
-                        <% @project.bookshelves.pass.each do |b| %>
+                        <%= f.fields_for :bookshelves, @project.bookshelves.pass, wrapper: 'inline_inputs' do |b| %>
                         <tr>
                           <td>
-                            <%= b.bookshelf_no %>
+                            <%= b.input :id, as: :hidden %>
+                            <%= b.object.grade %>
                           </td>
                           <td>
-                            <%#= b.input :classname, label: false, input_html:{ placeholder: '请填入班级名称'} %>
-                            <%= b.classname %>
+                            <%= b.object.classname %>
                           </td>
                           <td>
-                            <%#= b.input :student_number, label: false, input_html:{ placeholder: '请填入班级人数'} %>
-                            ¥ <%= b.target_amount %>
+                            <%= b.input :target_amount, type: 'number', min: 0, label: false, input_html:{data: {'parsley-required': true}, class: 'target-amount', placeholder: '请填入筹款金额'}  %>
                           </td>
                           <!-- <td>
-                            <%= b.beneficial_children.count%>
-                          </td> -->
-                          <!-- <td>
-                            <a href="#" class="destroy"><i class="fa fa-remove font-red-soft"></i></a>
+                            <%#= b.beneficial_children.count%>
                           </td> -->
                         </tr>
-
+                        <%# end %>
                         <% end %>
                       </tbody>
                     <% else %>
@@ -86,35 +76,29 @@
                           <th> 书籍损耗 </th>
                           <th> 书籍补充 </th>
                           <th> 筹款金额 </th>
-                          <!-- <th> 班级人数 </th> -->
                         </tr>
                       </thead>
                       <tbody id="goods">
-                        <%# @project.bookshelves.build if @project.bookshelves.blank? %>
-                        <% @project.supplements.each do |b| %>
+                        <%= f.fields_for :supplements, @project.supplements.pass, wrapper: 'inline_inputs' do |b| %>
                         <tr>
                           <td>
-                            <%= b.bookshelf.bookshelf_no %>
+                            <%= b.input :id, as: :hidden %>
+                            <%= b.object.bookshelf.bookshelf_no %>
                           </td>
                           <td>
-                            <%#= b.input :classname, label: false, input_html:{ placeholder: '请填入班级名称'} %>
-                            <%= b.bookshelf.classname %>
+                            <%= b.object.bookshelf.classname %>
                           </td>
                           <td>
-                            <%= b.loss %>
+                            <%= b.object.loss %>
                           </td>
                           <td>
-                            <%= b.supply %>
+                            <%= b.object.supply %>
                           </td>
                           <td>
-                            <%#= b.input :student_number, label: false, input_html:{ placeholder: '请填入班级人数'} %>
-                            ¥ <%= b.target_amount %>
+                            <%= b.input :target_amount, type: 'number', min: 0, label: false, input_html:{data: {'parsley-required': true}, class: 'target-amount', placeholder: '请填入筹款金额'}  %>
                           </td>
                           <!-- <td>
-                            <%= b.bookshelf.beneficial_children.count%>
-                          </td> -->
-                          <!-- <td>
-                            <a href="#" class="destroy"><i class="fa fa-remove font-red-soft"></i></a>
+                            <%#= b.bookshelf.beneficial_children.count%>
                           </td> -->
                         </tr>
 

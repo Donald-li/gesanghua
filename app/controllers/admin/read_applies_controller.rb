@@ -23,12 +23,12 @@ class Admin::ReadAppliesController < Admin::BaseController
     @project_apply.attach_images(params[:image_ids])
     @project_apply.audits.build
     respond_to do |format|
-      if ProjectSeasonApply.find_by(school_id: project_apply_params[:school_id], project_season_id: project_apply_params[:project_season_id], project_id: 2, bookshelf_type: 1).present?
+      if ProjectSeasonApply.find_by(school_id: project_apply_params[:school_id], project_season_id: project_apply_params[:project_season_id], project_id: Project.read_project.id).present?
         flash[:notice] = '此学校在本批次还有未完成的申请'
         format.html { render :new }
       elsif @project_apply.save
         # bookshelf_univalence = @project_apply.season.bookshelf_univalence
-        @project_apply.bookshelves.update_all(school_id: @project_apply.school_id, project_season_id: @project_apply.project_season_id)
+        @project_apply.bookshelves.update_all(school_id: @project_apply.school_id, project_season_id: @project_apply.project_season_id, project: Project.read_project)
         @project_apply.target_amount = @project_apply.bookshelves.pass.sum(:target_amount).to_f
         @project_apply.save
         format.html { redirect_to admin_read_applies_path, notice: '创建成功。' }
@@ -62,8 +62,10 @@ class Admin::ReadAppliesController < Admin::BaseController
     respond_to do |format|
       audit_state = project_apply_params[:audit_state]
       @project_apply.audit_state = audit_state
+      @bookshelves = @project_apply.bookshelves
       if @project_apply.save
         @project_apply.audits.create(state: audit_state, user_id: current_user.id, comment: project_apply_params[:approve_remark])
+        @bookshelves.where(audit_state: 1).update_all(audit_state: @project_apply.audit_state)
         format.html { redirect_to admin_read_applies_path, notice: '审核成功' }
       else
         format.html { render :check }
