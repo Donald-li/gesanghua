@@ -7,10 +7,10 @@ class Api::V1::CooperationRadiosController < Api::V1::BaseController
     if user.teacher.present?
       if user.has_role?(:headmaster)
         applies = user.teacher.school.project_season_applies.where(project_id: @radio.id).sorted.page(params[:page])
-        api_success(data: {applies: applies.map { |r| r.radio_applies_builder }, pagination: json_pagination(applies)})
+        api_success(data: {applies: applies.map { |r| r.radio_apply_builder }, pagination: json_pagination(applies)})
       elsif user.has_role?(:teacher)
         applies = user.teacher.project_season_applies.where(project_id: @radio.id).sorted.page(params[:page])
-        api_success(data: {applies: applies.map { |r| r.radio_applies_builder }, pagination: json_pagination(applies)})
+        api_success(data: {applies: applies.map { |r| r.radio_apply_builder }, pagination: json_pagination(applies)})
       else
       end
     else
@@ -29,8 +29,9 @@ class Api::V1::CooperationRadiosController < Api::V1::BaseController
 
   def show
     @apply = ProjectSeasonApply.find(params[:id])
-    api_success(data: {apply: @apply.radio_apply_detail_builder,
-      submit_form: @apply.radio_apply_submit_form_summary_builder,
+    @school = @apply.school
+    api_success(data: {apply: @apply.radio_apply_builder,
+      school: @school.apply_builder,
       images: @apply.images.map(&:summary_builder)})
   end
 
@@ -40,7 +41,7 @@ class Api::V1::CooperationRadiosController < Api::V1::BaseController
     @apply = @radio.applies.new
     @apply.project_season_id = params[:radio_apply][:season][0]
     @apply.student_number = params[:radio_apply][:student_number]
-    @apply.abstract = params[:radio_apply][:abstract]
+    @apply.describe = params[:radio_apply][:describe]
     @apply.contact_name = params[:radio_apply][:contact_name]
     @apply.contact_phone = params[:radio_apply][:contact_phone]
     @apply.province = params[:radio_apply][:location][0]
@@ -60,9 +61,9 @@ class Api::V1::CooperationRadiosController < Api::V1::BaseController
   def update
     @apply = ProjectSeasonApply.find(params[:id])
     attributes = {
-      season_id: params[:radio_apply][:season][0],
+      project_season_id: params[:radio_apply][:season][0],
       student_number: params[:radio_apply][:student_number],
-      abstract: params[:radio_apply][:abstract],
+      describe: params[:radio_apply][:describe],
       contact_name: params[:radio_apply][:contact_name],
       contact_phone: params[:radio_apply][:contact_phone],
       province: params[:radio_apply][:location][0],

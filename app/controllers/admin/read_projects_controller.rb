@@ -14,6 +14,13 @@ class Admin::ReadProjectsController < Admin::BaseController
     @project.attach_cover_image(params[:cover_image_id])
     respond_to do |format|
       if @project.update(project_params)
+        if @project.whole?
+          @project.target_amount = @project.bookshelves.pass.sum(:target_amount).to_f
+          @project.save
+        else
+          @project.target_amount = @project.supplements.pass.sum(:target_amount).to_f
+          @project.save
+        end
         format.html { redirect_to admin_read_projects_path, notice: '修改成功。' }
       else
         format.html { render :edit }

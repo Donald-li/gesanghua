@@ -62,8 +62,10 @@ class Admin::ReadAppliesController < Admin::BaseController
     respond_to do |format|
       audit_state = project_apply_params[:audit_state]
       @project_apply.audit_state = audit_state
+      @bookshelves = @project_apply.bookshelves
       if @project_apply.save
         @project_apply.audits.create(state: audit_state, user_id: current_user.id, comment: project_apply_params[:approve_remark])
+        @bookshelves.where(audit_state: 1).update_all(audit_state: @project_apply.audit_state)
         format.html { redirect_to admin_read_applies_path, notice: '审核成功' }
       else
         format.html { render :check }
