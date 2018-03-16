@@ -111,6 +111,23 @@ class ProjectSeasonApply < ApplicationRecord
     end
   end
 
+  # 判断学校是否可以申请本批次
+  def self.allow_apply?(school, season)
+    return false if season.nil?
+    return false if season.project.platform_assign?
+    if self.season_apply_count(school, season) > 0
+      return false
+    else
+      return true
+    end
+  end
+
+  def self.season_apply_count(school=nil, season=nil)
+    scope = self.where(season: season)
+    scope = scope.where(school: school) if school.present?
+    scope.count
+  end
+
   def self.address_group(project_id)
     Jbuilder.new do |json|
       json.city self.city_group(project_id)
@@ -193,6 +210,7 @@ class ProjectSeasonApply < ApplicationRecord
     end
   end
 
+  # 完整的地址
   def receive_address
     province = ChinaCity.get(self.province).to_s
     city = ChinaCity.get(self.city).to_s
@@ -248,25 +266,58 @@ class ProjectSeasonApply < ApplicationRecord
     end.attributes!
   end
 
+  # 基础信息, 列表展示用
+  def summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :apply_no)
+      json.name self.apply_name
+      json.last_amount self.target_amount - self.present_amount
+      json.cover_mode self.cover_image.present?
+      json.cover_url self.cover_image_url(:small).to_s
+    end.attributes!
+  end
+
+  # 详细信息, 详情展示用
+  def detail_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :apply_no, :number, :describe, :target_amount, :present_amount, :class_number, :student_number)
+      json.name self.apply_name
+      json.school_name self.school.try(:name)
+      json.season_name self.season.try(:name)
+      json.state self.enum_name(:pair_state)
+      json.created_at self.created_at.strftime("%Y-%m-%d")
+    end.attributes!
+  end
+
+  # 申请信息的builder,联系人等
+  def apply_base_builder
+    Jbuilder.new do |json|
+      json.season [self.season.id.to_s]
+      json.contact_name self.contact_name
+      json.contact_phone self.contact_phone
+      json.location [self.province, self.city, self.district]
+      json.address self.address
+      json.receive_address self.receive_address
+      json.apply_state self.apply_state
+    end.attributes!
+  end
+
+  # 一对一
   def pair_applies_builder
     Jbuilder.new do |json|
-      json.(self, :id)
-      json.name self.apply_name
-      json.created_at self.created_at.strftime("%Y-%m-%d")
-      json.state self.enum_name(:pair_state)
+      json.merge! detail_builder
       json.teacher self.teacher.try(:name)
     end.attributes!
   end
 
+  ## 悦读，待优化
+  # 悦读申请信息
   def read_applies_builder
     Jbuilder.new do |json|
-      json.(self, :id, :target_amount, :present_amount)
-      json.name self.apply_name
-      json.created_at self.created_at.strftime("%Y-%m-%d")
-      json.state self.apply_state
+      json.merge! detail_builder
       json.bookshelf_type self.bookshelf_type == 'whole'? '新图书角' : '图书角补书'
-      # json.teacher self.teacher.try(:name)
       json.teacher self.teacher.present? ? self.teacher.try(:name) : self.contact_name
+      json.merge! apply_base_builder
     end.attributes!
   end
 
@@ -282,33 +333,6 @@ class ProjectSeasonApply < ApplicationRecord
     end.attributes!
   end
 
-  # 悦读申请详情
-  def read_apply_detail_builder
-    Jbuilder.new do |json|
-      json.merge! read_apply_summary_builder
-      json.(self, :project_describe)
-      json.season_name self.season.name
-      json.donate_items self.bookshelves.map{|b| b.summary_builder}
-      json.describe self.describe
-      json.images do
-        json.array! self.images do |img|
-          json.id img.id
-          json.thumb img.file_url(:medium)
-          json.src img.file_url
-          json.w img.width
-          json.h img.height
-        end
-      end
-      json.receive_address self.receive_address
-      json.contact_name self.contact_name
-      json.contact_phone self.contact_phone
-      json.apply_name self.apply_name
-      json.school_name self.try(:school).try(:name)
-      json.student_number self.student_number
-      json.class_number self.class_number
-    end.attributes!
-  end
-
   # 悦读项目表单
   def read_apply_submit_form_summary_builder
     Jbuilder.new do |json|
@@ -320,7 +344,6 @@ class ProjectSeasonApply < ApplicationRecord
       json.contact_phone self.contact_phone
       json.location [self.province, self.city, self.district]
       json.address self.address
-      json.student_number self.student_number
       json.describe self.describe
     end.attributes!
   end
@@ -335,26 +358,42 @@ class ProjectSeasonApply < ApplicationRecord
     end.attributes!
   end
 
-  # 广播申请摘要
-  def radio_apply_summary_builder
+  # 悦读详情展示
+  def read_detail_builder
     Jbuilder.new do |json|
-      json.(self, :id, :name, :apply_no, :target_amount, :present_amount)
-      json.last_amount self.target_amount - self.present_amount
-      json.total_count self.bookshelves.pass.count
-      json.done_count self.bookshelves.pass.to_delivery.count
-      json.cover_mode self.cover_image.present?
-      json.cover_url self.cover_image_url(:small).to_s
+      json.merge! self.detail_builder
+      json.season_name self.season.name
+      json.donate_items self.bookshelves.map{|b| b.summary_builder}
+      json.describe self.describe
+      json.images do
+        json.array! self.images do |img|
+          json.merge! img.image_builder(:medium)
+        end
+      end
+      json.merge! apply_base_builder
     end.attributes!
   end
 
-  # 广播申请详情
-  def radio_apply_detail_builder
+  ## 广播项目申请表单
+  def radio_apply_builder
     Jbuilder.new do |json|
-      json.merge! radio_apply_summary_builder
-      json.(self, :project_describe)
-      json.season_name self.season.name
-      json.donate_items self.bookshelves.map{|b| b.summary_builder}
+      json.merge! detail_builder
+      json.teacher self.teacher.present? ? self.teacher.try(:name) : self.contact_name
+      json.form self.form
+      json.form_submit self.form_builder
+      json.describe self.describe
+      json.merge! apply_base_builder
     end.attributes!
+  end
+
+  # 广播项目列表
+  def radio_summary_builder
+    self.summary_builder
+  end
+
+  # 广播项目详情
+  def radio_detail_builder
+    self.detail_builder
   end
 
   # 护花申请摘要
@@ -376,29 +415,6 @@ class ProjectSeasonApply < ApplicationRecord
       json.(self, :project_describe)
       json.season_name self.season.name
       json.donate_items self.bookshelves.map{|b| b.summary_builder}
-    end.attributes!
-  end
-
-
-  def detail_builder
-    Jbuilder.new do |json|
-      json.(self, :id, :apply_no, :number, :describe)
-      json.name self.apply_name
-      json.school self.school.try(:name)
-      json.season self.season.try(:name)
-      json.state self.enum_name(:pair_state)
-    end.attributes!
-  end
-
-  def summary_builder
-    Jbuilder.new do |json|
-      json.(self, :id, :apply_no)
-      json.name self.apply_name
-      json.last_amount self.target_amount - self.present_amount
-      json.total_count self.bookshelves.pass.count
-      json.done_count self.bookshelves.pass.to_delivery.count
-      json.cover_mode self.cover_image.present?
-      json.cover_url self.cover_image_url(:small).to_s
     end.attributes!
   end
 

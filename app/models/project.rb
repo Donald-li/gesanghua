@@ -116,7 +116,9 @@ class Project < ApplicationRecord
 
   def form_submit(form)
     self.form.map do |i|
-      [form_label(i['key']), form[i['key']]]
+      value = form[i['key']]
+      value ||= 0 if i['type'] == 'number'
+      [form_label(i['key']), value]
     end
   end
 

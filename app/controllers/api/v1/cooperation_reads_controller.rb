@@ -7,10 +7,10 @@ class Api::V1::CooperationReadsController < Api::V1::BaseController
     if user.teacher.present?
       if user.has_role?(:headmaster)
         applies = user.teacher.school.project_season_applies.where(project_id: @read.id).sorted.page(params[:page])
-        api_success(data: {applies: applies.map { |r| r.read_applies_builder }, pagination: json_pagination(applies)})
+        api_success(data: {applies: applies.map { |r| r.read_apply_builder }, pagination: json_pagination(applies)})
       elsif user.has_role?(:teacher)
         applies = user.teacher.project_season_applies.where(project_id: @read.id).sorted.page(params[:page])
-        api_success(data: {applies: applies.map { |r| r.read_applies_builder }, pagination: json_pagination(applies)})
+        api_success(data: {applies: applies.map { |r| r.read_apply_builder }, pagination: json_pagination(applies)})
       else
       end
     else
@@ -30,7 +30,7 @@ class Api::V1::CooperationReadsController < Api::V1::BaseController
 
   def show
     @apply = ProjectSeasonApply.find(params[:id])
-    api_success(data: {apply: @apply.read_apply_detail_builder,
+    api_success(data: {apply: @apply.read_apply_builder,
       submit_form: @apply.read_apply_submit_form_summary_builder,
       images: @apply.images.map(&:summary_builder),
       class_list: @apply.bookshelves.map{|b| b.class_summary_builder}})
@@ -38,33 +38,38 @@ class Api::V1::CooperationReadsController < Api::V1::BaseController
 
   def create
     user = current_user
+    season = ProjectSeason.find(params[:read_apply][:season][0])
     @school = user.teacher.school
-    @apply = @read.applies.new
-    @apply.bookshelf_type = 1
-    @apply.project_season_id = params[:read_apply][:season][0]
-    @apply.class_number = params[:read_apply][:class_number]
-    @apply.student_number = params[:read_apply][:student_number]
-    @apply.contact_name = params[:read_apply][:contact_name]
-    @apply.contact_phone = params[:read_apply][:contact_phone]
-    @apply.province = params[:read_apply][:location][0]
-    @apply.city = params[:read_apply][:location][1]
-    @apply.district = params[:read_apply][:location][2]
-    @apply.address = params[:read_apply][:address]
-    @apply.bookshelf_ids = params[:class_ids]
-    @apply.form = params[:dynamic_form]
-    @apply.school_id = @school.id
-    if @apply.save
-      @apply.attach_images(params[:images])
-      api_success(data: {result: true})
+    if ProjectSeasonApply.allow_apply?(@school, season)
+      @apply = @read.applies.new
+      @apply.bookshelf_type = 1
+      @apply.project_season_id = season.id
+      @apply.class_number = params[:read_apply][:class_number]
+      @apply.student_number = params[:read_apply][:student_number]
+      @apply.contact_name = params[:read_apply][:contact_name]
+      @apply.contact_phone = params[:read_apply][:contact_phone]
+      @apply.province = params[:read_apply][:location][0]
+      @apply.city = params[:read_apply][:location][1]
+      @apply.district = params[:read_apply][:location][2]
+      @apply.address = params[:read_apply][:address]
+      @apply.form = params[:dynamic_form]
+      @apply.school_id = @school.id
+      if @apply.save
+        ProjectSeasonApplyBookshelf.where(id: params[:class_ids]).update(apply: @apply, season: season)
+        @apply.attach_images(params[:images])
+        api_success(data: {result: true})
+      else
+        api_success(data: {result: false})
+      end
     else
-      api_success(data: {result: false})
+      api_success(data: {result: false}, message: '您无法申请本批次')
     end
   end
 
   def update
     @apply = ProjectSeasonApply.find(params[:id])
     attributes = {
-      season_id: params[:read_apply][:season][0],
+      project_season_id: params[:read_apply][:season][0],
       class_number: params[:read_apply][:class_number],
       student_number: params[:read_apply][:student_number],
       contact_name: params[:read_apply][:contact_name],
