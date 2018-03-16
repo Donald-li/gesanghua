@@ -215,7 +215,7 @@ class DonateRecord < ApplicationRecord
     total = self.donate_child_total(gsh_child, semester_num)
     project = Project.pair_project
     user_id = user.present? ? user.id : nil
-    donate = self.new(user_id: user_id, amount: total, fund: project.appoint_fund, income_record: income_record, promoter: promoter, pay_state: 'unpay', project: project, gsh_child: gsh_child)
+    donate = self.new(user_id: user_id, amount: total, fund: project.appoint_fund, income_record: income_record, promoter: promoter, pay_state: 'unpay', project: project, season: gsh_child.season, apply: gsh_child.apply, gsh_child: gsh_child)
     if donate.save! && ( scope = self.donate_child_semesters(gsh_child, semester_num))
       scope.update(donate_state: :succeed, user_id: user_id)
       gsh_child.update(donate_user_id: user_id)
