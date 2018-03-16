@@ -10,7 +10,12 @@ class Api::V1::BookshelvesController < Api::V1::BaseController
   def create
     @bookshelf = ProjectSeasonApplyBookshelf.new(
       classname: params[:class][:classname],
-      student_number: params[:class][:student_number]
+      student_number: params[:class][:student_number],
+      school: current_user.school,
+      province: current_user.school.try(:province),
+      city: current_user.school.try(:city),
+      district: current_user.school.try(:district),
+      project: Project.read_project
     )
     if @bookshelf.save
       api_success(data: {result: true, bookshelf_id: @bookshelf.id}, message: '提交成功！')

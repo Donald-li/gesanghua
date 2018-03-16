@@ -115,12 +115,12 @@
                   <%= link_to admin_read_project_supplement_donate_records_path(@project, supplement_id: supplement.id), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                     <i class="fa fa-list"></i> 筹款管理
                   <% end %>
-                  <% if supplement.non_execution? %>
+                  <% if supplement.to_delivery? %>
                     <%= link_to shipment_admin_read_project_supplement_path(@project, supplement), class: 'btn btn-xs yellow', method: :put, data: {confirm: '确定发货吗？'} do %>
                       <i class="fa fa-truck"></i> 发货
                     <% end %>
                   <% end %>
-                  <% if supplement.non_reception? %>
+                  <% if supplement.to_receive? %>
                     <% if supplement.receive_feedback.present? %>
                       <%= link_to supplement_receive_admin_read_project_supplement_path(@project, supplement), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                         <i class="fa fa-truck"></i> 查看收货凭证

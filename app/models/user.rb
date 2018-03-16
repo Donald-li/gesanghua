@@ -139,7 +139,7 @@ class User < ApplicationRecord
   # 作为校长或老师管理的项目
   def manage_projects
     return Project.visible if self.headmaster?
-    return self.teacher.projects.visible.ids if self.teacher
+    return self.teacher.projects.visible if self.teacher
   end
 
   def volunteer?
@@ -273,6 +273,21 @@ class User < ApplicationRecord
     Jbuilder.new do |json|
       json.(self, :id, :phone, :name, :nickname)
       json.show_name self.nickname.present?? self.nickname : self.name
+    end.attributes!
+  end
+
+  def school_user_summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :phone, :name, :nickname)
+      json.school_name self.try(:teacher).try(:school).try(:name)
+      json.kind self.try(:teacher).kind == 'headmaster'? '校长' : '教师'
+      json.show_name self.nickname.present?? self.nickname : self.name
+      json.user_avatar do
+        json.id self.try(:avatar).try(:id)
+        json.url self.try(:avatar).try(:file_url)
+        json.protect_token ''
+      end
+      json.avatar_src self.try(:avatar).try(:file_url)
     end.attributes!
   end
 
