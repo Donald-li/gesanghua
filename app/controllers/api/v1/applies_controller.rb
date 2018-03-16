@@ -13,11 +13,11 @@ class Api::V1::AppliesController < Api::V1::BaseController
     api_error(message: '无效项目') && return unless @apply
 
     if @apply.project.alias == 'read' # 悦读
-      api_success(data: @apply.read_apply_detail_builder)
+      api_success(data: @apply.read_detail_builder)
     elsif @apply.project.alias == 'radio' # 广播
-      api_success(data: @apply.radio_apply_detail_builder)
+      api_success(data: @apply.radio_detail_builder)
     elsif @apply.project.alias == 'care'
-      api_success(data: @apply.care_apply_detail_builder)
+      api_success(data: @apply.care_detail_builder)
     end
   end
 

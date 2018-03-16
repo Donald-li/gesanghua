@@ -7,10 +7,10 @@ class Api::V1::CooperationReadsController < Api::V1::BaseController
     if user.teacher.present?
       if user.has_role?(:headmaster)
         applies = user.teacher.school.project_season_applies.where(project_id: @read.id).sorted.page(params[:page])
-        api_success(data: {applies: applies.map { |r| r.read_applies_builder }, pagination: json_pagination(applies)})
+        api_success(data: {applies: applies.map { |r| r.read_apply_builder }, pagination: json_pagination(applies)})
       elsif user.has_role?(:teacher)
         applies = user.teacher.project_season_applies.where(project_id: @read.id).sorted.page(params[:page])
-        api_success(data: {applies: applies.map { |r| r.read_applies_builder }, pagination: json_pagination(applies)})
+        api_success(data: {applies: applies.map { |r| r.read_apply_builder }, pagination: json_pagination(applies)})
       else
       end
     else
@@ -30,7 +30,7 @@ class Api::V1::CooperationReadsController < Api::V1::BaseController
 
   def show
     @apply = ProjectSeasonApply.find(params[:id])
-    api_success(data: {apply: @apply.read_apply_detail_builder,
+    api_success(data: {apply: @apply.read_apply_builder,
       submit_form: @apply.read_apply_submit_form_summary_builder,
       images: @apply.images.map(&:summary_builder),
       class_list: @apply.bookshelves.map{|b| b.class_summary_builder}})
@@ -64,7 +64,7 @@ class Api::V1::CooperationReadsController < Api::V1::BaseController
   def update
     @apply = ProjectSeasonApply.find(params[:id])
     attributes = {
-      season_id: params[:read_apply][:season][0],
+      project_season_id: params[:read_apply][:season][0],
       class_number: params[:read_apply][:class_number],
       student_number: params[:read_apply][:student_number],
       contact_name: params[:read_apply][:contact_name],

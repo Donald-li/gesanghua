@@ -50,6 +50,17 @@ class Asset < ApplicationRecord
     end.attributes!
   end
 
+  def image_builder(version=nil)
+    Jbuilder.new do |json|
+      json.id self.id
+      json.thumb self.file_url(version)
+      json.src self.file_url
+      json.w self.width
+      json.h self.height
+    end
+    #code
+  end
+
   protected
   def generate_token
     self.protect_token = SecureRandom.hex(10)
