@@ -38,26 +38,31 @@ class Api::V1::CooperationReadsController < Api::V1::BaseController
 
   def create
     user = current_user
+    season = ProjectSeason.find(params[:read_apply][:season][0])
     @school = user.teacher.school
-    @apply = @read.applies.new
-    @apply.bookshelf_type = 1
-    @apply.project_season_id = params[:read_apply][:season][0]
-    @apply.class_number = params[:read_apply][:class_number]
-    @apply.student_number = params[:read_apply][:student_number]
-    @apply.contact_name = params[:read_apply][:contact_name]
-    @apply.contact_phone = params[:read_apply][:contact_phone]
-    @apply.province = params[:read_apply][:location][0]
-    @apply.city = params[:read_apply][:location][1]
-    @apply.district = params[:read_apply][:location][2]
-    @apply.address = params[:read_apply][:address]
-    @apply.bookshelf_ids = params[:class_ids]
-    @apply.form = params[:dynamic_form]
-    @apply.school_id = @school.id
-    if @apply.save
-      @apply.attach_images(params[:images])
-      api_success(data: {result: true})
+    if ProjectSeasonApply.allow_apply?(@school, season)
+      @apply = @read.applies.new
+      @apply.bookshelf_type = 1
+      @apply.project_season_id = season.id
+      @apply.class_number = params[:read_apply][:class_number]
+      @apply.student_number = params[:read_apply][:student_number]
+      @apply.contact_name = params[:read_apply][:contact_name]
+      @apply.contact_phone = params[:read_apply][:contact_phone]
+      @apply.province = params[:read_apply][:location][0]
+      @apply.city = params[:read_apply][:location][1]
+      @apply.district = params[:read_apply][:location][2]
+      @apply.address = params[:read_apply][:address]
+      @apply.form = params[:dynamic_form]
+      @apply.school_id = @school.id
+      if @apply.save
+        ProjectSeasonApplyBookshelf.where(id: params[:class_ids]).update(apply: @apply, season: season)
+        @apply.attach_images(params[:images])
+        api_success(data: {result: true})
+      else
+        api_success(data: {result: false})
+      end
     else
-      api_success(data: {result: false})
+      api_success(data: {result: false}, message: '您无法申请本批次')
     end
   end
 

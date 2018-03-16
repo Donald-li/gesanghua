@@ -14,7 +14,8 @@ class Api::V1::BookshelvesController < Api::V1::BaseController
       school: current_user.school,
       province: current_user.school.try(:province),
       city: current_user.school.try(:city),
-      district: current_user.school.try(:district)
+      district: current_user.school.try(:district),
+      project: Project.read_project
     )
     if @bookshelf.save
       api_success(data: {result: true, bookshelf_id: @bookshelf.id}, message: '提交成功！')

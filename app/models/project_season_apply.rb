@@ -111,6 +111,23 @@ class ProjectSeasonApply < ApplicationRecord
     end
   end
 
+  # 判断学校是否可以申请本批次
+  def self.allow_apply?(school, season)
+    return false if season.nil?
+    return false if season.project.platform_assign?
+    if self.season_apply_count(school, season) > 0
+      return false
+    else
+      return true
+    end
+  end
+
+  def self.season_apply_count(school=nil, season=nil)
+    scope = self.where(season: season)
+    scope = scope.where(school: school) if school.present?
+    scope.count
+  end
+
   def self.address_group(project_id)
     Jbuilder.new do |json|
       json.city self.city_group(project_id)
