@@ -397,26 +397,70 @@ class ProjectSeasonApply < ApplicationRecord
     self.detail_builder
   end
 
-  # 护花申请摘要
-  def care_apply_summary_builder
+  ## 护花申请表单
+  def care_apply_builder
     Jbuilder.new do |json|
-      json.(self, :id, :name, :apply_no, :target_amount, :present_amount)
-      json.last_amount self.target_amount - self.present_amount
-      json.total_count self.bookshelves.pass.count
-      json.done_count self.bookshelves.pass.to_delivery.count
-      json.cover_mode self.cover_image.present?
-      json.cover_url self.cover_image_url(:small).to_s
+      json.merge! detail_builder
+      json.teacher self.teacher.present? ? self.teacher.try(:name) : self.contact_name
+      json.form self.form
+      json.form_submit self.form_builder
+      json.describe self.describe
+      json.merge! apply_base_builder
     end.attributes!
   end
 
-  # 护花申请详情
-  def care_apply_detail_builder
+  # 护花项目列表
+  def care_summary_builder
+    self.summary_builder
+  end
+
+  # 护花项目详情
+  def care_detail_builder
+    self.detail_builder
+  end
+
+  # 护花课程表单
+  def movie_care_apply_builder
     Jbuilder.new do |json|
-      json.merge! care_apply_summary_builder
-      json.(self, :project_describe)
-      json.season_name self.season.name
-      json.donate_items self.bookshelves.map{|b| b.summary_builder}
+      json.merge! detail_builder
+      json.teacher self.teacher.present? ? self.teacher.try(:name) : self.contact_name
+      json.form self.form
+      json.form_submit self.form_builder
+      json.describe self.describe
+      json.merge! apply_base_builder
     end.attributes!
+  end
+
+  # 护花课程项目列表
+  def movie_care_summary_builder
+    self.summary_builder
+  end
+
+  # 护花课程项目详情
+  def movie_care_detail_builder
+    self.detail_builder
+  end
+
+  # 观影课程表单
+  def movie_apply_builder
+    Jbuilder.new do |json|
+      json.merge! detail_builder
+      json.teacher self.teacher.present? ? self.teacher.try(:name) : self.contact_name
+      json.form self.form
+      json.form_submit self.form_builder
+      json.describe self.describe
+      json.merge! apply_base_builder
+    end.attributes!
+  end
+
+  # 观影课程项目列表
+  def movie_summary_builder
+    self.summary_builder
+  end
+
+  # 观影课程项目详情
+  def movie_detail_builder
+    self.detail_builder
   end
 
   private
