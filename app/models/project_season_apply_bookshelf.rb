@@ -101,16 +101,10 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
 
   def summary_builder
     Jbuilder.new do |json|
-      json.(self, :id, :classname, :bookshelf_no, :book_number)
+      json.(self, :id, :classname, :title, :bookshelf_no, :book_number, :target_amount, :present_amount, :state)
       json.apply_name self.apply.name
       json.title self.show_title
       json.image self.try(:image).try(:file_url)
-    end.attributes!
-  end
-
-  def summary_builder
-    Jbuilder.new do |json|
-      json.(self, :id, :classname, :title, :bookshelf_no, :target_amount, :present_amount, :state)
       json.grade self.enum_name(:grade)
     end.attributes!
   end
