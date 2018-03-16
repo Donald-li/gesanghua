@@ -36,12 +36,6 @@ class MonthDonate < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
-  def pay_and_gen_certificate
-    self.certificate_no ||= 'ZS' + self.donate_no
-    self.pay_state = 'paid'
-    self.save
-  end
-
   def self.month_donate_gsh(user = nil, amount = 0.0, plan_period = 0)
     return false unless user.present?
     gsh_fund = Fund.gsh
@@ -79,6 +73,5 @@ class MonthDonate < ApplicationRecord
       json.project self.try(:project).try(:name)
     end.attributes!
   end
-
 
 end
