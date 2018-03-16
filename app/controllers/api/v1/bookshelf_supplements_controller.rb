@@ -18,7 +18,7 @@ class Api::V1::BookshelfSupplementsController < Api::V1::BaseController
   end
 
   def update
-    @supplement.project_season_apply_bookshelf_id = params[:class][:class][0]
+    @supplement.project_season_apply_bookshelf_id = params[:class][:class_id][0]
     @supplement.loss = params[:class][:loss]
     @supplement.supply = params[:class][:supply]
     if @supplement.save

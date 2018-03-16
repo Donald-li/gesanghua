@@ -45,7 +45,6 @@ class Api::V1::ReadSupplementsController < Api::V1::BaseController
     @apply.address = params[:receive_info][:address]
     @apply.project_season_id = params[:submit_form][:season][0] if params[:submit_form][:season].present?
     @apply.describe = params[:submit_form][:describe]
-    byebug
     if @apply.save
       @apply.attach_images(params[:images])
       @apply.supplement_ids = params[:class_list]

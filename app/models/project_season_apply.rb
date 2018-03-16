@@ -343,6 +343,7 @@ class ProjectSeasonApply < ApplicationRecord
       json.contact_name self.contact_name
       json.contact_phone self.contact_phone
       json.location [self.province, self.city, self.district]
+      json.receive_address self.receive_address
       json.address self.address
       json.describe self.describe
     end.attributes!
