@@ -20,7 +20,7 @@
 #  contact_phone     :string                                 # 联系方式
 #  contact_position  :string                                 # 联系人职务
 #  kind              :integer                                # 学校类型
-#  user_id           :integer                                # 申请人ID
+#  user_id           :integer                                # 校长ID
 #  school_no         :string                                 # 学校申请编号
 #  contact_id_card   :string                                 # 联系人身份证号
 #  postcode          :string                                 # 邮政编码
