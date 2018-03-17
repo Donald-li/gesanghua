@@ -79,7 +79,7 @@ class ProjectSeasonApply < ApplicationRecord
   enum execute_state: {raising: 1, to_delivery: 2, to_receive: 3, to_feedback: 4, feedbacked: 5, done: 6, cancelled: 7} # 执行状态：1:筹款中 2:待发货 3:待收货 4:待反馈 5:已反馈 6:已完成 7:已取消
   default_value_for :execute_state, 1
 
-  enum project_type: {apply: 1, raise_project: 2} # 项目类型：1:申请 2:筹款项目
+  enum project_type: {apply: 1, raise_project: 2} # 筹款类型：1:申请 2:筹款项目
   default_value_for :project_type, 1
 
   scope :sorted, ->{ order(created_at: :desc) }
