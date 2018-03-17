@@ -103,7 +103,7 @@ class Admin::ReadAppliesController < Admin::BaseController
   def switch
     # @project_apply.raise_project!
     # @project_apply.gen_bookshelves_no
-    redirect_to edit_admin_read_project_path(@project_apply), notice: '操作成功,请填写筹款项目信息！'
+    redirect_to edit_admin_read_project_path(@project_apply), notice: '请填写筹款项目信息！'
   end
 
   def students
