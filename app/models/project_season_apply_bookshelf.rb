@@ -71,7 +71,7 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
 
   counter_culture :apply, column_name: proc{|model| model.to_receive? ? 'present_amount' : nil}, delta_magnitude: proc {|model| model.present_amount }
 
-  def done?
+  def pass_done?
     self.feedbacked? || self.done?
   end
 
