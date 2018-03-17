@@ -29,7 +29,7 @@
 #  consignee_phone   :string                                 # 收货人联系电话
 #  target_amount     :decimal(14, 2)   default(0.0)          # 目标金额
 #  present_amount    :decimal(14, 2)   default(0.0)          # 目前已筹金额
-#  execute_state     :integer          default(NULL)         # 执行状态：0:准备中 1:筹款中 2:待执行 3:待收货 4:待反馈 5:已完成      0:申请 1:筹款中 2:筹款完成 3:待收货
+#  execute_state     :integer          default(NULL)         # 执行状态：0:准备中 1:筹款中 2:待执行 3:待收货 4:待反馈 5:已完成
 #  project_type      :integer          default("apply")      # 项目类型:1:申请 2:筹款项目
 #  class_number      :integer                                # 申请班级数
 #  student_number    :integer                                # 受益学生数

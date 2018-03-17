@@ -25,4 +25,13 @@ class CountyUser < ApplicationRecord
   validates :phone, mobile: true
 
   scope :sorted, ->{ order(created_at: :desc) }
+
+  def summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :phone, :name)
+      json.school_name self.unit_name
+      json.kind '县领导'
+    end.attributes!
+  end
+
 end

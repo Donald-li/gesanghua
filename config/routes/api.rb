@@ -200,8 +200,8 @@ namespace :api do
     end
 
     resources :cooperation_checks, only: [:index] do
-      member do
-        patch :identity_user_info
+      collection do
+        get :identity_user_info
       end
     end
 

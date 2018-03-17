@@ -79,6 +79,13 @@ class GshChild < ApplicationRecord
     end.attributes!
   end
 
+  def check_gsh_child_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :name, :phone)
+      json.kind '格桑花孩子'
+    end.attributes!
+  end
+
   private
   def gen_gsh_no
     self.gsh_no ||= Sequence.get_seq(kind: :gsh_no, prefix: 'GSH', length: 10)
