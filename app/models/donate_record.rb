@@ -66,8 +66,6 @@ class DonateRecord < ApplicationRecord
   counter_culture :team, column_name: proc{|model| model.team.present? && model.pay_state == 'paid' ? 'total_donate_amount' : nil}, delta_magnitude: proc {|model| model.amount }
   counter_culture :team, column_name: proc{|model| model.team.present? && model.pay_state == 'paid' ? 'current_donate_amount' : nil}, delta_magnitude: proc {|model| model.amount }
 
-  # TODO: 统计用户线上和线下捐助金额
-
   validates :amount, presence: true
 
   enum pay_state: {unpay: 1, paid: 2, refund: 3} #付款状态， 1:未付款 2:已付款 3:已退款
