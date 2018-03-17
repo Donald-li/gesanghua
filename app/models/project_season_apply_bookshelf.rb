@@ -59,15 +59,21 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
   enum show_state: {show: 1, hidden: 2}
   default_value_for :show_state, 1
 
-  enum state: {raising: 1, to_delivery: 2, to_receive: 3, to_feedback: 4, feedbacked: 5, done: 6, cancelled: 7}
+  enum state: {raising: 1, to_delivery: 2, to_receive: 3, to_feedback: 4, feedbacked: 5, done: 6, cancelled: 7} # 筹款状态 1:筹款中 2:待发货 3:待收货 4:待反馈 5:反馈完成 6:完成 7:取消
   default_value_for :state, 1
 
   enum grade: {juniorone: 1, juniortwo: 2, juniorthree: 3, seniorone: 4, seniortwo: 5, seniorthree: 6}
   default_value_for :grade, 1
 
-  scope :pass_done, ->{ pass.done }
+  scope :pass_done, ->{ where(state: ['feedbacked', 'done']) }
 
   scope :sorted, ->{ order(created_at: :desc) }
+
+  counter_culture :apply, column_name: proc{|model| model.to_receive? ? 'present_amount' : nil}, delta_magnitude: proc {|model| model.present_amount }
+
+  def done?
+    self.feedbacked? || self.done?
+  end
 
   def name
     self.classname
