@@ -41,6 +41,8 @@
 class DonateRecord < ApplicationRecord
   include ActionView::Helpers::NumberHelper
 
+  before_create :set_record_title
+
   belongs_to :user, optional: true
   belongs_to :promoter, class_name: 'User', foreign_key: 'promoter_id', optional: true
   belongs_to :project, optional: true
@@ -394,6 +396,16 @@ class DonateRecord < ApplicationRecord
     self.save
   end
 
+  def summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :donor, :donate_no, :title)
+      json.time self.created_at.strftime('%Y-%m-%d %H:%M:%S')
+      json.amount number_to_currency(self.amount)
+      json.donate_mode self.user.name === self.donor # true自己捐 false代捐
+      json.donate_title self.user.name === self.donor ? '' : '代捐' # true自己捐 false代捐
+    end.attributes!
+  end
+
   def detail_builder
     Jbuilder.new do |json|
       json.(self, :id, :donor, :donate_no, :remitter_name, :project_id, :pay_state, :promoter_id)
@@ -449,6 +461,11 @@ class DonateRecord < ApplicationRecord
     elsif self.fund.present?
       self.fund.fund_category.try(:name)
     end
+  end
+
+  def set_record_title
+    return if self.title.present?
+    self.title ||= "#{self.try(:user).try(:name)}捐助#{self.try(:apply).try(:name)}#{self.try(:fund).try(:name)}款项"
   end
 
   private

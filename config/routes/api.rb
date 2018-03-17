@@ -7,6 +7,7 @@ namespace :api do
       resources :donate_records, only: [:index] do
         collection do
           get :projects
+          get :account_records
         end
         member do
           get :record_details
