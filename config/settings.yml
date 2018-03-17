@@ -13,6 +13,9 @@ development_mode: false
 # 支付1分钱模式
 pay_1_mode: true
 
+# 接口调试默认使用用户, 禁用设置false，启用设置用户id
+api_defautl_user: false
+
 # 配置学费
 junior_term_amount: 1050
 junior_year_amount: 2100
