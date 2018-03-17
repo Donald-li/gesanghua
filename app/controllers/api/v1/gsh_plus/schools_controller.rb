@@ -20,6 +20,15 @@ class Api::V1::GshPlus::SchoolsController < Api::V1::BaseController
     end
   end
 
+  def show
+    @school = current_user.teacher.try(:school) || current_user.school
+    if @school.present?
+      api_success(data: @school.detail_builder)
+    else
+      api_success(data: false, message: '您不是学校用户！')
+    end
+  end
+
   private
   def school_params
     params.require(:school).permit!

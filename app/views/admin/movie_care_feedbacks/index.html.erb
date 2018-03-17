@@ -1,0 +1,91 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i><%= link_to @apply.school.name, admin_movie_care_schools_path %> > 查看反馈
+    </div>
+    <div class="actions">
+
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="dataTables_wrapper no-footer">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="dataTables_filter pull-right"></div>
+        </div>
+      </div>
+      <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover" id="sample_2">
+          <% if @install.present? %>
+          <thead>
+          <tr>
+            <th>
+              反馈时间
+            </th>
+            <th>
+              反馈人
+            </th>
+            <th>
+              项目联系人
+            </th>
+            <th>
+              反馈内容
+            </th>
+            <th>
+              是否查看
+            </th>
+            <th>
+              是否推荐
+            </th>
+            <th>
+              操作
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+              <tr>
+                <td>
+                  <%= l @install.created_at %>
+                </td>
+                <td>
+                  <%= @install.user.try(:name) %>
+                  <%= @install.user.try(:phone) %>
+                </td>
+                <td>
+                  <%= @install.owner.school.contact_name %>
+                  <%= @install.owner.school.contact_phone %>
+                </td>
+                <td>
+                  <%= @install.content.html_safe %>
+                </td>
+                <td>
+                  <%= @install.enum_name(:check) %>
+                </td>
+                <td>
+                  <%= link_to recommend_admin_movie_care_school_movie_care_feedback_path(@apply, @install), data: {confirm: "确定#{@install.recommend? ? '取消推荐该反馈' : '推荐该反馈'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{@install.recommend? ? 'yellow' : 'default'}" do %>
+                    <%= @install.recommend? ? '推荐' : '正常' %>
+                    <i class="fa <%= @install.recommend? ? 'fa-star' : 'fa-star-o' %>"></i>
+                  <% end %>
+                </td>
+                <td>
+                  <%= link_to edit_admin_movie_care_school_movie_care_feedback_path(@apply, @install), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                      <i class="fa fa-edit"></i> 修改
+                  <% end %>
+                  <%= link_to admin_movie_care_school_movie_care_feedback_path(@apply, @install), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                    <i class="fa fa-trash-o"></i> 删除
+                  <% end %>
+                </td>
+              </tr>
+          </tbody>
+              <% else %>
+          <h4>暂无反馈内容</h4>
+              <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END EXAMPLE TABLE PORTLET-->
