@@ -10,6 +10,9 @@ send_sms: true
 # 开发模式
 development_mode: false
 
+# 跳过支付模式
+skip_pay_mode: true
+
 # 支付1分钱模式
 pay_1_mode: true
 

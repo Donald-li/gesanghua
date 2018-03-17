@@ -9,6 +9,7 @@ class Api::V1::DonatesController < Api::V1::BaseController
       project_alias = params[:project]
       project = Project.find_by(alias: project_alias)
       record = DonateRecord.donate_project(current_user, params[:amount], project, params[:promoter], params[:item])
+      record.pay_state = 'paid' if Settings.skip_pay_mode
 
       if(record)
         if params[:pay_method] == 'balance'
@@ -29,6 +30,7 @@ class Api::V1::DonatesController < Api::V1::BaseController
     record = DonateRecord.donate_donate_item(user: current_user, amount: amount, donate_item: donate_item, promoter: promoter)
     record.team = current_user.team if params[:by_team] == 'true'
     record.donor = params[:donor] if params[:donor].present?
+    record.pay_state = 'paid' if Settings.skip_pay_mode
 
     if record.save
       if params[:pay_method] == 'balance'

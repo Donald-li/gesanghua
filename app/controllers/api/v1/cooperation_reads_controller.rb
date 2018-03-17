@@ -24,7 +24,7 @@ class Api::V1::CooperationReadsController < Api::V1::BaseController
     @project = Project.read_project
     @seasons = @project.seasons.enable.all
     @school = current_user.teacher.school
-    @class = @school.bookshelves.done
+    @class = @school.bookshelves.pass_done
     api_success(data: {form: @project.form, seasons: @seasons.map{|s| {name: s.name, value: s.id.to_s}}, school: @school.apply_builder, class_list: @class.map { |c| {name: c.classname, value: c.id.to_s} }})
   end
 
