@@ -29,7 +29,7 @@
 #  consignee_phone   :string                                 # 收货人联系电话
 #  target_amount     :decimal(14, 2)   default(0.0)          # 目标金额
 #  present_amount    :decimal(14, 2)   default(0.0)          # 目前已筹金额
-#  execute_state     :integer          default(NULL)         # 执行状态：0:准备中 1:筹款中 2:待执行 3:待收货 4:待反馈 5:已完成
+#  execute_state     :integer          default(NULL)         # 执行状态：0:准备中 1:筹款中 2:待执行 3:待收货 4:待反馈 5:已完成      0:申请 1:筹款中 2:筹款完成 3:待收货
 #  project_type      :integer          default("apply")      # 项目类型:1:申请 2:筹款项目
 #  class_number      :integer                                # 申请班级数
 #  student_number    :integer                                # 受益学生数
@@ -76,7 +76,7 @@ class ProjectSeasonApply < ApplicationRecord
   enum state: {show: 1, hidden: 2} # 状态：1:展示 2:隐藏
   default_value_for :state, 2
 
-  enum execute_state: {raising: 1, to_delivery: 2, to_receive: 3, to_feedback: 4, feedbacked: 5, done: 6, cancelled: 7} # 执行状态：1:筹款中 2:待发货 3:待收货 4:待反馈 5:已反馈 6:已完成 7:已取消
+  enum execute_state: {raising: 1, to_delivery: 2, to_receive: 3, to_feedback: 4, feedbacked: 5, done: 6, cancelled: 7} # 执行状态：1:筹款中 2:筹款完成 3:待收货 4:待反馈 5:已反馈 6:已完成 7:已取消
   default_value_for :execute_state, 1
 
   enum project_type: {apply: 1, raise_project: 2} # 筹款类型：1:申请 2:筹款项目
@@ -280,7 +280,8 @@ class ProjectSeasonApply < ApplicationRecord
   # 详细信息, 详情展示用
   def detail_builder
     Jbuilder.new do |json|
-      json.(self, :id, :apply_no, :number, :describe, :target_amount, :present_amount, :class_number, :student_number)
+      json.merge! summary_builder
+      json.(self, :number, :describe, :target_amount, :present_amount, :class_number, :student_number)
       json.name self.apply_name
       json.school_name self.school.try(:name)
       json.season_name self.season.try(:name)
@@ -366,11 +367,6 @@ class ProjectSeasonApply < ApplicationRecord
       json.season_name self.season.name
       json.donate_items self.bookshelves.map{|b| b.summary_builder}
       json.describe self.describe
-      json.images do
-        json.array! self.images do |img|
-          json.merge! img.image_builder(:medium)
-        end
-      end
       json.merge! apply_base_builder
     end.attributes!
   end
