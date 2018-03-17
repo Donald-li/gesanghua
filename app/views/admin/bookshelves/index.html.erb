@@ -108,7 +108,7 @@
                       <i class="fa fa-truck"></i> 发货
                     <% end %>
                   <% end %>
-                  <% if bookshelf.to_receive? || bookshelf.to_feedback? || bookshelf.done? %>
+                  <% if bookshelf.to_receive? || bookshelf.to_feedback? || bookshelf.feedbacked? || bookshelf.done? %>
                     <% if bookshelf.receive_feedback.present? %>
                       <%= link_to bookshelf_receive_admin_read_project_bookshelf_path(@project, bookshelf), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                         <i class="fa fa-truck"></i> 查看收货凭证
@@ -116,7 +116,7 @@
                   <% else %>
                     <span class="btn btn-xs default"><i class="fa fa-truck"></i> 查看收货凭证</span>
                   <% end %>
-                  <% if bookshelf.to_feedback? || bookshelf.done? %>
+                  <% if bookshelf.to_feedback? || bookshelf.feedbacked? || bookshelf.done? %>
                     <% if bookshelf.install_feedback.present? %>
                       <%= link_to bookshelf_install_admin_read_project_bookshelf_path(@project, bookshelf), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                         <i class="fa fa-list"></i> 查看反馈
