@@ -50,7 +50,12 @@ class Api::V1::Account::UsersController < Api::V1::BaseController
 
   def has_team
     user = current_user
-    api_success(data: user.reload.detail_builder)
+    api_success(data: user.detail_builder)
+  end
+
+  def balance
+    user = current_user
+    api_success(data: user.balance)
   end
 
 end
