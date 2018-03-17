@@ -64,7 +64,7 @@ namespace :api do
 
     namespace :gsh_plus do
       resources :mains, only: [:index]
-      resources :schools, only: [:create]
+      resources :schools, only: [:create, :show]
       resources :project_applies, only: [:new, :show] # 项目申请
 
       resources :gsh_children, only: [] do
