@@ -4,6 +4,7 @@ class Api::V1::GshPlus::SchoolsController < Api::V1::BaseController
     school = School.find_by(contact_phone: school_params[:contact_phone], contact_id_card: school_params[:contact_id_card]) || School.find_by(user_id: current_user.id)
     if school.present?
       if school.update(school_params.except(:location, :number_list).merge(province: school_params[:location][0], city: school_params[:location][1], district: school_params[:location][2], number: params[:item_list][0][:num], teacher_count: params[:item_list][1][:num], logistic_count: params[:item_list][2][:num]))
+        school.submit!
         api_success(message: '申请修改并提交成功', data: true)
       else
         api_success(message: '申请失败，请重试', data: false)

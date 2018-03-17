@@ -25,6 +25,7 @@ namespace :api do
           get :get_user_promoter_record
           post :update_user
           get :has_team
+          get :balance
         end
       end
 
