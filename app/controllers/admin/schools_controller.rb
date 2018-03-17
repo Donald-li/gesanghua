@@ -39,8 +39,6 @@ class Admin::SchoolsController < Admin::BaseController
         @user.save
       end
       Teacher.find_or_create_by(name: @school.contact_name, phone: @school.contact_phone, school: @school, user: @user, kind: 'headmaster')
-    else
-      Teacher.create(name: @school.contact_name, phone: @school.contact_phone, school: @school, kind: 'headmaster')
     end
     respond_to do |format|
       if @school.save

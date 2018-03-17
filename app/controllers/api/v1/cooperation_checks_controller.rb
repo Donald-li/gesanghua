@@ -5,11 +5,11 @@ class Api::V1::CooperationChecksController < Api::V1::BaseController
   end
 
   def identity_user_info
-    if params[:check_role] === 'teacher' || params[:check_role] === 'headmaster'
+    @user = current_user
+    if params[:check_role] === 'teacher'
       if Teacher.find_by(phone: params[:phone]).present?
         @teacher = Teacher.find_by(phone: params[:phone])
         @teacher.update(user_id: current_user.id)
-        @user = current_user
         if @teacher.headmaster?
           if !@user.has_role?(:headmaster)
             @user.roles = @user.roles.push(:headmaster)
@@ -22,28 +22,46 @@ class Api::V1::CooperationChecksController < Api::V1::BaseController
           end
         end
         api_success(data: @teacher.identity_teacher_summary_builder)
+      else
+        api_success(data: false, message: '验证失败，请重试')
+      end
+    elsif params[:check_role] === 'headmaster'
+      @school = School.find_by(contact_phone: params[:phone])
+      if @school.present?
+        if @user.teacher.present?
+          @teacher = @user.teacher
+        else
+          @teacher = @school.teachers.create(name: @school.contact_name, phone: @school.contact_phone, kind: 'headmaster', user: @user)
+          @user.roles = @user.roles.push(:headmaster)
+          @user.save
+        end
+        api_success(data: @teacher.identity_teacher_summary_builder)
+      else
+        api_success(data: false, message: '验证失败，请重试')
       end
     elsif params[:check_role] === 'county_user'
       if CountyUser.find_by(phone: params[:phone]).present?
         @county_user = CountyUser.find_by(phone: params[:phone])
         @county_user.update(user_id: current_user.id)
-        @user = current_user
         if !@user.has_role?(:county_user)
           @user.roles = @user.roles.push(:county_user)
           @user.save
         end
         api_success(data: @county_user.summary_builder)
+      else
+        api_success(data: false, message: '验证失败，请重试')
       end
     elsif params[:check_role] === 'gsh_child'
       if GshChild.find_by(phone: params[:phone]).present?
         @gsh_child = GshChild.find_by(phone: params[:phone])
         @gsh_child.update(user_id: current_user.id)
-        @user = current_user
         if !@user.has_role?(:gsh_child)
           @user.roles = @user.roles.push(:gsh_child)
           @user.save
         end
         api_success(data: @gsh_child.check_gsh_child_builder)
+      else
+        api_success(data: false, message: '验证失败，请重试')
       end
     end
   end
