@@ -73,7 +73,7 @@
           <% @school_project_applies.each do |school_project_apply| %>
               <tr>
                 <td>
-                  <%= school_project_apply.id %>
+                  <%= school_project_apply.apply_no %>
                 </td>
                 <td>
                   <%= school_project_apply.school.try(:name) %>
@@ -91,10 +91,18 @@
                   <%= school_project_apply.describe %>
                 </td>
                 <td>
-                  <%= school_project_apply.teacher.try(:name) %>
+                  <% if school_project_apply.teacher.present? %>
+                    <%= school_project_apply.teacher.try(:name) %>
+                  <% else %>
+                    <%= school_project_apply.try(:contact_name) %>
+                  <% end %>
                 </td>
                 <td>
-                  <%= school_project_apply.teacher.try(:phone) %>
+                  <% if school_project_apply.teacher.present? %>
+                    <%= school_project_apply.teacher.try(:phone) %>
+                  <% else %>
+                    <%= school_project_apply.try(:contact_phone) %>
+                  <% end %>
                 </td>
                 <td>
                   <% if school_project_apply.raise_project? %>

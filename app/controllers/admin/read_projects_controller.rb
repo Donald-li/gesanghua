@@ -14,6 +14,7 @@ class Admin::ReadProjectsController < Admin::BaseController
     @project.attach_cover_image(params[:cover_image_id])
     respond_to do |format|
       if @project.update(project_params)
+        @project.raise_project!
         if @project.whole?
           @project.target_amount = @project.bookshelves.pass.sum(:target_amount).to_f
           @project.save
