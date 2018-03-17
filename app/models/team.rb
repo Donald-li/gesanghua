@@ -42,7 +42,7 @@ class Team < ApplicationRecord
 
   def summary_builder
     Jbuilder.new do |json|
-      json.(self, :id, :name, :member_count, :total_donate_amount, :describe, :creater_id, :manage_id)
+      json.(self, :id, :name, :kind, :member_count, :total_donate_amount, :describe, :creater_id, :manage_id)
       json.city_name ChinaCity.get(self.city)
       json.district_name ChinaCity.get(self.district)
       json.create_time self.created_at.strftime("%Y-%m-%d %H:%M")
