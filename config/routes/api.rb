@@ -211,6 +211,9 @@ namespace :api do
 
     resources :cooperation_reads, except: [:destroy]
     resources :cooperation_radios, except: [:destroy]
+    resources :cooperation_cares, except: [:destroy]
+    resources :cooperation_movie_care, except: [:destroy]
+    resources :cooperation_movies, except: [:destroy]
 
     resources :cooperation_pair_students do
       member do

@@ -7,10 +7,10 @@ class Api::V1::CooperationReadsController < Api::V1::BaseController
     if user.teacher.present?
       if user.has_role?(:headmaster)
         applies = user.teacher.school.project_season_applies.where(project_id: @read.id).sorted.page(params[:page])
-        api_success(data: {applies: applies.map { |r| r.read_apply_builder }, pagination: json_pagination(applies)})
+        api_success(data: {applies: applies.map { |r| r.read_applies_builder }, pagination: json_pagination(applies)})
       elsif user.has_role?(:teacher)
         applies = user.teacher.project_season_applies.where(project_id: @read.id).sorted.page(params[:page])
-        api_success(data: {applies: applies.map { |r| r.read_apply_builder }, pagination: json_pagination(applies)})
+        api_success(data: {applies: applies.map { |r| r.read_applies_builder }, pagination: json_pagination(applies)})
       else
       end
     else
@@ -30,10 +30,17 @@ class Api::V1::CooperationReadsController < Api::V1::BaseController
 
   def show
     @apply = ProjectSeasonApply.find(params[:id])
-    api_success(data: {apply: @apply.read_apply_builder,
-      submit_form: @apply.read_apply_submit_form_summary_builder,
-      images: @apply.images.map(&:summary_builder),
-      class_list: @apply.bookshelves.map{|b| b.class_summary_builder}})
+    if @apply.whole?
+      api_success(data: {apply: @apply.read_applies_builder,
+        submit_form: @apply.read_apply_submit_form_summary_builder,
+        images: @apply.images.map(&:summary_builder),
+        class_list: @apply.bookshelves.map{|b| b.class_summary_builder}})
+    elsif @apply.supplement?
+      api_success(data: {apply: @apply.read_applies_builder,
+        submit_form: @apply.read_apply_submit_form_summary_builder,
+        images: @apply.images.map(&:summary_builder),
+        class_list: @apply.supplements.map{|b| b.summary_builder}})
+    end
   end
 
   def create
@@ -79,7 +86,7 @@ class Api::V1::CooperationReadsController < Api::V1::BaseController
       district: params[:read_apply][:location][2],
       address: params[:read_apply][:address],
       form: params[:dynamic_form],
-      class_ids: params[:class_ids]
+      bookshelf_ids: params[:class_ids]
     }
     if @apply.update(attributes)
       @apply.attach_images(params[:images])
