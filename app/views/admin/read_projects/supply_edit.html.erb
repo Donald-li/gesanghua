@@ -1,0 +1,132 @@
+<div class="portlet light bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-note"> 编辑项目信息 </i>
+      <span class="caption-subject"></span>
+      <span class="caption-helper"></span>
+    </div>
+    <div class="actions">
+      <div class="btn-group">
+        <a href="<%= admin_read_projects_path %>" class="btn btn-xs blue">
+          <i class="fa fa-reply"></i>返回
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body form">
+    <div class="form-body form-horizontal">
+      <%= simple_form_for [:admin, @project], url: admin_read_project_path, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'form-horizontal project_form'} do |f| %>
+          <%= f.error_notification %>
+          <div class="form-body">
+            <%= static_form_control '申请批次：', @project.season.name %>
+            <%= static_form_control '申请学校：', @project.school.name %>
+            <%= static_form_control '申请类型：', @project.enum_name(:bookshelf_type) %>
+            <!-- <%= static_form_control '目标筹款金额：', @project.target_amount %> -->
+            <%= f.input :name, label: '项目名称：', placeholder: '请填写项目名称', input_html:{ data: {'parsley-required': true} } %>
+            <div class="form-group">
+              <label class="col-md-2 control-label">项目封面：</label>
+              <div class="col-sm-9">
+                <%= webuploader_tag :cover_image_id, label: '上传封面', type: 'project_season_apply_cover', asset: @project.cover_image, klass: 'single' %>
+              </div>
+            </div>
+
+            <div class="portlet light bordered">
+              <div class="portlet-title">
+                <div class="caption">
+                <i class="icon-social-dribbble font-green"></i>
+                <span class="caption-subject font-green bold uppercase">筹款班级</span>
+              </div>
+              <!-- <div class="actions">
+                <a class="btn btn-info btn-xs" href="#" id="goods_add_another"><i class="fa fa-plus"></i> 添加班级</a>
+              </div> -->
+              </div>
+              <div class="portlet-body">
+                <div class="table-scrollable">
+                  <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th> 图书角编号 </th>
+                          <th> 班级 </th>
+                          <th> 书籍损耗 </th>
+                          <th> 书籍补充 </th>
+                          <th> 筹款金额 </th>
+                          <th> 说明 </th>
+                          <!-- <th> 删除操作 </th> -->
+                        </tr>
+                      </thead>
+                      <tbody id="goods">
+                        <%= f.fields_for :supplements, @project.supplements.pass, wrapper: 'inline_inputs' do |b| %>
+                        <tr>
+                          <td>
+                            <%= b.input :id, as: :hidden %>
+                            <%= b.object.bookshelf.bookshelf_no %>
+                          </td>
+                          <td>
+                            <%= b.object.bookshelf.classname %>
+                          </td>
+                          <td>
+                            <%= b.object.loss %>
+                          </td>
+                          <td>
+                            <%= b.object.supply %>
+                          </td>
+                          <td>
+                            <%= b.input :target_amount, type: 'number', min: 0, label: false, input_html:{data: {'parsley-required': true}, class: 'target-amount', placeholder: '请填入筹款金额'}  %>
+                          </td>
+                          <td>
+                            <%= b.input :describe, label: false, input_html:{data: {'parsley-required': true}, class: '', placeholder: '请填入筹款说明'}  %>
+                          </td>
+                          <!-- <td>
+                            <a href="#" class="destroy"><i class="fa fa-remove font-red-soft"></i></a>
+                          </td> -->
+                          <!-- <td>
+                            <%#= b.bookshelf.beneficial_children.count%>
+                          </td> -->
+                        </tr>
+
+                        <% end %>
+                      </tbody>
+                  </table>
+
+                </div>
+              </div>
+            </div>
+            <!-- <div class="form-group">
+              <label class="col-md-2 control-label">项目介绍：</label>
+              <div class="col-sm-9">
+                <%= f.cktext_area :project_describe %>
+              </div>
+            </div> -->
+            <%= f.input :project_describe, label: '项目介绍：', placeholder: '请填写项目介绍', input_html: { data: {'parsley-required': true} } %>
+            <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApply.options_for_some_select(:states), label: '显示状态：'%>
+          </div>
+          <div class="form-actions">
+            <div class="row">
+              <div class="col-md-offset-2 col-md-9">
+                <%= f.button :submit, '提交', class: 'btn blue' %>
+                <%= link_to '取消', admin_read_projects_path, class: 'btn' %>
+              </div>
+            </div>
+          </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    initImageWebuploader($('#webuploader'));
+    // $("#goods").nestedAttributes({
+    //   bindAddTo: $("#goods_add_another")
+    // });
+    $("#goods").nestedAttributes({
+      bindAddTo: $("#goods_add_another"),
+      afterAdd: function(el){
+        $(el).find('.target-amount').val('')
+        $(el).find('.class_grade option:last').attr("selected","selected")
+        // $(el).find('.class_state option:last').attr("selected","selected")
+      }
+    });
+  })
+</script>

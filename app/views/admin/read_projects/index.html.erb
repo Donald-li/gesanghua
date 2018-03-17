@@ -109,14 +109,17 @@
                   <%= project.enum_name(:execute_state) %>
                 </td>
                 <td>
-                  <%= link_to edit_admin_read_project_path(project), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                      <i class="fa fa-edit"></i> 修改项目
-                  <% end %>
                   <% if project.whole? %>
+                    <%= link_to edit_admin_read_project_path(project), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                        <i class="fa fa-edit"></i> 修改项目
+                    <% end %>
                     <%= link_to admin_read_project_bookshelves_path(project), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
                         <i class="fa fa-list"></i> 筹款班级
                     <% end %>
                   <% else %>
+                    <%= link_to supply_edit_admin_read_project_path(project), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                        <i class="fa fa-edit"></i> 修改项目
+                    <% end %>
                     <%= link_to admin_read_project_supplements_path(project), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                         <i class="fa fa-list"></i> 补书班级
                     <% end %>

@@ -58,6 +58,9 @@ namespace :admin do
     end
   end
   resources :read_projects, concerns: :switch do
+    member do
+      get :supply_edit
+    end
     # resources :read_donate_records
     resources :bookshelf_donate_records
     resources :supplement_donate_records

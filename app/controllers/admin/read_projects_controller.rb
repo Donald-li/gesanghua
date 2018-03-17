@@ -1,5 +1,5 @@
 class Admin::ReadProjectsController < Admin::BaseController
-  before_action :set_project, only: [:edit, :update, :switch]
+  before_action :set_project, only: [:edit, :update, :switch, :supply_edit]
 
   def index
     @search = ProjectSeasonApply.where(project_id: [2, Project.book_supply_project.id]).raise_project.sorted.ransack(params[:q])
@@ -8,6 +8,9 @@ class Admin::ReadProjectsController < Admin::BaseController
   end
 
   def edit
+  end
+
+  def supply_edit
   end
 
   def update
