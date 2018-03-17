@@ -79,6 +79,8 @@ namespace :admin do
   resources :project_camp_seasons
   resources :project_radio_seasons
   resources :project_flower_seasons
+  resources :project_movie_seasons
+  resources :project_movie_care_seasons
 
   resources :pair_grant_exceptions
   resources :pair_reports, concerns: [:switch]
@@ -240,5 +242,11 @@ namespace :admin do
   resources :movie_applies, concerns: :check
   resources :movie_schools do
     resources :movie_feedbacks, concerns: [:recommend]
+  end
+
+  resources :movie_care_continual_feedbacks, concerns: [:recommend]
+  resources :movie_care_applies, concerns: :check
+  resources :movie_care_schools do
+    resources :movie_care_feedbacks, concerns: [:recommend]
   end
 end

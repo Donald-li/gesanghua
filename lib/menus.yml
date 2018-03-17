@@ -256,6 +256,9 @@ admin:
                 'admin/radio_continual_feedbacks': all
         admin_project_movie:
           menus:
+            admin_project_movie_season:
+              actions:
+                'admin/project_movie_seasons': all
             admin_movie_applies:
               actions:
                 'admin/movie_applies': all
@@ -266,6 +269,21 @@ admin:
             admin_movie_continual_feedbacks:
               actions:
                 'admin/movie_continual_feedbacks': all
+        admin_project_movie_care:
+          menus:
+            admin_project_movie_care_season:
+              actions:
+                'admin/project_movie_care_seasons': all
+            admin_movie_care_applies:
+              actions:
+                'admin/movie_care_applies': all
+            admin_movie_care_schools:
+              actions:
+                'admin/movie_care_schools': all
+                'admin/movie_care_feedbacks': all
+            admin_movie_care_continual_feedbacks:
+              actions:
+                'admin/movie_care_continual_feedbacks': all
         admin_project_flower:
           menus:
             admin_project_flower_season:
