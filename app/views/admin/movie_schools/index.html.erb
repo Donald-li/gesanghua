@@ -78,7 +78,7 @@
                   <%= apply.contact_phone %>
                 </td>
                 <td>
-                  <% if apply.install.present? %>
+                  <% if apply.install_feedback.present? %>
                   <%= link_to admin_movie_school_movie_feedbacks_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                     <i class="fa fa-list"></i> 查看反馈
                   <% end %>
