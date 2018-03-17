@@ -364,7 +364,7 @@ class ProjectSeasonApply < ApplicationRecord
   def read_detail_builder
     Jbuilder.new do |json|
       json.merge! self.detail_builder
-      json.(self, :bookshelf_type)
+      json.(self, :bookshelf_type, :project_describe)
       json.season_name self.season.name
       json.donate_items self.bookshelves.map{|b| b.summary_builder} if self.whole?
       json.donate_items self.supplements.map{|b| b.summary_builder} if self.supplement?
