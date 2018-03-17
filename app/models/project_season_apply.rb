@@ -58,8 +58,8 @@ class ProjectSeasonApply < ApplicationRecord
   has_many :children, class_name: "ProjectSeasonApplyChild"
   has_many :gsh_child_grants
   has_many :gsh_children, class_name: 'ProjectSeasonApplyChild', dependent: :destroy
-  has_many :bookshelves, ->{order(id: :asc)}, class_name: 'ProjectSeasonApplyBookshelf', foreign_key: 'project_season_apply_id'
-  has_many :supplements, class_name: 'BookshelfSupplement', foreign_key: 'project_season_apply_id'
+  has_many :bookshelves, ->{ order(id: :asc) }, class_name: 'ProjectSeasonApplyBookshelf', foreign_key: 'project_season_apply_id'
+  has_many :supplements, ->{ order(id: :asc) }, class_name: 'BookshelfSupplement', foreign_key: 'project_season_apply_id'
   has_many :beneficial_children
   has_many :donate_records
 
@@ -269,7 +269,7 @@ class ProjectSeasonApply < ApplicationRecord
   # 基础信息, 列表展示用
   def summary_builder
     Jbuilder.new do |json|
-      json.(self, :id, :apply_no, :target_amount, :present_amount)
+      json.(self, :id, :apply_no, :target_amount, :present_amount, :bookshelf_type)
       json.name self.apply_name
       json.last_amount self.target_amount - self.present_amount
       json.cover_mode self.cover_image.present?
@@ -364,8 +364,10 @@ class ProjectSeasonApply < ApplicationRecord
   def read_detail_builder
     Jbuilder.new do |json|
       json.merge! self.detail_builder
+      json.(self, :bookshelf_type)
       json.season_name self.season.name
-      json.donate_items self.bookshelves.map{|b| b.summary_builder}
+      json.donate_items self.bookshelves.map{|b| b.summary_builder} if self.whole?
+      json.donate_items self.supplements.map{|b| b.summary_builder} if self.supplement?
       json.describe self.describe
       json.merge! apply_base_builder
     end.attributes!

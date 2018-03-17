@@ -54,13 +54,11 @@ class BookshelfSupplement < ApplicationRecord
 
   def summary_builder
     Jbuilder.new do |json|
-      json.id self.id
+      json.(self, :id, :supply, :target_amount, :present_amount, :state)
       json.class_id [self.bookshelf.id.to_s]
       json.class_name self.bookshelf.classname
       json.loss self.loss
-      json.supply self.supply
     end.attributes!
   end
-
 
 end
