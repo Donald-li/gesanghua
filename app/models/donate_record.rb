@@ -309,7 +309,7 @@ class DonateRecord < ApplicationRecord
   end
 
   # 散捐书架
-  def self.use_income_record_donate_bookshelf(income_record)
+  def self.use_income_record_donate_bookshelf(params, income_record)
     donate_record = income_record.donate_records.system.first
     apply = donate_record.apply
     user = income_record.user
@@ -323,7 +323,7 @@ class DonateRecord < ApplicationRecord
         if income_record.balance - amount < 0
           donate_amount = income_record.balance
         end
-        if self.platform_donate_bookshelf(params.merge(amount: amount, donate_way: 'offline'), bookshelf)
+        if self.platform_donate_bookshelf(params.merge(amount: amount, donate_way: 'offline', offline_record_id: income_record.id), bookshelf)
           income_record.balance -= donate_amount
           income_record.save
         end
