@@ -67,7 +67,7 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
 
   scope :pass_done, ->{ where(state: ['feedbacked', 'done']) }
 
-  scope :sorted, ->{ order(created_at: :desc) }
+  scope :sorted, ->{ order(created_at: :asc) }
 
   counter_culture :apply, column_name: proc{|model| model.to_receive? ? 'present_amount' : nil}, delta_magnitude: proc {|model| model.present_amount }
 

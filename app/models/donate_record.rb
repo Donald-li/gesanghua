@@ -308,6 +308,34 @@ class DonateRecord < ApplicationRecord
     return false
   end
 
+  # 散捐书架
+  def self.use_income_record_donate_bookshelf(income_record)
+    donate_record = income_record.donate_records.system.first
+    apply = donate_record.apply
+    user = income_record.user
+
+    if apply.project_id == 2 && apply.whole?
+      bookshelves = apply.bookshelves.raising.sorted
+      bookshelves.each do |bookshelf|
+        amount = bookshelf.target_amount - bookshelf.present_amount
+        donate_amount = amount
+
+        if income_record.balance - amount < 0
+          donate_amount = income_record.balance
+        end
+        if self.platform_donate_bookshelf(params.merge(amount: amount, donate_way: 'offline'), bookshelf)
+          income_record.balance -= donate_amount
+          income_record.save
+        end
+      end
+
+      if income_record.balance > 0
+        user.balance += income_record.balance
+        user.save
+      end
+
+    end
+  end
 
   # 配捐给悦读
   def self.platform_donate_bookshelf(params, bookshelf)
