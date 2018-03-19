@@ -14,7 +14,7 @@
   </div>
   <div class="portlet-body form">
     <%= render '/admin/shared/platform_donate_form',
-    url: admin_read_project_supplement_donate_records_path(@apply),
-    back_url: admin_read_project_supplement_donate_records_path(@apply) %>
+    url: admin_read_project_supplement_donate_records_path(@apply, supplement_id: @supplement.id),
+    back_url: admin_read_project_supplement_donate_records_path(@apply, supplement_id: @supplement.id) %>
   </div>
 </div>
