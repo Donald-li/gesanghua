@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180313090437) do
+ActiveRecord::Schema.define(version: 20180319033943) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -313,18 +313,6 @@ ActiveRecord::Schema.define(version: 20180313090437) do
     t.string "operator", comment: "支出经办人"
     t.text "remark", comment: "备注"
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "支出金额"
-  end
-
-  create_table "family_members", force: :cascade, comment: "家庭成员表" do |t|
-    t.integer "visit_id", comment: "家访表ID"
-    t.string "name", comment: "成员姓名"
-    t.integer "age", comment: "年龄"
-    t.string "relationship", comment: "关系"
-    t.string "profession", comment: "职业"
-    t.text "health_condition", comment: "健康状况"
-    t.text "job_condition", comment: "工作情况"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "feedbacks", force: :cascade, comment: "反馈表" do |t|
@@ -759,7 +747,7 @@ ActiveRecord::Schema.define(version: 20180313090437) do
     t.string "contact_phone", comment: "联系方式"
     t.string "contact_position", comment: "联系人职务"
     t.integer "kind", comment: "学校类型"
-    t.integer "user_id", comment: "校长ID"
+    t.integer "user_id", comment: "申请人ID"
     t.string "school_no", comment: "学校申请编号"
     t.string "contact_id_card", comment: "联系人身份证号"
     t.string "postcode", comment: "邮政编码"
@@ -1035,6 +1023,9 @@ ActiveRecord::Schema.define(version: 20180313090437) do
     t.string "volunteer_no", comment: "志愿者编号"
     t.string "volunteer_apply_no", comment: "志愿者申请编号"
     t.integer "internship_state", comment: "实习还是正式"
+    t.text "describe", comment: "个人简介"
+    t.string "phone", comment: "手机号"
+    t.string "workstation", comment: "工作单位"
   end
 
   create_table "voucher_donate_records", force: :cascade, comment: "捐赠收据捐助记录表" do |t|

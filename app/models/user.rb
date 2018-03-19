@@ -175,7 +175,7 @@ class User < ApplicationRecord
   end
 
   def volunteer_approve_state
-    self.volunteer.present? ? self.school.approve_state : 'default'
+    self.volunteer.present? ? self.volunteer.approve_state : 'default'
   end
 
   # 可开票金额
