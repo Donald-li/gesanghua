@@ -187,6 +187,7 @@ namespace :api do
     resource :donate, only: [] do
       collection do
         post :item
+        post :apply
         post :gsh
       end
     end

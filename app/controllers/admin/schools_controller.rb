@@ -95,12 +95,6 @@ class Admin::SchoolsController < Admin::BaseController
         end
       else
         @school.user_id = nil
-        if Teacher.find_by(name: school_params[:contact_name], phone: school_params[:contact_phone], school: @school).present?
-          Teacher.find_by(name: school_params[:contact_name], phone: school_params[:contact_phone], school: @school).update(kind: 1)
-        else
-          Teacher.create(name: school_params[:contact_name], phone: school_params[:contact_phone], school: @school, kind: 'headmaster')
-        end
-        # Teacher.find_or_create_by(name: school_params[:contact_name], phone: school_params[:contact_phone], school: @school, kind: 'headmaster')
       end
     else
       if school_params[:user_id] != nil && school_params[:user_id] != ""
@@ -118,11 +112,6 @@ class Admin::SchoolsController < Admin::BaseController
         end
       else
         @school.user_id = nil
-        if Teacher.find_by(name: school_params[:contact_name], phone: school_params[:contact_phone], school: @school).present?
-          Teacher.find_by(name: school_params[:contact_name], phone: school_params[:contact_phone], school: @school).update(kind: 1)
-        else
-          Teacher.create(name: school_params[:contact_name], phone: school_params[:contact_phone], school: @school, kind: 'headmaster')
-        end
       end
     end
     respond_to do |format|
