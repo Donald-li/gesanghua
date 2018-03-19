@@ -66,14 +66,16 @@ namespace :admin do
     resources :supplement_donate_records
     resources :bookshelves, concerns: :switch do
       member do
-        put :shipment
+        get :shipment
+        post :create_shipment
         get :bookshelf_receive
         get :bookshelf_install
       end
     end
     resources :supplements, concerns: :switch do
       member do
-        put :shipment
+        get :shipment
+        post :create_shipment
         get :supplement_receive
       end
     end

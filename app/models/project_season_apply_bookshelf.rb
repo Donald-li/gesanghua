@@ -48,6 +48,7 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
   has_many :supplements, class_name: 'BookshelfSupplement', foreign_key: 'project_season_apply_bookshelf_id'
   has_one :receive_feedback, as: :owner
   has_one :install_feedback, as: :owner
+  has_one :logistic, as: :owner
 
   scope :gsh_bookshelf, -> { to_delivery }
 

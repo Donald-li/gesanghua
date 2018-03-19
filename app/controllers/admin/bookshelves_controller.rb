@@ -36,9 +36,19 @@ class Admin::BookshelvesController < Admin::BaseController
 
   def shipment
     @bookshelf = ProjectSeasonApplyBookshelf.find(params[:id])
-    @bookshelf.to_receive!
+    @logistic = Logistic.new
+  end
+
+  def create_shipment
+    @bookshelf = ProjectSeasonApplyBookshelf.find(params[:id])
+    @logistic = Logistic.new(logistic_params.merge(owner: @bookshelf))
     respond_to do |format|
-      format.html { redirect_to admin_read_project_bookshelves_path(@project), notice: '发货成功。' }
+      if @logistic.save
+        @bookshelf.to_receive!
+        format.html { redirect_to admin_read_project_bookshelves_path(@project), notice: '发货成功。' }
+      else
+        format.html { render :shipment }
+      end
     end
   end
 
@@ -59,5 +69,9 @@ class Admin::BookshelvesController < Admin::BaseController
 
   def bookshelf_params
     params.require(:project_season_apply_bookshelf).permit!
+  end
+
+  def logistic_params
+    params.require(:logistic).permit!
   end
 end
