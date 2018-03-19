@@ -19,18 +19,20 @@
 #  kind             :integer
 #  task_category_id :integer                                # 任务分类ID
 #  workplace_id     :integer                                # 工作地点ID
-#  types_mask       :integer                                # 任务类型
 #  apply_end_at     :datetime                               # 申请结束时间
 #  principal_id     :integer                                # 任务负责人
 #  task_no          :string                                 # 任务编号
+#  ordinary_flag    :boolean          default(FALSE)        # 日常
+#  intensive_flag   :boolean          default(FALSE)        # 重点
+#  urgency_flag     :boolean          default(FALSE)        # 紧急
+#  innovative_flag  :boolean          default(FALSE)        # 创新
+#  difficult_flag   :boolean          default(FALSE)        # 难点
 #
 
 # 志愿者任务
 class Task < ApplicationRecord
 
   before_create :gen_task_no
-
-  TaskTypes = %i[ordinary intensive urgency innovative difficult] # 日常 重点 紧急 创新 难点
 
   # belongs_to :major, optional: true
   belongs_to :task_category
@@ -53,21 +55,6 @@ class Task < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
-  def task_types=(types)
-    task_types = [*types].map { |r| r.to_sym }
-    self.types_mask = (task_types & TaskTypes).map { |r| 2**TaskTypes.index(r) }.inject(0, :+)
-  end
-
-  def task_types
-    TaskTypes.reject do |r|
-      ((types_mask.to_i || 0) & 2**TaskTypes.index(r)).zero?
-    end
-  end
-
-  def has_type?(type)
-    task_types.include?(type)
-  end
-
   def simple_address
     ChinaCity.get(self.province).to_s + " " + ChinaCity.get(self.city).to_s + " " + ChinaCity.get(self.district).to_s
   end
@@ -79,6 +66,16 @@ class Task < ApplicationRecord
   def gen_task_no
     time_string = Time.now.strftime("%y%m%d")
     self.task_no ||= Sequence.get_seq(kind: :task_no, prefix: time_string, length: 3)
+  end
+
+  def summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :name, :num, :duration, :ordinary_flag, :intensive_flag, :urgency_flag, :innovative_flag, :difficult_flag)
+      json.location self.workplace.try(:title)
+      json.cover_mode self.cover.present?
+      json.cover_url self.cover_url(:small)
+      json.apply_state self.task_volunteers
+    end.attributes!
   end
 
 end
