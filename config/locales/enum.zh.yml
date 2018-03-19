@@ -230,6 +230,7 @@ zh:
     pick_done: '筛选完成'
     doing: '执行中'
     done: '已完成'
+    cancel: '已取消'
   task_kinds:
     normal: '公开任务'
     appoint: '指派任务'
