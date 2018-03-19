@@ -50,7 +50,8 @@ class User < ApplicationRecord
 
   belongs_to :team, optional: true
 
-  has_one :school
+  has_one :school # 校长
+  has_one :create_school, class_name: 'School', foreign_key: 'creater_id', dependent: :nullify # 用户创建的学校
   has_one :administrator
   has_one :teacher
   has_one :volunteer
@@ -167,8 +168,8 @@ class User < ApplicationRecord
   def school_approve_state
     if self.teacher?
       self.teacher.school.approve_state
-    elsif self.school.present?
-      self.school.approve_state
+    elsif self.create_school.present?
+      self.create_school.approve_state
     else
       'default'
     end
