@@ -1,0 +1,50 @@
+<div id="first-screen" class="first-screen">
+  <div class="screen-body">
+    <div class="screen-body-cell">
+      <div class="auto-box cell-wrap">
+        <div class="login-box" style="height: 320px;">
+          <div class="login-header">重设密码</div>
+          <div class="login-body">
+            <%= simple_form_for @organization, as: :organization, url: organization_session_path, wrapper: :admin_form, method: :patch, html: {class: 'login-school'} do |f| %>
+                <%= f.input :password, label: '新密码', placeholder: '输入密码' %>
+                <%= f.input :password_confirmation, label: '确认密码', placeholder: '确认密码' %>
+                <div class="login-btn-wrap">
+                  <%= f.button :submit, '确认修改', class: :'btn btn-danger btn-lg' %>
+                </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+  }
+</style>
+<script type="text/javascript" charset="utf-8">
+    $(function () {
+        setHeight();
+    });
+    $(window).resize(function () {
+        setHeight();
+    });
+    function setHeight() {
+        var windowHeight = $(window).height();
+        $('#first-screen').css('height', windowHeight + 'px');
+    }
+</script>
+
+
+
+
+
+
+
+
