@@ -50,7 +50,7 @@
               财务分类-定项指定
             </th>
             <th>
-              描述
+              申请类型
             </th>
             <th>
               操作
@@ -79,7 +79,7 @@
                   <%= "#{project.appoint_fund.try(:fund_category).try(:name)} - #{project.appoint_fund.try(:name)}" %>
                 </td>
                 <td>
-                  <%=  project.sliced_describe %>
+                  <%=  project.enum_name(:apply_kind) %>
                 </td>
                 <td>
                   <%= link_to edit_admin_project_path(project), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>

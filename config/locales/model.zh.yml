@@ -1,6 +1,9 @@
 zh:
   activerecord:
     attributes:
+      user:
+        phone: '手机号码'
+        login: '登录名'
       teacher:
         name: '真实姓名'
         phone: '手机号码'
