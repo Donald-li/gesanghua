@@ -1,0 +1,53 @@
+<div id="first-screen" class="first-screen">
+  <div class="screen-body">
+    <div class="screen-body-cell">
+      <div class="auto-box cell-wrap">
+        <div class="login-box" style="height: 320px;">
+          <div class="login-header">找回密码</div>
+          <div class="login-body">
+            <%= simple_form_for @user, as: :user, url: find_back_account_session_path, wrapper: :admin_form, method: :post, html: {class: 'login-school'} do |f| %>
+              <%= f.input :login, label: '手机号码', input_html: {placeholder: '请输入手机号', required: true} %>
+              <div class="form-body">
+                <div class="form-group user_rucaptcha yzm">
+                  <label class="col-md-2 control-label">验证码</label>
+                  <div class="col-md-8">
+                    <input id="code" name="code" class="form-control" placeholder="请输入短信验证码">
+                  </div>
+                  <div class="col-md-4">
+                    <button id="send_code" type="button" class="btn btn-primary-line btn-block" onclick="sendSms('verify_profile', $('#user_login').val());">获取验证码</button>
+                  </div>
+                </div>
+              </div>
+              <div class="login-btn-wrap">
+                <%= f.button :submit, '下一步', class: :'btn btn-danger btn-lg' %>
+              </div>
+            <% end %>
+            <%= javascript_include_tag 'global/sms', 'data-turbolinks-track': 'reload' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+  }
+</style>
+<script type="text/javascript" charset="utf-8">
+  $(function () {
+      setHeight();
+  });
+  $(window).resize(function () {
+    setHeight();
+  });
+  function setHeight() {
+    var windowHeight = $(window).height();
+    $('#first-screen').css('height', windowHeight + 'px');
+  }
+</script>

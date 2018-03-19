@@ -245,6 +245,14 @@ class DonateRecord < ApplicationRecord
     DonateRecord.new(user_id: user_id, amount: amount, promoter: promoter, income_record: income_record, fund: project.appoint_fund, project: project, bookshelf: bookshelf)
   end
 
+  # 捐悦读补书
+  def self.donate_supplement(user: nil, amount: 0, supplement: nil, income_record: nil, promoter: nil)
+    return false unless supplement.present?
+    project = Project.read_project
+    user_id = user.present? ? user.id : ''
+    DonateRecord.new(user_id: user_id, amount: amount, promoter: promoter, income_record: income_record, fund: project.appoint_fund, project: project, supplement: supplement)
+  end
+
   def self.donate_child_semesters(gsh_child, semester_num)
     scope = gsh_child.semesters.pending.sorted.reverse_order
     return false if scope.count < semester_num || semester_num < 1
@@ -342,7 +350,7 @@ class DonateRecord < ApplicationRecord
     user = nil
     income_record = nil
     match_fund = nil
-    amount = params[:amount]
+    amount = bookshelf.target_amount - bookshelf.present_amount
     if params[:donate_way] == 'offline'
       income_record = IncomeRecord.has_balance.find(params[:offline_record_id])
       income_record.balance -= amount.to_f
@@ -367,6 +375,47 @@ class DonateRecord < ApplicationRecord
 
         donate_record.save!
         bookshelf.save!
+        income_record.save! if income_record.present?
+        match_fund.save! if match_fund.present?
+        user.save! if user.present?
+        return true
+      rescue
+        return false
+      end
+    end
+    return false
+  end
+
+  # 配捐给悦读补书
+  def self.platform_donate_supplement(params, supplement)
+    user = nil
+    income_record = nil
+    match_fund = nil
+    amount = supplement.target_amount - supplement.present_amount
+    if params[:donate_way] == 'offline'
+      income_record = IncomeRecord.has_balance.find(params[:offline_record_id])
+      income_record.balance -= amount.to_f
+      return false if income_record.balance < 0
+    elsif params[:donate_way] == 'match'
+      match_fund = Fund.find(params[:match_fund_id])
+      match_fund.amount -= amount.to_f
+      return false if match_fund.amount < 0
+    elsif params[:donate_way] == 'balance'
+      user = User.find(params[:balance_id])
+      user.balance -= amount
+      return false if user.balance < 0
+    end
+    self.transaction do
+      begin
+        donate_record = self.donate_supplement(user: user, amount: amount, income_record: income_record, supplement: supplement, promoter: nil)
+        donate_record.pay_state = 'paid'
+        donate_record.kind = 'platform'
+
+        supplement.present_amount += amount
+        supplement.state = 'to_delivery' if supplement.present_amount == supplement.target_amount
+
+        donate_record.save!
+        supplement.save!
         income_record.save! if income_record.present?
         match_fund.save! if match_fund.present?
         user.save! if user.present?

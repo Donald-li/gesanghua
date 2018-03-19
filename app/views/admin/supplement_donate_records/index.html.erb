@@ -3,12 +3,12 @@
     <div class="caption">
       <i class="icon-list"></i><%= link_to @apply.name, admin_read_projects_path %> > <%= link_to @supplement.bookshelf.classname, admin_read_project_supplements_path(@apply) %>(补书) > 捐助记录
     </div>
-    <!--<div class="actions">-->
-      <!--<%= link_to new_admin_read_project_supplement_donate_record_path(@supplement), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>-->
-        <!--<i class="icon-plus"></i>-->
-        <!--<span>新增筹款</span>-->
-      <!--<% end %>-->
-    <!--</div>-->
+    <div class="actions">
+      <%= link_to new_admin_read_project_supplement_donate_record_path(@apply, supplement_id: @supplement), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+        <i class="icon-plus"></i>
+        <span>平台配捐</span>
+      <% end %>
+    </div>
   </div>
   <div class="portlet-body">
     <div class="dataTables_wrapper no-footer">
@@ -68,7 +68,7 @@
                 <%= record.id %>
               </td>
               <td>
-                <%= record.season.name %>
+                <%= record.project.name %>
               </td>
               <td>
                 <%= record.user.try(:name) %> ( <%= record.user.try(:phone) %> )
@@ -86,11 +86,11 @@
                 <%= record.income_record.income_source.try(:name) if record.income_record.present? %>
               </td>
               <td>
-                <%= link_to admin_read_project_read_donate_record_path(@supplement, record), class: 'btn btn-xs blue' do %>
+                <%= link_to admin_read_project_supplement_donate_record_path(@supplement, record), class: 'btn btn-xs blue' do %>
                   <i class="fa fa-file"></i> 查看详情
                 <% end %>
-                <% if record.custom? %>
-                <%= link_to admin_read_project_read_donate_record_path(@supplement, record), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                <% if record.platform? %>
+                <%= link_to admin_read_project_supplement_donate_record_path(@supplement, record), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                   <i class="fa fa-trash-o"></i> 删除
                 <% end %>
                 <% end %>

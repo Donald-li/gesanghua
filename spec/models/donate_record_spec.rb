@@ -180,7 +180,7 @@ RSpec.describe DonateRecord, type: :model do
       @read_project = Project.read_project
       @book_season = create(:project_season, project: @read_project)
       @book_apply = create(:project_season_apply, project: @read_project, season: @book_season, school: @school)
-      @bookshelf = create(:project_season_apply_bookshelf, project: @read_project, season: @book_season, apply: @book_apply, school: @school, target_amount: 1000)
+      @bookshelf = create(:project_season_apply_bookshelf, project: @read_project, season: @book_season, apply: @book_apply, school: @school, target_amount: 1000, present_amount: 0)
     end
 
     it '测试线下配捐给指定申请方法' do
@@ -259,35 +259,39 @@ RSpec.describe DonateRecord, type: :model do
     end
 
     it '测试线下配捐给指定图书角方法' do
-      params = {donate_way: 'offline', source_id: @source.id, offline_record_id: @income_record.id, amount: 500}
+      params = {donate_way: 'offline', source_id: @source.id, offline_record_id: @income_record.id}
       DonateRecord.platform_donate_bookshelf(params, @bookshelf)
-      expect(@bookshelf.donates.last.amount).to eq 500
+      expect(@bookshelf.donates.last.amount).to eq 1000
     end
 
     it '测试使用其他资金配捐给指定图书角方法(资金不足)' do
+      @bookshelf.update(present_amount: 0)
       @fund.update(amount: 0)
-      params = {donate_way: 'match', match_fund_id: @fund.id, amount: 500}
+      params = {donate_way: 'match', match_fund_id: @fund.id}
       expect(DonateRecord.platform_donate_bookshelf(params, @bookshelf)).to eq false
     end
 
     it '测试使用其他资金给指定图书角方法(资金充足)' do
+      @bookshelf.update(present_amount: 0)
       @fund.update(amount: 30000)
-      params = {donate_way: 'match', match_fund_id: @fund.id, amount: 500}
+      params = {donate_way: 'match', match_fund_id: @fund.id}
       DonateRecord.platform_donate_bookshelf(params, @bookshelf)
-      expect(@bookshelf.donates.last.amount).to eq 500
+      expect(@bookshelf.donates.last.amount).to eq 1000
     end
 
     it '测试用户余额配捐给指定图书角方法(余额不足)' do
+      @bookshelf.update(present_amount: 0)
       @user.update(balance: 0)
-      params = {donate_way: 'balance', balance_id: @user.id, amount: 500}
+      params = {donate_way: 'balance', balance_id: @user.id}
       expect(DonateRecord.platform_donate_bookshelf(params, @bookshelf)).to eq false
     end
 
     it '测试用户余额给指定图书角方法(余额充足)' do
+      @bookshelf.update(present_amount: 0)
       @user.update(balance: 30000)
-      params = {donate_way: 'balance', balance_id: @user.id, amount: 500}
+      params = {donate_way: 'balance', balance_id: @user.id}
       DonateRecord.platform_donate_bookshelf(params, @bookshelf)
-      expect(@bookshelf.donates.last.amount).to eq 500
+      expect(@bookshelf.donates.last.amount).to eq 1000
     end
 
   end

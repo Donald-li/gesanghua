@@ -32,6 +32,7 @@ class DonateItem < ApplicationRecord
       json.(self, :name)
       json.value self.id
       json.project_name self.project.try(:alias)
+      json.describe self.describe
       if self.amount_tabs.present?
         json.amount_tabs self.amount_tabs.show.sorted.map {|t| t.summary_builder}
       else
