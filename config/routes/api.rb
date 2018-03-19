@@ -57,6 +57,9 @@ namespace :api do
     resources :bookshelf_supplements
 
     resources :read_supplements do
+      collection do
+        get :can_apply
+      end
       member do
         get :class_list
       end
