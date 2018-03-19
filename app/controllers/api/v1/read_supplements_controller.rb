@@ -60,6 +60,16 @@ class Api::V1::ReadSupplementsController < Api::V1::BaseController
     api_success(data: @supplements.map { |s| s.class_list_summary_builder })
   end
 
+  def can_apply
+    @school = current_user.teacher.school
+    season = ProjectSeason.find(params[:season_id])
+    if ProjectSeasonApply.allow_apply?(@school, season)
+      api_success(data: {result: true}, message: '')
+    else
+      api_success(data: {result: false}, message: '您无法申请本批次')
+    end
+  end
+
   private
   def set_project
     @project = Project.book_supply_project
