@@ -1,0 +1,16 @@
+<script>
+    $(function(){
+        <% if flash[:notice]%>
+        layer.msg('<%= flash.discard(:notice) %>', {
+            icon: 0,
+            offset: 't c'
+        });
+        <% end %>
+        <% if flash[:alert]%>
+        layer.msg('<%= flash.discard(:alert) %>', {
+            icon: 2,
+            offset: 't c'
+        });
+        <% end %>
+    })
+</script>

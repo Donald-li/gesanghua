@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   draw :api
   draw :support
   draw :payment
+  draw :account
 
   mount RuCaptcha::Engine => "/rucaptcha"
   mount ChinaCity::Engine => '/china_city'

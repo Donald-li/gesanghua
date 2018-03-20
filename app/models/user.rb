@@ -103,6 +103,8 @@ class User < ApplicationRecord
 
   has_secure_password
 
+  counter_culture :team, column_name: proc {|model| model.team.present? ? 'member_count' : nil}
+
   def roles=(roles)
     roles = [*roles].map { |r| r.to_sym }
     self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.inject(0, :+)
