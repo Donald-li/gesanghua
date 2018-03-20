@@ -121,7 +121,7 @@ class Task < ApplicationRecord
     end.attributes!
   end
 
-  def detail_builder
+  def detail_builder(user=nil)
     Jbuilder.new do |json|
       json.(self, :id, :name, :num, :duration, :content, :ordinary_flag, :intensive_flag, :urgency_flag, :innovative_flag, :difficult_flag)
       json.location self.workplace.try(:title)
@@ -133,7 +133,7 @@ class Task < ApplicationRecord
       json.end_time self.end_time.strftime("%Y-%m-%d")
       json.cover_mode self.cover.present?
       json.cover_url self.cover_url(:small)
-      json.apply_state self.task_volunteers
+      json.can_apply !self.task_volunteers.where(volunteer: user.volunteer).present?
     end.attributes!
   end
 

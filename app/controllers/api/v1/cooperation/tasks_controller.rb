@@ -33,7 +33,7 @@ class Api::V1::Cooperation::TasksController < Api::V1::BaseController
 
   def show
     task = Task.find(params[:id])
-    api_success(data: task.detail_builder)
+    api_success(data: task.detail_builder(current_user))
   end
 
   def apply
@@ -61,6 +61,10 @@ class Api::V1::Cooperation::TasksController < Api::V1::BaseController
     else
       api_error(message: '取消失败')
     end
+  end
+
+  def finish
+
   end
 
 end
