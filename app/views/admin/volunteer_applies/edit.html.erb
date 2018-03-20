@@ -27,18 +27,18 @@
         </tr>
         <tr>
           <th>
-            类型
+            个人简介
           </th>
           <th>
-            <%= @apply.enum_name(:kind) %>
+            <%= @apply.describe %>
           </th>
         </tr>
         <tr>
           <th>
-            地区
+            技能特长
           </th>
           <th>
-            <%= @apply.user.try(:simple_address) %>
+            <%= @apply.majors.map(&:name).join(', ') %>
           </th>
         </tr>
         </tbody>

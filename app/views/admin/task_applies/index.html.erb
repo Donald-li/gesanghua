@@ -49,9 +49,6 @@
               认证时间
             </th>
             <th>
-              类型
-            </th>
-            <th>
               报名审核状态
             </th>
             <th>
@@ -81,9 +78,6 @@
                   <%= l apply.volunteer.approve_time if apply.volunteer.approve_time.present? %>
                 </td>
                 <td>
-                  <%= apply.volunteer.enum_name(:kind) %>
-                </td>
-                <td>
                   <%= apply.enum_name(:approve_state) %>
                 </td>
                 <td>
@@ -91,8 +85,6 @@
                   <%= link_to edit_admin_task_task_apply_path(@task, apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-gavel"></i> 报名审核
                   <% end %>
-                  <% else %>
-                    已审核
                   <% end %>
                 </td>
               </tr>

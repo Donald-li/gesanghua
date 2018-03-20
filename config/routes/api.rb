@@ -47,10 +47,49 @@ namespace :api do
       resources :my_reads
     end
 
+    # 协作平台
+    namespace :cooperation do
+      resources :tasks, only: [:index, :show] do
+        collection do
+          get :my_tasks
+          post :apply
+          get :cancel
+          get :workplace
+          get :category
+        end
+      end
+    end
+
+    # 格桑花+
+    namespace :gsh_plus do
+      resources :mains, only: [:index]
+      resources :schools, only: [:create, :show]
+      resources :project_applies, only: [:new, :show] # 项目申请
+      resources :volunteers do
+        collection do
+          get :majors
+          get :volunteer_apply
+          get :volunteer_info
+          get :edit_volunteer
+          post :update_volunteer
+        end
+      end
+      resources :gsh_children, only: [] do
+        collection do
+          post :match_identity
+          get :confirm_identity
+          post :confirm
+          get :edit_child
+          post :update_child
+        end
+      end
+    end
+
     resources :bookshelves do
       member do
         post :define_name
         get :class_list
+        get :show_logistic
       end
     end
 
@@ -62,26 +101,11 @@ namespace :api do
       end
       member do
         get :class_list
+        get :show_logistic
       end
     end
 
     resources :read_applies
-
-    namespace :gsh_plus do
-      resources :mains, only: [:index]
-      resources :schools, only: [:create, :show]
-      resources :project_applies, only: [:new, :show] # 项目申请
-
-      resources :gsh_children, only: [] do
-        collection do
-          post :match_identity
-          get :confirm_identity
-          post :confirm
-          get :edit_child
-          post :update_child
-        end
-      end
-    end
 
     resource :main, only: [:show] do
       post :month_contribute

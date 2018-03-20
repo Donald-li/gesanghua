@@ -36,9 +36,19 @@ class Admin::SupplementsController < Admin::BaseController
 
   def shipment
     @supplement = BookshelfSupplement.find(params[:id])
-    @supplement.non_reception!
+    @logistic = Logistic.new
+  end
+
+  def create_shipment
+    @supplement = BookshelfSupplement.find(params[:id])
+    @logistic = Logistic.new(logistic_params.merge(owner: @supplement))
     respond_to do |format|
-      format.html { redirect_to admin_read_project_supplements_path(@project), notice: '发货成功。' }
+      if @logistic.save
+        @supplement.to_receive!
+        format.html { redirect_to admin_read_project_supplements_path(@project), notice: '发货成功。' }
+      else
+        format.html { render :shipment }
+      end
     end
   end
 
@@ -54,5 +64,9 @@ class Admin::SupplementsController < Admin::BaseController
 
   def supplement_params
     params.require(:bookshelf_supplement).permit!
+  end
+
+  def logistic_params
+    params.require(:logistic).permit!
   end
 end

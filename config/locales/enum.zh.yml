@@ -98,6 +98,9 @@ zh:
     done: '已完成'
     cancelled: '已取消'
     refunded: '已退款'
+  project_season_apply_read_states:
+    read_executing: '执行中'
+    read_done: '已完成'
   project_season_apply_bookshelf_types:
     whole: '图书角'
     supplement: '补书'
@@ -105,6 +108,9 @@ zh:
     submit: '待审核'
     pass: '通过'
     reject: '不通过'
+  project_season_apply_child_states:
+    show: '显示'
+    hidden: '隐藏'
   volunteer_states:
     enable: '启用'
     disable: '禁用'
@@ -133,9 +139,9 @@ zh:
     pass: '通过'
     reject: '不通过'
   project_season_apply_pair_states:
-    waiting_upload: '未使用'
+    waiting_upload: '待提交名单'
     waiting_check: '待审核'
-    pair_complete: '已使用'
+    pair_complete: '审核完成'
   project_season_apply_child_genders:
     male: '男'
     female: '女'
@@ -230,6 +236,7 @@ zh:
     pick_done: '筛选完成'
     doing: '执行中'
     done: '已完成'
+    cancel: '已取消'
   task_kinds:
     normal: '公开任务'
     appoint: '指派任务'
@@ -237,10 +244,12 @@ zh:
     submit: '待审核'
     pass: '通过'
     reject: '不通过'
+    cancel: '已取消'
   task_volunteer_finish_states:
     doing: '执行中'
     to_check: '待确认'
     done: '已完成'
+    turn_over: '已移交'
   school_approve_states:
     submit: '待审核'
     pass: '通过'
@@ -458,3 +467,13 @@ zh:
   team_kinds:
     society: '社会团队'
     college: '高校团队'
+  badge_level_kinds:
+    user_donate: '用户筹款'
+    society_team: '社会团队筹款'
+    college_team: '高校团队筹款'
+    ordinary_task: '日常任务'
+    intensive_task: '日常任务'
+    urgency_task: '紧急任务'
+    innovative_task: '创新任务'
+    difficult_task: '难点任务'
+    volunteer_age: '志愿者年限'

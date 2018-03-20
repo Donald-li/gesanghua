@@ -16,7 +16,8 @@
     <%= simple_form_for [:admin, @teacher], url: admin_school_school_teacher_path(@school), wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
         <%= f.error_notification %>
         <div class="form-body form-horizontal">
-          <%= f.input :name, label: '姓名：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+          <%#= f.input :name, label: '姓名：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+          <%= static_form_control '姓名：', @teacher.name %>
           <%= f.input :user_id, collection: [@teacher.user].compact.map {|u| [u.name, u.id]}, label: '关联用户', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
           <%= f.input :school_id, collection: [@teacher.school].compact.map {|u| [u.name, u.id]}, label: '关联学校', prompt: "请选择学校", input_html: {class: 'school_selector'} %>
           <%= f.input :phone, label: '手机号码：', autofocus: true, input_html: { data: {'parsley-required': true}} %>

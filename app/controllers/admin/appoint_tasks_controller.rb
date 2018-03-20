@@ -23,7 +23,7 @@ class Admin::AppointTasksController < Admin::BaseController
     respond_to do |format|
       if @task.save
         params[:appoint_ids].each do |appoint_id|
-          @task.task_volunteers.create(volunteer_id: appoint_id, approve_state: 'pass', approve_time: Time.now)
+          @task.task_volunteers.create(volunteer_id: appoint_id, approve_state: 'pass', approve_time: Time.now, kind: 'additional')
         end
         format.html { redirect_to admin_tasks_path, notice: '新建成功。' }
       else
@@ -55,8 +55,9 @@ class Admin::AppointTasksController < Admin::BaseController
 
   def switch_update
     @task_volunteer = TaskVolunteer.find(params[:task_volunteer_id])
+    tv = TaskVolunteer.new(task: @task_volunteer.task, volunteer_id: params[:appoint_id], approve_state: 'pass', kind: 'additional')
     respond_to do |format|
-      if @task_volunteer.update(volunteer_id: params[:appoint_id])
+      if @task_volunteer.update(finish_state: 'turn_over') && tv.save
         format.html { redirect_to admin_task_path(@task), notice: '移交成功。' }
       else
         format.html { redirect_to admin_task_path(@task), notice: '移交失败。' }

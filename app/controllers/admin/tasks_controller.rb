@@ -20,7 +20,6 @@ class Admin::TasksController < Admin::BaseController
 
   def create
     @task = Task.new(task_params)
-
     respond_to do |format|
       if @task.save
         @task.attach_cover(params[:cover_id])

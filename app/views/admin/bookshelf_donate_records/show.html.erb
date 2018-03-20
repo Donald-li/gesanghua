@@ -5,7 +5,7 @@
       <span class="caption-subject font-dark bold uppercase">收入明细详情</span>
     </div>
     <div class="actions">
-      <%= link_to admin_read_project_bookshelf_donate_records_path(@apply), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+      <%= link_to admin_read_project_bookshelf_donate_records_path(@apply, bookshelf_id: @bookshelf.id), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
         <i class="fa fa-reply"></i>
         <span>返回</span>
       <% end %>
@@ -28,7 +28,7 @@
             捐助项目
           </th>
           <th>
-            一对一助学项目
+            悦读项目
           </th>
         </tr>
         <tr>
@@ -60,7 +60,7 @@
             捐助人
           </th>
           <th>
-            <%= @donate_record.user.name %> ( <%= @donate_record.user.phone %> )
+            <%= @donate_record.user.try(:name) %> ( <%= @donate_record.user.try(:phone) %> )
           </th>
         </tr>
         <tr>

@@ -10,6 +10,6 @@
 
 FactoryBot.define do
   factory :major do
-    
+    name FFaker::Name.name
   end
 end

@@ -37,6 +37,7 @@
 #  form              :jsonb                                  # 自定义表单{key, value}
 #  pair_state        :integer                                # 结对审核状态
 #  code              :string                                 # code
+#  read_state        :integer                                # 悦读项目状态
 #
 
 FactoryBot.define do

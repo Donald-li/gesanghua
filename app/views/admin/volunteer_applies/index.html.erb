@@ -37,10 +37,7 @@
               联系方式
             </th>
             <th>
-              类型
-            </th>
-            <th>
-              地区
+              个人简介
             </th>
             <th>
               操作
@@ -60,10 +57,7 @@
                   <%= apply.user.try(:phone) %>
                 </td>
                 <td>
-                  <%= apply.enum_name(:kind) %>
-                </td>
-                <td>
-                  <%= apply.user.try(:simple_address) %>
+                  <%= apply.describe %>
                 </td>
                 <td>
                   <%= link_to edit_admin_volunteer_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
