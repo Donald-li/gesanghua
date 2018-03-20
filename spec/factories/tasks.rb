@@ -19,10 +19,14 @@
 #  kind             :integer
 #  task_category_id :integer                                # 任务分类ID
 #  workplace_id     :integer                                # 工作地点ID
-#  types_mask       :integer                                # 任务类型
 #  apply_end_at     :datetime                               # 申请结束时间
 #  principal_id     :integer                                # 任务负责人
 #  task_no          :string                                 # 任务编号
+#  ordinary_flag    :boolean          default(FALSE)        # 日常
+#  intensive_flag   :boolean          default(FALSE)        # 重点
+#  urgency_flag     :boolean          default(FALSE)        # 紧急
+#  innovative_flag  :boolean          default(FALSE)        # 创新
+#  difficult_flag   :boolean          default(FALSE)        # 难点
 #
 
 FactoryBot.define do

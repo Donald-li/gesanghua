@@ -1,4 +1,5 @@
 scope module: :site do
+
   resources :articles, only: [:index, :show], concerns: :list
   resource :disclosure, only: :show
   get '/p/:alias', to: 'pages#show'
@@ -23,6 +24,16 @@ scope module: :user do
 end
 
 namespace :account do
+  get '/login' => 'sessions#new', as: :login
+  match '/logout', to: 'sessions#destroy', as: :logout, via: :delete
+  resource :session, only: [:create, :edit, :update] do
+    member do
+      get :forget
+      post :find_back
+      get :info
+    end
+  end
+  resource :registration, only: [:show, :new, :create]
   resource :modify_password, only: [:edit, :update]
   resource :profile, only: [:show, :edit, :update]
   resources :donations, only: [:index]

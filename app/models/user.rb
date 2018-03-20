@@ -50,7 +50,8 @@ class User < ApplicationRecord
 
   belongs_to :team, optional: true
 
-  has_one :school
+  has_one :school # 校长
+  has_one :create_school, class_name: 'School', foreign_key: 'creater_id', dependent: :nullify # 用户创建的学校
   has_one :administrator
   has_one :teacher
   has_one :volunteer
@@ -125,7 +126,7 @@ class User < ApplicationRecord
   end
 
   def user_avatar
-    self.profile["headimgurl"] || self.avatar.file_url(:tiny)
+    self.profile["headimgurl"] || self.avatar.file_url(:tiny) if self.avatar.present?
   end
 
   def headmaster?
@@ -167,15 +168,15 @@ class User < ApplicationRecord
   def school_approve_state
     if self.teacher?
       self.teacher.school.approve_state
-    elsif self.school.present?
-      self.school.approve_state
+    elsif self.create_school.present?
+      self.create_school.approve_state
     else
       'default'
     end
   end
 
   def volunteer_approve_state
-    self.volunteer.present? ? self.school.approve_state : 'default'
+    self.volunteer.present? ? self.volunteer.approve_state : 'default'
   end
 
   # 可开票金额
@@ -232,6 +233,8 @@ class User < ApplicationRecord
       json.promoter_count self.promoter_amount_count
       json.team_name self.team.present? ? self.team.name : ''
       json.join_team_time self.join_team_time.strftime("%Y-%m-%d") if self.join_team_time.present?
+      json.roles self.roles
+      json.project_ids self.manage_projects.ids if self.headmaster? || self.teacher?
     end.attributes!
   end
 

@@ -20,8 +20,8 @@ class Admin::BookshelfDonateRecordsController < Admin::BaseController
 
   def create
     respond_to do |format|
-      if DonateRecord.platform_donate_apply(params, @apply)
-        format.html {redirect_to admin_read_project_read_donate_records_path(@apply), notice: '新增成功。'}
+      if DonateRecord.platform_donate_bookshelf(params, @bookshelf)
+        format.html {redirect_to admin_read_project_bookshelf_donate_records_path(@apply, bookshelf_id: @bookshelf.id), notice: '新增成功。'}
       else
         flash[:notice] = '检查余额或表单'
         format.html {render :new}
@@ -32,7 +32,7 @@ class Admin::BookshelfDonateRecordsController < Admin::BaseController
   def destroy
     @donate_record.destroy
     respond_to do |format|
-      format.html {redirect_to admin_read_project_read_donate_records_path(@apply), notice: '删除成功。'}
+      format.html {redirect_to admin_read_project_bookshelf_donate_records_path(@apply, bookshelf_id: @bookshelf.id), notice: '删除成功。'}
     end
   end
 

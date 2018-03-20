@@ -31,9 +31,6 @@ class Admin::SchoolsController < Admin::BaseController
     @school.approve_state = 'pass'
     if @school.user.present?
       @user = @school.user
-      @school.contact_name = @user.name
-      @school.contact_phone = @user.phone
-      @school.contact_id_card = @user.id_card
       if !@user.has_role?(:headmaster)
         @user.roles = @user.roles.push(:headmaster)
         @user.save
@@ -116,12 +113,6 @@ class Admin::SchoolsController < Admin::BaseController
     end
     respond_to do |format|
       if @school.update(school_params)
-        if @user.present?
-          @school.contact_name = @user.name
-          @school.contact_phone = @user.phone
-          @school.contact_id_card = @user.id_card
-          @school.save
-        end
         @school.attach_logo(params[:logo_id])
         format.html { redirect_to referer_or(admin_schools_url), notice: '学校信息已修改。' }
       else

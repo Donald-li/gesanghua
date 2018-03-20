@@ -1,0 +1,65 @@
+<div id="first-screen" class="first-screen">
+  <div class="screen-body">
+    <div class="screen-body-cell">
+      <div class="auto-box cell-wrap">
+        <div class="login-box" style="height: 320px;">
+          <div class="login-header">密码修改成功</div>
+          <div class="login-body">
+              <div class="form-body">
+                <div class="form-group">
+                  <div class="help-disc">
+                    密码重置成功， <span id="sp">3</span> s后回到登录页面。
+                  </div>
+                </div>
+              </div>
+              <div class="login-btn-wrap">
+                <%= link_to '返回登录界面', organization_login_path, class: 'btn btn btn-danger btn-lg' %>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+  }
+</style>
+<script type="text/javascript" charset="utf-8">
+  $(function () {
+    setHeight();
+  });
+  $(window).resize(function () {
+    setHeight();
+  });
+  function setHeight() {
+    var windowHeight = $(window).height();
+    $('#first-screen').css('height', windowHeight + 'px');
+  }
+
+  onload = function(){
+      setInterval(go, 1000);
+  };
+  var x = 3; //利用了全局变量来执行
+  function go(){
+      x--;
+      if(x>0){
+          document.getElementById("sp").innerHTML = x; //每次设置的x的值都不一样了。
+      }else{
+          location.href = '<%= organization_login_path %>';
+      }
+  }
+
+</script>
+
+
+
+
+
+

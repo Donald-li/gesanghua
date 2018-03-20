@@ -17,6 +17,9 @@
 #  volunteer_no       :string                                 # 志愿者编号
 #  volunteer_apply_no :string                                 # 志愿者申请编号
 #  internship_state   :integer                                # 实习还是正式
+#  describe           :text                                   # 个人简介
+#  phone              :string                                 # 手机号
+#  workstation        :string                                 # 工作单位
 #
 
 # 志愿者
@@ -51,6 +54,9 @@ class Volunteer < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
+  include HasAsset
+  has_one_asset :image, class_name: 'Asset::VolunteerImage'
+
   before_create :gen_volunteer_apply_no
 
   def volunteer_name
@@ -76,14 +82,41 @@ class Volunteer < ApplicationRecord
 
   def summary_builder
     Jbuilder.new do |json|
-      json.(self, :id)
+      json.(self, :id, :volunteer_no, :duration)
       json.user_nickname self.try(:user).try(:nickname)
       json.user_phone self.try(:user).try(:phone)
       json.user_province ChinaCity.get(self.try(:user).try(:province)).to_s
       json.user_city ChinaCity.get(self.try(:user).try(:city)).to_s
       json.state self.volunteer_state
+      json.approve_time self.approve_time.strftime("%Y-%m-%d")
       json.practice self.practice? ? '实习中' : ''
+      json.avatar_mode self.user.avatar.present?
       json.user_avatar_src self.try(:user).try(:avatar).try(:file_url)
+    end.attributes!
+  end
+
+  def detail_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :describe, :workstation)
+      json.user_name self.try(:user).try(:name)
+      json.user_nickname self.try(:user).try(:nickname)
+      json.phone self.phone
+      json.user_email self.user.try(:email)
+      json.user_qq self.user.try(:qq)
+      json.avatar_mode self.user.avatar.present?
+      json.avatar do
+        json.id self.user.try(:avatar).try(:id)
+        json.url self.user.try(:avatar).try(:file).try(:url)
+        json.protect_token self.user.try(:avatar).try(:protect_token)
+      end
+    end.attributes!
+  end
+
+  def apply_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :phone, :describe, :major_ids)
+      json.name self.try(:user).try(:name)
+      json.id_card self.user.try(:id_card)
     end.attributes!
   end
 

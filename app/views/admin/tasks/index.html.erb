@@ -138,6 +138,14 @@
                           <% end %>
                         <% end %>
                       </li>
+                      <li>
+                        <%= link_to switch_admin_task_path(task, state: 'cancel'), method: :put, data: {confirm: '确定取消此任务吗？'} do %>
+                            标记为取消
+                            <% if task.cancel? %>
+                                <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
+                            <% end %>
+                        <% end %>
+                      </li>
                     </ul>
                   </div>
                 <% else %>

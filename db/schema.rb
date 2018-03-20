@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180319091258) do
+ActiveRecord::Schema.define(version: 20180319093009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -896,10 +896,14 @@ ActiveRecord::Schema.define(version: 20180319091258) do
     t.integer "kind"
     t.integer "task_category_id", comment: "任务分类ID"
     t.integer "workplace_id", comment: "工作地点ID"
-    t.integer "types_mask", comment: "任务类型"
     t.datetime "apply_end_at", comment: "申请结束时间"
     t.integer "principal_id", comment: "任务负责人"
     t.string "task_no", comment: "任务编号"
+    t.boolean "ordinary_flag", default: false, comment: "日常"
+    t.boolean "intensive_flag", default: false, comment: "重点"
+    t.boolean "urgency_flag", default: false, comment: "紧急"
+    t.boolean "innovative_flag", default: false, comment: "创新"
+    t.boolean "difficult_flag", default: false, comment: "难点"
   end
 
   create_table "teacher_projects", force: :cascade, comment: "老师项目表" do |t|
@@ -1046,6 +1050,9 @@ ActiveRecord::Schema.define(version: 20180319091258) do
     t.string "volunteer_no", comment: "志愿者编号"
     t.string "volunteer_apply_no", comment: "志愿者申请编号"
     t.integer "internship_state", comment: "实习还是正式"
+    t.text "describe", comment: "个人简介"
+    t.string "phone", comment: "手机号"
+    t.string "workstation", comment: "工作单位"
   end
 
   create_table "voucher_donate_records", force: :cascade, comment: "捐赠收据捐助记录表" do |t|
