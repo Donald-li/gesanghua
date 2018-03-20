@@ -76,7 +76,15 @@ class Api::V1::Cooperation::TasksController < Api::V1::BaseController
   end
 
   def finish
-
+    task = Task.find(params[:task_id])
+    volunteer = current_user.volunteer
+    tv = TaskVolunteer.find_by(task: task, volunteer: volunteer)
+    if tv.update(achievement_comment: params[:content], finish_state: 'to_check')
+      tv.attach_images(params[:images].pluck(:id)) if params[:images].present?
+      api_success(message: '成果提交成功')
+    else
+      api_error(message: '提交失败')
+    end
   end
 
 end

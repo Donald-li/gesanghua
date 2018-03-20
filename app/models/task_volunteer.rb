@@ -27,6 +27,9 @@ class TaskVolunteer < ApplicationRecord
   belongs_to :user, optional: true
   has_many :audits, as: :owner # 报名审核
 
+  include HasAsset
+  has_many_assets :images, class_name: 'Asset::AchievementImage'
+
   enum approve_state: {submit: 1, pass: 2, reject: 3, cancel: -1} # 报名审核状态 1:待审核 2:通过 3:未通过
   default_value_for :approve_state, 1
 

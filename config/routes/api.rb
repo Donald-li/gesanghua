@@ -56,6 +56,7 @@ namespace :api do
           get :cancel
           get :workplace
           get :category
+          post :finish
         end
       end
     end

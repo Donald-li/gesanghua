@@ -50,6 +50,15 @@ RSpec.describe "Api::V1::Cooperation::Tasks", type: :request do
       api_v1_expect_success
     end
 
+    it '完成任务' do
+      post apply_api_v1_cooperation_tasks_path(id: task1), headers: api_v1_headers(login_user)
+      api_v1_expect_success
+      volunteer.task_volunteers.first.pass!
+      post finish_api_v1_cooperation_tasks_path,
+          params: {task_id: task1.id, content: 'hahahah'}, headers: api_v1_headers(login_user)
+      api_v1_expect_success
+    end
+
   end
 
 end
