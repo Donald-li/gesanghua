@@ -58,8 +58,6 @@ class Api::V1::DonatesController < Api::V1::BaseController
     record.team = current_user.team if params[:by_team] == 'true'
     record.donor = params[:donor] if params[:donor].present?
     record.pay_state = 'paid' if Settings.skip_pay_mode
-    logger.info('================Settings.skip_pay_mode: ' + Settings.skip_pay_mode.to_s)
-    logger.info('================捐助记录支付状态: ' + record.pay_state)
 
     if record.save
       if params[:pay_method] == 'balance'
