@@ -1,0 +1,27 @@
+<%= simple_form_for [:admin, @level], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
+    <%= f.error_notification %>
+    <div class="form-body form-horizontal">
+      <div class="form-group">
+        <label class="col-md-2 control-label">勋章图标：</label>
+        <div class="col-sm-9">
+          <%= webuploader_tag :icon_id, label: '上传勋章图标', type: 'badgeIcon', asset: @level.icon, klass: 'single' %>
+        </div>
+      </div>
+      <%= f.input :title, label: '勋章名称：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :value, label: '达成条件：', input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :rank, label: '级别显示：', hint: '如LV1、LV2等', input_html: { data: {'parsley-required': true}} %>
+    </div>
+    <div class="form-actions">
+      <div class="row">
+        <div class="col-md-offset-3 col-md-9">
+          <%= f.button :submit, '提交', class: 'btn green' %>
+          <%= link_to '取消', admin_badge_levels_path, class: 'btn' %>
+        </div>
+      </div>
+    </div>
+<% end %>
+<script>
+  $(function(){
+    initImageWebuploader($('#webuploader'));
+  })
+</script>
