@@ -37,6 +37,7 @@
 #  form              :jsonb                                  # 自定义表单{key, value}
 #  pair_state        :integer                                # 结对审核状态
 #  code              :string                                 # code
+#  read_state        :integer                                # 悦读项目状态
 #
 
 # 所有项目年度申请表
@@ -89,6 +90,9 @@ class ProjectSeasonApply < ApplicationRecord
 
   enum pair_state: {waiting_upload: 1, waiting_check: 2, pair_complete: 3}
   default_value_for :pair_state, 1
+
+  enum read_state: {read_executing: 1, read_done: 2}
+  default_value_for :read_state, 1
 
   enum bookshelf_type: {whole: 1, supplement: 2}
   # default_value_for :bookshelf_type, 1
@@ -200,12 +204,16 @@ class ProjectSeasonApply < ApplicationRecord
         '审核未通过'
       end
     elsif self.raise_project?
-      if self.done?
-        '已完成'
-      elsif self.cancelled?
-        '已取消'
+      if self.project == Project.read_project
+        self.enum_name(:read_state)
       else
-        '执行中'
+        if self.done?
+          '已完成'
+        elsif self.cancelled?
+          '已取消'
+        else
+          '执行中'
+        end
       end
     end
   end
