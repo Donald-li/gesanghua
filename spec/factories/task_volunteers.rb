@@ -17,6 +17,7 @@
 #  finish_state        :integer                                # 完成状态1:未完成doing 2:已完成done
 #  source              :string                                 # 获得来源
 #  kind                :integer                                # 类型
+#  reason              :text                                   # 申请理由
 #
 
 FactoryBot.define do

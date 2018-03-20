@@ -238,10 +238,12 @@ zh:
     submit: '待审核'
     pass: '通过'
     reject: '不通过'
+    cancel: '已取消'
   task_volunteer_finish_states:
     doing: '执行中'
     to_check: '待确认'
     done: '已完成'
+    turn_over: '已移交'
   school_approve_states:
     submit: '待审核'
     pass: '通过'

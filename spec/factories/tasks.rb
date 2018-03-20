@@ -34,5 +34,9 @@ FactoryBot.define do
     name { FFaker::NameCN.name }
     duration 6
     content { FFaker::LoremCN.sentences(5) }
+    apply_end_at Time.now + 2.day
+    start_time Time.now + 3.day
+    end_time Time.now + 3.day
+    num 12
   end
 end

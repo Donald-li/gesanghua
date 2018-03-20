@@ -47,6 +47,17 @@ namespace :api do
       resources :my_reads
     end
 
+    # 协作平台
+    namespace :cooperation do
+      resources :tasks, only: [:index, :show] do
+        collection do
+          get :my_tasks
+          post :apply
+          get :cancel
+        end
+      end
+    end
+
     # 格桑花+
     namespace :gsh_plus do
       resources :mains, only: [:index]

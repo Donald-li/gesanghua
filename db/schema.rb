@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180319093009) do
+ActiveRecord::Schema.define(version: 20180320052142) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -313,18 +313,6 @@ ActiveRecord::Schema.define(version: 20180319093009) do
     t.string "operator", comment: "支出经办人"
     t.text "remark", comment: "备注"
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "支出金额"
-  end
-
-  create_table "family_members", force: :cascade, comment: "家庭成员表" do |t|
-    t.integer "visit_id", comment: "家访表ID"
-    t.string "name", comment: "成员姓名"
-    t.integer "age", comment: "年龄"
-    t.string "relationship", comment: "关系"
-    t.string "profession", comment: "职业"
-    t.text "health_condition", comment: "健康状况"
-    t.text "job_condition", comment: "工作情况"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "feedbacks", force: :cascade, comment: "反馈表" do |t|
@@ -866,6 +854,7 @@ ActiveRecord::Schema.define(version: 20180319093009) do
     t.integer "finish_state", comment: "完成状态1:未完成doing 2:已完成done"
     t.string "source", comment: "获得来源"
     t.integer "kind", comment: "类型"
+    t.text "reason", comment: "申请理由"
   end
 
   create_table "tasks", force: :cascade, comment: "任务表" do |t|
