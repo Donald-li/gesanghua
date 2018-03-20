@@ -61,7 +61,7 @@ class DonateRecord < ApplicationRecord
   belongs_to :donate_item, optional: true
 
   counter_culture :project, column_name: :donate_record_amount_count, delta_magnitude: proc {|model| model.amount}
-  counter_culture :user, column_name: :donate_count, delta_magnitude: proc {|model| model.amount}
+  counter_culture :user, column_name: proc{|model| model.user.present? && model.pay_state == 'paid' ? 'donate_count' : nil}, delta_magnitude: proc {|model| model.amount }
   counter_culture :promoter, column_name: proc{|model| model.promoter.present? && model.pay_state == 'paid' ? 'promoter_amount_count' : nil}, delta_magnitude: proc {|model| model.amount }
   counter_culture :team, column_name: proc{|model| model.team.present? && model.pay_state == 'paid' ? 'total_donate_amount' : nil}, delta_magnitude: proc {|model| model.amount }
   counter_culture :team, column_name: proc{|model| model.team.present? && model.pay_state == 'paid' ? 'current_donate_amount' : nil}, delta_magnitude: proc {|model| model.amount }
@@ -485,6 +485,7 @@ class DonateRecord < ApplicationRecord
     Jbuilder.new do |json|
       json.(self, :id, :donor, :donate_no, :remitter_name, :project_id, :pay_state, :promoter_id)
       json.user_name self.user.present? ? self.user.name : '爱心人士'
+      json.user_avatar self.user.user_avatar
       json.time self.created_at.strftime('%Y-%m-%d %H:%M:%S')
       json.amount number_to_currency(self.amount)
       json.item_name self.appoint.present? ? self.appoint.name : ''

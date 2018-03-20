@@ -126,7 +126,7 @@ class User < ApplicationRecord
   end
 
   def user_avatar
-    self.profile["headimgurl"] || self.avatar.file_url(:tiny)
+    self.profile["headimgurl"] || self.avatar.file_url(:tiny) if self.avatar.present?
   end
 
   def headmaster?

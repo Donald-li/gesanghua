@@ -113,6 +113,9 @@ admin:
         admin_task_workplace:
           actions:
             'admin/workplaces': all
+        admin_badge_level:
+          actions:
+            'admin/badge_levels': all
 
         # 管理员列表
         admin_administrator:

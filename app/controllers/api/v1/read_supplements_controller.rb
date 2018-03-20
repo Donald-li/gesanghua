@@ -70,6 +70,12 @@ class Api::V1::ReadSupplementsController < Api::V1::BaseController
     end
   end
 
+  def show_logistic
+    @supplement = BookshelfSupplement.find(params[:id])
+    @logistic = @supplement.logistic
+    api_success(data: @logistic.qurey_result)
+  end
+
   private
   def set_project
     @project = Project.book_supply_project

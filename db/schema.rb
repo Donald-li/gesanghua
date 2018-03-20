@@ -98,6 +98,16 @@ ActiveRecord::Schema.define(version: 20180320052142) do
     t.index ["owner_type", "owner_id"], name: "index_audits_on_owner_type_and_owner_id"
   end
 
+  create_table "badge_levels", force: :cascade, comment: "勋章级别" do |t|
+    t.integer "kind", comment: "类型"
+    t.string "title", comment: "标题"
+    t.integer "position", comment: "排序"
+    t.integer "value", comment: "获得条件"
+    t.string "rank", comment: "级别描述"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "beneficial_children", force: :cascade do |t|
     t.string "id_no", comment: "身份证号"
     t.string "name", comment: "姓名"
@@ -406,8 +416,8 @@ ActiveRecord::Schema.define(version: 20180320052142) do
     t.text "remark"
     t.integer "operator_id", comment: "异常处理人id"
     t.string "grant_person", comment: "发放人"
-    t.integer "user_id", comment: "捐助人"
     t.integer "grant_batch_id", comment: "发放批次"
+    t.integer "user_id", comment: "捐助人"
     t.index ["gsh_child_id"], name: "index_gsh_child_grants_on_gsh_child_id"
     t.index ["project_season_apply_id"], name: "index_gsh_child_grants_on_project_season_apply_id"
   end
@@ -415,6 +425,7 @@ ActiveRecord::Schema.define(version: 20180320052142) do
   create_table "gsh_children", force: :cascade, comment: "格桑花孩子表" do |t|
     t.string "name", comment: "孩子姓名"
     t.integer "kind", comment: "类型"
+    t.integer "integer", comment: "类型"
     t.string "workstation", comment: "工作地点"
     t.string "province", comment: "省"
     t.string "city", comment: "市"
@@ -608,12 +619,12 @@ ActiveRecord::Schema.define(version: 20180320052142) do
     t.integer "school_id", comment: "学校ID"
     t.integer "semester", comment: "学期"
     t.integer "kind", comment: "捐助形式：1对外捐助 2内部认捐"
-    t.integer "donate_user_id", comment: "捐助人id"
-    t.string "reason", comment: "结对申请理由"
     t.string "gsh_no", comment: "格桑花孩子编号"
     t.integer "semester_count", comment: "学期数"
     t.integer "done_semester_count", comment: "已完成的学期数"
     t.integer "user_id", comment: "关联的用户ID"
+    t.integer "donate_user_id", comment: "捐助人id"
+    t.string "reason", comment: "结对申请理由"
     t.string "teacher_name", comment: "班主任"
     t.string "father", comment: "父亲"
     t.string "father_job", comment: "父亲职业"
@@ -733,7 +744,7 @@ ActiveRecord::Schema.define(version: 20180320052142) do
     t.string "name", comment: "学校名称"
     t.string "address", comment: "地址"
     t.integer "approve_state", default: 1, comment: "审核状态：1:待审核 2:通过 3:不通过"
-    t.text "approve_remark", comment: "审核备注"
+    t.string "approve_remark", comment: "审核备注"
     t.string "province", comment: "省"
     t.string "city", comment: "市"
     t.string "district", comment: "区/县"

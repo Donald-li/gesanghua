@@ -87,6 +87,7 @@ namespace :api do
       member do
         post :define_name
         get :class_list
+        get :show_logistic
       end
     end
 
@@ -98,6 +99,7 @@ namespace :api do
       end
       member do
         get :class_list
+        get :show_logistic
       end
     end
 
