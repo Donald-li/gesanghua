@@ -133,9 +133,9 @@ zh:
     pass: '通过'
     reject: '不通过'
   project_season_apply_pair_states:
-    waiting_upload: '未使用'
+    waiting_upload: '待提交名单'
     waiting_check: '待审核'
-    pair_complete: '已使用'
+    pair_complete: '审核完成'
   project_season_apply_child_genders:
     male: '男'
     female: '女'
