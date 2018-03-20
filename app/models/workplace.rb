@@ -27,4 +27,10 @@ class Workplace < ApplicationRecord
     ChinaCity.get(self.province).to_s + ChinaCity.get(self.city).to_s + ChinaCity.get(self.district).to_s + self.address.to_s
   end
 
+  def summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :title)
+    end.attributes!
+  end
+
 end

@@ -17,4 +17,10 @@ class TaskCategory < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
+  def summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :name)
+    end.attributes!
+  end
+
 end

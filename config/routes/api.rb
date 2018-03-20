@@ -54,6 +54,8 @@ namespace :api do
           get :my_tasks
           post :apply
           get :cancel
+          get :workplace
+          get :category
         end
       end
     end

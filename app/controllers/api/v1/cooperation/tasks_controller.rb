@@ -2,8 +2,20 @@ class Api::V1::Cooperation::TasksController < Api::V1::BaseController
 
   def index
     tasks = Task.open.where.not(id: current_user.volunteer.task_volunteers.pluck(:task_id)).sorted
+    tasks = tasks.where(workplace_id: params[:workplace_id]) if params[:workplace_id].present?
+    tasks = tasks.where(task_category_id: params[:category_id]) if params[:category_id].present?
     tasks = tasks.page(params[:page]).per(params[:per])
     api_success(data: {tasks: tasks.map{|task| task.summary_builder}, pagination: json_pagination(tasks)})
+  end
+
+  def workplace
+    places = Workplace.sorted
+    api_success(data: places.map{|p| p.summary_builder})
+  end
+
+  def category
+    categories = TaskCategory.sorted
+    api_success(data: categories.map{|p| p.summary_builder})
   end
 
   def my_tasks

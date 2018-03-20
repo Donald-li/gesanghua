@@ -17,6 +17,16 @@ RSpec.describe "Api::V1::Cooperation::Tasks", type: :request do
       api_v1_expect_success
     end
 
+    it '获取任务地区' do
+      get workplace_api_v1_cooperation_tasks_path, headers: api_v1_headers(login_user)
+      api_v1_expect_success
+    end
+
+    it '获取任务分类' do
+      get category_api_v1_cooperation_tasks_path, headers: api_v1_headers(login_user)
+      api_v1_expect_success
+    end
+
     it '获取任务详情' do
       get api_v1_cooperation_task_path(id: task1), headers: api_v1_headers(login_user)
       api_v1_expect_success
