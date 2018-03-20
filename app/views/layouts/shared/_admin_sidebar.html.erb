@@ -530,87 +530,96 @@
 
     <ul class="page-sidebar-menu module-menus menus-system hide" data-keep-expanded="false" data-slide-speed="200">
       <li class="heading">
-        <h3 class="uppercase">系统管理</h3>
+        <h3 class="uppercase">基础数据维护</h3>
       </li>
 
-      <li class="nav-item <%= current_nav_class(:admin_system) %>">
+      <li class="nav-item  <%= current_nav_class(:admin_article_category) %>">
+        <%= link_to admin_article_categories_path, class: 'nav-link' do %>
+        <i class="fa fa-file"></i>
+        <span class="title">资讯分类管理</span>
+        <% end %>
+      </li>
+      <li class="nav-item  <%= current_nav_class(:admin_project_template) %>">
+        <%= link_to admin_projects_path, class: 'nav-link' do %>
+        <i class="fa fa-puzzle-piece"></i>
+        <span class="title">项目管理</span>
+        <% end %>
+      </li>
+      <li class="nav-item  <%= current_nav_class(:admin_donate_item_template) %>">
+        <%= link_to admin_donate_items_path, class: 'nav-link' do %>
+        <i class="fa fa-heart-o"></i>
+        <span class="title">捐助项管理</span>
+        <% end %>
+      </li>
+      <li class="nav-item  <%= current_nav_class(:admin_support_category) %>">
+        <%= link_to admin_support_categories_path, class: 'nav-link' do %>
+        <i class="fa fa-question"></i>
+        <span class="title">帮助分类管理</span>
+        <% end %>
+      </li>
+      <li class="nav-item  <%= current_nav_class(:admin_income_source) %>">
+        <%= link_to admin_income_sources_path, class: 'nav-link' do %>
+        <i class="fa fa-yen"></i>
+        <span class="title">入账渠道管理</span>
+        <% end %>
+      </li>
+      <li class="nav-item  <%= current_nav_class(:admin_volunteer_major) %>">
+        <%= link_to admin_majors_path, class: 'nav-link' do %>
+        <i class="fa fa-ambulance"></i>
+        <span class="title">志愿者专业管理</span>
+        <% end %>
+      </li>
+      <li class="nav-item  <%= current_nav_class(:admin_task_category) %>">
+        <%= link_to admin_task_categories_path, class: 'nav-link' do %>
+        <i class="fa fa-tasks"></i>
+        <span class="title">任务分类管理</span>
+        <% end %>
+      </li>
+      <li class="nav-item  <%= current_nav_class(:admin_task_workplace) %>">
+        <%= link_to admin_workplaces_path, class: 'nav-link' do %>
+        <i class="fa fa-map-marker"></i>
+        <span class="title">工作地点管理</span>
+        <% end %>
+      </li>
+      <li class="nav-item  <%= current_nav_class(:admin_badge_level) %>">
         <a href="javascript:;" class="nav-link nav-toggle">
-          <i class="fa fa-pie-chart"></i>
-          <span class="title">基础数据维护</span>
-          <span class="arrow <%= current_nav_class(:admin_system, current: :open) %>"></span>
+          <i class="fa fa-certificate"></i>
+          <span class="title">勋章管理</span>
+          <span class="arrow <%= current_nav_class(:admin_badge_level, current: :open) %>"></span>
         </a>
         <ul class="sub-menu">
-          <li class="nav-item  <%= current_nav_class(:admin_article_category) %>">
-            <%= link_to admin_article_categories_path, class: 'nav-link' do %>
-                <span class="title">资讯分类管理</span>
+          <% BadgeLevel.options_for_select(:kinds).each do |b| %>
+          <li class="nav-item  <%= current_nav_class(:admin_badge_level, if: ->{params[:kind]==b.second}) %>">
+            <%= link_to admin_badge_levels_path(kind: b.second), class: 'nav-link' do %>
+            <span class="title"><%= b.first %>勋章管理</span>
             <% end %>
           </li>
-          <li class="nav-item  <%= current_nav_class(:admin_project_template) %>">
-            <%= link_to admin_projects_path, class: 'nav-link' do %>
-                <span class="title">项目管理</span>
-            <% end %>
-          </li>
-          <li class="nav-item  <%= current_nav_class(:admin_donate_item_template) %>">
-            <%= link_to admin_donate_items_path, class: 'nav-link' do %>
-                <span class="title">捐助项管理</span>
-            <% end %>
-          </li>
-          <li class="nav-item  <%= current_nav_class(:admin_support_category) %>">
-            <%= link_to admin_support_categories_path, class: 'nav-link' do %>
-                <span class="title">帮助分类管理</span>
-            <% end %>
-          </li>
-          <li class="nav-item  <%= current_nav_class(:admin_income_source) %>">
-            <%= link_to admin_income_sources_path, class: 'nav-link' do %>
-                <span class="title">入账渠道管理</span>
-            <% end %>
-          </li>
-          <li class="nav-item  <%= current_nav_class(:admin_volunteer_major) %>">
-            <%= link_to admin_majors_path, class: 'nav-link' do %>
-              <span class="title">志愿者专业管理</span>
-            <% end %>
-          </li>
-          <li class="nav-item  <%= current_nav_class(:admin_task_category) %>">
-            <%= link_to admin_task_categories_path, class: 'nav-link' do %>
-                <span class="title">任务分类管理</span>
-            <% end %>
-          </li>
-          <li class="nav-item  <%= current_nav_class(:admin_task_workplace) %>">
-            <%= link_to admin_workplaces_path, class: 'nav-link' do %>
-                <span class="title">工作地点管理</span>
-            <% end %>
-          </li>
+          <% end %>
         </ul>
       </li>
 
       <% if (current_user.has_role? :superadmin) %>
-          <li class="nav-item <%= current_nav_class(:admin_administrator) %>">
-            <a href="javascript:;" class="nav-link nav-toggle">
-              <i class="fa fa-users"></i>
-              <span class="title">账号管理</span>
-              <span class="arrow <%= current_nav_class(:admin_administrator, current: :open) %>"></span>
-            </a>
-            <ul class="sub-menu">
-              <li class="nav-item <%= current_nav_class(:admin_administrators) %>">
-                <%= link_to admin_administrators_path, class: 'nav-link' do %>
-                    <i class="fa fa-user"></i>
-                    <span class="title">平台用户管理</span>
-                <% end %>
-              </li>
-              <li class="nav-item <%= current_nav_class(:admin_login_activities) %>">
-                <%= link_to '', class: 'nav-link' do %>
-                    <i class="fa fa-file-text"></i>
-                    <span class="title">登录日志</span>
-                <% end %>
-              </li>
-              <li class="nav-item <%= current_nav_class(:admin_audits) %>">
-                <%= link_to admin_audits_path, class: 'nav-link' do %>
-                    <i class="fa fa-list"></i>
-                    <span class="title">操作日志</span>
-                <% end %>
-              </li>
-            </ul>
-          </li>
+        <li class="heading">
+          <h3 class="uppercase">账号管理</h3>
+        </li>
+        <li class="nav-item <%= current_nav_class(:admin_administrators) %>">
+          <%= link_to admin_administrators_path, class: 'nav-link' do %>
+          <i class="fa fa-user"></i>
+          <span class="title">平台用户管理</span>
+          <% end %>
+        </li>
+        <li class="nav-item <%= current_nav_class(:admin_login_activities) %>">
+          <%= link_to '', class: 'nav-link' do %>
+          <i class="fa fa-file-text"></i>
+          <span class="title">登录日志</span>
+          <% end %>
+        </li>
+        <li class="nav-item <%= current_nav_class(:admin_audits) %>">
+          <%= link_to admin_audits_path, class: 'nav-link' do %>
+          <i class="fa fa-list"></i>
+          <span class="title">操作日志</span>
+          <% end %>
+        </li>
       <% end %>
     </ul>
     <ul class="page-sidebar-menu module-menus menus-report hide" data-keep-expanded="false" data-slide-speed="200">

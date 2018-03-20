@@ -26,6 +26,7 @@ namespace :admin do
   resources :adverts, concerns: [:move, :switch]
   resources :articles, concerns: [:switch, :recommend]
   resources :article_categories, concerns: [:move, :switch]
+  resources :badge_levels, concerns: [:move]
   resources :supports, concerns: [:move, :switch]
   resources :pages, concerns: [:move, :switch]
   resources :projects, concerns: [:move]

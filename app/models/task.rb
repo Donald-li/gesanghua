@@ -68,13 +68,72 @@ class Task < ApplicationRecord
     self.task_no ||= Sequence.get_seq(kind: :task_no, prefix: time_string, length: 3)
   end
 
-  def summary_builder
+  def task_action(user)
+    tv = self.task_volunteers.find_by(volunteer: user.volunteer)
+    if self.open? && tv.doing?
+      'can_cancel'
+    elsif self.pick_done? || self.done? || self.cancel?
+      'can_visit'
+    elsif self.doing?
+      if tv.doing?
+        'can_finish'
+      end
+    end
+  end
+
+  def task_state(user)
+    tv = self.task_volunteers.find_by(volunteer: user.volunteer)
+    if self.open?
+      if tv.cancel?
+        '申请已取消'
+      else
+        '待审核'
+      end
+    elsif self.pick_done?
+      if tv.reject?
+        '审核未通过'
+      else
+        '任务未开始'
+      end
+    elsif self.doing?
+      if tv.turn_over?
+        '任务已移交'
+      elsif tv.doing?
+        '任务进行中'
+      else
+        '成果已提交'
+      end
+    elsif self.done?
+      '任务已完成'
+    elsif self.cancel?
+      '任务已取消'
+    end
+  end
+
+  def summary_builder(user=nil)
     Jbuilder.new do |json|
       json.(self, :id, :name, :num, :duration, :ordinary_flag, :intensive_flag, :urgency_flag, :innovative_flag, :difficult_flag)
       json.location self.workplace.try(:title)
       json.cover_mode self.cover.present?
       json.cover_url self.cover_url(:small)
-      json.apply_state self.task_volunteers
+      json.task_state self.task_state(user) if user.present?
+      json.task_action self.task_action(user) if user.present?
+    end.attributes!
+  end
+
+  def detail_builder(user=nil)
+    Jbuilder.new do |json|
+      json.(self, :id, :name, :num, :duration, :content, :ordinary_flag, :intensive_flag, :urgency_flag, :innovative_flag, :difficult_flag)
+      json.location self.workplace.try(:title)
+      json.principal self.principal.try(:name)
+      json.avatar_mode self.principal.try(:avatar).present?
+      json.avatar_url self.principal.try(:avatar).try(:file).try(:url)
+      json.category self.task_category.try(:name)
+      json.start_time self.start_time.strftime("%Y-%m-%d")
+      json.end_time self.end_time.strftime("%Y-%m-%d")
+      json.cover_mode self.cover.present?
+      json.cover_url self.cover_url(:small)
+      json.can_apply !self.task_volunteers.where(volunteer: user.volunteer).present?
     end.attributes!
   end
 
