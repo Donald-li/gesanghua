@@ -11,7 +11,7 @@ send_sms: true
 development_mode: false
 
 # 跳过支付模式
-skip_pay_mode: true
+skip_pay_mode: false
 
 # 支付1分钱模式
 pay_1_mode: true

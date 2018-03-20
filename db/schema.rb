@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180320071543) do
+ActiveRecord::Schema.define(version: 20180320052142) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,6 +96,16 @@ ActiveRecord::Schema.define(version: 20180320071543) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["owner_type", "owner_id"], name: "index_audits_on_owner_type_and_owner_id"
+  end
+
+  create_table "badge_levels", force: :cascade, comment: "勋章级别" do |t|
+    t.integer "kind", comment: "类型"
+    t.string "title", comment: "标题"
+    t.integer "position", comment: "排序"
+    t.integer "value", comment: "获得条件"
+    t.string "rank", comment: "级别描述"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "beneficial_children", force: :cascade do |t|
@@ -315,18 +325,6 @@ ActiveRecord::Schema.define(version: 20180320071543) do
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "支出金额"
   end
 
-  create_table "family_members", force: :cascade, comment: "家庭成员表" do |t|
-    t.integer "visit_id", comment: "家访表ID"
-    t.string "name", comment: "成员姓名"
-    t.integer "age", comment: "年龄"
-    t.string "relationship", comment: "关系"
-    t.string "profession", comment: "职业"
-    t.text "health_condition", comment: "健康状况"
-    t.text "job_condition", comment: "工作情况"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "feedbacks", force: :cascade, comment: "反馈表" do |t|
     t.text "content", comment: "内容"
     t.string "owner_type"
@@ -418,8 +416,8 @@ ActiveRecord::Schema.define(version: 20180320071543) do
     t.text "remark"
     t.integer "operator_id", comment: "异常处理人id"
     t.string "grant_person", comment: "发放人"
-    t.integer "user_id", comment: "捐助人"
     t.integer "grant_batch_id", comment: "发放批次"
+    t.integer "user_id", comment: "捐助人"
     t.index ["gsh_child_id"], name: "index_gsh_child_grants_on_gsh_child_id"
     t.index ["project_season_apply_id"], name: "index_gsh_child_grants_on_project_season_apply_id"
   end
@@ -427,6 +425,7 @@ ActiveRecord::Schema.define(version: 20180320071543) do
   create_table "gsh_children", force: :cascade, comment: "格桑花孩子表" do |t|
     t.string "name", comment: "孩子姓名"
     t.integer "kind", comment: "类型"
+    t.integer "integer", comment: "类型"
     t.string "workstation", comment: "工作地点"
     t.string "province", comment: "省"
     t.string "city", comment: "市"
@@ -566,7 +565,6 @@ ActiveRecord::Schema.define(version: 20180320071543) do
     t.jsonb "form", comment: "自定义表单{key, value}"
     t.integer "pair_state", comment: "结对审核状态"
     t.string "code", comment: "code"
-    t.integer "read_state", comment: "悦读项目状态"
   end
 
   create_table "project_season_apply_bookshelves", force: :cascade, comment: "项目执行年度申请书架表" do |t|
@@ -621,12 +619,12 @@ ActiveRecord::Schema.define(version: 20180320071543) do
     t.integer "school_id", comment: "学校ID"
     t.integer "semester", comment: "学期"
     t.integer "kind", comment: "捐助形式：1对外捐助 2内部认捐"
-    t.integer "donate_user_id", comment: "捐助人id"
-    t.string "reason", comment: "结对申请理由"
     t.string "gsh_no", comment: "格桑花孩子编号"
     t.integer "semester_count", comment: "学期数"
     t.integer "done_semester_count", comment: "已完成的学期数"
     t.integer "user_id", comment: "关联的用户ID"
+    t.integer "donate_user_id", comment: "捐助人id"
+    t.string "reason", comment: "结对申请理由"
     t.string "teacher_name", comment: "班主任"
     t.string "father", comment: "父亲"
     t.string "father_job", comment: "父亲职业"
@@ -746,7 +744,7 @@ ActiveRecord::Schema.define(version: 20180320071543) do
     t.string "name", comment: "学校名称"
     t.string "address", comment: "地址"
     t.integer "approve_state", default: 1, comment: "审核状态：1:待审核 2:通过 3:不通过"
-    t.text "approve_remark", comment: "审核备注"
+    t.string "approve_remark", comment: "审核备注"
     t.string "province", comment: "省"
     t.string "city", comment: "市"
     t.string "district", comment: "区/县"
@@ -760,7 +758,7 @@ ActiveRecord::Schema.define(version: 20180320071543) do
     t.string "contact_phone", comment: "联系方式"
     t.string "contact_position", comment: "联系人职务"
     t.integer "kind", comment: "学校类型"
-    t.integer "user_id", comment: "校长ID"
+    t.integer "user_id", comment: "申请人ID"
     t.string "school_no", comment: "学校申请编号"
     t.string "contact_id_card", comment: "联系人身份证号"
     t.string "postcode", comment: "邮政编码"
@@ -867,6 +865,7 @@ ActiveRecord::Schema.define(version: 20180320071543) do
     t.integer "finish_state", comment: "完成状态1:未完成doing 2:已完成done"
     t.string "source", comment: "获得来源"
     t.integer "kind", comment: "类型"
+    t.text "reason", comment: "申请理由"
   end
 
   create_table "tasks", force: :cascade, comment: "任务表" do |t|

@@ -1,0 +1,83 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i>勋章管理
+    </div>
+    <div class="actions">
+      <%= link_to new_admin_badge_level_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+          <i class="icon-plus"></i>
+          <span>新增</span>
+      <% end %>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="dataTables_wrapper no-footer">
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+          <div class="dataTables_filter pull-right">
+          </div>
+        </div>
+      </div>
+      <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover" id="sample_2">
+          <thead>
+          <tr>
+            <th>
+              图标
+            </th>
+            <th>
+              勋章名称
+            </th>
+            <th>
+              勋章等级
+            </th>
+            <th>
+              达到条件
+            </th>
+            <th>
+              排序
+            </th>
+            <th>
+              操作
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @levels.each do |badge_level| %>
+              <tr>
+                <td>
+                  <%= image_tag badge_level.icon_url(nil), width: 50, height: 50 %>
+                </td>
+                <td>
+                  <%= badge_level.title %>
+                </td>
+                <td>
+                  <%= badge_level.rank %>
+                </td>
+                <td>
+                  <%= badge_level.value %>
+                </td>
+                <td>
+                  <%= link_to '顶部', move_admin_badge_level_path(badge_level, to: :to_top), method: :put %>
+                  <%= link_to '上', move_admin_badge_level_path(badge_level, to: :higher), method: :put %>
+                  <%= link_to '下', move_admin_badge_level_path(badge_level, to: :lower), method: :put %>
+                  <%= link_to '底部', move_admin_badge_level_path(badge_level, to: :to_bottom), method: :put %>
+                </td>
+                <td>
+                  <%= link_to edit_admin_badge_level_path(badge_level), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                      <i class="fa fa-edit"></i> 修改
+                  <% end %>
+                  <%= link_to admin_badge_level_path(badge_level), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                      <i class="fa fa-trash-o"></i> 删除
+                  <% end %>
+                </td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- END EXAMPLE TABLE PORTLET-->
