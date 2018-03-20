@@ -6,7 +6,7 @@
 #  name              :string                                 # 学校名称
 #  address           :string                                 # 地址
 #  approve_state     :integer          default("submit")     # 审核状态：1:待审核 2:通过 3:不通过
-#  approve_remark    :string                                 # 审核备注
+#  approve_remark    :text                                   # 审核备注
 #  province          :string                                 # 省
 #  city              :string                                 # 市
 #  district          :string                                 # 区/县
@@ -20,7 +20,7 @@
 #  contact_phone     :string                                 # 联系方式
 #  contact_position  :string                                 # 联系人职务
 #  kind              :integer                                # 学校类型
-#  user_id           :integer                                # 申请人ID
+#  user_id           :integer                                # 校长ID
 #  school_no         :string                                 # 学校申请编号
 #  contact_id_card   :string                                 # 联系人身份证号
 #  postcode          :string                                 # 邮政编码

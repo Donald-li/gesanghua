@@ -5,7 +5,6 @@
 #  id                  :integer          not null, primary key
 #  name                :string                                 # 孩子姓名
 #  kind                :integer                                # 类型
-#  integer             :integer                                # 类型
 #  workstation         :string                                 # 工作地点
 #  province            :string                                 # 省
 #  city                :string                                 # 市

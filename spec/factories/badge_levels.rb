@@ -3,7 +3,7 @@
 # Table name: badge_levels # 勋章级别
 #
 #  id         :integer          not null, primary key
-#  badge_id   :integer                                # 勋章定义
+#  kind       :integer                                # 类型
 #  title      :string                                 # 标题
 #  position   :integer                                # 排序
 #  value      :integer                                # 获得条件
