@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180319093009) do
+ActiveRecord::Schema.define(version: 20180320071543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -566,6 +566,7 @@ ActiveRecord::Schema.define(version: 20180319093009) do
     t.jsonb "form", comment: "自定义表单{key, value}"
     t.integer "pair_state", comment: "结对审核状态"
     t.string "code", comment: "code"
+    t.integer "read_state", comment: "悦读项目状态"
   end
 
   create_table "project_season_apply_bookshelves", force: :cascade, comment: "项目执行年度申请书架表" do |t|
