@@ -15,8 +15,7 @@
 FactoryBot.define do
   factory :badge_level do
     title "MyString"
-    position 1
     value 1
-    rank "MyString"
+    rank "lv1"
   end
 end
