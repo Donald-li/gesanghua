@@ -100,8 +100,10 @@ class Task < ApplicationRecord
         '任务已移交'
       elsif tv.doing?
         '任务进行中'
-      else
+      elsif tv.to_check?
         '成果已提交'
+      elsif tv.done?
+        '任务已完成'
       end
     elsif self.done?
       '任务已完成'

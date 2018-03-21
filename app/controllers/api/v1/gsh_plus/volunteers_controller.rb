@@ -50,4 +50,29 @@ class Api::V1::GshPlus::VolunteersController < Api::V1::BaseController
       api_error(message: '修改失败，请重试')
     end
   end
+
+  def vacation
+    volunteer = current_user.volunteer
+    if volunteer.update(leave_reason: {type: params[:type][0], content: params[:content]}, job_state: 'leave')
+      api_success(message: '请假成功')
+    else
+      api_error(message: '请假失败')
+    end
+  end
+
+  def cancel_vacation
+    volunteer = current_user.volunteer
+    if volunteer.update(leave_reason: {type: '', content: ''}, job_state: 'available')
+      api_success(message: '销假成功')
+    else
+      api_error(message: '销假失败')
+    end
+  end
+
+  def duration
+    volunteer = current_user.volunteer
+    task_volunteers = volunteer.task_volunteers.done.sorted
+    api_success(data: {records: task_volunteers.map{|m| m.summary_builder}, total: volunteer.duration})
+  end
+
 end

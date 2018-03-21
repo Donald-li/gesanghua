@@ -20,6 +20,7 @@
 #  describe           :text                                   # 个人简介
 #  phone              :string                                 # 手机号
 #  workstation        :string                                 # 工作单位
+#  leave_reason       :jsonb                                  # 请假原因[类型, 说明]
 #
 
 FactoryBot.define do
