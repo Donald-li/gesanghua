@@ -24,4 +24,35 @@ class BadgeLevel < ApplicationRecord
 
   validates :title, :value, :rank, presence: true
 
+  # 用户或机构的勋章
+  def self.level_of_user(owner, kind)
+    kind = kind.to_s
+    value = 0
+    if owner.is_a?(Team)
+      value = owner.total_donate_amount
+    else
+      if kind.end_with?('_task')
+        value = owner.volunteer.task_volunteers.done.joins(:task).where(tasks: {"#{kind.split('_')[0]}_flag": true}).count
+      elsif kind == 'user_donate'
+        value = owner.donate_count
+      elsif kind == 'volunteer_age'
+        # value = owner.volunteer.volunteer_age
+      end
+    end
+
+    self.level(kind, value)
+  end
+
+  # 根据kind和值，判断当前等级信息
+  def self.level(kind, value)
+    self.where(kind: kind).order(value: :asc).where('? >= value', value).last
+  end
+
+  def summary_builder
+    Jbuilder.new do |json|
+      json.(self, :rank, :title)
+      json.icon_url self.icon_url(nil)
+    end.attributes!
+  end
+
 end
