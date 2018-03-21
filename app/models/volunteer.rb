@@ -20,6 +20,7 @@
 #  describe           :text                                   # 个人简介
 #  phone              :string                                 # 手机号
 #  workstation        :string                                 # 工作单位
+#  leave_reason       :jsonb                                  # 请假原因[类型, 说明]
 #
 
 # 志愿者
@@ -38,7 +39,7 @@ class Volunteer < ApplicationRecord
   enum state: {enable: 1, disable: 2} # 状态 1:启用 2:禁用
   default_value_for :state, 1
 
-  enum kind: {normal: 1, professional: 2} # 类型 1:普通 2:专业
+  enum kind: {activated: 1, nonactivated: 2} # 志愿者激活状态 1:已激活 2:未激活（导入志愿者）
   default_value_for :kind, 1
 
   enum internship_state: {official: 1, practice: 2} # 类型 1:实习 2:正式
@@ -51,6 +52,7 @@ class Volunteer < ApplicationRecord
 
   default_value_for :level, 0
   default_value_for :duration, 0
+  default_value_for :leave_reason, {type: '', content: ''}
 
   scope :sorted, ->{ order(created_at: :desc) }
 
@@ -61,6 +63,10 @@ class Volunteer < ApplicationRecord
 
   def volunteer_name
     self.user.try(:name)
+  end
+
+  def leave_reason_content
+    "请假原因：#{self.leave_reason['type']} \\n请假说明：#{self.leave_reason['content']}"
   end
 
   def gen_volunteer_no
@@ -82,7 +88,7 @@ class Volunteer < ApplicationRecord
 
   def summary_builder
     Jbuilder.new do |json|
-      json.(self, :id, :volunteer_no, :duration)
+      json.(self, :id, :volunteer_no, :duration, :kind, :job_state)
       json.user_nickname self.try(:user).try(:nickname)
       json.user_phone self.try(:user).try(:phone)
       json.user_province ChinaCity.get(self.try(:user).try(:province)).to_s
@@ -117,6 +123,14 @@ class Volunteer < ApplicationRecord
       json.(self, :id, :phone, :describe, :major_ids)
       json.name self.try(:user).try(:name)
       json.id_card self.user.try(:id_card)
+    end.attributes!
+  end
+
+  def check_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :phone)
+      json.name self.user.name
+      json.kind '志愿者'
     end.attributes!
   end
 

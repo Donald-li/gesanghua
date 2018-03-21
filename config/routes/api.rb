@@ -74,6 +74,9 @@ namespace :api do
           get :volunteer_info
           get :edit_volunteer
           post :update_volunteer
+          post :vacation
+          post :cancel_vacation
+          get :duration
         end
       end
       resources :gsh_children, only: [] do

@@ -1055,6 +1055,7 @@ ActiveRecord::Schema.define(version: 20180321100815) do
     t.text "describe", comment: "个人简介"
     t.string "phone", comment: "手机号"
     t.string "workstation", comment: "工作单位"
+    t.jsonb "leave_reason", comment: "请假原因[类型, 说明]"
   end
 
   create_table "voucher_donate_records", force: :cascade, comment: "捐赠收据捐助记录表" do |t|

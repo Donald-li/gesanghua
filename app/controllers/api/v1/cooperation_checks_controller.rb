@@ -64,6 +64,21 @@ class Api::V1::CooperationChecksController < Api::V1::BaseController
       else
         api_success(data: false, message: '验证失败，请重试')
       end
+    elsif params[:check_role] === 'volunteer'
+      @volunteer = Volunteer.find_by(phone: params[:phone])
+      if @volunteer.present?
+        if @volunteer.update(user: current_user, kind: 'activated')
+          if !@user.has_role?(:volunteer)
+            @user.roles = @user.roles.push(:volunteer)
+            @user.save
+          end
+          api_success(data: @volunteer.check_builder)
+        else
+          api_success(data: false, message: '验证失败，请重试')
+        end
+      else
+        api_success(data: false, message: "没有找到#{params[:phone]}关联的志愿者")
+      end
     end
   end
 

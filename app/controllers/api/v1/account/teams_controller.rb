@@ -54,7 +54,7 @@ class Api::V1::Account::TeamsController < Api::V1::BaseController
   end
 
   def join_team
-    if current_user.update(team_id: @team.id)
+    if current_user.update(team_id: @team.id, join_team_time: Time.now)
       api_success(data: true, message: '你已成功加入团队~')
     else
       api_success(data: false, message: '加入失败，请重试')

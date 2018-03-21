@@ -277,11 +277,12 @@ class ProjectSeasonApply < ApplicationRecord
   # 基础信息, 列表展示用
   def summary_builder
     Jbuilder.new do |json|
-      json.(self, :id, :apply_no, :target_amount, :present_amount, :bookshelf_type)
+      json.(self, :id, :apply_no, :target_amount, :present_amount, :bookshelf_type, :project_describe, :execute_state)
       json.name self.apply_name
       json.last_amount self.target_amount - self.present_amount
       json.cover_mode self.cover_image.present?
       json.cover_url self.cover_image_url(:small).to_s
+      json.tiny_url self.cover_image_url(:tiny).to_s
     end.attributes!
   end
 

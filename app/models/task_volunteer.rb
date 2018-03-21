@@ -48,4 +48,11 @@ class TaskVolunteer < ApplicationRecord
     self.pass? && self.doing?
   end
 
+  def summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :duration)
+      json.source self.task.try(:name) || self.source
+    end.attributes!
+  end
+
 end
