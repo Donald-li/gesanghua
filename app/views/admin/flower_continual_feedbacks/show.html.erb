@@ -54,7 +54,10 @@
             反馈内容
           </th>
           <th>
-            <%= @continual.content.html_safe %>
+            <%= @continual.content.html_safe %> <br>
+            <% @continual.images.each do |image| %>
+              <%= image_tag image.try(:file).try(:url, :tiny) %>
+            <% end %>
           </th>
         </tr>
         </tbody>
