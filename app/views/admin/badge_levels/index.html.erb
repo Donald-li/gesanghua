@@ -4,7 +4,7 @@
       <i class="icon-list"></i>勋章管理
     </div>
     <div class="actions">
-      <%= link_to new_admin_badge_level_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+      <%= link_to new_admin_badge_level_path(kind: params[:kind]), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
           <i class="icon-plus"></i>
           <span>新增</span>
       <% end %>
@@ -27,6 +27,9 @@
             </th>
             <th>
               勋章名称
+            </th>
+            <th>
+              初始级别
             </th>
             <th>
               勋章等级
@@ -52,22 +55,25 @@
                   <%= badge_level.title %>
                 </td>
                 <td>
+                  <%= badge_level.default_level ? '是' : '否'%>
+                </td>
+                <td>
                   <%= badge_level.rank %>
                 </td>
                 <td>
                   <%= badge_level.value %>
                 </td>
                 <td>
-                  <%= link_to '顶部', move_admin_badge_level_path(badge_level, to: :to_top), method: :put %>
-                  <%= link_to '上', move_admin_badge_level_path(badge_level, to: :higher), method: :put %>
-                  <%= link_to '下', move_admin_badge_level_path(badge_level, to: :lower), method: :put %>
-                  <%= link_to '底部', move_admin_badge_level_path(badge_level, to: :to_bottom), method: :put %>
+                  <%= link_to '顶部', move_admin_badge_level_path(badge_level, to: :to_top, kind: params[:kind]), method: :put %>
+                  <%= link_to '上', move_admin_badge_level_path(badge_level, to: :higher, kind: params[:kind]), method: :put %>
+                  <%= link_to '下', move_admin_badge_level_path(badge_level, to: :lower, kind: params[:kind]), method: :put %>
+                  <%= link_to '底部', move_admin_badge_level_path(badge_level, to: :to_bottom, kind: params[:kind]), method: :put %>
                 </td>
                 <td>
-                  <%= link_to edit_admin_badge_level_path(badge_level), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                  <%= link_to edit_admin_badge_level_path(badge_level, kind: params[:kind]), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-edit"></i> 修改
                   <% end %>
-                  <%= link_to admin_badge_level_path(badge_level), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                  <%= link_to admin_badge_level_path(badge_level, kind: params[:kind]), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                       <i class="fa fa-trash-o"></i> 删除
                   <% end %>
                 </td>
