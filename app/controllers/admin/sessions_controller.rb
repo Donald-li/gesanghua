@@ -8,13 +8,12 @@ class Admin::SessionsController < Admin::BaseController
 
   def create
     @admin = User.new(session_params.permit!)
-    # if !verify_rucaptcha?
-    #   flash[:alert] = '验证码错误'
-    #   render action: :new and return
-    # end
+    if !verify_rucaptcha?
+      flash[:alert] = '验证码错误'
+      render action: :new and return
+    end
     admin =  User.find_by(login: session_params[:login])
-    # admin = user.administrator.presence
-    unless admin.has_role?(:superadmin)
+    unless admin && admin.has_role?(:superadmin)
       flash[:alert] = '该帐号不存在'
       render(action: :new) && return
     end

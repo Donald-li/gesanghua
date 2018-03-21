@@ -32,7 +32,6 @@
 
 
 
-
 $(function () {
   // head搜索
   $('.search-box .form-control').focus(function () {
