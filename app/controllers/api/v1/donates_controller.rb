@@ -65,6 +65,15 @@ class Api::V1::DonatesController < Api::V1::BaseController
           record.paid!
         end
       end
+      if record.paid?
+        if donate_item.project.present?
+          fund = donate_item.project.fund
+        else
+          fund = donate_item.fund
+        end
+        fund.amount += amount
+        fund.save
+      end
       api_success(data: record.detail_builder.merge(recordState: true), message: '订单生成成功')
     else
       api_success(data: {record_state: false}, message: '订单生成失败，请重试')

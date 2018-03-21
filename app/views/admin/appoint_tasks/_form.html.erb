@@ -49,7 +49,7 @@
       <div class="form-group">
         <label class="col-md-2 control-label">任务描述：</label>
         <div class="col-sm-9">
-          <%= f.cktext_area :content, input_html: {data: {'parsley-required': true}} %>
+          <%= f.input :content, input_html: {data: {'parsley-required': true}}, label: false %>
         </div>
       </div>
     </div>

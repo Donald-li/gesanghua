@@ -98,6 +98,9 @@ zh:
     done: '已完成'
     cancelled: '已取消'
     refunded: '已退款'
+  project_season_apply_read_states:
+    read_executing: '执行中'
+    read_done: '已完成'
   project_season_apply_bookshelf_types:
     whole: '图书角'
     supplement: '补书'
@@ -105,6 +108,9 @@ zh:
     submit: '待审核'
     pass: '通过'
     reject: '不通过'
+  project_season_apply_child_states:
+    show: '显示'
+    hidden: '隐藏'
   volunteer_states:
     enable: '启用'
     disable: '禁用'
@@ -238,10 +244,12 @@ zh:
     submit: '待审核'
     pass: '通过'
     reject: '不通过'
+    cancel: '已取消'
   task_volunteer_finish_states:
     doing: '执行中'
     to_check: '待确认'
     done: '已完成'
+    turn_over: '已移交'
   school_approve_states:
     submit: '待审核'
     pass: '通过'

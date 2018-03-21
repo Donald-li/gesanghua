@@ -28,6 +28,7 @@ class Api::V1::CooperationChecksController < Api::V1::BaseController
     elsif params[:check_role] === 'headmaster'
       @school = School.find_by(contact_phone: params[:phone])
       if @school.present?
+        @school.update(user_id: @user.id)
         if @user.teacher.present?
           @teacher = @user.teacher
         else

@@ -74,8 +74,12 @@
                   <%= item.volunteer.enum_name(:kind) %>
                 </td>
                 <td>
+                  <% if item.can_turn_over? %>
                   <%= link_to switch_edit_admin_appoint_task_path(@task, task_volunteer_id: item.id), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-external-link"></i> 移交
+                  <% end %>
+                  <% else %>
+                  <%= item.enum_name(:finish_state) %>
                   <% end %>
                 </td>
               </tr>

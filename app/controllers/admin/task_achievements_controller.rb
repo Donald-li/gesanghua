@@ -22,6 +22,9 @@ class Admin::TaskAchievementsController < Admin::BaseController
     @task_achievement.finish_state = 'done'
     respond_to do |format|
       if @task_achievement.save # TODO : 无法同步更新统计
+        unless @task_achievement.task.task_volunteers.detect{|tv| !tv.done?}.present?
+          @task_achievement.task.done!
+        end
         format.html { redirect_to admin_task_achievements_path, notice: '审核成功。' }
       else
         format.html { redirect_to admin_task_achievements_path, notice: '审核失败。' }

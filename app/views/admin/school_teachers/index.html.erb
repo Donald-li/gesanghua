@@ -77,8 +77,14 @@
                 <%= teacher.school.try(:name) %>
               </td>
               <td>
-                <% teacher.teacher_projects.each do |teacher_project| %>
-                  <span class="btn btn-xs red"><%= teacher_project.project.try(:name) %></span>
+                <% if teacher.headmaster? %>
+                  <% Project.all.each do |project| %>
+                    <span class="btn btn-xs red"><%= project.try(:name) %></span>
+                  <% end %>
+                <% else %>
+                  <% teacher.teacher_projects.each do |teacher_project| %>
+                    <span class="btn btn-xs red"><%= teacher_project.project.try(:name) %></span>
+                  <% end %>
                 <% end %>
               </td>
               <td>

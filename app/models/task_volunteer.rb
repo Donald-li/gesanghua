@@ -17,6 +17,7 @@
 #  finish_state        :integer                                # 完成状态1:未完成doing 2:已完成done
 #  source              :string                                 # 获得来源
 #  kind                :integer                                # 类型
+#  reason              :text                                   # 申请理由
 #
 
 # 任务志愿者关系表
@@ -26,18 +27,25 @@ class TaskVolunteer < ApplicationRecord
   belongs_to :user, optional: true
   has_many :audits, as: :owner # 报名审核
 
-  enum approve_state: {submit: 1, pass: 2, reject: 3} # 报名审核状态 1:待审核 2:通过 3:未通过
+  include HasAsset
+  has_many_assets :images, class_name: 'Asset::AchievementImage'
+
+  enum approve_state: {submit: 1, pass: 2, reject: 3, cancel: -1} # 报名审核状态 1:待审核 2:通过 3:未通过
   default_value_for :approve_state, 1
 
   enum kind: {normal: 1, additional: 2}
   default_value_for :kind, 1
 
-  enum finish_state: {doing: 1, to_check: 2, done: 3}
+  enum finish_state: {doing: 1, to_check: 2, done: 3, turn_over: -1}
   default_value_for :finish_state, 1
   default_value_for :duration, 0
 
   scope :sorted, ->{ order(created_at: :desc) }
 
   counter_culture :volunteer, column_name: proc {|model| model.done? ? 'duration' : nil }, delta_magnitude: proc {|model| model.duration}
+
+  def can_turn_over?
+    self.pass? && self.doing?
+  end
 
 end

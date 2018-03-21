@@ -26,6 +26,8 @@
 //= require 'plugin/jqueryqr.js'
 //= require 'plugin/qrcode.js'
 //= require 'plugin/toTop.js'
+//= require 'plugin/jquery.let_it_snow.js'
+//= require 'plugin/checkbox.js'
 
 
 

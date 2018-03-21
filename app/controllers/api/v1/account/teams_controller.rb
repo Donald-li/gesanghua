@@ -13,7 +13,6 @@ class Api::V1::Account::TeamsController < Api::V1::BaseController
     if team.save
       team.attach_logo(params[:logo_id])
       current_user.update(team: team, join_team_time: Time.now)
-      team.update(member_count: team.users.count)
       api_success(message: '创建成功', data: true)
     else
       api_success(message: '创建失败，请重试', data: false)
@@ -48,7 +47,6 @@ class Api::V1::Account::TeamsController < Api::V1::BaseController
 
   def dismiss
     if @team.users.update(team_id: nil)
-      @team.update(manage_id: nil, member_count: @team.users.count)
       api_success(data: true, message: '解散成功')
     else
       api_success(data: false, message: '解散失败')
@@ -57,7 +55,6 @@ class Api::V1::Account::TeamsController < Api::V1::BaseController
 
   def join_team
     if current_user.update(team_id: @team.id)
-      @team.update(member_count: @team.users.count)
       api_success(data: true, message: '你已成功加入团队~')
     else
       api_success(data: false, message: '加入失败，请重试')
@@ -66,7 +63,6 @@ class Api::V1::Account::TeamsController < Api::V1::BaseController
 
   def exit_team
     if current_user.update(team_id: nil)
-      @team.update(member_count: @team.users.count)
       api_success(data: true, message: '你已成功退出团队')
     else
       api_success(data: false, message: '退出失败，请重试')
