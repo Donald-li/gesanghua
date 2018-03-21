@@ -26,7 +26,7 @@
       <li class="nav-item <%= current_nav_class(:admin_user) %>">
         <%= link_to admin_users_path, class: 'nav-link' do %>
             <% new = 0 %>
-            <i class="fa fa-user"></i>
+            <i class="fa fa-user-circle"></i>
             <span class="title">注册用户</span>
             <% if new > 0 %>
                 <span class="badge badge-danger"><%= new %></span>
@@ -38,7 +38,7 @@
       <li class="nav-item  <%= current_nav_class(:admin_schools) %> ">
         <a href="javascript:;" class="nav-link nav-toggle">
           <% to_prove_admin = School.can_check.count %>
-          <i class="fa fa-building"></i>
+          <i class="fa fa-university"></i>
           <span class="title <%= 'font-red-soft' if to_prove_admin > 0 %>">学校管理</span>
           <span class="arrow <%= current_nav_class(:admin_schools, current: :open) %>"></span>
         </a>
@@ -75,14 +75,14 @@
           </li>
           <li class="nav-item <%= current_nav_class(:admin_user_teachers) %> ">
             <%= link_to admin_teachers_path, class: 'nav-link' do %>
-                <i class="fa fa-female"></i>
+                <i class="fa fa-book"></i>
                 <span class="title">教师用户</span>
             <% end %>
           </li>
 
           <li class="nav-item <%= current_nav_class(:admin_user_county_users) %> ">
             <%= link_to admin_county_users_path, class: 'nav-link' do %>
-                <i class="fa fa-flag"></i>
+                <i class="fa fa-briefcase"></i>
                 <span class="title">县级领导</span>
             <% end %>
           </li>
@@ -95,7 +95,7 @@
         <a href="javascript:;" class="nav-link nav-toggle">
           <% to_check_task = TaskVolunteer.to_check.count %>
           <% to_approve_volunteer = Volunteer.submit.count %>
-          <i class="fa fa-address-card-o"></i>
+          <i class="fa fa-vcard"></i>
           <span class="title">志愿者管理</span>
           <span class="arrow <%= current_nav_class(:admin_volunteers, current: :open) %>"></span>
         </a>
@@ -135,7 +135,7 @@
         <a href="javascript:;" class="nav-link nav-toggle">
           <% to_prove_apply = 0 %>
           <% submited = 0 %>
-          <i class="fa fa-file-text-o"></i>
+          <i class="fa fa-file-text  "></i>
           <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">捐助申请管理</span>
           <span class="arrow <%= current_nav_class(:admin_product, current: :open) %>"></span>
         </a>
@@ -173,7 +173,7 @@
       <li class="nav-item <%= current_nav_class(:admin_campaign) %>">
         <%= link_to '', class: 'nav-link' do %>
             <% new = 0 %>
-            <i class="fa fa-delicious"></i>
+            <i class="fa fa-flag"></i>
             <span class="title">活动管理</span>
             <span class="arrow <%= current_nav_class(:admin_campaign, current: :open) %>"></span>
             <% if new > 0 %>
@@ -199,7 +199,7 @@
       <li class="nav-item <%= current_nav_class(:admin_complaint) %>">
         <%= link_to admin_complaints_path, class: 'nav-link' do %>
             <% new = Complaint.submit.count %>
-            <i class="fa fa-hand-paper-o"></i>
+            <i class="fa fa-gavel"></i>
             <span class="title">公示举报</span>
             <% if new > 0 %>
                 <span class="badge badge-danger"><%= new %></span>
@@ -210,7 +210,7 @@
       <li class="nav-item <%= current_nav_class(:admin_thanks) %>">
         <%= link_to '', class: 'nav-link' do %>
             <% to_audit = 0 %>
-            <i class="fa fa-envelope-o"></i>
+            <i class="fa fa-envelope-open"></i>
             <span class="title">反馈管理</span>
             <% if to_audit > 0 %>
                 <span class="badge badge-danger"><%= to_audit %></span>
@@ -220,7 +220,7 @@
 
       <li class="nav-item <%= current_nav_class(:admin_platform_content) %>">
         <a href="javascript:;" class="nav-link nav-toggle">
-          <i class="fa fa-desktop"></i>
+          <i class="fa fa-tasks"></i>
           <span class="title">平台管理</span>
           <span class="arrow <%= current_nav_class(:admin_platform_content, current: :open) %>"></span>
         </a>
@@ -266,7 +266,7 @@
         <a href="javascript:;" class="nav-link nav-toggle">
           <% to_prove_apply = 0 %>
           <% submited = 0 %>
-          <i class="fa fa-handshake-o"></i>
+          <i class="fa fa-graduation-cap"></i>
           <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">一对一</span>
           <span class="arrow <%= current_nav_class(:admin_pair, current: :open) %>"></span>
         </a>
@@ -312,7 +312,7 @@
         <a href="javascript:;" class="nav-link nav-toggle">
           <% to_prove_apply = 0 %>
           <% submited = 0 %>
-          <i class="fa fa-book"></i>
+          <i class="fa fa-language"></i>
           <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">悦读</span>
           <span class="arrow <%= current_nav_class(:admin_project_book, current: :open) %>"></span>
         </a>
@@ -343,7 +343,7 @@
         <a href="javascript:;" class="nav-link nav-toggle">
           <% to_prove_apply = 0 %>
           <% submited = 0 %>
-          <i class="fa fa-child"></i>
+          <i class="fa fa-map-signs"></i>
           <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">探索营</span>
           <span class="arrow <%= current_nav_class(:admin_project_camp, current: :open) %>"></span>
         </a>
@@ -467,7 +467,7 @@
         <a href="javascript:;" class="nav-link nav-toggle">
           <% to_prove_apply = 0 %>
           <% submited = 0 %>
-          <i class="fa fa-futbol-o"></i>
+          <i class="fa fa-sun-o"></i>
           <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">护花</span>
           <span class="arrow <%= current_nav_class(:admin_project_flower, current: :open) %>"></span>
         </a>
@@ -498,7 +498,7 @@
         <a href="javascript:;" class="nav-link nav-toggle">
           <% to_prove_apply = 0 %>
           <% submited = 0 %>
-          <i class="fa fa-video-camera"></i>
+          <i class="fa fa-pencil-square"></i>
           <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">护花课程</span>
           <span class="arrow <%= current_nav_class(:admin_project_movie_care, current: :open) %>"></span>
         </a>
@@ -535,25 +535,25 @@
 
       <li class="nav-item  <%= current_nav_class(:admin_article_category) %>">
         <%= link_to admin_article_categories_path, class: 'nav-link' do %>
-        <i class="fa fa-file"></i>
+        <i class="fa fa-list-alt"></i>
         <span class="title">资讯分类管理</span>
         <% end %>
       </li>
       <li class="nav-item  <%= current_nav_class(:admin_project_template) %>">
         <%= link_to admin_projects_path, class: 'nav-link' do %>
-        <i class="fa fa-puzzle-piece"></i>
+        <i class="fa fa-th-large"></i>
         <span class="title">项目管理</span>
         <% end %>
       </li>
       <li class="nav-item  <%= current_nav_class(:admin_donate_item_template) %>">
         <%= link_to admin_donate_items_path, class: 'nav-link' do %>
-        <i class="fa fa-heart-o"></i>
+        <i class="fa fa-magnet"></i>
         <span class="title">捐助项管理</span>
         <% end %>
       </li>
       <li class="nav-item  <%= current_nav_class(:admin_support_category) %>">
         <%= link_to admin_support_categories_path, class: 'nav-link' do %>
-        <i class="fa fa-question"></i>
+        <i class="fa fa-question-circle"></i>
         <span class="title">帮助分类管理</span>
         <% end %>
       </li>
@@ -565,8 +565,8 @@
       </li>
       <li class="nav-item  <%= current_nav_class(:admin_volunteer_major) %>">
         <%= link_to admin_majors_path, class: 'nav-link' do %>
-        <i class="fa fa-ambulance"></i>
-        <span class="title">志愿者专业管理</span>
+        <i class="fa fa-id-card"></i>
+        <span class="title">志愿者特长管理</span>
         <% end %>
       </li>
       <li class="nav-item  <%= current_nav_class(:admin_task_category) %>">
@@ -577,13 +577,13 @@
       </li>
       <li class="nav-item  <%= current_nav_class(:admin_task_workplace) %>">
         <%= link_to admin_workplaces_path, class: 'nav-link' do %>
-        <i class="fa fa-map-marker"></i>
+        <i class="fa fa-map-signs"></i>
         <span class="title">工作地点管理</span>
         <% end %>
       </li>
       <li class="nav-item  <%= current_nav_class(:admin_badge_level) %>">
         <a href="javascript:;" class="nav-link nav-toggle">
-          <i class="fa fa-certificate"></i>
+          <i class="fa fa-universal-access"></i>
           <span class="title">勋章管理</span>
           <span class="arrow <%= current_nav_class(:admin_badge_level, current: :open) %>"></span>
         </a>
@@ -604,19 +604,19 @@
         </li>
         <li class="nav-item <%= current_nav_class(:admin_administrators) %>">
           <%= link_to admin_administrators_path, class: 'nav-link' do %>
-          <i class="fa fa-user"></i>
+          <i class="fa fa-user-plus"></i>
           <span class="title">平台用户管理</span>
           <% end %>
         </li>
         <li class="nav-item <%= current_nav_class(:admin_login_activities) %>">
           <%= link_to '', class: 'nav-link' do %>
-          <i class="fa fa-file-text"></i>
+          <i class="fa fa-file-word-o"></i>
           <span class="title">登录日志</span>
           <% end %>
         </li>
         <li class="nav-item <%= current_nav_class(:admin_audits) %>">
           <%= link_to admin_audits_path, class: 'nav-link' do %>
-          <i class="fa fa-list"></i>
+          <i class="fa fa-wpforms "></i>
           <span class="title">操作日志</span>
           <% end %>
         </li>
@@ -629,13 +629,13 @@
 
       <li class="nav-item  <%= current_nav_class(:admin_data_statistic) %>">
         <%= link_to admin_data_statistic_path, class: 'nav-link nav-toggle' do %>
-          <i class="icon-bar-chart"></i>
+          <i class="fa fa-pie-chart"></i>
           <span class="title">数据统计</span>
         <% end %>
       </li>
       <li class="nav-item  <%= current_nav_class(:admin_donate_statistic) %>">
         <%= link_to admin_donate_statistic_path, class: 'nav-link nav-toggle' do %>
-          <i class="fa fa-list"></i>
+          <i class="fa fa-line-chart"></i>
           <span class="title">捐助统计</span>
         <% end %>
       </li>
@@ -650,7 +650,7 @@
         <a href="javascript:;" class="nav-link nav-toggle">
           <% to_prove_apply = 0 %>
           <% submited = 0 %>
-          <i class="fa fa-handshake-o"></i>
+          <i class="fa fa-graduation-cap"></i>
           <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">一对一</span>
           <span class="arrow <%= current_nav_class(:admin_finance_pair, current: :open) %>"></span>
         </a>

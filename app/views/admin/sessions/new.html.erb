@@ -1,70 +1,51 @@
-<style>
-  .login-form .input-captcha{
-      float: left;
-      width: 200px;
-    }
-  .login-form .img-captcha{
-    float: left;
-    width: 100px;
-    height: 34px;
-    border:#ccc solid 1px
-  }
-  .login-form .captcha{
-    overflow: hidden;
-  }
-  #new_administrator.login-form{
-    padding-bottom: 30px;
-  }
-  .login .content{
-    margin: 100px auto 50px;
-  }
-</style>
-<%= content_for :page_style do %>
-  <link href="/admin/assets/pages/css/login-4.min.css" rel="stylesheet" type="text/css" />
-<% end %>
-
 <%= simple_form_for @admin, as: :administrator, url: admin_session_path, method: :post, html: {class: 'login-form'} do |f| %>
-  <h3 class="form-title">请登录</h3>
-  <% if flash[:alert] %>
-  <div class="alert alert-danger">
-    <button class="close" data-close="alert"></button>
-    <span><%= flash.discard(:alert) %></span>
-  </div>
-  <% end %>
-  <div class="form-group">
-    <%= f.input :login, label: '账号', required: true, input_html: {class: 'form-control placeholder-no-fix', placeholder: '请输入账号'} %>
-  </div>
-  <div class="form-group">
-    <%= f.input :password, label: '密码', required: true, input_html: {class: 'form-control placeholder-no-fix', placeholder: '密码'} %>
-  </div>
-  <div class="form-group string required user_rucaptcha">
-    <div class="input">
-      <label class="control-label" for="_rucaptcha">图形验证码</label>
-      <div class="captcha">
-        <%= rucaptcha_input_tag(class: 'form-control input-captcha', placeholder: '请输入验证码') %>
-        <%= rucaptcha_image_tag(alt: 'Captcha', class: 'img-captcha', onclick: "refreshCaptcha()") %>
+
+    <div id="new-main">
+      <div class="logo-img">
+        <p class="logo-img-font">格桑花IT平台</p>
       </div>
+      <div class="logo-cont clearfix">
+        <div class="logo-req pull-right">
+          <p class="logo-req-font">后台登录</p>
+          <div>
+            <% if flash[:alert] %>
+                <div class="alert alert-danger">
+                  <button class="close" data-close="alert"></button>
+                  <span><%= flash.discard(:alert) %></span>
+                </div>
+            <% end %>
+            <span class="input input--hoshi">
+          <%= f.text_field :login, required: true, class: 'input__field input__field--hoshi', id: 'email', placeholder: '账号' %>
+              <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="email"></label>
+        </span>
+            <span class="input input--hoshi">
+          <%= f.password_field :password, required: true, class: 'input__field input__field--hoshi', id: 'password', placeholder: '密码' %>
+              <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="password"></label>
+        </span>
+            <span class="input input--hoshi">
+               <%= rucaptcha_input_tag(class: 'input__field input__field--hoshi', id: 'text', placeholder: '图形验证码') %>
+              <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="text"></label>
+              <%= rucaptcha_image_tag(alt: 'Captcha', class: 'img-captcha', onclick: "refreshCaptcha()") %>
+        </span>
+          </div>
+          <button type="submit" class="logo-req-but">登录</button>
+        </div>
+        <div class="logo-con-img pull-left">
+          <%= image_tag 'login-logo.png' %>
+        </div>
+      </div>
+      <div class="flexdfoot">Copyright(c) 2018 青海格桑花教育救助会</div>
     </div>
-  </div>
-  <div class="form-actions">
-    <%= f.button :submit, '登录', class: :'btn green pull-right' %>
-  </div>
+    </div>
 <% end %>
 
 <%= content_for :page_script do %>
-<script>
-function refreshCaptcha(){
-  $('.img-captcha').attr('src', '/rucaptcha');
-}
 
-$(function(){
-  $.backstretch([
-    "/admin/assets/pages/media/bg/1.jpg",
-    "/admin/assets/pages/media/bg/4.jpg"
-  ], {
-    fade: 1000,
-    duration: 5000
-  });
-})
-</script>
+    <script>
+        function refreshCaptcha() {
+            $('.img-captcha').attr('src', '/rucaptcha');
+        }
+
+
+    </script>
 <% end %>
