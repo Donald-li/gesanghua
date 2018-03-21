@@ -6,7 +6,7 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
     if @school.present?
         api_success(data: {is_school_user: true, seach_result: @user.school_user_summary_builder})
     else
-      api_success(data: {is_school_user: false}, message: '您不是学校用户！')
+      api_success(data: {is_school_user: false}, message: '您不是学校用户')
     end
   end
 
@@ -15,7 +15,7 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
     if @school.present?
         api_success(data: @school.detail_builder)
     else
-      api_success(data: false, message: '您不是学校用户！')
+      api_success(data: false, message: '您不是学校用户')
     end
   end
 
@@ -29,9 +29,9 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
     @school = School.find(params[:id])
     if @school.update(address: params[:address], province: province, city: city, district: district, postcode: params[:postcode], number: number, teacher_count: teacher_count, logistic_count: logistic_count, describe: params[:describe])
       @school.attach_logo(params[:logo][:id]) if params[:logo].present?
-      api_success(data: {is_school_user: true, result: true}, message: '学校信息修改成功！')
+      api_success(data: {is_school_user: true, result: true}, message: '学校信息修改成功')
     else
-      api_success(data: {is_school_user: true, result: false}, message: '学校信息修改失败，请重试！')
+      api_success(data: {is_school_user: true, result: false}, message: @school.errors.full_messages.first)
     end
   end
 
@@ -41,7 +41,7 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
       @teachers = @school.teachers.teacher.sorted
       api_success(data: {is_school_user: true, seach_result: @teachers.map{|teacher| teacher.summary_builder}})
     else
-      api_success(data: {is_school_user: false}, message: '您不是学校用户！')
+      api_success(data: {is_school_user: false}, message: '您不是学校用户')
     end
   end
 
@@ -66,12 +66,12 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
         teacher_projects.each do |teacher_project|
           TeacherProject.create(project_id: teacher_project, teacher: @teacher)
         end
-        api_success(data: {is_school_user: true, result: true}, message: '新建教师信息成功。')
+        api_success(data: {is_school_user: true, result: true}, message: '新建教师信息成功')
       else
         api_success(data: {is_school_user: true, result: false}, message: @teacher.errors.full_messages.first)
       end
     else
-      api_success(data: {is_school_user: false}, message: '您不是学校用户！')
+      api_success(data: {is_school_user: false}, message: '您不是学校用户')
     end
   end
 
@@ -100,12 +100,12 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
         teacher_projects.each do |teacher_project|
           TeacherProject.create(project_id: teacher_project, teacher: @teacher)
         end
-        api_success(data: {is_school_user: true, result: true}, message: '修改教师信息成功。')
+        api_success(data: {is_school_user: true, result: true}, message: '修改教师信息成功')
       else
-        api_success(data: {is_school_user: true, result: false}, message: '修改教师信息失败，请重试！')
+        api_success(data: {is_school_user: true, result: false}, message: @teacher.errors.full_messages.first)
       end
     else
-      api_success(data: {is_school_user: false}, message: '您不是学校用户！')
+      api_success(data: {is_school_user: false}, message: '您不是学校用户')
     end
   end
 
@@ -114,12 +114,12 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
     if @school.present?
       @teacher = @school.teachers.find(params[:id])
       if @teacher.destroy
-        api_success(data: {is_school_user: true, result: true}, message: '删除教师信息成功。')
+        api_success(data: {is_school_user: true, result: true}, message: '删除教师信息成功')
       else
-        api_success(data: {is_school_user: true, result: false}, message: '删除教师信息失败，请重试！')
+        api_success(data: {is_school_user: true, result: false}, message: @teacher.errors.full_messages.first)
       end
     else
-      api_success(data: {is_school_user: false}, message: '您不是学校用户！')
+      api_success(data: {is_school_user: false}, message: '您不是学校用户')
     end
   end
 
@@ -129,7 +129,7 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
     if @school.present?
       api_success(data: {is_school_user: true, seach_result: @user.school_user_summary_builder})
     else
-      api_success(data: {is_school_user: false}, message: '您不是学校用户！')
+      api_success(data: {is_school_user: false}, message: '您不是学校用户')
     end
   end
 
@@ -139,12 +139,12 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
       if current_user.update(name: params[:user_name], nickname: params[:user_nickname])
         current_user.attach_avatar(params[:avatar][:id]) if params[:avatar].present?
         @school.update(contact_telephone: params[:contact_telephone]) if params[:contact_telephone].present?
-        api_success(data: {is_school_user: true, result: true}, message: '用户信息修改成功！')
+        api_success(data: {is_school_user: true, result: true}, message: '用户信息修改成功')
       else
-        api_success(data: {is_school_user: true, result: false}, message: '修改用户信息失败，请重试！')
+        api_success(data: {is_school_user: true, result: false}, message: @school.errors.full_messages.first)
       end
     else
-      api_success(data: {is_school_user: false}, message: '您不是学校用户！')
+      api_success(data: {is_school_user: false}, message: '您不是学校用户')
     end
   end
 
