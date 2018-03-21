@@ -16,7 +16,6 @@
 #  qq         :string                                 # QQ
 #  openid     :string                                 # 微信openid
 #
-
 # 教师
 class Teacher < ApplicationRecord
 
