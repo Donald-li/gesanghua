@@ -49,6 +49,7 @@ namespace :api do
 
     # 协作平台
     namespace :cooperation do
+      resources :badges, only: [:index, :show] # 我的徽章
       resources :tasks, only: [:index, :show] do
         collection do
           get :my_tasks
