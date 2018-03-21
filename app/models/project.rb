@@ -28,9 +28,11 @@ class Project < ApplicationRecord
 
   attr_accessor :image_id, :form_attributes
   attr_accessor :icon_id, :form_attributes
+  attr_accessor :head_image_id, :form_attributes
 
   include HasAsset
   has_one_asset :image, class_name: 'Asset::ProjectImage'
+  has_one_asset :head_image, class_name: 'Asset::ProjectHeadImage'
   has_one_asset :icon, class_name: 'Asset::ProjectIcon'
 
   has_many :seasons, class_name: 'ProjectSeason', dependent: :destroy
@@ -171,6 +173,7 @@ class Project < ApplicationRecord
   def detail_builder
     Jbuilder.new do |json|
       json.merge! summary_builder
+      json.head_image_url self.head_image_url(:tiny).to_s
       json.total self.donate_record_amount_count
       json.num self.to_donate_num
       json.unit self.unit
