@@ -79,7 +79,7 @@ class IncomeRecord < ApplicationRecord
     return if self.title.present?
     donate_record = self.donate_records.first
     return unless donate_record
-    self.title ||= "#{donate_record.try(:user).try(:name)}捐助#{donate_record.try(:apply).try(:name)}#{donate_record.try(:fund).try(:name)}款项"
+    self.title ||= "#{donate_record.try(:user).try(:name)}捐助#{donate_record.try(:donate_item).try(:name)}#{self.try(:donate_item).try(:fund).try(:name)}款项"
   end
 
 end
