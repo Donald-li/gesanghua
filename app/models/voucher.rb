@@ -45,18 +45,43 @@ class Voucher < ApplicationRecord
   end
 
   def save_voucher(ids)
+    return false if ids.empty?
     self.transaction do
       begin
         self.save!
         records = ids.map{ |i| DonateRecord.find_by_id(i) }.compact
         voucher_id = self.id
-        records.each{ |e| e.update!( voucher_state: 2, voucher_id: voucher_id ) }
+        records.each{ |e| e.update!( voucher_state: 'billed', voucher_id: voucher_id ) }
         return true
       rescue
         return false
       end
     end
     return false
+  end
+
+  def summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :amount)
+      json.kind self.enum_name(:kind)
+      json.state self.deal? ? '已开收据' : '待开收据'
+      json.time self.created_at.strftime("%Y-%m-%d %H:%M:%S")
+      json.send_state self.logistic.present?
+      json.logistic_name self.logistic.enum_name(:name) if self.logistic.present?
+    end.attributes!
+  end
+
+  def detail_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :amount, :tax_company, :contact_name, :contact_phone)
+      json.kind self.enum_name(:kind)
+      json.state self.pending? ? '已开收据' : '待开收据'
+      json.time self.created_at.strftime("%Y-%m-%d %H:%M:%S")
+      json.send_state self.logistic.present?
+      json.logistic_name self.logistic.enum_name(:name) if self.logistic.present?
+      json.logistic_number self.logistic.try(:number)
+      json.full_address self.full_address
+    end.attributes!
   end
 
   private
