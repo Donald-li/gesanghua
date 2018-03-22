@@ -119,7 +119,7 @@ class Api::V1::CooperationPairStudentsController < Api::V1::BaseController
     # user = current_user.id
     @apply = ProjectSeasonApply.find(params[:id])
     school = @apply.school
-    url = URI::encode "http://#{Settings.app_host}/form/pair-guide?code=#{@apply.code}&school_name=#{school.name}"
+    url = URI::encode "http://#{Settings.m_root_url}/form/pair-guide?code=#{@apply.code}&school_name=#{school.name}"
     api_success(data: {qrcode_url: url})
   end
 

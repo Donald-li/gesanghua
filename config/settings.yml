@@ -1,5 +1,6 @@
 root_url: 'http://gesanghua.wikiflyer.cn/'
 app_host: 'gesanghua.wikiflyer.cn'
+m_root_url: 'http://gesanghua.wikiflyer.cn/m/'
 app_name: '格桑花'
 app_desc: '格桑花'
 logo_img: ''
