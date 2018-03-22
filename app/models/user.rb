@@ -41,7 +41,9 @@
 # 用户
 require 'custom_validators'
 class User < ApplicationRecord
+  include HasBitEnum
   ROLES = %i[superadmin admin project_manager project_operator financial_staff volunteer county_user gsh_child custom_service headmaster teacher]
+  has_bit_enum :role, ROLES
 
   attr_accessor :avatar_id
 
@@ -104,21 +106,6 @@ class User < ApplicationRecord
   has_secure_password
 
   counter_culture :team, column_name: proc {|model| model.team.present? ? 'member_count' : nil}
-
-  def roles=(roles)
-    roles = [*roles].map { |r| r.to_sym }
-    self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.inject(0, :+)
-  end
-
-  def roles
-    ROLES.reject do |r|
-      ((roles_mask.to_i || 0) & 2**ROLES.index(r)).zero?
-    end
-  end
-
-  def has_role?(role)
-    roles.include?(role)
-  end
 
   def generate_auth_token
     loop do

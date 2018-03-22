@@ -87,59 +87,35 @@ class School < ApplicationRecord
     ChinaCity.get(self.city).to_s + " " + ChinaCity.get(self.district).to_s
   end
 
+  # 更换校长
   def change_school_user(user)
+    return if user == self.user
+    # 如果之前学校有校长，并且有教师角色，把角色改成教师
     if self.user.present?
       t = self.user.teacher
-      t.update(kind: 2) if t.present?
+      t.update(kind: 'teacher') if t.present?
       u = self.user
-      if u.has_role?(:headmaster)
-        u.roles = u.roles-[:headmaster]
-        u.save
-      end
-      if !u.has_role?(:teacher)
-        u.roles = u.roles.push(:teacher)
-        u.save
-      end
-      if user.present?
-        if user.teacher.present?
-          user.teacher.update(kind: 1, school_id: self.id)
-        else
-          Teacher.create(name: user.name, phone: user.phone, school: self, user: user, kind: 'headmaster')
-        end
-        if !user.has_role?(:headmaster)
-          user.roles = user.roles.push(:headmaster)
-          user.save
-        end
-        if user.has_role?(:teacher)
-          user.roles = user.roles - [:teacher]
-          user.save
-        end
-      else
-        self.update(user_id: nil)
-        self.teachers.find_by(kind: 'headmaster').update(kind: 'teacher') if self.teachers.find_by(kind: 'headmaster').present?
-      end
-    else
-      if user.present?
-        h = self.teachers.find_by(kind: 1)
-        h.update(kind: 2) if h.present?
-        if user.teacher.present?
-          user.teacher.update(kind: 1, school_id: self.id)
-        else
-          Teacher.create(name: user.name, phone: user.phone, school: self, user: user, kind: 'headmaster')
-        end
-        if !user.has_role?(:headmaster)
-          user.roles = user.roles.push(:headmaster)
-          user.save
-        end
-        if user.has_role?(:teacher)
-          user.roles = user.roles - [:teacher]
-          user.save
-        end
-      else
-        self.update(user_id: nil)
-        self.teachers.find_by(kind: 'headmaster').update(kind: 'teacher') if self.teachers.find_by(kind: 'headmaster').present?
-      end
+      u.remove_role(:headmaster)
+      u.add_role(:teacher)
+      u.save
     end
+
+    # 将新用户设置为校长
+    if user.present?
+      if user.teacher.present?
+        user.teacher.update(kind: 'headmaster', school_id: self.id)
+      else
+        Teacher.create(name: user.name, phone: user.phone, school: self, user: user, kind: 'headmaster')
+      end
+      user.add_role(:headmaster)
+      user.remove_role(:teacher)
+      user.save
+    else
+      # self.update(user_id: nil)
+      self.teachers.find_by(kind: 'headmaster').update(kind: 'teacher') if self.teachers.find_by(kind: 'headmaster').present?
+    end
+
+    self.update(user: user)
   end
 
   def summary_builder

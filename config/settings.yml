@@ -5,7 +5,7 @@ app_desc: '格桑花'
 logo_img: ''
 
 # 短信设置
-send_sms: true
+send_sms: false
 
 # 开发模式
 development_mode: false
