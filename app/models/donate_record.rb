@@ -60,7 +60,7 @@ class DonateRecord < ApplicationRecord
   belongs_to :gsh_child, class_name: 'ProjectSeasonApplyChild', optional: true
   belongs_to :donate_item, optional: true
 
-  counter_culture :project, column_name: :donate_record_amount_count, delta_magnitude: proc {|model| model.amount}
+  counter_culture :project, column_name: proc{|model| model.project.present? && model.pay_state == 'paid' ? 'donate_record_amount_count' : nil}, delta_magnitude: proc {|model| model.amount}
   counter_culture :user, column_name: proc{|model| model.user.present? && model.pay_state == 'paid' ? 'donate_count' : nil}, delta_magnitude: proc {|model| model.amount }
   counter_culture :promoter, column_name: proc{|model| model.promoter.present? && model.pay_state == 'paid' ? 'promoter_amount_count' : nil}, delta_magnitude: proc {|model| model.amount }
   counter_culture :team, column_name: proc{|model| model.team.present? && model.pay_state == 'paid' ? 'total_donate_amount' : nil}, delta_magnitude: proc {|model| model.amount }
