@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180321034642) do
+ActiveRecord::Schema.define(version: 20180321100815) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,6 +106,7 @@ ActiveRecord::Schema.define(version: 20180321034642) do
     t.string "rank", comment: "级别描述"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "default_level", default: false, comment: "默认徽章"
   end
 
   create_table "beneficial_children", force: :cascade do |t|
@@ -756,7 +757,7 @@ ActiveRecord::Schema.define(version: 20180321034642) do
     t.string "name", comment: "学校名称"
     t.string "address", comment: "地址"
     t.integer "approve_state", default: 1, comment: "审核状态：1:待审核 2:通过 3:不通过"
-    t.string "approve_remark", comment: "审核备注"
+    t.text "approve_remark", comment: "审核备注"
     t.string "province", comment: "省"
     t.string "city", comment: "市"
     t.string "district", comment: "区/县"

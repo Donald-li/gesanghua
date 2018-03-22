@@ -126,6 +126,14 @@ class Volunteer < ApplicationRecord
     end.attributes!
   end
 
+  def check_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :phone)
+      json.name self.user.name
+      json.kind '志愿者'
+    end.attributes!
+  end
+
   private
   def gen_volunteer_apply_no
     time_string = Time.now.strftime("%y%m%d")

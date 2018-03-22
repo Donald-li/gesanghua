@@ -57,7 +57,7 @@ class Admin::BadgeLevelsController < Admin::BaseController
   end
 
   def set_badge
-    @kind = params[:kind].presence || 'user_donate'
+    @kind = params[:kind].presence || params[:badge_level].try('[]', :kind).presence || 'user_donate'
     @scope = BadgeLevel.where(kind: BadgeLevel.kinds[@kind])
   end
 end

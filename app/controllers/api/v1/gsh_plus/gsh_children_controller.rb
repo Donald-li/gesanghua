@@ -19,6 +19,11 @@ class Api::V1::GshPlus::GshChildrenController < Api::V1::BaseController
   def confirm
     gsh_child = GshChild.find(params[:id])
     if gsh_child.update(user_id: current_user.id)
+      user = current_user
+      if !user.has_role?(:gsh_child)
+        user.roles = user.roles.push(:gsh_child)
+        user.save
+      end
       api_success(message: '匹配成功', data: true)
     else
       api_success(message: '匹配失败', data: false)

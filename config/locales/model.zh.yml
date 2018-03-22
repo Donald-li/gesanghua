@@ -7,3 +7,5 @@ zh:
       teacher:
         name: '真实姓名'
         phone: '手机号码'
+      feedback:
+        content: '内容'

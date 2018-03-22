@@ -15,9 +15,9 @@ class Api::V1::OfflineDonorsController < Api::V1::BaseController
     @offline_donor = @user.offline_users.find(params[:id])
     if @offline_donor.present?
       if @offline_donor.update(manager_id: nil)
-        api_success(data: {result: true}, message: '删除捐助人信息成功。')
+        api_success(data: {result: true}, message: '删除捐助人信息成功')
       else
-        api_success(data: {result: false}, message: '删除捐助人信息失败，请重试！')
+        api_success(data: {result: false}, message: @offline_donor.errors.full_messages.first)
       end
     else
       api_success(data: {result: false}, message: '无效信息')
@@ -54,9 +54,9 @@ class Api::V1::OfflineDonorsController < Api::V1::BaseController
     # if @donor = User.create_offline_user(name, phone, gender, salutation, email, province, city, district, address, nickname, use_nickname)
     if @donor.save
       @donor.update(manager_id: @user.id)
-      api_success(data: {result: true, donor: @donor.offline_donor_summary_builder}, message: '创建捐助人信息成功。')
+      api_success(data: {result: true, donor: @donor.offline_donor_summary_builder}, message: '创建捐助人信息成功')
     else
-      api_success(data: {result: false}, message: '创建捐助人信息失败，请重试！')
+      api_success(data: {result: false}, message: @donor.errors.full_messages.first)
     end
   end
 
@@ -77,9 +77,9 @@ class Api::V1::OfflineDonorsController < Api::V1::BaseController
     end
     @donor = @user.offline_users.find(params[:id])
     if @donor.update(name: name,nickname: nickname, phone: phone, email: email, province: province, city: city, district: district, address: address, use_nickname: use_nickname)
-      api_success(data: {result: true, donor: @donor.offline_donor_summary_builder}, message: '修改捐助人信息成功。')
+      api_success(data: {result: true, donor: @donor.offline_donor_summary_builder}, message: '修改捐助人信息成功')
     else
-      api_success(data: {result: false}, message: '修改捐助人信息失败，请重试！')
+      api_success(data: {result: false}, message: @donor.errors.full_messages.first)
     end
   end
 
