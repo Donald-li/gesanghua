@@ -1,0 +1,40 @@
+<div class="bullet">
+  <span>青海格桑花教育救助会 “护花健康包” 采购公告</span>
+  <span class="iconfont icon-input_delete bullet-tit-icon cur"></span>
+</div>
+
+<nav class="bul-nav clearfix">
+  <div class="bul-img pull-left"><%= image_tag 'gsh-logo-nav.png' %></div>
+  <div class="bul-nav-cont clearfix">
+    <div class="pull-left"style="position: relative;">
+      <ul class="bul-nav-ul">
+        <li class="cur">首页</li>
+        <li id="navshow" class="cur">
+          项目中心
+          <span class="iconfont icon-arrowdown"></span>
+          <ul class="bul-nav-heide">
+            <li class="gsh-arrows-1">
+              <%= image_tag 'gsh-arrows.png' %>
+            </li>
+            <li class="cur">一对一助学</li>
+            <li class="cur">护花项目</li>
+            <li class="cur">广播项目</li>
+            <li class="cur">观影项目</li>
+            <li class="cur">探索营</li>
+          </ul>
+        </li>
+        <li class="cur">公益活动</li>
+        <li class="cur">新闻资讯</li>
+        <li class="cur">财务公开</li>
+        <li class="cur">关于我们</li>
+      </ul>
+    </div>
+    <div class="bul-nav-wy pull-right cur  button button--rayen" data-text="我要捐助">
+      <span class="button--inverted"><span class="iconfont icon-ico-donation-n"></span>我要捐助</span>
+    </div>
+  </div>
+  <div class="bul-nav-sh pull-right cur"><span class="iconfont icon-ico-search"></span></div>
+  <div class="bul-nav-dl pull-right cur">
+    <%= link_to '登录', account_login_path %>
+  </div>
+</nav>

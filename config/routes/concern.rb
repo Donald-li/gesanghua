@@ -48,3 +48,7 @@ end
 concern :check do
   member { patch :check }
 end
+
+concern :detail do
+  member { get :detail }
+end
