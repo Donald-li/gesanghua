@@ -89,16 +89,16 @@ class School < ApplicationRecord
 
   def change_school_user(user)
     if self.user.present?
-      @t = self.user.teacher
-      @t.update(kind: 2) if @t.present?
-      @u = self.user
-      if @u.has_role?(:headmaster)
-        @u.roles = @u.roles-[:headmaster]
-        @u.save
+      t = self.user.teacher
+      t.update(kind: 2) if t.present?
+      u = self.user
+      if u.has_role?(:headmaster)
+        u.roles = u.roles-[:headmaster]
+        u.save
       end
-      if !@u.has_role?(:teacher)
-        @u.roles = @u.roles.push(:teacher)
-        @u.save
+      if !u.has_role?(:teacher)
+        u.roles = u.roles.push(:teacher)
+        u.save
       end
       if user.present?
         if user.teacher.present?
@@ -120,8 +120,8 @@ class School < ApplicationRecord
       end
     else
       if user.present?
-        @h = self.teachers.find_by(kind: 1)
-        @h.update(kind: 2) if @h.present?
+        h = self.teachers.find_by(kind: 1)
+        h.update(kind: 2) if h.present?
         if user.teacher.present?
           user.teacher.update(kind: 1, school_id: self.id)
         else
