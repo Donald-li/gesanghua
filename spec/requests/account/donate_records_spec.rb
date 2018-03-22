@@ -36,5 +36,33 @@ RSpec.describe "Api::V1::Account::DonateRecords", type: :request do
       api_v1_expect_success
     end
 
+    it '获取我的捐助记录' do
+      school = create(:school)
+      teacher = create(:teacher, school: school, user: login_user)
+      project = create(:project)
+      season = create(:project_season, project: project)
+      apply = create(:project_season_apply, project: project, season: season, teacher: teacher)
+      child = create(:project_season_apply_child, project: project, season: season, apply: apply, school: school)
+      record = create(:donate_record, project: project, season: season, apply: apply, user: login_user, appoint: child )
+
+      record.paid!
+      get account_records_api_v1_account_donate_records_path, headers: api_v1_headers(login_user)
+      api_v1_expect_success
+    end
+
+    it '获取我的可开票捐助记录' do
+      school = create(:school)
+      teacher = create(:teacher, school: school, user: login_user)
+      project = create(:project)
+      season = create(:project_season, project: project)
+      apply = create(:project_season_apply, project: project, season: season, teacher: teacher)
+      child = create(:project_season_apply_child, project: project, season: season, apply: apply, school: school)
+      record = create(:donate_record, project: project, season: season, apply: apply, user: login_user, appoint: child )
+
+      record.paid!
+      get voucher_records_api_v1_account_donate_records_path, headers: api_v1_headers(login_user)
+      api_v1_expect_success
+    end
+
   end
 end

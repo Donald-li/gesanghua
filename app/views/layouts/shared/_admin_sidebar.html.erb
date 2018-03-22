@@ -684,8 +684,12 @@
         <% end %>
       </li>
       <li class="nav-item  <%= current_nav_class(:admin_voucherss) %>">
+        <% to_deal = Voucher.pending.count %>
         <%= link_to admin_vouchers_path, class: 'nav-link' do %>
           <span class="title">捐赠收据</span>
+            <% if to_deal > 0 %>
+                <span class="badge badge-danger"><%= to_deal %></span>
+            <% end %>
         <% end %>
       </li>
       <li class="nav-item  <%= current_nav_class(:admin_fund_categories) %>">
