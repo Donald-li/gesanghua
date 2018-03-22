@@ -34,4 +34,27 @@ require 'rails_helper'
 
 RSpec.describe School, type: :model do
 
+  it '测试修改学校校长' do
+    school = create(:school)
+    teacher = create(:teacher, school: school)
+    headmaster = create(:teacher, kind: 1, school: school)
+
+    school.change_school_user(headmaster.user)
+
+    expect(school.reload.user).to eq(headmaster.user)
+    expect(teacher.user.headmaster?).to be(false)
+    expect(headmaster.user.headmaster?).to be(true)
+
+    school.change_school_user(teacher.user)
+
+    expect(school.reload.user).to eq(teacher.user)
+    expect(teacher.reload.user.headmaster?).to be(true)
+    expect(teacher.kind).to eq('headmaster')
+    expect(headmaster.reload.user.headmaster?).to be(false)
+    expect(headmaster.kind).to eq('teacher')
+
+    school.change_school_user(nil)
+    expect(school.reload.user).to eq(nil)
+
+  end
 end

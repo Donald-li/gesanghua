@@ -337,7 +337,9 @@ namespace :api do
         end
       end
     end
-
+    namespace :common do
+      resources :sms_codes, only: :create
+    end
   end
 
   namespace :common do
