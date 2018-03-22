@@ -96,7 +96,7 @@
           <% to_check_task = TaskVolunteer.to_check.count %>
           <% to_approve_volunteer = Volunteer.submit.count %>
           <i class="fa fa-vcard"></i>
-          <span class="title">志愿者管理</span>
+          <span class="title <%= 'font-red-soft' if to_approve_volunteer + to_check_task > 0 %>">志愿者管理</span>
           <span class="arrow <%= current_nav_class(:admin_volunteers, current: :open) %>"></span>
         </a>
         <ul class="sub-menu">
