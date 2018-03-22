@@ -8,6 +8,7 @@ namespace :api do
         collection do
           get :projects
           get :account_records
+          get :voucher_records
         end
         member do
           get :record_details
@@ -45,6 +46,12 @@ namespace :api do
       resources :campaigns, only: [:index]
 
       resources :my_reads
+
+      resources :vouchers do
+        collection do
+          post :apply_voucher
+        end
+      end
     end
 
     # 协作平台
