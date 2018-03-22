@@ -22,7 +22,7 @@ class Api::V1::CooperationRegularFeedbacksController < Api::V1::BaseController
   end
 
   def qrcode
-    url = "http://#{Settings.app_host}/form/link-to-visit?type=regular_feedback&project_id=#{@project.id}"
+    url = "http://#{Settings.m_root_url}/form/link-to-visit?type=regular_feedback&project_id=#{@project.id}"
     api_success(data: {qrcode_url: url})
   end
 

@@ -379,9 +379,11 @@ class ProjectSeasonApply < ApplicationRecord
       json.merge! self.detail_builder
       json.(self, :bookshelf_type, :project_describe)
       json.season_name self.season.name
-      json.donate_items self.bookshelves.map{|b| b.summary_builder} if self.whole?
-      json.donate_items self.supplements.map{|b| b.summary_builder} if self.supplement?
+      json.donate_items self.bookshelves.pass.show.where(state: [:raising, :to_delivery]).map{|b| b.summary_builder} if self.whole?
+      json.donate_items self.supplements.pass.show.where(state: [:raising, :to_delivery]).map{|b| b.summary_builder} if self.supplement?
       json.describe self.describe
+      json.applies_donate_done self.bookshelves.pass.show.map { |b| b.target_amount == b.present_amount? } if self.whole?
+      json.applies_donate_done self.supplements.pass.show.map { |s| s.target_amount == s.present_amount? } if self.supplement?
       json.merge! apply_base_builder
     end.attributes!
   end
