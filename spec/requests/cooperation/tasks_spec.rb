@@ -41,7 +41,7 @@ RSpec.describe "Api::V1::Cooperation::Tasks", type: :request do
       post apply_api_v1_cooperation_tasks_path(id: task1), headers: api_v1_headers(login_user)
       api_v1_expect_success
 
-      get cancel_api_v1_cooperation_tasks_path(id: task1), headers: api_v1_headers(login_user)
+      get cancel_api_v1_cooperation_tasks_path(id: task1.task_volunteers.first.id), headers: api_v1_headers(login_user)
       api_v1_expect_success
     end
 
@@ -55,7 +55,7 @@ RSpec.describe "Api::V1::Cooperation::Tasks", type: :request do
       api_v1_expect_success
       volunteer.task_volunteers.first.pass!
       post finish_api_v1_cooperation_tasks_path,
-          params: {task_id: task1.id, content: 'hahahah'}, headers: api_v1_headers(login_user)
+          params: {id: task1.task_volunteers.first.id, content: 'hahahah'}, headers: api_v1_headers(login_user)
       api_v1_expect_success
     end
 

@@ -34,7 +34,7 @@ class Task < ApplicationRecord
 
   before_create :gen_task_no
 
-  # belongs_to :major, optional: true
+  # has :major, optional: true
   belongs_to :task_category
   belongs_to :workplace
   belongs_to :principal, class_name: 'User', foreign_key: 'principal_id'

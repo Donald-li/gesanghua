@@ -59,7 +59,7 @@ class Api::V1::Cooperation::TasksController < Api::V1::BaseController
   end
 
   def cancel
-    tv = TaskVolunteer.find_by(params[:id])
+    tv = TaskVolunteer.find(params[:id])
     if tv.apply_cancel!
       api_success(message: '取消成功')
     else
@@ -68,8 +68,8 @@ class Api::V1::Cooperation::TasksController < Api::V1::BaseController
   end
 
   def finish
-    tv = TaskVolunteer.find_by(params[:id])
-    if tv.update(achievement_comment: params[:content], finish_state: 'to_check')
+    tv = TaskVolunteer.find(params[:id])
+    if tv.update(achievement_comment: params[:content], state: 'to_check')
       tv.attach_images(params[:images].pluck(:id)) if params[:images].present?
       api_success(message: '成果提交成功')
     else

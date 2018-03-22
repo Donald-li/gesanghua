@@ -894,6 +894,7 @@ ActiveRecord::Schema.define(version: 20180322032023) do
     t.datetime "updated_at", null: false
     t.datetime "start_time", comment: "任务开始时间"
     t.datetime "end_time", comment: "任务结束时间"
+    t.integer "kind"
     t.integer "task_category_id", comment: "任务分类ID"
     t.integer "workplace_id", comment: "工作地点ID"
     t.datetime "apply_end_at", comment: "申请结束时间"
