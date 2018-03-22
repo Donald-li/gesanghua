@@ -33,8 +33,8 @@ RSpec.describe "Api::V1::Account::Vouchers", type: :request do
 
       get api_v1_account_vouchers_path, headers: api_v1_headers(login_user)
       api_v1_expect_success
-      
-      get api_v1_account_voucher_path(id: Voucher.first.id), headers: api_v1_headers(login_user)
+
+      get api_v1_account_voucher_path(id: record1.reload.voucher_id), headers: api_v1_headers(login_user)
       api_v1_expect_success
     end
 
