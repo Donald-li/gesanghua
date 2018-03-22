@@ -28,7 +28,7 @@ class Teacher < ApplicationRecord
   has_many :projects, through: :teacher_projects
 
   validates :name, :phone, presence: true
-  validates :phone, uniqueness: true
+  # validates :phone, uniqueness: true
   validates :id_card, shenfenzheng_no: true
   validates :qq, qq: true
 
