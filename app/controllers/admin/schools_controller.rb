@@ -51,65 +51,11 @@ class Admin::SchoolsController < Admin::BaseController
   end
 
   def update
-    # if @school.user.present?
-    #   @t = @school.user.teacher
-    # end
-    # if school_params[:user_id] != nil && school_params[:user_id] != ""
-    #   @user = User.find(school_params[:user_id])
-    #   @school.user = @user
-    #   if @t.present?
-    #     @t.update(kind: 2) if @school.user_id_changed?
-    #   end
-    #   Teacher.find_or_create_by(name: @user.name, phone: @user.phone, school: @school, user: @user, kind: 'headmaster')
-    # else
-    #   @school.user = nil
-    #   if @t.present?
-    #     @t.update(kind: 2)
-    #   end
-    # end
-    if @school.user.present?
-      @t = @school.user.teacher
-      @t.update(kind: 2) if @t.present?
-      @u = @school.user
-      if @u.has_role?(:headmaster)
-        @u.roles = @u.roles-[:headmaster]
-        @u.save
-      end
-      if !@u.has_role?(:teacher)
-        @u.roles = @u.roles.push(:teacher)
-        @u.save
-      end
-      if school_params[:user_id] != nil && school_params[:user_id] != ""
-        @user = User.find(school_params[:user_id])
-        if @user.teacher.present?
-          @user.teacher.update(kind: 1)
-        else
-          Teacher.create(name: @user.name, phone: @user.phone, school: @school, user: @user, kind: 'headmaster')
-        end
-        if !@user.has_role?(:headmaster)
-          @user.roles = @user.roles.push(:headmaster)
-          @user.save
-        end
-      else
-        @school.user_id = nil
-      end
+    if school_params[:user_id] != nil && school_params[:user_id] != ""
+      @user = User.find(school_params[:user_id])
+      @school.change_school_user(@user)
     else
-      if school_params[:user_id] != nil && school_params[:user_id] != ""
-        @h = @school.teachers.find_by(kind: 1)
-        @h.update(kind: 2) if @h.present?
-        @user = User.find(school_params[:user_id])
-        if @user.teacher.present?
-          @user.teacher.update(kind: 1)
-        else
-          Teacher.create(name: @user.name, phone: @user.phone, school: @school, user: @user, kind: 'headmaster')
-        end
-        if !@user.has_role?(:headmaster)
-          @user.roles = @user.roles.push(:headmaster)
-          @user.save
-        end
-      else
-        @school.user_id = nil
-      end
+      @school.change_school_user(nil)
     end
     respond_to do |format|
       if @school.update(school_params)
