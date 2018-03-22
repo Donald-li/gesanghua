@@ -476,6 +476,7 @@ class DonateRecord < ApplicationRecord
       json.(self, :id, :donor, :donate_no, :title)
       json.time self.created_at.strftime('%Y-%m-%d %H:%M:%S')
       json.amount number_to_currency(self.amount)
+      json.amount_float self.amount
       json.donate_mode !self.donor.present? # true自己捐 false代捐
       json.donate_title self.user.name === self.donor ? '' : '代捐' # true自己捐 false代捐
     end.attributes!
@@ -541,7 +542,7 @@ class DonateRecord < ApplicationRecord
 
   def set_record_title
     return if self.title.present?
-    self.title ||= "#{self.try(:user).try(:name)}捐助#{self.try(:apply).try(:name)}#{self.try(:fund).try(:name)}款项"
+    self.title ||= "#{self.try(:user).try(:name)}捐助#{self.try(:donate_item).try(:name)}#{self.try(:donate_item).try(:fund).try(:name)}款项"
   end
 
   private

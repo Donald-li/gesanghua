@@ -17,6 +17,7 @@ require 'rails_helper'
 
 RSpec.describe BadgeLevel, type: :model do
   it '判断勋章当前的等级' do
+    BadgeLevel.destroy_all
     lv0 = create(:badge_level, kind: :user_donate, title: '一级', value: 0)
     lv1 = create(:badge_level, kind: :user_donate, title: '二级', value: 100)
     lv2 = create(:badge_level, kind: :user_donate, title: '三级', value: 200)

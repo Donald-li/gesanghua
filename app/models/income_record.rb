@@ -52,7 +52,6 @@ class IncomeRecord < ApplicationRecord
   scope :sorted, -> {order(created_at: :desc)}
   scope :has_balance, ->{where('income_records.balance > 0')}
 
-  counter_culture :user, column_name: 'donate_count', delta_magnitude: proc {|model| model.amount}
   counter_culture :user, column_name: proc {|model| model.income_source.present? && !model.income_source.offline? ? 'online_count' : nil}, delta_magnitude: proc {|model| model.amount}
   counter_culture :user, column_name: proc {|model| model.income_source.present? && model.income_source.offline? ? 'offline_count' : nil}, delta_magnitude: proc {|model| model.amount}
 
@@ -79,7 +78,7 @@ class IncomeRecord < ApplicationRecord
     return if self.title.present?
     donate_record = self.donate_records.first
     return unless donate_record
-    self.title ||= "#{donate_record.try(:user).try(:name)}捐助#{donate_record.try(:apply).try(:name)}#{donate_record.try(:fund).try(:name)}款项"
+    self.title ||= "#{donate_record.try(:user).try(:name)}捐助#{donate_record.try(:donate_item).try(:name)}#{self.try(:donate_item).try(:fund).try(:name)}款项"
   end
 
 end

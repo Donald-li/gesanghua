@@ -99,3 +99,8 @@ p.update(name: '护花', alias: 'care', protocol: content, describe: '项目介�
 # 入账渠道
 IncomeSource.find_or_create_by(name: '微信支付', description: '微信支付', kind: 'weixin')
 IncomeSource.find_or_create_by(name: '线下汇款', description: '线下汇款', kind: 'offline')
+
+# 默认徽章
+BadgeLevel.options_for_select(:kinds).each do |kind|
+  BadgeLevel.create( kind: kind.second, title: "#{kind.first}默认徽章", rank: '', value: 0, default_level: true)
+end

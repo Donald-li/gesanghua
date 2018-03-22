@@ -1,4 +1,8 @@
-<%= simple_form_for @admin, as: :administrator, url: admin_session_path, method: :post, html: {class: 'login-form'} do |f| %>
+<%= content_for :page_style do %>
+    <%= stylesheet_link_tag 'admin/login', media: 'all', 'data-turbolinks-track': 'reload' %>
+<% end %>
+
+    <%= simple_form_for @admin, as: :administrator, url: admin_session_path, method: :post, html: {class: 'login-form'} do |f| %>
 
     <div id="new-main">
       <div class="logo-img">
@@ -40,7 +44,6 @@
 <% end %>
 
 <%= content_for :page_script do %>
-
     <script>
         function refreshCaptcha() {
             $('.img-captcha').attr('src', '/rucaptcha');

@@ -1,7 +1,7 @@
 class Account::SessionsController < Account::BaseController
   skip_before_action :logged_in?
 
-  layout 'application'
+  layout 'blank'
 
   def new
     @user = User.new

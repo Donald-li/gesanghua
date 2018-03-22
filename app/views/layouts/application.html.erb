@@ -24,7 +24,12 @@
   </head>
 
   <body>
-    <%= yield %>
-    <%= render '/layouts/shared/site_notice' %>
+  <%= render '/layouts/shared/site_header' %>
+
+  <%= yield %>
+  <%= render '/layouts/shared/site_notice' %>
+
+  <%= render '/layouts/shared/site_footer' %>
+
   </body>
 </html>
