@@ -16,7 +16,6 @@
 #  updated_at       :datetime         not null
 #  start_time       :datetime                               # 任务开始时间
 #  end_time         :datetime                               # 任务结束时间
-#  kind             :integer
 #  task_category_id :integer                                # 任务分类ID
 #  workplace_id     :integer                                # 工作地点ID
 #  apply_end_at     :datetime                               # 申请结束时间
@@ -27,6 +26,7 @@
 #  urgency_flag     :boolean          default(FALSE)        # 紧急
 #  innovative_flag  :boolean          default(FALSE)        # 创新
 #  difficult_flag   :boolean          default(FALSE)        # 难点
+#  kind             :integer
 #
 
 require 'rails_helper'

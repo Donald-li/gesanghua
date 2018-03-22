@@ -184,15 +184,13 @@ namespace :admin do
   end
   resources :task_categories
   resources :workplaces, concerns: [:switch]
-  resources :task_achievements
-  resources :appoint_tasks do
+  resources :task_achievements, concerns: [:switch] do
     member do
       get :switch_edit
       put :switch_update
-      get :check_edit
-      put :check_update
     end
   end
+  resources :appoint_tasks
   resources :gsh_children do
     resources :apply_records, only: [:index, :show]
   end

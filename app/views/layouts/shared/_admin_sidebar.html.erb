@@ -120,7 +120,7 @@
           </li>
           <li class="nav-item  <%= current_nav_class(:admin_task_check) %>">
             <%= link_to admin_task_achievements_path, class: 'nav-link' do %>
-              <span class="title">任务提交</span>
+              <span class="title">任务执行管理</span>
               <% if to_check_task > 0 %>
                 <span class="badge badge-danger"><%= to_check_task %></span>
               <% end %>

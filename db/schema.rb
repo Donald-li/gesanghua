@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180321100815) do
+ActiveRecord::Schema.define(version: 20180322032023) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -342,7 +342,7 @@ ActiveRecord::Schema.define(version: 20180321100815) do
     t.text "content", comment: "内容"
     t.string "owner_type"
     t.integer "owner_id"
-    t.integer "type", comment: "类型：receive、install、continual"
+    t.string "type", comment: "类型：receive、install、continual"
     t.integer "state", comment: "状态"
     t.integer "approve_state", comment: "审核状态"
     t.datetime "created_at", null: false
@@ -676,8 +676,8 @@ ActiveRecord::Schema.define(version: 20180321100815) do
     t.datetime "updated_at", null: false
     t.integer "project_season_id", comment: "年度ID"
     t.integer "position", comment: "位置"
-    t.integer "grade", comment: "结对对应年级"
-    t.integer "semester", comment: "结对对应学期"
+    t.integer "grade", comment: "一对一对应年级"
+    t.integer "semester", comment: "一对一对应学期"
   end
 
   create_table "project_season_apply_volunteers", force: :cascade, comment: "项目执行年度申请和志愿者关联表" do |t|
@@ -771,7 +771,7 @@ ActiveRecord::Schema.define(version: 20180321100815) do
     t.string "contact_phone", comment: "联系方式"
     t.string "contact_position", comment: "联系人职务"
     t.integer "kind", comment: "学校类型"
-    t.integer "user_id", comment: "申请人ID"
+    t.integer "user_id", comment: "校长ID"
     t.string "school_no", comment: "学校申请编号"
     t.string "contact_id_card", comment: "联系人身份证号"
     t.string "postcode", comment: "邮政编码"
@@ -869,16 +869,15 @@ ActiveRecord::Schema.define(version: 20180321100815) do
     t.string "comment", comment: "管理员评论"
     t.text "achievement_comment", comment: "成果描述"
     t.integer "duration", comment: "时长"
-    t.integer "approve_state", comment: "审核状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "finish_time", comment: "任务完成时间"
     t.datetime "approve_time", comment: "审核时间"
     t.integer "user_id", comment: "审核人id"
-    t.integer "finish_state", comment: "完成状态1:未完成doing 2:已完成done"
     t.string "source", comment: "获得来源"
     t.integer "kind", comment: "类型"
     t.text "reason", comment: "申请理由"
+    t.integer "state"
   end
 
   create_table "tasks", force: :cascade, comment: "任务表" do |t|
@@ -895,7 +894,6 @@ ActiveRecord::Schema.define(version: 20180321100815) do
     t.datetime "updated_at", null: false
     t.datetime "start_time", comment: "任务开始时间"
     t.datetime "end_time", comment: "任务结束时间"
-    t.integer "kind"
     t.integer "task_category_id", comment: "任务分类ID"
     t.integer "workplace_id", comment: "工作地点ID"
     t.datetime "apply_end_at", comment: "申请结束时间"

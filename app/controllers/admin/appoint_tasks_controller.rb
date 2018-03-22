@@ -1,5 +1,5 @@
 class Admin::AppointTasksController < Admin::BaseController
-  before_action :set_task, only: [:show, :edit, :update, :destroy, :switch_edit, :switch_update, :check_edit, :check_update]
+  before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
     @search = Task.appoint.sorted.ransack(params[:q])
@@ -19,11 +19,11 @@ class Admin::AppointTasksController < Admin::BaseController
   end
 
   def create
-    @task = Task.new(task_params.merge(kind: 2, num: params[:appoint_ids].size, state: 5))
+    @task = Task.new(task_params.merge(kind: 'appoint', num: params[:appoint_ids].size, state: 'close'))
     respond_to do |format|
       if @task.save
         params[:appoint_ids].each do |appoint_id|
-          @task.task_volunteers.create(volunteer_id: appoint_id, approve_state: 'pass', approve_time: Time.now, kind: 'additional')
+          @task.task_volunteers.create(volunteer_id: appoint_id, state: 'pass', approve_time: Time.now, kind: 'appoint')
         end
         format.html { redirect_to admin_tasks_path, notice: '新建成功。' }
       else
@@ -46,36 +46,6 @@ class Admin::AppointTasksController < Admin::BaseController
     @task.destroy
     respond_to do |format|
       format.html { redirect_to admin_tasks_path, notice: '删除成功。' }
-    end
-  end
-
-  def switch_edit
-    @task_volunteer = TaskVolunteer.find(params[:task_volunteer_id])
-  end
-
-  def switch_update
-    @task_volunteer = TaskVolunteer.find(params[:task_volunteer_id])
-    tv = TaskVolunteer.new(task: @task_volunteer.task, volunteer_id: params[:appoint_id], approve_state: 'pass', kind: 'additional')
-    respond_to do |format|
-      if @task_volunteer.update(finish_state: 'turn_over') && tv.save
-        format.html { redirect_to admin_task_path(@task), notice: '移交成功。' }
-      else
-        format.html { redirect_to admin_task_path(@task), notice: '移交失败。' }
-      end
-    end
-  end
-
-  def check_edit
-  end
-
-  def check_update
-    respond_to do |format|
-      @task.task_volunteers.first.update!(duration: params[:duration], comment: params[:comment], finish_state: 'done', finish_time: Time.now)
-      if @task.done!
-        format.html { redirect_to admin_tasks_path, notice: '审核成功。' }
-      else
-        format.html { redirect_to admin_tasks_path, notice: '审核失败。' }
-      end
     end
   end
 

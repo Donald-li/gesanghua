@@ -229,27 +229,21 @@ zh:
   project_season_apply_period_states:
     enable: '启用'
     disable: '禁用'
-  task_states:
-    draft: '准备中'
-    open: '开始报名'
-    picking: '筛选中'
-    pick_done: '筛选完成'
-    doing: '执行中'
-    done: '已完成'
-    cancel: '已取消'
   task_kinds:
     normal: '公开任务'
     appoint: '指派任务'
-  task_volunteer_approve_states:
-    submit: '待审核'
-    pass: '通过'
-    reject: '不通过'
-    cancel: '已取消'
-  task_volunteer_finish_states:
-    doing: '执行中'
-    to_check: '待确认'
-    done: '已完成'
-    turn_over: '已移交'
+  task_states:
+    draft: '准备中'
+    open: '开启报名'
+    close: '关闭报名'
+  task_volunteer_states:
+    submit: '报名待审核'
+    reject: '审核未通过'
+    pass: '审核通过'
+    to_check: '成果待确认'
+    done: '任务已完成'
+    turn_over: '任务已移交'
+    cancel: '任务已取消'
   school_approve_states:
     submit: '待审核'
     pass: '通过'

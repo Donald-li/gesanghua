@@ -2,7 +2,7 @@ class Admin::TaskAchievementsController < Admin::BaseController
   before_action :set_task_achievement, only: [:show, :edit, :update]
 
   def index
-    @search = TaskVolunteer.sorted.ransack(params[:q])
+    @search = TaskVolunteer.sorted.where(state: [:pass, :to_check, :done, :cancel, :turn_over]).ransack(params[:q])
     scope = @search.result.joins(:task)
     scope = scope.where(task_id: params[:task_id]) if params[:task_id].present?
     @task_volunteers = scope.page(params[:page])
@@ -19,18 +19,43 @@ class Admin::TaskAchievementsController < Admin::BaseController
     @task_achievement.duration = params[:duration]
     @task_achievement.comment = params[:comment]
     @task_achievement.finish_time = Time.now
-    @task_achievement.finish_state = 'done'
+    @task_achievement.state = 'done'
     respond_to do |format|
-      if @task_achievement.save # TODO : 无法同步更新统计
-        unless @task_achievement.task.task_volunteers.detect{|tv| !tv.done?}.present?
-          @task_achievement.task.done!
-        end
+      if @task_achievement.save
         format.html { redirect_to admin_task_achievements_path, notice: '审核成功。' }
       else
         format.html { redirect_to admin_task_achievements_path, notice: '审核失败。' }
       end
     end
   end
+
+  def switch_edit
+    @task_volunteer = TaskVolunteer.find(params[:id])
+  end
+
+  def switch_update
+    @task_volunteer = TaskVolunteer.find(params[:id])
+    tv = TaskVolunteer.new(task: @task_volunteer.task, volunteer_id: params[:appoint_id], state: 'pass', kind: 'appoint')
+    respond_to do |format|
+      if @task_volunteer.update(state: 'turn_over') && tv.save
+        format.html { redirect_to admin_task_achievements_path, notice: '移交成功。' }
+      else
+        format.html { redirect_to admin_task_achievements_path, notice: '移交失败。' }
+      end
+    end
+  end
+
+  def switch
+    @task_volunteer = TaskVolunteer.find(params[:id])
+    respond_to do |format|
+      if @task_volunteer.cancel!
+        format.html { redirect_to admin_task_achievements_path, notice: '取消成功。' }
+      else
+        format.html { redirect_to admin_task_achievements_path, notice: '取消失败。' }
+      end
+    end
+  end
+
 
   private
   # Use callbacks to share common setup or constraints between actions.

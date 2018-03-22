@@ -5,12 +5,12 @@
     </div>
     <div class="actions">
       <%= link_to new_admin_appoint_task_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
-        <i class="icon-plus"></i>
-        <span>发布指派任务</span>
+          <i class="icon-plus"></i>
+          <span>发布指派任务</span>
       <% end %>
       <%= link_to new_admin_task_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
-        <i class="icon-plus"></i>
-        <span>发布公开任务</span>
+          <i class="icon-plus"></i>
+          <span>发布公开任务</span>
       <% end %>
     </div>
   </div>
@@ -19,15 +19,15 @@
       <div class="row">
         <div class="col-md-12 col-sm-12">
           <%= search_form_for @search, url: admin_tasks_path, class: 'form-inline' do |f| %>
-            <div class="form-group">
-              <%= f.label :name_cont, '搜索' %>
-              <%= f.text_field :name_cont, class: 'form-control', placeholder: '任务名称' %>
-            </div>
-            <div class="form-group">
-              <%= f.label :state_eq, '任务状态' %>
-              <%= f.select :state_eq, Task.options_for_select(:states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
-            </div>
-            <button type="submit" class="btn btn-default grey">搜索</button>
+              <div class="form-group">
+                <%= f.label :name_or_task_no_cont, '搜索' %>
+                <%= f.text_field :name_or_task_no_cont, class: 'form-control', placeholder: '任务名称或编号' %>
+              </div>
+              <div class="form-group">
+                <%= f.label :state_eq, '任务状态' %>
+                <%= f.select :state_eq, Task.options_for_select(:states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
+              </div>
+              <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>
         </div>
         <div class="col-md-6 col-sm-12">
@@ -70,27 +70,27 @@
           </thead>
           <tbody>
           <% @tasks.each do |task| %>
-            <tr>
-              <td>
-                <%= task.task_no %>
-              </td>
-              <td>
-                <%= task.name %>
-              </td>
-              <td>
-                <%= task.duration %>
-              </td>
-              <td>
-                <%= task.task_volunteers.count %> / <%= task.num %>
-              </td>
-              <td>
-                <%= l task.start_time if task.start_time.present? %> 到 <%= l task.end_time if task.end_time.present? %>
-              </td>
-              <td>
-                <%= task.workplace.try(:title) %>
-              </td>
-              <td>
-                <% if !task.done? %>
+              <tr>
+                <td>
+                  <%= task.task_no %>
+                </td>
+                <td>
+                  <%= task.name %>
+                </td>
+                <td>
+                  <%= task.duration %>
+                </td>
+                <td>
+                  <%= task.task_volunteers.count %> / <%= task.num %>
+                </td>
+                <td>
+                  <%= l task.start_time if task.start_time.present? %>
+                  到 <%= l task.end_time if task.end_time.present? %>
+                </td>
+                <td>
+                  <%= task.workplace.try(:title) %>
+                </td>
+                <td>
                   <div class="btn-group">
                     <a class="btn btn-xs blue dropdown-toggle" data-toggle="dropdown" href="javascript:;" aria-expanded="false">
                       <i class="fa fa-circle-o-notch"></i>
@@ -100,99 +100,62 @@
                     <ul class="dropdown-menu">
                       <li>
                         <%= link_to switch_admin_task_path(task, state: 'draft'), method: :put, data: {confirm: '确定标记为准备中吗？'} do %>
-                          标记为准备中
-                          <% if task.draft? %>
-                            <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
-                          <% end %>
+                            准备中
+                            <% if task.draft? %>
+                                <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
+                            <% end %>
                         <% end %>
                       </li>
                       <li>
                         <%= link_to switch_admin_task_path(task, state: 'open'), method: :put, data: {confirm: '确定标记为开始报名吗？'} do %>
-                          标记为开始报名
-                          <% if task.open? %>
-                            <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
-                          <% end %>
+                            开始报名
+                            <% if task.open? %>
+                                <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
+                            <% end %>
                         <% end %>
                       </li>
                       <li>
                         <%= link_to switch_admin_task_path(task, state: 'picking'), method: :put, data: {confirm: '确定标记为筛选中吗？'} do %>
-                          标记为筛选中
-                          <% if task.picking? %>
-                            <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
-                          <% end %>
-                        <% end %>
-                      </li>
-                      <li>
-                        <%= link_to switch_admin_task_path(task, state: 'pick_done'), method: :put, data: {confirm: '确定标记为筛选完成吗？'} do %>
-                          标记为筛选完成
-                          <% if task.pick_done? %>
-                            <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
-                          <% end %>
-                        <% end %>
-                      </li>
-                      <li>
-                        <%= link_to switch_admin_task_path(task, state: 'doing'), method: :put, data: {confirm: '确定标记为执行中吗？'} do %>
-                          标记为执行中
-                          <% if task.doing? %>
-                            <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
-                          <% end %>
-                        <% end %>
-                      </li>
-                      <li>
-                        <%= link_to switch_admin_task_path(task, state: 'cancel'), method: :put, data: {confirm: '确定取消此任务吗？'}, class: '' do %>
-                            <sapn class="btn-danger">标记为取消</sapn>
-                            <% if task.cancel? %>
+                            关闭报名
+                            <% if task.close? %>
                                 <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
                             <% end %>
                         <% end %>
                       </li>
                     </ul>
                   </div>
-                <% else %>
-                  <div class="btn-group">
-                    <a class="btn btn-xs blue dropdown-toggle" data-toggle="dropdown" href="javascript:;" aria-expanded="false">
-                      <i class="fa fa-check-circle"></i>
-                      <%= task.enum_name(:state) %>
-                    </a>
-                  </div>
-                <% end %>
-              </td>
-              <td>
-                <button class="btn btn-xs <%= task.normal? ? 'green' : 'yellow-gold' %>"><%= task.enum_name(:kind) %></button>
-              </td>
-              <td>
-                <% count = task.task_volunteers.to_check.count %>
-                <% if count > 0 %>
-                  <%= link_to admin_task_achievements_path(task_id: task), class: 'btn btn-xs blue' do %>
-                    <i class="fa fa-check-square-o"></i> 任务提交
+                </td>
+                <td>
+                  <button class="btn btn-xs <%= task.normal? ? 'green' : 'yellow-gold' %>"><%= task.enum_name(:kind) %></button>
+                </td>
+                <td>
+                  <% count = task.task_volunteers.to_check.count %>
+                  <% if count > 0 %>
+                      <%= link_to admin_task_achievements_path(task_id: task), class: 'btn btn-xs blue' do %>
+                          <i class="fa fa-check-square-o"></i> 任务提交
+                      <% end %>
                   <% end %>
-                <% end %>
-                <% if !task.draft? %>
-                  <%= link_to admin_task_task_applies_path(task), class: 'btn btn-xs blue' do %>
-                    <i class="fa fa-list-ul"></i> 报名名单 ( <%= task.participant_number %> )
+                  <% if !task.draft? %>
+                      <%= link_to admin_task_task_applies_path(task), class: 'btn btn-xs blue' do %>
+                          <i class="fa fa-list-ul"></i> 报名名单 ( <%= task.participant_number %> )
+                      <% end %>
                   <% end %>
-                <% end %>
-                <% if task.doing? %>
-                  <%= link_to admin_task_path(task), class: 'btn btn-xs blue' do %>
-                    <i class="fa fa-external-link"></i> 移交任务
+                  <% if task.draft? %>
+                      <% if task.normal? %>
+                          <%= link_to edit_admin_task_url(task), class: 'btn btn-xs blue' do %>
+                              <i class="fa fa-edit"></i> 修改
+                          <% end %>
+                      <% else %>
+                          <%= link_to edit_admin_appoint_task_url(task), class: 'btn btn-xs blue' do %>
+                              <i class="fa fa-edit"></i> 修改
+                          <% end %>
+                      <% end %>
+                      <%= link_to admin_task_url(task), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                          <i class="fa fa-trash-o"></i> 删除
+                      <% end %>
                   <% end %>
-                <% end %>
-                <% if task.draft? %>
-                  <% if task.normal? %>
-                    <%= link_to edit_admin_task_url(task), class: 'btn btn-xs blue' do %>
-                      <i class="fa fa-edit"></i> 修改
-                    <% end %>
-                  <% else %>
-                    <%= link_to edit_admin_appoint_task_url(task), class: 'btn btn-xs blue' do %>
-                      <i class="fa fa-edit"></i> 修改
-                    <% end %>
-                  <% end %>
-                  <%= link_to admin_task_url(task), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
-                    <i class="fa fa-trash-o"></i> 删除
-                  <% end %>
-                <% end %>
-              </td>
-            </tr>
+                </td>
+              </tr>
           <% end %>
           </tbody>
         </table>

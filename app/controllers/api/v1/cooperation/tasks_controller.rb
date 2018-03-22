@@ -21,26 +21,20 @@ class Api::V1::Cooperation::TasksController < Api::V1::BaseController
   def my_tasks
     volunteer = current_user.volunteer
     if params[:state] == 'allTask'
-      tasks = Task.where(id: volunteer.task_volunteers.pluck(:task_id))
-      tasks = tasks.where(state: [:open, :pick_done, :doing, :done, :cancel])
+      task_volunteers = volunteer.task_volunteers.sorted
     elsif params[:state] == 'applyTask'
-      tasks = Task.where(id: volunteer.task_volunteers.where(approve_state: [:submit, :reject]).pluck(:task_id))
-      tasks = tasks.where(state: [:open, :pick_done])
+      task_volunteers = volunteer.task_volunteers.sorted.where(state: [:submit, :reject])
     elsif params[:state] == 'toDoTask'
-      tasks = Task.where(id: volunteer.task_volunteers.pass.pluck(:task_id))
-      tasks = tasks.where(state: [:pick_done])
+      task_volunteers = volunteer.task_volunteers.sorted.pass.joins(:task).where('tasks.start_time > ?', Time.now)
     elsif params[:state] == 'doingTask'
-      tasks = Task.where(id: volunteer.task_volunteers.pass.pluck(:task_id))
-      tasks = tasks.where(state: [:doing])
+      task_volunteers = volunteer.task_volunteers.sorted.pass.joins(:task).where('tasks.start_time < ? and tasks.end_time > ?', Time.now, Time.now)
     elsif params[:state] == 'doneTask'
-      tasks = Task.where(id: volunteer.task_volunteers.pass.pluck(:task_id))
-      tasks = tasks.where(state: [:done])
+      task_volunteers = volunteer.task_volunteers.sorted.done
     elsif params[:state] == 'cancelTask'
-      tasks = Task.where(id: volunteer.task_volunteers.pluck(:task_id))
-      tasks = tasks.where(state: [:cancel])
+      task_volunteers = volunteer.task_volunteers.sorted.where(state: [:cancel, :apply_cancel])
     end
-    tasks = tasks.sorted.page(params[:page]).per(params[:per])
-    api_success(data: {tasks: tasks.map{|task| task.summary_builder(current_user)}, pagination: json_pagination(tasks)})
+    task_volunteers = task_volunteers.sorted.page(params[:page]).per(params[:per])
+    api_success(data: {tasks: task_volunteers.map{|tv| tv.list_builder}, pagination: json_pagination(task_volunteers)})
   end
 
   def show
@@ -65,10 +59,8 @@ class Api::V1::Cooperation::TasksController < Api::V1::BaseController
   end
 
   def cancel
-    task = Task.find(params[:id])
-    volunteer = current_user.volunteer
-    tv = TaskVolunteer.find_by(task: task, volunteer: volunteer)
-    if tv.cancel!
+    tv = TaskVolunteer.find_by(params[:id])
+    if tv.apply_cancel!
       api_success(message: '取消成功')
     else
       api_error(message: '取消失败')
@@ -76,9 +68,7 @@ class Api::V1::Cooperation::TasksController < Api::V1::BaseController
   end
 
   def finish
-    task = Task.find(params[:task_id])
-    volunteer = current_user.volunteer
-    tv = TaskVolunteer.find_by(task: task, volunteer: volunteer)
+    tv = TaskVolunteer.find_by(params[:id])
     if tv.update(achievement_comment: params[:content], finish_state: 'to_check')
       tv.attach_images(params[:images].pluck(:id)) if params[:images].present?
       api_success(message: '成果提交成功')

@@ -15,8 +15,8 @@
         <div class="col-md-12 col-sm-12">
           <%= search_form_for @search, url: admin_task_task_applies_path(@task), class: 'form-inline' do |f| %>
               <div class="form-group">
-                <%= f.label :approve_state_eq, '审核状态' %>
-                <%= f.select :approve_state_eq, TaskVolunteer.options_for_select(:approve_states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
+                <%= f.label :state_eq, '任务状态' %>
+                <%= f.select :state_eq, TaskVolunteer.options_for_some_select(:states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
               </div>
               <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>
@@ -49,7 +49,7 @@
               认证时间
             </th>
             <th>
-              报名审核状态
+              任务状态
             </th>
             <th>
               操作
@@ -78,7 +78,7 @@
                   <%= l apply.volunteer.approve_time if apply.volunteer.approve_time.present? %>
                 </td>
                 <td>
-                  <%= apply.enum_name(:approve_state) %>
+                  <%= apply.enum_name(:state) %>
                 </td>
                 <td>
                   <% if apply.submit? %>

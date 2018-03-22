@@ -47,7 +47,7 @@ class Task < ApplicationRecord
   include HasAsset
   has_one_asset :cover, class_name: 'Asset::TaskCover'
 
-  enum state: {draft: 1, open: 2, picking: 3, pick_done: 4, doing: 5, done: 6, cancel: 7} # 状态 1:创建 2:报名 3:筛选 4:筛选完成 5:进行 6:完成, 7:已取消
+  enum state: {draft: 1, open: 2, close: 3} # 状态 1:创建 2:开启报名 3:关闭报名
   default_value_for :state, 1
 
   enum kind: {normal: 1, appoint: 2} # 任务类型： 1:公开任务 2:指定任务
@@ -68,58 +68,12 @@ class Task < ApplicationRecord
     self.task_no ||= Sequence.get_seq(kind: :task_no, prefix: time_string, length: 3)
   end
 
-  def task_action(user)
-    tv = self.task_volunteers.find_by(volunteer: user.volunteer)
-    if self.open? && tv.doing?
-      'can_cancel'
-    elsif self.pick_done? || self.done? || self.cancel?
-      'can_visit'
-    elsif self.doing?
-      if tv.doing?
-        'can_finish'
-      end
-    end
-  end
-
-  def task_state(user)
-    tv = self.task_volunteers.find_by(volunteer: user.volunteer)
-    if self.open?
-      if tv.cancel?
-        '申请已取消'
-      else
-        '待审核'
-      end
-    elsif self.pick_done?
-      if tv.reject?
-        '审核未通过'
-      else
-        '任务未开始'
-      end
-    elsif self.doing?
-      if tv.turn_over?
-        '任务已移交'
-      elsif tv.doing?
-        '任务进行中'
-      elsif tv.to_check?
-        '成果已提交'
-      elsif tv.done?
-        '任务已完成'
-      end
-    elsif self.done?
-      '任务已完成'
-    elsif self.cancel?
-      '任务已取消'
-    end
-  end
-
   def summary_builder(user=nil)
     Jbuilder.new do |json|
       json.(self, :id, :name, :num, :duration, :ordinary_flag, :intensive_flag, :urgency_flag, :innovative_flag, :difficult_flag)
       json.location self.workplace.try(:title)
       json.cover_mode self.cover.present?
       json.cover_url self.cover_url(:small)
-      json.task_state self.task_state(user) if user.present?
-      json.task_action self.task_action(user) if user.present?
     end.attributes!
   end
 

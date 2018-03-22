@@ -13,8 +13,8 @@ class Admin::TaskAppliesController < Admin::BaseController
 
   def update
     respond_to do |format|
-      state = task_apply_params[:approve_state] == 'pass' ? 'pass' : 'reject'
-      if @task_apply.update(approve_state: state, approve_time: Time.now)
+      state = task_apply_params[:state] == 'pass' ? 'pass' : 'reject'
+      if @task_apply.update(state: state, approve_time: Time.now)
         @task_apply.audits.create(state: state, user_id: current_user.id, comment: params[:approve_remark])
         format.html { redirect_to admin_task_task_applies_path(@task), notice: '审核成功。' }
       else

@@ -13,10 +13,10 @@
     </div>
   </div>
   <div class="portlet-body form">
-    <%= simple_form_for [:admin, @task],  url: switch_update_admin_appoint_task_path(task_volunteer_id: @task_volunteer.id), method: :put, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'category_form'} do |f| %>
+    <%= simple_form_for [:admin, @task_volunteer],  url: switch_update_admin_task_achievement_path, method: :put, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'category_form'} do |f| %>
         <%= f.error_notification %>
         <div class="form-body form-horizontal">
-          <%= static_form_control '任务名称：', @task.name %>
+          <%= static_form_control '任务名称：', @task_volunteer.task.name %>
           <div class="form-group approve_reject">
             <label class="col-md-2 control-label">负责人：</label>
             <div class="col-sm-9">
@@ -28,7 +28,7 @@
           <div class="row">
             <div class="col-md-offset-2 col-md-9">
               <%= f.button :submit, '提交', class: 'btn blue' %>
-              <%= link_to '取消', admin_task_path(@task), class: 'btn' %>
+              <%= link_to '取消', admin_task_achievements_path, class: 'btn' %>
             </div>
           </div>
         </div>
@@ -50,7 +50,7 @@
                     return {
                         q: params.term, // search term
                         page: params.page,
-                        participator_ids: <%= @task.volunteers.ids %>
+                        participator_ids: <%= @task_volunteer.task.volunteer_ids %>
                     };
                 },
                 processResults: function (data, params) {
