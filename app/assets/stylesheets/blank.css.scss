@@ -1,0 +1,505 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require "plugins/uploader"
+ *= require "plugins/bootstrap-stars"
+ *= require_self
+ */
+
+//bootstrap  reset
+// 通用样式
+//主标题
+$color-theme: #2a2a2c;
+//副标题及段落文字
+$color-subtitle: #3d3d40;
+//提示
+$color-section: #8d8d8d;
+//主色
+$color-info: #d632aa;
+//主色
+$color-border: #8b54e3;
+//渐变
+$color-button: -webkit-linear-gradient(left top, #d22ca4, #8b54e3);
+//边框
+$border: #e6e6e6;
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  background-color: #fff;
+  font-family: "Open Sans", Arial, "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", STHeiti, "WenQuanYi Micro Hei", SimSun, sans-serif;
+  margin: 0;
+  padding: 0;
+  border: none;
+  p {
+    margin-bottom: 0;
+  }
+
+}
+
+a {
+  text-decoration: none;
+  out-line: none;
+  color: #2a2a2c;
+}
+
+span {
+  display: inline-block;
+}
+input:-webkit-autofill , textarea:-webkit-autofill, select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+  border:none!important;
+}
+
+.classbody {
+  width: 100%;
+  height: 100vh;
+  background-color: #f5f5f5;
+  border-top: 1px solid #f5f5f5;
+}
+
+.pull-right {
+  float: right;
+}
+
+.pull-left {
+  float: left;
+}
+
+//小手
+.cur {
+  cursor: pointer;
+}
+
+//轮播按钮
+.swiper-button-prev, .swiper-container-rtl .swiper-button-next {
+  background-color: #000;
+  opacity: .3;
+}
+
+.swiper-button-next, .swiper-container-rtl .swiper-button-prev {
+  background-color: #000;
+  opacity: .3;
+}
+
+//清浮动
+.clearfix:after {
+  display: block;
+  content: "";
+  clear: both;
+}
+
+
+//注册/登录
+.screen-body {
+  width: 970px;
+  margin: 0 auto;
+  .screen-body-cell {
+    margin: 121px auto;
+
+  }
+}
+  .loge {
+    width: 380px;
+    height: 470px;
+    overflow: hidden;
+    border-radius: 8px!important;
+    background: -webkit-linear-gradient(left bottom, #d422a5, #8a54e3); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(right bottom, #d422a5, #8a54e3); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(right bottom, #d422a5, #8a54e3); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to right bottom, #d422a5, #8a54e3); /* 标准的语法 */
+    padding: 0;
+    position: relative;
+    box-shadow: 0 1px 24px #d12da538;
+
+  }
+  canvas {
+    display: block;
+    top: 0;
+    left: 0;
+  }
+  .loge-cont {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 20%;
+  }
+
+  .logein {
+    margin-left: -18px;
+    margin-top: 18px;
+    width: 600px;
+    height: 430px;
+    display: flex;
+    border-radius: 8px!important;
+    background-color: #fff;
+    box-shadow: 0 1px 24px #d12da538;
+    padding: 50px 0;
+  }
+  .longin-left {
+    flex: 2;
+    padding: 0 30px;
+    margin-left: 18px;
+  }
+  .register {
+    width: 200px;
+    height: 40px;
+    background: $color-button;
+    color: #fff;
+    border-radius: 20px!important;
+    margin: 40px auto 20px auto;
+    text-align: center;
+    line-height: 40px;
+    box-shadow: 0 4px 18px #d12da56b;
+  }
+  .longin-tit {
+    color: #3d3d40;
+    & > .longin-1 {
+      font-size: 22px;
+      margin-top: -9px;
+      font-weight: 700;
+    }
+    & > .longin-2 {
+      font-size: 14px;
+    }
+    & > .longin-2:hover {
+      color: $color-info;
+    }
+    .iconfont{
+      margin-top: 2px;
+      font-size: 12px;
+      margin-right: 0;
+      margin-left: 6px;
+    }
+  }
+  .longin-margin {
+    margin-bottom: 10px;
+  }
+  .longin-right {
+    flex: 1;
+    border-left: 1px dashed $border;
+    text-align: center;
+    padding: 100px 0;
+    font-size: 14px;
+    & > .longin-icon {
+      width: 130px;
+      height: 36px;
+      line-height: 36px;
+      margin: 0 auto;
+      background-color: #48ca5b;
+      border-radius: 4px!important;
+      color: #fff;
+      font-size: 14px;
+      .iconfont {
+        margin-left: 16px;
+        font-size: 26px;
+        margin-right: 6px;
+      }
+    }
+  }
+  //  一样的
+  .input-in{
+    margin: 42px auto;
+  }
+  .input {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    margin: 1em 0 .2em 0;
+    width: 100%;
+    vertical-align: top;
+
+  }
+
+  .input__field {
+    position: relative;
+    display: block;
+    float: right;
+    padding: .8em .8em 1.2em 0;
+    width: 60%;
+    border: none;
+    border-radius: 0!important;
+    background: #f0f0f0;
+    color: #aaa;
+    -webkit-appearance: none; /* for box shadows to show on iOS */
+  }
+
+  .input__field:focus {
+    outline: none;
+  }
+
+  .input__label {
+    display: inline-block;
+    float: right;
+    width: 40%;
+    color: #e5e5e5;
+    font-weight: bold;
+    font-size: 70.25%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  /* Individual styles */
+  /* Hoshi */
+  .input--hoshi {
+    overflow: hidden;
+  }
+
+  .input__field--hoshi {
+    font-size: 14px;
+    width: 100%;
+    background: transparent;
+    color: #8d8d8d;
+  }
+
+  .input__label--hoshi {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: left;
+    pointer-events: none;
+    font-size: 14px;
+  }
+
+  .input__label--hoshi::before,
+  .input__label--hoshi::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 10px);
+    border-bottom: 1px solid #e2e2e2;
+  }
+
+  .input__label--hoshi::after {
+    margin-top: -2px;
+    border-bottom: 3px solid #d323a7;
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+    -webkit-transition: -webkit-transform 0.3s;
+    transition: transform 0.3s;
+  }
+
+  .input__label--hoshi-color-1::after {
+    border-color: #d323a7;
+  }
+
+  .input__field--hoshi:focus + .input__label--hoshi::after,
+  .input--filled .input__label--hoshi::after {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  .input__field--hoshi:focus + .input__label--hoshi .input__label-content--hoshi,
+  .input--filled .input__label-content--hoshi {
+    -webkit-animation: anim-1 0.3s forwards;
+    animation: anim-1 0.3s forwards;
+  }
+
+  @-webkit-keyframes anim-1 {
+    50% {
+      opacity: 0;
+      -webkit-transform: translate3d(1em, 0, 0);
+      transform: translate3d(1em, 0, 0);
+    }
+    51% {
+      opacity: 0;
+      -webkit-transform: translate3d(-1em, -40%, 0);
+      transform: translate3d(-1em, -40%, 0);
+    }
+    100% {
+      opacity: 1;
+      -webkit-transform: translate3d(0, -40%, 0);
+      transform: translate3d(0, -40%, 0);
+    }
+  }
+
+  @keyframes anim-1 {
+    50% {
+      opacity: 0;
+      -webkit-transform: translate3d(1em, 0, 0);
+      transform: translate3d(1em, 0, 0);
+    }
+    51% {
+      opacity: 0;
+      -webkit-transform: translate3d(-1em, -40%, 0);
+      transform: translate3d(-1em, -40%, 0);
+    }
+    100% {
+      opacity: 1;
+      -webkit-transform: translate3d(0, -40%, 0);
+      transform: translate3d(0, -40%, 0);
+    }
+  }
+  .security-cont {
+    font-size: 14px;
+    color: #d423a6;
+    position: absolute;
+    right: 0;
+    bottom: 36%;
+    background: #fff;
+    border:none;
+    outline: none;
+    -webkit-appearance: none;
+    border-radius: 0!important;
+
+  }
+
+
+.flexdfoot {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  line-height: 50px;
+  font-size: 14px;
+  color: #c9c9c9;
+}
+
+.check-box {
+  font-size: 12px;
+  width: 224px;
+  margin: 0 auto;
+  text-align: center;
+  .checkbox_item {
+    position: relative;
+    display: inline-block;
+    margin-right: 10px;
+    height: 16px;
+    & > span{
+      font-weight: 600;
+      color: $color-subtitle;
+    }
+  }
+}
+
+
+
+.checkbox_item input {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+
+.checkbox_item .check_label {
+  display: inline-block;
+  cursor: default;
+}
+
+.checkbox_icon {
+  display: block;
+  margin-right: 5px;
+  width: 16px;
+  height: 16px;
+  background: url(image-path("check-box.png")) 0 0;
+}
+
+.check_label.on .checkbox_icon {
+  background-position: -16px 0;
+}
+
+.checkbox_text {
+  color: #dadada;
+  float: left;
+  height: 16px;
+  line-height: 16px;
+}
+//忘记密码
+.canforget{
+  width:100%;
+  height: 360px;
+  background: -webkit-linear-gradient(left bottom, #d422a5, #8a54e3); /* Safari 5.1 - 6.0 */
+  background: -o-linear-gradient(right bottom, #d422a5, #8a54e3); /* Opera 11.1 - 12.0 */
+  background: -moz-linear-gradient(right bottom, #d422a5, #8a54e3); /* Firefox 3.6 - 15 */
+  background: linear-gradient(to right bottom, #d422a5, #8a54e3); /* 标准的语法 */
+  overflow: hidden;
+}
+.canforget-cont{
+  width: 416px;
+  height: 391px;
+  background: #fff;
+  position: absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  right:0;
+  margin: 200px auto;
+  box-shadow: 0 1px 24px #d12da538;
+  border-radius: 8px!important;
+  padding: 40px;
+
+}
+.longin-3{
+  font-size: 14px;
+  margin-left: 4px;
+}
+.longin-4{
+  font-size: 14px;
+}
+.forget-password-img{
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  right:0;
+  margin:80px auto;
+}
+.forget-password-font{
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  right:0;
+  margin:120px auto;
+  & > p{
+    color: #fff;
+    margin:0;
+  }
+  & > p:nth-child(1){
+    font-weight: 600;
+    font-size: 20px;
+  }
+  & > p:nth-child(2){
+    font-size: 18px;
+  }
+}
+.email-cont{
+  margin-top:40px;
+  text-align: center;
+  font-size: 16px;
+  color: #3d3d40;
+}
+
+
+
+

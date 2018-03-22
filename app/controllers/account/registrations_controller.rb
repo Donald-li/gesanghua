@@ -1,7 +1,7 @@
 class Account::RegistrationsController < Account::BaseController
   skip_before_action :logged_in?, only: [:new, :create]
 
-  layout 'application'
+  layout 'blank'
 
   def new
     @user = User.new
@@ -38,6 +38,10 @@ class Account::RegistrationsController < Account::BaseController
   end
 
   def show
+  end
+
+  def bind
+
   end
 
   private

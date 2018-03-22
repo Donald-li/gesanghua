@@ -4,10 +4,10 @@ scope module: :site do
   resource :disclosure, only: :show
   get '/p/:alias', to: 'pages#show'
   resource :contribution, only: :show
-  resources :pairs, only: [:index, :show]
-  resources :reads, only: [:index, :show]
-  resources :camps, only: [:index, :show]
-  resources :goods, only: [:index, :show]
+  resources :pairs, only: [:index, :show], concerns: [:detail]
+  resources :reads, only: [:index, :show], concerns: [:detail]
+  resources :camps, only: [:index, :show], concerns: [:detail]
+  resources :goods, only: [:index, :show], concerns: [:detail]
   resources :certificates, only: [:show]
   resource :feedback, only: [:new, :create]
   resources :book_angles, only: [:index, :show]
