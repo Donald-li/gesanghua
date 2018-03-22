@@ -87,6 +87,61 @@ class School < ApplicationRecord
     ChinaCity.get(self.city).to_s + " " + ChinaCity.get(self.district).to_s
   end
 
+  def change_school_user(user)
+    if self.user.present?
+      t = self.user.teacher
+      t.update(kind: 2) if t.present?
+      u = self.user
+      if u.has_role?(:headmaster)
+        u.roles = u.roles-[:headmaster]
+        u.save
+      end
+      if !u.has_role?(:teacher)
+        u.roles = u.roles.push(:teacher)
+        u.save
+      end
+      if user.present?
+        if user.teacher.present?
+          user.teacher.update(kind: 1, school_id: self.id)
+        else
+          Teacher.create(name: user.name, phone: user.phone, school: self, user: user, kind: 'headmaster')
+        end
+        if !user.has_role?(:headmaster)
+          user.roles = user.roles.push(:headmaster)
+          user.save
+        end
+        if user.has_role?(:teacher)
+          user.roles = user.roles - [:teacher]
+          user.save
+        end
+      else
+        self.update(user_id: nil)
+        self.teachers.find_by(kind: 'headmaster').update(kind: 'teacher') if self.teachers.find_by(kind: 'headmaster').present?
+      end
+    else
+      if user.present?
+        h = self.teachers.find_by(kind: 1)
+        h.update(kind: 2) if h.present?
+        if user.teacher.present?
+          user.teacher.update(kind: 1, school_id: self.id)
+        else
+          Teacher.create(name: user.name, phone: user.phone, school: self, user: user, kind: 'headmaster')
+        end
+        if !user.has_role?(:headmaster)
+          user.roles = user.roles.push(:headmaster)
+          user.save
+        end
+        if user.has_role?(:teacher)
+          user.roles = user.roles - [:teacher]
+          user.save
+        end
+      else
+        self.update(user_id: nil)
+        self.teachers.find_by(kind: 'headmaster').update(kind: 'teacher') if self.teachers.find_by(kind: 'headmaster').present?
+      end
+    end
+  end
+
   def summary_builder
     Jbuilder.new do |json|
       json.(self, :id, :name)
