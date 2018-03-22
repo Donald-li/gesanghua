@@ -251,7 +251,11 @@ namespace :api do
       end
     end
 
-    resources :cooperation_reads, except: [:destroy]
+    resources :cooperation_reads, except: [:destroy] do
+      collection do
+        get :read_donate_item
+      end
+    end
     resources :cooperation_radios, except: [:destroy]
     resources :cooperation_cares, except: [:destroy]
     resources :cooperation_movie_cares, except: [:destroy]
