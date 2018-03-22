@@ -33,16 +33,10 @@ class Api::V1::DonatesController < Api::V1::BaseController
 
     donate_record = DonateRecord.donate_apply(user: current_user, amount: params[:amount].to_f, apply: apply, promoter: promoter)
 
-    if Settings.skip_pay_mode
-      income_record = IncomeRecord.new(user: donate_record.user, voucher_state: 'to_bill', income_source_id: 1, amount: donate_record.amount, balance: donate_record.amount, income_time: Time.now)
-      income_record.save
-      donate_record.pay_state = 'paid'
-      donate_record.income_record = income_record
-      donate_record.save
-      DonateRecord.use_income_record_donate_bookshelf(params, income_record)
-    end
+    # 本地测试环境模拟捐款入账成功
+    IncomeRecord.wechat_payment({ "out_trade_no" => donate_record.donate_no, "total_fee" => donate_record.amount.to_f }, params) if Settings.skip_pay_mode
 
-    if (donate_record)
+    if (donate_record.reload)
       api_success(data: {record_state: true, order_id: donate_record.id, pay_state: donate_record.pay_state, user_info: current_user.summary_builder.merge(auth_token: current_user.auth_token)}.camelize_keys!, message: '订单生成成功')
     else
       api_success(data: {record_state: false}, message: '订单生成失败，请重试')

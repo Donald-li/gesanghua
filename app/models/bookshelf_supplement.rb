@@ -43,6 +43,10 @@ class BookshelfSupplement < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
+  def surplus_money
+    self.target_amount - self.present_amount
+  end
+
   def class_list_summary_builder
     Jbuilder.new do |json|
       json.(self, :id, :target_amount, :present_amount)
