@@ -306,7 +306,7 @@ class DonateRecord < ApplicationRecord
 
         apply.present_amount += amount.to_f
         apply.execute_state = 'to_delivery' if apply.present_amount == apply.target_amount
-
+        
         donate_record.save!
         apply.save!
         match_fund.save! if match_fund.present?
