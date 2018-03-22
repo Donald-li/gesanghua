@@ -283,6 +283,10 @@ class ProjectSeasonApply < ApplicationRecord
       json.cover_mode self.cover_image.present?
       json.cover_url self.cover_image_url(:small).to_s
       json.tiny_url self.cover_image_url(:tiny).to_s
+      json.bookshelves_count self.bookshelves_count
+      json.bookshelves_done_count self.bookshelves_done_count
+      json.supplements_count self.supplements_count
+      json.supplements_done_count self.supplements_done_count
     end.attributes!
   end
 
