@@ -114,7 +114,7 @@ class DonateRecord < ApplicationRecord
   def pay_and_gen_certificate
     self.certificate_no ||= 'ZS' + self.donate_no
     self.pay_state = 'paid'
-    self.donor_certificate_path # TODO 调用捐赠证书方法，生成证书（微信支付调通以后，需要考虑此方法的执行速度）
+    # self.donor_certificate_path # TODO 调用捐赠证书方法，生成证书（微信支付调通以后，需要考虑此方法的执行速度）
     self.save
   end
 
@@ -306,7 +306,7 @@ class DonateRecord < ApplicationRecord
 
         apply.present_amount += amount.to_f
         apply.execute_state = 'to_delivery' if apply.present_amount == apply.target_amount
-        
+
         donate_record.save!
         apply.save!
         match_fund.save! if match_fund.present?
