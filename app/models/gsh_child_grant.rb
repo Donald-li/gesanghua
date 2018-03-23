@@ -35,6 +35,7 @@ class GshChildGrant < ApplicationRecord
   has_many_assets :images, class_name: 'Asset::GshChildGrantImage'
 
   belongs_to :school, optional: true
+  belongs_to :user, optional: true
   belongs_to :gsh_child, class_name: 'ProjectSeasonApplyChild', optional: true
   # TPDP
   belongs_to :apply_child, class_name: 'ProjectSeasonApplyChild', optional: true
