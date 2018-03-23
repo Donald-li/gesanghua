@@ -32,7 +32,7 @@ class Admin::SchoolsController < Admin::BaseController
     if @school.user.present?
       @user = @school.user
       if !@user.has_role?(:headmaster)
-        @user.roles = @user.roles.push(:headmaster)
+        @user.add_role(:headmaster)
         @user.save
       end
       Teacher.find_or_create_by(name: @school.contact_name, phone: @school.contact_phone, school: @school, user: @user, kind: 'headmaster')
@@ -70,17 +70,13 @@ class Admin::SchoolsController < Admin::BaseController
   def destroy
     @school.destroy
     if @school.user.present?
-      if @school.user.has_role?(:headmaster)
-        @school.user.roles = @school.user.roles-[:headmaster]
-        @school.user.save
-      end
+      @school.user.remove_role(:headmaster)
+      @school.user.save
     end
     @school.teachers.each do |teacher|
       if teacher.user.present?
-        if teacher.user.has_role?(:teacher)
-          teacher.user.roles = teacher.user.roles-[:teacher]
-          teacher.user.save
-        end
+        teacher.user.remove_role(:teacher)
+        teacher.user.save
       end
     end
     respond_to do |format|
