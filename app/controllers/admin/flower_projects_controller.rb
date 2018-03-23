@@ -1,6 +1,6 @@
 class Admin::FlowerProjectsController < Admin::BaseController
   before_action :set_project, only: [:index, :new, :create]
-  before_action :set_project_apply, only: [:show, :edit, :update, :destroy, :shipment, :switch, :receive, :done, :cancelled, :refunded]
+  before_action :set_project_apply, only: [:show, :edit, :update, :destroy,:shipment, :create_shipment, :switch, :receive, :done, :cancelled, :refunded]
 
   def index
     @search = @project.applies.raise_project.sorted.ransack(params[:q])
@@ -51,16 +51,18 @@ class Admin::FlowerProjectsController < Admin::BaseController
   end
 
   def shipment
-    @project_apply.to_receive!
-    respond_to do |format|
-      format.html { redirect_to admin_flower_projects_path, notice: '发货成功。' }
-    end
+    @logistic = Logistic.new
   end
 
-  def receive
-    @project_apply.to_feedback!
+  def create_shipment
+    @logistic = Logistic.new(logistic_params.merge(owner: @project_apply))
     respond_to do |format|
-      format.html { redirect_to admin_flower_projects_path, notice: '已收货成功。' }
+      if @logistic.save
+        @project_apply.to_receive!
+        format.html { redirect_to admin_flower_projects_path, notice: '发货成功。' }
+      else
+        format.html { render :shipment }
+      end
     end
   end
 
@@ -102,5 +104,9 @@ class Admin::FlowerProjectsController < Admin::BaseController
   # Never trust parameters from the scary internet, only allow the white list through.
   def project_apply_params
     params.require(:project_season_apply).permit!
+  end
+
+  def logistic_params
+    params.require(:logistic).permit!
   end
 end
