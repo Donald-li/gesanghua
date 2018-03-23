@@ -28,6 +28,7 @@
 //= require 'plugin/toTop.js'
 //= require 'plugin/jquery.let_it_snow.js'
 //= require 'plugin/checkbox.js'
+//= require 'plugin/progresscircle.js'
 
 
 
