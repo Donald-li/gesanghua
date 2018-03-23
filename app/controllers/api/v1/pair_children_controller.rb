@@ -37,8 +37,7 @@ class Api::V1::PairChildrenController < Api::V1::BaseController
 
     if record.save
       if params[:pay_method] == 'balance'
-        current_user.balance -= total
-        current_user.save
+        current_user.deduct_balance(record.amount)
         record.paid!
       end
       @pair.hidden!  # TODO 确认支付成功时隐藏孩子
