@@ -52,7 +52,7 @@ class IncomeRecord < ApplicationRecord
   scope :sorted, -> {order(created_at: :desc)}
   scope :has_balance, ->{where('income_records.balance > 0')}
 
-  counter_culture :user, column_name: proc {|model| model.income_source.present? && !model.income_source.offline? ? 'online_count' : nil}, delta_magnitude: proc {|model| model.amount}
+  counter_culture :user, column_name: proc {|model| model.income_source.present? && model.income_source.online? ? 'online_count' : nil}, delta_magnitude: proc {|model| model.amount}
   counter_culture :user, column_name: proc {|model| model.income_source.present? && model.income_source.offline? ? 'offline_count' : nil}, delta_magnitude: proc {|model| model.amount}
 
   def has_balance?

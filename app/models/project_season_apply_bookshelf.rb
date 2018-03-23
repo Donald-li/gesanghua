@@ -38,10 +38,6 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
 
   before_save :gen_bookshelf_no, if: :can_gen_bookshelf_no?
 
-  # after_commit do
-  #   byebug
-  # end
-
   belongs_to :project, optional: true
   belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id', optional: true
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id', optional: true

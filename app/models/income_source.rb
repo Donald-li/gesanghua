@@ -23,6 +23,9 @@ class IncomeSource < ApplicationRecord
   default_value_for :kind, 1
 
   acts_as_list column: :position
-  # scope :sorted, ->{ order(created_at: :desc) }
   scope :sorted, ->{ order(position: :asc) }
+
+  def online?
+    !self.offline?
+  end
 end
