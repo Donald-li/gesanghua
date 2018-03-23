@@ -51,6 +51,11 @@ class Api::V1::BookshelvesController < Api::V1::BaseController
     api_success(data: @logistic.qurey_result)
   end
 
+  def show
+    @bookshelf = ProjectSeasonApplyBookshelf.find(params[:id])
+    api_success(data: @bookshelf.summary_builder)
+  end
+
   private
   def set_bookshelf
     @bookshelf = ProjectSeasonApplyBookshelf.find(params[:id])
