@@ -59,7 +59,7 @@
                             <%= b.object.classname %>
                           </td>
                           <td>
-                            <%= b.input :target_amount, type: 'number', min: 0, label: false, input_html:{data: {'parsley-required': true}, value: @project.season.try(:bookshelf_univalence), class: 'target-amount', placeholder: '请填入筹款金额'}  %>
+                            <%= b.input :target_amount, type: 'number', min: 0, label: false, input_html:{data: {'parsley-required': true}, class: 'target-amount', placeholder: '请填入筹款金额'}  %>
                           </td>
                           <!-- <td>
                             <%#= b.beneficial_children.count%>

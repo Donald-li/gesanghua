@@ -1,5 +1,5 @@
 class Admin::RadioProjectsController < Admin::BaseController
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :switch, :shipment, :receive_note]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :switch, :shipment, :receive_note, :create_shipment]
 
   def index
     @search = ProjectSeasonApply.where(project_id: Project.radio_project.id).pass.raise_project.sorted.ransack(params[:q])
@@ -8,7 +8,7 @@ class Admin::RadioProjectsController < Admin::BaseController
   end
 
   def show
-    @note = @project.receive
+    @note = @project.receive_feedback
   end
 
   def new
@@ -55,9 +55,18 @@ class Admin::RadioProjectsController < Admin::BaseController
   end
 
   def shipment
-    @project.to_receive!
+    @logistic = Logistic.new
+  end
+
+  def create_shipment
+    @logistic = Logistic.new(logistic_params.merge(owner: @project))
     respond_to do |format|
-      format.html { redirect_to admin_radio_projects_path, notice: '发货成功。' }
+      if @logistic.save
+        @project.to_receive!
+        format.html { redirect_to admin_radio_projects_path, notice: '发货成功。' }
+      else
+        format.html { render :shipment }
+      end
     end
   end
 
@@ -70,5 +79,9 @@ class Admin::RadioProjectsController < Admin::BaseController
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
       params.require(:project_season_apply).permit!
+    end
+
+    def logistic_params
+      params.require(:logistic).permit!
     end
 end
