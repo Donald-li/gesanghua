@@ -127,14 +127,10 @@ class School < ApplicationRecord
       json.contact_telephone self.try(:contact_telephone)
       json.user_avatar do
         json.id self.try(:user).try(:avatar).try(:id)
-        json.url self.try(:user).try(:avatar).try(:file_url)
-        json.protect_token ''
+        json.url self.try(:user).try(:user_avatar)
+        json.protect_token self.try(:user).try(:avatar).try(:protect_token)
       end
-      # json.avatar_id self.try(:user).try(:avatar).try(:id)
-      # json.avatar_thumb self.try(:user).try(:avatar).try(:file_url(:tiny))
-      json.avatar_src self.try(:user).try(:avatar).try(:file_url)
-      # json.avatar_w self.try(:user).try(:avatar).try(:width)
-      # json.avatar_h self.try(:user).try(:avatar).try(:height)
+      json.avatar_src self.try(:user).try(:user_avatar)
       json.avatar_mode self.try(:user).try(:avatar).present?
     end.attributes!
   end
