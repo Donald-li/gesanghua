@@ -1,10 +1,10 @@
 <div class="portlet light">
   <div class="portlet-title">
     <div class="caption">
-      <i class="icon-list"></i>报名名单
+      <i class="icon-list"></i>工作名单
     </div>
     <div class="actions">
-      <a href="<%= admin_tasks_path %>" class="btn btn-xs blue">
+      <a href="<%= admin_appoint_tasks_path %>" class="btn btn-xs blue">
         <i class="fa fa-reply"></i> 返回
       </a>
     </div>
@@ -12,15 +12,6 @@
   <div class="portlet-body">
     <div class="dataTables_wrapper no-footer">
       <div class="row">
-        <div class="col-md-12 col-sm-12">
-          <%= search_form_for @search, url: admin_task_task_applies_path(@task), class: 'form-inline' do |f| %>
-            <div class="form-group">
-              <%= f.label :approve_state_eq, '审核状态' %>
-              <%= f.select :approve_state_eq, TaskVolunteer.options_for_select(:approve_states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
-            </div>
-            <button type="submit" class="btn btn-default grey">搜索</button>
-          <% end %>
-        </div>
         <div class="col-md-6 col-sm-12">
           <div class="dataTables_filter pull-right">
           </div>
@@ -48,15 +39,6 @@
             <th>
               认证时间
             </th>
-            <th>
-              类型
-            </th>
-            <th>
-              审核状态
-            </th>
-            <th>
-              操作
-            </th>
           </tr>
           </thead>
           <tbody>
@@ -80,17 +62,6 @@
               <td>
                 <%= l apply.volunteer.approve_time if apply.volunteer.approve_time.present? %>
               </td>
-              <td>
-                <%= apply.volunteer.enum_name(:kind) %>
-              </td>
-              <td>
-                <%= apply.enum_name(:approve_state) %>
-              </td>
-              <td>
-                <%= link_to edit_admin_task_task_apply_path(@task, apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                  <i class="fa fa-gavel"></i> 报名审核
-                <% end %>
-              </td>
             </tr>
           <% end %>
           </tbody>
@@ -98,10 +69,10 @@
       </div>
       <div class="row">
         <div class="col-md-5 col-sm-12">
-          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@task_applies) %></div>
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@task_volunteers) %></div>
         </div>
         <div class="col-md-7 col-sm-12">
-          <%= paginate @task_applies, theme: 'admin' %>
+          <%= paginate @task_volunteers, theme: 'admin' %>
         </div>
       </div>
     </div>

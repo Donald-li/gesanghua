@@ -8,7 +8,9 @@ class Admin::AppointTasksController < Admin::BaseController
   end
 
   def show
-    @task_volunteers = @task.task_volunteers
+    @search = @task.task_volunteers.sorted.ransack(params[:q])
+    scope = @search.result
+    @task_volunteers = scope.page(params[:page])
   end
 
   def new
@@ -25,7 +27,7 @@ class Admin::AppointTasksController < Admin::BaseController
         params[:appoint_ids].each do |appoint_id|
           @task.task_volunteers.create(volunteer_id: appoint_id, state: 'pass', approve_time: Time.now, kind: 'appoint')
         end
-        format.html { redirect_to admin_tasks_path, notice: '新建成功。' }
+        format.html { redirect_to admin_appoint_tasks_path, notice: '新建成功。' }
       else
         format.html { render :new }
       end
@@ -35,7 +37,7 @@ class Admin::AppointTasksController < Admin::BaseController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to admin_tasks_path, notice: '修改成功。' }
+        format.html { redirect_to admin_appoint_tasks_path, notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -45,7 +47,7 @@ class Admin::AppointTasksController < Admin::BaseController
   def destroy
     @task.destroy
     respond_to do |format|
-      format.html { redirect_to admin_tasks_path, notice: '删除成功。' }
+      format.html { redirect_to admin_appoint_tasks_path, notice: '删除成功。' }
     end
   end
 

@@ -24,6 +24,8 @@ admin:
               actions:
                 'admin/tasks': all
                 'admin/task_applies': all
+            admin_appoint_task_list:
+              actions:
                 'admin/appoint_tasks': all
             admin_task_check:
               actions:
