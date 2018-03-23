@@ -19,17 +19,17 @@
         <%= static_form_control '任务名称：', @task.name %>
         <%= static_form_control '志愿者姓名：', @task_achievement.volunteer.try(:user).try(:name) %>
         <%= static_form_control '成果描述：', @task_achievement.achievement_comment %>
-
+        <% if @task_achievement.images.present? %>
         <div class="form-group">
-          <div class="input-group">
-            <p class="form-control-static" style="padding-left: 20px;">
+          <div class="input-group" style="margin-left: 14%">
+            <p class="form-control-static">
               <% @task_achievement.images.each do |image| %>
                   <%= image_tag image.try(:file).try(:url, :small) %>
               <% end %>
             </p>
           </div>
         </div>
-
+        <% end %>
         <%= static_form_control '计划时长：', @task.duration %>
         <div class="form-group approve_reject">
           <label class="col-md-2 control-label">实发时长：</label>
