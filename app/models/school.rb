@@ -142,7 +142,9 @@ class School < ApplicationRecord
       json.address self.address
       json.location [self.province, self.city, self.district]
       json.postcode self.postcode
-      json.number_list [{id: 0, tit: '学生人数', num: self.number}, {id: 1, tit: '教师人数', num: self.teacher_count}, {id: 2, tit: '后勤人数', num: self.logistic_count}]
+      json.student_count self.number
+      json.teacher_count self.teacher_count
+      json.logistic_count self.logistic_count
       json.describe self.describe
       json.logo_src self.try(:logo).try(:file_url)
       json.logo_mode self.try(:logo).present?
