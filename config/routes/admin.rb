@@ -136,7 +136,8 @@ namespace :admin do
   resources :flower_continual_feedbacks ,concerns: [:recommend]
   resources :flower_projects, concerns: [:switch] do
     member do
-      put :shipment
+      get :shipment
+      post :create_shipment
       put :receive
       put :done
       put :cancelled

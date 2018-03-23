@@ -261,7 +261,11 @@ namespace :api do
         get :show_logistic
       end
     end
-    resources :cooperation_cares, except: [:destroy]
+    resources :cooperation_cares, except: [:destroy] do
+      member do
+        get :show_logistic
+      end
+    end
     resources :cooperation_movie_cares, except: [:destroy]
     resources :cooperation_movies, except: [:destroy]
 
