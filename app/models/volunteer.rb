@@ -25,6 +25,8 @@
 
 # 志愿者
 class Volunteer < ApplicationRecord
+  # before_create :set_user_volunteer
+
   belongs_to :user
   has_many :task_volunteers, dependent: :destroy
   has_many :tasks, through: :task_volunteers
@@ -132,6 +134,16 @@ class Volunteer < ApplicationRecord
       json.name self.user.name
       json.kind '志愿者'
     end.attributes!
+  end
+
+  def set_user_volunteer
+    user = self.user
+    return unless user.present?
+    unless user.has_role?(:volunteer)
+      user.add_role(:volunteer)
+      user.save
+    end
+    true
   end
 
   private

@@ -85,8 +85,8 @@ class Task < ApplicationRecord
       json.avatar_mode self.principal.try(:user_avatar).present?
       json.avatar_url self.principal.try(:user_avatar)
       json.category self.task_category.try(:name)
-      json.start_time self.start_time.strftime("%Y-%m-%d")
-      json.end_time self.end_time.strftime("%Y-%m-%d")
+      json.start_time self.start_time.strftime("%Y-%m-%d %H:%M")
+      json.end_time self.end_time.strftime("%Y-%m-%d %H:%M")
       json.cover_mode self.cover.present?
       json.cover_url self.cover_url(:small)
       json.can_apply !self.task_volunteers.where(volunteer: user.volunteer).present?

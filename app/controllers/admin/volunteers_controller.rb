@@ -23,6 +23,7 @@ class Admin::VolunteersController < Admin::BaseController
     @volunteer.gen_volunteer_no
     respond_to do |format|
       if @volunteer.save
+        @volunteer.set_user_volunteer
         format.html { redirect_to admin_volunteers_path, notice: '新增成功' }
       else
         format.html { render :new }
