@@ -37,7 +37,11 @@ class Api::V1::DonatesController < Api::V1::BaseController
     IncomeRecord.wechat_payment({ "out_trade_no" => donate_record.donate_no, "total_fee" => donate_record.amount.to_f }, params) if Settings.skip_pay_mode
 
     if (donate_record.reload)
-      api_success(data: {record_state: true, order_id: donate_record.id, pay_state: donate_record.pay_state, user_info: current_user.summary_builder.merge(auth_token: current_user.auth_token)}.camelize_keys!, message: '订单生成成功')
+      if params[:pay_method] == 'balance'
+        current_user.deduct_balance(amount)
+        donate_record.paid!
+      end
+        api_success(data: {record_state: true, order_id: donate_record.id, pay_state: donate_record.pay_state, user_info: current_user.summary_builder.merge(auth_token: current_user.auth_token)}.camelize_keys!, message: '订单生成成功')
     else
       api_success(data: {record_state: false}, message: '订单生成失败，请重试')
     end

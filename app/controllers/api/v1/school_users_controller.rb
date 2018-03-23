@@ -23,9 +23,9 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
     province = params[:location][0]
     city = params[:location][1]
     district = params[:location][2]
-    number = params[:number_list][0]['num']
-    teacher_count = params[:number_list][1]['num']
-    logistic_count = params[:number_list][2]['num']
+    number = params[:number]
+    teacher_count = params[:teacher_count]
+    logistic_count = params[:logistic_count]
     @school = School.find(params[:id])
     if @school.update(address: params[:address], province: province, city: city, district: district, postcode: params[:postcode], number: number, teacher_count: teacher_count, logistic_count: logistic_count, describe: params[:describe])
       @school.attach_logo(params[:logo][:id]) if params[:logo].present?

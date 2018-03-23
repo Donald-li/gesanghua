@@ -82,8 +82,8 @@ class Task < ApplicationRecord
       json.(self, :id, :name, :num, :duration, :content, :ordinary_flag, :intensive_flag, :urgency_flag, :innovative_flag, :difficult_flag)
       json.location self.workplace.try(:title)
       json.principal self.principal.try(:name)
-      json.avatar_mode self.principal.try(:avatar).present?
-      json.avatar_url self.principal.try(:avatar).try(:file).try(:url)
+      json.avatar_mode self.principal.try(:user_avatar).present?
+      json.avatar_url self.principal.try(:user_avatar)
       json.category self.task_category.try(:name)
       json.start_time self.start_time.strftime("%Y-%m-%d")
       json.end_time self.end_time.strftime("%Y-%m-%d")
