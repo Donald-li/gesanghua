@@ -8,6 +8,7 @@ namespace :api do
         collection do
           get :projects
           get :account_records
+          get :voucher_records
         end
         member do
           get :record_details
@@ -45,6 +46,12 @@ namespace :api do
       resources :campaigns, only: [:index]
 
       resources :my_reads
+
+      resources :vouchers do
+        collection do
+          post :apply_voucher
+        end
+      end
     end
 
     # 协作平台
@@ -244,9 +251,21 @@ namespace :api do
       end
     end
 
-    resources :cooperation_reads, except: [:destroy]
-    resources :cooperation_radios, except: [:destroy]
-    resources :cooperation_cares, except: [:destroy]
+    resources :cooperation_reads, except: [:destroy] do
+      collection do
+        get :read_donate_item
+      end
+    end
+    resources :cooperation_radios, except: [:destroy] do
+      member do
+        get :show_logistic
+      end
+    end
+    resources :cooperation_cares, except: [:destroy] do
+      member do
+        get :show_logistic
+      end
+    end
     resources :cooperation_movie_cares, except: [:destroy]
     resources :cooperation_movies, except: [:destroy]
 

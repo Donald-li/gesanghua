@@ -43,8 +43,9 @@
 # 所有项目年度申请表
 class ProjectSeasonApply < ApplicationRecord
 
-  # before_save :gen_bookshelves_no, if: :can_gen_bookshelf_no?
-  before_create :gen_apply_no
+  validate do |apply|
+    self.errors.add(:present_amount, '捐助金额不能大于筹款金额') if self.present_amount > self.target_amount
+  end
 
   attr_accessor :cover_image_id
   include HasAsset
@@ -67,6 +68,7 @@ class ProjectSeasonApply < ApplicationRecord
   has_one :install_feedback, as: :owner
   has_one :receive_feedback, as: :owner
   has_one :radio_information
+  has_one :logistic, as: :owner
   accepts_nested_attributes_for :radio_information, update_only: true
   accepts_nested_attributes_for :bookshelves, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :supplements, allow_destroy: true, reject_if: :all_blank #proc { |attributes| attributes['project_season_apply_bookshelf_id'].blank? }
@@ -98,10 +100,12 @@ class ProjectSeasonApply < ApplicationRecord
   # default_value_for :bookshelf_type, 1
 
   before_create :gen_code
+  before_create :gen_apply_no
+  after_save :set_execute_state
 
-  # def can_gen_bookshelf_no?
-  #   self.raise_project?
-  # end
+  def surplus_money
+    self.target_amount - self.present_amount
+  end
 
   def apply_name
     self.season.try(:name).to_s + '-' + self.school.try(:name).to_s
@@ -148,6 +152,7 @@ class ProjectSeasonApply < ApplicationRecord
 
   # 项目是否可以退款
   def can_refund?
+    debug
     self.pass? && self.raise_project? && (self.raising? || self.canceled?)
   end
 
@@ -207,13 +212,7 @@ class ProjectSeasonApply < ApplicationRecord
       if self.project == Project.read_project
         self.enum_name(:read_state)
       else
-        if self.done?
-          '已完成'
-        elsif self.cancelled?
-          '已取消'
-        else
-          '执行中'
-        end
+        self.enum_name(:execute_state)
       end
     end
   end
@@ -379,9 +378,11 @@ class ProjectSeasonApply < ApplicationRecord
       json.merge! self.detail_builder
       json.(self, :bookshelf_type, :project_describe)
       json.season_name self.season.name
-      json.donate_items self.bookshelves.map{|b| b.summary_builder} if self.whole?
-      json.donate_items self.supplements.map{|b| b.summary_builder} if self.supplement?
+      json.donate_items self.bookshelves.pass.show.where(state: [:raising, :to_delivery]).map{|b| b.summary_builder} if self.whole?
+      json.donate_items self.supplements.pass.show.where(state: [:raising, :to_delivery]).map{|b| b.summary_builder} if self.supplement?
       json.describe self.describe
+      json.applies_donate_done self.bookshelves.pass.show.map { |b| b.target_amount == b.present_amount? } if self.whole?
+      json.applies_donate_done self.supplements.pass.show.map { |s| s.target_amount == s.present_amount? } if self.supplement?
       json.merge! apply_base_builder
     end.attributes!
   end
@@ -503,6 +504,11 @@ class ProjectSeasonApply < ApplicationRecord
         break
       end
     end
+  end
+
+  # 更新筹款状态
+  def set_execute_state
+    self.to_delivery! if self.raising? && self.target_amount.to_f == self.present_amount.to_f
   end
 
 end

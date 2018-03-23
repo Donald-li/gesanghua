@@ -96,6 +96,14 @@ class Api::V1::CooperationReadsController < Api::V1::BaseController
     end
   end
 
+  def read_donate_item
+    @apply = ProjectSeasonApply.find(params[:apply_id])
+    shelf = @apply.bookshelves.raising.first
+    amount = shelf.target_amount - shelf.present_amount
+    item = Project.read_project.donate_item
+    api_success(data: {tabs: item.amount_tabs.show.sorted.map{|tab| tab.summary_builder}, amount: amount})
+  end
+
   private
   def set_read
     @read = Project.read_project

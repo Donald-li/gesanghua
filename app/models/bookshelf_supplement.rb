@@ -43,6 +43,10 @@ class BookshelfSupplement < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
+  def surplus_money
+    self.target_amount - self.present_amount
+  end
+
   def class_list_summary_builder
     Jbuilder.new do |json|
       json.(self, :id, :target_amount, :present_amount)
@@ -55,7 +59,7 @@ class BookshelfSupplement < ApplicationRecord
 
   def summary_builder
     Jbuilder.new do |json|
-      json.(self, :id, :supply, :target_amount, :present_amount, :state)
+      json.(self, :id, :supply, :target_amount, :present_amount, :state, :describe)
       json.class_id [self.bookshelf.id.to_s]
       json.class_name self.bookshelf.classname
       json.loss self.loss

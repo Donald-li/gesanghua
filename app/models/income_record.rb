@@ -55,6 +55,23 @@ class IncomeRecord < ApplicationRecord
   counter_culture :user, column_name: proc {|model| model.income_source.present? && !model.income_source.offline? ? 'online_count' : nil}, delta_magnitude: proc {|model| model.amount}
   counter_culture :user, column_name: proc {|model| model.income_source.present? && model.income_source.offline? ? 'offline_count' : nil}, delta_magnitude: proc {|model| model.amount}
 
+  def has_balance?
+    self.balance > 0
+  end
+
+  # 微信入账
+  def self.wechat_payment(result, params)
+    donate_record = DonateRecord.find_by(donate_no: result['out_trade_no'])
+    income_record = self.wechat_record(donate_record.user, result['total_fee'])
+    donate_record.update(pay_state: 'paid', income_record: income_record, pay_result: result.to_json) if donate_record.unpay?
+    DonateRecord.use_income_record_donate_apply(income_record.reload) if donate_record.project_id == 2 # 处理悦读申请捐款
+  end
+
+  # 微信入账记录
+  def self.wechat_record(user, amount)
+    IncomeRecord.new(user: user, amount: amount, balance: amount, voucher_state: 'to_bill', income_source_id: 1, income_time: Time.now)
+  end
+
   def self.read_excel(excel_id)
     file = Asset.find(excel_id).try(:file).try(:file)
     FileUtil.import_income_records(original_filename: file.original_filename, path: file.path) if file.present?

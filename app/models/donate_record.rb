@@ -43,6 +43,8 @@ class DonateRecord < ApplicationRecord
 
   before_create :set_record_title
 
+  after_commit :set_bookshelf_state
+
   belongs_to :user, optional: true
   belongs_to :promoter, class_name: 'User', foreign_key: 'promoter_id', optional: true
   belongs_to :project, optional: true
@@ -60,11 +62,13 @@ class DonateRecord < ApplicationRecord
   belongs_to :gsh_child, class_name: 'ProjectSeasonApplyChild', optional: true
   belongs_to :donate_item, optional: true
 
-  counter_culture :project, column_name: :donate_record_amount_count, delta_magnitude: proc {|model| model.amount}
+  counter_culture :project, column_name: proc{|model| model.project.present? && model.pay_state == 'paid' ? 'donate_record_amount_count' : nil}, delta_magnitude: proc {|model| model.amount}
   counter_culture :user, column_name: proc{|model| model.user.present? && model.pay_state == 'paid' ? 'donate_count' : nil}, delta_magnitude: proc {|model| model.amount }
   counter_culture :promoter, column_name: proc{|model| model.promoter.present? && model.pay_state == 'paid' ? 'promoter_amount_count' : nil}, delta_magnitude: proc {|model| model.amount }
   counter_culture :team, column_name: proc{|model| model.team.present? && model.pay_state == 'paid' ? 'total_donate_amount' : nil}, delta_magnitude: proc {|model| model.amount }
   counter_culture :team, column_name: proc{|model| model.team.present? && model.pay_state == 'paid' ? 'current_donate_amount' : nil}, delta_magnitude: proc {|model| model.amount }
+  counter_culture :apply, column_name: proc{|model| model.apply.present? && model.pay_state == 'paid' ? 'present_amount' : nil}, delta_magnitude: proc {|model| model.amount }
+  counter_culture :bookshelf, column_name: proc{|model| model.bookshelf.present? && model.pay_state == 'paid' ? 'present_amount' : nil}, delta_magnitude: proc {|model| model.amount }
 
   validates :amount, presence: true
 
@@ -110,7 +114,7 @@ class DonateRecord < ApplicationRecord
   def pay_and_gen_certificate
     self.certificate_no ||= 'ZS' + self.donate_no
     self.pay_state = 'paid'
-    self.donor_certificate_path # TODO 调用捐赠证书方法，生成证书（微信支付调通以后，需要考虑此方法的执行速度）
+    # self.donor_certificate_path # TODO 调用捐赠证书方法，生成证书（微信支付调通以后，需要考虑此方法的执行速度）
     self.save
   end
 
@@ -316,33 +320,66 @@ class DonateRecord < ApplicationRecord
     return false
   end
 
-  # 散捐书架
-  def self.use_income_record_donate_bookshelf(params, income_record)
-    donate_record = income_record.donate_records.system.first
+  def self.use_income_record_donate_apply(income_record)
+    return false unless income_record.has_balance?
+
+    donate_record = income_record.donate_records.first
     apply = donate_record.apply
-    user = income_record.user
 
-    if apply.project_id == 2 && apply.whole?
-      bookshelves = apply.bookshelves.raising.sorted
-      bookshelves.each do |bookshelf|
-        amount = bookshelf.target_amount - bookshelf.present_amount
-        donate_amount = amount
+    return false unless apply.present?
 
-        if income_record.balance - amount < 0
-          donate_amount = income_record.balance
-        end
-        if self.platform_donate_bookshelf(params.merge(amount: amount, donate_way: 'offline', offline_record_id: income_record.id), bookshelf)
-          income_record.balance -= donate_amount
-          income_record.save
+    user = donate_record.user
+
+    project = apply.project
+
+    return false unless project.id == 2
+
+    item = apply.bookshelves.raising.order(present_amount: :desc).first if apply.whole?
+    item = apply.supplements.raising.sorted.first if apply.supplement? # ?
+
+    unless item.present?
+      self.transaction do
+        begin
+          user.balance += income_record.balance
+          income_record = 0
+          user.save!
+          income_record.save!
+        rescue
+          return false
         end
       end
-
-      if income_record.balance > 0
-        user.balance += income_record.balance
-        user.save
-      end
-
     end
+
+    if item.surplus_money >= income_record.balance
+      self.transaction do
+        begin
+          dr = self.part_donate_bookshelf(user: user, amount: income_record.balance, income_record: income_record, bookshelf: item, promoter: nil)
+          dr.pay_state = 'paid'
+          dr.kind = 'platform'
+          dr.save!
+          income_record.balance = 0
+          income_record.save!
+        rescue
+          return false
+        end
+      end
+    else
+      self.transaction do
+        begin
+          dr = self.part_donate_bookshelf(user: user, amount: item.surplus_money, income_record: income_record, bookshelf: item, promoter: nil)
+          dr.pay_state = 'paid'
+          dr.kind = 'platform'
+          dr.save!
+          income_record.balance -= item.surplus_money
+          income_record.save!
+        rescue
+          return false
+        end
+      end
+      income_record.reload
+      self.use_income_record_donate_apply(income_record) if income_record.has_balance?
+    end
+
   end
 
   # 配捐给悦读
@@ -608,6 +645,14 @@ class DonateRecord < ApplicationRecord
        quit_url: quit_url
       }.to_json
     )
+  end
+
+  # 更新书架的捐助状态
+  def set_bookshelf_state
+    if self.bookshelf.present?
+      bookshelf = self.bookshelf.reload
+      bookshelf.to_delivery! if bookshelf.present_amount >= bookshelf.target_amount
+    end
   end
 
 end

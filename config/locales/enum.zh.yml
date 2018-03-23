@@ -244,6 +244,7 @@ zh:
     done: '任务已完成'
     turn_over: '任务已移交'
     cancel: '任务已取消'
+    apply_cancel: '申请已取消'
   school_approve_states:
     submit: '待审核'
     pass: '通过'

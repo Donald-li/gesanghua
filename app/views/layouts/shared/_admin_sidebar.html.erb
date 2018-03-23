@@ -96,7 +96,7 @@
           <% to_check_task = TaskVolunteer.to_check.count %>
           <% to_approve_volunteer = Volunteer.submit.count %>
           <i class="fa fa-vcard"></i>
-          <span class="title">志愿者管理</span>
+          <span class="title <%= 'font-red-soft' if to_approve_volunteer + to_check_task > 0 %>">志愿者管理</span>
           <span class="arrow <%= current_nav_class(:admin_volunteers, current: :open) %>"></span>
         </a>
         <ul class="sub-menu">
@@ -310,10 +310,10 @@
       </li>
       <li class="nav-item <%= current_nav_class(:admin_project_book) %>">
         <a href="javascript:;" class="nav-link nav-toggle">
-          <% to_prove_apply = 0 %>
-          <% submited = 0 %>
+          <% to_prove_read_apply = ProjectSeasonApply.where(project: [Project.read_project, Project.book_supply_project]).submit.count %>
+          <% to_check_regular_feedback = Project.read_project.continual_feedbacks.uncheck.count %>
           <i class="fa fa-language"></i>
-          <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">悦读</span>
+          <span class="title <%= 'font-red-soft' if to_prove_read_apply > 0 || to_check_regular_feedback > 0 %>">悦读</span>
           <span class="arrow <%= current_nav_class(:admin_project_book, current: :open) %>"></span>
         </a>
         <ul class="sub-menu">
@@ -325,6 +325,9 @@
           <li class="nav-item <%= current_nav_class(:admin_read_applies) %> ">
             <%= link_to admin_read_applies_path, class: 'nav-link' do %>
                 <span class="title">项目申请</span>
+                <% if to_prove_read_apply > 0 %>
+                    <span class="badge badge-danger"><%= to_prove_read_apply %></span>
+                <% end %>
             <% end %>
           </li>
           <li class="nav-item <%= current_nav_class(:admin_read_projects) %> ">
@@ -335,6 +338,9 @@
           <li class="nav-item <%= current_nav_class(:admin_read_continual_feedbacks) %> ">
             <%= link_to admin_read_continual_feedbacks_path, class: 'nav-link' do %>
                 <span class="title">定期反馈</span>
+                <% if to_check_regular_feedback > 0 %>
+                    <span class="badge badge-danger"><%= to_check_regular_feedback %></span>
+                <% end %>
             <% end %>
           </li>
         </ul>
@@ -684,8 +690,12 @@
         <% end %>
       </li>
       <li class="nav-item  <%= current_nav_class(:admin_voucherss) %>">
+        <% to_deal = Voucher.pending.count %>
         <%= link_to admin_vouchers_path, class: 'nav-link' do %>
           <span class="title">捐赠收据</span>
+            <% if to_deal > 0 %>
+                <span class="badge badge-danger"><%= to_deal %></span>
+            <% end %>
         <% end %>
       </li>
       <li class="nav-item  <%= current_nav_class(:admin_fund_categories) %>">

@@ -127,14 +127,10 @@ class School < ApplicationRecord
       json.contact_telephone self.try(:contact_telephone)
       json.user_avatar do
         json.id self.try(:user).try(:avatar).try(:id)
-        json.url self.try(:user).try(:avatar).try(:file_url)
-        json.protect_token ''
+        json.url self.try(:user).try(:user_avatar)
+        json.protect_token self.try(:user).try(:avatar).try(:protect_token)
       end
-      # json.avatar_id self.try(:user).try(:avatar).try(:id)
-      # json.avatar_thumb self.try(:user).try(:avatar).try(:file_url(:tiny))
-      json.avatar_src self.try(:user).try(:avatar).try(:file_url)
-      # json.avatar_w self.try(:user).try(:avatar).try(:width)
-      # json.avatar_h self.try(:user).try(:avatar).try(:height)
+      json.avatar_src self.try(:user).try(:user_avatar)
       json.avatar_mode self.try(:user).try(:avatar).present?
     end.attributes!
   end
@@ -146,7 +142,9 @@ class School < ApplicationRecord
       json.address self.address
       json.location [self.province, self.city, self.district]
       json.postcode self.postcode
-      json.number_list [{id: 0, tit: '学生人数', num: self.number}, {id: 1, tit: '教师人数', num: self.teacher_count}, {id: 2, tit: '后勤人数', num: self.logistic_count}]
+      json.student_count self.number
+      json.teacher_count self.teacher_count
+      json.logistic_count self.logistic_count
       json.describe self.describe
       json.logo_src self.try(:logo).try(:file_url)
       json.logo_mode self.try(:logo).present?
