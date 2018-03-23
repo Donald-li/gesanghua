@@ -1012,7 +1012,11 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     transform: translateY(0);
   }
 }
-
+#conttab{
+  .contentab{
+    display: none;
+  }
+}
 //项目详情
 #detail {
   width: 100%;
@@ -1162,12 +1166,11 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     box-shadow: 0 3px 9px 2px #b7b7b72b;
     background-color: #fff;
     z-index: 22;
-    border-bottom: 1px solid $border;
   }
   .detail-body{
     width: 1140px;
     margin: 0 auto;
-    padding: 40px 0 198px 0;
+    padding: 40px 0 80px 0;
   }
   .detail-body-right{
     width: 310px;
@@ -1207,7 +1210,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 }
 //执行反馈
 .detail-body-left{
-  width: 830px;
+  width: 810px;
   height: 100%;
   padding: 0 35px;
 }
@@ -1317,9 +1320,9 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 }
 //物品清单
 .detail-table-left{
-  width: 830px;
+  width: 810px;
   height: 100%;
-  padding: 0 70px 0 0;
+  padding: 0 50px 0 0;
 }
 .table-bordered{
   & > thead th{
@@ -1336,7 +1339,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 }
 //申请详情
 .details-left{
-  width: 830px;
+  width: 810px;
   height: 100%;
   padding: 0 35px 0 0;
   & > img{
