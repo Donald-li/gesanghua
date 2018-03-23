@@ -91,22 +91,6 @@
         </tr>
         <tr>
           <th>
-            家长姓名
-          </th>
-          <th>
-            <%= @apply_child.parent_name %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            联系电话
-          </th>
-          <th>
-            <%= @apply_child.phone %>
-          </th>
-        </tr>
-        <tr>
-          <th>
             描述
           </th>
           <th>
@@ -115,13 +99,162 @@
         </tr>
         <tr>
           <th>
+            班主任
+          </th>
+          <th>
+            <%= @apply_child.teacher_name %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            联系方式
+          </th>
+          <th>
+            <%= @apply_child.teacher_phone %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            父亲
+          </th>
+          <th>
+            <%= @apply_child.father %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            父亲职业
+          </th>
+          <th>
+            <%= @apply_child.father_job %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            母亲
+          </th>
+          <th>
+            <%= @apply_child.mother %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            母亲职业
+          </th>
+          <th>
+            <%= @apply_child.mother_job %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            监护人
+          </th>
+          <th>
+            <%= @apply_child.guardian %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            与其关系
+          </th>
+          <th>
+            <%= @apply_child.guardian_relation %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            联系方式
+          </th>
+          <th>
+            <%= @apply_child.guardian_phone %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            家庭住址
+          </th>
+          <th>
+            <%= @apply_child.address %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            家庭年收入
+          </th>
+          <th>
+            <%= @apply_child.family_income %> 元
+          </th>
+        </tr>
+        <tr>
+          <th>
+            家庭年支出
+          </th>
+          <th>
+            <%= @apply_child.family_expenditure %> 元
+          </th>
+        </tr>
+        <tr>
+          <th>
+            收入来源
+          </th>
+          <th>
+            <%= @apply_child.income_source %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            家庭情况
+          </th>
+          <th>
+            <%= @apply_child.family_condition %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            兄弟姐妹
+          </th>
+          <th>
+            <%= @apply_child.brothers %>
+          </th>
+        </tr>
+        <tr>
+          <th>
             孩子图片
           </th>
           <th>
-            <%= @apply_child.description %>
-            <% @apply_child.images.each do |image| %>
-                <%= image_tag image.try(:file).try(:url, :small) %>
-            <% end %>
+            <%= image_tag @apply_child.avatar.try(:file).try(:url, :small) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            身份证
+          </th>
+          <th>
+            <%= image_tag @apply_child.id_image.try(:file).try(:url, :small) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            户口本
+          </th>
+          <th>
+            <%= image_tag @apply_child.residence.try(:file).try(:url, :small) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            扶贫卡
+          </th>
+          <th>
+            <%= image_tag @apply_child.poverty.try(:file).try(:url, :small) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            家庭照
+          </th>
+          <th>
+            <%= image_tag @apply_child.family_image.try(:file).try(:url, :small) %>
           </th>
         </tr>
         </tbody>
