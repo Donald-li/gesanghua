@@ -47,7 +47,7 @@ class Task < ApplicationRecord
   include HasAsset
   has_one_asset :cover, class_name: 'Asset::TaskCover'
 
-  enum state: {draft: 1, open: 2, close: 3} # 状态 1:创建 2:开启报名 3:关闭报名
+  enum state: { open: 1, close: 2} # 状态 1:开启报名 2:关闭报名
   default_value_for :state, 1
 
   enum kind: {normal: 1, appoint: 2} # 任务类型： 1:公开任务 2:指定任务

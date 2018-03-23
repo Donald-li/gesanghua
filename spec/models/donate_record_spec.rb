@@ -163,6 +163,54 @@ RSpec.describe DonateRecord, type: :model do
     expect(donate.fund_id).to eq project.fund.id
   end
 
+  describe '测试用户捐助申请' do
+    before(:all) do
+      @user = create(:user)
+      @promoter = create(:user)
+      @source = create(:income_source, kind: 1)
+      @project = Project.read_project
+      @read_season = create(:project_season, project: @project)
+      @school = create(:school, user: @user)
+      @fund_category = create(:fund_category)
+      @fund = create(:fund, fund_category: @fund_category)
+      @read_apply = create(:project_season_apply, project: @project, season: @read_season, school: @school, bookshelf_type: 'whole', target_amount: 10500, present_amount: 0)
+      @bookshelf1 = create(:project_season_apply_bookshelf, project: @project, season: @read_season, school: @school, apply: @read_apply, target_amount: 2100, present_amount: 0)
+      @bookshelf2 = create(:project_season_apply_bookshelf, project: @project, season: @read_season, school: @school, apply: @read_apply, target_amount: 2100, present_amount: 0)
+      @bookshelf3 = create(:project_season_apply_bookshelf, project: @project, season: @read_season, school: @school, apply: @read_apply, target_amount: 2100, present_amount: 0)
+      @bookshelf4 = create(:project_season_apply_bookshelf, project: @project, season: @read_season, school: @school, apply: @read_apply, target_amount: 2100, present_amount: 0)
+      @bookshelf5 = create(:project_season_apply_bookshelf, project: @project, season: @read_season, school: @school, apply: @read_apply, target_amount: 2100, present_amount: 0)
+    end
+
+    it '测试捐助悦读申请' do
+      params = { apply_id: @read_apply.id, amount: 2100 }
+      donate_record = DonateRecord.donate_apply(user: @user, amount: params[:amount].to_f, apply: @read_apply, promoter: @promoter)
+      IncomeRecord.wechat_payment({ "out_trade_no" => donate_record.donate_no, "total_fee" => donate_record.amount.to_f }, params)
+      expect(ProjectSeasonApplyBookshelf.count).to eq 5
+      expect(ProjectSeasonApplyBookshelf.to_delivery.count).to eq 1
+    end
+
+    it '测试悦读零捐超过一个书架金额' do
+      params = { apply_id: @read_apply.id, amount: 5000 }
+      donate_record = DonateRecord.donate_apply(user: @user, amount: params[:amount].to_f, apply: @read_apply, promoter: @promoter)
+      IncomeRecord.wechat_payment({ "out_trade_no" => donate_record.donate_no, "total_fee" => donate_record.amount.to_f }, params)
+      expect(ProjectSeasonApplyBookshelf.count).to eq 5
+      expect(ProjectSeasonApplyBookshelf.to_delivery.count).to eq 2
+      expect(ProjectSeasonApplyBookshelf.raising.count).to eq 3
+      expect(ProjectSeasonApplyBookshelf.find(3).present_amount).to eq 800.0
+    end
+
+    it '测试捐款金额超过申请目标筹款额' do
+      user_balance = @user.balance
+      params = { apply_id: @read_apply.id, amount: 20000 }
+      donate_record = DonateRecord.donate_apply(user: @user, amount: params[:amount].to_f, apply: @read_apply, promoter: @promoter)
+      IncomeRecord.wechat_payment({ "out_trade_no" => donate_record.donate_no, "total_fee" => donate_record.amount.to_f }, params)
+      expect(ProjectSeasonApplyBookshelf.count).to eq 5
+      expect(ProjectSeasonApplyBookshelf.to_delivery.count).to eq 5
+      expect(@user.reload.balance).to eq 9500.0 + user_balance
+      # expect(@read_apply.reload.present_amount).to eq @read_apply.target_amount
+    end
+  end
+
   describe '测试配捐方法' do
 
     before(:all) do

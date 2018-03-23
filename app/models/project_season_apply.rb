@@ -156,13 +156,11 @@ class ProjectSeasonApply < ApplicationRecord
     self.pass? && self.raise_project? && (self.raising? || self.canceled?)
   end
 
-  # 生成图书角编号
-  # def gen_bookshelves_no
-  #   self.bookshelves.pass.each do |b|
-  #     b.gen_bookshelf_no
-  #     b.save
-  #   end
-  # end
+  # 是否有可捐助的子项
+  def has_item?
+    have_item_projects = [1, 2]
+    have_item_projects.include?(self.project.id)
+  end
 
   # 通过审核的补书申请数量
   def supplements_count

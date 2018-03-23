@@ -76,8 +76,8 @@
                   <%= item.task.try(:duration) %>
                 </td>
                 <td>
-                  <%= l item.task.start_time if item.task.start_time.present? %>
-                  到 <%= l item.task.end_time if item.task.end_time.present? %>
+                  <%= item.task.start_time.strftime("%Y-%m-%d %H:%M") if item.task.start_time.present? %>
+                  到 <%= item.task.end_time.strftime("%Y-%m-%d %H:%M") if item.task.end_time.present? %>
                 </td>
                 <td>
                   <%= item.task.try(:workplace).try(:title) %>
@@ -92,10 +92,10 @@
                   <%= item.task_state %>
                 </td>
                 <td>
-                  <%= l item.finish_time if item.finish_time.present? %>
+                  <%= item.finish_time.strftime("%Y-%m-%d %H:%M") if item.finish_time.present? %>
                 </td>
                 <td>
-                  <% if !item.turn_over? %>
+                  <% if !item.turn_over? && !item.done? %>
                       <%= link_to switch_edit_admin_task_achievement_path(item), class: 'btn btn-xs blue' do %>
                           <i class="fa fa-external-link"></i> 任务移交
                       <% end %>

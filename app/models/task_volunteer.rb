@@ -54,6 +54,7 @@ class TaskVolunteer < ApplicationRecord
 
   def list_builder
     Jbuilder.new do |json|
+      json.(self, :id)
       json.task_id self.task_id
       json.task_name self.task.try(:name)
       json.task_num self.task.num

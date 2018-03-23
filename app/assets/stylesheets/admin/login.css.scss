@@ -1,13 +1,39 @@
-input:-webkit-autofill , textarea:-webkit-autofill, select:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px white inset;
-  border:none!important;
-}
+
 .pull-right {
   float: right;
 }
 
 .pull-left {
   float: left;
+}
+body{
+  -webkit-font-smoothing: antialiased;
+  background-color: #fff;
+  font-family: "Open Sans", Arial, "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", STHeiti, "WenQuanYi Micro Hei", SimSun, sans-serif;
+  margin: 0;
+  padding: 0;
+  border: none;
+  box-sizing: border-box;
+  p {
+    margin-bottom: 0;
+  }
+  dl, ol, ul {
+    list-style: none;
+    margin-bottom: 0;
+  }
+  a {
+    text-decoration: none;
+    out-line: none;
+    color: #2a2a2c;
+  }
+  button{
+    border: none;
+    outline:none;
+  }
+  input:-webkit-autofill , textarea:-webkit-autofill, select:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+    border:none!important;
+  }
 }
 //登录页面
 
@@ -142,8 +168,10 @@ input:-webkit-autofill , textarea:-webkit-autofill, select:-webkit-autofill {
     position: relative;
     .img-captcha{
       position: absolute;
-      right:0;
-      top:-10px;
+      right: 0;
+      top: 0;
+      width: 106px;
+      height: 32px;
     }
   }
 
@@ -254,9 +282,7 @@ input:-webkit-autofill , textarea:-webkit-autofill, select:-webkit-autofill {
       margin-top: 7px;
     }
   }
-  button{
-    outline:none;
-  }
+
   .alert, .thumbnail {
     margin-bottom: 0;
   }

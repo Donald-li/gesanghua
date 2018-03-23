@@ -233,8 +233,7 @@ zh:
     normal: '公开任务'
     appoint: '指派任务'
   task_states:
-    draft: '准备中'
-    open: '开启报名'
+    open: '开始报名'
     close: '关闭报名'
   task_volunteer_states:
     submit: '报名待审核'

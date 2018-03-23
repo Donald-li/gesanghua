@@ -67,7 +67,7 @@ class DonateRecord < ApplicationRecord
   counter_culture :promoter, column_name: proc{|model| model.promoter.present? && model.pay_state == 'paid' ? 'promoter_amount_count' : nil}, delta_magnitude: proc {|model| model.amount }
   counter_culture :team, column_name: proc{|model| model.team.present? && model.pay_state == 'paid' ? 'total_donate_amount' : nil}, delta_magnitude: proc {|model| model.amount }
   counter_culture :team, column_name: proc{|model| model.team.present? && model.pay_state == 'paid' ? 'current_donate_amount' : nil}, delta_magnitude: proc {|model| model.amount }
-  counter_culture :apply, column_name: proc{|model| model.apply.present? && model.pay_state == 'paid' ? 'present_amount' : nil}, delta_magnitude: proc {|model| model.amount }
+  counter_culture :apply, column_name: proc{|model| model.apply.present? && !model.apply.has_item? && model.pay_state == 'paid' ? 'present_amount' : nil}, delta_magnitude: proc {|model| model.amount }
   counter_culture :bookshelf, column_name: proc{|model| model.bookshelf.present? && model.pay_state == 'paid' ? 'present_amount' : nil}, delta_magnitude: proc {|model| model.amount }
 
   validates :amount, presence: true
@@ -341,9 +341,10 @@ class DonateRecord < ApplicationRecord
       self.transaction do
         begin
           user.balance += income_record.balance
-          income_record = 0
+          income_record.balance = 0
           user.save!
           income_record.save!
+          return true
         rescue
           return false
         end
