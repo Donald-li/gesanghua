@@ -1,2 +1,284 @@
-孩子页
-<div style="width: 100%;height: 30000px;"></div>
+<div id="detail">
+
+  <div class="detail-head">
+    <div class="detail-img clearfix">
+      <%= image_tag 'top-mian-con.png' %>
+      <div class="detail-cont pull-right">
+        <div>
+          <p class="detail-con-t">护花行动“风暴”来袭</p>
+          <p class="detail-con-font">格桑花是青藏高原上生命力极其顽强的一种野花，它代表着爱与吉祥，象征着青藏高原上的孩子们的未来。</p>
+        </div>
+        <div class="detail-con-number clearfix">
+          <div class="circlechart pull-left" data-percentage="85">85%</div>
+          <div class="pull-left detail-num ">
+            <p>￥45671.23</p>
+            <p>目标:68000.00</p>
+          </div>
+        </div>
+        <div class="detail-cont-foot border-t ">
+          <p>当前筹款<span>￥22328.77</span></p>
+          <p>参与人数<span>89人</span></p>
+          <div>我要捐助</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail-nav " id="navHeight">
+    <div class="detail-fiexd border-b">
+      <div class="fhNav clearfix">
+        <div class="bottomLine"></div>
+        <ul class="nav pull-left" id="tabnav">
+          <li class="selectedNav">
+            <span>申请详情</span>
+          </li>
+          <li>
+            <span>物品清单</span>
+          </li>
+          <li>
+            <span>执行反馈</span>
+            <span class="navmark">3</span>
+          </li>
+        </ul>
+        <div class="pull-right share cur">分享</div>
+      </div>
+    </div>
+  </div>
+  <div class="detail-body clearfix" id="conttab">
+    <!--申请详情-->
+    <div class="details-left pull-left contentab">
+      <p class="detail-l-title">护花申请详情</p>
+      <p class="detail-l-fon">格桑花“护花包”项目
+        11月的青海玉树，雪花飘零，一幅冰雪世界模样。在皑皑白雪、巍峨雪山的映衬下，纵横交错的五彩经幡在空中飘舞，激情震撼的康巴歌舞在天地奔放。神山神水守护着玉树，在它的南部，有一块神奇美丽的地方---囊谦。在囊谦有一所如同高原阳光般灿烂的学校---囊谦阳光福利学校。
+        这是一所福利学校，全校204名小学生，大多数为单亲或孤儿，全部住校。这里的孩子没有周末，只放月假，每个月的最后几天回自己家或亲戚家待几天。在孩子们的心中，老师不仅仅是传道授业的师者，更是他们最知心的父母和朋友。青海格桑花教育救助会（简称“格桑花”），是在青海省民政厅注册、由青海省教育厅主管的社团，是非营利性民间公益组织，原名“格桑花西部助学”。
+        “只能在毫无心机的情况下，才能巧遇到爱。你会发现这种爱超越了时间的范畴，属于个人，也超乎个人，可以专一，也可以遍布，就像一朵花的芬芳，你能闻到它，也可能毫无知觉地擦身而过，那朵花为每一个人绽放。”
+        2005年2月19日，格桑花西部助学网正式上线。选在2月19日这一天作为格桑花的生日，取其谐音“爱要久”，寓意这份爱要持久。
+        2009年7月，由青海省教育厅主管的、在青海省民政厅注册的非营利性民间公益组织——青海格桑花教育救助会正式成立。
+        格桑花寓意
+        格桑花是青藏高原上生命力极其顽强的一种野花，它代表着爱与吉祥，象征着青藏高原上的孩子们的未来。我们为这个由千千万万颗爱心汇聚而成的民间草根组织取名“格桑花”，就是希望它也能像高原上的格桑花一样，扎根乡土，生生不息，绽放在更多人的心中。</p>
+      <%= image_tag 'detail-reduce.png' %>
+    </div>
+    物品
+    <div class="pull-left detail-table-left">
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th scope="col">物品名称</th>
+          <th scope="col">物品价格（元）</th>
+          <th scope="col">物品名称</th>
+          <th scope="col">物品价格（元）</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th>生理卫生手册</th>
+          <td>3000.00</td>
+          <td>生理卫生手册</td>
+          <td>3000.00</td>
+        </tr>
+        <tr>
+          <th >生理卫生手册</th>
+          <td>3000.00</td>
+          <td>生理卫生手册</td>
+          <td>3000.00</td>
+        </tr>
+        <tr>
+          <th >生理卫生手册</th>
+          <td >3000.00</td>
+          <td>生理卫生手册</td>
+          <td>3000.00</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <!--反馈-->
+    <div class="pull-left detail-body-left bd-l">
+      <ul class="detail-body-ul">
+        <li class="detail-body-cont">
+          <span class="detail-body-hover iconfont icon-yuan"></span>
+            <div class="clearfix detail-font-tit">
+              <p class="pull-left">护花项目安装反馈</p>
+              <span class="pull-right cur" onclick="showHideCode()"><span class="iconfont icon-arrowdown"></span>查看详情</span>
+            </div>
+            <div class="detail-body-title clearfix">
+              <%= image_tag 'top-mian-con.png' %>
+              <span class="pull-left">Peekid ·</span>
+              <span class="pull-left">2017-09-08由发布</span>
+            </div>
+            <div class="de-left-con read-more clearfix" id="showdiv">
+              <p>在这里，孩子们在“东方侏罗纪”感受奇异和冒险。在一个个惊险刺激有趣的游戏背后，孩子们内在的潜能被不断激发，勇敢的克服内心的羞涩和害怕，不断的挑战自我。
+                今天我用了比平时多120万倍的功力陪着娃们奔跑，孩子们的勇气令人佩服，估计他们自己都没有想象到自己如此勇敢。
+                原本胆小内向的娘毛吉竟然挑战了8项难度系数五颗星的项目；娇弱的尕白在‘跳楼机’项目竟然主动玩了2次；公保端知竟然想要挑战极限项目蹦极。
+                我天！孩子们体内的洪荒之力简直完全爆发，不断刷新着挑战难度。
+                从2月15日初到常州时的羞涩、茫然、手足无措，到2月20日的放开、突破、挑战，孩子们在常州拓展营不断学习、进步和成长。
+                当孩子们离开家乡，离开草原，走进城市，感受草原文化的同时也接受城市文化，在多元文化中，获得与以往不同、全新的视野和思考。
+                回想在常州的这几天，不管是去博爱路小学、常州二中交流互动，还是利用公共交通完成城市探索任务；不管是团队合作的户外拓展，还是参观游览东南大学，丰富多彩的行程安排在孩子们的心灵深处留下点点启发。
+              </p>
+              <div class="clearfix details-img">
+                <%= image_tag 'top-mian-con.png' %>
+                <%= image_tag 'top-mian-con.png' %>
+                <%= image_tag 'top-mian-con.png' %>
+                <%= image_tag 'top-mian-con.png' %>
+                <%= image_tag 'top-mian-con.png' %>
+                <%= image_tag 'top-mian-con.png' %>
+                <%= image_tag 'top-mian-con.png' %>
+                <%= image_tag 'top-mian-con.png' %>
+                <%= image_tag 'top-mian-con.png' %>
+              </div>
+            </div>
+        </li>
+        <li class="detail-body-cont">
+          <span class="detail-body-hover iconfont icon-yuan"></span>
+          <div class="clearfix detail-font-tit">
+            <p class="pull-left">护花项目安装反馈</p>
+            <span class="pull-right cur"><span class="iconfont icon-arrowdown"></span>查看详情</span>
+          </div>
+          <div class="detail-body-title clearfix">
+            <%= image_tag 'top-mian-con.png' %>
+            <span class="pull-left">Peekid ·</span>
+            <span class="pull-left">2017-09-08由发布</span>
+          </div>
+          <div class="de-left-con read-more clearfix" >
+            <p>在这里，孩子们在“东方侏罗纪”感受奇异和冒险。在一个个惊险刺激有趣的游戏背后，孩子们内在的潜能被不断激发，勇敢的克服内心的羞涩和害怕，不断的挑战自我。
+              今天我用了比平时多120万倍的功力陪着娃们奔跑，孩子们的勇气令人佩服，估计他们自己都没有想象到自己如此勇敢。
+              原本胆小内向的娘毛吉竟然挑战了8项难度系数五颗星的项目；娇弱的尕白在‘跳楼机’项目竟然主动玩了2次；公保端知竟然想要挑战极限项目蹦极。
+              我天！孩子们体内的洪荒之力简直完全爆发，不断刷新着挑战难度。
+              从2月15日初到常州时的羞涩、茫然、手足无措，到2月20日的放开、突破、挑战，孩子们在常州拓展营不断学习、进步和成长。
+              当孩子们离开家乡，离开草原，走进城市，感受草原文化的同时也接受城市文化，在多元文化中，获得与以往不同、全新的视野和思考。
+              回想在常州的这几天，不管是去博爱路小学、常州二中交流互动，还是利用公共交通完成城市探索任务；不管是团队合作的户外拓展，还是参观游览东南大学，丰富多彩的行程安排在孩子们的心灵深处留下点点启发。
+            </p>
+          </div>
+        </li>
+        <li class="detail-body-cont">
+          <span class="detail-body-hover iconfont icon-yuan"></span>
+          <div class="clearfix detail-font-tit">
+            <p class="pull-left">护花项目安装反馈</p>
+            <span class="pull-right cur"><span class="iconfont icon-arrowdown"></span>查看详情</span>
+          </div>
+          <div class="detail-body-title clearfix">
+            <%= image_tag 'top-mian-con.png' %>
+            <span class="pull-left">Peekid ·</span>
+            <span class="pull-left">2017-09-08由发布</span>
+          </div>
+          <div class="de-left-con read-more clearfix" >
+            <p>在这里，孩子们在“东方侏罗纪”感受奇异和冒险。在一个个惊险刺激有趣的游戏背后，孩子们内在的潜能被不断激发，勇敢的克服内心的羞涩和害怕，不断的挑战自我。
+              今天我用了比平时多120万倍的功力陪着娃们奔跑，孩子们的勇气令人佩服，估计他们自己都没有想象到自己如此勇敢。
+              原本胆小内向的娘毛吉竟然挑战了8项难度系数五颗星的项目；娇弱的尕白在‘跳楼机’项目竟然主动玩了2次；公保端知竟然想要挑战极限项目蹦极。
+              我天！孩子们体内的洪荒之力简直完全爆发，不断刷新着挑战难度。
+              从2月15日初到常州时的羞涩、茫然、手足无措，到2月20日的放开、突破、挑战，孩子们在常州拓展营不断学习、进步和成长。
+              当孩子们离开家乡，离开草原，走进城市，感受草原文化的同时也接受城市文化，在多元文化中，获得与以往不同、全新的视野和思考。
+              回想在常州的这几天，不管是去博爱路小学、常州二中交流互动，还是利用公共交通完成城市探索任务；不管是团队合作的户外拓展，还是参观游览东南大学，丰富多彩的行程安排在孩子们的心灵深处留下点点启发。
+            </p>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="pull-right detail-body-right">
+      <p class="detail-b-r-t bd-b"><span>捐助记录</span></p>
+      <ul class="detail-b-r-name">
+        <li class="bd-b clearfix">
+          <%= image_tag 'top-mian-con.png' %>
+          <div class="pull-left">
+            <div class="clearfix">
+              <span class="pull-left detail-name">十指紧扣</span>
+              <span class="pull-right detail-time">2小时前</span>
+            </div>
+            <p class="detail-con">捐助 <strong>卓*</strong> 1570元</p>
+          </div>
+        </li>
+        <li class="bd-b clearfix">
+          <%= image_tag 'top-mian-con.png' %>
+          <div class="pull-left">
+            <div class="clearfix">
+              <span class="pull-left detail-name">咪咕咪咕</span>
+              <span class="pull-right detail-time">2小时前</span>
+            </div>
+            <p class="detail-con">通过 维基爱心 捐助 艾* 1570元</p>
+          </div>
+        </li>
+        <li class="bd-b clearfix">
+          <%= image_tag 'top-mian-con.png' %>
+          <div class="pull-left">
+            <div class="clearfix">
+              <span class="pull-left detail-name">MarinaRen</span>
+              <span class="pull-right detail-time">2小时前</span>
+            </div>
+            <p class="detail-con">捐助一对一项目200元</p>
+          </div>
+        </li>
+        <li class="bd-b clearfix">
+          <%= image_tag 'top-mian-con.png' %>
+          <div class="pull-left">
+            <div class="clearfix">
+              <span class="pull-left detail-name">腾讯公益专项</span>
+              <span class="pull-right detail-time">2小时前</span>
+            </div>
+            <p class="detail-con">捐款3500元</p>
+          </div>
+        </li>
+        <li class="bd-b clearfix">
+          <%= image_tag 'top-mian-con.png' %>
+          <div class="pull-left">
+            <div class="clearfix">
+              <span class="pull-left detail-name">十指紧扣</span>
+              <span class="pull-right detail-time">2小时前</span>
+            </div>
+            <p class="detail-con">捐助 <strong>卓*</strong> 1570元</p>
+          </div>
+        </li>
+        <li class="bd-b clearfix">
+          <%= image_tag 'top-mian-con.png' %>
+          <div class="pull-left">
+            <div class="clearfix">
+              <span class="pull-left detail-name">咪咕咪咕</span>
+              <span class="pull-right detail-time">2小时前</span>
+            </div>
+            <p class="detail-con">通过 维基爱心 捐助 艾* 1570元</p>
+          </div>
+        </li>
+        <li class="more">点击加载更多</li>
+      </ul>
+    </div>
+  </div>
+  <script type="text/javascript">
+      var tab=document.getElementById('tabnav');
+      var tabcont=document.getElementById('conttab');
+      var tabli=tab.getElementsByTagName('li');
+      var div=tabcont.getElementsByTagName('div');
+      for(var i=0;i<input.length;i++){ //循环历遍onclick事件
+          input[i].index=i; //input[0].index=0 index是自定义属性
+          input[i].onclick=function(){
+              for(var i=0;i<input.length;i++){ //循环历遍去掉button样式和把div隐藏
+                  input[i].className='';
+                  div[i].style.display='none';
+              };
+              this.className='active'; //当前按钮添加样式
+              div[this.index].style.display='block'; //div显示 this.index是当前div 即div[0]之类的
+          };
+      };
+      //内容信息导航吸顶
+      $(document).ready(function () {
+          var navHeight = $("#navHeight").offset().top;
+          var navFix = $("#navHeight");
+          $(window).scroll(function () {
+              if ($(this).scrollTop() > navHeight) {
+                  navFix.addClass("navFix");
+              }
+              else {
+                  navFix.removeClass("navFix");
+              }
+          })
+      })
+
+//      $(".nav li").on("click", function () {
+//          $(".nav li").removeClass("selectedNav")
+//          $(this).addClass("selectedNav")
+//          $(".bottomLine").css("left", parseFloat($(this)[0].offsetLeft) + "px")
+//      })
+      $('.circlechart').circlechart()
+      function showHideCode() {
+          $('#showdiv').toggleClass('read-more')
+          $('.detail-font-tit > span').css('display', 'none')
+          $('.details-img').css('display', 'block')
+      }
+  </script>
