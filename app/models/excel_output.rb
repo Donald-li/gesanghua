@@ -139,4 +139,25 @@ class ExcelOutput
     end
   end
 
+  def self.grant_batch_output(batch)
+    p = Axlsx::Package.new
+    wb = p.workbook
+    grants = batch.grants.all.sorted
+    wb.add_worksheet(:name => "表") do |sheet|
+      sheet.add_row ["申请批次", "格桑花编号", "姓名", "年龄", "学校", "捐助年度", "发放金额", "筹款状态", "发放状态"]
+      grants.each do |grant|
+        sheet.add_row [grant.gsh_child.try(:season).try(:name),
+                       grant.gsh_child.gsh_no,
+                       grant.gsh_child.try(:name),
+                       grant.gsh_child.age,
+                       grant.school.try(:name),
+                       grant.title,
+                       grant.amount,
+                       grant.gsh_child.raise_condition,
+                       grant.enum_name(:state)]
+        end
+    end
+    p.serialize "public/files/发放批次" + DateTime.now.strftime("%Y-%m-%d-%s") + ".xlsx"
+  end
+
 end
