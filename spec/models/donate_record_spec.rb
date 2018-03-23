@@ -188,7 +188,7 @@ RSpec.describe DonateRecord, type: :model do
       DonateRecord.platform_donate_apply(params, @project_season_apply)
       expect(@project_season_apply.donate_records.last.amount).to eq 500
       expect(@project_season_apply.donate_records.last.income_record_id).to eq(@income_record.id)
-      expect(@income_record.reload.balance).to eq 4500
+      expect(@income_record.reload.balance).to eq 5000
     end
 
     it '测试使用其他资金配捐给指定申请方法(资金余额不足会退回)' do

@@ -9,6 +9,7 @@ class Api::V1::Account::TeamsController < Api::V1::BaseController
   end
 
   def create
+    if current_user.team.present?
     team = Team.new(team_params.merge(province: params[:location][0], city: params[:location][1], district: params[:location][2], kind: params[:kind], creater_id: current_user.id, manage_id: current_user.id))
     if team.save
       team.attach_logo(params[:logo_id])
@@ -17,10 +18,13 @@ class Api::V1::Account::TeamsController < Api::V1::BaseController
     else
       api_success(message: '创建失败，请重试', data: false)
     end
+    else
+      api_success(message: '创建失败，您已经有自己的团队了', data: false)
+    end
   end
 
   def show
-    api_success(data: {team: @team.summary_builder, user_status: @team.user_status(current_user.id)})
+    api_success(data: {team: @team.summary_builder, user_status: @team.user_status(current_user.id), })
   end
 
   def edit
@@ -46,7 +50,7 @@ class Api::V1::Account::TeamsController < Api::V1::BaseController
   end
 
   def dismiss
-    if @team.users.update(team_id: nil)
+    if @team.users.update(team_id: nil) && @team.update(manage_id: nil)
       api_success(data: true, message: '解散成功')
     else
       api_success(data: false, message: '解散失败')

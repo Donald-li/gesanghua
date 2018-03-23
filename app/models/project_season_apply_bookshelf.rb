@@ -38,6 +38,10 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
 
   before_save :gen_bookshelf_no, if: :can_gen_bookshelf_no?
 
+  # after_commit do
+  #   byebug
+  # end
+
   belongs_to :project, optional: true
   belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id', optional: true
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id', optional: true
@@ -71,6 +75,10 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
   scope :sorted, ->{ order(created_at: :asc) }
 
   counter_culture :apply, column_name: proc{|model| model.to_receive? ? 'present_amount' : nil}, delta_magnitude: proc {|model| model.present_amount }
+
+  def surplus_money
+    self.target_amount - self.present_amount
+  end
 
   def pass_done?
     self.feedbacked? || self.done?
