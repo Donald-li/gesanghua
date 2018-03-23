@@ -68,6 +68,7 @@ class ProjectSeasonApply < ApplicationRecord
   has_one :install_feedback, as: :owner
   has_one :receive_feedback, as: :owner
   has_one :radio_information
+  has_one :logistic, as: :owner
   accepts_nested_attributes_for :radio_information, update_only: true
   accepts_nested_attributes_for :bookshelves, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :supplements, allow_destroy: true, reject_if: :all_blank #proc { |attributes| attributes['project_season_apply_bookshelf_id'].blank? }
@@ -211,13 +212,7 @@ class ProjectSeasonApply < ApplicationRecord
       if self.project == Project.read_project
         self.enum_name(:read_state)
       else
-        if self.done?
-          '已完成'
-        elsif self.cancelled?
-          '已取消'
-        else
-          '执行中'
-        end
+        self.enum_name(:execute_state)
       end
     end
   end
