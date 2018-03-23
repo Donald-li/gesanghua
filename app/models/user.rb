@@ -115,7 +115,7 @@ class User < ApplicationRecord
   end
 
   def user_avatar
-    self.profile["headimgurl"] || self.avatar.file_url(:tiny) if self.avatar.present?
+    self.avatar.try(:file_url, :tiny) || self.profile["headimgurl"] || self.avatar_url(:tiny)
   end
 
   def headmaster?
@@ -218,7 +218,7 @@ class User < ApplicationRecord
     Jbuilder.new do |json|
       json.(self, :id, :nickname, :balance, :donate_count, :role_tag, :team_id, :phone)
       json.login_name self.login
-      json.user_avatar self.try(:avatar).try(:file_url)
+      json.user_avatar self.user_avatar
       json.promoter_count self.promoter_amount_count
       json.team_name self.team.present? ? self.team.name : ''
       json.join_team_time self.join_team_time.strftime("%Y-%m-%d") if self.join_team_time.present?
@@ -241,7 +241,7 @@ class User < ApplicationRecord
     Jbuilder.new do |json|
       json.(self, :id, :nickname, :team_id, :balance)
       json.login_name self.login
-      json.avatar self.avatar
+      json.avatar self.user_avatar
       json.name self.name
       json.gender self.gender == 'male'? ['男'] : ['女']
       json.use_nickname self.use_nickname == 'true'? true : false
@@ -254,7 +254,7 @@ class User < ApplicationRecord
       json.team_name self.team.try(:name)
       json.avatar_image  do
         json.id self.try(:avatar).try(:id)
-        json.url self.try(:avatar).try(:file_url)
+        json.url self.try(:user_avatar)
         json.protect_token ''
       end
       json.show_name self.nickname.present?? self.nickname : self.name
@@ -279,7 +279,7 @@ class User < ApplicationRecord
         json.url self.try(:avatar).try(:file_url)
         json.protect_token ''
       end
-      json.avatar_src self.try(:avatar).try(:file_url)
+      json.avatar_src self.user_avatar
     end.attributes!
   end
 

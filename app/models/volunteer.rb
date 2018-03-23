@@ -97,7 +97,7 @@ class Volunteer < ApplicationRecord
       json.approve_time self.approve_time.strftime("%Y-%m-%d")
       json.practice self.practice? ? '实习中' : ''
       json.avatar_mode self.user.avatar.present?
-      json.user_avatar_src self.try(:user).try(:avatar).try(:file_url)
+      json.user_avatar_src self.try(:user).try(:user_avatar)
     end.attributes!
   end
 
@@ -112,7 +112,7 @@ class Volunteer < ApplicationRecord
       json.avatar_mode self.user.avatar.present?
       json.avatar do
         json.id self.user.try(:avatar).try(:id)
-        json.url self.user.try(:avatar).try(:file).try(:url)
+        json.url self.user.try(:user_avatar)
         json.protect_token self.user.try(:avatar).try(:protect_token)
       end
     end.attributes!
