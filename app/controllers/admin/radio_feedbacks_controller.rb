@@ -4,18 +4,18 @@ class Admin::RadioFeedbacksController < Admin::BaseController
   before_action :set_project_apply, only: [:index, :new, :create, :update, :destroy, :recommend]
 
   def index
-    @install = @apply.install
+    @install = @apply.install_feedback
   end
 
   def new
-    @install = @apply.install.new
+    @install = @apply.install_feedback.new
   end
 
   def edit
   end
 
   def create
-    @install = @apply.install.new(install_params.merge(owner_type: 'ProjectSeasonApply', project_id: Project.radio_project.id, project_season_apply_id: install_params[:owner_id], project_season_id: ProjectSeasonApply.find(install_params[:owner_id]).season.id))
+    @install = @apply.install_feedback.new(install_params.merge(owner_type: 'ProjectSeasonApply', project_id: Project.radio_project.id, project_season_apply_id: install_params[:owner_id], project_season_id: ProjectSeasonApply.find(install_params[:owner_id]).season.id))
     respond_to do |format|
       if @install.save
         format.html { redirect_to admin_radio_project_radio_feedbacks_path(@apply), notice: '新增成功。' }

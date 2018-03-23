@@ -80,6 +80,12 @@ class Api::V1::CooperationRadiosController < Api::V1::BaseController
     end
   end
 
+  def show_logistic
+    @apply = ProjectSeasonApply.find(params[:id])
+    @logistic = @apply.logistic
+    api_success(data: @logistic.qurey_result)
+  end
+
   private
   def set_radio
     @radio = Project.radio_project

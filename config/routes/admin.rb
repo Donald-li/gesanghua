@@ -235,7 +235,8 @@ namespace :admin do
   resources :beneficial_children, concerns: [:excel_upload, :excel_import]
   resources :radio_projects, concerns: :switch do
     member do
-      put :shipment
+      get :shipment
+      post :create_shipment
     end
     resources :radio_donate_records
     resources :radio_feedbacks, concerns: [:recommend]
