@@ -1,7 +1,7 @@
-<div class="portlet light bordered">
+<div class="portlet light">
   <div class="portlet-title">
     <div class="caption">
-      <i class="icon-note"><%= link_to @bookshelf.apply.name, admin_read_project_bookshelves_path(@project, @bookshelf) %> > 填写发货信息 </i>
+      <i class="icon-note"></i><%= link_to @bookshelf.apply.name, admin_read_project_bookshelves_path(@project, @bookshelf) %> > 填写发货信息
     </div>
     <div class="actions">
       <div class="btn-group">
@@ -23,7 +23,7 @@
             <div class="row">
               <div class="col-md-offset-2 col-md-9">
                 <%= f.button :submit, '提交', class: 'btn blue' %>
-                <%= link_to '取消', admin_read_project_bookshelves_path(@project, @bookshelf), class: 'btn' %>
+                <%= link_to '取消', admin_read_project_bookshelves_path(@project), class: 'btn' %>
               </div>
             </div>
           </div>

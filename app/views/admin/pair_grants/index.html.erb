@@ -46,6 +46,9 @@
               发放编号
             </th>
             <th>
+              申请批次
+            </th>
+            <th>
               姓名
             </th>
             <th>
@@ -79,6 +82,9 @@
               <tr>
                 <td>
                   <%= grant.gsh_child.try(:gsh_no) %>
+                </td>
+                <td>
+                  <%= grant.apply.try(:season).try(:name) %>
                 </td>
                 <td>
                   <%= grant.try(:gsh_child).try(:name) %>
