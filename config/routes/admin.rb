@@ -114,7 +114,7 @@ namespace :admin do
       put :turn_over
     end
   end
-  resources :pair_grant_batches do
+  resources :pair_grant_batches, concerns: [:excel_output] do
     resources :items, controller: :pair_grant_batch_items, only: [:index, :create, :destroy]
   end
 
