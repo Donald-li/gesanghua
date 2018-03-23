@@ -310,10 +310,10 @@
       </li>
       <li class="nav-item <%= current_nav_class(:admin_project_book) %>">
         <a href="javascript:;" class="nav-link nav-toggle">
-          <% to_prove_read_apply = ProjectSeasonApply.where(project: [Project.read_project, Project.book_supply_project]).submit.count %>
-          <% to_check_regular_feedback = Project.read_project.continual_feedbacks.uncheck.count %>
+          <% to_prove_read_apply = Project.read_project.applies.submit.count + Project.book_supply_project.applies.submit.count %>
+          <% to_check_read_feedback = Project.read_project.continual_feedbacks.uncheck.count %>
           <i class="fa fa-language"></i>
-          <span class="title <%= 'font-red-soft' if to_prove_read_apply > 0 || to_check_regular_feedback > 0 %>">悦读</span>
+          <span class="title <%= 'font-red-soft' if to_prove_read_apply > 0 || to_check_read_feedback > 0 %>">悦读</span>
           <span class="arrow <%= current_nav_class(:admin_project_book, current: :open) %>"></span>
         </a>
         <ul class="sub-menu">
@@ -338,8 +338,8 @@
           <li class="nav-item <%= current_nav_class(:admin_read_continual_feedbacks) %> ">
             <%= link_to admin_read_continual_feedbacks_path, class: 'nav-link' do %>
                 <span class="title">定期反馈</span>
-                <% if to_check_regular_feedback > 0 %>
-                    <span class="badge badge-danger"><%= to_check_regular_feedback %></span>
+                <% if to_check_read_feedback > 0 %>
+                    <span class="badge badge-danger"><%= to_check_read_feedback %></span>
                 <% end %>
             <% end %>
           </li>
@@ -409,10 +409,10 @@
       </li>
       <li class="nav-item <%= current_nav_class(:admin_project_radio) %>">
         <a href="javascript:;" class="nav-link nav-toggle">
-          <% to_prove_apply = 0 %>
-          <% submited = 0 %>
+          <% to_prove_radio_apply = Project.radio_project.applies.submit.count %>
+          <% to_check_radio_feedback = Project.radio_project.continual_feedbacks.uncheck.count %>
           <i class="fa fa-volume-up"></i>
-          <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">广播</span>
+          <span class="title <%= 'font-red-soft' if to_prove_radio_apply > 0 || to_check_radio_feedback > 0 %>">广播</span>
           <span class="arrow <%= current_nav_class(:admin_project_radio, current: :open) %>"></span>
         </a>
         <ul class="sub-menu">
@@ -424,6 +424,9 @@
           <li class="nav-item <%= current_nav_class(:admin_radio_applies) %> ">
             <%= link_to admin_radio_applies_path, class: 'nav-link' do %>
               <span class="title">申请管理</span>
+                <% if to_prove_radio_apply > 0 %>
+                    <span class="badge badge-danger"><%= to_prove_radio_apply %></span>
+                <% end %>
             <% end %>
           </li>
           <li class="nav-item <%= current_nav_class(:admin_radio_projects) %> ">
@@ -434,6 +437,9 @@
           <li class="nav-item <%= current_nav_class(:admin_radio_continual_feedbacks) %> ">
             <%= link_to admin_radio_continual_feedbacks_path, class: 'nav-link' do %>
                 <span class="title">定期反馈</span>
+                <% if to_check_radio_feedback > 0 %>
+                    <span class="badge badge-danger"><%= to_check_radio_feedback %></span>
+                <% end %>
             <% end %>
           </li>
         </ul>
