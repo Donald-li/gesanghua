@@ -8,6 +8,10 @@
           <i class="icon-plus"></i>
           <span>添加孩子</span>
       </a>
+      <%= link_to excel_output_admin_pair_grant_batches_path(@batch), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+        <i class="fa fa-download"></i>
+      <span>导出</span>
+      <% end %>
       <%= link_to admin_pair_grant_batches_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
           <i class="fa fa-reply"></i>
           <span>返回</span>
@@ -63,9 +67,11 @@
 function toggleFinder(){
   if($('.right.col-md-7').length > 0){
     $('.left').hide()
+    $('.right .child-action').show()
     $('.right').removeClass('col-md-7').addClass('col-md-12')
   }else{
     $('.left').show()
+    $('.right .child-action').hide()
     $('.right').removeClass('col-md-12').addClass('col-md-7')
   }
 }
