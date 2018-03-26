@@ -14,4 +14,8 @@ class ProjectSeasonApplyCoverUploader < BaseUploader
     process :resize_to_fill => [592, 340]
   end
 
+  version :large do #具体筹款项目页的图
+    process :resize_to_fill => [640, 340]
+  end
+
 end

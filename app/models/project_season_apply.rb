@@ -152,7 +152,7 @@ class ProjectSeasonApply < ApplicationRecord
 
   # 项目是否可以退款
   def can_refund?
-    debug
+    # debug
     self.pass? && self.raise_project? && (self.raising? || self.canceled?)
   end
 
@@ -280,6 +280,7 @@ class ProjectSeasonApply < ApplicationRecord
       json.cover_mode self.cover_image.present?
       json.cover_url self.cover_image_url(:small).to_s
       json.tiny_url self.cover_image_url(:tiny).to_s
+      json.large_url self.cover_image_url(:large).to_s
       json.bookshelves_count self.bookshelves_count
       json.bookshelves_done_count self.bookshelves_done_count
       json.supplements_count self.supplements_count
