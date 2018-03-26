@@ -30,7 +30,7 @@ class Admin::IncomeRecordsController < Admin::BaseController
     @income_record.donor = user.name
     @income_record.remitter_name = user.name
     @income_record.remitter_id = user.id
-
+    @income_record.balance = income_record_params[:amount]
     respond_to do |format|
       if @income_record.save
         format.html { redirect_to admin_income_records_path, notice: '新增成功。' }
