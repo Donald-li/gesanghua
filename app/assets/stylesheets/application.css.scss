@@ -1084,15 +1084,16 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     margin: 0 auto;
     & > img {
       float: left;
-      width: 760px;
-      height: 480px;
+      width: 730px;
+      height: 410px;
       border-radius: 7px;
+      box-shadow: 0px 3px 12px 4px #e4e4e4;
     }
   }
   .detail-cont {
     width: 342px;
     height: 100%;
-    padding-top: 20px;
+    padding-top: 10px;
     .detail-con-t {
       font-size: 26px;
       color: #3d3d40;
@@ -1100,9 +1101,9 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     }
     .detail-con-font {
       width: 304px;
-      font-size: 16px;
-      color: $color-subtitle;
-      margin-top: 25px;
+      font-size: 14px;
+      color: #3d3d40;
+      margin-top: 10px;
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
@@ -1110,7 +1111,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
       -webkit-box-orient: vertical;
     }
     .detail-con-number {
-      padding: 42px 0 29px 0;
+      padding: 28px 0 20px 0;
     }
     .detail-num {
       width: 247px;
@@ -1126,7 +1127,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
       }
     }
     .detail-cont-foot {
-      padding-top: 20px;
+      padding-top: 16px;
       & > p {
         font-size: 14px;
         color: #3d3d40;
@@ -1195,7 +1196,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
       left: 66px;
       top: -12px;
       color: #282832;
-      font-size: 14px;
+      font-size: 12px;
     }
     .share {
       width: 90px;
@@ -1447,12 +1448,12 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
       bottom:0;
       margin: 50px auto;
       border-radius: 4px;
-      box-shadow: 0 10px 18px -1px #76767b57;
+      box-shadow: 0 2px 20px 2px #76767b57;
 
     }
     .project-cont{
       text-align: center;
-      margin: 80px auto 50px auto;
+      margin: 80px auto 60px auto;
     }
     .project-cont-tit{
       font-size: 26px;
@@ -1594,6 +1595,9 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     margin-left: 0;
     .col-md-3{
       margin-bottom: 30px;
+    }
+    .col-md-3:hover{
+      box-shadow: 0 2px 20px 2px #d9d9d957;
     }
     & > div{
       border-radius: 4px;
