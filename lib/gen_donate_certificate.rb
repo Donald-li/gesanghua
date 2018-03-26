@@ -15,7 +15,7 @@ class GenDonateCertificate
 
       render_text(source, 60, 320, "感谢您！亲爱的#{name}，") {|c| c.pointsize '24'}
       # content = "　　感谢为支持#{project_name}项目慷慨捐赠#{number_to_currency donors.sum(&:amount)}元。谨代表受帮助的孩子向您表示最崇高敬意和衷心感谢！\n　　特颁此证，以资纪念。"
-      content = "谢谢你为支持格桑花西部助学项目的慷慨捐赠 。 谨代表受帮助的孩子向你表示最崇高敬意和衷心感谢！"
+      content = "谢谢你为支持格桑花西部助学#{record.project_name}项目的慷慨捐赠 。 谨代表受帮助的孩子向你表示最崇高敬意和衷心感谢！"
       render_content(source, content)
 
       donate_at = record.created_at
