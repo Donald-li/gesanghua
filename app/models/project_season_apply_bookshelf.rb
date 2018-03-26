@@ -111,6 +111,14 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
     end
   end
 
+  def show_state
+    if self.apply.raise_project?
+      self.enum_name(:state)
+    else
+      self.enum_name(:audit_state)
+    end
+  end
+
   def summary_builder
     Jbuilder.new do |json|
       json.(self, :id, :classname, :title, :bookshelf_no, :student_number, :book_number, :target_amount, :present_amount, :state)
@@ -138,7 +146,7 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
       json.(self, :id, :bookshelf_no, :target_amount, :present_amount)
       json.apply_name self.apply.try(:name)
       json.title self.show_title
-      json.state self.enum_name(:state)
+      json.state self.show_state
     end.attributes!
   end
 
