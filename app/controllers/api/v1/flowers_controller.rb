@@ -11,7 +11,7 @@ class Api::V1::FlowersController < Api::V1::BaseController
   end
 
   def applies_list
-    @flower_applies = ProjectSeasonApply.where(project: Project.care_project).pass.show.sorted
+    @flower_applies = ProjectSeasonApply.where(project: Project.care_project).show.raising.raise_project.pass.sorted
     total = @flower_applies.count
     @flower_applies = @flower_applies.where(school_id: School.where(city: params[:city]).pluck(:id)) if params[:city].present?
     @flower_applies = @flower_applies.where(school_id: School.where(district: params[:district]).pluck(:id)) if params[:district].present?

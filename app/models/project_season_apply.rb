@@ -108,7 +108,7 @@ class ProjectSeasonApply < ApplicationRecord
   end
 
   def apply_name
-    self.season.try(:name).to_s + '-' + self.school.try(:name).to_s
+    self.name || self.season.try(:name).to_s + '-' + self.school.try(:name).to_s
   end
 
   def pass_bookshelf?
@@ -152,7 +152,7 @@ class ProjectSeasonApply < ApplicationRecord
 
   # 项目是否可以退款
   def can_refund?
-    debug
+    # debug
     self.pass? && self.raise_project? && (self.raising? || self.canceled?)
   end
 
@@ -280,6 +280,7 @@ class ProjectSeasonApply < ApplicationRecord
       json.cover_mode self.cover_image.present?
       json.cover_url self.cover_image_url(:small).to_s
       json.tiny_url self.cover_image_url(:tiny).to_s
+      json.large_url self.cover_image_url(:large).to_s
       json.bookshelves_count self.bookshelves_count
       json.bookshelves_done_count self.bookshelves_done_count
       json.supplements_count self.supplements_count
@@ -506,7 +507,7 @@ class ProjectSeasonApply < ApplicationRecord
 
   # 更新筹款状态
   def set_execute_state
-    self.to_delivery! if self.raising? && self.target_amount.to_f == self.present_amount.to_f
+    self.to_delivery! if self.raising? && self.target_amount.to_f == self.present_amount.to_f && self.raise_project?
   end
 
 end

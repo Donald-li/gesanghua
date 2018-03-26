@@ -11,7 +11,7 @@ class Admin::RadioAppliesController < Admin::BaseController
   end
 
   def new
-    @project_apply = ProjectSeasonApply.new
+    @project_apply = ProjectSeasonApply.new(project: Project.radio_project)
     # @project_apply.build_radio_information
   end
 

@@ -11,7 +11,7 @@ class Api::V1::RadiosController < Api::V1::BaseController
   end
 
   def applies_list
-    @radio_applies = ProjectSeasonApply.where(project: Project.radio_project).pass.show.sorted
+    @radio_applies = ProjectSeasonApply.where(project: Project.radio_project).show.raising.raise_project.pass.sorted
     total = @radio_applies.count
     @radio_applies = @radio_applies.where(school_id: School.where(city: params[:city]).pluck(:id)) if params[:city].present?
     @radio_applies = @radio_applies.where(school_id: School.where(district: params[:district]).pluck(:id)) if params[:district].present?
