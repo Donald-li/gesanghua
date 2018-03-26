@@ -163,7 +163,7 @@ class Project < ApplicationRecord
       json.(self, :id, :name, :describe, :alias, :apply_kind)
       json.last_feedback_time self.continual_feedbacks.present? ? self.continual_feedbacks.last.created_at.strftime("%Y-%m-%d %H:%M") : ''
       json.cover_mode self.image.present?
-      json.cover_url self.image_url(:tiny).to_s
+      json.cover_url self.image_url(:medium).to_s
       json.icon_url self.icon_url(nil)
       json.donate_item self.donate_item.try(:summary_builder)
       json.feedback_period self.feedback_period
