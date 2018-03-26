@@ -13,7 +13,7 @@
 
 require 'custom_validators'
 class SmsCode < ApplicationRecord
-enum kind: {signup: 1, find_password: 2, change_mobile: 3, verify_profile: 4}
+  enum kind: {signup: 1, find_password: 2, change_mobile: 3, verify_profile: 4, login: 5}
   enum state: {sent: 1, verified: 2}
   default_value_for :state, 1
 
@@ -73,4 +73,3 @@ enum kind: {signup: 1, find_password: 2, change_mobile: 3, verify_profile: 4}
     self.save
   end
 end
-
