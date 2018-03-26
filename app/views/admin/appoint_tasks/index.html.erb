@@ -70,8 +70,7 @@
                   <%= task.num %>
                 </td>
                 <td>
-                  开始时间：<br><%= task.start_time.strftime("%Y-%m-%d %H:%M") if task.start_time.present? %> <br>
-                  结束时间：<br><%= task.end_time.strftime("%Y-%m-%d %H:%M") if task.end_time.present? %>
+                  <%= task.start_time.strftime("%Y-%m-%d %H:%M") if task.start_time.present? %> 到 <%= task.end_time.strftime("%Y-%m-%d %H:%M") if task.end_time.present? %>
                 </td>
                 <td>
                   <%= task.workplace.try(:title) %>
