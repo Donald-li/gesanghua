@@ -13,17 +13,29 @@ class Admin::TeachersController < Admin::BaseController
   def update
     @u = @teacher.user if @teacher.user.present?
     if @u.present?
-      if @u.has_role?(:teacher)
-        @u.roles = @u.roles-[:teacher]
-        @u.save
+      @u.remove_role(:teacher)
+      @u.save
+    end
+    @user = User.find(teacher_params[:user_id]) if teacher_params[:user_id].present?
+    @school = School.find(teacher_params[:school_id]) if teacher_params[:school_id].present?
+    if teacher_params[:kind] == 'headmaster'
+      if @school.present?
+        if @user.present?
+          @school.change_school_user(@user)
+        else
+          @school.change_school_user(nil)
+        end
+      end
+    else
+      if @user.present?
+        if !@user.has_role?(:teacher)
+          @user.add_role(:teacher)
+          @user.save
+        end
       end
     end
-    if teacher_params[:user_id] !=nil && teacher_params[:user_id] != ""
-      @user = User.find(teacher_params[:user_id])
-      if !@user.has_role?(:teacher)
-        @user.roles = @user.roles.push(:teacher)
-        @user.save
-      end
+    if !@user.present?
+      teacher_params[:user_id] = nil
     end
     respond_to do |format|
       if @teacher.update(teacher_params)
