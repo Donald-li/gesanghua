@@ -18,7 +18,8 @@ class GenDonateCertificate
       content = "谢谢你为支持格桑花西部助学项目的慷慨捐赠 。 谨代表受帮助的孩子向你表示最崇高敬意和衷心感谢！"
       render_content(source, content)
 
-      render_text(source, 308, 685, "#{Date.today.year}年#{Date.today.month}月#{Date.today.day}日") do |c|
+      donate_at = record.created_at
+      render_text(source, 308, 685, "#{donate_at.year}年#{donate_at.month}月#{donate_at.day}日") do |c|
         c.pointsize '20'
       end
 
