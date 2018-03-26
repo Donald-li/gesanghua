@@ -91,7 +91,7 @@ class User < ApplicationRecord
   enum gender: {male: 1, female: 2} #性别 1:男 2:女
   default_value_for :gender, 1
 
-  enum use_nickname: {true: 1, false: 2} #使用昵称 1:是 2:否
+  enum use_nickname: {anonymous: 1, autonym: 2, designation: 3} #使用昵称 1:匿名（使用昵称） 2:实名使用姓名 3.使用称号
   default_value_for :use_nickname, 2
 
   scope :sorted, ->{ order(created_at: :desc) }
@@ -111,6 +111,16 @@ class User < ApplicationRecord
     loop do
       self.auth_token = SecureRandom.base64(64)
       break if !User.find_by(auth_token: auth_token)
+    end
+  end
+
+  def user_name
+    if self.anonymous?
+      self.nickname
+    elsif self.designation?
+      self.salutation
+    else
+      self.name
     end
   end
 
@@ -244,7 +254,7 @@ class User < ApplicationRecord
       json.avatar self.user_avatar
       json.name self.name
       json.gender self.gender == 'male'? ['男'] : ['女']
-      json.use_nickname self.use_nickname == 'true'? true : false
+      json.use_nickname self.use_nickname
       json.salutation self.salutation
       json.email self.email
       json.location [self.province, self.city, self.district]
