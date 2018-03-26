@@ -108,7 +108,7 @@ class ProjectSeasonApply < ApplicationRecord
   end
 
   def apply_name
-    self.season.try(:name).to_s + '-' + self.school.try(:name).to_s
+    self.name || self.season.try(:name).to_s + '-' + self.school.try(:name).to_s
   end
 
   def pass_bookshelf?
@@ -506,7 +506,7 @@ class ProjectSeasonApply < ApplicationRecord
 
   # 更新筹款状态
   def set_execute_state
-    self.to_delivery! if self.raising? && self.target_amount.to_f == self.present_amount.to_f
+    self.to_delivery! if self.raising? && self.target_amount.to_f == self.present_amount.to_f && self.raise_project?
   end
 
 end

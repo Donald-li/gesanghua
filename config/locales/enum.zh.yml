@@ -9,7 +9,7 @@ zh:
     financial_staff: '财务人员'
     operator: '运营人员'
   advert_kinds:
-    banner: 'Banner轮播图(507x304px)'
+    banner: 'Banner轮播图'
   advert_states:
     show: '显示'
     hidden: '隐藏'

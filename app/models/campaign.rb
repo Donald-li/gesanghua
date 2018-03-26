@@ -100,6 +100,7 @@ class Campaign < ApplicationRecord
       json.image_mode self.image.present?
       json.image self.image_url(:tiny).to_s
       json.banner self.banner_url(:tiny)
+      json.category self.campaign_category.name
       json.pay_amount self.campaign_enlists.find_by(user_id: user.id).total if user.present?
     end.attributes!
   end

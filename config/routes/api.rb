@@ -122,6 +122,10 @@ namespace :api do
     resource :main, only: [:show] do
       post :month_contribute
       get :banners
+      get :campaigns
+      get :reads
+      get :radios
+      get :flowers
     end
 
     # 捐助项

@@ -51,4 +51,33 @@ RSpec.describe "Api::V1::Main", type: :request do
       expect(json_body[:data][:recordState]).to eq true
     end
   end
+
+  describe '获取活动' do
+    it '获取活动' do
+      get campaigns_api_v1_main_path, headers: api_v1_headers(login_user)
+      api_v1_expect_success
+    end
+  end
+
+  describe '获取悦读' do
+    it '获取悦读' do
+      get reads_api_v1_main_path, headers: api_v1_headers(login_user)
+      api_v1_expect_success
+    end
+  end
+
+  describe '获取广播' do
+    it '获取广播' do
+      get radios_api_v1_main_path, headers: api_v1_headers(login_user)
+      api_v1_expect_success
+    end
+  end
+
+  describe '获取护花' do
+    it '获取护花' do
+      get flowers_api_v1_main_path, headers: api_v1_headers(login_user)
+      api_v1_expect_success
+    end
+  end
+
 end

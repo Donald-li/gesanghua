@@ -21,6 +21,24 @@ class Api::V1::MainsController < Api::V1::BaseController
   end
 
   def campaigns
-
+    @campaigns = Campaign.show.sorted.take(6)
+    api_success(data: @campaigns.map {|cam| cam.summary_builder})
   end
+
+  def reads
+    @reads = ProjectSeasonApply.show.raising.raise_project.read_executing.pass.where(project: [Project.book_supply_project, Project.read_project]).sorted.take(3)
+    api_success(data: @reads.map {|item| item.summary_builder})
+  end
+
+  def radios
+    @radios = ProjectSeasonApply.show.raising.raise_project.pass.where(project: Project.radio_project).sorted.take(3)
+    api_success(data: @radios.map {|item| item.summary_builder})
+  end
+
+
+  def flowers
+    @flowers = ProjectSeasonApply.show.raising.raise_project.pass.where(project: Project.care_project).sorted.take(3)
+    api_success(data: @flowers.map {|item| item.summary_builder})
+  end
+
 end
