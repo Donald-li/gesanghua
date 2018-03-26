@@ -139,7 +139,7 @@ class DonateRecord < ApplicationRecord
   end
 
   def donor_name
-    self.donor || self.user.name
+    self.donor || self.user.user_name
   end
 
   # 捐给格桑花

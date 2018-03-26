@@ -25,7 +25,6 @@
 
 # 志愿者
 class Volunteer < ApplicationRecord
-  # before_create :set_user_volunteer
 
   belongs_to :user
   has_many :task_volunteers, dependent: :destroy

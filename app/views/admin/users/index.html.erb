@@ -100,18 +100,16 @@
                 <%# if user.administrator.present? %>
                   <!-- <span class="btn btn-xs yellow">管理员</span> -->
                 <%# end %>
-                <% if user.teacher.present? %>
-                  <% if user.teacher.headmaster? %>
+                  <% if user.has_role?(:headmaster) %>
                     <span class="btn btn-xs yellow">校长</span>
                   <% end %>
-                  <% if user.teacher.teacher? %>
+                  <% if user.has_role?(:teacher) %>
                     <span class="btn btn-xs yellow">教师</span>
                   <% end %>
-                <% end %>
-                <% if user.volunteer.present? %>
+                <% if user.has_role?(:volunteer) %>
                   <span class="btn btn-xs yellow">志愿者</span>
                 <% end %>
-                <% if user.county_user.present? %>
+                <% if user.has_role?(:county_user) %>
                   <span class="btn btn-xs yellow">县级领导</span>
                 <% end %>
               </td>
@@ -124,7 +122,7 @@
                   </a>
                   <ul class="dropdown-menu">
                     <li>
-                      <% if user.volunteer? %>
+                      <% if user.has_role?(:volunteer) %>
                         <a href="<%= edit_admin_volunteer_path(user_id: user.id, id: user.volunteer.id) %>"> 修改志愿者角色 </a>
                       <% else %>
                           <a href="<%= new_admin_volunteer_path(user_id: user.id) %>"> 新增志愿者角色 </a>
