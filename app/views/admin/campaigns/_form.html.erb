@@ -7,6 +7,7 @@
         <label class="col-md-2 control-label">活动封面：</label>
         <div class="col-sm-9">
           <%= webuploader_tag :image_id, label: '上传活动封面图片', type: 'campaign_image', asset: @campaign.image, klass: 'single' %>
+          <p class="help-block">请上传888X510px的图片</p>
         </div>
       </div>
       <div class="form-group">
@@ -14,6 +15,7 @@
         <div class="col-sm-9">
           <%#= webuploader_tag 'banner_ids[]', label: '上传活动详情页banner', type: 'campaign_banner', asset: @campaign.banners, id: 'banner_ids' %>
           <%= webuploader_tag :banner_id, label: '上传活动详情页banner图片', type: 'campaign_banner', asset: @campaign.banner, klass: 'single', id: 'banner_id' %>
+          <p class="help-block">请上传888X510px的图片</p>
           <!-- <span style="color: red">注意：左起第一张图片为第一张图</span> -->
         </div>
       </div>
