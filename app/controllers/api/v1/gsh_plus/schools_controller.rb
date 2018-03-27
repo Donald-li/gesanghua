@@ -7,7 +7,7 @@ class Api::V1::GshPlus::SchoolsController < Api::V1::BaseController
         school.submit!
         api_success(message: '申请修改并提交成功', data: true)
       else
-        api_success(message: '申请失败，请重试', data: false)
+        api_success(message: school.errors.full_messages.first, data: false)
       end
     else
       school = School.new(school_params.except(:location).merge(province: school_params[:location][0], city: school_params[:location][1], district: school_params[:location][2], creater: current_user))
@@ -16,7 +16,7 @@ class Api::V1::GshPlus::SchoolsController < Api::V1::BaseController
         school.attach_certificate_image(params[:certificate_image].first[:id].to_i) if params[:certificate_image].present?
         api_success(message: '申请成功', data: true)
       else
-        api_success(message: '申请失败，请重试', data: false)
+        api_success(message: school.errors.full_messages.first, data: false)
       end
     end
   end
