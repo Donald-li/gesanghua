@@ -78,4 +78,12 @@ class Api::V1::DonatesController < Api::V1::BaseController
     end
   end
 
+  def donate_goods
+    @apply = ProjectSeasonApply.find(params[:apply_id])
+    amount = @apply.target_amount - @apply.present_amount
+    @project = @apply.project
+    item = @project.donate_item
+    api_success(data: {tabs: item.amount_tabs.show.sorted.map{|tab| tab.summary_builder}, amount: amount})
+  end
+
 end

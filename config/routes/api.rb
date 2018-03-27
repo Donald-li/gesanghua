@@ -229,6 +229,7 @@ namespace :api do
         post :item
         post :apply
         post :gsh
+        get :donate_goods
       end
     end
 
