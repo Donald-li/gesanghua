@@ -280,6 +280,7 @@ class ProjectSeasonApply < ApplicationRecord
       json.cover_mode self.cover_image.present?
       json.cover_url self.cover_image_url(:small).to_s
       json.tiny_url self.cover_image_url(:tiny).to_s
+      json.medium_url self.cover_image_url(:medium).to_s
       json.large_url self.cover_image_url(:large).to_s
       json.bookshelves_count self.bookshelves_count
       json.bookshelves_done_count self.bookshelves_done_count
