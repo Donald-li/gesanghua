@@ -9,3 +9,7 @@ zh:
         phone: '手机号码'
       feedback:
         content: '内容'
+      school:
+        province: '所在地址'
+        city: '所在地址'
+        district: '所在地址'
