@@ -1,7 +1,7 @@
 class Api::V1::Account::PairChildrenController < Api::V1::BaseController
 
   def index
-    children = ProjectSeasonApplyChild.where(id: current_user.gsh_child_grants.pluck(:gsh_child_id)).sorted.page(params[:page]).per(params[:per])
+    children = current_user.children.sorted.page(params[:page]).per(params[:per])
     api_success(data: {children: children.map { |r| r.donate_children_builder(current_user) }, pagination: json_pagination(children)})
   end
 

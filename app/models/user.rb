@@ -59,7 +59,6 @@ class User < ApplicationRecord
   has_one :volunteer
   has_one :county_user
   has_one :gsh_child
-  has_many :gsh_child_grants
   has_many :children, class_name: 'ProjectSeasonApplyChild', foreign_key: 'donate_user_id', dependent: :nullify # 我捐助的孩子们
   has_many :vouchers
   has_many :campaign_enlists
