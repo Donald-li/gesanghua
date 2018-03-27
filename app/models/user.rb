@@ -254,7 +254,7 @@ class User < ApplicationRecord
       json.avatar self.user_avatar
       json.name self.name
       json.gender self.gender == 'male'? ['男'] : ['女']
-      json.use_nickname self.use_nickname
+      json.use_nickname [self.use_nickname]
       json.salutation self.salutation
       json.email self.email
       json.location [self.province, self.city, self.district]
