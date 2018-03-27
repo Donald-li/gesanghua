@@ -98,10 +98,17 @@ class Api::V1::CooperationReadsController < Api::V1::BaseController
 
   def read_donate_item
     @apply = ProjectSeasonApply.find(params[:apply_id])
-    shelf = @apply.bookshelves.raising.first
-    amount = shelf.target_amount - shelf.present_amount
-    item = Project.read_project.donate_item
-    api_success(data: {tabs: item.amount_tabs.show.sorted.map{|tab| tab.summary_builder}, amount: amount})
+    if @apply.whole?
+      shelf = @apply.bookshelves.raising.first
+      amount = shelf.target_amount - shelf.present_amount
+      item = Project.read_project.donate_item
+      api_success(data: {tabs: item.amount_tabs.show.sorted.map{|tab| tab.summary_builder}, amount: amount})
+    else
+      supplement = @apply.supplements.raising.first
+      amount = supplement.target_amount - supplement.present_amount
+      item = Project.book_supply_project.donate_item
+      api_success(data: {tabs: item.amount_tabs.show.sorted.map{|tab| tab.summary_builder}, amount: amount})
+    end
   end
 
   private

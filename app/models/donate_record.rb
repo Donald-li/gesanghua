@@ -42,7 +42,7 @@ class DonateRecord < ApplicationRecord
   include ActionView::Helpers::NumberHelper
 
   before_create :set_record_title
-
+  before_create :gen_donate_no
   after_commit :set_bookshelf_state
 
   belongs_to :user, optional: true
@@ -86,8 +86,6 @@ class DonateRecord < ApplicationRecord
   scope :donate_gsh_child, -> {where("gsh_child_id IS NOT NULL")} # 捐助给孩子的记录
 
   scope :user, -> {where('user_id IS NOT NULL')} # 用户捐款
-
-  before_create :gen_donate_no
 
   # 项目是否可以退款
   def can_refund?
@@ -537,6 +535,9 @@ class DonateRecord < ApplicationRecord
       json.apply_name self.try(:apply).try(:name)
       json.project_image_mode self.try(:project).try(:image).present?
       json.project_image self.try(:project).try(:project_image).to_s
+      json.apply_name self.apply.try(:name)
+      json.apply_image_mode self.apply.try(:cover_image).present?
+      json.apply_image self.apply.cover_image_url(:little).to_s if self.apply && self.apply.cover_image
       json.income_source self.try(:income_record).try(:income_source).try(:name)
       json.income_kind self.try(:income_record).try(:income_source).present? ? self.try(:income_record).try(:income_source).enum_name(:kind) : ''
     end.attributes!
@@ -582,7 +583,11 @@ class DonateRecord < ApplicationRecord
 
   def set_record_title
     return if self.title.present?
-    self.title ||= "#{self.try(:user).try(:name)}捐助#{self.try(:donate_item).try(:name)}#{self.try(:donate_item).try(:fund).try(:name)}款项"
+    if self.donate_item.present?
+      self.title = "#{self.try(:user).try(:name)}捐助#{self.try(:donate_item).try(:name)}#{self.try(:donate_item).try(:fund).try(:name)}款项"
+    else
+      self.title = "#{self.try(:user).try(:name)}捐助#{self.try(:apply).try(:apply_name)}#{self.try(:child).try(:name)}#{self.try(:bookshelf).try(:show_title)}款项"
+    end
   end
 
   private

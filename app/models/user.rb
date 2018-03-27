@@ -91,7 +91,7 @@ class User < ApplicationRecord
   enum gender: {male: 1, female: 2} #性别 1:男 2:女
   default_value_for :gender, 1
 
-  enum use_nickname: {anonymous: 1, autonym: 2, designation: 3} #使用昵称 1:匿名（使用昵称） 2:实名使用姓名 3.使用称号
+  enum use_nickname: {anonymous: 1, autonym: 2, designation: 3} #使用昵称 1:匿名（使用昵称） 2:实名使用姓名 3.使用称呼
   default_value_for :use_nickname, 2
 
   scope :sorted, ->{ order(created_at: :desc) }
@@ -254,7 +254,7 @@ class User < ApplicationRecord
       json.avatar self.user_avatar
       json.name self.name
       json.gender self.gender == 'male'? ['男'] : ['女']
-      json.use_nickname self.use_nickname
+      json.use_nickname [self.use_nickname]
       json.salutation self.salutation
       json.email self.email
       json.location [self.province, self.city, self.district]

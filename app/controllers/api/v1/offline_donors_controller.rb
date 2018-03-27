@@ -40,7 +40,7 @@ class Api::V1::OfflineDonorsController < Api::V1::BaseController
     district = params[:location][2] if params[:location].present?
     address  = params[:address]
     salutation = params[:salutation]
-    use_nickname = params[:use_nickname]
+    use_nickname = params[:use_nickname][0]
     if params[:gender] == ['男']
       gender = 'male'
     else
@@ -66,7 +66,7 @@ class Api::V1::OfflineDonorsController < Api::V1::BaseController
     city = params[:location][1] if params[:location].present?
     district = params[:location][2] if params[:location].present?
     address  = params[:address]
-    use_nickname = params[:use_nickname]
+    use_nickname = params[:use_nickname][0]
     @donor = @user.offline_users.find(params[:id])
     if @donor.update(name: name,nickname: nickname, phone: phone, email: email, province: province, city: city, district: district, address: address, use_nickname: use_nickname)
       api_success(data: {result: true, donor: @donor.offline_donor_summary_builder}, message: '修改捐助人信息成功')
