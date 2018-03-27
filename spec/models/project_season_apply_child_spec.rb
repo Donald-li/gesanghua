@@ -67,10 +67,10 @@ RSpec.describe ProjectSeasonApplyChild, type: :model do
 
     expect(child.pass?).to be true
 
-    child = ProjectSeasonApplyChild.first
-    expect(child.name).to eq '李同学'
-    expect(child.gsh_no).to end_with('1')
-    expect(child.semester_count).to eq child.gsh_child_grants.count
+    gsh_child = ProjectSeasonApplyChild.first
+    expect(gsh_child.name).to eq '李同学'
+    expect(gsh_child.gsh_no).to end_with('1')
+    expect(gsh_child.semester_count).to eq gsh_child.gsh_child_grants.count
     expect(GshChildGrant.first.amount).to eq 1050.0
     expect(GshChildGrant.last.amount).to eq 2100.0
   end
@@ -84,9 +84,9 @@ RSpec.describe ProjectSeasonApplyChild, type: :model do
 
     grant.save
 
-    expect(ProjectSeasonApplyChild.find(child.id).done_semester_count).to eq GshChildGrant.where(apply_child: child).succeed.count
+    expect(ProjectSeasonApplyChild.find(child.id).done_semester_count).to eq GshChildGrant.where(gsh_child: child).succeed.count
     # 筹款进度
-    expect(ProjectSeasonApplyChild.find(child.id).gift_progress).to eq "#{GshChildGrant.where(apply_child: child).succeed.count}/#{GshChildGrant.where(apply_child: child).count}"
+    expect(ProjectSeasonApplyChild.find(child.id).gift_progress).to eq "#{GshChildGrant.where(gsh_child: child).succeed.count}/#{GshChildGrant.where(gsh_child: child).count}"
   end
 
   it '测试查询受助孩子的全部捐助记录' do

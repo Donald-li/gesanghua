@@ -59,7 +59,7 @@ class DonateRecord < ApplicationRecord
   belongs_to :month_donate, optional: true
   belongs_to :fund, optional: true
   belongs_to :appoint, polymorphic: true, optional: true
-  belongs_to :gsh_child, class_name: 'GshChild', optional: true
+  belongs_to :gsh_child, class_name: 'ProjectSeasonApplyChild', optional: true
   belongs_to :donate_item, optional: true
 
   counter_culture :project, column_name: proc{|model| model.project.present? && model.pay_state == 'paid' ? 'donate_record_amount_count' : nil}, delta_magnitude: proc {|model| model.amount}
@@ -213,16 +213,16 @@ class DonateRecord < ApplicationRecord
   end
 
   # 捐孩子
-  def self.donate_child(user: nil, child: nil, income_record: nil, semester_num: 0, promoter: nil)
+  def self.donate_child(user: nil, gsh_child: nil, income_record: nil, semester_num: 0, promoter: nil)
     # return false unless user.present?
-    return false unless child.present?
-    total = self.donate_child_total(child, semester_num)
+    return false unless gsh_child.present?
+    total = self.donate_child_total(gsh_child, semester_num)
     project = Project.pair_project
     user_id = user.present? ? user.id : nil
-    donate = self.new(user_id: user_id, amount: total, fund: project.appoint_fund, income_record: income_record, promoter: promoter, pay_state: 'unpay', project: project, season: child.season, apply: child.apply, child: child)
-    if donate.save! && ( scope = self.donate_child_semesters(child, semester_num))
+    donate = self.new(user_id: user_id, amount: total, fund: project.appoint_fund, income_record: income_record, promoter: promoter, pay_state: 'unpay', project: project, season: gsh_child.season, apply: gsh_child.apply, gsh_child: gsh_child)
+    if donate.save! && ( scope = self.donate_child_semesters(gsh_child, semester_num))
       scope.update(donate_state: :succeed, user_id: user_id)
-      child.update(donate_user_id: user_id)
+      gsh_child.update(donate_user_id: user_id)
     end
     return donate
   end
@@ -257,14 +257,14 @@ class DonateRecord < ApplicationRecord
     DonateRecord.new(user_id: user_id, amount: amount, promoter: promoter, income_record: income_record, fund: project.appoint_fund, project: project, supplement: supplement)
   end
 
-  def self.donate_child_semesters(child, semester_num)
-    scope = child.semesters.pending.sorted.reverse_order
+  def self.donate_child_semesters(gsh_child, semester_num)
+    scope = gsh_child.semesters.pending.sorted.reverse_order
     return false if scope.count < semester_num || semester_num < 1
     scope.limit(semester_num)
   end
 
-  def self.donate_child_total(child, semester_num)
-    return self.donate_child_semesters(child, semester_num).to_a.sum {|a| a.amount}
+  def self.donate_child_total(gsh_child, semester_num)
+    return self.donate_child_semesters(gsh_child, semester_num).to_a.sum {|a| a.amount}
   end
 
   # 计算开票金额
@@ -488,7 +488,7 @@ class DonateRecord < ApplicationRecord
 
     self.transaction do
       begin
-        donate_record = self.donate_child(user: user, child: child, income_record: income_record, semester_num: semester_num, promoter: nil)
+        donate_record = self.donate_child(user: user, gsh_child: child, income_record: income_record, semester_num: semester_num, promoter: nil)
         donate_record.pay_state = 'paid'
         donate_record.kind = 'platform'
         donate_record.save!
