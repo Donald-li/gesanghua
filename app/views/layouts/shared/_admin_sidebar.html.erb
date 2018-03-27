@@ -212,17 +212,6 @@
         <% end %>
       </li>
 
-      <li class="nav-item <%= current_nav_class(:admin_thanks) %>">
-        <%= link_to '', class: 'nav-link' do %>
-            <% to_audit = 0 %>
-            <i class="fa fa-envelope-open"></i>
-            <span class="title">反馈管理</span>
-            <% if to_audit > 0 %>
-                <span class="badge badge-danger"><%= to_audit %></span>
-            <% end %>
-        <% end %>
-      </li>
-
       <li class="nav-item <%= current_nav_class(:admin_platform_content) %>">
         <a href="javascript:;" class="nav-link nav-toggle">
           <i class="fa fa-tasks"></i>
