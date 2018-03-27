@@ -28,7 +28,7 @@ class Voucher < ApplicationRecord
   accepts_nested_attributes_for :logistic, reject_if: :all_blank
   has_many :donate_records
   validates :contact_name, :contact_phone, :province, :city, :district, :address, presence: true
-  validates :contact_phone, mobile: true
+  # validates :contact_phone, mobile: true
 
   enum state: { pending: 1, deal: 2 } # 审核状态：1:待处理 2:已处理
   default_value_for :state, 1
