@@ -9,9 +9,10 @@ class Api::V1::DonatesController < Api::V1::BaseController
       project_alias = params[:project]
       project = Project.find_by(alias: project_alias)
       record = DonateRecord.donate_project(current_user, params[:amount], project, params[:promoter], params[:item])
+      record.team = current_user.team if current_user.team.present?
       record.paid! if Settings.skip_pay_mode
 
-      if(record)
+      if(record.save)
         if params[:pay_method] == 'balance'
           current_user.deduct_balance(amount)
           record.paid!
@@ -30,13 +31,12 @@ class Api::V1::DonatesController < Api::V1::BaseController
 
     apply = ProjectSeasonApply.find(apply_id)
     project = apply.project
-
     donate_record = DonateRecord.donate_apply(user: current_user, amount: params[:amount].to_f, apply: apply, promoter: promoter)
-
+    donate_record.team = current_user.team if current_user.team.present?
     # 本地测试环境模拟捐款入账成功
     IncomeRecord.wechat_payment({ "out_trade_no" => donate_record.donate_no, "total_fee" => donate_record.amount.to_f }, params) if Settings.skip_pay_mode
 
-    if (donate_record.reload)
+    if (donate_record.reload.save)
       if params[:pay_method] == 'balance'
         current_user.deduct_balance(amount)
         donate_record.paid!
