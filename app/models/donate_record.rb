@@ -535,6 +535,9 @@ class DonateRecord < ApplicationRecord
       json.apply_name self.try(:apply).try(:name)
       json.project_image_mode self.try(:project).try(:image).present?
       json.project_image self.try(:project).try(:project_image).to_s
+      json.apply_name self.apply.try(:name)
+      json.apply_image_mode self.apply.try(:cover_image).present?
+      json.apply_image self.apply.cover_image_url(:little).to_s if self.apply && self.apply.cover_image
       json.income_source self.try(:income_record).try(:income_source).try(:name)
       json.income_kind self.try(:income_record).try(:income_source).present? ? self.try(:income_record).try(:income_source).enum_name(:kind) : ''
     end.attributes!
