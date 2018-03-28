@@ -30,7 +30,8 @@ class Api::V1::CampaignsController < Api::V1::BaseController
 
   def success
     @enlist = CampaignEnlist.where(user: current_user).paid.find(params[:id])
-    @another_campaign = Campaign.show.where.not(id: @enlist.id).sorted.first #
+    @another_campaign = Campaign.show.where.not(id: @enlist.campaign.id).sorted.first #
     api_success(data: {totalPrice: @enlist.total_price, campaignId: @enlist.campaign_id, campaign: @another_campaign.try(:summary_builder) || {}})
   end
+
 end
