@@ -18,7 +18,7 @@ class Api::V1::GshPlus::VolunteersController < Api::V1::BaseController
 
   def create
     user = current_user
-    if Volunteer.find_by(phone: params[:volunteer][:phone])
+    if Volunteer.pass.find_by(phone: params[:volunteer][:phone])
       return api_error(message: '该手机号已注册志愿者，请绑定手机号关联角色')
     end
     volunteer = user.volunteer || user.build_volunteer
