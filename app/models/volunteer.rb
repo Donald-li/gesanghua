@@ -26,7 +26,7 @@
 # 志愿者
 class Volunteer < ApplicationRecord
 
-  belongs_to :user
+  belongs_to :user, optional: true
   has_many :task_volunteers, dependent: :destroy
   has_many :tasks, through: :task_volunteers
   has_many :volunteer_major_ships
