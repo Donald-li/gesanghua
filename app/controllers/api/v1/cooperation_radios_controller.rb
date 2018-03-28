@@ -74,6 +74,7 @@ class Api::V1::CooperationRadiosController < Api::V1::BaseController
     }
     if @apply.update(attributes)
       @apply.attach_images(params[:images])
+      @apply.submit!
       api_success(data: {result: true})
     else
       api_success(data: {result: false})
