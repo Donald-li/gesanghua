@@ -120,18 +120,18 @@ class ProjectSeasonApply < ApplicationRecord
   end
 
   # 判断学校是否可以申请本批次
-  def self.allow_apply?(school, season)
+  def self.allow_apply?(school, season, project)
     return false if season.nil?
     return false if season.project.platform_assign?
-    if self.season_apply_count(school, season) > 0
+    if self.season_apply_count(school, season, project) > 0
       return false
     else
       return true
     end
   end
 
-  def self.season_apply_count(school=nil, season=nil)
-    scope = self.where(season: season)
+  def self.season_apply_count(school=nil, season=nil, project=nil)
+    scope = self.where(season: season, project: project)
     scope = scope.where(school: school) if school.present?
     scope.count
   end

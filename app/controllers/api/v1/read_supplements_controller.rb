@@ -63,7 +63,7 @@ class Api::V1::ReadSupplementsController < Api::V1::BaseController
   def can_apply
     @school = current_user.teacher.school
     season = ProjectSeason.find(params[:season_id])
-    if ProjectSeasonApply.allow_apply?(@school, season)
+    if ProjectSeasonApply.allow_apply?(@school, season, Project.book_supply_project)
       api_success(data: {result: true}, message: '')
     else
       api_success(data: {result: false}, message: '您无法申请本批次')
