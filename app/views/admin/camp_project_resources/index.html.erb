@@ -14,7 +14,6 @@
     <div class="dataTables_wrapper no-footer">
       <div class="row">
         <div class="col-md-6 col-sm-12">
-          <div class="dataTables_filter pull-right">
             <%= search_form_for @search, url: admin_camp_project_resources_path, class: 'form-inline' do |f| %>
             <div class="form-group">
               <%= f.label :company_cont, '单位' %>
@@ -26,7 +25,6 @@
             </div>
             <button type="submit" class="btn btn-default grey">搜索</button>
             <% end %>
-          </div>
         </div>
       </div>
       <div class="table-scrollable">

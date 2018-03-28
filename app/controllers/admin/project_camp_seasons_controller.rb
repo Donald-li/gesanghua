@@ -50,7 +50,7 @@ class Admin::ProjectCampSeasonsController < Admin::BaseController
 
   private
     def set_project
-      @project = Project.find 4
+      @project = Project.camp_project
     end
 
     def set_season
