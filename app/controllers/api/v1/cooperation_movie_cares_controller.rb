@@ -12,6 +12,7 @@ class Api::V1::CooperationMovieCaresController < Api::V1::BaseController
         applies = user.teacher.project_season_applies.where(project_id: @movie_care.id).sorted.page(params[:page])
         api_success(data: {applies: applies.map { |r| r.movie_care_apply_builder }, pagination: json_pagination(applies)})
       else
+        api_success(data: {applies: [], pagination: json_pagination([])})
       end
     else
       api_success(data: {applies: [], pagination: json_pagination([])})
