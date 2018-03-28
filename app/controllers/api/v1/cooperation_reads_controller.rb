@@ -90,6 +90,9 @@ class Api::V1::CooperationReadsController < Api::V1::BaseController
     }
     if @apply.update(attributes)
       @apply.attach_images(params[:images])
+      @apply.submit!
+      @apply.bookshelves.update_all(audit_state: 'submit') if @apply.bookshelves.present?
+      @apply.supplements.update_all(audit_state: 'submit') if @apply.supplements.present?
       api_success(data: {result: true})
     else
       api_success(data: {result: false})
