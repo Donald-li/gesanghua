@@ -8,9 +8,9 @@ RSpec.describe "Api::V1::Account::Campaigns", type: :request do
   let!(:campaign_category) {create(:campaign_category)}
   let!(:campaign1) {create(:campaign, campaign_category: campaign_category)}
   let!(:campaign2) {create(:campaign, campaign_category: campaign_category)}
-  let!(:campaign_enlist1) {create(:campaign_enlist, campaign: campaign1, user_id: login_user.id, number: 2, remark: '女装S一件，男装M一件', total: 600, contact_name: '徐恒', contact_phone: '17660643271', payment_state: 'paid')}
-  let!(:campaign_enlist2) {create(:campaign_enlist, campaign: campaign1, user_id: user1.id, number: 2, remark: '女装S一件，男装M一件', total: 600, contact_name: '徐恒', contact_phone: '17660643271', payment_state: 'paid')}
-  let!(:campaign_enlist3) {create(:campaign_enlist, campaign: campaign2, user_id: login_user.id, number: 2, remark: '女装S一件，男装M一件', total: 600, contact_name: '徐恒', contact_phone: '17660643271', payment_state: 'paid')}
+  let!(:campaign_enlist1) {create(:campaign_enlist, campaign: campaign1, user_id: login_user.id, number: 2, remark: '女装S一件，男装M一件', total: 600, contact_name: '策士1', contact_phone: '17660643271', payment_state: 'paid')}
+  let!(:campaign_enlist2) {create(:campaign_enlist, campaign: campaign1, user_id: user1.id, number: 2, remark: '女装S一件，男装M一件', total: 600, contact_name: '策士2', contact_phone: '17660643271', payment_state: 'paid')}
+  let!(:campaign_enlist3) {create(:campaign_enlist, campaign: campaign2, user_id: login_user.id, number: 2, remark: '女装S一件，男装M一件', total: 600, contact_name: '策士3', contact_phone: '17660643271', payment_state: 'paid')}
 
   describe '测试我的活动' do
     it '获取活动列表' do
