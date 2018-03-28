@@ -22,7 +22,7 @@ class Api::V1::GshPlus::SchoolsController < Api::V1::BaseController
   end
 
   def show
-    @school = current_user.teacher.try(:school) || current_user.school
+    @school = current_user.teacher.try(:school) || current_user.create_school
     if @school.present?
       api_success(data: @school.detail_builder)
     else

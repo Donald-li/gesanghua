@@ -1,5 +1,5 @@
 class Admin::SchoolAppliesController < Admin::BaseController
-  before_action :set_school_apply, only: [:edit, :show, :update, :check]
+  before_action :set_school_apply, only: [:edit, :show, :update, :check, :destroy]
 
   def index
     @search = School.can_check.sorted.ransack(params[:q])
@@ -25,7 +25,7 @@ class Admin::SchoolAppliesController < Admin::BaseController
   end
 
   def destroy
-    @school.destroy
+    @school_apply.destroy
     respond_to do |format|
       format.html { redirect_to admin_school_applies_path, notice: '删除成功。' }
     end
