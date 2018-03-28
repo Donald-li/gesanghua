@@ -15,7 +15,6 @@ class Api::V1::CooperationPairStudentsController < Api::V1::BaseController
   end
 
   def create
-    byebug
     apply = ProjectSeasonApply.find(params[:apply_id])
     school_id = apply.school_id
     season_id = apply.project_season_id
