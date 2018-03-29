@@ -36,6 +36,7 @@
 #  promoter_amount_count :decimal(14, 2)   default(0.0)                # 累计劝捐额
 #  use_nickname          :integer                                      # 使用昵称
 #  join_team_time        :datetime                                     # 加入团队时间
+#  camp_id               :integer                                      # 探索营id
 #
 
 # 用户
@@ -51,6 +52,7 @@ class User < ApplicationRecord
   has_one_asset :avatar, class_name: 'Asset::UserAvatar'
 
   belongs_to :team, optional: true
+  belongs_to :camp, optional: true
 
   has_one :school # 校长
   has_one :create_school, class_name: 'School', foreign_key: 'creater_id', dependent: :nullify # 用户创建的学校

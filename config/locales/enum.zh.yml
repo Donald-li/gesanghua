@@ -475,3 +475,6 @@ zh:
     innovative_task: '创新任务'
     difficult_task: '难点任务'
     volunteer_age: '志愿者年限'
+  camp_states:
+    enable: '启用'
+    disable: '禁用'

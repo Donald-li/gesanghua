@@ -38,6 +38,7 @@
 #  pair_state        :integer                                # 结对审核状态
 #  code              :string                                 # code
 #  read_state        :integer                                # 悦读项目状态
+#  camp_id           :integer                                # 探索营id
 #
 
 FactoryBot.define do

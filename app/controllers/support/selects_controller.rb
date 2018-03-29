@@ -66,7 +66,7 @@ class Support::SelectsController < Support::BaseController
 
   def seasons
     scope = Project.find(params[:project_id]).seasons.enable.sorted.where("name like :q", q: "%#{params[:q]}%")
-    seasons = scope.page(params[:page])
+    seasons = scope.page(paramsc[:page])
     render json: {items: seasons.as_json(only: [:id, :name])}
   end
 
@@ -80,6 +80,11 @@ class Support::SelectsController < Support::BaseController
     scope = Major.sorted.where("name like :q", q: "%#{params[:q]}%")
     applies = scope.page(params[:page])
     render json: {items: applies.as_json(only: [:id, :name])}
+  end
+
+  def camp_funds
+    funds = Project.camp_project.fund.fund_category.funds.restricted.offset(1).sorted.where("name like :q", q: "%#{params[:q]}%")
+    render json: {items: funds.as_json(only: [:id, :name])}
   end
 
 

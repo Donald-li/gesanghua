@@ -38,6 +38,7 @@
 #  pair_state        :integer                                # 结对审核状态
 #  code              :string                                 # code
 #  read_state        :integer                                # 悦读项目状态
+#  camp_id           :integer                                # 探索营id
 #
 
 # 所有项目年度申请表
@@ -53,6 +54,7 @@ class ProjectSeasonApply < ApplicationRecord
   has_one_asset :cover_image, class_name: 'Asset::ProjectSeasonApplyCover'
 
   belongs_to :project
+  belongs_to :camp, optional: true
   belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id', optional: true
   belongs_to :school, optional: true
   belongs_to :teacher, optional: true
@@ -64,6 +66,10 @@ class ProjectSeasonApply < ApplicationRecord
   has_many :supplements, ->{ order(id: :asc) }, class_name: 'BookshelfSupplement', foreign_key: 'project_season_apply_id'
   has_many :beneficial_children
   has_many :donate_records
+  has_many :camp_document_estimates
+  has_many :camp_document_finances
+  has_many :camp_document_summaries
+  has_many :camp_document_volunteers
 
   has_one :install_feedback, as: :owner
   has_one :receive_feedback, as: :owner

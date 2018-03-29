@@ -45,6 +45,13 @@ namespace :admin do
     resources :special_articles
   end
 
+  resources :camps do
+    resources :camp_users
+  end
+
+  resources :camp_applies
+  resources :camp_projects
+
   resources :project_book_seasons
   resources :read_applies, concerns: :check do
     member do
@@ -82,7 +89,6 @@ namespace :admin do
     end
   end
   resources :read_continual_feedbacks, concerns: [:recommend]
-  resources :project_camp_seasons
   resources :project_radio_seasons
   resources :project_flower_seasons
   resources :project_movie_seasons
