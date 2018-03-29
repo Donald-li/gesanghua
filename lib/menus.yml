@@ -87,8 +87,6 @@ admin:
                 'admin/special_adverts': all
                 'admin/special_articles': all
 
-
-
     admin_system:
       menus:
         admin_article_category:
@@ -100,6 +98,7 @@ admin:
         admin_donate_item_template:
           actions:
             'admin/donate_items': all
+            'admin/donate_item_amount_tabs': all
         admin_support_category:
           actions:
             'admin/support_categories': all
