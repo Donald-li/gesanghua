@@ -2,6 +2,8 @@ class Account::BaseController < ApplicationController
   before_action :logged_in?
   before_action :set_paper_trail_whodunnit
 
+  layout 'account'
+
   def logged_in?
     # if session[:current_user_id].present?
     #   return true
