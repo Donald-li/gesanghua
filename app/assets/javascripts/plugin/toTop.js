@@ -12,7 +12,9 @@ jQuery(document).ready(function($) {
                     background:'#fff',
                     border:'1px solid #e6e6e6',
                     textAlign:'center',
-                    lineHeight:'40px'
+                    lineHeight:'40px',
+                    borderTop: 'none'
+
 				});
                 $(".toTop").css({
                     fontSize:'22px',

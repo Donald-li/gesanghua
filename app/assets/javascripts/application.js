@@ -29,6 +29,8 @@
 //= require 'plugin/jquery.let_it_snow.js'
 //= require 'plugin/checkbox.js'
 //= require 'plugin/progresscircle.js'
+//= require 'plugin/cityPicker-2.0.0.js'
+//= require 'plugin/citydata.min.js'
 
 
 
@@ -104,5 +106,35 @@ $(function () {
         $('.bul-pos2').css({'display': 'none'})
         $('.right-foot-2').css({'background': '#3b3b3b', 'color': '#fff'})
     });
+//    遮罩
+    jQuery.fn.center = function(loaded) {
+        var obj = this;
+        body_width = parseInt($(window).width());
+        body_height = parseInt($(window).height());
+        block_width = parseInt(obj.width());
+        block_height = parseInt(obj.height());
+
+        left_position = parseInt((body_width / 2) - (block_width / 2) + $(window).scrollLeft());
+        if (body_width < block_width) {
+            left_position = 0 + $(window).scrollLeft();
+        };
+
+        top_position = parseInt((body_height / 2) - (block_height / 2) + $(window).scrollTop());
+        if (body_height < block_height) {
+            top_position = 0 + $(window).scrollTop();
+        };
+
+        if (!loaded) {
+
+
+            $(window).bind('resize', function() {
+                obj.center(!loaded);
+            });
+            $(window).bind('scroll', function() {
+                obj.center(!loaded);
+            });
+
+        }
+    }
 
 });

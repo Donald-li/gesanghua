@@ -88,7 +88,7 @@ class Task < ApplicationRecord
       json.start_time self.start_time.strftime("%Y-%m-%d %H:%M")
       json.end_time self.end_time.strftime("%Y-%m-%d %H:%M")
       json.cover_mode self.cover.present?
-      json.cover_url self.cover_url(:small)
+      json.cover_url self.cover_url(:medium)
       json.can_apply !self.task_volunteers.where(volunteer: user.volunteer).present?
     end.attributes!
   end

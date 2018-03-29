@@ -28,23 +28,23 @@
     <div class="clearfix person-bo">
       <div class="person-body-left pull-left">
         <ul>
-          <li class="selectedli">
+          <li class="selectedli cur">
             <span class="iconfont icon-ico-project"></span>
             <span>我的捐助</span>
           </li>
-          <li>
+          <li class="cur">
             <span class="iconfont icon-ico-team"></span>
             <span>我的团队</span>
           </li>
-          <!--<li >-->
+          <!--<li class="cur">-->
           <!--<span class="iconfont icon-ico-month"></span>-->
             <!--<span>我的月捐</span>-->
           <!--</li>-->
-          <li>
+          <li class="cur">
             <span class="iconfont icon-ico-campaign"></span>
             <span>我的活动</span>
           </li>
-          <li>
+          <li class="cur">
             <span class="iconfont icon-ico-replace"></span>
             <span>捐助管理</span>
           </li>
@@ -52,11 +52,11 @@
             <span class="iconfont icon-ioc-platform"></span>
             <span>协作平台</span>
           </li>
-          <li>
+          <li class="cur">
             <span class="iconfont icon-ico-gsh"></span>
             <span>格桑花+</span>
           </li>
-          <li>
+          <li class="cur">
             <span class="iconfont icon-ico-badge"></span>
             <span>我的勋章</span>
           </li>
@@ -69,7 +69,7 @@
       </div>
       <div class="person-body-right pull-right">
         <!--我的捐助-->
-        <div>
+        <div style="display: block;">
           <ul class="donations clearfix">
             <li class="selectedDon cur">我的捐助</li>
             <li class="cur">我的结对</li>
@@ -106,10 +106,17 @@
                     </div>
                   </div>
                 </div>
-                <div class="donation-cont-but pull-right">
+                <div class="donation-cont-but pull-right cur">
                   查看项目详情
                 </div>
               </div>
+            </div>
+            <div class="donation-cont-no">
+              <div class="donation-co-no-c">
+                <p>您还未捐助过任何公益项目! </p>
+                <p>马上参与捐助，帮助西部孩子 健康成长吧~</p>
+              </div>
+              <div class="donation-co-no-but">去捐助</div>
             </div>
             <div class="project-foot">
               <span class="iconfont icon-arrow-left cur"></span>
@@ -195,8 +202,137 @@
           </div>
           <div class="donation">我的图书角</div>
         </div>
+        <!--我的团队-->
+        <div class="donation">
+          <p class="don-title border-b">我的团队</p>
+        </div>
+        <!--我的月捐-->
+        <!--<div></div>-->
+        <!--我的活动-->
+        <div class="donation">
+          <p class="don-title border-b">我的活动</p>
+        </div>
+        <!--捐助管理-->
+        <div class="donation">
+          <p class="don-title border-b">捐助管理</p>
+          <div class="don-cont">
+            <div class="don-content">
+              <div>
+                <span>张先生</span>
+                <span>自己</span>
+              </div>
+              <div class="don-con-co">
+                <span>联系电话：</span><p>186****0989</p>
+              </div>
+              <div class="don-con-co">
+                <span>收货地区：</span><p>山东青岛市李沧区</p>
+              </div>
+              <div class="don-con-co">
+                <span>详细地址：</span><p>京口路28号苏宁大厦C座1804</p>
+              </div>
+              <div class="don-con-co">
+                <span>邮箱地址：</span><p></p>
+              </div>
+            </div>
+            <div class="don-content">
+              <div>
+                <span>张先生</span>
+              </div>
+              <div class="don-con-co">
+                <span>联系电话：</span><p>186****0989</p>
+              </div>
+              <div class="don-con-co">
+                <span>收货地区：</span><p>山东青岛市李沧区</p>
+              </div>
+              <div class="don-con-co">
+                <span>详细地址：</span><p>京口路28号苏宁大厦C座1804</p>
+              </div>
+              <div class="don-con-co">
+                <span>邮箱地址：</span><p></p>
+              </div>
+              <div class="clearfix don-con-pos">
+                <div class="pull-right cur">
+                  <span class="iconfont icon-ico-delete1"></span>
+                  <span>删除</span>
+                </div>
+                <div class="pull-right cur">
+                  <span class="iconfont icon-ico-edit "></span>
+                  <span>编辑</span>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="don-co">
+            <div class="don-co-but cur" id="ClickMe">
+              <span class="iconfont icon-ico-add1"></span>
+              <span>新增捐助人</span>
+            </div>
+          </div>
+        </div>
+        <!--协作平台-->
+        <div class="donation">
+          <p class="don-title border-b">协作平台</p>
+        </div>
+        <!--格桑花+-->
+        <div class="donation">
+          <p class="don-title border-b">格桑花+</p>
+        </div>
+        <!--我的徽章-->
+        <div class="donation">
+          <p class="don-title border-b">我的徽章</p>
+        </div>
       </div>
     </div>
+  </div>
+  <div id="goodcover"></div>
+  <div id="code">
+    <div class="close1 clearfix">
+      <span class="pull-left">新增捐赠人信息</span>
+      <span id="closebt" class="iconfont icon-icondelete cur pull-right "></span>
+    </div>
+    <div class="goodcont">
+      <div class="clearfix">
+        <div class="pull-left">
+          <p class="goodtext">昵称</p>
+          <input  class="goodinput" type="text"  />
+        </div>
+        <div class="pull-right">
+          <p class="goodtext">真实姓名</p>
+          <input  class="goodinput" type="text"  />
+        </div>
+      </div>
+      <div class="clearfix sexinput">
+        <p class="goodtext pull-left">所在地区</p>
+        <div class="female pull-left">
+          <input type="radio" id="female" name="sex" checked />
+          <label for="female">男</label>
+        </div>
+        <div class="male pull-left">
+          <input type="radio" id="male" name="sex" />
+          <label for="male">女</label>
+        </div>
+      </div>
+
+      <div class="clearfix">
+        <div class="pull-left">
+          <p class="goodtext">如何称呼</p>
+          <input  class="goodinput" type="text"  />
+        </div>
+        <div class="pull-right">
+          <p class="goodtext">联系电话</p>
+          <input  class="goodinput" type="text"  placeholder="请输入联系电话"/>
+        </div>
+      </div>
+      <p class="goodtext">所在地区</p>
+      <div class="city-picker-selector" id="city-picker-selector"></div>
+      <p class="goodtext">详细地址</p>
+      <input class="address-input" type="text"  placeholder="请输入详细地址"/>
+      <div class="goodbut">保存</div>
+    </div>
+
+
   </div>
 </div>
 <script>
@@ -205,6 +341,10 @@
         $(".person-body-left ul li").removeClass("selectedli")
         $(this).addClass("selectedli")
         $(".leftLine").css("top", parseFloat($(this)[0].offsetTop) + "px")
+        $.each($('.person-body-left ul li'), function (i, j) {
+            $('.person-body-right > div').eq(i).css('display', 'none')
+        });
+        $('.person-body-right > div').eq($(this).index()).css('display', 'block')
     })
     //     右tab切换一级
     $('.donations li').on("click",function(){
@@ -221,4 +361,42 @@
         $(this).addClass("selectedDo")
         $(".bottomline").css("left", parseFloat($(this)[0].offsetLeft) +31 +  "px")
     })
+    if($('.donation .donation-cont').length===0){
+        $('.donation-cont-no').css('display', 'block')
+        $('.project-foot').css('display', 'none')
+    }else{
+        $('.donation-cont-no').css('display', 'none')
+        $('.project-foot').css('display', 'block')
+    }
+    // 显示代码
+    $('.show-code').on('click', function (event) {
+        var $this = $(this);
+
+        $this.next('pre').slideToggle(500);
+    });
+
+    // 模拟城市-无联动/无搜索
+    var selector1 = $('#city-picker-selector').cityPicker({
+        dataJson: cityData,
+        renderMode: true,
+        search: false,
+        autoSelected: false,
+        code: 'cityCode',
+        level: 3,
+        onChoiceEnd: function() {
+            console.log(this.values)
+        }
+    });
+
+    $('#ClickMe').click(function() {
+        $('#code').center();
+        $('#goodcover').show();
+        $('#code').fadeIn();
+    });
+    $('#closebt').click(function() {
+        $('#code').hide();
+        $('#goodcover').hide();
+    });
+
+
 </script>
