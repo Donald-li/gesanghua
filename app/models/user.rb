@@ -59,6 +59,7 @@ class User < ApplicationRecord
   has_one :volunteer
   has_one :county_user
   has_one :gsh_child
+  has_many :gsh_child_grants
   has_many :children, class_name: 'ProjectSeasonApplyChild', foreign_key: 'donate_user_id', dependent: :nullify # 我捐助的孩子们
   has_many :vouchers
   has_many :campaign_enlists
@@ -305,24 +306,31 @@ class User < ApplicationRecord
     volunteer = Volunteer.find_by(phone: self.phone)
     teacher = Teacher.find_by(phone: self.phone)
     county_user = CountyUser.find_by(phone: self.phone)
-    if volunteer.present?
-      self.add_role(:volunteer) unless self.has_role?(:volunteer)
-      volunteer.user = self
-      volunteer.save
-    end
-    if teacher.present?
-      self.add_role(:teacher) if teacher.teacher? && !self.has_role?(:teacher)
-      self.add_role(:headmaster) if teacher.headmaster? && !self.has_role?(:headmaster)
-      teacher.user = self
-      teacher.save
-    end
-    if county_user.present?
-      self.add_role(:county_user) unless self.has_role?(:county_user)
-      county_user.user = self
-      county_user.save
-    end
-    self.save
+    self.bind_user_with_volunteer(volunteer) if volunteer.present?
+    self.bind_user_with_teacher(teacher) if teacher.present?
+    self.bind_user_with_county_user(county_user) if county_user.present?
+  end
 
+  def bind_user_with_volunteer(volunteer)
+    self.add_role(:volunteer) unless self.has_role?(:volunteer)
+    volunteer.user = self
+    volunteer.save
+    self.save
+  end
+
+  def bind_user_with_teacher(teacher)
+    self.add_role(:teacher) if teacher.teacher? && !self.has_role?(:teacher)
+    self.add_role(:headmaster) if teacher.headmaster? && !self.has_role?(:headmaster)
+    teacher.user = self
+    teacher.save
+    self.save
+  end
+
+  def bind_user_with_county_user(county_user)
+    self.add_role(:county_user) unless self.has_role?(:county_user)
+    county_user.user = self
+    county_user.save
+    self.save
   end
 
   private

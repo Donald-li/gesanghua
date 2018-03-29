@@ -103,36 +103,34 @@ RSpec.describe DonateRecord, type: :model do
 
   it '测试用户捐一对一的指定' do
     child.approve_pass
-    gsh_child = child
     project = Project.pair_project
-    DonateRecord.donate_child(user: user , gsh_child: gsh_child, semester_num: 2)
+    DonateRecord.donate_child(user: user , child: child, semester_num: 2)
 
     donate = DonateRecord.last
     expect(donate.user.id).to eq user.id
     expect(donate.project.id).to eq project.id
     expect(donate.unpay?).to be true
-    expect(donate.amount).to eq donate.gsh_child.semesters.succeed.sum(:amount)
+    expect(donate.amount).to eq donate.child.semesters.succeed.sum(:amount)
     expect(donate.promoter).to eq nil
     expect(donate.fund_id).to eq project.appoint_fund.id
-    expect(donate.gsh_child.id).to eq gsh_child.id
-    expect(donate.gsh_child.semesters.succeed.count).to eq 2
+    expect(donate.child.id).to eq child.id
+    expect(donate.child.semesters.succeed.count).to eq 2
   end
 
   it '测试有劝捐人的用户捐一对一的指定' do
     child.approve_pass
-    gsh_child = child
     project = Project.pair_project
-    DonateRecord.donate_child(user: user, gsh_child: gsh_child, semester_num: 2, promoter: promoter)
+    DonateRecord.donate_child(user: user, child: child, semester_num: 2, promoter: promoter)
 
     donate = DonateRecord.last
     expect(donate.user.id).to eq user.id
     expect(donate.project.id).to eq project.id
     expect(donate.unpay?).to be true
-    expect(donate.amount).to eq donate.gsh_child.semesters.succeed.sum(:amount)
+    expect(donate.amount).to eq donate.child.semesters.succeed.sum(:amount)
     expect(donate.promoter.id).to eq promoter.id
     expect(donate.fund_id).to eq project.appoint_fund.id
-    expect(donate.gsh_child.id).to eq gsh_child.id
-    expect(donate.gsh_child.semesters.succeed.count).to eq 2
+    expect(donate.child.id).to eq child.id
+    expect(donate.child.semesters.succeed.count).to eq 2
   end
 
   it '测试用户捐给悦读项目' do

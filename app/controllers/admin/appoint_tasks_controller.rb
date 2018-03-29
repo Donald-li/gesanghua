@@ -27,6 +27,7 @@ class Admin::AppointTasksController < Admin::BaseController
         params[:appoint_ids].each do |appoint_id|
           @task.task_volunteers.create(volunteer_id: appoint_id, state: 'pass', approve_time: Time.now, kind: 'appoint')
         end
+        @task.attach_cover(params[:cover_id])
         format.html { redirect_to admin_appoint_tasks_path, notice: '新建成功。' }
       else
         format.html { render :new }
@@ -37,6 +38,7 @@ class Admin::AppointTasksController < Admin::BaseController
   def update
     respond_to do |format|
       if @task.update(task_params)
+        @task.attach_cover(params[:cover_id])
         format.html { redirect_to admin_appoint_tasks_path, notice: '修改成功。' }
       else
         format.html { render :edit }
