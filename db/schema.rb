@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180322032023) do
+ActiveRecord::Schema.define(version: 20180327101002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -431,6 +431,7 @@ ActiveRecord::Schema.define(version: 20180322032023) do
     t.string "grant_person", comment: "发放人"
     t.integer "user_id", comment: "捐助人"
     t.integer "grant_batch_id", comment: "发放批次"
+    t.integer "project_season_apply_child_id", comment: "一对一助学孩子id"
     t.index ["gsh_child_id"], name: "index_gsh_child_grants_on_gsh_child_id"
     t.index ["project_season_apply_id"], name: "index_gsh_child_grants_on_project_season_apply_id"
   end

@@ -16,7 +16,7 @@ class Admin::StudentGrantsController < Admin::BaseController
   end
 
   def create
-    @grant = GshChildGrant.new(grant_params.merge(school_id: @child_apply.school_id, gsh_child: @child_apply, project_season_apply_id: @child_apply.project_season_apply_id))
+    @grant = GshChildGrant.new(grant_params.merge(school_id: @child_apply.school_id, gsh_child: @child_apply.gsh_child, apply_child: @child_apply, project_season_apply_id: @child_apply.project_season_apply_id))
 
     respond_to do |format|
       if @grant.save
