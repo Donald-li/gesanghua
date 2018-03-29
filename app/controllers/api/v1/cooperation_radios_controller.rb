@@ -12,6 +12,7 @@ class Api::V1::CooperationRadiosController < Api::V1::BaseController
         applies = user.teacher.project_season_applies.where(project_id: @radio.id).sorted.page(params[:page])
         api_success(data: {applies: applies.map { |r| r.radio_apply_builder }, pagination: json_pagination(applies)})
       else
+        api_success(data: {applies: [], pagination: json_pagination([])})
       end
     else
       api_success(data: {applies: [], pagination: json_pagination([])})
@@ -74,6 +75,7 @@ class Api::V1::CooperationRadiosController < Api::V1::BaseController
     }
     if @apply.update(attributes)
       @apply.attach_images(params[:images])
+      @apply.submit!
       api_success(data: {result: true})
     else
       api_success(data: {result: false})

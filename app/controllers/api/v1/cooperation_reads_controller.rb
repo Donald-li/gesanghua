@@ -12,6 +12,7 @@ class Api::V1::CooperationReadsController < Api::V1::BaseController
         applies = user.teacher.project_season_applies.where(project_id: @read.id).sorted.page(params[:page])
         api_success(data: {applies: applies.map { |r| r.read_applies_builder }, pagination: json_pagination(applies)})
       else
+        api_success(data: {applies: [], pagination: json_pagination([])})
       end
     else
       api_success(data: {applies: [], pagination: json_pagination([])})
@@ -47,7 +48,7 @@ class Api::V1::CooperationReadsController < Api::V1::BaseController
     user = current_user
     season = ProjectSeason.find(params[:read_apply][:season][0])
     @school = user.teacher.school
-    if ProjectSeasonApply.allow_apply?(@school, season)
+    if ProjectSeasonApply.allow_apply?(@school, season, Project.read_project)
       @apply = @read.applies.new
       @apply.bookshelf_type = 1
       @apply.project_season_id = season.id
@@ -90,6 +91,9 @@ class Api::V1::CooperationReadsController < Api::V1::BaseController
     }
     if @apply.update(attributes)
       @apply.attach_images(params[:images])
+      @apply.submit!
+      @apply.bookshelves.update_all(audit_state: 'submit') if @apply.bookshelves.present?
+      @apply.supplements.update_all(audit_state: 'submit') if @apply.supplements.present?
       api_success(data: {result: true})
     else
       api_success(data: {result: false})

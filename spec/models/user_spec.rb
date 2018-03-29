@@ -42,6 +42,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   let!(:user) { create(:user) }
+  let!(:user1) { create(:user, phone: '18866669999') }
   let!(:promoter) { create(:user) }
   let!(:school) { create(:school, user: user) }
   let!(:teacher) { create(:teacher, school: school, user: user) }
@@ -49,6 +50,9 @@ RSpec.describe User, type: :model do
   let!(:season) { create(:project_season, project: project) }
   let!(:apply) { create(:project_season_apply, project: project, season: season, teacher: teacher, school: school) }
   let!(:child) { create(:project_season_apply_child, project: project, season: season, apply: apply, school: school, semester: 'next_term') }
+  let!(:teacher1) { create(:teacher, school: school, phone: '18866669999', kind: 'teacher') }
+  let!(:volunteer) { create(:volunteer, phone: '18866669999') }
+  let!(:county_user) { create(:county_user, phone: '18866669999') }
 
   it '测试每日注册用户统计功能' do
 
@@ -77,6 +81,13 @@ RSpec.describe User, type: :model do
     expect(User.find(user.id).balance).to eq 50
     User.find(user.id).deduct_balance(100)
     expect(User.find(user.id).balance).to eq 50
+  end
+
+  it '测试绑定用户角色' do
+    user1.bind_user_roles
+    expect(user1.has_role?(:volunteer)).to eq true
+    expect(user1.has_role?(:teacher)).to eq true
+    expect(user1.has_role?(:county_user)).to eq true
   end
 
 end

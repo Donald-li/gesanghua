@@ -3,7 +3,7 @@ class Api::V1::BookshelfSupplementsController < Api::V1::BaseController
 
   def create
     @bookshelf = ProjectSeasonApplyBookshelf.find(params[:class][:class_id][0])
-    @supplement = @bookshelf.supplements.new
+    @supplement = @bookshelf.supplements.new(apply: @bookshelf.apply)
     @supplement.loss = params[:class][:loss]
     @supplement.supply = params[:class][:supply]
     if @supplement.save

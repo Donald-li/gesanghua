@@ -36,7 +36,6 @@ class GenDonateCertificate
     end
   end
 
-  private
   def self.format_text(text)
     text.gsub("\r\n", "\n").each_line.map do |line|
       str = ""; index = 1

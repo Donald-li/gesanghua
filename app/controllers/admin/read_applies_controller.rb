@@ -65,8 +65,13 @@ class Admin::ReadAppliesController < Admin::BaseController
       @supplements = @project_apply.supplements
       if @project_apply.save
         @project_apply.audits.create(state: audit_state, user_id: current_user.id, comment: project_apply_params[:approve_remark])
-        @bookshelves.where(audit_state: 1).update_all(audit_state: @project_apply.audit_state)
-        @supplements.where(audit_state: 1).update_all(audit_state: @project_apply.audit_state)
+        if @project_apply.pass?
+          @bookshelves.where(audit_state: 1).update_all(audit_state: @project_apply.audit_state)
+          @supplements.where(audit_state: 1).update_all(audit_state: @project_apply.audit_state)
+        elsif @project_apply.reject?
+          @bookshelves.update_all(audit_state: @project_apply.audit_state)
+          @supplements.update_all(audit_state: @project_apply.audit_state)
+        end
         format.html { redirect_to admin_read_applies_path, notice: '审核成功' }
       else
         format.html { render :check }

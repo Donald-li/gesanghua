@@ -293,6 +293,38 @@ class User < ApplicationRecord
     end.attributes!
   end
 
+  # 微信绑定手机号之后，根据手机号合并user记录，绑定volunteer,teacher(headmaster),county_user角色（gsh_child有单独绑定途径）
+  def combine_user
+    users = User.where(phone: self.phone)
+    if users.present?
+      # 合并方法（待定）
+    end
+  end
+
+  def bind_user_roles
+    volunteer = Volunteer.find_by(phone: self.phone)
+    teacher = Teacher.find_by(phone: self.phone)
+    county_user = CountyUser.find_by(phone: self.phone)
+    if volunteer.present?
+      self.add_role(:volunteer) unless self.has_role?(:volunteer)
+      volunteer.user = self
+      volunteer.save
+    end
+    if teacher.present?
+      self.add_role(:teacher) if teacher.teacher? && !self.has_role?(:teacher)
+      self.add_role(:headmaster) if teacher.headmaster? && !self.has_role?(:headmaster)
+      teacher.user = self
+      teacher.save
+    end
+    if county_user.present?
+      self.add_role(:county_user) unless self.has_role?(:county_user)
+      county_user.user = self
+      county_user.save
+    end
+    self.save
+
+  end
+
   private
   # TODO: 创建用户
   def self.create_user

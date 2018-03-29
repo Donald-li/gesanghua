@@ -21,9 +21,8 @@ FactoryBot.define do
   factory :bookshelf_supplement do
     project_season_apply_bookshelf_id 1
     loss 1
-    upply 1
-    taget_amount "9.99"
-    balance "9.99"
+    supply 1
+    target_amount "9.99"
     state 1
   end
 end
