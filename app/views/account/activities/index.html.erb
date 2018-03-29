@@ -1,72 +1,3 @@
-<div id="account">
-  <div class="person-head">
-    <%= image_tag 'ucenter-top-bg.png' %>
-    <div class="person-h-img"> <%= image_tag 'ucenter-picture.png' %></div>
-    <div class="person-h-right">
-      <span class="iconfont icon-ico-wechat1"></span>
-      <span>账户管理</span>
-    </div>
-    <div class="person-h-cont">
-      <p>Peekid</p>
-      <div class="person-h-cont-d">
-        <div>
-          <p><span>5678.21</span>元</p>
-          <p>累计捐助</p>
-        </div>
-        <div class="border-l border-r">
-          <p><span>5678.21</span>元</p>
-          <p>累计捐助</p>
-        </div>
-        <div>
-          <p><span>5678.21</span>元</p>
-          <p>累计捐助</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="person-body">
-    <div class="clearfix person-bo">
-      <div class="person-body-left pull-left">
-        <ul>
-          <li class="selectedli cur">
-            <span class="iconfont icon-ico-project"></span>
-            <span>我的捐助</span>
-          </li>
-          <li class="cur">
-            <span class="iconfont icon-ico-team"></span>
-            <span>我的团队</span>
-          </li>
-          <!--<li class="cur">-->
-          <!--<span class="iconfont icon-ico-month"></span>-->
-            <!--<span>我的月捐</span>-->
-          <!--</li>-->
-          <li class="cur">
-            <span class="iconfont icon-ico-campaign"></span>
-            <span>我的活动</span>
-          </li>
-          <li class="cur">
-            <span class="iconfont icon-ico-replace"></span>
-            <span>捐助管理</span>
-          </li>
-          <li>
-            <span class="iconfont icon-ioc-platform"></span>
-            <span>协作平台</span>
-          </li>
-          <li class="cur">
-            <span class="iconfont icon-ico-gsh"></span>
-            <span>格桑花+</span>
-          </li>
-          <li class="cur">
-            <span class="iconfont icon-ico-badge"></span>
-            <span>我的勋章</span>
-          </li>
-        </ul>
-        <div class="leftLine"></div>
-        <div  class="border-t" >
-          <span class="iconfont icon-ico-add"></span>
-          <span>退出登录</span>
-        </div>
-      </div>
       <div class="person-body-right pull-right">
         <!--我的捐助-->
         <div style="display: block;">
@@ -251,7 +182,7 @@
                 <span>邮箱地址：</span><p></p>
               </div>
               <div class="clearfix don-con-pos">
-                <div class="pull-right cur">
+                <div class="pull-right cur" id="delete">
                   <span class="iconfont icon-ico-delete1"></span>
                   <span>删除</span>
                 </div>
@@ -282,11 +213,87 @@
         <!--我的徽章-->
         <div class="donation">
           <p class="don-title border-b">我的徽章</p>
+          <div class="medal">
+            <div class="items-container row">
+              <div class="item col-md-4 cur ">
+                <div class="gsh-img">
+                  <%= image_tag 'gsh-img-1.png' %>
+                  <div class="ovrly"></div>
+                  <div class="buttons">
+                    <p>筹款勋章</p>
+                    <p>收获勋章需要您累计为格桑花义 务服务六年，且每年义务捐款满 2000元，可获得</p>
+                  </div>
+                </div>
+
+              </div>
+              <div class="item col-md-4 cur">
+                <div class="gsh-img">
+                  <%= image_tag 'gsh-img-1.png' %>
+                  <div class="ovrly"></div>
+                  <div class="buttons">
+                    <%= image_tag 'gsh-img-2.png' %>
+                  </div>
+                </div>
+
+              </div>
+              <div class="item col-md-4 cur ">
+                <div class="gsh-img">
+                  <%= image_tag 'gsh-img-1.png' %>
+                  <div class="ovrly"></div>
+                  <div class="buttons">
+                    <%= image_tag 'gsh-img-2.png' %>
+                  </div>
+                </div>
+
+              </div>
+              <div class="item col-md-4  cur">
+                <div class="gsh-img">
+                  <%= image_tag 'gsh-img-1.png' %>
+                  <div class="ovrly"></div>
+                  <div class="buttons">
+                    <%= image_tag 'gsh-img-2.png' %>
+                  </div>
+                </div>
+              </div>
+              <div class="item col-md-4 cur">
+                <div class="gsh-img">
+                  <%= image_tag 'gsh-img-1.png' %>
+                  <div class="ovrly"></div>
+                  <div class="buttons">
+                    <%= image_tag 'gsh-img-2.png' %>
+                  </div>
+                </div>
+              </div>
+              <div class="item col-md-4 cur">
+                <div class="gsh-img">
+                  <%= image_tag 'gsh-img-1.png' %>
+                  <div class="ovrly"></div>
+                  <div class="buttons">
+                    <%= image_tag 'gsh-img-2.png' %>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
         </div>
+      </div>
+
+
+  <div id="goodcover"></div>
+  <div id="remove">
+    <div class="remove-title clearfix">
+      <span id="remove-but" class="iconfont icon-icondelete cur pull-right "></span>
+    </div>
+    <div class="remove-body">
+      <p>确定删除此捐助人信息？</p>
+      <div class="clearfix">
+        <div class="pull-left">确认</div>
+        <div class="pull-right">取消</div>
       </div>
     </div>
   </div>
-  <div id="goodcover"></div>
   <div id="code">
     <div class="close1 clearfix">
       <span class="pull-left">新增捐赠人信息</span>
@@ -333,7 +340,6 @@
     </div>
 
 
-  </div>
 </div>
 <script>
     //      左tab切换
@@ -368,13 +374,6 @@
         $('.donation-cont-no').css('display', 'none')
         $('.project-foot').css('display', 'block')
     }
-    // 显示代码
-    $('.show-code').on('click', function (event) {
-        var $this = $(this);
-
-        $this.next('pre').slideToggle(500);
-    });
-
     // 模拟城市-无联动/无搜索
     var selector1 = $('#city-picker-selector').cityPicker({
         dataJson: cityData,
@@ -382,10 +381,7 @@
         search: false,
         autoSelected: false,
         code: 'cityCode',
-        level: 3,
-        onChoiceEnd: function() {
-            console.log(this.values)
-        }
+        level: 3
     });
 
     $('#ClickMe').click(function() {
@@ -395,6 +391,19 @@
     });
     $('#closebt').click(function() {
         $('#code').hide();
+        $('#goodcover').hide();
+    });
+    $('.goodbut').click(function() {
+        $('#code').hide();
+        $('#goodcover').hide();
+    });
+    $('#delete').click(function() {
+        $('#remove').center();
+        $('#goodcover').show();
+        $('#remove').fadeIn();
+    });
+    $('#remove-but').click(function() {
+        $('#remove').hide();
         $('#goodcover').hide();
     });
 

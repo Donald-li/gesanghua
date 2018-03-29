@@ -1,6 +1,7 @@
 scope module: :site do
 
   resources :articles, only: [:index, :show], concerns: :list
+  resources :campaigns
   resource :disclosure, only: :show
   get '/p/:alias', to: 'pages#show'
   resource :contribution, only: :show
@@ -33,6 +34,12 @@ namespace :account do
       get :info
     end
   end
+  resources :orders, only: [:index] # 我的捐助
+  resources :pairs, only: [:index] # 我的结对
+  resources :bookshelves, only: [:index] # 我的图书角
+  resources :teams, only: [:index] # 我的团队
+  resources :offline_users, only: [:index, :update, :create] # 捐助管理
+  resource :level, only: [:show] # 我的勋章
   resource :registration, only: [:show, :new, :create]
   resource :modify_password, only: [:edit, :update]
   resource :profile, only: [:show, :edit, :update]

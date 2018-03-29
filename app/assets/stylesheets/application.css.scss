@@ -40,9 +40,7 @@ $border: #e6e6e6;
   padding: 0;
   margin: 0;
 }
-head::-webkit-scrollbar{
-  display: none;
-}
+
 body {
   -webkit-font-smoothing: antialiased;
   background-color: #fff;
@@ -59,12 +57,12 @@ body {
     margin-bottom: 0;
   }
 
+  a:hover, a:visited, a:link, a:active {
+    text-decoration: none;
+    out-line: none;
+    color: #2a2a2c;
+  }
 
-}
-a {
-  text-decoration: none;
-  out-line: none;
-  color: #2a2a2c;
 }
 
 span {
@@ -75,6 +73,23 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px white inset;
   border: none !important;
 
+}
+select {
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 5px;
+  color: #333;
+  font-size: 16px;
+  outline: none;
+  width: 160px;
+  height: 36px;
+  margin-right: 10px;
+  box-shadow: 0 0 5px #eee
+}
+
+select:disabled {
+  background-color: #eef1f6;
+  cursor: not-allowed
 }
 
 //边框
@@ -2199,12 +2214,56 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 
 }
 
+
 .close1 > span:nth-child(1) {
   font-size: 18px;
   color: #4e4e4e;
   font-weight: 600;
 }
-
+#remove{
+  display: none;
+  height: 180px;
+  width: 300px;
+  background-color: #fff;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  margin: 130px auto;
+  z-index: 1002;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.remove-title{
+  padding: 15px 30px;
+  .iconfont {
+    margin-right: 0;
+  }
+}
+.remove-body{
+  font-size: 16px;
+  color: #2a2a2c;
+  text-align: center;
+  padding: 0 22px;
+  & > p{
+    margin-top: 10px;
+  }
+  & > div > div{
+    width: 120px;
+    height: 36px;
+    line-height: 36px;
+    margin-top: 30px;
+    border-radius: 18px;
+  }
+  & > div > div:nth-child(1){
+    border: 1px solid $color-border;
+    color: $color-border;
+  }
+  & > div > div:nth-child(2){
+    border: 1px solid $border;
+  }
+}
 .goodtext {
   font-size: 14px;
   color: #8d8d8d;
@@ -2273,13 +2332,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   }
 }
 
-#closebt {
-  float: right;
-}
 
-#closebt img {
-  width: 20px;
-}
 
 .goodcont {
   padding: 0 30px 0 30px;
@@ -2530,23 +2583,21 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 .city-picker-selector .input-search::-webkit-input-placeholder {
   color: #bababa
 }
-
-select {
-  border: 1px solid #ccc;
-  background: #fff;
-  border-radius: 5px;
-  color: #333;
-  font-size: 16px;
-  outline: none;
-  width: 160px;
-  height: 36px;
-  margin-right: 10px;
-  box-shadow: 0 0 5px #eee
+//我的勋章
+.medal{
+.items-container{
+  width: 100%;
 }
+  .col-md-4{
+    width: 264px;
+    height: 278px;
+    flex: 0;
+    .gsh-img{
+      width: 100%;
 
-select:disabled {
-  background-color: #eef1f6;
-  cursor: not-allowed
+    }
+  }
+
 }
 
 
