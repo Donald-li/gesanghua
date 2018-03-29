@@ -62,12 +62,11 @@ RSpec.describe "Api::V1::CooperationPairStudents", type: :request do
       expect(json_body[:data][:apply_student][:id]) === child1.id
     end
 
-    # it '修改推荐理由' do
-    #   patch update_reason_api_v1_cooperation_pair_student_path(id: child1.id),
-    #       params: {cooperation_pair_student: {reason: FFaker::LoremCN.sentence}}, headers: api_v1_headers(login_user)
-    #   api_v1_expect_success
-    # end
-
+    it '修改推荐理由' do
+      patch update_reason_api_v1_cooperation_pair_student_path(id: child1.id),
+          params: {cooperation_pair_student: {reason: FFaker::NameCN.name}}, headers: api_v1_headers(login_user)
+      api_v1_expect_success
+    end
 
 
     # 这个代码删掉了
