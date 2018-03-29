@@ -3,10 +3,10 @@ class Account::BaseController < ApplicationController
   before_action :set_paper_trail_whodunnit
 
   def logged_in?
-    if session[:current_user_id].present?
-      return true
-    else
-      redirect_to user_login_path
-    end
+    # if session[:current_user_id].present?
+    #   return true
+    # else
+    #   redirect_to account_login_path
+    # end
   end
 end

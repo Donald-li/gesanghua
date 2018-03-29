@@ -444,13 +444,6 @@
         $('.donation-cont-no').css('display', 'none')
         $('.project-foot').css('display', 'block')
     }
-    // 显示代码
-    $('.show-code').on('click', function (event) {
-        var $this = $(this);
-
-        $this.next('pre').slideToggle(500);
-    });
-
     // 模拟城市-无联动/无搜索
     var selector1 = $('#city-picker-selector').cityPicker({
         dataJson: cityData,
