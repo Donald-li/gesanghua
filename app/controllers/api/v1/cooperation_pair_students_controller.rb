@@ -11,7 +11,6 @@ class Api::V1::CooperationPairStudentsController < Api::V1::BaseController
   end
 
   def new
-
   end
 
   def create

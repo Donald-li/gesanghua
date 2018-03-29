@@ -77,9 +77,9 @@ class ProjectSeasonApplyChild < ApplicationRecord
   has_many :remarks, as: :owner
   has_many :complaints, as: :owner
   has_many :donates, class_name: 'DonateRecord', dependent: :destroy
-  has_many :gsh_child_grants, foreign_key: :gsh_child_id, dependent: :destroy
+  has_many :gsh_child_grants, dependent: :destroy
   #FIXME: 跟上面的关系重复了？
-  has_many :semesters, foreign_key: :gsh_child_id, class_name: 'GshChildGrant', dependent: :destroy
+  has_many :semesters, class_name: 'GshChildGrant', dependent: :destroy
   has_many :feedbacks, as: :owner
   has_many :continual_feedbacks
 

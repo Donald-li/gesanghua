@@ -48,7 +48,7 @@
             <span class="iconfont icon-ico-replace"></span>
             <span>捐助管理</span>
           </li>
-          <li>
+          <li class="cur">
             <span class="iconfont icon-ioc-platform"></span>
             <span>协作平台</span>
           </li>
@@ -251,7 +251,7 @@
                 <span>邮箱地址：</span><p></p>
               </div>
               <div class="clearfix don-con-pos">
-                <div class="pull-right cur">
+                <div class="pull-right cur" id="delete">
                   <span class="iconfont icon-ico-delete1"></span>
                   <span>删除</span>
                 </div>
@@ -282,11 +282,87 @@
         <!--我的徽章-->
         <div class="donation">
           <p class="don-title border-b">我的徽章</p>
+          <div class="medal">
+            <div class="items-container row">
+              <div class="item col-md-4 cur ">
+                <div class="gsh-img">
+                  <%= image_tag 'gsh-img-1.png' %>
+                  <div class="ovrly"></div>
+                  <div class="buttons">
+                    <p>筹款勋章</p>
+                    <p>收获勋章需要您累计为格桑花义 务服务六年，且每年义务捐款满 2000元，可获得</p>
+                  </div>
+                </div>
+
+              </div>
+              <div class="item col-md-4 cur">
+                <div class="gsh-img">
+                  <%= image_tag 'gsh-img-1.png' %>
+                  <div class="ovrly"></div>
+                  <div class="buttons">
+                    <%= image_tag 'gsh-img-2.png' %>
+                  </div>
+                </div>
+
+              </div>
+              <div class="item col-md-4 cur ">
+                <div class="gsh-img">
+                  <%= image_tag 'gsh-img-1.png' %>
+                  <div class="ovrly"></div>
+                  <div class="buttons">
+                    <%= image_tag 'gsh-img-2.png' %>
+                  </div>
+                </div>
+
+              </div>
+              <div class="item col-md-4  cur">
+                <div class="gsh-img">
+                  <%= image_tag 'gsh-img-1.png' %>
+                  <div class="ovrly"></div>
+                  <div class="buttons">
+                    <%= image_tag 'gsh-img-2.png' %>
+                  </div>
+                </div>
+              </div>
+              <div class="item col-md-4 cur">
+                <div class="gsh-img">
+                  <%= image_tag 'gsh-img-1.png' %>
+                  <div class="ovrly"></div>
+                  <div class="buttons">
+                    <%= image_tag 'gsh-img-2.png' %>
+                  </div>
+                </div>
+              </div>
+              <div class="item col-md-4 cur">
+                <div class="gsh-img">
+                  <%= image_tag 'gsh-img-1.png' %>
+                  <div class="ovrly"></div>
+                  <div class="buttons">
+                    <%= image_tag 'gsh-img-2.png' %>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
   <div id="goodcover"></div>
+  <div id="remove">
+    <div class="remove-title clearfix">
+      <span id="remove-but" class="iconfont icon-icondelete cur pull-right "></span>
+    </div>
+    <div class="remove-body">
+      <p>确定删除此捐助人信息？</p>
+      <div class="clearfix">
+        <div class="pull-left">确认</div>
+        <div class="pull-right">取消</div>
+      </div>
+    </div>
+  </div>
   <div id="code">
     <div class="close1 clearfix">
       <span class="pull-left">新增捐赠人信息</span>
@@ -382,10 +458,7 @@
         search: false,
         autoSelected: false,
         code: 'cityCode',
-        level: 3,
-        onChoiceEnd: function() {
-            console.log(this.values)
-        }
+        level: 3
     });
 
     $('#ClickMe').click(function() {
@@ -395,6 +468,19 @@
     });
     $('#closebt').click(function() {
         $('#code').hide();
+        $('#goodcover').hide();
+    });
+    $('.goodbut').click(function() {
+        $('#code').hide();
+        $('#goodcover').hide();
+    });
+    $('#delete').click(function() {
+        $('#remove').center();
+        $('#goodcover').show();
+        $('#remove').fadeIn();
+    });
+    $('#remove-but').click(function() {
+        $('#remove').hide();
         $('#goodcover').hide();
     });
 
