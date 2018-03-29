@@ -9,4 +9,8 @@ class ProjectImageUploader < BaseUploader
   version :medium do
     process :resize_to_fill => [640, 340]
   end
+
+  version :large do #pc端项目介绍页
+    process :resize_to_fill => [1140, 280]
+  end
 end

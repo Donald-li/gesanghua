@@ -64,9 +64,7 @@ $(function () {
     $('#navshow').mouseleave(function(){
         $('.bul-nav-heide').css({'display':'none'})
     })
-    $('.bul-nav-heide').mousedown(function(){
-        $('.bul-nav-heide').css({'display':'none'})
-    })
+
 
     //二维码设置
     $('#container2').erweima({

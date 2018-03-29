@@ -16,11 +16,12 @@
             <li class="gsh-arrows-1">
               <%= image_tag 'gsh-arrows.png' %>
             </li>
-            <li class="cur">一对一助学</li>
-            <li class="cur">护花项目</li>
-            <li class="cur">广播项目</li>
-            <li class="cur">观影项目</li>
-            <li class="cur">探索营</li>
+            <li><%= link_to '一对一助学', pairs_path %></li>
+            <li><%= link_to '悦读项目', reads_path %></li>
+            <li><%= link_to '护花项目', goods_path %></li>
+            <li><%= link_to '广播项目', goods_path %></li>
+            <li>观影项目</li>
+            <li><%= link_to '探索营', camps_path %></li>
           </ul>
         </li>
         <li class="cur">公益活动</li>
