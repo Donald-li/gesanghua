@@ -3,50 +3,39 @@
 # Table name: donate_records # 捐赠记录
 #
 #  id                                :integer          not null, primary key
-#  user_id                           :integer                                # 用户id
-#  appoint_type                      :string                                 # 指定类型
-#  appoint_id                        :integer                                # 指定类型
+#  donor_id                          :integer                                # 用户id
 #  fund_id                           :integer                                # 基金ID
-#  pay_state                         :integer                                # 付款状态
 #  amount                            :decimal(14, 2)   default(0.0)          # 捐助金额
 #  project_id                        :integer                                # 项目id
 #  team_id                           :integer                                # 小组id
-#  message                           :string                                 # 留言
-#  donor                             :string                                 # 捐赠者
 #  promoter_id                       :integer                                # 劝捐人
-#  remitter_name                     :string                                 # 汇款人姓名
-#  remitter_id                       :integer                                # 汇款人id
-#  voucher_state                     :integer                                # 捐赠收据状态
+#  agent_id                          :integer                                # 汇款人id
 #  created_at                        :datetime         not null
 #  updated_at                        :datetime         not null
 #  project_season_id                 :integer                                # 年度ID
 #  project_season_apply_id           :integer                                # 年度项目ID
 #  project_season_apply_child_id     :integer                                # 年度孩子申请ID
-#  donate_no                         :string                                 # 捐赠编号
-#  voucher_id                        :integer                                # 捐助记录ID
-#  period                            :integer                                # 月捐期数
-#  month_donate_id                   :integer                                # 月捐id
-#  certificate_no                    :string                                 # 捐赠证书编号
 #  gsh_child_id                      :integer                                # 格桑花孩子id
-#  kind                              :integer                                # 记录类型: 1:系统生成 2:手动添加
 #  project_season_apply_bookshelf_id :integer                                # 书架id
-#  bookshelf_supplement_id           :integer                                # 补书ID
 #  donate_item_id                    :integer                                # 可捐助id
 #  income_record_id                  :integer                                # 收入记录
 #  title                             :string                                 # 捐赠标题
-#  pay_result                        :string                                 # 支付结果
+#  source_type                       :string
+#  source_id                         :integer                                # 资金来源
+#  owner_type                        :string
+#  owner_id                          :integer                                # 捐助所属捐助项
+#  donation_id                       :integer                                # 捐助id
+#  kind                              :integer                                # 捐助方式 1:捐款 2:配捐
 #
 
 # 捐助记录
 class DonateRecord < ApplicationRecord
   include ActionView::Helpers::NumberHelper
 
-  before_create :set_record_title
-  before_create :gen_donate_no
-  after_commit :set_bookshelf_state
-
-  belongs_to :user, optional: true
+  belongs_to :donor, class_name: 'User', foreign_key: 'donor_id', optional: true
+  belongs_to :agent, class_name: 'User', foreign_key: 'agent_id', optional: true
   belongs_to :promoter, class_name: 'User', foreign_key: 'promoter_id', optional: true
+  belongs_to :fund, optional: true
   belongs_to :project, optional: true
   belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id', optional: true
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id', optional: true
@@ -55,15 +44,10 @@ class DonateRecord < ApplicationRecord
   belongs_to :supplement, class_name: 'BookshelfSupplement', foreign_key: 'bookshelf_supplement_id', optional: true
   belongs_to :team, optional: true
   belongs_to :income_record, optional: true
-  belongs_to :voucher, optional: true
-  belongs_to :month_donate, optional: true
-  belongs_to :fund, optional: true
-  belongs_to :appoint, polymorphic: true, optional: true
   belongs_to :gsh_child, class_name: 'GshChild', optional: true
-  belongs_to :donate_item, optional: true
 
   counter_culture :project, column_name: proc{|model| model.project.present? && model.pay_state == 'paid' ? 'donate_record_amount_count' : nil}, delta_magnitude: proc {|model| model.amount}
-  counter_culture :user, column_name: proc{|model| model.user.present? && model.pay_state == 'paid' ? 'donate_count' : nil}, delta_magnitude: proc {|model| model.amount }
+  counter_culture :donor, column_name: proc{|model| model.user.present? && model.pay_state == 'paid' ? 'donate_count' : nil}, delta_magnitude: proc {|model| model.amount }
   counter_culture :promoter, column_name: proc{|model| model.promoter.present? && model.pay_state == 'paid' ? 'promoter_amount_count' : nil}, delta_magnitude: proc {|model| model.amount }
   counter_culture :team, column_name: proc{|model| model.team.present? && model.pay_state == 'paid' ? 'total_donate_amount' : nil}, delta_magnitude: proc {|model| model.amount }
   counter_culture :team, column_name: proc{|model| model.team.present? && model.pay_state == 'paid' ? 'current_donate_amount' : nil}, delta_magnitude: proc {|model| model.amount }
@@ -72,20 +56,10 @@ class DonateRecord < ApplicationRecord
 
   validates :amount, presence: true
 
-  enum pay_state: {unpay: 1, paid: 2, refund: 3} #付款状态， 1:未付款 2:已付款 3:已退款
-  default_value_for :pay_state, 1
-
-  enum kind: {system: 1, platform: 2} # 记录类型: 1:系统生成 2:配捐
+  enum kind: {user_donate: 1, platform_donate: 2} # 记录类型: 1:用户捐款 2:平台配捐
   default_value_for :kind, 1
 
-  enum voucher_state: {to_bill: 1, billed: 2} #收据状态，1:未开票 2:已开票
-  default_value_for :voucher_state, 1
-
   scope :sorted, -> {order(created_at: :desc)}
-
-  scope :donate_gsh_child, -> {where("gsh_child_id IS NOT NULL")} # 捐助给孩子的记录
-
-  scope :user, -> {where('user_id IS NOT NULL')} # 用户捐款
 
   # 项目是否可以退款
   def can_refund?
@@ -173,6 +147,64 @@ class DonateRecord < ApplicationRecord
   def alipay_prepay_h5
     return get_alipay_prepay_mweb
   end
+
+
+  # 处理捐款
+  # kind: 用户捐款、平台配捐；source：资金来源； owner：捐助对象；amount：捐助金额
+  def self.do_donate(kind, source, owner, amount)
+    self.transaction do # 事务
+      # 来源金额是否充足？
+      if source.blance < amount
+        return false
+      else
+        source.lock! # 加锁
+      end
+      donate_records = []
+
+      #
+      # 如果是捐到捐助项
+      if owner.is_a?(DonateItem)
+        donate_records << self.create!(source: source, ...)
+
+      # 如果捐到申请子项 （书架，孩子，补书，指定）
+      elsif owner.class.name.in?(['ProjectSeasonApplyChildGrade', 'ProjectSeasonApplyBookshelf', 'BookshelfSupplement'])
+        donate_records << self.create!(source: source, ...)
+
+      # 如果是捐到申请（物资类项目，子项）
+      elsif  owner.is_a?(ProjectSeasonApply)
+        if 物资类，探索营
+          donate_records << self.create!(source: source, ...)
+        else
+          # 如果是捐到申请（书架孩子补书，没选择子项）
+          # 分解到子项，捐助到子项
+          donate_records << self.create!(source: source, ...)
+
+        end
+      end
+
+      # 判断申请子项/申请是否完成
+      donate_records.each do |donate_record|
+        捐助记录对应的项，是否捐款成功
+      end
+
+      donate_amount =  donate_records.sum{|r| r.amount}
+
+      # 从source余额中扣款
+      source.balance -= donate_amount
+
+      # 判断是否超捐，超捐退回余额，并扣除income_record balance
+      if kind == 'system' && source.is_a?(IncomeRecord)
+        reback = amount - donate_amount
+        source.blance -= reback
+        user = source.user
+        user.lock!
+        user.balance += reback
+        user.save!
+      end
+      source.save!
+    end
+  end
+
 
   # 捐定向
   def self.donate_project(user = nil, amount = 0.0, project = nil, promoter = nil, item = nil)
@@ -581,20 +613,10 @@ class DonateRecord < ApplicationRecord
     end
   end
 
-  def set_record_title
-    return if self.title.present?
-    if self.donate_item.present?
-      self.title = "#{self.try(:user).try(:name)}捐助#{self.try(:donate_item).try(:name)}#{self.try(:donate_item).try(:fund).try(:name)}款项"
-    else
-      self.title = "#{self.try(:user).try(:name)}捐助#{self.try(:apply).try(:apply_name)}#{self.try(:child).try(:name)}#{self.try(:bookshelf).try(:show_title)}款项"
-    end
-  end
+
 
   private
-  def gen_donate_no
-    time_string = Time.now.strftime("%y%m%d%H")
-    self.donate_no ||= Sequence.get_seq(kind: :donate_no, prefix: time_string, length: 7)
-  end
+
 
   def get_wechat_prepay_id(remote_ip)
     notify_url = Settings.app_host + "/payment/wechat_payments/notify"
@@ -653,14 +675,6 @@ class DonateRecord < ApplicationRecord
        quit_url: quit_url
       }.to_json
     )
-  end
-
-  # 更新书架的捐助状态
-  def set_bookshelf_state
-    if self.bookshelf.present?
-      bookshelf = self.bookshelf.reload
-      bookshelf.to_delivery! if bookshelf.present_amount >= bookshelf.target_amount
-    end
   end
 
 end
