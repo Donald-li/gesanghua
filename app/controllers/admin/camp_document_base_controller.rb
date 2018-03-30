@@ -1,18 +1,18 @@
 class Admin::CampDocumentBaseController < Admin::BaseController
-  before_action :set_current_camp, :get_current_camp, :switch_camp
+  before_action :set_current_apply, :get_current_apply, :switch_apply
 
   protected
-  def set_current_camp
-    session[:camp_id] = params[:current_camp] if params[:current_camp].present?
+  def set_current_apply
+    session[:apply_id] = params[:current_apply] if params[:current_apply].present?
   end
 
-  def get_current_camp
-    @current_camp ||= ProjectSeason.find_by(id: session[:camp_id]) if session[:camp_id]
+  def get_current_apply
+    @current_apply ||= ProjectSeasonApply.find_by(id: session[:apply_id]) if session[:apply_id]
   end
 
-  def switch_camp
-    unless @current_camp
-      redirect_to admin_project_camp_seasons_url(return_camp: controller_path), notice: '请选择批次'
+  def switch_apply
+    unless @current_apply
+      redirect_to admin_camp_applies_url(return_apply: controller_path), notice: '请选择探索营'
     end
   end
 end

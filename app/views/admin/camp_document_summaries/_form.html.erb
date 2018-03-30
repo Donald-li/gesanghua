@@ -1,7 +1,7 @@
 <%= simple_form_for [:admin, @camp_document_summary], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
     <%= f.error_notification %>
     <div class="form-body form-horizontal">
-      <%= static_form_control '探索营：', @current_camp.name %>
+      <%= static_form_control '探索营：', @current_apply.name %>
       <%= f.input :free_resource, as: :text, label: '免费资源：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
       <%= f.input :resource_value, label: '免费资源价值：' %>
       <%= f.input :donate_amount, label: '本营筹款多少：' %>

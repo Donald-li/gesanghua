@@ -1,0 +1,33 @@
+<%= simple_form_for [:admin, @camp, @camp_user], url: @camp_user.new_record? ? admin_camp_camp_users_path : admin_camp_camp_user_path, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'user_form'} do |f| %>
+    <%= f.error_notification %>
+    <div class="form-body form-horizontal">
+      <div class="form-group">
+        <label class="col-md-2 control-label">用户头像：</label>
+        <div class="col-sm-9">
+          <%= webuploader_tag :avatar_id, label: '上传Logo', type: 'user_avatar', asset: @camp_user.avatar, klass: 'single' %>
+        </div>
+      </div>
+      <%= f.input :nickname, label: '昵称：', autofocus: true, placeholder: '请填写用户昵称', required: true %>
+      <%= f.input :name, label: '真实姓名：', placeholder: '请填写真实姓名', required: true %>
+      <%= f.input :gender, as: :radio_buttons, wrapper: :inline_inputs, collection: User.options_for_select(:genders), label: '性别：'%>
+      <%= f.input :login, label: '登录名：', placeholder: '设置用户登录名', input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :password, label: '设置密码：', hint: '设置登录密码', placeholder: '如果不修改密码，请留空', input_html: {id: 'password'} %>
+      <%= f.input :password_confirmation, label: '确认密码：', hint: '重新输入一次密码', placeholder: '如果不修改密码，请留空', input_html: {id: 'password_confirmation'} %>
+      <%= f.input :phone, label: '绑定手机：', placeholder: '填写正确的手机号码', input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: User.options_for_select(:states), label: '账号状态：'%>
+    </div>
+    <div class="form-actions">
+      <div class="row">
+        <div class="col-md-offset-2 col-md-9">
+          <%= f.button :submit, '提交', class: 'btn blue' %>
+          <%= link_to '取消', admin_camp_camp_users_path(@camp), class: 'btn' %>
+        </div>
+      </div>
+    </div>
+<% end %>
+
+<script>
+    $(function(){
+        initImageWebuploader($('#webuploader'));
+    })
+</script>

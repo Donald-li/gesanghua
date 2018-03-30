@@ -13,12 +13,15 @@
 #  remark            :string                                 # 资源说明
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  camp_id           :integer                                # 探索营id
 #
+
 require 'custom_validators'
 
 class CampProjectResource < ApplicationRecord
 
   belongs_to :user
+  belongs_to :camp
 
   scope :sorted, ->{order(id: :asc)}
 

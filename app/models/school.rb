@@ -53,6 +53,7 @@ class School < ApplicationRecord
   has_many :audits, as: :owner
   belongs_to :user, optional: true # 校长user
   belongs_to :creater, class_name: 'User', foreign_key: :creater_id, optional: true
+  has_many :apply_camps, class_name: 'ProjectSeasonApplyCamp'
 
   validates :name, :province, :city, :district, presence: true
   validates :contact_phone, mobile: true
