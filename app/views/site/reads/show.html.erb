@@ -79,31 +79,8 @@
 
     <div class="pull-right detail-body-right">
       <p class="detail-b-r-t border-b"><span>捐助记录</span></p>
-      <ul class="detail-b-r-name">
-        <% @donate_records.limit(6).each do |record| %>
-          <li class="border-b clearfix">
-            <% if record.user.avatar.present? %>
-              <%= image_tag record.user.avatar.try(:file).try(:url, :tiny) %>
-            <% else %>
-              <%= image_tag '' %>
-            <% end %>
-            <div class="pull-left">
-              <div class="clearfix">
-                <span class="pull-left detail-name"><%= record.user.nickname?? record.user.nickname : record.user.name %></span>
-                <span class="timeago pull-right detail-time" data-timeago="<%= record.created_at.to_s(:db) %>"></span>
-              </div>
-              <p class="detail-con">
-                <% if record.team.present? %>
-                通过 <%= record.team.name %>
-                <% end %>
-                捐助 <strong><%= record.record_show_name %></strong> <%= record.amount %>元
-              </p>
-            </div>
-          </li>
-        <% end %>
-        <% if @donate_records.count > 6 %>
-          <li class="more">点击加载更多</li>
-        <% end %>
+      <ul class="detail-b-r-name" id="donate-records">
+        <%= render '/site/donate_records/list', owner: @project, records: @donate_records %>
       </ul>
     </div>
   </div>
