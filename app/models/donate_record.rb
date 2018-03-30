@@ -590,6 +590,14 @@ class DonateRecord < ApplicationRecord
     end
   end
 
+  def record_show_name
+    if self.donate_item.present?
+       "#{self.try(:donate_item).try(:name)}#{self.try(:donate_item).try(:fund).try(:name)}"
+    else
+      "#{self.try(:apply).try(:apply_name)}#{self.try(:child).try(:name)}#{self.try(:bookshelf).try(:show_title)}"
+    end
+  end
+
   private
   def gen_donate_no
     time_string = Time.now.strftime("%y%m%d%H")
