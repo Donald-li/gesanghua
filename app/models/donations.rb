@@ -37,6 +37,13 @@ class Donations < ApplicationRecord
   before_create :set_record_title
   before_create :generate_donate_no
 
+  # 生成收入
+  def gen_income_record
+    income_record = self.build_income_record(user: self.user, fund: self.fund, amount: amount, remitter_id: self.remitter_id, remitter_name: self.remitter_name, donor: self.donor, promoter_id: self.promoter_id, income_time: Time.now)
+    self.income_record = income_record
+    self.save
+  end
+
 
   private
   def set_record_title

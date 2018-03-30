@@ -46,8 +46,11 @@ class DonateRecord < ApplicationRecord
   belongs_to :income_record, optional: true
   belongs_to :gsh_child, class_name: 'GshChild', optional: true
 
+  belongs_to :source, polymorphic: true
+  belongs_to :owner, polymorphic: true
+
   counter_culture :project, column_name: proc{|model| model.project.present? && model.pay_state == 'paid' ? 'donate_record_amount_count' : nil}, delta_magnitude: proc {|model| model.amount}
-  counter_culture :donor, column_name: proc{|model| model.user.present? && model.pay_state == 'paid' ? 'donate_count' : nil}, delta_magnitude: proc {|model| model.amount }
+  counter_culture :donor, column_name: proc{|model| model.donor.present? && model.pay_state == 'paid' ? 'donate_count' : nil}, delta_magnitude: proc {|model| model.amount }
   counter_culture :promoter, column_name: proc{|model| model.promoter.present? && model.pay_state == 'paid' ? 'promoter_amount_count' : nil}, delta_magnitude: proc {|model| model.amount }
   counter_culture :team, column_name: proc{|model| model.team.present? && model.pay_state == 'paid' ? 'total_donate_amount' : nil}, delta_magnitude: proc {|model| model.amount }
   counter_culture :team, column_name: proc{|model| model.team.present? && model.pay_state == 'paid' ? 'current_donate_amount' : nil}, delta_magnitude: proc {|model| model.amount }
@@ -63,7 +66,7 @@ class DonateRecord < ApplicationRecord
 
   # 项目是否可以退款
   def can_refund?
-    self.paid? && self.user && self.system?
+    self.paid? && self.user && self.user_donate?
   end
 
   # 退款
@@ -143,6 +146,8 @@ class DonateRecord < ApplicationRecord
   # 处理捐款
   # kind: 用户捐款、平台配捐；source：资金来源； owner：捐助对象；amount：捐助金额
   def self.do_donate(kind, source, owner, amount)
+    result = false
+
     self.transaction do # 事务
       # 来源金额是否充足？
       if source.balance < amount
@@ -157,15 +162,11 @@ class DonateRecord < ApplicationRecord
       if owner.is_a?(DonateItem)
         donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount)
         owner.accept_donate(donate_records)
-        source.balance -= amount
-        source.save!
 
       # 如果捐到申请子项 （书架，孩子，补书，指定）
       elsif owner.class.name.in?(['GshChildGrant', 'ProjectSeasonApplyBookshelf'])
         donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount)
         owner.accept_donate(donate_records)
-        source.balance -= amount
-        source.save!
 
       # 如果是捐到申请（物资类项目，子项）
       elsif owner.class.name.in?(['ProjectSeasonApply', 'PProjectSeasonApplyChild'])
@@ -173,8 +174,6 @@ class DonateRecord < ApplicationRecord
         if owner.project.goods? || owner.project == Project.camp_project
           donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount)
           owner.accept_donate(donate_records)
-          source.balance -= amount
-          source.save!
         else
           # 如果是捐到申请（书架孩子补书，没选择子项）
           # 分解到子项，捐助到子项
@@ -183,8 +182,6 @@ class DonateRecord < ApplicationRecord
             if source.balance > item.surplus_money
               donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount)
               item.accept_donate(donate_records)
-              source.balance -= amount
-              source.save!
               item.to_delivery!
             end
           end
@@ -192,21 +189,27 @@ class DonateRecord < ApplicationRecord
       end
 
       donate_amount =  donate_records.sum{|r| r.amount}
-
-      # 从source余额中扣款
       source.balance -= donate_amount
-
-      # 判断是否超捐，超捐退回余额，并扣除income_record balance
-      if kind == 'system' && source.is_a?(IncomeRecord)
-        reback = amount - donate_amount
-        source.balance -= reback
-        user = source.user
-        user.lock!
-        user.balance += reback
-        user.save!
-      end
       source.save!
+
+      reback = amount - donate_amount
+      if reback > 0
+        # 判断是否超捐，超捐退回余额，并扣除income_record balance
+        if kind.to_s == 'user_donate' && source.is_a?(IncomeRecord)
+          source.balance -= reback
+          user = source.donor
+          user.lock!
+          user.balance += reback
+          user.save!
+        else
+          result = false
+          raise ActiveRecord::Rollback, "超捐"
+        end
+      end
+      source.save! # 解锁
+      result = true
     end
+    return result
   end
 
   # 计算开票金额
@@ -218,12 +221,6 @@ class DonateRecord < ApplicationRecord
     else
       return 0
     end
-  end
-
-  def gen_income_record
-    income_record = self.build_income_record(user: self.user, fund: self.fund, amount: amount, remitter_id: self.remitter_id, remitter_name: self.remitter_name, donor: self.donor, promoter_id: self.promoter_id, income_time: Time.now)
-    self.income_record = income_record
-    self.save
   end
 
   def summary_builder

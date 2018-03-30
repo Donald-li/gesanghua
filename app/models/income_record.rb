@@ -23,7 +23,7 @@
 
 # 收入记录
 class IncomeRecord < ApplicationRecord
-  belongs_to :donation
+  belongs_to :donation, optional: true
 
   belongs_to :donor, class_name: 'User', foreign_key: 'donor_id', optional: true
   belongs_to :agent, class_name: 'User', foreign_key: 'agent_id', optional: true
@@ -35,6 +35,9 @@ class IncomeRecord < ApplicationRecord
   belongs_to :income_source, optional: true
 
   validates :amount, :income_time, presence: true
+
+  enum kind: {online: 1, offline: 2} #分类: 线上、线下
+  default_value_for :kind, 1
 
   enum voucher_state: {to_bill: 1, billed: 2} #收据状态，1:未开票 2:已开票
   default_value_for :voucher_state, 1

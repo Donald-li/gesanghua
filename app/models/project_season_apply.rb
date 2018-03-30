@@ -49,10 +49,6 @@
 # 所有项目年度申请表
 class ProjectSeasonApply < ApplicationRecord
 
-  validate do |apply|
-    self.errors.add(:present_amount, '捐助金额不能大于筹款金额') if self.present_amount > self.target_amount
-  end
-
   attr_accessor :cover_image_id
   include HasAsset
   has_many_assets :images, class_name: 'Asset::ProjectSeasonApplyImage'
@@ -128,12 +124,14 @@ class ProjectSeasonApply < ApplicationRecord
 
   # 使用捐助
   def accept_donate(donate_records)
-    donate_records.each do |donate_record|
-      self.present_amount += donate_record.amount
-      self.project.fund.balance += donate_record.amount
-    end
-    self.save!
+    donate_record = donate_records.first
+    amount = [surplus_money, donate_record.amount].min
+    donate_record.update!(amount: amount)
+
+    self.present_amount += amount
+    self.project.fund.balance += amount
     self.check_apply_state
+    self.save!
   end
 
   # 更新申请状态
