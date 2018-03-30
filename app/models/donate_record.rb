@@ -114,15 +114,6 @@ class DonateRecord < ApplicationRecord
     self.donor || self.user.user_name
   end
 
-  # 捐给格桑花
-  def self.donate_gsh(user = nil, amount = 0.0, promoter = nil)
-    return false unless user.present?
-    gsh_fund = Fund.gsh
-    donate = user.donates.build(amount: amount, fund: gsh_fund, promoter: promoter, pay_state: 'unpay')
-    donate.save
-    return donate
-  end
-
   # 返回微信支付js
   def wechat_prepay_js(remote_ip)
     prepay_id = get_wechat_prepay_id(remote_ip)
@@ -197,7 +188,7 @@ class DonateRecord < ApplicationRecord
               item.to_delivery!
             end
           end
-
+        end
       end
 
       donate_amount =  donate_records.sum{|r| r.amount}
@@ -218,100 +209,6 @@ class DonateRecord < ApplicationRecord
     end
   end
 
-
-  # 捐定向
-  def self.donate_project(user = nil, amount = 0.0, project = nil, promoter = nil, item = nil)
-    return false unless user.present?
-    return false unless project.present?
-    fund = project.fund
-    donate = user.donates.build(amount: amount, fund: fund, promoter: promoter, pay_state: 'unpay', project: project, title: "捐助#{project.name}定向")
-    donate.team_id = user.team_id
-    appoint = project.children.find(item) if item.present? && project.id == 1 # 孩子
-    appoint = project.bookshelves.find(item) if item.present? && project.id == 2 # 书架
-    if appoint.present?
-      donate.appoint = appoint
-      donate.apply = appoint.apply
-      donate.season = appoint.season
-    end
-    donate.save
-    return donate
-  end
-
-  # 捐可捐助
-  def self.donate_donate_item(user: nil, amount: 0.0, income_record: nil, donate_item: nil, promoter: nil)
-    return false unless user.present?
-    return false unless donate_item.present?
-    fund = donate_item.fund
-    donate = user.donates.build(amount: amount, fund: fund, income_record: income_record, promoter: promoter, pay_state: 'unpay', donate_item: donate_item)
-    donate.project = donate_item.project if donate_item.project.present?
-    donate.save
-    return donate
-  end
-
-  # 捐指定
-  def self.donate_apply(user: nil, amount: 0.0, income_record: nil, apply: nil, promoter: nil)
-    return false unless apply.present?
-    user_id = user.present? ? user.id : ''
-    donate = DonateRecord.new(user_id: user_id, fund: apply.project.fund, income_record: income_record, promoter: promoter, pay_state: 'unpay', amount: amount, project: apply.project, season: apply.season, apply: apply)
-    donate.save
-    return donate
-  end
-
-  # 捐孩子
-  def self.donate_child(user: nil, child: nil, income_record: nil, semester_num: 0, promoter: nil)
-    # return false unless user.present?
-    return false unless child.present?
-    total = self.donate_child_total(child, semester_num)
-    project = Project.pair_project
-    user_id = user.present? ? user.id : nil
-    donate = self.new(user_id: user_id, amount: total, fund: project.appoint_fund, income_record: income_record, promoter: promoter, pay_state: 'unpay', project: project, season: child.season, apply: child.apply, child: child)
-    if donate.save! && ( scope = self.donate_child_semesters(child, semester_num))
-      scope.update(donate_state: :succeed, user_id: user_id)
-      child.update(donate_user_id: user_id)
-    end
-    return donate
-  end
-
-  # 捐悦读(整捐)
-  def self.donate_bookshelf(user: nil, bookshelf: nil, income_record: nil, promoter: nil)
-    return false unless user.present?
-    return false unless bookshelf.present?
-    return false if bookshelf.present_amount > 0
-    project = Project.read_project
-    donate = user.donates.build(amount: bookshelf.target_amount, promoter: promoter, income_record: income_record, fund: project.appoint_fund, project: project, bookshelf: bookshelf)
-    if donate.save
-      bookshelf.present_amount = bookshelf.target_amount
-      bookshelf.state = 'complete'
-      bookshelf.save
-    end
-  end
-
-  # 捐悦读(零捐)
-  def self.part_donate_bookshelf(user: nil, amount: 0, bookshelf: nil, income_record: nil, promoter: nil)
-    return false unless bookshelf.present?
-    project = Project.read_project
-    user_id = user.present? ? user.id : ''
-    DonateRecord.new(user_id: user_id, amount: amount, promoter: promoter, income_record: income_record, fund: project.appoint_fund, project: project, bookshelf: bookshelf)
-  end
-
-  # 捐悦读补书
-  def self.donate_supplement(user: nil, amount: 0, supplement: nil, income_record: nil, promoter: nil)
-    return false unless supplement.present?
-    project = Project.read_project
-    user_id = user.present? ? user.id : ''
-    DonateRecord.new(user_id: user_id, amount: amount, promoter: promoter, income_record: income_record, fund: project.appoint_fund, project: project, supplement: supplement)
-  end
-
-  def self.donate_child_semesters(child, semester_num)
-    scope = child.semesters.pending.sorted.reverse_order
-    return false if scope.count < semester_num || semester_num < 1
-    scope.limit(semester_num)
-  end
-
-  def self.donate_child_total(child, semester_num)
-    return self.donate_child_semesters(child, semester_num).to_a.sum {|a| a.amount}
-  end
-
   # 计算开票金额
   def self.count_amount(ids)
     donates = DonateRecord.find(ids)
@@ -321,231 +218,6 @@ class DonateRecord < ApplicationRecord
     else
       return 0
     end
-  end
-
-  # 配捐给申请/项目
-  def self.platform_donate_apply(params, apply)
-    user = nil
-    income_record = nil
-    match_fund = nil
-    amount = params[:amount]
-    if params[:donate_way] == 'offline'
-      income_record = IncomeRecord.has_balance.find(params[:offline_record_id])
-      income_record.balance -= amount.to_f
-      return false if income_record.balance < 0
-    elsif params[:donate_way] == 'match'
-      match_fund = Fund.find(params[:match_fund_id])
-      match_fund.amount -= amount.to_f
-      return false if match_fund.amount < 0
-    elsif params[:donate_way] == 'balance'
-      user = User.find(params[:balance_id])
-      user.balance -= amount
-      return false if user.balance < 0
-    end
-
-    self.transaction do
-      begin
-        donate_record = self.donate_apply(user: user, amount: amount, income_record: income_record, apply: apply, promoter: nil)
-        donate_record.pay_state = 'paid'
-        donate_record.kind = 'platform'
-
-        apply.present_amount += amount.to_f
-        apply.execute_state = 'to_delivery' if apply.present_amount == apply.target_amount
-
-        donate_record.save!
-        apply.save!
-        match_fund.save! if match_fund.present?
-        income_record.save! if income_record.present?
-        user.save! if user.present?
-        return true
-      rescue
-        return false
-      end
-    end
-    return false
-  end
-
-  def self.use_income_record_donate_apply(income_record)
-    return false unless income_record.has_balance?
-
-    donate_record = income_record.donate_records.first
-    apply = donate_record.apply
-
-    return false unless apply.present?
-
-    user = donate_record.user
-
-    project = apply.project
-
-    return false unless project.id == 2
-
-    item = apply.bookshelves.raising.order(present_amount: :desc).first if apply.whole?
-    item = apply.supplements.raising.sorted.first if apply.supplement? # ?
-
-    unless item.present?
-      self.transaction do
-        begin
-          user.balance += income_record.balance
-          income_record.balance = 0
-          user.save!
-          income_record.save!
-          return true
-        rescue
-          return false
-        end
-      end
-    end
-
-    if item.surplus_money >= income_record.balance
-      self.transaction do
-        begin
-          dr = self.part_donate_bookshelf(user: user, amount: income_record.balance, income_record: income_record, bookshelf: item, promoter: nil)
-          dr.pay_state = 'paid'
-          dr.kind = 'platform'
-          dr.save!
-          income_record.balance = 0
-          income_record.save!
-        rescue
-          return false
-        end
-      end
-    else
-      self.transaction do
-        begin
-          dr = self.part_donate_bookshelf(user: user, amount: item.surplus_money, income_record: income_record, bookshelf: item, promoter: nil)
-          dr.pay_state = 'paid'
-          dr.kind = 'platform'
-          dr.save!
-          income_record.balance -= item.surplus_money
-          income_record.save!
-        rescue
-          return false
-        end
-      end
-      income_record.reload
-      self.use_income_record_donate_apply(income_record) if income_record.has_balance?
-    end
-
-  end
-
-  # 配捐给悦读
-  def self.platform_donate_bookshelf(params, bookshelf)
-    user = nil
-    income_record = nil
-    match_fund = nil
-    amount = bookshelf.target_amount - bookshelf.present_amount
-    if params[:donate_way] == 'offline'
-      income_record = IncomeRecord.has_balance.find(params[:offline_record_id])
-      income_record.balance -= amount.to_f
-      return false if income_record.balance < 0
-    elsif params[:donate_way] == 'match'
-      match_fund = Fund.find(params[:match_fund_id])
-      match_fund.amount -= amount.to_f
-      return false if match_fund.amount < 0
-    elsif params[:donate_way] == 'balance'
-      user = User.find(params[:balance_id])
-      user.balance -= amount
-      return false if user.balance < 0
-    end
-    self.transaction do
-      begin
-        donate_record = self.part_donate_bookshelf(user: user, amount: amount, income_record: income_record, bookshelf: bookshelf, promoter: nil)
-        donate_record.pay_state = 'paid'
-        donate_record.kind = 'platform'
-
-        bookshelf.present_amount += amount
-        bookshelf.state = 'to_delivery' if bookshelf.present_amount == bookshelf.target_amount
-
-        donate_record.save!
-        bookshelf.save!
-        income_record.save! if income_record.present?
-        match_fund.save! if match_fund.present?
-        user.save! if user.present?
-        return true
-      rescue
-        return false
-      end
-    end
-    return false
-  end
-
-  # 配捐给悦读补书
-  def self.platform_donate_supplement(params, supplement)
-    user = nil
-    income_record = nil
-    match_fund = nil
-    amount = supplement.target_amount - supplement.present_amount
-    if params[:donate_way] == 'offline'
-      income_record = IncomeRecord.has_balance.find(params[:offline_record_id])
-      income_record.balance -= amount.to_f
-      return false if income_record.balance < 0
-    elsif params[:donate_way] == 'match'
-      match_fund = Fund.find(params[:match_fund_id])
-      match_fund.amount -= amount.to_f
-      return false if match_fund.amount < 0
-    elsif params[:donate_way] == 'balance'
-      user = User.find(params[:balance_id])
-      user.balance -= amount
-      return false if user.balance < 0
-    end
-    self.transaction do
-      begin
-        donate_record = self.donate_supplement(user: user, amount: amount, income_record: income_record, supplement: supplement, promoter: nil)
-        donate_record.pay_state = 'paid'
-        donate_record.kind = 'platform'
-
-        supplement.present_amount += amount
-        supplement.state = 'to_delivery' if supplement.present_amount == supplement.target_amount
-
-        donate_record.save!
-        supplement.save!
-        income_record.save! if income_record.present?
-        match_fund.save! if match_fund.present?
-        user.save! if user.present?
-        return true
-      rescue
-        return false
-      end
-    end
-    return false
-  end
-
-  # 配捐给孩子
-  def self.platform_donate_child(params, child)
-    user = nil
-    income_record = nil
-    match_fund = nil
-    semester_num = params[:grant_number].to_i
-    amount = self.donate_child_total(child, semester_num)
-    if params[:donate_way] == 'offline'
-      income_record = IncomeRecord.has_balance.find(params[:offline_record_id])
-      income_record.balance -= amount.to_f
-      return false if income_record.balance < 0
-    elsif params[:donate_way] == 'match'
-      match_fund = Fund.find(params[:match_fund_id])
-      match_fund.amount -= amount.to_f
-      return false if match_fund.amount < 0
-    elsif params[:donate_way] == 'balance'
-      user = User.find(params[:balance_id])
-      user.balance -= amount
-      return false if user.balance < 0
-    end
-
-    self.transaction do
-      begin
-        donate_record = self.donate_child(user: user, child: child, income_record: income_record, semester_num: semester_num, promoter: nil)
-        donate_record.pay_state = 'paid'
-        donate_record.kind = 'platform'
-        donate_record.save!
-        income_record.save! if income_record.present?
-        match_fund.save! if match_fund.present?
-        user.save! if user.present?
-        return true
-      rescue
-        return false
-      end
-    end
-    return false
   end
 
   def gen_income_record
@@ -626,17 +298,15 @@ class DonateRecord < ApplicationRecord
     end
   end
 
-
-
   private
 
+  # 补充捐助记录信息
   def get_donate_record_info
     self.project = self.owner.project if self.owner.project.present?
     self.season = self.owner.season if self.owner.season.present?
     self.apply = self.owner.apply if self.owner.apply.present?
     self.child = self.owner.child if self.owner.child.present?
   end
-
 
   def get_wechat_prepay_id(remote_ip)
     notify_url = Settings.app_host + "/payment/wechat_payments/notify"
