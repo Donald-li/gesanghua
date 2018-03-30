@@ -18,22 +18,23 @@
       <div class="pull-right">
         <div class="input-group">
           <span class="iconfont icon-ico-search"></span>
-          <input type="text" class="form-control" placeholder="搜索项目">
+          <input type="text" class="form-control" placeholder="搜索孩子">
         </div>
       </div>
-      <div class="pull-right pull-down">
-        <ul class="project-ul">
-          <li id="projectshow" class="cur">
-            <span class="pull-left">地区筛选</span>
-            <span class="iconfont icon-arrowdown pull-right"></span>
-            <ul class="project-nav-heide">
-              <li class="cur">全部</li>
-              <li class="cur">新书项目</li>
-              <li class="cur">补书项目</li>
-            </ul>
-          </li>
-        </ul>
-      </div>
+      <div class="city-picker-selector pull-right" id="city-picker-selector"></div>
+      <!--<div class="pull-right pull-down">-->
+        <!--<ul class="project-ul">-->
+          <!--<li id="projectshow" class="cur">-->
+            <!--<span class="pull-left">地区筛选</span>-->
+            <!--<span class="iconfont icon-arrowdown pull-right"></span>-->
+            <!--<ul class="project-nav-heide">-->
+              <!--<li class="cur">全部</li>-->
+              <!--<li class="cur">新书项目</li>-->
+              <!--<li class="cur">补书项目</li>-->
+            <!--</ul>-->
+          <!--</li>-->
+        <!--</ul>-->
+      <!--</div>-->
 
     </div>
     <div class="pairs-body">
@@ -158,3 +159,14 @@
   </div>
 
 </div>
+<script>
+    // 模拟城市-无联动/无搜索
+    var selector1 = $('#city-picker-selector').cityPicker({
+        dataJson: cityData,
+        renderMode: true,
+        search: false,
+        autoSelected: false,
+        code: 'cityCode',
+        level: 1
+    });
+</script>

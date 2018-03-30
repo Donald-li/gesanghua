@@ -29,22 +29,22 @@
             <div class="col-sm-9">
               <div class="input-group icheck-inline">
                 <label>
-                  <%= check_box_tag 'teacher_projects[]', '1', @teacher.teacher_projects.find_by(project_id: 1).present? %> 一对一
+                  <%= check_box_tag 'teacher_projects[]', Project.pair_project.id, @teacher.teacher_projects.find_by(project_id: Project.pair_project.id).present? %> 一对一
                 </label>
                 <label>
-                  <%= check_box_tag 'teacher_projects[]', '2', @teacher.teacher_projects.find_by(project_id: 2).present? %> 悦读
+                  <%= check_box_tag 'teacher_projects[]', Project.read_project.id, @teacher.teacher_projects.find_by(project_id: Project.read_project.id).present? %> 悦读
                 </label>
                 <label>
-                  <%= check_box_tag 'teacher_projects[]', '7', @teacher.teacher_projects.find_by(project_id: 7).present? %> 广播
+                  <%= check_box_tag 'teacher_projects[]', Project.radio_project.id, @teacher.teacher_projects.find_by(project_id: Project.radio_project.id).present? %> 广播
                 </label>
                 <label>
-                  <%= check_box_tag 'teacher_projects[]', '8', @teacher.teacher_projects.find_by(project_id: 8).present? %> 护花
+                  <%= check_box_tag 'teacher_projects[]', Project.care_project.id, @teacher.teacher_projects.find_by(project_id: Project.care_project.id).present? %> 护花
                 </label>
                 <label>
-                  <%= check_box_tag 'teacher_projects[]', '6', @teacher.teacher_projects.find_by(project_id: 6).present? %> 探索营
+                  <%= check_box_tag 'teacher_projects[]', Project.camp_project.id, @teacher.teacher_projects.find_by(project_id: Project.camp_project.id).present? %> 探索营
                 </label>
                 <label>
-                  <%= check_box_tag 'teacher_projects[]', '4', @teacher.teacher_projects.find_by(project_id: 4).present? %> 观影
+                  <%= check_box_tag 'teacher_projects[]', Project.movie_project.id, @teacher.teacher_projects.find_by(project_id: Project.movie_project.id).present? %> 观影
                 </label>
               </div>
             </div>

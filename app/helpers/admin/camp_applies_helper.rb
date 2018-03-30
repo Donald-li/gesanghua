@@ -1,0 +1,2 @@
+module Admin::CampAppliesHelper
+end

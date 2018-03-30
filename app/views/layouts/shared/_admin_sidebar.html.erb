@@ -353,9 +353,19 @@
           <span class="arrow <%= current_nav_class(:admin_project_camp, current: :open) %>"></span>
         </a>
         <ul class="sub-menu">
-          <li class="nav-item <%= current_nav_class(:admin_project_camp_season) %>">
-            <%= link_to admin_project_camp_seasons_path, class: 'nav-link' do %>
-              <span class="title">批次管理</span>
+          <li class="nav-item <%= current_nav_class(:admin_camp) %>">
+            <%= link_to admin_camps_path, class: 'nav-link' do %>
+                <span class="title">探索营管理</span>
+            <% end %>
+          </li>
+          <li class="nav-item <%= current_nav_class(:admin_camp_applies) %>">
+            <%= link_to admin_camp_applies_path, class: 'nav-link' do %>
+                <span class="title">营立项</span>
+            <% end %>
+          </li>
+          <li class="nav-item <%= current_nav_class(:admin_camp_projects) %>">
+            <%= link_to admin_camp_projects_path, class: 'nav-link' do %>
+                <span class="title">营筹款项目</span>
             <% end %>
           </li>
           <li class="nav-item <%= current_nav_class(:admin_camp_document) %>">

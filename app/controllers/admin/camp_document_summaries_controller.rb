@@ -2,7 +2,7 @@ class Admin::CampDocumentSummariesController < Admin::CampDocumentBaseController
   before_action :set_camp_document_summary, only: [:show, :edit, :update, :destroy]
 
   def index
-    @search = CampDocumentSummary.in_season(@current_camp).sorted.ransack(params[:q])
+    @search = CampDocumentSummary.in_apply(@current_apply).sorted.ransack(params[:q])
     scope = @search.result
     @camp_document_summaries = scope.page(params[:page])
   end
@@ -18,7 +18,7 @@ class Admin::CampDocumentSummariesController < Admin::CampDocumentBaseController
   end
 
   def create
-    @camp_document_summary = CampDocumentSummary.new(camp_document_summary_params.merge(user: current_user, project_season: @current_camp))
+    @camp_document_summary = CampDocumentSummary.new(camp_document_summary_params.merge(user: current_user, apply: @current_apply, camp: @current_apply.camp))
     respond_to do |format|
       if @camp_document_summary.save
         @camp_document_summary.attach_report(params[:report_id])

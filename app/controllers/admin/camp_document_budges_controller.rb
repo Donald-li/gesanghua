@@ -2,7 +2,7 @@ class Admin::CampDocumentBudgesController < Admin::CampDocumentBaseController
   before_action :set_camp_document_finance, only: [:show, :edit, :update, :destroy]
 
   def index
-    @search = CampDocumentFinance.in_season(@current_camp).sorted.ransack(params[:q])
+    @search = CampDocumentFinance.in_apply(@current_apply).sorted.ransack(params[:q])
     scope = @search.result
     @camp_document_finances = scope.page(params[:page])
   end
@@ -18,7 +18,7 @@ class Admin::CampDocumentBudgesController < Admin::CampDocumentBaseController
   end
 
   def create
-    @camp_document_finance = CampDocumentFinance.new(camp_document_finance_params.merge(user: current_user, project_season: @current_camp))
+    @camp_document_finance = CampDocumentFinance.new(camp_document_finance_params.merge(user: current_user, apply: @current_apply, camp: @current_apply.camp))
     respond_to do |format|
       if @camp_document_finance.save
         format.html { redirect_to admin_camp_document_budges_url, notice: '新增成功' }

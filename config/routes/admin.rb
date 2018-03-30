@@ -83,7 +83,6 @@ namespace :admin do
     end
   end
   resources :read_continual_feedbacks, concerns: [:recommend]
-  resources :project_camp_seasons
   resources :project_radio_seasons
   resources :project_flower_seasons
   resources :project_movie_seasons
@@ -157,6 +156,17 @@ namespace :admin do
     end
     collection do
       post :create_audit
+    end
+  end
+
+  resources :camps do
+    resources :camp_users
+  end
+
+  resources :camp_applies, concerns: [:switch, :check]
+  resources :camp_projects, concerns: [:switch] do
+    member do
+      put :change_state
     end
   end
 

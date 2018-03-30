@@ -1,0 +1,103 @@
+<%= simple_form_for [:admin, @camp], wrapper: :admin_form, html: {'data-parsley-validate': true} do |f| %>
+  <%= f.error_notification %>
+  <div class="form-body form-horizontal">
+    <%= f.input :name, label: '名称：', autofocus: true, placeholder: '名称', required: true %>
+    <div style="margin-bottom: 20px;" class="form-group">
+      <label class="col-md-2 control-label select required" for="project_category_id">所在地区：</label>
+      <div class="col-sm-6">
+        <div class="row city-group">
+          <div class="col-sm-3">
+            <%= select_tag 'camp[province]', options_for_select(ChinaCity.list, @camp.province.presence), prompt: '省份', class: "form-control city-select" %>
+          </div>
+          <div class="col-sm-3">
+            <%= select_tag 'camp[city]', options_for_select(ChinaCity.list(@camp.province.to_s), @camp.city.presence), prompt: '城市', class: "form-control city-select" %>
+          </div>
+          <div class="col-sm-3">
+            <%= select_tag 'camp[district]', options_for_select(ChinaCity.list(@camp.city.to_s), @camp.district.presence), prompt: '地区', class: "form-control city-select" %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= f.input :manager_id, collection: [@camp.manager].compact.map {|u| [u.name, u.id]}, label: '负责人：', prompt: "请选择用户", input_html: {class: 'user_selector'}, required: true %>
+    <%= f.input :fund_id, collection: [@camp.fund].compact.map {|u| [u.name, u.id]}, label: '财务分类：', prompt: "请选择财务分类", input_html: {class: 'fund_selector'}, required: true %>
+    <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Camp.options_for_select(:states), label: '状态：'%>
+
+  </div>
+  <div class="form-actions">
+    <div class="row">
+      <div class="col-md-offset-2 col-md-9">
+        <%= f.button :submit, '提交', class: 'btn blue' %>
+        <%= link_to '取消', admin_camps_path, class: 'btn' %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script type="text/javascript" charset="utf-8">
+  $(function () {
+      $(".user_selector").select2({
+          language: "zh-CN",
+          placeholder: '请选择用户',
+          allowClear: true,
+          ajax: {
+              url: "/selects/users",
+              dataType: 'json',
+              delay: 250,
+              data: function (params) {
+                  return {
+                      q: params.term, // search term
+                      page: params.page
+                  };
+              },
+              processResults: function (data, params) {
+                  params.page = params.page || 1;
+                  return {
+                      results: $.map(data.items, function (item) {
+                          return {
+                              text: item.name,
+                              id: item.id
+                          }
+                      }),
+                      pagination: {
+                          more: (params.page * 30) < data.total_count
+                      }
+                  };
+              },
+              cache: true
+          }
+      });
+
+      $(".fund_selector").select2({
+          language: "zh-CN",
+          placeholder: '请选择财务分类',
+          allowClear: true,
+          ajax: {
+              url: "/selects/camp_funds",
+              dataType: 'json',
+              delay: 250,
+              data: function (params) {
+                  return {
+                      q: params.term, // search term
+                      page: params.page
+                  };
+              },
+              processResults: function (data, params) {
+                  params.page = params.page || 1;
+                  return {
+                      results: $.map(data.items, function (item) {
+                          return {
+                              text: item.name,
+                              id: item.id
+                          }
+                      }),
+                      pagination: {
+                          more: (params.page * 30) < data.total_count
+                      }
+                  };
+              },
+              cache: true
+          }
+      });
+  })
+
+</script>

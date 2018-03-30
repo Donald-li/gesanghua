@@ -19,6 +19,8 @@ scope module: :support do
       get :flower_seasons
       get :applies
       get :majors
+      get :camp_funds
+      get :camps
     end
   end
   resources :ajaxes, only: [] do
