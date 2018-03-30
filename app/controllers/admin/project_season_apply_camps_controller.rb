@@ -1,5 +1,5 @@
 class Admin::ProjectSeasonApplyCampsController < Admin::BaseController
-  before_action :set_apply_camp, only: [:edit, :update, :destroy, :camp_member]
+  before_action :set_apply_camp, only: [:edit, :update, :destroy, :camp_member, :switch]
   before_action :set_apply
 
   def index
@@ -43,8 +43,20 @@ class Admin::ProjectSeasonApplyCampsController < Admin::BaseController
     end
   end
 
-  def camp_member
+  def switch
+    @apply_camp.execute_state = params[:execute_state]
+    respond_to do |format|
+      if @apply_camp.save
+        format.html { redirect_to admin_camp_project_project_season_apply_camps_path, notice: '标记成功。' }
+      else
+        format.html { redirect_to admin_camp_project_project_season_apply_camps_path, notice: '标记失败。' }
+      end
+    end
+  end
 
+  def camp_member
+    @students = @apply_camp.project_season_apply_camp_students.pass.sorted
+    @teachers = @apply_camp.project_season_apply_camp_teachers.pass.sorted
   end
 
   private
