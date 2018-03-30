@@ -144,6 +144,7 @@
     $('.circlechart').circlechart()
     $('#dtails-cont').myTab()
     function showHideCode(id) {
+      $("#" + id + " > .de-left-con").toggleClass('read-more')
       $("#" + id + " > .detail-font-tit > span").css('display', 'none')
       $("#" + id + " .details-img").css('display', 'block')
     }

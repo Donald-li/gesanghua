@@ -91,7 +91,7 @@
     $('#dtails-cont').myTab()
     $('.circlechart').circlechart()
     function showHideCode(id) {
-        // $('#showdiv').toggleClass('read-more')
+        $("#" + id + " > .de-left-con").toggleClass('read-more')
         $("#" + id + " > .detail-font-tit > span").css('display', 'none')
         $("#" + id + " .details-img").css('display', 'block')
     }
