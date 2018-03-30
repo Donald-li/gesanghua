@@ -20,6 +20,7 @@ class Camp < ApplicationRecord
   has_many :applies, class_name: 'ProjectSeasonApply'
   has_many :users
   has_many :camp_project_resources
+  has_many :apply_camps, class_name: 'ProjectSeasonApplyCamp'
 
   validates :name, :province, :city, :district, presence: true
 
