@@ -32,6 +32,8 @@
 //= require 'plugin/cityPicker-2.0.0.js'
 //= require 'plugin/citydata.min.js'
 //= require 'plugin/tab-nav.js'
+//= require 'plugin/jquery.select.js'
+//= require 'plugin/jquery.mCustomScrollbar.concat.min.js'
 
 
 
