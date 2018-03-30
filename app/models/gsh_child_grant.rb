@@ -74,6 +74,7 @@ class GshChildGrant < ApplicationRecord
     end
     self.donate_state = 'succeed'
     self.save!
+    self.apply_child.update_state
   end
 
   def self.gen_grant_record(child)

@@ -127,6 +127,11 @@ class ProjectSeasonApplyChild < ApplicationRecord
     self.semesters.succeed.sorted
   end
 
+  # 更新申请状态
+  def check_state
+    self.done_semester_count = self.semesters.succeed.count
+  end
+
   def gsh_no
     self.gsh_child.try(:gsh_no)
   end

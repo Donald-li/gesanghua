@@ -132,8 +132,13 @@ class ProjectSeasonApply < ApplicationRecord
       self.present_amount += donate_record.amount
       self.project.fund.balance += donate_record.amount
     end
-    self.execute_state = 'to_delivery' if self.present_amount == self.target_amount
     self.save!
+    self.check_apply_state
+  end
+
+  # 更新申请状态
+  def check_apply_state
+    self.execute_state = 'to_delivery' if self.present_amount == self.target_amount
   end
 
   def surplus_money
