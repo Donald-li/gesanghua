@@ -32,6 +32,7 @@
 //= require 'plugin/cityPicker-2.0.0.js'
 //= require 'plugin/citydata.min.js'
 //= require 'plugin/tab-nav.js'
+//= require 'plugin/timeago.js'
 
 
 
@@ -52,6 +53,12 @@ $(function () {
 
   //timeago
   $('.timeago').timeago();
+  var timeagoInstance = new timeago();
+  $('.timeago').each(function(index, el){
+    $(el).html( timeagoInstance.format($(el).data('timeago'), 'zh_CN') )
+  })
+  // timeagoInstance.format('2016-06-12', 'zh_CN');
+
     //判断屏幕高度
     if ($(window).height() <= $(document.body).height()){
         $('.bul-footer').css({'position':'static'})

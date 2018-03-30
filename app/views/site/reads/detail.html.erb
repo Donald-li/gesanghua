@@ -2,14 +2,14 @@
 
   <div class="detail-head">
     <div class="detail-img clearfix">
-      <%= image_tag 'top-mian-con.png' %>
+      <%= image_tag @apply.cover_image.try(:file).try(:url, :pc_detail) %>
       <div class="detail-cont pull-right">
         <div>
-          <p class="detail-con-t">护花行动“风暴”来袭</p>
-          <p class="detail-con-font">格桑花是青藏高原上生命力极其顽强的一种野花，它代表着爱与吉祥，象征着青藏高原上的孩子们的未来。</p>
+          <p class="detail-con-t"><%= @apply.name %></p>
+          <p class="detail-con-font"><%= @apply.project_describe%></p>
         </div>
         <div class="detail-con-number clearfix">
-          <div class="circlechart pull-left" data-percentage="85">85%</div>
+          <div class="circlechart pull-left" data-percentage="<%= @apply.present_amount.to_f / @apply.target_amount.to_f * 100.00 %>%"><%= @apply.present_amount.to_f / @apply.target_amount.to_f * 100.00 %>%</div>
           <div class="pull-left detail-num ">
             <p>￥45671.23</p>
             <p>目标:68000.00</p>
