@@ -166,12 +166,14 @@ namespace :admin do
   resources :camp_projects, concerns: [:switch] do
     member do
       put :change_state
+      get :camp_member
     end
-    resources :project_season_apply_camps do
-      collection do
+    resources :project_season_apply_camps, concerns: [:switch] do
+      member do
         get :camp_member
       end
     end
+    resources :camp_donate_records
   end
 
   resources :project_season_apply_camp_students, concerns: [:check]

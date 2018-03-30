@@ -230,6 +230,7 @@ admin:
                 'admin/camp_projects': all
                 'admin/project_season_apply_camps': all
                 'admin/project_season_apply_camp_students': all
+                'admin/camp_donate_records': all
             admin_camp_project_resources:
               actions:
                 'admin/camp_project_resources': all
