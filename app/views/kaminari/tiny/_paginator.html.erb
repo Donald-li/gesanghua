@@ -7,8 +7,12 @@
     paginator:     the paginator that renders the pagination tags inside
 -%>
 <%= paginator.render do -%>
-  <% if total_pages > 1 %>
-    <%= prev_page_tag %>
-    <%= next_page_tag %>
-  <% end %>
+    <%= prev_page_tag unless current_page.first? %>
+    <% each_page do |page| -%>
+      <% if page.left_outer? || page.right_outer? || page.inside_window? -%>
+        <span class="iconfont"><%= page_tag page %></span>
+      <% elsif !page.was_truncated? -%>
+        <%= gap_tag %>
+      <% end -%>
+    <% end -%>
 <% end -%>

@@ -1,0 +1,171 @@
+<div id="detail">
+
+  <div class="detail-head">
+    <div class="detail-img clearfix">
+      <%= image_tag @apply.cover_image.try(:file).try(:url, :pc_detail) %>
+      <div class="detail-cont pull-right">
+        <div>
+          <p class="detail-con-t"><%= @apply.name %></p>
+          <p class="detail-con-font"><%= @apply.project_describe%></p>
+        </div>
+        <div class="detail-con-number clearfix">
+          <div class="circlechart pull-left" data-percentage="<%= (@apply.present_amount / @apply.target_amount * 100.00).round(2) %>"></div>
+          <div class="pull-left detail-num ">
+            <p>￥<%= @apply.present_amount %></p>
+            <p>目标:<%= @apply.target_amount %></p>
+          </div>
+        </div>
+        <div class="detail-cont-foot border-t ">
+          <p>当前筹款<span>￥<%= @apply.present_amount %></span></p>
+          <p>参与人数<span><%= @apply.donate_records.grouping(:user_id).count %>人</span></p>
+          <div>我要捐助</div>
+        </div>
+      </div>
+    </div>
+  </div>
+<div id="dtails-cont">
+  <div class="detail-nav" id="navHeight">
+    <div class="detail-fiexd ">
+      <div class="fhNav clearfix">
+        <div class="bottomLine"></div>
+        <ul class="nav pull-left" id="tabnav">
+          <li class="selectedNav">
+            <span>申请详情</span>
+          </li>
+          <li>
+            <span>物品清单</span>
+          </li>
+          <li>
+            <span>执行反馈</span>
+            <span class="navmark"><%= @feedbacks.count %></span>
+          </li>
+        </ul>
+        <div class="pull-right share cur">分享</div>
+      </div>
+    </div>
+  </div>
+  <div class="detail-body clearfix" id="conttab">
+    <!--申请详情-->
+    <div class="details-left pull-left contentab" style="display: block;">
+      <p class="detail-l-title"></p>
+      <p class="detail-l-fon"><%= @apply.project_describe %></p>
+      <%#= image_tag 'detail-reduce.png' %>
+    </div>
+    <!--物品-->
+    <div class="pull-left detail-table-left contentab">
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th scope="col">物品名称</th>
+          <th scope="col">物品价格（元）</th>
+          <th scope="col">物品名称</th>
+          <th scope="col">物品价格（元）</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th>生理卫生手册</th>
+          <td>3000.00</td>
+          <td>生理卫生手册</td>
+          <td>3000.00</td>
+        </tr>
+        <tr>
+          <th>生理卫生手册</th>
+          <td>3000.00</td>
+          <td>生理卫生手册</td>
+          <td>3000.00</td>
+        </tr>
+        <tr>
+          <th>生理卫生手册</th>
+          <td>3000.00</td>
+          <td>生理卫生手册</td>
+          <td>3000.00</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <!--反馈-->
+    <div class="pull-left detail-body-left border-l contentab">
+      <ul class="detail-body-ul">
+        <% @feedbacks.each do |feedback| %>
+          <li class="detail-body-cont">
+            <span class="detail-body-hover iconfont icon-yuan"></span>
+            <div class="clearfix detail-font-tit">
+              <p class="pull-left"><%= feedback.apply.name %></p>
+              <span class="pull-right cur" onclick="showHideCode()"><span class="iconfont icon-arrowdown"></span>查看详情</span>
+            </div>
+            <div class="detail-body-title clearfix">
+              <% if feedback.user.present? && feedback.user.avatar.present? %>
+                <%= image_tag feedback.user.avatar.try(:file).try(:url, :tiny) %>
+              <% else %>
+                <%= image_tag '' %>
+              <% end %>
+              <span class="pull-left"><% if feedback.user.nickname.present? %><%= feedback.user.nickname %><% else %><%= feedback.user.name %><% end %> ·</span>
+              <span class="pull-left"><%= feedback.created_at.strftime("%Y-%m-%d") %>由发布</span>
+            </div>
+            <div class="de-left-con read-more clearfix" id="showdiv">
+              <p><%= feedback.content %></p>
+                <div class="clearfix details-img">
+                  <% if feedback.images.present? %>
+                    <% feedback.images.each do |img| %>
+                      <%= image_tag img.try(:file).try(:url, :medium) %>
+                    <% end %>
+                  <% end %>
+                </div>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="pull-right detail-body-right">
+      <p class="detail-b-r-t border-b"><span>捐助记录</span></p>
+      <ul class="detail-b-r-name">
+        <% @donate_records.limit(6).each do |record| %>
+          <li class="border-b clearfix">
+            <% if record.user.present? && record.user.avatar.present? %>
+              <%= image_tag record.user.avatar.try(:file).try(:url, :tiny) %>
+            <% else %>
+              <%= image_tag '' %>
+            <% end %>
+            <div class="pull-left">
+              <div class="clearfix">
+                <span class="pull-left detail-name"><%= record.user.nickname?? record.user.nickname : record.user.name %></span>
+                <span class="timeago pull-right detail-time" data-timeago="<%= record.created_at.to_s(:db) %>"></span>
+              </div>
+              <p class="detail-con">
+                <% if record.team.present? %>
+                通过 <%= record.team.name %>
+                <% end %>
+                捐助 <strong></strong> <%= record.amount %>元
+            </div>
+          </li>
+        <% end %>
+        <li class="more">点击加载更多</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</div>
+<script type="text/javascript">
+    // //内容信息导航吸顶
+     $(document).ready(function () {
+         var navHeight = $("#navHeight").offset().top;
+         var navFix = $("#navHeight");
+         $(window).scroll(function () {
+             if ($(this).scrollTop() > navHeight) {
+                 navFix.addClass("navFix");
+             }
+             else {
+                 navFix.removeClass("navFix");
+             }
+         })
+     })
+    $('.circlechart').circlechart()
+    $('#dtails-cont').myTab()
+    function showHideCode(id) {
+        $('#showdiv').toggleClass('read-more')
+        $('.detail-font-tit > span').css('display', 'none')
+        $('.details-img').css('display', 'block')
+    }
+</script>

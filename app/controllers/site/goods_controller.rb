@@ -1,7 +1,11 @@
 class Site::GoodsController < Site::BaseController
 
   def detail
-    render 'site/reads/detail'
+    @apply = ProjectSeasonApply.find(params[:id])
+
+    @feedbacks = Feedback.show.sorted.where(project_season_apply_id: @apply.id)
+
+    @donate_records = DonateRecord.where(project_season_apply_id: @apply.id)
   end
 
   def index

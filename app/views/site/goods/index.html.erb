@@ -31,7 +31,7 @@
     <div class="project-body-cont row">
       <% @applies.each do |apply|%>
         <div class="col-md-3 cur ">
-          <%= link_to detail_read_path(apply) do %>
+          <%= link_to detail_good_path(apply) do %>
             <div class="project-body-img">
               <%= image_tag apply.cover_image.try(:file).try(:url, :tiny) %>
             </div>
