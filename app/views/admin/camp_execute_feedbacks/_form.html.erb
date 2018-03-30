@@ -1,0 +1,59 @@
+<%= simple_form_for [:admin, @project, @feedback], url: @feedback.new_record? ? admin_camp_project_camp_execute_feedbacks_path : admin_camp_project_camp_execute_feedback_path, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'continual_form'} do |f| %>
+    <%= f.error_notification %>
+    <div class="form-body form-horizontal">
+      <%= f.input :user_id, collection: [@feedback.user].compact.map {|u| [u.name, u.id]}, label: '反馈人：', prompt: "请选择用户", input_html: {class: 'camp_user_selector'}, required: true %>
+      <div class="form-group">
+        <label class="col-md-2 control-label">反馈内容：</label>
+        <div class="col-sm-9">
+          <%= f.cktext_area :content, input_html: { data: {'parsley-required': true}}  %>
+        </div>
+      </div>
+      <%= f.input :check, as: :radio_buttons, wrapper: :inline_inputs, collection: ContinualFeedback.options_for_select(:checks), label: '是否已查看：' %>
+    </div>
+    <div class="form-actions">
+      <div class="row">
+        <div class="col-md-offset-2 col-md-9">
+          <%= f.button :submit, '提交', class: 'btn blue' %>
+          <%= link_to '取消', admin_camp_project_camp_execute_feedbacks_path(@project), class: 'btn' %>
+        </div>
+      </div>
+    </div>
+<% end %>
+
+<script>
+    $(function(){
+
+        $(".camp_user_selector").select2({
+            language: "zh-CN",
+            placeholder: '请选择反馈人',
+            allowClear: true,
+            ajax: {
+                url: "/selects/camp_users",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page,
+                        camp_id: '<%= @project.camp_id %>'
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: $.map(data.items, function (item) {
+                            return {
+                                text: item.name,
+                                id: item.id
+                            }
+                        }),
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            },
+        });
+    })
+</script>

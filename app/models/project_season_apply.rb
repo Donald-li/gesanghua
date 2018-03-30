@@ -79,6 +79,7 @@ class ProjectSeasonApply < ApplicationRecord
 
   has_one :install_feedback, as: :owner
   has_one :receive_feedback, as: :owner
+  has_many :continual_feedbacks, as: :owner # 探索营反馈
   has_one :radio_information
   has_one :logistic, as: :owner
   accepts_nested_attributes_for :radio_information, update_only: true

@@ -174,6 +174,7 @@ namespace :admin do
       end
     end
     resources :camp_donate_records
+    resources :camp_execute_feedbacks
   end
 
   resources :project_season_apply_camp_students, concerns: [:check]

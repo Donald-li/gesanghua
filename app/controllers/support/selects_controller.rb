@@ -92,6 +92,11 @@ class Support::SelectsController < Support::BaseController
     render json: {items: camps.as_json(only: [:id, :name])}
   end
 
+  def camp_users
+    camp_users = Camp.find(params[:camp_id]).users.sorted
+    render json: {items: camp_users.as_json(only: [:id, :name])}
+  end
+
   def camp_contact_teachers
     if params[:school_id].present?
       camp_contact_teachers = School.find(params[:school_id]).teachers.joins(:teacher_projects).where("teacher_projects.project_id = ?", Project.camp_project.id)

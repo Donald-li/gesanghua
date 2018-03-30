@@ -231,6 +231,7 @@ admin:
                 'admin/project_season_apply_camps': all
                 'admin/project_season_apply_camp_students': all
                 'admin/camp_donate_records': all
+                'admin/camp_execute_feedbacks': all
             admin_camp_project_resources:
               actions:
                 'admin/camp_project_resources': all
