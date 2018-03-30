@@ -191,6 +191,7 @@ class DonateRecord < ApplicationRecord
           owner.get_donate_items.each do |item|
             if source.balance > item.surplus_money
               donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount)
+              item.accept_donate(donate_records)
               source.balance -= amount
               source.save!
               item.to_delivery!
