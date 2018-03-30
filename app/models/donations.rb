@@ -37,6 +37,82 @@ class Donations < ApplicationRecord
   before_create :set_record_title
   before_create :generate_donate_no
 
+  # 返回微信支付js
+  def wechat_prepay_js(remote_ip)
+    prepay_id = get_wechat_prepay_id(remote_ip)
+    package_str = "prepay_id=#{prepay_id}"
+    prepay_js = {
+      appId: Settings.wechat_app_id,
+      nonceStr: SecureRandom.uuid.tr('-', ''),
+      package: package_str,
+      timeStamp: Time.now.getutc.to_i.to_s,
+      signType: 'MD5'
+    }
+    pay_sign = WxPay::Sign.generate(prepay_js)
+    prepay_js.merge(paySign: pay_sign)
+  end
+
+  # 返回微信支付按钮
+  def wechat_prepay_h5(remote_ip)
+    return get_wechat_prepay_mweb(remote_ip)
+  end
+
+  # 返回支付宝支付按钮
+  def alipay_prepay_h5
+    return get_alipay_prepay_mweb
+  end
+
+  # 生成捐赠编号
+  def pay_and_gen_certificate
+    self.certificate_no ||= 'ZS' + self.donate_no
+    self.pay_state = 'paid'
+    # self.donor_certificate_path # TODO 调用捐赠证书方法，生成证书（微信支付调通以后，需要考虑此方法的执行速度）
+    self.save
+  end
+
+  #捐赠证书路径
+  def donor_certificate_path
+    self.certificate_no ||= 'ZS' + self.donate_no
+    path = "/images/certificates/#{self.created_at.strftime('%Y%m%d')}/#{self.id}/#{Encryption.md5(self.id.to_s)}.jpg"
+    local_path = Rails.root.to_s + '/public' + path
+    if !File::exist?(local_path)
+      GenDonateCertificate.create(self)
+    end
+    self.save
+    path
+  end
+
+  # 计算开票金额
+  def self.count_amount(ids)
+    donates = DonateRecord.find(ids)
+    if donates.present?
+      amount = donates.sum {|d| d.amount.to_f}
+      return amount
+    else
+      return 0
+    end
+  end
+
+  # 项目是否可以退款
+  def can_refund?
+    self.paid? && self.user && self.system?
+  end
+
+  # 退款
+  def do_refund!
+    user = self.user
+    return unless user
+    self.transaction do
+      begin
+        User.update_counters(user.id, self.amount)
+        self.pay_state = :refund
+        self.save!
+        return true
+      rescue
+        return false
+      end
+    end
+  end
 
   private
   def set_record_title
@@ -51,6 +127,65 @@ class Donations < ApplicationRecord
   def generate_donate_no
     time_string = Time.now.strftime("%y%m%d%H")
     self.donate_no ||= Sequence.get_seq(kind: :order_no, prefix: time_string, length: 7)
+  end
+
+  def get_wechat_prepay_id(remote_ip)
+    notify_url = Settings.app_host + "/payment/wechat_payments/notify"
+    params = {
+      body: '需要一个商品名称',
+      out_trade_no: self.donate_no,
+      # total_fee: Settings.pay_1_mode ? 1 : (self.amount * 100).to_i,
+      total_fee: 1,
+      # (self.amount * 100).to_i,
+      spbill_create_ip: remote_ip,
+      notify_url: notify_url,
+      trade_type: 'JSAPI', # could be "JSAPI" or "NATIVE",
+      openid: self.user.openid# required when trade_type is `JSAPI`
+    }
+    res = WxPay::Service.invoke_unifiedorder params
+    return res['prepay_id']
+  end
+
+  def get_wechat_prepay_mweb(remote_ip)
+    notify_url = Settings.app_host + "/payment/wechat_payments/notify"
+    params = {
+      body: '需要一个商品名称',
+      out_trade_no: self.donate_no,
+      # total_fee: Settings.pay_1_mode ? 1 : (self.amount * 100).to_i,
+      total_fee: 1,
+      # (self.amount * 100).to_i,
+      spbill_create_ip: remote_ip,
+      notify_url: notify_url,
+      trade_type: 'MWEB', # could be "JSAPI" or "NATIVE",
+      openid: self.user.openid# required when trade_type is `JSAPI`
+    }
+    res = WxPay::Service.invoke_unifiedorder params
+    return res['mweb_url']
+  end
+
+  def get_alipay_prepay_mweb
+    require 'alipay'
+    notify_url = Settings.app_host + "/payment/alipay_payments/notify"
+    quit_url = Settings.app_host + '/m/'
+
+    @client = Alipay::Client.new(
+      url: Settings.alipay_api,
+      app_id: Settings.alipay_app_id,
+      app_private_key: Settings.alipay_app_private_key,
+      alipay_public_key: Settings.alipay_public_key
+    )
+    url = @client.page_execute_url(
+      method: 'alipay.trade.wap.pay',
+      return_url: quit_url,
+      notify_url: notify_url,
+      biz_content: {
+       out_trade_no: self.donate_no,
+       product_code: 'QUICK_WAP_WAY',
+       total_amount: '0.01',
+       subject: 'Example: 456',
+       quit_url: quit_url
+      }.to_json
+    )
   end
 
 end
