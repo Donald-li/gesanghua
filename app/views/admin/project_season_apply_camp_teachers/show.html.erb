@@ -1,0 +1,87 @@
+<div class="portlet light portlet-fit bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-note font-dark"></i>
+      <span class="caption-subject font-dark bold uppercase">审核</span>
+    </div>
+    <div class="actions">
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="table-scrollable">
+      <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+          <th width="100px">
+            姓名
+          </th>
+          <th>
+            <%= @camp_teacher.name %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            身份证号
+          </th>
+          <th>
+            <%= @camp_teacher.id_card %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            性别
+          </th>
+          <th>
+            <%= @camp_teacher.enum_name(:gender) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            民族
+          </th>
+          <th>
+            <%= @camp_teacher.enum_name(:nation) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            安全协议
+          </th>
+          <th>
+            <%= image_tag @camp_teacher.image_url(:small) %>
+          </th>
+        </tr>
+
+      </table>
+    </div>
+
+    <div class="portlet-body form">
+      <%= simple_form_for [:admin, @camp_teacher], url: check_admin_project_season_apply_camp_teacher_path(apply_camp_id: @apply_camp.id), method: :patch, wrapper: :admin_form, html: {id: 'approve-form', 'data-parsley-validate': true} do |f| %>
+          <%= f.error_notification %>
+          <div class="form-body form-horizontal">
+            <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApplyCampTeacher.options_for_some_select(:states, ['pass', 'reject']), label: '审核状态：', required: true, input_html: {class: 'approve_state', onclick: 'toggleState();'} %>
+            <div class="approve_reject">
+              <%= f.input :approve_remark, label: '审核备注：', input_html: {class: 'form-control', placeholder: '', value: @camp_teacher.audits.try(:last).try(:comment)}, required: true %>
+            </div>
+            <div class="form-actions">
+              <div class="row">
+                <div class="col-md-offset-3 col-md-9">
+                  <%= f.button :submit, '提交', class: 'btn green' %>
+                  <%= link_to '取消', admin_project_season_apply_camp_teachers_path(apply_camp_id: @apply_camp.id), class: 'btn' %>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+      <% end %>
+      </div>
+</div>
+<script type="text/javascript">
+    function toggleState() {
+        toggleRadioInput('.approve_state', {
+            reject: '.approve_reject'
+        })
+    }
+
+    toggleState();
+</script>

@@ -63,7 +63,7 @@ class Admin::RadioAppliesController < Admin::BaseController
         @project_apply.audits.create(state: audit_state, user_id: current_user.id, comment: project_apply_params[:approve_remark])
         format.html { redirect_to admin_radio_applies_path, notice: '审核成功' }
       else
-        format.html { render :check }
+        format.html { render :show }
       end
     end
   end

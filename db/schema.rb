@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180330061930) do
+ActiveRecord::Schema.define(version: 20180330073148) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -650,6 +650,7 @@ ActiveRecord::Schema.define(version: 20180330061930) do
     t.integer "state", comment: "状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "age", comment: "年龄"
   end
 
   create_table "project_season_apply_camp_teachers", force: :cascade, comment: "探索营老师名单" do |t|
@@ -665,6 +666,7 @@ ActiveRecord::Schema.define(version: 20180330061930) do
     t.integer "project_season_apply_id", comment: "营立项id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "age", comment: "年龄"
   end
 
   create_table "project_season_apply_camps", force: :cascade, comment: "探索营配额" do |t|
@@ -677,9 +679,10 @@ ActiveRecord::Schema.define(version: 20180330061930) do
     t.datetime "end_time", comment: "申请截止时间"
     t.integer "time_limit", comment: "是否设置截止时间"
     t.integer "message_type", comment: "通知方式"
-    t.integer "state", comment: "状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "execute_state"
+    t.integer "teacher_id", comment: "联系老师id"
   end
 
   create_table "project_season_apply_children", force: :cascade, comment: "项目执行年度申请的孩子表" do |t|
