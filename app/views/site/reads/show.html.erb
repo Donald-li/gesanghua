@@ -2,11 +2,11 @@
 <div id="detail">
   <div class="referral-head">
     <div class="referral-img">
-      <%= image_tag 'project-mainpage.png' %>
+      <%= image_tag @project.image.try(:file).try(:url, :large) %>
       <div class="referral-cont">
-        <p class="referral-cont-p">格桑花护花项目</p>
-        <p class="referral-cont-m">已累计捐助 <span>65,777,384</span> 元</p>
-        <div class="referral-cont-but">捐助护花项目</div>
+        <p class="referral-cont-p"><%= @project.name %></p>
+        <p class="referral-cont-m">已累计捐助 <span><%= @project.donate_record_amount_count %></span> 元</p>
+        <div class="referral-cont-but">捐助<%= @project.name %></div>
       </div>
     </div>
   </div>
@@ -18,24 +18,15 @@
         <div class="bottomLine"></div>
         <ul class="nav pull-left" id="tabnav">
           <li class="selectedNav">
-            <span>申请详情</span>
+            <span>项目介绍</span>
           </li>
-
           <li>
             <span>项目报告</span>
-            <span class="navmark">1</span>
-          </li>
-          <li>
-            <span>回访报告</span>
-            <span class="navmark">2</span>
-          </li>
-          <li>
-            <span>发放报告</span>
-            <span class="navmark">3</span>
+            <span class="navmark"><%= @project_reports.count %></span>
           </li>
         </ul>
         <div class="pull-right share cur">分享</div>
-        <div class="pull-right referral-school cur">22 所学校在筹款</div>
+        <%= link_to reads_path do %><div class="pull-right referral-school cur"><%= @total %> 所学校在筹款</div><% end %>
         <!--<div class="pull-right referral-share">-->
           <!--<span class="iconfont icon-wechat"></span>-->
           <!--<span class="iconfont icon-wechat"></span>-->
@@ -48,303 +39,48 @@
   <div class="detail-body clearfix" id="conttab">
     <!--申请详情-->
     <div class="details-left pull-left contentab" style="display: block;">
-      <p class="detail-l-title">护花申请详情</p>
-      <p class="detail-l-fon">格桑花“护花包”项目
-        11月的青海玉树，雪花飘零，一幅冰雪世界模样。在皑皑白雪、巍峨雪山的映衬下，纵横交错的五彩经幡在空中飘舞，激情震撼的康巴歌舞在天地奔放。神山神水守护着玉树，在它的南部，有一块神奇美丽的地方---囊谦。在囊谦有一所如同高原阳光般灿烂的学校---囊谦阳光福利学校。
-        这是一所福利学校，全校204名小学生，大多数为单亲或孤儿，全部住校。这里的孩子没有周末，只放月假，每个月的最后几天回自己家或亲戚家待几天。在孩子们的心中，老师不仅仅是传道授业的师者，更是他们最知心的父母和朋友。青海格桑花教育救助会（简称“格桑花”），是在青海省民政厅注册、由青海省教育厅主管的社团，是非营利性民间公益组织，原名“格桑花西部助学”。
-        “只能在毫无心机的情况下，才能巧遇到爱。你会发现这种爱超越了时间的范畴，属于个人，也超乎个人，可以专一，也可以遍布，就像一朵花的芬芳，你能闻到它，也可能毫无知觉地擦身而过，那朵花为每一个人绽放。”
-        2005年2月19日，格桑花西部助学网正式上线。选在2月19日这一天作为格桑花的生日，取其谐音“爱要久”，寓意这份爱要持久。
-        2009年7月，由青海省教育厅主管的、在青海省民政厅注册的非营利性民间公益组织——青海格桑花教育救助会正式成立。
-        格桑花寓意
-        格桑花是青藏高原上生命力极其顽强的一种野花，它代表着爱与吉祥，象征着青藏高原上的孩子们的未来。我们为这个由千千万万颗爱心汇聚而成的民间草根组织取名“格桑花”，就是希望它也能像高原上的格桑花一样，扎根乡土，生生不息，绽放在更多人的心中。</p>
-      <%= image_tag 'detail-reduce.png' %>
+      <!-- <p class="detail-l-title">护花申请详情</p> -->
+      <p class="detail-l-fon"><%= @project.describe %></p>
+      <!-- <%= image_tag 'detail-reduce.png' %> -->
     </div>
     <!--报告-->
     <div class="pull-left detail-body-left border-l contentab">
       <ul class="detail-body-ul">
-        <li class="detail-body-cont">
-          <span class="detail-body-hover iconfont icon-yuan"></span>
-          <div class="clearfix detail-font-tit">
-            <p class="pull-left">护花项目安装反馈</p>
-            <span class="pull-right cur" onclick="showHideCode()"><span class="iconfont icon-arrowdown"></span>查看详情</span>
-          </div>
-          <div class="detail-body-title clearfix">
-            <%= image_tag 'top-mian-con.png' %>
-            <span class="pull-left">Peekid ·</span>
-            <span class="pull-left">2017-09-08由发布</span>
-          </div>
-          <div class="de-left-con read-more clearfix" id="showdiv">
-            <p>在这里，孩子们在“东方侏罗纪”感受奇异和冒险。在一个个惊险刺激有趣的游戏背后，孩子们内在的潜能被不断激发，勇敢的克服内心的羞涩和害怕，不断的挑战自我。
-              今天我用了比平时多120万倍的功力陪着娃们奔跑，孩子们的勇气令人佩服，估计他们自己都没有想象到自己如此勇敢。
-              原本胆小内向的娘毛吉竟然挑战了8项难度系数五颗星的项目；娇弱的尕白在‘跳楼机’项目竟然主动玩了2次；公保端知竟然想要挑战极限项目蹦极。
-              我天！孩子们体内的洪荒之力简直完全爆发，不断刷新着挑战难度。
-              从2月15日初到常州时的羞涩、茫然、手足无措，到2月20日的放开、突破、挑战，孩子们在常州拓展营不断学习、进步和成长。
-              当孩子们离开家乡，离开草原，走进城市，感受草原文化的同时也接受城市文化，在多元文化中，获得与以往不同、全新的视野和思考。
-              回想在常州的这几天，不管是去博爱路小学、常州二中交流互动，还是利用公共交通完成城市探索任务；不管是团队合作的户外拓展，还是参观游览东南大学，丰富多彩的行程安排在孩子们的心灵深处留下点点启发。
-            </p>
-            <div class="clearfix details-img">
-              <%= image_tag 'top-mian-con.png' %>
-              <%= image_tag 'top-mian-con.png' %>
-              <%= image_tag 'top-mian-con.png' %>
-              <%= image_tag 'top-mian-con.png' %>
-              <%= image_tag 'top-mian-con.png' %>
-              <%= image_tag 'top-mian-con.png' %>
-              <%= image_tag 'top-mian-con.png' %>
-              <%= image_tag 'top-mian-con.png' %>
-              <%= image_tag 'top-mian-con.png' %>
-            </div>
-          </div>
-        </li>
-        <li class="detail-body-cont">
-          <span class="detail-body-hover iconfont icon-yuan"></span>
-          <div class="clearfix detail-font-tit">
-            <p class="pull-left">护花项目安装反馈</p>
-            <span class="pull-right cur"><span class="iconfont icon-arrowdown"></span>查看详情</span>
-          </div>
-          <div class="detail-body-title clearfix">
-            <%= image_tag 'top-mian-con.png' %>
-            <span class="pull-left">Peekid ·</span>
-            <span class="pull-left">2017-09-08由发布</span>
-          </div>
-          <div class="de-left-con read-more clearfix">
-            <p>在这里，孩子们在“东方侏罗纪”感受奇异和冒险。在一个个惊险刺激有趣的游戏背后，孩子们内在的潜能被不断激发，勇敢的克服内心的羞涩和害怕，不断的挑战自我。
-              今天我用了比平时多120万倍的功力陪着娃们奔跑，孩子们的勇气令人佩服，估计他们自己都没有想象到自己如此勇敢。
-              原本胆小内向的娘毛吉竟然挑战了8项难度系数五颗星的项目；娇弱的尕白在‘跳楼机’项目竟然主动玩了2次；公保端知竟然想要挑战极限项目蹦极。
-              我天！孩子们体内的洪荒之力简直完全爆发，不断刷新着挑战难度。
-              从2月15日初到常州时的羞涩、茫然、手足无措，到2月20日的放开、突破、挑战，孩子们在常州拓展营不断学习、进步和成长。
-              当孩子们离开家乡，离开草原，走进城市，感受草原文化的同时也接受城市文化，在多元文化中，获得与以往不同、全新的视野和思考。
-              回想在常州的这几天，不管是去博爱路小学、常州二中交流互动，还是利用公共交通完成城市探索任务；不管是团队合作的户外拓展，还是参观游览东南大学，丰富多彩的行程安排在孩子们的心灵深处留下点点启发。
-            </p>
-          </div>
-        </li>
-        <li class="detail-body-cont">
-          <span class="detail-body-hover iconfont icon-yuan"></span>
-          <div class="clearfix detail-font-tit">
-            <p class="pull-left">护花项目安装反馈</p>
-            <span class="pull-right cur"><span class="iconfont icon-arrowdown"></span>查看详情</span>
-          </div>
-          <div class="detail-body-title clearfix">
-            <%= image_tag 'top-mian-con.png' %>
-            <span class="pull-left">Peekid ·</span>
-            <span class="pull-left">2017-09-08由发布</span>
-          </div>
-          <div class="de-left-con read-more clearfix">
-            <p>在这里，孩子们在“东方侏罗纪”感受奇异和冒险。在一个个惊险刺激有趣的游戏背后，孩子们内在的潜能被不断激发，勇敢的克服内心的羞涩和害怕，不断的挑战自我。
-              今天我用了比平时多120万倍的功力陪着娃们奔跑，孩子们的勇气令人佩服，估计他们自己都没有想象到自己如此勇敢。
-              原本胆小内向的娘毛吉竟然挑战了8项难度系数五颗星的项目；娇弱的尕白在‘跳楼机’项目竟然主动玩了2次；公保端知竟然想要挑战极限项目蹦极。
-              我天！孩子们体内的洪荒之力简直完全爆发，不断刷新着挑战难度。
-              从2月15日初到常州时的羞涩、茫然、手足无措，到2月20日的放开、突破、挑战，孩子们在常州拓展营不断学习、进步和成长。
-              当孩子们离开家乡，离开草原，走进城市，感受草原文化的同时也接受城市文化，在多元文化中，获得与以往不同、全新的视野和思考。
-              回想在常州的这几天，不管是去博爱路小学、常州二中交流互动，还是利用公共交通完成城市探索任务；不管是团队合作的户外拓展，还是参观游览东南大学，丰富多彩的行程安排在孩子们的心灵深处留下点点启发。
-            </p>
-          </div>
-        </li>
+          <% @project_reports.each do |report| %>
+            <li class="detail-body-cont" id="<%= report.id %>">
+              <span class="detail-body-hover iconfont icon-yuan"></span>
+              <div class="clearfix detail-font-tit">
+                <p class="pull-left"><%= report.title %></p>
+                <span class="pull-right cur" onclick="showHideCode(<%= report.id %>)"><span class="iconfont icon-arrowdown"></span>查看详情</span>
+              </div>
+              <div class="detail-body-title clearfix">
+                <% if report.user.avatar.present? %>
+                  <%= image_tag report.user.avatar.try(:file).try(:url, :tiny) %>
+                <% else %>
+                  <%= image_tag '' %>
+                <% end %>
+                <span class="pull-left"><%= report.user.nickname?? report.user.nickname : report.user.name %> ·</span>
+                <span class="pull-left"><%= report.published_at.strftime("%Y-%m-%d")%>由发布</span>
+              </div>
+              <div class="de-left-con read-more clearfix">
+                <p><%= report.content %></p>
+                <div class="clearfix details-img">
+                  <% if report.images.present? %>
+                    <% report.images.each do |img|%>
+                      <%= image_tag img.try(:file).try(:url, :tiny) %>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+            </li>
+          <% end %>
       </ul>
     </div>
-    <div class="pull-left detail-body-left border-l contentab">
-      <ul class="detail-body-ul">
-        <li class="detail-body-cont">
-          <span class="detail-body-hover iconfont icon-yuan"></span>
-          <div class="clearfix detail-font-tit">
-            <p class="pull-left">护花项目安装反馈</p>
-            <span class="pull-right cur"><span class="iconfont icon-arrowdown"></span>查看详情</span>
-          </div>
-          <div class="detail-body-title clearfix">
-            <%= image_tag 'top-mian-con.png' %>
-            <span class="pull-left">Peekid ·</span>
-            <span class="pull-left">2017-09-08由发布</span>
-          </div>
-          <div class="de-left-con read-more clearfix">
-            <p>在这里，孩子们在“东方侏罗纪”感受奇异和冒险。在一个个惊险刺激有趣的游戏背后，孩子们内在的潜能被不断激发，勇敢的克服内心的羞涩和害怕，不断的挑战自我。
-              今天我用了比平时多120万倍的功力陪着娃们奔跑，孩子们的勇气令人佩服，估计他们自己都没有想象到自己如此勇敢。
-              原本胆小内向的娘毛吉竟然挑战了8项难度系数五颗星的项目；娇弱的尕白在‘跳楼机’项目竟然主动玩了2次；公保端知竟然想要挑战极限项目蹦极。
-              我天！孩子们体内的洪荒之力简直完全爆发，不断刷新着挑战难度。
-              从2月15日初到常州时的羞涩、茫然、手足无措，到2月20日的放开、突破、挑战，孩子们在常州拓展营不断学习、进步和成长。
-              当孩子们离开家乡，离开草原，走进城市，感受草原文化的同时也接受城市文化，在多元文化中，获得与以往不同、全新的视野和思考。
-              回想在常州的这几天，不管是去博爱路小学、常州二中交流互动，还是利用公共交通完成城市探索任务；不管是团队合作的户外拓展，还是参观游览东南大学，丰富多彩的行程安排在孩子们的心灵深处留下点点启发。
-            </p>
-          </div>
-        </li>
-        <li class="detail-body-cont">
-          <span class="detail-body-hover iconfont icon-yuan"></span>
-          <div class="clearfix detail-font-tit">
-            <p class="pull-left">护花项目安装反馈</p>
-            <span class="pull-right cur"><span class="iconfont icon-arrowdown"></span>查看详情</span>
-          </div>
-          <div class="detail-body-title clearfix">
-            <%= image_tag 'top-mian-con.png' %>
-            <span class="pull-left">Peekid ·</span>
-            <span class="pull-left">2017-09-08由发布</span>
-          </div>
-          <div class="de-left-con read-more clearfix">
-            <p>在这里，孩子们在“东方侏罗纪”感受奇异和冒险。在一个个惊险刺激有趣的游戏背后，孩子们内在的潜能被不断激发，勇敢的克服内心的羞涩和害怕，不断的挑战自我。
-              今天我用了比平时多120万倍的功力陪着娃们奔跑，孩子们的勇气令人佩服，估计他们自己都没有想象到自己如此勇敢。
-              原本胆小内向的娘毛吉竟然挑战了8项难度系数五颗星的项目；娇弱的尕白在‘跳楼机’项目竟然主动玩了2次；公保端知竟然想要挑战极限项目蹦极。
-              我天！孩子们体内的洪荒之力简直完全爆发，不断刷新着挑战难度。
-              从2月15日初到常州时的羞涩、茫然、手足无措，到2月20日的放开、突破、挑战，孩子们在常州拓展营不断学习、进步和成长。
-              当孩子们离开家乡，离开草原，走进城市，感受草原文化的同时也接受城市文化，在多元文化中，获得与以往不同、全新的视野和思考。
-              回想在常州的这几天，不管是去博爱路小学、常州二中交流互动，还是利用公共交通完成城市探索任务；不管是团队合作的户外拓展，还是参观游览东南大学，丰富多彩的行程安排在孩子们的心灵深处留下点点启发。
-            </p>
-          </div>
-        </li>
-        <li class="detail-body-cont">
-          <span class="detail-body-hover iconfont icon-yuan"></span>
-          <div class="clearfix detail-font-tit">
-            <p class="pull-left">护花项目安装反馈</p>
-            <span class="pull-right cur"><span class="iconfont icon-arrowdown"></span>查看详情</span>
-          </div>
-          <div class="detail-body-title clearfix">
-            <%= image_tag 'top-mian-con.png' %>
-            <span class="pull-left">Peekid ·</span>
-            <span class="pull-left">2017-09-08由发布</span>
-          </div>
-          <div class="de-left-con read-more clearfix">
-            <p>在这里，孩子们在“东方侏罗纪”感受奇异和冒险。在一个个惊险刺激有趣的游戏背后，孩子们内在的潜能被不断激发，勇敢的克服内心的羞涩和害怕，不断的挑战自我。
-              今天我用了比平时多120万倍的功力陪着娃们奔跑，孩子们的勇气令人佩服，估计他们自己都没有想象到自己如此勇敢。
-              原本胆小内向的娘毛吉竟然挑战了8项难度系数五颗星的项目；娇弱的尕白在‘跳楼机’项目竟然主动玩了2次；公保端知竟然想要挑战极限项目蹦极。
-              我天！孩子们体内的洪荒之力简直完全爆发，不断刷新着挑战难度。
-              从2月15日初到常州时的羞涩、茫然、手足无措，到2月20日的放开、突破、挑战，孩子们在常州拓展营不断学习、进步和成长。
-              当孩子们离开家乡，离开草原，走进城市，感受草原文化的同时也接受城市文化，在多元文化中，获得与以往不同、全新的视野和思考。
-              回想在常州的这几天，不管是去博爱路小学、常州二中交流互动，还是利用公共交通完成城市探索任务；不管是团队合作的户外拓展，还是参观游览东南大学，丰富多彩的行程安排在孩子们的心灵深处留下点点启发。
-            </p>
-          </div>
-        </li>
-      </ul>
-    </div>
-    <div class="pull-left detail-body-left border-l contentab">
-      <ul class="detail-body-ul">
-        <li class="detail-body-cont">
-          <span class="detail-body-hover iconfont icon-yuan"></span>
-          <div class="clearfix detail-font-tit">
-            <p class="pull-left">护花项目安装反馈</p>
-            <span class="pull-right cur"><span class="iconfont icon-arrowdown"></span>查看详情</span>
-          </div>
-          <div class="detail-body-title clearfix">
-            <%= image_tag 'top-mian-con.png' %>
-            <span class="pull-left">Peekid ·</span>
-            <span class="pull-left">2017-09-08由发布</span>
-          </div>
-          <div class="de-left-con read-more clearfix">
-            <p>在这里，孩子们在“东方侏罗纪”感受奇异和冒险。在一个个惊险刺激有趣的游戏背后，孩子们内在的潜能被不断激发，勇敢的克服内心的羞涩和害怕，不断的挑战自我。
-              今天我用了比平时多120万倍的功力陪着娃们奔跑，孩子们的勇气令人佩服，估计他们自己都没有想象到自己如此勇敢。
-              原本胆小内向的娘毛吉竟然挑战了8项难度系数五颗星的项目；娇弱的尕白在‘跳楼机’项目竟然主动玩了2次；公保端知竟然想要挑战极限项目蹦极。
-              我天！孩子们体内的洪荒之力简直完全爆发，不断刷新着挑战难度。
-              从2月15日初到常州时的羞涩、茫然、手足无措，到2月20日的放开、突破、挑战，孩子们在常州拓展营不断学习、进步和成长。
-              当孩子们离开家乡，离开草原，走进城市，感受草原文化的同时也接受城市文化，在多元文化中，获得与以往不同、全新的视野和思考。
-              回想在常州的这几天，不管是去博爱路小学、常州二中交流互动，还是利用公共交通完成城市探索任务；不管是团队合作的户外拓展，还是参观游览东南大学，丰富多彩的行程安排在孩子们的心灵深处留下点点启发。
-            </p>
-          </div>
-        </li>
-        <li class="detail-body-cont">
-          <span class="detail-body-hover iconfont icon-yuan"></span>
-          <div class="clearfix detail-font-tit">
-            <p class="pull-left">护花项目安装反馈</p>
-            <span class="pull-right cur"><span class="iconfont icon-arrowdown"></span>查看详情</span>
-          </div>
-          <div class="detail-body-title clearfix">
-            <%= image_tag 'top-mian-con.png' %>
-            <span class="pull-left">Peekid ·</span>
-            <span class="pull-left">2017-09-08由发布</span>
-          </div>
-          <div class="de-left-con read-more clearfix">
-            <p>在这里，孩子们在“东方侏罗纪”感受奇异和冒险。在一个个惊险刺激有趣的游戏背后，孩子们内在的潜能被不断激发，勇敢的克服内心的羞涩和害怕，不断的挑战自我。
-              今天我用了比平时多120万倍的功力陪着娃们奔跑，孩子们的勇气令人佩服，估计他们自己都没有想象到自己如此勇敢。
-              原本胆小内向的娘毛吉竟然挑战了8项难度系数五颗星的项目；娇弱的尕白在‘跳楼机’项目竟然主动玩了2次；公保端知竟然想要挑战极限项目蹦极。
-              我天！孩子们体内的洪荒之力简直完全爆发，不断刷新着挑战难度。
-              从2月15日初到常州时的羞涩、茫然、手足无措，到2月20日的放开、突破、挑战，孩子们在常州拓展营不断学习、进步和成长。
-              当孩子们离开家乡，离开草原，走进城市，感受草原文化的同时也接受城市文化，在多元文化中，获得与以往不同、全新的视野和思考。
-              回想在常州的这几天，不管是去博爱路小学、常州二中交流互动，还是利用公共交通完成城市探索任务；不管是团队合作的户外拓展，还是参观游览东南大学，丰富多彩的行程安排在孩子们的心灵深处留下点点启发。
-            </p>
-          </div>
-        </li>
-        <li class="detail-body-cont">
-          <span class="detail-body-hover iconfont icon-yuan"></span>
-          <div class="clearfix detail-font-tit">
-            <p class="pull-left">护花项目安装反馈</p>
-            <span class="pull-right cur"><span class="iconfont icon-arrowdown"></span>查看详情</span>
-          </div>
-          <div class="detail-body-title clearfix">
-            <%= image_tag 'top-mian-con.png' %>
-            <span class="pull-left">Peekid ·</span>
-            <span class="pull-left">2017-09-08由发布</span>
-          </div>
-          <div class="de-left-con read-more clearfix">
-            <p>在这里，孩子们在“东方侏罗纪”感受奇异和冒险。在一个个惊险刺激有趣的游戏背后，孩子们内在的潜能被不断激发，勇敢的克服内心的羞涩和害怕，不断的挑战自我。
-              今天我用了比平时多120万倍的功力陪着娃们奔跑，孩子们的勇气令人佩服，估计他们自己都没有想象到自己如此勇敢。
-              原本胆小内向的娘毛吉竟然挑战了8项难度系数五颗星的项目；娇弱的尕白在‘跳楼机’项目竟然主动玩了2次；公保端知竟然想要挑战极限项目蹦极。
-              我天！孩子们体内的洪荒之力简直完全爆发，不断刷新着挑战难度。
-              从2月15日初到常州时的羞涩、茫然、手足无措，到2月20日的放开、突破、挑战，孩子们在常州拓展营不断学习、进步和成长。
-              当孩子们离开家乡，离开草原，走进城市，感受草原文化的同时也接受城市文化，在多元文化中，获得与以往不同、全新的视野和思考。
-              回想在常州的这几天，不管是去博爱路小学、常州二中交流互动，还是利用公共交通完成城市探索任务；不管是团队合作的户外拓展，还是参观游览东南大学，丰富多彩的行程安排在孩子们的心灵深处留下点点启发。
-            </p>
-          </div>
-        </li>
-      </ul>
-    </div>
+
     <div class="pull-right detail-body-right">
       <p class="detail-b-r-t border-b"><span>捐助记录</span></p>
-      <ul class="detail-b-r-name">
-        <li class="border-b clearfix">
-          <%= image_tag 'top-mian-con.png' %>
-          <div class="pull-left">
-            <div class="clearfix">
-              <span class="pull-left detail-name">十指紧扣</span>
-              <span class="pull-right detail-time">2小时前</span>
-            </div>
-            <p class="detail-con">捐助 <strong>卓*</strong> 1570元</p>
-          </div>
-        </li>
-        <li class="border-b clearfix">
-          <%= image_tag 'top-mian-con.png' %>
-          <div class="pull-left">
-            <div class="clearfix">
-              <span class="pull-left detail-name">咪咕咪咕</span>
-              <span class="pull-right detail-time">2小时前</span>
-            </div>
-            <p class="detail-con">通过 维基爱心 捐助 艾* 1570元</p>
-          </div>
-        </li>
-        <li class="border-b clearfix">
-          <%= image_tag 'top-mian-con.png' %>
-          <div class="pull-left">
-            <div class="clearfix">
-              <span class="pull-left detail-name">MarinaRen</span>
-              <span class="pull-right detail-time">2小时前</span>
-            </div>
-            <p class="detail-con">捐助一对一项目200元</p>
-          </div>
-        </li>
-        <li class="border-b clearfix">
-          <%= image_tag 'top-mian-con.png' %>
-          <div class="pull-left">
-            <div class="clearfix">
-              <span class="pull-left detail-name">腾讯公益专项</span>
-              <span class="pull-right detail-time">2小时前</span>
-            </div>
-            <p class="detail-con">捐款3500元</p>
-          </div>
-        </li>
-        <li class="border-b clearfix">
-          <%= image_tag 'top-mian-con.png' %>
-          <div class="pull-left">
-            <div class="clearfix">
-              <span class="pull-left detail-name">十指紧扣</span>
-              <span class="pull-right detail-time">2小时前</span>
-            </div>
-            <p class="detail-con">捐助 <strong>卓*</strong> 1570元</p>
-          </div>
-        </li>
-        <li class="border-b clearfix">
-          <%= image_tag 'top-mian-con.png' %>
-          <div class="pull-left">
-            <div class="clearfix">
-              <span class="pull-left detail-name">咪咕咪咕</span>
-              <span class="pull-right detail-time">2小时前</span>
-            </div>
-            <p class="detail-con">通过 维基爱心 捐助 艾* 1570元</p>
-          </div>
-        </li>
-        <li class="more">点击加载更多</li>
+      <ul class="detail-b-r-name" id="donate-records">
+        <%= render '/site/donate_records/list', owner: @project, records: @donate_records %>
       </ul>
     </div>
   </div>
@@ -354,10 +90,10 @@
 <script type="text/javascript">
     $('#dtails-cont').myTab()
     $('.circlechart').circlechart()
-    function showHideCode() {
-        $('#showdiv').toggleClass('read-more')
-        $('.detail-font-tit > span').css('display', 'none')
-        $('.details-img').css('display', 'block')
+    function showHideCode(id) {
+        $("#" + id + " > .de-left-con").toggleClass('read-more')
+        $("#" + id + " > .detail-font-tit > span").css('display', 'none')
+        $("#" + id + " .details-img").css('display', 'block')
     }
     // //内容信息导航吸顶
      $(document).ready(function () {

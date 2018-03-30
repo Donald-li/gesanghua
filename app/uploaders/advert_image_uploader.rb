@@ -9,4 +9,8 @@ class AdvertImageUploader < BaseUploader
   version :large do #微信端首页banner
     process :resize_to_fill => [640, 380]
   end
+
+  version :big do #pc端首页banner
+    process :resize_to_fill => [1140, 420]
+  end
 end

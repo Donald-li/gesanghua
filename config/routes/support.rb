@@ -21,6 +21,8 @@ scope module: :support do
       get :majors
       get :camp_funds
       get :camps
+      get :camp_users
+      get :camp_contact_teachers
     end
   end
   resources :ajaxes, only: [] do

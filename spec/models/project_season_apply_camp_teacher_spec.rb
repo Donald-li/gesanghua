@@ -15,6 +15,7 @@
 #  project_season_apply_id      :integer                                # 营立项id
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
+#  age                          :integer                                # 年龄
 #
 
 require 'rails_helper'

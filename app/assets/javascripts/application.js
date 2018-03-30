@@ -32,6 +32,7 @@
 //= require 'plugin/cityPicker-2.0.0.js'
 //= require 'plugin/citydata.min.js'
 //= require 'plugin/tab-nav.js'
+//= require 'plugin/timeago.js'
 //= require 'plugin/jquery.select.js'
 //= require 'plugin/jquery.mCustomScrollbar.concat.min.js'
 //= require 'plugin/jquery.share.min.js'
@@ -55,6 +56,12 @@ $(function () {
 
   //timeago
   $('.timeago').timeago();
+  var timeagoInstance = new timeago();
+  $('.timeago').each(function(index, el){
+    $(el).html( timeagoInstance.format($(el).data('timeago'), 'zh_CN') )
+  })
+  // timeagoInstance.format('2016-06-12', 'zh_CN');
+
     //判断屏幕高度
     if ($(window).height() <= $(document.body).height()){
         $('.bul-footer').css({'position':'static'})
@@ -68,9 +75,7 @@ $(function () {
     $('#navshow').mouseleave(function(){
         $('.bul-nav-heide').css({'display':'none'})
     })
-    $('.bul-nav-heide').mousedown(function(){
-        $('.bul-nav-heide').css({'display':'none'})
-    })
+
 
     //二维码设置
     $('#container2').erweima({

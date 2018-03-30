@@ -86,6 +86,9 @@ admin:
                 'admin/specials': all
                 'admin/special_adverts': all
                 'admin/special_articles': all
+            admin_content_partners:
+              actions:
+                'admin/partners': all
 
     admin_system:
       menus:
@@ -228,9 +231,16 @@ admin:
             admin_camp_projects:
               actions:
                 'admin/camp_projects': all
+                'admin/project_season_apply_camps': all
+                'admin/project_season_apply_camp_students': all
+                'admin/camp_donate_records': all
+                'admin/camp_execute_feedbacks': all
             admin_camp_project_resources:
               actions:
                 'admin/camp_project_resources': all
+            admin_camp_project_reports:
+              actions:
+                'admin/camp_project_reports': all
             admin_camp_document:
               menus:
                 admin_camp_document_estimates:

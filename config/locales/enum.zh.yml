@@ -19,6 +19,9 @@ zh:
   article_recommends:
     normal: '否'
     recommend: '是'
+  partner_states:
+    show: '显示'
+    hidden: '隐藏'
   user_states:
     enable: '启用'
     disable: '禁用'
@@ -486,7 +489,7 @@ zh:
   project_season_apply_camp_time_limits:
     restrict: '设置截止时间'
     unrestrict: '不设置截止时间'
-  project_season_apply_camp_states:
+  project_season_apply_camp_execute_states:
     to_submit: '待提交名单'
     to_approve: '待审核'
     approved: '审核完成'

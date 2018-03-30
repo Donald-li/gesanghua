@@ -22,4 +22,8 @@ class ProjectSeasonApplyCoverUploader < BaseUploader
     process :resize_to_fill => [640, 340]
   end
 
+  version :pc_detail do #pc端项目详情页大图
+    process :resize_to_fill => [730, 410]
+  end
+
 end

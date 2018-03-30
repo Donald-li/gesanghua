@@ -1,5 +1,5 @@
 class Admin::CampProjectsController < Admin::BaseController
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :switch, :change_state]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :switch, :change_state, :camp_member]
 
   def index
     @search = ProjectSeasonApply.where(project_id: Project.camp_project.id).pass.raise_project.sorted.ransack(params[:q])
@@ -61,6 +61,11 @@ class Admin::CampProjectsController < Admin::BaseController
         format.html {render :edit}
       end
     end
+  end
+
+  def camp_member
+    @students = ProjectSeasonApplyCampStudent.where(apply: @project).joins(:apply_camp).where("project_season_apply_camps.execute_state = ?", 3).pass.sorted
+    @teachers = ProjectSeasonApplyCampTeacher.where(apply: @project).joins(:apply_camp).where("project_season_apply_camps.execute_state = ?", 3).pass.sorted
   end
 
   private

@@ -1,0 +1,32 @@
+<%= content_for :page_level_scripts do %>
+  <%= javascript_include_tag '/assets/webuploader/webuploader.js' %>
+  <%= stylesheet_link_tag '/assets/webuploader/webuploader.css' %>
+<% end %>
+<%= simple_form_for [:admin, @partner], wrapper: :admin_form, html: {'data-parsley-validate': true} do |f| %>
+  <%= f.error_notification %>
+  <div class="form-body form-horizontal">
+    <%= f.input :name, label: '名称：', autofocus: true, placeholder: '', hint: '请填写合作伙伴名称' %>
+    <div class="form-group">
+      <label class="col-md-2 control-label">合作伙伴图片：</label>
+      <div class="col-sm-9">
+        <%= webuploader_tag :image_id, label: '上传图片', type: 'partner_image', asset: @partner.image, klass: 'single' %>
+        <p class="help-block">请上传300X120px的图片</p>
+      </div>
+    </div>
+    <%= f.input :url, label: '链接：', placeholder: '以‘http://’或‘https://’开头' %>
+    <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Partner.options_for_select(:states), label: '状态：'%>
+  </div>
+  <div class="form-actions">
+    <div class="row">
+      <div class="col-md-offset-2 col-md-9">
+        <%= f.button :submit, '提交', class: 'btn blue' %>
+        <%= link_to '取消', admin_partners_path, class: 'btn' %>
+      </div>
+    </div>
+  </div>
+<% end %>
+<script>
+$(function(){
+  initImageWebuploader($('#webuploader'));
+})
+</script>
