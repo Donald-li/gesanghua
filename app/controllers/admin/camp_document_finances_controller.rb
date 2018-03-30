@@ -18,7 +18,7 @@ class Admin::CampDocumentFinancesController < Admin::CampDocumentBaseController
   end
 
   def create
-    @camp_document_finance = CampDocumentFinance.new(camp_document_finance_params.merge(user: current_user, apply: @current_apply))
+    @camp_document_finance = CampDocumentFinance.new(camp_document_finance_params.merge(user: current_user, apply: @current_apply, camp: @current_apply.camp))
     respond_to do |format|
       if @camp_document_finance.save
         format.html { redirect_to admin_camp_document_finances_url, notice: '新增成功' }

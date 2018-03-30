@@ -18,7 +18,7 @@ class CampDocumentSummary < ApplicationRecord
   include HasAsset
   has_one_asset :report, class_name: 'Asset::ReportFile'
 
-  belongs_to :apply, class_name: 'ProjectSeasonApply'
+  belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: :project_season_apply_id
   belongs_to :user
   belongs_to :camp
 
@@ -27,6 +27,6 @@ class CampDocumentSummary < ApplicationRecord
   validates :donate_amount, numericality: {greater_than_or_equal_to: 0}
 
   scope :sorted, ->{order(id: :asc)}
-  scope :in_season, ->(project_season){where(project_season: project_season)}
+  scope :in_apply, ->(apply){where(apply: apply)}
 
 end

@@ -18,13 +18,13 @@ class Admin::CampDocumentVolunteersController < Admin::CampDocumentBaseControlle
     end
 
     def create
-      if @camp_document_volunteer = CampDocumentVolunteer.in_season(@current_camp).find_by(volunteer_id: camp_document_volunteer_params[:volunteer_id])
+      if @camp_document_volunteer = CampDocumentVolunteer.in_apply(@current_apply).find_by(volunteer_id: camp_document_volunteer_params[:volunteer_id])
         flash[:alert] = '该志愿者已经添加，请直接修改信息'
         render :new
         return
       end
 
-      @camp_document_volunteer = CampDocumentVolunteer.new(camp_document_volunteer_params.merge(user: current_user, apply: @current_apply))
+      @camp_document_volunteer = CampDocumentVolunteer.new(camp_document_volunteer_params.merge(user: current_user, apply: @current_apply, camp: @current_apply.camp))
       respond_to do |format|
         if @camp_document_volunteer.save
           format.html { redirect_to admin_camp_document_volunteers_url, notice: '新增成功' }

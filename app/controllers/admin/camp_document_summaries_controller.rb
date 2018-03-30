@@ -18,7 +18,7 @@ class Admin::CampDocumentSummariesController < Admin::CampDocumentBaseController
   end
 
   def create
-    @camp_document_summary = CampDocumentSummary.new(camp_document_summary_params.merge(user: current_user, apply: @current_apply))
+    @camp_document_summary = CampDocumentSummary.new(camp_document_summary_params.merge(user: current_user, apply: @current_apply, camp: @current_apply.camp))
     respond_to do |format|
       if @camp_document_summary.save
         @camp_document_summary.attach_report(params[:report_id])

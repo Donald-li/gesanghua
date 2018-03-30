@@ -82,6 +82,9 @@
                   <%= apply.enum_name(:camp_state) %>
                 </td>
                 <td>
+                  <%= link_to (params[:return_apply] ? url_for(controller: params[:return_apply], action: :index, current_apply: apply.id) : admin_camp_document_estimates_path(current_apply: apply.id)), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
+                      <i class="fa fa-file"></i> 营资料管理
+                  <% end %>
                   <%= link_to edit_admin_camp_project_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-edit"></i> 修改
                   <% end %>

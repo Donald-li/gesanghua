@@ -13,11 +13,11 @@
 #
 
 class CampDocumentVolunteer < ApplicationRecord
-  belongs_to :apply, class_name: 'ProjectSeasonApply'
+  belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: :project_season_apply_id
   belongs_to :user
   belongs_to :camp
   belongs_to :volunteer
 
   scope :sorted, ->{order(id: :asc)}
-  scope :in_season, ->(project_season){where(project_season: project_season)}
+  scope :in_apply, ->(apply){where(apply: apply)}
 end
