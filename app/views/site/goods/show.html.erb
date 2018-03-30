@@ -47,11 +47,11 @@
     <div class="pull-left detail-body-left border-l contentab">
       <ul class="detail-body-ul">
           <% @project_reports.each do |report| %>
-            <li class="detail-body-cont">
+            <li class="detail-body-cont" id="<%= report.id %>">
               <span class="detail-body-hover iconfont icon-yuan"></span>
               <div class="clearfix detail-font-tit">
                 <p class="pull-left"><%= report.title %></p>
-                <span class="pull-right cur" onclick="showHideCode()"><span class="iconfont icon-arrowdown"></span>查看详情</span>
+                <span class="pull-right cur" onclick="showHideCode(<%= report.id %>)"><span class="iconfont icon-arrowdown"></span>查看详情</span>
               </div>
               <div class="detail-body-title clearfix">
                 <% if report.user.avatar.present? %>
@@ -62,7 +62,7 @@
                 <span class="pull-left"><%= report.user.nickname?? report.user.nickname : report.user.name %> ·</span>
                 <span class="pull-left"><%= report.published_at.strftime("%Y-%m-%d")%>由发布</span>
               </div>
-              <div class="de-left-con read-more clearfix" id="showdiv">
+              <div class="de-left-con read-more clearfix">
                 <p><%= report.content %></p>
                 <div class="clearfix details-img">
                   <% if report.images.present? %>
@@ -101,7 +101,9 @@
             </div>
           </li>
         <% end %>
-        <li class="more">点击加载更多</li>
+        <% if @donate_records.count > 6 %>
+          <li class="more">点击加载更多</li>
+        <% end %>
       </ul>
     </div>
   </div>
@@ -111,9 +113,9 @@
 <script type="text/javascript">
     $('#dtails-cont').myTab()
     $('.circlechart').circlechart()
-    function showHideCode() {
-        $('#showdiv').toggleClass('read-more')
-        $('.detail-font-tit > span').css('display', 'none')
-        $('.details-img').css('display', 'block')
+    function showHideCode(id) {
+        // $('#showdiv').toggleClass('read-more')
+        $("#" + id + " > .detail-font-tit > span").css('display', 'none')
+        $("#" + id + " .details-img").css('display', 'block')
     }
 </script>

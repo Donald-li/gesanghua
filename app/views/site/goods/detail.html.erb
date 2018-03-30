@@ -88,11 +88,11 @@
     <div class="pull-left detail-body-left border-l contentab">
       <ul class="detail-body-ul">
         <% @feedbacks.each do |feedback| %>
-          <li class="detail-body-cont">
+          <li class="detail-body-cont" id="<%= feedback.id %>">
             <span class="detail-body-hover iconfont icon-yuan"></span>
             <div class="clearfix detail-font-tit">
               <p class="pull-left"><%= feedback.apply.name %></p>
-              <span class="pull-right cur" onclick="showHideCode()"><span class="iconfont icon-arrowdown"></span>查看详情</span>
+              <span class="pull-right cur" onclick="showHideCode(<%= feedback.id %>)"><span class="iconfont icon-arrowdown"></span>查看详情</span>
             </div>
             <div class="detail-body-title clearfix">
               <% if feedback.user.present? && feedback.user.avatar.present? %>
@@ -164,8 +164,7 @@
     $('.circlechart').circlechart()
     $('#dtails-cont').myTab()
     function showHideCode(id) {
-        $('#showdiv').toggleClass('read-more')
-        $('.detail-font-tit > span').css('display', 'none')
-        $('.details-img').css('display', 'block')
+      $("#" + id + " > .detail-font-tit > span").css('display', 'none')
+      $("#" + id + " .details-img").css('display', 'block')
     }
 </script>
