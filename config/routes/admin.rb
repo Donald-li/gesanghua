@@ -168,7 +168,15 @@ namespace :admin do
     member do
       put :change_state
     end
+    resources :project_season_apply_camps do
+      collection do
+        get :camp_member
+      end
+    end
   end
+
+  resources :project_season_apply_camp_students, concerns: [:check]
+  resources :project_season_apply_camp_teachers, concerns: [:check]
 
   resources :camp_document_estimates # 拓展营概算
   resources :camp_document_budges # 拓展营预算

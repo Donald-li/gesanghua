@@ -21,7 +21,7 @@
                 <% else %>
                   <%= static_form_control '申请批次：', @project_apply.season.name %>
                 <% end %>
-                <%= f.input :school_id, as: :select, label: '选择学校：', input_html: {class: 'schools-ajax'} %>
+                <%= f.input :school_id, as: :select, collection: [@project_apply.school].compact.map{|s| [s.name, s.id]}, label: '选择学校：', input_html: {class: 'schools-ajax'} %>
                 <%= render '/admin/shared/dynamic_form', apply: @project_apply %>
                 <%= f.input :describe, label: '其他说明：', placeholder: '', required: true %>
                 <div class="form-group">
@@ -161,7 +161,7 @@
         // 异步加载学校列表
         $('.schools-ajax').select2({
             language: "zh-CN",
-            placeholder: '<%= @project_apply.school.try(:name) %>',
+            placeholder: '请选择学校',
             allowClear: true,
             ajax: {
                 url: "/selects/schools",
@@ -190,7 +190,6 @@
                 cache: true
             }
         });
-        $(".schools-ajax").select2('val',<%= @project_apply.school_id %>)
 
         // 异步加载批次列表
         $('.seasons-ajax').select2({

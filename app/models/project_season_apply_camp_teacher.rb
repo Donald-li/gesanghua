@@ -15,14 +15,23 @@
 #  project_season_apply_id      :integer                                # 营立项id
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
+#  age                          :integer                                # 年龄
 #
 
 class ProjectSeasonApplyCampTeacher < ApplicationRecord
+
+  before_create :count_age
 
   belongs_to :school
   belongs_to :camp
   belongs_to :apply_camp, class_name: 'ProjectSeasonApplyCamp', foreign_key: :project_season_apply_camp_id
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: :project_season_apply_id
+  has_many :audits, as: :owner
+
+  attr_accessor :approve_remark
+
+  include HasAsset
+  has_one_asset :image, class_name: 'Asset::CampProtocolImage'
 
   enum state: {submit: 1, pass: 2, reject: 3}
   default_value_for :state, 1
@@ -34,6 +43,13 @@ class ProjectSeasonApplyCampTeacher < ApplicationRecord
   default_value_for :nation, 0
 
   validates :name, :id_card, presence: true
-  scope :sorted, ->{ order(created_at: :asc) }
+  scope :sorted, ->{ order(created_at: :desc) }
+
+  def count_age
+    birthday = ChinesePid.new("#{self.id_card}").birthday
+    today = Date.today
+    age = (today - birthday).to_i/365
+    self.update_columns(age: age)
+  end
 
 end

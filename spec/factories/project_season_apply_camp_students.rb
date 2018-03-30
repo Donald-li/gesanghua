@@ -22,6 +22,7 @@
 #  state                        :integer                                # 状态
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
+#  age                          :integer                                # 年龄
 #
 
 FactoryBot.define do

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180330062702) do
+ActiveRecord::Schema.define(version: 20180330073148) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -136,17 +136,17 @@ ActiveRecord::Schema.define(version: 20180330062702) do
   end
 
   create_table "camp_document_estimates", force: :cascade, comment: "拓展营概算表" do |t|
-    t.integer "project_season_id", comment: "项目"
     t.integer "user_id", comment: "用户"
     t.string "item", comment: "项"
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "金额"
     t.string "remark", comment: "备注"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "project_season_apply_id", comment: "探索营申请id"
+    t.integer "camp_id", comment: "探索营id"
   end
 
   create_table "camp_document_finances", force: :cascade, comment: "拓展营预决算表" do |t|
-    t.integer "project_season_id", comment: "项目"
     t.integer "user_id", comment: "用户"
     t.string "item", comment: "项"
     t.decimal "budge", precision: 14, scale: 2, default: "0.0", comment: "预算"
@@ -154,10 +154,11 @@ ActiveRecord::Schema.define(version: 20180330062702) do
     t.string "remark", comment: "备注"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "project_season_apply_id", comment: "探索营申请id"
+    t.integer "camp_id", comment: "探索营id"
   end
 
   create_table "camp_document_summaries", force: :cascade, comment: "拓展营总结" do |t|
-    t.integer "project_season_id", comment: "项目"
     t.integer "user_id", comment: "用户"
     t.string "free_resource", comment: "本营免费资源"
     t.decimal "resource_value", precision: 14, scale: 2, default: "0.0", comment: "免费资源价值"
@@ -165,15 +166,18 @@ ActiveRecord::Schema.define(version: 20180330062702) do
     t.integer "publicize_count", comment: "本营宣传次数"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "project_season_apply_id", comment: "探索营申请id"
+    t.integer "camp_id", comment: "探索营id"
   end
 
   create_table "camp_document_volunteers", force: :cascade, comment: "拓展营志愿者表" do |t|
-    t.integer "project_season_id", comment: "项目"
     t.integer "user_id", comment: "用户"
     t.integer "volunteer_id", comment: "志愿者"
     t.string "remark", comment: "营备注"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "project_season_apply_id", comment: "探索营申请id"
+    t.integer "camp_id", comment: "探索营id"
   end
 
   create_table "camp_project_resources", force: :cascade, comment: "拓展营资源表" do |t|
@@ -187,6 +191,7 @@ ActiveRecord::Schema.define(version: 20180330062702) do
     t.string "remark", comment: "资源说明"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "camp_id", comment: "探索营id"
   end
 
   create_table "campaign_categories", force: :cascade, comment: "活动分类表" do |t|
@@ -226,6 +231,18 @@ ActiveRecord::Schema.define(version: 20180330062702) do
     t.integer "number", comment: "报名限制人数"
     t.string "remark", comment: "报名表备注"
     t.jsonb "form", comment: "报名表单定义"
+  end
+
+  create_table "camps", force: :cascade, comment: "探索营" do |t|
+    t.string "name", comment: "名称"
+    t.string "province", comment: "省"
+    t.string "city", comment: "市"
+    t.string "district", comment: "区、县"
+    t.integer "fund_id", comment: "资金id"
+    t.integer "manager_id", comment: "负责人id"
+    t.integer "state", comment: "状态：1:启用 2:禁用）"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "complaints", force: :cascade, comment: "举报表" do |t|
@@ -523,15 +540,6 @@ ActiveRecord::Schema.define(version: 20180330062702) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "partners", force: :cascade, comment: "合作伙伴" do |t|
-    t.string "name", comment: "名称"
-    t.string "url", comment: "链接"
-    t.integer "position", comment: "排序"
-    t.integer "state", comment: "状态： 1:显示 2:隐藏"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "period_child_ships", force: :cascade, comment: "年度孩子和申请学期中间表" do |t|
     t.integer "project_season_apply_period_id", comment: "申请学期ID"
     t.integer "project_season_apply_child_id", comment: "年度孩子ID"
@@ -588,6 +596,12 @@ ActiveRecord::Schema.define(version: 20180330062702) do
     t.integer "pair_state", comment: "结对审核状态"
     t.string "code", comment: "code"
     t.integer "read_state", comment: "悦读项目状态"
+    t.integer "camp_id", comment: "探索营id"
+    t.datetime "camp_start_time", comment: "探索营-开营时间"
+    t.integer "camp_period", comment: "探索营-行程天数"
+    t.integer "camp_state", comment: "探索营-项目状态"
+    t.string "camp_principal", comment: "探索营-营负责人"
+    t.string "camp_income_source", comment: "探索营-经费来源"
   end
 
   create_table "project_season_apply_bookshelves", force: :cascade, comment: "项目执行年度申请书架表" do |t|
@@ -614,6 +628,61 @@ ActiveRecord::Schema.define(version: 20180330062702) do
     t.string "contact_name", comment: "联系人"
     t.string "contact_phone", comment: "联系电话"
     t.string "address", comment: "详细地址"
+  end
+
+  create_table "project_season_apply_camp_students", force: :cascade, comment: "探索营学生" do |t|
+    t.string "name", comment: "姓名"
+    t.string "id_card", comment: "身份证号"
+    t.integer "nation", comment: "民族"
+    t.integer "gender", comment: "性别"
+    t.integer "school_id", comment: "学校id"
+    t.integer "project_season_apply_camp_id", comment: "探索营配额id"
+    t.integer "camp_id", comment: "探索营id"
+    t.integer "project_season_apply_id", comment: "营立项id"
+    t.integer "grade", comment: "年级"
+    t.integer "level", comment: "初高中"
+    t.string "teacher_name", comment: "老师姓名"
+    t.string "teacher_phone", comment: "老师联系方式"
+    t.string "guardian_name", comment: "监护人姓名"
+    t.string "guardian_phone", comment: "监护人联系方式"
+    t.text "description", comment: "自我介绍"
+    t.string "reason", comment: "推荐理由"
+    t.integer "state", comment: "状态"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "age", comment: "年龄"
+  end
+
+  create_table "project_season_apply_camp_teachers", force: :cascade, comment: "探索营老师名单" do |t|
+    t.string "name", comment: "姓名"
+    t.string "id_card", comment: "身份证号"
+    t.integer "nation", comment: "民族"
+    t.integer "gender", comment: "性别"
+    t.string "phone", comment: "联系方式"
+    t.integer "state", comment: "状态"
+    t.integer "school_id", comment: "学校id"
+    t.integer "project_season_apply_camp_id", comment: "探索营配额id"
+    t.integer "camp_id", comment: "探索营id"
+    t.integer "project_season_apply_id", comment: "营立项id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "age", comment: "年龄"
+  end
+
+  create_table "project_season_apply_camps", force: :cascade, comment: "探索营配额" do |t|
+    t.integer "project_season_apply_id", comment: "营立项id"
+    t.integer "camp_id", comment: "探索营id"
+    t.integer "school_id", comment: "学校id"
+    t.text "describe", comment: "申请要求"
+    t.integer "student_number", comment: "学生数量"
+    t.integer "teacher_number", comment: "陪同老师数量"
+    t.datetime "end_time", comment: "申请截止时间"
+    t.integer "time_limit", comment: "是否设置截止时间"
+    t.integer "message_type", comment: "通知方式"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "execute_state"
+    t.integer "teacher_id", comment: "联系老师id"
   end
 
   create_table "project_season_apply_children", force: :cascade, comment: "项目执行年度申请的孩子表" do |t|
@@ -992,6 +1061,7 @@ ActiveRecord::Schema.define(version: 20180330062702) do
     t.decimal "promoter_amount_count", precision: 14, scale: 2, default: "0.0", comment: "累计劝捐额"
     t.integer "use_nickname", comment: "使用昵称"
     t.datetime "join_team_time", comment: "加入团队时间"
+    t.integer "camp_id", comment: "探索营id"
     t.index ["email"], name: "index_users_on_email"
     t.index ["login"], name: "index_users_on_login"
     t.index ["phone"], name: "index_users_on_phone"
