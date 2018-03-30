@@ -20,6 +20,7 @@ scope module: :support do
       get :applies
       get :majors
       get :camp_funds
+      get :camps
     end
   end
   resources :ajaxes, only: [] do

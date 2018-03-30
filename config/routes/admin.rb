@@ -45,13 +45,6 @@ namespace :admin do
     resources :special_articles
   end
 
-  resources :camps do
-    resources :camp_users
-  end
-
-  resources :camp_applies
-  resources :camp_projects
-
   resources :project_book_seasons
   resources :read_applies, concerns: :check do
     member do
@@ -164,6 +157,13 @@ namespace :admin do
       post :create_audit
     end
   end
+
+  resources :camps do
+    resources :camp_users
+  end
+
+  resources :camp_applies, concerns: [:switch, :check]
+  resources :camp_projects, concerns: [:switch]
 
   resources :camp_document_estimates # 拓展营概算
   resources :camp_document_budges # 拓展营预算

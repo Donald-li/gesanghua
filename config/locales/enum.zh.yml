@@ -478,3 +478,8 @@ zh:
   camp_states:
     enable: '启用'
     disable: '禁用'
+  project_season_apply_camp_states:
+    camp_raising: '筹款中'
+    camp_raise_done: '筹款完成'
+    camp_executing: '执行中'
+    camp_done: '探索营结束'
