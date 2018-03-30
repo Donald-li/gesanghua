@@ -163,7 +163,11 @@ namespace :admin do
   end
 
   resources :camp_applies, concerns: [:switch, :check]
-  resources :camp_projects, concerns: [:switch]
+  resources :camp_projects, concerns: [:switch] do
+    member do
+      put :change_state
+    end
+  end
 
   resources :camp_document_estimates # 拓展营概算
   resources :camp_document_budges # 拓展营预算

@@ -1,5 +1,5 @@
 class Admin::CampProjectsController < Admin::BaseController
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :switch]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :switch, :change_state]
 
   def index
     @search = ProjectSeasonApply.where(project_id: Project.camp_project.id).pass.raise_project.sorted.ransack(params[:q])
@@ -51,6 +51,16 @@ class Admin::CampProjectsController < Admin::BaseController
   def switch
     @project.show? ? @project.hidden! : @project.show!
     redirect_to admin_camp_projects_url, notice: @project.show? ? '项目已显示' : '项目已隐藏'
+  end
+
+  def change_state
+    respond_to do |format|
+      if @project.update(camp_state: params[:camp_state])
+        format.html {redirect_to admin_camp_projects_path, notice: '标记成功。'}
+      else
+        format.html {render :edit}
+      end
+    end
   end
 
   private
