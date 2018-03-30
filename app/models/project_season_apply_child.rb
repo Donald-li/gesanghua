@@ -122,6 +122,11 @@ class ProjectSeasonApplyChild < ApplicationRecord
   scope :sorted, -> {order(created_at: :desc)}
   scope :check_list, -> {where(approve_state: [1, 2, 3])}
 
+  # 得到可捐助子项
+  def get_donate_items
+    self.semesters.succeed.sorted
+  end
+
   def gsh_no
     self.gsh_child.try(:gsh_no)
   end

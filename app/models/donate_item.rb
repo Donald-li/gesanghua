@@ -27,6 +27,14 @@ class DonateItem < ApplicationRecord
   enum state: {show: 1, hidden: 2} # 状态：1:显示 2:隐藏
   default_value_for :state, 1
 
+  # 使用捐助
+  def accept_donate(donate_records)
+    donate_records.each do |donate_record|
+      self.fund.balance += donate_record.amount
+    end
+    self.save!
+  end
+
   def summary_builder
     Jbuilder.new do |json|
       json.(self, :name)

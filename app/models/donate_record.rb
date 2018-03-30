@@ -154,7 +154,7 @@ class DonateRecord < ApplicationRecord
   def self.do_donate(kind, source, owner, amount)
     self.transaction do # 事务
       # 来源金额是否充足？
-      if source.blance < amount
+      if source.balance < amount
         return false
       else
         source.lock! # 加锁
@@ -164,27 +164,39 @@ class DonateRecord < ApplicationRecord
       #
       # 如果是捐到捐助项
       if owner.is_a?(DonateItem)
-        donate_records << self.create!(source: source, ...)
+        donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount)
+        owner.accept_donate(donate_records)
+        source.balance -= amount
+        source.save!
 
       # 如果捐到申请子项 （书架，孩子，补书，指定）
-      elsif owner.class.name.in?(['ProjectSeasonApplyChildGrade', 'ProjectSeasonApplyBookshelf', 'BookshelfSupplement'])
-        donate_records << self.create!(source: source, ...)
+      elsif owner.class.name.in?(['GshChildGrant', 'ProjectSeasonApplyBookshelf'])
+        donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount)
+        owner.accept_donate(donate_records)
+        source.balance -= amount
+        source.save!
 
       # 如果是捐到申请（物资类项目，子项）
-      elsif  owner.is_a?(ProjectSeasonApply)
-        if 物资类，探索营
-          donate_records << self.create!(source: source, ...)
+      elsif owner.class.name.in?(['ProjectSeasonApply', 'PProjectSeasonApplyChild'])
+        # 物资或拓展营
+        if owner.project.goods? || owner.project == Project.camp_project
+          donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount)
+          owner.accept_donate(donate_records)
+          source.balance -= amount
+          source.save!
         else
           # 如果是捐到申请（书架孩子补书，没选择子项）
           # 分解到子项，捐助到子项
-          donate_records << self.create!(source: source, ...)
 
-        end
-      end
+          owner.get_donate_items.each do |item|
+            if source.balance > item.surplus_money
+              donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount)
+              source.balance -= amount
+              source.save!
+              item.to_delivery!
+            end
+          end
 
-      # 判断申请子项/申请是否完成
-      donate_records.each do |donate_record|
-        捐助记录对应的项，是否捐款成功
       end
 
       donate_amount =  donate_records.sum{|r| r.amount}
@@ -195,7 +207,7 @@ class DonateRecord < ApplicationRecord
       # 判断是否超捐，超捐退回余额，并扣除income_record balance
       if kind == 'system' && source.is_a?(IncomeRecord)
         reback = amount - donate_amount
-        source.blance -= reback
+        source.balance -= reback
         user = source.user
         user.lock!
         user.balance += reback
@@ -616,6 +628,13 @@ class DonateRecord < ApplicationRecord
 
 
   private
+
+  def get_donate_record_info
+    self.project = self.owner.project if self.owner.project.present?
+    self.season = self.owner.season if self.owner.season.present?
+    self.apply = self.owner.apply if self.owner.apply.present?
+    self.child = self.owner.child if self.owner.child.present?
+  end
 
 
   def get_wechat_prepay_id(remote_ip)

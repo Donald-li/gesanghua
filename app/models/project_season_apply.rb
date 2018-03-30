@@ -118,6 +118,24 @@ class ProjectSeasonApply < ApplicationRecord
   before_create :gen_apply_no
   after_save :set_execute_state
 
+  # 得到可捐助子项
+  def get_donate_items
+    # 书架申请
+    if self.project == Project.read_project && self.whole?
+      self.bookshelves.raising.order(present_amount: :desc)
+    end
+  end
+
+  # 使用捐助
+  def accept_donate(donate_records)
+    donate_records.each do |donate_record|
+      self.present_amount += donate_record.amount
+      self.project.fund.balance += donate_record.amount
+    end
+    self.execute_state = 'to_delivery' if self.present_amount == self.target_amount
+    self.save!
+  end
+
   def surplus_money
     self.target_amount - self.present_amount
   end
