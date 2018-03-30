@@ -78,10 +78,10 @@ RSpec.describe DonateRecord, type: :model do
       expect(@radio_apply.execute_state).to eq('to_delivery')
       expect(DonateRecord.last.amount).to eq(9000)
       expect(@user.reload.balance).to eq(1000)
-
     end
 
     it '捐助给指定申请项' do
+      # TODO: 需要判断超捐的情况
     end
 
     it '捐助给分配申请项' do

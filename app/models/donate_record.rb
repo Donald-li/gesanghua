@@ -64,47 +64,6 @@ class DonateRecord < ApplicationRecord
 
   scope :sorted, -> {order(created_at: :desc)}
 
-  # 项目是否可以退款
-  def can_refund?
-    self.paid? && self.user && self.user_donate?
-  end
-
-  # 退款
-  def do_refund!
-    user = self.user
-    return unless user
-    self.transaction do
-      begin
-        User.update_counters(user.id, self.amount)
-        self.pay_state = :refund
-        self.save!
-        return true
-      rescue
-        return false
-      end
-    end
-  end
-
-  # 生成捐赠编号
-  def pay_and_gen_certificate
-    self.certificate_no ||= 'ZS' + self.donate_no
-    self.pay_state = 'paid'
-    # self.donor_certificate_path # TODO 调用捐赠证书方法，生成证书（微信支付调通以后，需要考虑此方法的执行速度）
-    self.save
-  end
-
-  #捐赠证书路径
-  def donor_certificate_path
-    self.certificate_no ||= 'ZS' + self.donate_no
-    path = "/images/certificates/#{self.created_at.strftime('%Y%m%d')}/#{self.id}/#{Encryption.md5(self.id.to_s)}.jpg"
-    local_path = Rails.root.to_s + '/public' + path
-    if !File::exist?(local_path)
-      GenDonateCertificate.create(self)
-    end
-    self.save
-    path
-  end
-
   def project_name
     self.project.try(:name) || '格桑花'
   end
@@ -116,32 +75,6 @@ class DonateRecord < ApplicationRecord
   def donor_name
     self.donor || self.user.user_name
   end
-
-  # 返回微信支付js
-  def wechat_prepay_js(remote_ip)
-    prepay_id = get_wechat_prepay_id(remote_ip)
-    package_str = "prepay_id=#{prepay_id}"
-    prepay_js = {
-      appId: Settings.wechat_app_id,
-      nonceStr: SecureRandom.uuid.tr('-', ''),
-      package: package_str,
-      timeStamp: Time.now.getutc.to_i.to_s,
-      signType: 'MD5'
-    }
-    pay_sign = WxPay::Sign.generate(prepay_js)
-    prepay_js.merge(paySign: pay_sign)
-  end
-
-  # 返回微信支付按钮
-  def wechat_prepay_h5(remote_ip)
-    return get_wechat_prepay_mweb(remote_ip)
-  end
-
-  # 返回支付宝支付按钮
-  def alipay_prepay_h5
-    return get_alipay_prepay_mweb
-  end
-
 
   # 处理捐款
   # kind: 用户捐款、平台配捐；source：资金来源； owner：捐助对象；amount：捐助金额
@@ -165,11 +98,13 @@ class DonateRecord < ApplicationRecord
 
       # 如果捐到申请子项 （书架，孩子，补书，指定）
       elsif owner.class.name.in?(['GshChildGrant', 'ProjectSeasonApplyBookshelf'])
+        # TODO: 判断下不能捐就不捐了
         donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount)
         owner.accept_donate(donate_records)
 
       # 如果是捐到申请（物资类项目，子项）
       elsif owner.class.name.in?(['ProjectSeasonApply', 'PProjectSeasonApplyChild'])
+        # TODO: 判断下不能捐就不捐了
         # 物资或拓展营
         if owner.project.goods? || owner.project == Project.camp_project
           donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount)
@@ -195,7 +130,7 @@ class DonateRecord < ApplicationRecord
       reback = amount - donate_amount
       if reback > 0
         # 判断是否超捐，超捐退回余额，并扣除income_record balance
-        if kind.to_s == 'user_donate' && source.is_a?(IncomeRecord)
+        if kind.to_s == 'user_donate' && source.is_a?(IncomeRecord) # 在线支付
           source.balance -= reback
           user = source.donor
           user.lock!
@@ -303,65 +238,7 @@ class DonateRecord < ApplicationRecord
     self.season = self.owner.season if self.owner.season.present?
     self.apply = self.owner.apply if self.owner.apply.present?
     self.child = self.owner.child if self.owner.child.present?
-  end
-
-  def get_wechat_prepay_id(remote_ip)
-    notify_url = Settings.app_host + "/payment/wechat_payments/notify"
-    params = {
-      body: '需要一个商品名称',
-      out_trade_no: self.donate_no,
-      # total_fee: Settings.pay_1_mode ? 1 : (self.amount * 100).to_i,
-      total_fee: 1,
-      # (self.amount * 100).to_i,
-      spbill_create_ip: remote_ip,
-      notify_url: notify_url,
-      trade_type: 'JSAPI', # could be "JSAPI" or "NATIVE",
-      openid: self.user.openid# required when trade_type is `JSAPI`
-    }
-    res = WxPay::Service.invoke_unifiedorder params
-    return res['prepay_id']
-  end
-
-  def get_wechat_prepay_mweb(remote_ip)
-    notify_url = Settings.app_host + "/payment/wechat_payments/notify"
-    params = {
-      body: '需要一个商品名称',
-      out_trade_no: self.donate_no,
-      # total_fee: Settings.pay_1_mode ? 1 : (self.amount * 100).to_i,
-      total_fee: 1,
-      # (self.amount * 100).to_i,
-      spbill_create_ip: remote_ip,
-      notify_url: notify_url,
-      trade_type: 'MWEB', # could be "JSAPI" or "NATIVE",
-      openid: self.user.openid# required when trade_type is `JSAPI`
-    }
-    res = WxPay::Service.invoke_unifiedorder params
-    return res['mweb_url']
-  end
-
-  def get_alipay_prepay_mweb
-    require 'alipay'
-    notify_url = Settings.app_host + "/payment/alipay_payments/notify"
-    quit_url = Settings.app_host + '/m/'
-
-    @client = Alipay::Client.new(
-      url: Settings.alipay_api,
-      app_id: Settings.alipay_app_id,
-      app_private_key: Settings.alipay_app_private_key,
-      alipay_public_key: Settings.alipay_public_key
-    )
-    url = @client.page_execute_url(
-      method: 'alipay.trade.wap.pay',
-      return_url: quit_url,
-      notify_url: notify_url,
-      biz_content: {
-       out_trade_no: self.donate_no,
-       product_code: 'QUICK_WAP_WAY',
-       total_amount: '0.01',
-       subject: 'Example: 456',
-       quit_url: quit_url
-      }.to_json
-    )
+    self.donation = self.source.donation if self.owner.is_a?('IncomeRecord') && self.source.donation.present?
   end
 
 end
