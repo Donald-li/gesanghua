@@ -7,7 +7,7 @@ class Site::ReadsController < Site::BaseController
     scope = ProjectSeasonApply.where(project: @project).show.raise_project.read_executing.pass.sorted
     scope = scope.where(bookshelf_type: params[:type]) if params[:type].present?
     scope = scope.where("name like :q", q: "%#{params[:name]}%") if params[:name].present?
-    @applies = scope.page(params[:page]).per(4)
+    @applies = scope.page(params[:page]).per(12)
   end
 
   def show

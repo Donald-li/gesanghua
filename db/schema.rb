@@ -540,6 +540,15 @@ ActiveRecord::Schema.define(version: 20180330073148) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "partners", force: :cascade, comment: "合作伙伴" do |t|
+    t.string "name", comment: "名称"
+    t.string "url", comment: "链接"
+    t.integer "position", comment: "排序"
+    t.integer "state", comment: "状态： 1:显示 2:隐藏"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "period_child_ships", force: :cascade, comment: "年度孩子和申请学期中间表" do |t|
     t.integer "project_season_apply_period_id", comment: "申请学期ID"
     t.integer "project_season_apply_child_id", comment: "年度孩子ID"
