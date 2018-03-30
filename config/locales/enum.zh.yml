@@ -19,6 +19,9 @@ zh:
   article_recommends:
     normal: '否'
     recommend: '是'
+  partner_states:
+    show: '显示'
+    hidden: '隐藏'
   user_states:
     enable: '启用'
     disable: '禁用'

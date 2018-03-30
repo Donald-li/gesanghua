@@ -86,6 +86,9 @@ admin:
                 'admin/specials': all
                 'admin/special_adverts': all
                 'admin/special_articles': all
+            admin_content_partners:
+              actions:
+                'admin/partners': all
 
     admin_system:
       menus:

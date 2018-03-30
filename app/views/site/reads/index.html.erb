@@ -52,7 +52,7 @@
               <div><%= apply.name %></div>
               <div class="progress">
                 <div class="progress-bar" role="progressbar" aria-valuenow="60"
-                     aria-valuemin="0" aria-valuemax="100" style="width: <%= apply.present_amount.to_f / apply.target_amount.to_f * 100 %>%">
+                     aria-valuemin="0" aria-valuemax="100" style="width: <%= (apply.present_amount / apply.target_amount * 100).round(2) %>%">
                 </div>
               </div>
               <div class="project-body-contn">
@@ -73,14 +73,12 @@
             <% end %>
           </div>
       <% end %>
-      <%= paginate @applies %>
     </div>
 
     </div>
   </div>
   <div class="project-foot">
-    <span class="iconfont icon-arrow-left cur"></span>
-    <span class="iconfont icon-arrow-right cur"></span>
+    <%= paginate @applies, theme: :tiny %>
   </div>
 
 </div>

@@ -1,1 +1,119 @@
-广播/护花详情页
+
+<div id="detail">
+  <div class="referral-head">
+    <div class="referral-img">
+      <%= image_tag @project.image.try(:file).try(:url, :large) %>
+      <div class="referral-cont">
+        <p class="referral-cont-p"><%= @project.name %></p>
+        <p class="referral-cont-m">已累计捐助 <span><%= @project.donate_record_amount_count %></span> 元</p>
+        <div class="referral-cont-but">捐助<%= @project.name %></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="dtails-cont">
+  <div class="detail-nav " id="navHeight">
+    <div class="detail-fiexd ">
+      <div class="fhNav clearfix">
+        <div class="bottomLine"></div>
+        <ul class="nav pull-left" id="tabnav">
+          <li class="selectedNav">
+            <span>项目介绍</span>
+          </li>
+          <li>
+            <span>项目报告</span>
+            <span class="navmark"><%= @project_reports.count %></span>
+          </li>
+        </ul>
+        <div class="pull-right share cur">分享</div>
+        <%= link_to goods_path(type: params[:id]) do %><div class="pull-right referral-school cur"><%= @total %> 所学校在筹款</div><% end %>
+        <!--<div class="pull-right referral-share">-->
+          <!--<span class="iconfont icon-wechat"></span>-->
+          <!--<span class="iconfont icon-wechat"></span>-->
+          <!--<span class="iconfont icon-wechat"></span>-->
+          <!--<span class="iconfont icon-wechat"></span>-->
+        <!--</div>-->
+      </div>
+    </div>
+  </div>
+  <div class="detail-body clearfix" id="conttab">
+    <!--申请详情-->
+    <div class="details-left pull-left contentab" style="display: block;">
+      <!-- <p class="detail-l-title">护花申请详情</p> -->
+      <p class="detail-l-fon"><%= @project.describe %></p>
+      <!-- <%= image_tag 'detail-reduce.png' %> -->
+    </div>
+    <!--报告-->
+    <div class="pull-left detail-body-left border-l contentab">
+      <ul class="detail-body-ul">
+          <% @project_reports.each do |report| %>
+            <li class="detail-body-cont">
+              <span class="detail-body-hover iconfont icon-yuan"></span>
+              <div class="clearfix detail-font-tit">
+                <p class="pull-left"><%= report.title %></p>
+                <span class="pull-right cur" onclick="showHideCode()"><span class="iconfont icon-arrowdown"></span>查看详情</span>
+              </div>
+              <div class="detail-body-title clearfix">
+                <% if report.user.avatar.present? %>
+                  <%= image_tag report.user.avatar.try(:file).try(:url, :tiny) %>
+                <% else %>
+                  <%= image_tag '' %>
+                <% end %>
+                <span class="pull-left"><%= report.user.nickname?? report.user.nickname : report.user.name %> ·</span>
+                <span class="pull-left"><%= report.published_at.strftime("%Y-%m-%d")%>由发布</span>
+              </div>
+              <div class="de-left-con read-more clearfix" id="showdiv">
+                <p><%= report.content %></p>
+                <div class="clearfix details-img">
+                  <% if report.images.present? %>
+                    <% report.images.each do |img|%>
+                      <%= image_tag img.try(:file).try(:url, :tiny) %>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+            </li>
+          <% end %>
+      </ul>
+    </div>
+
+    <div class="pull-right detail-body-right">
+      <p class="detail-b-r-t border-b"><span>捐助记录</span></p>
+      <ul class="detail-b-r-name">
+        <% @donate_records.limit(6).each do |record| %>
+          <li class="border-b clearfix">
+            <% if record.user.avatar.present? %>
+              <%= image_tag record.user.avatar.try(:file).try(:url, :tiny) %>
+            <% else %>
+              <%= image_tag '' %>
+            <% end %>
+            <div class="pull-left">
+              <div class="clearfix">
+                <span class="pull-left detail-name"><%= record.user.nickname?? record.user.nickname : record.user.name %></span>
+                <span class="timeago pull-right detail-time" data-timeago="<%= record.created_at.to_s(:db) %>"></span>
+              </div>
+              <p class="detail-con">
+                <% if record.team.present? %>
+                通过 <%= record.team.name %>
+                <% end %>
+                捐助 <strong></strong> <%= record.amount %>元
+              </p>
+            </div>
+          </li>
+        <% end %>
+        <li class="more">点击加载更多</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+    $('#dtails-cont').myTab()
+    $('.circlechart').circlechart()
+    function showHideCode() {
+        $('#showdiv').toggleClass('read-more')
+        $('.detail-font-tit > span').css('display', 'none')
+        $('.details-img').css('display', 'block')
+    }
+</script>

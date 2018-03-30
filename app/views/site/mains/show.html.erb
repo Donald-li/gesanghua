@@ -66,31 +66,31 @@
         <p class="mouse-2">为西部孩子提供帮助</p>
       </div>
       <div id="show2" class="cur">
-        <p class="mouse-1">我们可以</p>
-        <p class="mouse-2">为西部孩子提供帮助</p>
+        <p class="mouse-1">为孩子</p>
+        <p class="mouse-2">每一个孩子都能跟踪反馈</p>
       </div>
       <div id="show3" class="cur">
-        <p class="mouse-1">我们可以</p>
-        <p class="mouse-2">为西部孩子提供帮助</p>
+        <p class="mouse-1">为承诺</p>
+        <p class="mouse-2">每一笔善款去向可查</p>
       </div>
     </div>
     <div class="bul-mouse-show">
       <div id="show11">
         <%= image_tag 'gsh-arrows-2.png' %>
         <div class="mouse-show">
-          <p class="mouse-show-1">1关注西部教育，帮助西部孩子 健康成长</p>
+          <p class="mouse-show-1">关注西部教育，帮助西部孩子 健康成长</p>
         </div>
       </div>
       <div id="show12">
         <%= image_tag 'gsh-arrows-2.png' %>
         <div class="mouse-show">
-          <p class="mouse-show-1">2关注西部教育，帮助西部孩子 健康成长</p>
+          <p class="mouse-show-1">关注西部教育，帮助西部孩子 健康成长</p>
         </div>
       </div>
       <div id="show13">
         <%= image_tag 'gsh-arrows-2.png' %>
         <div class="mouse-show">
-          <p class="mouse-show-1">3关注西部教育，帮助西部孩子 健康成长</p>
+          <p class="mouse-show-1">关注西部教育，帮助西部孩子 健康成长</p>
         </div>
       </div>
     </div>
@@ -115,32 +115,22 @@
     <% end %>
 
   </div>
-  <div class="button button--but bul-buton cur " data-text="更多资讯">
-    <span class="button--inverted">更多资讯</span>
-  </div>
+  <%= link_to articles_path do %>
+    <div class="button button--but bul-buton cur " data-text="更多资讯">
+      <span class="button--inverted">更多资讯</span>
+    </div>
+  <% end %>
 </div>
 <div class="collaboration">
   <p>合作伙伴</p>
   <div>
-    <div class="cur">
-      <%= image_tag 'login-logo.png' %>
-    </div>
-    <div class="cur">
-      <%= image_tag 'login-logo.png' %>
-    </div>
-    <div class="cur">
-      <%= image_tag 'login-logo.png' %>
-    </div>
-    <div class="cur">
-      <%= image_tag 'login-logo.png' %>
-    </div>
-    <div class="cur">
-      <%= image_tag 'login-logo.png' %>
-    </div>
-    <div class="cur">
-      <%= image_tag 'login-logo.png' %>
-    </div>
-
+    <% if @partners.present? %>
+      <% @partners.limit(6).each do |partner| %>
+        <div class="cur">
+          <%= link_to partner.url do %><%= image_tag partner.image.try(:file).try(:url, :tiny) %><% end %>
+        </div>
+      <% end %>
+    <% end %>
   </div>
 </div>
 <div class="bul-fo">

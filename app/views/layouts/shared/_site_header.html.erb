@@ -8,7 +8,9 @@
   <div class="bul-nav-cont clearfix">
     <div class="pull-left"style="position: relative;">
       <ul class="bul-nav-ul">
-        <li class="cur">首页</li>
+        <li class="cur">
+          <%= link_to '首页', root_path %>
+        </li>
         <li id="navshow" class="cur">
           项目中心
           <span class="iconfont icon-arrowdown"></span>
@@ -18,15 +20,15 @@
             </li>
             <li><%= link_to '一对一助学', pairs_path %></li>
             <li><%= link_to '悦读项目', reads_path %></li>
-            <li><%= link_to '护花项目', goods_path %></li>
-            <li><%= link_to '广播项目', goods_path %></li>
+            <li><%= link_to '护花项目', goods_path(type: 'care') %></li>
+            <li><%= link_to '广播项目', goods_path(type: 'radio') %></li>
             <li>观影项目</li>
             <li><%= link_to '探索营', camps_path %></li>
           </ul>
         </li>
-        <li class="cur">公益活动</li>
-        <li class="cur">新闻资讯</li>
-        <li class="cur">财务公开</li>
+        <li class="cur"><%= link_to '公益活动', campaigns_path %></li>
+        <li class="cur"><%= link_to '新闻资讯', articles_path %></li>
+        <li class="cur"><%= link_to '财务公开', disclosure_path(id: 1) %></li>
         <li class="cur">关于我们</li>
       </ul>
     </div>

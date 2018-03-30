@@ -33,6 +33,7 @@ namespace :admin do
   resources :donate_items, concerns: [:move, :switch] do
     resources :donate_item_amount_tabs, concerns: [:switch]
   end
+  resources :partners, concerns: [:move, :switch]
   resources :school_applies, concerns: :check
   resources :audit_reports, concerns: [:switch, :file_download]
   resources :financial_reports, concerns: [:switch, :file_download]
