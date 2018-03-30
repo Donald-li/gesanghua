@@ -177,6 +177,8 @@ namespace :admin do
     resources :camp_execute_feedbacks
   end
 
+  resources :camp_project_reports, concerns: [:switch]
+
   resources :project_season_apply_camp_students, concerns: [:check]
   resources :project_season_apply_camp_teachers, concerns: [:check]
 

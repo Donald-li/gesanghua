@@ -235,6 +235,9 @@ admin:
             admin_camp_project_resources:
               actions:
                 'admin/camp_project_resources': all
+            admin_camp_project_reports:
+              actions:
+                'admin/camp_project_reports': all
             admin_camp_document:
               menus:
                 admin_camp_document_estimates:
