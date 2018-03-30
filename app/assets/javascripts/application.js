@@ -120,6 +120,7 @@ $(function () {
     //         }
     //     })
     // })
+
 //    遮罩
     jQuery.fn.center = function(loaded) {
         var obj = this;
@@ -150,6 +151,5 @@ $(function () {
 
         }
     }
-
 
 });
