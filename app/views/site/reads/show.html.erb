@@ -359,4 +359,17 @@
         $('.detail-font-tit > span').css('display', 'none')
         $('.details-img').css('display', 'block')
     }
+    // //内容信息导航吸顶
+     $(document).ready(function () {
+         var navHeight = $("#navHeight").offset().top;
+         var navFix = $("#navHeight");
+         $(window).scroll(function () {
+             if ($(this).scrollTop() > navHeight) {
+                 navFix.addClass("navFix");
+             }
+             else {
+                 navFix.removeClass("navFix");
+             }
+         })
+     })
 </script>

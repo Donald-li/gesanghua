@@ -244,6 +244,19 @@
 
 </div>
 <script type="text/javascript">
+    // //内容信息导航吸顶
+     $(document).ready(function () {
+         var navHeight = $("#navHeight").offset().top;
+         var navFix = $("#navHeight");
+         $(window).scroll(function () {
+             if ($(this).scrollTop() > navHeight) {
+                 navFix.addClass("navFix");
+             }
+             else {
+                 navFix.removeClass("navFix");
+             }
+         })
+     })
     $('.circlechart').circlechart()
     $('#dtails-cont').myTab()
     function showHideCode() {

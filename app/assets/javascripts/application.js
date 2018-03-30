@@ -107,19 +107,19 @@ $(function () {
         $('.bul-pos2').css({'display': 'none'})
         $('.right-foot-2').css({'background': '#3b3b3b', 'color': '#fff'})
     });
-    //内容信息导航吸顶
-    $(document).ready(function () {
-        var navHeight = $("#navHeight").offset().top;
-        var navFix = $("#navHeight");
-        $(window).scroll(function () {
-            if ($(this).scrollTop() > navHeight) {
-                navFix.addClass("navFix");
-            }
-            else {
-                navFix.removeClass("navFix");
-            }
-        })
-    })
+    // //内容信息导航吸顶
+    // $(document).ready(function () {
+    //     var navHeight = $("#navHeight").offset().top;
+    //     var navFix = $("#navHeight");
+    //     $(window).scroll(function () {
+    //         if ($(this).scrollTop() > navHeight) {
+    //             navFix.addClass("navFix");
+    //         }
+    //         else {
+    //             navFix.removeClass("navFix");
+    //         }
+    //     })
+    // })
 //    遮罩
     jQuery.fn.center = function(loaded) {
         var obj = this;
