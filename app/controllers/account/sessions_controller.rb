@@ -88,7 +88,7 @@ class Account::SessionsController < Account::BaseController
 
   def destroy
     reset_session
-    redirect_to user_login_path
+    redirect_to account_login_path
   end
 
   private
