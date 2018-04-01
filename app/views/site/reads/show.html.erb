@@ -3,6 +3,7 @@
   <div class="referral-head">
     <div class="referral-img">
       <%= image_tag @project.image.try(:file).try(:url, :large) %>
+      <div class="referal-img-z"></div>
       <div class="referral-cont">
         <p class="referral-cont-p"><%= @project.name %></p>
         <p class="referral-cont-m">已累计捐助 <span><%= @project.donate_record_amount_count %></span> 元</p>

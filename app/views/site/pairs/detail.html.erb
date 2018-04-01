@@ -9,12 +9,19 @@
             <span>14岁 | 男</span>
           </p>
           <p class="detail-con-serial">No.17090293</p>
-          <p class="detail-con-font">热爱祖国，关心集体，团结同学，诚实守信，乐于助人，热爱劳动，并积极参与公益活动，自觉遵守中学生日常行为，是一位好学生。热爱祖国，关心集体，团结同学，诚实守信，乐于助人，热爱劳动，并积极参与公益活动，自觉遵守中学生日常行为，是一位好学生。热爱祖国，关心集体，团结同学，诚实守信，乐于助人，热爱劳动，并积极参与公益活动，自觉遵守中学生日常行为，是一位好学生。热爱祖国，关心集体，团结同学，诚实守信，乐于助人，热爱劳动，并积极参与公益活动，自觉遵守中学生日常行为，是一位好学生。</p>
+          <p class="detail-con-font">热爱祖国，关心集体，团结同学，诚实守信，乐于助人，热爱劳动，并积极参与公益活动，自觉遵守中学生日常行为，是一位好学生。</p>
         </div>
         <div class="detail-cont-foot border-t ">
           <p>资助学费<span>￥1590/年</span></p>
-          <p>选择学期<span>89人</span></p>
-          <div>我要捐助</div>
+          <div class="child-checked">
+            <span>选择学期</span>
+          <ul class="ui-choose" multiple="multiple" id="uc_03">
+            <li>2018-2019学年学费</li>
+            <li>2018-2019学年学费</li>
+            <li>2018-2019学年学费</li>
+          </ul>
+          </div>
+          <div class="child-but">我要捐助</div>
         </div>
       </div>
     </div>
@@ -217,6 +224,9 @@
             }
         })
     })
+    // uc_04 select 多选
+    $('.ui-choose').ui_choose();
+
     $('.circlechart').circlechart()
     $('#dtails-cont').myTab()
     function showHideCode() {

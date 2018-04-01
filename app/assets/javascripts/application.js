@@ -36,6 +36,7 @@
 //= require 'plugin/jquery.select.js'
 //= require 'plugin/jquery.mCustomScrollbar.concat.min.js'
 //= require 'plugin/jquery.share.min.js'
+//= require 'plugin/ui-choose.js'
 
 
 

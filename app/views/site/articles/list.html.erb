@@ -1,1 +1,105 @@
-资讯列表
+<div id="article">
+  <div class="article-img">
+    <%= image_tag 'shadow.png' %>
+    <div></div>
+  </div>
+  <div class="article1-title">
+    <button class="article-but cur">专题</button>
+    <p class="article-font">在醋香四溢的城市里  我们收获的不只是爱心</p>
+    <p class="article-con read-more">长江上游的水横穿中国，流到下游不仅滋养了镇江，滋养的产物还被镇江人们酿成了醋。镇江可是闻名全中国的醋生产地，就小编个人来说，从</p>
+  </div>
+  <div class="article1-read-cont">
+    <div class="border-r">
+      <div class="ovrly"></div>
+      <p class="gsh-cont-1">菠菜 | 2018年02月22日</p>
+      <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
+      <p class="gsh-cont-3">还记得9月去参加成都营的孩子们在路上写的札记吗？小编还记得有个小朋友在笔记本上写道：今天我和其他学校的同学们去成都拓展营学本领</p>
+    </div>
+    <div class="border-r">
+      <div class="ovrly" style="background: #bd47ee;"></div>
+      <p class="gsh-cont-1">菠菜 | 2018年02月22日</p>
+      <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
+      <p class="gsh-cont-3">还记得9月去参加成都营的孩子们在路上写的札记吗？小编还记得有个小朋友在笔记本上写道：今天我和其他学校的同学们去成都拓展营学本领</p>
+    </div>
+    <div>
+      <div class="ovrly" style="background: #8b54e3;"></div>
+      <p class="gsh-cont-1">菠菜 | 2018年02月22日</p>
+      <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
+      <p class="gsh-cont-3">还记得9月去参加成都营的孩子们在路上写的札记吗？小编还记得有个小朋友在笔记本上写道：今天我和其他学校的同学们去成都拓展营学本领</p>
+    </div>
+  </div>
+<div class="article1-read-swiper">
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <div class="recommend-img">
+          <%= image_tag 'gsh-img-1.png' %>
+        </div>
+        <p class="gsh-cont-1">菠菜 | 2018年02月22日</p>
+        <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
+      </div>s
+      <div class="swiper-slide">
+        <div class="recommend-img">
+          <%= image_tag 'gsh-img-1.png' %>
+        </div>
+        <p class="gsh-cont-1">菠菜 | 2018年02月22日</p>
+        <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
+      </div>
+      <div class="swiper-slide">
+        <div class="recommend-img">
+          <%= image_tag 'gsh-img-1.png' %>
+        </div>
+        <p class="gsh-cont-1">菠菜 | 2018年02月22日</p>
+        <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
+      </div>
+      <div class="swiper-slide">
+        <div class="recommend-img">
+          <%= image_tag 'gsh-img-1.png' %>
+        </div>
+        <p class="gsh-cont-1">菠菜 | 2018年02月22日</p>
+        <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
+      </div>
+      <div class="swiper-slide">
+        <div class="recommend-img">
+          <%= image_tag 'gsh-img-1.png' %>
+        </div>
+        <p class="gsh-cont-1">菠菜 | 2018年02月22日</p>
+        <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
+      </div>
+      <div class="swiper-slide">
+        <div class="recommend-img">
+          <%= image_tag 'gsh-img-1.png' %>
+        </div>
+        <p class="gsh-cont-1">菠菜 | 2018年02月22日</p>
+        <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <div class="camps-share border-t" >
+    <p style="margin: 30px auto 0 auto;">分享</p>
+    <ol>
+      <li  style="padding: 20px 268px 80px 268px;">
+        <div id="share-2"></div>
+      </li>
+
+    </ol>
+  </div>
+
+</div>
+<script>
+    $('#share-2').share({
+        sites: ['qzone', 'wechat', 'weibo', 'qq']
+    });
+    var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 'auto',
+        spaceBetween: 30,
+        freeMode: true,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
+</script>

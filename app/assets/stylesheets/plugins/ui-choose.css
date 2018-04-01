@@ -1,0 +1,37 @@
+@charset "utf-8";
+
+/*ui-choose样式，可根据实际项目需求进行调整*/
+select.ui-choose {
+    display: none;
+}
+ul.ui-choose {
+    box-sizing: border-box;
+    display: inline-block;
+    border: 1px solid transparent;
+    border-right: none;
+    border-bottom: none;
+    font-size: 14px;
+    color: #2a2a2c;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+ul.ui-choose:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+ul.ui-choose > li:hover {
+    z-index: 4;
+    border-color: #d632aa;
+}
+
+
+
+
