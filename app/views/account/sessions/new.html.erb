@@ -72,7 +72,7 @@
             </div> -->
             <button class="register" type="submit">登录</button>
             <div class="check-box">
-              <%= link_to forget_account_session_path do %><span class="cur">忘记密码？</span><% end %>
+              <%= link_to forget_account_session_path(kind: 'by_phone') do %><span class="cur">忘记密码？</span><% end %>
             </div>
           </div>
           <div class="longin-right">

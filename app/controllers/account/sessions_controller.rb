@@ -56,7 +56,7 @@ class Account::SessionsController < Account::BaseController
           render(action: :new) && return
         end
         set_reset_user(@user)
-        format.html {redirect_to ''}
+        format.html {redirect_to forget_account_session_url(kind: 'edit_password')}
       end
     end
   end
@@ -71,13 +71,13 @@ class Account::SessionsController < Account::BaseController
   def update
     respond_to do |format|
       unless session_params[:password] === session_params[:password_confirmation]
-        format.html { redirect_to edit_user_session_url, alert: '确认密码不正确。' }
+        format.html { redirect_to forget_account_session_url(kind: 'edit_password'), alert: '确认密码不正确。' }
       else
-        if User.find(session[:reset_user_id]).update(password: session_params[:password])
+        if User.find(session[:user_id]).update(password: session_params[:password])
           reset_session
-          format.html { redirect_to info_user_session_path, notice: '密码已重置。' }
+          format.html { redirect_to root_path, notice: '密码已重置。' }
         else
-          format.html { redirect_to edit_user_session_url }
+          format.html { redirect_to forget_account_session_url(kind: 'edit_password') }
         end
       end
     end
