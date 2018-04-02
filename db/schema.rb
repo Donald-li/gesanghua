@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180402072738) do
+ActiveRecord::Schema.define(version: 20180402112652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -502,6 +502,7 @@ ActiveRecord::Schema.define(version: 20180402072738) do
     t.integer "donation_id", comment: "捐助id"
     t.integer "kind", comment: "来源: 1:线上 2:线下"
     t.integer "team_id", comment: "团队id"
+    t.integer "voucher_id", comment: "捐赠收据ID"
   end
 
   create_table "income_sources", force: :cascade, comment: "收入来源" do |t|
@@ -548,15 +549,6 @@ ActiveRecord::Schema.define(version: 20180402072738) do
     t.text "content", comment: "内容"
     t.integer "position", comment: "排序"
     t.integer "state", comment: "状态"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "partners", force: :cascade, comment: "合作伙伴" do |t|
-    t.string "name", comment: "名称"
-    t.string "url", comment: "链接"
-    t.integer "position", comment: "排序"
-    t.integer "state", comment: "状态： 1:显示 2:隐藏"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -671,7 +663,6 @@ ActiveRecord::Schema.define(version: 20180402072738) do
     t.integer "state", comment: "状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "age", comment: "年龄"
   end
 
   create_table "project_season_apply_camp_teachers", force: :cascade, comment: "探索营老师名单" do |t|
@@ -687,7 +678,6 @@ ActiveRecord::Schema.define(version: 20180402072738) do
     t.integer "project_season_apply_id", comment: "营立项id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "age", comment: "年龄"
   end
 
   create_table "project_season_apply_camps", force: :cascade, comment: "探索营配额" do |t|
@@ -700,10 +690,9 @@ ActiveRecord::Schema.define(version: 20180402072738) do
     t.datetime "end_time", comment: "申请截止时间"
     t.integer "time_limit", comment: "是否设置截止时间"
     t.integer "message_type", comment: "通知方式"
+    t.integer "state", comment: "状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "execute_state"
-    t.integer "teacher_id", comment: "联系老师id"
   end
 
   create_table "project_season_apply_children", force: :cascade, comment: "项目执行年度申请的孩子表" do |t|

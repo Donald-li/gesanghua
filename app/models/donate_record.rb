@@ -47,13 +47,13 @@ class DonateRecord < ApplicationRecord
   belongs_to :source, polymorphic: true
   belongs_to :owner, polymorphic: true
 
-  counter_culture :project, column_name: proc{|model| model.project.present? && model.pay_state == 'paid' ? 'donate_record_amount_count' : nil}, delta_magnitude: proc {|model| model.amount}
-  counter_culture :donor, column_name: proc{|model| model.donor.present? && model.pay_state == 'paid' ? 'donate_count' : nil}, delta_magnitude: proc {|model| model.amount }
-  counter_culture :promoter, column_name: proc{|model| model.promoter.present? && model.pay_state == 'paid' ? 'promoter_amount_count' : nil}, delta_magnitude: proc {|model| model.amount }
-  counter_culture :team, column_name: proc{|model| model.team.present? && model.pay_state == 'paid' ? 'total_donate_amount' : nil}, delta_magnitude: proc {|model| model.amount }
-  counter_culture :team, column_name: proc{|model| model.team.present? && model.pay_state == 'paid' ? 'current_donate_amount' : nil}, delta_magnitude: proc {|model| model.amount }
-  counter_culture :apply, column_name: proc{|model| model.apply.present? && !model.apply.has_item? && model.pay_state == 'paid' ? 'present_amount' : nil}, delta_magnitude: proc {|model| model.amount }
-  counter_culture :bookshelf, column_name: proc{|model| model.bookshelf.present? && model.pay_state == 'paid' ? 'present_amount' : nil}, delta_magnitude: proc {|model| model.amount }
+  # counter_culture :project, column_name: proc{|model| model.project.present? && model.pay_state == 'paid' ? 'donate_record_amount_count' : nil}, delta_magnitude: proc {|model| model.amount}
+  # counter_culture :donor, column_name: proc{|model| model.donor.present? && model.pay_state == 'paid' ? 'donate_count' : nil}, delta_magnitude: proc {|model| model.amount }
+  # counter_culture :promoter, column_name: proc{|model| model.promoter.present? && model.pay_state == 'paid' ? 'promoter_amount_count' : nil}, delta_magnitude: proc {|model| model.amount }
+  # counter_culture :team, column_name: proc{|model| model.team.present? && model.pay_state == 'paid' ? 'total_donate_amount' : nil}, delta_magnitude: proc {|model| model.amount }
+  # counter_culture :team, column_name: proc{|model| model.team.present? && model.pay_state == 'paid' ? 'current_donate_amount' : nil}, delta_magnitude: proc {|model| model.amount }
+  # counter_culture :apply, column_name: proc{|model| model.apply.present? && !model.apply.has_item? && model.pay_state == 'paid' ? 'present_amount' : nil}, delta_magnitude: proc {|model| model.amount }
+  # counter_culture :bookshelf, column_name: proc{|model| model.bookshelf.present? && model.pay_state == 'paid' ? 'present_amount' : nil}, delta_magnitude: proc {|model| model.amount }
 
   validates :amount, presence: true
 
@@ -91,19 +91,19 @@ class DonateRecord < ApplicationRecord
       #
       # 如果是捐到捐助项
       if owner.is_a?(DonateItem)
-        donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, agent: agent, donor: donor)
+        donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, agent: params[:agent], donor: params[:donor])
         owner.accept_donate(donate_records)
 
       # 如果捐到申请子项 （书架，孩子，指定）
       elsif owner.class.name.in?(['GshChildGrant', 'ProjectSeasonApplyBookshelf'])
-        donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, agent: agent, donor: donor)
+        donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, agent: params[:agent], donor: params[:donor])
         owner.accept_donate(donate_records)
 
       # 如果是捐到申请（物资类项目，子项）
       elsif owner.class.name.in?(['ProjectSeasonApply', 'ProjectSeasonApplyChild'])
         # 物资或拓展营
         if owner.project.goods? || owner.project == Project.camp_project
-          donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, agent: agent, donor: donor)
+          donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, agent: params[:agent], donor: params[:donor])
           owner.accept_donate(donate_records)
         else
           # 如果是捐到申请（书架孩子，没选择子项）
@@ -111,7 +111,7 @@ class DonateRecord < ApplicationRecord
 
           owner.get_donate_items.each do |item|
             if source.balance > item.surplus_money
-              donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, agent: agent, donor: donor)
+              donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, agent: params[:agent], donor: params[:donor])
               item.accept_donate(donate_records)
               # item.to_delivery!
             end
@@ -156,23 +156,22 @@ class DonateRecord < ApplicationRecord
 
   def summary_builder
     Jbuilder.new do |json|
-      json.(self, :id, :donor, :donate_no, :title)
+      json.(self, :id, :donor, :title)
       json.time self.created_at.strftime('%Y-%m-%d %H:%M:%S')
       json.amount number_to_currency(self.amount)
       json.amount_float self.amount
       json.donate_mode !self.donor.present? # true自己捐 false代捐
-      json.donate_title self.user.name === self.donor ? '' : '代捐' # true自己捐 false代捐
+      json.donate_title self.donor_id === self.agent_id ? '' : '代捐' # true自己捐 false代捐
     end.attributes!
   end
 
   def detail_builder
     Jbuilder.new do |json|
-      json.(self, :id, :donor, :donate_no, :remitter_name, :project_id, :pay_state, :promoter_id)
-      json.user_name self.user.present? ? self.user.name : '爱心人士'
-      json.user_avatar self.user.try(:user_avatar)
+      json.(self, :id, :donor, :project_id, :promoter_id)
+      json.user_name self.donor.try(:name) || '爱心人士'
+      json.user_avatar self.donor.try(:user_avatar)
       json.time self.created_at.strftime('%Y-%m-%d %H:%M:%S')
       json.amount number_to_currency(self.amount)
-      json.item_name self.appoint.present? ? self.appoint.name : ''
       json.by_team self.team.present?
       json.team_name self.team.present? ? self.team.name : ''
       json.project self.try(:project).try(:name)
@@ -186,44 +185,6 @@ class DonateRecord < ApplicationRecord
       json.income_source self.try(:income_record).try(:income_source).try(:name)
       json.income_kind self.try(:income_record).try(:income_source).present? ? self.try(:income_record).try(:income_source).enum_name(:kind) : ''
     end.attributes!
-  end
-
-  def certificate_builder
-    Jbuilder.new do |json|
-      json.(self, :id)
-      json.donate_item_name self.donate_item.try(:name)
-      json.amount number_to_currency(self.amount)
-      json.user_name self.user.present? ? self.user.name : '爱心人士'
-      json.time_name "#{self.created_at.year}年#{self.created_at.month}月#{self.created_at.day}日"
-      json.certificate_no self.certificate_no
-      json.project self.try(:project).try(:name)
-      json.certificate self.donor_certificate_path
-    end.attributes!
-  end
-
-  def promoter_record_builder
-    Jbuilder.new do |json|
-      json.(self, :id)
-      json.amount number_to_currency(self.amount)
-      json.created_at self.created_at.strftime("%Y-%m-%d %H:%M:%S")
-      json.user_name self.user.present? ? self.user.name : '爱心人士'
-      json.fund_name self.try(:fund).try(:name)
-      json.project_name self.try(:project).try(:name)
-      json.apply_name self.try(:apply).try(:name)
-      json.child_name self.try(:child).try(:name)
-      json.show_name self.donate_apply_name
-      json.promoter_amount_count number_to_currency(self.promoter.promoter_amount_count)
-    end.attributes!
-  end
-
-  def donate_apply_name
-    if self.apply.present?
-      self.apply.try(:name)
-    elsif self.child.present?
-      self.child.try(:name)
-    elsif self.fund.present?
-      self.fund.fund_category.try(:name)
-    end
   end
 
   private

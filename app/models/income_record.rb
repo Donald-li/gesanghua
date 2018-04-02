@@ -28,6 +28,7 @@ class IncomeRecord < ApplicationRecord
   belongs_to :donor, class_name: 'User', foreign_key: 'donor_id', optional: true
   belongs_to :agent, class_name: 'User', foreign_key: 'agent_id', optional: true
   belongs_to :promoter, class_name: 'User', foreign_key: 'promoter_id', optional: true
+  belongs_to :voucher, optional: true
 
   has_many :donate_records, dependent: :nullify
 
@@ -93,6 +94,12 @@ class IncomeRecord < ApplicationRecord
     else
       StatisticRecord.create(kind: 2, record_time: Time.now.strftime("%Y-%m-%d"), amount: 0)
     end
+  end
+
+  # TODO: 这个还没实现
+  def summary_builder
+    Jbuilder.new do |json|
+    end.attributes!
   end
 
 

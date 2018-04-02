@@ -24,6 +24,7 @@
 
 # 捐助
 class Donation < ApplicationRecord
+  include ActionView::Helpers::NumberHelper
 
   has_many :income_records
   belongs_to :donor, class_name: 'User', foreign_key: 'donor_id', optional: true
@@ -31,8 +32,8 @@ class Donation < ApplicationRecord
   belongs_to :promoter, class_name: 'User', foreign_key: 'promoter_id', optional: true
   belongs_to :team, optional: true
   belongs_to :project, class_name: 'Project', optional: true
-  belongs_to :season, class_name: 'ProjectSeason', optional: true
-  belongs_to :apply, class_name: 'ProjectSeasonApply', optional: true
+  belongs_to :season, class_name: 'ProjectSeason', foreign_key: :project_season_id, optional: true
+  belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: :project_season_apply_id, optional: true
   belongs_to :owner, polymorphic: true
   belongs_to :donate_item, optional: true
 
@@ -41,6 +42,13 @@ class Donation < ApplicationRecord
 
   enum pay_state: { unpaid: 1, paid: 2}
   default_value_for :pay_state, 1
+
+  scope :sorted, -> {order(id: :desc)}
+
+  # owner的名称
+  def project_name
+    self.project.try(:name) || '格桑花'
+  end
 
   # 生成收入
   def gen_income_record
@@ -74,26 +82,6 @@ class Donation < ApplicationRecord
     return get_alipay_prepay_mweb
   end
 
-  # 生成捐赠编号
-  def pay_and_gen_certificate
-    self.certificate_no ||= 'ZS' + self.order_no
-    self.pay_state = 'paid'
-    # self.donor_certificate_path # TODO 调用捐赠证书方法，生成证书（微信支付调通以后，需要考虑此方法的执行速度）
-    self.save
-  end
-
-  #捐赠证书路径
-  def donor_certificate_path
-    self.certificate_no ||= 'ZS' + self.order_no
-    path = "/images/certificates/#{self.created_at.strftime('%Y%m%d')}/#{self.id}/#{Encryption.md5(self.id.to_s)}.jpg"
-    local_path = Rails.root.to_s + '/public' + path
-    if !File::exist?(local_path)
-      GenDonateCertificate.create(self)
-    end
-    self.save
-    path
-  end
-
   # 计算开票金额
   def self.count_amount(ids)
     donates = DonateRecord.find(ids)
@@ -123,6 +111,58 @@ class Donation < ApplicationRecord
       rescue
         return false
       end
+    end
+  end
+
+  # 生成捐赠编号
+  def pay_and_gen_certificate
+    self.certificate_no ||= 'ZS' + self.order_no
+    self.pay_state = 'paid'
+    # self.donor_certificate_path # TODO 调用捐赠证书方法，生成证书（微信支付调通以后，需要考虑此方法的执行速度）
+    self.save
+  end
+
+  #捐赠证书路径
+  def donor_certificate_path
+    self.certificate_no ||= 'ZS' + self.order_no
+    path = "/images/certificates/#{self.created_at.strftime('%Y%m%d')}/#{self.id}/#{Encryption.md5(self.id.to_s)}.jpg"
+    local_path = Rails.root.to_s + '/public' + path
+    if !File::exist?(local_path)
+      GenDonateCertificate.create(self)
+    end
+    self.save
+    path
+  end
+
+  def certificate_builder
+    Jbuilder.new do |json|
+      json.(self, :id)
+      json.certificate self.donor_certificate_path
+    end.attributes!
+  end
+
+  # 募捐信息
+  def promoter_record_builder
+    Jbuilder.new do |json|
+      json.(self, :id)
+      json.amount number_to_currency(self.amount)
+      json.created_at self.created_at.strftime("%Y-%m-%d %H:%M:%S")
+      json.user_name self.donor.try(:user_name) || '爱心人士'
+      json.project_name self.try(:project).try(:name)
+      json.apply_name self.try(:apply).try(:name)
+      json.child_name self.try(:owner).try(:name) if self.owner_type == 'ProjectSeasonApplyChild'
+      json.show_name self.donate_apply_name
+      json.promoter_amount_count number_to_currency(self.promoter.promoter_amount_count)
+    end.attributes!
+  end
+
+  def donate_apply_name
+    if self.apply.present?
+      self.apply.try(:name)
+    elsif self.child.present?
+      self.child.try(:name)
+    elsif self.fund.present?
+      self.fund.fund_category.try(:name)
     end
   end
 

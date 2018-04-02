@@ -30,8 +30,8 @@ RSpec.describe IncomeRecord, type: :model do
     fund = fc.funds.find_or_create_by(name: "非指定", management_rate: 0, describe: '定向非指定', fund_category_id: fc.id, kind: fc.kind, use_kind: 'unrestricted')
     income_source1 =  IncomeSource.find_or_create_by(name: '微信支付', description: '微信转账', kind: 1)
     income_source2 =  IncomeSource.find_or_create_by(name: '现金捐助', description: '行走吧格桑花线下募捐', kind: 2)
-    IncomeRecord.create(user_id: user.id, fund_id: fund.id, income_source_id: income_source1.id, amount: 200, remitter_name: '爱心人士', remitter_id: user.id, donor: '爱心人士', income_time: Time.now)
-    IncomeRecord.create(user_id: user.id, fund_id: fund.id, income_source_id: income_source2.id, amount: 300, remitter_name: '爱心人士', remitter_id: user.id, donor: '爱心人士', income_time: Time.now - 1.day)
+    IncomeRecord.create(donor_id: user.id, fund_id: fund.id, income_source_id: income_source1.id, amount: 200, income_time: Time.now)
+    IncomeRecord.create(donor_id: user.id, fund_id: fund.id, income_source_id: income_source2.id, amount: 300, income_time: Time.now - 1.day)
 
     IncomeRecord.update_income_statistic_record
 

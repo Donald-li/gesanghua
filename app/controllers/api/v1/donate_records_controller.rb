@@ -3,15 +3,15 @@ class Api::V1::DonateRecordsController < Api::V1::BaseController
 
   def index
     if params[:type] == 'child'
-      donate_records = DonateRecord.where(gsh_child: params[:item_id]).paid.sorted.page(params[:page]).per(7)
+      donate_records = DonateRecord.where(gsh_child: params[:item_id]).sorted.page(params[:page]).per(7)
     elsif params[:type] == 'read'
-      donate_records = DonateRecord.where(project_season_apply_id: params[:item_id]).paid.sorted.page(params[:page]).per(7)
+      donate_records = DonateRecord.where(project_season_apply_id: params[:item_id]).sorted.page(params[:page]).per(7)
     elsif params[:type] == 'radio'
-      donate_records = DonateRecord.where(project_season_apply_id: params[:item_id]).paid.sorted.page(params[:page]).per(7)
+      donate_records = DonateRecord.where(project_season_apply_id: params[:item_id]).sorted.page(params[:page]).per(7)
     elsif params[:type] == 'teamDonate'
-      donate_records = DonateRecord.where(team_id: params[:item_id]).paid.sorted.page(params[:page]).per(7)
+      donate_records = DonateRecord.where(team_id: params[:item_id]).sorted.page(params[:page]).per(7)
     elsif params[:project_id].present?
-      donate_records = DonateRecord.where(project_id: params[:project_id]).paid.sorted.page(params[:page]).per(7)
+      donate_records = DonateRecord.where(project_id: params[:project_id]).sorted.page(params[:page]).per(7)
     else
       donate_records = DonateRecord.sorted.page(params[:page]).per(7)
     end
@@ -23,11 +23,7 @@ class Api::V1::DonateRecordsController < Api::V1::BaseController
   end
 
   def certificate
-    # if params[:donate_method] == 'monthDonate'
-    #   record = MonthDonate.find(params[:id])
-    #   api_success(data: record.certificate_builder)
-    # else
-      record = DonateRecord.find(params[:id])
+      record = Donation.find(params[:id])
       api_success(data: record.certificate_builder)
     # end
   end
