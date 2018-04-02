@@ -42,7 +42,7 @@ class Account::SessionsController < Account::BaseController
           render js: "alert('验证码不能为空');" and return
         end
 
-        unless SmsCode.valid_code?(mobile: session_params[:login], code: params[:code].to_i)
+        unless SmsCode.valid_code?(mobile: session_params[:login], code: params[:code], kind: 'find_password')
           render js: "alert('验证码不正确');closeCaptchaModal();refreshCaptcha();" and return
         end
 
@@ -56,7 +56,7 @@ class Account::SessionsController < Account::BaseController
           render(action: :new) && return
         end
         set_reset_user(@user)
-        format.html {redirect_to edit_user_session_url}
+        format.html {redirect_to ''}
       end
     end
   end
@@ -92,5 +92,10 @@ class Account::SessionsController < Account::BaseController
 
   def session_params
     params.require(:user).permit(:login, :password, :password_confirmation)
+  end
+
+  def set_reset_user(user)
+    session[:user_id] = user.try(:id)
+    current_user = user
   end
 end
