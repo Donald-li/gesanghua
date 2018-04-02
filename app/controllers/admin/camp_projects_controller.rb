@@ -64,8 +64,8 @@ class Admin::CampProjectsController < Admin::BaseController
   end
 
   def camp_member
-    @students = ProjectSeasonApplyCampStudent.where(apply: @project).joins(:apply_camp).where("project_season_apply_camps.execute_state = ?", 3).pass.sorted
-    @teachers = ProjectSeasonApplyCampTeacher.where(apply: @project).joins(:apply_camp).where("project_season_apply_camps.execute_state = ?", 3).pass.sorted
+    @students = ProjectSeasonApplyCampMember.student.where(apply: @project).joins(:apply_camp).where("project_season_apply_camps.execute_state = ?", 3).pass.sorted
+    @teachers = ProjectSeasonApplyCampMember.teacher.where(apply: @project).joins(:apply_camp).where("project_season_apply_camps.execute_state = ?", 3).pass.sorted
   end
 
   private

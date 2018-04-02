@@ -71,7 +71,7 @@ class Admin::ProjectSeasonApplyCampTeachersController < Admin::BaseController
   end
 
   def camp_teacher_params
-    params.require(:project_season_apply_camp_teacher).permit!
+    params.require(:project_season_apply_camp_member).permit!
   end
 
 end
