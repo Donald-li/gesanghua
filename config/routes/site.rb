@@ -1,6 +1,7 @@
 scope module: :site do
 
-  resources :articles, only: [:index, :show], concerns: :list
+  resources :articles, only: [:index, :show]
+  resources :specials, only: [:show]
   resources :campaigns
   resource :disclosure, only: :show
   get '/p/:alias', to: 'pages#show'
@@ -13,7 +14,7 @@ scope module: :site do
   resources :certificates, only: [:show]
   resource :feedback, only: [:new, :create]
   resources :book_angles, only: [:index, :show]
-
+  resources :donates, only: [:new, :create]
 
 end
 

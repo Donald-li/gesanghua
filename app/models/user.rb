@@ -127,6 +127,14 @@ class User < ApplicationRecord
     end
   end
 
+  def show_name
+    if self.nickname.present?
+      self.nickname
+    else
+      self.name
+    end
+  end
+
   def user_avatar
     self.avatar.try(:file_url, :tiny) || self.profile["headimgurl"] || self.avatar_url(:tiny)
   end
