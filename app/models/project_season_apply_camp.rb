@@ -12,9 +12,10 @@
 #  end_time                :datetime                               # 申请截止时间
 #  time_limit              :integer                                # 是否设置截止时间
 #  message_type            :integer                                # 通知方式
-#  state                   :integer                                # 状态
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  execute_state           :integer
+#  teacher_id              :integer                                # 联系老师id
 #
 
 class ProjectSeasonApplyCamp < ApplicationRecord
