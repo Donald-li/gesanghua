@@ -29,6 +29,10 @@
 
 FactoryBot.define do
   factory :project_season_apply_camp_member do
-    
+    name '李同学'
+    id_card '370202198411195417'
+    age 13
+    level 1
+    grade 1
   end
 end
