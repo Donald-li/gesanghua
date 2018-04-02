@@ -7,7 +7,7 @@
     <% end %>
     <div class="pull-left">
       <div class="clearfix">
-        <span class="pull-left detail-name"><%= record.user.nickname?? record.user.nickname : record.user.name %></span>
+        <span class="pull-left detail-name"><%= record.user.show_name %></span>
         <span class="timeago pull-right detail-time" data-timeago="<%= record.created_at.to_s(:db) %>"></span>
       </div>
       <p class="detail-con">

@@ -59,7 +59,7 @@
                 <% else %>
                   <%= image_tag '' %>
                 <% end %>
-                <span class="pull-left"><%= report.user.nickname?? report.user.nickname : report.user.name %> ·</span>
+                <span class="pull-left"><%= report.user.show_name %> ·</span>
                 <span class="pull-left"><%= report.published_at.strftime("%Y-%m-%d")%>由发布</span>
               </div>
               <div class="de-left-con read-more clearfix">
