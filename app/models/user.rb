@@ -67,10 +67,10 @@ class User < ApplicationRecord
   has_many :campaign_enlists
   has_many :campaigns, through: :campaign_enlists
   has_many :donate_records, dependent: :nullify
-  has_many :donates, class_name: 'DonateRecord', dependent: :destroy
+  has_many :donations, dependent: :nullify, foreign_key: 'donor_id'
   has_many :visits
 
-  has_many :income_records
+  has_many :income_records, dependent: :nullify, foreign_key: 'donor_id'
   has_many :project_season_applies
   has_many :month_donates
 
