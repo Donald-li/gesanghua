@@ -50,7 +50,7 @@ class DonateRecord < ApplicationRecord
   belongs_to :owner, polymorphic: true
 
   counter_culture :project, column_name: proc{|model| model.project.present? && model.pay_state == 'paid' ? 'donate_record_amount_count' : nil}, delta_magnitude: proc {|model| model.amount}
-  counter_culture :donor, column_name: proc{|model| model.donor.present? && model.pay_state == 'paid' ? 'donate_count' : nil}, delta_magnitude: proc {|model| model.amount }
+  counter_culture :donor, column_name: proc{|model| model.donor.present? ? 'donate_count' : nil}, delta_magnitude: proc {|model| model.amount }
   counter_culture :promoter, column_name: proc{|model| model.promoter.present? && model.pay_state == 'paid' ? 'promoter_amount_count' : nil}, delta_magnitude: proc {|model| model.amount }
   counter_culture :team, column_name: proc{|model| model.team.present? && model.pay_state == 'paid' ? 'total_donate_amount' : nil}, delta_magnitude: proc {|model| model.amount }
   counter_culture :team, column_name: proc{|model| model.team.present? && model.pay_state == 'paid' ? 'current_donate_amount' : nil}, delta_magnitude: proc {|model| model.amount }
@@ -83,7 +83,7 @@ class DonateRecord < ApplicationRecord
 
     self.transaction do # 事务
       # 来源金额是否充足？
-      if source.balance < amount
+      if source.balance < amount.to_f
         return false
       else
         source.lock! # 加锁
@@ -93,13 +93,13 @@ class DonateRecord < ApplicationRecord
       #
       # 如果是捐到捐助项
       if owner.is_a?(DonateItem)
-        donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, agent: agent, donor: donor)
+        donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, agent: params[:agent], donor: params[:donor])
         owner.accept_donate(donate_records)
 
       # 如果捐到申请子项 （书架，孩子，补书，指定）
       elsif owner.class.name.in?(['GshChildGrant', 'ProjectSeasonApplyBookshelf'])
         # TODO: 判断下不能捐就不捐了
-        donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, agent: agent, donor: donor)
+        donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, agent: params[:agent], donor: params[:donor])
         owner.accept_donate(donate_records)
 
       # 如果是捐到申请（物资类项目，子项）
@@ -107,7 +107,7 @@ class DonateRecord < ApplicationRecord
         # TODO: 判断下不能捐就不捐了
         # 物资或拓展营
         if owner.project.goods? || owner.project == Project.camp_project
-          donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, agent: agent, donor: donor)
+          donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, agent: params[:agent], donor: params[:donor])
           owner.accept_donate(donate_records)
         else
           # 如果是捐到申请（书架孩子补书，没选择子项）
@@ -115,7 +115,7 @@ class DonateRecord < ApplicationRecord
 
           owner.get_donate_items.each do |item|
             if source.balance > item.surplus_money
-              donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, agent: agent, donor: donor)
+              donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, agent: params[:agent], donor: params[:donor])
               item.accept_donate(donate_records)
               item.to_delivery!
             end
@@ -127,7 +127,7 @@ class DonateRecord < ApplicationRecord
       source.balance -= donate_amount
       source.save!
 
-      reback = amount - donate_amount
+      reback = amount.to_f - donate_amount
       if reback > 0
         # 判断是否超捐，超捐退回余额，并扣除income_record balance
         if kind.to_s == 'user_donate' && source.is_a?(IncomeRecord) # 在线支付
