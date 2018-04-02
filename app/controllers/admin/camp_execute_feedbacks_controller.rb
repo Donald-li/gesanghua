@@ -21,6 +21,7 @@ class Admin::CampExecuteFeedbacksController < Admin::BaseController
     @feedback = ContinualFeedback.new(owner: @project, content: execute_params[:content], user_id: execute_params[:user_id], project: Project.camp_project)
     respond_to do |format|
       if @feedback.save
+        @feedback.attach_images(params[:image_ids])
         format.html { redirect_to admin_camp_project_camp_execute_feedbacks_path(@project), notice: '修改成功。' }
       else
         format.html { render :new }
@@ -34,6 +35,7 @@ class Admin::CampExecuteFeedbacksController < Admin::BaseController
   def update
     respond_to do |format|
       if @feedback.update(execute_params)
+        @feedback.attach_images(params[:image_ids])
         format.html { redirect_to admin_camp_project_camp_execute_feedbacks_path(@project), notice: '修改成功。' }
       else
         format.html { render :new }
@@ -50,7 +52,7 @@ class Admin::CampExecuteFeedbacksController < Admin::BaseController
 
   def recommend
     @feedback.recommend? ? @feedback.normal! : @feedback.recommend!
-    redirect_to admin_camp_execute_feedbacks_path(@project), notice:  @feedback.recommend? ? '已推荐反馈' : '已取消推荐反馈'
+    redirect_to admin_camp_project_camp_execute_feedbacks_path(@project), notice:  @feedback.recommend? ? '已推荐反馈' : '已取消推荐反馈'
   end
 
   private

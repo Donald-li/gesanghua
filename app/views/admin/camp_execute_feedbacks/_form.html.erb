@@ -8,6 +8,12 @@
           <%= f.cktext_area :content, input_html: { data: {'parsley-required': true}}  %>
         </div>
       </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label">反馈图片：</label>
+        <div class="col-sm-9">
+          <%= webuploader_tag 'image_ids[]', label: '上传图片', type: 'feedback_image', asset: @feedback.images %>
+        </div>
+      </div>
       <%= f.input :check, as: :radio_buttons, wrapper: :inline_inputs, collection: ContinualFeedback.options_for_select(:checks), label: '是否已查看：' %>
     </div>
     <div class="form-actions">
@@ -22,7 +28,7 @@
 
 <script>
     $(function(){
-
+        initMultiImageWebuploader('.upload-wrap');
         $(".camp_user_selector").select2({
             language: "zh-CN",
             placeholder: '请选择反馈人',

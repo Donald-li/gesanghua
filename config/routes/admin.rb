@@ -175,7 +175,7 @@ namespace :admin do
       end
     end
     resources :camp_donate_records
-    resources :camp_execute_feedbacks
+    resources :camp_execute_feedbacks, concerns: :recommend
   end
 
   resources :camp_project_reports, concerns: [:switch]
