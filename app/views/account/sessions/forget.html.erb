@@ -2,7 +2,6 @@
     <%= stylesheet_link_tag 'blank', media: 'all', 'data-turbolinks-track': 'reload' %>
 <% end %>
 
-<%= simple_form_for @user, url: find_back_account_session_path, method: :post, html: {class: 'login-form'} do |f| %>
 <div id="first-screen" class="first-screen classbody">
   <div class="canforget">
     <canvas width="100%" height="100%" class="flare"></canvas>
@@ -47,6 +46,8 @@
       <!--找回密码-->
     <!--</div>-->
     <!--手机第一步-->
+    <% if params[:kind] == 'by_phone' %>
+    <%= simple_form_for @user, url: find_back_account_session_path, method: :post, html: {class: 'login-form'} do |f| %>
     <p class="longin-tit clearfix">
     <span class="pull-left cur longin-1">忘记密码</span>
     <span class="pull-right longin-4 iconfont icon-arrow-right "></span>
@@ -76,30 +77,39 @@
     找回密码
     </div> -->
     <button class="register" type="submit">找回密码</button>
+    <% end %>
+    <% end %>
     <!--对于邮箱是第三步 对于手机是第二步-->
-    <!--<p class="longin-tit clearfix">-->
-    <!--<span class="pull-left cur longin-1">忘记密码</span>-->
+    <%= simple_form_for @user, url: account_session_path, method: :put, html: {class: 'login-form'} do |f| %>
+    <% if params[:kind] == 'edit_password' %>
+      <p class="longin-tit clearfix">
+      <span class="pull-left cur longin-1">忘记密码</span>
 
 
-    <!--<span class="pull-right longin-4 iconfont icon-arrow-right "></span>-->
-    <!--<span class="pull-right cur longin-3">手机找回</span>-->
-    <!--<span class="pull-right cur longin-3">邮箱找回</span>-->
-    <!--<span class="pull-right cur longin-4">返回登录 |</span>-->
-    <!--</p>-->
-    <!--<div class="input-in">-->
-    <!--<span class="input input&#45;&#45;hoshi">-->
-    <!--<input class="input__field input__field&#45;&#45;hoshi" type="password" id="email" placeholder="请输入新密码"/>-->
-    <!--<label class="input__label input__label&#45;&#45;hoshi input__label&#45;&#45;hoshi-color-1" for="email"></label>-->
-    <!--</span>-->
-    <!--<span class="input input&#45;&#45;hoshi">-->
-    <!--<input class="input__field input__field&#45;&#45;hoshi" type="password" id="password" placeholder="请再次输入密码"/>-->
-    <!--<label class="input__label input__label&#45;&#45;hoshi input__label&#45;&#45;hoshi-color-1" for="password"></label>-->
-    <!--</span>-->
-    <!--</div>-->
+      <span class="pull-right longin-4 iconfont icon-arrow-right "></span>
+      <span class="pull-right cur longin-3">手机找回</span>
+      <span class="pull-right cur longin-3">邮箱找回</span>
+      <span class="pull-right cur longin-4">返回登录 |</span>
+      </p>
+      <div class="input-in">
+      <span class="input input&#45;&#45;hoshi">
+      <!-- <input class="input__field input__field&#45;&#45;hoshi" type="password" id="email" placeholder="请输入新密码"/> -->
+      <%= f.password_field :password, required: true, class: 'input__field input__field--hoshi', id: 'email', placeholder: '请输入新密码' %>
+      <label class="input__label input__label&#45;&#45;hoshi input__label&#45;&#45;hoshi-color-1" for="email"></label>
+      </span>
+      <span class="input input&#45;&#45;hoshi">
+      <!-- <input class="input__field input__field&#45;&#45;hoshi" type="password" id="password" placeholder="请再次输入密码"/> -->
+      <%= f.password_field :password_confirmation, required: true, class: 'input__field input__field--hoshi', id: 'password', placeholder: '请再次输入密码' %>
+      <label class="input__label input__label&#45;&#45;hoshi input__label&#45;&#45;hoshi-color-1" for="password"></label>
+      </span>
+      </div>
 
-    <!--<div class="register">-->
-    <!--确定-->
-    <!--</div>-->
+      <!-- <div class="register">
+      确定
+      </div> -->
+      <button class="register" type="submit">确定</button>
+      <% end %>
+    <% end %>
   </div>
 
   <!--<div class="login-box" style="height: 320px;">-->
@@ -130,7 +140,6 @@
     Copyright(c) 2005-2015 青海格桑花教育救助会 版权所有 All Rights Reserved 青ICP
   </footer>
 </div>
-<% end %>
 
 
 <script type="text/javascript" charset="utf-8">
