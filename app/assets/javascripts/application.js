@@ -37,6 +37,7 @@
 //= require 'plugin/jquery.mCustomScrollbar.concat.min.js'
 //= require 'plugin/jquery.share.min.js'
 //= require 'plugin/ui-choose.js'
+//= require 'plugin/mongolian.js'
 
 
 

@@ -1,20 +1,19 @@
-
 <div id="project">
   <div class="project-head">
     <div class="project-img"></div>
     <% if @project.image.present? %>
       <%= image_tag @project.image.try(:file).try(:url, :tiny).to_s %>
     <% else %>
-      <%= image_tag 'project-reading.png' %>
+        <%= image_tag 'project-reading.png' %>
     <% end %>
     <div class="project-cont">
       <p class="project-cont-tit"><%= @project.name %></p>
       <div class="project-cont-con "><%= @project.describe %></div>
       <%= link_to pair_path(@project) do %>
-        <div class="project-cont-but">
-          <span>查看项目介绍</span>
-          <span class="iconfont icon-arrow-right"></span>
-        </div>
+          <div class="project-cont-but">
+            <span>查看项目介绍</span>
+            <span class="iconfont icon-arrow-right"></span>
+          </div>
       <% end %>
     </div>
   </div>
@@ -22,13 +21,13 @@
     <div class="project-body-t clearfix border-b">
       <p class="pull-left cur">当前共有 <%= @total %> 个孩子需要帮助</p>
       <%= form_tag pairs_path, method: :get do %>
-        <div class="pull-right">
-          <div class="input-group">
-            <span class="iconfont icon-ico-search"></span>
-            <!-- <input type="text" class="form-control" placeholder="搜索孩子"> -->
-            <%= text_field_tag :name, params[:name], name: :name, class: 'form-control', placeholder: '搜索孩子' %>
+          <div class="pull-right">
+            <div class="input-group">
+              <span class="iconfont icon-ico-search"></span>
+              <!-- <input type="text" class="form-control" placeholder="搜索孩子"> -->
+              <%= text_field_tag :name, params[:name], name: :name, class: 'form-control', placeholder: '搜索孩子' %>
+            </div>
           </div>
-        </div>
       <% end %>
       <div class="city-picker-selector pull-right" id="city-picker-selector"></div>
       <!-- <div class="pull-right pull-down">
@@ -49,33 +48,34 @@
     <div class="pairs-body">
       <div class="pairs-body-cont row">
         <% @children.each do |child| %>
-          <div class="col-md-6 cur ">
-            <%= link_to detail_pair_path(child) do %>
-              <div class="clearfix">
-                <div class="pairs-body-img pull-left">
-                  <%= image_tag 'project-reducepage-child.png' %>
-                </div>
-                <div class="pairs-body-conts pull-left">
-                  <p><%= child.name %></p>
-                  <p><%= ChinaCity.get(child.province) %> <%= ChinaCity.get(child.city) %>  <%= ChinaCity.get(child.district) %></p>
-                  <p><%= child.reason %></p>
-                  <button>去捐助</button>
-                </div>
-              </div>
-            <% end %>
-          </div>
+            <div class="col-md-6 cur ">
+              <%= link_to detail_pair_path(child) do %>
+                  <div class="clearfix">
+                    <div class="pairs-body-img pull-left">
+                      <%= image_tag 'project-reducepage-child.png' %>
+                    </div>
+                    <div class="pairs-body-conts pull-left">
+                      <p><%= child.name %></p>
+                      <p><%= ChinaCity.get(child.province) %> <%= ChinaCity.get(child.city) %>  <%= ChinaCity.get(child.district) %></p>
+                      <p><%= child.reason %></p>
+                      <button>去捐助</button>
+                    </div>
+                  </div>
+              <% end %>
+            </div>
         <% end %>
       </div>
     </div>
 
-    </div>
   </div>
-  <div class="project-foot">
-    <%= paginate @children, theme: :tiny %>
-  </div>
+</div>
+<div class="project-foot">
+  <%= paginate @children, theme: :tiny %>
+</div>
 
 </div>
 <script>
+
     // 模拟城市-无联动/无搜索
     var selector1 = $('#city-picker-selector').cityPicker({
         dataJson: cityData,
@@ -85,4 +85,5 @@
         code: 'cityCode',
         level: 1
     });
+
 </script>
