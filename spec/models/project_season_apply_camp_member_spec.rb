@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: project_season_apply_camp_students # 探索营学生
+# Table name: project_season_apply_camp_members
 #
 #  id                           :integer          not null, primary key
 #  name                         :string                                 # 姓名
@@ -20,25 +20,14 @@
 #  description                  :text                                   # 自我介绍
 #  reason                       :string                                 # 推荐理由
 #  state                        :integer                                # 状态
+#  age                          :integer                                # 年龄
+#  kind                         :integer                                # 类型 1学生 2老师
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
-#  age                          :integer                                # 年龄
 #
 
-FactoryBot.define do
-  factory :project_season_apply_camp_student do
-    name "MyString"
-    id_card "MyString"
-    nation 1
-    school_id 1
-    project_season_apply_camp_id 1
-    camp_id 1
-    project_season_apply_id 1
-    grede 1
-    teacher_name "MyString"
-    teacher_phone "MyString"
-    guardian_name "MyString"
-    guardian_phone "MyString"
-    description "MyText"
-  end
+require 'rails_helper'
+
+RSpec.describe ProjectSeasonApplyCampMember, type: :model do
+  pending "add some examples to (or delete) #{__FILE__}"
 end

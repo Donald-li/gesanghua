@@ -1,0 +1,122 @@
+<div id="donates">
+  <div class="donates-img">
+    <%= image_tag 'top-bg.png' %>
+    <div class="donates-img-cont">
+      <p>格桑花的承诺</p>
+      <p>每一笔善款去向可查，明明白白</p>
+    </div>
+  </div>
+  <div  class="donates-content clearfix">
+    <div class="pull-left donates-content-left">
+      <!--项目类-->
+      <!--<div>-->
+        <!--<p class="donates-c-l-t">选择你要捐助的项目</p>-->
+        <!--<div class="donations-1" >-->
+          <!--<ul class="donations1 clearfix">-->
+            <!--<li class="selectedDo cur">办公经费</li>-->
+            <!--<li class="cur ">格桑花</li>-->
+            <!--<li class="cur ">一对一</li>-->
+            <!--<li class="cur">悦读</li>-->
+            <!--<li class="cur">护花</li>-->
+            <!--<li class="cur">广播</li>-->
+            <!--<li class="cur">探索营</li>-->
+          <!--</ul>-->
+          <!--<div class="bottomline"></div>-->
+        <!--</div>-->
+        <!--<p class="donates-c-l-t">您的捐款将会用于格桑花办公经费的使用！</p>-->
+      <!--</div>-->
+      <!--物资类-->
+      <div>
+        <p class="donates-c-l-t">您的捐款将会用于格桑花护花项目的使用！</p>
+        <div class="donates-c-l-co">
+          <div class="donates-c-l-coss clearfix">
+            <div class="pull-left">
+              <p>护花行动“风暴”来袭</p>
+              <p>目标 2100.00 元</p>
+            </div>
+            <div class="pull-right">
+              还差 <span>1300</span> 元
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--整捐-->
+      <!--<div class="benefactors-integer clearfix">-->
+        <!--<span class="pull-left">捐款金额</span>-->
+        <!--<div class="pull-right">-->
+          <!--<ul class="ui-choose" id="uc_01">-->
+            <!--<li class="selected">1300元-->
+              <!--<span>-->
+                <!--<%#= image_tag 'integer-read.png' %>-->
+              <!--</span>-->
+            <!--</li>-->
+          <!--</ul>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--散捐-->
+      <div class="benefactors-moy clearfix">
+        <span class="pull-left">捐款金额</span>
+        <input type="text" placeholder="其他金额" class="pull-left"/>
+        <span >元</span>
+        <div class="pull-right">
+          <ul class="ui-choose" id="uc_01">
+            <li class="cur">1300元</li>
+            <li class="cur">1000元</li>
+            <li class="cur">1500元</li>
+            <li class="cur">2000元</li>
+          </ul>
+        </div>
+      </div>
+      <div class="benefactors clearfix">
+        <span class="pull-left">选捐助人</span>
+        <select id="benefactor">
+          <option value="1">peekid</option>
+          <option value="2">成功2</option>
+          <option value="3" >成功3</option>
+        </select>
+      </div>
+      <div class="don-my-team">通过 <span>维基飞翔后援团</span> 捐助</div>
+      <div class="benefactors-way clearfix border-b">
+        <span class="pull-left">支付方式</span>
+        <ul class="ui-choose pull-left"  id="uc_02">
+          <li>
+            <%= image_tag 'iconpic-buy-alipay.svg' %>
+          </li>
+          <li>
+            <%= image_tag 'iconpic-buy-weixin.svg' %>
+          </li>
+          <li>
+            <%= image_tag 'iconpic-buy-alipay.svg' %>
+          </li>
+        </ul>
+      </div>
+      <div class="class-button cur">立即支付</div>
+    </div>
+    <div class="pull-right donates-content-right">
+      <div class="donates-con-r-t border-b ">
+        <p>银行汇款</p>
+        <p>银行转账至（请注明捐助项目）</p>
+      </div>
+      <div class="donates-con-r-con">
+        <p>户名：格桑花西部助学</p>
+        <p>开户银行：中国光大银行北京朝阳支行</p>
+        <p>账号：3506 0188 0000 50322</p>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+    //     右tab切换二级
+    $(".donations1 li").on("click", function () {
+        $(".donations1 li").removeClass("selectedDo")
+        $(this).addClass("selectedDo")
+        $(".bottomline").css("left", parseFloat($(this)[0].offsetLeft) -10 +  "px")
+    })
+    $('.ui-choose').ui_choose();
+    $("#benefactor").select({
+        width: "430px",
+        height:"42px",
+        fontSize:"14px"
+    });
+</script>

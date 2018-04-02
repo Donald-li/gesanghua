@@ -1,6 +1,6 @@
-class CreateProjectSeasonApplyCampStudents < ActiveRecord::Migration[5.1]
+class CreateProjectSeasonApplyCampMembers < ActiveRecord::Migration[5.1]
   def change
-    create_table :project_season_apply_camp_students, comment: '探索营学生' do |t|
+    create_table :project_season_apply_camp_members do |t|
       t.string :name, comment: '姓名'
       t.string :id_card, comment: '身份证号'
       t.integer :nation, comment: '民族'
@@ -18,7 +18,8 @@ class CreateProjectSeasonApplyCampStudents < ActiveRecord::Migration[5.1]
       t.text :description, comment: '自我介绍'
       t.string :reason, comment: '推荐理由'
       t.integer :state, comment: '状态'
-
+      t.integer :age, comment: '年龄'
+      t.integer :kind, comment: '类型 1学生 2老师'
       t.timestamps
     end
   end

@@ -138,6 +138,8 @@ class Project < ApplicationRecord
       self.applies.to_delivery.count
     elsif self.id == 7
       self.applies.to_delivery.count
+    elsif self.id == 3
+      self.applies.show.camp_raising.count
     else
       0
     end
@@ -153,6 +155,8 @@ class Project < ApplicationRecord
       '个项目'
     elsif self.id == 7
       '个项目'
+    elsif self.id == 3
+      '个'
     else
       '个'
     end

@@ -292,6 +292,7 @@ class ProjectSeasonApply < ApplicationRecord
     Jbuilder.new do |json|
       json.(self, :id, :apply_no, :target_amount, :present_amount, :bookshelf_type, :project_describe, :execute_state)
       json.name self.apply_name
+      json.has_target self.target_amount != 0
       json.last_amount self.target_amount - self.present_amount
       json.cover_mode self.cover_image.present?
       json.cover_url self.cover_image_url(:small).to_s
