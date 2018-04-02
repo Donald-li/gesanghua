@@ -31,6 +31,12 @@ ul.ui-choose > li:hover {
     z-index: 4;
     border-color: #d632aa;
 }
+ul.ui-choose>li:hover {
+    z-index: 4;
+    border-color: #d632aa;
+    color: #d632aa;
+}
+
 
 
 
