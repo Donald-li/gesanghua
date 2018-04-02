@@ -40,7 +40,7 @@
                   <div class="clearfix">
                     <span class="iconfont icon-yuan bul-yuan "></span>
                     <span class="bul-time pull-left"><%= record.created_at.strftime("%m月%d日 %H:%M") %></span>
-                    <span class="bul-name pull-left"><%= record.title %></span>
+                    <span class="bul-name pull-left"><%= record.user.show_name %>捐助<%= record.fund.fund_category.name %><%= record.fund.name %></span>
                     <span class="bul-moy pull-right"><%= record.amount %>元</span>
                   </div>
                 </li>
