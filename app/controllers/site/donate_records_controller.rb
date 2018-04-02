@@ -10,6 +10,10 @@ class Site::DonateRecordsController < Site::BaseController
         @owner = ProjectSeasonApply.find(params[:apply])
         scope = scope.where(project_season_apply_id: params[:apply])
       end
+      if params[:child].present?
+        @owner = ProjectSeasonApplyChild.find(params[:child])
+        scope = scope.where(project_season_apply_child_id: params[:child])
+      end
       @records = scope.sorted.page(params[:page]).per(6)
   end
 end

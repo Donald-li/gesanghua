@@ -27,7 +27,7 @@
     <div class=" bul-img-n">
       <div class="clearfix  bul-img-m">
         <div class="clearfix  bul-img-p">
-          <p class="pull-left">累计捐助:<span>45612459.00</span>元</p>
+          <p class="pull-left">累计捐助:<span><%= @total_donate_amount %></span>元</p>
           <p class="pull-right cur"><span class="iconfont icon-arrowdown"></span>财务公开</p>
         </div>
         <div class="bul-img-co">
@@ -40,7 +40,7 @@
                   <div class="clearfix">
                     <span class="iconfont icon-yuan bul-yuan "></span>
                     <span class="bul-time pull-left"><%= record.created_at.strftime("%m月%d日 %H:%M") %></span>
-                    <span class="bul-name pull-left"><%= record.title %></span>
+                    <span class="bul-name pull-left"><%= record.user.show_name %>捐助<%= record.fund.fund_category.name %></span>
                     <span class="bul-moy pull-right"><%= record.amount %>元</span>
                   </div>
                 </li>
