@@ -164,9 +164,9 @@
         var mobile = $('#phonenumber').val()
         $.ajax({
           type:  "post",
-          url: "/account/sms_codes",
+          url: "/api/v1/common/sms_codes",
           data: {kind: 'find_password', mobile: mobile},
-          success(data){alert(data)},
+          success(data){alert(data.message)},
           error(){}
         })
     }
