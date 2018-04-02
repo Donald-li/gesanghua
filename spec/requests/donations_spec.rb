@@ -53,6 +53,14 @@ RSpec.describe "Api::V1::Donations", type: :request do
       api_v1_expect_success
     end
 
+    it '使用用户余额捐捐助项' do
+      user = create(:user, balance: 500)
+      post api_v1_donations_path(donate_way: 'balance', donor: @donor.id, amount: 100, donate_item: @donate_item.id), headers: api_v1_headers(user)
+      api_v1_expect_success
+      expect(json_body[:data][:pay_state]) == 'paid'
+      expect(user.reload.balance.to_f).to eq 400
+    end
+
   end
 
 end

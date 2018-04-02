@@ -23,7 +23,7 @@ class Support::SelectsController < Support::BaseController
     users = scope.page(params[:page])
     render json: {items: users.as_json(only: [:id, :name])}
   end
-  
+
   # 线下捐款
   def income_records
     scope = IncomeRecord.has_balance.sorted.where("title like :q", q: "%#{params[:q]}%")
@@ -66,7 +66,7 @@ class Support::SelectsController < Support::BaseController
 
   def seasons
     scope = Project.find(params[:project_id]).seasons.enable.sorted.where("name like :q", q: "%#{params[:q]}%")
-    seasons = scope.page(paramsc[:page])
+    seasons = scope.page(params[:page])
     render json: {items: seasons.as_json(only: [:id, :name])}
   end
 

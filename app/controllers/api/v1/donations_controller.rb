@@ -23,7 +23,7 @@ class Api::V1::DonationsController < Api::V1::BaseController
         api_error
       end
     elsif params[:donate_way] == 'balance'
-      if DonateRecord.do_donate('user_donate', agent, owner, amount, agent, donor)
+      if DonateRecord.do_donate('user_donate', agent, owner, amount, {agent: agent, donor: donor})
         api_success(data: {pay_state: 'paid'}, message: '成功')
       else
         api_error

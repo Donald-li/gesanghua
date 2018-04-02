@@ -20,6 +20,8 @@
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  details                 :jsonb                                  # 捐助详情
+#  amount                  :decimal(14, 2)   default(0.0)          # 捐助金额
+#  agent_id                :integer                                # 代理人id
 #
 
 # 捐助

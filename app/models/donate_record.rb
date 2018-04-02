@@ -81,7 +81,7 @@ class DonateRecord < ApplicationRecord
 
     self.transaction do # 事务
       # 来源金额是否充足？
-      if source.balance < amount
+      if source.balance < amount.to_f
         return false
       else
         source.lock! # 加锁
@@ -123,7 +123,7 @@ class DonateRecord < ApplicationRecord
       source.balance -= donate_amount
       source.save!
 
-      reback = amount - donate_amount
+      reback = amount.to_f - donate_amount
       if reback > 0
         # 判断是否超捐，超捐退回余额，并扣除income_record balance
         if kind.to_s == 'user_donate' && source.is_a?(IncomeRecord) # 在线支付
