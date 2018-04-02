@@ -26,6 +26,7 @@ scope module: :user do
 end
 
 namespace :account do
+  resources :sms_codes, only: :create
   get '/login' => 'sessions#new', as: :login
   match '/logout', to: 'sessions#destroy', as: :logout, via: :delete
   resource :session, only: [:create, :edit, :update] do

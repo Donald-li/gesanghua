@@ -9,22 +9,19 @@ class Account::SessionsController < Account::BaseController
 
   def create
     @user = User.new session_params.permit!
-    if !verify_rucaptcha?
-      flash[:alert] = '验证码错误'
-      render action: :new and return
-    end
     user = User.find_by(login: session_params[:login])
     if user.blank?
       flash[:alert] = '该帐号不存在'
       render(action: :new) && return
     end
+    @user = user
     if user.state === 'disable'
       flash[:alert] = '该帐号已被停用'
       render(action: :new) && return
     end
     if user.authenticate(session_params[:password])
       set_current_user(user)
-      redirect_to user_schools_path
+      redirect_to root_path
     else
       flash[:alert] = '用户密码错误'
       render(action: :new) && return
@@ -96,13 +93,4 @@ class Account::SessionsController < Account::BaseController
   def session_params
     params.require(:user).permit(:login, :password, :password_confirmation)
   end
-
-  def set_current_user(user)
-    session[:current_user_id] = user.id
-  end
-
-  def set_reset_user(user)
-    session[:reset_user_id] = user.id
-  end
-
 end

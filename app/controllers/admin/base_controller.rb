@@ -15,7 +15,7 @@ class Admin::BaseController < ManagementBaseController
   end
 
   def logged_in?
-    if session[:current_user_id].present?
+    if session[:user_id].present?
       return true
     else
       redirect_to admin_login_path
@@ -23,7 +23,7 @@ class Admin::BaseController < ManagementBaseController
   end
 
   def current_user
-    @current_user ||= User.find_by id: session[:current_user_id]
+    @current_user ||= User.find_by id: session[:user_id]
   end
 
 end
