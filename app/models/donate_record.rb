@@ -76,7 +76,7 @@ class DonateRecord < ApplicationRecord
 
   # 处理捐款
   # kind: 用户捐款、平台配捐；source：资金来源； owner：捐助对象；amount：捐助金额
-  def self.do_donate(kind, source, owner, amount)
+  def self.do_donate(kind, source, owner, amount, **params)
     result = false
 
     self.transaction do # 事务
@@ -91,19 +91,19 @@ class DonateRecord < ApplicationRecord
       #
       # 如果是捐到捐助项
       if owner.is_a?(DonateItem)
-        donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount)
+        donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, agent: agent, donor: donor)
         owner.accept_donate(donate_records)
 
       # 如果捐到申请子项 （书架，孩子，指定）
       elsif owner.class.name.in?(['GshChildGrant', 'ProjectSeasonApplyBookshelf'])
-        donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount)
+        donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, agent: agent, donor: donor)
         owner.accept_donate(donate_records)
 
       # 如果是捐到申请（物资类项目，子项）
       elsif owner.class.name.in?(['ProjectSeasonApply', 'ProjectSeasonApplyChild'])
         # 物资或拓展营
         if owner.project.goods? || owner.project == Project.camp_project
-          donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount)
+          donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, agent: agent, donor: donor)
           owner.accept_donate(donate_records)
         else
           # 如果是捐到申请（书架孩子，没选择子项）
@@ -111,7 +111,7 @@ class DonateRecord < ApplicationRecord
 
           owner.get_donate_items.each do |item|
             if source.balance > item.surplus_money
-              donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount)
+              donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, agent: agent, donor: donor)
               item.accept_donate(donate_records)
               # item.to_delivery!
             end

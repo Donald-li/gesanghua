@@ -48,11 +48,19 @@ class IncomeRecord < ApplicationRecord
   scope :sorted, -> {order(created_at: :desc)}
   scope :has_balance, ->{where('income_records.balance > 0')}
 
+  # 可开票记录
+  scope :open_ticket, -> { to_bill.where(created_at: (Time.now.beginning_of_year)..(Time.now.end_of_year)) }
+
   counter_culture :donor, column_name: proc {|model| model.income_source.present? && model.income_source.online? ? 'online_count' : nil}, delta_magnitude: proc {|model| model.amount}
   counter_culture :donor, column_name: proc {|model| model.income_source.present? && model.income_source.offline? ? 'offline_count' : nil}, delta_magnitude: proc {|model| model.amount}
 
   def has_balance?
     self.balance > 0
+  end
+
+  # 是否可开票
+  def open_ticket?
+    self.to_bill? && self.created_at.between?(Time.now.beginning_of_year, Time.now.end_of_year)
   end
 
   # 微信入账

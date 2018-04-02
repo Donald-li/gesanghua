@@ -33,9 +33,14 @@ class Donation < ApplicationRecord
   belongs_to :project, class_name: 'Project', optional: true
   belongs_to :season, class_name: 'ProjectSeason', optional: true
   belongs_to :apply, class_name: 'ProjectSeasonApply', optional: true
+  belongs_to :owner, polymorphic: true
+  belongs_to :donate_item, optional: true
 
   before_create :set_record_title
-  before_create :generate_donate_no
+  before_create :generate_order_no
+
+  enum pay_state: { unpaid: 1, paid: 2}
+  default_value_for :pay_state, 1
 
   # 生成收入
   def gen_income_record
@@ -71,7 +76,7 @@ class Donation < ApplicationRecord
 
   # 生成捐赠编号
   def pay_and_gen_certificate
-    self.certificate_no ||= 'ZS' + self.donate_no
+    self.certificate_no ||= 'ZS' + self.order_no
     self.pay_state = 'paid'
     # self.donor_certificate_path # TODO 调用捐赠证书方法，生成证书（微信支付调通以后，需要考虑此方法的执行速度）
     self.save
@@ -79,7 +84,7 @@ class Donation < ApplicationRecord
 
   #捐赠证书路径
   def donor_certificate_path
-    self.certificate_no ||= 'ZS' + self.donate_no
+    self.certificate_no ||= 'ZS' + self.order_no
     path = "/images/certificates/#{self.created_at.strftime('%Y%m%d')}/#{self.id}/#{Encryption.md5(self.id.to_s)}.jpg"
     local_path = Rails.root.to_s + '/public' + path
     if !File::exist?(local_path)
@@ -131,16 +136,16 @@ class Donation < ApplicationRecord
     end
   end
 
-  def generate_donate_no
+  def generate_order_no
     time_string = Time.now.strftime("%y%m%d%H")
-    self.donate_no ||= Sequence.get_seq(kind: :order_no, prefix: time_string, length: 7)
+    self.order_no ||= Sequence.get_seq(kind: :order_no, prefix: time_string, length: 7)
   end
 
   def get_wechat_prepay_id(remote_ip)
     notify_url = Settings.app_host + "/payment/wechat_payments/notify"
     params = {
       body: '需要一个商品名称',
-      out_trade_no: self.donate_no,
+      out_trade_no: self.order_no,
       # total_fee: Settings.pay_1_mode ? 1 : (self.amount * 100).to_i,
       total_fee: 1,
       # (self.amount * 100).to_i,
@@ -157,7 +162,7 @@ class Donation < ApplicationRecord
     notify_url = Settings.app_host + "/payment/wechat_payments/notify"
     params = {
       body: '需要一个商品名称',
-      out_trade_no: self.donate_no,
+      out_trade_no: self.order_no,
       # total_fee: Settings.pay_1_mode ? 1 : (self.amount * 100).to_i,
       total_fee: 1,
       # (self.amount * 100).to_i,
@@ -186,7 +191,7 @@ class Donation < ApplicationRecord
       return_url: quit_url,
       notify_url: notify_url,
       biz_content: {
-       out_trade_no: self.donate_no,
+       out_trade_no: self.order_no,
        product_code: 'QUICK_WAP_WAY',
        total_amount: '0.01',
        subject: 'Example: 456',
