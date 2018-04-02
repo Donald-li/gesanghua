@@ -2,7 +2,7 @@
 
   <div class="detail-head">
     <div class="detail-img clearfix">
-      <%= image_tag @apply.cover_image.try(:file).try(:url, :pc_detail) %>
+      <%= image_tag @apply.cover_image.try(:file).try(:url, :pc_detail).to_s %>
       <div class="detail-cont pull-right">
         <div>
           <p class="detail-con-t"><%= @apply.name %></p>
@@ -96,7 +96,7 @@
             </div>
             <div class="detail-body-title clearfix">
               <% if feedback.user.present? && feedback.user.avatar.present? %>
-                <%= image_tag feedback.user.avatar.try(:file).try(:url, :tiny) %>
+                <%= image_tag feedback.user.avatar.try(:file).try(:url, :tiny).to_s %>
               <% else %>
                 <%= image_tag '' %>
               <% end %>
@@ -108,7 +108,7 @@
                 <div class="clearfix details-img">
                   <% if feedback.images.present? %>
                     <% feedback.images.each do |img| %>
-                      <%= image_tag img.try(:file).try(:url, :medium) %>
+                      <%= image_tag img.try(:file).try(:url, :medium).to_s %>
                     <% end %>
                   <% end %>
                 </div>

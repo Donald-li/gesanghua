@@ -1,7 +1,7 @@
 <% records.each do |record| %>
   <li class="border-b clearfix">
     <% if record.user.present? && record.user.avatar.present? %>
-      <%= image_tag record.user.avatar.try(:file).try(:url, :tiny) %>
+      <%= image_tag record.user.avatar.try(:file).try(:url, :tiny).to_s %>
     <% else %>
       <%= image_tag '' %>
     <% end %>

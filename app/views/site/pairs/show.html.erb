@@ -2,7 +2,7 @@
 <div id="detail">
   <div class="referral-head">
     <div class="referral-img">
-      <%= image_tag @project.image.try(:file).try(:url, :large) %>
+      <%= image_tag @project.image.try(:file).try(:url, :large).to_s %>
       <div class="referal-img-z"></div>
       <div class="referral-cont">
         <p class="referral-cont-p"><%= @project.name %></p>
@@ -64,7 +64,7 @@
               </div>
               <div class="detail-body-title clearfix">
                 <% if report.user.avatar.present? %>
-                  <%= image_tag report.user.avatar.try(:file).try(:url, :tiny) %>
+                  <%= image_tag report.user.avatar.try(:file).try(:url, :tiny).to_s %>
                 <% else %>
                   <%= image_tag '' %>
                 <% end %>
@@ -76,7 +76,7 @@
                 <div class="clearfix details-img">
                   <% if report.images.present? %>
                     <% report.images.each do |img|%>
-                      <%= image_tag img.try(:file).try(:url, :tiny) %>
+                      <%= image_tag img.try(:file).try(:url, :tiny).to_s %>
                     <% end %>
                   <% end %>
                 </div>
@@ -95,7 +95,7 @@
               </div>
               <div class="detail-body-title clearfix">
                 <% if report.user.avatar.present? %>
-                  <%= image_tag report.user.avatar.try(:file).try(:url, :tiny) %>
+                  <%= image_tag report.user.avatar.try(:file).try(:url, :tiny).to_s %>
                 <% else %>
                   <%= image_tag '' %>
                 <% end %>
@@ -107,7 +107,7 @@
                 <div class="clearfix details-img">
                   <% if report.images.present? %>
                     <% report.images.each do |img|%>
-                      <%= image_tag img.try(:file).try(:url, :tiny) %>
+                      <%= image_tag img.try(:file).try(:url, :tiny).to_s %>
                     <% end %>
                   <% end %>
                 </div>
@@ -126,7 +126,7 @@
               </div>
               <div class="detail-body-title clearfix">
                 <% if report.user.avatar.present? %>
-                  <%= image_tag report.user.avatar.try(:file).try(:url, :tiny) %>
+                  <%= image_tag report.user.avatar.try(:file).try(:url, :tiny).to_s %>
                 <% else %>
                   <%= image_tag '' %>
                 <% end %>
@@ -138,7 +138,7 @@
                 <div class="clearfix details-img">
                   <% if report.images.present? %>
                     <% report.images.each do |img|%>
-                      <%= image_tag img.try(:file).try(:url, :tiny) %>
+                      <%= image_tag img.try(:file).try(:url, :tiny).to_s %>
                     <% end %>
                   <% end %>
                 </div>

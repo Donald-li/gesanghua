@@ -2,7 +2,7 @@
 <div id="project">
   <div class="project-head">
     <div class="project-img"></div>
-    <%= image_tag @project.image.try(:file).try(:url, :tiny) %>
+    <%= image_tag @project.image.try(:file).try(:url, :tiny).to_s %>
     <div class="project-cont">
       <p class="project-cont-tit"><%= @project.name %></p>
       <div class="project-cont-con "><%= @project.describe %></div>
@@ -33,7 +33,7 @@
         <div class="col-md-3 cur ">
           <%= link_to detail_good_path(apply) do %>
             <div class="project-body-img">
-              <%= image_tag apply.cover_image.try(:file).try(:url, :tiny) %>
+              <%= image_tag apply.cover_image.try(:file).try(:url, :tiny).to_s %>
             </div>
             <div class="project-body-cot border-b border-l border-r ">
               <div><%= apply.name %></div>
