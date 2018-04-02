@@ -68,13 +68,19 @@ class GshChildGrant < ApplicationRecord
 
   # 使用捐助
   def accept_donate(donate_records)
-    donate_records.each do |donate_record|
-      self.apply.present_amount += donate_record.amount
-      self.project.appoint_fund.balance += donate_record.amount
-    end
+    donate_record = donate_records.last
+    amount = [surplus_money, donate_record.amount].min
+    donate_record.update!(amount: amount)
+
+    self.apply.present_amount += amount
+    self.project.appoint_fund.balance += amount
     self.donate_state = 'succeed'
     self.save!
     self.apply_child.update_state
+  end
+
+  def surplus_money
+    self.amount - self.present_amount
   end
 
   def self.gen_grant_record(child)

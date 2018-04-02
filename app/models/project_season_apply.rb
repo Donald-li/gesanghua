@@ -124,7 +124,7 @@ class ProjectSeasonApply < ApplicationRecord
 
   # 使用捐助
   def accept_donate(donate_records)
-    donate_record = donate_records.first
+    donate_record = donate_records.last
     # 不能超过剩余金额
     amount = [surplus_money, donate_record.amount].min
     donate_record.update!(amount: amount)

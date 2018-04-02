@@ -70,17 +70,22 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :asc) }
 
-  counter_culture :apply, column_name: proc{|model| model.to_receive? ? 'present_amount' : nil}, delta_magnitude: proc {|model| model.present_amount }
+  # counter_culture :apply, column_name: proc{|model| model.to_receive? ? 'present_amount' : nil}, delta_magnitude: proc {|model| model.present_amount }
 
   # 使用捐助
   def accept_donate(donate_records)
-    donate_records.each do |donate_record|
-      self.present_amount += donate_record.amount
-      self.apply.present_amount += donate_record.amount
-      self.project.appoint_fund.balance += donate_record.amount
-    end
-    self.state = 'to_delivery' if self.present_amount == self.target_amount
+    donate_record = donate_records.last
+
+    amount = [surplus_money, donate_record.amount].min
+    donate_record.update!(amount: amount)
+
+    self.present_amount += amount
+    self.apply.present_amount += amount
+    self.project.appoint_fund.balance += amount
+
+    self.state = 'to_delivery' if self.present_amount >= self.target_amount
     self.save!
+    self.apply.save!
   end
 
   def surplus_money

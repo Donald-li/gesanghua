@@ -14,10 +14,8 @@
 #  updated_at                        :datetime         not null
 #  project_season_id                 :integer                                # 年度ID
 #  project_season_apply_id           :integer                                # 年度项目ID
-#  project_season_apply_child_id     :integer                                # 年度孩子申请ID
 #  gsh_child_id                      :integer                                # 格桑花孩子id
 #  project_season_apply_bookshelf_id :integer                                # 书架id
-#  donate_item_id                    :integer                                # 可捐助id
 #  income_record_id                  :integer                                # 收入记录
 #  title                             :string                                 # 捐赠标题
 #  source_type                       :string
@@ -96,28 +94,26 @@ class DonateRecord < ApplicationRecord
         donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount)
         owner.accept_donate(donate_records)
 
-      # 如果捐到申请子项 （书架，孩子，补书，指定）
+      # 如果捐到申请子项 （书架，孩子，指定）
       elsif owner.class.name.in?(['GshChildGrant', 'ProjectSeasonApplyBookshelf'])
-        # TODO: 判断下不能捐就不捐了
         donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount)
         owner.accept_donate(donate_records)
 
       # 如果是捐到申请（物资类项目，子项）
-      elsif owner.class.name.in?(['ProjectSeasonApply', 'PProjectSeasonApplyChild'])
-        # TODO: 判断下不能捐就不捐了
+      elsif owner.class.name.in?(['ProjectSeasonApply', 'ProjectSeasonApplyChild'])
         # 物资或拓展营
         if owner.project.goods? || owner.project == Project.camp_project
           donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount)
           owner.accept_donate(donate_records)
         else
-          # 如果是捐到申请（书架孩子补书，没选择子项）
+          # 如果是捐到申请（书架孩子，没选择子项）
           # 分解到子项，捐助到子项
 
           owner.get_donate_items.each do |item|
             if source.balance > item.surplus_money
               donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount)
               item.accept_donate(donate_records)
-              item.to_delivery!
+              # item.to_delivery!
             end
           end
         end

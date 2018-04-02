@@ -23,7 +23,7 @@
 #
 
 # 捐助
-class Donations < ApplicationRecord
+class Donation < ApplicationRecord
 
   has_many :income_records
   belongs_to :donor, class_name: 'User', foreign_key: 'donor_id', optional: true

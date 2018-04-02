@@ -1,13 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe Donate, type: :model do
-
-
+RSpec.describe Donation, type: :model do
 
   describe '测试捐赠编号和捐赠证书生成方法' do
     before(:each) do
       DonateRecord.donate_gsh(user, 3000)
     end
+    
     it '测试捐赠编号方法' do
       record = DonateRecord.first
       record.pay_and_gen_certificate
