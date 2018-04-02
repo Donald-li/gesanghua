@@ -26,6 +26,7 @@ FactoryBot.define do
     student_number 1
     teacher_number 1
     end_time "2018-03-30 14:12:45"
+    describe {FFaker::LoremCN.sentence(10)}
     time_limit 1
     message_type 1
   end

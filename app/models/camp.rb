@@ -33,4 +33,19 @@ class Camp < ApplicationRecord
     ChinaCity.get(self.province).to_s + " " + ChinaCity.get(self.city).to_s + " " + ChinaCity.get(self.district).to_s
   end
 
+  def self.address_group
+    Jbuilder.new do |json|
+      json.city self.city_group
+    end.attributes!
+  end
+
+  def self.city_group
+    cities = self.enable.pluck('distinct city').compact
+    cities.map{|key| {value: key, name: ChinaCity.get(key), district: self.district_group(key)}}
+  end
+
+  def self.district_group(city)
+    self.enable.where(city: city).group_by {|item| item.district}.keys.map {|key| {value: key, name: ChinaCity.get(key)}}
+  end
+
 end

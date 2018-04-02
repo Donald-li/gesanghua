@@ -24,8 +24,7 @@ class ProjectSeasonApplyCamp < ApplicationRecord
   belongs_to :camp
   belongs_to :teacher, optional: true
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: :project_season_apply_id
-  has_many :project_season_apply_camp_students, dependent: :destroy
-  has_many :project_season_apply_camp_teachers, dependent: :destroy
+  has_many :project_season_apply_camp_members, dependent: :destroy
 
   enum time_limit: {restrict: 1, unrestrict: 2}
   default_value_for :time_limit, 1

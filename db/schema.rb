@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180330073148) do
+ActiveRecord::Schema.define(version: 20180402080149) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -637,6 +637,30 @@ ActiveRecord::Schema.define(version: 20180330073148) do
     t.string "contact_name", comment: "联系人"
     t.string "contact_phone", comment: "联系电话"
     t.string "address", comment: "详细地址"
+  end
+
+  create_table "project_season_apply_camp_members", force: :cascade do |t|
+    t.string "name", comment: "姓名"
+    t.string "id_card", comment: "身份证号"
+    t.integer "nation", comment: "民族"
+    t.integer "gender", comment: "性别"
+    t.integer "school_id", comment: "学校id"
+    t.integer "project_season_apply_camp_id", comment: "探索营配额id"
+    t.integer "camp_id", comment: "探索营id"
+    t.integer "project_season_apply_id", comment: "营立项id"
+    t.integer "grade", comment: "年级"
+    t.integer "level", comment: "初高中"
+    t.string "teacher_name", comment: "老师姓名"
+    t.string "teacher_phone", comment: "老师联系方式"
+    t.string "guardian_name", comment: "监护人姓名"
+    t.string "guardian_phone", comment: "监护人联系方式"
+    t.text "description", comment: "自我介绍"
+    t.string "reason", comment: "推荐理由"
+    t.integer "state", comment: "状态"
+    t.integer "age", comment: "年龄"
+    t.integer "kind", comment: "类型 1学生 2老师"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "project_season_apply_camp_students", force: :cascade, comment: "探索营学生" do |t|

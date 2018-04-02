@@ -17,9 +17,9 @@
 FactoryBot.define do
   factory :camp do
     name "MyString"
-    province "MyString"
-    city "MyString"
-    district "MyString"
+    province '630000'
+    city '630100'
+    district '630123'
     fund_id 1
     manager_id 1
     state 1

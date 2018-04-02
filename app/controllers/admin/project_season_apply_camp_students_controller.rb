@@ -3,20 +3,20 @@ class Admin::ProjectSeasonApplyCampStudentsController < Admin::BaseController
   before_action :set_apply_camp
 
   def index
-    @search = ProjectSeasonApplyCampStudent.sorted.ransack(params[:q])
+    @search = ProjectSeasonApplyCampMember.student.sorted.ransack(params[:q])
     scope = @search.result
     @camp_students = scope.page(params[:page])
   end
 
   def new
-    @camp_student = ProjectSeasonApplyCampStudent.new
+    @camp_student = ProjectSeasonApplyCampMember.new
   end
 
   def show
   end
 
   def create
-    @camp_student = ProjectSeasonApplyCampStudent.new(camp_student_params.merge(camp: @apply_camp.camp, apply: @apply_camp.apply, school: @apply_camp.school, apply_camp: @apply_camp))
+    @camp_student = ProjectSeasonApplyCampMember.new(camp_student_params.merge(camp: @apply_camp.camp, apply: @apply_camp.apply, school: @apply_camp.school, apply_camp: @apply_camp, kind: 'student'))
     respond_to do |format|
       if @camp_student.save
         @camp_student.attach_image(params[:image_id])
@@ -67,11 +67,11 @@ class Admin::ProjectSeasonApplyCampStudentsController < Admin::BaseController
   end
 
   def set_camp_student
-    @camp_student = ProjectSeasonApplyCampStudent.find(params[:id])
+    @camp_student = ProjectSeasonApplyCampMember.find(params[:id])
   end
 
   def camp_student_params
-    params.require(:project_season_apply_camp_student).permit!
+    params.require(:project_season_apply_camp_member).permit!
   end
 
 end
