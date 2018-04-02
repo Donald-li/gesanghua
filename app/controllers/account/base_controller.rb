@@ -4,11 +4,4 @@ class Account::BaseController < ApplicationController
 
   layout 'account'
 
-  def logged_in?
-    # if session[:current_user_id].present?
-    #   return true
-    # else
-    #   redirect_to account_login_path
-    # end
-  end
 end
