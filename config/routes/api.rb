@@ -182,6 +182,10 @@ namespace :api do
       member do
         get :get_address_list
         get :applies_list
+        get :member
+        get :feedback
+        get :apply_camp
+        post :complaint
       end
     end
 

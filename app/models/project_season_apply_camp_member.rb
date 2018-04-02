@@ -63,13 +63,26 @@ class ProjectSeasonApplyCampMember < ApplicationRecord
 
   validates :name, :id_card, presence: true
 
-  scope :sorted, ->{ order(created_at: :desc) }
+  scope :sorted, -> {order(created_at: :desc)}
 
   def count_age
     birthday = ChinesePid.new("#{self.id_card}").birthday
     today = Date.today
     child_age = (today - birthday).to_i/365
     self.update_columns(age: child_age)
+  end
+
+  def summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :name, :kind)
+      json.gender self.enum_name(:gender)
+      json.id_card self.secure_id_card
+    end.attributes!
+  end
+
+  def secure_id_card
+    card = self.id_card
+    return card[0] + '*' * (card.length - 2) + card[-1]
   end
 
 end

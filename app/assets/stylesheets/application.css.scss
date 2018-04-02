@@ -67,22 +67,23 @@ body {
   }
 
 }
+
 input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px white inset!important;
+  -webkit-box-shadow: 0 0 0px 1000px white inset !important;
   border: none !important;
 
 }
-input{
+
+input {
   outline: none;
   -webkit-appearance: none;
-  border:1px solid $border;
+  border: 1px solid $border;
   border-radius: 2px;
 }
+
 span {
   display: inline-block;
 }
-
-
 
 select {
   border: 1px solid #ccc;
@@ -146,7 +147,8 @@ select:disabled {
 .cur {
   cursor: pointer;
 }
-.class-button{
+
+.class-button {
   width: 180px;
   height: 40px;
   line-height: 38px;
@@ -158,6 +160,7 @@ select:disabled {
   color: #fff;
   font-size: 16px;
 }
+
 //轮播按钮
 .swiper-button-prev, .swiper-container-rtl .swiper-button-next {
   background-color: #000;
@@ -3557,9 +3560,10 @@ select:disabled {
 }
 
 //支付
-#donates{
+#donates {
   position: relative;
 }
+
 .donates-img {
   width: 100%;
   height: 180px;
@@ -3590,44 +3594,49 @@ select:disabled {
     }
   }
 }
-.donates-content{
-width: 1140px;
-  height: 673px;
+
+.donates-content {
+  width: 1140px;
+  height: 650px;
   background-color: #fff;
   box-shadow: 0px 2px 7px 2px #cac7c94d;
   margin: -40px auto 80px auto;
   border-radius: 4px;
   overflow: hidden;
 }
-.donates-content-right{
+
+.donates-content-right {
   width: 280px;
   height: 100%;
   background-color: #f8f8f8;
   padding: 33px 20px;
 }
-.donates-con-r-con{
+
+.donates-con-r-con {
   padding-top: 10px;
-  font-size: 14px;
+  font-size: 13px;
   color: #2a2a2c;
   text-align: left;
-  line-height: 30px;
+  line-height: 26px;
 }
-.donates-con-r-t{
+
+.donates-con-r-t {
   text-align: left;
   line-height: 26px;
   padding-bottom: 4px;
-  & > p:nth-child(1){
-font-size: 16px;
+  & > p:nth-child(1) {
+    font-size: 16px;
     color: #2a2a2c;
     font-weight: 600;
   }
-  & > p:nth-child(2){
+  & > p:nth-child(2) {
     font-size: 12px;
     color: #8d8d8d;
 
   }
 }
-.donates-content-left{
+
+.donates-content-left {
   width: 860px;
   padding: 42px 30px;
   .donations-1 {
@@ -3664,16 +3673,19 @@ font-size: 16px;
   }
 
 }
-.donates-c-l-t{
+
+.donates-c-l-t {
   font-size: 16px;
   color: #2a2a2c;
   font-weight: 600;
 }
-.donates-c-l-co{
+
+.donates-c-l-co {
   width: 526px;
   padding-top: 28px;
 }
-.donates-c-l-coss{
+
+.donates-c-l-coss {
   width: 100%;
   height: 70px;
   border-radius: 4px;
@@ -3681,76 +3693,79 @@ font-size: 16px;
   background-color: #f7f7f7;
   padding: 12px 25px;
 
-  & > div:nth-child(1) > p:nth-child(1){
+  & > div:nth-child(1) > p:nth-child(1) {
     font-size: 16px;
     color: #2a2a2c;
     font-weight: 600;
   }
-  & > div:nth-child(1) > p:nth-child(2){
+  & > div:nth-child(1) > p:nth-child(2) {
     font-size: 14px;
     color: #8d8d8d;
   }
-  & > div:nth-child(2){
+  & > div:nth-child(2) {
     font-size: 14px;
     color: #2a2a2c;
     padding: 12px 0;
-    & > span{
+    & > span {
       font-weight: 600;
     }
   }
 }
-.benefactors{
+
+.benefactors {
   margin-top: 30px;
-  & > span{
+  & > span {
     font-size: 14px;
     color: #3d3d40;
     line-height: 36px;
     margin: 0 34px 0 6px;
   }
-  .select_container_nw{
+  .select_container_nw {
     font-size: 14px;
   }
 }
-.don-my-team{
+
+.don-my-team {
   width: 526px;
   text-align: center;
   font-size: 12px;
   color: #636364;
-  & > span{
+  & > span {
     color: $color-info;
   }
 }
-.benefactors-moy{
-  margin-top: 40px;
+
+.benefactors-moy {
+  margin-top: 30px;
   width: 526px;
   position: relative;
-  & > span{
+  & > span {
     font-size: 14px;
     color: #3d3d40;
     line-height: 36px;
     margin: 0 34px 0 6px;
   }
-  & > input{
+  & > input {
     width: 430px;
     padding: 6px 0px 7px 10px;
     font-size: 14px;
   }
-  & > span:nth-child(3){
+  & > span:nth-child(3) {
     position: absolute;
-    right:0;
-    top:0;
+    right: 0;
+    top: 0;
     font-size: 14px;
     color: #3d3d40;
     margin: 0 22px 0 0;
   }
-  & > div{
+  & > div {
     margin-top: 16px;
     width: 430px;
     height: 40px;
-    .ui-choose{
+    .ui-choose {
       width: 100%;
       display: flex;
-      & > li{
+      & > li {
         flex: 1;
         height: 36px;
         line-height: 34px;
@@ -3760,27 +3775,28 @@ font-size: 16px;
         text-align: center;
 
       }
-      & > li:first-child{
+      & > li:first-child {
         margin-left: 0;
       }
     }
-    ul.ui-choose>li.selected {
+    ul.ui-choose > li.selected {
       z-index: 3;
       border-color: #d632aa;
       color: #d632aa;
     }
   }
 }
-.benefactors-way{
+
+.benefactors-way {
   margin: 22px 0 40px 0;
   padding-bottom: 50px;
-  & > span{
+  & > span {
     font-size: 14px;
     color: #3d3d40;
     line-height: 36px;
     margin: 20px 34px 0 6px;
   }
-  .ui-choose > li{
+  .ui-choose > li {
     width: 185px;
     height: 70px;
     text-align: center;
@@ -3788,49 +3804,55 @@ font-size: 16px;
     float: left;
     margin-left: 20px;
     border: 1px solid #fff;
-    &  >img{
+    & > img {
       height: 80%;
     }
   }
-  .ui-choose > li:first-child{
+  .ui-choose > li:first-child {
     margin-left: 0;
   }
-  ul.ui-choose>li.selected {
+  ul.ui-choose > li.selected {
     background: url(image-path("ico-right-mark.png")) no-repeat right bottom;
     background-size: 17%;
-    border: 1px solid $color-info;
+    box-shadow: 0px 2px 7px 3px #d632aa1f;
+    border: none;
+  }
+  ul.ui-choose > li:hover {
+    border: none;
+    box-shadow: 0px 2px 7px 3px #d632aa1f;
   }
 }
-.benefactors-integer{
+
+.benefactors-integer {
   margin-top: 40px;
   width: 526px;
   position: relative;
-  & > span{
+  & > span {
     font-size: 14px;
     color: #3d3d40;
     line-height: 36px;
     margin: 0 34px 0 6px;
   }
-  & > input{
+  & > input {
     width: 430px;
     padding: 6px 0px 7px 10px;
     font-size: 14px;
   }
-  & > span:nth-child(3){
+  & > span:nth-child(3) {
     position: absolute;
-    right:0;
-    top:0;
+    right: 0;
+    top: 0;
     font-size: 14px;
     color: #3d3d40;
     margin: 0 22px 0 0;
   }
-  & > div{
+  & > div {
     width: 430px;
     height: 40px;
-    .ui-choose{
+    .ui-choose {
       width: 100%;
       display: flex;
-      & > li{
+      & > li {
         flex: 1;
         height: 36px;
         line-height: 34px;
@@ -3839,7 +3861,7 @@ font-size: 16px;
         border: 1px solid $border;
         text-align: center;
         position: relative;
-        & > span{
+        & > span {
           position: absolute;
           right: -5px;
           top: -15px;
@@ -3849,17 +3871,200 @@ font-size: 16px;
             height: 26px;
             margin-top: 0;
           }
-         }
+        }
 
       }
-      & > li:first-child{
+      & > li:first-child {
         margin-left: 0;
       }
     }
-    ul.ui-choose>li.selected {
+    ul.ui-choose > li.selected {
       z-index: 3;
       border-color: #d632aa;
       color: #d632aa;
     }
+  }
+}
+
+//蒙层
+//蒙层
+.overspread-over {
+  display: none;
+  position: fixed;
+  bottom: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  background-color: #575762;
+  z-index: 1001;
+  -moz-opacity: 0.8;
+  opacity: 0.60;
+  filter: alpha(opacity=80);
+}
+
+//内容
+
+//图书捐助
+#overspread-1 {
+  .overspread-cont {
+    display: none;
+    height: 510px;
+    width: 490px;
+    background-color: #fff;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    margin: 80px auto;
+    z-index: 1002;
+    border-radius: 4px;
+    overflow: hidden;
+
+    .overspread-co {
+      & > div{
+        height: 300px;
+      }
+
+      & > p {
+        font-size: 14px;
+        color: #8d8d8d;
+        margin-top: 20px;
+      }
+      .ui-choose {
+        margin-top: 10px;
+      }
+      .ui-choose > li {
+        box-sizing: border-box;
+        border: 1px solid $border;
+        float: left;
+        width: 205px;
+        height: 80px;
+        cursor: pointer;
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        border-radius: 4px;
+        margin-left: 18px;
+        margin-bottom: 20px;
+        padding-top: 18px;
+        & > p:nth-child(1) {
+          font-size: 14px;
+          color: #2a2a2c;
+          font-weight: 500;
+        }
+        & > p:nth-child(2) {
+          font-size: 14px;
+          color: #8d8d8d;
+        }
+        & > div {
+          position: absolute;
+          right: -5px;
+          top: -9px;
+          z-index: 1;
+          & > img {
+            width: 56px;
+            height: 26px;
+            margin-top: 0;
+          }
+
+        }
+      }
+      .ui-choose > li:nth-child(2n-1) {
+        margin-left: 0;
+      }
+      ul.ui-choose > li.selected {
+        background: url(image-path("ico-right-mark.png")) no-repeat right bottom;
+        background-size: 17%;
+        border: 1px solid $color-info;
+      }
+    }
+    .overspread-co::-webkit-scrollbar {
+      width: 5px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .overspread-co::-webkit-scrollbar-thumb {
+      background-color: #dcdcdc;
+      background-clip: padding-box;
+      border: 1px solid #dcdcdc;
+      min-height: 38px;
+    }
+
+    & > div:nth-child(1) {
+      height: 40px;
+      padding: 0 30px;
+      line-height: 40px;
+
+      background-color: #f6f6f6;
+      .iconfont {
+        margin-right: 0;
+      }
+    }
+    .mys-1 {
+      font-size: 18px;
+      color: #4e4e4e;
+      font-weight: 500;
+    }
+  }
+  .over-but{
+    width: 310px;
+    height: 40px;
+    line-height: 38px;
+    text-align: center;
+    background: -webkit-linear-gradient(left top, #d22ca4, #8b54e3);
+    margin: 30px auto 0 auto;
+    box-shadow: 0px 2px 7px 2px #d632aa4d;
+    border-radius: 20px;
+    color: #fff;
+    font-size: 16px;
+
+
+  }
+  .check-box {
+    font-size: 12px;
+    width: 224px;
+    margin: 20px auto;
+    text-align: center;
+    .checkbox_item {
+      position: relative;
+      display: inline-block;
+      margin-right: 10px;
+      height: 16px;
+      & > span {
+        font-weight: 600;
+        color: $color-subtitle;
+      }
+    }
+  }
+
+  .checkbox_item input {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  .checkbox_item .check_label {
+    display: inline-block;
+    cursor: default;
+  }
+
+  .checkbox_icon {
+    display: block;
+    margin-right: 5px;
+    width: 16px;
+    height: 16px;
+    background: url(image-path("check-box.png")) 0 0;
+  }
+
+  .check_label.on .checkbox_icon {
+    background-position: -16px 0;
+  }
+
+  .checkbox_text {
+    color: #dadada;
+    float: left;
+    height: 16px;
+    line-height: 16px;
   }
 }

@@ -76,7 +76,9 @@ class ProjectSeasonApply < ApplicationRecord
   has_many :camp_document_summaries
   has_many :camp_document_volunteers
   has_many :apply_camps, class_name: 'ProjectSeasonApplyCamp'
+  has_many :project_season_apply_camp_members
 
+  has_many :complaints, as: :owner
   has_one :install_feedback, as: :owner
   has_one :receive_feedback, as: :owner
   has_many :continual_feedbacks, as: :owner # 探索营反馈
