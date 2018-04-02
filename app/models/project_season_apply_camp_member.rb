@@ -24,13 +24,24 @@
 #  kind                         :integer                                # 类型 1学生 2老师
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
+#  phone                        :string                                 # 联系方式（老师角色）
 #
 
 class ProjectSeasonApplyCampMember < ApplicationRecord
+
+  after_create :count_age
+
   belongs_to :apply_camp, class_name: 'ProjectSeasonApplyCamp', foreign_key: :project_season_apply_camp_id
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: :project_season_apply_id
   belongs_to :school
   belongs_to :camp
+
+  has_many :audits, as: :owner
+
+  attr_accessor :approve_remark
+
+  include HasAsset
+  has_one_asset :image, class_name: 'Asset::CampProtocolImage'
 
   enum gender: {male: 1, female: 2}
   default_value_for :gender, 1
@@ -53,5 +64,12 @@ class ProjectSeasonApplyCampMember < ApplicationRecord
   validates :name, :id_card, presence: true
 
   scope :sorted, ->{ order(created_at: :desc) }
+
+  def count_age
+    birthday = ChinesePid.new("#{self.id_card}").birthday
+    today = Date.today
+    child_age = (today - birthday).to_i/365
+    self.update_columns(age: child_age)
+  end
 
 end

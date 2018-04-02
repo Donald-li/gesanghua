@@ -24,6 +24,7 @@
 #  kind                         :integer                                # 类型 1学生 2老师
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
+#  phone                        :string                                 # 联系方式（老师角色）
 #
 
 require 'rails_helper'

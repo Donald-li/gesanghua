@@ -33,6 +33,9 @@
                         身份证
                       </th>
                       <th>
+                        学校
+                      </th>
+                      <th>
                         姓名
                       </th>
                       <th>
@@ -54,7 +57,7 @@
                         监护人
                       </th>
                       <th>
-                        状态
+                        监护人联系方式
                       </th>
                     </tr>
                     </thead>
@@ -63,6 +66,9 @@
                         <tr>
                           <td>
                             <%= student.id_card %>
+                          </td>
+                          <td>
+                            <%= student.school.try(:name) %>
                           </td>
                           <td>
                             <%= student.name %>
@@ -86,7 +92,7 @@
                             <%= student.guardian_name %>
                           </td>
                           <td>
-                            <%= student.enum_name(:state) %>
+                            <%= student.guardian_phone %>
                           </td>
                         </tr>
                     <% end %>
@@ -101,6 +107,9 @@
                         身份证
                       </th>
                       <th>
+                        学校
+                      </th>
+                      <th>
                         姓名
                       </th>
                       <th>
@@ -112,9 +121,6 @@
                       <th>
                         民族
                       </th>
-                      <th>
-                        状态
-                      </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -122,6 +128,9 @@
                         <tr>
                           <td>
                             <%= teacher.id_card %>
+                          </td>
+                          <td>
+                            <%= teacher.school.try(:name) %>
                           </td>
                           <td>
                             <%= teacher.name %>
@@ -134,9 +143,6 @@
                           </td>
                           <td>
                             <%= teacher.enum_name(:nation) %>
-                          </td>
-                          <td>
-                            <%= teacher.enum_name(:state) %>
                           </td>
                         </tr>
                     <% end %>
