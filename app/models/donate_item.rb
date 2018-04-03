@@ -37,7 +37,7 @@ class DonateItem < ApplicationRecord
 
   def summary_builder
     Jbuilder.new do |json|
-      json.(self, :name)
+      json.(self, :id, :name)
       json.value self.id
       json.project_name self.project.try(:alias)
       json.describe self.describe
