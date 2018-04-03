@@ -21,7 +21,7 @@ class Api::V1::Cooperation::CampMembersController < Api::V1::BaseController
   def create
     @member = ProjectSeasonApplyCampMember.new(member_params.except(:image).merge(camp: @apply_camp.camp, school: @apply_camp.school, apply: @apply_camp.apply))
     if @member.save
-      @member.attach_image(params[:image][:id])
+      @member.attach_image(params[:image][:id]) if params[:image][:id].present?
       api_success(data: {result: true, camp_id: @apply_camp.id}, message: '提交成功' )
     else
       api_success(data: {result: false}, message: '提交失败，请重试' )
@@ -34,7 +34,7 @@ class Api::V1::Cooperation::CampMembersController < Api::V1::BaseController
 
   def update
     if @member.update(member_params)
-      @member.attach_image(params[:image][:id])
+      @member.attach_image(params[:image][:id]) if params[:image][:id].present?
       api_success(data: {result: true, camp_id: @apply_camp.id}, message: '提交成功' )
     else
       api_success(data: {result: false}, message: '提交失败，请重试' )
