@@ -2132,6 +2132,11 @@ select:disabled {
   font-size: 18px;
   color: #3d3d40;
   font-weight: 600;
+  & > span:nth-child(2) {
+    font-size: 14px;
+    color: #393d42;
+    font-weight: 400;
+  }
 }
 
 //捐助管理
@@ -3929,7 +3934,7 @@ select:disabled {
     overflow: hidden;
 
     .overspread-co {
-      & > div{
+      & > div {
         height: 300px;
       }
 
@@ -4014,7 +4019,7 @@ select:disabled {
       font-weight: 500;
     }
   }
-  .over-but{
+  .over-but {
     width: 310px;
     height: 40px;
     line-height: 38px;
@@ -4025,7 +4030,6 @@ select:disabled {
     border-radius: 20px;
     color: #fff;
     font-size: 16px;
-
 
   }
   .check-box {
@@ -4073,5 +4077,309 @@ select:disabled {
     float: left;
     height: 16px;
     line-height: 16px;
+  }
+}
+
+
+.person-h-cont-d-pairs {
+  width: 100%;
+  font-size: 15px;
+  color: #3d3d40;
+  text-align: center;
+  .iconfont {
+    margin-right: 4px;
+  }
+}
+
+//格桑花+入口
+.gsh-plus-show {
+  width: 1140px;
+  border: 1px solid #e6e6e6;
+  padding: 80px 34px 40px 34px;
+  background-color: #fff;
+  margin: 0 auto;
+  text-align: center;
+  .gsh-plus-tit {
+    width: 300px;
+    margin: 0 auto;
+    font-size: 24px;
+    color: #3d3d40;
+    font-weight: 500;
+  }
+  .gsh-plus-foot {
+
+    font-size: 14px;
+    color: #393d42;
+  }
+  .gsh-plus-cont {
+    width: 100%;
+    padding: 60px 200px;
+    display: flex;
+    & > div {
+      flex: 1;
+      & > img {
+        height: 160px;
+      }
+    }
+  }
+}
+
+.platform-plus-cont {
+  width: 100%;
+  padding: 40px 300px;
+  display: flex;
+  & > div {
+    flex: 1;
+    & > img {
+      height: 160px;
+    }
+  }
+}
+
+.gsh-plus-c-t {
+  font-size: 18px;
+  color: #2a2a2c;
+  font-weight: 500;
+}
+
+.gsh-plus-c-n {
+  font-size: 14px;
+  color: #8d8d8d;
+}
+
+.gsh-plus-c-but {
+  width: 100px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #c5c5c5;
+  border-radius: 2px;
+  margin: 10px auto 20px auto;
+}
+
+.platform-cont {
+  width: 100%;
+  padding: 0 270px 40px 270px;
+  text-align: center;
+  & > div {
+    float: left;
+    padding: 4px 6px;
+    font-size: 14px;
+    color: #2a2a2c;
+    background-color: #f2f2f2;
+    border-radius: 2px;
+    margin-left: 20px;
+    font-weight: 500;
+  }
+  & > div:first-child {
+    margin-left: 0;
+  }
+}
+
+//协同平台
+.plat-school-apply-pair {
+  padding: 20px 0 0 0;
+  .don-co .don-co-but {
+    margin: 50px auto 20px auto;
+  }
+}
+
+.school-apply-pair-tit {
+  font-size: 16px;
+  color: #2a2a2c;
+  font-weight: 500;
+}
+
+.school-apply-pair-table {
+  border: 1px solid $border;
+  border-radius: 2px;
+  margin: 10px 0 20px 0;
+  & > p {
+    padding-left: 20px;
+    width: 100%;
+    background-color: #f5f5f5;
+    line-height: 36px;
+    font-size: 13px;
+    color: #8d8d8d;
+    border-bottom: 1px solid $border;
+  }
+}
+
+.school-apply-pair-table-cont {
+  padding: 16px 20px;
+  font-size: 13px;
+  color: #3d3d40;
+  line-height: 23px;
+  span {
+    font-weight: 500;
+    margin-right: 10px;
+  }
+}
+
+.school-apply-pair-table-co {
+  padding: 20px 0 0 0;
+  .school-apply-pair-table {
+    width: 100%;
+    display: flex;
+    border: 1px solid $border;
+    border-bottom: 0;
+    text-align: center;
+    & > p {
+      flex: 1;
+      font-size: 14px;
+      color: #3d3d40;
+      padding-left: 0;
+
+    }
+    & > p:nth-child(1) {
+      text-align: left;
+      padding-left: 16px;
+      flex: 3.4;
+      box-sizing: border-box;
+    }
+  }
+}
+
+.school-apply-pair-tables {
+  border: 1px solid $border;
+  border-radius: 2px;
+  margin: 10px 0 12px 0;
+  & > p {
+    padding-left: 16px;
+    width: 100%;
+    background-color: #f5f5f5;
+    line-height: 36px;
+    font-size: 13px;
+    color: #8d8d8d;
+    border-bottom: 1px solid $border;
+    span {
+      margin-left: 30px;
+    }
+  }
+  .school-apply-pair-table-cont {
+    width: 100%;
+    display: flex;
+    text-align: center;
+    padding: 0;
+    & > div {
+      flex: 1;
+    }
+    & > div:nth-child(1) {
+      flex: 3.4;
+      text-align: left;
+      padding: 20px;
+    }
+    & > div:nth-child(2) {
+      padding: 24px 0;
+      font-size: 13px;
+      color: #8d8d8d;
+    }
+    & > div:nth-child(3) {
+      padding: 10px 0;
+      & > button:nth-child(1) {
+        background-color: #f4f4f4;
+        width: 101px;
+        height: 30px;
+        line-height: 28px;
+        border: 1px solid $border;
+        font-size: 13px;
+        color: #3d3d40;
+        border-radius: 2px;
+        margin-bottom: 10px;
+      }
+      & > button:nth-child(2) {
+        background-color: #fff;
+        width: 101px;
+        height: 30px;
+        line-height: 28px;
+        border: 1px solid $color-border;
+        font-size: 13px;
+        color: $color-border;
+        border-radius: 2px;
+      }
+    }
+  }
+}
+
+.school-apply-pair-f {
+  font-size: 13px;
+  color: #3d3d40;
+}
+
+.school-apply-pair-child {
+  & > div:nth-child(1) {
+    & > img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+    }
+  }
+  & > div:nth-child(2) {
+    margin-left: 15px;
+    & > p:nth-child(1) {
+      & > span:nth-child(1) {
+        font-size: 16px;
+        color: #2a2a2c;
+        font-weight: 500;
+      }
+      & > span:nth-child(2) {
+        font-size: 13px;
+        color: #3d3d40;
+      }
+    }
+    & > p:nth-child(2) {
+      font-size: 14px;
+      color: #3d3d40;
+    }
+  }
+}
+
+#children {
+  .children-body {
+    .donations-1 {
+      position: relative;
+      padding: 26px 0 16px 0;
+      border-bottom: 1px solid $border;
+    }
+    .donations1 {
+      & > li {
+        float: left;
+        width: 130px;
+        height: 16px;
+        line-height: 16px;
+        font-size: 14px;
+        color: #3d3d40;
+        text-align: center;
+      }
+      .selectedDo {
+        font-weight: 600;
+      }
+    }
+    .bottomline {
+      position: absolute;
+      left: 40px;
+      bottom: -1px;
+      width: 40px;
+      height: 3px;
+      background: $color-button;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+    }
+  }
+  .school-apply-pair-table-cont{
+    & > div:nth-child(1){
+      flex: 4;
+    }
+    & > div:nth-child(3){
+      padding: 24px 0;
+      font-size: 14px;
+      color: #8d8d8d;
+    }
+  }
+  .school-apply-pair-table{
+    &  > p:nth-child(1){
+flex: 4;
+    }
   }
 }
