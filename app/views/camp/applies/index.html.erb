@@ -101,7 +101,7 @@
                   <%= apply.abstract %>
                 </td>
                 <td>
-                  <%= link_to (params[:return_apply] ? url_for(controller: params[:return_apply], action: :index, current_apply: apply.id) : camp_document_estimates_path(current_apply: apply.id)), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                  <%= link_to (params[:return_apply] ? url_for(controller: params[:return_apply], action: :index, current_apply: apply.id) : camp_camp_document_estimates_path(current_apply: apply.id)), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                       <i class="fa fa-file"></i> 营资料管理
                   <% end %>
                   <% if apply.draft? %>
