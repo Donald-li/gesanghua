@@ -20,12 +20,6 @@
           <%= link_to account_login_path do %><span class="pull-right cur longin-4">返回登录 |</span><% end %>
         </p>
         <div class="input-in" style="margin: 50px auto 16px auto;">
-            <% if flash[:alert] %>
-                <div class="alert alert-danger">
-                  <button class="close" data-close="alert"></button>
-                  <span><%= flash.discard(:alert) %></span>
-                </div>
-            <% end %>
             <span class="input input&#45;&#45;hoshi">
             <%= f.text_field :login, required: true, class: 'input__field input__field--hoshi', id: 'phonenumber', placeholder: '请输入注册时使用的邮箱地址' %>
             <label class="input__label input__label&#45;&#45;hoshi input__label&#45;&#45;hoshi-color-1" for="phonenumber"></label>
@@ -49,12 +43,6 @@
         </p>
         <div class="email-cont">密码重置验证码已发送至你的邮箱：  <%= params[:login] %></div>
         <div class="input-in">
-          <% if flash[:alert] %>
-              <div class="alert alert-danger">
-                <button class="close" data-close="alert"></button>
-                <span><%= flash.discard(:alert) %></span>
-              </div>
-          <% end %>
             <span class="input input&#45;&#45;hoshi">
               <%= f.hidden_field :login, value: params[:login] %>
             <input class="input__field input__field&#45;&#45;hoshi" type="text" id="phonenumber" name="code" placeholder="请输入验证码"/>
@@ -78,12 +66,6 @@
         <%= link_to account_login_path do %><span class="pull-right cur longin-4">返回登录 |</span><% end %>
         </p>
         <div class="input-in">
-        <% if flash[:alert] %>
-            <div class="alert alert-danger">
-              <button class="close" data-close="alert"></button>
-              <span><%= flash.discard(:alert) %></span>
-            </div>
-        <% end %>
         <span class="input input--hoshi">
         <%= f.text_field :login, required: true, class: 'input__field input__field--hoshi', id: 'phonenumber', placeholder: '请输入注册时使用的手机号' %>
         <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="phonenumber"></label>
@@ -114,12 +96,6 @@
       <%= link_to account_login_path do %><span class="pull-right cur longin-4">返回登录 |</span><% end %>
       </p>
       <div class="input-in">
-        <% if flash[:alert] %>
-            <div class="alert alert-danger">
-              <button class="close" data-close="alert"></button>
-              <span><%= flash.discard(:alert) %></span>
-            </div>
-        <% end %>
       <span class="input input&#45;&#45;hoshi">
       <%= f.password_field :password, required: true, class: 'input__field input__field--hoshi', id: 'email', placeholder: '请输入新密码' %>
       <label class="input__label input__label&#45;&#45;hoshi input__label&#45;&#45;hoshi-color-1" for="email"></label>

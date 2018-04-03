@@ -38,6 +38,14 @@
   </div>
   <div class="bul-nav-sh pull-right cur"><span class="iconfont icon-ico-search"></span></div>
   <div class="bul-nav-dl pull-right cur">
-    <%= link_to '登录', account_login_path %>
+    <% if logged_in? %>
+      <%= link_to account_orders_path do %>
+      <div class="bul-nav-img">
+        <%= image_tag current_user.user_avatar %>
+      </div>
+      <% end %>
+    <% else %>
+      <%= link_to '登录', account_login_path %>
+    <% end %>
   </div>
 </nav>
