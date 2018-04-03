@@ -55,8 +55,8 @@ class Admin::ProjectSeasonApplyCampsController < Admin::BaseController
   end
 
   def camp_member
-    @students = @apply_camp.project_season_apply_camp_members.student.pass.sorted
-    @teachers = @apply_camp.project_season_apply_camp_members.teacher.pass.sorted
+    @students = @apply_camp.camp_members.student.pass.sorted
+    @teachers = @apply_camp.members.teacher.pass.sorted
   end
 
   private
