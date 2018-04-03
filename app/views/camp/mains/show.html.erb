@@ -22,7 +22,7 @@
               </div>
             </div>
             <div class="col-md-9 col-sm-6 col-xs-12">
-              <h4 style="padding-top: 40px;">欢迎 <%= current_user.try(:name) %> 登录探索营平台！</h4>
+              <h4 style="padding-top: 40px;">欢迎 <%= current_user.camp.try(:name) %> - <%= current_user.try(:name) %> 登录探索营平台！</h4>
             </div>
           </div>
         </div>
