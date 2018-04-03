@@ -58,7 +58,3 @@ end
 
 namespace :gsh_plus do
 end
-
-namespace :school do
-  resource :main, only: :show
-end
