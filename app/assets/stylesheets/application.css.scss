@@ -4068,3 +4068,84 @@ select:disabled {
     line-height: 16px;
   }
 }
+//格桑花+入口
+.gsh-plus-show{
+  width: 1140px;
+  border: 1px solid #e6e6e6;
+  padding: 80px 34px 40px 34px;
+  background-color: #fff;
+  margin: 0 auto;
+  text-align: center;
+  .gsh-plus-tit{
+    width: 300px;
+    margin: 0 auto;
+    font-size: 24px;
+    color: #3d3d40;
+    font-weight: 500;
+  }
+  .gsh-plus-foot{
+
+    font-size: 14px;
+    color: #393d42;
+  }
+  .gsh-plus-cont{
+    width: 100%;
+    padding: 60px 200px;
+    display: flex;
+    & > div{
+      flex: 1;
+      & > img{
+        height: 160px;
+      }
+    }
+  }
+}
+.platform-plus-cont{
+  width: 100%;
+  padding: 40px 300px;
+  display: flex;
+  & > div{
+    flex: 1;
+    & > img{
+      height: 160px;
+    }
+  }
+}
+.gsh-plus-c-t{
+  font-size: 18px;
+  color: #2a2a2c;
+  font-weight: 500;
+}
+.gsh-plus-c-n{
+  font-size: 14px;
+  color: #8d8d8d;
+}
+.gsh-plus-c-but{
+  width: 100px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #c5c5c5;
+  border-radius: 2px;
+  margin: 10px auto 20px auto;
+}
+.platform-cont{
+  width: 100%;
+  padding: 0 270px 40px 270px;
+  text-align: center;
+  & > div{
+    float: left;
+    padding: 4px 6px;
+    font-size: 14px;
+    color: #2a2a2c;
+    background-color: #f2f2f2;
+    border-radius: 2px;
+    margin-left: 20px;
+    font-weight: 500;
+    border-radius: 2px;
+  }
+  & > div:first-child{
+    margin-left: 0;
+  }
+}
