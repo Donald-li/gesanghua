@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="portlet light portlet-fit bordered">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class=" icon-layers " style="color: #666;font-size: 17px;"></i>
+          <span class="caption-subject  bold uppercase" style="color: #666;font-size: 17px;">平台首页</span>
+        </div>
+      </div>
+      <div class="portlet-body">
+        <div class="mt-element-card mt-card-round mt-element-overlay">
+          <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+              <div class="mt-card-item">
+                <div class="mt-card-avatar mt-overlay-1">
+                  <%#= image_tag current_user.user_avatar %>
+                </div>
+                <div class="mt-card-content">
+                  <h3 class="mt-card-name"><%= current_user.nickname %></h3>
+                  <p class="mt-card-desc font-grey-mint"><%= current_user.try(:name) %></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-9 col-sm-6 col-xs-12">
+              <h4 style="padding-top: 40px;">欢迎 <%= current_user.try(:name) %> 登录探索营平台！</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  .portlet-body .mt-element-card.mt-card-round .mt-card-item {
+    padding: 30px 0;
+    margin: 20px auto;
+  }
+</style>

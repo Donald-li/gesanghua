@@ -3,7 +3,7 @@ class Admin::ProjectSeasonApplyCampStudentsController < Admin::BaseController
   before_action :set_apply_camp
 
   def index
-    @search = @apply_camp.camp_members.student.submit.sorted.ransack(params[:q])
+    @search = @apply_camp.camp_members.student.where(state: [:submit, :pass, :reject]).sorted.ransack(params[:q])
     scope = @search.result
     @camp_students = scope.page(params[:page])
   end

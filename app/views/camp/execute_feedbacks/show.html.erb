@@ -1,0 +1,52 @@
+
+<div class="portlet light portlet-fit bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="fa fa-sliders font-dark"></i>
+      <span class="caption-subject font-dark bold uppercase">反馈详情</span>
+    </div>
+    <div class="actions">
+      <div class="btn-group">
+        <a href="<%= camp_project_execute_feedbacks_path(@project) %>" class="btn btn-xs blue">
+          <i class="fa fa-reply"></i>返回
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="table-scrollable">
+      <table class="table table-bordered table-hover">
+        <tbody>
+        <tr>
+          <th>
+            反馈人
+          </th>
+          <th>
+            <%= @feedback.user.try(:name) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            反馈时间
+          </th>
+          <th>
+            <%= l @feedback.created_at %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            反馈内容
+          </th>
+          <th>
+            <%= @feedback.content.html_safe %> <br>
+            <% @feedback.images.each do |image| %>
+              <%= image_tag image.try(:file).try(:url, :tiny) %>
+            <% end %>
+          </th>
+        </tr>
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+</div>

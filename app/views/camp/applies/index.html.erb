@@ -1,0 +1,141 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i>营立项申请
+    </div>
+    <div class="actions">
+      <%= link_to new_camp_apply_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+          <i class="icon-plus"></i>
+          <span>新增申请</span>
+      <% end %>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="dataTables_wrapper no-footer">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <%= search_form_for @search, url: camp_applies_path, class: 'form-inline' do |f| %>
+              <div class="form-group">
+                <%= f.label :name_or_apply_no_cont, '搜索' %>
+                <%= f.text_field :name_or_apply_no_cont, class: 'form-control', placeholder: '名称、申请编号' %>
+              </div>
+              <div class="form-group">
+                <%= f.label :audit_state_eq, '审核状态' %>
+                <%= f.select :audit_state_eq, ProjectSeasonApply.options_for_select(:audit_states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
+              </div>
+              <div class="form-group">
+                <%= f.label :camp_id_eq, '探索营' %>
+                <%= f.select :camp_id_eq, Camp.sorted.collect {|p| [p.name, p.id]}, {include_blank: '全部'}, class: 'form-control' %>
+              </div>
+              <button type="submit" class="btn btn-default grey">搜索</button>
+          <% end %>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="dataTables_filter pull-right"></div>
+        </div>
+      </div>
+      <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover" id="sample_2">
+          <thead>
+          <tr>
+            <th>
+              申请编号
+            </th>
+            <th>
+              项目名称
+            </th>
+            <th>
+              探索营地点
+            </th>
+            <th>
+              成员数量
+            </th>
+            <th>
+              概算
+            </th>
+            <th>
+              应负责人
+            </th>
+            <th>
+              开营时间
+            </th>
+            <th>
+              当前状态
+            </th>
+            <th>
+              备注
+            </th>
+            <th>
+              操作
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @project_applies.each do |apply| %>
+              <tr>
+                <td>
+                  <%= apply.try(:apply_no) %>
+                </td>
+                <td>
+                  <%= apply.name %>
+                </td>
+                <td>
+                  <%= apply.camp.try(:name) %>
+                </td>
+                <td>
+                  <%= apply.number %>
+                </td>
+                <td>
+                  <%= apply.camp_document_estimates.sum(:amount) %>
+                </td>
+                <td>
+                  <%= apply.camp_principal %>
+                </td>
+                <td>
+                  <%= l apply.camp_start_time %>
+                </td>
+                <td>
+                  <%= apply.enum_name(:audit_state) %>
+                </td>
+                <td>
+                  <%= apply.abstract %>
+                </td>
+                <td>
+                  <%= link_to (params[:return_apply] ? url_for(controller: params[:return_apply], action: :index, current_apply: apply.id) : camp_document_estimates_path(current_apply: apply.id)), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                      <i class="fa fa-file"></i> 营资料管理
+                  <% end %>
+                  <% if apply.draft? %>
+                      <%= link_to edit_camp_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                          <i class="fa fa-edit"></i> 修改
+                      <% end %>
+                      <%= link_to switch_camp_apply_path(apply), data: {confirm: '确定要转为提交审核吗？'}, method: :put, 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                          <i class="fa fa-gavel"></i> 提交审核
+                      <% end %>
+                      <%= link_to camp_apply_path(apply), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                          <i class="fa fa-trash-o"></i> 删除
+                      <% end %>
+                  <% elsif apply.pass? && apply.apply? %>
+                      <%= link_to edit_camp_project_path(apply), data: {confirm: '确定要转为筹款项目吗？'}, class: 'btn btn-xs green' do %>
+                          <i class="fa fa-exchange"></i>转为筹款项目
+                      <% end %>
+                  <% elsif apply.raise_project? %>
+                      <button class="btn btn-xs green">已转为筹款项目</button>
+                  <% end %>
+                </td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-5 col-sm-12">
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@project_applies) %></div>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <%= paginate @project_applies, theme: '' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END EXAMPLE TABLE PORTLET-->

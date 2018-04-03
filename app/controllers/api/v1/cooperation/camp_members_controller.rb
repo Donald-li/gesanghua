@@ -19,7 +19,7 @@ class Api::V1::Cooperation::CampMembersController < Api::V1::BaseController
   end
 
   def create
-    @member = ProjectSeasonApplyCampMember.new(member_params.except(:image).merge(camp: @apply_camp.camp, school: @apply_camp.school, apply: @apply_camp.apply))
+    @member = ProjectSeasonApplyCampMember.new(member_params.except(:image).merge(camp: @apply_camp.camp, school: @apply_camp.school, apply: @apply_camp.apply, state: 'draft'))
     if @member.save
       @member.attach_image(params[:image][:id]) if params[:image][:id].present?
       api_success(data: {result: true, camp_id: @apply_camp.id}, message: '提交成功' )
