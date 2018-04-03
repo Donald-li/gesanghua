@@ -10,7 +10,7 @@ class Site::ReadsController < Site::BaseController
     @applies = scope.page(params[:page]).per(12)
   end
 
-  def detail
+  def show
     @project = Project.read_project
     @book_applies = ProjectSeasonApply.where(project: @project).show.raise_project.read_executing.pass.sorted
     @total = @book_applies.count
@@ -18,7 +18,7 @@ class Site::ReadsController < Site::BaseController
     @donate_records = DonateRecord.where(project: @project).sorted.page(1).per(6)
   end
 
-  def show
+  def detail
     @apply = ProjectSeasonApply.find(params[:id])
     @feedbacks = Feedback.show.sorted.where(project_season_apply_id: @apply.id)
     @donate_records = DonateRecord.where(project_season_apply_id: @apply.id).sorted.page(1).per(6)
