@@ -36,7 +36,7 @@ class Account::SessionsController < Account::BaseController
   def find_back
     respond_to do |format|
       if session_params[:login].blank?
-        format.html {redirect_to forget_user_session_url, alert: '请输入手机号'}
+        format.html {redirect_to forget_account_session_url(kind: 'by_phone'), alert: '请输入手机号'}
       else
         if params[:code].empty?
           render js: "alert('验证码不能为空');" and return
@@ -50,10 +50,59 @@ class Account::SessionsController < Account::BaseController
         if @user.blank?
           flash[:alert] = '该帐号不存在'
           render(action: :new) && return
+        else
+          if @user.state === 'disable'
+            flash[:alert] = '该帐号已被停用'
+            render(action: :new) && return
+          end
         end
-        if @user.state === 'disable'
-          flash[:alert] = '该帐号已被停用'
+        set_reset_user(@user)
+        format.html {redirect_to forget_account_session_url(kind: 'edit_password')}
+      end
+    end
+  end
+
+  def email_get_code
+    respond_to do |format|
+      if session_params[:login].blank?
+        format.html {redirect_to forget_account_session_url(kind: 'by_email'), alert: '请输入邮箱地址'}
+      else
+        @user = User.find_by(login: session_params[:login])
+        if @user.blank?
+          format.html {redirect_to forget_account_session_url(kind: 'by_email'), alert: '该账号不存在'}
+        else
+          if @user.state === 'disable'
+            format.html {redirect_to forget_account_session_url(kind: 'by_email'), alert: '该账号已被停用'}
+          end
+        end
+        #TODO:这里给所填邮箱发送验证码
+        format.html {redirect_to forget_account_session_url(login: session_params[:login], kind: 'email_code')}
+      end
+    end
+  end
+
+  def find_back_by_email
+    respond_to do |format|
+      if session_params[:login].blank?
+        format.html {redirect_to forget_account_session_url(kind: 'by_email'), alert: '请输入邮箱地址'}
+      else
+        if params[:code].empty?
+          render js: "alert('验证码不能为空');" and return
+        end
+
+        unless SmsCode.valid_code?(mobile: session_params[:login], code: params[:code], kind: 'find_password')
+          render js: "alert('验证码不正确');closeCaptchaModal();refreshCaptcha();" and return
+        end
+
+        @user = User.find_by(login: session_params[:login])
+        if @user.blank?
+          flash[:alert] = '该帐号不存在'
           render(action: :new) && return
+        else
+          if @user.state === 'disable'
+            flash[:alert] = '该帐号已被停用'
+            render(action: :new) && return
+          end
         end
         set_reset_user(@user)
         format.html {redirect_to forget_account_session_url(kind: 'edit_password')}

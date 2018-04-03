@@ -1,6 +1,7 @@
 <%= content_for :page_style do %>
     <%= stylesheet_link_tag 'blank', media: 'all', 'data-turbolinks-track': 'reload' %>
 <% end %>
+<%= simple_form_for @user, url: account_registration_path, method: :post, html: {class: ''} do |f| %>
 
 <div id="first-screen" class="first-screen classbody">
   <div class="screen-body">
@@ -46,28 +47,46 @@
         <div class="logein pull-left">
           <div class="longin-left">
             <p class="longin-tit clearfix">
-              <!--<span class="pull-left cur longin-1">账号注册</span>-->
-              <!--<span class="pull-right cur longin-2">海外邮箱注册</span>-->
-              <span class="pull-left cur longin-1">邮箱注册</span>
-              <span class="pull-right cur longin-2">账号注册</span>
+              <% if params[:kind] == 'by_phone' %>
+                <span class="pull-left cur longin-1">账号注册</span>
+                <%= link_to new_account_registration_path(kind: 'by_email') do %><span class="pull-right cur longin-2">海外邮箱注册</span><% end %>
+              <% end %>
+              <% if params[:kind] == 'by_email' %>
+                <span class="pull-left cur longin-1">邮箱注册</span>
+                <%= link_to new_account_registration_path(kind: 'by_phone') do %><span class="pull-right cur longin-2">账号注册</span><% end %>
+              <% end %>
             </p>
             <div class="input-in">
+              <% if flash[:alert] %>
+                  <div class="alert alert-danger">
+                    <button class="close" data-close="alert"></button>
+                    <span><%= flash.discard(:alert) %></span>
+                  </div>
+              <% end %>
+              <input type="text" name="kind" value="<%= params[:kind] %>" hidden />
               <!--手机号-->
-              <!--<span class="input input&#45;&#45;hoshi">-->
-              <!--<input class="input__field input__field&#45;&#45;hoshi" type="text" id="phonenumber" placeholder="手机号"/>-->
-              <!--<label class="input__label input__label&#45;&#45;hoshi input__label&#45;&#45;hoshi-color-1" for="phonenumber"></label>-->
-              <!--</span>-->
+              <% if params[:kind] == 'by_phone' %>
+                <span class="input input&#45;&#45;hoshi">
+                <!-- <input class="input__field input__field&#45;&#45;hoshi" type="text" id="phonenumber" placeholder="手机号"/> -->
+                <%= f.text_field :login, required: true, class: 'input__field input__field--hoshi', id: 'phonenumber', placeholder: '手机号' %>
+                <label class="input__label input__label&#45;&#45;hoshi input__label&#45;&#45;hoshi-color-1" for="phonenumber"></label>
+                </span>
+              <% end %>
               <!--邮箱-->
+              <% if params[:kind] == 'by_email' %>
+                <span class="input input--hoshi">
+                  <!-- <input class="input__field input__field--hoshi" type="text" id="email" placeholder="邮箱"/> -->
+                  <%= f.text_field :login, required: true, class: 'input__field input__field--hoshi', id: 'email', placeholder: '邮箱' %>
+                  <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="email"></label>
+  				      </span>
+              <% end %>
               <span class="input input--hoshi">
-                <input class="input__field input__field--hoshi" type="text" id="email" placeholder="邮箱"/>
-                <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="email"></label>
-				      </span>
-              <span class="input input--hoshi">
-                <input class="input__field input__field--hoshi" type="password" id="password" placeholder="密码"/>
+                <!-- <input class="input__field input__field--hoshi" type="password" id="password" placeholder="密码"/> -->
+                <%= f.password_field :password, required: true, class: 'input__field input__field--hoshi', id: 'password', placeholder: '密码' %>
                 <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="password"></label>
 				      </span>
               <span class="input input--hoshi">
-                <input class="input__field input__field--hoshi" type="text" id="security" placeholder="输入验证码"/>
+                <input class="input__field input__field--hoshi" type="text" id="security" name="code" placeholder="输入验证码"/>
                 <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="security"></label>
                 <!--<button class="security-cont cur">获取验证码</button>-->
                 <input class="security-cont cur" type="button" id="btn" value="获取验证码" />
@@ -75,13 +94,15 @@
 				      </span>
             </div>
 
-            <div class="register">
+            <!-- <div class="register"> -->
               <!--<%= link_to '注册', account_registrations_path, method: :post %>-->
-              注册
-            </div>
+              <!-- 注册 -->
+            <!-- </div> -->
+            <button class="register" type="submit">注册</button>
+
             <div class="check-box">
               <span class="checkbox_item clearfix">
-                <input type="checkbox"/>
+                <input type="checkbox" name="check"/>
                 <label class="check_label on pull-left">
                   <i class="checkbox_icon pull-left"></i>
                   <span class="checkbox_text">阅读并同意</span>
@@ -104,6 +125,7 @@
     Copyright(c) 2005-2015 青海格桑花教育救助会 版权所有 All Rights Reserved 青ICP
   </footer>
 </div>
+<% end %>
 <script type="text/javascript" charset="utf-8">
 
 var wait=59;
@@ -122,7 +144,17 @@ function time(o) {
             1000)
     }
 }
-document.getElementById("btn").onclick=function(){time(this);}
+document.getElementById("btn").onclick=function(){
+  time(this);
+  var mobile = $('#phonenumber').val()
+  $.ajax({
+    type:  "post",
+    url: "/api/v1/common/sms_codes",
+    data: {kind: 'signup', mobile: mobile},
+    success(data){alert(data.message)},
+    error(){}
+  })
+}
     $(".check_label").checkbox();
     $("canvas.flare").let_it_snow({
         windPower: 0,
