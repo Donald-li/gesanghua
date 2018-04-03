@@ -302,8 +302,10 @@ ActiveRecord::Schema.define(version: 20180402112652) do
     t.datetime "updated_at", null: false
     t.integer "project_season_id", comment: "年度ID"
     t.integer "project_season_apply_id", comment: "年度项目ID"
+    t.integer "project_season_apply_child_id", comment: "年度孩子申请ID"
     t.integer "gsh_child_id", comment: "格桑花孩子id"
     t.integer "project_season_apply_bookshelf_id", comment: "书架id"
+    t.integer "donate_item_id", comment: "可捐助id"
     t.integer "income_record_id", comment: "收入记录"
     t.string "title", comment: "捐赠标题"
     t.string "source_type"
@@ -553,6 +555,15 @@ ActiveRecord::Schema.define(version: 20180402112652) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "partners", force: :cascade, comment: "合作伙伴" do |t|
+    t.string "name", comment: "名称"
+    t.string "url", comment: "链接"
+    t.integer "position", comment: "排序"
+    t.integer "state", comment: "状态： 1:显示 2:隐藏"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "period_child_ships", force: :cascade, comment: "年度孩子和申请学期中间表" do |t|
     t.integer "project_season_apply_period_id", comment: "申请学期ID"
     t.integer "project_season_apply_child_id", comment: "年度孩子ID"
@@ -663,6 +674,7 @@ ActiveRecord::Schema.define(version: 20180402112652) do
     t.integer "state", comment: "状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "age", comment: "年龄"
   end
 
   create_table "project_season_apply_camp_teachers", force: :cascade, comment: "探索营老师名单" do |t|
@@ -678,6 +690,7 @@ ActiveRecord::Schema.define(version: 20180402112652) do
     t.integer "project_season_apply_id", comment: "营立项id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "age", comment: "年龄"
   end
 
   create_table "project_season_apply_camps", force: :cascade, comment: "探索营配额" do |t|
@@ -690,9 +703,10 @@ ActiveRecord::Schema.define(version: 20180402112652) do
     t.datetime "end_time", comment: "申请截止时间"
     t.integer "time_limit", comment: "是否设置截止时间"
     t.integer "message_type", comment: "通知方式"
-    t.integer "state", comment: "状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "execute_state"
+    t.integer "teacher_id", comment: "联系老师id"
   end
 
   create_table "project_season_apply_children", force: :cascade, comment: "项目执行年度申请的孩子表" do |t|

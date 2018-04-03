@@ -3,7 +3,7 @@ namespace :api do
     resource :session, only: :create
 
     # 捐款
-    resources :donations, only: :create
+    resources :donations, only: [:create, :show]
 
     # 账号
     namespace :account do

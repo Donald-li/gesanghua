@@ -7,6 +7,7 @@ class Api::V1::DonationsController < Api::V1::BaseController
     agent = current_user
     team_id = current_user.team_id
     amount = params[:amount]
+    promoter_id = params[:promoter]
 
     donor = User.find donor_id if donor_id
 
@@ -16,19 +17,24 @@ class Api::V1::DonationsController < Api::V1::BaseController
     owner = ProjectSeasonApplyBookshelf.find(params[:bookshelf]) if params[:bookshelf].present?
 
     if params[:donate_way] == 'wechat'
-      donation = Donation.new(amount: amount, owner: owner, donor_id: donor_id, agent_id: agent.id, team_id: team_id)
+      donation = Donation.new(amount: amount, owner: owner, donor_id: donor_id, agent_id: agent.id, team_id: team_id, promoter_id: promoter_id)
       if donation.save
-        api_success(data: {order_no: donation.order_no, pay_state: donation.pay_state}, message: '成功')
+        api_success(data: {order_no: donation.order_no, pay_state: donation.pay_state}.camelize_keys!, message: '成功')
       else
         api_error
       end
     elsif params[:donate_way] == 'balance'
       if DonateRecord.do_donate('user_donate', agent, owner, amount, {agent: agent, donor: donor})
-        api_success(data: {pay_state: 'paid'}, message: '成功')
+        api_success(data: {pay_state: 'paid'}.camelize_keys!, message: '成功')
       else
         api_error
       end
     end
 
+  end
+
+  def show
+    donation = Donation.find_by(order_no: params[:id])
+    api_success(data: {donation: donation.detail_builder})
   end
 end

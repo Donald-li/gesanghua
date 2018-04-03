@@ -168,6 +168,12 @@ class Donation < ApplicationRecord
     end
   end
 
+  def detail_builder
+    Jbuilder.new do |json|
+      json.(self, :amount, :order_no)
+    end.attributes!
+  end
+
   private
   def set_record_title
     return if self.title.present?
@@ -194,7 +200,7 @@ class Donation < ApplicationRecord
       spbill_create_ip: remote_ip,
       notify_url: notify_url,
       trade_type: 'JSAPI', # could be "JSAPI" or "NATIVE",
-      openid: self.user.openid# required when trade_type is `JSAPI`
+      openid: self.agent.openid# required when trade_type is `JSAPI`
     }
     res = WxPay::Service.invoke_unifiedorder params
     return res['prepay_id']
@@ -211,7 +217,7 @@ class Donation < ApplicationRecord
       spbill_create_ip: remote_ip,
       notify_url: notify_url,
       trade_type: 'MWEB', # could be "JSAPI" or "NATIVE",
-      openid: self.user.openid# required when trade_type is `JSAPI`
+      openid: self.agent.openid# required when trade_type is `JSAPI`
     }
     res = WxPay::Service.invoke_unifiedorder params
     return res['mweb_url']
