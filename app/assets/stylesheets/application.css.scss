@@ -323,6 +323,13 @@ select:disabled {
       margin-right: 0;
     }
   }
+  .bul-nav-img{
+    & > img{
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+    }
+  }
 
 }
 
@@ -4072,6 +4079,7 @@ select:disabled {
     line-height: 16px;
   }
 }
+<<<<<<< HEAD
 
 .person-h-cont-d-pairs {
   width: 100%;

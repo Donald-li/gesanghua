@@ -1,6 +1,6 @@
 class Api::V1::Cooperation::CampsController < Api::V1::BaseController
   before_action :set_camp, only: [:index]
-  before_action :set_apply_camp, only: [:show, :verified_members]
+  before_action :set_apply_camp, only: [:show, :verified_members, :submit]
 
   def index
     user = current_user
@@ -21,13 +21,16 @@ class Api::V1::Cooperation::CampsController < Api::V1::BaseController
   end
 
   def verified_members
-    students = @apply_camp.camp_members.student.pass.page(params[:page]).per(params[:per])
-    teachers = @apply_camp.camp_members.teacher.pass.page(params[:page]).per(params[:per])
-    api_success(data: {students: students.map{|st| st.summary_builder}, teachers: teachers.map{|t| t.summary_builder}, pagination_student: json_pagination(students), pagination_teacher: json_pagination(teachers)} )
+    member = @apply_camp.camp_members.pass.page(params[:page]).per(params[:per])
+    api_success(data: {member: member.map{|st| st.summary_builder}, apply_name: @apply_camp.apply.try(:apply_name), pagination: json_pagination(member)} )
   end
 
   def submit
-
+    if ProjectSeasonApplyCampMember.where(id: params[:member_ids]).update(state: 'submit') && @apply_camp.to_approve!
+      api_success(data: {result: true}, message: '提交成功' )
+    else
+      api_success(data: {result: false}, message: '提交失败，请重试' )
+    end
   end
 
   private

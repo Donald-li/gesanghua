@@ -6,6 +6,7 @@ class Site::PairsController < Site::BaseController
     @address_list = ProjectSeasonApplyChild.city_group
     scope = ProjectSeasonApplyChild.show.pass.outside.sorted
     scope = scope.where("name like :q", q: "%#{params[:name]}%") if params[:name].present?
+    scope = scope.where(city: params[:city]) if params[:city].present?
     @children = scope.page(params[:page]).per(8)
   end
 
