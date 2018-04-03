@@ -32,6 +32,9 @@
           <thead>
           <tr>
             <th>
+              探索营名称
+            </th>
+            <th>
               单位名称
             </th>
             <th>
@@ -60,6 +63,9 @@
           <tbody>
           <% @camp_project_resources.each do |camp_project_resource| %>
               <tr>
+                <td>
+                  <%= camp_project_resource.camp.name %>
+                </td>
                 <td>
                   <%= camp_project_resource.company %>
                 </td>
