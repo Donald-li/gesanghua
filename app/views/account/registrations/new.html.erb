@@ -57,12 +57,6 @@
               <% end %>
             </p>
             <div class="input-in">
-              <% if flash[:alert] %>
-                  <div class="alert alert-danger">
-                    <button class="close" data-close="alert"></button>
-                    <span><%= flash.discard(:alert) %></span>
-                  </div>
-              <% end %>
               <input type="text" name="kind" value="<%= params[:kind] %>" hidden />
               <!--手机号-->
               <% if params[:kind] == 'by_phone' %>
