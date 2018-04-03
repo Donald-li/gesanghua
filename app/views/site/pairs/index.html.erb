@@ -29,20 +29,21 @@
             </div>
           </div>
       <% end %>
-      <div class="city-picker-selector pull-right" id="city-picker-selector"></div>
-      <!-- <div class="pull-right pull-down">
+      <!-- <div class="city-picker-selector pull-right" id="city-picker-selector"></div> -->
+      <div class="pull-right pull-down">
         <ul class="project-ul">
           <li id="projectshow" class="cur">
             <span class="pull-left">地区筛选</span>
             <span class="iconfont icon-arrowdown pull-right"></span>
             <ul class="project-nav-heide">
-              <li class="cur">全部</li>
-              <li class="cur">新书项目</li>
-              <li class="cur">补书项目</li>
+              <li class="cur"><%= link_to '全部', pairs_path %></li>
+              <% @address_list.each do |address|%>
+                <li class="cur"><%= link_to address[:name], pairs_path(city: address[:value]) %></li>
+              <% end %>
             </ul>
           </li>
         </ul>
-      </div> -->
+      </div>
 
     </div>
     <div class="pairs-body">
@@ -86,4 +87,14 @@
         level: 1
     });
 
+    //导航标题
+    $('#projectshow').mouseenter(function(){
+       $('.project-nav-heide').css({'display':'block'})
+    })
+    $('#projectshow').mouseleave(function(){
+       $('.project-nav-heide').css({'display':'none'})
+    })
+    // $('.project-nav-heide').mousedown(function(){
+    //     $('.project-nav-heide').css({'display':'none'})
+    // })
 </script>
