@@ -53,6 +53,7 @@ namespace :account do
   end
   resources :agents, only: [:index, :new, :edit]
   resources :activities, only: [:index]
+  resources :personals, only: [:index] # 个人信息
 end
 
 namespace :gsh_plus do

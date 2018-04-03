@@ -154,6 +154,10 @@ group :development do
   gem 'mina-puma', require: false
   gem 'mina-sidekiq', require: false
   gem 'mina-multistage', require: false
+
+  ##断点调试
+  gem 'pry-rails'                   # Open pry instead of IRB when use rails console
+  gem 'pry-byebug'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

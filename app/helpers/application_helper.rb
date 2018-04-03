@@ -89,4 +89,13 @@ module ApplicationHelper
     }.html_safe
   end
 
+  def display_menu(name)
+    controller_name === name ? "selectedli" : ""
+  end
+
+  ##金钱格式化显示为 123,456,789.00
+  def format_money(money, precision, delimiter = nil)
+    number_to_currency(money, precision: precision, unit: "", separator:".", delimiter: delimiter || ",")
+  end
+
 end
