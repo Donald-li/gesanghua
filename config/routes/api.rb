@@ -70,12 +70,18 @@ namespace :api do
       resources :camps, only: [:index, :show] do
         collection do
           get :verified_members
+          post :submit
         end
       end
       resources :camp_members do
         collection do
           get :students
           get :teachers
+          get :qrcode
+        end
+        member do
+          get :edit_reason
+          post :update_reason
         end
       end
     end
