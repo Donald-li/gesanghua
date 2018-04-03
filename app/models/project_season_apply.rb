@@ -76,7 +76,7 @@ class ProjectSeasonApply < ApplicationRecord
   has_many :camp_document_summaries
   has_many :camp_document_volunteers
   has_many :apply_camps, class_name: 'ProjectSeasonApplyCamp'
-  has_many :project_season_apply_camp_members
+  has_many :camp_members, class_name: 'ProjectSeasonApplyCampMember'
 
   has_many :complaints, as: :owner
   has_one :install_feedback, as: :owner

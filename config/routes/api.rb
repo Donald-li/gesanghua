@@ -67,6 +67,17 @@ namespace :api do
           post :finish
         end
       end
+      resources :camps, only: [:index, :show] do
+        collection do
+          get :verified_members
+        end
+      end
+      resources :camp_members do
+        collection do
+          get :students
+          get :teachers
+        end
+      end
     end
 
     # 格桑花+

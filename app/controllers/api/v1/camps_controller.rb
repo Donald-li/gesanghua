@@ -25,7 +25,7 @@ class Api::V1::CampsController < Api::V1::BaseController
   end
 
   def member
-    @member = @apply.project_season_apply_camp_members.joins(:apply_camp).where("project_season_apply_camps.execute_state = ?", 3).pass.sorted.page(params[:page]).per(7)
+    @member = @apply.camp_members.joins(:apply_camp).where("project_season_apply_camps.execute_state = ?", 3).pass.sorted.page(params[:page]).per(7)
     api_success(data: {member: @member.map {|m| m.summary_builder}, pagination: json_pagination(@member)})
   end
 
