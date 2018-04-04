@@ -3,11 +3,11 @@
   <div class="form-body form-horizontal">
     <%= static_form_control '探索营名称', @apply.name %>
     <%= f.input :school_id, as: :select, collection: [@apply_camp.school].compact.map{|s| [s.name, s.id]}, label: '选择学校：', input_html: {class: 'schools-ajax'} %>
-    <%= f.input :teacher_id, as: :select, collection: [@apply_camp.teacher].compact.map{|s| [s.name, s.id]}, label: '选择联系老师：', input_html: {class: 'camp-contact-teachers-ajax'} %>
     <%= f.input :student_number, label: '学生数量：', type: 'number', min: 0, placeholder: '', required: true %>
     <%= f.input :teacher_number, label: '陪同教师：', type: 'number', min: 0, placeholder: '', required: true %>
     <%= f.input :describe, label: '申请要求：', placeholder: '', required: true %>
-
+    <%= f.input :contact_name, label: '联系老师：', placeholder: '', required: true %>
+    <%= f.input :contact_phone, label: '联系方式：', placeholder: '', required: true %>
     <%= f.input :time_limit, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApplyCamp.options_for_some_select(:time_limits, ['restrict', 'unrestrict']), label: '设置截止时间：', required: 'required', input_html: { class: 'limit_state', onclick: 'toggleState();'} %>
     <div class="limit_state">
       <div class="form-group">
@@ -50,39 +50,6 @@
                     return {
                         q: params.term, // search term
                         page: params.page
-                    };
-                },
-                processResults: function (data, params) {
-                    params.page = params.page || 1;
-                    return {
-                        results: $.map(data.items, function (item) {
-                            return {
-                                text: item.name,
-                                id: item.id
-                            }
-                        }),
-                        pagination: {
-                            more: (params.page * 30) < data.total_count
-                        }
-                    };
-                },
-                cache: true
-            }
-        });
-
-        $('.camp-contact-teachers-ajax').select2({
-            language: "zh-CN",
-            placeholder: '请选择老师',
-            allowClear: true,
-            ajax: {
-                url: "/selects/camp_contact_teachers",
-                dataType: 'json',
-                delay: 250,
-                data: function (params) {
-                    return {
-                        q: params.term, // search term
-                        page: params.page,
-                        school_id: $('.schools-ajax').val()
                     };
                 },
                 processResults: function (data, params) {
