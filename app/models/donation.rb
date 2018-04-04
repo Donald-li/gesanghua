@@ -138,7 +138,7 @@ class Donation < ApplicationRecord
 
   def certificate_builder
     Jbuilder.new do |json|
-      json.(self, :id)
+      json.(self, :certificate_no)
       json.certificate self.donor_certificate_path
     end.attributes!
   end
