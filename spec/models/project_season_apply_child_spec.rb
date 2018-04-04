@@ -93,16 +93,16 @@ RSpec.describe ProjectSeasonApplyChild, type: :model do
     child.approve_pass # 通过孩子申请
 
     expect(child.donate_all_records.count).to eq 3
-    expect(child.donate_all_records.first.amount).to eq 1050.0
-    expect(child.donate_all_records.last.amount).to eq 2100.0
+    expect(child.donate_all_records.first.amount).to eq 2100.0
+    expect(child.donate_all_records.last.amount).to eq 1050.0
   end
 
   it '测试查询受助孩子的未筹款捐助记录' do
     child.approve_pass # 通过孩子申请
 
     expect(child.donate_pending_records.count).to eq 3
-    expect(child.donate_pending_records.first.amount).to eq 1050.0
-    expect(child.donate_pending_records.last.amount).to eq 2100.0
+    expect(child.donate_pending_records.first.amount).to eq 2100.0
+    expect(child.donate_pending_records.last.amount).to eq 1050.0
   end
 
   it '测试查询受助孩子的已筹款捐助记录' do

@@ -26,17 +26,10 @@ RSpec.describe Voucher, type: :model do
 
   before(:each) do
     @user = create(:user)
-    @user2 = create(:user)
-    @project = create(:project)
-    @school = create(:school)
-    @team = create(:team, creater_id: @user.id, manage_id: @user.id)
-    @project_season = create(:project_season, project_id: @project.id)
-    @project_season_apply = create(:project_season_apply, project_id: @project.id, project_season_id: @project_season.id)
-    @project_season_apply_child = create(:project_season_apply_child, project_id: @project.id, project_season_id: @project_season.id, project_season_apply_id: @project_season_apply.id, school_id: @school.id)
     @voucher = create(:voucher, user_id: @user.id)
-    @donate_record_1 = create(:donate_record, project_id: @project.id, project_season_id: @project_season.id, project_season_apply_id: @project_season_apply.id, project_season_apply_child_id: @project_season_apply_child.id, user_id: @user.id, promoter_id: @user2.id, team_id: @team.id )
-    @donate_record_2 = create(:donate_record, project_id: @project.id, project_season_id: @project_season.id, project_season_apply_id: @project_season_apply.id, project_season_apply_child_id: @project_season_apply_child.id, user_id: @user.id, promoter_id: @user2.id, team_id: @team.id )
-    @donate_record_3 = create(:donate_record, project_id: @project.id, project_season_id: @project_season.id, project_season_apply_id: @project_season_apply.id, project_season_apply_child_id: @project_season_apply_child.id, user_id: @user.id, promoter_id: @user2.id, team_id: @team.id )
+    @donate_record_1 = create(:income_record, donor_id: @user.id)
+    @donate_record_2 = create(:income_record, donor_id: @user.id)
+    @donate_record_3 = create(:income_record, donor_id: @user.id)
   end
 
   it "测试提交发票信息是否同步更新捐赠记录" do
@@ -46,6 +39,7 @@ RSpec.describe Voucher, type: :model do
     donate_records << @donate_record_3
     ids = donate_records.map{ |i| i.id }
     expect(@voucher.save_voucher(ids)).to eq(true)
+    expect(@donate_record_1.reload.voucher_id).to eq(@voucher.id)
     expect(@voucher.voucher_no.present?).to eq true
   end
 

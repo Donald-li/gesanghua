@@ -1,20 +1,20 @@
 <% records.each do |record| %>
   <li class="border-b clearfix">
-    <% if record.user.present? && record.user.avatar.present? %>
-      <%= image_tag record.user.avatar.try(:file).try(:url, :tiny).to_s %>
+    <% if record.donor.present? && record.donor.avatar.present? %>
+      <%= image_tag record.donor.avatar.try(:file).try(:url, :tiny).to_s %>
     <% else %>
       <%= image_tag '' %>
     <% end %>
     <div class="pull-left">
       <div class="clearfix">
-        <span class="pull-left detail-name"><%= record.user.show_name %></span>
+        <span class="pull-left detail-name"><%= record.donor.show_name %></span>
         <span class="timeago pull-right detail-time" data-timeago="<%= record.created_at.to_s(:db) %>"></span>
       </div>
       <p class="detail-con">
         <% if record.team.present? %>
         通过 <%= record.team.name %>
         <% end %>
-        捐助 <strong><%= record.record_show_name %></strong> <%= record.amount %>元
+        捐助 <strong><%= record.owner.try(:name) %></strong> <%= record.amount %>元
     </div>
   </li>
 <% end %>
