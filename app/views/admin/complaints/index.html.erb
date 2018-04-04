@@ -33,13 +33,16 @@
               编号
             </th>
             <th>
+              举报对象
+            </th>
+            <th>
+              编号
+            </th>
+            <th>
               姓名
             </th>
             <th>
               手机号码
-            </th>
-            <th>
-              举报内容
             </th>
             <th>
               状态
@@ -56,13 +59,16 @@
                 <%= cate.id %>
               </td>
               <td>
+                <%= cate.owner_name %>
+              </td>
+              <td>
+                <%= cate.owner_no %>
+              </td>
+              <td>
                 <%= cate.contact_name %>
               </td>
               <td>
                 <%= cate.contact_phone %>
-              </td>
-              <td>
-                <%= cate.sliced_content %>
               </td>
               <td>
                 <%= cate.enum_name(:state) %>
