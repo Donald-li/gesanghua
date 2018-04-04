@@ -1,10 +1,20 @@
+<% submit = apply.form %>
+<% form = apply.project.form %>
+  <% form.each do |item| %>
+    <div class="form-group">
+      <label class="col-md-2 control-label"><%= item['label'] %>：</label>
+      <div class="col-sm-9">
+        <% if item['type'] == 'text'%>
+        <%= text_field_tag "#{model}[form][#{item['key']}]", submit[item['key']], placeholder: item['placeholder'], data: {'parsley-required': item['required'] == 'y'}%>
+        <% elsif item['type'] == 'textarea'%>
+        <%= text_area_tag "#{model}[form][#{item['key']}]", submit[item['key']], placeholder: item['placeholder'], data: {'parsley-required': item['required'] == 'y'}%>
+        <% elsif item['type'] == 'number'%>
+        <%= text_field_tag "#{model}[form][#{item['key']}]", submit[item['key']], type: :number, min: item['options'].to_a[0],max: item['options'].to_a[1], placeholder: item['placeholder'], data: {'parsley-required': item['required'] == 'y'}%>
+        <% elsif item['type'] == 'select'%>
+        <%= select_tag "#{model}[form][#{item['key']}]", options_for_select(item['options'], submit[item['key']]), include_blank: true, placeholder: item['placeholder'], data: {'parsley-required': item['required'] == 'y'}%>
 
-<% form = apply.project.form_submit(apply.form) %>
-<% form.each do |item| %>
-<div class="form-group">
-  <label class="col-md-2 control-label"><%= item.first %>：</label>
-  <div class="col-sm-9">
-    <%= item.second || '' %>
-  </div>
-</div>
-<% end %>
+        <% end %>
+
+      </div>
+    </div>
+  <% end %>
