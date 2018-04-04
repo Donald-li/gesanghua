@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180402112652) do
+ActiveRecord::Schema.define(version: 20180404040649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -624,6 +624,7 @@ ActiveRecord::Schema.define(version: 20180402112652) do
     t.integer "camp_state", comment: "探索营-项目状态"
     t.string "camp_principal", comment: "探索营-营负责人"
     t.string "camp_income_source", comment: "探索营-经费来源"
+    t.integer "inventory_state", comment: "是否使用物资清单"
   end
 
   create_table "project_season_apply_bookshelves", force: :cascade, comment: "项目执行年度申请书架表" do |t|
@@ -785,6 +786,16 @@ ActiveRecord::Schema.define(version: 20180402112652) do
     t.integer "project_season_apply_id", comment: "关联项目执行年度申请id"
     t.integer "project_season_goods_id", comment: "关联项目执行年度物品id"
     t.integer "num", comment: "物品申请数量"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "project_season_apply_inventories", force: :cascade, comment: "筹款项目物资清单" do |t|
+    t.integer "project_season_apply_id", comment: "项目id"
+    t.string "name", comment: "名称"
+    t.decimal "unit", precision: 14, scale: 2, default: "0.0", comment: "单价（元）"
+    t.integer "number", comment: "数量"
+    t.integer "state", comment: "状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
