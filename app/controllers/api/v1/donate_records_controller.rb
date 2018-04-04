@@ -24,10 +24,4 @@ class Api::V1::DonateRecordsController < Api::V1::BaseController
     api_success(data: {donate_record: DonateRecord.find(params[:id]).detail_builder})
   end
 
-  def certificate
-      record = Donation.find(params[:id])
-      api_success(data: record.certificate_builder)
-    # end
-  end
-
 end
