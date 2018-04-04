@@ -5,7 +5,7 @@
     <div class="swiper-wrapper">
       <% @adverts.each do |advert|%>
         <div class="swiper-slide">
-          <%= image_tag advert.image.try(:file).try(:url, :big) %>
+          <%= image_tag advert.image.try(:file).try(:url, :big).to_s %>
         </div>
       <% end %>
     </div>
@@ -103,7 +103,7 @@
     <% @articles.each do |article| %>
       <div class="item col-md-4 cur ">
         <div class="gsh-img">
-          <%= image_tag article.image.try(:file).try(:url, :medium) %>
+          <%= image_tag article.image.try(:file).try(:url, :medium).to_s %>
           <div class="ovrly"></div>
           <div class="buttons">
             <%= image_tag 'gsh-img-2.png' %>
@@ -127,7 +127,7 @@
     <% if @partners.present? %>
       <% @partners.limit(6).each do |partner| %>
         <div class="cur">
-          <%= link_to partner.url do %><%= image_tag partner.image.try(:file).try(:url, :tiny) %><% end %>
+          <%= link_to partner.url do %><%= image_tag partner.image.try(:file).try(:url, :tiny).to_s %><% end %>
         </div>
       <% end %>
     <% end %>

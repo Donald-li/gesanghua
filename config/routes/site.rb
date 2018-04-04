@@ -27,7 +27,6 @@ scope module: :user do
 end
 
 namespace :account do
-  resources :sms_codes, only: :create
   get '/login' => 'sessions#new', as: :login
   match '/logout', to: 'sessions#destroy', as: :logout, via: :delete
   resource :session, only: [:create, :edit, :update] do
@@ -35,6 +34,8 @@ namespace :account do
       get :forget
       post :find_back
       get :info
+      post :find_back_by_email
+      post :email_get_code
     end
   end
   resources :orders, only: [:index] # 我的捐助
@@ -53,12 +54,8 @@ namespace :account do
   end
   resources :agents, only: [:index, :new, :edit]
   resources :activities, only: [:index]
-  resources :personals, only: [:index] # 个人信息
+  resources :personals # 个人信息
 end
 
 namespace :gsh_plus do
-end
-
-namespace :school do
-  resource :main, only: :show
 end

@@ -1,8 +1,8 @@
-class School::BaseController < ApplicationController
+class Platform::School::BaseController < ApplicationController
   before_action :logged_in?
   before_action :set_paper_trail_whodunnit
   helper_method :current_teacher
-  layout 'school'
+  layout 'platform_school'
 
   protected
   def user_for_paper_trail

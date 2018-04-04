@@ -27,5 +27,6 @@
 
 FactoryBot.define do
   factory :feedback do
+    content {FFaker::LoremCN.sentence(10)}
   end
 end

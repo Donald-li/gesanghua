@@ -1,7 +1,10 @@
 class Account::PersonalsController < Account::BaseController
 
   def index
-    #binding.pry
+    @persional = User.first#current_user
+  end
+
+  def edit
     @persional = User.first#current_user
   end
 

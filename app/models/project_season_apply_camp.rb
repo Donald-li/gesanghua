@@ -24,7 +24,7 @@ class ProjectSeasonApplyCamp < ApplicationRecord
   belongs_to :camp
   belongs_to :teacher, optional: true
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: :project_season_apply_id
-  has_many :project_season_apply_camp_members, dependent: :destroy
+  has_many :camp_members, class_name: 'ProjectSeasonApplyCampMember', dependent: :destroy
 
   enum time_limit: {restrict: 1, unrestrict: 2}
   default_value_for :time_limit, 1
@@ -37,5 +37,23 @@ class ProjectSeasonApplyCamp < ApplicationRecord
   validates :describe, presence: true
 
   scope :sorted, ->{ order(created_at: :desc) }
+
+  def detail_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :student_number, :execute_state, :teacher_number, :time_limit, :describe)
+      json.name self.apply.try(:apply_name)
+      json.apply_no self.apply.try(:apply_no)
+      json.school_name self.school.try(:name)
+      json.end_time self.end_time.strftime("%Y-%m-%d %H:%M") if self.restrict?
+    end.attributes!
+  end
+
+  # 探索营
+  def camp_applies_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :execute_state, :student_number, :teacher_number)
+      json.name self.apply.try(:apply_name)
+    end.attributes!
+  end
 
 end
