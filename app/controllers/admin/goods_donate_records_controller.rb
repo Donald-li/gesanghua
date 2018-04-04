@@ -4,7 +4,7 @@ class Admin::GoodsDonateRecordsController < Admin::GoodsBaseController
   before_action :set_project_apply
 
   def index
-    @donate_records = @apply.donate_records.paid
+    @donate_records = @apply.donate_records
     set_search_end_of_day(:created_at_lteq)
     @search = @donate_records.ransack(params[:q])
     scope = @search.result
