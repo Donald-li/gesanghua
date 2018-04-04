@@ -65,17 +65,11 @@ class IncomeRecord < ApplicationRecord
     self.to_bill? && self.created_at.between?(Time.now.beginning_of_year, Time.now.end_of_year)
   end
 
-  # 微信入账
-  def self.wechat_payment(result, params)
-    donate_record = DonateRecord.find_by(donate_no: result['out_trade_no'])
-    income_record = self.wechat_record(donate_record.user, result['total_fee'])
-    donate_record.update(pay_state: 'paid', income_record: income_record, pay_result: result.to_json) if donate_record.unpay?
-    DonateRecord.use_income_record_donate_apply(income_record.reload) if donate_record.project_id == 2 # 处理悦读申请捐款
-  end
+
 
   # 微信入账记录
-  def self.wechat_record(user, amount)
-    IncomeRecord.new(user: user, amount: amount, balance: amount, voucher_state: 'to_bill', income_source_id: 1, income_time: Time.now)
+  def self.wechat_record(agent, amount)
+    IncomeRecord.new(agent: agent, amount: amount, balance: amount, voucher_state: 'to_bill', income_source_id: 1, income_time: Time.now)
   end
 
   def self.read_excel(excel_id)
