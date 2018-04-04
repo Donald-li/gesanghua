@@ -19,14 +19,7 @@
           <%= f.hidden_field :project_id, value: Project.care_project.id %>
           <%= f.input :school_id, collection: [@project_apply.school].compact.map {|u| [u.name, u.id]}, label: '申请学校：', input_html: {class: 'schools-ajax'}, required: true  %>
           <%= f.input :project_season_id, collection: [@project_apply.season].compact.map {|u| [u.name, u.id]}, label: '申请批次：', input_html: {class: 'seasons-ajax'}, required: true  %>
-          <div class="form-group">
-            <label class="col-md-2 control-label">申请人数：</label>
-            <div class="col-sm-9">
-              <%= f.text_field :girl_number, placeholder: '女生人数', required: true, type: 'number', min:0 %>
-              <%= f.text_field :boy_number, placeholder: '男生人数', required: true, type: 'number', min:0 %>
-            </div>
-          </div>
-          <%= render '/admin/shared/dynamic_form', apply: @project_apply %>
+          <%= render '/admin/shared/dynamic_form', apply: @project_apply, model: :project_season_apply %>
           <%= f.input :abstract, label: '申请理由：', required: true %>
           <div class="form-group">
             <label class="col-md-2 control-label">申请图片：</label>
