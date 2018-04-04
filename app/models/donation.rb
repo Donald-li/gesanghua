@@ -116,6 +116,20 @@ class Donation < ApplicationRecord
     end
   end
 
+  # 支付成功
+  def self.wechat_payment_success(result)
+    donation = Donation.find_by(order_no: result['out_trade_no'])
+    if donation.unpay?
+      donor = donation.donor
+      agent = donation.agent
+      income_record = IncomeRecord.wechat_record(agent, result['total_fee'])
+      donation.update(pay_state: 'paid', income_record: income_record, pay_result: result.to_json)
+      owner = income_record
+      amount = income_record.amount
+      DonateRecord.do_donate('user_donate', agent, owner, amount, {agent: agent, donor: donor})
+    end
+  end
+
   # 生成捐赠编号
   def pay_and_gen_certificate
     self.certificate_no ||= 'ZS' + self.order_no
