@@ -49,7 +49,7 @@ class Voucher < ApplicationRecord
     self.transaction do
       begin
         self.save!
-        records = ids.map{ |i| DonateRecord.find_by_id(i) }.compact
+        records = ids.map{ |i| IncomeRecord.find_by_id(i) }.compact
         voucher_id = self.id
         records.each{ |e| e.update!( voucher_state: 'billed', voucher_id: voucher_id ) }
         return true

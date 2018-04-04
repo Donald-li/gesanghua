@@ -9,7 +9,7 @@ RSpec.describe "Api::V1::Account::Users", type: :request do
   let!(:season) {create(:project_season, project: project)}
   let!(:apply) {create(:project_season_apply, project: project, season: season, teacher: teacher)}
   let!(:child) {create(:project_season_apply_child, project: project, season: season, apply: apply, school: school)}
-  let!(:record) {create(:donate_record, project: project, season: season, apply: apply, user: login_user, appoint: child, pay_state: 'paid', promoter_id: login_user.id )}
+  let!(:record) {create(:donation, project: project, season: season, apply: apply, donor: login_user, pay_state: 'paid', promoter: login_user)}
 
   describe '测试我的' do
     it '获取首页' do
