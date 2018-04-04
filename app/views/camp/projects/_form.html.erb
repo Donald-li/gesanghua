@@ -1,0 +1,39 @@
+<%= simple_form_for [:camp, @project], url: camp_project_path, wrapper: :admin_form, html: {class: 'form-horizontal project_form', 'data-parsley-validate': true} do |f| %>
+  <%= f.error_notification %>
+  <div class="form-body form-horizontal">
+    <%= f.input :name, label: '项目名称：', placeholder: '', required: true %>
+    <div class="form-group">
+      <label class="col-md-2 control-label">封面：</label>
+      <div class="col-sm-9">
+        <%= webuploader_tag 'cover_image_id', label: '封面', type: 'project_season_apply_cover', asset: @project.cover_image, klass: 'single' %>
+      </div>
+    </div>
+    <%= f.input :camp_income_source, label: '经费来源：', placeholder: '', required: true %>
+    <%= f.input :target_amount, label: '目标筹款金额：', placeholder: '', hint: '不限制可不填' %>
+    <%= f.input :camp_principal, label: '营负责人：', placeholder: '', required: true %>
+    <%= f.input :number, label: '计划人数：', type: 'number', min: 0, placeholder: '', required: true %>
+    <div class="form-group">
+      <label class="col-md-2 control-label">开营时间：</label>
+      <div class="col-sm-9">
+        <%= f.text_field :camp_start_time, class: 'datetime-picker', placeholder: '开营时间', required: true %>
+      </div>
+    </div>
+    <%= f.input :camp_period, label: '行程天数：', placeholder: '', required: true %>
+    <%= f.input :project_describe, label: '行程介绍：', placeholder: '', required: true %>
+    <%= f.input :abstract, label: '备注：', placeholder: '', required: true %>
+    <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApply.options_for_enum_select(:states), label: '状态：'%>
+  </div>
+  <div class="form-actions">
+    <div class="row">
+      <div class="col-md-offset-2 col-md-9">
+        <%= f.button :submit, '提交', class: 'btn blue' %>
+        <%= link_to '取消', request.referer, class: 'btn' %>
+      </div>
+    </div>
+  </div>
+<% end %>
+<script>
+    $(function(){
+        initImageWebuploader($('#webuploader'));
+    })
+</script>

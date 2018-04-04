@@ -51,12 +51,6 @@
               <span class="pull-left cur longin-1">账号登录</span>
             </p>
             <div class="input-in">
-              <% if flash[:alert] %>
-                  <div class="alert alert-danger">
-                    <button class="close" data-close="alert"></button>
-                    <span><%= flash.discard(:alert) %></span>
-                  </div>
-              <% end %>
               <span class="input input--hoshi">
                 <%= f.text_field :login, required: true, class: 'input__field input__field--hoshi', id: 'email', placeholder: '手机号/邮箱' %>
                 <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="email"></label>
@@ -76,7 +70,7 @@
             </div>
           </div>
           <div class="longin-right">
-            <p class="longin-margin">还没有账号？<strong class="cur"><%= link_to new_account_registration_path do %>立即注册<% end %></strong></p>
+            <p class="longin-margin">还没有账号？<strong class="cur"><%= link_to new_account_registration_path(kind: 'by_phone') do %>立即注册<% end %></strong></p>
             <p class="longin-margin">or</p>
             <p class="longin-icon cur">
               <span class="iconfont icon-wechat pull-left"></span><span class="pull-left">微信登录</span></p>

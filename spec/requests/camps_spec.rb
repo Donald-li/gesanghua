@@ -38,7 +38,7 @@ RSpec.describe "Api::V1::Camps", type: :request do
       apply_camp.approved!
       get member_api_v1_camp_path(id: apply.id), headers: api_v1_headers(login_user)
       api_v1_expect_success
-      expect(json_body[:data][:member].count) == apply_camp.project_season_apply_camp_members.pass.count
+      expect(json_body[:data][:member].count) == apply_camp.camp_members.pass.count
     end
 
     it '获取探索营执行反馈' do

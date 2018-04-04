@@ -1,53 +1,55 @@
-      <div class="person-body-right pull-right">
+<div class="person-body-right pull-right">
         <div class="">
           <p class="don-title border-b">捐助管理</p>
           <div class="don-cont">
             <div class="don-content">
               <div>
-                <span>张先生</span>
+                <span><%= current_user.show_name %></span>
                 <span>自己</span>
               </div>
               <div class="don-con-co">
-                <span>联系电话：</span><p>186****0989</p>
+                <span>联系电话：</span><p><%= current_user.phone %></p>
               </div>
               <div class="don-con-co">
-                <span>收货地区：</span><p>山东青岛市李沧区</p>
+                <span>收货地区：</span><p><%= ChinaCity.get(current_user.province) %><%= ChinaCity.get(current_user.city) %><%= ChinaCity.get(current_user.district) %></p>
               </div>
               <div class="don-con-co">
-                <span>详细地址：</span><p>京口路28号苏宁大厦C座1804</p>
+                <span>详细地址：</span><p><%= current_user.address %></p>
               </div>
               <div class="don-con-co">
-                <span>邮箱地址：</span><p></p>
+                <span>邮箱地址：</span><p><%= current_user.email %></p>
               </div>
             </div>
-            <div class="don-content">
-              <div>
-                <span>张先生</span>
-              </div>
-              <div class="don-con-co">
-                <span>联系电话：</span><p>186****0989</p>
-              </div>
-              <div class="don-con-co">
-                <span>收货地区：</span><p>山东青岛市李沧区</p>
-              </div>
-              <div class="don-con-co">
-                <span>详细地址：</span><p>京口路28号苏宁大厦C座1804</p>
-              </div>
-              <div class="don-con-co">
-                <span>邮箱地址：</span><p></p>
-              </div>
-              <div class="clearfix don-con-pos">
-                <div class="pull-right cur" id="delete">
-                  <span class="iconfont icon-ico-delete1"></span>
-                  <span>删除</span>
+            <% @offline_users.each do |offline_user| %>
+              <div class="don-content">
+                <div>
+                  <span><%= offline_user.show_name %></span>
                 </div>
-                <div class="pull-right cur">
-                  <span class="iconfont icon-ico-edit "></span>
-                  <span>编辑</span>
+                <div class="don-con-co">
+                  <span>联系电话：</span><p><%= offline_user.phone %></p>
                 </div>
+                <div class="don-con-co">
+                  <span>收货地区：</span><p><%= ChinaCity.get(offline_user.province) %><%= ChinaCity.get(offline_user.city) %><%= ChinaCity.get(offline_user.district) %></p>
+                </div>
+                <div class="don-con-co">
+                  <span>详细地址：</span><p><%= offline_user.address %></p>
+                </div>
+                <div class="don-con-co">
+                  <span>邮箱地址：</span><p><%= offline_user.email %></p>
+                </div>
+                <div class="clearfix don-con-pos">
+                  <div class="pull-right cur" id="delete">
+                    <span class="iconfont icon-ico-delete1"></span>
+                    <span>删除</span>
+                  </div>
+                  <div class="pull-right cur">
+                    <span class="iconfont icon-ico-edit "></span>
+                    <span>编辑</span>
+                  </div>
 
+                </div>
               </div>
-            </div>
+            <% end %>
           </div>
 
           <div class="don-co">
@@ -57,82 +59,7 @@
             </div>
           </div>
         </div>
-        <!--协作平台-->
-        <div class="donation">
-          <p class="don-title border-b">协作平台</p>
-        </div>
-        <!--格桑花+-->
-        <div class="donation">
-          <p class="don-title border-b">格桑花+</p>
-        </div>
-        <!--我的徽章-->
-        <div class="donation">
-          <p class="don-title border-b">我的徽章</p>
-          <div class="medal">
-            <div class="items-container row">
-              <div class="item col-md-4 cur ">
-                <div class="gsh-img">
-                  <%= image_tag 'gsh-img-1.png' %>
-                  <div class="ovrly"></div>
-                  <div class="buttons">
-                    <p>筹款勋章</p>
-                    <p>收获勋章需要您累计为格桑花义 务服务六年，且每年义务捐款满 2000元，可获得</p>
-                  </div>
-                </div>
 
-              </div>
-              <div class="item col-md-4 cur">
-                <div class="gsh-img">
-                  <%= image_tag 'gsh-img-1.png' %>
-                  <div class="ovrly"></div>
-                  <div class="buttons">
-                    <%= image_tag 'gsh-img-2.png' %>
-                  </div>
-                </div>
-
-              </div>
-              <div class="item col-md-4 cur ">
-                <div class="gsh-img">
-                  <%= image_tag 'gsh-img-1.png' %>
-                  <div class="ovrly"></div>
-                  <div class="buttons">
-                    <%= image_tag 'gsh-img-2.png' %>
-                  </div>
-                </div>
-
-              </div>
-              <div class="item col-md-4  cur">
-                <div class="gsh-img">
-                  <%= image_tag 'gsh-img-1.png' %>
-                  <div class="ovrly"></div>
-                  <div class="buttons">
-                    <%= image_tag 'gsh-img-2.png' %>
-                  </div>
-                </div>
-              </div>
-              <div class="item col-md-4 cur">
-                <div class="gsh-img">
-                  <%= image_tag 'gsh-img-1.png' %>
-                  <div class="ovrly"></div>
-                  <div class="buttons">
-                    <%= image_tag 'gsh-img-2.png' %>
-                  </div>
-                </div>
-              </div>
-              <div class="item col-md-4 cur">
-                <div class="gsh-img">
-                  <%= image_tag 'gsh-img-1.png' %>
-                  <div class="ovrly"></div>
-                  <div class="buttons">
-                    <%= image_tag 'gsh-img-2.png' %>
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
-          </div>
-        </div>
       </div>
 
 
@@ -150,6 +77,7 @@
     </div>
   </div>
   <div id="code">
+    <%= simple_form_for '', url: account_offline_users_path, method: :post, html: {class: ''} do |f| %>
     <div class="close1 clearfix">
       <span class="pull-left">新增捐赠人信息</span>
       <span id="closebt" class="iconfont icon-icondelete cur pull-right "></span>
@@ -158,41 +86,48 @@
       <div class="clearfix">
         <div class="pull-left">
           <p class="goodtext">昵称</p>
-          <input  class="goodinput" type="text"  />
+          <!-- <input  class="goodinput" type="text"  /> -->
+          <%= f.text_field :nickname, required: true, class: 'goodinput', placeholder: '' %>
         </div>
         <div class="pull-right">
           <p class="goodtext">真实姓名</p>
-          <input  class="goodinput" type="text"  />
+          <!-- <input  class="goodinput" type="text"  /> -->
+          <%= f.text_field :name, required: true, class: 'goodinput', placeholder: '' %>
         </div>
       </div>
       <div class="clearfix sexinput">
-        <p class="goodtext pull-left">所在地区</p>
+        <p class="goodtext pull-left">性别</p>
         <div class="female pull-left">
-          <input type="radio" id="female" name="sex" checked />
-          <label for="female">男</label>
+          <input type="radio" id="male" value="male" name="gender" checked />
+          <label for="male">男</label>
         </div>
         <div class="male pull-left">
-          <input type="radio" id="male" name="sex" />
-          <label for="male">女</label>
+          <input type="radio" id="female" value="female" name="gender" />
+          <label for="female">女</label>
         </div>
       </div>
 
       <div class="clearfix">
         <div class="pull-left">
           <p class="goodtext">如何称呼</p>
-          <input  class="goodinput" type="text"  />
+          <!-- <input  class="goodinput" type="text"  /> -->
+          <%= f.text_field :salutation, class: 'goodinput', placeholder: '孩子如何称呼您' %>
         </div>
         <div class="pull-right">
           <p class="goodtext">联系电话</p>
-          <input  class="goodinput" type="text"  placeholder="请输入联系电话"/>
+          <!-- <input  class="goodinput" type="text"  placeholder="请输入联系电话"/> -->
+          <%= f.text_field :phone, required: true, class: 'goodinput', placeholder: '' %>
         </div>
       </div>
       <p class="goodtext">所在地区</p>
       <div class="city-picker-selector" id="city-picker-selector"></div>
       <p class="goodtext">详细地址</p>
-      <input class="address-input" type="text"  placeholder="请输入详细地址"/>
-      <div class="goodbut">保存</div>
+      <!-- <input class="address-input" type="text"  placeholder="请输入详细地址"/> -->
+      <%= f.text_field :address, class: 'address-input', placeholder: '请输入详细地址' %>
+      <!-- <div class="goodbut">保存</div> -->
+      <button class="goodbut" type="submit">保存</button>
     </div>
+    <% end %>
   </div>
 <script>
 

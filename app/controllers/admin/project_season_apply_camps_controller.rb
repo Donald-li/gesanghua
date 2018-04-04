@@ -3,7 +3,7 @@ class Admin::ProjectSeasonApplyCampsController < Admin::BaseController
   before_action :set_apply
 
   def index
-    @search = ProjectSeasonApplyCamp.sorted.ransack(params[:q])
+    @search = @apply.apply_camps.sorted.ransack(params[:q])
     scope = @search.result
     @apply_camps = scope.page(params[:page])
   end
@@ -55,8 +55,8 @@ class Admin::ProjectSeasonApplyCampsController < Admin::BaseController
   end
 
   def camp_member
-    @students = @apply_camp.project_season_apply_camp_members.student.pass.sorted
-    @teachers = @apply_camp.project_season_apply_camp_members.teacher.pass.sorted
+    @students = @apply_camp.camp_members.student.pass.sorted
+    @teachers = @apply_camp.camp_members.teacher.pass.sorted
   end
 
   private

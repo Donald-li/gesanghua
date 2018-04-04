@@ -1,6 +1,7 @@
 <%= simple_form_for [:admin, @camp_project_resource], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
     <%= f.error_notification %>
     <div class="form-body form-horizontal">
+      <%= f.input :camp_id, as: :select, collection: Camp.enable.sorted.collect{|c| [c.name, c.id]}, label: '探索营地点：', input_html: {class: 'camps-ajax'} %>
       <%= f.input :company, label: '单位名称：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
       <%= f.input :resource, label: '资源：', input_html: { data: {'parsley-required': true}} %>
       <%= f.input :contact_name, label: '资源联系人：', input_html: { data: {'parsley-required': true}} %>
@@ -22,5 +23,36 @@
 <script>
   $(function(){
     initImageWebuploader($('#webuploader'));
+      $('.camps-ajax').select2({
+          language: "zh-CN",
+          placeholder: '请选择探索营',
+          allowClear: true,
+          ajax: {
+              url: "/selects/camps",
+              dataType: 'json',
+              delay: 250,
+              data: function (params) {
+                  return {
+                      q: params.term, // search term
+                      page: params.page
+                  };
+              },
+              processResults: function (data, params) {
+                  params.page = params.page || 1;
+                  return {
+                      results: $.map(data.items, function (item) {
+                          return {
+                              text: item.name,
+                              id: item.id
+                          }
+                      }),
+                      pagination: {
+                          more: (params.page * 30) < data.total_count
+                      }
+                  };
+              },
+              cache: true
+          }
+      });
   })
 </script>

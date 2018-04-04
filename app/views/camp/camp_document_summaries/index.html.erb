@@ -1,0 +1,79 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i><%= @current_apply.name %> > 总结
+    </div>
+    <div class="actions">
+      <%= link_to camp_applies_path(return_apply: controller_path), class: 'btn btn-xs green', 'data-no-turbolink' => true do %>
+          <i class="icon-plus"></i>
+          <span>切换探索营</span>
+      <% end %>
+      <%= link_to new_camp_camp_document_summary_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+          <i class="icon-plus"></i>
+          <span>新增</span>
+      <% end %>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="dataTables_wrapper no-footer">
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+          <div class="dataTables_filter pull-right">
+          </div>
+        </div>
+      </div>
+      <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover" id="sample_2">
+          <thead>
+          <tr>
+            <th>
+              提交时间
+            </th>
+            <th>
+              提交人
+            </th>
+            <th>
+              总结报告
+            </th>
+            <th>
+              操作
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @camp_document_summaries.each do |camp_document_summary| %>
+              <tr>
+                <td>
+                  <%=l camp_document_summary.created_at %>
+                </td>
+                <td>
+                  <%= camp_document_summary.user.try(:name) %>
+                </td>
+                <td>
+                  <%= link_to camp_document_summary.report.file_name, camp_document_summary.report_url(nil), target: '_blank' if camp_document_summary.report %>
+                </td>
+                <td>
+                  <%= link_to edit_camp_camp_document_summary_path(camp_document_summary), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                      <i class="fa fa-edit"></i> 修改
+                  <% end %>
+                  <%= link_to camp_camp_document_summary_path(camp_document_summary), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                      <i class="fa fa-trash-o"></i> 删除
+                  <% end %>
+                </td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-5 col-sm-12">
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@camp_document_summaries) %></div>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <%= paginate @camp_document_summaries, theme: 'admin' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END EXAMPLE TABLE PORTLET-->

@@ -9,7 +9,7 @@ RSpec.describe "Api::V1::Account::Vouchers", type: :request do
   let!(:season) {create(:project_season, project: project)}
   let!(:apply) {create(:project_season_apply, project: project, season: season, teacher: teacher)}
   let!(:child) {create(:project_season_apply_child, project: project, season: season, apply: apply, school: school)}
-  let!(:record1) {create(:donate_record, project: project, season: season, apply: apply, user: login_user, appoint: child, pay_state: 'paid', amount: '2000' )}
+  let!(:record1) {create(:income_record, donor: login_user, amount: '2000' )}
 
   describe '测试开票' do
     it '提交开票申请' do

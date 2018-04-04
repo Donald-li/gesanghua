@@ -49,10 +49,6 @@
 # 所有项目年度申请表
 class ProjectSeasonApply < ApplicationRecord
 
-  validate do |apply|
-    self.errors.add(:present_amount, '捐助金额不能大于筹款金额') if self.present_amount > self.target_amount
-  end
-
   attr_accessor :cover_image_id
   include HasAsset
   has_many_assets :images, class_name: 'Asset::ProjectSeasonApplyImage'
@@ -76,7 +72,7 @@ class ProjectSeasonApply < ApplicationRecord
   has_many :camp_document_summaries
   has_many :camp_document_volunteers
   has_many :apply_camps, class_name: 'ProjectSeasonApplyCamp'
-  has_many :project_season_apply_camp_members
+  has_many :camp_members, class_name: 'ProjectSeasonApplyCampMember'
 
   has_many :complaints, as: :owner
   has_one :install_feedback, as: :owner
@@ -102,7 +98,7 @@ class ProjectSeasonApply < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
-  enum audit_state: {submit: 1, pass: 2, reject: 3}#审核状态 1:待审核 2:审核通过 3:审核不通过
+  enum audit_state: {draft: 0, submit: 1, pass: 2, reject: 3}#审核状态 0:待提交 1:待审核 2:审核通过 3:审核不通过
   default_value_for :audit_state, 1
 
   enum pair_state: {waiting_upload: 1, waiting_check: 2, pair_complete: 3}
@@ -120,6 +116,32 @@ class ProjectSeasonApply < ApplicationRecord
   before_create :gen_code
   before_create :gen_apply_no
   after_save :set_execute_state
+
+  # 得到可捐助子项
+  def get_donate_items
+    # 书架申请
+    if self.project == Project.read_project && self.whole?
+      self.bookshelves.raising.order(present_amount: :desc)
+    end
+  end
+
+  # 使用捐助
+  def accept_donate(donate_records)
+    donate_record = donate_records.last
+    # 不能超过剩余金额
+    amount = [surplus_money, donate_record.amount].min
+    donate_record.update!(amount: amount)
+
+    self.present_amount += amount
+    self.project.fund.balance += amount
+    self.check_apply_state
+    self.save!
+  end
+
+  # 更新申请状态
+  def check_apply_state
+    self.execute_state = 'to_delivery' if self.present_amount == self.target_amount
+  end
 
   def surplus_money
     self.target_amount - self.present_amount

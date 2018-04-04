@@ -34,6 +34,8 @@ namespace :account do
       get :forget
       post :find_back
       get :info
+      post :find_back_by_email
+      post :email_get_code
     end
   end
   resources :orders, only: [:index] # 我的捐助
@@ -55,8 +57,4 @@ namespace :account do
 end
 
 namespace :gsh_plus do
-end
-
-namespace :school do
-  resource :main, only: :show
 end

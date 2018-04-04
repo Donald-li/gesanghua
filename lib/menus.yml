@@ -233,6 +233,7 @@ admin:
                 'admin/camp_projects': all
                 'admin/project_season_apply_camps': all
                 'admin/project_season_apply_camp_students': all
+                'admin/project_season_apply_camp_teachers': all
                 'admin/camp_donate_records': all
                 'admin/camp_execute_feedbacks': all
             admin_camp_project_resources:
@@ -304,3 +305,51 @@ admin:
               actions:
                 'admin/goods_continual_feedbacks': all
                 'admin/movie_care_continual_feedbacks': all
+# 探索营后台
+camp:
+  menus:
+    camp_main:
+      actions:
+        'camp/mains': all
+    camp_user:
+      actions:
+        'camp/users': all
+    camp_project_camp:
+      menus:
+        camp_user:
+          actions:
+            'camp/users': all
+        camp_applies:
+          actions:
+            'camp/applies': all
+        camp_projects:
+          actions:
+            'camp/projects': all
+            'camp/project_season_apply_camps': all
+            'camp/project_season_apply_camp_students': all
+            'camp/project_season_apply_camp_teachers': all
+            'camp/donate_records': all
+            'camp/execute_feedbacks': all
+        camp_project_resources:
+          actions:
+            'camp/camp_project_resources': all
+        camp_project_reports:
+          actions:
+            'camp/project_reports': all
+        camp_document:
+          menus:
+            camp_document_estimates:
+              actions:
+                'camp/camp_document_estimates': all
+            camp_document_budges:
+              actions:
+                'camp/camp_document_budges': all
+            camp_document_finances:
+              actions:
+                'camp/camp_document_finances': all
+            camp_document_summaries:
+              actions:
+                'camp/camp_document_summaries': all
+            camp_document_volunteers:
+              actions:
+                'camp/camp_document_volunteers': all

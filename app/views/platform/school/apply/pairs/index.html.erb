@@ -1,0 +1,155 @@
+<div class="person-body-right pull-right">
+
+  <div style="display: block;">
+    <p class="don-title border-b">项目管理</p>
+    <div class="donations-1" >
+      <ul class="donations1 clearfix">
+        <li class="selectedDo cur">一对一</li>
+        <li class="cur border-l">护花</li>
+        <li class="cur border-l border-r">护花课程</li>
+        <li class="cur border-r">广播</li>
+        <li class="cur border-r">悦读</li>
+        <li class="cur">探索营</li>
+      </ul>
+      <div class="bottomline"></div>
+    </div>
+    <div class="school-apply-pair-table-co">
+      <div class="school-apply-pair-table">
+        <p>申请项目名称</p>
+        <p>申请状态</p>
+        <p>操作</p>
+      </div>
+      <div class="school-apply-pair-tables">
+        <p>2017-02-01 12:32 <span>申请编号：298913921</span></p>
+        <div class="school-apply-pair-table-cont">
+         <div>
+           <p class="school-apply-pair-tit">2018年度一对一助学项目申请</p>
+           <p class="school-apply-pair-f">申请人：张老师</p>
+
+         </div>
+         <div class="border-l border-r">
+           待提交名单
+         </div>
+         <div>
+           <button>查看申请详情</button>
+           <button>提交名单</button>
+         </div>
+        </div>
+      </div>
+      <div class="school-apply-pair-tables">
+        <p>2017-02-01 12:32 <span>申请编号：298913921</span></p>
+        <div class="school-apply-pair-table-cont">
+          <div>
+            <p class="school-apply-pair-tit">2018年度一对一助学项目申请</p>
+            <p class="school-apply-pair-f">申请人：张老师</p>
+
+          </div>
+          <div class="border-l border-r">
+            待提交名单
+          </div>
+          <div>
+            <button>查看申请详情</button>
+            <button>查看名单</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="school-apply-pair-tables">
+        <p>2017-02-01 12:32 <span>申请编号：298913921</span></p>
+        <div class="school-apply-pair-table-cont">
+          <div>
+            <p class="school-apply-pair-tit">2018年度一对一助学项目申请</p>
+            <p class="school-apply-pair-f">申请人：张老师</p>
+
+          </div>
+          <div class="border-l border-r">
+            待提交名单
+          </div>
+          <div>
+            <button>查看申请详情</button>
+            <button>提交名单</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="school-apply-pair-tables">
+        <p>2017-02-01 12:32 <span>申请编号：298913921</span></p>
+        <div class="school-apply-pair-table-cont">
+          <div>
+            <p class="school-apply-pair-tit">2018年度一对一助学项目申请</p>
+            <p class="school-apply-pair-f">申请人：张老师</p>
+
+          </div>
+          <div class="border-l border-r">
+            待提交名单
+          </div>
+          <div>
+            <button>查看申请详情</button>
+            <button>提交名单</button>
+          </div>
+        </div>
+      </div>
+      <div class="school-apply-pair-tables">
+        <p>2017-02-01 12:32 <span>申请编号：298913921</span></p>
+        <div class="school-apply-pair-table-cont">
+          <div>
+            <p class="school-apply-pair-tit">2018年度一对一助学项目申请</p>
+            <p class="school-apply-pair-f">申请人：张老师</p>
+
+          </div>
+          <div class="border-l border-r">
+            待提交名单
+          </div>
+          <div>
+            <button>查看申请详情</button>
+            <button>提交名单</button>
+          </div>
+        </div>
+      </div>
+      <div class="school-apply-pair-tables">
+        <p>2017-02-01 12:32 <span>申请编号：298913921</span></p>
+        <div class="school-apply-pair-table-cont">
+          <div>
+            <p class="school-apply-pair-tit">2018年度一对一助学项目申请</p>
+            <p class="school-apply-pair-f">申请人：张老师</p>
+
+          </div>
+          <div class="border-l border-r">
+            待提交名单
+          </div>
+          <div>
+            <button>查看申请详情</button>
+            <button>提交名单</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="project-foot">
+    <span class="iconfont icon-arrow-left cur"></span>
+    <span class="iconfont icon-arrow-right cur"></span>
+  </div>
+</div>
+<script>
+
+
+    //     右tab切换二级
+    $(".donations1 li").on("click", function () {
+        $(".donations1 li").removeClass("selectedDo")
+        $(this).addClass("selectedDo")
+        $(".bottomline").css("left", parseFloat($(this)[0].offsetLeft) +31 +  "px")
+    })
+    if($('.donation .donation-cont').length===0){
+        $('.donation-cont-no').css('display', 'block')
+        $('.project-foot').css('display', 'none')
+    }else{
+        $('.donation-cont-no').css('display', 'none')
+        $('.project-foot').css('display', 'block')
+    }
+
+
+
+
+</script>

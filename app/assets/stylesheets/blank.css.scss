@@ -48,26 +48,37 @@ body {
   margin: 0;
   padding: 0;
   border: none;
+  box-sizing: border-box;
   p {
     margin-bottom: 0;
+  }
+  dl, ol, ul {
+    list-style: none;
+    margin-bottom: 0;
+  }
+
+  a:hover, a:visited, a:link, a:active {
+    text-decoration: none;
+    out-line: none;
+    color: #2a2a2c;
+  }
+  input,button{
+    outline:none;
   }
 
 }
 
-a {
-  text-decoration: none;
-  out-line: none;
-  color: #2a2a2c;
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+  border: none !important;
+
 }
 
 span {
   display: inline-block;
 }
 
-input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px white inset;
-  border: none !important;
-}
+
 
 .classbody {
   width: 100%;
@@ -161,6 +172,7 @@ canvas {
   flex: 2;
   padding: 0 30px;
   margin-left: 18px;
+  text-align: center;
 }
 
 .register {
@@ -463,6 +475,7 @@ canvas {
   box-shadow: 0 1px 24px #d12da538;
   border-radius: 8px !important;
   padding: 40px;
+  text-align: center;
 
 }
 

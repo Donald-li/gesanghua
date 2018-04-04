@@ -346,7 +346,7 @@
       </li>
       <li class="nav-item <%= current_nav_class(:admin_project_camp) %>">
         <a href="javascript:;" class="nav-link nav-toggle">
-          <% to_prove_apply = 0 %>
+          <% to_prove_camp_apply = ProjectSeasonApply.where(project: Project.camp_project).submit.count %>
           <% submited = 0 %>
           <i class="fa fa-map-signs"></i>
           <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">探索营</span>
@@ -361,6 +361,9 @@
           <li class="nav-item <%= current_nav_class(:admin_camp_applies) %>">
             <%= link_to admin_camp_applies_path, class: 'nav-link' do %>
                 <span class="title">营立项</span>
+                <% if to_prove_camp_apply > 0 %>
+                    <span class="badge badge-danger"><%= to_prove_camp_apply %></span>
+                <% end %>
             <% end %>
           </li>
           <li class="nav-item <%= current_nav_class(:admin_camp_projects) %>">
@@ -370,8 +373,6 @@
           </li>
           <li class="nav-item <%= current_nav_class(:admin_camp_document) %>">
             <a href="javascript:;" class="nav-link nav-toggle">
-              <% to_prove_apply = 0 %>
-              <% submited = 0 %>
               <i class=""></i>
               <span class="title">营资料管理</span>
               <span class="arrow <%= current_nav_class(:admin_camp_document, current: :open) %>"></span>

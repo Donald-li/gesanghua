@@ -48,34 +48,36 @@ class Api::V1::DonatesController < Api::V1::BaseController
 
   end
 
+  # TODO: 需要重构，可捐助的项目
   def gsh
-    amount = params[:amount].to_f
-    promoter = User.find(params[:promoter_id]) if params[:promoter_id].present?
-    donate_item = DonateItem.find(params[:donate_item][:value])
-    record = DonateRecord.donate_donate_item(user: current_user, amount: amount, donate_item: donate_item, promoter: promoter)
-    record.team = current_user.team if params[:by_team] == 'true'
-    record.donor = params[:donor] if params[:donor].present?
-    record.pay_state = 'paid' if Settings.skip_pay_mode
-
-    if record.save
-      if params[:pay_method] == 'balance'
-        if current_user.deduct_balance(amount)
-          record.paid!
-        end
-      end
-      if record.paid?
-        if donate_item.project.present?
-          fund = donate_item.project.fund
-        else
-          fund = donate_item.fund
-        end
-        fund.amount += amount
-        fund.save
-      end
-      api_success(data: record.detail_builder.merge(recordState: true), message: '订单生成成功')
-    else
-      api_success(data: {record_state: false}, message: '订单生成失败，请重试')
-    end
+    # amount = params[:amount].to_f
+    # promoter = User.find(params[:promoter_id]) if params[:promoter_id].present?
+    # donate_item = DonateItem.find(params[:donate_item][:value])
+    # record = DonateRecord.donate_donate_item(user: current_user, amount: amount, donate_item: donate_item, promoter: promoter)
+    # record.team = current_user.team if params[:by_team] == 'true'
+    # record.donor = params[:donor] if params[:donor].present?
+    # record.pay_state = 'paid' if Settings.skip_pay_mode
+    #
+    # if record.save
+    #   if params[:pay_method] == 'balance'
+    #     if current_user.deduct_balance(amount)
+    #       record.paid!
+    #     end
+    #   end
+    #   if record.paid?
+    #     if donate_item.project.present?
+    #       fund = donate_item.project.fund
+    #     else
+    #       fund = donate_item.fund
+    #     end
+    #     fund.amount += amount
+    #     fund.save
+    #   end
+    #   api_success(data: record.detail_builder.merge(recordState: true), message: '订单生成成功')
+    # else
+    #   api_success(data: {record_state: false}, message: '订单生成失败，请重试')
+    # end
+    api_success
   end
 
   def donate_goods

@@ -2,6 +2,9 @@ namespace :api do
   namespace :v1 do
     resource :session, only: :create
 
+    # 捐款
+    resources :donations, only: [:create, :show]
+
     # 账号
     namespace :account do
       resources :donate_records, only: [:index] do
@@ -65,6 +68,23 @@ namespace :api do
           get :workplace
           get :category
           post :finish
+        end
+      end
+      resources :camps, only: [:index, :show] do
+        collection do
+          get :verified_members
+          post :submit
+        end
+      end
+      resources :camp_members do
+        collection do
+          get :students
+          get :teachers
+          get :qrcode
+        end
+        member do
+          get :edit_reason
+          post :update_reason
         end
       end
     end

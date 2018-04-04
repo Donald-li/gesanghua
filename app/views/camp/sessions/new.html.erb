@@ -1,0 +1,50 @@
+<%= content_for :page_style do %>
+    <%= stylesheet_link_tag 'admin/login', media: 'all', 'data-turbolinks-track': 'reload' %>
+<% end %>
+
+    <%= simple_form_for @camp, as: :user, url: camp_session_path, method: :post, html: {class: 'login-form'} do |f| %>
+
+    <div id="new-main">
+      <div class="logo-img">
+        <p class="logo-img-font">探索营管理平台</p>
+      </div>
+      <div class="logo-cont clearfix">
+        <div class="logo-req pull-right">
+          <p class="logo-req-font">登录</p>
+          <div>
+            <% if flash[:alert] %>
+                <div class="alert alert-danger">
+                  <button class="close" data-close="alert"></button>
+                  <span><%= flash.discard(:alert) %></span>
+                </div>
+            <% end %>
+            <span class="input input--hoshi">
+          <%= f.text_field :login, required: true, class: 'input__field input__field--hoshi', id: 'email', placeholder: '账号' %>
+              <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="email"></label>
+        </span>
+            <span class="input input--hoshi">
+          <%= f.password_field :password, required: true, class: 'input__field input__field--hoshi', id: 'password', placeholder: '密码' %>
+              <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="password"></label>
+        </span>
+            <span class="input input--hoshi">
+               <%= rucaptcha_input_tag(class: 'input__field input__field--hoshi', id: 'text', placeholder: '图形验证码') %>
+              <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="text"></label>
+              <%= rucaptcha_image_tag(alt: 'Captcha', class: 'img-captcha', onclick: "refreshCaptcha()") %>
+        </span>
+          </div>
+          <button type="submit" class="logo-req-but">登录</button>
+        </div>
+        <div class="logo-con-img pull-left"></div>
+      </div>
+      <div class="flexdfoot">Copyright(c) 2018 青海格桑花教育救助会</div>
+    </div>
+    </div>
+<% end %>
+
+<%= content_for :page_script do %>
+    <script>
+        function refreshCaptcha() {
+            $('.img-captcha').attr('src', '/rucaptcha');
+        }
+    </script>
+<% end %>

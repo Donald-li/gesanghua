@@ -28,6 +28,8 @@ class Api::V1::PairChildrenController < Api::V1::BaseController
     api_success(data: {child_info: @pair.detail_builder})
   end
 
+  # 处理结对捐款
+  # TODO: 使用统一的支付接口
   def settlement
     semester_num = params[:selected_grants].count
     promoter = User.find(params[:promoter_id]) if params[:promoter_id].present?

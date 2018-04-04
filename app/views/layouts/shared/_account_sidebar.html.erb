@@ -26,14 +26,18 @@
       <span>捐助管理</span>
     </li>
     <% end %>
+    <%= link_to platform_root_path do %>
     <li class="cur">
       <span class="iconfont icon-ioc-platform"></span>
       <span>协作平台</span>
     </li>
+    <% end %>
+    <%= link_to gsh_plus_root_path do %>
     <li class="cur">
       <span class="iconfont icon-ico-gsh"></span>
       <span>格桑花+</span>
     </li>
+    <% end %>
     <%= link_to account_level_path do %>
     <li class="cur">
       <span class="iconfont icon-ico-badge"></span>
@@ -44,8 +48,10 @@
   </ul>
   <div class="leftLine"></div>
   <div  class="border-t" >
+    <%= link_to account_logout_path, method: :delete do %>
     <span class="iconfont icon-ico-add"></span>
     <span>退出登录</span>
+    <% end %>
   </div>
 </div>
 

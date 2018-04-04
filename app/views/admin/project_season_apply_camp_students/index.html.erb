@@ -21,7 +21,7 @@
               </div>
               <div class="form-group">
                 <%= f.label :state_eq, '状态' %>
-                <%= f.select :state_eq, ProjectSeasonApplyCampMember.options_for_select(:states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
+                <%= f.select :state_eq, ProjectSeasonApplyCampMember.options_for_some_select(:states, ['submit', 'pass', 'reject'], raw: true), {include_blank: '全部'}, class: 'form-control' %>
               </div>
               <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>
