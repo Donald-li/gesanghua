@@ -17,6 +17,7 @@ class Admin::CampUsersController < Admin::BaseController
 
   def create
     @camp_user = User.new(camp_user_params.merge(camp: @camp))
+    @camp_user.add_role(:camp_manager)
     respond_to do |format|
       if @camp_user.save
         @camp_user.attach_avatar(params[:avatar_id])

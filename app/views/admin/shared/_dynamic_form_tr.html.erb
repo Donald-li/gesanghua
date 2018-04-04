@@ -1,0 +1,11 @@
+<% form = apply.project.form_submit(apply.form) %>
+  <% form.each do |item| %>
+  <tr>
+    <td>
+      <%= item.first %>
+    </td>
+    <td>
+      <%= item.second || '' %>
+    </td>
+  </tr>
+  <% end %>

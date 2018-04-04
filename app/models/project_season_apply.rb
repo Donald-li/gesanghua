@@ -44,14 +44,11 @@
 #  camp_state         :integer                                # 探索营-项目状态
 #  camp_principal     :string                                 # 探索营-营负责人
 #  camp_income_source :string                                 # 探索营-经费来源
+#  inventory_state    :integer                                # 是否使用物资清单
 #
 
 # 所有项目年度申请表
 class ProjectSeasonApply < ApplicationRecord
-
-  validate do |apply|
-    self.errors.add(:present_amount, '捐助金额不能大于筹款金额') if self.present_amount > self.target_amount
-  end
 
   attr_accessor :cover_image_id
   include HasAsset
@@ -77,6 +74,7 @@ class ProjectSeasonApply < ApplicationRecord
   has_many :camp_document_volunteers
   has_many :apply_camps, class_name: 'ProjectSeasonApplyCamp'
   has_many :camp_members, class_name: 'ProjectSeasonApplyCampMember'
+  has_many :inventories, class_name: 'ProjectSeasonApplyInventory'
 
   has_many :complaints, as: :owner
   has_one :install_feedback, as: :owner
@@ -87,12 +85,16 @@ class ProjectSeasonApply < ApplicationRecord
   accepts_nested_attributes_for :radio_information, update_only: true
   accepts_nested_attributes_for :bookshelves, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :supplements, allow_destroy: true, reject_if: :all_blank #proc { |attributes| attributes['project_season_apply_bookshelf_id'].blank? }
+  accepts_nested_attributes_for :inventories, allow_destroy: true
 
   default_value_for :form, {}
   attr_accessor :approve_remark
 
   enum state: {show: 1, hidden: 2} # 状态：1:展示 2:隐藏
   default_value_for :state, 2
+
+  enum inventory_state: {use_inventory: 1, nonuse_inventory: 2} # 清单使用状态：1:使用 2:不使用
+  default_value_for :inventory_state, 1
 
   enum execute_state: {raising: 1, to_delivery: 2, to_receive: 3, to_feedback: 4, feedbacked: 5, done: 6, cancelled: 7} # 执行状态：1:筹款中 2:筹款完成 3:待收货 4:待反馈 5:已反馈 6:已完成 7:已取消
   default_value_for :execute_state, 1
@@ -102,7 +104,7 @@ class ProjectSeasonApply < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
-  enum audit_state: {submit: 1, pass: 2, reject: 3}#审核状态 1:待审核 2:审核通过 3:审核不通过
+  enum audit_state: {draft: 0, submit: 1, pass: 2, reject: 3}#审核状态 0:待提交 1:待审核 2:审核通过 3:审核不通过
   default_value_for :audit_state, 1
 
   enum pair_state: {waiting_upload: 1, waiting_check: 2, pair_complete: 3}
@@ -120,6 +122,32 @@ class ProjectSeasonApply < ApplicationRecord
   before_create :gen_code
   before_create :gen_apply_no
   after_save :set_execute_state
+
+  # 得到可捐助子项
+  def get_donate_items
+    # 书架申请
+    if self.project == Project.read_project && self.whole?
+      self.bookshelves.raising.order(present_amount: :desc)
+    end
+  end
+
+  # 使用捐助
+  def accept_donate(donate_records)
+    donate_record = donate_records.last
+    # 不能超过剩余金额
+    amount = [surplus_money, donate_record.amount].min
+    donate_record.update!(amount: amount)
+
+    self.present_amount += amount
+    self.project.fund.balance += amount
+    self.check_apply_state
+    self.save!
+  end
+
+  # 更新申请状态
+  def check_apply_state
+    self.execute_state = 'to_delivery' if self.present_amount == self.target_amount
+  end
 
   def surplus_money
     self.target_amount - self.present_amount
@@ -312,7 +340,7 @@ class ProjectSeasonApply < ApplicationRecord
   def detail_builder
     Jbuilder.new do |json|
       json.merge! summary_builder
-      json.(self, :number, :describe, :target_amount, :present_amount, :class_number, :student_number)
+      json.(self, :number, :describe, :target_amount, :present_amount, :class_number, :student_number, :inventory_state)
       json.name self.apply_name
       json.school_name self.school.try(:name)
       json.season_name self.season.try(:name)

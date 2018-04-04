@@ -17,7 +17,6 @@
       <div class="form-body form-horizontal">
         <%#= f.hidden_field :project_id, value: Project.movie_care_project.id %>
         <%= f.hidden_field :owner_id, value: @install.owner_id %>
-        <%#= f.input :owner_id, collection: [@install.owner].compact.map {|u| [u.name, u.id]}, label: '护花项目：', input_html: {class: 'applies-ajax', data: {'parsley-required': true}} %>
         <%= f.input :user_id, collection: [@install.user].compact.map {|u| [u.name, u.id]}, label: '反馈人：', prompt: "请选择用户", input_html: {class: 'user_selector'}, required: true %>
         <div class="form-group">
           <label class="col-md-2 control-label">反馈内容：</label>

@@ -1,0 +1,157 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i>探索营筹款项目
+    </div>
+    <div class="actions">
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="dataTables_wrapper no-footer">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <%= search_form_for @search, url: camp_projects_path, class: 'form-inline' do |f| %>
+              <div class="form-group">
+                <%= f.label :name_cont, '名称' %>
+                <%= f.text_field :name_cont, class: 'form-control', placeholder: '名称' %>
+              </div>
+              <div class="form-group">
+                <%= f.label :state_eq, '状态' %>
+                <%= f.select :state_eq, ProjectSeasonApply.options_for_select(:states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
+              </div>
+              <div class="form-group">
+                <%= f.label :camp_state_eq, '执行状态' %>
+                <%= f.select :camp_state_eq, ProjectSeasonApply.options_for_select(:camp_states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
+              </div>
+              <button type="submit" class="btn btn-default grey">搜索</button>
+          <% end %>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="dataTables_filter pull-right"></div>
+        </div>
+      </div>
+      <div class="table-scrollable dropdown-select">
+        <table class="table table-striped table-bordered table-hover" id="sample_2">
+          <thead>
+          <tr>
+            <th>
+              探索营编号
+            </th>
+            <th>
+              项目名称
+            </th>
+            <th>
+              成员数量
+            </th>
+            <th>
+              已筹/目标
+            </th>
+            <th>
+              状态
+            </th>
+            <th>
+              执行状态
+            </th>
+            <th>
+              操作
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @projects.each do |apply| %>
+              <tr>
+                <td>
+                  <%= apply.apply_no %>
+                </td>
+                <td>
+                  <%= apply.name %>
+                </td>
+                <td>
+                  <%= apply.number %>
+                </td>
+                <td>
+                  <%= apply.present_amount %>/<%= apply.target_amount === 0 ? '-' : apply.target_amount %>
+                </td>
+                <td>
+                  <%= link_to switch_camp_project_path(apply), data: {confirm: "确定#{apply.state === 'show' ? '隐藏' : '展示'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{apply.state === 'show' ? 'green' : 'default'}" do %>
+                      <%= apply.state === 'show' ? '显示' : '隐藏' %>
+                      <i class="fa <%= apply.state === 'show' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                  <% end %>
+                </td>
+                <td>
+                  <div class="btn-group">
+                    <a class="btn btn-xs blue dropdown-toggle" data-toggle="dropdown" href="javascript:;" aria-expanded="false">
+                      <i class="fa fa-circle-o-notch"></i>
+                      <%= apply.enum_name(:camp_state) %>
+                      <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <%= link_to change_state_camp_project_path(apply, camp_state: 'camp_raising'), method: :put, data: {confirm: '确定标记为筹款中吗？'} do %>
+                            筹款中
+                            <% if apply.camp_raising? %>
+                                <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
+                            <% end %>
+                        <% end %>
+                      </li>
+                      <li>
+                        <%= link_to change_state_camp_project_path(apply, camp_state: 'camp_raise_done'), method: :put, data: {confirm: '确定标记为筹款完成吗？'} do %>
+                            筹款完成
+                            <% if apply.camp_raise_done? %>
+                                <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
+                            <% end %>
+                        <% end %>
+                      </li>
+                      <li>
+                        <%= link_to change_state_camp_project_path(apply, camp_state: 'camp_executing'), method: :put, data: {confirm: '确定标记为执行中吗？'} do %>
+                            执行中
+                            <% if apply.camp_executing? %>
+                                <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
+                            <% end %>
+                        <% end %>
+                      </li>
+                      <li>
+                        <%= link_to change_state_camp_project_path(apply, camp_state: 'camp_done'), method: :put, data: {confirm: '确定标记为结束吗？'} do %>
+                            探索营结束
+                            <% if apply.camp_done? %>
+                                <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
+                            <% end %>
+                        <% end %>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+                <td>
+                  <%= link_to edit_camp_project_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                      <i class="fa fa-edit"></i> 修改
+                  <% end %>
+                  <%= link_to camp_project_project_season_apply_camps_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                    <i class="fa fa-list"></i> 配额管理
+                  <% end %>
+                  <%= link_to camp_member_camp_project_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                      <i class="fa fa-list"></i> 成员管理
+                  <% end %>
+                  <%= link_to camp_project_donate_records_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                      <i class="fa fa-list"></i> 筹款管理
+                  <% end %>
+                  <%= link_to camp_project_execute_feedbacks_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                      <i class="fa fa-list"></i> 反馈管理
+                  <% end %>
+                </td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-5 col-sm-12">
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@projects) %></div>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <%= paginate @projects, theme: '' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END EXAMPLE TABLE PORTLET-->

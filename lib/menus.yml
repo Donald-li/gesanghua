@@ -233,6 +233,7 @@ admin:
                 'admin/camp_projects': all
                 'admin/project_season_apply_camps': all
                 'admin/project_season_apply_camp_students': all
+                'admin/project_season_apply_camp_teachers': all
                 'admin/camp_donate_records': all
                 'admin/camp_execute_feedbacks': all
             admin_camp_project_resources:
@@ -259,22 +260,6 @@ admin:
                   actions:
                     'admin/camp_document_volunteers': all
 
-        admin_project_radio:
-          menus:
-            admin_project_radio_season:
-              actions:
-                'admin/project_radio_seasons': all
-            admin_radio_applies:
-              actions:
-                'admin/radio_applies': all
-            admin_radio_projects:
-              actions:
-                'admin/radio_projects': all
-                'admin/radio_donate_records': all
-                'admin/radio_feedbacks': all
-            admin_radio_continual_feedbacks:
-              actions:
-                'admin/radio_continual_feedbacks': all
         admin_project_movie:
           menus:
             admin_project_movie_season:
@@ -304,19 +289,67 @@ admin:
                 'admin/movie_care_feedbacks': all
             admin_movie_care_continual_feedbacks:
               actions:
-                'admin/movie_care_continual_feedbacks': all
-        admin_project_flower:
+        admin_project_goods:
           menus:
-            admin_project_flower_season:
+            admin_project_goods_season:
               actions:
-                'admin/project_flower_seasons': all
-            admin_project_flower_applies:
+                'admin/project_goods_seasons': all
+            admin_project_goods_applies:
               actions:
-                'admin/flower_applies': all
-            admin_project_flower_projects:
+                'admin/goods_applies': all
+            admin_project_goods_projects:
               actions:
-                'admin/flower_projects': all
-                'admin/flower_donate_records': all
-            admin_project_flower_feedbacks:
+                'admin/goods_projects': all
+                'admin/goods_donate_records': all
+            admin_project_goods_feedbacks:
               actions:
-                'admin/flower_continual_feedbacks': all
+                'admin/goods_continual_feedbacks': all
+                'admin/movie_care_continual_feedbacks': all
+# 探索营后台
+camp:
+  menus:
+    camp_main:
+      actions:
+        'camp/mains': all
+    camp_user:
+      actions:
+        'camp/users': all
+    camp_project_camp:
+      menus:
+        camp_user:
+          actions:
+            'camp/users': all
+        camp_applies:
+          actions:
+            'camp/applies': all
+        camp_projects:
+          actions:
+            'camp/projects': all
+            'camp/project_season_apply_camps': all
+            'camp/project_season_apply_camp_students': all
+            'camp/project_season_apply_camp_teachers': all
+            'camp/donate_records': all
+            'camp/execute_feedbacks': all
+        camp_project_resources:
+          actions:
+            'camp/camp_project_resources': all
+        camp_project_reports:
+          actions:
+            'camp/project_reports': all
+        camp_document:
+          menus:
+            camp_document_estimates:
+              actions:
+                'camp/camp_document_estimates': all
+            camp_document_budges:
+              actions:
+                'camp/camp_document_budges': all
+            camp_document_finances:
+              actions:
+                'camp/camp_document_finances': all
+            camp_document_summaries:
+              actions:
+                'camp/camp_document_summaries': all
+            camp_document_volunteers:
+              actions:
+                'camp/camp_document_volunteers': all

@@ -1,0 +1,92 @@
+<%= simple_form_for [:camp, @project], url: camp_project_path, wrapper: :admin_form, html: {class: 'form-horizontal project_form', 'data-parsley-validate': true} do |f| %>
+  <%= f.error_notification %>
+  <div class="form-body form-horizontal">
+    <%= f.input :name, label: '项目名称：', placeholder: '', required: true %>
+    <div class="form-group">
+      <label class="col-md-2 control-label">封面：</label>
+      <div class="col-sm-9">
+        <%= webuploader_tag 'cover_image_id', label: '封面', type: 'project_season_apply_cover', asset: @project.cover_image, klass: 'single' %>
+      </div>
+    </div>
+    <%= f.input :camp_income_source, label: '经费来源：', placeholder: '', required: true %>
+    <%= f.input :target_amount, label: '目标筹款金额：', placeholder: '', hint: '不限制可不填' %>
+    <%= f.input :camp_principal, label: '营负责人：', placeholder: '', required: true %>
+    <%= f.input :number, label: '计划人数：', type: 'number', min: 0, placeholder: '', required: true %>
+    <div class="form-group">
+      <label class="col-md-2 control-label">开营时间：</label>
+      <div class="col-sm-9">
+        <%= f.text_field :camp_start_time, class: 'datetime-picker', placeholder: '开营时间', required: true %>
+      </div>
+    </div>
+    <%= f.input :camp_period, label: '行程天数：', placeholder: '', required: true %>
+    <%= f.input :project_describe, label: '行程介绍：', placeholder: '', required: true %>
+
+    <div class="form-group">
+      <label class="col-md-2 control-label"> 需求清单：</label>
+      <div class="col-sm-9">
+        <%= f.input :inventory_state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApply.options_for_enum_select(:inventory_states), input_html: { class: 'inventory_state', onclick: 'toggleState();'}, label: false%>
+        <div class="inventory-list">
+          <div class="table-scrollable">
+            <table class="table table-hover">
+              <thead>
+              <tr>
+                <th> 名称 </th>
+                <th> 单价（元） </th>
+                <th> 数量 </th>
+              </tr>
+              </thead>
+              <tbody id="goods">
+              <% @project.inventories.build if @project.inventories.blank? && @project.use_inventory? %>
+              <%= f.fields_for :inventories, wrapper: 'inline_inputs' do |b| %>
+                  <tr>
+                    <td>
+                      <%= b.input :id, as: :hidden %>
+                      <%= b.input :name, label: false, label: false, input_html:{data: {'parsley-required': true}} %>
+                    </td>
+                    <td>
+                      <%= b.input :unit, label: false, input_html:{data: {'parsley-required': true}} %>
+                    </td>
+                    <td>
+                      <%= b.input :number, type: 'number', min: 0, label: false, input_html:{data: {'parsley-required': true}, placeholder: '请填入数量'}  %>
+                    </td>
+                    <td>
+                      <a href="#" class="destroy"><i class="fa fa-remove font-red-soft"></i></a>
+                    </td>
+                  </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+          <a class="btn btn-info btn-xs" href="#" id="goods_add_another"><i class="fa fa-plus"></i> 添加表单项</a>
+        </div>
+      </div>
+    </div>
+
+    <%= f.input :abstract, label: '备注：', placeholder: '', required: true %>
+    <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApply.options_for_enum_select(:states), label: '状态：'%>
+  </div>
+  <div class="form-actions">
+    <div class="row">
+      <div class="col-md-offset-2 col-md-9">
+        <%= f.button :submit, '提交', class: 'btn blue' %>
+        <%= link_to '取消', request.referer, class: 'btn' %>
+      </div>
+    </div>
+  </div>
+<% end %>
+<script>
+    $(function(){
+        initImageWebuploader($('#webuploader'));
+
+        $("#goods").nestedAttributes({
+            bindAddTo: $("#goods_add_another")
+        });
+    })
+
+    function toggleState(){
+        toggleRadioInput('.inventory_state', {
+            use_inventory: '.inventory-list'
+        })
+    }
+    toggleState();
+</script>

@@ -2,6 +2,12 @@ namespace :api do
   namespace :v1 do
     resource :session, only: :create
 
+    # 捐款
+    resources :donations, only: [:create, :show]
+
+    # 捐赠证书
+    resources :certificates, only: [:show]
+
     # 账号
     namespace :account do
       resources :donate_records, only: [:index] do

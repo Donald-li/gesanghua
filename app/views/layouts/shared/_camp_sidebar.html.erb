@@ -1,0 +1,97 @@
+<div class="page-sidebar-wrapper">
+  <!-- BEGIN SIDEBAR -->
+  <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+  <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+  <div class="page-menus page-sidebar navbar-collapse collapse">
+    <!-- BEGIN SIDEBAR MENU -->
+    <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+    <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+    <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+    <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+    <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+    <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+    <ul class="page-sidebar-menu" data-keep-expanded="false" data-slide-speed="200">
+      <li class="nav-item start <%= current_nav_class(:camp_main) %>">
+        <%= link_to camp_main_path, class: 'nav-link' do %>
+            <i class="fa fa-home"></i>
+            <span class="title">管理首页</span>
+        <% end %>
+      </li>
+    </ul>
+    <ul class="page-sidebar-menu" data-keep-expanded="false" data-slide-speed="200">
+      <li class="heading">
+        <h3 class="uppercase">运营管理</h3>
+      </li>
+      <li class="nav-item <%= current_nav_class(:camp_user) %>">
+        <%= link_to camp_users_path, class: 'nav-link' do %>
+            <i class="fa fa-user-circle"></i>
+            <span class="title">账号管理</span>
+        <% end %>
+      </li>
+      <li class="nav-item <%= current_nav_class(:camp_applies) %>">
+        <%= link_to camp_applies_path, class: 'nav-link' do %>
+            <span class="title">营立项</span>
+        <% end %>
+      </li>
+      <li class="nav-item <%= current_nav_class(:camp_projects) %>">
+        <%= link_to camp_projects_path, class: 'nav-link' do %>
+            <span class="title">营筹款项目</span>
+        <% end %>
+      </li>
+      <li class="nav-item <%= current_nav_class(:camp_document) %>">
+        <a href="javascript:;" class="nav-link nav-toggle">
+          <% to_prove_apply = 0 %>
+          <% submited = 0 %>
+          <i class=""></i>
+          <span class="title">营资料管理</span>
+          <span class="arrow <%= current_nav_class(:camp_document, current: :open) %>"></span>
+        </a>
+        <ul class="sub-menu">
+          <li class="nav-item <%= current_nav_class(:camp_document_estimates) %>">
+            <%= link_to camp_camp_document_estimates_path, class: 'nav-link' do %>
+                <i class=""></i>
+                <span class="title">概算管理</span>
+            <% end %>
+          </li>
+          <li class="nav-item <%= current_nav_class(:camp_document_budges) %>">
+            <%= link_to camp_camp_document_budges_path, class: 'nav-link' do %>
+                <i class=""></i>
+                <span class="title">预算管理</span>
+            <% end %>
+          </li>
+          <li class="nav-item <%= current_nav_class(:camp_document_finances) %>">
+            <%= link_to camp_camp_document_finances_path, class: 'nav-link' do %>
+                <i class=""></i>
+                <span class="title">决算管理</span>
+            <% end %>
+          </li>
+          <li class="nav-item <%= current_nav_class(:camp_document_volunteers) %>">
+            <%= link_to camp_camp_document_volunteers_path, class: 'nav-link' do %>
+                <i class=""></i>
+                <span class="title">志愿者名单</span>
+            <% end %>
+          </li>
+          <li class="nav-item <%= current_nav_class(:camp_document_summaries) %>">
+            <%= link_to camp_camp_document_summaries_path, class: 'nav-link' do %>
+                <i class=""></i>
+                <span class="title">总结</span>
+            <% end %>
+          </li>
+        </ul>
+      <li class="nav-item <%= current_nav_class(:camp_project_resources) %>">
+        <%= link_to camp_camp_project_resources_path, class: 'nav-link' do %>
+            <i class=""></i>
+            <span class="title">资源管理</span>
+        <% end %>
+      </li>
+      <li class="nav-item <%= current_nav_class(:camp_project_reports) %>">
+        <%= link_to camp_project_reports_path, class: 'nav-link' do %>
+            <i class=""></i>
+            <span class="title">项目报告</span>
+        <% end %>
+      </li>
+    </ul>
+    <!-- END SIDEBAR MENU -->
+  </div>
+  <!-- END SIDEBAR -->
+</div>

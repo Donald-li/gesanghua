@@ -31,6 +31,6 @@ RSpec.describe GshChild, type: :model do
   end
 
   it '测试前端列表可见孩子' do
-    expect(GshChild.visible.count).to eq 2
+    expect(GshChild.visible.count).to eq 1
   end
 end

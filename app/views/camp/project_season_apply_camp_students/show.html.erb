@@ -1,0 +1,151 @@
+<div class="portlet light portlet-fit bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-note font-dark"></i>
+      <span class="caption-subject font-dark bold uppercase">审核</span>
+    </div>
+    <div class="actions">
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="table-scrollable">
+      <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+          <th width="100px">
+            姓名
+          </th>
+          <th>
+            <%= @camp_student.name %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            身份证号
+          </th>
+          <th>
+            <%= @camp_student.id_card %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            性别
+          </th>
+          <th>
+            <%= @camp_student.enum_name(:gender) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            年龄
+          </th>
+          <th>
+            <%= @camp_student.age %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            民族
+          </th>
+          <th>
+            <%= @camp_student.enum_name(:nation) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            年级
+          </th>
+          <th>
+            <%= @camp_student.enum_name(:level) %> <%= @camp_student.enum_name(:grade) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            推荐理由
+          </th>
+          <th>
+            <%= @camp_student.reason %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            自我介绍
+          </th>
+          <th>
+            <%= @camp_student.description %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            班主任
+          </th>
+          <th>
+            <%= @camp_student.teacher_name %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            联系方式
+          </th>
+          <th>
+            <%= @camp_student.teacher_phone %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            监护人
+          </th>
+          <th>
+            <%= @camp_student.guardian_name %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            联系方式
+          </th>
+          <th>
+            <%= @camp_student.guardian_phone %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            安全协议
+          </th>
+          <th>
+            <%= image_tag @camp_student.image_url(:small) %>
+          </th>
+        </tr>
+
+      </table>
+    </div>
+
+    <div class="portlet-body form">
+      <%= simple_form_for [:camp, @camp_student], url: check_camp_project_season_apply_camp_student_path(apply_camp_id: @apply_camp.id), method: :patch, wrapper: :admin_form, html: {id: 'approve-form', 'data-parsley-validate': true} do |f| %>
+          <%= f.error_notification %>
+          <div class="form-body form-horizontal">
+            <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApplyCampMember.options_for_some_select(:states, ['pass', 'reject']), label: '审核状态：', required: true, input_html: {class: 'approve_state', onclick: 'toggleState();'} %>
+            <div class="approve_reject">
+              <%= f.input :approve_remark, label: '审核备注：', input_html: {class: 'form-control', placeholder: '', value: @camp_student.audits.try(:last).try(:comment)}, required: true %>
+            </div>
+            <div class="form-actions">
+              <div class="row">
+                <div class="col-md-offset-3 col-md-9">
+                  <%= f.button :submit, '提交', class: 'btn green' %>
+                  <%= link_to '取消', camp_project_season_apply_camp_students_path(apply_camp_id: @apply_camp.id), class: 'btn' %>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+      <% end %>
+      </div>
+</div>
+<script type="text/javascript">
+    function toggleState() {
+        toggleRadioInput('.approve_state', {
+            reject: '.approve_reject'
+        })
+    }
+
+    toggleState();
+</script>

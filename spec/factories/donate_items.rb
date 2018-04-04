@@ -14,5 +14,8 @@
 
 FactoryBot.define do
   factory :donate_item do
+    name {Faker::Name.name}
+    describe {Faker::Name.name}
+    fund
   end
 end

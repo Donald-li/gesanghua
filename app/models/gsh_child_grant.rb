@@ -58,13 +58,30 @@ class GshChildGrant < ApplicationRecord
   enum balance_manage: {transfer: 1, send_back: 2} # 捐助状态 1:转捐 2:退回
   # default_value_for :balance_manage, 0
 
-  scope :sorted, ->(){ order(id: :desc) }
+  scope :sorted, ->(){ order(id: :asc) }
   scope :reverse_sorted, ->{ sorted.reverse_order }
 
   counter_culture :gsh_child, column_name: "semester_count"
   counter_culture :gsh_child, column_name: proc {|model| model.succeed? ? 'done_semester_count' : nil }
   counter_culture :apply_child, column_name: "semester_count"
   counter_culture :apply_child, column_name: proc {|model| model.succeed? ? 'done_semester_count' : nil }
+
+  # 使用捐助
+  def accept_donate(donate_records)
+    donate_record = donate_records.last
+    amount = [surplus_money, donate_record.amount].min
+    donate_record.update!(amount: amount)
+
+    self.apply.present_amount += amount
+    self.project.appoint_fund.balance += amount
+    self.donate_state = 'succeed'
+    self.save!
+    self.apply_child.update_state
+  end
+
+  def surplus_money
+    self.amount - self.present_amount
+  end
 
   def self.gen_grant_record(child)
     gsh_child = child.gsh_child
