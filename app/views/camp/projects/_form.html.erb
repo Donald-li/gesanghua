@@ -36,7 +36,7 @@
               </tr>
               </thead>
               <tbody id="goods">
-              <% @project.inventories.build if @project.inventories.blank? %>
+              <% @project.inventories.build if @project.inventories.blank? && @project.use_inventory? %>
               <%= f.fields_for :inventories, wrapper: 'inline_inputs' do |b| %>
                   <tr>
                     <td>
@@ -77,5 +77,16 @@
 <script>
     $(function(){
         initImageWebuploader($('#webuploader'));
+
+        $("#goods").nestedAttributes({
+            bindAddTo: $("#goods_add_another")
+        });
     })
+
+    function toggleState(){
+        toggleRadioInput('.inventory_state', {
+            use_inventory: '.inventory-list'
+        })
+    }
+    toggleState();
 </script>
