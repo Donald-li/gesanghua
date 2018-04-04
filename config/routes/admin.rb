@@ -83,8 +83,6 @@ namespace :admin do
     end
   end
   resources :read_continual_feedbacks, concerns: [:recommend]
-  resources :project_radio_seasons
-  resources :project_flower_seasons
   resources :project_movie_seasons
   resources :project_movie_care_seasons
 
@@ -133,31 +131,6 @@ namespace :admin do
     end
   end
 
-  resources :flower_continual_feedbacks ,concerns: [:recommend]
-  resources :flower_projects, concerns: [:switch] do
-    member do
-      get :shipment
-      post :create_shipment
-      put :receive
-      put :done
-      put :cancelled
-      put :refunded
-    end
-    resource :flower_receive
-    resource :flower_install, concerns: [:recommend]
-    resources :flower_donate_records
-  end
-  resources :flower_applies, concerns: :check do
-    resources :flower_approve_logs
-    member do
-      get :audit
-      patch :update_audit
-      put :switch_to_raise
-    end
-    collection do
-      post :create_audit
-    end
-  end
 
   resources :camps do
     resources :camp_users
@@ -256,8 +229,37 @@ namespace :admin do
   end
 
   resources :complaints
-  resources :radio_applies, concerns: :check
   resources :beneficial_children, concerns: [:excel_upload, :excel_import]
+
+  resources :project_goods_seasons
+  resources :goods_applies, concerns: :check do
+    resources :goods_approve_logs
+    member do
+      get :audit
+      patch :update_audit
+      put :switch_to_raise
+    end
+    collection do
+      post :create_audit
+    end
+  end
+  resources :goods_projects, concerns: [:switch] do
+    member do
+      get :shipment
+      post :create_shipment
+      put :receive
+      put :done
+      put :cancelled
+      put :refunded
+    end
+    resource :goods_receive
+    resource :goods_install, concerns: [:recommend]
+    resources :goods_donate_records
+  end
+  resources :goods_continual_feedbacks ,concerns: [:recommend]
+
+  resources :project_radio_seasons
+  resources :radio_applies, concerns: :check
   resources :radio_projects, concerns: :switch do
     member do
       get :shipment

@@ -2,7 +2,7 @@
   <div class="portlet-title">
     <div class="caption">
       <i class="icon-icon"></i>
-      <span class="caption-subject">修改反馈</span>
+      <span class="caption-subject">新建反馈</span>
     </div>
     <div class="actions">
       <div class="portlet-input input-inline input-small">
@@ -12,25 +12,25 @@
     </div>
   </div>
   <div class="portlet-body form">
-    <%= simple_form_for [:admin, @apply, @install], url: admin_movie_care_school_movie_care_feedback_path, method: :put, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'continual_form'} do |f| %>
+    <%= simple_form_for [:admin, @install], url: admin_goods_project_goods_feedbacks_path, method: :post, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'install_form'} do |f| %>
       <%= f.error_notification %>
       <div class="form-body form-horizontal">
-        <%#= f.hidden_field :project_id, value: Project.movie_care_project.id %>
+        <%#= f.hidden_field :project_id, value: Project.care_project.id %>
         <%= f.hidden_field :owner_id, value: @install.owner_id %>
-        <%= f.input :user_id, collection: [@install.user].compact.map {|u| [u.name, u.id]}, label: '反馈人：', prompt: "请选择用户", input_html: {class: 'user_selector'}, required: true %>
+        <%= f.input :user_id, collection: [@continual.user].compact.map {|u| [u.name, u.id]}, label: '反馈人：', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
         <div class="form-group">
           <label class="col-md-2 control-label">反馈内容：</label>
           <div class="col-sm-9">
             <%= f.cktext_area :content, input_html: { data: {'parsley-required': true}}  %>
           </div>
         </div>
-        <%= f.input :check, as: :radio_buttons, wrapper: :inline_inputs, collection: ContinualFeedback.options_for_select(:checks), label: '是否已查看：' %>
+        <%= f.input :check, as: :radio_buttons, wrapper: :inline_inputs, collection: InstallFeedback.options_for_select(:checks), label: '是否已查看：' %>
       </div>
       <div class="form-actions">
         <div class="row">
           <div class="col-md-offset-2 col-md-9">
             <%= f.button :submit, '提交', class: 'btn blue' %>
-            <%= link_to '取消', admin_movie_care_school_movie_care_feedbacks_path, class: 'btn' %>
+            <%= link_to '取消', admin_goods_project_goods_feedbacks_path, class: 'btn' %>
           </div>
         </div>
       </div>
@@ -52,7 +52,7 @@
                         return {
                             q: params.term, // search term
                             page: params.page,
-                            project_id: <%= Project.movie_care_project.id %>
+                            project_id: <%= Project.care_project.id %>
                         };
                     },
                     processResults: function (data, params) {

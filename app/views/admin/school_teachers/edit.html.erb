@@ -28,24 +28,11 @@
             <label class="col-md-2 control-label">项目权限：</label>
             <div class="col-sm-9">
               <div class="input-group icheck-inline">
+                <% Project.sorted.all.each do |project| %>
                 <label>
-                  <%= check_box_tag 'teacher_projects[]', Project.pair_project.id, @teacher.teacher_projects.find_by(project_id: Project.pair_project.id).present? %> 一对一
+                  <%= check_box_tag 'teacher_projects[]', project.id, @teacher.teacher_projects.find_by(project_id: project.id).present? %> <%= project.name %>
                 </label>
-                <label>
-                  <%= check_box_tag 'teacher_projects[]', Project.read_project.id, @teacher.teacher_projects.find_by(project_id: Project.read_project.id).present? %> 悦读
-                </label>
-                <label>
-                  <%= check_box_tag 'teacher_projects[]', Project.radio_project.id, @teacher.teacher_projects.find_by(project_id: Project.radio_project.id).present? %> 广播
-                </label>
-                <label>
-                  <%= check_box_tag 'teacher_projects[]', Project.care_project.id, @teacher.teacher_projects.find_by(project_id: Project.care_project.id).present? %> 护花
-                </label>
-                <label>
-                  <%= check_box_tag 'teacher_projects[]', Project.camp_project.id, @teacher.teacher_projects.find_by(project_id: Project.camp_project.id).present? %> 探索营
-                </label>
-                <label>
-                  <%= check_box_tag 'teacher_projects[]', Project.movie_project.id, @teacher.teacher_projects.find_by(project_id: Project.movie_project.id).present? %> 观影
-                </label>
+                <% end %>
               </div>
             </div>
           </div>
