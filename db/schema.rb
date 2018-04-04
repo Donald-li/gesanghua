@@ -291,38 +291,52 @@ ActiveRecord::Schema.define(version: 20180404040649) do
   end
 
   create_table "donate_records", force: :cascade, comment: "捐赠记录" do |t|
-    t.integer "user_id", comment: "用户id"
-    t.string "appoint_type", comment: "指定类型"
-    t.integer "appoint_id", comment: "指定类型"
+    t.integer "donor_id", comment: "用户id"
     t.integer "fund_id", comment: "基金ID"
-    t.integer "pay_state", comment: "付款状态"
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "捐助金额"
     t.integer "project_id", comment: "项目id"
     t.integer "team_id", comment: "小组id"
-    t.string "message", comment: "留言"
-    t.string "donor", comment: "捐赠者"
     t.integer "promoter_id", comment: "劝捐人"
-    t.string "remitter_name", comment: "汇款人姓名"
-    t.integer "remitter_id", comment: "汇款人id"
-    t.integer "voucher_state", comment: "捐赠收据状态"
+    t.integer "agent_id", comment: "汇款人id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "project_season_id", comment: "年度ID"
     t.integer "project_season_apply_id", comment: "年度项目ID"
-    t.integer "project_season_apply_child_id", comment: "年度孩子申请ID"
-    t.string "donate_no", comment: "捐赠编号"
-    t.integer "voucher_id", comment: "捐助记录ID"
-    t.integer "period", comment: "月捐期数"
-    t.integer "month_donate_id", comment: "月捐id"
-    t.string "certificate_no", comment: "捐赠证书编号"
     t.integer "gsh_child_id", comment: "格桑花孩子id"
-    t.integer "kind", comment: "记录类型: 1:系统生成 2:手动添加"
     t.integer "project_season_apply_bookshelf_id", comment: "书架id"
-    t.integer "bookshelf_supplement_id", comment: "补书ID"
-    t.integer "donate_item_id", comment: "可捐助id"
     t.integer "income_record_id", comment: "收入记录"
     t.string "title", comment: "捐赠标题"
-    t.string "pay_result", comment: "支付结果"
+    t.string "source_type"
+    t.bigint "source_id", comment: "资金来源"
+    t.string "owner_type"
+    t.bigint "owner_id", comment: "捐助所属捐助项"
+    t.integer "donation_id", comment: "捐助id"
+    t.integer "kind", comment: "捐助方式 1:捐款 2:配捐"
+    t.index ["owner_type", "owner_id"], name: "index_donate_records_on_owner_type_and_owner_id"
+    t.index ["source_type", "source_id"], name: "index_donate_records_on_source_type_and_source_id"
+  end
+
+  create_table "donations", force: :cascade, comment: "捐助表" do |t|
+    t.integer "donor_id", comment: "捐助人id"
+    t.string "owner_type"
+    t.bigint "owner_id", comment: "捐助所属模型"
+    t.integer "pay_state", comment: "支付状态"
+    t.integer "voucher_state", comment: "捐赠收据状态"
+    t.integer "project_id", comment: "项目id"
+    t.integer "project_season_id", comment: "批次/年度id"
+    t.integer "project_season_apply_id", comment: "申请id"
+    t.string "order_no", comment: "订单编号"
+    t.string "certificate_no", comment: "捐赠证书编号"
+    t.string "title", comment: "标题"
+    t.integer "promoter_id", comment: "劝捐人"
+    t.integer "team_id", comment: "团队id"
+    t.text "pay_result", comment: "支付接口返回的支付接口数据"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.jsonb "details", comment: "捐助详情"
+    t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "捐助金额"
+    t.integer "agent_id", comment: "代理人id"
+    t.index ["owner_type", "owner_id"], name: "index_donations_on_owner_type_and_owner_id"
   end
 
   create_table "expenditure_records", force: :cascade, comment: "支出记录表" do |t|
@@ -393,7 +407,7 @@ ActiveRecord::Schema.define(version: 20180404040649) do
   create_table "funds", force: :cascade do |t|
     t.string "name", comment: "基金名"
     t.integer "position", comment: "排序"
-    t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "金额"
+    t.decimal "balance", precision: 14, scale: 2, default: "0.0", comment: "金额"
     t.decimal "total", precision: 14, scale: 2, default: "0.0", comment: "历史收入"
     t.integer "management_rate", default: 0, comment: "管理费率"
     t.string "describe", comment: "简介"
@@ -472,17 +486,12 @@ ActiveRecord::Schema.define(version: 20180404040649) do
   end
 
   create_table "income_records", force: :cascade, comment: "入帐记录表" do |t|
-    t.integer "user_id", comment: "用户id"
+    t.integer "donor_id", comment: "用户id"
     t.integer "fund_id", comment: "基金ID"
-    t.string "appoint_type", comment: "指定类型"
-    t.integer "appoint_id", comment: "指定类型id"
-    t.integer "state", comment: "状态"
     t.integer "income_source_id", comment: "来源id"
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "入账金额"
     t.decimal "balance", precision: 14, scale: 2, default: "0.0", comment: "余额"
-    t.string "remitter_name", comment: "汇款人姓名"
-    t.integer "remitter_id", comment: "汇款人id"
-    t.string "donor", comment: "捐赠者"
+    t.integer "agent_id", comment: "汇款人id"
     t.integer "promoter_id", comment: "劝捐人"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -490,6 +499,10 @@ ActiveRecord::Schema.define(version: 20180404040649) do
     t.text "remark", comment: "备注"
     t.integer "voucher_state", comment: "开票状态"
     t.string "title", comment: "收入名称"
+    t.integer "donation_id", comment: "捐助id"
+    t.integer "kind", comment: "来源: 1:线上 2:线下"
+    t.integer "team_id", comment: "团队id"
+    t.integer "voucher_id", comment: "捐赠收据ID"
   end
 
   create_table "income_sources", force: :cascade, comment: "收入来源" do |t|
@@ -663,6 +676,45 @@ ActiveRecord::Schema.define(version: 20180404040649) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "phone", comment: "联系方式（老师角色）"
+  end
+
+  create_table "project_season_apply_camp_students", force: :cascade, comment: "探索营学生" do |t|
+    t.string "name", comment: "姓名"
+    t.string "id_card", comment: "身份证号"
+    t.integer "nation", comment: "民族"
+    t.integer "gender", comment: "性别"
+    t.integer "school_id", comment: "学校id"
+    t.integer "project_season_apply_camp_id", comment: "探索营配额id"
+    t.integer "camp_id", comment: "探索营id"
+    t.integer "project_season_apply_id", comment: "营立项id"
+    t.integer "grade", comment: "年级"
+    t.integer "level", comment: "初高中"
+    t.string "teacher_name", comment: "老师姓名"
+    t.string "teacher_phone", comment: "老师联系方式"
+    t.string "guardian_name", comment: "监护人姓名"
+    t.string "guardian_phone", comment: "监护人联系方式"
+    t.text "description", comment: "自我介绍"
+    t.string "reason", comment: "推荐理由"
+    t.integer "state", comment: "状态"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "age", comment: "年龄"
+  end
+
+  create_table "project_season_apply_camp_teachers", force: :cascade, comment: "探索营老师名单" do |t|
+    t.string "name", comment: "姓名"
+    t.string "id_card", comment: "身份证号"
+    t.integer "nation", comment: "民族"
+    t.integer "gender", comment: "性别"
+    t.string "phone", comment: "联系方式"
+    t.integer "state", comment: "状态"
+    t.integer "school_id", comment: "学校id"
+    t.integer "project_season_apply_camp_id", comment: "探索营配额id"
+    t.integer "camp_id", comment: "探索营id"
+    t.integer "project_season_apply_id", comment: "营立项id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "age", comment: "年龄"
   end
 
   create_table "project_season_apply_camps", force: :cascade, comment: "探索营配额" do |t|
