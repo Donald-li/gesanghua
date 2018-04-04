@@ -85,10 +85,10 @@
                 ￥<%= number_to_currency(user.balance) %>
               </td>
               <td>
-                ￥<%= number_to_currency(user.donate_records.paid.sum(:amount)) %>
+                ￥<%= number_to_currency(user.donations.paid.sum(:amount)) %>
               </td>
               <td>
-                ￥<%= number_to_currency(user.to_bill_amount) %>
+                ￥<%= number_to_currency(user.income_records.open_ticket.sum(:amount)) %>
               </td>
               <td>
                 <%= link_to switch_admin_user_path(user), data: {confirm: "确定#{user.state === 'enable' ? '禁用该用户' : '启用该用户'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{user.state === 'enable' ? 'green' : 'default'}" do %>
