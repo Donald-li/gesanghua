@@ -44,6 +44,7 @@
 #  camp_state         :integer                                # 探索营-项目状态
 #  camp_principal     :string                                 # 探索营-营负责人
 #  camp_income_source :string                                 # 探索营-经费来源
+#  inventory_state    :integer                                # 是否使用物资清单
 #
 
 # 所有项目年度申请表
@@ -77,6 +78,7 @@ class ProjectSeasonApply < ApplicationRecord
   has_many :camp_document_volunteers
   has_many :apply_camps, class_name: 'ProjectSeasonApplyCamp'
   has_many :camp_members, class_name: 'ProjectSeasonApplyCampMember'
+  has_many :inventories, class_name: 'ProjectSeasonApplyInventory'
 
   has_many :complaints, as: :owner
   has_one :install_feedback, as: :owner
@@ -87,12 +89,16 @@ class ProjectSeasonApply < ApplicationRecord
   accepts_nested_attributes_for :radio_information, update_only: true
   accepts_nested_attributes_for :bookshelves, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :supplements, allow_destroy: true, reject_if: :all_blank #proc { |attributes| attributes['project_season_apply_bookshelf_id'].blank? }
+  accepts_nested_attributes_for :inventories, allow_destroy: true
 
   default_value_for :form, {}
   attr_accessor :approve_remark
 
   enum state: {show: 1, hidden: 2} # 状态：1:展示 2:隐藏
   default_value_for :state, 2
+
+  enum inventory_state: {use_inventory: 1, nonuse_inventory: 2} # 清单使用状态：1:使用 2:不使用
+  default_value_for :inventory_state, 1
 
   enum execute_state: {raising: 1, to_delivery: 2, to_receive: 3, to_feedback: 4, feedbacked: 5, done: 6, cancelled: 7} # 执行状态：1:筹款中 2:筹款完成 3:待收货 4:待反馈 5:已反馈 6:已完成 7:已取消
   default_value_for :execute_state, 1
@@ -312,7 +318,7 @@ class ProjectSeasonApply < ApplicationRecord
   def detail_builder
     Jbuilder.new do |json|
       json.merge! summary_builder
-      json.(self, :number, :describe, :target_amount, :present_amount, :class_number, :student_number)
+      json.(self, :number, :describe, :target_amount, :present_amount, :class_number, :student_number, :inventory_state)
       json.name self.apply_name
       json.school_name self.school.try(:name)
       json.season_name self.season.try(:name)
