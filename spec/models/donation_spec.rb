@@ -27,10 +27,16 @@
 require 'rails_helper'
 
 RSpec.describe Donation, type: :model do
+  before(:all) do
+    @donor = create(:user, balance: 0)
+    @fund_category = create(:fund_category)
+    @fund = create(:fund, fund_category: @fund_category)
+    @donate_item = create(:donate_item, fund: @fund)
+  end
 
   describe '测试捐赠编号和捐赠证书生成方法' do
     let (:record) {create(:donation)}
-    
+
     it '测试捐赠编号方法' do
       record.pay_and_gen_certificate
       expect(record.paid?).to eq true
@@ -53,6 +59,20 @@ RSpec.describe Donation, type: :model do
     it '有团队的捐款' do
     end
 
+  end
+
+  describe '测试支付成功' do
+    it '微信支付成功' do
+      result = {"appid"=>"wx771c54fb737861a3", "bank_type"=>"CFT", "cash_fee"=>"1", "fee_type"=>"CNY", "is_subscribe"=>"Y", "mch_id"=>"1386171602", "nonce_str"=>"2e8946e3ec114102b1fd7c9d2be59a06", "openid"=>"o85zvjvpHVJM2YJV5kOe1oYmFoYE", "out_trade_no"=>"180404160000003", "result_code"=>"SUCCESS", "return_code"=>"SUCCESS", "sign"=>"49640DDD5752BB1502EAF831246AB1ED", "time_end"=>"20180404164424", "total_fee"=>"1", "trade_type"=>"JSAPI", "transaction_id"=>"4200000088201804042044369792"}
+      donation = Donation.create(amount: result['total_fee'], owner: @donate_item, donor_id: @donor.id, agent_id: @donor.id)
+      result['out_trade_no'] = donation.order_no
+      Donation.wechat_payment_success result
+
+      expect(donation.income_records.count).to eq 1
+      expect(donation.donate_records.count).to eq 1
+      expect(donation.donate_records.first.donor_id).to eq donation.donor_id
+      expect(donation.donate_records.first.amount).to eq 1
+    end
   end
 
 end

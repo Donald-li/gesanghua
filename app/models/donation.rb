@@ -28,7 +28,8 @@
 class Donation < ApplicationRecord
   include ActionView::Helpers::NumberHelper
 
-  has_many :income_records
+  has_many :income_records, dependent: :nullify
+  has_many :donate_records, dependent: :nullify
   belongs_to :donor, class_name: 'User', foreign_key: 'donor_id', optional: true
   belongs_to :agent, class_name: 'User', foreign_key: 'agent_id', optional: true
   belongs_to :promoter, class_name: 'User', foreign_key: 'promoter_id', optional: true
@@ -119,14 +120,20 @@ class Donation < ApplicationRecord
   # 支付成功
   def self.wechat_payment_success(result)
     donation = Donation.find_by(order_no: result['out_trade_no'])
-    if donation.unpay?
+    if donation.unpaid?
       donor = donation.donor
       agent = donation.agent
-      income_record = IncomeRecord.wechat_record(agent, result['total_fee'])
-      donation.update(pay_state: 'paid', income_record: income_record, pay_result: result.to_json)
-      owner = income_record
-      amount = income_record.amount
-      DonateRecord.do_donate('user_donate', agent, owner, amount, {agent: agent, donor: donor})
+      amount = result['total_fee']
+
+      # 更新捐助状态
+      donation.pay_state = 'paid'
+      donation.pay_result = result.to_json
+      donation.income_records.new(agent: agent, donor: donor, amount: amount, balance: amount, voucher_state: 'to_bill', income_source_id: 1, income_time: Time.now)
+      donation.save
+
+      # 执行捐助
+      income_record = donation.income_records.last
+      DonateRecord.do_donate('user_donate', income_record, donation.owner, amount, {agent: agent, donor: donor})
     end
   end
 

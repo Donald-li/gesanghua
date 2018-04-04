@@ -65,8 +65,6 @@ class IncomeRecord < ApplicationRecord
     self.to_bill? && self.created_at.between?(Time.now.beginning_of_year, Time.now.end_of_year)
   end
 
-
-
   # 微信入账记录
   def self.wechat_record(agent, amount)
     IncomeRecord.new(agent: agent, amount: amount, balance: amount, voucher_state: 'to_bill', income_source_id: 1, income_time: Time.now)
