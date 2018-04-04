@@ -19,7 +19,6 @@ class Admin::CampProjectsController < Admin::BaseController
 
   def create
     @project = ProjectSeasonApply.new(project_params.merge(audit_state: 'pass', project_type: 'raise_project'))
-
     respond_to do |format|
       if @project.save
         @project.attach_cover_image(params[:cover_image_id])

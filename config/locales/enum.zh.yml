@@ -93,6 +93,9 @@ zh:
   project_season_apply_states:
     show: '显示'
     hidden: '隐藏'
+  project_season_apply_inventory_states:
+    use_inventory: '使用'
+    nonuse_inventory: '不使用'
   project_season_apply_execute_states:
     default: '准备中'
     raising: '筹款中'
