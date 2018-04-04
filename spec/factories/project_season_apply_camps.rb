@@ -15,7 +15,8 @@
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  execute_state           :integer
-#  teacher_id              :integer                                # 联系老师id
+#  contact_name            :string
+#  contact_phone           :string
 #
 
 FactoryBot.define do

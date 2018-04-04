@@ -135,10 +135,10 @@ class User < ApplicationRecord
       self.name
     end
   end
-  
+
   # 用户对外显示的名字
   def user_name
-    self.nickname
+    self.show_name
   end
 
   def user_avatar

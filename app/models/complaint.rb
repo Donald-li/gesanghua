@@ -16,7 +16,7 @@
 
 # 举报
 class Complaint < ApplicationRecord
-  belongs_to :owner, polymorphic: true
+  belongs_to :owner, polymorphic: true # project_season_apply;project_season_apply_child
 
   enum state: {submit: 1, check: 2} # 处理状态： 1:待处理 2:已处理
   default_value_for :state, 1
@@ -29,7 +29,21 @@ class Complaint < ApplicationRecord
   include HasAsset
   has_many_assets :images, class_name: 'Asset::ComplaintImage'
 
-  def sliced_content
-    self.content.slice(0..90)
+
+  def owner_name
+    if self.owner.class.name == 'ProjectSeasonApply'
+      self.owner.try(:apply_name)
+    elsif self.owner.class.name == 'ProjectSeasonApplyChild'
+      self.owner.try(:apply).try(:apply_name) + '-' + self.owner.try(:name)
+    end
   end
+
+  def owner_no
+    if self.owner.class.name == 'ProjectSeasonApply'
+      self.owner.try(:apply_no)
+    elsif self.owner.class.name == 'ProjectSeasonApplyChild'
+      self.owner.try(:gsh_child).try(:gsh_no)
+    end
+  end
+
 end

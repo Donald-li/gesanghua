@@ -38,11 +38,11 @@
                   <span>邮箱地址：</span><p><%= offline_user.email %></p>
                 </div>
                 <div class="clearfix don-con-pos">
-                  <div class="pull-right cur" id="delete">
+                  <div class="pull-right cur delete-offline-user" offlineUserId="<%= offline_user.id %>" id="delete">
                     <span class="iconfont icon-ico-delete1"></span>
                     <span>删除</span>
                   </div>
-                  <div class="pull-right cur">
+                  <div class="pull-right cur edit-offline-user" offlineUserId="<%= offline_user.id %>" id="edit">
                     <span class="iconfont icon-ico-edit "></span>
                     <span>编辑</span>
                   </div>
@@ -71,13 +71,13 @@
     <div class="remove-body">
       <p>确定删除此捐助人信息？</p>
       <div class="clearfix">
-        <div class="pull-left">确认</div>
-        <div class="pull-right">取消</div>
+        <div class="pull-left" id="isDelete">确认</div>
+        <div class="pull-right" id="cancel">取消</div>
       </div>
     </div>
   </div>
   <div id="code">
-    <%= simple_form_for '', url: account_offline_users_path, method: :post, html: {class: ''} do |f| %>
+    <%= simple_form_for @offline_user, url: account_offline_users_path, method: :post, html: {class: ''} do |f| %>
     <div class="close1 clearfix">
       <span class="pull-left">新增捐赠人信息</span>
       <span id="closebt" class="iconfont icon-icondelete cur pull-right "></span>
@@ -168,15 +168,49 @@
         $('#code').hide();
         $('#goodcover').hide();
     });
-    $('#delete').click(function() {
+    $('.delete-offline-user').click(function() {
+      var id = $(this).attr("offlineUserId");
+      $('#isDelete').attr("offlineUserId", id);
         $('#remove').center();
         $('#goodcover').show();
         $('#remove').fadeIn();
+    });
+    $('.edit-offline-user').click(function() {
+      var id = $(this).attr("offlineUserId");
+      alert(id)
+      $.ajax({
+        type: "get",
+        url: "/account/offline_users",
+        data: {id: id},
+        success(){},
+        error(){}
+      })
+      $('#code').center();
+      $('#goodcover').show();
+      $('#code').fadeIn();
     });
     $('#remove-but').click(function() {
         $('#remove').hide();
         $('#goodcover').hide();
     });
-
+    $('#cancel').click(function() {
+      $('#isDelete').removeAttr("offlineUserId");
+        $('#remove').hide();
+        $('#goodcover').hide();
+    });
+    $('#isDelete').click(function() {
+      var id = $(this).attr("offlineUserId");
+      $.ajax({
+        type: "delete",
+        url: "offline_users/" + id,
+        data: {},
+        success(){},
+        error(){}
+      })
+      $('#isDelete').removeAttr("offlineUserId");
+        $('#remove').hide();
+        $('#goodcover').hide();
+        window.location.reload();
+    });
 
 </script>

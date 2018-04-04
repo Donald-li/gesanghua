@@ -97,16 +97,6 @@ class Support::SelectsController < Support::BaseController
     render json: {items: camp_users.as_json(only: [:id, :name])}
   end
 
-  def camp_contact_teachers
-    if params[:school_id].present?
-      camp_contact_teachers = School.find(params[:school_id]).teachers.joins(:teacher_projects).where("teacher_projects.project_id = ?", Project.camp_project.id)
-      render json: {items: camp_contact_teachers.as_json(only: [:id, :name])}
-    else
-      render json: {items: []}
-    end
-  end
-
-
   # def income_records
   #   scope = IncomeRecord.sorted.where("name like :q", q: "%#{params[:q]}%")
   #   records = scope.page(params[:page])

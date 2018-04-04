@@ -28,7 +28,8 @@
 class Donation < ApplicationRecord
   include ActionView::Helpers::NumberHelper
 
-  has_many :income_records
+  has_many :income_records, dependent: :nullify
+  has_many :donate_records, dependent: :nullify
   belongs_to :donor, class_name: 'User', foreign_key: 'donor_id', optional: true
   belongs_to :agent, class_name: 'User', foreign_key: 'agent_id', optional: true
   belongs_to :promoter, class_name: 'User', foreign_key: 'promoter_id', optional: true
@@ -116,6 +117,26 @@ class Donation < ApplicationRecord
     end
   end
 
+  # 支付成功
+  def self.wechat_payment_success(result)
+    donation = Donation.find_by(order_no: result['out_trade_no'])
+    if donation.unpaid?
+      donor = donation.donor
+      agent = donation.agent
+      amount = result['total_fee']
+
+      # 更新捐助状态
+      donation.pay_state = 'paid'
+      donation.pay_result = result.to_json
+      donation.income_records.new(agent: agent, donor: donor, amount: amount, balance: amount, voucher_state: 'to_bill', income_source_id: 1, income_time: Time.now)
+      donation.save
+
+      # 执行捐助
+      income_record = donation.income_records.last
+      DonateRecord.do_donate('user_donate', income_record, donation.owner, amount, {agent: agent, donor: donor})
+    end
+  end
+
   # 生成捐赠编号
   def pay_and_gen_certificate
     self.certificate_no ||= 'ZS' + self.order_no
@@ -138,7 +159,7 @@ class Donation < ApplicationRecord
 
   def certificate_builder
     Jbuilder.new do |json|
-      json.(self, :id)
+      json.(self, :certificate_no)
       json.certificate self.donor_certificate_path
     end.attributes!
   end
@@ -170,7 +191,9 @@ class Donation < ApplicationRecord
 
   def detail_builder
     Jbuilder.new do |json|
-      json.(self, :amount, :order_no)
+      json.(self, :amount, :order_no, :certificate_no)
+      json.agent self.agent.show_name
+      json.bookshelf self.owner_id if self.owner_type == 'ProjectSeasonApplyBookshelf'
     end.attributes!
   end
 
