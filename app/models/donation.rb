@@ -128,6 +128,7 @@ class Donation < ApplicationRecord
       # 更新捐助状态
       donation.pay_state = 'paid'
       donation.pay_result = result.to_json
+      donation.gen_certificate_no(save: false)
       donation.income_records.new(agent: agent, donor: donor, amount: amount, balance: amount, voucher_state: 'to_bill', income_source_id: 1, income_time: Time.now)
       donation.save
 
@@ -138,11 +139,11 @@ class Donation < ApplicationRecord
   end
 
   # 生成捐赠编号
-  def pay_and_gen_certificate
+  def gen_certificate_no(save: false)
     self.certificate_no ||= 'ZS' + self.order_no
     self.pay_state = 'paid'
     # self.donor_certificate_path # TODO 调用捐赠证书方法，生成证书（微信支付调通以后，需要考虑此方法的执行速度）
-    self.save
+    self.save if save
   end
 
   #捐赠证书路径
