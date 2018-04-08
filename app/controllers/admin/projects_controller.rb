@@ -11,7 +11,7 @@ class Admin::ProjectsController < Admin::BaseController
   end
 
   def new
-    @project = Project.new
+    @project = Project.new(kind: :goods)
   end
 
   def edit
@@ -19,6 +19,8 @@ class Admin::ProjectsController < Admin::BaseController
 
   def create
     @project = Project.new(project_params)
+    @project.kind = :goods #只能增加物资类项目
+    @project.apply_kind = :user_apply #用户申请
 
     respond_to do |format|
       if @project.save

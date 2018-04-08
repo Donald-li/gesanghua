@@ -41,4 +41,8 @@ module WeixinAuthorize
 
 end
 
-$client ||= WeixinAuthorize::Client.new(Settings.wechat_app_id, Settings.wechat_app_secret)  # 维基飞翔
+# 公众号
+$client ||= WeixinAuthorize::Client.new(Settings.wechat_app_id, Settings.wechat_app_secret)
+
+# 开放平台
+$wechat_open_client ||= WeixinAuthorize::Client.new(Settings.wechat_open_id, Settings.wechat_open_secret)

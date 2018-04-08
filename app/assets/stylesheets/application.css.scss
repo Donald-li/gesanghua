@@ -79,6 +79,9 @@ body {
     border: none !important;
 
   }
+  button{
+    border: none;
+  }
   input, button, textarea {
     outline: none !important;
   }
@@ -2971,7 +2974,7 @@ select:disabled {
 }
 
 .camps-title {
-  width: 882px;
+  width: 624px;
   margin: 50px auto;
   position: relative;
   height: 40px;
@@ -3190,7 +3193,7 @@ select:disabled {
 .activity-detail-but {
   position: absolute;
   right: 30px;
-  bottom: 10%;
+  bottom: 5%;
   width: 160px;
   height: 40px;
   line-height: 40px;
