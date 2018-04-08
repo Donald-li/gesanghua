@@ -16,11 +16,10 @@
     <%= simple_form_for [:admin, @project_apply], url: admin_goods_applies_path, wrapper: :admin_form, html: {data: {'parsley-validate': true}, class: 'form-horizontal project_form'} do |f| %>
         <%= f.error_notification %>
         <div class="form-body">
-          <%= f.hidden_field :project_id, value: Project.care_project.id %>
           <%= f.input :school_id, collection: [@project_apply.school].compact.map {|u| [u.name, u.id]}, label: '申请学校：', input_html: {class: 'schools-ajax'}, required: true  %>
           <%= f.input :project_season_id, collection: [@project_apply.season].compact.map {|u| [u.name, u.id]}, label: '申请批次：', input_html: {class: 'seasons-ajax'}, required: true  %>
           <%= render '/admin/shared/dynamic_form', apply: @project_apply, model: :project_season_apply %>
-          <%= f.input :abstract, label: '申请理由：', required: true %>
+          <%= f.input :describe, label: '申请理由：', required: true %>
           <div class="form-group">
             <label class="col-md-2 control-label">申请图片：</label>
             <div class="col-sm-9">
@@ -107,7 +106,7 @@
                         return {
                             q: params.term, // search term
                             page: params.page,
-                            project_id: <%= Project.care_project.id %>
+                            project_id: <%= @current_project.id %>
                         };
                     },
                     processResults: function (data, params) {

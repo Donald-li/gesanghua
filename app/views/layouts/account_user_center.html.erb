@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="toTop" content="true">
+    <title>Gesanghua</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link href="https://cdn.bootcss.com/Swiper/4.1.6/css/swiper.min.css" rel="stylesheet">
+    <!--<link href="/layer/theme/default/layer.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_513664_u5sror3luh00be29.css">
+    <link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="https://cdn.bootcss.com/Swiper/4.1.6/js/swiper.min.js"></script>
+    <script src="/layer/layer.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+  <%= render '/layouts/shared/site_header' %>
+  <div id="account">
+    <div class="person-body">
+      <div class="clearfix person-bo">
+        <%= render 'layouts/shared/account_user_center_sidebar' %>
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+  <%= render '/layouts/shared/site_notice' %>
+
+  <%= render '/layouts/shared/site_footer' %>
+
+  </body>
+</html>

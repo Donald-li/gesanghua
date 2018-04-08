@@ -15,7 +15,6 @@
     <%= simple_form_for [:admin, @project_apply], url: admin_goods_project_path, wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
         <%= f.error_notification %>
         <div class="form-body form-horizontal">
-          <%= f.hidden_field :project_id, value: Project.care_project.id %>
           <%= static_form_control '申请批次：', @project_apply.season.name %>
           <%= static_form_control '申请学校：', @project_apply.school.name %>
           <%= f.input :name, label: '项目名称：', autofocus: true, input_html: {data: {'parsley-required': true}} %>
@@ -91,7 +90,7 @@
                   return {
                       q: params.term, // search term
                       page: params.page,
-                      project_id: <%= Project.care_project.id %>
+                      project_id: <%= @current_project.id %>
                   };
               },
               processResults: function (data, params) {
