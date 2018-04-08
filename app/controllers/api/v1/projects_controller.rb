@@ -15,6 +15,10 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
   private
   def set_project
-    @project = Project.find_by('alias = :name or id = :name', name: params[:name])
+    if params[:name].to_s =~ /^\d+$/
+      @project = Project.find_by(id: params[:name])
+    else
+      @project = Project.find_by(alias: params[:name])
+    end
   end
 end
