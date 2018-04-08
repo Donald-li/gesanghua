@@ -18,6 +18,7 @@
 #  number               :integer                                # 报名限制人数
 #  remark               :string                                 # 报名表备注
 #  form                 :jsonb                                  # 报名表单定义
+#  execute_state        :integer                                # 执行状态
 #
 
 FactoryBot.define do
