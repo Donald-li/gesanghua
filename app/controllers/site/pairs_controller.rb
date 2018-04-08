@@ -24,6 +24,7 @@ class Site::PairsController < Site::BaseController
     @gsh_child_grants = @child.donate_pending_records
     @feedbacks = Feedback.show.sorted.where(project_season_apply_child_id: @child.id)
     @donate_records = @child.donates.sorted.page(1).per(6)
+    # @donate_records = DonateRecord.where(owner_id: @child.id).where(owner_type: 'ProjectSeasonApplyChild').sorted.page(1).per(6)
   end
 
 end

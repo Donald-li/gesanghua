@@ -107,7 +107,9 @@
                 <div class="clearfix details-img">
                   <% if feedback.images.present? %>
                     <% feedback.images.each do |img| %>
-                      <%= image_tag img.try(:file).try(:url, :medium).to_s %>
+                          <a data-magnify="gallery"  href="<%=image_url img.try(:file).try(:url, :medium).to_s%>">
+                      <%= image_tag img.try(:file).try(:url, :medium).to_s, :style => "width:211px" %>
+                          </a>
                     <% end %>
                   <% end %>
                 </div>
@@ -234,6 +236,13 @@
   </div>
 </div>
 <script type="text/javascript">
+    // //图片展示
+    $('[data-magnify]').magnify({
+        headToolbar: [
+            'close'
+        ],
+        initMaximized: true
+    });
     // //内容信息导航吸顶
      $(document).ready(function () {
          var navHeight = $("#navHeight").offset().top;
