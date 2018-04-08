@@ -16,6 +16,7 @@
  *= require "plugins/share.min"
  *= require "plugins/ui-choose"
  *= require "plugins/pretty"
+ *= require "plugins/jquery.magnify"
  *= require_self
  */
 
@@ -69,7 +70,6 @@ body {
   }
 
   input {
-    outline: none;
     -webkit-appearance: none;
     border: 1px solid $border;
     border-radius: 3px;
@@ -79,13 +79,15 @@ body {
     border: none !important;
 
   }
-  button{
-    outline: none!important;
+  input, button, textarea {
+    outline: none !important;
   }
-  textarea{
-    outline: none!important;
+  textarea {
     padding: 5px 20px;
     overflow: auto;
+  }
+  img[src=""], img:not([src]) {
+    opacity: 0;
   }
 
   textarea::-webkit-scrollbar {
@@ -101,10 +103,6 @@ body {
   }
 
 }
-
-
-
-
 
 span {
   display: inline-block;
@@ -167,9 +165,11 @@ select:disabled {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
-.marginbottom{
+
+.marginbottom {
   margin-bottom: 14px;
 }
+
 //小手
 .cur {
   cursor: pointer;
@@ -331,7 +331,9 @@ select:disabled {
 
       & > li:hover {
         background: $color-border;
-        color: #fff;
+       & > a{
+         color: #fff;
+       }
       }
     }
   }
@@ -667,10 +669,12 @@ select:disabled {
         font-size: 16px;
         line-height: 40px;
         border-radius: 4px;
-        color: #fff;
         border: 1px solid #fff;
+        & > a{
+          color: #fff;
+        }
       }
-      & > div:hover {
+      & > div > a:hover {
         background-color: #fff;
         color: $color-border;
         border: 1px solid #fff;
@@ -907,7 +911,7 @@ select:disabled {
   border: 1px solid $border;
   background-color: #fff;
   color: #868686;
-  z-index: 999999;
+  z-index: 222;
   text-align: center;
   .iconfont {
     margin-right: 0;
@@ -1130,6 +1134,9 @@ select:disabled {
     color: #fff;
     text-align: center;
     z-index: 2;
+    & > a{
+      color: #fff;
+    }
   }
   .referral-cont-p {
     font-weight: 600;
@@ -1478,14 +1485,14 @@ select:disabled {
 .details-img {
   display: none;
   margin-top: 30px;
-  & > img {
+  img {
     width: 211px;
     height: 143px;
     float: left;
     margin-right: 20px;
     margin-bottom: 20px;
   }
-  & > img:nth-child(3n) {
+  img:nth-child(3n) {
     margin-right: 0;
   }
 }
@@ -1739,6 +1746,7 @@ select:disabled {
         padding: 15px 12px 0 12px;
         .progress {
           height: 6px;
+          width: 100% -2px;
           background-color: #ececec;
           border-radius: 4px;
         }
@@ -1825,7 +1833,7 @@ select:disabled {
         width: 116px;
         height: 116px;
         border-radius: 50%;
-        border:2px solid #fff;
+        border: 2px solid #fff;
         box-shadow: 0px 4px 6px 3px #d8d8d882;
       }
     }
@@ -2154,6 +2162,7 @@ select:disabled {
     box-shadow: 0 3px 16px #d12da56b;
   }
 }
+
 .donation-cont-non {
   text-align: center;
   font-size: 14px;
@@ -2175,7 +2184,6 @@ select:disabled {
     box-shadow: 0 3px 16px #d12da56b;
   }
 }
-
 
 .don-title {
   width: 100%;
@@ -4220,7 +4228,7 @@ select:disabled {
   text-align: center;
   & > div {
     float: left;
-    padding:  6px;
+    padding: 6px;
     font-size: 14px;
     color: #2a2a2c;
     background-color: #f2f2f2;
@@ -4395,27 +4403,28 @@ select:disabled {
     }
   }
 }
+
 #childrens {
-  padding: 10px 34px 34px 34px!important;
-  .paddchild{
+  padding: 10px 34px 34px 34px !important;
+  .paddchild {
     padding: 0 34px;
   }
-  .schools-apply-pair-table-cont{
+  .schools-apply-pair-table-cont {
     width: 100%;
     display: flex;
     text-align: center;
-    & >div{
+    & > div {
       flex: 1;
     }
-    & > div:nth-child(1){
+    & > div:nth-child(1) {
       flex: 4;
     }
-    & > div:nth-child(2){
+    & > div:nth-child(2) {
       padding: 24px 0;
       font-size: 13px;
       color: #8d8d8d;
     }
-    & > div:nth-child(3){
+    & > div:nth-child(3) {
       padding: 24px 0;
       font-size: 13px;
       color: #8d8d8d;
@@ -4553,9 +4562,10 @@ select:disabled {
     }
   }
 }
+
 #children {
-  padding: 10px 0 0 0!important;
-  .paddchild{
+  padding: 10px 0 0 0 !important;
+  .paddchild {
     padding: 0 34px;
   }
   .children-body {
@@ -4658,55 +4668,60 @@ select:disabled {
     }
   }
 }
-.posscroll{
+
+.posscroll {
   height: 800px;
   overflow: auto;
 
 }
+
 .posscroll::-webkit-scrollbar {
   width: 2px;
   height: 5px;
   border-radius: 50%;
 
 }
+
 .posscroll::-webkit-scrollbar-thumb {
   background-color: #dcdcdc;
   background-clip: padding-box;
   border: 1px solid #dcdcdc;
 }
-.school-apply-pair-but-n{
+
+.school-apply-pair-but-n {
   height: 60px;
   line-height: 60px;
   box-shadow: 0px -3px 10px 0px #d4d4d461;
   margin-top: 10px;
-& > div{
-  padding-left: 20px;
+  & > div {
+    padding-left: 20px;
 
-}
-  .school-apply-pairbut{
+  }
+  .school-apply-pairbut {
     width: 174px;
-    background:$color-button;
+    background: $color-button;
     color: #fff;
     font-size: 16px;
     text-align: center;
     height: 60px;
 
   }
-  .school-apply-pairsub{
+  .school-apply-pairsub {
     font-size: 14px;
     color: #3d3d40;
-    &  >span{
+    & > span {
       font-weight: 500;
     }
   }
-  .school-apply-paircheck{
+  .school-apply-paircheck {
     margin-right: 20px;
     font-size: 14px;
     color: #3d3d40;
     margin-top: 22px;
   }
 }
-.school-apply-pair-share{
+
+.school-apply-pair-share {
   padding: 0 34px 10px 34px;
   .input-group {
     width: 230px;
@@ -4731,7 +4746,8 @@ select:disabled {
     }
   }
 }
-.school-apply-share-share{
+
+.school-apply-share-share {
   width: 70px;
   height: 37px;
   line-height: 37px;
@@ -4742,8 +4758,9 @@ select:disabled {
   border-radius: 3px;
   margin-left: 5px;
 }
-.school-apply-share-sub{
-  outline: none!important;
+
+.school-apply-share-sub {
+  outline: none !important;
   width: 120px;
   height: 37px;
   text-align: center;
@@ -4755,18 +4772,19 @@ select:disabled {
   border: none;
   box-shadow: none;
   border-radius: 3px;
-  &  > span{
+  & > span {
     margin-right: 6px;
   }
 
 }
+
 //新增学生名单
-#addchildrenlist{
+#addchildrenlist {
   width: 900px;
-  border: none!important;
-  padding: 0 0 0 0!important;
-  background-color: #f5f5f5!important;
-  .addchild-list-img{
+  border: none !important;
+  padding: 0 0 0 0 !important;
+  background-color: #f5f5f5 !important;
+  .addchild-list-img {
     width: 90px;
     height: 90px;
     line-height: 90px;
@@ -4777,78 +4795,78 @@ select:disabled {
     text-align: center;
     margin: 30px auto;
   }
-  input:focus{
-    border:1px solid #6c757d;
+  input:focus {
+    border: 1px solid #6c757d;
   }
-  .paddchild{
+  .paddchild {
     padding: 5px 34px;
     background-color: #fff;
-    border:1px solid $border;
+    border: 1px solid $border;
   }
-  .addchild-list{
+  .addchild-list {
     padding: 10px 34px;
     background-color: #fff;
-    border:1px solid $border;
-    .don-title{
+    border: 1px solid $border;
+    .don-title {
       font-size: 16px;
       font-weight: 400;
     }
   }
-  .addchild-list-cont{
+  .addchild-list-cont {
     padding: 0 0 10px 0;
-    & > div{
+    & > div {
       width: 555px;
       display: flex;
       height: 40px;
       margin-bottom: 20px;
       position: relative;
-      &  >span{
+      & > span {
         flex: 1;
         margin: 0 40px 0 0;
         line-height: 40px;
         text-align: right;
       }
-      &  >input{
+      & > input {
         flex: 7;
       }
-      & > textarea{
+      & > textarea {
         flex: 9.8;
         height: 172px;
         border: 1px solid $border;
-        resize:none;
+        resize: none;
         border-radius: 3px;
         font-size: 14px;
         color: #2a2a2c;
       }
-      .sclectedgrade{
+      .sclectedgrade {
         flex: 10.6;
-        & > div{
+        & > div {
           margin-left: 10px;
         }
-        & > div:nth-child(1){
+        & > div:nth-child(1) {
           margin-left: 0;
         }
       }
-      .income-moy{
+      .income-moy {
         position: absolute;
-        right:0;
-        top:0;
+        right: 0;
+        top: 0;
         font-size: 14px;
         color: #2a2a2c;
         margin-right: 20px;
       }
 
-      #doodname{
-        .select_container_nw{
+      #doodname {
+        .select_container_nw {
           z-index: 6;
         }
       }
     }
   }
-  .childern-submint{
+  .childern-submint {
     text-align: center;
     margin-top: 20px;
-    & > button:nth-child(1){
+    & > button:nth-child(1) {
       width: 130px;
       height: 38px;
       line-height: 38px;
@@ -4860,7 +4878,7 @@ select:disabled {
       margin-right: 20px;
       border-radius: 3px;
     }
-    & > button:nth-child(2){
+    & > button:nth-child(2) {
       width: 130px;
       height: 38px;
       line-height: 36px;
@@ -4872,16 +4890,16 @@ select:disabled {
       border-radius: 3px;
     }
   }
-  .addchild-list-up{
+  .addchild-list-up {
     padding: 10px 34px 30px 34px;
-    & > div{
-      & > div:nth-child(1){
+    & > div {
+      & > div:nth-child(1) {
         margin-left: 0;
       }
 
     }
   }
-  .addchild-list-up-picture{
+  .addchild-list-up-picture {
     margin-left: 14px;
     text-align: center;
     width: 156px;
@@ -4892,9 +4910,42 @@ select:disabled {
     font-size: 14px;
     color: #8d8d8d;
     padding: 50px 0 0 0;
-    .iconfont{
+    .iconfont {
       margin-right: 0;
       font-size: 22px;
     }
   }
+}
+//图片查看
+.magnify-modal {
+  box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.3);
+}
+
+.magnify-header .magnify-toolbar {
+  width: 40px;
+  background-color: rgba(0, 0, 0, .5);
+}
+
+.magnify-stage {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-width: 0;
+}
+
+.magnify-footer .magnify-toolbar {
+  display: inline-block;
+  height: 40px;
+  background-color: rgba(0, 0, 0, .5);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.magnify-stage img {
+  width: 0;
+}
+
+.magnify-loading {
+  background-color: transparent;
 }
