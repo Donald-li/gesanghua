@@ -2041,7 +2041,7 @@ select:disabled {
       font-size: 16px;
       color: #3d3d40;
       p {
-        height: 50px;
+        margin-bottom: 8px;
         width: 400px;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -4295,6 +4295,7 @@ select:disabled {
   }
 }
 
+
 .school-apply-pair-table-co {
   padding: 20px 0 0 0;
   .school-apply-pair-table {
@@ -5149,4 +5150,95 @@ select:disabled {
       line-height: 36px;
     }
   }
+}
+//定期反馈表单
+.school-apply-feedback-cont{
+  padding: 20px 0 0 0;
+  .addchild-list-cont {
+    padding: 0 34px 10px 34px;
+    & > div {
+      width: 555px;
+      display: flex;
+      height: 40px;
+      margin-bottom: 20px;
+      position: relative;
+      & > span {
+        flex: 1;
+        margin: 0 40px 0 0;
+        line-height: 40px;
+        text-align: right;
+      }
+      & > textarea {
+        flex: 9.8;
+        height: 172px;
+        border: 1px solid $border;
+        resize: none;
+        border-radius: 3px;
+        font-size: 14px;
+        color: #2a2a2c;
+      }
+      & > div{
+        flex: 11;
+      }
+    }
+    .addchild-list-up-picture {
+      text-align: center;
+      width: 156px;
+      height: 156px;
+      border-radius: 3px;
+      border: 1px solid $border;
+      background-color: #f9f9f9;
+      font-size: 14px;
+      color: #8d8d8d;
+      padding: 50px 0 0 0;
+      .iconfont {
+        margin-right: 0;
+        font-size: 22px;
+      }
+    }
+  }
+  .class-button{
+    margin: 10px auto 20px auto;
+  }
+}
+//反馈列表
+#feedbacks{
+  .school-apply-share-sub{
+    margin-top: 7px;
+  }
+  .school-feedback{
+    padding: 20px 0 0 0;
+  }
+  .school-feed{
+    & > img{
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    & > span{
+      font-size: 13px;
+      color: #d7d7d7;
+    }
+  }
+  .feedback-cont-cco{
+    padding-left: 24px;
+    .feedback-cont-c-tit {
+      font-size: 16px;
+      color: #3d3d40;
+      p {
+        margin-bottom: 10px;
+        width: 400px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+
+      }
+
+    }
+  }
+
+
 }
