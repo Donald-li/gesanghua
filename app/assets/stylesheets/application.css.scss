@@ -246,7 +246,7 @@ select:disabled {
 //nav
 .bul-nav {
   width: 100%;
-  border-bottom: 1px solid #d2d2d2;
+  border-bottom: 1px solid #e5e5e5;
   height: 80px;
   line-height: 80px;
   padding-left: 30px;
@@ -1659,6 +1659,7 @@ select:disabled {
 
       & > span {
         margin-right: 0;
+
       }
       input {
         border: none;
@@ -1796,13 +1797,13 @@ select:disabled {
   & > span {
     width: 30px;
     height: 30px;
-    border: 1px solid $border;
-    border-radius: 4px;
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
     text-align: center;
     line-height: 28px;
     color: #9f9f9f;
     font-size: 14px;
-    margin: 0 7px;
+    margin: 0 2px;
   }
   & > span:hover {
     line-height: 30px;
@@ -2194,9 +2195,18 @@ select:disabled {
   color: #3d3d40;
   font-weight: 600;
   & > span:nth-child(2) {
-    font-size: 14px;
+    font-size: 13px;
     color: #393d42;
     font-weight: 400;
+    margin-right: 0;
+    margin-left: 4px;
+    margin-top: 1px;
+  }
+  & > span:nth-child(3) {
+    font-size: 13px;
+    color: #393d42;
+    font-weight: 400;
+
   }
 }
 
@@ -2874,8 +2884,8 @@ select:disabled {
 
 .camps-body-cont {
   .col-md-6 {
-    border: 1px solid $border;
-    border-radius: 8px;
+    border: 1px solid #e6e6e6;
+    border-radius: 4px;
     flex: 0 0 47%;
     margin-bottom: 40px;
     padding: 0;
@@ -2899,16 +2909,16 @@ select:disabled {
     }
   }
   .camps-mark {
-    width: 100px;
-    height: 34px;
-    line-height: 34px;
-    font-size: 16px;
+    width: 86px;
+    height: 32px;
+    line-height: 32px;
+    font-size: 14px;
     color: #fff;
-    background-color: $color-border;
+    background-color: #8b54e3;
     position: absolute;
-    right: 20px;
-    top: 20px;
-    border-radius: 4px;
+    right: 14px;
+    top: 14px;
+    border-radius: 3px;
     text-align: center;
   }
   .camps-mark-no {
@@ -2939,7 +2949,7 @@ select:disabled {
   .camps-body-conts {
     padding: 20px;
     & > p:nth-child(1) {
-      font-size: 22px;
+      font-size: 20px;
       color: #3d3d40;
       font-weight: 500;
       overflow: hidden;
@@ -2950,7 +2960,7 @@ select:disabled {
       margin-bottom: 30px;
     }
     & > p:nth-child(2) {
-      font-size: 15px;
+      font-size: 14px;
       color: #8d8d8d;
 
     }
@@ -2966,8 +2976,8 @@ select:disabled {
 
 .camps-search {
   width: 110px;
-  height: 37px;
-  line-height: 37px;
+  height: 40px;
+  line-height: 40px;
   font-size: 16px;
   color: #fff;
   text-align: center;
@@ -2976,6 +2986,7 @@ select:disabled {
   right: 0;
   top: 0;
   margin: auto 0;
+  border-radius: 3px;
 }
 
 //下拉选择
@@ -3139,7 +3150,7 @@ select:disabled {
 }
 
 .camps-share {
-  width: 1140px;
+  width: 100%;
   margin: 0 auto;
   text-align: center;
   & > p {
@@ -3429,15 +3440,7 @@ select:disabled {
     width: 100%;
     height: 100%;
   }
-  & > div {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: #000;
-    opacity: .3;
-  }
+
 }
 
 .article-but {
@@ -3449,6 +3452,7 @@ select:disabled {
   color: #343434;
   border: 1px solid $border;
   margin: 30px 0;
+  border-radius: 3px;
 }
 
 .article-font {
@@ -3480,6 +3484,7 @@ select:disabled {
   .recommend > p {
     text-align: left;
     font-size: 20px;
+    margin-bottom: 24px;
   }
 }
 
@@ -3505,6 +3510,7 @@ select:disabled {
     margin-left: 67px;
     & > div {
       position: relative;
+      margin-bottom: 10px;
     }
   }
   .gsh-cont-1 {
@@ -3526,8 +3532,9 @@ select:disabled {
 
 .pull-left-cont {
   position: absolute;
-  left: 37px;
-  bottom: 20px;
+  left: 20px;
+  bottom: 14px;
+  width: 94%;
   & > p:nth-child(1) {
     font-family: "Arial";
     font-size: 20px;
@@ -3572,6 +3579,7 @@ select:disabled {
     border: none;
     background-color: $color-border;
     color: #fff;
+    border-radius: 3px;
 
   }
 }
@@ -3600,7 +3608,7 @@ select:disabled {
   margin-bottom: 50px;
   & > div {
     flex: 1;
-    height: 370px;
+    height: 320px;
     padding: 30px 50px;
     position: relative;
     overflow: hidden;
@@ -4245,7 +4253,7 @@ select:disabled {
 .plat-school-apply-pair {
   padding: 20px 0 0 0;
   .don-co .don-co-but {
-    margin: 50px auto 20px auto;
+    margin: 30px auto 20px auto;
   }
 }
 
@@ -4258,12 +4266,12 @@ select:disabled {
 .school-apply-pair-table {
   border: 1px solid $border;
   border-radius: 2px;
-  margin: 10px 0 20px 0;
+  margin: 10px  0;
   & > p {
     padding-left: 20px;
     width: 100%;
     background-color: #f5f5f5;
-    line-height: 36px;
+    line-height: 30px;
     font-size: 13px;
     color: #8d8d8d;
     border-bottom: 1px solid $border;
@@ -4313,7 +4321,7 @@ select:disabled {
     padding-left: 16px;
     width: 100%;
     background-color: #f5f5f5;
-    line-height: 36px;
+    line-height: 30px;
     font-size: 13px;
     color: #8d8d8d;
     border-bottom: 1px solid $border;
@@ -4725,18 +4733,20 @@ select:disabled {
   padding: 0 34px 10px 34px;
   .input-group {
     width: 230px;
-    height: 37px;
-    line-height: 36px;
-    border-radius: 4px;
+    height: 34px;
+    line-height: 34px;
+    border-radius: 3px;
     border: 1px solid $border;
     padding: 0 10px;
 
     & > span {
       margin-right: 0;
+      font-size: 14px;
+      color: #8d8d8d;
     }
     input {
       border: none;
-      font-size: 14px;
+      font-size: 13px;
       color: #8d8d8d;
       outline: none;
     }
@@ -4749,10 +4759,10 @@ select:disabled {
 
 .school-apply-share-share {
   width: 70px;
-  height: 37px;
-  line-height: 37px;
+  height: 34px;
+  line-height: 34px;
   color: #fff;
-  font-size: 14px;
+  font-size: 13px;
   text-align: center;
   background-color: #c6c6c6;
   border-radius: 3px;
@@ -4762,10 +4772,10 @@ select:disabled {
 .school-apply-share-sub {
   outline: none !important;
   width: 120px;
-  height: 37px;
+  height: 34px;
   text-align: center;
-  line-height: 37px;
-  font-size: 14px;
+  line-height: 33px;
+  font-size: 13px;
   font-weight: 500;
   background: $color-button;
   color: #fff;
@@ -4773,6 +4783,8 @@ select:disabled {
   box-shadow: none;
   border-radius: 3px;
   & > span {
+    font-size: 13px;
+    margin-top: 1px;
     margin-right: 6px;
   }
 
@@ -4948,4 +4960,14 @@ select:disabled {
 
 .magnify-loading {
   background-color: transparent;
+}
+.swiper-collaboration{
+  width: 100%;
+  padding: 0px 0 40px 0;
+  & > p {
+    text-align: center;
+    font-size: 26px;
+    color: #262626;
+    font-weight: 700;
+  }
 }

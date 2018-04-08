@@ -303,14 +303,12 @@ zh:
   campaign_states:
     show: '显示'
     hidden: '隐藏'
-  campaign_campaign_states:
-    campaign_not_start: '活动未开始'
-    campaign_in_process: '活动进行中'
-    campaign_finished: '活动已结束'
-  campaign_sign_up_states:
-    sign_up_not_start: '报名未开始'
-    sign_up_in_process: '报名进行中'
-    sign_up_finished: '报名已结束'
+  campaign_execute_states:
+    draft: '未开始'
+    submit: '报名中'
+    to_do: '报名完成'
+    doing: '进行中'
+    done: '已结束'
   campaign_enlist_payment_states:
     paid: '已支付'
     canceled: '已取消'

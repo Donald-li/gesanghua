@@ -1,34 +1,31 @@
 <div class="person-body-left pull-left">
   <ul>
-    <%= link_to account_orders_path do %>
+    <%= link_to edit_account_user_center_profile_path do %>
     <li class="selectedli cur">
+      <span class="iconfont icon-ico-project"></span>
+      <span>个人资料</span>
+    </li>
+    <% end %>
+    <%= link_to account_user_center_account_path do %>
+    <li class="cur">
       <span class="iconfont icon-ico-team"></span>
-      <span>项目管理</span>
+      <span>账号资料</span>
     </li>
     <% end %>
-    <%= link_to platform_school_teachers_path do %>
+    <%= link_to account_user_center_bind_path do %>
     <li class="cur">
-      <span class="iconfont icon-ico-month"></span>
-      <span>教师管理</span>
+      <span class="iconfont icon-ico-team"></span>
+      <span>社交账号</span>
     </li>
     <% end %>
-    <%= link_to platform_school_feedbacks_path do %>
-    <li class="cur">
-      <span class="iconfont icon-ico-campaign"></span>
-      <span>定期反馈</span>
-    </li>
-    <% end %>
-    <%= link_to edit_platform_school_profile_path do %>
-    <li class="cur">
-      <span class="iconfont icon-ico-replace"></span>
-      <span>学校资料</span>
-    </li>
-    <% end %>
+
   </ul>
   <div class="leftLine"></div>
   <div  class="border-t" >
+    <%= link_to account_logout_path, method: :delete do %>
     <span class="iconfont icon-ico-add"></span>
-    <span>返回个人中心</span>
+    <span>退出登录</span>
+    <% end %>
   </div>
 </div>
 
