@@ -38,6 +38,7 @@
 //= require 'plugin/jquery.share.min.js'
 //= require 'plugin/ui-choose.js'
 //= require 'plugin/mongolian.js'
+//= require 'plugin/jquery.magnify.js'
 
 
 
