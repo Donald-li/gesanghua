@@ -97,8 +97,8 @@
                   </a>
                   <ul class="dropdown-menu">
                     <li>
-                      <%= link_to switch_state_admin_campaign_path(campaign, execute_state: 'draft'), method: :put, data: {confirm: '确定标记为准备中吗？'} do %>
-                          准备中
+                      <%= link_to switch_state_admin_campaign_path(campaign, execute_state: 'draft'), method: :put, data: {confirm: '确定标记为未开始吗？'} do %>
+                          未开始
                           <% if campaign.draft? %>
                               <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
                           <% end %>
@@ -113,8 +113,8 @@
                       <% end %>
                     </li>
                     <li>
-                      <%= link_to switch_state_admin_campaign_path(campaign, execute_state: 'to_do'), method: :put, data: {confirm: '确定标记为未开始吗？'} do %>
-                          未开始
+                      <%= link_to switch_state_admin_campaign_path(campaign, execute_state: 'to_do'), method: :put, data: {confirm: '确定标记为报名完成吗？'} do %>
+                          报名完成
                           <% if campaign.to_do? %>
                               <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
                           <% end %>
