@@ -18,6 +18,7 @@
 #  number               :integer                                # 报名限制人数
 #  remark               :string                                 # 报名表备注
 #  form                 :jsonb                                  # 报名表单定义
+#  execute_state        :integer                                # 执行状态
 #
 
 # 活动
@@ -33,6 +34,9 @@ class Campaign < ApplicationRecord
 
   enum state: {show: 1, hidden: 2} # 状态：1:启用 2:禁用
   default_value_for :state, 1
+
+  enum execute_state: {draft: 0, submit: 1, to_do: 2, doing:3, done: 4} # 执行状态 0:未开始 1:报名中 2:报名完成 3:进行中 4:已结束
+  default_value_for :execute_state, 0
 
   scope :sorted, ->{ order(created_at: :desc) }
 
@@ -53,36 +57,12 @@ class Campaign < ApplicationRecord
     self.form = form
   end
 
-  # 状态
-  def summary_state_name
-   if Time.now >= self.end_time
-     '活动已结束'
-   elsif Time.now < self.start_time
-     '活动未开始'
-   else
-     '活动进行中'
-   end
-  end
-
-  # 状态
-  def state_name
-    if Time.now >= self.end_time
-      '活动已结束'
-    elsif Time.now < self.start_time && Time.now > self.sign_up_start_time && Time.now < self.sign_up_end_time
-      '活动报名中'
-    elsif Time.now < self.sign_up_start_time
-      '活动未开始'
-    else
-      '活动进行中'
-    end
-  end
-
   def detail_state_name(user=nil)
     if user && self.campaign_enlists.paid.exists?(user_id: user.id)
       '已报名'
-    elsif Time.now >= self.end_time
+    elsif self.done?
       '活动已结束'
-    elsif Time.now >= self.sign_up_end_time
+    elsif self.to_do?
       '报名结束'
     elsif self.number.to_i > 0 && self.campaign_enlists.paid.count > self.number
       '名额已满'
@@ -96,12 +76,12 @@ class Campaign < ApplicationRecord
   def summary_builder(user=nil)
     Jbuilder.new do |json|
       json.(self, :id, :name, :price, :start_time, :end_time, :sign_up_end_time)
-      json.state_name self.summary_state_name
+      json.state_name self.detail_state_name(user)
       json.image_mode self.image.present?
       json.image self.image_url(:tiny).to_s
       json.banner self.banner_url(:tiny)
       json.category self.campaign_category.name
-      json.pay_amount self.campaign_enlists.find_by(user_id: user.id).total if user.present?
+      # json.pay_amount self.campaign_enlists.find_by(user_id: user.id).total if user.present?
     end.attributes!
   end
 

@@ -202,8 +202,7 @@ namespace :admin do
   resources :campaign_categories
   resources :campaigns, concerns: [:switch] do
     member do
-      put :switch_campaign_state
-      put :switch_sign_up_state
+      put :switch_state
     end
     resources :campaign_enlists, concerns: [:excel_output] do
       member do

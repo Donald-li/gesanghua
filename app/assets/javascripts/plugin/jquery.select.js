@@ -66,7 +66,7 @@
                             </div>\
                                 <div class="select_list_body">\
                                     <ul class="select_list_ul">\
-                                        <li class="no_result">没 有 结 果</li>\
+                                        <li class="no_result"></li>\
                                     </ul>\
                                 </div>\
                             </div>\

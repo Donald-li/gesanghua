@@ -2,7 +2,7 @@ scope module: :site do
 
   resources :articles, only: [:index, :show]
   resources :specials, only: [:show]
-  resources :campaigns
+  resources :campaigns, only: [:index, :show]
   resource :disclosure, only: :show
   get '/p/:alias', to: 'pages#show'
   resource :contribution, only: :show
