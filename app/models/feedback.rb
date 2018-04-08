@@ -69,11 +69,16 @@ class Feedback < ApplicationRecord
     end
   end
 
+  def formatted_content
+    self.content.gsub(/\n/, '<br>')
+  end
+
   def detail_builder
     Jbuilder.new do |json|
-      json.(self, :id, :content)
+      json.(self, :id)
       json.time self.created_at.strftime("%Y-%m-%d %H:%M")
       json.name self.owner.name
+      json.content self.formatted_content
       json.user_name self.user.name
       # json.avatar self.child.avatar.present? ? self.child.avatar_url(:tiny).to_s : ''
       json.avatar self.avatar_url
