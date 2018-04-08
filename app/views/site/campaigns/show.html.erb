@@ -8,7 +8,7 @@
       <div class="activity-detail-cont">
         <div class="activity-detail-co">
           <span>时间</span>
-          <p><%= @campaign.start_time.strftime('%Y-%m-%d') %></p>
+          <p><%= @campaign.start_time.strftime("%Y年%m月%d日") %></p>
         </div>
         <!--<div class="activity-detail-co">-->
           <!--<span>地点</span>-->
@@ -50,7 +50,7 @@
          <%= image_tag recommend.banner_url(:tiny) %>
        </div>
        <%= link_to campaign_path(recommend.id) do %>
-         <p class="gsh-cont-1"><%= recommend.start_time.strftime('%Y-%m-%d') %></p>
+         <p class="gsh-cont-1"><%= recommend.start_time.strftime("%Y年%m月%d日") %></p>
          <p class="gsh-cont-2"><%= recommend.name %></p>
        <% end %>
      </div>
