@@ -2,12 +2,12 @@
   <%= image_tag 'ucenter-top-bg.png' %>
   <div class="person-h-img"> <%= image_tag current_user.user_avatar %></div>
   <div class="person-h-right">
+    <%= link_to edit_account_user_center_profile_path do %>
     <span class="iconfont icon-ico-wechat1"></span>
     <span>
-      <%= link_to edit_account_user_center_profile_path do %>
-        账户管理
-      <% end %>
+      账户管理
     </span>
+    <% end %>
   </div>
   <div class="person-h-cont">
     <p><%= current_user.show_name %></p>
