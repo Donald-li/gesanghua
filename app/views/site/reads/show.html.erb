@@ -68,7 +68,9 @@
                 <div class="clearfix details-img">
                   <% if report.images.present? %>
                     <% report.images.each do |img|%>
-                      <%= image_tag img.try(:file).try(:url, :tiny).to_s %>
+                          <a data-magnify="gallery"  href="<%=image_url img.try(:file).try(:url, :medium).to_s%>">
+                      <%= image_tag img.try(:file).try(:url, :tiny).to_s ,:style => "width:211px" %>
+                          </a>
                     <% end %>
                   <% end %>
                 </div>
@@ -89,6 +91,13 @@
 </div>
 </div>
 <script type="text/javascript">
+    // //图片展示
+    $('[data-magnify]').magnify({
+        headToolbar: [
+            'close'
+        ],
+        initMaximized: true
+    });
     $('#dtails-cont').myTab()
     $('.circlechart').circlechart()
     function showHideCode(id) {
