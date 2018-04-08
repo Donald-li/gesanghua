@@ -25,6 +25,3 @@ scope module: :user do
     end
   end
 end
-
-namespace :gsh_plus do
-end
