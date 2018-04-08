@@ -264,7 +264,7 @@
       <li class="nav-item  <%= current_nav_class(:admin_pair) %> ">
         <a href="javascript:;" class="nav-link nav-toggle">
           <% to_prove_apply = 0 %>
-          <% submited = 0 %>
+          <% to_check_pair_feedback = Project.pair_project.continual_feedbacks.uncheck.count %>
           <i class="fa fa-graduation-cap"></i>
           <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">一对一</span>
           <span class="arrow <%= current_nav_class(:admin_pair, current: :open) %>"></span>
@@ -305,6 +305,16 @@
                 <span class="title">报告管理</span>
             <% end %>
           </li>
+          <% if Project.pair_project.open_feedback? %>
+              <li class="nav-item <%= current_nav_class(:admin_pair_continual_feedbacks) %> ">
+                <%= link_to admin_pair_continual_feedbacks_path, class: 'nav-link' do %>
+                    <span class="title">定期反馈</span>
+                    <% if to_check_pair_feedback > 0 %>
+                        <span class="badge badge-danger"><%= to_check_pair_feedback %></span>
+                    <% end %>
+                <% end %>
+              </li>
+          <% end %>
         </ul>
       </li>
       <li class="nav-item <%= current_nav_class(:admin_project_book) %>">
@@ -334,6 +344,7 @@
                 <span class="title">筹款项目管理</span>
             <% end %>
           </li>
+          <% if Project.read_project.open_feedback? %>
           <li class="nav-item <%= current_nav_class(:admin_read_continual_feedbacks) %> ">
             <%= link_to admin_read_continual_feedbacks_path, class: 'nav-link' do %>
                 <span class="title">定期反馈</span>
@@ -342,12 +353,13 @@
                 <% end %>
             <% end %>
           </li>
+          <% end %>
         </ul>
       </li>
       <li class="nav-item <%= current_nav_class(:admin_project_camp) %>">
         <a href="javascript:;" class="nav-link nav-toggle">
           <% to_prove_camp_apply = ProjectSeasonApply.where(project: Project.camp_project).submit.count %>
-          <% submited = 0 %>
+          <% to_check_camp_feedback = Project.camp_project.continual_feedbacks.uncheck.count %>
           <i class="fa fa-map-signs"></i>
           <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">探索营</span>
           <span class="arrow <%= current_nav_class(:admin_project_camp, current: :open) %>"></span>
@@ -421,6 +433,16 @@
               <span class="title">项目报告</span>
             <% end %>
           </li>
+          <% if Project.camp_project.open_feedback? %>
+              <li class="nav-item <%= current_nav_class(:admin_camp_continual_feedbacks) %> ">
+                <%= link_to admin_camp_continual_feedbacks_path, class: 'nav-link' do %>
+                    <span class="title">定期反馈</span>
+                    <% if to_check_camp_feedback > 0 %>
+                        <span class="badge badge-danger"><%= to_check_camp_feedback %></span>
+                    <% end %>
+                <% end %>
+              </li>
+          <% end %>
         </ul>
       </li>
       <li class="nav-item <%= current_nav_class(:admin_project_movie) %>">
@@ -450,6 +472,7 @@
               <span class="title">学校管理</span>
             <% end %>
           </li>
+          <% if Project.movie_project.open_feedback? %>
           <li class="nav-item <%= current_nav_class(:admin_movie_continual_feedbacks) %> ">
             <%= link_to admin_movie_continual_feedbacks_path, class: 'nav-link' do %>
                 <span class="title">定期反馈</span>
@@ -458,6 +481,7 @@
                 <% end %>
             <% end %>
           </li>
+          <% end %>
         </ul>
       </li>
 
@@ -488,6 +512,7 @@
               <span class="title">学校管理</span>
             <% end %>
           </li>
+          <% if Project.movie_care_project.open_feedback? %>
           <li class="nav-item <%= current_nav_class(:admin_movie_care_continual_feedbacks) %> ">
             <%= link_to admin_movie_care_continual_feedbacks_path, class: 'nav-link' do %>
                 <span class="title">定期反馈</span>
@@ -496,6 +521,7 @@
                 <% end %>
             <% end %>
           </li>
+          <% end %>
         </ul>
       </li>
       <% end %>
@@ -530,6 +556,7 @@
               <span class="title">筹款项目</span>
             <% end %>
           </li>
+          <% if p.open_feedback? %>
           <li class="nav-item <%= current_nav_class(:admin_project_goods_feedbacks, if: ->{session[:goods_project_id].to_s == p.id.to_s}) %> ">
             <%= link_to admin_goods_continual_feedbacks_path(pid: p.id), class: 'nav-link' do %>
                 <span class="title">定期反馈</span>
@@ -538,6 +565,7 @@
                 <% end %>
             <% end %>
           </li>
+          <% end %>
         </ul>
       </li>
       <% end %>
