@@ -20,40 +20,43 @@
               </ul>
               <div class="bottomline"></div>
             </div>
-            <div class="donation-cont border-b">
-              <% @bookshelves.each do |bookshelf| %>
-                <div class="clearfix">
-                  <div class="donation-cont-img pull-left">
-                    <%= image_tag bookshelf.apply.cover_image.try(:file).try(:url, :pc_small).to_s %>
-                  </div>
-                  <div class="pull-left donation-cont-cco">
-                    <div class="donation-cont-c-tit clearfix">
-                      <p class="pull-left"><%= bookshelf.apply.try(:name) %><%= bookshelf.show_title %></p>
+            <% if @bookshelves.present? %>
+              <div class="donation-cont border-b">
+                <% @bookshelves.each do |bookshelf| %>
+                  <div class="clearfix">
+                    <div class="donation-cont-img pull-left">
+                      <%= image_tag bookshelf.apply.cover_image.try(:file).try(:url, :pc_small).to_s %>
                     </div>
-                    <div class="clearfix donation-cont-c-con">
-                      <div class="pull-left">
-                        <p><span>￥<%= bookshelf.apply.surplus_money %></span></p>
-                        <p>还差</p>
+                    <div class="pull-left donation-cont-cco">
+                      <div class="donation-cont-c-tit clearfix">
+                        <p class="pull-left"><%= bookshelf.apply.try(:name) %><%= bookshelf.show_title %></p>
                       </div>
-                      <div class="pull-left">
-                        <p><span><%= bookshelf.apply.bookshelves_done_count %></span>/<%= bookshelf.apply.bookshelves_count %></p>
-                        <p>进度</p>
+                      <div class="clearfix donation-cont-c-con">
+                        <div class="pull-left">
+                          <p><span>￥<%= bookshelf.apply.surplus_money %></span></p>
+                          <p>还差</p>
+                        </div>
+                        <div class="pull-left">
+                          <p><span><%= bookshelf.apply.bookshelves_done_count %></span>/<%= bookshelf.apply.bookshelves_count %></p>
+                          <p>进度</p>
+                        </div>
                       </div>
                     </div>
+                    <div class="donation-cont-but pull-right cur">
+                      <%= link_to detail_read_path(bookshelf.apply) do %>查看项目详情<% end %>
+                    </div>
                   </div>
-                  <div class="donation-cont-but pull-right cur">
-                    <%= link_to detail_read_path(bookshelf.apply) do %>查看项目详情<% end %>
-                  </div>
-                </div>
-              <% end %>
-            </div>
-            <div class="donation-cont-no">
-              <div class="donation-co-no-c">
-                <p>您还未捐助过任何公益项目! </p>
-                <p>马上参与捐助，帮助西部孩子 健康成长吧~</p>
+                <% end %>
               </div>
-              <div class="donation-co-no-but">去捐助</div>
-            </div>
+            <% else %>
+              <div class="donation-cont-no">
+                <div class="donation-co-no-c">
+                  <p>您还未捐助过任何公益项目! </p>
+                  <p>马上参与捐助，帮助西部孩子 健康成长吧~</p>
+                </div>
+                <div class="donation-co-no-but">去捐助</div>
+              </div>
+            <% end %>
             <div class="project-foot">
               <%= paginate @bookshelves, theme: :tiny %>
             </div>
