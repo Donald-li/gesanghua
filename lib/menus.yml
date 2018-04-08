@@ -203,6 +203,9 @@ admin:
             admin_pair_reports:
               actions:
                 'admin/pair_reports': all
+            admin_pair_continual_feedbacks:
+              actions:
+                'admin/pair_continual_feedbacks': all
 
         admin_project_book:
           menus:
@@ -259,6 +262,9 @@ admin:
                 admin_camp_document_volunteers:
                   actions:
                     'admin/camp_document_volunteers': all
+            admin_camp_continual_feedbacks:
+              actions:
+                'admin/camp_continual_feedbacks': all
 
         admin_project_movie:
           menus:

@@ -46,7 +46,7 @@
         <div class="col-sm-9">
           <select class="form-control select optional select-two" style="width:400px;" name="match_fund_id" required>
             <% Fund.unrestricted.sorted.each do |fc| %>
-              <option value="<%= fc.id %>"><%= "#{fc.fund_category.name}#{fc.name}(余额：#{fc.amount})" %></option>
+              <option value="<%= fc.id %>"><%= "#{fc.fund_category.name}#{fc.name}(余额：#{fc.balance})" %></option>
             <% end %>
           </select>
         </div>
