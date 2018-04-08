@@ -434,8 +434,8 @@ class ProjectSeasonApply < ApplicationRecord
     end.attributes!
   end
 
-  ## 广播项目申请表单
-  def radio_apply_builder
+  ## 物资类申请表单
+  def goods_apply_builder
     Jbuilder.new do |json|
       json.merge! detail_builder
       json.teacher self.teacher.present? ? self.teacher.try(:name) : self.contact_name
@@ -446,38 +446,16 @@ class ProjectSeasonApply < ApplicationRecord
     end.attributes!
   end
 
-  # 广播项目列表
-  def radio_summary_builder
+  # 物资类项目列表
+  def goods_summary_builder
     self.summary_builder
   end
 
-  # 广播项目详情
-  def radio_detail_builder
+  # 物资类项目详情
+  def goods_detail_builder
     self.detail_builder
   end
-
-  ## 护花申请表单
-  def care_apply_builder
-    Jbuilder.new do |json|
-      json.merge! detail_builder
-      json.teacher self.teacher.present? ? self.teacher.try(:name) : self.contact_name
-      json.form self.form
-      json.form_submit self.form_builder
-      json.describe self.describe
-      json.merge! apply_base_builder
-    end.attributes!
-  end
-
-  # 护花项目列表
-  def care_summary_builder
-    self.summary_builder
-  end
-
-  # 护花项目详情
-  def care_detail_builder
-    self.detail_builder
-  end
-
+  
   # 护花课程表单
   def movie_care_apply_builder
     Jbuilder.new do |json|

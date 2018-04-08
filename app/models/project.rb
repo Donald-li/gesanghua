@@ -164,7 +164,7 @@ class Project < ApplicationRecord
 
   def summary_builder
     Jbuilder.new do |json|
-      json.(self, :id, :name, :describe, :alias, :apply_kind)
+      json.(self, :id, :name, :describe, :alias, :apply_kind, :kind)
       json.last_feedback_time self.continual_feedbacks.present? ? self.continual_feedbacks.last.created_at.strftime("%Y-%m-%d %H:%M") : ''
       json.cover_mode self.image.present?
       json.cover_url self.image_url(:medium).to_s

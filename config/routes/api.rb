@@ -216,7 +216,7 @@ namespace :api do
       end
     end
 
-    resource :radio, only: [:show] do
+    resources :goods, only: [:show] do
       member do
         get :get_address_list
         get :applies_list
@@ -292,16 +292,16 @@ namespace :api do
         get :read_donate_item
       end
     end
-    resources :cooperation_radios, except: [:destroy] do
+    resources :cooperation_goods, except: [:destroy] do
       member do
         get :show_logistic
       end
     end
-    resources :cooperation_cares, except: [:destroy] do
-      member do
-        get :show_logistic
-      end
-    end
+    # resources :cooperation_cares, except: [:destroy] do
+    #   member do
+    #     get :show_logistic
+    #   end
+    # end
     resources :cooperation_movie_cares, except: [:destroy]
     resources :cooperation_movies, except: [:destroy]
 
