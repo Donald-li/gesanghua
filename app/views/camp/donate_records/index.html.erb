@@ -12,8 +12,8 @@
         <div class="col-md-12 col-sm-12">
           <%= search_form_for @search, url: camp_project_donate_records_path(@apply), class: 'form-inline' do |f| %>
           <div class="form-group">
-            <%= f.label :title_cont, '搜索收入' %>
-            <%= f.text_field :user_name_or_user_phone_cont, class: 'form-control', placeholder: '捐助人姓名、捐助人手机号' %>
+            <%= f.label :donor_name_or_donor_phone_cont, '搜索收入' %>
+            <%= f.text_field :donor_name_or_donor_phone_cont, class: 'form-control', placeholder: '捐助人姓名、捐助人手机号' %>
           </div>
           <div class="form-group">
             <%= f.label '捐助时间' %>

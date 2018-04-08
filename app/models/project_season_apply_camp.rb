@@ -15,14 +15,14 @@
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  execute_state           :integer
-#  teacher_id              :integer                                # 联系老师id
+#  contact_name            :string
+#  contact_phone           :string
 #
 
 class ProjectSeasonApplyCamp < ApplicationRecord
 
   belongs_to :school
   belongs_to :camp
-  belongs_to :teacher, optional: true
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: :project_season_apply_id
   has_many :camp_members, class_name: 'ProjectSeasonApplyCampMember', dependent: :destroy
 

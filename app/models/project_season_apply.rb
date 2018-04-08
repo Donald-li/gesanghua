@@ -113,6 +113,9 @@ class ProjectSeasonApply < ApplicationRecord
   enum read_state: {read_executing: 1, read_done: 2}
   default_value_for :read_state, 1
 
+  default_value_for :class_number, 0
+  default_value_for :student_number, 0
+
   enum camp_state: {camp_raising: 1, camp_raise_done: 2, camp_executing: 3, camp_done: 4}
   default_value_for :camp_state, 1
 
@@ -227,9 +230,6 @@ class ProjectSeasonApply < ApplicationRecord
   def bookshelves_done_count
     self.bookshelves.pass_done.count
   end
-
-  default_value_for :class_number, 0
-  default_value_for :student_number, 0
 
   # 通过审核
   def audit_pass

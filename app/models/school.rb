@@ -171,16 +171,6 @@ class School < ApplicationRecord
     end.attributes!
   end
 
-  #  name       :string                                 # 老师姓名
-  #  nickname   :string                                 # 老师昵称
-  #  user_id    :integer                                # 用户ID
-  #  school_id  :integer                                # 学校ID
-  #  kind       :integer          default("teacher")    # 老师类型：1:校长 2:老师
-  #  phone      :string                                 # 老师电话号码
-  #  state      :integer          default("show")       # 老师状态: 1:启用 2:禁用
-  #  created_at :datetime         not null
-  #  updated_at :datetime         not null
-  #  id_card    :string
   def gen_school_user
     Teacher.create(name: self.contact_name, school: self, kind: 'headmaster', phone: self.contact_phone, id_card: self.contact_id_card)
   end
