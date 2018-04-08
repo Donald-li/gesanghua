@@ -113,6 +113,9 @@ class ProjectSeasonApply < ApplicationRecord
   enum read_state: {read_executing: 1, read_done: 2}
   default_value_for :read_state, 1
 
+  default_value_for :class_number, 0
+  default_value_for :student_number, 0
+
   enum camp_state: {camp_raising: 1, camp_raise_done: 2, camp_executing: 3, camp_done: 4}
   default_value_for :camp_state, 1
 
@@ -227,9 +230,6 @@ class ProjectSeasonApply < ApplicationRecord
   def bookshelves_done_count
     self.bookshelves.pass_done.count
   end
-
-  default_value_for :class_number, 0
-  default_value_for :student_number, 0
 
   # 通过审核
   def audit_pass
@@ -434,8 +434,8 @@ class ProjectSeasonApply < ApplicationRecord
     end.attributes!
   end
 
-  ## 广播项目申请表单
-  def radio_apply_builder
+  ## 物资类申请表单
+  def goods_apply_builder
     Jbuilder.new do |json|
       json.merge! detail_builder
       json.teacher self.teacher.present? ? self.teacher.try(:name) : self.contact_name
@@ -446,38 +446,16 @@ class ProjectSeasonApply < ApplicationRecord
     end.attributes!
   end
 
-  # 广播项目列表
-  def radio_summary_builder
+  # 物资类项目列表
+  def goods_summary_builder
     self.summary_builder
   end
 
-  # 广播项目详情
-  def radio_detail_builder
+  # 物资类项目详情
+  def goods_detail_builder
     self.detail_builder
   end
-
-  ## 护花申请表单
-  def care_apply_builder
-    Jbuilder.new do |json|
-      json.merge! detail_builder
-      json.teacher self.teacher.present? ? self.teacher.try(:name) : self.contact_name
-      json.form self.form
-      json.form_submit self.form_builder
-      json.describe self.describe
-      json.merge! apply_base_builder
-    end.attributes!
-  end
-
-  # 护花项目列表
-  def care_summary_builder
-    self.summary_builder
-  end
-
-  # 护花项目详情
-  def care_detail_builder
-    self.detail_builder
-  end
-
+  
   # 护花课程表单
   def movie_care_apply_builder
     Jbuilder.new do |json|

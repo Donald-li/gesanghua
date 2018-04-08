@@ -38,7 +38,7 @@ RSpec.describe Donation, type: :model do
     let (:record) {create(:donation)}
 
     it '测试捐赠编号方法' do
-      record.pay_and_gen_certificate
+      record.gen_certificate_no
       expect(record.paid?).to eq true
       expect(record.certificate_no.present?).to eq true
     end
