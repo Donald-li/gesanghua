@@ -269,10 +269,6 @@ class ProjectSeasonApply < ApplicationRecord
     return province + city + district + self.address.to_s
   end
 
-  def sliced_abstract
-    self.abstract && self.abstract.length > 90 ? self.abstract.slice(0..90) : self.abstract
-  end
-
   def match_donate(params, amount, *args) # platform
     child_id = args.first || nil
     apply = self
@@ -310,9 +306,10 @@ class ProjectSeasonApply < ApplicationRecord
     project = self.project
     Jbuilder.new do |json|
       json.array!(project.form) do |item|
+        value = self.form[item['key']] || ''
         json.label item['label']
         json.key item['key']
-        json.value self.form[item['key']] || ''
+        json.value value.is_a?(Array) ? value.join(',') : value
       end
     end.attributes!
   end
@@ -455,7 +452,7 @@ class ProjectSeasonApply < ApplicationRecord
   def goods_detail_builder
     self.detail_builder
   end
-  
+
   # 护花课程表单
   def movie_care_apply_builder
     Jbuilder.new do |json|
