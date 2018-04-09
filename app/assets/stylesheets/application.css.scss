@@ -5207,19 +5207,6 @@ select:disabled {
     margin-top: 7px;
     width: 100px;
   }
-
-  .school-feed{
-    & > img{
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      margin-right: 10px;
-    }
-    & > span{
-      font-size: 13px;
-      color: #d7d7d7;
-    }
-  }
   .feedback-cont-cco{
     padding-left: 24px;
     .feedback-cont-c-tit {
@@ -5238,8 +5225,49 @@ select:disabled {
 
     }
   }
+}
+.school-feed{
+  & > img{
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  & > span{
+    font-size: 13px;
+    color: #d7d7d7;
+  }
+}
+#feedback-shows{
+  .school-apply-pair-table-cont {
+    padding: 16px 20px 6px 20px;
+  }
+  .plat-school-apply-pair .school-feed{
+    margin: 10px 0 20px 0;
+  }
+  .feedback-shows-img{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap ;
+    & > div{
+      width: 211px;
+      height: 143px;
+      margin-top: 10px;
+      margin-left: 20px;
+      margin-bottom: 10px;
 
-
+      img{
+        width: 211px;
+        height: 143px;
+      }
+    }
+    & > div:first-child{
+      margin-left:0;
+    }
+    & > div:nth-child(3n+1){
+      margin-left:0;
+    }
+  }
 }
 //学校资料
 #school-edit{
