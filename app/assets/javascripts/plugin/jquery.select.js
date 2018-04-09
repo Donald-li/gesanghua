@@ -156,6 +156,9 @@
                 else
                     $This.find(".select_list").addClass("list_open").css({ "height": "0px" }).show().animate({ "height": list_height + "px" }, 200);
             });
+            $(document).click(function () {
+                $This.find(".select_list").hide();
+            });
 
             //动态调整显示框的宽度
             $This.find(".select_content").css({ "width": $This.width() - $This.find(".select_arrow").width() - 40 + "px" });
