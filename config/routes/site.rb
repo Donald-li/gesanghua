@@ -17,7 +17,7 @@ scope module: :site do
   resources :donates, only: [:new, :create]
 
   # 支付页
-  resource :pay, only: :show
+  resource :pay, only: [:new, :show]
 
 end
 
