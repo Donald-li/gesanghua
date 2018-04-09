@@ -14,10 +14,8 @@ class Api::V1::AppliesController < Api::V1::BaseController
 
     if @apply.project.alias == 'read' # 悦读
       api_success(data: @apply.read_detail_builder)
-    elsif @apply.project.alias == 'radio' # 广播
-      api_success(data: @apply.radio_detail_builder)
-    elsif @apply.project.alias == 'care'
-      api_success(data: @apply.care_detail_builder)
+    else
+      api_success(data: @apply.goods_detail_builder)
     end
   end
 

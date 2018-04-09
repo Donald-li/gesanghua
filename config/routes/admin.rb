@@ -100,6 +100,7 @@ namespace :admin do
       end
     end
   end
+  resources :pair_continual_feedbacks, concerns: [:recommend]
   resources :home_visits, only: [:index, :show]
   resources :pair_student_lists, concerns: [:switch, :remarks, :share, :qrcode_download] do
     resources :student_grants do
@@ -151,6 +152,7 @@ namespace :admin do
     resources :camp_execute_feedbacks, concerns: :recommend
   end
 
+  resources :camp_continual_feedbacks, concerns: [:recommend]
   resources :camp_project_reports, concerns: [:switch]
 
   resources :project_season_apply_camp_students, concerns: [:check]
@@ -200,8 +202,7 @@ namespace :admin do
   resources :campaign_categories
   resources :campaigns, concerns: [:switch] do
     member do
-      put :switch_campaign_state
-      put :switch_sign_up_state
+      put :switch_state
     end
     resources :campaign_enlists, concerns: [:excel_output] do
       member do

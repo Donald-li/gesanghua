@@ -28,6 +28,9 @@
       <p class="gsh-cont-3">还记得9月去参加成都营的孩子们在路上写的札记吗？小编还记得有个小朋友在笔记本上写道：今天我和其他学校的同学们去成都拓展营学本领</p>
     </div>
   </div>
+  <div class="swiper-collaboration">
+    <p>最新资讯</p>
+  </div>
 <div class="article1-read-swiper">
   <div class="swiper-container">
     <div class="swiper-wrapper">
@@ -74,11 +77,13 @@
         <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
       </div>
     </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
   </div>
 </div>
 
 
-  <div class="camps-share border-t" >
+  <div class="camps-share " >
     <p style="margin: 30px auto 0 auto;">分享</p>
     <ol>
       <li  style="padding: 20px 268px 80px 268px;">
@@ -101,5 +106,23 @@
             el: '.swiper-pagination',
             clickable: true,
         },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        on: {
+            slideChange: function(){
+                if(this.isEnd){
+                    this.navigation.$nextEl.css('display','none');
+                }else{
+                    this.navigation.$nextEl.css('display','block');
+                }
+                if(this.isBeginning){
+                    this.navigation.$prevEl.css('display','none');
+                }else{
+                    this.navigation.$prevEl.css('display','block');
+                }
+            },
+        }
     });
 </script>

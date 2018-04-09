@@ -75,7 +75,7 @@
                   <%= continual.user.try(:teacher).try(:school).try(:contact_phone) %>
                 </td>
                 <td>
-                  <%= continual.content.html_safe %>
+                  <%= strip_tags(continual.content.html_safe.slice(0..80) + '...') %>
                 </td>
                 <td>
                   <%= continual.enum_name(:check) %>

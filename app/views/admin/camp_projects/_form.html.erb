@@ -62,7 +62,7 @@
       </div>
     </div>
 
-    <%= f.input :abstract, label: '备注：', placeholder: '', required: true %>
+    <%= f.input :describe, label: '备注：', placeholder: '', required: true %>
     <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApply.options_for_enum_select(:states), label: '状态：'%>
   </div>
   <div class="form-actions">

@@ -14,7 +14,7 @@
                 themeColor: "#e6e6e6",    //主题颜色
                 fontColor: "#2a2a2c",        //字体颜色
                 fontFamily: "'Helvetica Neue', arial, sans-serif",    //字体种类
-                fontSize:"15px",           //字体大小
+                fontSize:"14px",           //字体大小
                 showSearch: false,        //是否启用搜索框
                 rowColor:"#fff",          //行原本的颜色
                 rowHoverColor: "#8b54e3", //移动选择时，每一行的hover底色
@@ -66,7 +66,7 @@
                             </div>\
                                 <div class="select_list_body">\
                                     <ul class="select_list_ul">\
-                                        <li class="no_result">没 有 结 果</li>\
+                                        <li class="no_result"></li>\
                                     </ul>\
                                 </div>\
                             </div>\

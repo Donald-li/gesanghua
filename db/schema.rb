@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180404040649) do
+ActiveRecord::Schema.define(version: 20180408070800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -231,6 +231,7 @@ ActiveRecord::Schema.define(version: 20180404040649) do
     t.integer "number", comment: "报名限制人数"
     t.string "remark", comment: "报名表备注"
     t.jsonb "form", comment: "报名表单定义"
+    t.integer "execute_state", comment: "执行状态"
   end
 
   create_table "camps", force: :cascade, comment: "探索营" do |t|
@@ -302,10 +303,8 @@ ActiveRecord::Schema.define(version: 20180404040649) do
     t.datetime "updated_at", null: false
     t.integer "project_season_id", comment: "年度ID"
     t.integer "project_season_apply_id", comment: "年度项目ID"
-    t.integer "project_season_apply_child_id", comment: "年度孩子申请ID"
     t.integer "gsh_child_id", comment: "格桑花孩子id"
     t.integer "project_season_apply_bookshelf_id", comment: "书架id"
-    t.integer "donate_item_id", comment: "可捐助id"
     t.integer "income_record_id", comment: "收入记录"
     t.string "title", comment: "捐赠标题"
     t.string "source_type"
@@ -732,7 +731,8 @@ ActiveRecord::Schema.define(version: 20180404040649) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "execute_state"
-    t.integer "teacher_id", comment: "联系老师id"
+    t.string "contact_name"
+    t.string "contact_phone"
   end
 
   create_table "project_season_apply_children", force: :cascade, comment: "项目执行年度申请的孩子表" do |t|

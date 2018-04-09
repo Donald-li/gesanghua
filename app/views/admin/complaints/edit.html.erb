@@ -11,6 +11,22 @@
         <tbody>
         <tr>
           <th>
+            举报对象
+          </th>
+          <th>
+            <%= @complaint.owner_name %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            编号
+          </th>
+          <th>
+            <%= @complaint.owner_no %>
+          </th>
+        </tr>
+        <tr>
+          <th>
             姓名
           </th>
           <th>
@@ -31,6 +47,13 @@
           </th>
           <th>
             <%= @complaint.content %>
+            <div class="clearfix details-img">
+              <% if @complaint.images.present? %>
+                  <% @complaint.images.each do |img|%>
+                      <%= image_tag img.try(:file).try(:url, :tiny).to_s %>
+                  <% end %>
+              <% end %>
+            </div>
           </th>
         </tr>
         </tbody>

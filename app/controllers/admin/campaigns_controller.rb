@@ -1,5 +1,5 @@
 class Admin::CampaignsController < Admin::BaseController
-  before_action :set_campaign, only: [:show, :edit, :update, :destroy, :switch, :switch_campaign_state, :switch_sign_up_state]
+  before_action :set_campaign, only: [:show, :edit, :update, :destroy, :switch, :switch_state]
 
   def index
     @search = Campaign.sorted.ransack(params[:q])
@@ -54,26 +54,15 @@ class Admin::CampaignsController < Admin::BaseController
     redirect_to admin_campaigns_url, notice:  @campaign.show? ? '活动已展示' : '活动已隐藏'
   end
 
-  def switch_campaign_state
-    @campaign.campaign_in_process? ? @campaign.campaign_finished! : @campaign.campaign_in_process!
-    if @campaign.campaign_in_process?
-      @campaign.update(start_at: Time.now)
+  def switch_state
+    @campaign.execute_state = params[:execute_state]
+    respond_to do |format|
+      if @campaign.save
+        format.html { redirect_to admin_campaigns_url, notice: '标记成功。' }
+      else
+        format.html { redirect_to admin_campaigns_url, notice: '标记失败。' }
+      end
     end
-    if @campaign.campaign_finished?
-      @campaign.update(end_at: Time.now)
-    end
-    redirect_to admin_campaigns_url, notice:  @campaign.campaign_in_process? ? '活动已开始' : '活动已结束'
-  end
-
-  def switch_sign_up_state
-    @campaign.sign_up_in_process? ? @campaign.sign_up_finished! : @campaign.sign_up_in_process!
-    if @campaign.sign_up_in_process?
-      @campaign.update(sign_up_start_time: Time.now)
-    end
-    if @campaign.sign_up_finished?
-      @campaign.update(sign_up_end_time: Time.now)
-    end
-    redirect_to admin_campaigns_url, notice:  @campaign.sign_up_in_process? ? '报名已开始' : '报名已结束'
   end
 
   private

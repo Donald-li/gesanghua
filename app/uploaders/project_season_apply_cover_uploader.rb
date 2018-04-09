@@ -26,4 +26,8 @@ class ProjectSeasonApplyCoverUploader < BaseUploader
     process :resize_to_fill => [730, 410]
   end
 
+  version :pc_small do #pc端个人中心我的捐助图
+    process :resize_to_fill => [175, 100]
+  end
+
 end

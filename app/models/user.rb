@@ -135,10 +135,10 @@ class User < ApplicationRecord
       self.name
     end
   end
-  
+
   # 用户对外显示的名字
   def user_name
-    self.nickname
+    self.show_name
   end
 
   def user_avatar
@@ -167,10 +167,10 @@ class User < ApplicationRecord
     self.county_user.present?
   end
 
-  def is_school_headmaster?
-    if self.teacher.try(:school).try(:user) === self
+  def school_role
+    if self.headmaster?
       'headmaster'
-    elsif self.teacher.try(:school).present?
+    elsif self.teacher?
       'teacher'
     else
       'normal'

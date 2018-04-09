@@ -56,7 +56,7 @@ class Admin::SchoolTeachersController < Admin::BaseController
     end
     if teacher_params[:user_id] !=nil && teacher_params[:user_id] != ""
       @user = User.find(teacher_params[:user_id])
-      if !@user.has_role?(:teacher)
+      if !@user.has_role?(:teacher) || !@user.has_role?(:headmaster)
         @user.roles = @user.roles.push(:teacher)
         @user.save
       end

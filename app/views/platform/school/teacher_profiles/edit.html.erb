@@ -1,0 +1,65 @@
+<div class="person-body-left pull-left" style="margin-top: 40px;">
+  <ul>
+    <li class="selectedli cur">
+      <span class="iconfont icon-ico-team"></span>
+      <span>个人资料</span>
+    </li>
+  </ul>
+  <div class="leftLine"></div>
+  <div  class="border-t" >
+    <span class="iconfont icon-ico-add"></span>
+    <span>返回个人中心</span>
+  </div>
+</div>
+<div class="person-body-right pull-right" style="margin-top: 40px;">
+
+  <div style="display: block;">
+    <p class="don-title border-b ">
+      <span class="pull-left">个人资料</span>
+    </p>
+    <div class="school-edit">
+      <div class="addchild-list-img">
+        <%= image_tag 'gsh-img-right.png' %>
+        <div></div>
+        <span>上传正面照</span>
+      </div>
+
+      <p class="don-title">基本信息</p>
+      <div class="addchild-list-cont">
+        <div>
+          <span class="goodtext">真实姓名</span>
+          <input  class="goodinput " type="text"  />
+        </div>
+        <div>
+          <span class="goodtext">办公电话</span>
+          <div class="edit-input">
+            <input  class="goodinput " type="text"  placeholder="区号"/>
+            <span>-</span>
+            <input  class="goodinput " type="text"  />
+          </div>
+
+        </div>
+      </div>
+      <div class="childern-submint">
+        <button>保存</button>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+<script>
+    $("#allcamps").select({
+        width: "452px"
+    });
+    $("#grade1").select({
+        width: "145px"
+    });
+    $("#grade2").select({
+        width: "145px"
+    });
+    $("#class").select({
+        width: "142px"
+    });
+
+</script>

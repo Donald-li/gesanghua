@@ -76,7 +76,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   has_many :audits, as: :owner
   has_many :remarks, as: :owner
   has_many :complaints, as: :owner
-  has_many :donates, class_name: 'DonateRecord', dependent: :destroy
+  has_many :donates, class_name: 'DonateRecord', dependent: :destroy, as: :owner #TODO: 待检查
   has_many :gsh_child_grants, dependent: :destroy
   #FIXME: 跟上面的关系重复了？
   has_many :semesters, class_name: 'GshChildGrant', dependent: :destroy

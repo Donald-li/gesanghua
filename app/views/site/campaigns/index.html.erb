@@ -1,173 +1,69 @@
-
 <div id="campaigns">
 
   <div class="camp-body">
     <div class="camps-title">
-      <select id="allcamps">
-        <option value="1">全部活动</option>
-        <option value="2">成功2</option>
-        <option value="3" >成功3</option>
-        <option value="4">成功4</option>
-        <option value="5">失败5</option>
-        <option value="6">失败6</option>
-        <option value="7">失败7</option>
-        <option value="8">失败8</option>
-        <option value="9">失败9</option>
-        <option value="10">失败10</option>
-        <option value="11">失败11</option>
-        <option value="12">失败12</option>
-      </select>
-      <select id="citys">
-        <option value="1">城市</option>
-        <option value="2">成功2</option>
-        <option value="3" >成功3</option>
-        <option value="4">成功4</option>
-        <option value="5">失败5</option>
-        <option value="6">失败6</option>
-        <option value="7">失败7</option>
-        <option value="8">失败8</option>
-        <option value="9">失败9</option>
-        <option value="10">失败10</option>
-        <option value="11">失败11</option>
-        <option value="12">失败12</option>
-      </select>
-      <select id="campstype">
-        <option value="1">活动状态</option>
-        <option value="2">成功2</option>
-        <option value="3" >成功3</option>
-        <option value="4">成功4</option>
-        <option value="5">失败5</option>
-        <option value="6">失败6</option>
-        <option value="7">失败7</option>
-        <option value="8">失败8</option>
-        <option value="9">失败9</option>
-        <option value="10">失败10</option>
-        <option value="11">失败11</option>
-        <option value="12">失败12</option>
-      </select>
-      <div class="camps-search">搜索</div>
+      <%= search_form_for @search, url: campaigns_path do |f| %>
+          <select id="allcamps" name="q[campaign_category_id]">
+            <option value="">全部活动</option>
+            <% CampaignCategory.sorted.each do |cc| %>
+                <option value="<%= cc.id %>"><%= cc.name %></option>
+            <% end %>
+          </select>
+          <select id="campstype" name="q[execute_state]">
+            <option value="">活动状态</option>
+            <option value="draft">未开始</option>
+            <option value="submit">报名中</option>
+            <option value="to_do">报名完成</option>
+            <option value="doing">进行中</option>
+            <option value="done">已完成</option>
+          </select>
+          <button type="submit" class="camps-search">搜索</button>
+      <% end %>
     </div>
 
     <div class="camps-body">
       <div class="camps-body-cont row">
-        <div class="col-md-6 cur ">
-          <div class="clearfix">
-            <div class="camps-body-img ">
-              <%= image_tag 'activity-img.png' %>
+        <% @campaigns.each do |campaign| %>
+            <div class="col-md-6 cur ">
+              <div class="clearfix">
+                <div class="camps-body-img ">
+                  <%= image_tag campaign.banner_url(:tiny) %>
+                </div>
+                <%= link_to campaign_path(campaign) do %>
+                  <div class="camps-body-conts ">
+                    <p><%= campaign.name %></p>
+                    <p>报名截止<%= campaign.sign_up_end_time.strftime("%Y年%m月%d日") %></p>
+                  </div>
+                <% end %>
+              </div>
+              <% if campaign.price > 0 %>
+                <div class="unit"><span>￥<%= campaign.price %> /</span> 人</div>
+              <% else %>
+                <div class="unit"> <span>免费</span></div>
+              <% end %>
+              <% if campaign.draft? %>
+                  <div class="camps-mark">活动未开始</div>
+              <% elsif campaign.submit? %>
+                  <div class="camps-mark">活动报名中</div>
+              <% elsif campaign.to_do? %>
+                  <div class="camps-mark">报名已结束</div>
+              <% elsif campaign.doing? %>
+                  <div class="camps-mark">活动进行中</div>
+              <% elsif campaign.done? %>
+                  <div class="camps-mark-no">活动已结束</div>
+              <% end %>
             </div>
-            <div class="camps-body-conts ">
-              <p>带着孩子 感受春光感受爱 | 格桑花公益徒步活动招 募小志愿者啦带着孩子 感受春光感受爱 | 格桑花公益徒步活动招 募小志愿者啦</p>
-              <p>合肥  |  报名截止2018年2月18日</p>
-            </div>
-          </div>
-          <div class="unit"><span>￥550 /</span> 人</div>
-          <div class="camps-mark">报名已结束</div>
-        </div>
-        <div class="col-md-6 cur ">
-          <div class="clearfix">
-            <div class="camps-body-img ">
-              <%= image_tag 'activity-img.png' %>
-            </div>
-            <div class="camps-body-conts ">
-              <p>带着孩子 感受春光感受爱 | 格桑花公益徒步活动招 募小志愿者啦带着孩子 感受春光感受爱 | 格桑花公益徒步活动招 募小志愿者啦</p>
-              <p>合肥  |  报名截止2018年2月18日</p>
-            </div>
-          </div>
-          <div class="unit"><span>￥550 /</span> 人</div>
-          <div class="camps-mark">报名已结束</div>
-        </div>
-        <div class="col-md-6 cur ">
-          <div class="clearfix">
-            <div class="camps-body-img ">
-              <%= image_tag 'activity-img.png' %>
-            </div>
-            <div class="camps-body-conts ">
-              <p>带着孩子 感受春光感受爱 | 格桑花公益徒步活动招 募小志愿者啦带着孩子 感受春光感受爱 | 格桑花公益徒步活动招 募小志愿者啦</p>
-              <p>合肥  |  报名截止2018年2月18日</p>
-            </div>
-          </div>
-          <div class="unit"><span>￥550 /</span> 人</div>
-          <div class="camps-mark">报名已结束</div>
-        </div>
-        <div class="col-md-6 cur ">
-          <div class="clearfix">
-            <div class="camps-body-img ">
-              <%= image_tag 'activity-img.png' %>
-            </div>
-            <div class="camps-body-conts ">
-              <p>带着孩子 感受春光感受爱 | 格桑花公益徒步活动招 募小志愿者啦带着孩子 感受春光感受爱 | 格桑花公益徒步活动招 募小志愿者啦</p>
-              <p>合肥  |  报名截止2018年2月18日</p>
-            </div>
-          </div>
-          <div class="unit"><span>￥550 /</span> 人</div>
-          <div class="camps-mark">报名已结束</div>
-        </div>
-        <div class="col-md-6 cur ">
-          <div class="clearfix">
-            <div class="camps-body-img ">
-              <%= image_tag 'activity-img.png' %>
-            </div>
-            <div class="camps-body-conts ">
-              <p>带着孩子 感受春光感受爱 | 格桑花公益徒步活动招 募小志愿者啦带着孩子 感受春光感受爱 | 格桑花公益徒步活动招 募小志愿者啦</p>
-              <p>合肥  |  报名截止2018年2月18日</p>
-            </div>
-          </div>
-          <div class="unit"><span>￥550 /</span> 人</div>
-          <div class="camps-mark">报名已结束</div>
-        </div>
-        <div class="col-md-6 cur ">
-          <div class="clearfix">
-            <div class="camps-body-img ">
-              <%= image_tag 'activity-img.png' %>
-            </div>
-            <div class="camps-body-conts ">
-              <p>带着孩子 感受春光感受爱 | 格桑花公益徒步活动招 募小志愿者啦带着孩子 感受春光感受爱 | 格桑花公益徒步活动招 募小志愿者啦</p>
-              <p>合肥  |  报名截止2018年2月18日</p>
-            </div>
-          </div>
-          <div class="unit"><span>￥550 /</span> 人</div>
-          <div class="camps-mark">报名已结束</div>
-        </div>
-        <div class="col-md-6 cur ">
-          <div class="clearfix">
-            <div class="camps-body-img ">
-              <%= image_tag 'activity-img.png' %>
-            </div>
-            <div class="camps-body-conts ">
-              <p>带着孩子 感受春光感受爱 | 格桑花公益徒步活动招 募小志愿者啦带着孩子 感受春光感受爱 | 格桑花公益徒步活动招 募小志愿者啦</p>
-              <p>合肥  |  报名截止2018年2月18日</p>
-            </div>
-          </div>
-          <div class="unit"><span>￥550 /</span> 人</div>
-          <div class="camps-mark">报名已结束</div>
-        </div>
-        <div class="col-md-6 cur ">
-          <div class="clearfix">
-            <div class="camps-body-img ">
-              <%= image_tag 'activity-img.png' %>
-            </div>
-            <div class="camps-body-conts ">
-              <p>带着孩子 感受春光感受爱 | 格桑花公益徒步活动招 募小志愿者啦带着孩子 感受春光感受爱 | 格桑花公益徒步活动招 募小志愿者啦</p>
-              <p>合肥  |  报名截止2018年2月18日</p>
-            </div>
-          </div>
-          <div class="unit"><span>￥550 /</span> 人</div>
-          <div class="camps-mark-no">活动已结束</div>
-        </div>
-
+        <% end %>
       </div>
     </div>
 
   </div>
 </div>
+
+
+
 <div class="project-foot">
-  <span class="iconfont icon-arrow-left cur"></span>
-  <span class="cur">1</span>
-  <span class="cur">2</span>
-  <span class="cur">3</span>
-  <span class="cur">4</span>
-  <span class="cur">5</span>
-  <span class="iconfont icon-arrow-right cur"></span>
+  <%= paginate @campaigns, theme: 'tiny' %>
 </div>
 
 </div>

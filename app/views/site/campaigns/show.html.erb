@@ -1,107 +1,60 @@
 <div class="camps-detail">
   <div class="camps-body-detail border-b">
-    <p>行走的姿态 让爱心开花 行走的格桑花— 2018年合肥第一届·官亭林海公益徒步报名正式开启</p>
+    <p><%= @campaign.name %></p>
     <div class="camps-bodys">
       <div class="activity-detail-img">
-        <%= image_tag 'activity-detail.png' %>
+        <%= image_tag @campaign.banner_url(:tiny) %>
       </div>
       <div class="activity-detail-cont">
         <div class="activity-detail-co">
           <span>时间</span>
-          <p>2018年4月14日上午8点30分</p>
+          <p><%= @campaign.start_time.strftime("%Y年%m月%d日") %></p>
         </div>
-        <div class="activity-detail-co">
-          <span>地点</span>
-          <p>合肥“岭上花园”——官亭林海景区</p>
-        </div>
-        <div class="activity-detail-co">
-          <span>目标</span>
-          <p>为西部的孩子走出高原看世界募集善款</p>
-        </div>
-        <div class="activity-detail-co">
-          <span>里程</span>
-          <p>10公里</p>
-        </div>
+        <!--<div class="activity-detail-co">-->
+          <!--<span>地点</span>-->
+          <!--<p>合肥“岭上花园”——官亭林海景区</p>-->
+        <!--</div>-->
+        <!--<div class="activity-detail-co">-->
+          <!--<span>目标</span>-->
+          <!--<p>为西部的孩子走出高原看世界募集善款</p>-->
+        <!--</div>-->
+        <!--<div class="activity-detail-co">-->
+          <!--<span>里程</span>-->
+          <!--<p>10公里</p>-->
+        <!--</div>-->
         <div class="activity-detail-co">
           <span>费用</span>
-          <p>成人99元/人，未成年人（2000年1月1日以后出生）49元/人</p>
+          <p><%= @campaign.price %>元/人</p>
         </div>
       </div>
       <div class="activity-detail-but activity-color-but-1">立即报名</div>
     </div>
-    <p class="camps-cont-detail">在最美的四月天里，我们诚挚的发出邀请：请您和我们一起以爱的名义，用自己的脚步，来为几千里外的青海的孩子走出高原看世界筹集善款。
-      此次行走的格桑花—2018年合肥第一届·官亭林海公益徒步活动由肥西县旅游协会、肥西县志愿活动中心主办，官亭林海景区管委会、青海格桑花教育救助会协办，旨在通过公益徒步筹集善款，让更多的来自青海的孩子有机会参加格桑花探索营，走出高原看世界。
-
-
-
-      徒步总路程约十公里。届时，无论您是公益人士、徒步爱好者、还是想趁着春天举家出门踏青的，都可以和我们一起怀着爱心，行走在官亭林海景区的满园春色里。
-
-
-
-      这次公益徒步活动，我们也邀请了有影响力的行业精英参与我们的活动代言。他们是：
-
-      曾获奥运会银牌的跳水运动员  周吕鑫；
-
-      中国科学院等离子体物理研究所博士生导师  张晓东；
-
-      安徽卫视主持人  马滢和宋秋熠；
-
-      科大讯飞党委副书记，AI教育公益计划发起人任萍萍 ；
-
-      安徽省户外运动协会副会长  史健；
-
-      合肥市蓝天救援队队长 苏琴
-
-      科大讯飞党委副书记，AI教育公益计划发起人任萍萍等等。
-
-
-
-      如果小伙伴们对体育冠军、科学家、知名主持人、业界精英的代言信息感兴趣，想要第一时间看到代言人大片，欢迎在明天下午5点准时收看“格桑花西部助学”公号推送，抓紧时间报名啦。
-
-
-
-      这次公益徒步活动，我们也邀请了有影响力的行业精英参与我们的活动代言。他们是：体育冠军、科学家、知名主持人、业界精英等等，如果小伙伴们想要第一时间看到代言人大片，欢迎在明天准时收看“格桑花西部助学”公号推送的报道，抓紧时间报名啦。
-
-
-
-      在这里，小编偷偷给大家剧透一下：据格桑花路边社的可靠消息，在4月14日当天，徒步现场还有40余位参加合肥探索营的青海藏族娃娃们载歌载舞的表演哦。
-    </p>
+    <div class="camps-cont-detail">
+      <%= @campaign.content.html_safe %>
+    </div>
     <div class="camps-share">
       <p>分享到：</p>
       <ol>
-
-
         <li class="row" style="padding: 30px 268px;">
           <div id="share-2"></div>
         </li>
-
       </ol>
     </div>
   </div>
  <div class="recommend">
    <p>推荐活动</p>
    <div class="row recommend-cont">
+     <% @recommends.each do |recommend| %>
      <div class="col-md-4">
        <div class="recommend-img">
-         <%= image_tag 'gsh-img-1.png' %>
+         <%= image_tag recommend.banner_url(:tiny) %>
        </div>
-       <p class="gsh-cont-1">菠菜 | 2018年02月22日</p>
-       <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
+       <%= link_to campaign_path(recommend.id) do %>
+         <p class="gsh-cont-1"><%= recommend.start_time.strftime("%Y年%m月%d日") %></p>
+         <p class="gsh-cont-2"><%= recommend.name %></p>
+       <% end %>
      </div>
-     <div class="col-md-4">
-       <div class="recommend-img">
-         <%= image_tag 'gsh-img-1.png' %>
-       </div>
-       <p class="gsh-cont-1">菠菜 | 2018年02月22日</p>
-       <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
-     </div>
-     <div class="col-md-4">
-       <div class="recommend-img">
-         <%= image_tag 'gsh-img-1.png' %>
-       </div>
-       <p class="gsh-cont-1">菠菜 | 2018年02月22日</p>
-       <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
-     </div>
+     <% end %>
    </div>
  </div>
 </div>

@@ -113,6 +113,9 @@ class ProjectSeasonApply < ApplicationRecord
   enum read_state: {read_executing: 1, read_done: 2}
   default_value_for :read_state, 1
 
+  default_value_for :class_number, 0
+  default_value_for :student_number, 0
+
   enum camp_state: {camp_raising: 1, camp_raise_done: 2, camp_executing: 3, camp_done: 4}
   default_value_for :camp_state, 1
 
@@ -228,9 +231,6 @@ class ProjectSeasonApply < ApplicationRecord
     self.bookshelves.pass_done.count
   end
 
-  default_value_for :class_number, 0
-  default_value_for :student_number, 0
-
   # 通过审核
   def audit_pass
     self.audit_state = 'pass'
@@ -267,10 +267,6 @@ class ProjectSeasonApply < ApplicationRecord
     city = ChinaCity.get(self.city).to_s
     district = ChinaCity.get(self.district).to_s
     return province + city + district + self.address.to_s
-  end
-
-  def sliced_abstract
-    self.abstract && self.abstract.length > 90 ? self.abstract.slice(0..90) : self.abstract
   end
 
   def match_donate(params, amount, *args) # platform
@@ -310,9 +306,10 @@ class ProjectSeasonApply < ApplicationRecord
     project = self.project
     Jbuilder.new do |json|
       json.array!(project.form) do |item|
+        value = self.form[item['key']] || ''
         json.label item['label']
         json.key item['key']
-        json.value self.form[item['key']] || ''
+        json.value value.is_a?(Array) ? value.join(',') : value
       end
     end.attributes!
   end
@@ -320,7 +317,7 @@ class ProjectSeasonApply < ApplicationRecord
   # 基础信息, 列表展示用
   def summary_builder
     Jbuilder.new do |json|
-      json.(self, :id, :apply_no, :target_amount, :present_amount, :bookshelf_type, :project_describe, :execute_state)
+      json.(self, :id, :project_id, :apply_no, :target_amount, :present_amount, :bookshelf_type, :project_describe, :execute_state)
       json.name self.apply_name
       json.has_target self.target_amount != 0
       json.last_amount self.target_amount - self.present_amount
@@ -434,8 +431,8 @@ class ProjectSeasonApply < ApplicationRecord
     end.attributes!
   end
 
-  ## 广播项目申请表单
-  def radio_apply_builder
+  ## 物资类申请表单
+  def goods_apply_builder
     Jbuilder.new do |json|
       json.merge! detail_builder
       json.teacher self.teacher.present? ? self.teacher.try(:name) : self.contact_name
@@ -446,35 +443,13 @@ class ProjectSeasonApply < ApplicationRecord
     end.attributes!
   end
 
-  # 广播项目列表
-  def radio_summary_builder
+  # 物资类项目列表
+  def goods_summary_builder
     self.summary_builder
   end
 
-  # 广播项目详情
-  def radio_detail_builder
-    self.detail_builder
-  end
-
-  ## 护花申请表单
-  def care_apply_builder
-    Jbuilder.new do |json|
-      json.merge! detail_builder
-      json.teacher self.teacher.present? ? self.teacher.try(:name) : self.contact_name
-      json.form self.form
-      json.form_submit self.form_builder
-      json.describe self.describe
-      json.merge! apply_base_builder
-    end.attributes!
-  end
-
-  # 护花项目列表
-  def care_summary_builder
-    self.summary_builder
-  end
-
-  # 护花项目详情
-  def care_detail_builder
+  # 物资类项目详情
+  def goods_detail_builder
     self.detail_builder
   end
 

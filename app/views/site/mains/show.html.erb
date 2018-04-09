@@ -40,7 +40,7 @@
                   <div class="clearfix">
                     <span class="iconfont icon-yuan bul-yuan "></span>
                     <span class="bul-time pull-left"><%= record.created_at.strftime("%m月%d日 %H:%M") %></span>
-                    <span class="bul-name pull-left"><%= record.donor.show_name %>捐助<%= record.fund.fund_category.name %></span>
+                    <span class="bul-name pull-left"><%= record.donor.try(:show_name) %>捐助<%= record.fund.try(:fund_category).try(:name) %></span>
                     <span class="bul-moy pull-right"><%= record.amount %>元</span>
                   </div>
                 </li>
@@ -137,8 +137,8 @@
   <div>
     <p>“让受助者、参与者在格桑花获得温暖、信任、希望、互助、友爱等美好情感，感受生命的意义与价值，共建格桑花精神家园。”</p>
     <div class="bul-but">
-      <div class="pull-left cur">我要捐助</div>
-      <div class="pull-right cur">志愿者申请</div>
+      <div class="pull-left cur"><%= link_to '我要捐助', new_donate_path %></div>
+      <div class="pull-right cur"><%= link_to '志愿者申请', '' %></div>
     </div>
   </div>
 </div>
