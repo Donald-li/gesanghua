@@ -16,6 +16,9 @@ scope module: :site do
   resources :book_angles, only: [:index, :show]
   resources :donates, only: [:new, :create]
 
+  # 支付页
+  resource :pay, only: :show
+
 end
 
 scope module: :user do
