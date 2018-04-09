@@ -66,7 +66,6 @@
                             </div>\
                                 <div class="select_list_body">\
                                     <ul class="select_list_ul">\
-                                        <li class="no_result"></li>\
                                     </ul>\
                                 </div>\
                             </div>\
@@ -83,7 +82,8 @@
                     $li.addClass("list_current");
                     $This.find(".select_content").text($(element).text());
                 }
-                $This.find(".no_result").before($li);
+                // $This.find(".no_result").before($li);
+                $This.find(".select_list_ul").append($li);
             });
 
             //传进来的参数操作

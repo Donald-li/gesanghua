@@ -1,21 +1,47 @@
 <div class="gsh-plus-show">
   <p class="gsh-plus-tit">选择你需要登录的用户角色</p>
   <div class="platform-plus-cont">
-    <div>
-      <%= image_tag 'platform-leader.png' %>
-      <p class="gsh-plus-c-t">我是校长</p>
-    </div>
-    <div>
-      <%= image_tag 'platform-teacher.png' %>
-      <p class="gsh-plus-c-t">我是教师</p>
-    </div>
+    <% if current_user.headmaster? %>
+        <%= link_to platform_school_apply_pairs_path do %>
+            <div>
+              <%= image_tag 'platform-leader.png' %>
+              <p class="gsh-plus-c-t">我是校长</p>
+            </div>
+        <% end %>
+    <% end %>
+    <% if current_user.teacher? %>
+        <%= link_to platform_school_apply_pairs_path do %>
+            <div>
+              <%= image_tag 'platform-teacher.png' %>
+              <p class="gsh-plus-c-t">我是教师</p>
+            </div>
+        <% end %>
+    <% end %>
   </div>
   <div class="platform-cont clearfix">
-    <div>我是县领导</div>
-    <div>我是志愿者</div>
-    <div>我是工作人员</div>
-    <div>我是格桑花孩子</div>
-    <div>结对反馈</div>
+    <% if current_user.county_user? %>
+        <span>
+          <%= link_to '我是县领导' %>
+        </span>
+    <% end %>
+    <% if current_user.volunteer? %>
+        <span>
+          <%= link_to '我是志愿者' %>
+        </span>
+    <% end %>
+    <% if current_user.project_manager? || current_user.project_operator? %>
+        <span>
+          <%= link_to '我是工作人员' %>
+        </span>
+    <% end %>
+    <% if current_user.gsh_child? %>
+        <span>
+          <%= link_to '我是格桑花孩子' %>
+        </span>
+    <% end %>
+    <span>
+      <%= link_to '结对反馈' %>
+    </span>
   </div>
-  <p class="gsh-plus-foot">返回个人中心</p>
+  <%= link_to '返回个人中心', account_orders_path, class: "gsh-plus-foot" %>
 </div>

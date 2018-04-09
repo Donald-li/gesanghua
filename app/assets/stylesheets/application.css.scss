@@ -4206,9 +4206,9 @@ select:disabled {
   width: 100%;
   padding: 30px 300px;
   display: flex;
-  & > div {
+  & > a  {
     flex: 1;
-    & > img {
+     img {
       height: 160px;
     }
   }
@@ -4240,8 +4240,8 @@ select:disabled {
   width: 100%;
   padding: 0 270px 40px 270px;
   text-align: center;
-  & > div {
-    float: left;
+  & > span {
+    //float: left;
     padding: 6px;
     font-size: 14px;
     color: #2a2a2c;
@@ -4250,7 +4250,7 @@ select:disabled {
     margin-left: 20px;
     font-weight: 500;
   }
-  & > div:first-child {
+  & > span:first-child {
     margin-left: 0;
   }
 }
@@ -4646,7 +4646,7 @@ select:disabled {
     }
     & > div:nth-child(4) {
       padding: 10px 0;
-      & > button:nth-child(2) {
+      & > a:nth-child(2) {
         outline: none;
         width: 101px;
         height: 30px;
@@ -4655,8 +4655,10 @@ select:disabled {
         color: #3d3d40;
         border: 1px solid #fff;
         background-color: #fff;
+        display: inline-block;
+
       }
-      & > button:nth-child(1) {
+      & > a:nth-child(1) {
         outline: none;
         background-color: #fff;
         width: 101px;
@@ -4667,6 +4669,10 @@ select:disabled {
         color: $color-border;
         border-radius: 2px;
         margin-bottom: 10px;
+        display: inline-block;
+        button{
+          color: $color-border;
+        }
       }
     }
   }
@@ -4837,6 +4843,7 @@ select:disabled {
       left:0;
       top:0;
       color: #fff;
+      //z-index: 2;
     }
   }
   input:focus {
@@ -4954,6 +4961,7 @@ select:disabled {
     font-size: 14px;
     color: #8d8d8d;
     padding: 50px 0 0 0;
+    position: relative;
     .iconfont {
       margin-right: 0;
       font-size: 22px;
