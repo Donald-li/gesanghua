@@ -4,33 +4,36 @@
     <p class="don-title border-b ">
       <span class="pull-left">一对一申请详情</span>
       <span class="pull-right iconfont icon-arrow-right"></span>
-      <span class="pull-right">返回项目管理</span>
+      <span class="pull-right"><%= link_to platform_school_apply_pairs_path do %>返回项目管理<% end %></span>
     </p>
     <div class="plat-school-apply-pair">
-    <p class="school-apply-pair-tit">2018年度一对一助学项目申请</p>
+    <p class="school-apply-pair-tit"><%= @apply.apply_name %></p>
       <div class="school-apply-pair-table">
       <p>申请详情</p>
       <div class="school-apply-pair-table-cont">
-        <p><span>申请编号：</span>298913921</p>
-        <p><span>申请年度：</span>2018年秋季</p>
-        <p><span>学生数量：</span>99人</p>
+        <p><span>申请编号：</span><%= @apply.apply_no %></p>
+        <p><span>申请年度：</span><%= @apply.season.name %></p>
+        <p><span>学生数量：</span><%= @apply.number %>人</p>
       </div>
     </div>
       <div class="school-apply-pair-table">
         <p>申请要求</p>
         <div class="school-apply-pair-table-cont">
-          <p>2008年4月9日，读小学三年级的小礼正坐在教室里听老师讲课。小礼出生于1998年，家里还有瘦弱矮小且常年多病的母亲和先天肢体残疾的父亲。
-            2008年4月12日，由于母亲病情加重，小礼从学校请假回家照顾母亲。小礼就读的学校离家较远且交通不便，平时小礼只能吃住在学校，每个星期五下午回家，周日下午再返校。小礼一家目前借居在阿姨家，这是因为几年前妈妈的妹妹看到他们家实在漏雨严重，才同意他们借住在自己房子里的。如今这所房屋也因为年久失修，多处出现墙面脱落、墙体开裂的情况。
-          </p>
+          <p><%= @apply.describe.html_safe %></p>
         </div>
       </div>
       <div class="don-co">
         <div class="don-co-but cur" >
-          <span>提交学生名单</span>
+          <% if @apply.waiting_upload? %>
+            <span><%= link_to platform_school_apply_child_path(@apply) do %>提交学生名单<% end %></span>
+          <% elsif @apply.pair_complete? %>
+            <span><%= link_to platform_school_apply_children_path(@apply) do %>查看学生名单<% end %></span>
+          <% else %>
+            <span><%= @apply.enum_name(:audit_state) %></span>
+          <% end %>
         </div>
       </div>
     </div>
   </div>
 
 </div>
-

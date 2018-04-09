@@ -1855,6 +1855,9 @@ select:disabled {
       .iconfont {
         margin-right: 4px;
       }
+      & > a{
+        color: #fff;
+      }
     }
     .person-h-cont {
       width: 100%;
@@ -2038,7 +2041,7 @@ select:disabled {
       font-size: 16px;
       color: #3d3d40;
       p {
-        height: 50px;
+        margin-bottom: 8px;
         width: 400px;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -2534,7 +2537,7 @@ select:disabled {
 
 .city-picker-selector .selector-item {
   border: 1px solid $border;
-  border-radius: 5px;
+  border-radius: 3px;
   width: 156px;
   height: 38px;
   line-height: 36px;
@@ -2592,7 +2595,7 @@ select:disabled {
 }
 
 .city-picker-selector .selector-name.df-color {
-  color: #2a2a2c;
+  color: #8d8d8d;
   font-weight: 400;
 }
 
@@ -4292,6 +4295,7 @@ select:disabled {
   }
 }
 
+
 .school-apply-pair-table-co {
   padding: 20px 0 0 0;
   .school-apply-pair-table {
@@ -4804,11 +4808,36 @@ select:disabled {
     height: 90px;
     line-height: 90px;
     border-radius: 50%;
-    background-color: #e0e0e0;
     color: #fff;
     font-size: 14px;
     text-align: center;
     margin: 30px auto;
+    overflow: hidden;
+    position: relative;
+    & > img {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left:0;
+      top:0;
+    }
+    & > div {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left:0;
+      top:0;
+      background-color: #000;
+      opacity: .5;
+    }
+    & > span {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left:0;
+      top:0;
+      color: #fff;
+    }
   }
   input:focus {
     border: 1px solid #6c757d;
@@ -4972,5 +5001,390 @@ select:disabled {
     font-size: 26px;
     color: #262626;
     font-weight: 700;
+  }
+}
+//学校个人资料
+.school-edit{
+  .addchild-list-img {
+    width: 90px;
+    height: 90px;
+    line-height: 90px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    margin: 30px auto;
+    overflow: hidden;
+    position: relative;
+    & > img {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left:0;
+      top:0;
+    }
+    & > div {
+       width: 100%;
+       height: 100%;
+       position: absolute;
+       left:0;
+       top:0;
+       background-color: #000;
+       opacity: .5;
+     }
+    & > span {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left:0;
+      top:0;
+      color: #fff;
+    }
+  }
+  input:focus {
+    border: 1px solid #6c757d;
+  }
+  .don-title {
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .addchild-list-cont {
+    padding: 0 0 10px 0;
+    & > div {
+      width: 555px;
+      display: flex;
+      height: 40px;
+      margin-bottom: 20px;
+      position: relative;
+      & > span {
+        flex: 1;
+        margin: 0 40px 0 0;
+        line-height: 40px;
+        text-align: right;
+      }
+      & > input {
+        flex: 7;
+      }
+      .edit-input{
+        flex: 7;
+        & > input:nth-child(1){
+          width: 100px;
+        }
+        & > input:nth-child(3){
+          width: 260px;
+        }
+      }
+
+
+    }
+  }
+  .childern-submint {
+    padding-left: 105px;
+
+    margin-bottom: 10px;
+    & > button:nth-child(1) {
+      width: 130px;
+      height: 38px;
+      line-height: 38px;
+      background-color: $color-border;
+      color: #fff;
+      font-size: 14px;
+      text-align: center;
+      border: none;
+      margin-right: 20px;
+      border-radius: 3px;
+    }
+  }
+}
+//个人中心个人资料
+#teacher-profiles{
+  background-color: #f5f5f5!important;
+  border: none!important;
+  .school-edit .addchild-list-cont > div{
+    width: 668px;
+  }
+  .sexinput{
+    & > div{
+      margin: 0;
+      flex: 7;
+      & > div{
+        margin: 6px 10px 0px 10px;
+      }
+    }
+  }
+  .childern-submint {
+    padding-left: 119px;
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  .city-picker-selector .selector-item{
+    width: 170px;
+  }
+}
+//个人中心账号信息
+.accounts-cont{
+  padding: 40px 55px 0 20px;
+
+  .accounts-co{
+
+    margin-bottom: 30px;
+    & > span{
+      margin: 0;
+
+    }
+    p{
+      margin-left: 39px;
+      width: 377px;
+      font-size: 14px;
+      color: #2a2a2c;
+      line-height: 20px;
+    }
+    .accounts-but{
+      width: 100px;
+      height: 36px;
+      background-color: #8b54e3;
+      color: #fff;
+      font-size: 14px;
+      border-radius: 3px;
+      text-align: center;
+      line-height: 36px;
+    }
+  }
+}
+//定期反馈表单
+.school-apply-feedback-cont{
+  padding: 20px 0 0 0;
+  .addchild-list-cont {
+    padding: 0 34px 10px 34px;
+    & > div {
+      width: 555px;
+      display: flex;
+      height: 40px;
+      margin-bottom: 20px;
+      position: relative;
+      & > span {
+        flex: 1;
+        margin: 0 40px 0 0;
+        line-height: 40px;
+        text-align: right;
+      }
+      & > textarea {
+        flex: 9.8;
+        height: 172px;
+        border: 1px solid $border;
+        resize: none;
+        border-radius: 3px;
+        font-size: 14px;
+        color: #2a2a2c;
+      }
+      & > div{
+        flex: 11;
+      }
+    }
+    .addchild-list-up-picture {
+      text-align: center;
+      width: 156px;
+      height: 156px;
+      border-radius: 3px;
+      border: 1px solid $border;
+      background-color: #f9f9f9;
+      font-size: 14px;
+      color: #8d8d8d;
+      padding: 50px 0 0 0;
+      .iconfont {
+        margin-right: 0;
+        font-size: 22px;
+      }
+    }
+  }
+  .class-button{
+    margin: 10px auto 20px auto;
+  }
+}
+//反馈列表
+#feedbacks{
+  .school-apply-share-sub{
+    margin-top: 7px;
+    width: 100px;
+  }
+
+  .school-feed{
+    & > img{
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    & > span{
+      font-size: 13px;
+      color: #d7d7d7;
+    }
+  }
+  .feedback-cont-cco{
+    padding-left: 24px;
+    .feedback-cont-c-tit {
+      font-size: 16px;
+      color: #3d3d40;
+      p {
+        margin-bottom: 10px;
+        width: 400px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+
+      }
+
+    }
+  }
+
+
+}
+//学校资料
+#school-edit{
+  .don-titln {
+    font-size: 16px;
+    font-weight: 400;
+    color: #3d3d40;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    text-align: left;
+  }
+  .childern-submint {
+    text-align: center;
+    margin-top: 20px;
+    & > button:nth-child(1) {
+      width: 130px;
+      height: 38px;
+      line-height: 38px;
+      background-color: $color-border;
+      color: #fff;
+      font-size: 14px;
+      text-align: center;
+      border: none;
+      margin-right: 20px;
+      border-radius: 3px;
+    }
+    & > button:nth-child(2) {
+      width: 130px;
+      height: 38px;
+      line-height: 36px;
+      background-color: #ffffff;
+      color: #8d8d8d;
+      font-size: 14px;
+      text-align: center;
+      border: 1px solid #b3b3b3;
+      border-radius: 3px;
+    }
+  }
+  .addchild-list-img {
+    width: 90px;
+    height: 90px;
+    line-height: 90px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    margin: 30px auto;
+    overflow: hidden;
+    position: relative;
+    & > img {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left:0;
+      top:0;
+    }
+    & > div {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left:0;
+      top:0;
+      background-color: #000;
+      opacity: .5;
+    }
+    & > span {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left:0;
+      top:0;
+      color: #fff;
+    }
+  }
+  input:focus {
+    border: 1px solid #6c757d;
+  }
+  .paddchild {
+    padding: 5px 34px;
+    background-color: #fff;
+    border: 1px solid $border;
+  }
+  .addchild-list {
+    padding: 10px 34px;
+    background-color: #fff;
+    border: 1px solid $border;
+    .don-title {
+      font-size: 16px;
+      font-weight: 400;
+    }
+  }
+  .addchild-list-cont {
+    padding: 0 52px 0px 0;
+    & > div {
+      width: 100%;
+      display: flex;
+      height: 40px;
+      margin-bottom: 20px;
+      position: relative;
+      .scool-edit-name{
+        background-color: #eeeeee;
+        font-size: 14px;
+        color: #2a2a2c;
+        line-height: 40px;
+        text-indent: 1em;
+      }
+      & > span {
+        flex: 1;
+        margin: 0 40px 0 0;
+        line-height: 40px;
+        text-align: right;
+      }
+      & > input {
+        flex: 10.5;
+      }
+      & > textarea {
+        flex: 9.8;
+        height: 172px;
+        border: 1px solid $border;
+        resize: none;
+        border-radius: 3px;
+        font-size: 14px;
+        color: #2a2a2c;
+      }
+      & > div{
+        flex: 10.5;
+        & > input{
+          width: 216px;
+        }
+         .selector-item{
+          width: 210px;
+        }
+        .selector-item:nth-child(1){
+          width: 213px;
+        }
+
+        .income-moy {
+          position: absolute;
+          left: 290px;
+          top: 9px;
+          font-size: 14px;
+          color: #2a2a2c;
+        }
+      }
+    }
   }
 }
