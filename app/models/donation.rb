@@ -75,9 +75,14 @@ class Donation < ApplicationRecord
     prepay_js.merge(paySign: pay_sign)
   end
 
-  # 返回微信支付按钮
+  # 返回微信h5支付按钮地址
   def wechat_prepay_h5(remote_ip)
     return get_wechat_prepay_mweb(remote_ip)
+  end
+
+  # 返回微信二维码支付地址
+  def wechat_prepay_code(remote_ip)
+    return get_wechat_prepay_code(remote_ip)
   end
 
   # 返回支付宝支付按钮
@@ -250,6 +255,22 @@ class Donation < ApplicationRecord
     }
     res = WxPay::Service.invoke_unifiedorder params
     return res['mweb_url']
+  end
+
+  def get_wechat_prepay_code(remote_ip)
+    notify_url = Settings.app_host + "/payment/wechat_payments/notify"
+    params = {
+      body: '需要一个商品名称',
+      out_trade_no: self.order_no,
+      # total_fee: Settings.pay_1_mode ? 1 : (self.amount * 100).to_i,
+      total_fee: 1,
+      # (self.amount * 100).to_i,
+      spbill_create_ip: remote_ip,
+      notify_url: notify_url,
+      trade_type: 'NATIVE' # could be "JSAPI" or "NATIVE",
+    }
+    res = WxPay::Service.invoke_unifiedorder params
+    return res['code_url']
   end
 
   # 返回一个支付宝对象
