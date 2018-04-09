@@ -7,5 +7,6 @@ class Site::ArticlesController < Site::BaseController
 
   def show
     @article = Article.find(params[:id])
+    @recommend_articles = Article.visible.show.where.not(id: @article.id).limit(3)
   end
 end
