@@ -2290,6 +2290,9 @@ select:disabled {
     border-radius: 20px;
     margin: 0 auto 80px auto;
     box-shadow: 0 3px 16px #d12da56b;
+    & > a {
+      color: #fff;
+    }
   }
   .iconfont {
     margin-right: 6px;
@@ -4378,6 +4381,9 @@ select:disabled {
         font-size: 13px;
         color: $color-border;
         border-radius: 2px;
+        & > a {
+          color: #8b54e3;
+        }
       }
     }
   }
