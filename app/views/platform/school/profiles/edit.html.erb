@@ -1,1 +1,97 @@
-编辑学校资料
+<div class="person-body-right pull-right" id="school-edit" >
+  <div >
+    <p class="don-title border-b ">
+      <span class="pull-left">学校资料</span>
+    </p>
+  </div>
+  <div class=" marginbottom">
+
+    <div class="addchild-list-img">
+      <%= image_tag 'gsh-img-right.png' %>
+      <div></div>
+      <span>上传logo</span>
+    </div>
+    <p class="don-titln">学校信息</p>
+    <div class="addchild-list-cont">
+      <div>
+        <span class="goodtext">学校全称</span>
+        <div class="scool-edit-name">大西庄村小学</div>
+      </div>
+
+
+    <div>
+      <span class="goodtext">所在地区</span>
+      <div class="city-picker-selector" id="city-picker-selector"></div>
+    </div>
+      <div>
+        <span class="goodtext">详细地址</span>
+        <input  class="goodinput " type="text"  placeholder="请输入详细地址"/>
+      </div>
+      <div>
+        <span class="goodtext">邮政编码</span>
+        <div>
+          <input  class="goodinput " type="text"  />
+        </div>
+      </div>
+      <div>
+        <span class="goodtext">学生人数</span>
+        <div>
+          <input  class="goodinput " type="text"  />
+          <span class="income-moy">人</span>
+        </div>
+      </div>
+      <div>
+        <span class="goodtext">教师人数</span>
+        <div>
+          <input  class="goodinput " type="text"  />
+          <span class="income-moy">人</span>
+        </div>
+      </div>
+      <div>
+        <span class="goodtext">后勤人数</span>
+        <div>
+          <input  class="goodinput " type="text"  />
+          <span class="income-moy">人</span>
+        </div>
+      </div>
+      <div style="height: 180px;width: 777px;">
+        <span class="goodtext">学校简介</span>
+        <textarea></textarea>
+      </div>
+    </div>
+    <div class="childern-submint">
+      <button>保存</button>
+      <button>取消</button>
+    </div>
+  </div>
+
+
+
+
+</div>
+<script>
+    // 模拟城市-无联动/无搜索
+    var selector1 = $('#city-picker-selector').cityPicker({
+        dataJson: cityData,
+        renderMode: true,
+        search: false,
+        autoSelected: false,
+        code: 'cityCode',
+        level: 3
+    });
+    $("#allcamps").select({
+        width: "452px"
+    });
+    $("#grade1").select({
+        width: "145px"
+    });
+    $("#grade2").select({
+        width: "145px"
+    });
+    $("#class").select({
+        width: "142px"
+    });
+
+</script>
+
+
