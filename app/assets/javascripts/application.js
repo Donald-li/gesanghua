@@ -131,7 +131,9 @@ $(function () {
     //         }
     //     })
     // })
-
+    if($('.school-apply-pair-tables').length>8){
+        $('.posscroll').css('height','800px')
+    }
 //    遮罩
     jQuery.fn.center = function(loaded) {
         var obj = this;
@@ -164,3 +166,4 @@ $(function () {
     }
 
 });
+

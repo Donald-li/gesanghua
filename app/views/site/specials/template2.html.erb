@@ -1,32 +1,41 @@
 <div id="article">
   <div class="article-img">
-    <%= image_tag 'shadow.png' %>
+    <%= image_tag @special.banner.try(:file).try(:url, :large).to_s %>
+    <!-- <%= image_tag 'shadow.png' %> -->
     <div></div>
   </div>
   <div class="article1-title">
     <button class="article-but cur">专题</button>
-    <p class="article-font">在醋香四溢的城市里  我们收获的不只是爱心</p>
-    <p class="article-con read-more">长江上游的水横穿中国，流到下游不仅滋养了镇江，滋养的产物还被镇江人们酿成了醋。镇江可是闻名全中国的醋生产地，就小编个人来说，从</p>
+    <!-- <p class="article-font">在醋香四溢的城市里  我们收获的不只是爱心</p> -->
+    <p class="article-font"><%= @special.name %></p>
+    <!-- <p class="article-con read-more">长江上游的水横穿中国，流到下游不仅滋养了镇江，滋养的产物还被镇江人们酿成了醋。镇江可是闻名全中国的醋生产地，就小编个人来说，从</p> -->
+    <p class="article-con read-more"><%= @special.describe %></p>
   </div>
   <div class="article1-read-cont">
-    <div class="border-r">
-      <div class="ovrly"></div>
-      <p class="gsh-cont-1">菠菜 | 2018年02月22日</p>
-      <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
-      <p class="gsh-cont-3">还记得9月去参加成都营的孩子们在路上写的札记吗？小编还记得有个小朋友在笔记本上写道：今天我和其他学校的同学们去成都拓展营学本领</p>
-    </div>
-    <div class="border-r">
-      <div class="ovrly" style="background: #bd47ee;"></div>
-      <p class="gsh-cont-1">菠菜 | 2018年02月22日</p>
-      <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
-      <p class="gsh-cont-3">还记得9月去参加成都营的孩子们在路上写的札记吗？小编还记得有个小朋友在笔记本上写道：今天我和其他学校的同学们去成都拓展营学本领</p>
-    </div>
-    <div>
-      <div class="ovrly" style="background: #8b54e3;"></div>
-      <p class="gsh-cont-1">菠菜 | 2018年02月22日</p>
-      <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
-      <p class="gsh-cont-3">还记得9月去参加成都营的孩子们在路上写的札记吗？小编还记得有个小朋友在笔记本上写道：今天我和其他学校的同学们去成都拓展营学本领</p>
-    </div>
+    <% if @special_article1.present? %>
+      <div class="border-r">
+        <div class="ovrly"></div>
+        <p class="gsh-cont-1"><%= @special_article1.author %> | <%= @special_article1.published_at.strftime("%Y年%m月%d日") %></p>
+        <p class="gsh-cont-2"><%= @special_article1.title %></p>
+        <p class="gsh-cont-3"><%= @special_article1.describe %></p>
+      </div>
+    <% end %>
+    <% if @special_article2.present? %>
+      <div class="border-r">
+        <div class="ovrly" style="background: #bd47ee;"></div>
+        <p class="gsh-cont-1"><%= @special_article2.author %> | <%= @special_article2.published_at.strftime("%Y年%m月%d日") %></p>
+        <p class="gsh-cont-2"><%= @special_article2.title %></p>
+        <p class="gsh-cont-3"><%= @special_article2.describe %></p>
+      </div>
+    <% end %>
+    <% if @special_article3.present? %>
+      <div>
+        <div class="ovrly" style="background: #8b54e3;"></div>
+        <p class="gsh-cont-1"><%= @special_article3.author %> | <%= @special_article3.published_at.strftime("%Y年%m月%d日") %></p>
+        <p class="gsh-cont-2"><%= @special_article3.title %></p>
+        <p class="gsh-cont-3"><%= @special_article3.describe %></p>
+      </div>
+    <% end %>
   </div>
   <div class="swiper-collaboration">
     <p>最新资讯</p>
@@ -34,48 +43,15 @@
 <div class="article1-read-swiper">
   <div class="swiper-container">
     <div class="swiper-wrapper">
+      <% @articles.each do |article| %>
       <div class="swiper-slide">
         <div class="recommend-img">
-          <%= image_tag 'gsh-img-1.png' %>
+          <%= image_tag article.image.try(:file).try(:url, :medium).to_s %>
         </div>
-        <p class="gsh-cont-1">菠菜 | 2018年02月22日</p>
-        <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
-      </div>s
-      <div class="swiper-slide">
-        <div class="recommend-img">
-          <%= image_tag 'gsh-img-1.png' %>
-        </div>
-        <p class="gsh-cont-1">菠菜 | 2018年02月22日</p>
-        <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
+        <p class="gsh-cont-1"><%= article.author %> | <%= article.published_at.strftime("%Y年%m月%d日")%></p>
+        <p class="gsh-cont-2"><%= article.title %></p>
       </div>
-      <div class="swiper-slide">
-        <div class="recommend-img">
-          <%= image_tag 'gsh-img-1.png' %>
-        </div>
-        <p class="gsh-cont-1">菠菜 | 2018年02月22日</p>
-        <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
-      </div>
-      <div class="swiper-slide">
-        <div class="recommend-img">
-          <%= image_tag 'gsh-img-1.png' %>
-        </div>
-        <p class="gsh-cont-1">菠菜 | 2018年02月22日</p>
-        <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
-      </div>
-      <div class="swiper-slide">
-        <div class="recommend-img">
-          <%= image_tag 'gsh-img-1.png' %>
-        </div>
-        <p class="gsh-cont-1">菠菜 | 2018年02月22日</p>
-        <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
-      </div>
-      <div class="swiper-slide">
-        <div class="recommend-img">
-          <%= image_tag 'gsh-img-1.png' %>
-        </div>
-        <p class="gsh-cont-1">菠菜 | 2018年02月22日</p>
-        <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
-      </div>
+      <% end %>
     </div>
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
