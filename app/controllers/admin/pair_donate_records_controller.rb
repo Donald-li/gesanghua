@@ -2,7 +2,7 @@ class Admin::PairDonateRecordsController < Admin::BaseController
   before_action :set_project, only: [:index, :show, :destroy]
 
   def index
-    @donate_records = @project.donate_records.where(pay_state: [:paid, :refund])
+    @donate_records = @project.donate_records
     set_search_end_of_day(:created_at_lteq)
     @search = @donate_records.ransack(params[:q])
     scope = @search.result

@@ -1,8 +1,10 @@
 class Api::V1::ProjectsController < Api::V1::BaseController
   before_action :set_project, only: [:description]
-
   def index
-    projects = Project.where(id: current_user.manage_projects.ids).sorted.visible
+    scope = Project
+    scope = current_user.manage_projects if params[:type] == 'manage'
+    scope = scope.goods if params[:type] == 'goods'
+    projects = scope.sorted.visible
     api_success(data: projects.map{|p| p.summary_builder})
   end
 
@@ -13,6 +15,10 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
   private
   def set_project
-    @project = Project.find_by(alias: params[:name])
+    if params[:name].to_s =~ /^\d+$/
+      @project = Project.find_by(id: params[:name])
+    else
+      @project = Project.find_by(alias: params[:name])
+    end
   end
 end

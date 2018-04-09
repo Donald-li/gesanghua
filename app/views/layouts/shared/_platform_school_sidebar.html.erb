@@ -1,22 +1,24 @@
 <div class="person-body-left pull-left">
   <ul>
-    <%= link_to account_orders_path do %>
+    <%= link_to platform_school_apply_pairs_path do %>
     <li class="selectedli cur">
       <span class="iconfont icon-ico-team"></span>
       <span>项目管理</span>
     </li>
     <% end %>
-    <%= link_to account_teams_path do %>
+    <%= link_to platform_school_teachers_path do %>
     <li class="cur">
       <span class="iconfont icon-ico-month"></span>
       <span>教师管理</span>
     </li>
     <% end %>
+    <%= link_to platform_school_feedbacks_path do %>
     <li class="cur">
       <span class="iconfont icon-ico-campaign"></span>
       <span>定期反馈</span>
     </li>
-    <%= link_to account_offline_users_path do %>
+    <% end %>
+    <%= link_to edit_platform_school_profile_path do %>
     <li class="cur">
       <span class="iconfont icon-ico-replace"></span>
       <span>学校资料</span>

@@ -1,0 +1,103 @@
+<div class="portlet light portlet-fit bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="fa fa-sliders font-dark"></i>
+      <span class="caption-subject font-dark bold uppercase">审核<%= @current_project.name %>项目</span>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="table-scrollable">
+      <table class="table table-bordered table-hover">
+        <tbody>
+        <tr>
+          <td>
+            申请编号
+          </td>
+          <td>
+            <%= @project_apply.apply_no %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            申请批次
+          </td>
+          <td>
+            <%= @project_apply.season.try(:name) %>
+          </td>
+        </tr>
+        <%= render '/admin/shared/dynamic_form_tr', apply: @project_apply %>
+        <tr>
+          <td>
+            申请学校
+          </td>
+          <td>
+            <%= @project_apply.school.try(:name) %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            申请人数
+          </td>
+          <td>
+            <%= @project_apply.try(:girl_number).to_i + @project_apply.try(:boy_number).to_i %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            联系人
+          </td>
+          <td>
+            <%= @project_apply.contact_name %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            联系方式
+          </td>
+          <td>
+            <%= @project_apply.contact_phone %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            申请理由
+          </td>
+          <td>
+            <%= @project_apply.describe %> <br>
+            <% @project_apply.images.each do |image| %>
+              <%= image_tag image.try(:file).try(:url, :small) %>
+            <% end %>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="portlet-body form">
+      <%= simple_form_for [:admin, @project_apply], url: check_admin_goods_apply_path, method: :patch, wrapper: :admin_form, html: {id: 'approve-form', 'data-parsley-validate': true} do |f| %>
+        <%= f.error_notification %>
+        <div class="form-body form-horizontal">
+          <%= f.input :audit_state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApply.options_for_some_select(:audit_states, ['pass', 'reject']), label: '审核状态：', required: 'required', input_html: { class: 'approve_state', onclick: 'toggleState();'} %>
+          <div class="approve_reject">
+            <%= f.input :approve_remark, label: '审核备注：', input_html: {class: 'form-control', placeholder: '', value: @project_apply.audits.try(:last).try(:comment)}, required: true %>
+          </div>
+          <div class="form-actions">
+            <div class="row">
+              <div class="col-md-offset-3 col-md-9">
+                <%= f.button :submit, '提交', class: 'btn green' %>
+                <%= link_to '取消', admin_goods_applies_path, class: 'btn' %>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      <% end %>
+      </div>
+</div>
+<script type="text/javascript">
+    function toggleState(){
+        toggleRadioInput('.approve_state', {
+            reject: '.approve_reject'
+        })
+    }
+    toggleState();
+</script>

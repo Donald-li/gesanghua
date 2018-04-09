@@ -1,23 +1,27 @@
 <div class="person-head">
   <%= image_tag 'ucenter-top-bg.png' %>
-  <div class="person-h-img"> <%#= image_tag current_user.user_avatar %></div>
+  <div class="person-h-img"> <%= image_tag current_user.user_avatar %></div>
   <div class="person-h-right">
+    <%= link_to edit_account_user_center_profile_path do %>
     <span class="iconfont icon-ico-wechat1"></span>
-    <span>账户管理</span>
+    <span>
+      账户管理
+    </span>
+    <% end %>
   </div>
   <div class="person-h-cont">
-    <p><%#= current_user.show_name %></p>
+    <p><%= current_user.show_name %></p>
     <div class="person-h-cont-d">
       <div>
-        <p><span><%#= current_user.donate_count %></span>元</p>
+        <p><span><%= current_user.donate_count %></span>元</p>
         <p>累计捐助</p>
       </div>
       <div class="border-l border-r">
-        <p><span><%#= current_user.promoter_amount_count %></span>元</p>
+        <p><span><%= current_user.promoter_amount_count %></span>元</p>
         <p>累计劝募</p>
       </div>
       <div>
-        <p><span><%#= current_user.balance %></span>元</p>
+        <p><span><%= current_user.balance %></span>元</p>
         <p>账户余额</p>
       </div>
     </div>

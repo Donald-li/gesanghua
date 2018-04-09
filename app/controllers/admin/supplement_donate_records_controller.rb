@@ -5,7 +5,7 @@ class Admin::SupplementDonateRecordsController < Admin::BaseController
   before_action :set_supplement
 
   def index
-    @donate_records = @supplement.donates.paid
+    @donate_records = @supplement.donates
     set_search_end_of_day(:created_at_lteq)
     @search = @donate_records.ransack(params[:q])
     scope = @search.result

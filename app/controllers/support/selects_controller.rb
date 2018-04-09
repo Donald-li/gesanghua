@@ -23,7 +23,7 @@ class Support::SelectsController < Support::BaseController
     users = scope.page(params[:page])
     render json: {items: users.as_json(only: [:id, :name])}
   end
-  
+
   # 线下捐款
   def income_records
     scope = IncomeRecord.has_balance.sorted.where("title like :q", q: "%#{params[:q]}%")
@@ -96,16 +96,6 @@ class Support::SelectsController < Support::BaseController
     camp_users = Camp.find(params[:camp_id]).users.sorted
     render json: {items: camp_users.as_json(only: [:id, :name])}
   end
-
-  def camp_contact_teachers
-    if params[:school_id].present?
-      camp_contact_teachers = School.find(params[:school_id]).teachers.joins(:teacher_projects).where("teacher_projects.project_id = ?", Project.camp_project.id)
-      render json: {items: camp_contact_teachers.as_json(only: [:id, :name])}
-    else
-      render json: {items: []}
-    end
-  end
-
 
   # def income_records
   #   scope = IncomeRecord.sorted.where("name like :q", q: "%#{params[:q]}%")

@@ -1,1 +1,182 @@
-一对一学生申请表
+<div class="person-body-right pull-right" id="addchildrenlist">
+  <div class="paddchild marginbottom">
+    <p class="don-title">
+      <span class="pull-left">新增学生名单</span>
+      <span class="pull-right iconfont icon-arrow-right"></span>
+      <span class="pull-right">返回</span>
+    </p>
+  </div>
+  <div class="addchild-list marginbottom">
+    <div class="addchild-list-img">
+      <%= image_tag 'gsh-img-right.png' %>
+      <div></div>
+      <span>上传正面照</span>
+    </div>
+    <p class="don-title">基本信息</p>
+    <div class="addchild-list-cont">
+      <div>
+        <span class="goodtext">真实姓名</span>
+        <input  class="goodinput " type="text"  />
+      </div>
+      <div>
+        <span class="goodtext">身份证号</span>
+        <input  class="goodinput " type="text"  />
+      </div>
+      <div>
+        <span class="goodtext">民族</span>
+        <div id="doodname">
+          <select id="allcamps">
+            <option value="1">全部活动</option>
+            <option value="2">成功2</option>
+            <option value="3" >成功3</option>
+            <option value="4">成功4</option>
+            <option value="5">失败5</option>
+          </select>
+        </div>
+
+      </div>
+      <div style="width: 777px;">
+        <span class="goodtext">选择年级</span>
+        <div class="sclectedgrade clearfix">
+          <div class="pull-left">
+            <select id="grade1">
+              <option value="1">初中</option>
+              <option value="2">成功2</option>
+              <option value="3" >成功3</option>
+              <option value="4">成功4</option>
+              <option value="5">失败5</option>
+            </select>
+          </div>
+          <div class="pull-left">
+            <select id="grade2">
+              <option value="1">年级</option>
+              <option value="2">成功2</option>
+              <option value="3" >成功3</option>
+              <option value="4">成功4</option>
+              <option value="5">失败5</option>
+            </select>
+          </div>
+          <div class="pull-left">
+            <select id="class">
+              <option value="1">班级</option>
+              <option value="2">成功2</option>
+              <option value="3" >成功3</option>
+              <option value="4">成功4</option>
+            </select>
+          </div>
+        </div>
+
+
+      </div>
+      <div>
+        <span class="goodtext">班主任</span>
+        <input  class="goodinput " type="text"  placeholder="班主任姓名"/>
+      </div>
+      <div>
+        <span class="goodtext">联系方式</span>
+        <input  class="goodinput " type="text"  placeholder="填写班主任联系方式"/>
+      </div>
+      <div style="height: 172px;width: 777px;">
+        <span class="goodtext">自我介绍</span>
+        <textarea></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="addchild-list marginbottom">
+    <p class="don-title">家庭信息</p>
+    <div class="addchild-list-cont">
+      <div>
+        <span class="goodtext">父亲姓名</span>
+        <input  class="goodinput " type="text"  />
+      </div>
+      <div>
+        <span class="goodtext">职业</span>
+        <input  class="goodinput " type="text"  />
+      </div>
+      <div>
+        <span class="goodtext">母亲姓名</span>
+        <input  class="goodinput " type="text"  />
+      </div>
+      <div>
+        <span class="goodtext">职业</span>
+        <input  class="goodinput " type="text"  />
+      </div>
+      <div>
+        <span class="goodtext">监护人</span>
+        <input  class="goodinput " type="text"  placeholder="监护人姓名"/>
+      </div>
+      <div>
+        <span class="goodtext">与其关系</span>
+        <input  class="goodinput " type="text"  placeholder="填写孩子与监护人的关系"/>
+      </div>
+      <div>
+        <span class="goodtext">收入来源</span>
+        <input  class="goodinput " type="text"  />
+      </div>
+      <div>
+        <span class="goodtext">年收入</span>
+        <input  class="goodinput " type="text"  />
+        <span class="income-moy">元/年</span>
+      </div>
+      <div>
+        <span class="goodtext">年支出</span>
+        <input  class="goodinput " type="text"  />
+        <span class="income-moy">元/年</span>
+      </div>
+      <div style="height: 172px;width: 777px;">
+        <span class="goodtext">家庭情况</span>
+        <textarea placeholder="请写明具体家庭情况和贫困原因"></textarea>
+      </div>
+      <div style="height: 172px;width: 777px;">
+        <span class="goodtext">兄弟姐妹</span>
+        <textarea placeholder="请写明具体家中兄弟姐妹的情况"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="addchild-list addchild-list-up">
+    <p class="don-title">上传图片</p>
+    <div class="clearfix ">
+      <div class="addchild-list-up-picture pull-left">
+        <p class="iconfont icon-ico-add"></p>
+        <p>上传身份证</p>
+      </div>
+      <div class="addchild-list-up-picture pull-left">
+        <p class="iconfont icon-ico-add"></p>
+        <p>上传户口本</p>
+      </div>
+      <div class="addchild-list-up-picture pull-left">
+        <p class="iconfont icon-ico-add"></p>
+        <p>上传家庭照</p>
+      </div>
+      <div class="addchild-list-up-picture pull-left">
+        <p class="iconfont icon-ico-add"></p>
+        <p>上传扶贫卡</p>
+      </div>
+
+    </div>
+
+
+  </div>
+  <div class="childern-submint">
+    <button>保存</button>
+    <button>取消</button>
+  </div>
+
+</div>
+<script>
+    $("#allcamps").select({
+        width: "452px"
+    });
+    $("#grade1").select({
+        width: "145px"
+    });
+    $("#grade2").select({
+        width: "145px"
+    });
+    $("#class").select({
+        width: "142px"
+    });
+
+</script>
+
+

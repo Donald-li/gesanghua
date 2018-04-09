@@ -39,16 +39,17 @@ RSpec.describe "Api::V1::PairChildren", type: :request do
   end
 
   describe '捐助孩子支付' do
-    it '下单支付' do
-      child1.approve_pass
-      post settlement_api_v1_pair_children_path,
-           params: {id: child1.id, by_team: false,
-                    donor_name: '好心人', total_amount: '2100',
-                    paymethod: 'weixin', selectedGrants: child1.donate_record_builder},
-           headers: api_v1_headers(login_user)
-      api_v1_expect_success
-      expect(json_body[:data][:recordState]).to eq true
-    end
+    # TODO: 使用统一支付接口
+    # it '下单支付' do
+    #   child1.approve_pass
+    #   post settlement_api_v1_pair_children_path,
+    #        params: {id: child1.id, by_team: false,
+    #                 donor_name: '好心人', total_amount: '2100',
+    #                 paymethod: 'weixin', selectedGrants: child1.donate_record_builder},
+    #        headers: api_v1_headers(login_user)
+    #   api_v1_expect_success
+    #   expect(json_body[:data][:recordState]).to eq true
+    # end
   end
 
   describe '获取审核通过的孩子列表' do

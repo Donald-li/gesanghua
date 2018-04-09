@@ -66,11 +66,11 @@ class User < ApplicationRecord
   has_many :vouchers
   has_many :campaign_enlists
   has_many :campaigns, through: :campaign_enlists
-  has_many :donate_records, dependent: :nullify
-  has_many :donates, class_name: 'DonateRecord', dependent: :destroy
+  has_many :donate_records, foreign_key: :donor_id, dependent: :nullify
+  has_many :donations, dependent: :nullify, foreign_key: 'donor_id'
   has_many :visits
 
-  has_many :income_records
+  has_many :income_records, dependent: :nullify, foreign_key: 'donor_id'
   has_many :project_season_applies
   has_many :month_donates
 
@@ -117,7 +117,8 @@ class User < ApplicationRecord
     end
   end
 
-  def user_name
+  # 生成捐赠证书的名称
+  def card_name
     if self.anonymous?
       self.nickname
     elsif self.designation?
@@ -133,6 +134,11 @@ class User < ApplicationRecord
     else
       self.name
     end
+  end
+
+  # 用户对外显示的名字
+  def user_name
+    self.show_name
   end
 
   def user_avatar
@@ -161,10 +167,10 @@ class User < ApplicationRecord
     self.county_user.present?
   end
 
-  def is_school_headmaster?
-    if self.teacher.try(:school).try(:user) === self
+  def school_role
+    if self.headmaster?
       'headmaster'
-    elsif self.teacher.try(:school).present?
+    elsif self.teacher?
       'teacher'
     else
       'normal'
@@ -191,7 +197,7 @@ class User < ApplicationRecord
 
   # 可开票金额
   def to_bill_amount
-    self.donate_records.where({ created_at: (Time.now.beginning_of_year)..(Time.now.end_of_year), voucher_state: 1, pay_state: 2 }).sum(:amount)
+    self.donations.where({ created_at: (Time.now.beginning_of_year)..(Time.now.end_of_year), voucher_state: 1, pay_state: 2 }).sum(:amount)
   end
 
   def full_address
@@ -224,7 +230,7 @@ class User < ApplicationRecord
       '志愿者'
     elsif self.has_role?(:custom_service)
       '工作人员'
-    elsif self.donate_records.present?
+    elsif self.donations.present?
       '爱心人士'
     end
   end

@@ -17,6 +17,7 @@ class Special < ApplicationRecord
   has_many :special_articles, dependent: :destroy
   has_many :articles, through: :special_articles
   has_many :special_adverts, dependent: :destroy
+  has_many :adverts, through: :special_adverts
 
   validates :name, presence: true
 

@@ -203,6 +203,9 @@ admin:
             admin_pair_reports:
               actions:
                 'admin/pair_reports': all
+            admin_pair_continual_feedbacks:
+              actions:
+                'admin/pair_continual_feedbacks': all
 
         admin_project_book:
           menus:
@@ -259,23 +262,10 @@ admin:
                 admin_camp_document_volunteers:
                   actions:
                     'admin/camp_document_volunteers': all
+            admin_camp_continual_feedbacks:
+              actions:
+                'admin/camp_continual_feedbacks': all
 
-        admin_project_radio:
-          menus:
-            admin_project_radio_season:
-              actions:
-                'admin/project_radio_seasons': all
-            admin_radio_applies:
-              actions:
-                'admin/radio_applies': all
-            admin_radio_projects:
-              actions:
-                'admin/radio_projects': all
-                'admin/radio_donate_records': all
-                'admin/radio_feedbacks': all
-            admin_radio_continual_feedbacks:
-              actions:
-                'admin/radio_continual_feedbacks': all
         admin_project_movie:
           menus:
             admin_project_movie_season:
@@ -305,23 +295,22 @@ admin:
                 'admin/movie_care_feedbacks': all
             admin_movie_care_continual_feedbacks:
               actions:
-                'admin/movie_care_continual_feedbacks': all
-        admin_project_flower:
+        admin_project_goods:
           menus:
-            admin_project_flower_season:
+            admin_project_goods_season:
               actions:
-                'admin/project_flower_seasons': all
-            admin_project_flower_applies:
+                'admin/project_goods_seasons': all
+            admin_project_goods_applies:
               actions:
-                'admin/flower_applies': all
-            admin_project_flower_projects:
+                'admin/goods_applies': all
+            admin_project_goods_projects:
               actions:
-                'admin/flower_projects': all
-                'admin/flower_donate_records': all
-            admin_project_flower_feedbacks:
+                'admin/goods_projects': all
+                'admin/goods_donate_records': all
+            admin_project_goods_feedbacks:
               actions:
-                'admin/flower_continual_feedbacks': all
-
+                'admin/goods_continual_feedbacks': all
+                'admin/movie_care_continual_feedbacks': all
 # 探索营后台
 camp:
   menus:

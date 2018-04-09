@@ -1,0 +1,43 @@
+<div class="person-body-left pull-left" style="margin-top: 40px;">
+  <ul>
+    <%= link_to edit_account_user_center_profile_path do %>
+    <li class="selectedli cur">
+      <span class="iconfont icon-ico-team"></span>
+      <span>个人资料</span>
+    </li>
+    <% end %>
+    <%= link_to account_user_center_account_path do %>
+    <li class="cur">
+      <span class="iconfont icon-ico-month"></span>
+      <span>账号信息</span>
+    </li>
+    <% end %>
+    <%= link_to account_user_center_bind_path do %>
+    <li class="cur">
+      <span class="iconfont icon-ico-month"></span>
+      <span>社交账号</span>
+    </li>
+    <% end %>
+
+  </ul>
+  <div class="leftLine"></div>
+  <div  class="border-t" >
+    <%= link_to account_logout_path, method: :delete do %>
+    <span class="iconfont icon-ico-add"></span>
+    <span>退出登录</span>
+    <% end %>
+  </div>
+</div>
+
+<script type="text/javascript">
+//      左tab切换
+// $(".person-body-left ul li").on("click", function () {
+//     $(".person-body-left ul li").removeClass("selectedli")
+//     $(this).addClass("selectedli")
+//     $(".leftLine").css("top", parseFloat($(this)[0].offsetTop) + "px")
+//     $.each($('.person-body-left ul li'), function (i, j) {
+//         $('.person-body-right > div').eq(i).css('display', 'none')
+//     });
+//     $('.person-body-right > div').eq($(this).index()).css('display', 'block')
+// })
+</script>

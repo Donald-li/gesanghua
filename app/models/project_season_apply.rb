@@ -44,14 +44,11 @@
 #  camp_state         :integer                                # 探索营-项目状态
 #  camp_principal     :string                                 # 探索营-营负责人
 #  camp_income_source :string                                 # 探索营-经费来源
+#  inventory_state    :integer                                # 是否使用物资清单
 #
 
 # 所有项目年度申请表
 class ProjectSeasonApply < ApplicationRecord
-
-  validate do |apply|
-    self.errors.add(:present_amount, '捐助金额不能大于筹款金额') if self.present_amount > self.target_amount
-  end
 
   attr_accessor :cover_image_id
   include HasAsset
@@ -77,6 +74,7 @@ class ProjectSeasonApply < ApplicationRecord
   has_many :camp_document_volunteers
   has_many :apply_camps, class_name: 'ProjectSeasonApplyCamp'
   has_many :camp_members, class_name: 'ProjectSeasonApplyCampMember'
+  has_many :inventories, class_name: 'ProjectSeasonApplyInventory'
 
   has_many :complaints, as: :owner
   has_one :install_feedback, as: :owner
@@ -87,12 +85,16 @@ class ProjectSeasonApply < ApplicationRecord
   accepts_nested_attributes_for :radio_information, update_only: true
   accepts_nested_attributes_for :bookshelves, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :supplements, allow_destroy: true, reject_if: :all_blank #proc { |attributes| attributes['project_season_apply_bookshelf_id'].blank? }
+  accepts_nested_attributes_for :inventories, allow_destroy: true
 
   default_value_for :form, {}
   attr_accessor :approve_remark
 
   enum state: {show: 1, hidden: 2} # 状态：1:展示 2:隐藏
   default_value_for :state, 2
+
+  enum inventory_state: {use_inventory: 1, nonuse_inventory: 2} # 清单使用状态：1:使用 2:不使用
+  default_value_for :inventory_state, 1
 
   enum execute_state: {raising: 1, to_delivery: 2, to_receive: 3, to_feedback: 4, feedbacked: 5, done: 6, cancelled: 7} # 执行状态：1:筹款中 2:筹款完成 3:待收货 4:待反馈 5:已反馈 6:已完成 7:已取消
   default_value_for :execute_state, 1
@@ -111,6 +113,9 @@ class ProjectSeasonApply < ApplicationRecord
   enum read_state: {read_executing: 1, read_done: 2}
   default_value_for :read_state, 1
 
+  default_value_for :class_number, 0
+  default_value_for :student_number, 0
+
   enum camp_state: {camp_raising: 1, camp_raise_done: 2, camp_executing: 3, camp_done: 4}
   default_value_for :camp_state, 1
 
@@ -120,6 +125,32 @@ class ProjectSeasonApply < ApplicationRecord
   before_create :gen_code
   before_create :gen_apply_no
   after_save :set_execute_state
+
+  # 得到可捐助子项
+  def get_donate_items
+    # 书架申请
+    if self.project == Project.read_project && self.whole?
+      self.bookshelves.raising.order(present_amount: :desc)
+    end
+  end
+
+  # 使用捐助
+  def accept_donate(donate_records)
+    donate_record = donate_records.last
+    # 不能超过剩余金额
+    amount = [surplus_money, donate_record.amount].min
+    donate_record.update!(amount: amount)
+
+    self.present_amount += amount
+    self.project.fund.balance += amount
+    self.check_apply_state
+    self.save!
+  end
+
+  # 更新申请状态
+  def check_apply_state
+    self.execute_state = 'to_delivery' if self.present_amount == self.target_amount
+  end
 
   def surplus_money
     self.target_amount - self.present_amount
@@ -200,9 +231,6 @@ class ProjectSeasonApply < ApplicationRecord
     self.bookshelves.pass_done.count
   end
 
-  default_value_for :class_number, 0
-  default_value_for :student_number, 0
-
   # 通过审核
   def audit_pass
     self.audit_state = 'pass'
@@ -239,10 +267,6 @@ class ProjectSeasonApply < ApplicationRecord
     city = ChinaCity.get(self.city).to_s
     district = ChinaCity.get(self.district).to_s
     return province + city + district + self.address.to_s
-  end
-
-  def sliced_abstract
-    self.abstract && self.abstract.length > 90 ? self.abstract.slice(0..90) : self.abstract
   end
 
   def match_donate(params, amount, *args) # platform
@@ -282,9 +306,10 @@ class ProjectSeasonApply < ApplicationRecord
     project = self.project
     Jbuilder.new do |json|
       json.array!(project.form) do |item|
+        value = self.form[item['key']] || ''
         json.label item['label']
         json.key item['key']
-        json.value self.form[item['key']] || ''
+        json.value value.is_a?(Array) ? value.join(',') : value
       end
     end.attributes!
   end
@@ -292,7 +317,7 @@ class ProjectSeasonApply < ApplicationRecord
   # 基础信息, 列表展示用
   def summary_builder
     Jbuilder.new do |json|
-      json.(self, :id, :apply_no, :target_amount, :present_amount, :bookshelf_type, :project_describe, :execute_state)
+      json.(self, :id, :project_id, :apply_no, :target_amount, :present_amount, :bookshelf_type, :project_describe, :execute_state)
       json.name self.apply_name
       json.has_target self.target_amount != 0
       json.last_amount self.target_amount - self.present_amount
@@ -312,7 +337,7 @@ class ProjectSeasonApply < ApplicationRecord
   def detail_builder
     Jbuilder.new do |json|
       json.merge! summary_builder
-      json.(self, :number, :describe, :target_amount, :present_amount, :class_number, :student_number)
+      json.(self, :number, :describe, :target_amount, :present_amount, :class_number, :student_number, :inventory_state)
       json.name self.apply_name
       json.school_name self.school.try(:name)
       json.season_name self.season.try(:name)
@@ -406,8 +431,8 @@ class ProjectSeasonApply < ApplicationRecord
     end.attributes!
   end
 
-  ## 广播项目申请表单
-  def radio_apply_builder
+  ## 物资类申请表单
+  def goods_apply_builder
     Jbuilder.new do |json|
       json.merge! detail_builder
       json.teacher self.teacher.present? ? self.teacher.try(:name) : self.contact_name
@@ -418,35 +443,13 @@ class ProjectSeasonApply < ApplicationRecord
     end.attributes!
   end
 
-  # 广播项目列表
-  def radio_summary_builder
+  # 物资类项目列表
+  def goods_summary_builder
     self.summary_builder
   end
 
-  # 广播项目详情
-  def radio_detail_builder
-    self.detail_builder
-  end
-
-  ## 护花申请表单
-  def care_apply_builder
-    Jbuilder.new do |json|
-      json.merge! detail_builder
-      json.teacher self.teacher.present? ? self.teacher.try(:name) : self.contact_name
-      json.form self.form
-      json.form_submit self.form_builder
-      json.describe self.describe
-      json.merge! apply_base_builder
-    end.attributes!
-  end
-
-  # 护花项目列表
-  def care_summary_builder
-    self.summary_builder
-  end
-
-  # 护花项目详情
-  def care_detail_builder
+  # 物资类项目详情
+  def goods_detail_builder
     self.detail_builder
   end
 

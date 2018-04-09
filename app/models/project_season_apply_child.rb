@@ -76,7 +76,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   has_many :audits, as: :owner
   has_many :remarks, as: :owner
   has_many :complaints, as: :owner
-  has_many :donates, class_name: 'DonateRecord', dependent: :destroy
+  has_many :donates, class_name: 'DonateRecord', dependent: :destroy, as: :owner #TODO: 待检查
   has_many :gsh_child_grants, dependent: :destroy
   #FIXME: 跟上面的关系重复了？
   has_many :semesters, class_name: 'GshChildGrant', dependent: :destroy
@@ -121,6 +121,16 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   scope :sorted, -> {order(created_at: :desc)}
   scope :check_list, -> {where(approve_state: [1, 2, 3])}
+
+  # 得到可捐助子项
+  def get_donate_items
+    self.semesters.succeed.order(id: :asc)
+  end
+
+  # 更新申请状态
+  def check_state
+    self.done_semester_count = self.semesters.succeed.count
+  end
 
   def gsh_no
     self.gsh_child.try(:gsh_no)

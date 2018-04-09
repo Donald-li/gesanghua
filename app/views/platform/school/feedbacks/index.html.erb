@@ -1,0 +1,55 @@
+<div class="person-body-right pull-right" id="feedbacks">
+
+  <div class="children-body">
+    <div class="paddchild">
+      <p class="don-title border-b ">
+        <span class="pull-left">定期反馈</span>
+        <button class="pull-right school-apply-share-sub">
+          <span class="iconfont icon-ico-add1"></span>
+          <span>新增反馈</span>
+        </button>
+      </p>
+    </div>
+    <div class="school-feedback">
+      <div class="donation-cont border-b">
+        <div class="clearfix">
+          <div class="donation-cont-img pull-left">
+            <%= image_tag 'ucenter-top-bg.png' %>
+          </div>
+          <div class="pull-left feedback-cont-cco">
+            <div class="feedback-cont-c-tit clearfix">
+              <p class="pull-left">护花行动“风暴”来“风暴”</p>
+            </div>
+            <div class="school-feed">
+              <%= image_tag 'ucenter-top-bg.png' %>
+              <span>Peekid ·</span>
+              <span>2017-09-08由发布</span>
+            </div>
+          </div>
+          <div class="donation-cont-but pull-right cur">
+            查看反馈详情
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="donation-cont-no">
+      <div class="donation-co-no-c">
+        <p>暂无定期反馈</p>
+      </div>
+    </div>
+    <div class="project-foot">
+      <span class="iconfont icon-arrow-left cur"></span>
+      <span class="iconfont icon-arrow-right cur"></span>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+    if($('.school-feedback .donation-cont').length===0){
+        $('.donation-cont-no').css('display', 'block')
+        $('.project-foot').css('display', 'none')
+    }else{
+        $('.donation-cont-no').css('display', 'none')
+        $('.project-foot').css('display', 'block')
+    }
+</script>
