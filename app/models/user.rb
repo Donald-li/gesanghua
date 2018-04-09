@@ -146,25 +146,37 @@ class User < ApplicationRecord
   end
 
   def headmaster?
-    self.teacher.present? && self.teacher.headmaster?
+    self.has_role?(:headmaster)
   end
 
   def teacher?
-    self.headmaster? || self.teacher.present?
+    self.has_role?(:teacher)
+  end
+
+  def county_user?
+    self.has_role?(:county_user)
+  end
+
+  def volunteer?
+    self.has_role?(:volunteer)
+  end
+
+  def project_manager?
+    self.has_role?(:project_manager)
+  end
+
+  def project_operator?
+    self.has_role?(:project_operator)
+  end
+
+  def gsh_child?
+    self.has_role?(:gsh_child)
   end
 
   # 作为校长或老师管理的项目
   def manage_projects
     return Project.visible if self.headmaster?
     return self.teacher.projects.visible if self.teacher
-  end
-
-  def volunteer?
-    self.volunteer.present?
-  end
-
-  def county_user?
-    self.county_user.present?
   end
 
   def school_role
