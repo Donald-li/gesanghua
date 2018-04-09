@@ -41,54 +41,22 @@
     <div class="recommend">
       <p>最新资讯</p>
       <div class="row recommend-cont">
-        <div class="col-md-4">
-          <div class="recommend-img">
-            <%= image_tag 'gsh-img-1.png' %>
+        <% @articles.each do |article| %>
+          <div class="col-md-4">
+            <%= link_to article_path(article) do %>
+              <div class="recommend-img">
+                <%= image_tag article.image.try(:file).try(:url, :medium).to_s %>
+              </div>
+              <p class="gsh-cont-1"><%= article.author %> | <%= article.published_at.strftime("%Y年%m月%d日")%></p>
+              <p class="gsh-cont-2"><%= article.title %></p>
+            <% end %>
           </div>
-          <p class="gsh-cont-1">菠菜 | 2018年02月22日</p>
-          <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
-        </div>
-        <div class="col-md-4">
-          <div class="recommend-img">
-            <%= image_tag 'gsh-img-1.png' %>
-          </div>
-          <p class="gsh-cont-1">菠菜 | 2018年02月22日</p>
-          <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
-        </div>
-        <div class="col-md-4">
-          <div class="recommend-img">
-            <%= image_tag 'gsh-img-1.png' %>
-          </div>
-          <p class="gsh-cont-1">菠菜 | 2018年02月22日</p>
-          <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
-        </div>
-        <div class="col-md-4">
-          <div class="recommend-img">
-            <%= image_tag 'gsh-img-1.png' %>
-          </div>
-          <p class="gsh-cont-1">菠菜 | 2018年02月22日</p>
-          <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
-        </div>
-        <div class="col-md-4">
-          <div class="recommend-img">
-            <%= image_tag 'gsh-img-1.png' %>
-          </div>
-          <p class="gsh-cont-1">菠菜 | 2018年02月22日</p>
-          <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
-        </div>
-        <div class="col-md-4">
-          <div class="recommend-img">
-            <%= image_tag 'gsh-img-1.png' %>
-          </div>
-          <p class="gsh-cont-1">菠菜 | 2018年02月22日</p>
-          <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
-        </div>
+        <% end %>
       </div>
     </div>
   </div>
   <div class="project-foot">
-    <span class="iconfont icon-arrow-left cur"></span>
-    <span class="iconfont icon-arrow-right cur"></span>
+    <%= paginate @articles, theme: :tiny%>
   </div>
   <div class="camps-share border-t" >
     <p style="margin: 30px auto 0 auto;">分享</p>

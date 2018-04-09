@@ -5,20 +5,60 @@
       <%= image_tag 'gsh-icon-school.png' %>
       <p class="gsh-plus-c-t">学校申请</p>
       <p class="gsh-plus-c-n">可参与公益活动</p>
-      <div class="gsh-plus-c-but">审核中</div>
+      <% if current_user.has_role?(:headmaster) %>
+        <% if current_user.school.pass? %>
+          <div class="gsh-plus-c-but">审核通过</div>
+        <% elsif current_user.school.reject? %>
+          <div class="gsh-plus-c-but">审核未通过</div>
+        <% elsif current_user.school.submit? %>
+          <div class="gsh-plus-c-but">审核中</div>
+        <% end %>
+      <% elsif current_user.has_role?(:teacher) %>
+        <% if current_user.teacher.school.pass? %>
+          <div class="gsh-plus-c-but">审核通过</div>
+        <% elsif current_user.teacher.school.reject? %>
+          <div class="gsh-plus-c-but">审核未通过</div>
+        <% elsif current_user.teacher.school.submit? %>
+          <div class="gsh-plus-c-but">审核中</div>
+        <% end %>
+      <% elsif current_user.create_school.present? %>
+        <% if current_user.create_school.pass? %>
+          <div class="gsh-plus-c-but">审核通过</div>
+        <% elsif current_user.create_school.reject? %>
+          <div class="gsh-plus-c-but">审核未通过</div>
+        <% elsif current_user.create_school.submit? %>
+          <div class="gsh-plus-c-but">审核中</div>
+        <% end %>
+      <% else%>
+        <div class="gsh-plus-c-but">可申请</div>
+      <% end %>
     </div>
     <div>
       <%= image_tag 'gsh-icon-vol.png' %>
       <p class="gsh-plus-c-t">志愿者申请</p>
       <p class="gsh-plus-c-n">通过后可申请项目</p>
-      <div class="gsh-plus-c-but">审核通过</div>
+      <% if current_user.has_role?(:volunteer) %>
+        <% if current_user.volunteer.pass? %>
+          <div class="gsh-plus-c-but">审核通过</div>
+        <% elsif current_user.volunteer.reject? %>
+          <div class="gsh-plus-c-but">审核未通过</div>
+        <% elsif current_user.volunteer.submit? %>
+          <div class="gsh-plus-c-but">审核中</div>
+        <% end %>
+      <% else %>
+        <div class="gsh-plus-c-but">可申请</div>
+      <% end %>
     </div>
     <div>
       <%= image_tag 'gsh-icon-child.png' %>
       <p class="gsh-plus-c-t">格桑花孩子</p>
       <p class="gsh-plus-c-n">我曾经是格桑花孩子</p>
-      <div class="gsh-plus-c-but">已加入</div>
+      <% if current_user.has_role?(:gsh_child) %>
+        <div class="gsh-plus-c-but">已加入</div>
+      <% else %>
+        <div class="gsh-plus-c-but">可加入</div>
+      <% end %>
     </div>
   </div>
-<p class="gsh-plus-foot">返回个人中心</p>
+<%= link_to account_orders_path do %><p class="gsh-plus-foot">返回个人中心</p><% end %>
 </div>

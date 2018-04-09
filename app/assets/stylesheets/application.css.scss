@@ -4691,7 +4691,7 @@ select:disabled {
 }
 
 .posscroll {
-  height: 800px;
+  height: 100%;
   overflow: auto;
 
 }
@@ -4784,7 +4784,7 @@ select:disabled {
 
 .school-apply-share-sub {
   outline: none !important;
-  width: 120px;
+  width: 100px;
   height: 34px;
   text-align: center;
   line-height: 33px;
@@ -4795,6 +4795,7 @@ select:disabled {
   border: none;
   box-shadow: none;
   border-radius: 3px;
+
   & > span {
     font-size: 13px;
     margin-top: 1px;
@@ -5215,19 +5216,6 @@ select:disabled {
     margin-top: 7px;
     width: 100px;
   }
-
-  .school-feed{
-    & > img{
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      margin-right: 10px;
-    }
-    & > span{
-      font-size: 13px;
-      color: #d7d7d7;
-    }
-  }
   .feedback-cont-cco{
     padding-left: 24px;
     .feedback-cont-c-tit {
@@ -5246,8 +5234,49 @@ select:disabled {
 
     }
   }
+}
+.school-feed{
+  & > img{
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  & > span{
+    font-size: 13px;
+    color: #d7d7d7;
+  }
+}
+#feedback-shows{
+  .school-apply-pair-table-cont {
+    padding: 16px 20px 6px 20px;
+  }
+  .plat-school-apply-pair .school-feed{
+    margin: 10px 0 20px 0;
+  }
+  .feedback-shows-img{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap ;
+    & > div{
+      width: 211px;
+      height: 143px;
+      margin-top: 10px;
+      margin-left: 20px;
+      margin-bottom: 10px;
 
-
+      img{
+        width: 211px;
+        height: 143px;
+      }
+    }
+    & > div:first-child{
+      margin-left:0;
+    }
+    & > div:nth-child(3n+1){
+      margin-left:0;
+    }
+  }
 }
 //学校资料
 #school-edit{
@@ -5348,13 +5377,7 @@ select:disabled {
       height: 40px;
       margin-bottom: 20px;
       position: relative;
-      .scool-edit-name{
-        background-color: #eeeeee;
-        font-size: 14px;
-        color: #2a2a2c;
-        line-height: 40px;
-        text-indent: 1em;
-      }
+
       & > span {
         flex: 1;
         margin: 0 40px 0 0;
@@ -5384,7 +5407,16 @@ select:disabled {
         .selector-item:nth-child(1){
           width: 213px;
         }
-
+        .scool-edit-name{
+          width: 100%;
+          background-color: #eeeeee;
+          font-size: 14px;
+          color: #2a2a2c;
+          line-height: 40px;
+          text-indent: 1em;
+          text-align: left;
+          cursor:not-allowed;
+        }
         .income-moy {
           position: absolute;
           left: 290px;
@@ -5395,4 +5427,217 @@ select:disabled {
       }
     }
   }
+}
+//教师管理列表
+#teachers {
+  padding: 10px 0 20px 0 !important;
+  .paddchild {
+    padding: 0 34px;
+  }
+  .school-apply-share-sub{
+    margin-top: 7px;
+  }
+  .children-body {
+    .donations-1 {
+      position: relative;
+      padding: 26px 0 16px 0;
+      border-bottom: 1px solid $border;
+    }
+    .donations1 {
+      & > li {
+        float: left;
+        width: 130px;
+        height: 16px;
+        line-height: 16px;
+        font-size: 14px;
+        color: #3d3d40;
+        text-align: center;
+      }
+      .selectedDo {
+        font-weight: 600;
+      }
+    }
+    .bottomline {
+      position: absolute;
+      left: 40px;
+      bottom: -1px;
+      width: 40px;
+      height: 3px;
+      background: $color-button;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+    }
+  }
+  .school-apply-pair-table-cont {
+    & > div:nth-child(1) {
+      flex: 2.19;
+    }
+    & > div:nth-child(2) {
+      flex: 1.1;
+      flex-wrap:wrap;
+      text-align: left;
+      padding: 10px 20px;
+      span{
+        padding: 2px 9px;
+        color: #3d3d40;
+        font-size: 13px;
+        background-color: #f2f2f2;
+        margin-right:0;
+        margin-left: 10px;
+        margin-bottom: 10px;
+
+      }
+      & > span:first-child{
+        margin-left: 0;
+      }
+      & > span:nth-child(3n+1){
+        margin-left: 0;
+      }
+    }
+    & > div:nth-child(3) {
+      padding: 10px 0;
+      flex: .82;
+      & > button:nth-child(2) {
+        outline: none;
+        background-color: #fff;
+        width: 101px;
+        height: 30px;
+        line-height: 28px;
+        border: 1px solid #fff;
+        font-size: 13px;
+        color: #3d3d40;
+        border-radius: 2px;
+        margin-bottom: 10px;
+      }
+      & > button:nth-child(1) {
+        outline: none;
+        background-color: #fff;
+        width: 101px;
+        height: 30px;
+        line-height: 28px;
+        border: 1px solid $color-border;
+        font-size: 13px;
+        color: $color-border;
+        border-radius: 2px;
+      }
+    }
+
+  }
+  .school-apply-pair-child {
+
+    & > div:nth-child(1) {
+      margin: 0;
+      & > img {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+      }
+    }
+    & > div:nth-child(2) {
+      margin-left: 15px;
+      & > p:nth-child(1) {
+        & > span:nth-child(1) {
+          font-size: 16px;
+          color: #2a2a2c;
+          font-weight: 500;
+        }
+        & > span:nth-child(2) {
+          font-size: 13px;
+          color: #3d3d40;
+        }
+      }
+      & > p:nth-child(2) {
+        font-size: 14px;
+        color: #3d3d40;
+      }
+    }
+    & > div:nth-child(3){
+      font-size: 13px;
+      color: #3d3d40;
+      margin-left: 0;
+    }
+  }
+  .school-apply-pair-table {
+    margin: 10px 0 10px 0;
+    & > p:nth-child(1) {
+      flex: 2.1;
+    }
+    & > p:nth-child(2) {
+      flex: 1;
+    }
+    & > p:nth-child(3) {
+      flex: .75;
+    }
+  }
+
+}
+//  多选
+.posarrowdown{
+  position: absolute;
+  right:0;
+  top:0;
+  margin: 0 20px 0 0!important;
+}
+.posarrmarl{
+  position: absolute;
+  left: 110px;
+  top: 34px;
+  font-size: 13px;
+  color: #8d8d8d;
+  margin: 0!important;
+
+}
+.drop {
+  width:452px;
+  height:auto;
+  border: 1px solid $border;
+  border-radius: 3px;
+  z-index: 2;
+}
+.drop-header {
+  width:100%;
+  padding:7px 10px;
+  word-wrap:break-word;
+  height: 40px;
+}
+.drop-header > span {
+  position:relative;
+  display:inline-block;
+  padding-right:5px;
+  padding-left:5px;
+  margin:1px 5px 1px;
+  line-height:20px;
+  background-color:#a9a9a9;
+  color:#fff;
+  cursor:pointer;
+  border-radius: 3px;
+  .iconfont{
+    margin-right: 0;
+    margin-left: 5px;
+    font-size: 12px;
+  }
+}
+.drop-dwon {
+  position:absolute;
+  width:100%;
+  height:auto;
+  line-height:25px;
+  border: 1px solid $border;
+  border-radius: 3px;
+  max-height:200px;
+  overflow-y:auto;
+  overflow-x:hidden;
+  background-color: #fff;
+}
+.drop-dwon li {
+  padding:5px 10px;
+  cursor:pointer;
+}
+.drop-dwon li:hover,.drop-dwon li.active:hover {
+  color:#fff;
+  background-color:$color-border;
+}
+.drop-dwon li.active {
+  color:#fff;
+  background-color:$color-border;
 }

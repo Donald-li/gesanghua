@@ -1,0 +1,14 @@
+<h1>支付页</h1>
+
+<p>
+  <%= link_to '支付宝支付', @ali_pay_url %>
+</p>
+
+<p>
+  微信支付
+  <div id="qrcode"></div>
+</p>
+
+<script type="text/javascript">
+  $('#qrcode').qrcode("<%= @wechat_code_url %>");
+</script>

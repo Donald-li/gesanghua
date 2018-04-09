@@ -1,0 +1,256 @@
+<div class="person-body-right pull-right" id="addchildrenlist">
+  <div class="paddchild marginbottom">
+    <p class="don-title">
+      <span class="pull-left">新增教师</span>
+      <span class="pull-right iconfont icon-arrow-right"></span>
+      <span class="pull-right">返回</span>
+    </p>
+  </div>
+  <div class="addchild-list marginbottom" style="padding: 10px 34px 20px 34px;">
+    <div class="addchild-list-img">
+      <%= image_tag 'gsh-img-right.png' %>
+      <div></div>
+      <span>上传正面照</span>
+    </div>
+    <p class="don-title">基本信息</p>
+    <div class="addchild-list-cont">
+      <div>
+        <span class="goodtext">真实姓名</span>
+        <input class="goodinput " type="text"/>
+      </div>
+      <div>
+        <span class="goodtext">身份证号</span>
+        <input class="goodinput " type="text"/>
+      </div>
+      <div>
+        <span class="goodtext">民族</span>
+        <div id="doodname">
+          <select id="allcamps">
+            <option value="1"></option>
+            <option value="2">成功2</option>
+            <option value="3">成功3</option>
+            <option value="4">成功4</option>
+            <option value="5">失败5</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <span class="goodtext">QQ号</span>
+        <input class="goodinput " type="text"/>
+      </div>
+      <div>
+        <span class="goodtext">微信号</span>
+        <input class="goodinput " type="text"/>
+      </div>
+      <div>
+        <span class="goodtext">联系方式</span>
+        <input class="goodinput " type="text" placeholder="填写班主任联系方式"/>
+      </div>
+      <div  style="position: relative;">
+        <span class="goodtext">联系方式</span>
+        <div class="drop" id="drop"></div>
+        <span class="iconfont icon-arrowdown pull-right posarrowdown"></span>
+        <span class="posarrmarl">*项目权限可多选*</span>
+      </div>
+
+
+    </div>
+  </div>
+
+  <div class="childern-submint">
+    <button>保存</button>
+    <button>取消</button>
+  </div>
+
+</div>
+<script>
+    $("#allcamps").select({
+        width: "452px"
+    });
+
+    $(function () {
+
+        dropDwon({
+            id: 'drop',
+            myData: {
+                name1: {
+                    val: '111',
+                    selected: true,
+                },
+                name2: {
+                    val: '222',
+                },
+                name3: {
+                    val: '333'
+                }
+            }
+        })
+
+    })
+    //下拉多选
+    function dropDwon(option) {
+        function drop(def) {
+            this.name = def.id;
+            this.init();
+        };
+        drop.prototype = {
+            init: function () {
+                this.list();
+                this.myClick();
+            },
+            //添加下拉框到页面中
+            list: function () {
+                var id = '#' + this.name;
+                var header = '<div class="drop-header" type="' + def.type + '"></div>';
+                //默认下拉框选项
+                $(id).append(header);
+                if (def.type == 'single') {
+                    for (var key in def.myData) {
+                        if (def.myData[key].selected == true) {
+                            var headerTxt = def.myData[key].val;
+                            $(id).find('.drop-header').text(headerTxt)
+                        }
+                        ;
+                    }
+                    ;
+                }
+                ;
+                var newPo = $(id).offset();
+                var newW = parseInt($(id).css('width'));
+                var newH = parseInt($(id).css('height'));
+                $('.drop-dwon').css({
+                    width: newW + 'px',
+                    top: newPo.top + newH + 'px',
+                    left: newPo.left + 'px'
+                });
+            },
+            //下拉框点击事件
+            myClick: function () {
+                var self = this;
+                var name = this.name;
+                var id = '#' + this.name;
+                $(id).click(function (e) {
+                    e.stopPropagation();
+                    $('.drop-dwon').remove();
+                    var _this = $(this);
+                    var lists, drop;
+                    lists = '';
+                    for (var key in def.myData) {
+                        lists += '<li value="' + key + '" sel="">' + def.myData[key].val + '</li>';
+                    }
+                    ;
+                    var drop = '<ul class="drop-dwon" id="' + name + 'con">' + lists + '</ul>';
+                    $('body').append(drop);
+                    self.position('.drop-dwon');
+                    //改变屏幕宽度的时候，重新计算下拉框内容的位置
+                    window.onresize = function () {
+                        self.position('.drop-dwon');
+                    };
+                    if (def.type == 'sigle') {
+                        self.sinClick();
+                    } else if (def.type == 'multi') {
+                        self.mltClick();
+                    }
+                });
+            },
+            //计算下拉框内容的位置
+            position: function (obj) {
+                var id = '#' + this.name;
+                var myPo = $(id).offset();
+                var myW = parseInt($(id).css('width'));
+                var myH = parseInt($(id).css('height')) - 1;
+                $(obj).css({
+                    top: myPo.top + myH + 'px',
+                    left: myPo.left + 'px',
+                    width: myW + 'px',
+                });
+            },
+            sinClick: function () {
+                var name = this.name;
+                var id = '#' + name + 'con';
+                $(id).on('click', 'li', function (e) {
+                    e.stopPropagation();
+                    $('#' + name).find('.drop-header').text($(this).text())
+                });
+                $(document).click(function () {
+                    $(id).remove();
+                });
+            },
+            mltClick: function () {
+                var self = this;
+                var name = this.name;
+                var id = '#' + name + 'con';
+                var header = $('#' + name).find('.drop-header');
+                $(id).on('click', 'li', function (e) {
+                    e.stopPropagation();
+                    var sel = $(this).attr('sel');
+                    if (sel == 'true') {
+                        $(this).removeClass('active');
+                        $(this).attr('sel', false);
+                        var rem = $(this).attr('value');
+                        header.find('span').each(function () {
+                            if ($(this).attr('vel') == rem) {
+                                $(this).remove();
+                            }
+                            ;
+                        });
+                    } else {
+                        $(this).addClass('active');
+                        $(this).attr('sel', true);
+                        var txt = '<span vel="' + $(this).attr('value') + '">' + $(this).text() + '<i class="iconfont icon-ico-delete"></i>' + '</span>';
+                        header.append(txt);
+                    }
+                    ;
+                    self.position('.drop-dwon');
+                    self.mtlRemove();
+                });
+                $(document).click(function () {
+                    $(id).remove();
+                });
+            },
+            mtlRemove: function () {
+                var self = this;
+                var name = this.name;
+                var id = '#' + name;
+                $(id + ' ' + 'span').click(function (e) {
+                    e.stopPropagation();
+                    var _this = $(this);
+                    var vle = _this.attr('vel');
+                    _this.remove();
+                    $(id + 'con li').each(function () {
+                        var vleLi = $(this).attr('value');
+                        if (vleLi == vle) {
+                            $(this).removeClass('active');
+                            $(this).attr('sel', false);
+                        }
+                        ;
+                    });
+                    self.position('.drop-dwon');
+                });
+            },
+        };
+        var def = {
+            type: 'multi', //multi:多选；sigle：单选
+            myData: {
+                name1: {
+                    val: '默认选中',
+                    selected: true,
+                },
+                name2: {
+                    val: '下拉1',
+                },
+                name3: {
+                    val: '下拉2'
+                },
+                name4: {
+                    val: '下拉3'
+                },
+            },
+        };
+        def = $.extend(def, option);
+        new drop(def);
+    }
+
+</script>
+
+
