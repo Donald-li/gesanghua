@@ -4,4 +4,5 @@ class Platform::MainsController < Platform::School::BaseController
   def show
 
   end
+
 end

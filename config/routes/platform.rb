@@ -6,8 +6,10 @@ namespace :platform do
     resource :teacher_profile, only: [:edit, :update]
     namespace :apply do
       resources :pairs do
-        member do
-          resources :children
+        resources :children do
+          collection do
+            get :child_list
+          end
         end
       end
       resources :reads
