@@ -1,6 +1,6 @@
 namespace :account do
-  get '/login' => 'sessions#new', as: :login
-  match '/logout', to: 'sessions#destroy', as: :logout, via: :delete
+  get '/login' => 'sessions#new', as: :login_in
+  match '/logout', to: 'sessions#destroy', as: :logout_out, via: :delete
   resource :session, only: [:create, :edit, :update] do
     member do
       get :forget
