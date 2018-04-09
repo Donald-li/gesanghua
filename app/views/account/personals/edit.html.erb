@@ -1,102 +1,16 @@
-<div class="person-body-right pull-right">
-  <!--个人中心-->
-  <div class="main">
-    <div class="panel form-panel">
-      <div class="panel-body">
-        <form class="form-horizontal" id="wechat_form" action="/wechats" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="SqsJaTcXbY4kuh8uAo000VtXgDOBfhwWQCVeQGZ0hGOWGIy+5I9UOPqgJBp/Es1xBs3+2+beM4FeO+An1lAknw==">
-          <input type="hidden" name="wechat[id]" id="wechat_id">
-
-
-          <div class="col-lg-6">
-            <div class="col-sm-offset-0 col-sm-13">
-
-              <div class="bs-component">
-                <img src="/assets/ucenter-picture-1c8d46e5a1bcdaabb62debdee4853616d94720820ed40ee03d6d6ef939a8fbd3.png" alt="" >
-                <a href="javascript:;" class="a-upload" style="margin-left: 50px;">
-                  <input multiple="multiple" type="file" id="upload_file" info="user" kind="image" style="width: 81px;">
-                </a>
-              </div>
-              <%#= hidden_field_tag "upload_name", @user.avatar %>
-            </div>
-          </div>
-
-
-          <!--<div class="form-group">-->
-            <!--<div class="col-lg-6">-->
-              <!--<div class="col-sm-offset-0 col-sm-13">-->
-                <!--<div class="custom-file">-->
-                  <!--<input type="file" class="custom-file-input" id="validatedCustomFile" required>-->
-                  <!--<label class="custom-file-label" for="validatedCustomFile">Choose file...</label>-->
-                <!--</div>-->
-              <!--</div>-->
-              <!--<div id="upload_status"></div>-->
-            <!--</div>-->
-            <!--<div class="col-lg-6">-->
-              <!--<div class="col-sm-offset-0 col-sm-13">-->
-                <!--<%#= display_upload_image(@user.avatar, "upload_photo_url") %>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
-
-          <div class="form-group">
-            <label for="inputStandard" class="col-md-3 control-label"><label for="wechat_name">名称</label></label>
-            <div class="col-md-6">
-              <div class="bs-component">
-                <input class="form-control" placeholder="请输入账户名称" type="text" name="wechat[name]" id="wechat_name">
-              </div>
-            </div>
-
-          </div>
-
-
-            <div class="form-group">
-              <label for="inputStandard" class="col-md-3 control-label"><label for="wechat_wechat_type">微信账户类型</label></label>
-              <div class="col-md-6">
-                <div class="bs-component">
-                  <select class="form-control" name="wechat[wechat_type]" id="wechat_wechat_type"><option value="1">服务号</option>
-                    <option value="2">订阅号</option></select>
-                </div>
-              </div>
-
-            </div>
-
-            <div class="form-group">
-              <label for="inputStandard" class="col-md-3 control-label"><label for="wechat_appsecret">AppSecret</label></label>
-              <div class="col-md-6">
-                <div class="bs-component">
-                  <input class="form-control" placeholder="请输入AppSecret" type="text" value="" name="wechat[appsecret]" id="wechat_appsecret">
-                </div>
-              </div>
-
-            </div>
-
-
-          <div class="form-group">
-            <label for="inputStandard" class="col-md-3 control-label"><label for="wechat_desc">描述</label></label>
-            <div class="col-md-6">
-              <div class="bs-component">
-                <textarea class="form-control" placeholder="请输入描述" name="wechat[desc]" id="wechat_desc"></textarea>
-              </div>
-            </div>
-          </div>
-          <div class="panel-footer text-center">
-            <input id="save_form_btn" name="commit" value="确定" method="post" type="button" class="btn btn-primary ph25">
-            <a class="btn btn-default ph25" href="/wechats">取消</a>
-            <div style="clear:both"></div>
-          </div>
-        </form>
-
+<div class="person-body-right pull-right  portlet light portlet-form bordered">
+  <div class="portlet-title">
+    <div class="title">
+      <h6>个人资料</h6>
+    </div>
+    <div class="actions">
+      <div class="portlet-input input-inline input-small">
+        <div class="input-icon right">
+        </div>
       </div>
     </div>
   </div>
-
+  <div class="portlet-body form">
+    <%= render 'form' %>
+  </div>
 </div>
-
-<style>
-
-  .avatar {
-    width: 100px;
-    height: 100px;
-    display: block;
-  }
-</style>

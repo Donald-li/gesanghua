@@ -49,26 +49,28 @@
             </tr>
           </thead>
           <tbody>
-            <% @camp_users.each do |cate| %>
+            <% @camp_users.each do |user| %>
             <tr>
               <td>
-                <%= cate.nickname %>
+                <%= user.nickname %>
               </td>
               <td>
-                <%= cate.name %>
+                <%= user.name %>
               </td>
               <td>
-                <%= cate.phone %>
+                <%= user.phone %>
               </td>
               <td>
-                <%= cate.enum_name(:state) %>
+                <%= user.enum_name(:state) %>
               </td>
               <td>
-                <%= link_to edit_admin_camp_camp_user_path(@camp, cate), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                <%= link_to edit_admin_camp_camp_user_path(@camp, user), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                   <i class="fa fa-edit"></i> 修改
                 <% end %>
-                <%= link_to admin_camp_camp_user_path(@camp, cate), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                <% if @camp.users.count > 1 %>
+                <%= link_to admin_camp_camp_user_path(@camp, user), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                    <i class="fa fa-trash-o"></i> 删除
+               <% end %>
                <% end %>
               </td>
             </tr>

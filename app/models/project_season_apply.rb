@@ -102,7 +102,7 @@ class ProjectSeasonApply < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
-  enum audit_state: {submit: 1, pass: 2, reject: 3}#审核状态 1:待审核 2:审核通过 3:审核不通过
+  enum audit_state: {draft: 0, submit: 1, pass: 2, reject: 3}#审核状态 0:待提交 1:待审核 2:审核通过 3:审核不通过
   default_value_for :audit_state, 1
 
   enum pair_state: {waiting_upload: 1, waiting_check: 2, pair_complete: 3}

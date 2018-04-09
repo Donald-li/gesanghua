@@ -1,0 +1,98 @@
+<% binding.pry %>
+<%= simple_form_for [:account, @persional], url: account_personal_path(@persional), wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'personal_form'} do |f| %>
+    <%= f.error_notification %>
+    <div class="form-body form-horizontal">
+      <div class="form-group" style="margin-top: 50px;">
+        <div class="col-sm-3" style="margin-left: 200px;">
+          <%= webuploader_tag :avatar_id, label: '上传头像', type: 'user_avatar', asset: @persional.avatar, klass: 'single' %>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputStandard" class="col-md-3 control-label">昵称：</label>
+        <div class="col-md-5 control-field">
+          <div class="bs-component">
+            <%= f.input_field :nickname, class: 'form-control', placeholder: "请填写用户昵称", required: true %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputStandard" class="col-md-3 control-label">真实姓名：</label>
+        <div class="col-md-5 control-field">
+          <div class="bs-component">
+            <%= f.text_field :name, class: 'form-control', placeholder: "请填写真实姓名", required: true %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputStandard" class="col-md-3 control-label">如何称呼：</label>
+        <div class="col-md-5 control-field">
+          <div class="bs-component">
+            <%= f.text_field :salutation, class: 'form-control', placeholder: "孩子们如何称呼我", required: true %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputStandard" class="col-md-3 control-label">性别：</label>
+        <div class="col-md-5 control-field">
+          <div class="bs-component">
+            <%= f.select :gender, User.options_for_select(:genders, raw: false), class: 'form-control' %>
+          </div>
+        </div>
+      </div>
+      <h6>收货地址</h6>
+      <div class="form-group">
+        <label for="inputStandard" class="col-md-3 control-label">收货人：</label>
+        <div class="col-md-5 control-field">
+          <div class="bs-component">
+            <%= f.text_field :consignee, class: 'form-control', placeholder: "请填写收货人姓名" %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputStandard" class="col-md-3 control-label">联系电话：</label>
+        <div class="col-md-5 control-field">
+          <div class="bs-component">
+            <%= f.text_field :phone, class: 'form-control', placeholder: "请填写联系电话" %>
+          </div>
+        </div>
+      </div>
+      <div style="margin-bottom: 20px;" class="form-group">
+        <label class="col-md-3 control-label select required" for="project_category_id">收货地址：</label>
+        <div class="col-sm-5 control-field">
+          <div class="row city-group">
+            <div class="col-sm-4">
+              <%= select_tag 'user[province]', options_for_select(ChinaCity.list, @persional.province.presence), prompt: '省份', class: "form-control city-select" %>
+            </div>
+            <div class="col-sm-4">
+              <%= select_tag 'user[city]', options_for_select(ChinaCity.list(@persional.province.to_s), @persional.city.presence), prompt: '城市', class: "form-control city-select" %>
+            </div>
+            <div class="col-sm-4">
+              <%= select_tag 'user[district]', options_for_select(ChinaCity.list(@persional.city.to_s), @persional.district.presence), prompt: '地区', class: "form-control city-select" %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputStandard" class="col-md-3 control-label">详细地址：</label>
+        <div class="col-md-5 control-field">
+          <div class="bs-component">
+            <%= f.text_area :address, class: 'form-control', placeholder: "请填写详细地址" %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" style="padding-top: 40px;">
+        <div class="row">
+          <div class="col-sm-2" style="margin-left: 268px;">
+            <%= f.button :submit, '提交', class: 'btn btn-primary small glow' %></div>
+          <div class="col-sm-2"><%= link_to '取消', admin_users_path, class: 'btn btn-default small glow' %></div>
+        </div>
+      </div>
+    </div>
+
+<% end %>
+
+<script>
+  $(function () {
+    initImageWebuploader($('#webuploader'));
+  })
+</script>

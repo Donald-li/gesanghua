@@ -8,7 +8,7 @@ end
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.1'
 # Use sqlite3 as the database for Active Record
-gem 'pg'
+gem 'pg', '~> 0.20'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets
@@ -123,7 +123,10 @@ gem 'alipay', '~> 0.15.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'pry-rails'                   # Open pry instead of IRB when use rails console
+  gem 'pry-byebug'
+  gem "pry-nav"
+  #gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 
   # 测试
   gem 'rspec-rails', '~> 3.5'
@@ -155,9 +158,9 @@ group :development do
   gem 'mina-sidekiq', require: false
   gem 'mina-multistage', require: false
 
-  ##断点调试
-  gem 'pry-rails'                   # Open pry instead of IRB when use rails console
-  gem 'pry-byebug'
+  # ##断点调试
+  # gem 'pry-rails'                   # Open pry instead of IRB when use rails console
+  # gem 'pry-byebug'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

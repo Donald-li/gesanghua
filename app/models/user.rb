@@ -43,7 +43,7 @@
 require 'custom_validators'
 class User < ApplicationRecord
   include HasBitEnum
-  ROLES = %i[superadmin admin project_manager project_operator financial_staff volunteer county_user gsh_child custom_service headmaster teacher]
+  ROLES = %i[superadmin admin project_manager project_operator financial_staff volunteer county_user gsh_child custom_service headmaster teacher camp_manager]
   has_bit_enum :role, ROLES
 
   attr_accessor :avatar_id

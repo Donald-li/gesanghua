@@ -19,7 +19,9 @@ class Admin::CampsController < Admin::BaseController
     user = User.find(camp_params[:manager_id])
     respond_to do |format|
       if @camp.save
-        user.update(camp_id: @camp.id)
+        user.camp_id = @camp.id
+        user.add_role(:camp_manager)
+        user.save
         format.html { redirect_to admin_camps_path, notice: '新增成功。' }
       else
         format.html { render :new }

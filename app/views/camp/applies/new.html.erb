@@ -1,0 +1,17 @@
+<div class="portlet light bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-note"></i>
+      <span class="caption-subject">新增营立项</span>
+      <span class="caption-helper"></span>
+    </div>
+    <div class="actions">
+      <%= link_to camp_applies_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+        <i class="fa fa-reply"></i> <span>返回</span>
+      <% end %>
+    </div>
+  </div>
+  <div class="portlet-body form">
+    <%= render 'form' %>
+  </div>
+</div>
