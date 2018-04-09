@@ -21,7 +21,7 @@ class Api::V1::CampsController < Api::V1::BaseController
   end
 
   def apply_camp
-    api_success(data: {apply: @apply.detail_builder, list: @apply.inventories.map{|i| i.summary_builder}})
+    api_success(data: {apply: @apply.detail_builder, list: @apply.inventories.map{|i| i.summary_builder}, tabs: Project.camp_project.donate_item.summary_builder})
   end
 
   def member

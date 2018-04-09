@@ -4,7 +4,7 @@
     <p class="don-title border-b ">
       <span class="pull-left">审核学生名单</span>
       <span class="pull-right iconfont icon-arrow-right"></span>
-      <span class="pull-right">返回项目管理</span>
+      <span class="pull-right"><%= link_to platform_school_apply_pairs_path do %>返回项目管理<% end %></span>
     </p>
     <div class="donations-1" >
       <ul class="donations1 clearfix">
@@ -19,222 +19,37 @@
         <p>申请年度</p>
         <p>申请状态</p>
       </div>
-      <div class="school-apply-pair-tables">
-        <div class="schools-apply-pair-table-cont">
-          <div class="schools-apply-pair-child clearfix">
-            <div class="pull-left">
-              <%= image_tag 'gsh-img-right.png' %>
-            </div>
-            <div class="pull-left">
-              <p>
-                <span>赵雷</span>
-                <span>17岁 | 男</span>
-              </p>
-              <p>合作市藏族中学 初中 二年级</p>
-            </div>
+      <% @children.each do |child| %>
+        <div class="school-apply-pair-tables">
+          <div class="schools-apply-pair-table-cont">
+            <div class="schools-apply-pair-child clearfix">
+              <div class="pull-left">
+                <%= image_tag child.avatar.try(:file).try(:url, :tiny).to_s %>
+              </div>
+              <div class="pull-left">
+                <p>
+                  <span><%= child.name %></span>
+                  <span><%= child.age %>岁 | <%= child.enum_name(:gender) %></span>
+                </p>
+                <p><%= child.apply.school.name %> <%= child.enum_name(:level) %> <%= child.enum_name(:grade) %></p>
+              </div>
 
-          </div>
-          <div class="border-l border-r">
-            <p>2018-2019学年
-              2019-2020学年</p>
-          </div>
-          <div>
-            <p>审核通过</p>
+            </div>
+            <div class="border-l border-r">
+              <% if child.present? %>
+              <p>
+                <% child.gsh_child_grants.sorted.each do |grant| %>
+                  <%= grant.title %>
+                <% end %>
+              </p>
+              <% end %>
+            </div>
+            <div>
+              <p><%= child.enum_name(:approve_state) %></p>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="school-apply-pair-tables">
-        <div class="schools-apply-pair-table-cont">
-          <div class="schools-apply-pair-child clearfix">
-            <div class="pull-left">
-              <%= image_tag 'gsh-img-right.png' %>
-            </div>
-            <div class="pull-left">
-              <p>
-                <span>赵雷</span>
-                <span>17岁 | 男</span>
-              </p>
-              <p>合作市藏族中学 初中 二年级</p>
-            </div>
-
-          </div>
-          <div class="border-l border-r">
-            <p>2018-2019学年
-              2019-2020学年</p>
-          </div>
-          <div>
-            <p>审核通过</p>
-          </div>
-        </div>
-      </div>
-      <div class="school-apply-pair-tables">
-        <div class="schools-apply-pair-table-cont">
-          <div class="schools-apply-pair-child clearfix">
-            <div class="pull-left">
-              <%= image_tag 'gsh-img-right.png' %>
-            </div>
-            <div class="pull-left">
-              <p>
-                <span>赵雷</span>
-                <span>17岁 | 男</span>
-              </p>
-              <p>合作市藏族中学 初中 二年级</p>
-            </div>
-
-          </div>
-          <div class="border-l border-r">
-            <p>2018-2019学年
-              2019-2020学年</p>
-          </div>
-          <div>
-            <p>审核通过</p>
-          </div>
-        </div>
-      </div>
-      <div class="school-apply-pair-tables">
-        <div class="schools-apply-pair-table-cont">
-          <div class="schools-apply-pair-child clearfix">
-            <div class="pull-left">
-              <%= image_tag 'gsh-img-right.png' %>
-            </div>
-            <div class="pull-left">
-              <p>
-                <span>赵雷</span>
-                <span>17岁 | 男</span>
-              </p>
-              <p>合作市藏族中学 初中 二年级</p>
-            </div>
-
-          </div>
-          <div class="border-l border-r">
-            <p>2018-2019学年
-              2019-2020学年</p>
-          </div>
-          <div>
-            <p>审核通过</p>
-          </div>
-        </div>
-      </div>
-      <div class="school-apply-pair-tables">
-        <div class="schools-apply-pair-table-cont">
-          <div class="schools-apply-pair-child clearfix">
-            <div class="pull-left">
-              <%= image_tag 'gsh-img-right.png' %>
-            </div>
-            <div class="pull-left">
-              <p>
-                <span>赵雷</span>
-                <span>17岁 | 男</span>
-              </p>
-              <p>合作市藏族中学 初中 二年级</p>
-            </div>
-
-          </div>
-          <div class="border-l border-r">
-            <p>2018-2019学年
-              2019-2020学年</p>
-          </div>
-          <div>
-            <p>审核通过</p>
-          </div>
-        </div>
-      </div>
-      <div class="school-apply-pair-tables">
-        <div class="schools-apply-pair-table-cont">
-          <div class="schools-apply-pair-child clearfix">
-            <div class="pull-left">
-              <%= image_tag 'gsh-img-right.png' %>
-            </div>
-            <div class="pull-left">
-              <p>
-                <span>赵雷</span>
-                <span>17岁 | 男</span>
-              </p>
-              <p>合作市藏族中学 初中 二年级</p>
-            </div>
-
-          </div>
-          <div class="border-l border-r">
-            <p>2018-2019学年
-              2019-2020学年</p>
-          </div>
-          <div>
-            <p>审核通过</p>
-          </div>
-        </div>
-      </div>
-      <div class="school-apply-pair-tables">
-        <div class="schools-apply-pair-table-cont">
-          <div class="schools-apply-pair-child clearfix">
-            <div class="pull-left">
-              <%= image_tag 'gsh-img-right.png' %>
-            </div>
-            <div class="pull-left">
-              <p>
-                <span>赵雷</span>
-                <span>17岁 | 男</span>
-              </p>
-              <p>合作市藏族中学 初中 二年级</p>
-            </div>
-
-          </div>
-          <div class="border-l border-r">
-            <p>2018-2019学年
-              2019-2020学年</p>
-          </div>
-          <div>
-            <p>审核通过</p>
-          </div>
-        </div>
-      </div>
-      <div class="school-apply-pair-tables">
-        <div class="schools-apply-pair-table-cont">
-          <div class="schools-apply-pair-child clearfix">
-            <div class="pull-left">
-              <%= image_tag 'gsh-img-right.png' %>
-            </div>
-            <div class="pull-left">
-              <p>
-                <span>赵雷</span>
-                <span>17岁 | 男</span>
-              </p>
-              <p>合作市藏族中学 初中 二年级</p>
-            </div>
-
-          </div>
-          <div class="border-l border-r">
-            <p>2018-2019学年
-              2019-2020学年</p>
-          </div>
-          <div>
-            <p>审核通过</p>
-          </div>
-        </div>
-      </div>
-      <div class="school-apply-pair-tables">
-        <div class="schools-apply-pair-table-cont">
-          <div class="schools-apply-pair-child clearfix">
-            <div class="pull-left">
-              <%= image_tag 'gsh-img-right.png' %>
-            </div>
-            <div class="pull-left">
-              <p>
-                <span>赵雷</span>
-                <span>17岁 | 男</span>
-              </p>
-              <p>合作市藏族中学 初中 二年级</p>
-            </div>
-
-          </div>
-          <div class="border-l border-r">
-            <p>2018-2019学年
-              2019-2020学年</p>
-          </div>
-          <div>
-            <p>审核通过</p>
-          </div>
-        </div>
-      </div>
+      <% end %>
 
     </div>
   </div>
