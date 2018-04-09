@@ -8,16 +8,21 @@
     </p>
     <div class="donations-1" >
       <ul class="donations1 clearfix">
-        <li class="selectedDo cur">审核通过名单</li>
-        <li class="cur border-l">审核未通过名单</li>
+        <li class="selectedDo cur"><%= link_to '审核通过名单', platform_school_apply_pair_children_path(@apply, state: 'pass') %></li>
+        <li class="cur border-l"><%= link_to '审核未通过名单', platform_school_apply_pair_children_path(@apply, state: 'reject') %></li>
       </ul>
       <div class="bottomline"></div>
     </div>
     <div class="school-apply-pair-table-co">
       <div class="school-apply-pair-table">
         <p>学生信息</p>
+        <% if params[:state] == 'pass' %>
         <p>申请年度</p>
+        <% end %>
         <p>申请状态</p>
+        <% if params[:state] == 'reject' %>
+            <p>驳回理由</p>
+        <% end %>
       </div>
       <% @children.each do |child| %>
         <div class="school-apply-pair-tables">
@@ -35,7 +40,8 @@
               </div>
 
             </div>
-            <div class="border-l border-r">
+            <% if params[:state] == 'pass' %>
+            <div class="border-l">
               <% if child.present? %>
               <p>
                 <% child.gsh_child_grants.sorted.each do |grant| %>
@@ -44,9 +50,15 @@
               </p>
               <% end %>
             </div>
-            <div>
+            <% end %>
+            <div class="border-l">
               <p><%= child.enum_name(:approve_state) %></p>
             </div>
+            <% if params[:state] == 'reject' %>
+                <div class="border-l">
+                  <p><%= child.audits.last.try(:comment) %></p>
+                </div>
+            <% end %>
           </div>
         </div>
       <% end %>
@@ -66,7 +78,7 @@
     $(".donations1 li").on("click", function () {
         $(".donations1 li").removeClass("selectedDo")
         $(this).addClass("selectedDo")
-        $(".bottomline").css("left", parseFloat($(this)[0].offsetLeft) +40 +  "px")
+        $(".bottomline").css("left", parseFloat($(this)[0].offsetLeft) + 40 +  "px")
     })
     if($('.donation .donation-cont').length===0){
         $('.donation-cont-no').css('display', 'block')

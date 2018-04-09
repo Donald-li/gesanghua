@@ -29,7 +29,7 @@
       <div class="paddchild">
         <div class="school-apply-pair-table">
           <p>学生信息</p>
-          <p>申请年度</p>
+          <!--<p>申请年度</p>-->
           <p>操作</p>
         </div>
       </div>
@@ -55,12 +55,8 @@
                   </div>
 
                 </div>
-                <div class="border-l border-r">
-                  <% child.semesters.sorted.each do |grant| %>
-                      <p><%= grant.title %></p>
-                  <% end %>
-                </div>
-                <div class=" border-r">
+
+                <div class=" border-r border-l">
                   <button>填写推荐理由</button>
                 </div>
                 <div>
