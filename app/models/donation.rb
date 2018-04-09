@@ -82,7 +82,12 @@ class Donation < ApplicationRecord
 
   # 返回支付宝支付按钮
   def alipay_prepay_h5
-    return get_alipay_prepay_mweb
+    return get_alipay_prepay_url('wap')
+  end
+
+  # 返回PC端支付宝支付按钮
+  def alipay_prepay_page
+    return get_alipay_prepay_url('page')
   end
 
   # 计算开票金额
@@ -247,19 +252,28 @@ class Donation < ApplicationRecord
     return res['mweb_url']
   end
 
-  def get_alipay_prepay_mweb
-    require 'alipay'
-    notify_url = Settings.app_host + "/payment/alipay_payments/notify"
-    quit_url = Settings.app_host + '/m/'
-
-    @client = Alipay::Client.new(
-      url: Settings.alipay_api,
+  # 返回一个支付宝对象
+  def get_alipay_client
+    client = Alipay::Client.new(
+      url: 'https://openapi.alipaydev.com/gateway.do',
       app_id: Settings.alipay_app_id,
       app_private_key: Settings.alipay_app_private_key,
       alipay_public_key: Settings.alipay_public_key
     )
+    client
+  end
+
+  # 得到一个支付宝链接 type: {wap|page}
+  def get_alipay_prepay_url(type='wap')
+    require 'alipay'
+    notify_url = Settings.app_host + "/payment/alipay_payments/notify"
+    quit_url = Settings.app_host + '/m/'
+
+    method = "alipay.trade.#{type}.pay"
+
+    @client = get_alipay_client
     url = @client.page_execute_url(
-      method: 'alipay.trade.wap.pay',
+      method: method,
       return_url: quit_url,
       notify_url: notify_url,
       biz_content: {
