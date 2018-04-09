@@ -25,9 +25,9 @@
       <div class="don-co">
         <div class="don-co-but cur" >
           <% if @apply.waiting_upload? %>
-            <span><%= link_to platform_school_apply_child_path(@apply) do %>提交学生名单<% end %></span>
+            <%= link_to platform_school_apply_child_path(@apply) do %><span>提交学生名单</span><% end %>
           <% elsif @apply.pair_complete? %>
-            <span><%= link_to platform_school_apply_children_path(@apply) do %>查看学生名单<% end %></span>
+            <%= link_to platform_school_apply_children_path(@apply) do %><span>查看学生名单</span><% end %>
           <% else %>
             <span><%= @apply.enum_name(:audit_state) %></span>
           <% end %>
