@@ -3,7 +3,7 @@ class Platform::School::Apply::ChildrenController < Platform::School::BaseContro
   before_action :set_child, only: [:edit, :update, :destroy]
 
   def index
-    scope = @apply.children.pass.sorted
+    scope = @apply.children.where(approve_state: params[:state]).sorted
     @children = scope.page(params[:page]).per(10)
   end
 
