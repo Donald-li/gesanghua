@@ -1,4 +1,5 @@
 class Admin::PairGrantsController < Admin::BaseController
+  before_action :check_auth
   before_action :set_grant, except: [:index, :create_feedback, :excel_output]
 
   def index
@@ -115,4 +116,9 @@ class Admin::PairGrantsController < Admin::BaseController
     def grant_params
       params.require(:gsh_child_grant).permit!
     end
+
+    def check_auth
+      auth_operate_project(Project.pair_project)
+    end
+
 end

@@ -1,4 +1,5 @@
 class Admin::UsersController < Admin::BaseController
+  before_action :auth_manage_operation
   before_action :set_user, only: [:edit, :update, :switch, :invoices, :bill]
 
   def index

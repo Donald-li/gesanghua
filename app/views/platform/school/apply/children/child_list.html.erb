@@ -139,7 +139,7 @@
                                 icon: 0,
                                 offset: 't c'
                             });
-                            window.location.reload();
+                            setTimeout(window.location.reload(), 1500);
                         } else {
                             layer.msg(data.message, {
                                 icon: 2,
@@ -166,29 +166,35 @@
         $("#checked input:checked").each(function(){
             child_ids.push($(this).val());
         });
-        $.post("/ajaxes/submit_pair_children",
-            {
-                id: '<%= @apply.id %>',
-                child_ids: child_ids
-            },
-            function(data){
-            if (data.status) {
-                layer.msg(data.message, {
-                    icon: 0,
-                    offset: 't c'
+        if (child_ids.length > 0) {
+            $.post("/ajaxes/submit_pair_children",
+                {
+                    id: '<%= @apply.id %>',
+                    child_ids: child_ids
+                },
+                function(data){
+                    if (data.status) {
+                        layer.msg(data.message, {
+                            icon: 0,
+                            offset: 't c'
+                        });
+                        setTimeout("javascript:location.href='/platform/school/apply/pairs'", 1500);
+                    } else {
+                        layer.msg(data.message, {
+                            icon: 2,
+                            offset: 't c'
+                        });
+                    }
                 });
-                setTimeout("javascript:location.href='/platform/school/apply/pairs'", 1500);
-            } else {
-                layer.msg(data.message, {
-                    icon: 2,
-                    offset: 't c'
-                });
-            }
+        } else {
+            layer.msg('请勾选您要提交的学生', {
+                icon: 2,
+                offset: 't c'
             });
+        }
     };
 
     function setChildReason(id, reason) {
-        console.log(reason)
         $('#child-id').val(id)
         $('#reason').val(reason)
     }

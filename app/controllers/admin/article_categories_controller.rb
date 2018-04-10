@@ -1,4 +1,6 @@
+# 资讯分类管理
 class Admin::ArticleCategoriesController < Admin::BaseController
+  before_action :auth_manage_operation
   before_action :set_article_category, only: [:show, :edit, :update, :destroy, :move, :switch]
 
   def index

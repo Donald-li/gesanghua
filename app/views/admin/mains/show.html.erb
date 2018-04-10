@@ -23,6 +23,7 @@
             </div>
             <div class="col-md-9 col-sm-6 col-xs-12">
               <h4 style="padding-top: 40px;">欢迎 <%= current_user.try(:name) %> 登录格桑花平台！</h4>
+              <h4 style="padding-top: 40px;">您的角色为 <%= current_user.roles_name.join(', ') %> </h4>
             </div>
           </div>
         </div>

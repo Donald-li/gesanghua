@@ -1,4 +1,5 @@
 class Admin::PairReportsController < Admin::BaseController
+  before_action :check_auth
   before_action :set_report, only: [:edit, :update, :destroy, :switch]
 
   def index
@@ -58,4 +59,9 @@ class Admin::PairReportsController < Admin::BaseController
     def report_params
       params.require(:project_report).permit!
     end
+
+    def check_auth
+      auth_operate_project(Project.pair_project)
+    end
+
 end

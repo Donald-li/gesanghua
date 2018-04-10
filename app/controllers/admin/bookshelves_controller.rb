@@ -65,6 +65,7 @@ class Admin::BookshelvesController < Admin::BaseController
   private
   def set_project
     @project = ProjectSeasonApply.find(params[:read_project_id])
+    auth_operate_project(@project)
   end
 
   def bookshelf_params

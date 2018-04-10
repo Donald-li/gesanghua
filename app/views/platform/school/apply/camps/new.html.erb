@@ -1,0 +1,29 @@
+<div class="person-body-right pull-right">
+
+  <div style="display: block;">
+    <p class="don-title border-b">一对一申请申请表</p>
+
+  </div>
+
+</div>
+<script>
+
+
+    //     右tab切换二级
+    $(".donations1 li").on("click", function () {
+        $(".donations1 li").removeClass("selectedDo")
+        $(this).addClass("selectedDo")
+        $(".bottomline").css("left", parseFloat($(this)[0].offsetLeft) +31 +  "px")
+    })
+    if($('.donation .donation-cont').length===0){
+        $('.donation-cont-no').css('display', 'block')
+        $('.project-foot').css('display', 'none')
+    }else{
+        $('.donation-cont-no').css('display', 'none')
+        $('.project-foot').css('display', 'block')
+    }
+
+
+
+
+</script>

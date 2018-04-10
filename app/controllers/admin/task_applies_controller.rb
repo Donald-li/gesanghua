@@ -1,4 +1,5 @@
 class Admin::TaskAppliesController < Admin::BaseController
+  before_action :auth_manage_operation
   before_action :set_task_apply, only: [:edit, :update]
   before_action :set_task
 

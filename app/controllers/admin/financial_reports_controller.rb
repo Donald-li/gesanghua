@@ -1,4 +1,5 @@
 class Admin::FinancialReportsController < Admin::BaseController
+  before_action :auth_manage_finanical
   before_action :set_financial_report, only: [:show, :edit, :update, :destroy, :switch, :file_download]
 
   def index

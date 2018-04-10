@@ -1,5 +1,5 @@
 class Admin::CountyUsersController < Admin::BaseController
-
+  before_action :auth_manage_operation
   before_action :set_county_user, only: [:show, :edit, :update, :destroy, :switch]
 
   def index

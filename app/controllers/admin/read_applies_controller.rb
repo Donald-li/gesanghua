@@ -1,4 +1,5 @@
 class Admin::ReadAppliesController < Admin::BaseController
+  before_action :check_auth
   before_action :set_project_apply, only: [:show, :edit, :update, :destroy, :audit, :students, :switch, :check]
 
   def index
@@ -154,4 +155,9 @@ class Admin::ReadAppliesController < Admin::BaseController
   def project_apply_params
     params.require(:project_season_apply).permit!
   end
+
+  def check_auth
+    auth_operate_project(Project.read_project)
+  end
+
 end

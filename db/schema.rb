@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180408070800) do
+ActiveRecord::Schema.define(version: 20180410081712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -699,7 +699,6 @@ ActiveRecord::Schema.define(version: 20180408070800) do
     t.integer "state", comment: "状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "age", comment: "年龄"
   end
 
   create_table "project_season_apply_camp_teachers", force: :cascade, comment: "探索营老师名单" do |t|
@@ -715,7 +714,6 @@ ActiveRecord::Schema.define(version: 20180408070800) do
     t.integer "project_season_apply_id", comment: "营立项id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "age", comment: "年龄"
   end
 
   create_table "project_season_apply_camps", force: :cascade, comment: "探索营配额" do |t|
@@ -1122,6 +1120,7 @@ ActiveRecord::Schema.define(version: 20180408070800) do
     t.integer "use_nickname", comment: "使用昵称"
     t.datetime "join_team_time", comment: "加入团队时间"
     t.integer "camp_id", comment: "探索营id"
+    t.jsonb "project_ids", default: [], comment: "可管理项目（项目管理员）"
     t.index ["email"], name: "index_users_on_email"
     t.index ["login"], name: "index_users_on_login"
     t.index ["phone"], name: "index_users_on_phone"

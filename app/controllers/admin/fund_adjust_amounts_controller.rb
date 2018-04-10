@@ -1,4 +1,5 @@
 class Admin::FundAdjustAmountsController < Admin::BaseController
+  before_action :auth_manage_finanical
   before_action :set_fund, only: [:new, :create]
 
   def new

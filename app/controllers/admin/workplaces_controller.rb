@@ -1,4 +1,5 @@
 class Admin::WorkplacesController < Admin::BaseController
+  before_action :auth_manage_operation
   before_action :set_workplace, only: [:show, :edit, :update, :destroy, :switch]
 
   def index

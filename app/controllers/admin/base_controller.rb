@@ -26,4 +26,24 @@ class Admin::BaseController < ManagementBaseController
     @current_user ||= User.find_by id: session[:user_id]
   end
 
+  def auth_superadmin
+    authorize! :manage_superadmin, current_user
+  end
+
+  def auth_manage_operation
+    authorize! :manage_operation, current_user
+  end
+
+  def auth_manage_finanical
+    authorize! :manage_financial, current_user
+  end
+
+  def auth_manage_project(project=nil)
+    authorize! :manage_project, current_user, project
+  end
+
+  def auth_operate_project(project=nil)
+    authorize! :operate_project, current_user, project
+  end
+
 end
