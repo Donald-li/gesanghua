@@ -57,7 +57,7 @@
                 </div>
 
                 <div class=" border-r border-l">
-                  <button>填写推荐理由</button>
+                  <button class="recommend-but">填写推荐理由</button>
                 </div>
                 <div>
                   <%= link_to edit_platform_school_apply_pair_child_path(@apply, child) do %>
@@ -89,9 +89,24 @@
       </div>
     </div>
   </div>
+  <div class="overspread-4">
+    <div class="overspread-over"></div>
+    <div class="overspread-cont">
+      <div class="clearfix">
+        <div class="pull-left mys-1">填写推荐理由</div>
+        <div class="pull-right iconfont icon-icondelete cur overspread-but"></div>
+      </div>
+      <div class="overspread-co">
+        <textarea placeholder="请写你对学生的推荐理由"></textarea>
+      </div>
+      <div class="overspread-but  over-but">确认</div>
+
+    </div>
+  </div>
 </div>
 
 <script type="text/javascript">
+    $('.overspread-4').overs(".recommend-but");
     $(function () {
         $("#checkedse").click(function () {
             var isChecked = $("#checkedse").prop("checked");

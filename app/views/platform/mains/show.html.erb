@@ -3,7 +3,7 @@
   <div class="platform-plus-cont">
     <% if current_user.headmaster? %>
         <%= link_to platform_school_apply_pairs_path do %>
-            <div>
+            <div >
               <%= image_tag 'platform-leader.png' %>
               <p class="gsh-plus-c-t">我是校长</p>
             </div>
@@ -35,7 +35,7 @@
         </span>
     <% end %>
     <% if current_user.gsh_child? %>
-        <span>
+        <span class="school-s-but">
           <%= link_to '我是格桑花孩子' %>
         </span>
     <% end %>
@@ -44,4 +44,39 @@
     </span>
   </div>
   <%= link_to '返回个人中心', account_orders_path, class: "gsh-plus-foot" %>
+  <div class="overspread-5">
+    <div class="overspread-over"></div>
+    <div class="overspread-cont">
+      <div class="clearfix">
+        <div class="pull-left mys-1">身份认证</div>
+        <div class="pull-right iconfont icon-icondelete cur overspread-but"></div>
+      </div>
+      <div class="overspread-co">
+        <input type="text" placeholder="输入平台预留手机号"/>
+        <input type="text" placeholder="输入验证码"/>
+        <button>获取验证码</button>
+      </div>
+      <div class="overspreadsc-but overspread-but  over-but">去验证身份</div>
+
+    </div>
+  </div>
+  <div class="overspread-6">
+    <div class="overspread-over"></div>
+    <div class="overspread-cont">
+      <div class="clearfix">
+        <div class="pull-left mys-1">身份认证</div>
+        <div class="pull-right iconfont icon-icondelete cur overspread-but"></div>
+      </div>
+      <div class="overspread-co">
+        <%= image_tag 'correct-icon.png' %>
+        <p class="over-fontns">信息核对成功</p>
+      </div>
+      <div class="overspread-but  over-but">进入管理中心</div>
+
+    </div>
+  </div>
 </div>
+<script>
+    $('.overspread-5').overs(".school-s-but");
+    $('.overspread-6').overs(".overspreadsc-but");
+</script>
