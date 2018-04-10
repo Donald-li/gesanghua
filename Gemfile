@@ -161,3 +161,4 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'js-routes', '~> 1.3.0'               # URL helper at js in rails style
+gem 'toastr-rails'

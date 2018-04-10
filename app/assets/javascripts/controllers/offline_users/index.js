@@ -36,7 +36,7 @@ $(function () {
         if (JSON.parse(msg).code === 0) {
           window.location.href = "/account/offline_users"
         } else {
-          //toastr.error(JSON.parse(msg).msg)
+          toastr.error(JSON.parse(msg).msg)
           $("#save_form_btn").removeAttr("style");
           $("#save_form_btn").removeAttr("disabled")
           $("#save_form_btn").val(btn_name);
