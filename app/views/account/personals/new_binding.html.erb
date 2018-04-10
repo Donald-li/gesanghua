@@ -1,0 +1,43 @@
+<div class="person-body-right pull-right  portlet light portlet-form bordered">
+  <div class="portlet-title">
+    <h6>绑定手机号11111111</h6>
+  </div>
+  <div class="portlet-body form">
+    <%= simple_form_for [:account, @binding], url: binding_account_personals_path, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'personal_form'} do |f| %>
+        <%= f.error_notification %>
+
+        <div class="form-group">
+          <label for="inputStandard" class="col-md-3 control-label">输入手机：</label>
+          <div class="col-md-5 control-field">
+            <div class="bs-component">
+              <%= f.text_field :phone, value: "15063997108", class: 'form-control input__field input__field--hoshi', id: 'phonenumber', placeholder: "请填写真实姓名", required: true %>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" style="padding-top: 60px">
+          <label for="inputStandard" class="col-md-3 control-label">验证码：</label>
+          <div class="col-md-5 control-field">
+            <div class="bs-component">
+              <div class="row">
+                <div class="col-md-7">
+                  <input class="form-control input__field input__field--hoshi" type="text" id="security" name="code" placeholder="输入验证码"/>
+                </div>
+                <div class="col-md-5">
+                  <!--<label class="input__label input__label&#45;&#45;hoshi input__label&#45;&#45;hoshi-color-1" for="security"></label>-->
+                  <input class="form-control security-cont cur" type="button" id="code_btn" value="获取验证码"/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" style="padding-top: 40px;">
+          <div class="row">
+            <div class="col-sm-2" style="margin-left: 268px;">
+              <%= f.button :submit, '提交', class: 'btn btn-primary small glow' %></div>
+            <div class="col-sm-2"><%= link_to '取消', admin_users_path, class: 'btn btn-default small glow' %></div>
+          </div>
+        </div>
+    <% end %>
+  </div>
+</div>
+
