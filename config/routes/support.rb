@@ -30,6 +30,8 @@ scope module: :support do
       get :user_statistics
       get :income_statistics
       get :bill_amount
+      post :submit_pair_children
+      post :submit_child_reason
     end
   end
 end

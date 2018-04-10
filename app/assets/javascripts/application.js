@@ -39,6 +39,8 @@
 //= require 'plugin/ui-choose.js'
 //= require 'plugin/mongolian.js'
 //= require 'plugin/jquery.magnify.js'
+//= require 'plugin/calculate.js'
+
 
 
 
@@ -131,7 +133,9 @@ $(function () {
     //         }
     //     })
     // })
-
+    if($('.school-apply-pair-tables').length>8){
+        $('.posscroll').css('height','800px')
+    }
 //    遮罩
     jQuery.fn.center = function(loaded) {
         var obj = this;
@@ -164,3 +168,4 @@ $(function () {
     }
 
 });
+

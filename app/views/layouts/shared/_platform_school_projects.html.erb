@@ -1,0 +1,72 @@
+<p class="don-title border-b">项目管理</p>
+<div class="donations-1">
+  <ul class="donations1 clearfix">
+    <li class="cur <%= 'selectedDo' if controller_name == 'pairs' %> "><%= link_to '一对一', platform_school_apply_pairs_path %>
+    <% if controller_name == 'pairs' %>
+        <div class="bottomline"></div>
+    <% end %>
+    </li>
+    <li class="cur border-l <%= 'selectedDo' if controller_name == 'cares' %>"><%= link_to '护花', platform_school_apply_cares_path %>
+    <% if controller_name == 'cares' %>
+        <div class="bottomline"></div>
+    <% end %>
+    </li>
+    <li class="cur border-l border-r <%= 'selectedDo' if controller_name == 'movie_cares' %>"><%= link_to '护花课程', platform_school_apply_movie_cares_path %>
+    <% if controller_name == 'movie_cares' %>
+        <div class="bottomline"></div>
+    <% end %>
+    </li>
+    <li class="cur border-r <%= 'selectedDo' if controller_name == 'radios' %>"><%= link_to '广播', platform_school_apply_radios_path %>
+    <% if controller_name == 'radios' %>
+        <div class="bottomline"></div>
+    <% end %>
+    </li>
+    <li class="cur border-r <%= 'selectedDo' if controller_name == 'reads' %>"><%= link_to '悦读', platform_school_apply_reads_path %>
+    <% if controller_name == 'reads' %>
+        <div class="bottomline"></div>
+    <% end %>
+    </li>
+    <li class="cur <%= 'selectedDo' if controller_name == 'camps' %>"><%= link_to '探索营', platform_school_apply_camps_path %>
+    <% if controller_name == 'camps' %>
+        <div class="bottomline"></div>
+    <% end %>
+    </li>
+  </ul>
+  <% if controller_name == 'reads' %>
+  <div class="add-reads">
+    <button class=" school-apply-share-sub">
+      <span class="iconfont icon-ico-add1"></span>
+      <span>补书申请</span>
+    </button>
+    <button class=" school-apply-share-sub">
+      <span class="iconfont icon-ico-add1"></span>
+      <span>新书申请</span>
+    </button>
+  </div>
+  <% end %>
+</div>
+<script>
+    //     右tab切换二级
+    $(".donations1 li a").on("click", function () {
+        $(".donations1 li").removeClass("selectedDo")
+        $(this).addClass("selectedDo")
+
+    })
+    if($('.donation .donation-cont').length===0){
+        $('.donation-cont-no').css('display', 'block')
+        $('.project-foot').css('display', 'none')
+    }else{
+        $('.donation-cont-no').css('display', 'none')
+        $('.project-foot').css('display', 'block')
+    }
+    if($('.school-apply-pair-table-co .school-apply-pair-tables').length===0){
+        $('.donation-cont-no').css('display', 'block')
+        $('.project-foot').css('display', 'none')
+        $('.school-apply-pair-table-co').css('display', 'none')
+    }else{
+        $('.donation-cont-no').css('display', 'none')
+        $('.project-foot').css('display', 'block')
+        $('.school-apply-pair-table-co').css('display', 'block')
+    }
+
+</script>

@@ -92,6 +92,7 @@
         </ul>
       </div>
       <div class="class-button cur">立即支付</div>
+      <!--<div class="mongolian-hint"><span>您的余额不足，不足以支付</span></div>-->
     </div>
     <div class="pull-right donates-content-right">
       <div class="donates-con-r-t border-b ">
@@ -104,9 +105,46 @@
         <p>账号：3506 0188 0000 50322</p>
       </div>
     </div>
+
   </div>
+  <div class="overspread-2">
+    <div class="overspread-over"></div>
+    <div class="overspread-cont">
+      <div class="clearfix">
+        <div class="pull-left mys-1"></div>
+        <div class="pull-right iconfont icon-icondelete cur overspread-but"></div>
+      </div>
+      <div class="overspread-co">
+        <p class="over-font">支付失败</p>
+        <p class="over-fontns">请尝试其他支付方式</p>
+      </div>
+          <div class="overspread-but  over-but">确认</div>
+
+    </div>
+  </div>
+  <div class="overspread-3">
+    <div class="overspread-over"></div>
+    <div class="overspread-cont">
+      <div class="clearfix">
+        <div class="pull-left mys-1"></div>
+        <div class="pull-right iconfont icon-icondelete cur overspread-but"></div>
+      </div>
+      <div class="overspread-co">
+        <p class="over-fontns">如支付成功关闭此窗口</p>
+      </div>
+      <div class="overspreads-but">
+        <button>支付成功</button>
+        <button>支付失败</button>
+      </div>
+      <!--<div class="overspread-but  over-but">确认</div>-->
+    </div>
+
+  </div>
+
+
 </div>
 <script>
+    $('.overspread-2').overs(".class-button");
     //     右tab切换二级
     $(".donations1 li").on("click", function () {
         $(".donations1 li").removeClass("selectedDo")

@@ -1,4 +1,5 @@
 class Platform::School::Apply::PairsController < Platform::School::BaseController
+  before_action :set_apply, only: [:show]
 
   def index
     @school = current_user.school
@@ -7,6 +8,11 @@ class Platform::School::Apply::PairsController < Platform::School::BaseControlle
   end
 
   def show
+  end
+
+  private
+  def set_apply
     @apply = ProjectSeasonApply.find(params[:id])
   end
+
 end

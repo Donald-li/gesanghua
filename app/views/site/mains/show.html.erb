@@ -27,7 +27,7 @@
     <div class=" bul-img-n">
       <div class="clearfix  bul-img-m">
         <div class="clearfix  bul-img-p">
-          <p class="pull-left">累计捐助:<span><%= @total_donate_amount %></span>元</p>
+          <p class="pull-left">累计捐助:<span><%= number_to_currency(@total_donate_amount) %></span>元</p>
           <p class="pull-right cur"><span class="iconfont icon-arrowdown"></span>财务公开</p>
         </div>
         <div class="bul-img-co">
@@ -40,7 +40,7 @@
                   <div class="clearfix">
                     <span class="iconfont icon-yuan bul-yuan "></span>
                     <span class="bul-time pull-left"><%= record.created_at.strftime("%m月%d日 %H:%M") %></span>
-                    <span class="bul-name pull-left"><%= record.donor.try(:show_name) %>捐助<%= record.fund.try(:fund_category).try(:name) %></span>
+                    <span class="bul-name pull-left"><%= record.agent.try(:show_name) %>捐助<%= record.fund.try(:fund_category).try(:name) %></span>
                     <span class="bul-moy pull-right"><%= record.amount %>元</span>
                   </div>
                 </li>
@@ -102,15 +102,17 @@
   <div class="items-container row">
     <% @articles.each do |article| %>
       <div class="item col-md-4 cur ">
-        <div class="gsh-img">
-          <%= image_tag article.image.try(:file).try(:url, :medium).to_s %>
-          <div class="ovrly"></div>
-          <div class="buttons">
-            <%= image_tag 'gsh-img-2.png' %>
+        <%= link_to article_path(article) do %>
+          <div class="gsh-img">
+            <%= image_tag article.image.try(:file).try(:url, :medium).to_s %>
+            <div class="ovrly"></div>
+            <div class="buttons">
+              <%= image_tag 'gsh-img-2.png' %>
+            </div>
           </div>
-        </div>
-        <p class="gsh-cont-1"><%= article.author %> | <%= article.published_at.strftime("%Y年%m月%d日") %></p>
-        <p class="gsh-cont-2"><%= article.title %></p>
+          <p class="gsh-cont-1"><%= article.author %> | <%= article.published_at.strftime("%Y年%m月%d日") %></p>
+          <p class="gsh-cont-2"><%= article.title %></p>
+        <% end %>
       </div>
     <% end %>
 

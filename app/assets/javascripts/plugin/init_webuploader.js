@@ -164,6 +164,27 @@ function initImageWebuploader(el, config) {
   initWebuploader($(el), config);
 }
 
+function initAvatarWebuploader(el, config) {
+    var picker = $(el).find('.upload-pick');
+    if (!config) {
+        config = {}
+    }
+    config = $.extend({
+        uploadType: 'image',
+        uploaderConfig: {
+            pick: { id: picker, multiple: false },
+            accept: {
+                title: '请选择单张图片',
+                extensions: 'gif,jpg,jpeg,bmp,png,svg',
+                mimeTypes: 'image/gif,image/jpeg,image/bmp,image/png,image/svg+xml'
+            }
+        },
+        showDestroy: false,
+        showStatus: false
+    }, config)
+    initWebuploader($(el), config);
+}
+
 function initMultiImageWebuploader(el, config, image_count) {
   var picker = $(el).find('.upload-pick');
   if (!config) {

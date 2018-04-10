@@ -75,14 +75,24 @@ class Donation < ApplicationRecord
     prepay_js.merge(paySign: pay_sign)
   end
 
-  # 返回微信支付按钮
+  # 返回微信h5支付按钮地址
   def wechat_prepay_h5(remote_ip)
     return get_wechat_prepay_mweb(remote_ip)
   end
 
+  # 返回微信二维码支付地址
+  def wechat_prepay_code(remote_ip)
+    return get_wechat_prepay_code(remote_ip)
+  end
+
   # 返回支付宝支付按钮
   def alipay_prepay_h5
-    return get_alipay_prepay_mweb
+    return get_alipay_prepay_url('wap')
+  end
+
+  # 返回PC端支付宝支付按钮
+  def alipay_prepay_page
+    return get_alipay_prepay_url('page')
   end
 
   # 计算开票金额
@@ -247,19 +257,44 @@ class Donation < ApplicationRecord
     return res['mweb_url']
   end
 
-  def get_alipay_prepay_mweb
-    require 'alipay'
-    notify_url = Settings.app_host + "/payment/alipay_payments/notify"
-    quit_url = Settings.app_host + '/m/'
+  def get_wechat_prepay_code(remote_ip)
+    notify_url = Settings.app_host + "/payment/wechat_payments/notify"
+    params = {
+      body: '需要一个商品名称',
+      out_trade_no: self.order_no,
+      # total_fee: Settings.pay_1_mode ? 1 : (self.amount * 100).to_i,
+      total_fee: 1,
+      # (self.amount * 100).to_i,
+      spbill_create_ip: remote_ip,
+      notify_url: notify_url,
+      trade_type: 'NATIVE' # could be "JSAPI" or "NATIVE",
+    }
+    res = WxPay::Service.invoke_unifiedorder params
+    return res['code_url']
+  end
 
-    @client = Alipay::Client.new(
-      url: Settings.alipay_api,
+  # 返回一个支付宝对象
+  def get_alipay_client
+    client = Alipay::Client.new(
+      url: 'https://openapi.alipaydev.com/gateway.do',
       app_id: Settings.alipay_app_id,
       app_private_key: Settings.alipay_app_private_key,
       alipay_public_key: Settings.alipay_public_key
     )
+    client
+  end
+
+  # 得到一个支付宝链接 type: {wap|page}
+  def get_alipay_prepay_url(type='wap')
+    require 'alipay'
+    notify_url = Settings.app_host + "/payment/alipay_payments/notify"
+    quit_url = Settings.app_host + '/m/'
+
+    method = "alipay.trade.#{type}.pay"
+
+    @client = get_alipay_client
     url = @client.page_execute_url(
-      method: 'alipay.trade.wap.pay',
+      method: method,
       return_url: quit_url,
       notify_url: notify_url,
       biz_content: {

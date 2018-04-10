@@ -4,4 +4,13 @@ class Account::BaseController < ApplicationController
 
   layout 'account'
 
+  protected
+  def logged_in?
+    if session[:user_id].present?
+      return true
+    else
+      redirect_to account_login_path
+    end
+  end
+
 end

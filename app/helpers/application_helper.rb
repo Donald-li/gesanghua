@@ -73,6 +73,60 @@ module ApplicationHelper
     html.html_safe
   end
 
+  # pc头像上传
+  def webuploader_avatar(name, label: '上传', type: 'image', id: 'webuploader', klass: '', asset: nil)
+    html = %{
+      <div id="#{id}" class="avatar-upload-wrap webuploader #{klass}" data-name="#{name}" data-url="#{uploads_path}" data-type="#{type}">
+        <div class="upload-body">
+          <ul class="upload-list">
+          }
+    [asset].flatten.compact.select { |a| !a.new_record? }.each do |a|
+      html << %{
+                <li id="#{a.id}" class="file-item thumbnail">
+      #{hidden_field_tag name, a.id}
+      #{image_tag a.file.url}
+                </li>
+              }
+    end
+    html << %{
+            <li class="upload-pick">
+              <strong>#{label}</strong>
+            </li>
+          </ul>
+        </div>
+      </div>
+    }
+    html.html_safe
+  end
+
+  # pc图片上传
+  def webuploader_image(name, label: '上传', type: 'image', id: 'webuploader', klass: '', asset: nil)
+    html = %{
+      <div id="#{id}" class="image-upload-wrap webuploader #{klass}" data-name="#{name}" data-url="#{uploads_path}" data-type="#{type}">
+        <div class="upload-body">
+          <ul class="upload-list">
+          }
+    [asset].flatten.compact.select { |a| !a.new_record? }.each do |a|
+      html << %{
+                <li id="#{a.id}" class="file-item thumbnail">
+                  #{link_to 'x', upload_path(a, file_id: a.id, protect_token: a.protect_token), method: :delete, remote: true, class: 'delete'}
+      #{hidden_field_tag name, a.id}
+      #{image_tag a.file.url}
+                </li>
+              }
+    end
+    html << %{
+            <li class="upload-pick">
+              <span><i class="iconfont icon-plus2"></i></span>
+              <strong>#{label}</strong>
+            </li>
+          </ul>
+        </div>
+      </div>
+    }
+    html.html_safe
+  end
+
   # 静态表单项
   def static_form_control(label, content)
     %{

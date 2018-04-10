@@ -1,21 +1,82 @@
 <div class="gsh-plus-show">
   <p class="gsh-plus-tit">选择你需要登录的用户角色</p>
   <div class="platform-plus-cont">
-    <div>
-      <%= image_tag 'platform-leader.png' %>
-      <p class="gsh-plus-c-t">我是校长</p>
-    </div>
-    <div>
-      <%= image_tag 'platform-teacher.png' %>
-      <p class="gsh-plus-c-t">我是教师</p>
-    </div>
+    <% if current_user.headmaster? %>
+        <%= link_to platform_school_apply_pairs_path do %>
+            <div >
+              <%= image_tag 'platform-leader.png' %>
+              <p class="gsh-plus-c-t">我是校长</p>
+            </div>
+        <% end %>
+    <% end %>
+    <% if current_user.teacher? %>
+        <%= link_to platform_school_apply_pairs_path do %>
+            <div>
+              <%= image_tag 'platform-teacher.png' %>
+              <p class="gsh-plus-c-t">我是教师</p>
+            </div>
+        <% end %>
+    <% end %>
   </div>
   <div class="platform-cont clearfix">
-    <div>我是县领导</div>
-    <div>我是志愿者</div>
-    <div>我是工作人员</div>
-    <div>我是格桑花孩子</div>
-    <div>结对反馈</div>
+    <% if current_user.county_user? %>
+        <span>
+          <%= link_to '我是县领导' %>
+        </span>
+    <% end %>
+    <% if current_user.volunteer? %>
+        <span>
+          <%= link_to '我是志愿者' %>
+        </span>
+    <% end %>
+    <% if current_user.project_manager? || current_user.project_operator? %>
+        <span>
+          <%= link_to '我是工作人员' %>
+        </span>
+    <% end %>
+    <% if current_user.gsh_child? %>
+        <span class="school-s-but">
+          <%= link_to '我是格桑花孩子' %>
+        </span>
+    <% end %>
+    <span>
+      <%= link_to '结对反馈' %>
+    </span>
   </div>
-  <p class="gsh-plus-foot">返回个人中心</p>
+  <%= link_to '返回个人中心', account_orders_path, class: "gsh-plus-foot" %>
+  <div class="overspread-5">
+    <div class="overspread-over"></div>
+    <div class="overspread-cont">
+      <div class="clearfix">
+        <div class="pull-left mys-1">身份认证</div>
+        <div class="pull-right iconfont icon-icondelete cur overspread-but"></div>
+      </div>
+      <div class="overspread-co">
+        <input type="text" placeholder="输入平台预留手机号"/>
+        <input type="text" placeholder="输入验证码"/>
+        <button>获取验证码</button>
+      </div>
+      <div class="overspreadsc-but overspread-but  over-but">去验证身份</div>
+
+    </div>
+  </div>
+  <div class="overspread-6">
+    <div class="overspread-over"></div>
+    <div class="overspread-cont">
+      <div class="clearfix">
+        <div class="pull-left mys-1">身份认证</div>
+        <div class="pull-right iconfont icon-icondelete cur overspread-but"></div>
+      </div>
+      <div class="overspread-co">
+        <%= image_tag 'correct-icon.png' %>
+        <p class="over-fontns">信息核对成功</p>
+      </div>
+      <div class="overspread-but  over-but">进入管理中心</div>
+
+    </div>
+  </div>
 </div>
+<script>
+    $('.overspread-5').overs(".school-s-but");
+    $('.overspread-6').overs(".overspreadsc-but");
+</script>
