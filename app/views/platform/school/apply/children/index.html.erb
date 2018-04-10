@@ -8,10 +8,18 @@
     </p>
     <div class="donations-1" >
       <ul class="donations1 clearfix">
-        <li class="selectedDo cur"><%= link_to '审核通过名单', platform_school_apply_pair_children_path(@apply, state: 'pass') %></li>
-        <li class="cur border-l"><%= link_to '审核未通过名单', platform_school_apply_pair_children_path(@apply, state: 'reject') %></li>
+        <li class="<%= 'selectedDo' if params[:state] == 'pass' %> cur"><%= link_to '审核通过名单', platform_school_apply_pair_children_path(@apply, state: 'pass') %>
+          <% if params[:state] == 'pass' %>
+            <div class="bottomline"></div>
+          <% end %>
+        </li>
+        <li class="<%= 'selectedDo' if params[:state] == 'reject' %> cur border-l"><%= link_to '审核未通过名单', platform_school_apply_pair_children_path(@apply, state: 'reject') %>
+          <% if params[:state] == 'reject' %>
+              <div class="bottomline"></div>
+          <% end %>
+        </li>
       </ul>
-      <div class="bottomline"></div>
+
     </div>
     <div class="school-apply-pair-table-co">
       <div class="school-apply-pair-table">
@@ -78,7 +86,6 @@
     $(".donations1 li").on("click", function () {
         $(".donations1 li").removeClass("selectedDo")
         $(this).addClass("selectedDo")
-        $(".bottomline").css("left", parseFloat($(this)[0].offsetLeft) + 40 +  "px")
     })
     if($('.donation .donation-cont').length===0){
         $('.donation-cont-no').css('display', 'block')

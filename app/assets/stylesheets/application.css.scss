@@ -4719,6 +4719,7 @@ select:disabled {
         font-size: 14px;
         color: #3d3d40;
         text-align: center;
+        position: relative;
       }
       .selectedDo {
         font-weight: 600;
@@ -4727,7 +4728,7 @@ select:disabled {
     .bottomline {
       position: absolute;
       left: 40px;
-      bottom: -1px;
+      bottom: -16px;
       width: 40px;
       height: 3px;
       background: $color-button;
