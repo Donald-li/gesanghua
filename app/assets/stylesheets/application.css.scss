@@ -4195,7 +4195,7 @@ select:disabled {
     display: flex;
     & > div {
       flex: 1;
-      & > img {
+      & > a > img {
         height: 160px;
       }
     }
