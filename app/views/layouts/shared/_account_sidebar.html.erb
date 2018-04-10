@@ -1,13 +1,19 @@
 <div class="person-body-left pull-left">
   <ul>
+    <%= link_to account_personals_path do %>
+        <li class="<%= display_menu("personals") %> cur">
+          <span class="iconfont icon-ico-project"></span>
+          <span>个人信息</span>
+        </li>
+    <% end %>
     <%= link_to account_orders_path do %>
-    <li class="selectedli cur">
+    <li class="<%= display_menu("orders") %> cur">
       <span class="iconfont icon-ico-project"></span>
       <span>我的捐助</span>
     </li>
     <% end %>
     <%= link_to account_teams_path do %>
-    <li class="cur">
+    <li class="<%= display_menu("teams") %> cur">
       <span class="iconfont icon-ico-team"></span>
       <span>我的团队</span>
     </li>
@@ -21,7 +27,7 @@
       <span>我的活动</span>
     </li>
     <%= link_to account_offline_users_path do %>
-    <li class="cur">
+    <li class="<%= display_menu("offline_users") %> cur">
       <span class="iconfont icon-ico-replace"></span>
       <span>捐助管理</span>
     </li>
@@ -39,7 +45,7 @@
     </li>
     <% end %>
     <%= link_to account_level_path do %>
-    <li class="cur">
+    <li class="<%= display_menu("levels") %> cur">
       <span class="iconfont icon-ico-badge"></span>
       <span>我的勋章</span>
       <!--<i class="iconfont icon-yuan"></i>-->

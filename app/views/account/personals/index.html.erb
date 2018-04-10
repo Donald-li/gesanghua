@@ -1,0 +1,205 @@
+<% content_for :scripts do %>
+    <%= javascript_include_tag "controllers/personals/index" %>
+<% end %>
+
+<div class="person-body-right pull-right">
+  <!--个人中心-->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="profile-sec">
+        <div class="row">
+          <div class="col-md-5" style="border-right: 2px solid #e4e8ec; padding-right: 10px;">
+            <div class="profile-avatar">
+              <span><%= image_tag("project-reducepage-child.png", alt: "") %></span>
+              <div class="profile-name" style="margin-left: -12px;">
+                <h5><%= @persional.nickname %></h5>
+                <span class="vip">会员</span>
+                <span class="vip">会员员</span>
+                <span class="vip">热爱生活</span>
+                <span class="vip">哭</span>
+                <span class="vip">会员</span>
+                <span class="vip">会员</span>
+                <span style="cursor: pointer;" class="binding-phone" id="ClickMe">绑定手机：<%= @persional.phone.present? ? @persional.phone : "立即绑定" %> <%#= "立即绑定" if @persional.phone.blank? %></span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2" style="border-right: 2px solid #e4e8ec;">
+            <div class="circle">
+              <ul>
+                <li><span>99,999,999.00</span></li>
+                <li><span>筹款(元)</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="twitter-widget" style="margin-top: 10px;">
+              <ul>
+                <li><span><%= format_money(@persional.donate_count, 2) %></span><span>累计捐助(元)</span></li>
+                <li><span><%= format_money(@persional.promoter_amount_count, 2) %></span><span>累计劝募(元)</span></li>
+                <li><span><%= format_money(@persional.balance, 2) %></span><span>账户余额(元)</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="widget blank no-padding">
+          <h2 class="widget-title">项目推荐</h2>
+          <div class="widget-content">
+            <div class="stats-sec no-gape">
+              <div class="row">
+                <div class="col-md-3" style="border: 2px solid #e4e8ec;padding: 0">
+                  <div class="member-area">
+                    <div class="member-thumb">
+                      <span class="vip1">悦读</span>
+                      <%= image_tag("gsh-img-1.png", alt: "", style: "width: 100%;height: 100%;") %>
+                    </div>
+                    <h6>目标 ￥150,000 进度 9/12</h6>
+                    <ul>
+                      <li><a href="#" title=""><i class="ti-twitter"></i>西宁一小图书角</a></li>
+                      <li><a href="#" title=""><i class="tiinkedin"></i>给小朋友筹集绘本</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-3" style="border: 2px solid #e4e8ec;padding: 0">
+                  <div class="member-area">
+                    <div class="member-thumb">
+                      <span class="vip1">悦读</span>
+                      <%= image_tag("gsh-img-1.png", alt: "", style: "width: 100%;height: 100%;") %>
+                    </div>
+                    <h6>目标 ￥150,000 进度 9/12</h6>
+                    <ul>
+                      <li><a href="#" title=""><i class="ti-twitter"></i>西宁一小图书角</a></li>
+                      <li><a href="#" title=""><i class="ti-linkedin"></i>给小朋友筹集绘本</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-3" style="border: 2px solid #e4e8ec;padding: 0">
+                  <div class="member-area">
+                    <div class="member-thumb">
+                      <span class="vip1">悦读</span>
+                      <%= image_tag("gsh-img-1.png", alt: "", style: "width: 100%;height: 100%;") %>
+                    </div>
+                    <h6>目标 ￥150,000 进度 9/12</h6>
+                    <ul>
+                      <li><a href="#" title=""><i class="ti-twitter"></i>西宁一小图书角</a></li>
+                      <li><a href="#" title=""><i class="ti-linkedin"></i>给小朋友筹集绘本</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-3" style="border: 2px solid #e4e8ec;padding: 0">
+                  <div class="member-area">
+                    <div class="member-thumb">
+                      <span class="vip1">广播</span>
+                      <%= image_tag("gsh-img-1.png", alt: "", style: "width: 100%;height: 100%;") %>
+                    </div>
+                    <h6>目标 ￥150,000 进度 9/12</h6>
+                    <ul>
+                      <li><a href="#" title=""><i class="ti-twitter"></i>西宁一小图书角</a></li>
+                      <li><a href="#" title=""><i class="ti-linkedin"></i>给小朋友筹集绘本</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-3" style="border: 2px solid #e4e8ec;padding: 0">
+                  <div class="member-area">
+                    <div class="member-thumb">
+                      <span class="vip1">广播</span>
+                      <%= image_tag("gsh-img-1.png", alt: "", style: "width: 100%;height: 100%;") %>
+                    </div>
+                    <h6>目标 ￥150,000 进度 9/12</h6>
+                    <ul>
+                      <li><a href="#" title=""><i class="ti-twitter"></i>西宁一小图书角</a></li>
+                      <li><a href="#" title=""><i class="ti-linkedin"></i>给小朋友筹集绘本</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-3" style="border: 2px solid #e4e8ec;padding: 0">
+                  <div class="member-area">
+                    <div class="member-thumb">
+                      <span class="vip1">广播</span>
+                      <%= image_tag("gsh-img-1.png", alt: "", style: "width: 100%;height: 100%;") %>
+                    </div>
+                    <h6>目标 ￥150,000 进度 9/12</h6>
+                    <ul>
+                      <li><a href="#" title=""><i class="ti-twitter"></i>西宁一小图书角</a></li>
+                      <li><a href="#" title=""><i class="ti-linkedin"></i>给小朋友筹集绘本</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-3" style="border: 2px solid #e4e8ec;padding: 0">
+                  <div class="member-area">
+                    <div class="member-thumb">
+                      <span class="vip1">广播</span>
+                      <%= image_tag("gsh-img-1.png", alt: "", style: "width: 100%;height: 100%;") %>
+                    </div>
+                    <h6>目标 ￥150,000 进度 9/12</h6>
+                    <ul>
+                      <li><a href="#" title=""><i class="ti-twitter"></i>西宁一小图书角</a></li>
+                      <li><a href="#" title=""><i class="ti-linkedin"></i>给小朋友筹集绘本</a></li>
+                    </ul>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="widget blank no-padding">
+          <h2 class="widget-title" style="margin-bottom: 30px;">格桑花</h2>
+          <div class="widget-content">
+            <div class="top-margin">
+              <div class="row">
+                <div class="col-md-3 personal-flower" style="margin-left: 14px">
+                  <div class="member-area">
+                    <h3><a href="#" title="">学校申请</a></h3>
+                    <ul>
+                      <li><a href="#" title=""><i class="ti-facebook"></i>通过后可申请项目</a></li>
+                      <li><a href="#" title=""><i class="ti-linkedin"></i>待审核</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-3 personal-flower">
+                  <div class="member-area">
+                    <h3><a href="#" title="">长工志愿者</a></h3>
+                    <ul>
+                      <li><a href="#" title=""><i class="ti-facebook"></i>我愿付出更多</a></li>
+                      <li><a href="#" title=""><i class="ti-linkedin"></i>审核未通过</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-3 personal-flower">
+                  <div class="member-area">
+                    <h3><a href="#" title="">志愿者申请</a></h3>
+                    <ul>
+                      <li><a href="#" title=""><i class="ti-facebook"></i>参与公益项目</a></li>
+                      <li><a href="#" title=""><i class="ti-linkedin"></i>审核通过</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-3 personal-flower">
+                  <div class="member-area">
+                    <h3><a href="#" title="">格桑花孩子</a></h3>
+                    <ul>
+                      <li><a href="#" title=""><i class="ti-facebook"></i>我曾经是格桑花孩子</a></li>
+                      <li><a href="#" title=""><i class="ti-linkedin"></i>已加入</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%= render partial: "binding" %>

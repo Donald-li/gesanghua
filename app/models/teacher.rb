@@ -39,6 +39,14 @@ class Teacher < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
+  def phone_head
+    self.school.contact_telephone[0..3] if self.school.contact_telephone.present?
+  end
+
+  def phone_body
+    self.school.contact_telephone[4..10] if self.school.contact_telephone.present?
+  end
+
   def summary_builder
     Jbuilder.new do |json|
       json.(self, :id, :name, :phone)

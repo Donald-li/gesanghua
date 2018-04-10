@@ -102,15 +102,17 @@
   <div class="items-container row">
     <% @articles.each do |article| %>
       <div class="item col-md-4 cur ">
-        <div class="gsh-img">
-          <%= image_tag article.image.try(:file).try(:url, :medium).to_s %>
-          <div class="ovrly"></div>
-          <div class="buttons">
-            <%= image_tag 'gsh-img-2.png' %>
+        <%= link_to article_path(article) do %>
+          <div class="gsh-img">
+            <%= image_tag article.image.try(:file).try(:url, :medium).to_s %>
+            <div class="ovrly"></div>
+            <div class="buttons">
+              <%= image_tag 'gsh-img-2.png' %>
+            </div>
           </div>
-        </div>
-        <p class="gsh-cont-1"><%= article.author %> | <%= article.published_at.strftime("%Y年%m月%d日") %></p>
-        <p class="gsh-cont-2"><%= article.title %></p>
+          <p class="gsh-cont-1"><%= article.author %> | <%= article.published_at.strftime("%Y年%m月%d日") %></p>
+          <p class="gsh-cont-2"><%= article.title %></p>
+        <% end %>
       </div>
     <% end %>
 

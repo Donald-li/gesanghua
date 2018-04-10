@@ -1,29 +1,8 @@
 <div class="person-body-right pull-right">
 
   <div style="display: block;">
-    <p class="don-title border-b">项目管理</p>
-      <div class="donations-1 clearfix">
-        <ul class="donations1  clearfix">
-          <li class="cur">一对一</li>
-          <li class="cur border-l">护花</li>
-          <li class="cur border-l border-r">护花课程</li>
-          <li class="cur border-r">广播</li>
-          <li class="cur border-r selectedDo">悦读</li>
-          <li class="cur">探索营</li>
-        </ul>
-        <div class="bottomline"></div>
-        <div class="add-reads">
-          <button class=" school-apply-share-sub">
-            <span class="iconfont icon-ico-add1"></span>
-            <span>补书申请</span>
-          </button>
-          <button class=" school-apply-share-sub">
-            <span class="iconfont icon-ico-add1"></span>
-            <span>新书申请</span>
-          </button>
-        </div>
-    </div>
-
+    <%= render '/layouts/shared/platform_school_projects' %>
+    
     <% if @applies.present? %>
         <div class="school-apply-pair-table-co">
           <div class="school-apply-pair-table">
@@ -62,39 +41,9 @@
           <div class="donation-co-no-but">去捐助</div>
         </div>
     <% end %>
-
-
   </div>
 
   <div class="project-foot">
     <%= paginate @applies, theme: :tiny %>
   </div>
 </div>
-<script>
-
-
-    //     右tab切换二级
-    $(".donations1 li").on("click", function () {
-        $(".donations1 li").removeClass("selectedDo")
-        $(this).addClass("selectedDo")
-        $(".bottomline").css("left", parseFloat($(this)[0].offsetLeft) + 31 + "px")
-    })
-    if ($('.donation .donation-cont').length === 0) {
-        $('.donation-cont-no').css('display', 'block')
-        $('.project-foot').css('display', 'none')
-    } else {
-        $('.donation-cont-no').css('display', 'none')
-        $('.project-foot').css('display', 'block')
-    }
-    if ($('.school-apply-pair-table-co .school-apply-pair-tables').length === 0) {
-        $('.donation-cont-no').css('display', 'block')
-        $('.project-foot').css('display', 'none')
-        $('.school-apply-pair-table-co').css('display', 'none')
-    } else {
-        $('.donation-cont-no').css('display', 'none')
-        $('.project-foot').css('display', 'block')
-        $('.school-apply-pair-table-co').css('display', 'block')
-    }
-
-
-</script>

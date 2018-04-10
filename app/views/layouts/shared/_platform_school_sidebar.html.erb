@@ -27,8 +27,10 @@
   </ul>
   <div class="leftLine"></div>
   <div  class="border-t" >
-    <span class="iconfont icon-ico-add"></span>
-    <span>返回个人中心</span>
+    <%= link_to account_orders_path do %>
+      <span class="iconfont icon-ico-add"></span>
+      <span>返回个人中心</span>
+    <% end %>
   </div>
 </div>
 

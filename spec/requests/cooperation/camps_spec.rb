@@ -6,7 +6,7 @@ RSpec.describe "Api::V1::Cooperation::Camps", type: :request do
   let!(:project) { Project.camp_project }
   let!(:camp) { create(:camp, manager: login_user) }
   let!(:apply) { create(:project_season_apply, project: project, camp: camp) }
-  let!(:school) { create(:school) }
+  let!(:school) { create(:school, user: login_user) }
   let!(:teacher) { create(:teacher, school: school, user: login_user, kind: 'headmaster')}
   let!(:apply_camp) { create(:project_season_apply_camp, apply: apply, school: school, camp: camp) }
   let!(:student1) {create(:project_season_apply_camp_member, kind: 'student', state: 'pass', apply: apply, apply_camp: apply_camp, camp: camp, school: school)}
