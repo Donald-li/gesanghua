@@ -1,1 +1,36 @@
-悦读详情页
+<div class="person-body-right pull-right">
+
+  <div style="display: block;">
+    <p class="don-title border-b ">
+      <span class="pull-left">悦读申请详情</span>
+      <span class="pull-right iconfont icon-arrow-right"></span>
+      <span class="pull-right"><%= link_to platform_school_apply_reads_path do %>返回项目管理<% end %></span>
+    </p>
+    <div class="plat-school-apply-pair">
+      <p class="school-apply-pair-tit"><%= @apply.apply_name %></p>
+      <div class="school-apply-pair-table">
+        <p>申请详情</p>
+        <div class="school-apply-pair-table-cont">
+          <p><span>申请编号：</span><%= @apply.apply_no %></p>
+          <p><span>申请年度：</span><%= @apply.season.name %></p>
+        </div>
+      </div>
+      <div class="school-apply-pair-table">
+        <p>申请理由</p>
+        <div class="school-apply-pair-table-cont">
+          <p><%= @apply.describe.html_safe %></p>
+        </div>
+      </div>
+      <div class="don-co">
+        <div class="don-co-but cur" >
+          <% if @apply.draft? %>
+              <%= link_to '' do %><span>提交申请</span><% end %>
+          <% elsif @apply.raise_project? %>
+              <span><%= @apply.enum_name(:read_state) %></span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

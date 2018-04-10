@@ -18,6 +18,7 @@
           <p>当前筹款<span>￥<%= @apply.present_amount %></span></p>
           <p>参与人数<span><%= @apply.donate_records.grouping(:user_id).count %>人</span></p>
           <div class="overspread-show cur">我要捐助</div>
+
         </div>
       </div>
     </div>
@@ -265,7 +266,7 @@
     }
     $(".check_label").checkbox();
     $('.ui-choose').ui_choose();
-    $('#overspread-1').overs();
+    $('#overspread-1').overs(".overspread-show");
     if ($('.ui-choose > li').length > 6) {
         $('.overspread-co ').css({"padding": "0 0 0 30px", "overflow": "auto"});
 

@@ -25,7 +25,7 @@
       </div>
     </div>
     <p class="camps-cont-detail">
-      <%= strip_tags @article.content %>
+      <%= @article.content.html_safe %>
     </p>
     <div class="camps-share">
       <p>分享到：</p>
@@ -42,27 +42,17 @@
   <div class="recommend">
     <p>推荐资讯</p>
     <div class="row recommend-cont">
-      <div class="col-md-4">
-        <div class="recommend-img">
-          <%= image_tag 'gsh-img-1.png' %>
+      <% @recommend_articles.each do |recommend_article| %>
+        <div class="col-md-4">
+          <%= link_to article_path(recommend_article) do %>
+            <div class="recommend-img">
+              <%= image_tag recommend_article.image.try(:file).try(:url, :medium).to_s %>
+            </div>
+            <p class="gsh-cont-1"><%= recommend_article.author %> | <%= recommend_article.published_at.strftime("%Y年%m月%d日")%></p>
+            <p class="gsh-cont-2"><%= recommend_article.title %></p>
+          <% end %>
         </div>
-        <p class="gsh-cont-1">菠菜 | 2018年02月22日</p>
-        <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
-      </div>
-      <div class="col-md-4">
-        <div class="recommend-img">
-          <%= image_tag 'gsh-img-1.png' %>
-        </div>
-        <p class="gsh-cont-1">菠菜 | 2018年02月22日</p>
-        <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
-      </div>
-      <div class="col-md-4">
-        <div class="recommend-img">
-          <%= image_tag 'gsh-img-1.png' %>
-        </div>
-        <p class="gsh-cont-1">菠菜 | 2018年02月22日</p>
-        <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
-      </div>
+      <% end %>
     </div>
   </div>
 </div>
