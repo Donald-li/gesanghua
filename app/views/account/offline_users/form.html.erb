@@ -1,5 +1,5 @@
 
-<% if action_name == "new" %>
+<% if @offline_user.new_record? %>
   <% url_path = account_offline_users_path %>
   <% method_way = "post" %>
 <% else %>
@@ -7,7 +7,7 @@
   <% method_way = "put" %>
 <% end %>
 
-<%= simple_form_for @offline_user, url: url_path, method: 'put', html: {class: '', id: "offline_user_form", method_way: method_way} do |f| %>
+<%= simple_form_for @offline_user, url: url_path, method: method_way, html: {class: '', id: "offline_user_form", method_way: method_way} do |f| %>
   <div class="goodcont" style="padding: 0 30px 17px 28px;">
     <div class="clearfix">
       <div class="pull-left">
