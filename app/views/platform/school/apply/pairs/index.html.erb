@@ -33,11 +33,11 @@
                <%= apply.enum_name(:pair_state) %>
              </div>
              <div>
-               <button><%= link_to platform_school_apply_pair_path(apply) do %>查看申请详情<% end %></button>
+               <button><%= link_to '查看申请详情', platform_school_apply_pair_path(apply) %></button>
                <% if apply.waiting_upload? %>
-                <button><%= link_to platform_school_apply_child_path(apply) do %>提交名单<% end %></button>
+                <button><%= link_to '提交名单', child_list_platform_school_apply_pair_children_path(apply) %></button>
                <% elsif apply.pair_complete? %>
-                <button><%= link_to platform_school_apply_children_path(apply) do %>查看名单<% end %></button>
+                <button><%= link_to '查看名单', platform_school_apply_pair_children_path(apply, state: 'pass') %></button>
                <% end %>
              </div>
             </div>

@@ -1,0 +1,196 @@
+<div class="person-body-right pull-right" id="children">
+
+  <div class="children-body">
+    <div class="paddchild">
+      <p class="don-title border-b ">
+        <span class="pull-left">学生名单</span>
+        <span class="pull-right iconfont icon-arrow-right"></span>
+        <span class="pull-right"><%= link_to '返回项目管理', platform_school_apply_pairs_path %></span>
+      </p>
+    </div>
+    <div class="school-apply-pair-table-co">
+      <div class="school-apply-pair-share clearfix">
+        <%= search_form_for @search, url: child_list_platform_school_apply_pair_children_path(@apply) do |f| %>
+
+        <div class="input-group pull-left">
+          <span class="iconfont icon-ico-search"></span>
+          <%= f.text_field :name_cont, class: 'form-control', placeholder: '输入学生姓名' %>
+        </div>
+        <button type="submit" class="school-apply-share-share pull-left">搜索</button>
+        <% end %>
+        <%= link_to new_platform_school_apply_pair_child_path(@apply) do %>
+        <button class="pull-right school-apply-share-sub">
+          <span class="iconfont icon-ico-add1"></span>
+          <span>新增学生</span>
+        </button>
+        <% end %>
+
+      </div>
+      <div class="paddchild">
+        <div class="school-apply-pair-table">
+          <p>学生信息</p>
+          <!--<p>申请年度</p>-->
+          <p>操作</p>
+        </div>
+      </div>
+
+      <div class="posscroll paddchild" id="checked">
+        <% @children.each do |child| %>
+            <div class="school-apply-pair-tables">
+              <div class="school-apply-pair-table-cont">
+                <div class="school-apply-pair-child clearfix">
+                  <div class="pretty o-info pull-left">
+                    <input type="checkbox" value="<%= child.id %>"/>
+                    <label><i class="mdi mdi-check"></i></label>
+                  </div>
+                  <div class="pull-left">
+                    <%= image_tag child.avatar_url(:small) %>
+                  </div>
+                  <div class="pull-left">
+                    <p>
+                      <span><%= child.name %></span>
+                      <span><%= child.age %>岁 | <%= child.enum_name(:gender) %></span>
+                    </p>
+                    <p><%= child.school.try(:name) %> <%= child.enum_name(:level) %> <%= child.enum_name(:grade) %></p>
+                  </div>
+
+                </div>
+
+                <div class=" border-r border-l">
+                  <button class="recommend-but" onclick="setChildReason(<%= child.id %>, '<%= child.reason %>')">填写推荐理由</button>
+                </div>
+                <div>
+                  <%= link_to edit_platform_school_apply_pair_child_path(@apply, child) do %>
+                  <button>修改</button>
+                  <% end %>
+                  <%= link_to platform_school_apply_pair_child_path(@apply, child), method: :delete, data: {confirm: '确定要删除学生信息吗？'} do %>
+                  <button>删除</button>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+        <% end %>
+      </div>
+      <div class="school-apply-pair-but-n paddchild">
+        <div class="clearfix">
+          <div class="pull-left">
+            <div class="school-apply-paircheck pull-left">
+              <div class="pretty o-info pull-left">
+                <input type="checkbox" id="checkedse"/>
+                <label><i class="mdi mdi-check"></i> 全选</label>
+              </div>
+            </div>
+            <p class="pull-left school-apply-pairsub ">已选<span id="selected-number"> 0 </span>名学生</p>
+          </div>
+          <div class="school-apply-pairbut pull-right" onclick="submitSelectedChildren()">提交名单</div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+  <div class="overspread-4">
+    <div class="overspread-over"></div>
+    <div class="overspread-cont">
+      <div class="clearfix">
+        <div class="pull-left mys-1">填写推荐理由</div>
+        <div class="pull-right iconfont icon-icondelete cur overspread-but"></div>
+      </div>
+      <div class="overspread-co">
+        <input type="number" hidden name="child_id" id="child-id">
+        <textarea placeholder="请写你对学生的推荐理由" id="reason"></textarea>
+      </div>
+      <div class="overspread-but  over-but" id="submit-child-reason">确认</div>
+
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+    $('.overspread-4').overs(".recommend-but");
+    $(function () {
+        $("#checkedse").click(function () {
+            var isChecked = $("#checkedse").prop("checked");
+            $("#checked input").prop("checked", isChecked);
+            setSelectedNumber();
+        });
+        $("#checked input").click(function () {
+            var allLength = $("#checked input").length;
+            var checkedLength = $("#checked input:checked").length;
+            if (allLength == checkedLength) {
+                $("#checkedse").prop("checked", true);
+            } else {
+                $("#checkedse").prop("checked", false);
+            }
+            setSelectedNumber();
+        });
+
+        $("#submit-child-reason").click(function () {
+            var reason = $('#reason').val()
+            if (reason.length > 0) {
+                $.post("/ajaxes/submit_child_reason",
+                    {
+                        child_id: $('#child-id').val(),
+                        reason: reason
+                    },
+                    function(data){
+                        if (data.status) {
+                            layer.msg(data.message, {
+                                icon: 0,
+                                offset: 't c'
+                            });
+                            window.location.reload();
+                        } else {
+                            layer.msg(data.message, {
+                                icon: 2,
+                                offset: 't c'
+                            });
+                        }
+                    });
+            } else {
+                layer.msg('请填写推荐理由', {
+                    icon: 2,
+                    offset: 't c'
+                });
+            }
+
+        })
+    });
+    function setSelectedNumber() {
+        var checkedLength = $("#checked input:checked").length;
+        $('#selected-number').text(checkedLength)
+    }
+
+    function submitSelectedChildren() {
+        var child_ids = []
+        $("#checked input:checked").each(function(){
+            child_ids.push($(this).val());
+        });
+        $.post("/ajaxes/submit_pair_children",
+            {
+                id: '<%= @apply.id %>',
+                child_ids: child_ids
+            },
+            function(data){
+            if (data.status) {
+                layer.msg(data.message, {
+                    icon: 0,
+                    offset: 't c'
+                });
+                setTimeout("javascript:location.href='/platform/school/apply/pairs'", 1500);
+            } else {
+                layer.msg(data.message, {
+                    icon: 2,
+                    offset: 't c'
+                });
+            }
+            });
+    };
+
+    function setChildReason(id, reason) {
+        console.log(reason)
+        $('#child-id').val(id)
+        $('#reason').val(reason)
+    }
+
+</script>

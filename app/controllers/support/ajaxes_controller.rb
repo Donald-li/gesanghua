@@ -45,4 +45,24 @@ class Support::AjaxesController < Support::BaseController
     render json: {value: amount}
   end
 
+  def submit_pair_children
+    @apply = ProjectSeasonApply.find(params[:id])
+    @children = ProjectSeasonApplyChild.where(id: params[:child_ids])
+    if @children.map(&:submit!) && @apply.waiting_check!
+      render json: {message: '提交成功，请耐心等待审核', status: true}
+    else
+      render json: {message: '提交失败，请重试', status: false}
+    end
+  end
+
+  def submit_child_reason
+    @children = ProjectSeasonApplyChild.find(params[:child_id])
+    @children.reason = params[:reason]
+    if @children.save
+      render json: {message: '保存成功', status: true}
+    else
+      render json: {message: '保存失败，请重试', status: false}
+    end
+  end
+
 end
