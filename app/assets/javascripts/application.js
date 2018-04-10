@@ -39,6 +39,8 @@
 //= require 'plugin/ui-choose.js'
 //= require 'plugin/mongolian.js'
 //= require 'plugin/jquery.magnify.js'
+//= require 'plugin/calculate.js'
+
 
 
 

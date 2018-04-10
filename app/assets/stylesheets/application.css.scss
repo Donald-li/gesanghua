@@ -4595,6 +4595,9 @@ select:disabled {
         color: #3d3d40;
         border-radius: 2px;
         margin-bottom: 10px;
+        a{
+          color: #3d3d40;
+        }
       }
       & > button:nth-child(2) {
         outline: none;
@@ -4606,6 +4609,9 @@ select:disabled {
         font-size: 13px;
         color: $color-border;
         border-radius: 2px;
+        a{
+          color: $color-border;
+        }
       }
     }
   }
@@ -5011,6 +5017,19 @@ select:disabled {
   border-radius: 3px;
   margin-left: 5px;
 }
+.add-reads{
+  position: absolute;
+  right:0;
+  bottom:12px;
+  height: 34px;
+  &  >button:nth-child(1){
+    margin-right: 10px;
+    background: #fff;
+    color: $color-border;
+    border: 1px solid $color-border;
+    line-height: 31px;
+  }
+}
 
 .school-apply-share-sub {
   outline: none !important;
@@ -5025,7 +5044,6 @@ select:disabled {
   border: none;
   box-shadow: none;
   border-radius: 3px;
-
   & > span {
     font-size: 13px;
     margin-top: 1px;
