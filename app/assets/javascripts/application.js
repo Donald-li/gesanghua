@@ -37,12 +37,8 @@
 //= require 'plugin/ui-choose.js'
 //= require 'plugin/mongolian.js'
 //= require 'plugin/jquery.magnify.js'
-<<<<<<< HEAD
 //= require 'plugin/calculate.js'
-
-=======
 //= require 'plugin/toastr.js'
->>>>>>> develop
 
 
 
