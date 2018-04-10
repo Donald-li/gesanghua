@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Site::WechatsController < Site::BaseController
-  skip_before_action :login?
+  # skip_before_action :login?
   # skip_before_action :verify_authenticity_token
 
   # 微信授权
