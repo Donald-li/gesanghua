@@ -1,6 +1,6 @@
 namespace :account do
-  get '/login' => 'sessions#new', as: :login_in
-  match '/logout', to: 'sessions#destroy', as: :logout_out, via: :delete
+  get '/login' => 'sessions#new', as: :sign_in
+  match '/logout', to: 'sessions#destroy', as: :sign_out, via: :delete
   resource :session, only: [:create, :edit, :update] do
     member do
       get :forget
@@ -19,7 +19,7 @@ namespace :account do
   resources :pairs, only: [:index] # 我的结对
   resources :bookshelves, only: [:index] # 我的图书角
   resources :teams, only: [:index] # 我的团队
-  resources :offline_users, only: [:index, :update, :create, :destroy] # 捐助管理
+  resources :offline_users # 捐助管理
   resource :level, only: [:show] # 我的勋章
   resource :registration, only: [:show, :new, :create]
   resource :modify_password, only: [:edit, :update]
