@@ -16,7 +16,6 @@ class Platform::School::FeedbacksController < Platform::School::BaseController
   end
 
   def create
-    byebug
     @continual = ContinualFeedback.new(continual_params.merge(school: @school, user: @user))
     @continual.owner = Project.read_project
     @continual.project = Project.read_project
