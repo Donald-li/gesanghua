@@ -8,8 +8,8 @@ RSpec.describe Baidu, type: :lib do
   end
 
   it '测试发短信' do
-    data = Baidu.send_sms
-    pp data
+    # data = Baidu.send_sms
+    # pp data
 
     # data = Baidu.send_test
     # pp data
