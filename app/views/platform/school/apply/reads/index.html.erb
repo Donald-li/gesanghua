@@ -2,17 +2,28 @@
 
   <div style="display: block;">
     <p class="don-title border-b">项目管理</p>
-    <div class="donations-1">
-      <ul class="donations1 clearfix">
-        <li class="cur">一对一</li>
-        <li class="cur border-l">护花</li>
-        <li class="cur border-l border-r">护花课程</li>
-        <li class="cur border-r">广播</li>
-        <li class="cur border-r selectedDo">悦读</li>
-        <li class="cur">探索营</li>
-      </ul>
-      <div class="bottomline"></div>
+      <div class="donations-1 clearfix">
+        <ul class="donations1  clearfix">
+          <li class="cur">一对一</li>
+          <li class="cur border-l">护花</li>
+          <li class="cur border-l border-r">护花课程</li>
+          <li class="cur border-r">广播</li>
+          <li class="cur border-r selectedDo">悦读</li>
+          <li class="cur">探索营</li>
+        </ul>
+        <div class="bottomline"></div>
+        <div class="add-reads">
+          <button class=" school-apply-share-sub">
+            <span class="iconfont icon-ico-add1"></span>
+            <span>补书申请</span>
+          </button>
+          <button class=" school-apply-share-sub">
+            <span class="iconfont icon-ico-add1"></span>
+            <span>新书申请</span>
+          </button>
+        </div>
     </div>
+
     <% if @applies.present? %>
         <div class="school-apply-pair-table-co">
           <div class="school-apply-pair-table">
