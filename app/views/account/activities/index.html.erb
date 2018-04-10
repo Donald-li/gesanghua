@@ -47,7 +47,12 @@
                 <p>合肥  |  报名截止2018年2月18日</p>
               </div>
             </div>
+
           </div>
+            <div class="project-foot">
+              <span class="iconfont icon-arrow-left cur"></span>
+              <span class="iconfont icon-arrow-right cur"></span>
+            </div>
 
             <div class="donation-cont-no">
               <div class="donation-co-no-c">
@@ -67,7 +72,9 @@
 
     if($('.donation .donation-active-cont').length===0){
         $('.donation-cont-no').css('display', 'block')
+        $('.project-foot').css('display', 'none')
     }else{
         $('.donation-cont-no').css('display', 'none')
+        $('.project-foot').css('display', 'block')
     }
 </script>
