@@ -10,11 +10,9 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
+// require js-routes
+//= require jquery3
 //= require rails-ujs
-//= require bootstrap-sprockets
-//= require bootstrap-switch
-//= require 'plugin/vue.min'
 //= require 'china_city/jquery.china_city'
 //= require 'plugin/jquery.timeago'
 //= require 'plugin/jquery.nested_attributes.js'
@@ -39,6 +37,10 @@
 //= require 'plugin/ui-choose.js'
 //= require 'plugin/mongolian.js'
 //= require 'plugin/jquery.magnify.js'
+//= require 'plugin/calculate.js'
+// require 'plugin/toastr.js'
+// require toastr
+
 
 
 

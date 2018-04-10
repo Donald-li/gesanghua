@@ -1,7 +1,7 @@
 class Account::OfflineUsersController < Account::BaseController
 
   def index
-    @offline_users = User.where(manager: current_user)
+    @offline_users = User.where(manager: current_user).sorted
     if params[:id].present?
       @offline_user = User.find(params[:id])
     else
@@ -42,14 +42,15 @@ class Account::OfflineUsersController < Account::BaseController
   end
 
   def update
+    @offline_user = User.find_by_id(params[:id])
     province = params[:user_province_id]
     city = params[:user_city_id]
     district = params[:user_district_id]
     gender = params[:gender]
-    if @offline_user.update(offline_user_params).merge(login: offline_user_params[:phone], province: province, city: city, district: district, gender: gender)
-      redirect_to account_offline_users_path, notice: '修改成功。'
+    if @offline_user.update_attributes(offline_user_params.merge(login: offline_user_params[:phone], province: province, city: city, district: district, gender: gender))
+      gen_success_message
     else
-      redirect_to account_offline_users_path, notice: @offline_user.errors.full_messages
+      gen_failure_message(@offline_user)
     end
   end
 
@@ -61,6 +62,11 @@ class Account::OfflineUsersController < Account::BaseController
     else
       redirect_to account_offline_users_path, notice: @offline_user.errors.full_messages
     end
+  end
+
+  def edit
+    @offline_user = User.find_by_id(params[:id])
+    render 'form', :layout => 'bootstrap_modal'
   end
 
   private

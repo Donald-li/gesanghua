@@ -12,11 +12,22 @@ namespace :platform do
           end
         end
       end
-      resources :reads
+      resources :reads do
+        collection do
+          get :supplement
+        end
+      end
       resources :radios
       resources :cares
       resources :movies
       resources :movie_cares
+      resources :camps do
+        resources :members do
+          collection do
+            get :member_list
+          end
+        end
+      end
     end
     resources :teachers # 教师管理
     resources :feedbacks # 定期反馈
