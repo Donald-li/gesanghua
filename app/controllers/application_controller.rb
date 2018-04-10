@@ -40,4 +40,16 @@ class ApplicationController < ActionController::Base
   def json_pagination(list)
     {current_page: list.current_page, total_count: list.total_count, total_pages: list.total_pages}
   end
+
+  def gen_success_message
+    render json: {"code"=> 0, "msg"=> "修改成功"}
+  end
+
+  def gen_failure_message(entity =nil)
+    if entity.present? && entity.errors.present?
+      msg = entity.errors.full_messages.join(',  ')
+    end
+    render json: {"code"=>"false", "msg"=> msg || "操作失败"}
+  end
+
 end

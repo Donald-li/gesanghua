@@ -15,8 +15,6 @@
  *= require "plugins/jquery.mCustomScrollbar.min"
  *= require "plugins/share.min"
  *= require "plugins/ui-choose"
- *= require "plugins/website"
- *= require "account/personals"
  *= require "plugins/pretty"
  *= require "plugins/jquery.magnify"
  *= require_self
@@ -1963,6 +1961,24 @@ select:disabled {
           font-size: 14px;
         }
         & > span:hover {
+          line-height: 30px;
+          border: none;
+          background-color: $color-border;
+          color: #fff;
+        }
+        .icon-a {
+          width: 30px;
+          height: 30px;
+          border: 1px solid #e6e6e6;
+          border-radius: 3px;
+          text-align: center;
+          line-height: 28px;
+          color: #9f9f9f;
+          font-size: 14px;
+          margin: 0 2px;
+          display: inline-block;
+        }
+        & > a:hover {
           line-height: 30px;
           border: none;
           background-color: $color-border;
@@ -5234,19 +5250,6 @@ select:disabled {
     margin-top: 7px;
     width: 100px;
   }
-
-  .school-feed{
-    & > img{
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      margin-right: 10px;
-    }
-    & > span{
-      font-size: 13px;
-      color: #d7d7d7;
-    }
-  }
   .feedback-cont-cco{
     padding-left: 24px;
     .feedback-cont-c-tit {
@@ -5265,8 +5268,49 @@ select:disabled {
 
     }
   }
+}
+.school-feed{
+  & > img{
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  & > span{
+    font-size: 13px;
+    color: #d7d7d7;
+  }
+}
+#feedback-shows{
+  .school-apply-pair-table-cont {
+    padding: 16px 20px 6px 20px;
+  }
+  .plat-school-apply-pair .school-feed{
+    margin: 10px 0 20px 0;
+  }
+  .feedback-shows-img{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap ;
+    & > div{
+      width: 211px;
+      height: 143px;
+      margin-top: 10px;
+      margin-left: 20px;
+      margin-bottom: 10px;
 
-
+      img{
+        width: 211px;
+        height: 143px;
+      }
+    }
+    & > div:first-child{
+      margin-left:0;
+    }
+    & > div:nth-child(3n+1){
+      margin-left:0;
+    }
+  }
 }
 //学校资料
 #school-edit{

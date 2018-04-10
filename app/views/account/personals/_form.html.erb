@@ -1,4 +1,3 @@
-<% binding.pry %>
 <%= simple_form_for [:account, @persional], url: account_personal_path(@persional), wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'personal_form'} do |f| %>
     <%= f.error_notification %>
     <div class="form-body form-horizontal">
