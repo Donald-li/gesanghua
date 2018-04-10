@@ -1,6 +1,6 @@
 <div class="person-head">
   <%= image_tag 'cooperate-visite-form.png' %>
-  <div class="person-h-img"> <%= image_tag 'ucenter-picture.png' %></div>
+  <div class="person-h-img"> <%= image_tag current_user.avatar_url(:tiny) %></div>
   <div class="person-h-right">
     <%= link_to edit_platform_school_teacher_profile_path do %>
     <span class="iconfont icon-ico-wechat1"></span>
@@ -8,9 +8,9 @@
     <% end %>
   </div>
   <div class="person-h-cont">
-    <p>Somnambulist</p>
+    <p><%= current_user.name %></p>
     <div class="person-h-cont-d">
-      <p class="person-h-cont-d-pairs">大西庄小学 | <span class="iconfont icon-ico-role- "></span>校长</p>
+      <p class="person-h-cont-d-pairs"><%= current_user.school.name %> | <span class="iconfont icon-ico-role- "></span><%= current_user.role_tag %></p>
     </div>
   </div>
 </div>
