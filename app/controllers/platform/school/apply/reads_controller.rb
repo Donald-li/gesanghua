@@ -10,6 +10,10 @@ class Platform::School::Apply::ReadsController < Platform::School::BaseControlle
   def show
   end
 
+  def supplement
+
+  end
+
   private
   def set_apply
     @apply = ProjectSeasonApply.find(params[:id])

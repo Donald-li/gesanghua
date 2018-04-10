@@ -1,0 +1,38 @@
+<div id="goodcover"></div>
+<div id="code" style="height: 339px;">
+  <%= simple_form_for :personal, url: binding_account_personals_path, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'personal_form'} do |f| %>
+    <div class="close1 clearfix">
+      <span class="pull-left">新增捐赠人信息</span>
+      <span id="closebt" class="iconfont icon-icondelete cur pull-right "></span>
+    </div>
+    <div class="form-group" style="margin-top: 30px">
+      <label for="inputStandard" class="col-md-3 control-label">输入手机：</label>
+      <div class="col-md-6" style="float: right !important;margin-right: 142px;padding-left: 0px !important;">
+        <div class="bs-component">
+          <%= f.text_field :phone, value: "15063997108", class: 'form-control input__field input__field--hoshi', id: 'phonenumber', placeholder: "请填写真实姓名", required: true %>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputStandard" class="col-md-3 control-label">验证码：</label>
+      <div class="col-md-6" style="float: right !important;margin-right: 142px;padding-left: 0px !important;">
+        <div class="bs-component">
+          <div class="row">
+            <div class="col-md-6">
+              <input class="form-control input__field input__field--hoshi" type="text" id="security" name="code" placeholder="输入验证码"/>
+            </div>
+            <div class="col-md-6">
+              <!--<label class="input__label input__label&#45;&#45;hoshi input__label&#45;&#45;hoshi-color-1" for="security"></label>-->
+              <input class="form-control security-cont cur" type="button" id="code_btn" value="获取验证码"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group" style="padding-top: 40px;"></div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default cancel-btn">取消</button>
+      <button type="submit" class="btn btn-primary save-btn">确定</button>
+    </div>
+  <% end %>
+</div>

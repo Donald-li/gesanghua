@@ -1,3 +1,15 @@
+<% content_for :scripts do %>
+  <%= javascript_include_tag "controllers/offline_users/index" %>
+<% end %>
+
+<% content_for :styles do %>
+  <%#= stylesheet_link_tag "controllers/offline_users/theme" %>
+<% end %>
+
+<% content_for :outside_container do %>
+  <div class="modal fade" id="popup-container" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true"></div>
+<% end %>
+
 <div class="person-body-right pull-right">
         <div class="">
           <p class="don-title border-b">捐助管理</p>
@@ -42,11 +54,10 @@
                     <span class="iconfont icon-ico-delete1"></span>
                     <span>删除</span>
                   </div>
-                  <div class="pull-right cur edit-offline-user" offlineUserId="<%= offline_user.id %>" id="edit">
+                  <div class="pull-right cur edit-offline-user edit_button" offlineUserId="<%= offline_user.id %>" id="edit">
                     <span class="iconfont icon-ico-edit "></span>
                     <span>编辑</span>
                   </div>
-
                 </div>
               </div>
             <% end %>
@@ -76,59 +87,7 @@
       </div>
     </div>
   </div>
-  <div id="code">
-    <%= simple_form_for @offline_user, url: account_offline_users_path, method: :post, html: {class: ''} do |f| %>
-    <div class="close1 clearfix">
-      <span class="pull-left">新增捐赠人信息</span>
-      <span id="closebt" class="iconfont icon-icondelete cur pull-right "></span>
-    </div>
-    <div class="goodcont">
-      <div class="clearfix">
-        <div class="pull-left">
-          <p class="goodtext">昵称</p>
-          <!-- <input  class="goodinput" type="text"  /> -->
-          <%= f.text_field :nickname, required: true, class: 'goodinput', placeholder: '' %>
-        </div>
-        <div class="pull-right">
-          <p class="goodtext">真实姓名</p>
-          <!-- <input  class="goodinput" type="text"  /> -->
-          <%= f.text_field :name, required: true, class: 'goodinput', placeholder: '' %>
-        </div>
-      </div>
-      <div class="clearfix sexinput">
-        <p class="goodtext pull-left">性别</p>
-        <div class="female pull-left">
-          <input type="radio" id="male" value="male" name="gender" checked />
-          <label for="male">男</label>
-        </div>
-        <div class="male pull-left">
-          <input type="radio" id="female" value="female" name="gender" />
-          <label for="female">女</label>
-        </div>
-      </div>
 
-      <div class="clearfix">
-        <div class="pull-left">
-          <p class="goodtext">如何称呼</p>
-          <!-- <input  class="goodinput" type="text"  /> -->
-          <%= f.text_field :salutation, class: 'goodinput', placeholder: '孩子如何称呼您' %>
-        </div>
-        <div class="pull-right">
-          <p class="goodtext">联系电话</p>
-          <!-- <input  class="goodinput" type="text"  placeholder="请输入联系电话"/> -->
-          <%= f.text_field :phone, required: true, class: 'goodinput', placeholder: '' %>
-        </div>
-      </div>
-      <p class="goodtext">所在地区</p>
-      <div class="city-picker-selector" id="city-picker-selector"></div>
-      <p class="goodtext">详细地址</p>
-      <!-- <input class="address-input" type="text"  placeholder="请输入详细地址"/> -->
-      <%= f.text_field :address, class: 'address-input', placeholder: '请输入详细地址' %>
-      <!-- <div class="goodbut">保存</div> -->
-      <button class="goodbut" type="submit">保存</button>
-    </div>
-    <% end %>
-  </div>
 <script>
 
 
@@ -145,15 +104,7 @@
         $('.donation-cont-no').css('display', 'none')
         $('.project-foot').css('display', 'block')
     }
-    // 模拟城市-无联动/无搜索
-    var selector1 = $('#city-picker-selector').cityPicker({
-        dataJson: cityData,
-        renderMode: true,
-        search: false,
-        autoSelected: false,
-        code: 'cityCode',
-        level: 3
-    });
+
 
     $('#ClickMe').click(function() {
         $('#code').center();
@@ -175,20 +126,20 @@
         $('#goodcover').show();
         $('#remove').fadeIn();
     });
-    $('.edit-offline-user').click(function() {
-      var id = $(this).attr("offlineUserId");
-      alert(id)
-      $.ajax({
-        type: "get",
-        url: "/account/offline_users",
-        data: {id: id},
-        success(){},
-        error(){}
-      })
-      $('#code').center();
-      $('#goodcover').show();
-      $('#code').fadeIn();
-    });
+    // $('.edit-offline-user').click(function() {
+    //   var id = $(this).attr("offlineUserId");
+    //   alert(id)
+    //   $.ajax({
+    //     type: "get",
+    //     url: "/account/offline_users",
+    //     data: {id: id},
+    //     success(){},
+    //     error(){}
+    //   })
+    //   $('#code').center();
+    //   $('#goodcover').show();
+    //   $('#code').fadeIn();
+    // });
     $('#remove-but').click(function() {
         $('#remove').hide();
         $('#goodcover').hide();

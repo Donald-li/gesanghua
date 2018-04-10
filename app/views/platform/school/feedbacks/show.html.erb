@@ -4,41 +4,30 @@
     <p class="don-title border-b ">
       <span class="pull-left">定期反馈详情</span>
       <span class="pull-right iconfont icon-arrow-right"></span>
-      <span class="pull-right">返回</span>
+      <span class="pull-right"><%= link_to platform_school_feedbacks_path do %>返回<% end %></span>
     </p>
     <div class="plat-school-apply-pair">
-      <p class="school-apply-pair-tit">一对一助学项目反馈</p>
+      <p class="school-apply-pair-tit"><%= @continual.owner.try(:name) %>项目反馈</p>
       <div class="school-feed">
-        <%= image_tag 'ucenter-top-bg.png' %>
-        <span>Peekid ·</span>
-        <span>2017-09-08发布</span>
+        <%= image_tag @continual.user.user_avatar %>
+        <span><%= @continual.user.show_name %> ·</span>
+        <span><%= @continual.created_at.strftime("%Y-%m-%d")%>发布</span>
       </div>
       <div class="school-apply-pair-table">
         <p>反馈详情</p>
         <div class="school-apply-pair-table-cont ">
-          <p>2008年4月9日，读小学三年级的小礼正坐在教室里听老师讲课。小礼出生于1998年，家里还有瘦弱矮小且常年多病的母亲和先天肢体残疾的父亲。2008年4月12日，由于母亲病情加重，小礼从学校请假回家照顾母亲。小礼就读的学校离家较远且交通不便，平时小礼只能吃住在学校，每个星期五下午回家，周日下午再返校。小礼一家目前借居在阿姨家，这是因为几年前妈妈的妹妹看到他们家实在漏雨严重，才同意他们借住在自己房子里的。如今这所房屋也因为年久失修，多处出现墙面脱落、墙体开裂的情况。</p>
-          <div class="feedback-shows-img">
-            <div>
-            <a data-magnify="gallery"  href="<%=image_url 'cooperate-visite-form.png'%>">
-            <%= image_tag 'cooperate-visite-form.png' ,:style => "width:211px" %>
-            </a>
+          <p><%= @continual.content %></p>
+          <% if @continual.images.present? %>
+            <div class="feedback-shows-img">
+              <% @continual.images.each do |image| %>
+                <div>
+                <a data-magnify="gallery"  href="<%=image_url image.try(:file).try(:url, :medium).to_s %>">
+                <%= image_tag image.try(:file).try(:url, :medium).to_s, :style => "width:211px" %>
+                </a>
+                </div>
+              <% end %>
             </div>
-            <div>
-              <a data-magnify="gallery"  href="<%=image_url 'cooperate-visite-form.png'%>">
-                <%= image_tag 'cooperate-visite-form.png' ,:style => "width:211px" %>
-              </a>
-            </div>
-            <div>
-              <a data-magnify="gallery"  href="<%=image_url 'cooperate-visite-form.png'%>">
-                <%= image_tag 'cooperate-visite-form.png' ,:style => "width:211px" %>
-              </a>
-            </div>
-            <div>
-              <a data-magnify="gallery"  href="<%=image_url 'cooperate-visite-form.png'%>">
-                <%= image_tag 'cooperate-visite-form.png' ,:style => "width:211px" %>
-              </a>
-            </div>
-          </div>
+          <% end %>
         </div>
       </div>
 

@@ -1,5 +1,9 @@
 class Site::SpecialsController < Site::BaseController
 
+  def index
+
+  end
+
   def show
     @special = Special.find(params[:id])
     @special_advert = @special.adverts.first
