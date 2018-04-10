@@ -310,7 +310,6 @@ admin:
             admin_project_goods_feedbacks:
               actions:
                 'admin/goods_continual_feedbacks': all
-                'admin/movie_care_continual_feedbacks': all
 # 探索营后台
 camp:
   menus:
