@@ -12,7 +12,11 @@ namespace :platform do
           end
         end
       end
-      resources :reads
+      resources :reads do
+        collection do
+          get :supplement
+        end
+      end
       resources :radios
       resources :cares
       resources :movies
