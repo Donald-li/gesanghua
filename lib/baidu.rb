@@ -19,7 +19,6 @@ module Baidu
     signed_headers = canonica_headers.split("\n").map{|h| h.split(':').first}.join(';')
 
     canonical_request = [method, canonical_uri, canonical_query, canonica_headers].join("\n")
-    puts canonical_request
 
     signing_str = "bce-auth-v1/#{ACCESS_ID}/#{timestamp}/1800"
     signing_key = OpenSSL::HMAC.hexdigest('SHA256', SECRET_KEY, signing_str)
@@ -77,7 +76,6 @@ module Baidu
 
     auth_str = auth_str(method: method, url: path, timestamp: timestamp, headers: headers)
     headers.merge!(Authorization: auth_str)
-    pp headers
 
     http = Net::HTTP.new(host)
     res = http.get(path, headers)

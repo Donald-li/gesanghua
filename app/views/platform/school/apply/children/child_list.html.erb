@@ -57,7 +57,7 @@
                 </div>
 
                 <div class=" border-r border-l">
-                  <button class="recommend-but">填写推荐理由</button>
+                  <button class="recommend-but" onclick="setChildReason(<%= child.id %>, '<%= child.reason %>')">填写推荐理由</button>
                 </div>
                 <div>
                   <%= link_to edit_platform_school_apply_pair_child_path(@apply, child) do %>
@@ -97,9 +97,10 @@
         <div class="pull-right iconfont icon-icondelete cur overspread-but"></div>
       </div>
       <div class="overspread-co">
-        <textarea placeholder="请写你对学生的推荐理由"></textarea>
+        <input type="number" hidden name="child_id" id="child-id">
+        <textarea placeholder="请写你对学生的推荐理由" id="reason"></textarea>
       </div>
-      <div class="overspread-but  over-but">确认</div>
+      <div class="overspread-but  over-but" id="submit-child-reason">确认</div>
 
     </div>
   </div>
@@ -123,6 +124,37 @@
             }
             setSelectedNumber();
         });
+
+        $("#submit-child-reason").click(function () {
+            var reason = $('#reason').val()
+            if (reason.length > 0) {
+                $.post("/ajaxes/submit_child_reason",
+                    {
+                        child_id: $('#child-id').val(),
+                        reason: reason
+                    },
+                    function(data){
+                        if (data.status) {
+                            layer.msg(data.message, {
+                                icon: 0,
+                                offset: 't c'
+                            });
+                            window.location.reload();
+                        } else {
+                            layer.msg(data.message, {
+                                icon: 2,
+                                offset: 't c'
+                            });
+                        }
+                    });
+            } else {
+                layer.msg('请填写推荐理由', {
+                    icon: 2,
+                    offset: 't c'
+                });
+            }
+
+        })
     });
     function setSelectedNumber() {
         var checkedLength = $("#checked input:checked").length;
@@ -153,5 +185,12 @@
                 });
             }
             });
+    };
+
+    function setChildReason(id, reason) {
+        console.log(reason)
+        $('#child-id').val(id)
+        $('#reason').val(reason)
     }
+
 </script>

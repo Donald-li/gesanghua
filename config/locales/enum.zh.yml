@@ -112,8 +112,8 @@ zh:
     read_executing: '执行中'
     read_done: '已完成'
   project_season_apply_bookshelf_types:
-    whole: '图书角'
-    supplement: '补书'
+    whole: '新书申请'
+    supplement: '补书申请'
   project_season_apply_audit_states:
     draft: '待提交'
     submit: '待审核'

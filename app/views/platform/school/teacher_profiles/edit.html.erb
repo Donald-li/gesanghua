@@ -7,45 +7,45 @@
   </ul>
   <div class="leftLine"></div>
   <div  class="border-t" >
+    <%= link_to platform_school_apply_pairs_path do %>
     <span class="iconfont icon-ico-add"></span>
-    <span>返回个人中心</span>
+    <span>返回协作平台</span>
+    <% end %>
   </div>
 </div>
 <div class="person-body-right pull-right" style="margin-top: 40px;">
-
+  <%= simple_form_for [:platform, @user], url: platform_school_teacher_profile_path, html: {'data-parsley-validate': true, class: 'user_form'} do |f| %>
   <div style="display: block;">
     <p class="don-title border-b ">
       <span class="pull-left">个人资料</span>
     </p>
     <div class="school-edit">
       <div class="addchild-list-img">
-        <%= image_tag 'gsh-img-right.png' %>
-        <div></div>
-        <span>上传正面照</span>
+        <%= webuploader_avatar :avatar_id, label: '上传正面照', type: 'user_avatar', asset: @user.avatar, klass: 'single', id: 'user-avatar' %>
       </div>
 
       <p class="don-title">基本信息</p>
       <div class="addchild-list-cont">
         <div>
           <span class="goodtext">真实姓名</span>
-          <input  class="goodinput " type="text"  />
+          <input  class="goodinput " type="text" name="name" value="<%= @user.name %>" />
         </div>
         <div>
           <span class="goodtext">办公电话</span>
           <div class="edit-input">
-            <input  class="goodinput " type="text"  placeholder="区号"/>
+            <input  class="goodinput " type="text" name="phone_head" value="<%= @user.teacher.phone_head %>" placeholder="区号"/>
             <span>-</span>
-            <input  class="goodinput " type="text"  />
+            <input  class="goodinput " type="text" name="phone_body" value="<%= @user.teacher.phone_body %>" />
           </div>
 
         </div>
       </div>
       <div class="childern-submint">
-        <button>保存</button>
+        <button type="submit">保存</button>
       </div>
     </div>
   </div>
-
+  <% end %>
 
 </div>
 <script>
@@ -61,5 +61,7 @@
     $("#class").select({
         width: "142px"
     });
-
+    $(function(){
+        initAvatarWebuploader($('#user-avatar'));
+    })
 </script>
