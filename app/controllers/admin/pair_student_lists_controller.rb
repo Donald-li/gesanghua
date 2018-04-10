@@ -1,4 +1,5 @@
 class Admin::PairStudentListsController < Admin::BaseController
+  before_action :check_auth
   before_action :set_pair_student_list, only: [:show, :edit, :update, :destroy, :switch, :remarks, :turn_over, :share, :qrcode_download]
 
   def index
@@ -80,5 +81,9 @@ class Admin::PairStudentListsController < Admin::BaseController
     # Never trust parameters from the scary internet, only allow the white list through.
     def pair_student_list_params
       params.require(:pair_season_apply_child).permit!
+    end
+
+    def check_auth
+      auth_operate_project(Project.pair_project)
     end
 end

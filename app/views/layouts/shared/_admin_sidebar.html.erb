@@ -18,11 +18,11 @@
         <% end %>
       </li>
     </ul>
+    <% if can? :manage_operation, current_user %>
     <ul class="page-sidebar-menu module-menus menus-operate hide" data-keep-expanded="false" data-slide-speed="200">
       <li class="heading">
         <h3 class="uppercase">运营管理</h3>
       </li>
-      <% if can? :manage, User %>
       <li class="nav-item <%= current_nav_class(:admin_user) %>">
         <%= link_to admin_users_path, class: 'nav-link' do %>
             <% new = 0 %>
@@ -33,8 +33,6 @@
             <% end %>
         <% end %>
       </li>
-      <% end %>
-      <% if can? :manage, School %>
       <li class="nav-item  <%= current_nav_class(:admin_schools) %> ">
         <a href="javascript:;" class="nav-link nav-toggle">
           <% to_prove_admin = School.can_check.count %>
@@ -58,8 +56,6 @@
           </li>
         </ul>
       </li>
-      <% end %>
-      <% if can? :manage, User %>
       <li class="nav-item <%= current_nav_class(:admin_user_main) %> <%= current_nav_class(:admin_user_county_users) %> <%= current_nav_class(:admin_user_gsh_children) %> <%= current_nav_class(:admin_user_teachers) %>">
         <%= link_to '', class: 'nav-link' do %>
             <i class="fa fa-users"></i>
@@ -88,9 +84,7 @@
           </li>
         </ul>
       </li>
-      <% end %>
 
-      <% if can? :manage, Volunteer %>
       <li class="nav-item <%= current_nav_class(:admin_volunteers) %> ">
         <a href="javascript:;" class="nav-link nav-toggle">
           <% to_check_task = TaskVolunteer.to_check.count %>
@@ -133,9 +127,7 @@
           </li>
         </ul>
       </li>
-      <% end %>
 
-      <% if can? :manage, Project %>
       <li class="nav-item  <%= current_nav_class(:admin_apply) %> ">
         <a href="javascript:;" class="nav-link nav-toggle">
           <% to_prove_apply = 0 %>
@@ -163,7 +155,6 @@
           </li>
         </ul>
       </li>
-      <% end %>
 
       <li class="nav-item <%= current_nav_class(:admin_month_donate) %>">
         <%= link_to admin_month_donates_path, class: 'nav-link' do %>
@@ -252,15 +243,15 @@
         </ul>
       </li>
     </ul>
+    <% end %>
 
-    <% if can? :manage, Project %>
+    <% if can? :operate_project, current_user %>
     <ul class="page-sidebar-menu module-menus menus-project hide" data-keep-expanded="false" data-slide-speed="200">
       <li class="heading">
         <h3 class="uppercase">固定项目</h3>
       </li>
 
-      <% to_prove_apply = 0 %>
-      <% submited = 0 %>
+      <% if can? :operate_project, current_user, Project.pair_project %>
       <li class="nav-item  <%= current_nav_class(:admin_pair) %> ">
         <a href="javascript:;" class="nav-link nav-toggle">
           <% to_prove_apply = 0 %>
@@ -317,6 +308,9 @@
           <% end %>
         </ul>
       </li>
+      <% end %>
+
+      <% if can? :operate_project, current_user, Project.read_project %>
       <li class="nav-item <%= current_nav_class(:admin_project_book) %>">
         <a href="javascript:;" class="nav-link nav-toggle">
           <% to_prove_read_apply = Project.read_project.applies.submit.count %>
@@ -356,12 +350,15 @@
           <% end %>
         </ul>
       </li>
+      <% end %>
+
+      <% if can? :operate_project, current_user, Project.camp_project %>
       <li class="nav-item <%= current_nav_class(:admin_project_camp) %>">
         <a href="javascript:;" class="nav-link nav-toggle">
           <% to_prove_camp_apply = ProjectSeasonApply.where(project: Project.camp_project).submit.count %>
           <% to_check_camp_feedback = Project.camp_project.continual_feedbacks.uncheck.count %>
           <i class="fa fa-map-signs"></i>
-          <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">探索营</span>
+          <span class="title <%= 'font-red-soft' if to_prove_camp_apply > 0 || to_check_camp_feedback > 0 %>">探索营</span>
           <span class="arrow <%= current_nav_class(:admin_project_camp, current: :open) %>"></span>
         </a>
         <ul class="sub-menu">
@@ -445,6 +442,9 @@
           <% end %>
         </ul>
       </li>
+      <% end %>
+
+      <% if can? :operate_project, current_user, Project.movie_project %>
       <li class="nav-item <%= current_nav_class(:admin_project_movie) %>">
         <a href="javascript:;" class="nav-link nav-toggle">
           <% to_prove_movie_apply = Project.movie_project.applies.submit.count %>
@@ -484,7 +484,9 @@
           <% end %>
         </ul>
       </li>
+      <% end %>
 
+      <% if can? :operate_project, current_user, Project.movie_care_project %>
       <li class="nav-item <%= current_nav_class(:admin_project_movie_care) %>">
         <a href="javascript:;" class="nav-link nav-toggle">
           <% to_prove_care_apply = Project.movie_care_project.applies.submit.count %>
@@ -525,10 +527,12 @@
         </ul>
       </li>
       <% end %>
+
       <li class="heading">
         <h3 class="uppercase">物资类项目</h3>
       </li>
       <% Project.goods.each do |p| %>
+      <% if can? :operate_project, current_user, p %>
       <li class="nav-item <%= current_nav_class(:admin_project_goods, if: ->{session[:goods_project_id].to_s == p.id.to_s}) %>">
         <a href="javascript:;" class="nav-link nav-toggle">
           <% to_prove_apply = p.applies.submit.count %>
@@ -569,8 +573,11 @@
         </ul>
       </li>
       <% end %>
+      <% end %>
     </ul>
+    <% end %>
 
+    <% if can? :manage_operation, current_user %>
     <ul class="page-sidebar-menu module-menus menus-system hide" data-keep-expanded="false" data-slide-speed="200">
       <li class="heading">
         <h3 class="uppercase">基础数据维护</h3>
@@ -651,12 +658,12 @@
           <span class="title">平台用户管理</span>
           <% end %>
         </li>
-        <li class="nav-item <%= current_nav_class(:admin_login_activities) %>">
+        <!-- <li class="nav-item <%= current_nav_class(:admin_login_activities) %>">
           <%= link_to '', class: 'nav-link' do %>
           <i class="fa fa-file-word-o"></i>
           <span class="title">登录日志</span>
           <% end %>
-        </li>
+        </li> -->
         <li class="nav-item <%= current_nav_class(:admin_audits) %>">
           <%= link_to admin_audits_path, class: 'nav-link' do %>
           <i class="fa fa-wpforms "></i>
@@ -665,6 +672,9 @@
         </li>
       <% end %>
     </ul>
+    <% end %>
+
+    <% if can? :manage_operation, current_user %>
     <ul class="page-sidebar-menu module-menus menus-report hide" data-keep-expanded="false" data-slide-speed="200">
       <li class="heading">
         <h3 class="uppercase">统计报表</h3>
@@ -684,6 +694,9 @@
       </li>
 
     </ul>
+    <% end %>
+
+    <% if can? :manage_financial, current_user %>
     <ul class="page-sidebar-menu module-menus menus-financial hide" data-keep-expanded="false" data-slide-speed="200">
       <li class="heading">
         <h3 class="uppercase">财务管理</h3>
@@ -749,6 +762,7 @@
 
 
     </ul>
+    <% end %>
     <!-- END SIDEBAR MENU -->
   </div>
   <!-- END SIDEBAR -->

@@ -1,4 +1,5 @@
 class Admin::IncomeSourcesController < Admin::BaseController
+  before_action :auth_manage_operation
   before_action :set_income_source, only: [:edit, :update, :destroy, :move]
 
   def index

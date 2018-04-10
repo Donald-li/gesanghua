@@ -1,4 +1,5 @@
 class Admin::VolunteerAppliesController < Admin::BaseController
+  before_action :auth_manage_operation
   before_action :set_volunteer_apply, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -28,7 +29,7 @@ class Admin::VolunteerAppliesController < Admin::BaseController
       end
     end
   end
-  
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_volunteer_apply

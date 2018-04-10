@@ -1,4 +1,5 @@
 class Admin::ComplaintsController < Admin::BaseController
+  before_action :auth_manage_operation
   before_action :set_complaint, only: [:show, :edit, :update, :destroy]
 
   def index

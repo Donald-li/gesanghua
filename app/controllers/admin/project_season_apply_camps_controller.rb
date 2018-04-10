@@ -1,4 +1,5 @@
 class Admin::ProjectSeasonApplyCampsController < Admin::BaseController
+  before_action :check_auth
   before_action :set_apply_camp, only: [:edit, :update, :destroy, :camp_member, :switch]
   before_action :set_apply
 
@@ -72,4 +73,7 @@ class Admin::ProjectSeasonApplyCampsController < Admin::BaseController
     params.require(:project_season_apply_camp).permit!
   end
 
+  def check_auth
+    auth_operate_project(Project.camp_project)
+  end
 end

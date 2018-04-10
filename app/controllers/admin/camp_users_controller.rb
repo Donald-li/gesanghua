@@ -1,4 +1,5 @@
 class Admin::CampUsersController < Admin::BaseController
+  before_action :check_auth
   before_action :set_camp_user, only: [:edit, :update, :destroy]
   before_action :set_camp
 
@@ -60,4 +61,9 @@ class Admin::CampUsersController < Admin::BaseController
   def camp_user_params
     params.require(:user).permit!
   end
+
+  def check_auth
+    auth_operate_project(Project.camp_project)
+  end
+
 end

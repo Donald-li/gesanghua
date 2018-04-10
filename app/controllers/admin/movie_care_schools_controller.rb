@@ -1,4 +1,5 @@
 class Admin::MovieCareSchoolsController < Admin::BaseController
+  before_action :check_auth
   before_action :set_project_apply, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -63,4 +64,9 @@ class Admin::MovieCareSchoolsController < Admin::BaseController
   def project_apply_params
     params.require(:project_season_apply).permit!
   end
+
+  def check_auth
+    auth_operate_project(Project.movie_care_project)
+  end
+
 end

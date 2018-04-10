@@ -68,5 +68,6 @@ class Admin::CampExecuteFeedbacksController < Admin::BaseController
 
     def set_project
       @project = ProjectSeasonApply.find(params[:camp_project_id])
+      auth_operate_project(@project)
     end
 end

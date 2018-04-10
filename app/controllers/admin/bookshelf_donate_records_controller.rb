@@ -49,6 +49,7 @@ class Admin::BookshelfDonateRecordsController < Admin::BaseController
 
   def set_project
     @project = Project.find(Project.read_project.id)
+    auth_operate_project(@project)
   end
 
   def set_bookshelf

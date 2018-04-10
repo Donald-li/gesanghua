@@ -1,4 +1,5 @@
 class Admin::SpecialsController < Admin::BaseController
+  before_action :auth_manage_operation
   before_action :set_special, only: [:show, :edit, :update, :destroy, :switch, :recommend]
 
   def index

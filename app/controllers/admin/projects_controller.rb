@@ -1,4 +1,5 @@
 class Admin::ProjectsController < Admin::BaseController
+  before_action :auth_manage_operation
   before_action :set_project, only: [:show, :edit, :update, :destroy]
 
   def index
