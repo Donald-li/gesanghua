@@ -1,7 +1,6 @@
 <div id="article">
   <div class="article-img">
-    <%= image_tag @special.banner.try(:file).try(:url, :large).to_s %>
-    <!-- <%= image_tag 'news-listpage.png' %> -->
+    <%= image_tag @special.banner_url(:large).to_s %>
   </div>
   <div class="article-title border-b">
     <button class="article-but cur">专题</button>
@@ -17,7 +16,7 @@
         <%= link_to @special_advert.url do %>
         <div class="pull-left-img">
           <!-- <%= image_tag 'news-listpage.png' %> -->
-          <%= image_tag @special_advert.image.try(:file).try(:url, :tiny).to_s %>
+          <%= image_tag @special_advert.image_url(:tiny).to_s %>
           <div class="pull-left-cont">
             <p>01</p>
             <!-- <p>生活即教育，在城市中深度远行 | 2016年格桑花苏州 拓展营记</p> -->
