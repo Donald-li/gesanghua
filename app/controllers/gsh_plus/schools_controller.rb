@@ -13,14 +13,8 @@ class GshPlus::SchoolsController < GshPlus::BaseController
   end
 
   def create
-    province = params[:user_province_id]
-    city = params[:user_city_id]
-    district = params[:user_district_id]
     @school = School.new(school_params)
     @school.creater_id = @user.id
-    @school.province = province
-    @school.city = city
-    @school.district = district
     respond_to do |format|
       if @school.save
         @school.attach_card_image(params[:card_image_id])
@@ -34,11 +28,8 @@ class GshPlus::SchoolsController < GshPlus::BaseController
   end
 
   def update
-    province = params[:user_province_id]
-    city = params[:user_city_id]
-    district = params[:user_district_id]
     respond_to do |format|
-      if @school.update(school_params.merge(province: province, city: city, district: district, approve_state: 'submit'))
+      if @school.update(school_params.merge(approve_state: 'submit'))
         @school.attach_card_image(params[:card_image_id])
         @school.attach_certificate_image(params[:certificate_image_id])
         format.html { redirect_to gsh_plus_root_path, notice: '学校申请已提交。' }

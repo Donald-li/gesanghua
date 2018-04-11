@@ -10,7 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-// require js-routes
+//= require js-routes
 //= require jquery3
 //= require rails-ujs
 //= require 'china_city/jquery.china_city'
