@@ -537,11 +537,11 @@ select:disabled {
       z-index: 22;
       list-style: none;
       background: #fff;
-      border-radius: 4px;
+      border-radius: 3px;
       padding-top: 10px;
       padding-bottom: 10px;
       display: none;
-      box-shadow: 0px 0px 2px 3px #adadad33;
+      box-shadow: 0px 0px 10px 3px #cccccc33;
       .gsh-arrows-1 {
         position: absolute;
         left: 70px;
@@ -1467,7 +1467,7 @@ select:disabled {
           margin-left: 17px;
         }
       }
-      & > div {
+      & > a > div {
         margin-top: 34px;
         font-size: 16px;
         text-align: center;
@@ -4662,6 +4662,7 @@ select:disabled {
 .school-apply-pair-child {
   & > div:nth-child(1) {
     margin: 20px 20px 0 0;
+    z-index: 0;
   }
   & > div:nth-child(2) {
     & > img {
@@ -4948,6 +4949,37 @@ select:disabled {
         }
       }
     }
+    & > div:nth-child(4) {
+      padding: 10px 0;
+      & > a:nth-child(2) {
+        outline: none;
+        width: 101px;
+        height: 30px;
+        line-height: 28px;
+        font-size: 13px;
+        color: #3d3d40;
+        border: 1px solid #fff;
+        background-color: #fff;
+        display: inline-block;
+
+      }
+      & > a:nth-child(1) {
+        outline: none;
+        background-color: #fff;
+        width: 101px;
+        height: 30px;
+        line-height: 28px;
+        border: 1px solid $color-border;
+        font-size: 13px;
+        color: $color-border;
+        border-radius: 2px;
+        margin-bottom: 10px;
+        display: inline-block;
+        button {
+          color: $color-border;
+        }
+      }
+    }
   }
   .school-apply-pair-table {
     margin: 10px 0 10px 0;
@@ -5017,6 +5049,7 @@ select:disabled {
 
 .school-apply-pair-share {
   padding: 0 34px 10px 34px;
+  position: relative;
   .input-group {
     width: 230px;
     height: 34px;
@@ -5408,7 +5441,27 @@ select:disabled {
     }
   }
 }
-
+//探索营名单
+.camps-child-list{
+  .school-apply-pair-share .add-reads{
+    padding-right: 34px;
+    & > a:nth-child(1) button{
+      background: #fff;
+      border: 1px solid $color-border;
+      color: $color-border;
+      line-height: 31px;
+    }
+  }
+  .school-apply-pair-table > p:nth-child(1){
+    flex: 1.73!important;
+  }
+  .school-apply-pair-table > p:nth-child(2){
+    flex: .59!important;
+  }
+  .school-apply-pair-table > p:nth-child(3){
+    flex: 1.1!important;
+  }
+}
 //图片查看
 .magnify-modal {
   box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.3);
@@ -6741,3 +6794,132 @@ select:disabled {
   border-color: #fff transparent transparent transparent;
 }
 
+//学校申请
+.school-apply-list{
+  width: 1140px;
+  margin: 0 auto;
+
+  .paddchild {
+    padding: 0 34px;
+    background-color: #fff;
+    .don-title{
+      text-align: center;
+    }
+
+  }
+  .school-apply-list-cont{
+    background-color: #fff;
+    padding: 10px 34px;
+    border:1px solid $border;
+    .school-a-l-con{
+      width: 560px;
+      margin: 0 auto;
+      .don-title {
+        font-size: 16px;
+        font-weight: 400;
+      }
+      .addchild-list-cont {
+        padding: 0 0 10px 0;
+        & > div {
+          width: 555px;
+          display: flex;
+          height: 40px;
+          margin-bottom: 20px;
+          position: relative;
+         & > div .selector-item {
+            width: 136px;
+          }
+          & > div{
+            flex: 7;
+            position: relative;
+            input{
+              width: 100%;
+            }
+          }
+          & > span {
+            flex: 1;
+            margin: 0 40px 0 0;
+            line-height: 40px;
+            text-align: right;
+          }
+          & > input {
+            flex: 7;
+          }
+          & > textarea {
+            flex: 6.3;
+            height: 172px;
+            border: 1px solid $border;
+            resize: none;
+            border-radius: 3px;
+            font-size: 14px;
+            color: #2a2a2c;
+          }
+
+          .income-moy {
+            position: absolute;
+            right: 0;
+            top: 10px;
+            font-size: 14px;
+            color: #2a2a2c;
+            margin-right: 20px;
+          }
+
+        }
+        .school-list-picture{
+          height: 100%;
+          width: 100%;
+          & > div{
+            height: 156px;
+          }
+        }
+        .addchild-list-up-picture {
+          margin-left: 14px;
+          text-align: center;
+          width: 156px;
+          height: 156px;
+          border-radius: 3px;
+          border: 1px solid $border;
+          background-color: #f9f9f9;
+          font-size: 14px;
+          color: #8d8d8d;
+          padding: 50px 0 0 0;
+          position: relative;
+          .iconfont {
+            margin-right: 0;
+            font-size: 22px;
+          }
+        }
+        .addchild-list-up-picture:first-child{
+          margin-left: 0;
+        }
+      }
+    }
+  }
+  .childern-submint {
+    text-align: center;
+    margin-top: 20px;
+    & > button:nth-child(1) {
+      width: 130px;
+      height: 38px;
+      line-height: 38px;
+      background-color: $color-border;
+      color: #fff;
+      font-size: 14px;
+      text-align: center;
+      border: none;
+      margin-right: 20px;
+      border-radius: 3px;
+    }
+    & > button:nth-child(2) {
+      width: 130px;
+      height: 38px;
+      line-height: 36px;
+      background-color: #ffffff;
+      color: #8d8d8d;
+      font-size: 14px;
+      text-align: center;
+      border: 1px solid #b3b3b3;
+      border-radius: 3px;
+    }
+  }
+}
