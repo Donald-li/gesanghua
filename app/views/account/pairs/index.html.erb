@@ -13,44 +13,39 @@
             </li>
           </ul>
           <!--我的捐助-->
-          <div class="donation " style="display: block;">
-            <div class="donations-1" >
-              <ul class="donations1 clearfix">
-                <li class="selectedDo cur">我的结对</li>
-              </ul>
-              <div class="bottomline"></div>
-            </div>
-            <div class="donation-cont border-b">
-              <div class="clearfix">
-                <div class="donation-cont-img pull-left">
+          <div class="my-pairs-cont" id="my-pairs-cont">
+            <div class="donation-cont">
+              <div class="clearfix border-b">
+                <div class="my-pairs pull-left">
                   <%= image_tag 'ucenter-top-bg.png' %>
                 </div>
                 <div class="pull-left donation-cont-cco">
                   <div class="donation-cont-c-tit clearfix">
-                    <p class="pull-left">护花行动“风暴”来袭护花行动“风暴”</p>
+                    <p class="pull-left">卓玛</p>
                   </div>
                   <div class="clearfix donation-cont-c-con">
-                    <div class="pull-left">
-                      <p><span>￥3219097.56</span></p>
-                      <p>还差</p>
-                    </div>
-                    <div class="pull-left">
-                      <p><span>12</span>/12</p>
-                      <p>进度</p>
-                    </div>
+                    <p >孩子编号：No.17090293</p>
+                    <p>捐助年度：2017年下学期 / 2018年全年</p>
                   </div>
                 </div>
-                <div class="donation-cont-but pull-right cur">
-                  查看项目详情
+                <div class="pull-right">
+                  <button class="donation-cont-but cur">
+                    查看项目详情
+                  </button>
+                  <button class="donation-cont-but cur">
+                    孩子信箱 3
+                  </button>
                 </div>
+
               </div>
             </div>
             <div class="donation-cont-no">
               <div class="donation-co-no-c">
-                <p>您还未捐助过任何公益项目! </p>
-                <p>马上参与捐助，帮助西部孩子 健康成长吧~</p>
+                <div class="donation-co-no-c-img">
+                  <%= image_tag 'my-child.png' %>
+                </div>
+                <p>暂无捐助学生</p>
               </div>
-              <div class="donation-co-no-but">去捐助</div>
             </div>
             <div class="project-foot">
               <span class="iconfont icon-arrow-left cur"></span>
@@ -71,7 +66,7 @@
         $(this).addClass("selectedDo")
         $(".bottomline").css("left", parseFloat($(this)[0].offsetLeft) +31 +  "px")
     })
-    if($('.donation .donation-cont').length===0){
+    if($('.my-pairs-cont .donation-cont > div').length===0){
         $('.donation-cont-no').css('display', 'block')
         $('.project-foot').css('display', 'none')
     }else{

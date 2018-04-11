@@ -30,6 +30,8 @@ class Campaign < ApplicationRecord
   has_many :campaign_enlists, dependent: :destroy
   has_many :users, through: :campaign_enlists
 
+  belongs_to :appoint_fund, class_name: 'Fund', optional: true # 定项指定
+
   validates :name, :start_time, :end_time, :sign_up_start_time, :sign_up_end_time, presence: true
 
   enum state: {show: 1, hidden: 2} # 状态：1:启用 2:禁用

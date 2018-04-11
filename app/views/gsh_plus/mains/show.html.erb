@@ -3,7 +3,7 @@
   <div class="gsh-plus-cont">
     <div>
       <% if (current_user.headmaster? || current_user.teacher?) && @school.pass? %>
-        <%= link_to new_gsh_plus_school_path do %>
+        <%= link_to platform_school_apply_pairs_path do %>
           <%= image_tag 'gsh-icon-school.png' %>
           <p class="gsh-plus-c-t">学校申请</p>
           <p class="gsh-plus-c-n">可参与公益活动</p>
@@ -23,18 +23,21 @@
           <p class="gsh-plus-c-n">可参与公益活动</p>
           <div class="gsh-plus-c-but">审核中</div>
         <% end %>
-      <% else %>
-        <%= link_to '' do %>
+      <% elsif (current_user.headmaster? || current_user.teacher? || current_user.create_school.present?) && @school.reject? %>
+        <%= link_to edit_gsh_plus_school_path(@school) do %>
           <%= image_tag 'gsh-icon-school.png' %>
           <p class="gsh-plus-c-t">学校申请</p>
           <p class="gsh-plus-c-n">可参与公益活动</p>
-          <% if (current_user.headmaster? || current_user.teacher? || current_user.create_school.present?) && @school.reject? %>
-            <div class="gsh-plus-c-but">审核未通过</div>
-          <% else %>
-            <div class="gsh-plus-c-but">可申请</div>
-          <% end %>
+          <div class="gsh-plus-c-but">审核未通过</div>
         <% end %>
-      <% end %>
+      <% else %>
+        <%= link_to new_gsh_plus_school_path do %>
+          <%= image_tag 'gsh-icon-school.png' %>
+          <p class="gsh-plus-c-t">学校申请</p>
+          <p class="gsh-plus-c-n">可参与公益活动</p>
+          <div class="gsh-plus-c-but">可申请</div>
+        <% end %>
+    <% end %>
     </div>
     <div>
       <% if current_user.volunteer? && @volunteer.pass? %>
@@ -63,6 +66,13 @@
           <% end %>
         <% end %>
       <% end %>
+      <div class="wechat-qrcode">
+        <div class="qrcode">
+          <%= image_tag 'news-listpage.png' %>
+        </div>
+        <div class="help"><p>请扫描二维码 </p>
+          <p>到微信端进行登录</p></div>
+      </div>
     </div>
     <div>
       <% if current_user.gsh_child? %>
@@ -80,6 +90,13 @@
           <div class="gsh-plus-c-but">可加入</div>
         <% end %>
       <% end %>
+      <div class="wechat-qrcode">
+        <div class="qrcode">
+          <%= image_tag 'news-listpage.png' %>
+        </div>
+        <div class="help"><p>请扫描二维码 </p>
+          <p>到微信端进行登录</p></div>
+      </div>
     </div>
   </div>
 <%= link_to account_orders_path do %><p class="gsh-plus-foot">返回个人中心</p><% end %>

@@ -7,64 +7,66 @@
   <% method_way = "put" %>
 <% end %>
 
-<%= simple_form_for @offline_user, url: url_path, method: method_way, html: {class: '', id: "offline_user_form", method_way: method_way} do |f| %>
+<%= simple_form_for @offline_user, url: url_path, method: method_way, html: {'data-parsley-validate': true, class: '', id: "offline_user_form", method_way: method_way} do |f| %>
   <div class="goodcont" style="padding: 0 30px 17px 28px;">
     <div class="clearfix">
       <div class="pull-left">
         <p class="goodtext">昵称</p>
-        <!-- <input  class="goodinput" type="text"  /> -->
         <%= f.text_field :nickname, required: true, class: 'goodinput', placeholder: '' %>
       </div>
       <div class="pull-right">
         <p class="goodtext">真实姓名</p>
-        <!-- <input  class="goodinput" type="text"  /> -->
         <%= f.text_field :name, required: true, class: 'goodinput', placeholder: '' %>
       </div>
     </div>
     <div class="clearfix sexinput">
       <p class="goodtext pull-left">性别</p>
-      <div class="female pull-left">
-        <input type="radio" id="male" value="male" name="gender" />
-        <label for="male">男</label>
-      </div>
-      <div class="male pull-left">
-        <input type="radio" id="female" value="female" name="gender" checked/>
-        <label for="female">女</label>
-      </div>
+      <% if @offline_user.male? %>
+        <div class="female pull-left">
+          <input type="radio" id="male" value="male" name="gender" checked/>
+          <label for="male">男</label>
+        </div>
+        <div class="male pull-left">
+          <input type="radio" id="female" value="female" name="gender" />
+          <label for="female">女</label>
+        </div>
+      <% else %>
+        <div class="female pull-left">
+          <input type="radio" id="male" value="male" name="gender" />
+          <label for="male">男</label>
+        </div>
+        <div class="male pull-left">
+          <input type="radio" id="female" value="female" name="gender" checked/>
+          <label for="female">女</label>
+        </div>
+      <% end %>
     </div>
     <div class="clearfix">
       <div class="pull-left">
         <p class="goodtext">如何称呼</p>
-        <!-- <input  class="goodinput" type="text"  /> -->
         <%= f.text_field :salutation, class: 'goodinput', placeholder: '孩子如何称呼您' %>
       </div>
       <div class="pull-right">
         <p class="goodtext">联系电话</p>
-        <!-- <input  class="goodinput" type="text"  placeholder="请输入联系电话"/> -->
         <%= f.text_field :phone, required: true, class: 'goodinput', placeholder: '' %>
       </div>
     </div>
     <p class="goodtext">所在地区</p>
-    <div class="city-picker-selector" id="city-picker-selector2"></div>
+    <div class="city-group">
+      <%= select_tag 'user[province]', options_for_select(ChinaCity.list, @offline_user.province.presence), prompt: '省份', class: "city-select", id: 'province' %>
+      <%= select_tag 'user[city]', options_for_select(ChinaCity.list(@offline_user.province.to_s), @offline_user.city.presence), prompt: '城市', class: "city-select", id: 'city' %>
+      <%= select_tag 'user[district]', options_for_select(ChinaCity.list(@offline_user.city.to_s), @offline_user.district.presence), prompt: '地区', class: "city-select", id: 'district' %>
+    </div>
+    <!-- <div class="city-picker-selector" id="city-picker-selector2"></div> -->
     <p class="goodtext">详细地址</p>
-    <!-- <input class="address-input" type="text"  placeholder="请输入详细地址"/> -->
     <%= f.text_field :address, class: 'address-input', placeholder: '请输入详细地址' %>
-    <!-- <div class="goodbut">保存</div> -->
-    <button class="btn goodbut" type="submit" id="save_form_btn" info="<%= action_name %>">保存</button>
+    <div style="text-align:center;"><button class="btn goodbut" type="submit" id="save_form_btn" info="<%= action_name %>">保存</button></div>
   </div>
 <% end %>
 
 <script>
   $(function () {
-    // 模拟城市-无联动/无搜索
-    var selector1 = $('#city-picker-selector2').cityPicker({
-      dataJson: cityData,
-      renderMode: true,
-      search: false,
-      autoSelected: false,
-      code: 'cityCode',
-      level: 3
-    });
+
 
   })
 </script>
