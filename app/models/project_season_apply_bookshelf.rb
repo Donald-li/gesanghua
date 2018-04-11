@@ -128,7 +128,7 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
   end
 
   def show_state
-    if self.apply.raise_project?
+    if self.apply.present? && self.apply.raise_project?
       self.enum_name(:state)
     else
       self.enum_name(:audit_state)

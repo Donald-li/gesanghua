@@ -18,6 +18,25 @@ class Platform::School::Apply::ReadsController < Platform::School::BaseControlle
     @apply = ProjectSeasonApply.new
   end
 
+  def create
+    season = ProjectSeason.find(apply_params[:season_id])
+    @school = current.teacher.school
+    if ProjectSeasonApply.allow_apply?(@school, season, Project.read_project)
+      # @apply.form = params[:dynamic_form]
+      @apply = ProjectSeasonApply.new(apply_params.merge(project: Project.read_project, school: @school, bookshelf_type: 'whole', contact_name: apply_params[:consignee], contact_phone: apply_params[:consignee_phone]))
+      if @apply.save
+        ProjectSeasonApplyBookshelf.where(id: params[:class_ids]).update(apply: @apply, season: season)
+        @apply.attach_images(params[:image_ids])
+        redirect_to platform_school_apply_reads_path, notice: '提交成功'
+      else
+        flash[:alert] = "保存失败，请重试"
+        render :new
+      end
+    else
+      redirect_to platform_school_apply_reads_path, notice: '您已经申请过本批次'
+    end
+  end
+
   private
   def set_apply
     @apply = ProjectSeasonApply.find(params[:id])
@@ -25,6 +44,10 @@ class Platform::School::Apply::ReadsController < Platform::School::BaseControlle
 
   def set_school
     @school = current_user.school
+  end
+
+  def apply_params
+    params.require(:project_season_apply).permit!
   end
 
 end
