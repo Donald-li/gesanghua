@@ -1653,6 +1653,9 @@ select:disabled {
   border: 1px solid $border;
   border-radius: 4px;
   position: relative;
+  .read-more{
+    height: 46px;
+  }
 }
 
 .detail-body-cont:hover {

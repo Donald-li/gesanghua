@@ -18,7 +18,7 @@ class Admin::CampExecuteFeedbacksController < Admin::BaseController
   end
 
   def create
-    @feedback = ContinualFeedback.new(owner: @project, content: execute_params[:content], user_id: execute_params[:user_id], project: Project.camp_project)
+    @feedback = ContinualFeedback.new(owner: @project, content: execute_params[:content], user_id: execute_params[:user_id], project: Project.camp_project, )
     respond_to do |format|
       if @feedback.save
         @feedback.attach_images(params[:image_ids])
