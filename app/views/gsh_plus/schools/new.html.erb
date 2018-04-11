@@ -1,1 +1,115 @@
-学校申请表单
+<div class="school-apply-list">
+
+  <div class="paddchild border-l border-t border-r">
+    <p class="don-title border-b ">
+      <span>学校申请</span>
+      <span class="pull-right iconfont icon-arrow-right"></span>
+      <span class="pull-right">返回</span>
+    </p>
+  </div>
+  <div class="school-apply-list-cont marginbottom" style="border-top:none; ">
+    <div class="school-a-l-con">
+      <p class="don-title">学校信息</p>
+      <div class="addchild-list-cont">
+        <div>
+          <span class="goodtext">学校全称</span>
+          <input class="goodinput " type="text"  />
+        </div>
+        <div>
+          <span class="goodtext">选择地区</span>
+          <div class="city-picker-selector" id="city-picker-selector"></div>
+        </div>
+        <div>
+          <span class="goodtext">通讯地址</span>
+          <input class="goodinput " type="text" />
+        </div>
+        <div>
+          <span class="goodtext">邮政编码</span>
+          <input class="goodinput " type="text"  />
+        </div>
+        <div>
+          <span class="goodtext">学生人数</span>
+          <div>
+            <input class="goodinput" type="text"/>
+            <span class="income-moy">人</span>
+          </div>
+        </div>
+        <div>
+          <span class="goodtext">教师人数</span>
+          <div>
+            <input class="goodinput" type="text"/>
+            <span class="income-moy">人</span>
+          </div>
+        </div>
+        <div>
+          <span class="goodtext">后勤人数</span>
+          <div>
+            <input class="goodinput" type="text"/>
+            <span class="income-moy">人</span>
+          </div>
+        </div>
+        <div style="height: 100%;">
+          <span class="goodtext">学校简介</span>
+          <textarea></textarea>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="school-apply-list-cont">
+    <div class="school-a-l-con">
+      <p class="don-title">校长信息</p>
+      <div class="addchild-list-cont">
+        <div>
+          <span class="goodtext">校长姓名</span>
+          <input class="goodinput " type="text" value="张艾嘉" />
+        </div>
+        <div>
+          <span class="goodtext">身份证号</span>
+          <input class="goodinput " type="text" />
+        </div>
+        <div>
+          <span class="goodtext">手机号码</span>
+          <input class="goodinput " type="text" />
+        </div>
+        <div>
+          <span class="goodtext">办公电话</span>
+          <input class="goodinput " type="text" />
+        </div>
+        <div  class="school-list-picture">
+          <span class="goodtext">上传图片</span>
+          <div>
+            <div class="addchild-list-up-picture pull-left">
+              <p class="iconfont icon-ico-add"></p>
+              <p>手持身份证</p>
+              <%#= webuploader_image 'image_ids[]', label: '上传反馈图片', type: 'feedback_image', asset: @continual.images %>
+            </div>
+            <div class="addchild-list-up-picture pull-left">
+              <p class="iconfont icon-ico-add"></p>
+              <p>学校证明</p>
+              <%#= webuploader_image 'image_ids[]', label: '上传反馈图片', type: 'feedback_image', asset: @continual.images %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="childern-submint">
+    <button>保存</button>
+    <button>取消</button>
+  </div>
+
+
+
+</div>
+<script>
+    // 模拟城市-无联动/无搜索
+    var selector1 = $('#city-picker-selector').cityPicker({
+        dataJson: cityData,
+        renderMode: true,
+        search: false,
+        autoSelected: false,
+        code: 'cityCode',
+        level: 3
+    });
+</script>

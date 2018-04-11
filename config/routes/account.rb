@@ -21,6 +21,7 @@ namespace :account do
   resources :teams, only: [:index] # 我的团队
   resources :offline_users # 捐助管理
   resource :level, only: [:show] # 我的勋章
+  resources :campaigns
   resource :registration, only: [:show, :new, :create]
   resource :modify_password, only: [:edit, :update]
   resources :donations, only: [:index]
