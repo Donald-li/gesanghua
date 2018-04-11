@@ -1,6 +1,7 @@
 class Platform::School::ProfilesController < Platform::School::BaseController
   def edit
-
+    #binding.pry
+    @profile = School.first#find_by_id(params[:id])
   end
 
   def update
@@ -9,6 +10,7 @@ class Platform::School::ProfilesController < Platform::School::BaseController
 
 
   private
+
   def school_params
     params.require(:school).permit!
   end

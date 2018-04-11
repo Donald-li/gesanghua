@@ -55,10 +55,30 @@ class Support::AjaxesController < Support::BaseController
     end
   end
 
+  def submit_camp_members
+    @camp = ProjectSeasonApplyCamp.find(params[:id])
+    @members = ProjectSeasonApplyCampMember.where(id: params[:child_ids])
+    if @members.map(&:submit!) && @camp.to_approve!
+      render json: {message: '提交成功，请耐心等待审核', status: true}
+    else
+      render json: {message: '提交失败，请重试', status: false}
+    end
+  end
+
+  def submit_member_reason
+    @member = ProjectSeasonApplyCampMember.find(params[:member_id])
+    @member.reason = params[:reason]
+    if @member.save
+      render json: {message: '保存成功', status: true}
+    else
+      render json: {message: '保存失败，请重试', status: false}
+    end
+  end
+
   def submit_child_reason
-    @children = ProjectSeasonApplyChild.find(params[:child_id])
-    @children.reason = params[:reason]
-    if @children.save
+    @child = ProjectSeasonApplyChild.find(params[:child_id])
+    @child.reason = params[:reason]
+    if @child.save
       render json: {message: '保存成功', status: true}
     else
       render json: {message: '保存失败，请重试', status: false}

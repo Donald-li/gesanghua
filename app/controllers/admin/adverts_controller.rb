@@ -1,4 +1,5 @@
 class Admin::AdvertsController < Admin::BaseController
+  before_action :auth_manage_operation
   before_action :set_advert, only: [:show, :edit, :update, :destroy, :switch, :move]
 
   def index

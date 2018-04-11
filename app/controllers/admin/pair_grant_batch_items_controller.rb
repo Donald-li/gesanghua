@@ -1,4 +1,5 @@
 class Admin::PairGrantBatchItemsController < Admin::BaseController
+  before_action :check_auth
   before_action :find_batch
 
   def index
@@ -24,4 +25,9 @@ class Admin::PairGrantBatchItemsController < Admin::BaseController
   def find_batch
     @batch = GrantBatch.find(params[:pair_grant_batch_id])
   end
+
+  def check_auth
+    auth_operate_project(Project.pair_project)
+  end
+
 end

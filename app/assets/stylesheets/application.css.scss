@@ -19,7 +19,7 @@
  *= require "plugins/jquery.magnify"
  *= require_self
  */
-@import "toastr";
+//@import "toastr";
 
 //bootstrap  reset
 // 通用样式
@@ -234,13 +234,13 @@ select:disabled {
 
     .overspread-co {
       text-align: center;
-    .over-font{
-      font-size: 18px;
-      color: #3d3d40;
-      font-weight: 500;
-      margin-top: 10px;
-    }
-      .over-fontns{
+      .over-font {
+        font-size: 18px;
+        color: #3d3d40;
+        font-weight: 500;
+        margin-top: 10px;
+      }
+      .over-fontns {
         font-size: 14px;
         color: #3d3d40;
         margin-top: 10px;
@@ -276,6 +276,7 @@ select:disabled {
 
   }
 }
+
 //模态框3
 .overspread-3 {
   .overspread-cont {
@@ -296,7 +297,7 @@ select:disabled {
     .overspread-co {
       text-align: center;
 
-      .over-fontns{
+      .over-fontns {
         font-size: 16px;
         color: #3d3d40;
         margin-top: 27px;
@@ -330,10 +331,10 @@ select:disabled {
     font-size: 16px;
 
   }
-  .overspreads-but{
+  .overspreads-but {
     text-align: center;
     margin-top: 22px;
-    button:nth-child(1){
+    button:nth-child(1) {
       width: 100px;
       height: 34px;
       font-size: 15px;
@@ -344,7 +345,7 @@ select:disabled {
       margin-right: 10px;
       border-radius: 3px;
     }
-    button:nth-child(2){
+    button:nth-child(2) {
       width: 100px;
       height: 34px;
       border: 1px solid #9d9d9d;
@@ -356,6 +357,7 @@ select:disabled {
     }
   }
 }
+
 //模态框4
 .overspread-4 {
   .overspread-cont {
@@ -377,7 +379,7 @@ select:disabled {
       text-align: center;
       padding: 0 20px;
 
-      textarea{
+      textarea {
         margin-top: 10px;
         width: 100%;
         height: 80px;
@@ -385,9 +387,8 @@ select:disabled {
         border: 1px solid $border;
         font-size: 14px;
         color: #3d3d40;
-        resize:none;
+        resize: none;
       }
-
 
     }
     & > div:nth-child(1) {
@@ -419,13 +420,14 @@ select:disabled {
 
   }
 }
+
 //余额不足
-.mongolian-hint{
+.mongolian-hint {
   position: absolute;
-  left:0;
-  top:0;
-  right:0;
-  bottom:0;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
   margin: auto;
   width: 220px;
   height: 40px;
@@ -437,7 +439,7 @@ select:disabled {
   font-size: 15px;
   border-radius: 3px;
   z-index: 5;
-  span{
+  span {
     z-index: 6;
   }
 }
@@ -4504,9 +4506,15 @@ select:disabled {
     border-radius: 2px;
     margin-left: 20px;
     font-weight: 500;
+    position: relative;
   }
   & > span:first-child {
     margin-left: 0;
+  }
+  & > span:hover{
+    .wechat-qrcode{
+      display: block;
+    }
   }
 }
 
@@ -4621,7 +4629,7 @@ select:disabled {
         color: #3d3d40;
         border-radius: 2px;
         margin-bottom: 10px;
-        a{
+        a {
           color: #3d3d40;
         }
       }
@@ -4635,7 +4643,7 @@ select:disabled {
         font-size: 13px;
         color: $color-border;
         border-radius: 2px;
-        a{
+        a {
           color: $color-border;
         }
       }
@@ -5043,12 +5051,13 @@ select:disabled {
   border-radius: 3px;
   margin-left: 5px;
 }
-.add-reads{
+
+.add-reads {
   position: absolute;
-  right:0;
-  bottom:12px;
+  right: 0;
+  bottom: 12px;
   height: 34px;
-  &  >button:nth-child(1){
+  & > button:nth-child(1) {
     margin-right: 10px;
     background: #fff;
     color: $color-border;
@@ -5077,6 +5086,7 @@ select:disabled {
   }
 
 }
+
 .overspread-5 {
   .overspread-cont {
     display: none;
@@ -5097,7 +5107,7 @@ select:disabled {
       text-align: center;
       padding: 0 40px;
 
-      input:nth-child(1){
+      input:nth-child(1) {
         width: 100%;
         height: 40px;
         line-height: 40px;
@@ -5106,7 +5116,7 @@ select:disabled {
         font-size: 14px;
         color: #8d8d8d;
       }
-      input:nth-child(2){
+      input:nth-child(2) {
         width: 279px;
         height: 40px;
         text-indent: 1em;
@@ -5116,7 +5126,7 @@ select:disabled {
         color: #8d8d8d;
         margin-right: 20px;
       }
-      button{
+      button {
         width: 106px;
         height: 40px;
         line-height: 40px;
@@ -5127,7 +5137,6 @@ select:disabled {
         background-color: $color-info;
         border-radius: 3px;
       }
-
 
     }
     & > div:nth-child(1) {
@@ -5159,6 +5168,16 @@ select:disabled {
 
   }
 }
+.overspread-over{
+  position: fixed;
+  left:0;
+  top:0;
+  width: 100%;
+  height: 100%;
+  background-color: #585862;
+  opacity: .6;
+  display: none;
+}
 .overspread-6 {
   .overspread-cont {
     display: none;
@@ -5178,12 +5197,12 @@ select:disabled {
     .overspread-co {
       text-align: center;
       //padding: 0 40px;
-      & > img{
+      & > img {
         margin-top: 20px;
         width: 100px;
         height: 88px;
       }
-      .over-fontns{
+      .over-fontns {
         font-size: 16px;
         color: #3d3d40;
         margin-top: 27px;
@@ -5713,6 +5732,7 @@ select:disabled {
       font-size: 14px;
       color: #8d8d8d;
       padding: 50px 0 0 0;
+      position: relative;
       .iconfont {
         margin-right: 0;
         font-size: 22px;
@@ -6223,7 +6243,7 @@ select:disabled {
     & > div:nth-child(1) {
       flex: 1;
       padding-top: 40px;
-      div{
+      div {
         width: 200px;
         height: 200px;
       }
@@ -6368,3 +6388,353 @@ select:disabled {
   }
   margin-bottom: 20px;
 }
+
+//新书申请
+#reads-new {
+  width: 900px;
+  border: none !important;
+  padding: 0 0 0 0 !important;
+  background-color: #f5f5f5 !important;
+
+  input:focus {
+    border: 1px solid #6c757d;
+  }
+  .paddchild {
+    padding: 5px 34px;
+    background-color: #fff;
+    border: 1px solid $border;
+  }
+  .addchild-list {
+    padding: 10px 34px;
+    background-color: #fff;
+    border: 1px solid $border;
+    .don-title {
+      font-size: 16px;
+      font-weight: 400;
+    }
+  }
+  .addchild-list-cont {
+    padding: 0 0 10px 0;
+    & > div {
+      width: 555px;
+      display: flex;
+      height: 40px;
+      margin-bottom: 20px;
+      position: relative;
+      & > span {
+        flex: 1;
+        margin: 0 40px 0 0;
+        line-height: 40px;
+        text-align: right;
+      }
+      & > input {
+        flex: 7;
+      }
+      & > textarea {
+        flex: 9.8;
+        height: 172px;
+        border: 1px solid $border;
+        resize: none;
+        border-radius: 3px;
+        font-size: 14px;
+        color: #2a2a2c;
+      }
+      & > div {
+        flex: 7;
+        & > input {
+          width: 216px;
+        }
+        .selector-item {
+          width: 210px;
+        }
+        .selector-item:nth-child(1) {
+          width: 213px;
+        }
+        .scool-edit-name {
+          width: 100%;
+          background-color: #eeeeee;
+          font-size: 14px;
+          color: #2a2a2c;
+          line-height: 40px;
+          text-indent: 1em;
+          text-align: left;
+          cursor: not-allowed;
+        }
+      }
+
+    }
+  }
+  .childern-submint {
+    text-align: center;
+    margin-top: 20px;
+    & > button:nth-child(1) {
+      width: 130px;
+      height: 38px;
+      line-height: 38px;
+      background-color: $color-border;
+      color: #fff;
+      font-size: 14px;
+      text-align: center;
+      border: none;
+      margin-right: 20px;
+      border-radius: 3px;
+    }
+    & > button:nth-child(2) {
+      width: 130px;
+      height: 38px;
+      line-height: 36px;
+      background-color: #ffffff;
+      color: #8d8d8d;
+      font-size: 14px;
+      text-align: center;
+      border: 1px solid #b3b3b3;
+      border-radius: 3px;
+    }
+  }
+  .addchild-list-up {
+    padding: 10px 34px 20px 34px;
+    & > div {
+      & > div:nth-child(1) {
+        height: 172px;
+        width: 777px;
+      }
+      & > div:nth-child(2) {
+        height: 157px;
+        width: 777px;
+        margin-bottom: 0;
+        & > div {
+          height: 156px;
+          flex: 10;
+        }
+      }
+    }
+
+  }
+  .reads-new-cont{
+    &  >div{
+      width: 100%;
+      border: 1px solid $border;
+      border-radius: 3px;
+      position: relative;
+      height: 100%!important;
+      padding: 12px 20px;
+      margin-bottom: 20px;
+      & > span:nth-child(1){
+        color: #3d3d40;
+        font-size: 14px;
+      }
+      & > span:nth-child(2){
+        color: #3d3d40;
+        font-size: 14px;
+        font-weight: 500;
+        margin-left: 40px;
+      }
+      & > p:nth-child(1){
+        color: #3d3d40;
+        font-size: 16px;
+        font-weight: 500;
+      }
+      & > p:nth-child(2){
+        color: #3d3d40;
+        font-size: 14px;
+        margin-top: 3px;
+        span{
+          margin: 0 10px 0 0;
+        }
+      }
+      .don-con-pos {
+        position: absolute;
+        right: 20px;
+        top: 12px;
+        font-size: 14px;
+        color: #005ea7;
+        & > div {
+          margin-left: 20px;
+          .iconfont {
+            margin-right: 0px;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+    .school-apply-share-sub{
+      background: #fff;
+      color: $color-border;
+      border:1px solid $color-border;
+      line-height: 31px;
+      margin-bottom: 20px;
+      width: 130px;
+    }
+  }
+  .addchild-list-up-picture {
+    margin-left: 14px;
+    text-align: center;
+    width: 156px;
+    height: 156px;
+    border-radius: 3px;
+    border: 1px solid $border;
+    background-color: #f9f9f9;
+    font-size: 14px;
+    color: #8d8d8d;
+    padding: 50px 0 0 0;
+    position: relative;
+    .iconfont {
+      margin-right: 0;
+      font-size: 22px;
+    }
+  }
+  .addchild-list-up-picture:nth-child(1) {
+    margin-left: 0;
+  }
+  .addnewreads {
+    & > div {
+      & > div {
+        width: 810px;
+        padding-right: 29px;
+        span {
+          flex: .7;
+        }
+      }
+    }
+  }
+  .overspread-5 .overspread-cont{
+    height: 299px;
+  }
+  .overspread-co{
+    & > div{
+      p{
+        text-align: left;
+      }
+      input{
+        width: 100%;
+        margin-top: 0;
+      }
+    }
+
+  }
+ .supplements{
+   padding: 0 36px;
+ }
+  .overspread-const{
+    width: 100%;
+    display: flex;
+    padding: 0 26px;
+    .overclass{
+      flex: 1;
+      padding: 0 10px;
+      position: relative;
+      span{
+        position: absolute;
+        right: 20px;
+        bottom: 8px;
+        font-size: 14px;
+        color: #3d3d40;
+      }
+      p{
+        text-align: left;
+      }
+      input{
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        font-size: 14px;
+        color: #8d8d8d;
+        margin-top: 0;
+        text-indent: 1em;
+      }
+
+    }
+  }
+}
+
+//加减
+.modified {
+  & > span {
+    width: 40px;
+    height: 40px;
+    border-radius: 3px;
+    line-height: 38px;
+    border: 1px solid $border;
+    margin: 0 7px;
+    text-align: center;
+    font-size: 15px;
+    color: #e6e6e6;
+  }
+  & > span:nth-child(1) {
+
+    margin: 0;
+  }
+  & > span:hover {
+    border: none;
+    line-height: 40px;
+    color: #fff;
+    background-color: $color-border;
+  }
+  & > input {
+    width: 126px !important;
+    height: 40px;
+    border-radius: 3px;
+    line-height: 38px;
+    border: 1px solid $border;
+    margin: 0 7px;
+    font-size: 15px;
+    color: #3d3d40;
+    text-align: center;
+  }
+}
+//二维码
+.wechat-qrcode {
+  display: none;
+  border: 1px solid #eee;
+  position: absolute;
+  z-index: 9;
+  top: -213px;
+  left: -67px;
+  width: 200px;
+  height: 201px;
+  color: #666;
+  font-size: 12px;
+  text-align: center;
+  background-color: #fff;
+  box-shadow: 0 2px 10px #aaa;
+  transition: all 200ms;
+  -webkit-tansition: all 350ms;
+  -moz-transition: all 350ms;
+  h4{
+    font-weight: normal;
+    height: 26px;
+    line-height: 26px;
+    font-size: 12px;
+    background-color: #f3f3f3;
+    margin: 0;
+    padding: 0;
+    color: #777;
+  }
+  .qrcode {
+    width: 105px;
+    margin: 10px auto;
+    img{
+      width: 105px;
+      height: 105px;
+    }
+  }
+  .help p {
+    font-weight: normal;
+    line-height: 16px;
+    padding: 0;
+    margin: 0;
+  }
+}
+.wechat-qrcode:after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  margin-left: -6px;
+  bottom: -13px;
+  width: 0;
+  height: 0;
+  border-width: 8px 6px 6px 6px;
+  border-style: solid;
+  border-color: #fff transparent transparent transparent;
+}
+

@@ -1,4 +1,5 @@
 class Admin::DonateItemsController < Admin::BaseController
+  before_action :auth_manage_operation
   before_action :set_donate_item, only: [:show, :edit, :update, :destroy, :switch, :move]
 
   def index

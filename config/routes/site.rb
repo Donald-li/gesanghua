@@ -1,7 +1,7 @@
 scope module: :site do
 
   resources :articles, only: [:index, :show]
-  resources :specials, only: [:show]
+  resources :specials, only: [:index, :show]
   resources :campaigns, only: [:index, :show]
   resource :disclosure, only: :show
   get '/p/:alias', to: 'pages#show'
@@ -44,7 +44,7 @@ namespace :account do
   resources :orders do
     # 我的捐助
     collection do
-      get 'select_tab/:type(/:page)', to: 'orders#select_tab', as: 'select_tab'
+      get 'select_tab(/:type)', to: 'orders#select_tab', as: 'select_tab'
     end
   end
   resources :pairs, only: [:index] # 我的结对

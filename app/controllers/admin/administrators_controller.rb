@@ -5,7 +5,7 @@ class Admin::AdministratorsController < Admin::BaseController
 
   def index
     set_search_end_of_day(:created_at_lteq)
-    @search = Administrator.ransack(params[:q])
+    @search = User.admin_user.ransack(params[:q])
     scope = @search.result
     @administrators = scope.sorted.page(params[:page])
   end
@@ -14,21 +14,21 @@ class Admin::AdministratorsController < Admin::BaseController
   end
 
   def new
-    @administrator = Administrator.new
+    @administrator = User.new
   end
 
   def edit
   end
 
   def create
-    @administrator = Administrator.new
+    @administrator = User.new
     respond_to do |format|
       if User.find_by(login: administrator_params[:user][:login]).present?
         flash[:alert] = '账号已被占用'
         format.html {render :new}
       else
         @user = User.new(administrator_params[:user].merge(name: administrator_params[:nickname]))
-        if @user.save && Administrator.create(administrator_params.except(:user).merge(user_id: @user.id))
+        if @user.save && User.create(administrator_params)
           format.html {redirect_to referer_or(admin_administrators_url), notice: '管理员已增加。'}
         else
           format.html {render :new}
@@ -61,15 +61,17 @@ class Admin::AdministratorsController < Admin::BaseController
 
   private
   def set_administrator
-    @administrator = Administrator.find(params[:id])
+    @administrator = User.admin_user.find(params[:id])
   end
 
   def administrator_params
-    params.require(:administrator).permit!
+    ps = params.require(:user).permit!
+    ps[:project_ids] = ps[:project_ids].select{|i|i.present?}.map(&:to_i)
+    ps
   end
 
   def check_super_administrator
-    if current_user.kind != 'super_administrator'
+    if !current_user.has_role?(:superadmin)
       respond_to do |format|
         format.html {redirect_to referer_or(admin_main_url), alert: "您不是超级管理员。"}
       end

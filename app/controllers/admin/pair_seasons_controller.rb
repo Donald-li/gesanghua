@@ -1,4 +1,5 @@
 class Admin::PairSeasonsController < Admin::BaseController
+  before_action :check_auth
   before_action :set_season, only: [:show, :edit, :update, :destroy, :switch]
 
   def index
@@ -70,4 +71,9 @@ class Admin::PairSeasonsController < Admin::BaseController
     def pair_params
       params.require(:project_season).permit!
     end
+
+    def check_auth
+      auth_operate_project(Project.pair_project)
+    end
+
 end

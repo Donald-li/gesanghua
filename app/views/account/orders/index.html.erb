@@ -1,5 +1,5 @@
 <% content_for :scripts do %>
-  <%= javascript_include_tag "controllers/personals/tab" %>
+  <%= javascript_include_tag "controllers/orders/tab", "controllers/orders/index" %>
 <% end %>
 
 <% content_for :styles do %>
@@ -23,10 +23,10 @@
     <!--我的捐助-->
     <div class="donation " style="display: block;">
       <div class="donations-1">
-        <ul class="donations1 clearfix panel-tabs" url="<%= select_tab_account_orders_path(0, params[:page] || 2, remote: true) %>">
-          <li class="selectedDo cur" info="0" url="<%= select_tab_account_orders_path(0, params[:page] || 2, remote: true) %>">全部项目</li>
+        <ul class="donations1 clearfix panel-tabs" url="<%= select_tab_account_orders_path %>">
+          <li class="selectedDo cur" info="0" url="<%= select_tab_account_orders_path %>">全部项目</li>
           <% @project.each do |project| %>
-            <li class="cur border-l" info="<%= project.id %>" url="<%= select_tab_account_orders_path(project.id, params[:page] || 1, remote: true) %>"><%= project.name %></li>
+            <li class="cur border-l" info="<%= project.id %>" url="<%= select_tab_account_orders_path(project.id) %>"><%= project.name %></li>
           <% end %>
         </ul>
         <div class="bottomline"></div>
@@ -49,39 +49,3 @@
   </div>
 
 </div>
-</div>
-<script>
-  //     右tab切换二级
-  $(".donations1 li").on("click", function () {
-    $(".donations1 li").removeClass("selectedDo")
-    $(this).addClass("selectedDo")
-    $(".bottomline").css("left", parseFloat($(this)[0].offsetLeft) + 31 + "px")
-    console.log($(this).attr("info"))
-
-
-  })
-  if ($('.donation .donation-cont').length === 0) {
-    $('.donation-cont-no').css('display', 'block')
-    $('.project-foot').css('display', 'none')
-  } else {
-    $('.donation-cont-no').css('display', 'none')
-    $('.project-foot').css('display', 'block')
-  }
-
-  // document.getElementById("code_btn").onclick = function () {
-  //   time(this);
-  //   var mobile = $('#phonenumber').val()
-  //   $.ajax({
-  //     type: "post",
-  //     url: "/api/v1/common/sms_codes",
-  //     data: {kind: 'signup', mobile: mobile},
-  //     success(data){
-  //       alert(data.message)
-  //     },
-  //     error(){
-  //     }
-  //   })
-  // }
-
-
-</script>

@@ -14,7 +14,7 @@
     <p class="don-titln">学校信息</p>
     <div class="addchild-list-cont">
       <div>
-        <span class="goodtext">学校全称</span>
+        <span class="goodtext"><%= @profile.name %></span>
         <div>
           <button type="button" class="scool-edit-name" disabled>大西庄村小学</button>
         </div>
@@ -24,7 +24,24 @@
 
     <div>
       <span class="goodtext">所在地区</span>
-      <div class="city-picker-selector" id="city-picker-selector"></div>
+      <div style="margin-bottom: 20px;" class="form-group">
+        <label class="col-md-2 control-label select required" for="project_category_id">用户所在地：</label>
+        <div class="col-sm-6">
+          <div class="row city-group">
+            <div class="col-sm-3">
+              <%= select_tag 'user[province]', options_for_select(ChinaCity.list, @profile.province.presence), prompt: '省份', class: "form-control city-select" %>
+            </div>
+            <div class="col-sm-3">
+              <%= select_tag 'user[city]', options_for_select(ChinaCity.list(@profile.province.to_s), @profile.city.presence), prompt: '城市', class: "form-control city-select" %>
+            </div>
+            <div class="col-sm-3">
+              <%= select_tag 'user[district]', options_for_select(ChinaCity.list(@profile.city.to_s), @profile.district.presence), prompt: '地区', class: "form-control city-select" %>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+<!--      <div class="city-picker-selector" id="city-picker-selector"></div>-->
     </div>
       <div>
         <span class="goodtext">详细地址</span>

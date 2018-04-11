@@ -1,4 +1,5 @@
 class Admin::DonateRecordsController < Admin::BaseController
+  before_action :auth_manage_finanical
   before_action :set_user, only: [:index, :destroy]
 
   def index

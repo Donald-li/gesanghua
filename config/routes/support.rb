@@ -32,6 +32,8 @@ scope module: :support do
       get :bill_amount
       post :submit_pair_children
       post :submit_child_reason
+      post :submit_member_reason
+      post :submit_camp_members
     end
   end
 end

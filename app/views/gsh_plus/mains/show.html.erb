@@ -3,7 +3,7 @@
   <div class="gsh-plus-cont">
     <div>
       <% if (current_user.headmaster? || current_user.teacher?) && @school.pass? %>
-        <%= link_to platform_school_apply_pairs_path do %>
+        <%= link_to new_gsh_plus_school_path do %>
           <%= image_tag 'gsh-icon-school.png' %>
           <p class="gsh-plus-c-t">学校申请</p>
           <p class="gsh-plus-c-n">可参与公益活动</p>

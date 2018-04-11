@@ -15,21 +15,31 @@
     <!-- END RESPONSIVE MENU TOGGLER -->
     <div class="module-nav page-actions">
       <ul class="nav nav-tabs nav-justified">
+        <% if can? :manage_operation, current_user %>
           <li class="<%= current_nav_class(:admin_operation) %>" data-toggle="tab">
               <a href="#" data-content="menus-operate"> <i class="fa fa-sitemap"></i>运营管理 </a>
           </li>
+        <% end %>
+        <% if can? :operate_project, current_user %>
           <li class="<%= current_nav_class(:admin_project) %>" data-toggle="tab">
               <a href="#" data-content="menus-project"> <i class="fa fa-inbox"></i>项目管理 </a>
           </li>
+        <% end %>
+        <% if can? :manage_operation, current_user %>
           <li class="<%= current_nav_class(:admin_system) %>" data-toggle="tab">
               <a href="#" data-content="menus-system"> <i class="fa fa-gear"></i>系统管理 </a>
           </li>
+        <% end %>
+        <% if can? :manage_operation, current_user %>
           <li class="<%= current_nav_class(:admin_statistic) %>" data-toggle="tab">
               <a href="#" data-content="menus-report"> <i class="fa fa-area-chart"></i>统计报表 </a>
           </li>
+        <% end %>
+        <% if can? :manage_financial, current_user %>
           <li class="<%= current_nav_class(:admin_finance) %>" data-toggle="tab">
               <a href="#" data-content="menus-financial"> <i class="fa fa-rmb"></i>财务管理 </a>
           </li>
+        <% end %>
       </ul>
     </div>
     <!-- BEGIN PAGE TOP -->

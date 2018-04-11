@@ -1,1 +1,50 @@
-悦读申请列表
+<div class="person-body-right pull-right">
+
+  <div style="display: block;">
+    <%= render '/layouts/shared/platform_school_projects' %>
+    <% if @apply_camps.present? %>
+      <div class="school-apply-pair-table-co">
+        <div class="school-apply-pair-table">
+          <p>申请项目名称</p>
+          <p>申请状态</p>
+          <p>操作</p>
+        </div>
+        <% @apply_camps.each do |camp| %>
+          <div class="school-apply-pair-tables">
+            <p>申请时间：<%= camp.created_at.strftime("%Y-%m-%d %H:%M")%> <span>申请编号：<%= camp.apply.apply_no %></span></p>
+            <div class="school-apply-pair-table-cont">
+             <div>
+               <p class="school-apply-pair-tit"><%= camp.apply.apply_name %></p>
+                <p class="school-apply-pair-f">学生配额：<%= camp.student_number %></p>
+                <p class="school-apply-pair-f">教师配额：<%= camp.teacher_number %></p>
+
+             </div>
+             <div class="border-l border-r">
+               <%= camp.enum_name(:execute_state) %>
+             </div>
+             <div>
+               <button><%= link_to '查看申请详情', platform_school_apply_camp_path(camp) %></button>
+               <% if camp.to_submit? %>
+                <button><%= link_to '提交名单', member_list_platform_school_apply_camp_members_path(camp) %></button>
+               <% elsif camp.approved? %>
+                <button><%= link_to '查看名单', platform_school_apply_camp_members_path(camp, state: 'pass') %></button>
+               <% end %>
+             </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="donation-cont-no">
+        <div class="donation-co-no-c">
+          <p>很抱歉，您的学校暂未有探索营项目申请配额可联系格桑花管理员申请</p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="project-foot">
+    <%= paginate @apply_camps, theme: :tiny %>
+  </div>
+</div>
+

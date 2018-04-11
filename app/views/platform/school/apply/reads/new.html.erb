@@ -1,0 +1,178 @@
+<div class="person-body-right pull-right" id="reads-new">
+  <div class="paddchild marginbottom">
+    <p class="don-title">
+      <span class="pull-left">新图书角申请</span>
+      <span class="pull-right iconfont icon-arrow-right"></span>
+      <span class="pull-right">返回</span>
+    </p>
+  </div>
+      <div class="addchild-list marginbottom">
+        <p class="don-title">申请信息</p>
+        <div class="addchild-list-cont">
+          <div>
+            <span class="goodtext">申请学校</span>
+            <div>
+              <button type="button" class="scool-edit-name" disabled>涿鹿县北晨中学</button>
+            </div>
+
+          </div>
+          <div>
+            <span class="goodtext">申请年度</span>
+            <div>
+              <button type="button" class="scool-edit-name" disabled>2018年度</button>
+            </div>
+
+          </div>
+          <div>
+            <span class="goodtext">学生总数</span>
+            <div class="modified modified-1">
+              <span class="iconfont icon-ico-reduce oversmin"></span>
+              <input type="text" value="1" class="oversinputs"/>
+              <span class="iconfont icon-ico-add1 oversadd"></span>
+            </div>
+          </div>
+          <div>
+            <span class="goodtext">班级总数</span>
+            <div class="modified modified-2">
+              <span class="iconfont icon-ico-reduce oversmin"></span>
+              <input type="text" value="1" class="oversinputs"/>
+              <span class="iconfont icon-ico-add1 oversadd"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="addchild-list addchild-list-up marginbottom">
+        <p class="don-title">申请班级管理</p>
+        <div class="reads-new-cont">
+          <div class="clearfix">
+            <span class="pull-left">一年级一班</span>
+            <span class="pull-left">30人</span>
+            <div class="pull-right">
+              <div class="clearfix don-con-pos">
+                <div class="pull-right cur delete-offline-user">
+                  <span class="iconfont icon-ico-delete1"></span>
+                  <span>删除</span>
+                </div>
+                <div class="pull-right cur edit-offline-user">
+                  <span class="iconfont icon-ico-edit "></span>
+                  <span>编辑</span>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <button class="school-apply-share-sub addnewclass">
+            <span class="iconfont icon-ico-add1"></span>
+            <span>新增申请班级</span>
+          </button>
+        </div>
+        <div class="addchild-list-cont ">
+          <div>
+            <span class="goodtext">申请理由</span>
+            <textarea></textarea>
+          </div>
+          <div>
+            <span class="goodtext">上传图片</span>
+            <div  >
+              <div class="addchild-list-up-picture pull-left">
+                <p class="iconfont icon-ico-add"></p>
+                <p>上传反馈图片</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+  <div class="addchild-list addnewreads ">
+    <p class="don-title">收货地址</p>
+    <div class="addchild-list-cont">
+      <div>
+        <span class="goodtext">收货人</span>
+        <input  class="goodinput " type="text" name="project_season_apply_child[father]" placeholder="请填写收货人姓名" />
+      </div>
+      <div>
+        <span class="goodtext">所在地区</span>
+        <div class="city-picker-selector" id="city-picker-selector"></div>
+      </div>
+      <div>
+        <span class="goodtext">联系电话</span>
+        <input  class="goodinput " type="text" name="project_season_apply_child[father_job]"  />
+      </div>
+      <div>
+        <span class="goodtext">详细地址</span>
+        <input  class="goodinput " type="text" name="project_season_apply_child[mother]" placeholder="请输入详细地址" />
+      </div>
+
+    </div>
+  </div>
+      <div class="childern-submint">
+        <button type="submit">保存</button>
+        <button >取消</button>
+        <%#= link_to '取消', child_list_platform_school_apply_pair_children_path(@apply) %>
+      </div>
+  <div class="overspread-5 overspread-e">
+    <div class="overspread-over"></div>
+    <div class="overspread-cont">
+      <div class="clearfix">
+        <div class="pull-left mys-1">编辑申请班级</div>
+        <div class="pull-right iconfont icon-icondelete cur overspread-but"></div>
+      </div>
+      <div class="overspread-co">
+        <div>
+          <p class="goodtext">班级名称</p>
+          <input type="text" />
+        </div>
+        <div>
+          <p class="goodtext">班级人数</p>
+          <input type="text" />
+        </div>
+
+      </div>
+      <div class="overspreadsc-but overspread-but  over-but">添加</div>
+
+    </div>
+  </div>
+  <div class="overspread-5 overspread-n">
+    <div class="overspread-over"></div>
+    <div class="overspread-cont">
+      <div class="clearfix">
+        <div class="pull-left mys-1">新增申请班级</div>
+        <div class="pull-right iconfont icon-icondelete cur overspread-but"></div>
+      </div>
+      <div class="overspread-co">
+        <div>
+          <p class="goodtext">班级名称</p>
+          <input type="text" />
+        </div>
+        <div>
+          <p class="goodtext">班级人数</p>
+          <input type="text" />
+        </div>
+
+      </div>
+      <div class="overspreadsc-but overspread-but  over-but">添加</div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+    // 模拟城市-无联动/无搜索
+    var selector1 = $('#city-picker-selector').cityPicker({
+        dataJson: cityData,
+        renderMode: true,
+        search: false,
+        autoSelected: false,
+        code: 'cityCode',
+        level: 3
+    });
+
+$('.modified-1').calculate()
+$('.modified-2').calculate()
+    $('.overspread-e').overs(".edit-offline-user");
+    $('.overspread-n').overs(".addnewclass");
+</script>

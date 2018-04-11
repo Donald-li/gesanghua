@@ -1,5 +1,5 @@
 class Admin::PairDonateRecordsController < Admin::BaseController
-  before_action :set_project, only: [:index, :show, :destroy]
+  before_action :set_project
 
   def index
     @donate_records = @project.donate_records
@@ -25,7 +25,9 @@ class Admin::PairDonateRecordsController < Admin::BaseController
   private
 
   def set_project
-    @project = Project.first
+    @project = Project.pair_project
+    auth_operate_project(@project)
   end
+
 
 end

@@ -65,6 +65,7 @@ class Admin::CampAppliesController < Admin::BaseController
   private
   def set_project_apply
     @project_apply = ProjectSeasonApply.find(params[:id])
+    auth_operate_project(@project_apply.project)
   end
 
   def project_apply_params

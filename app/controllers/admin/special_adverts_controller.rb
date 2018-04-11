@@ -1,4 +1,5 @@
 class Admin::SpecialAdvertsController < Admin::BaseController
+  before_action :auth_manage_operation
   before_action :set_special_advert, only: [:edit, :update, :destroy]
   before_action :set_special
 

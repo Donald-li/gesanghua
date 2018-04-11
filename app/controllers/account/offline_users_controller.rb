@@ -10,34 +10,18 @@ class Account::OfflineUsersController < Account::BaseController
   end
 
   def create
-    name = params[:name]
-    nickname = params[:nickname]
-    phone = params[:phone]
-    login = params[:phone]
-    address = params[:address]
-    salutation = params[:salutation]
+    login = offline_user_params[:phone]
     province = params[:user_province_id]
     city = params[:user_city_id]
     district = params[:user_district_id]
     gender = params[:gender]
-    @offline_user = current_user.offline_users.new(offline_user_params)
-    @offline_user.login = @offline_user.phone
-    @offline_user.province = province
-    @offline_user.city = city
-    @offline_user.district = district
-    @offline_user.gender = gender
-    # if params[:name].blank?
-    #   redirect_to account_offline_users_path && return, notice: '真实姓名必须填写。'
-    # end
-    # if params[:phone].blank?
-    #   redirect_to account_offline_users_path && return, notice: '手机号必须填写。'
-    # end
-    # @offline_user = User.new(login: login, name: name, nickname: nickname, phone: phone, address: address, salutation: salutation, province: province, city: city, district: district, gender: gender)
-    # @offline_user.manager_id = current_user.id
+    @offline_user = current_user.offline_users.new(offline_user_params.merge(login: login, province: province, city: city, district: district, gender: gender))
     if @offline_user.save
-      redirect_to account_offline_users_path, notice: '创建成功。'
+      flash[:notice] = '创建成功。'
+      gen_success_message
     else
-      redirect_to account_offline_users_path, notice: @offline_user.errors.full_messages
+      flash[:notice] = @offline_user.errors.full_messages
+      gen_failure_message(@offline_user)
     end
   end
 
@@ -48,8 +32,10 @@ class Account::OfflineUsersController < Account::BaseController
     district = params[:user_district_id]
     gender = params[:gender]
     if @offline_user.update_attributes(offline_user_params.merge(login: offline_user_params[:phone], province: province, city: city, district: district, gender: gender))
+      flash[:notice] = '修改成功。'
       gen_success_message
     else
+      flash[:notice] = @offline_user.errors.full_messages
       gen_failure_message(@offline_user)
     end
   end
@@ -66,6 +52,11 @@ class Account::OfflineUsersController < Account::BaseController
 
   def edit
     @offline_user = User.find_by_id(params[:id])
+    render 'form', :layout => 'bootstrap_modal'
+  end
+
+  def new
+    @offline_user = current_user.offline_users.new
     render 'form', :layout => 'bootstrap_modal'
   end
 

@@ -50,6 +50,7 @@ class Admin::MovieContinualFeedbacksController < Admin::BaseController
     end
 
     def set_project
-      @project = Project.find(Project.movie_project.id)
+      @project = Project.movie_project
+      auth_operate_project(@project)
     end
 end

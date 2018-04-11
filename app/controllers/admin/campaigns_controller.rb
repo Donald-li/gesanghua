@@ -1,4 +1,5 @@
 class Admin::CampaignsController < Admin::BaseController
+  before_action :auth_manage_operation
   before_action :set_campaign, only: [:show, :edit, :update, :destroy, :switch, :switch_state]
 
   def index

@@ -44,9 +44,13 @@ require 'custom_validators'
 class User < ApplicationRecord
   include HasBitEnum
   ROLES = %i[superadmin admin project_manager project_operator financial_staff volunteer county_user gsh_child custom_service headmaster teacher camp_manager]
-  has_bit_enum :role, ROLES
+  ROLES_NAME = %w[超级管理员 管理员 项目管理员 项目操作员 财务人员 志愿者 教育局用户 格桑花孩子 客服 校长 老师 营管理员]
+  has_bit_enum :role, ROLES, ROLES_NAME
+  scope :admin_user, ->{where("(users.roles_mask::bit(12) & B'100000011111')::integer > 0")}
 
   attr_accessor :avatar_id
+
+  default_value_for :project_ids, []
 
   include HasAsset
   has_one_asset :avatar, class_name: 'Asset::UserAvatar'
@@ -56,7 +60,6 @@ class User < ApplicationRecord
 
   has_one :school # 校长
   has_one :create_school, class_name: 'School', foreign_key: 'creater_id', dependent: :nullify # 用户创建的学校
-  has_one :administrator
   has_one :teacher
   has_one :volunteer
   has_one :county_user

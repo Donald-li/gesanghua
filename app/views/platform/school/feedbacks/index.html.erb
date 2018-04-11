@@ -4,43 +4,51 @@
     <div class="paddchild">
       <p class="don-title border-b ">
         <span class="pull-left">定期反馈</span>
-        <button class="pull-right school-apply-share-sub">
-          <span class="iconfont icon-ico-add1"></span>
-          <span>新增反馈</span>
-        </button>
+        <%= link_to new_platform_school_feedback_path do %>
+          <button class="pull-right school-apply-share-sub">
+            <span class="iconfont icon-ico-add1"></span>
+            <span>新增反馈</span>
+          </button>
+        <% end %>
       </p>
     </div>
-    <div class="school-feedback">
-      <div class="donation-cont border-b">
-        <div class="clearfix">
-          <div class="donation-cont-img pull-left">
-            <%= image_tag 'ucenter-top-bg.png' %>
-          </div>
-          <div class="pull-left feedback-cont-cco">
-            <div class="feedback-cont-c-tit clearfix">
-              <p class="pull-left">护花行动“风暴”来“风暴”</p>
+    <% if @continuals.present? %>
+      <div class="school-feedback">
+        <div class="donation-cont border-b">
+          <% @continuals.each do |continual| %>
+            <div class="clearfix">
+              <div class="donation-cont-img pull-left">
+                <%= image_tag continual.owner.try(:image).try(:file).try(:url, :tiny).to_s %>
+              </div>
+              <div class="pull-left feedback-cont-cco">
+                <div class="feedback-cont-c-tit clearfix">
+                  <p class="pull-left"><%= continual.owner.name %>项目反馈</p>
+                </div>
+                <div class="school-feed">
+                  <%= image_tag continual.user.user_avatar %>
+                  <span><%= continual.user.show_name %> ·</span>
+                  <span><%= continual.created_at.strftime("%Y-%m-%d")%>发布</span>
+                </div>
+              </div>
+              <%= link_to platform_school_feedback_path(continual) do %>
+                <div class="donation-cont-but pull-right cur">
+                  查看反馈详情
+                </div>
+              <% end %>
             </div>
-            <div class="school-feed">
-              <%= image_tag 'ucenter-top-bg.png' %>
-              <span>Peekid ·</span>
-              <span>2017-09-08发布</span>
-            </div>
-          </div>
-          <div class="donation-cont-but pull-right cur">
-            查看反馈详情
-          </div>
+          <% end %>
         </div>
       </div>
-    </div>
+      <div class="project-foot">
+        <%= paginate @continuals, theme: :tiny %>
+      </div>
+    <% else %>
     <div class="donation-cont-no">
       <div class="donation-co-no-c">
         <p>暂无定期反馈</p>
       </div>
     </div>
-    <div class="project-foot">
-      <span class="iconfont icon-arrow-left cur"></span>
-      <span class="iconfont icon-arrow-right cur"></span>
-    </div>
+    <% end %>
   </div>
 </div>
 
