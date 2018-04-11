@@ -16,10 +16,12 @@
     <!--<span class="iconfont icon-ico-month"></span>-->
       <!--<span>我的月捐</span>-->
     <!--</li>-->
-    <li class="cur">
+    <%= link_to account_campaigns_path do %>
+    <li class="<%= display_menu("offline_users") %> cur">
       <span class="iconfont icon-ico-campaign"></span>
       <span>我的活动</span>
     </li>
+    <% end %>
     <%= link_to account_offline_users_path do %>
     <li class="<%= display_menu("offline_users") %> cur">
       <span class="iconfont icon-ico-replace"></span>
