@@ -11,7 +11,7 @@
 // about supported directives.
 //
 // require js-routes
-//= require jquery
+//= require jquery3
 //= require rails-ujs
 //= require 'china_city/jquery.china_city'
 //= require 'plugin/jquery.timeago'
@@ -40,7 +40,6 @@
 //= require 'plugin/calculate.js'
 //= require 'plugin/popper.min.js'
 // require 'plugin/toastr.js'
-// require toastr
 
 
 
@@ -169,4 +168,3 @@ $(function () {
     }
 
 });
-

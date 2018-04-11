@@ -2299,6 +2299,15 @@ select:disabled {
         font-size: 12px;
         color: #4a4a4b;
       }
+      .donation-cont-c-my-read{
+        font-size: 12px;
+        color: #4a4a4b;
+        & > span{
+          font-size: 12px;
+          color: #4a4a4b;
+          font-weight: 500;
+        }
+      }
     }
     .donation-cont-but {
       width: 116px;
@@ -6439,7 +6448,7 @@ select:disabled {
 .donation-co-no-c-img {
   img {
     width: 156px;
-    height: 119px;
+    height: 112px;
     margin: 0 auto;
   }
   margin-bottom: 20px;
