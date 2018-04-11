@@ -10,7 +10,24 @@ $(function () {
     });
     console.log(35)
     return $modal.load(url, function (response, status, xhr) {
-       $(".panel-title").text("编辑")
+       $(".panel-title").text("编辑捐助人信息")
+      return $modal.modal({
+        keyboard: false,
+        backdrop: "static",
+        attentionAnimation: false
+      });
+    });
+  });
+
+  //新建弹窗
+  $(".index-topbar").delegate("#ClickMe", "click", function (e) {
+    var $modal = $("#popup-container");
+    var url;
+    e.preventDefault();
+    url = Routes.new_account_offline_user_path({});
+    console.log(35)
+    return $modal.load(url, function (response, status, xhr) {
+       $(".panel-title").text("新增捐助人信息")
       return $modal.modal({
         keyboard: false,
         backdrop: "static",

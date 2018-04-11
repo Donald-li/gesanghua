@@ -105,20 +105,6 @@
         $('.project-foot').css('display', 'block')
     }
 
-
-    $('#ClickMe').click(function() {
-        $('#code').center();
-        $('#goodcover').show();
-        $('#code').fadeIn();
-    });
-    $('#closebt').click(function() {
-        $('#code').hide();
-        $('#goodcover').hide();
-    });
-    $('.goodbut').click(function() {
-        $('#code').hide();
-        $('#goodcover').hide();
-    });
     $('.delete-offline-user').click(function() {
       var id = $(this).attr("offlineUserId");
       $('#isDelete').attr("offlineUserId", id);
@@ -126,20 +112,6 @@
         $('#goodcover').show();
         $('#remove').fadeIn();
     });
-    // $('.edit-offline-user').click(function() {
-    //   var id = $(this).attr("offlineUserId");
-    //   alert(id)
-    //   $.ajax({
-    //     type: "get",
-    //     url: "/account/offline_users",
-    //     data: {id: id},
-    //     success(){},
-    //     error(){}
-    //   })
-    //   $('#code').center();
-    //   $('#goodcover').show();
-    //   $('#code').fadeIn();
-    // });
     $('#remove-but').click(function() {
         $('#remove').hide();
         $('#goodcover').hide();
