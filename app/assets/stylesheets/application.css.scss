@@ -4662,6 +4662,7 @@ select:disabled {
 .school-apply-pair-child {
   & > div:nth-child(1) {
     margin: 20px 20px 0 0;
+    z-index: 0;
   }
   & > div:nth-child(2) {
     & > img {
@@ -4948,6 +4949,37 @@ select:disabled {
         }
       }
     }
+    & > div:nth-child(4) {
+      padding: 10px 0;
+      & > a:nth-child(2) {
+        outline: none;
+        width: 101px;
+        height: 30px;
+        line-height: 28px;
+        font-size: 13px;
+        color: #3d3d40;
+        border: 1px solid #fff;
+        background-color: #fff;
+        display: inline-block;
+
+      }
+      & > a:nth-child(1) {
+        outline: none;
+        background-color: #fff;
+        width: 101px;
+        height: 30px;
+        line-height: 28px;
+        border: 1px solid $color-border;
+        font-size: 13px;
+        color: $color-border;
+        border-radius: 2px;
+        margin-bottom: 10px;
+        display: inline-block;
+        button {
+          color: $color-border;
+        }
+      }
+    }
   }
   .school-apply-pair-table {
     margin: 10px 0 10px 0;
@@ -5017,6 +5049,7 @@ select:disabled {
 
 .school-apply-pair-share {
   padding: 0 34px 10px 34px;
+  position: relative;
   .input-group {
     width: 230px;
     height: 34px;
@@ -5408,7 +5441,27 @@ select:disabled {
     }
   }
 }
-
+//探索营名单
+.camps-child-list{
+  .school-apply-pair-share .add-reads{
+    padding-right: 34px;
+    & > a:nth-child(1) button{
+      background: #fff;
+      border: 1px solid $color-border;
+      color: $color-border;
+      line-height: 31px;
+    }
+  }
+  .school-apply-pair-table > p:nth-child(1){
+    flex: 1.73!important;
+  }
+  .school-apply-pair-table > p:nth-child(2){
+    flex: .59!important;
+  }
+  .school-apply-pair-table > p:nth-child(3){
+    flex: 1.1!important;
+  }
+}
 //图片查看
 .magnify-modal {
   box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.3);
