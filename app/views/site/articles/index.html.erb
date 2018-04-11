@@ -3,42 +3,26 @@
     <div class="speciais-con">
       <div class="donations-1" >
         <ul class="donations1 clearfix">
-          <li class="cur selectedDo">资讯
-            <div class="bottomline"></div></li>
-          <li class="cur selectedDo ">专题
-            <div class=""></div></li>
+          <li class="cur selectedDo"><%= link_to articles_path do %>资讯
+            <div class="bottomline"></div><% end %></li>
+          <li class="cur selectedDo "><%= link_to specials_path do %>专题
+            <div class=""></div><% end %></li>
         </ul>
       </div>
-      <div class="clearfix speciais-t">
-        <div class="speciais-con-img pull-left">
-          <%= image_tag 'ucenter-top-bg.png' %>
+      <% @articles.each do |article| %>
+        <div class="clearfix speciais-t">
+          <%= link_to article_path(article) do %>
+            <div class="speciais-con-img pull-left">
+              <%= image_tag article.image.try(:file).try(:url, :medium).to_s %>
+            </div>
+            <div class="speciais-con-con pull-left">
+              <p class="gsh-cont-2"><%= article.title %></p>
+              <p class="gsh-cont-1"><%= article.author %> |  <%= article.published_at.strftime("%Y年%m月%d日") %></p>
+              <p class="gsh-cont-3"><%= strip_tags article.content %></p>
+            </div>
+          <% end %>
         </div>
-        <div class="speciais-con-con pull-left">
-          <p class="gsh-cont-2">为爱冲关---安徽卫视《男生女生向前冲》格桑花专场 孩子们和志愿者们一</p>
-          <p class="gsh-cont-1">菠菜 |  2018年02月22日</p>
-          <p class="gsh-cont-3">孩子们和志愿者们一致决定要把格桑花孩子们和志愿者们一致决定要把格桑花孩子们和志愿者们一致决定要把格桑花孩子们和志愿者们一致决定要把格桑花孩子们和志愿者们一致决定要把格桑花“互助、温暖、信任、希望”的精神传递下去，将冲关得到的所有奖品捐给更需要的人</p>
-        </div>
-      </div>
-      <div class="clearfix speciais-t">
-        <div class="speciais-con-img pull-left">
-          <%= image_tag 'ucenter-top-bg.png' %>
-        </div>
-        <div class="speciais-con-con pull-left">
-          <p class="gsh-cont-2">为爱冲关---安徽卫视《男生女生向前冲》格桑花专场 孩子们和志愿者们一</p>
-          <p class="gsh-cont-1">菠菜 |  2018年02月22日</p>
-          <p class="gsh-cont-3">孩子们和志愿者们一致决定要把格桑花孩子们和志愿者们一致决定要把格桑花孩子们和志愿者们一致决定要把格桑花孩子们和志愿者们一致决定要把格桑花孩子们和志愿者们一致决定要把格桑花“互助、温暖、信任、希望”的精神传递下去，将冲关得到的所有奖品捐给更需要的人</p>
-        </div>
-      </div>
-      <div class="clearfix speciais-t">
-        <div class="speciais-con-img pull-left">
-          <%= image_tag 'ucenter-top-bg.png' %>
-        </div>
-        <div class="speciais-con-con pull-left">
-          <p class="gsh-cont-2">为爱冲关---安徽卫视《男生女生向前冲》格桑花专场 孩子们和志愿者们一</p>
-          <p class="gsh-cont-1">菠菜 |  2018年02月22日</p>
-          <p class="gsh-cont-3">孩子们和志愿者们一致决定要把格桑花孩子们和志愿者们一致决定要把格桑花孩子们和志愿者们一致决定要把格桑花孩子们和志愿者们一致决定要把格桑花孩子们和志愿者们一致决定要把格桑花“互助、温暖、信任、希望”的精神传递下去，将冲关得到的所有奖品捐给更需要的人</p>
-        </div>
-      </div>
+      <% end %>
       <div class="speciais-cont-but border-t">
         <button>加载更多</button>
       </div>

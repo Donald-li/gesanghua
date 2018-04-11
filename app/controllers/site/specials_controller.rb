@@ -1,7 +1,8 @@
 class Site::SpecialsController < Site::BaseController
 
   def index
-
+    scope = Special.show.sorted
+    @specials = scope.page(params[:page]).per(3)
   end
 
   def show
