@@ -63,6 +63,13 @@
           <% end %>
         <% end %>
       <% end %>
+      <div class="wechat-qrcode">
+        <div class="qrcode">
+          <%= image_tag 'news-listpage.png' %>
+        </div>
+        <div class="help"><p>请扫描二维码 </p>
+          <p>到微信端进行登录</p></div>
+      </div>
     </div>
     <div>
       <% if current_user.gsh_child? %>
@@ -80,6 +87,13 @@
           <div class="gsh-plus-c-but">可加入</div>
         <% end %>
       <% end %>
+      <div class="wechat-qrcode">
+        <div class="qrcode">
+          <%= image_tag 'news-listpage.png' %>
+        </div>
+        <div class="help"><p>请扫描二维码 </p>
+          <p>到微信端进行登录</p></div>
+      </div>
     </div>
   </div>
 <%= link_to account_orders_path do %><p class="gsh-plus-foot">返回个人中心</p><% end %>
