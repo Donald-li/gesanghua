@@ -15,7 +15,6 @@
             <div>
               <button type="button" class="scool-edit-name" disabled><%= @school.name %></button>
             </div>
-
           </div>
           <!--<div>-->
             <!--<span class="goodtext">申请年度</span>-->
@@ -63,13 +62,13 @@
         <div class="addchild-list-cont ">
           <div>
             <span class="goodtext">申请理由</span>
-            <textarea name="project_season_apply[reason]" required></textarea>
+            <textarea name="project_season_apply[describe]" required></textarea>
           </div>
           <div>
             <span class="goodtext">上传图片</span>
             <div>
               <div class="addchild-list-up-picture pull-left">
-                <%= webuploader_image :image_ids, label: '上传图片', type: 'project_season_apply_image', asset: @apply.images, id: 'images' %>
+                <%= webuploader_image 'image_ids[]', label: '上传图片', type: 'project_season_apply_image', asset: @apply.images, id: 'images' %>
               </div>
             </div>
           </div>
@@ -177,7 +176,6 @@
     $('.modified-2').calculate()
     $('.overspread-n').overs(".addnewclass");
 
-    var class_ids= []
     $(function () {
         initMultiImageWebuploader($('#images'));
 //        新增申请班级

@@ -19,6 +19,7 @@
 #  remark               :string                                 # 报名表备注
 #  form                 :jsonb                                  # 报名表单定义
 #  execute_state        :integer                                # 执行状态
+#  appoint_fund_id      :integer                                # 指定财务分类
 #
 
 FactoryBot.define do

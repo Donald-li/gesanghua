@@ -11,7 +11,7 @@ class Platform::School::Apply::ReadsController < Platform::School::BaseControlle
   end
 
   def supplement
-
+    @apply = ProjectSeasonApply.new
   end
 
   def new
@@ -19,13 +19,13 @@ class Platform::School::Apply::ReadsController < Platform::School::BaseControlle
   end
 
   def create
-    season = ProjectSeason.find(apply_params[:season_id])
-    @school = current.teacher.school
+    season = ProjectSeason.find(apply_params[:project_season_id])
+    @school = current_user.teacher.school
     if ProjectSeasonApply.allow_apply?(@school, season, Project.read_project)
       # @apply.form = params[:dynamic_form]
-      @apply = ProjectSeasonApply.new(apply_params.merge(project: Project.read_project, school: @school, bookshelf_type: 'whole', contact_name: apply_params[:consignee], contact_phone: apply_params[:consignee_phone]))
+      @apply = ProjectSeasonApply.new(apply_params.except(:class_ids).merge(project: Project.read_project, school: @school, bookshelf_type: 'whole', contact_name: apply_params[:consignee], contact_phone: apply_params[:consignee_phone]))
       if @apply.save
-        ProjectSeasonApplyBookshelf.where(id: params[:class_ids]).update(apply: @apply, season: season)
+        ProjectSeasonApplyBookshelf.where(id: apply_params[:class_ids]).update(apply: @apply, season: season)
         @apply.attach_images(params[:image_ids])
         redirect_to platform_school_apply_reads_path, notice: '提交成功'
       else
@@ -35,6 +35,10 @@ class Platform::School::Apply::ReadsController < Platform::School::BaseControlle
     else
       redirect_to platform_school_apply_reads_path, notice: '您已经申请过本批次'
     end
+  end
+
+  def create_supplement
+
   end
 
   private
