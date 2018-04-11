@@ -34,14 +34,18 @@
   </ul>
   <% if controller_name == 'reads' %>
   <div class="add-reads">
+    <%= link_to supplement_platform_school_apply_reads_path do %>
     <button class=" school-apply-share-sub">
       <span class="iconfont icon-ico-add1"></span>
       <span>补书申请</span>
     </button>
+    <% end %>
+    <%= link_to new_platform_school_apply_read_path do %>
     <button class=" school-apply-share-sub">
       <span class="iconfont icon-ico-add1"></span>
       <span>新书申请</span>
     </button>
+    <% end %>
   </div>
   <% end %>
 </div>
