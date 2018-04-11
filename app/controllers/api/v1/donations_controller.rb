@@ -15,6 +15,7 @@ class Api::V1::DonationsController < Api::V1::BaseController
     owner = ProjectSeasonApply.find(params[:apply]) if params[:apply].present?
     owner = ProjectSeasonApplyChild.find(params[:child]) if params[:child].present?
     owner = ProjectSeasonApplyBookshelf.find(params[:bookshelf]) if params[:bookshelf].present?
+    owner = CampaignEnlist.find(params[:campaign_enlist]) if params[:campaign_enlist].present? # 活动报名
 
     if params[:donate_way] == 'wechat'
       donation = Donation.new(amount: amount, owner: owner, donor_id: donor_id, agent_id: agent.id, team_id: team_id, promoter_id: promoter_id)

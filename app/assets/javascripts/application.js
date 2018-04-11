@@ -10,7 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require js-routes
+// require js-routes
 //= require jquery3
 //= require rails-ujs
 //= require 'china_city/jquery.china_city'
@@ -31,7 +31,7 @@
 //= require 'plugin/citydata.min.js'
 //= require 'plugin/tab-nav.js'
 //= require 'plugin/timeago.js'
-//= require 'plugin/jquery.select.js'
+//require 'plugin/jquery.select.js'
 //= require 'plugin/jquery.mCustomScrollbar.concat.min.js'
 //= require 'plugin/jquery.share.min.js'
 //= require 'plugin/ui-choose.js'
@@ -40,7 +40,6 @@
 //= require 'plugin/calculate.js'
 //= require 'plugin/popper.min.js'
 // require 'plugin/toastr.js'
-//= require toastr
 
 
 

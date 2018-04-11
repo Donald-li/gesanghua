@@ -39,6 +39,16 @@ class CampaignEnlist < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
+  # 使用捐助
+  def accept_donate(donate_records)
+    donate_record = donate_records.last
+    amount = donate_record.amount
+    donate_record.update!(amount: amount)
+
+    self.payment_state = 'paid'
+    self.save!
+  end
+
   def total_price
     self.number.to_i * self.campaign.price.to_f
   end
