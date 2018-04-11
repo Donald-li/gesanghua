@@ -19,7 +19,9 @@
         <div class="detail-cont-foot border-t ">
           <p>当前筹款<span>￥<%= @apply.present_amount %></span></p>
           <p>参与人数<span><%= @apply.donate_records.grouping(:user_id).count %>人</span></p>
+          <%= link_to new_donate_path(apply_id: @apply.id, type: 'camp') do %>
           <div class="overspread-show cur">我要捐助</div>
+          <% end %>
         </div>
       </div>
     </div>
