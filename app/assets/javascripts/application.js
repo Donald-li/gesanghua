@@ -38,7 +38,6 @@
 //= require 'plugin/mongolian.js'
 //= require 'plugin/jquery.magnify.js'
 //= require 'plugin/calculate.js'
-// require 'plugin/toastr.js'
 //= require toastr
 
 

@@ -1,105 +1,87 @@
-      <div class="person-body-right pull-right">
-        <!--我的捐助-->
-        <div style="display: block;">
-          <ul class="donations clearfix">
-            <li class="selectedDon cur">
-              <%= link_to '我的捐助', account_orders_path %>
-            </li>
-            <li class="cur">
-              <%= link_to '我的结对', account_pairs_path %>
-            </li>
-            <li class="cur">
-              <%= link_to '我的图书角', account_bookshelves_path %>
-            </li>
-          </ul>
-          <!--我的捐助-->
-          <div class="donation " style="display: block;">
-            <div class="donations-1" >
-              <ul class="donations1 clearfix">
-                <li class="selectedDo cur" info="1">全部项目</li>
-                <li class="cur border-l border-r" info="2">护花</li>
-                <li class="cur border-r" info="3">广播</li>
-                <li class="cur" info="4">探索营</li>
-              </ul>
-              <div class="bottomline"></div>
-            </div>
-            <% @donate_records.each do |record| %>
-              <div class="donation-cont border-b">
-                <div class="clearfix">
-                  <div class="donation-cont-img pull-left">
-                    <%= image_tag 'ucenter-top-bg.png' %>
-                  </div>
-                  <div class="pull-left donation-cont-cco">
-                    <div class="donation-cont-c-tit clearfix">
-                      <p class="pull-left"><%= record.title %></p>
-                    </div>
-                    <div class="clearfix donation-cont-c-con">
-                      <div class="pull-left">
-                        <p><span>￥3219097.56</span></p>
-                        <p>还差</p>
-                      </div>
-                      <div class="pull-left">
-                        <p><span>12</span>/12</p>
-                        <p>进度</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="donation-cont-but pull-right cur">
-                    查看项目详情
-                  </div>
-                </div>
-              </div>
-            <% end %>
+<% content_for :scripts do %>
+  <%= javascript_include_tag "controllers/personals/tab" %>
+<% end %>
 
-            <div class="donation-cont-no">
-              <div class="donation-co-no-c">
-                <p>您还未捐助过任何公益项目! </p>
-                <p>马上参与捐助，帮助西部孩子 健康成长吧~</p>
-              </div>
-              <div class="donation-co-no-but">去捐助</div>
-            </div>
-            <div class="project-foot">
-              <%= link_to_previous_page @donate_records, '', class: "iconfont icon-arrow-left cur icon-a" %>
-              <%= link_to_next_page @donate_records, '', class: "iconfont icon-arrow-right cur icon-a" %>
-            </div>
+<% content_for :styles do %>
+  <%= stylesheet_link_tag "controllers/orders/index" %>
+<% end %>
+
+<div class="person-body-right pull-right">
+  <!--我的捐助-->
+  <div style="display: block;">
+    <ul class="donations clearfix">
+      <li class="selectedDon cur">
+        <%= link_to '我的捐助', account_orders_path %>
+      </li>
+      <li class="cur">
+        <%= link_to '我的结对', account_pairs_path %>
+      </li>
+      <li class="cur">
+        <%= link_to '我的图书角', account_bookshelves_path %>
+      </li>
+    </ul>
+    <!--我的捐助-->
+    <div class="donation " style="display: block;">
+      <div class="donations-1">
+        <ul class="donations1 clearfix panel-tabs" url="<%= select_tab_account_orders_path(0, params[:page] || 2, remote: true) %>">
+          <li class="selectedDo cur" info="0" url="<%= select_tab_account_orders_path(0, params[:page] || 2, remote: true) %>">全部项目</li>
+          <% @project.each do |project| %>
+            <li class="cur border-l" info="<%= project.id %>" url="<%= select_tab_account_orders_path(project.id, params[:page] || 1, remote: true) %>"><%= project.name %></li>
+          <% end %>
+        </ul>
+        <div class="bottomline"></div>
+      </div>
+      <div class="panel-body">
+        <div class="tab-content">
+          <div class="tab-pane active" id="data_list">
+            <%= render partial: "info" %>
           </div>
         </div>
+      </div>
+      <div class="donation-cont-no">
+        <div class="donation-co-no-c">
+          <p>您还未捐助过任何公益项目! </p>
+          <p>马上参与捐助，帮助西部孩子 健康成长吧~</p>
+        </div>
+        <div class="donation-co-no-but">去捐助</div>
+      </div>
+    </div>
+  </div>
 
 </div>
 </div>
 <script>
-    //     右tab切换二级
-    $(".donations1 li").on("click", function () {
-        $(".donations1 li").removeClass("selectedDo")
-        $(this).addClass("selectedDo")
-        $(".bottomline").css("left", parseFloat($(this)[0].offsetLeft) +31 +  "px")
-      console.log($(this).attr("info"))
+  //     右tab切换二级
+  $(".donations1 li").on("click", function () {
+    $(".donations1 li").removeClass("selectedDo")
+    $(this).addClass("selectedDo")
+    $(".bottomline").css("left", parseFloat($(this)[0].offsetLeft) + 31 + "px")
+    console.log($(this).attr("info"))
 
 
-    })
-    if($('.donation .donation-cont').length===0){
-        $('.donation-cont-no').css('display', 'block')
-        $('.project-foot').css('display', 'none')
-    }else{
-        $('.donation-cont-no').css('display', 'none')
-        $('.project-foot').css('display', 'block')
-    }
+  })
+  if ($('.donation .donation-cont').length === 0) {
+    $('.donation-cont-no').css('display', 'block')
+    $('.project-foot').css('display', 'none')
+  } else {
+    $('.donation-cont-no').css('display', 'none')
+    $('.project-foot').css('display', 'block')
+  }
 
-    // document.getElementById("code_btn").onclick = function () {
-    //   time(this);
-    //   var mobile = $('#phonenumber').val()
-    //   $.ajax({
-    //     type: "post",
-    //     url: "/api/v1/common/sms_codes",
-    //     data: {kind: 'signup', mobile: mobile},
-    //     success(data){
-    //       alert(data.message)
-    //     },
-    //     error(){
-    //     }
-    //   })
-    // }
-
+  // document.getElementById("code_btn").onclick = function () {
+  //   time(this);
+  //   var mobile = $('#phonenumber').val()
+  //   $.ajax({
+  //     type: "post",
+  //     url: "/api/v1/common/sms_codes",
+  //     data: {kind: 'signup', mobile: mobile},
+  //     success(data){
+  //       alert(data.message)
+  //     },
+  //     error(){
+  //     }
+  //   })
+  // }
 
 
 </script>

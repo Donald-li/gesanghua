@@ -41,7 +41,12 @@ namespace :account do
       post :email_get_code
     end
   end
-  resources :orders, only: [:index] # 我的捐助
+  resources :orders do
+    # 我的捐助
+    collection do
+      get 'select_tab/:type(/:page)', to: 'orders#select_tab', as: 'select_tab'
+    end
+  end
   resources :pairs, only: [:index] # 我的结对
   resources :bookshelves, only: [:index] # 我的图书角
   resources :teams, only: [:index] # 我的团队

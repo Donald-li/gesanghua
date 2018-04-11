@@ -1,0 +1,32 @@
+<% @donate_records.each do |record| %>
+  <div class="donation-cont border-b">
+    <div class="clearfix">
+      <div class="donation-cont-img pull-left">
+        <%= image_tag 'ucenter-top-bg.png' %>
+      </div>
+      <div class="pull-left donation-cont-cco">
+        <div class="donation-cont-c-tit clearfix">
+          <p class="pull-left"><%= record.title %></p>
+        </div>
+        <div class="clearfix donation-cont-c-con">
+          <div class="pull-left">
+            <p><span>￥3219097.56</span></p>
+            <p>还差</p>
+          </div>
+          <div class="pull-left">
+            <p><span>12</span>/12</p>
+            <p>进度</p>
+          </div>
+        </div>
+      </div>
+      <div class="donation-cont-but pull-right cur">
+        查看项目详情
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div class="project-foot">
+  <%= link_to_previous_page @donate_records, '', class: "iconfont icon-arrow-left cur icon-a", remote: true %>
+  <%= link_to_next_page @donate_records, '', class: "iconfont icon-arrow-right cur icon-a", remote: true %>
+</div>
