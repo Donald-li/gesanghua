@@ -59,8 +59,11 @@ module Baidu
   end
 
   def self.send_test
-    host = 'bcc.bj.baidubce.com'
-    path = '/v2/volume/v-NZP6K01R'
+    host = 'sms.bj.baidubce.com'
+    path = '/v1/quota'
+    # host = 'bcc.bj.baidubce.com'
+    # path = '/v2/volume/v-NZP6K01R'
+
     timestamp = Time.now.utc.strftime('%FT%TZ')
     method = 'GET'
 
