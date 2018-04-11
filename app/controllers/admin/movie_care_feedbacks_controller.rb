@@ -59,7 +59,8 @@ class Admin::MovieCareFeedbacksController < Admin::BaseController
     end
 
     def set_project
-      @project = Project.find(Project.movie_care_project.id)
+      @project = Project.movie_care_project
+      auth_operate_project(@project)
     end
 
     def set_project_apply

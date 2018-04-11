@@ -4,9 +4,43 @@ class Ability
   def initialize(user)
     alias_action :create, :read, :update, :destroy, to: :crud
 
-    if user.has_role? :superadmin
-      can :manage, :all
+    # 管理超级用户功能
+    can :manage_superadmin, User do |user|
+      user.has_role?(:superadmin)
     end
+
+    # 管理后台业务功能
+    can :manage_operation, User do |user|
+      user.has_role?([:superadmin, :admin])
+    end
+
+    # 管理后台财务功能
+    can :manage_financial, User do |user|
+      user.has_role?([:superadmin, :financial_staff])
+    end
+
+    # 管理后台项目功能
+    can :manage_project, User, Project do |user, project|
+      def check(user, project)
+        return true if user.has_role?([:superadmin, :admin])
+        return false unless user.has_role?(:project_manager)
+        return project.id.in?(user.project_ids) if project
+        true
+      end
+      check(user, project)
+    end
+
+    # 操作后台项目功能
+    can :operate_project, User, Project do |user, project|
+      def check(user, project)
+        return true if user.has_role?([:superadmin, :admin])
+        return false unless user.has_role?([:project_manager, :project_operator])
+        return project.id.in?(user.project_ids) if project
+        true
+      end
+      check(user, project)
+    end
+
 
     # if !user
     #   can :update, :all

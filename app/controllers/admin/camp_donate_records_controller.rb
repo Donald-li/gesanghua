@@ -48,6 +48,7 @@ class Admin::CampDonateRecordsController < Admin::BaseController
 
   def set_project
     @project = Project.find(Project.camp_project.id)
+    auth_operate_project(@project)
   end
 
   def set_project_apply

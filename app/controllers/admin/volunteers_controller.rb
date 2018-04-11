@@ -1,4 +1,5 @@
 class Admin::VolunteersController < Admin::BaseController
+  before_action :auth_manage_operation
   before_action :set_volunteer, only: [:show, :edit, :update, :destroy, :switch, :switch_job]
   before_action :set_user, only: [:new, :create]
 

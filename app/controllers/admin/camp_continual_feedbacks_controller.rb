@@ -51,5 +51,6 @@ class Admin::CampContinualFeedbacksController < Admin::BaseController
 
     def set_project
       @project = Project.find(Project.camp_project.id)
+      auth_operate_project(@project)
     end
 end

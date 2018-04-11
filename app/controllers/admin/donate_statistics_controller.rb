@@ -1,4 +1,5 @@
 class Admin::DonateStatisticsController < Admin::BaseController
+  before_action :auth_manage_operation
 
   def show
     @search = User.sorted.ransack(params[:q])

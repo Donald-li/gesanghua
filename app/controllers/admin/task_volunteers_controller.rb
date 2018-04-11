@@ -1,4 +1,5 @@
 class Admin::TaskVolunteersController < Admin::BaseController
+  before_action :auth_manage_operation
   before_action :set_task_volunteer, only: [:show, :edit, :update, :destroy]
   before_action :set_volunteer
 
