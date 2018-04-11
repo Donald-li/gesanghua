@@ -5093,7 +5093,7 @@ select:disabled {
   right: 0;
   bottom: 12px;
   height: 34px;
-  & > button:nth-child(1) {
+  & > a:nth-child(1) button {
     margin-right: 10px;
     background: #fff;
     color: $color-border;
@@ -6567,12 +6567,16 @@ select:disabled {
 
   }
   .reads-new-cont{
-    &  >div{
+    & > div{
+      width:777px;
+      height: 100%!important;
+    }
+    & > div > div{
       width: 100%;
       border: 1px solid $border;
       border-radius: 3px;
       position: relative;
-      height: 100%!important;
+      height: 48px;
       padding: 12px 20px;
       margin-bottom: 20px;
       & > span:nth-child(1){
@@ -6628,7 +6632,7 @@ select:disabled {
     width: 156px;
     height: 156px;
     border-radius: 3px;
-    border: 1px solid $border;
+    //border: 1px solid $border;
     background-color: #f9f9f9;
     font-size: 14px;
     color: #8d8d8d;
