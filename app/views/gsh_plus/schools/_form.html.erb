@@ -5,7 +5,7 @@
     <div class="addchild-list-cont">
       <div>
         <span class="goodtext">学校全称</span>
-        <input class="goodinput " type="text" name="school[name]" value="<%= @school.name %>" />
+        <input class="goodinput " type="text" name="school[name]" value="<%= @school.name %>" required />
       </div>
       <div>
         <span class="goodtext">选择地区</span>
@@ -18,36 +18,36 @@
       </div>
       <div>
         <span class="goodtext">通讯地址</span>
-        <input class="goodinput " type="text" name="school[address]" value="<%= @school.address %>"/>
+        <input class="goodinput " type="text" name="school[address]" value="<%= @school.address %>" required/>
       </div>
       <div>
         <span class="goodtext">邮政编码</span>
-        <input class="goodinput " type="text" name="school[postcode]" value="<%= @school.postcode %>" />
+        <input class="goodinput " type="text" name="school[postcode]" value="<%= @school.postcode %>" required/>
       </div>
       <div>
         <span class="goodtext">学生人数</span>
         <div>
-          <input class="goodinput" type="text" name="school[number]" value="<%= @school.number %>" />
+          <input class="goodinput" type="text" name="school[number]" value="<%= @school.number %>" required/>
           <span class="income-moy">人</span>
         </div>
       </div>
       <div>
         <span class="goodtext">教师人数</span>
         <div>
-          <input class="goodinput" type="text" name="school[teacher_count]" value="<%= @school.teacher_count %>" />
+          <input class="goodinput" type="text" name="school[teacher_count]" value="<%= @school.teacher_count %>" required/>
           <span class="income-moy">人</span>
         </div>
       </div>
       <div>
         <span class="goodtext">后勤人数</span>
         <div>
-          <input class="goodinput" type="text" name="school[logistic_count]" value="<%= @school.logistic_count %>" />
+          <input class="goodinput" type="text" name="school[logistic_count]" value="<%= @school.logistic_count %>" required/>
           <span class="income-moy">人</span>
         </div>
       </div>
       <div style="height: 100%;">
         <span class="goodtext">学校简介</span>
-        <textarea name="school[describe]"><%= @school.describe %></textarea>
+        <textarea name="school[describe]" required><%= @school.describe %></textarea>
       </div>
 
     </div>
@@ -59,19 +59,19 @@
     <div class="addchild-list-cont">
       <div>
         <span class="goodtext">校长姓名</span>
-        <input class="goodinput " type="text" name="school[contact_name]" value="<%= @school.contact_name %>" />
+        <input class="goodinput " type="text" name="school[contact_name]" value="<%= @school.contact_name %>" required/>
       </div>
       <div>
         <span class="goodtext">身份证号</span>
-        <input class="goodinput " type="text" name="school[contact_id_card]" value="<%= @school.contact_id_card %>" />
+        <input class="goodinput " type="text" name="school[contact_id_card]" value="<%= @school.contact_id_card %>" required/>
       </div>
       <div>
         <span class="goodtext">手机号码</span>
-        <input class="goodinput " type="text" name="school[contact_phone]" value="<%= @school.contact_phone %>" />
+        <input class="goodinput " type="text" name="school[contact_phone]" value="<%= @school.contact_phone %>" required />
       </div>
       <div>
         <span class="goodtext">办公电话</span>
-        <input class="goodinput " type="text" name="school[contact_telephone]" value="<%= @school.contact_telephone %>" />
+        <input class="goodinput " type="text" name="school[contact_telephone]" value="<%= @school.contact_telephone %>"/>
       </div>
       <div  class="school-list-picture">
         <span class="goodtext">上传图片</span>

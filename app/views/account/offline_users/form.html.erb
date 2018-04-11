@@ -16,7 +16,7 @@
       </div>
       <div class="pull-right">
         <p class="goodtext">真实姓名</p>
-        <%= f.text_field :name, required: true, class: 'goodinput', placeholder: '' %>
+        <%= f.text_field :name, required: true, class: 'goodinput', placeholder: '', input_html: {required: true} %>
       </div>
     </div>
     <div class="clearfix sexinput">
@@ -48,7 +48,7 @@
       </div>
       <div class="pull-right">
         <p class="goodtext">联系电话</p>
-        <%= f.text_field :phone, required: true, class: 'goodinput', placeholder: '' %>
+        <%= f.text_field :phone, required: true, class: 'goodinput', placeholder: '', input_html: {required: true} %>
       </div>
     </div>
     <p class="goodtext">所在地区</p>
