@@ -22,59 +22,59 @@
     <% if current_user.county_user? %>
         <span>
           <%= link_to '我是县领导' %>
-          <div class="wechat-qrcode"><h4>微信扫一扫：分享</h4>
-            <div class="qrcode">
-              <%= image_tag 'news-listpage.png' %>
-            </div>
-            <div class="help"><p>微信里点“发现”，扫一下</p>
-              <p>二维码便可将本文分享至朋友圈。</p></div>
-          </div>
+          <div class="wechat-qrcode">
+        <div class="qrcode">
+          <%= image_tag 'news-listpage.png' %>
+        </div>
+        <div class="help"><p>请扫描二维码 </p>
+          <p>到微信端进行登录</p></div>
+      </div>
         </span>
     <% end %>
     <% if current_user.volunteer? %>
         <span>
           <%= link_to '我是志愿者' %>
-          <div class="wechat-qrcode"><h4>微信扫一扫：分享</h4>
-            <div class="qrcode">
-              <%= image_tag 'news-listpage.png' %>
-            </div>
-            <div class="help"><p>微信里点“发现”，扫一下</p>
-              <p>二维码便可将本文分享至朋友圈。</p></div>
-          </div>
+          <div class="wechat-qrcode">
+        <div class="qrcode">
+          <%= image_tag 'news-listpage.png' %>
+        </div>
+        <div class="help"><p>请扫描二维码 </p>
+          <p>到微信端进行登录</p></div>
+      </div>
         </span>
     <% end %>
     <% if current_user.project_manager? || current_user.project_operator? %>
         <span>
           <%= link_to '我是工作人员' %>
-          <div class="wechat-qrcode"><h4>微信扫一扫：分享</h4>
-            <div class="qrcode">
-              <%= image_tag 'news-listpage.png' %>
-            </div>
-            <div class="help"><p>微信里点“发现”，扫一下</p>
-              <p>二维码便可将本文分享至朋友圈。</p></div>
-          </div>
+          <div class="wechat-qrcode">
+        <div class="qrcode">
+          <%= image_tag 'news-listpage.png' %>
+        </div>
+        <div class="help"><p>请扫描二维码 </p>
+          <p>到微信端进行登录</p></div>
+      </div>
         </span>
     <% end %>
     <% if current_user.gsh_child? %>
         <span class="school-s-but">
           <%= link_to '我是格桑花孩子' %>
-          <div class="wechat-qrcode"><h4>微信扫一扫：分享</h4>
-            <div class="qrcode">
-              <%= image_tag 'news-listpage.png' %>
-            </div>
-            <div class="help"><p>微信里点“发现”，扫一下</p>
-              <p>二维码便可将本文分享至朋友圈。</p></div>
-          </div>
+          <div class="wechat-qrcode">
+        <div class="qrcode">
+          <%= image_tag 'news-listpage.png' %>
+        </div>
+        <div class="help"><p>请扫描二维码 </p>
+          <p>到微信端进行登录</p></div>
+      </div>
         </span>
     <% end %>
     <span>
       <%= link_to '结对反馈' %>
-      <div class="wechat-qrcode"><h4>微信扫一扫：分享</h4>
+      <div class="wechat-qrcode">
         <div class="qrcode">
           <%= image_tag 'news-listpage.png' %>
         </div>
-        <div class="help"><p>微信里点“发现”，扫一下</p>
-          <p>二维码便可将本文分享至朋友圈。</p></div>
+        <div class="help"><p>请扫描二维码 </p>
+          <p>到微信端进行登录</p></div>
       </div>
     </span>
   </div>

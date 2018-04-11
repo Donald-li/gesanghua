@@ -3,12 +3,14 @@ class Platform::School::FeedbacksController < Platform::School::BaseController
   before_action :set_school
 
   def index
-    scope = ContinualFeedback.where(school: @school).sorted
-    @continuals = scope.page(params[:page]).per(8)
+    scope = Project.open_feedback.sorted
+    @projects = scope.page(params[:page]).per(8)
   end
 
   def show
-    @continual = ContinualFeedback.find(params[:id])
+    @project = Project.find(params[:id])
+    scope = @project.continual_feedbacks.sorted
+    @continuals = scope.page(params[:page]).per(8)
   end
 
   def new

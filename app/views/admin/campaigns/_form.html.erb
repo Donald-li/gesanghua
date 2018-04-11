@@ -33,6 +33,18 @@
           <%= f.text_field :sign_up_end_time, class: 'datepicker', placeholder: '报名结束时间', input_html: {data: {'parsley-required': true}}, id: 'sign_up_end_time' %>
         </div>
       </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label">定项指定收入分类：</label>
+        <div class="col-sm-9">
+          <select id="fund-restricted" class="form-control select optional" name="campaign[appoint_fund_id]" required>
+            <% FundCategory.directional.reverse_sorted.each do |fc| %>
+                <% fc.funds.restricted.each do |fund| %>
+                    <option value="<%= fund.id %>" <%= 'selected' if @campaign.appoint_fund_id == fund.id %>><%= fc.name %> - <%= fund.name %></option>
+                <% end %>
+            <% end %>
+          </select>
+        </div>
+      </div>
       <%= f.input :number, label: '限制人数：', autofocus: true, placeholder: '如不填写，人数不限', input_html: { data: {}} %>
       <%= f.input :price, label: '活动价格：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
       <div class="form-group">

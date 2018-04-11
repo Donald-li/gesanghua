@@ -4464,8 +4464,17 @@ select:disabled {
     display: flex;
     & > div {
       flex: 1;
+      position: relative;
+
       & > a > img {
         height: 160px;
+      }
+    }
+    & > div:hover{
+      .wechat-qrcode{
+        display: block;
+        top: 0px;
+        left: 13px;
       }
     }
   }
@@ -6453,7 +6462,41 @@ select:disabled {
   }
   margin-bottom: 20px;
 }
+//我的结对
+#my-pairs-cont{
+  .donation-cont-c-con{
+    margin-top: 3px!important;
+  }
+  .donation-cont .donation-cont-but {
+    width: 116px;
+    height: 34px;
+    border-radius: 4px;
+    line-height: 34px;
+    text-align: center;
+    font-size: 13px;
+    margin-top: 8px;
+    background-color: #f5f5f5;
+    color: #3d3d40;
+    display: block;
+  }
+  .donation-cont-but:nth-child(2){
+    background-color: #fff;
+    color: $color-border;
+    border: 1px solid $color-border;
+    line-height: 32px;
+  }
+  .donation-cont .donation-cont-but:first-child{
+    margin-top: 0;
+  }
+}
+.my-pairs{
+  img{
+    width: 78px;
+    height: 78px;
+    border-radius: 50%;
+  }
 
+}
 //新书申请
 #reads-new {
   width: 900px;
@@ -6774,17 +6817,17 @@ select:disabled {
     height: 26px;
     line-height: 26px;
     font-size: 12px;
-    background-color: #f3f3f3;
+    background-color: #fff;
     margin: 0;
     padding: 0;
     color: #777;
   }
   .qrcode {
-    width: 105px;
+    width: 140px;
     margin: 10px auto;
     img{
-      width: 105px;
-      height: 105px;
+      width: 140px;
+      height: 140px;
     }
   }
   .help p {
