@@ -1,0 +1,110 @@
+<%= simple_form_for [:gsh_plus, @school], url: @school.new_record? ? gsh_plus_schools_path(@school) : gsh_plus_school_path(@school), html: {'data-parsley-validate': true, class: ''} do |f| %>
+<div class="school-apply-list-cont marginbottom" style="border-top:none; ">
+  <div class="school-a-l-con">
+    <p class="don-title">学校信息</p>
+    <div class="addchild-list-cont">
+      <div>
+        <span class="goodtext">学校全称</span>
+        <input class="goodinput " type="text" name="school[name]" value="<%= @school.name %>" />
+      </div>
+      <div>
+        <span class="goodtext">选择地区</span>
+        <div class="city-picker-selector" id="city-picker-selector"></div>
+      </div>
+      <div>
+        <span class="goodtext">通讯地址</span>
+        <input class="goodinput " type="text" name="school[address]" value="<%= @school.address %>"/>
+      </div>
+      <div>
+        <span class="goodtext">邮政编码</span>
+        <input class="goodinput " type="text" name="school[postcode]" value="<%= @school.postcode %>" />
+      </div>
+      <div>
+        <span class="goodtext">学生人数</span>
+        <div>
+          <input class="goodinput" type="text" name="school[number]" value="<%= @school.number %>" />
+          <span class="income-moy">人</span>
+        </div>
+      </div>
+      <div>
+        <span class="goodtext">教师人数</span>
+        <div>
+          <input class="goodinput" type="text" name="school[teacher_count]" value="<%= @school.teacher_count %>" />
+          <span class="income-moy">人</span>
+        </div>
+      </div>
+      <div>
+        <span class="goodtext">后勤人数</span>
+        <div>
+          <input class="goodinput" type="text" name="school[logistic_count]" value="<%= @school.logistic_count %>" />
+          <span class="income-moy">人</span>
+        </div>
+      </div>
+      <div style="height: 100%;">
+        <span class="goodtext">学校简介</span>
+        <textarea name="school[describe]" value="<%= @school.describe %>"></textarea>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="school-apply-list-cont">
+  <div class="school-a-l-con">
+    <p class="don-title">校长信息</p>
+    <div class="addchild-list-cont">
+      <div>
+        <span class="goodtext">校长姓名</span>
+        <input class="goodinput " type="text" name="school[contact_name]" value="<%= @school.contact_name %>" />
+      </div>
+      <div>
+        <span class="goodtext">身份证号</span>
+        <input class="goodinput " type="text" name="school[contact_id_card]" value="<%= @school.contact_id_card %>" />
+      </div>
+      <div>
+        <span class="goodtext">手机号码</span>
+        <input class="goodinput " type="text" name="school[contact_phone]" value="<%= @school.contact_phone %>" />
+      </div>
+      <div>
+        <span class="goodtext">办公电话</span>
+        <input class="goodinput " type="text" name="school[contact_telephone]" value="<%= @school.contact_telephone %>" />
+      </div>
+      <div  class="school-list-picture">
+        <span class="goodtext">上传图片</span>
+        <div>
+          <div class="addchild-list-up-picture pull-left">
+            <p class="iconfont icon-ico-add"></p>
+            <p></p>
+            <%= webuploader_image :card_image_id, label: '上传手持身份证', type: 'school_card_image', asset: @school.card_image, klass: 'single', id: 'school-card' %>
+          </div>
+          <div class="addchild-list-up-picture pull-left">
+            <p class="iconfont icon-ico-add"></p>
+            <p></p>
+            <%= webuploader_image :certificate_image_id, label: '上传学校证明', type: 'school_certificate_image', asset: @school.certificate_image, klass: 'single', id: 'school-certificate' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="childern-submint">
+  <button type="submit">保存</button>
+  <button>取消</button>
+</div>
+<% end %>
+
+
+
+</div>
+<script>
+  // 模拟城市-无联动/无搜索
+  var selector1 = $('#city-picker-selector').cityPicker({
+      dataJson: cityData,
+      renderMode: true,
+      search: false,
+      autoSelected: false,
+      code: 'cityCode',
+      level: 3
+  });
+  initImageWebuploader($('#school-card'));
+  initImageWebuploader($('#school-certificate'));
+</script>

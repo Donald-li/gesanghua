@@ -23,14 +23,25 @@
     </div>
     <div class="clearfix sexinput">
       <p class="goodtext pull-left">性别</p>
-      <div class="female pull-left">
-        <input type="radio" id="male" value="male" name="gender" />
-        <label for="male">男</label>
-      </div>
-      <div class="male pull-left">
-        <input type="radio" id="female" value="female" name="gender" checked/>
-        <label for="female">女</label>
-      </div>
+      <% if @offline_user.male? %>
+        <div class="female pull-left">
+          <input type="radio" id="male" value="male" name="gender" checked/>
+          <label for="male">男</label>
+        </div>
+        <div class="male pull-left">
+          <input type="radio" id="female" value="female" name="gender" />
+          <label for="female">女</label>
+        </div>
+      <% else %>
+        <div class="female pull-left">
+          <input type="radio" id="male" value="male" name="gender" />
+          <label for="male">男</label>
+        </div>
+        <div class="male pull-left">
+          <input type="radio" id="female" value="female" name="gender" checked/>
+          <label for="female">女</label>
+        </div>
+      <% end %>
     </div>
     <div class="clearfix">
       <div class="pull-left">
