@@ -1653,7 +1653,7 @@ select:disabled {
   border: 1px solid $border;
   border-radius: 4px;
   position: relative;
-  .read-more{
+  .read-more {
     height: 46px;
   }
 }
@@ -2299,10 +2299,10 @@ select:disabled {
         font-size: 12px;
         color: #4a4a4b;
       }
-      .donation-cont-c-my-read{
+      .donation-cont-c-my-read {
         font-size: 12px;
         color: #4a4a4b;
-        & > span{
+        & > span {
           font-size: 12px;
           color: #4a4a4b;
           font-weight: 500;
@@ -3625,6 +3625,179 @@ select:disabled {
   margin-top: 20px;
 }
 
+//资讯列表页
+.speciais {
+  width: 1140px;
+  margin: 40px auto 80px auto;
+  .donations-1 {
+    position: relative;
+    padding: 26px 0 14px 0;
+    .bottomline {
+      position: absolute;
+      left: 34px;
+      bottom: -16px;
+      width: 60px;
+      height: 3px;
+      background: $color-button;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+    }
+  }
+  .donations1 {
+    & > li {
+      float: left;
+      width: 130px;
+      height: 16px;
+      line-height: 16px;
+      font-size: 14px;
+      color: #3d3d40;
+      text-align: center;
+      position: relative;
+    }
+    .selectedDo {
+      font-weight: 600;
+    }
+  }
+  .speciais-left {
+    width: 792px;
+  }
+  .speciais-con {
+    & > .speciais-t {
+      padding: 20px 0;
+      border-top: 1px solid $border;
+    }
+    & > .speciais-t:first-child {
+      border-top: none;
+    }
+    .speciais-con-con{
+      width: 523px;
+      padding: 3px 0 0 20px;
+      .gsh-cont-2 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+      .gsh-cont-3{
+        margin-top: 18px;
+      }
+      .gsh-cont-1{
+        margin-top: 4px;
+      }
+
+    }
+    .speciais-con-img{
+      width: 240px;
+      height: 140px;
+      border-radius: 4px;
+      overflow: hidden;
+      img{
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+  }
+  .speciais-cont-but{
+    width: 100%;
+    text-align: center;
+    padding: 40px 0 0 0 ;
+    button{
+      width: 130px;
+      height: 38px;
+      line-height: 36px;
+      color: $color-border;
+      border:1px solid $color-border;
+      border-radius: 20px;
+      font-size: 14px;
+    }
+  }
+  .speciais-right {
+    width: 292px;
+    .speciais-right-pos{
+      width: 100%;
+      height: 174px;
+      position: relative;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 10px;
+      & > img{
+        width: 100%;
+        height: 100%;
+      }
+      .speciais-con-con{
+        position: absolute;
+        left:0;
+        bottom:0;
+        height: 54px;
+        width: 100%;
+        div{
+          position: absolute;
+          left:0;
+          bottom:0;
+          height: 54px;
+          width: 100%;
+          background-color: #000;
+          opacity: .4;
+          z-index: 1;
+        }
+        .gsh-cont-2{
+          z-index: 2;
+          color: #fff;
+          position: absolute;
+          left:9px;
+          bottom:9px;
+          width: 96%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+
+        }
+
+      }
+    }
+    .speciais-con-img{
+      width: 100px;
+      height: 60px;
+      border-radius: 4px;
+      overflow: hidden;
+      img{
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .speciais-right-cont{
+      padding: 10px 0;
+    }
+    .speciais-con-con{
+      width: 180px;
+      padding: 0 0 0 10px;
+      .gsh-cont-2{
+        font-weight: 400;
+        font-size: 14px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+      .gsh-cont-1{
+        margin-top: 4px;
+        margin-bottom: 0px;
+      }
+    }
+    .donations1{
+      li{
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
+}
+
 .articles-cont {
   .swiper-button-next, .swiper-button-prev {
     background-image: none;
@@ -4243,6 +4416,7 @@ select:disabled {
     }
   }
 }
+
 .circle {
   width: 100px;
   height: 100px;
@@ -4382,6 +4556,7 @@ select:disabled {
 
   }
 }
+
 .live-visitor {
   background: none repeat scroll 0 0 #fff;
   float: left;
@@ -4389,11 +4564,13 @@ select:disabled {
   position: relative;
   width: 100%;
 }
+
 .member-area > ul > li {
   float: left;
   margin-top: 10px;
   width: 100%;
 }
+
 .member-area > h6 {
   color: #666666;
   float: left;
@@ -4406,14 +4583,16 @@ select:disabled {
   margin-bottom: 0px;
   margin-left: -26px !important;
 }
+
 .personal-flower {
   border: 2px solid #e4e8ec;
   margin-right: 10px;
   max-width: 19% !important;
-   ul {
+  ul {
     text-align: center;
   }
 }
+
 .vip1 {
   position: absolute;
   color: #999999;
@@ -4470,13 +4649,30 @@ select:disabled {
         height: 160px;
       }
     }
-    & > div:hover{
-      .wechat-qrcode{
+    & > div:hover {
+      .wechat-qrcode {
         display: block;
         top: 0px;
         left: 13px;
       }
     }
+  }
+}
+
+//孩子信箱
+.children_mailboxs {
+  padding: 0;
+  font-size: 13px;
+  color: #3d3d40;
+  line-height: 23px;
+}
+
+.children_mailboxs-cont {
+  .school-apply-pair-table {
+    border: none;
+  }
+  .plat-school-apply-pair {
+    padding: 0;
   }
 }
 
@@ -4532,8 +4728,8 @@ select:disabled {
   & > span:first-child {
     margin-left: 0;
   }
-  & > span:hover{
-    .wechat-qrcode{
+  & > span:hover {
+    .wechat-qrcode {
       display: block;
     }
   }
@@ -5222,16 +5418,18 @@ select:disabled {
 
   }
 }
-.overspread-over{
+
+.overspread-over {
   position: fixed;
-  left:0;
-  top:0;
+  left: 0;
+  top: 0;
   width: 100%;
   height: 100%;
   background-color: #585862;
   opacity: .6;
   display: none;
 }
+
 .overspread-6 {
   .overspread-cont {
     display: none;
@@ -5459,27 +5657,29 @@ select:disabled {
     }
   }
 }
+
 //探索营名单
-.camps-child-list{
-  .school-apply-pair-share .add-reads{
+.camps-child-list {
+  .school-apply-pair-share .add-reads {
     padding-right: 34px;
-    & > a:nth-child(1) button{
+    & > a:nth-child(1) button {
       background: #fff;
       border: 1px solid $color-border;
       color: $color-border;
       line-height: 31px;
     }
   }
-  .school-apply-pair-table > p:nth-child(1){
-    flex: 1.73!important;
+  .school-apply-pair-table > p:nth-child(1) {
+    flex: 1.73 !important;
   }
-  .school-apply-pair-table > p:nth-child(2){
-    flex: .59!important;
+  .school-apply-pair-table > p:nth-child(2) {
+    flex: .59 !important;
   }
-  .school-apply-pair-table > p:nth-child(3){
-    flex: 1.1!important;
+  .school-apply-pair-table > p:nth-child(3) {
+    flex: 1.1 !important;
   }
 }
+
 //图片查看
 .magnify-modal {
   box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.3);
@@ -6462,10 +6662,11 @@ select:disabled {
   }
   margin-bottom: 20px;
 }
+
 //我的结对
-#my-pairs-cont{
-  .donation-cont-c-con{
-    margin-top: 3px!important;
+#my-pairs-cont {
+  .donation-cont-c-con {
+    margin-top: 3px !important;
   }
   .donation-cont .donation-cont-but {
     width: 116px;
@@ -6479,24 +6680,26 @@ select:disabled {
     color: #3d3d40;
     display: block;
   }
-  .donation-cont-but:nth-child(2){
+  .donation-cont-but:nth-child(2) {
     background-color: #fff;
     color: $color-border;
     border: 1px solid $color-border;
     line-height: 32px;
   }
-  .donation-cont .donation-cont-but:first-child{
+  .donation-cont .donation-cont-but:first-child {
     margin-top: 0;
   }
 }
-.my-pairs{
-  img{
+
+.my-pairs {
+  img {
     width: 78px;
     height: 78px;
     border-radius: 50%;
   }
 
 }
+
 //新书申请
 #reads-new {
   width: 900px;
@@ -6618,12 +6821,12 @@ select:disabled {
     }
 
   }
-  .reads-new-cont{
-    & > div{
-      width:777px;
-      height: 100%!important;
+  .reads-new-cont {
+    & > div {
+      width: 777px;
+      height: 100% !important;
     }
-    & > div > div{
+    & > div > div {
       width: 100%;
       border: 1px solid $border;
       border-radius: 3px;
@@ -6631,26 +6834,26 @@ select:disabled {
       height: 48px;
       padding: 12px 20px;
       margin-bottom: 20px;
-      & > span:nth-child(1){
+      & > span:nth-child(1) {
         color: #3d3d40;
         font-size: 14px;
       }
-      & > span:nth-child(2){
+      & > span:nth-child(2) {
         color: #3d3d40;
         font-size: 14px;
         font-weight: 500;
         margin-left: 40px;
       }
-      & > p:nth-child(1){
+      & > p:nth-child(1) {
         color: #3d3d40;
         font-size: 16px;
         font-weight: 500;
       }
-      & > p:nth-child(2){
+      & > p:nth-child(2) {
         color: #3d3d40;
         font-size: 14px;
         margin-top: 3px;
-        span{
+        span {
           margin: 0 10px 0 0;
         }
       }
@@ -6669,10 +6872,10 @@ select:disabled {
         }
       }
     }
-    .school-apply-share-sub{
+    .school-apply-share-sub {
       background: #fff;
       color: $color-border;
-      border:1px solid $color-border;
+      border: 1px solid $color-border;
       line-height: 31px;
       margin-bottom: 20px;
       width: 130px;
@@ -6709,43 +6912,43 @@ select:disabled {
       }
     }
   }
-  .overspread-5 .overspread-cont{
+  .overspread-5 .overspread-cont {
     height: 299px;
   }
-  .overspread-co{
-    & > div{
-      p{
+  .overspread-co {
+    & > div {
+      p {
         text-align: left;
       }
-      input{
+      input {
         width: 100%;
         margin-top: 0;
       }
     }
 
   }
- .supplements{
-   padding: 0 36px;
- }
-  .overspread-const{
+  .supplements {
+    padding: 0 36px;
+  }
+  .overspread-const {
     width: 100%;
     display: flex;
     padding: 0 26px;
-    .overclass{
+    .overclass {
       flex: 1;
       padding: 0 10px;
       position: relative;
-      span{
+      span {
         position: absolute;
         right: 20px;
         bottom: 8px;
         font-size: 14px;
         color: #3d3d40;
       }
-      p{
+      p {
         text-align: left;
       }
-      input{
+      input {
         width: 100%;
         height: 40px;
         line-height: 40px;
@@ -6794,6 +6997,7 @@ select:disabled {
     text-align: center;
   }
 }
+
 //二维码
 .wechat-qrcode {
   display: none;
@@ -6812,7 +7016,7 @@ select:disabled {
   transition: all 200ms;
   -webkit-tansition: all 350ms;
   -moz-transition: all 350ms;
-  h4{
+  h4 {
     font-weight: normal;
     height: 26px;
     line-height: 26px;
@@ -6825,7 +7029,7 @@ select:disabled {
   .qrcode {
     width: 140px;
     margin: 10px auto;
-    img{
+    img {
       width: 140px;
       height: 140px;
     }
@@ -6837,6 +7041,7 @@ select:disabled {
     margin: 0;
   }
 }
+
 .wechat-qrcode:after {
   content: '';
   position: absolute;
@@ -6851,23 +7056,23 @@ select:disabled {
 }
 
 //学校申请
-.school-apply-list{
+.school-apply-list {
   width: 1140px;
   margin: 0 auto;
 
   .paddchild {
     padding: 0 34px;
     background-color: #fff;
-    .don-title{
+    .don-title {
       text-align: center;
     }
 
   }
-  .school-apply-list-cont{
+  .school-apply-list-cont {
     background-color: #fff;
     padding: 10px 34px;
-    border:1px solid $border;
-    .school-a-l-con{
+    border: 1px solid $border;
+    .school-a-l-con {
       width: 560px;
       margin: 0 auto;
       .don-title {
@@ -6882,13 +7087,13 @@ select:disabled {
           height: 40px;
           margin-bottom: 20px;
           position: relative;
-         & > div .selector-item {
+          & > div .selector-item {
             width: 136px;
           }
-          & > div{
+          & > div {
             flex: 7;
             position: relative;
-            input{
+            input {
               width: 100%;
             }
           }
@@ -6921,10 +7126,10 @@ select:disabled {
           }
 
         }
-        .school-list-picture{
+        .school-list-picture {
           height: 100%;
           width: 100%;
-          & > div{
+          & > div {
             height: 156px;
           }
         }
@@ -6945,7 +7150,7 @@ select:disabled {
             font-size: 22px;
           }
         }
-        .addchild-list-up-picture:first-child{
+        .addchild-list-up-picture:first-child {
           margin-left: 0;
         }
       }
