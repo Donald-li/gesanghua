@@ -6,32 +6,33 @@
       <span class="pull-right iconfont icon-arrow-right"></span>
       <span class="pull-right"><%= link_to platform_school_feedbacks_path do %>返回<% end %></span>
     </p>
-    <div class="plat-school-apply-pair">
-      <p class="school-apply-pair-tit"><%= @continual.owner.try(:name) %>项目反馈</p>
-      <div class="school-feed">
-        <%= image_tag @continual.user.user_avatar %>
-        <span><%= @continual.user.show_name %> ·</span>
-        <span><%= @continual.created_at.strftime("%Y-%m-%d")%>发布</span>
-      </div>
-      <div class="school-apply-pair-table">
-        <p>反馈详情</p>
-        <div class="school-apply-pair-table-cont ">
-          <p><%= @continual.content %></p>
-          <% if @continual.images.present? %>
-            <div class="feedback-shows-img">
-              <% @continual.images.each do |image| %>
-                <div>
-                <a data-magnify="gallery"  href="<%=image_url image.try(:file).try(:url, :medium).to_s %>">
-                <%= image_tag image.try(:file).try(:url, :medium).to_s, :style => "width:211px" %>
-                </a>
+      <div class="plat-school-apply-pair">
+        <p class="school-apply-pair-tit"><%= @project.name %>项目定期反馈</p>
+        <% @continuals.each do |continual| %>
+          <div class="school-feed">
+            <%= image_tag continual.user.user_avatar %>
+            <span><%= continual.user.show_name %> ·</span>
+            <span><%= continual.created_at.strftime("%Y-%m-%d")%>发布</span>
+          </div>
+          <div class="school-apply-pair-table">
+            <p>反馈详情</p>
+            <div class="school-apply-pair-table-cont ">
+              <p><%= continual.content %></p>
+              <% if continual.images.present? %>
+                <div class="feedback-shows-img">
+                  <% continual.images.each do |image| %>
+                    <div>
+                    <a data-magnify="gallery"  href="<%=image_url image.try(:file).try(:url, :medium).to_s %>">
+                    <%= image_tag image.try(:file).try(:url, :medium).to_s, :style => "width:211px" %>
+                    </a>
+                    </div>
+                  <% end %>
                 </div>
               <% end %>
             </div>
+          </div>
           <% end %>
-        </div>
       </div>
-
-    </div>
   </div>
 
 </div>
