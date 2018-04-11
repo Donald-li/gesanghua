@@ -117,7 +117,7 @@ module ApplicationHelper
     end
     html << %{
             <li class="upload-pick">
-              <span><i class="iconfont icon-plus2"></i></span>
+              <p class="iconfont icon-ico-add"></p>
               <strong>#{label}</strong>
             </li>
           </ul>

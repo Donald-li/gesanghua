@@ -10,33 +10,36 @@
     </div>
     <div class="school-apply-feedback-cont">
       <%= simple_form_for [:platform, @continual], url: platform_school_feedbacks_path(@continual), html: {'data-parsley-validate': true, class: 'user_form'} do |f| %>
-      <div class="addchild-list-cont ">
-        <div style="height: 172px;width: 777px;">
-          <span class="goodtext">反馈内容</span>
-          <textarea placeholder="内容会推送给捐助者，请认真填写~" name="continual[content]" value="<%= @continual.content %>"></textarea>
-        </div>
-        <div style="height: 178px;width: 100%; margin-bottom: 0;" class="border-b">
-          <span class="goodtext">上传图片</span>
-          <div  style="height: 156px;">
-            <div class="addchild-list-up-picture pull-left">
-              <p class="iconfont icon-ico-add"></p>
-              <p></p>
-              <%= webuploader_image 'image_ids[]', label: '上传反馈图片', type: 'feedback_image', asset: @continual.images %>
+          <div class="addchild-list-cont ">
+            <div style="height: 172px;width: 777px;">
+              <span class="goodtext">反馈内容</span>
+              <textarea placeholder="内容会推送给捐助者，请认真填写~" name="continual[content]"><%= @continual.content %></textarea>
             </div>
-          </div>
-        </div>
-      </div>
-      <div style="text-align:center;">
-      <button class="class-button" type="submit">提交反馈</button>
-      <div>
+            <div style="height: 178px;width: 100%; margin-bottom: 0;" class="border-b">
+              <span class="goodtext">上传图片</span>
+              <div style="height: 156px;">
+                <div class="addchild-list-up-picture pull-left">
+                  <p class="iconfont icon-ico-add"></p>
+                  <p></p>
+                  <%= webuploader_image 'image_ids[]', label: '上传反馈图片', type: 'feedback_image', asset: @continual.images %>
+                </div>
+              </div>
+              <div style="text-align:center;">
+                <button class="class-button" type="submit">提交反馈</button>
+                <div>
       <% end %>
+      </div>
+
+
+      </div>
+      </div>
+      </div>
     </div>
-
-
   </div>
 </div>
+
 <script>
-$(function(){
-    initMultiImageWebuploader($('#webuploader'));
-  })
+    $(function () {
+        initMultiImageWebuploader($('#webuploader'));
+    })
 </script>

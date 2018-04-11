@@ -3,31 +3,38 @@
     <p class="don-title">
       <span class="pull-left">新图书角申请</span>
       <span class="pull-right iconfont icon-arrow-right"></span>
-      <span class="pull-right">返回</span>
+      <span class="pull-right"><%= link_to '返回', platform_school_apply_reads_path %></span>
     </p>
   </div>
+  <%= simple_form_for [:platform, @apply], url: platform_school_apply_reads_path, html: {'data-parsley-validate': true, class: 'user_form'} do |f| %>
       <div class="addchild-list marginbottom">
         <p class="don-title">申请信息</p>
         <div class="addchild-list-cont">
           <div>
             <span class="goodtext">申请学校</span>
             <div>
-              <button type="button" class="scool-edit-name" disabled>涿鹿县北晨中学</button>
+              <button type="button" class="scool-edit-name" disabled><%= @school.name %></button>
             </div>
 
           </div>
+          <!--<div>-->
+            <!--<span class="goodtext">申请年度</span>-->
+            <!--<div>-->
+              <!--<button type="button" class="scool-edit-name" disabled>2018年度</button>-->
+            <!--</div>-->
+
+          <!--</div>-->
           <div>
             <span class="goodtext">申请年度</span>
-            <div>
-              <button type="button" class="scool-edit-name" disabled>2018年度</button>
+            <div id="doodname">
+              <%= f.input :project_season_id, as: :select, collection: Project.read_project.seasons.collect{|s| [s.name, s.id]}, include_blank: '请选择申请年度', label: false, input_html: {id: 'allcamps', class: ''} %>
             </div>
-
           </div>
           <div>
             <span class="goodtext">学生总数</span>
             <div class="modified modified-1">
               <span class="iconfont icon-ico-reduce oversmin"></span>
-              <input type="text" value="1" class="oversinputs"/>
+              <input type="text" name="project_season_apply[student_number]" value="1" class="oversinputs"/>
               <span class="iconfont icon-ico-add1 oversadd"></span>
             </div>
           </div>
@@ -35,7 +42,7 @@
             <span class="goodtext">班级总数</span>
             <div class="modified modified-2">
               <span class="iconfont icon-ico-reduce oversmin"></span>
-              <input type="text" value="1" class="oversinputs"/>
+              <input type="text" value="1" name="project_season_apply[class_number]" class="oversinputs"/>
               <span class="iconfont icon-ico-add1 oversadd"></span>
             </div>
           </div>
@@ -46,23 +53,43 @@
       <div class="addchild-list addchild-list-up marginbottom">
         <p class="don-title">申请班级管理</p>
         <div class="reads-new-cont">
-          <div class="clearfix">
-            <span class="pull-left">一年级一班</span>
-            <span class="pull-left">30人</span>
-            <div class="pull-right">
-              <div class="clearfix don-con-pos">
-                <div class="pull-right cur delete-offline-user">
-                  <span class="iconfont icon-ico-delete1"></span>
-                  <span>删除</span>
+          <div>
+            <div class="clearfix">
+              <span class="pull-left">一年级一班</span>
+              <span class="pull-left">30人</span>
+              <div class="pull-right">
+                <div class="clearfix don-con-pos">
+                  <div class="pull-right cur delete-offline-user">
+                    <span class="iconfont icon-ico-delete1"></span>
+                    <span>删除</span>
+                  </div>
+                  <div class="pull-right cur edit-offline-user">
+                    <span class="iconfont icon-ico-edit "></span>
+                    <span>编辑</span>
+                  </div>
                 </div>
-                <div class="pull-right cur edit-offline-user">
-                  <span class="iconfont icon-ico-edit "></span>
-                  <span>编辑</span>
+              </div>
+            </div>
+            <div class="clearfix">
+              <span class="pull-left">一年级一班</span>
+              <span class="pull-left">30人</span>
+              <div class="pull-right">
+                <div class="clearfix don-con-pos">
+                  <div class="pull-right cur delete-offline-user">
+                    <span class="iconfont icon-ico-delete1"></span>
+                    <span>删除</span>
+                  </div>
+                  <div class="pull-right cur edit-offline-user">
+                    <span class="iconfont icon-ico-edit "></span>
+                    <span>编辑</span>
+                  </div>
                 </div>
-
               </div>
             </div>
           </div>
+
+
+
           <button class="school-apply-share-sub addnewclass">
             <span class="iconfont icon-ico-add1"></span>
             <span>新增申请班级</span>
@@ -71,14 +98,14 @@
         <div class="addchild-list-cont ">
           <div>
             <span class="goodtext">申请理由</span>
-            <textarea></textarea>
+            <textarea name="project_season_apply[reason]"></textarea>
           </div>
           <div>
             <span class="goodtext">上传图片</span>
-            <div  >
+            <div>
               <div class="addchild-list-up-picture pull-left">
-                <p class="iconfont icon-ico-add"></p>
-                <p>上传反馈图片</p>
+                <!--<p class="iconfont icon-ico-add"></p>-->
+                <%= webuploader_image :image_ids, label: '上传图片', type: 'project_season_apply_image', asset: @apply.images, id: 'images' %>
               </div>
             </div>
           </div>
@@ -90,19 +117,25 @@
     <div class="addchild-list-cont">
       <div>
         <span class="goodtext">收货人</span>
-        <input  class="goodinput " type="text" name="project_season_apply_child[father]" placeholder="请填写收货人姓名" />
+        <input  class="goodinput " type="text" name="project_season_apply[consignee]" placeholder="请填写收货人姓名" />
+      </div>
+
+      <div>
+        <span class="goodtext">联系电话</span>
+        <input  class="goodinput " type="text" name="project_season_apply[consignee_phone]"  />
       </div>
       <div>
         <span class="goodtext">所在地区</span>
-        <div class="city-picker-selector" id="city-picker-selector"></div>
-      </div>
-      <div>
-        <span class="goodtext">联系电话</span>
-        <input  class="goodinput " type="text" name="project_season_apply_child[father_job]"  />
+        <div class="city-group">
+          <%= select_tag 'project_season_apply[province]', options_for_select(ChinaCity.list, @school.province.presence), prompt: '省份', class: "city-select", id: 'province' %>
+          <%= select_tag 'project_season_apply[city]', options_for_select(ChinaCity.list(@school.province.to_s), @school.city.presence), prompt: '城市', class: "city-select", id: 'city' %>
+          <%= select_tag 'project_season_apply[district]', options_for_select(ChinaCity.list(@school.city.to_s), @school.district.presence), prompt: '地区', class: "city-select", id: 'district' %>
+        </div>
+        <!--<div class="city-picker-selector" id="city-picker-selector"></div>-->
       </div>
       <div>
         <span class="goodtext">详细地址</span>
-        <input  class="goodinput " type="text" name="project_season_apply_child[mother]" placeholder="请输入详细地址" />
+        <input  class="goodinput " type="text" name="project_season_apply[address]" placeholder="请输入详细地址" />
       </div>
 
     </div>
@@ -112,6 +145,8 @@
         <button >取消</button>
         <%#= link_to '取消', child_list_platform_school_apply_pair_children_path(@apply) %>
       </div>
+
+<% end %>
   <div class="overspread-5 overspread-e">
     <div class="overspread-over"></div>
     <div class="overspread-cont">
@@ -170,9 +205,25 @@
         code: 'cityCode',
         level: 3
     });
-
-$('.modified-1').calculate()
-$('.modified-2').calculate()
+    $("#allcamps").select({
+        width: "452px"
+    });
+    $("#province").select({
+        width: "148px"
+    });
+    $("#city").select({
+        width: "148px"
+    });
+    $("#district").select({
+        width: "148px"
+    });
+    $('.modified-1').calculate()
+    $('.modified-2').calculate()
     $('.overspread-e').overs(".edit-offline-user");
     $('.overspread-n').overs(".addnewclass");
+
+    $(function () {
+        initMultiImageWebuploader($('#images'));
+    })
+
 </script>

@@ -10,7 +10,7 @@
     </div>
     <%= f.input :camp_id, as: :select, collection: Camp.enable.sorted.collect{|c| [c.name, c.id]}, label: '探索营地点：', input_html: {class: 'camps-ajax'} %>
     <%= f.input :camp_income_source, label: '经费来源：', placeholder: '', required: true %>
-    <%= f.input :target_amount, label: '目标筹款金额：', placeholder: '', hint: '不限制可不填' %>
+    <%= f.input :target_amount, label: '目标筹款金额：', placeholder: '', required: true %>
     <%= f.input :camp_principal, label: '营负责人：', placeholder: '', required: true %>
     <%= f.input :number, label: '计划人数：', type: 'number', min: 0, placeholder: '', required: true %>
     <div class="form-group">

@@ -14,51 +14,56 @@
           </ul>
           <!--我的捐助-->
           <div class="donation " style="display: block;">
-            <div class="donations-1" >
-              <ul class="donations1 clearfix">
-                <li class="selectedDo cur">我的图书角</li>
-              </ul>
-              <div class="bottomline"></div>
-            </div>
-            <% if @bookshelves.present? %>
-              <div class="donation-cont border-b">
-                <% @bookshelves.each do |bookshelf| %>
-                  <div class="clearfix">
+              <div class="donation-cont ">
+                  <div class="clearfix border-b">
                     <div class="donation-cont-img pull-left">
-                      <%= image_tag bookshelf.apply.cover_image.try(:file).try(:url, :pc_small).to_s %>
+                      <%= image_tag 'cooperate-visite-form.png' %>
                     </div>
                     <div class="pull-left donation-cont-cco">
                       <div class="donation-cont-c-tit clearfix">
-                        <p class="pull-left"><%= bookshelf.apply.try(:name) %><%= bookshelf.show_title %></p>
+                        <p class="pull-left">维基飞翔图书角</p>
                       </div>
                       <div class="clearfix donation-cont-c-con">
-                        <div class="pull-left">
-                          <p><span>￥<%= bookshelf.apply.surplus_money %></span></p>
-                          <p>还差</p>
-                        </div>
-                        <div class="pull-left">
-                          <p><span><%= bookshelf.apply.bookshelves_done_count %></span>/<%= bookshelf.apply.bookshelves_count %></p>
-                          <p>进度</p>
-                        </div>
+                        <p class="donation-cont-c-my-read"><span>项目名称：</span>海宁第二中学三年一班图书角</p>
+                        <p class="donation-cont-c-my-read"><span>图书角编号</span>：1984rt908i13</p>
+                        <p class="donation-cont-c-my-read"><span>图书数量：</span>12346本</p>
                       </div>
                     </div>
                     <div class="donation-cont-but pull-right cur">
-                      <%= link_to detail_read_path(bookshelf.apply) do %>查看项目详情<% end %>
+                 查看项目详情
                     </div>
                   </div>
-                <% end %>
-              </div>
-            <% else %>
-              <div class="donation-cont-no">
-                <div class="donation-co-no-c">
-                  <p>您还未捐助过任何公益项目! </p>
-                  <p>马上参与捐助，帮助西部孩子 健康成长吧~</p>
+                <div class="clearfix border-b">
+                  <div class="donation-cont-img pull-left">
+                    <%= image_tag 'cooperate-visite-form.png' %>
+                  </div>
+                  <div class="pull-left donation-cont-cco">
+                    <div class="donation-cont-c-tit clearfix">
+                      <p class="pull-left">维基飞翔图书角</p>
+                    </div>
+                    <div class="clearfix donation-cont-c-con">
+                      <p class="donation-cont-c-my-read"><span>项目名称：</span>海宁第二中学三年一班图书角</p>
+                      <p class="donation-cont-c-my-read"><span>图书角编号</span>：1984rt908i13</p>
+                      <p class="donation-cont-c-my-read"><span>图书数量：</span>12346本</p>
+                    </div>
+                  </div>
+                  <div class="donation-cont-but pull-right cur">
+                    查看项目详情
+                  </div>
                 </div>
-                <div class="donation-co-no-but">去捐助</div>
               </div>
-            <% end %>
+
+            <div class="donation-cont-no">
+              <div class="donation-co-no-c">
+                <div class="donation-co-no-c-img">
+                  <%= image_tag 'my-read.png' %>
+                </div>
+                <p>暂无整捐图书角</p>
+              </div>
+            </div>
             <div class="project-foot">
-              <%= paginate @bookshelves, theme: :tiny %>
+              <span class="iconfont icon-arrow-left cur"></span>
+              <span class="iconfont icon-arrow-right cur"></span>
             </div>
           </div>
         </div>
@@ -67,23 +72,11 @@
 
 
 <script>
-
-
-    //     右tab切换二级
-    $(".donations1 li").on("click", function () {
-        $(".donations1 li").removeClass("selectedDo")
-        $(this).addClass("selectedDo")
-        $(".bottomline").css("left", parseFloat($(this)[0].offsetLeft) +31 +  "px")
-    })
-    if($('.donation .donation-cont').length===0){
+    if($('.donation .donation-cont > div').length===0){
         $('.donation-cont-no').css('display', 'block')
         $('.project-foot').css('display', 'none')
     }else{
         $('.donation-cont-no').css('display', 'none')
         $('.project-foot').css('display', 'block')
     }
-
-
-
-
 </script>

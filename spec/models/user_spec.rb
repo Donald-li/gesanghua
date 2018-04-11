@@ -37,6 +37,7 @@
 #  use_nickname          :integer                                      # 使用昵称
 #  join_team_time        :datetime                                     # 加入团队时间
 #  camp_id               :integer                                      # 探索营id
+#  project_ids           :jsonb                                        # 可管理项目（项目管理员）
 #
 
 require 'rails_helper'

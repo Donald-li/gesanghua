@@ -31,15 +31,15 @@
 //= require 'plugin/citydata.min.js'
 //= require 'plugin/tab-nav.js'
 //= require 'plugin/timeago.js'
-//= require 'plugin/jquery.select.js'
+//require 'plugin/jquery.select.js'
 //= require 'plugin/jquery.mCustomScrollbar.concat.min.js'
 //= require 'plugin/jquery.share.min.js'
 //= require 'plugin/ui-choose.js'
 //= require 'plugin/mongolian.js'
 //= require 'plugin/jquery.magnify.js'
 //= require 'plugin/calculate.js'
+//= require 'plugin/popper.min.js'
 // require 'plugin/toastr.js'
-// require toastr
 
 
 
@@ -168,4 +168,3 @@ $(function () {
     }
 
 });
-

@@ -45,6 +45,7 @@
   }
 }
 .pretty {
+    z-index: 0;
   line-height: 1;
   position: relative;
   display: inline-block;

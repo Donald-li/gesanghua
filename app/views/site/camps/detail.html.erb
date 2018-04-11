@@ -8,19 +8,20 @@
           <p class="detail-con-font"><%= @apply.project_describe%></p>
         </div>
         <div class="detail-con-number clearfix">
+          <% if @apply.target_amount != 0 %>
           <div class="circlechart pull-left" data-percentage="<%= (@apply.present_amount / @apply.target_amount * 100.00).round(2) %>"></div>
           <div class="pull-left detail-num ">
             <p>￥<%= @apply.present_amount %></p>
             <p>目标:<%= @apply.target_amount %></p>
           </div>
+          <% end %>
         </div>
         <div class="detail-cont-foot border-t ">
           <p>当前筹款<span>￥<%= @apply.present_amount %></span></p>
           <p>参与人数<span><%= @apply.donate_records.grouping(:user_id).count %>人</span></p>
-          <%= link_to donates_path(apply_id: @apply.id, type: 'read') do %>
-              <div class="overspread-show cur">我要捐助</div>
+          <%= link_to new_donate_path(apply_id: @apply.id, type: 'camp') do %>
+          <div class="overspread-show cur">我要捐助</div>
           <% end %>
-
         </div>
       </div>
     </div>
@@ -49,43 +50,35 @@
   <div class="detail-body clearfix" id="conttab">
     <!--申请详情-->
     <div class="details-left pull-left contentab" style="display: block;">
-      <p class="detail-l-title">悦读申请详情</p>
+      <p class="detail-l-title">探索营活动详情</p>
       <p class="detail-l-fon"><%= @apply.project_describe %></p>
       <%#= image_tag 'detail-reduce.png' %>
     </div>
     <!--物品-->
+    <% if @apply.use_inventory? %>
     <div class="pull-left detail-table-left contentab">
       <table class="table table-bordered">
         <thead>
         <tr>
           <th scope="col">物品名称</th>
-          <th scope="col">物品价格（元）</th>
-          <th scope="col">物品名称</th>
-          <th scope="col">物品价格（元）</th>
+          <th scope="col">物品单价（元）</th>
+          <th scope="col">物品数量</th>
         </tr>
         </thead>
         <tbody>
+
+        <% @apply.inventories.sorted.each do |invent| %>
         <tr>
-          <th>生理卫生手册</th>
-          <td>3000.00</td>
-          <td>生理卫生手册</td>
-          <td>3000.00</td>
+          <th><%= invent.name %></th>
+          <td><%= invent.unit %></td>
+          <td><%= invent.number %></td>
         </tr>
-        <tr>
-          <th>生理卫生手册</th>
-          <td>3000.00</td>
-          <td>生理卫生手册</td>
-          <td>3000.00</td>
-        </tr>
-        <tr>
-          <th>生理卫生手册</th>
-          <td>3000.00</td>
-          <td>生理卫生手册</td>
-          <td>3000.00</td>
-        </tr>
+        <% end %>
         </tbody>
       </table>
     </div>
+    <% end %>
+
     <!--反馈-->
     <div class="pull-left detail-body-left border-l contentab">
       <ul class="detail-body-ul">
@@ -93,7 +86,7 @@
           <li class="detail-body-cont" id="<%= feedback.id %>">
             <span class="detail-body-hover iconfont icon-yuan"></span>
             <div class="clearfix detail-font-tit">
-              <p class="pull-left"><%= feedback.bookshelves.classname %></p>
+              <p class="pull-left"><%= feedback.owner.apply_name %></p>
               <span class="pull-right cur" onclick="showHideCode(<%= feedback.id %>)"><span class="iconfont icon-arrowdown"></span>查看详情</span>
             </div>
             <div class="detail-body-title clearfix">
@@ -106,7 +99,7 @@
               <span class="pull-left"><%= feedback.created_at.strftime("%Y-%m-%d") %>发布</span>
             </div>
             <div class="de-left-con read-more clearfix" id="showdiv">
-              <p><%= feedback.content %></p>
+              <p><%= feedback.content.html_safe %></p>
                 <div class="clearfix details-img">
                   <% if feedback.images.present? %>
                     <% feedback.images.each do |img| %>
@@ -129,114 +122,6 @@
     </div>
   </div>
 </div>
-  <div id="overspread-1">
-    <div class="overspread-over"></div>
-    <div class="overspread-cont">
-      <div class="clearfix">
-        <div class="pull-left mys-1">我要捐助</div>
-        <div class="pull-right iconfont icon-icondelete cur overspread-but"></div>
-      </div>
-      <div class="overspread-co">
-        <p>选择捐助的班级</p>
-        <div>
-          <ul class="ui-choose" id="uc_01">
-            <li class="cur">
-              <p>一年一班图书角</p>
-              <p>还差1300元 </p>
-            </li>
-            <li class="cur">
-              <p>一年一班图书角</p>
-              <p>还差1300元 </p>
-              <div>
-                <%= image_tag 'integer-read.png' %>
-              </div>
-            </li>
-            <li class="cur">
-              <p>一年一班图书角</p>
-              <p>还差1300元 </p>
-              <div>
-                <%= image_tag 'integer-read.png' %>
-              </div>
-            </li>
-            <li class="cur">
-              <p>一年一班图书角</p>
-              <p>还差1300元 </p>
-              <div>
-                <%= image_tag 'integer-read.png' %>
-              </div>
-            </li>
-            <li class="cur">
-              <p>一年一班图书角</p>
-              <p>还差1300元 </p>
-              <div>
-                <%= image_tag 'integer-read.png' %>
-              </div>
-            </li>
-            <li class="cur">
-              <p>一年一班图书角</p>
-              <p>还差1300元 </p>
-              <div>
-                <%= image_tag 'integer-read.png' %>
-              </div>
-            </li>
-            <li class="cur">
-              <p>一年一班图书角</p>
-              <p>还差1300元 </p>
-              <div>
-                <%= image_tag 'integer-read.png' %>
-              </div>
-            </li>
-            <li class="cur">
-              <p>一年一班图书角</p>
-              <p>还差1300元 </p>
-              <div>
-                <%= image_tag 'integer-read.png' %>
-              </div>
-            </li>
-            <li class="cur">
-              <p>一年一班图书角</p>
-              <p>还差1300元 </p>
-              <div>
-                <%= image_tag 'integer-read.png' %>
-              </div>
-            </li>
-            <li class="cur">
-              <p>一年一班图书角</p>
-              <p>还差1300元 </p>
-              <div>
-                <%= image_tag 'integer-read.png' %>
-              </div>
-            </li>
-            <li class="cur">
-              <p>一年一班图书角</p>
-              <p>还差1300元 </p>
-              <div>
-                <%= image_tag 'integer-read.png' %>
-              </div>
-            </li>
-            <li class="cur">
-              <p>一年一班图书角</p>
-              <p>还差1300元 </p>
-              <div>
-                <%= image_tag 'integer-read.png' %>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="overspread-but  over-but">立即支付</div>
-      <div class="check-box">
-        <span class="checkbox_item clearfix">
-          <input type="checkbox"/>
-          <label class="check_label on pull-left">
-            <i class="checkbox_icon pull-left"></i>
-            <span class="checkbox_text">阅读并同意</span>
-          </label>
-          <span class="pull-left cur">《格桑花用户注册协议》</span>
-        </span>
-      </div>
-    </div>
-  </div>
 </div>
 <script type="text/javascript">
     // //图片展示
@@ -268,11 +153,5 @@
     }
     $(".check_label").checkbox();
     $('.ui-choose').ui_choose();
-    $('#overspread-1').overs(".overspread-show");
-    if ($('.ui-choose > li').length > 6) {
-        $('.overspread-co ').css({"padding": "0 0 0 30px", "overflow": "auto"});
 
-    } else {
-        $('.overspread-co ').css({"padding": "0 30px", "overflow": "visible"});
-    }
 </script>
