@@ -2,7 +2,7 @@ class Site::ArticlesController < Site::BaseController
 
   def index
     scope = Article.visible.show.sorted
-    @articles = scope.page(params[:page]).per(3)
+    @articles = scope.page(params[:page]).per(8)
   end
 
   def show

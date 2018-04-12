@@ -15,6 +15,7 @@
     <%= simple_form_for [:admin, @special, @article], url: admin_special_special_articles_path, wrapper: :admin_form, html: {'data-parsley-validate': true} do |f| %>
         <%= f.error_notification %>
         <div class="form-body form-horizontal">
+          <%= f.hidden_field :special_kind, value: params[:kind] %>
           <%= f.input :title, label: '标题：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
           <div class="form-group">
             <label class="col-md-2 control-label">封面：</label>
