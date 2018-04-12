@@ -26,16 +26,14 @@
           <div class="bottomline"></div>
       <% end %>
     </li>
-    <li class="cur border-l <%= 'selectedDo' if controller_name == 'cares' %>"><%= link_to '护花', platform_school_apply_cares_path %>
-      <% if controller_name == 'cares' %>
+    <% Project.goods.visible.sorted.each do |project| %>
+    <li class="cur border-l <%= 'selectedDo' if params[:pid] == project.id.to_s %>"><%= link_to project.name, platform_school_apply_goods_path(pid: project.id) %>
+      <% if params[:pid] == project.id.to_s %>
           <div class="bottomline"></div>
       <% end %>
     </li>
-    <li class="cur border-l<%= 'selectedDo' if controller_name == 'radios' %>"><%= link_to '广播', platform_school_apply_radios_path %>
-      <% if controller_name == 'radios' %>
-          <div class="bottomline"></div>
-      <% end %>
-    </li>
+    <% end %>
+    
   </ul>
   <% if controller_name == 'reads' %>
   <div class="add-reads">
