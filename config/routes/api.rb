@@ -377,6 +377,9 @@ namespace :api do
     # 微信签名
     resource :sign_package, only: [:show]
 
+    # 绑定手机号
+    resource :bind_phone, only: [:create]
+
     namespace :staff do
       resources :grant_batches, only: [:index, :show] do
         resources :grants, only: [:index, :show, :update]
