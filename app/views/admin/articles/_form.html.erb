@@ -7,7 +7,14 @@
         <label class="col-md-2 control-label">资讯封面：</label>
         <div class="col-sm-9">
           <%= webuploader_tag :image_id, label: '上传资讯封面', type: 'article_image', asset: @article.image, klass: 'single' %>
-          <p class="help-block">请上传720X312px的图片</p>
+          <p class="help-block">请上传1350X915px的图片</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label">资讯轮播图：</label>
+        <div class="col-sm-9">
+          <%= webuploader_tag 'carousel_image_ids[]', label: '上传图片', type: 'article_carousel_image', asset: @article.carousel_images, id: 'carousel-images' %>
+          <span style="color: red">注意：左起第一张图片为展示第一张图片</span>
         </div>
       </div>
       <%= f.input :author, label: '资讯作者：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
@@ -39,6 +46,7 @@
 <% end %>
 <script>
 $(function(){
+  initMultiImageWebuploader($('#carousel-images'), {}, 9);
   initImageWebuploader($('#webuploader'));
 })
 </script>
