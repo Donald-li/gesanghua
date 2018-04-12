@@ -17,7 +17,7 @@
       <!--<span>我的月捐</span>-->
     <!--</li>-->
     <%= link_to account_campaigns_path do %>
-    <li class="<%= display_menu("offline_users") %> cur">
+    <li class="<%= display_menu("campaigns") %> cur">
       <span class="iconfont icon-ico-campaign"></span>
       <span>我的活动</span>
     </li>
@@ -29,7 +29,7 @@
     </li>
     <% end %>
     <%= link_to platform_root_path do %>
-    <li class="cur">
+    <li class="cur <%= controller_path.start_with?('platform') ? 'selectedli' : '' %>">
       <span class="iconfont icon-ioc-platform"></span>
       <span>协作平台</span>
     </li>
