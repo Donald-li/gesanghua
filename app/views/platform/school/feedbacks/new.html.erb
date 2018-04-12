@@ -1,4 +1,4 @@
-<div class="person-body-right pull-right" id="children">
+<div class="person-body-right pull-right" id="children" style="position: relative;">
 
   <div class="children-body">
     <div class="paddchild">
@@ -15,27 +15,26 @@
               <span class="goodtext">反馈内容</span>
               <textarea placeholder="内容会推送给捐助者，请认真填写~" name="continual[content]" required><%= @continual.content %></textarea>
             </div>
-            <div style="height: 178px;width: 100%; margin-bottom: 0;" class="border-b">
+            <div style="height: 100%;width: 100%; margin-bottom: 0;" class="border-b">
               <span class="goodtext">上传图片</span>
-              <div style="height: 156px;">
-                <div class="addchild-list-up-picture pull-left">
-                  <p class="iconfont icon-ico-add"></p>
+              <div style="height: 100%;margin-bottom: 20px;">
                   <p></p>
                   <%= webuploader_images 'image_ids[]', label: '上传反馈图片', type: 'feedback_image', asset: @continual.images %>
-                </div>
               </div>
-              <div style="text-align:center;">
-                <button class="class-button" type="submit">提交反馈</button>
-                <div>
+            </div>
+          </div>
       <% end %>
-      </div>
 
 
-      </div>
+
+      <div style="text-align:center;">
+        <button class="class-button" type="submit">提交反馈</button>
+        </div>
       </div>
       </div>
     </div>
   </div>
+
 </div>
 
 <script>
