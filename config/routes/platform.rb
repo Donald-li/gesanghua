@@ -22,7 +22,7 @@ namespace :platform do
           get :supplements
         end
       end
-      resources :radios
+      resources :goods
       resources :cares
       resources :movies
       resources :movie_cares
