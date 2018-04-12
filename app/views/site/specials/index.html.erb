@@ -9,23 +9,7 @@
             <div class="bottomline"></div><% end %></li>
         </ul>
       </div>
-      <% @specials.each do |special| %>
-        <div class="clearfix speciais-t">
-          <%= link_to special_path(special) do %>
-            <div class="speciais-con-img pull-left">
-              <%= image_tag special.banner.try(:file).try(:url, :medium).to_s %>
-            </div>
-            <div class="speciais-con-con pull-left">
-              <p class="gsh-cont-2"><%= special.name %></p>
-              <!-- <p class="gsh-cont-1">菠菜 |  2018年02月22日</p> -->
-              <p class="gsh-cont-3"><%= special.describe %></p>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
-      <div class="speciais-cont-but border-t">
-        <button>加载更多</button>
-      </div>
+      <%= render '/site/specials/list', specials: @specials %>
     </div>
   </div>
   <div class="speciais-right pull-right ">
