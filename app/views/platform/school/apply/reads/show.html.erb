@@ -25,9 +25,9 @@
       <div class="don-co">
         <div class="don-co-but cur" >
           <% if @apply.apply? %>
-              <span class="apply-show-btn"><%= @apply.enum_name(:audit_state) %></span>
+              <button class="apply-show-btn"><%= @apply.enum_name(:audit_state) %></button>
           <% elsif @apply.raise_project? %>
-              <span class="apply-show-btn"><%= @apply.enum_name(:read_state) %></span>
+              <button class="apply-show-btn"><%= @apply.enum_name(:read_state) %></button>
           <% end %>
         </div>
       </div>
