@@ -105,7 +105,7 @@
                 <%= record.donor.try(:name) %>
               </td>
               <td>
-                <%= record.agent %>
+                <%= record.agent.try(:name) %>
               </td>
               <td>
                 <%= record.enum_name(:voucher_state) %>
