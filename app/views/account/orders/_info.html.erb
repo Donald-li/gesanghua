@@ -2,21 +2,26 @@
   <div class="donation-cont border-b">
     <div class="clearfix">
       <div class="donation-cont-img pull-left">
-        <%= image_tag 'ucenter-top-bg.png' %>
+        <%= image_tag record.project.image.to_s %>
       </div>
       <div class="pull-left donation-cont-cco">
         <div class="donation-cont-c-tit clearfix">
-          <p class="pull-left"><%= record.title %></p>
+          <p class="pull-left"><%= record.title %>
+            <span class="order-tag"><%= record.project.name %></span>
+          </p>
         </div>
         <div class="clearfix donation-cont-c-con">
           <div class="pull-left">
-            <p><span>￥3219097.56</span></p>
+            <p><span>￥<%= format_money((record.apply.target_amount - record.apply.present_amount), 2) %></span></p>
             <p>还差</p>
           </div>
-          <div class="pull-left">
-            <p><span>12</span>/12</p>
-            <p>进度</p>
-          </div>
+          <!--只有悦读才有进度-->
+          <% if record.id == 2 %>
+            <div class="pull-left">
+              <p><span><%= record.apply.bookshelves_done_count %></span>/<%= record.apply.bookshelves_count %></p>
+              <p>进度</p>
+            </div>
+          <% end %>
         </div>
       </div>
       <div class="donation-cont-but pull-right cur">
