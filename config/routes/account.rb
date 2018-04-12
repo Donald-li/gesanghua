@@ -32,7 +32,7 @@ namespace :account do
     resources :mailboxes, only: [:index, :show]
   end
   namespace :user_center do
-    resource :profile, only: [:show, :edit, :update]
+    resource :profile#, only: [:show, :edit, :update]
     resource :account, only: [:show, :edit, :update]
     resource :bind, only: [:show, :edit, :update]
   end
