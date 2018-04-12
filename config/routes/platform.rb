@@ -13,10 +13,13 @@ namespace :platform do
         end
       end
       resources :reads do
-        resources :bookshelves
         collection do
-          get :supplement
+          get :new_supplement
           post :create_supplement
+        end
+        member do
+          get :bookshelves
+          get :supplements
         end
       end
       resources :radios

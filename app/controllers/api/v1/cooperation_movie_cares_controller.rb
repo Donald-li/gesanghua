@@ -45,10 +45,6 @@ class Api::V1::CooperationMovieCaresController < Api::V1::BaseController
     @apply.describe = params[:movie_care_apply][:describe]
     @apply.contact_name = params[:movie_care_apply][:contact_name]
     @apply.contact_phone = params[:movie_care_apply][:contact_phone]
-    @apply.province = params[:movie_care_apply][:location][0]
-    @apply.city = params[:movie_care_apply][:location][1]
-    @apply.district = params[:movie_care_apply][:location][2]
-    @apply.address = params[:movie_care_apply][:address]
     @apply.form = params[:dynamic_form]
     @apply.school_id = @school.id
     if @apply.save
@@ -67,10 +63,6 @@ class Api::V1::CooperationMovieCaresController < Api::V1::BaseController
       describe: params[:movie_care_apply][:describe],
       contact_name: params[:movie_care_apply][:contact_name],
       contact_phone: params[:movie_care_apply][:contact_phone],
-      province: params[:movie_care_apply][:location][0],
-      city: params[:movie_care_apply][:location][1],
-      district: params[:movie_care_apply][:location][2],
-      address: params[:movie_care_apply][:address],
       form: params[:dynamic_form]
     }
     if @apply.update(attributes)
