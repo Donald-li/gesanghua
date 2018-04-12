@@ -1,0 +1,3 @@
+<% html = j(render('list', specials: @specials)) %>
+$('.speciais-cont-but').remove()
+$('<%=html%>').appendTo('.speciais-con')

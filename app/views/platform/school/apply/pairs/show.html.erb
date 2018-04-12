@@ -12,7 +12,7 @@
       <p>申请详情</p>
       <div class="school-apply-pair-table-cont">
         <p><span>申请编号：</span><%= @apply.apply_no %></p>
-        <p><span>申请学校：</span><%= @apply_camp.school.name %></p>
+        <p><span>申请学校：</span><%= @apply.school.name %></p>
         <p><span>申请年度：</span><%= @apply.season.name %></p>
         <p><span>学生数量：</span><%= @apply.number %>人</p>
       </div>
@@ -26,11 +26,11 @@
       <div class="don-co">
         <div class="don-co-but cur" >
           <% if @apply.waiting_upload? %>
-            <%= link_to child_list_platform_school_apply_pair_children_path(@apply) do %><span>提交学生名单</span><% end %>
+            <%= link_to child_list_platform_school_apply_pair_children_path(@apply) do %><span class="apply-show-btn">提交学生名单</span><% end %>
           <% elsif @apply.pair_complete? %>
-            <%= link_to platform_school_apply_pair_children_path(@apply, state: 'pass') do %><span>查看学生名单</span><% end %>
+            <%= link_to platform_school_apply_pair_children_path(@apply, state: 'pass') do %><span class="apply-show-btn">查看学生名单</span><% end %>
           <% else %>
-            <span><%= @apply.enum_name(:audit_state) %></span>
+            <span class="apply-show-btn"><%= @apply.enum_name(:audit_state) %></span>
           <% end %>
         </div>
       </div>

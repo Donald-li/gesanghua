@@ -25,7 +25,7 @@ class BookshelfSupplement < ApplicationRecord
   belongs_to :bookshelf, class_name: 'ProjectSeasonApplyBookshelf', foreign_key: 'project_season_apply_bookshelf_id'
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id', optional: true
 
-  has_many :donates, class_name: 'DonateRecord', dependent: :destroy
+  has_many :donates, class_name: 'DonateRecord'
   has_one :receive_feedback, as: :owner
   has_one :install_feedback, as: :owner
   has_one :logistic, as: :owner
@@ -64,6 +64,10 @@ class BookshelfSupplement < ApplicationRecord
       json.class_name self.bookshelf.classname
       json.loss self.loss
     end.attributes!
+  end
+
+  def self.clear_garbage
+    self.where(project_season_apply_id: nil).destroy_all
   end
 
 end

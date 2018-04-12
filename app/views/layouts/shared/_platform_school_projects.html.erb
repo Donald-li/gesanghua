@@ -6,35 +6,40 @@
         <div class="bottomline"></div>
     <% end %>
     </li>
+    <li class="cur border-l <%= 'selectedDo' if controller_name == 'camps' %>"><%= link_to '探索营', platform_school_apply_camps_path %>
+      <% if controller_name == 'camps' %>
+          <div class="bottomline"></div>
+      <% end %>
+    </li>
+    <li class="cur border-l <%= 'selectedDo' if controller_name == 'movie_cares' %>"><%= link_to '护花课程', platform_school_apply_movie_cares_path %>
+      <% if controller_name == 'movie_cares' %>
+          <div class="bottomline"></div>
+      <% end %>
+    </li>
+    <li class="cur border-l <%= 'selectedDo' if controller_name == 'movies' %>"><%= link_to '观影', platform_school_apply_movies_path %>
+      <% if controller_name == 'movies' %>
+          <div class="bottomline"></div>
+      <% end %>
+    </li>
+    <li class="cur border-l <%= 'selectedDo' if controller_name == 'reads' %>"><%= link_to '悦读', platform_school_apply_reads_path %>
+      <% if controller_name == 'reads' %>
+          <div class="bottomline"></div>
+      <% end %>
+    </li>
     <li class="cur border-l <%= 'selectedDo' if controller_name == 'cares' %>"><%= link_to '护花', platform_school_apply_cares_path %>
-    <% if controller_name == 'cares' %>
-        <div class="bottomline"></div>
-    <% end %>
+      <% if controller_name == 'cares' %>
+          <div class="bottomline"></div>
+      <% end %>
     </li>
-    <li class="cur border-l border-r <%= 'selectedDo' if controller_name == 'movie_cares' %>"><%= link_to '护花课程', platform_school_apply_movie_cares_path %>
-    <% if controller_name == 'movie_cares' %>
-        <div class="bottomline"></div>
-    <% end %>
-    </li>
-    <li class="cur border-r <%= 'selectedDo' if controller_name == 'radios' %>"><%= link_to '广播', platform_school_apply_radios_path %>
-    <% if controller_name == 'radios' %>
-        <div class="bottomline"></div>
-    <% end %>
-    </li>
-    <li class="cur border-r <%= 'selectedDo' if controller_name == 'reads' %>"><%= link_to '悦读', platform_school_apply_reads_path %>
-    <% if controller_name == 'reads' %>
-        <div class="bottomline"></div>
-    <% end %>
-    </li>
-    <li class="cur <%= 'selectedDo' if controller_name == 'camps' %>"><%= link_to '探索营', platform_school_apply_camps_path %>
-    <% if controller_name == 'camps' %>
-        <div class="bottomline"></div>
-    <% end %>
+    <li class="cur border-l<%= 'selectedDo' if controller_name == 'radios' %>"><%= link_to '广播', platform_school_apply_radios_path %>
+      <% if controller_name == 'radios' %>
+          <div class="bottomline"></div>
+      <% end %>
     </li>
   </ul>
   <% if controller_name == 'reads' %>
   <div class="add-reads">
-    <%= link_to supplement_platform_school_apply_reads_path do %>
+    <%= link_to new_supplement_platform_school_apply_reads_path do %>
     <button class=" school-apply-share-sub">
       <span class="iconfont icon-ico-add1"></span>
       <span>补书申请</span>
@@ -47,6 +52,27 @@
     </button>
     <% end %>
   </div>
+  <% end %>
+
+  <% if controller_name == 'movie_cares' %>
+      <div class="add-reads">
+        <%= link_to new_platform_school_apply_movie_care_path do %>
+            <button class=" school-apply-share-sub">
+              <span class="iconfont icon-ico-add1"></span>
+              <span>新增申请</span>
+            </button>
+        <% end %>
+      </div>
+  <% end %>
+  <% if controller_name == 'movies' %>
+      <div class="add-reads">
+        <%= link_to new_platform_school_apply_movie_path do %>
+            <button class=" school-apply-share-sub">
+              <span class="iconfont icon-ico-add1"></span>
+              <span>新增申请</span>
+            </button>
+        <% end %>
+      </div>
   <% end %>
 </div>
 <script>

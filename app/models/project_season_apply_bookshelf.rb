@@ -172,6 +172,10 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
     end.attributes!
   end
 
+  def self.clear_garbage
+    self.where(project_season_id: nil, project_season_apply_id: nil).destroy_all
+  end
+
   private
   def gen_bookshelf_no
     self.bookshelf_no ||= Sequence.get_seq(kind: :bookshelf_no, prefix: 'TSJ1', length: 3)

@@ -17,8 +17,9 @@
                   <div>
                     <p class="school-apply-pair-tit"><%= apply.apply_name %></p>
                      <p class="school-apply-pair-f">申请类型：<%= apply.enum_name(:bookshelf_type) %></p>
+                    <% if apply.raise_project? %>
                      <p class="school-apply-pair-f">目标筹款/累计：<%= apply.target_amount %>元/<%= apply.present_amount %>元</p>
-
+                    <% end %>
                   </div>
                   <div class="border-l border-r">
                     <%= apply.apply? ? apply.enum_name(:audit_state) : apply.enum_name(:read_state) %>
@@ -26,7 +27,7 @@
                   <div>
                     <button><%= link_to '查看申请详情', platform_school_apply_read_path(apply) %></button>
                     <% if apply.pass? %>
-                        <button><%= link_to '查看班级' %></button>
+                        <button><%= link_to '查看班级', apply.whole? ? bookshelves_platform_school_apply_read_path(apply) : supplements_platform_school_apply_read_path(apply) %></button>
                     <% end %>
                   </div>
                 </div>
@@ -38,7 +39,9 @@
           <div class="donation-co-no-c">
             <p>您的学校暂未申请悦读项目</p>
           </div>
+          <%= link_to new_donate_path do %>
           <div class="donation-co-no-but">去捐助</div>
+          <% end %>
         </div>
     <% end %>
   </div>

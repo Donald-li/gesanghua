@@ -13,6 +13,7 @@
         <div class="school-apply-pair-table-cont">
           <p><span>申请编号：</span><%= @apply.apply_no %></p>
           <p><span>申请年度：</span><%= @apply.season.name %></p>
+          <p><span>申请类型：</span><%= @apply.enum_name(:bookshelf_type) %></p>
         </div>
       </div>
       <div class="school-apply-pair-table">
@@ -23,10 +24,10 @@
       </div>
       <div class="don-co">
         <div class="don-co-but cur" >
-          <% if @apply.draft? %>
-              <%= link_to '' do %><span>提交申请</span><% end %>
+          <% if @apply.apply? %>
+              <span class="apply-show-btn"><%= @apply.enum_name(:audit_state) %></span>
           <% elsif @apply.raise_project? %>
-              <span><%= @apply.enum_name(:read_state) %></span>
+              <span class="apply-show-btn"><%= @apply.enum_name(:read_state) %></span>
           <% end %>
         </div>
       </div>
