@@ -56,7 +56,7 @@
                 <%= link_to new_account_registration_path(kind: 'by_phone') do %><span class="pull-right cur longin-2">账号注册</span><% end %>
               <% end %>
             </p>
-            <div class="input-in">
+            <div class="input-in" style="margin: 5px auto;">
               <input type="text" name="kind" value="<%= params[:kind] %>" hidden />
               <!--手机号-->
               <% if params[:kind] == 'by_phone' %>
