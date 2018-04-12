@@ -5,15 +5,11 @@
     <div class="camps-bodys articles-cont">
       <div class="swiper-container">
         <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <%= image_tag 'activity-detail.png' %>
-          </div>
-          <div class="swiper-slide">
-            <%= image_tag 'activity-detail.png' %>
-          </div>
-          <div class="swiper-slide">
-            <%= image_tag 'activity-detail.png' %>
-          </div>
+          <% @article.carousel_images.each do |carousel_image| %>
+            <div class="swiper-slide">
+              <%= image_tag carousel_image.try(:file).try(:url, :large).to_s %>
+            </div>
+          <% end %>
         </div>
         <div class="swiper-pagination"></div>
         <div class="swiper-button-next">

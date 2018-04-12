@@ -66,4 +66,8 @@ class BookshelfSupplement < ApplicationRecord
     end.attributes!
   end
 
+  def self.clear_garbage
+    self.where(project_season_apply_id: nil).destroy_all
+  end
+
 end

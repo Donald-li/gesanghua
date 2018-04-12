@@ -16,11 +16,11 @@
           <span class="iconfont icon-arrowdown"></span>
           <ul class="bul-nav-heide">
             <li><%= link_to '一对一助学', pairs_path %></li>
+            <li><%= link_to '探索营', camps_path %></li>
             <li><%= link_to '悦读项目', reads_path %></li>
             <% Project.goods.visible.sorted.all.each do |project| %>
               <li><%= link_to project.name, goods_path(id: project.id) %></li>
             <% end %>
-            <li><%= link_to '探索营', camps_path %></li>
           </ul>
         </li>
         <li class="cur"><%= link_to '公益活动', campaigns_path %></li>

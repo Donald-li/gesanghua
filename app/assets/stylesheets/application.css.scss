@@ -50,11 +50,12 @@ $border: #e6e6e6;
 body {
   -webkit-font-smoothing: antialiased;
   background-color: #fff;
-  font-family: "Open Sans", Arial, "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", STHeiti, "WenQuanYi Micro Hei", SimSun, sans-serif;
+  font-family: "Open Sans", Arial, "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", STHeiti, "WenQuanYi Micro Hei", SimSun, sans-serif!important;
   margin: 0;
   padding: 0;
   border: none;
   box-sizing: border-box;
+  font-size: 14px;
 
   p {
     margin-bottom: 0;
@@ -82,6 +83,7 @@ body {
   }
   button {
     border: none;
+    font-size: 14px!important;
   }
   input, button, textarea {
     outline: none !important;
@@ -214,7 +216,18 @@ select:disabled {
   content: "";
   clear: both;
 }
-
+.not-available{
+text-align: center;
+  width: 810px;
+  color: #8d8d8d;
+  .not-available{
+    margin: 70px auto 70px auto;
+    width: 268px;
+  }
+  .donation-co-no-c-img{
+    margin-bottom: 20px;
+  }
+}
 //模态框2
 .overspread-2 {
   .overspread-cont {
@@ -907,10 +920,12 @@ select:disabled {
           color: #fff;
         }
       }
-      & > div > a:hover {
+      & > div:hover {
         background-color: #fff;
-        color: $color-border;
         border: 1px solid #fff;
+        a{
+          color: $color-border;
+        }
 
       }
     }
@@ -1343,6 +1358,8 @@ select:disabled {
     width: 1140px;
     margin: 0 auto;
     position: relative;
+    border-radius: 3px;
+    overflow: hidden;
     & > img {
       width: 100%;
       height: 100%;
@@ -1367,6 +1384,7 @@ select:disabled {
     color: #fff;
     text-align: center;
     z-index: 2;
+
     & > a {
       color: #fff;
     }
@@ -1385,11 +1403,13 @@ select:disabled {
   .referral-cont-but {
     margin: 56px auto 0 auto;
     font-size: 16px;
-    width: 240px;
+    width: 200px;
     height: 40px;
     line-height: 36px;
     border-radius: 20px;
     border: 2px solid #fff;
+    background: inherit;
+    color: #fff;
 
   }
   .referral-school {
@@ -1467,9 +1487,8 @@ select:disabled {
           margin-left: 17px;
         }
       }
-      & > a > div {
+      & > a > button {
         margin-top: 34px;
-        font-size: 16px;
         text-align: center;
         color: $color-border;
         border: 2px solid $color-border;
@@ -1477,6 +1496,7 @@ select:disabled {
         width: 100%;
         height: 40px;
         line-height: 36px;
+        background-color: #f9f9f9;
       }
     }
   }
@@ -1783,7 +1803,7 @@ select:disabled {
   .project-img {
     width: 100%;
     height: 200px;
-    background: url(image-path("project-mainpage.png")) no-repeat;
+    background-color: #e5e5e5;
     background-size: 100%;
     overflow: hidden;
     position: relative;
@@ -1838,15 +1858,14 @@ select:disabled {
       -webkit-box-orient: vertical;
     }
     .project-cont-but {
-      width: 240px;
+      width: 200px;
       height: 40px;
       line-height: 36px;
       border-radius: 20px;
       border: 2px solid $color-border;
       text-align: center;
       color: $color-border;
-      margin: 25px auto;
-      font-size: 16px;
+      margin: 14px auto;
       .iconfont {
         font-size: 15px;
         margin-right: 0;
@@ -1957,6 +1976,7 @@ select:disabled {
       }
       .col-md-3:hover {
         box-shadow: 0 2px 20px 2px #d9d9d957;
+
       }
       & > div {
         border-radius: 4px;
@@ -1967,7 +1987,7 @@ select:disabled {
         padding-left: 0;
       }
       .project-body-img {
-        width: 272px;
+        width: 100%;
         height: 179px;
         border-top-left-radius: 4px;
         border-top-right-radius: 4px;
@@ -1980,8 +2000,9 @@ select:disabled {
       .project-body-cot {
         border-bottom-left-radius: 4px;
         border-bottom-right-radius: 4px;
-        padding: 15px 12px 0 12px;
+        padding: 10px 12px 0 12px;
         .progress {
+          margin-top: 5px;
           height: 6px;
           width: 100% -2px;
           background-color: #ececec;
@@ -2534,6 +2555,7 @@ select:disabled {
     border-radius: 20px;
     margin: 0 auto 80px auto;
     box-shadow: 0 3px 16px #d12da56b;
+    color: #fff;
     a {
       color: #fff;
     }
@@ -4629,6 +4651,18 @@ select:disabled {
   text-align: center;
   .platform-plus-cont {
     padding: 30px 100px;
+    div{
+      position: relative;
+    }
+     div:hover{
+      .wechat-qrcode{
+        display: block;
+        top: -200px;
+        left: 0;
+        margin: 0 auto;
+
+      }
+    }
   }
 }
 

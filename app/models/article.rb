@@ -49,4 +49,5 @@ class Article < ApplicationRecord
 
   include HasAsset
   has_one_asset :image, class_name: 'Asset::ArticleImage'
+  has_many_assets :carousel_images, class_name: 'Asset::ArticleCarouselImage'
 end

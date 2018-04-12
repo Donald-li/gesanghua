@@ -39,8 +39,6 @@ class Account::OfflineUsersController < Account::BaseController
     @offline_user.manager_id = nil
     if @offline_user.save
       redirect_to account_offline_users_path, notice: '删除成功。'
-    else
-      redirect_to account_offline_users_path, notice: @offline_user.errors.full_messages
     end
   end
 

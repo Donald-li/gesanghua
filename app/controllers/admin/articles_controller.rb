@@ -25,6 +25,7 @@ class Admin::ArticlesController < Admin::BaseController
     respond_to do |format|
       if @article.save
         @article.attach_image(params[:image_id])
+        @article.attach_carousel_images(params[:carousel_image_ids])
         format.html { redirect_to referer_or(admin_articles_url), article: '资讯已增加。' }
       else
         format.html { render :new }
@@ -36,6 +37,7 @@ class Admin::ArticlesController < Admin::BaseController
     respond_to do |format|
       if @article.update(article_params)
         @article.attach_image(params[:image_id])
+        @article.attach_carousel_images(params[:carousel_image_ids])
         format.html { redirect_to referer_or(admin_articles_url), article: '资讯资料已修改。' }
       else
         format.html { render :edit }
