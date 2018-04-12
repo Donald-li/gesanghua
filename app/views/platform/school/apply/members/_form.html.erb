@@ -9,7 +9,7 @@
     </div>
     <div>
       <span class="goodtext">身份证号</span>
-      <input  class="goodinput " type="text" value="<%= @member.id_card %>" name="project_season_apply_camp_member[id_card]" />
+      <input  class="goodinput " type="text" value="<%= @member.id_card %>" name="project_season_apply_camp_member[id_card]" required/>
     </div>
     <div>
       <span class="goodtext">民族</span>
@@ -30,23 +30,23 @@
     </div>
     <div>
       <span class="goodtext">班主任</span>
-      <input  class="goodinput " type="text" name="project_season_apply_camp_member[teacher_name]" value="<%= @member.teacher_name %>" placeholder="班主任姓名"/>
+      <input  class="goodinput " type="text" name="project_season_apply_camp_member[teacher_name]" value="<%= @member.teacher_name %>" placeholder="班主任姓名" required/>
     </div>
     <div>
       <span class="goodtext">联系方式</span>
-      <input  class="goodinput " type="text" name="project_season_apply_camp_member[teacher_phone]" value="<%= @member.teacher_phone %>" placeholder="填写班主任联系方式"/>
+      <input  class="goodinput " type="text" name="project_season_apply_camp_member[teacher_phone]" value="<%= @member.teacher_phone %>" placeholder="填写班主任联系方式" required/>
     </div>
     <div style="height: 172px;width: 777px;">
       <span class="goodtext">自我介绍</span>
-      <textarea name="project_season_apply_camp_member[description]"><%= @member.description %></textarea>
+      <textarea name="project_season_apply_camp_member[description]" required><%= @member.description %></textarea>
     </div>
     <div>
       <span class="goodtext">监护人</span>
-      <input  class="goodinput " type="text" name="project_season_apply_camp_member[guardian_name]" value="<%= @member.guardian_name %>" placeholder="监护人姓名"/>
+      <input  class="goodinput " type="text" name="project_season_apply_camp_member[guardian_name]" value="<%= @member.guardian_name %>" placeholder="监护人姓名" required/>
     </div>
     <div>
       <span class="goodtext">联系方式</span>
-      <input  class="goodinput " type="text" name="project_season_apply_camp_member[guardian_phone]" value="<%= @member.guardian_phone %>" placeholder="联系方式"/>
+      <input  class="goodinput " type="text" name="project_season_apply_camp_member[guardian_phone]" value="<%= @member.guardian_phone %>" placeholder="联系方式" required/>
     </div>
     <% end %>
 
