@@ -85,4 +85,48 @@ class Support::AjaxesController < Support::BaseController
     end
   end
 
+  def create_read_bookshelf
+    @bookshelf = ProjectSeasonApplyBookshelf.new(
+        classname: params[:classname],
+        student_number: params[:number],
+        school: current_user.school,
+        province: current_user.school.try(:province),
+        city: current_user.school.try(:city),
+        district: current_user.school.try(:district),
+        project: Project.read_project
+    )
+    if @bookshelf.save
+      render json: {message: '保存成功', status: true, bookshelf: @bookshelf}
+    else
+      render json: {message: '保存失败，请重试', status: false}
+    end
+  end
+
+  def edit_read_bookshelf
+    @bookshelf = ProjectSeasonApplyBookshelf.find(params[:id])
+    if @bookshelf.present?
+      render json: {message: '获取成功', status: true, bookshelf: @bookshelf}
+    else
+      render json: {message: '获取失败，请重试', status: false}
+    end
+  end
+
+  def update_read_bookshelf
+    @bookshelf = ProjectSeasonApplyBookshelf.find(params[:id])
+    if @bookshelf.update(classname: params[:classname], student_number: params[:number])
+      render json: {message: '修改成功', status: true, bookshelf: @bookshelf}
+    else
+      render json: {message: '修改失败，请重试', status: false}
+    end
+  end
+
+  def delete_read_bookshelf
+    @bookshelf = ProjectSeasonApplyBookshelf.find(params[:id])
+    if @bookshelf.destroy
+      render json: {message: '删除成功', status: true}
+    else
+      render json: {message: '删除失败，请重试', status: false}
+    end
+  end
+
 end

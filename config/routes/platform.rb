@@ -15,6 +15,7 @@ namespace :platform do
       resources :reads do
         collection do
           get :supplement
+          post :create_supplement
         end
       end
       resources :radios

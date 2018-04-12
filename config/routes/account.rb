@@ -16,7 +16,9 @@ namespace :account do
     end
   end
   resources :orders, only: [:index] # 我的捐助
-  resources :pairs, only: [:index] # 我的结对
+  resources :pairs, only: [:index] do     # 我的结对
+    resources :children_mailboxs
+  end
   resources :bookshelves, only: [:index] # 我的图书角
   resources :teams, only: [:index] # 我的团队
   resources :offline_users # 捐助管理

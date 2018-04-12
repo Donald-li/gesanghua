@@ -15,7 +15,6 @@
             <div>
               <button type="button" class="scool-edit-name" disabled><%= @school.name %></button>
             </div>
-
           </div>
           <!--<div>-->
             <!--<span class="goodtext">申请年度</span>-->
@@ -27,7 +26,7 @@
           <div>
             <span class="goodtext">申请年度</span>
             <div id="doodname">
-              <%= f.input :project_season_id, as: :select, collection: Project.read_project.seasons.collect{|s| [s.name, s.id]}, include_blank: '请选择申请年度', label: false, input_html: {id: 'allcamps', class: ''} %>
+              <%= f.input :project_season_id, as: :select, collection: Project.read_project.seasons.collect{|s| [s.name, s.id]}, include_blank: '请选择申请年度', label: false, input_html: {id: 'allcamps', required: true} %>
             </div>
           </div>
           <div>
@@ -53,44 +52,9 @@
       <div class="addchild-list addchild-list-up marginbottom">
         <p class="don-title">申请班级管理</p>
         <div class="reads-new-cont">
-          <div>
-            <div class="clearfix">
-              <span class="pull-left">一年级一班</span>
-              <span class="pull-left">30人</span>
-              <div class="pull-right">
-                <div class="clearfix don-con-pos">
-                  <div class="pull-right cur delete-offline-user">
-                    <span class="iconfont icon-ico-delete1"></span>
-                    <span>删除</span>
-                  </div>
-                  <div class="pull-right cur edit-offline-user">
-                    <span class="iconfont icon-ico-edit "></span>
-                    <span>编辑</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="clearfix">
-              <span class="pull-left">一年级一班</span>
-              <span class="pull-left">30人</span>
-              <div class="pull-right">
-                <div class="clearfix don-con-pos">
-                  <div class="pull-right cur delete-offline-user">
-                    <span class="iconfont icon-ico-delete1"></span>
-                    <span>删除</span>
-                  </div>
-                  <div class="pull-right cur edit-offline-user">
-                    <span class="iconfont icon-ico-edit "></span>
-                    <span>编辑</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div id="bookshelf-list">
           </div>
-
-
-
-          <button class="school-apply-share-sub addnewclass">
+          <button type="button" class="school-apply-share-sub addnewclass">
             <span class="iconfont icon-ico-add1"></span>
             <span>新增申请班级</span>
           </button>
@@ -98,14 +62,13 @@
         <div class="addchild-list-cont ">
           <div>
             <span class="goodtext">申请理由</span>
-            <textarea name="project_season_apply[reason]"></textarea>
+            <textarea name="project_season_apply[describe]" required></textarea>
           </div>
           <div>
             <span class="goodtext">上传图片</span>
             <div>
               <div class="addchild-list-up-picture pull-left">
-                <!--<p class="iconfont icon-ico-add"></p>-->
-                <%= webuploader_image :image_ids, label: '上传图片', type: 'project_season_apply_image', asset: @apply.images, id: 'images' %>
+                <%= webuploader_image 'image_ids[]', label: '上传图片', type: 'project_season_apply_image', asset: @apply.images, id: 'images' %>
               </div>
             </div>
           </div>
@@ -117,33 +80,32 @@
     <div class="addchild-list-cont">
       <div>
         <span class="goodtext">收货人</span>
-        <input  class="goodinput " type="text" name="project_season_apply[consignee]" placeholder="请填写收货人姓名" />
+        <input  class="goodinput " type="text" name="project_season_apply[consignee]" placeholder="请填写收货人姓名" required/>
       </div>
 
       <div>
         <span class="goodtext">联系电话</span>
-        <input  class="goodinput " type="text" name="project_season_apply[consignee_phone]"  />
+        <input  class="goodinput " type="text" name="project_season_apply[consignee_phone]" required />
       </div>
       <div>
         <span class="goodtext">所在地区</span>
         <div class="city-group">
-          <%= select_tag 'project_season_apply[province]', options_for_select(ChinaCity.list, @school.province.presence), prompt: '省份', class: "city-select", id: 'province' %>
-          <%= select_tag 'project_season_apply[city]', options_for_select(ChinaCity.list(@school.province.to_s), @school.city.presence), prompt: '城市', class: "city-select", id: 'city' %>
-          <%= select_tag 'project_season_apply[district]', options_for_select(ChinaCity.list(@school.city.to_s), @school.district.presence), prompt: '地区', class: "city-select", id: 'district' %>
+          <%= select_tag 'project_season_apply[province]', options_for_select(ChinaCity.list, @apply.province.presence), prompt: '省份', class: "city-select", id: 'province', required: true %>
+          <%= select_tag 'project_season_apply[city]', options_for_select(ChinaCity.list(@apply.province.to_s), @apply.city.presence), prompt: '城市', class: "city-select", id: 'city', required: true %>
+          <%= select_tag 'project_season_apply[district]', options_for_select(ChinaCity.list(@apply.city.to_s), @apply.district.presence), prompt: '地区', class: "city-select", id: 'district', required: true %>
         </div>
-        <!--<div class="city-picker-selector" id="city-picker-selector"></div>-->
       </div>
       <div>
         <span class="goodtext">详细地址</span>
-        <input  class="goodinput " type="text" name="project_season_apply[address]" placeholder="请输入详细地址" />
+        <input  class="goodinput " type="text" name="project_season_apply[address]" placeholder="请输入详细地址" required />
       </div>
 
     </div>
   </div>
       <div class="childern-submint">
         <button type="submit">保存</button>
-        <button >取消</button>
-        <%#= link_to '取消', child_list_platform_school_apply_pair_children_path(@apply) %>
+        <!--<button >取消</button>-->
+        <%= link_to '取消', platform_school_apply_reads_path %>
       </div>
 
 <% end %>
@@ -154,18 +116,19 @@
         <div class="pull-left mys-1">编辑申请班级</div>
         <div class="pull-right iconfont icon-icondelete cur overspread-but"></div>
       </div>
-      <div class="overspread-co">
+      <div class="overspread-co" id="edit-bookshelf">
+        <input type="number" name="bookshelf_id" id="bookshelf-id" hidden>
         <div>
           <p class="goodtext">班级名称</p>
-          <input type="text" />
+          <input type="text" name="classname" id="classname" />
         </div>
         <div>
           <p class="goodtext">班级人数</p>
-          <input type="text" />
+          <input type="text" name="student_number" id="student-number" />
         </div>
 
       </div>
-      <div class="overspreadsc-but overspread-but  over-but">添加</div>
+      <div class="overspreadsc-but overspread-but  over-but" id="update-bookshelf">保存</div>
 
     </div>
   </div>
@@ -176,18 +139,18 @@
         <div class="pull-left mys-1">新增申请班级</div>
         <div class="pull-right iconfont icon-icondelete cur overspread-but"></div>
       </div>
-      <div class="overspread-co">
+      <div class="overspread-co" id="new-bookshelf">
         <div>
           <p class="goodtext">班级名称</p>
-          <input type="text" />
+          <input type="text" name="classname" id="classname" />
         </div>
         <div>
           <p class="goodtext">班级人数</p>
-          <input type="text" />
+          <input type="text" name="student_nember" id="student-number" />
         </div>
 
       </div>
-      <div class="overspreadsc-but overspread-but  over-but">添加</div>
+      <div class="overspreadsc-but overspread-but  over-but" id="create-bookshelf">添加</div>
 
     </div>
   </div>
@@ -196,15 +159,7 @@
 
 
 <script>
-    // 模拟城市-无联动/无搜索
-    var selector1 = $('#city-picker-selector').cityPicker({
-        dataJson: cityData,
-        renderMode: true,
-        search: false,
-        autoSelected: false,
-        code: 'cityCode',
-        level: 3
-    });
+
     $("#allcamps").select({
         width: "452px"
     });
@@ -219,11 +174,152 @@
     });
     $('.modified-1').calculate()
     $('.modified-2').calculate()
-    $('.overspread-e').overs(".edit-offline-user");
     $('.overspread-n').overs(".addnewclass");
 
     $(function () {
         initMultiImageWebuploader($('#images'));
+//        新增申请班级
+        $('#create-bookshelf').click(function () {
+            var classname = $('#new-bookshelf #classname').val()
+            var number = $('#new-bookshelf #student-number').val()
+            if (classname.length > 0 && parseInt(number) > 0) {
+                $.post("/ajaxes/create_read_bookshelf",
+                    {
+                        classname: classname,
+                        number: number
+                    },
+                    function(data){
+                        if (data.status) {
+//                            layer.msg(data.message, {
+//                                icon: 0,
+//                                offset: 't c'
+//                            });
+                            appendAnotherBookshelf(data.bookshelf)
+                            $('#new-bookshelf #classname').val('')
+                            $('#new-bookshelf #student-number').val('')
+                        } else {
+                            layer.msg(data.message, {
+                                icon: 2,
+                                offset: 't c'
+                            });
+                        }
+                    });
+            } else {
+                layer.msg('请填写完整申请班级信息', {
+                    icon: 2,
+                    offset: 't c'
+                });
+            }
+        })
+
+        $('#update-bookshelf').click(function () {
+            var classname = $('#edit-bookshelf #classname').val()
+            var number = $('#edit-bookshelf #student-number').val()
+            if (classname.length > 0 && parseInt(number) > 0) {
+                $.post("/ajaxes/update_read_bookshelf",
+                    {
+                        id: $('#edit-bookshelf #bookshelf-id').val(),
+                        classname: classname,
+                        number: number
+                    },
+                    function(data){
+                        if (data.status) {
+//                            layer.msg(data.message, {
+//                                icon: 0,
+//                                offset: 't c'
+//                            });
+                            replaceCurrentBookshelf(data.bookshelf)
+                        } else {
+                            layer.msg(data.message, {
+                                icon: 2,
+                                offset: 't c'
+                            });
+                        }
+                    });
+            } else {
+                layer.msg('请填写完整申请班级信息', {
+                    icon: 2,
+                    offset: 't c'
+                });
+            }
+        })
     })
+
+    function replaceCurrentBookshelf(bookshelf) {
+        $('#bookshelf-' + bookshelf.id).replaceWith(
+            '<div class="clearfix" id="bookshelf-'+ bookshelf.id + '">' +
+            '              <span class="pull-left">' + bookshelf.classname + '</span>' +
+            '              <span class="pull-left">'+ bookshelf.student_number +'人</span>' +
+            '              <div class="pull-right">' +
+            '                <div class="clearfix don-con-pos">' +
+            '                  <div class="pull-right cur delete-offline-user" onclick="deleteBookshelf(' + bookshelf.id + ')">' +
+            '                    <span class="iconfont icon-ico-delete1"></span>' +
+            '                    <span>删除</span>' +
+            '                  </div>' +
+            '                  <div class="pull-right cur edit-offline-user" onclick="editBookshelf(' + bookshelf.id + ')">' +
+            '                    <span class="iconfont icon-ico-edit "></span>' +
+            '                    <span>编辑</span>' +
+            '                  </div>' +
+            '                </div>' +
+            '              </div>' +
+            '            </div>'
+        )
+        $('.overspread-e').overs(".edit-offline-user");
+    }
+
+    function appendAnotherBookshelf(bookshelf) {
+        $('#bookshelf-list').append(
+            '<div class="clearfix" id="bookshelf-'+ bookshelf.id + '">' +
+            '          <input hidden name="project_season_apply[class_ids][]" value="' + bookshelf.id + '">' +
+            '              <span class="pull-left">' + bookshelf.classname + '</span>' +
+            '              <span class="pull-left">'+ bookshelf.student_number +'人</span>' +
+            '              <div class="pull-right">' +
+            '                <div class="clearfix don-con-pos">' +
+            '                  <div class="pull-right cur delete-offline-user" onclick="deleteBookshelf(' + bookshelf.id + ')">' +
+            '                    <span class="iconfont icon-ico-delete1"></span>' +
+            '                    <span>删除</span>' +
+            '                  </div>' +
+            '                  <div class="pull-right cur edit-offline-user" onclick="editBookshelf(' + bookshelf.id + ')">' +
+            '                    <span class="iconfont icon-ico-edit "></span>' +
+            '                    <span>编辑</span>' +
+            '                  </div>' +
+            '                </div>' +
+            '              </div>' +
+            '            </div>'
+        )
+        $('.overspread-e').overs(".edit-offline-user");
+    }
+
+    function editBookshelf(val) {
+        $.get("/ajaxes/edit_read_bookshelf",
+            { id: val },
+            function(data){
+              if (data.status) {
+                  $('#edit-bookshelf #bookshelf-id').val(val)
+                  $('#edit-bookshelf #classname').val(data.bookshelf.classname)
+                  $('#edit-bookshelf #student-number').val(data.bookshelf.student_number)
+              } else {
+                  layer.msg(data.message, {
+                      icon: 2,
+                      offset: 't c'
+                  });
+              }
+            });
+    }
+
+    function deleteBookshelf(val) {
+        $.post("/ajaxes/delete_read_bookshelf",
+            { id: val },
+            function(data){
+                if (data.status) {
+                    $('#bookshelf-' + val).remove()
+                } else {
+                    layer.msg(data.message, {
+                        icon: 2,
+                        offset: 't c'
+                    });
+                }
+            });
+    }
 
 </script>

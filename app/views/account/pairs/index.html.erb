@@ -30,11 +30,12 @@
                 </div>
                 <div class="pull-right">
                   <button class="donation-cont-but cur">
-                    查看项目详情
+                    查看孩子详情
                   </button>
-                  <button class="donation-cont-but cur">
+
+                  <%= link_to account_pair_children_mailboxs_path(pair_id: 1), class: 'donation-cont-but cur' do %>
                     孩子信箱 3
-                  </button>
+                  <% end %>
                 </div>
 
               </div>

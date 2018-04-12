@@ -1,4 +1,4 @@
-
+//点击加减
 jQuery.fn.calculate = function() {
     return this.each(function () {
         var $objadd = $(this).find(".oversadd");//加

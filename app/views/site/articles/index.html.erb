@@ -1,76 +1,82 @@
-<div id="article">
-  <div class="article-img">
-    <%= image_tag 'news-listpage.png' %>
-    <div></div>
-  </div>
-  <div class="article-title border-b">
-    <button class="article-but cur">专题</button>
-    <p class="article-font">在醋香四溢的城市里  我们收获的不只是爱心</p>
-    <p class="article-con read-more">长江上游的水横穿中国，流到下游不仅滋养了镇江，滋养的产物还被镇江人们酿成了醋。镇江可是闻名全中国的醋生产地，就小编个人来说，从</p>
-  </div>
-  <div class="article-read border-b">
-    <p>专题导读</p>
-    <div class="article-reads clearfix">
-      <div class="pull-left">
-        <div class="pull-left-img">
-          <%= image_tag 'news-listpage.png' %>
-          <div class="pull-left-cont">
-            <p>01</p>
-            <p>生活即教育，在城市中深度远行 | 2016年格桑花苏州 拓展营记</p>
-          </div>
-        </div>
+<div class="speciais clearfix">
+  <div class="speciais-left pull-left ">
+    <div class="speciais-con">
+      <div class="donations-1" >
+        <ul class="donations1 clearfix">
+          <li class="cur selectedDo"><%= link_to articles_path do %>资讯
+            <div class="bottomline"></div><% end %></li>
+          <li class="cur selectedDo "><%= link_to specials_path do %>专题
+            <div class=""></div><% end %></li>
+        </ul>
       </div>
-      <div class="pull-left">
-        <div>
-          <p class="gsh-cont-num">02</p>
-          <p class="gsh-cont-1">菠菜 | 2018年02月22日</p>
-          <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
-          <p class="gsh-cont-3">还记得9月去参加成都营的孩子们在路上写的札记吗？小编还记得有个小朋友在笔记本上写道：今天我和其他学校的同学们去成都拓展营学本领</p>
-        </div>
-        <div>
-          <p class="gsh-cont-num">03</p>
-          <p class="gsh-cont-1">菠菜 | 2018年02月22日</p>
-          <p class="gsh-cont-2">西滩寄小“寻宝藏，探成都”，我把学到的本领教给其他同学啦</p>
-          <p class="gsh-cont-3">还记得9月去参加成都营的孩子们在路上写的札记吗？小编还记得有个小朋友在笔记本上写道：今天我和其他学校的同学们去成都拓展营学本领</p>
-        </div>
-
-      </div>
-    </div>
-  </div>
-  <div class="article-new">
-    <div class="recommend">
-      <p>最新资讯</p>
-      <div class="row recommend-cont">
-        <% @articles.each do |article| %>
-          <div class="col-md-4">
-            <%= link_to article_path(article) do %>
-              <div class="recommend-img">
-                <%= image_tag article.image.try(:file).try(:url, :medium).to_s %>
-              </div>
-              <p class="gsh-cont-1"><%= article.author %> | <%= article.published_at.strftime("%Y年%m月%d日")%></p>
+      <% @articles.each do |article| %>
+        <div class="clearfix speciais-t">
+          <%= link_to article_path(article) do %>
+            <div class="speciais-con-img pull-left">
+              <%= image_tag article.image.try(:file).try(:url, :medium).to_s %>
+            </div>
+            <div class="speciais-con-con pull-left">
               <p class="gsh-cont-2"><%= article.title %></p>
-            <% end %>
-          </div>
-        <% end %>
+              <p class="gsh-cont-1"><%= article.author %> |  <%= article.published_at.strftime("%Y年%m月%d日") %></p>
+              <p class="gsh-cont-3"><%= strip_tags article.content %></p>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      <div class="speciais-cont-but border-t">
+        <button>加载更多</button>
       </div>
     </div>
   </div>
-  <div class="project-foot">
-    <%= paginate @articles, theme: :tiny%>
-  </div>
-  <div class="camps-share border-t" >
-    <p style="margin: 30px auto 0 auto;">分享</p>
-    <ol>
-      <li  style="padding: 20px 268px 80px 268px;">
-        <div id="share-2"></div>
-      </li>
-
-    </ol>
+  <div class="speciais-right pull-right ">
+    <div class="donations-1" >
+      <ul class="donations1 clearfix">
+        <li class="cur selectedDo">热门资讯</li>
+      </ul>
+    </div>
+    <div class="speciais-right-pos">
+      <%= image_tag 'activity-img.png' %>
+      <div class="speciais-con-con">
+        <div></div>
+        <p class="gsh-cont-2">为爱冲关---安徽卫视《男生女生向前冲》格桑花专场 孩子们和志愿者们一为爱冲关---安徽卫视《男生女生向前冲》格桑花专场 孩子们和志愿者们一</p>
+      </div>
+    </div>
+    <div class="clearfix speciais-right-cont">
+      <div class="speciais-con-img pull-left">
+        <%= image_tag 'ucenter-top-bg.png' %>
+      </div>
+      <div class="speciais-con-con pull-left">
+        <p class="gsh-cont-2">为爱冲关---安徽卫视《男生女生向前冲》格桑花专场 孩子们和志愿者们一</p>
+        <p class="gsh-cont-1">菠菜 |  2018年02月22日</p>
+      </div>
+    </div>
+    <div class="clearfix speciais-right-cont">
+      <div class="speciais-con-img pull-left">
+        <%= image_tag 'ucenter-top-bg.png' %>
+      </div>
+      <div class="speciais-con-con pull-left">
+        <p class="gsh-cont-2">为爱冲关---安徽卫视《男生女生向前冲》格桑花专场 孩子们和志愿者们一</p>
+        <p class="gsh-cont-1">菠菜 |  2018年02月22日</p>
+      </div>
+    </div>
+    <div class="clearfix speciais-right-cont">
+      <div class="speciais-con-img pull-left">
+        <%= image_tag 'ucenter-top-bg.png' %>
+      </div>
+      <div class="speciais-con-con pull-left">
+        <p class="gsh-cont-2">为爱冲关---安徽卫视《男生女生向前冲》格桑花专场 孩子们和志愿者们一</p>
+        <p class="gsh-cont-1">菠菜 |  2018年02月22日</p>
+      </div>
+    </div>
+    <div class="clearfix speciais-right-cont">
+      <div class="speciais-con-img pull-left">
+        <%= image_tag 'ucenter-top-bg.png' %>
+      </div>
+      <div class="speciais-con-con pull-left">
+        <p class="gsh-cont-2">为爱冲关---安徽卫视《男生女生向前冲》格桑花专场 孩子们和志愿者们一</p>
+        <p class="gsh-cont-1">菠菜 |  2018年02月22日</p>
+      </div>
+    </div>
   </div>
 
 </div>
-<script>
-    $('#share-2').share({
-        sites: ['qzone', 'wechat', 'weibo', 'qq']
-    });
-</script>

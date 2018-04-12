@@ -1,0 +1,69 @@
+<div class="person-body-right pull-right" id="feedback-shows">
+
+  <div class="children_mailboxs-cont">
+    <p class="don-title border-b ">
+      <span class="pull-left">孩子信箱</span>
+      <span class="pull-right iconfont icon-arrow-right"></span>
+      <span class="pull-right">返回</span>
+    </p>
+    <div class="plat-school-apply-pair border-t">
+    <div class="school-feed">
+      <%= image_tag 'cooperate-visite-form.png' %>
+      <span>123 ·</span>
+      <span>234发布</span>
+    </div>
+    <div class="school-apply-pair-table" >
+      <div class="children_mailboxs">
+        <p>123</p>
+
+        <div class="feedback-shows-img">
+
+          <div>
+            <a data-magnify="gallery"  href="<%=image_url 'cooperate-visite-form.png' %>">
+              <%= image_tag 'cooperate-visite-form.png', :style => "width:211px" %>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+    <div class="plat-school-apply-pair border-t">
+      <div class="school-feed">
+        <%= image_tag 'cooperate-visite-form.png' %>
+        <span>123 ·</span>
+        <span>234发布</span>
+      </div>
+      <div class="school-apply-pair-table" >
+        <div class="children_mailboxs">
+          <p>123</p>
+
+          <div class="feedback-shows-img">
+
+            <div>
+              <a data-magnify="gallery"  href="<%=image_url 'cooperate-visite-form.png' %>">
+                <%= image_tag 'cooperate-visite-form.png', :style => "width:211px" %>
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+<script>
+    // //图片展示
+    $('[data-magnify]').magnify({
+        headToolbar: [
+            'close'
+        ],
+        initMaximized: true
+    });
+    $('.plat-school-apply-pair').eq(0).removeClass('border-t')
+</script>

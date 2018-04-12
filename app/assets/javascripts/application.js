@@ -27,8 +27,8 @@
 //= require 'plugin/jquery.let_it_snow.js'
 //= require 'plugin/checkbox.js'
 //= require 'plugin/progresscircle.js'
-//= require 'plugin/cityPicker-2.0.0.js'
-//= require 'plugin/citydata.min.js'
+// require 'plugin/cityPicker-2.0.0.js'
+// require 'plugin/citydata.min.js'
 //= require 'plugin/tab-nav.js'
 //= require 'plugin/timeago.js'
 //require 'plugin/jquery.select.js'
@@ -40,6 +40,10 @@
 //= require 'plugin/calculate.js'
 //= require toastr
 //= require 'plugin/popper.min.js'
+//= require 'plugin/parsley.min.js'
+//= require 'plugin/parsley.min.js'
+//= require 'plugin/parsley.min.zextra.js'
+//= require 'plugin/parsley.min.zh_cn.js'
 
 
 
