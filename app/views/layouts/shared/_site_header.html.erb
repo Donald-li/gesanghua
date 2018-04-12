@@ -17,8 +17,9 @@
           <ul class="bul-nav-heide">
             <li><%= link_to '一对一助学', pairs_path %></li>
             <li><%= link_to '悦读项目', reads_path %></li>
-            <li><%= link_to '护花项目', goods_path(id: Project.care_project.id) %></li>
-            <li><%= link_to '广播项目', goods_path(id: Project.radio_project.id) %></li>
+            <% Project.goods.visible.sorted.all.each do |project| %>
+              <li><%= link_to project.name, goods_path(id: project.id) %></li>
+            <% end %>
             <li><%= link_to '探索营', camps_path %></li>
           </ul>
         </li>

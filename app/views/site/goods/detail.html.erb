@@ -32,9 +32,11 @@
           <li class="selectedNav">
             <span>申请详情</span>
           </li>
-          <li>
+
+          <!-- <li>
             <span>物品清单</span>
-          </li>
+          </li> -->
+
           <li>
             <span>执行反馈</span>
             <span class="navmark"><%= @feedbacks.count %></span>
@@ -51,6 +53,7 @@
       <p class="detail-l-fon"><%= @apply.project_describe %></p>
       <%#= image_tag 'detail-reduce.png' %>
     </div>
+    <% if false %>
     <!--物品-->
     <div class="pull-left detail-table-left contentab">
       <table class="table table-bordered">
@@ -84,6 +87,7 @@
         </tbody>
       </table>
     </div>
+    <% end %>
     <!--反馈-->
     <div class="pull-left detail-body-left border-l contentab">
       <ul class="detail-body-ul">
