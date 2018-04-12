@@ -5,7 +5,7 @@
       <span class="caption-subject">修改专题</span>
     </div>
     <div class="actions">
-      <%= link_to admin_special_path(@special), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+      <%= link_to special_path(@special), target: 'new', class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
         <i class="fa fa-eye"></i>
         <span>预览</span>
       <% end %>
