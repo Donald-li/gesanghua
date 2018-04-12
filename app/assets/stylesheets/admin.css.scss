@@ -18,6 +18,14 @@
     max-width: 400px;
   }
 }
+//多余的省略号
+.read-more {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
 
 .logo-text {
   padding-top: 15px;
