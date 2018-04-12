@@ -146,7 +146,7 @@ module ApplicationHelper
     html << %{
             <li class="upload-pick">
               <span><i class="iconfont icon-plus2"></i></span>
-              <strong>#{label}</strong>
+              <strong >#{label}</strong>
             </li>
           </ul>
         </div>

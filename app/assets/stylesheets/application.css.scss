@@ -2528,11 +2528,13 @@ select:disabled {
     background: $color-button;
     text-align: center;
     line-height: 38px;
-    color: #fff;
     font-size: 14px;
     border-radius: 20px;
     margin: 0 auto 80px auto;
     box-shadow: 0 3px 16px #d12da56b;
+    a {
+      color: #fff;
+    }
   }
   .iconfont {
     margin-right: 6px;
