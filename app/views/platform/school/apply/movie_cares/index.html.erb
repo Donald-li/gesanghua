@@ -1,1 +1,48 @@
-护花课程列表
+<div class="person-body-right pull-right">
+
+  <div style="display: block;">
+    <%= render '/layouts/shared/platform_school_projects' %>
+
+    <% if @applies.present? %>
+        <div class="school-apply-pair-table-co">
+          <div class="school-apply-pair-table">
+            <p>申请项目名称</p>
+            <p>申请状态</p>
+            <p>操作</p>
+          </div>
+          <% @applies.each do |apply| %>
+              <div class="school-apply-pair-tables">
+                <p>申请时间：<%= apply.created_at.strftime("%Y-%m-%d %H:%M") %> <span>申请编号：<%= apply.apply_no %></span></p>
+                <div class="school-apply-pair-table-cont">
+                  <div>
+                    <p class="school-apply-pair-tit"><%= apply.apply_name %></p>
+                    <% if apply.raise_project? %>
+                        <p class="school-apply-pair-f">目标筹款/累计：<%= apply.target_amount %>元/<%= apply.present_amount %>元</p>
+                    <% end %>
+                  </div>
+                  <div class="border-l border-r">
+                    <%= apply.apply? ? apply.enum_name(:audit_state) : apply.enum_name(:read_state) %>
+                  </div>
+                  <div>
+                    <button><%= link_to '查看申请详情', platform_school_apply_movie_care_path(apply) %></button>
+                  </div>
+                </div>
+              </div>
+          <% end %>
+        </div>
+    <% else %>
+        <div class="donation-cont-non">
+          <div class="donation-co-no-c">
+            <p>您的学校暂未申请护花课程</p>
+          </div>
+          <%= link_to new_donate_path do %>
+              <button class="donation-co-no-but">去捐助</button>
+          <% end %>
+        </div>
+    <% end %>
+  </div>
+
+  <div class="project-foot">
+    <%= paginate @applies, theme: :tiny %>
+  </div>
+</div>

@@ -2,6 +2,7 @@ class GshPlus::MainsController < GshPlus::BaseController
 
   layout 'gsh_plus'
   def show
+    @wechat_code_url = URI::encode "#{Settings.m_root_url}"
     if current_user.headmaster?
       @school = current_user.school
     elsif current_user.teacher?

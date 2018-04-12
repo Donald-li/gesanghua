@@ -15,6 +15,7 @@ class Admin::SpecialArticlesController < Admin::BaseController
     respond_to do |format|
       if @article.save
         @article.attach_image(params[:image_id])
+        @article.attach_carousel_images(params[:carousel_image_ids])
         @special.special_articles.create(article_id: @article.id)
         format.html { redirect_to edit_admin_special_path(@special, anchor: "special-articles"), notice: '新增成功。' }
       else
@@ -27,6 +28,7 @@ class Admin::SpecialArticlesController < Admin::BaseController
     respond_to do |format|
       if @article.update(special_article_params)
         @article.attach_image(params[:image_id])
+        @article.attach_carousel_images(params[:carousel_image_ids])
         format.html { redirect_to edit_admin_special_path(@special, anchor: "special-articles"), notice: '修改成功。' }
       else
         format.html { render :edit }

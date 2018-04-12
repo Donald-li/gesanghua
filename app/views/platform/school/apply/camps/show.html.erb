@@ -29,11 +29,11 @@
       <div class="don-co">
         <div class="don-co-but cur" >
           <% if @apply_camp.to_submit? %>
-            <%= link_to member_list_platform_school_apply_camp_members_path(@apply_camp) do %><span>提交学生名单</span><% end %>
+            <%= link_to member_list_platform_school_apply_camp_members_path(@apply_camp) do %><button class="apply-show-btn">提交学生名单</button><% end %>
           <% elsif @apply_camp.approved? %>
-            <%= link_to platform_school_apply_camp_members_path(@apply_camp, state: 'pass') do %><span>查看学生名单</span><% end %>
+            <%= link_to platform_school_apply_camp_members_path(@apply_camp, state: 'pass') do %><button class="apply-show-btn">查看学生名单</button><% end %>
           <% else %>
-            <span><%= @apply_camp.enum_name(:execute_state) %></span>
+            <button class="apply-show-btn"><%= @apply_camp.enum_name(:execute_state) %></button>
           <% end %>
         </div>
       </div>

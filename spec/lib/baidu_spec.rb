@@ -8,7 +8,8 @@ RSpec.describe Baidu, type: :lib do
   end
 
   it '测试发短信' do
-    # data = Baidu.send_sms
+    # data = Baidu.send_sms code: '1234', mobile: '18601299553', type: :signup
+    # data = Baidu.send_sms code: '1234', mobile: '18601299553', type: :find_password
     # pp data
 
     # data = Baidu.send_test

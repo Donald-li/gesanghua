@@ -1,0 +1,95 @@
+<div class="person-body-right pull-right" id="reads-new">
+  <div class="paddchild marginbottom">
+    <p class="don-title">
+      <span class="pull-left">护花课程申请</span>
+      <span class="pull-right iconfont icon-arrow-right"></span>
+      <span class="pull-right"><%= link_to '返回', platform_school_apply_movie_cares_path %></span>
+    </p>
+  </div>
+  <%= simple_form_for [:platform, @apply], url: platform_school_apply_movie_cares_path, html: {'data-parsley-validate': true, class: 'user_form'} do |f| %>
+      <div class="addchild-list marginbottom">
+        <p class="don-title">申请信息</p>
+        <div class="addchild-list-cont">
+          <div>
+            <span class="goodtext">申请学校</span>
+            <div>
+              <button type="button" class="scool-edit-name" disabled><%= @school.name %></button>
+            </div>
+          </div>
+          <div>
+            <span class="goodtext">申请批次</span>
+            <div id="doodname">
+              <%= f.input :project_season_id, as: :select, collection: Project.movie_care_project.seasons.collect{|s| [s.name, s.id]}, include_blank: '请选择申请年度', label: false, required: true, input_html: {id: 'allcamps'} %>
+            </div>
+          </div>
+          <div>
+            <span class="goodtext">学生总数</span>
+            <div class="modified modified-1">
+              <span class="iconfont icon-ico-reduce oversmin"></span>
+              <input type="text" name="project_season_apply[student_number]" value="1" class="oversinputs"/>
+              <span class="iconfont icon-ico-add1 oversadd"></span>
+            </div>
+          </div>
+          <div>
+            <span class="goodtext">班级总数</span>
+            <div class="modified modified-2">
+              <span class="iconfont icon-ico-reduce oversmin"></span>
+              <input type="text" value="1" name="project_season_apply[class_number]" class="oversinputs"/>
+              <span class="iconfont icon-ico-add1 oversadd"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="addchild-list addchild-list-up marginbottom">
+        <div class="addchild-list-cont ">
+          <div>
+            <span class="goodtext">申请理由</span>
+            <textarea name="project_season_apply[describe]" required></textarea>
+          </div>
+          <div>
+            <span class="goodtext">上传图片</span>
+            <div>
+              <div class="addchild-list-up-picture pull-left">
+                <%= webuploader_images 'image_ids[]', label: '上传图片', type: 'project_season_apply_image', asset: @apply.images, id: 'images' %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="addchild-list addnewreads ">
+        <p class="don-title">收货信息</p>
+        <div class="addchild-list-cont">
+          <div>
+            <span class="goodtext">收货人</span>
+            <input  class="goodinput " type="text" name="project_season_apply[consignee]" placeholder="请填写收货人姓名" required/>
+          </div>
+          <div>
+            <span class="goodtext">联系电话</span>
+            <input  class="goodinput " type="text" name="project_season_apply[consignee_phone]" required />
+          </div>
+
+        </div>
+      </div>
+      <div class="childern-submint">
+        <button type="submit">保存</button>
+        <button >
+        <%= link_to '取消', platform_school_apply_movie_cares_path %>
+        </button>
+      </div>
+
+  <% end %>
+</div>
+
+
+
+<script>
+    $("#allcamps").select({
+        width: "452px"
+    });
+    $('.modified-1').calculate()
+    $('.modified-2').calculate()
+    $(function () {
+        initMultiImageWebuploader($('#images'), {}, 9);
+    });
+</script>

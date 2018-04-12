@@ -27,21 +27,21 @@
       <div>
         <span class="goodtext">学生人数</span>
         <div>
-          <input class="goodinput" type="text" name="school[number]" value="<%= @school.number %>" required/>
+          <input class="goodinput" type="number" name="school[number]" value="<%= @school.number %>" required/>
           <span class="income-moy">人</span>
         </div>
       </div>
       <div>
         <span class="goodtext">教师人数</span>
         <div>
-          <input class="goodinput" type="text" name="school[teacher_count]" value="<%= @school.teacher_count %>" required/>
+          <input class="goodinput" type="number" name="school[teacher_count]" value="<%= @school.teacher_count %>" required/>
           <span class="income-moy">人</span>
         </div>
       </div>
       <div>
         <span class="goodtext">后勤人数</span>
         <div>
-          <input class="goodinput" type="text" name="school[logistic_count]" value="<%= @school.logistic_count %>" required/>
+          <input class="goodinput" type="number" name="school[logistic_count]" value="<%= @school.logistic_count %>" required/>
           <span class="income-moy">人</span>
         </div>
       </div>
@@ -101,18 +101,6 @@
 
 </div>
 <script>
-  // 模拟城市-无联动/无搜索
-  var selector1 = $('#city-picker-selector').cityPicker({
-      dataJson: cityData,
-      renderMode: true,
-      search: false,
-      autoSelected: false,
-      code: 'cityCode',
-      level: 3
-  });
   initImageWebuploader($('#school-card'));
   initImageWebuploader($('#school-certificate'));
-  $(function () {
-    $('.city-group').china_city();
-  })
 </script>

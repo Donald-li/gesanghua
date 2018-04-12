@@ -14,12 +14,16 @@ namespace :platform do
       end
       resources :reads do
         collection do
-          get :supplement
+          get :new_supplement
           post :create_supplement
         end
+        member do
+          get :bookshelves
+          get :supplements
+        end
       end
-      resources :radios
-      resources :cares
+      resources :goods_projects
+      # resources :cares
       resources :movies
       resources :movie_cares
       resources :camps do

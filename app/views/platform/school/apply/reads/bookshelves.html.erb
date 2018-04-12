@@ -1,0 +1,35 @@
+<div class="person-body-right pull-right" id="feedback-shows">
+
+  <div class="children_mailboxs-cont">
+    <p class="don-title border-b ">
+      <span class="pull-left">查看班级</span>
+      <span class="pull-right iconfont icon-arrow-right"></span>
+      <span class="pull-right"><%= link_to '返回', platform_school_apply_reads_path %></span>
+    </p>
+    <div class="plat-school-apply-pair bookshelves-cont">
+      <div class="paddchild ">
+        <div class="school-apply-pair-table ">
+          <p class="border-t border-l border-r">班级信息</p>
+        </div>
+      </div>
+      <div class="bookshelves ">
+        <% @bookshelves.each do |bookshelf| %>
+        <div class="clearfix" >
+          <span><%= bookshelf.classname %></span>
+          <span><%= bookshelf.student_number %>人</span>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+    // //图片展示
+    $('[data-magnify]').magnify({
+        headToolbar: [
+            'close'
+        ],
+        initMaximized: true
+    });
+    $('.plat-school-apply-pair').eq(0).removeClass('border-t')
+</script>

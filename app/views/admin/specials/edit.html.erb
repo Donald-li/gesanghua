@@ -5,7 +5,7 @@
       <span class="caption-subject">修改专题</span>
     </div>
     <div class="actions">
-      <%= link_to admin_special_path(@special), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+      <%= link_to special_path(@special), target: 'new', class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
         <i class="fa fa-eye"></i>
         <span>预览</span>
       <% end %>
@@ -59,14 +59,14 @@
           <span class="caption-subject font-red-sunglo bold uppercase">文字新闻</span>
         </div>
         <div class="actions">
-          <%= link_to new_admin_special_special_article_path(@special), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+          <%= link_to new_admin_special_special_article_path(@special, kind: 'text_news'), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
             <i class="icon-plus"></i>
             <span>新增</span>
           <% end %>
         </div>
       </div>
       <div class="portlet-body">
-        <% @special.articles.reverse_sorted.each do |article| %>
+        <% @special.articles.text_news.reverse_sorted.each do |article| %>
           <div class="portlet light bordered">
             <div class="well well-sm">
               <div class="portlet-title">
@@ -96,6 +96,37 @@
           <span class="caption-subject font-red-sunglo bold uppercase">图片新闻</span>
         </div>
         <div class="actions">
+          <%= link_to new_admin_special_special_article_path(@special, kind: 'image_news'), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+            <i class="icon-plus"></i>
+            <span>新增</span>
+          <% end %>
+        </div>
+      </div>
+      <div class="portlet-body row">
+        <% @special.articles.image_news.reverse_sorted.each do |article| %>
+          <div class="col-sm-6 col-md-3 thumbnail">
+            <%= image_tag article.image_url(:large) %>
+            <div class="caption">
+              <div style="height: 60px"><%= article.try(:title) %></div>
+              <p>
+                <%= link_to '修改', edit_admin_special_special_article_path(@special, article), class: 'btn blue' %>
+                <%= link_to admin_special_special_article_path(@special, article), class: 'btn red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                  <i class="fa fa-trash-o"></i> 删除
+                <% end %>
+              </p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- <div class="portlet light bordered" id="down-adverts">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="icon-share font-red-sunglo"></i>
+          <span class="caption-subject font-red-sunglo bold uppercase">图片新闻</span>
+        </div>
+        <div class="actions">
           <%= link_to new_admin_special_special_advert_path(@special, item_kind: 'down'), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
             <i class="icon-plus"></i>
             <span>新增</span>
@@ -118,7 +149,7 @@
           </div>
         <% end %>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
 <script>

@@ -15,6 +15,7 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  kind                :integer                                # 类型
+#  special_kind        :integer                                # 专题类型： 1:文字新闻 2:图片新闻
 #
 
 # 资讯
@@ -33,6 +34,9 @@ class Article < ApplicationRecord
   enum kind: {simple: 1, special: 2}
   default_value_for :kind, 1
 
+  enum special_kind: {text_news: 1, image_news: 2}
+  default_value_for :special_kind, 1
+
   enum state: {show: 1, hidden: 2}
   default_value_for :state, 1
 
@@ -45,4 +49,5 @@ class Article < ApplicationRecord
 
   include HasAsset
   has_one_asset :image, class_name: 'Asset::ArticleImage'
+  has_many_assets :carousel_images, class_name: 'Asset::ArticleCarouselImage'
 end

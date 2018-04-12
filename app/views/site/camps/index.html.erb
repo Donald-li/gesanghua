@@ -6,10 +6,10 @@
       <p class="project-cont-tit"><%= @project.name %></p>
       <div class="project-cont-con "><%= @project.describe %></div>
       <%= link_to camp_path(@project) do %>
-          <div class="project-cont-but">
+          <button class="project-cont-but cur">
             <span>查看项目介绍</span>
             <span class="iconfont icon-arrow-right"></span>
-          </div>
+          </button>
       <% end %>
     </div>
   </div>

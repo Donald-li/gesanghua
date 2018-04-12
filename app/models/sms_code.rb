@@ -29,7 +29,7 @@ class SmsCode < ApplicationRecord
   def self.send_code(mobile, kind='signup')
     if valid_mobile?(mobile, kind)
       code = self.create(kind: kind, mobile: mobile, code: random)
-      code.send_message if code.valid? && Settings.send_sms == 'true'
+      code.send_message if code.valid? && Settings.send_sms == true
     else
       code = self.new(mobile: mobile, kind: kind, code: random)
       code.errors.add(:mobile, '您已发送过验证码，请输入验证码，或者1分钟后再次请求')
@@ -56,16 +56,7 @@ class SmsCode < ApplicationRecord
   end
 
   def send_message
-    case self.kind.to_s
-    when 'signup'
-      Sms.to self.mobile, code #  "【#{Settings.site_name}】验证码为#{code}，有效时间5分钟，请在页面中输入以完成验证。"
-    when 'find_password'
-      Sms.to self.mobile, code #  "【#{Settings.site_name}】验证码为#{code}，有效时间5分钟，请在页面中输入以完成验证。"
-    when 'change_mobile'
-      Sms.to self.mobile, code #  "【#{Settings.site_name}】验证码为#{code}，有效时间5分钟，请在页面中输入以完成验证。"
-    when 'verify_profile'
-      Sms.to self.mobile, code #  "【#{Settings.site_name}】验证码为#{code}，有效时间5分钟，请在页面中输入以完成验证。"
-    end
+    Baidu.send_sms mobile: self.mobile, code: code, type: self.kind
   end
 
   def set_verified

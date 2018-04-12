@@ -14,7 +14,7 @@
     </div>
     <div>
       <span class="goodtext">身份证号</span>
-      <input  class="goodinput " type="text" value="<%= @child.id_card %>" name="project_season_apply_child[id_card]" />
+      <input  class="goodinput " type="text" value="<%= @child.id_card %>" name="project_season_apply_child[id_card]" required/>
     </div>
     <div>
       <span class="goodtext">民族</span>
@@ -41,15 +41,15 @@
     </div>
     <div>
       <span class="goodtext">班主任</span>
-      <input  class="goodinput " type="text" name="project_season_apply_child[teacher_name]" value="<%= @child.teacher_name %>" placeholder="班主任姓名"/>
+      <input  class="goodinput " type="text" name="project_season_apply_child[teacher_name]" value="<%= @child.teacher_name %>" placeholder="班主任姓名" required/>
     </div>
     <div>
       <span class="goodtext">联系方式</span>
-      <input  class="goodinput " type="text" name="project_season_apply_child[teacher_phone]" value="<%= @child.teacher_phone %>" placeholder="填写班主任联系方式"/>
+      <input  class="goodinput " type="text" name="project_season_apply_child[teacher_phone]" value="<%= @child.teacher_phone %>" placeholder="填写班主任联系方式" required/>
     </div>
     <div style="height: 172px;width: 777px;">
       <span class="goodtext">自我介绍</span>
-      <textarea name="project_season_apply_child[description]"><%= @child.description %></textarea>
+      <textarea name="project_season_apply_child[description]" required><%= @child.description %></textarea>
     </div>
   </div>
 </div>
@@ -58,49 +58,49 @@
   <div class="addchild-list-cont">
     <div>
       <span class="goodtext">父亲姓名</span>
-      <input  class="goodinput " type="text" name="project_season_apply_child[father]" value="<%= @child.father %>" />
+      <input  class="goodinput " type="text" name="project_season_apply_child[father]" value="<%= @child.father %>" required/>
     </div>
     <div>
       <span class="goodtext">职业</span>
-      <input  class="goodinput " type="text" name="project_season_apply_child[father_job]" value="<%= @child.father_job %>" />
+      <input  class="goodinput " type="text" name="project_season_apply_child[father_job]" value="<%= @child.father_job %>" required/>
     </div>
     <div>
       <span class="goodtext">母亲姓名</span>
-      <input  class="goodinput " type="text" name="project_season_apply_child[mother]" value="<%= @child.mother %>" />
+      <input  class="goodinput " type="text" name="project_season_apply_child[mother]" value="<%= @child.mother %>" required/>
     </div>
     <div>
       <span class="goodtext">职业</span>
-      <input  class="goodinput " type="text" name="project_season_apply_child[mother_job]" value="<%= @child.mother_job %>" />
+      <input  class="goodinput " type="text" name="project_season_apply_child[mother_job]" value="<%= @child.mother_job %>" required/>
     </div>
     <div>
       <span class="goodtext">监护人</span>
-      <input  class="goodinput " type="text" name="project_season_apply_child[guardian]" value="<%= @child.guardian %>" placeholder="监护人姓名"/>
+      <input  class="goodinput " type="text" name="project_season_apply_child[guardian]" value="<%= @child.guardian %>" required placeholder="监护人姓名"/>
     </div>
     <div>
       <span class="goodtext">与其关系</span>
-      <input  class="goodinput " type="text" name="project_season_apply_child[guardian_relation]" value="<%= @child.guardian_relation %>" placeholder="填写孩子与监护人的关系"/>
+      <input  class="goodinput " type="text" name="project_season_apply_child[guardian_relation]" value="<%= @child.guardian_relation %>" required placeholder="填写孩子与监护人的关系"/>
     </div>
     <div>
       <span class="goodtext">收入来源</span>
-      <input  class="goodinput " type="text" name="project_season_apply_child[income_source]" value="<%= @child.income_source %>" />
+      <input  class="goodinput " type="text" name="project_season_apply_child[income_source]" value="<%= @child.income_source %>" required/>
     </div>
     <div>
       <span class="goodtext">年收入</span>
-      <input  class="goodinput " type="number" name="project_season_apply_child[family_income]" value="<%= @child.family_income %>" />
+      <input  class="goodinput " type="number" name="project_season_apply_child[family_income]" value="<%= @child.family_income %>" required/>
       <span class="income-moy">元/年</span>
     </div>
     <div>
       <span class="goodtext">年支出</span>
-      <input  class="goodinput " type="number" name="project_season_apply_child[family_expenditure]" value="<%= @child.family_expenditure %>" />
+      <input  class="goodinput " type="number" name="project_season_apply_child[family_expenditure]" value="<%= @child.family_expenditure %>" required />
       <span class="income-moy">元/年</span>
     </div>
     <div style="height: 172px;width: 777px;">
       <span class="goodtext">家庭情况</span>
-      <textarea placeholder="请写明具体家庭情况和贫困原因" name="project_season_apply_child[family_condition]"><%= @child.family_condition %></textarea>
+      <textarea placeholder="请写明具体家庭情况和贫困原因" name="project_season_apply_child[family_condition]" required><%= @child.family_condition %></textarea>
     </div>
     <div style="height: 172px;width: 777px;">
       <span class="goodtext">兄弟姐妹</span>
-      <textarea placeholder="请写明具体家中兄弟姐妹的情况" name="project_season_apply_child[brothers]"><%= @child.brothers %></textarea>
+      <textarea placeholder="请写明具体家中兄弟姐妹的情况" name="project_season_apply_child[brothers]" required><%= @child.brothers %></textarea>
     </div>
   </div>
 </div>
@@ -134,7 +134,9 @@
 </div>
 <div class="childern-submint">
   <button type="submit">保存</button>
+  <button>
   <%= link_to '取消', child_list_platform_school_apply_pair_children_path(@apply) %>
+  </button>
 </div>
 <% end %>
 <script>

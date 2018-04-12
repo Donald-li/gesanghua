@@ -15,18 +15,19 @@
             <div>
               <button type="button" class="scool-edit-name" disabled><%= @school.name %></button>
             </div>
+
           </div>
           <!--<div>-->
-            <!--<span class="goodtext">申请年度</span>-->
+            <!--<span class="goodtext">申请批次</span>-->
             <!--<div>-->
               <!--<button type="button" class="scool-edit-name" disabled>2018年度</button>-->
             <!--</div>-->
 
           <!--</div>-->
           <div>
-            <span class="goodtext">申请年度</span>
+            <span class="goodtext">申请批次</span>
             <div id="doodname">
-              <%= f.input :project_season_id, as: :select, collection: Project.read_project.seasons.collect{|s| [s.name, s.id]}, include_blank: '请选择申请年度', label: false, input_html: {id: 'allcamps', required: true} %>
+              <%= f.input :project_season_id, as: :select, collection: Project.read_project.seasons.collect{|s| [s.name, s.id]}, include_blank: '请选择申请年度', label: false, required: true, input_html: {id: 'allcamps'} %>
             </div>
           </div>
           <div>
@@ -66,9 +67,9 @@
           </div>
           <div>
             <span class="goodtext">上传图片</span>
-            <div>
-              <div class="addchild-list-up-picture pull-left">
-                <%= webuploader_image 'image_ids[]', label: '上传图片', type: 'project_season_apply_image', asset: @apply.images, id: 'images' %>
+            <div >
+              <div class="addchild-list-up-picture pull-left clearfix">
+                <%= webuploader_images 'image_ids[]', label: '上传图片', type: 'project_season_apply_image', asset: @apply.images, id: 'images' %>
               </div>
             </div>
           </div>
@@ -76,7 +77,7 @@
 
       </div>
   <div class="addchild-list addnewreads ">
-    <p class="don-title">收货地址</p>
+    <p class="don-title">收货信息</p>
     <div class="addchild-list-cont">
       <div>
         <span class="goodtext">收货人</span>
@@ -104,8 +105,9 @@
   </div>
       <div class="childern-submint">
         <button type="submit">保存</button>
-        <!--<button >取消</button>-->
+        <button >
         <%= link_to '取消', platform_school_apply_reads_path %>
+        </button>
       </div>
 
 <% end %>
@@ -177,7 +179,7 @@
     $('.overspread-n').overs(".addnewclass");
 
     $(function () {
-        initMultiImageWebuploader($('#images'));
+        initMultiImageWebuploader($('#images'), {}, 9);
 //        新增申请班级
         $('#create-bookshelf').click(function () {
             var classname = $('#new-bookshelf #classname').val()
@@ -262,6 +264,8 @@
             '                  </div>' +
             '                </div>' +
             '              </div>' +
+            '          <input hidden name="project_season_apply[class_ids][]" value="' + bookshelf.id + '">' +
+
             '            </div>'
         )
         $('.overspread-e').overs(".edit-offline-user");
@@ -270,7 +274,6 @@
     function appendAnotherBookshelf(bookshelf) {
         $('#bookshelf-list').append(
             '<div class="clearfix" id="bookshelf-'+ bookshelf.id + '">' +
-            '          <input hidden name="project_season_apply[class_ids][]" value="' + bookshelf.id + '">' +
             '              <span class="pull-left">' + bookshelf.classname + '</span>' +
             '              <span class="pull-left">'+ bookshelf.student_number +'人</span>' +
             '              <div class="pull-right">' +
@@ -285,6 +288,8 @@
             '                  </div>' +
             '                </div>' +
             '              </div>' +
+            '          <input hidden name="project_season_apply[class_ids][]" value="' + bookshelf.id + '">' +
+
             '            </div>'
         )
         $('.overspread-e').overs(".edit-offline-user");
