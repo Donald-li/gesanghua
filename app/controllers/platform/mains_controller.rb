@@ -1,5 +1,5 @@
 class Platform::MainsController < Platform::School::BaseController
-  layout 'platform'
+  layout 'account'
 
   def show
 

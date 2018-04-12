@@ -3669,7 +3669,7 @@ select:disabled {
     & > .speciais-t:first-child {
       border-top: none;
     }
-    .speciais-con-con{
+    .speciais-con-con {
       width: 523px;
       padding: 3px 0 0 20px;
       .gsh-cont-2 {
@@ -3679,75 +3679,75 @@ select:disabled {
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
       }
-      .gsh-cont-3{
+      .gsh-cont-3 {
         margin-top: 18px;
       }
-      .gsh-cont-1{
+      .gsh-cont-1 {
         margin-top: 4px;
       }
 
     }
-    .speciais-con-img{
+    .speciais-con-img {
       width: 240px;
       height: 140px;
       border-radius: 4px;
       overflow: hidden;
-      img{
+      img {
         width: 100%;
         height: 100%;
       }
     }
 
   }
-  .speciais-cont-but{
+  .speciais-cont-but {
     width: 100%;
     text-align: center;
-    padding: 40px 0 0 0 ;
-    button{
+    padding: 40px 0 0 0;
+    button {
       width: 130px;
       height: 38px;
       line-height: 36px;
       color: $color-border;
-      border:1px solid $color-border;
+      border: 1px solid $color-border;
       border-radius: 20px;
       font-size: 14px;
     }
   }
   .speciais-right {
     width: 292px;
-    .speciais-right-pos{
+    .speciais-right-pos {
       width: 100%;
       height: 174px;
       position: relative;
       border-radius: 4px;
       overflow: hidden;
       margin-bottom: 10px;
-      & > img{
+      & > img {
         width: 100%;
         height: 100%;
       }
-      .speciais-con-con{
+      .speciais-con-con {
         position: absolute;
-        left:0;
-        bottom:0;
+        left: 0;
+        bottom: 0;
         height: 54px;
         width: 100%;
-        div{
+        div {
           position: absolute;
-          left:0;
-          bottom:0;
+          left: 0;
+          bottom: 0;
           height: 54px;
           width: 100%;
           background-color: #000;
           opacity: .4;
           z-index: 1;
         }
-        .gsh-cont-2{
+        .gsh-cont-2 {
           z-index: 2;
           color: #fff;
           position: absolute;
-          left:9px;
-          bottom:9px;
+          left: 9px;
+          bottom: 9px;
           width: 96%;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -3759,23 +3759,23 @@ select:disabled {
 
       }
     }
-    .speciais-con-img{
+    .speciais-con-img {
       width: 100px;
       height: 60px;
       border-radius: 4px;
       overflow: hidden;
-      img{
+      img {
         width: 100%;
         height: 100%;
       }
     }
-    .speciais-right-cont{
+    .speciais-right-cont {
       padding: 10px 0;
     }
-    .speciais-con-con{
+    .speciais-con-con {
       width: 180px;
       padding: 0 0 0 10px;
-      .gsh-cont-2{
+      .gsh-cont-2 {
         font-weight: 400;
         font-size: 14px;
         overflow: hidden;
@@ -3784,13 +3784,13 @@ select:disabled {
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
       }
-      .gsh-cont-1{
+      .gsh-cont-1 {
         margin-top: 4px;
         margin-bottom: 0px;
       }
     }
-    .donations1{
-      li{
+    .donations1 {
+      li {
         width: 100%;
         text-align: center;
       }
@@ -4557,6 +4557,7 @@ select:disabled {
   }
 }
 
+//不知
 .live-visitor {
   background: none repeat scroll 0 0 #fff;
   float: left;
@@ -4607,6 +4608,7 @@ select:disabled {
   margin-top: 5px;
 }
 
+//
 .person-h-cont-d-pairs {
   width: 100%;
   font-size: 15px;
@@ -4618,6 +4620,14 @@ select:disabled {
 }
 
 //格桑花+入口
+.gsh-plus-nmushow {
+  padding: 60px 34px 40px 34px !important;
+  text-align: center;
+  .platform-plus-cont {
+    padding: 30px 100px;
+  }
+}
+
 .gsh-plus-show {
   width: 1140px;
   border: 1px solid #e6e6e6;
@@ -4625,36 +4635,40 @@ select:disabled {
   background-color: #fff;
   margin: 0 auto;
   text-align: center;
-  .gsh-plus-tit {
-    width: 300px;
-    margin: 0 auto;
-    font-size: 22px;
-    color: #3d3d40;
-    font-weight: 500;
-  }
-  .gsh-plus-foot {
 
-    font-size: 14px;
-    color: #393d42;
-  }
-  .gsh-plus-cont {
-    width: 100%;
-    padding: 30px 200px;
-    display: flex;
-    & > div {
-      flex: 1;
-      position: relative;
+}
 
-      & > a > img {
-        height: 160px;
-      }
+.gsh-plus-tit {
+  width: 300px;
+  margin: 0 auto;
+  font-size: 22px;
+  color: #3d3d40;
+  font-weight: 500;
+}
+
+.gsh-plus-foot {
+
+  font-size: 14px;
+  color: #393d42;
+}
+
+.gsh-plus-cont {
+  width: 100%;
+  padding: 30px 200px;
+  display: flex;
+  & > div {
+    flex: 1;
+    position: relative;
+
+    & > a > img {
+      height: 160px;
     }
-    & > div:hover {
-      .wechat-qrcode {
-        display: block;
-        top: 0px;
-        left: 13px;
-      }
+  }
+  & > div:hover {
+    .wechat-qrcode {
+      display: block;
+      top: 0px;
+      left: 13px;
     }
   }
 }
@@ -6959,6 +6973,64 @@ select:disabled {
         text-indent: 1em;
       }
 
+    }
+  }
+}
+
+//查看班级
+.bookshelves-cont {
+  padding: 20px 0 0 0!important;
+  .school-apply-pair-table > p{
+    font-size: 14px;
+    color: #3d3d40;
+  }
+}
+
+.bookshelves {
+  div {
+    width: 100%;
+    border-radius: 3px;
+    position: relative;
+    height: 48px;
+    padding: 12px 20px;
+    border: 1px solid $border;
+    margin: 10px 0;
+    & > span:nth-child(1) {
+      color: #3d3d40;
+      font-size: 14px;
+    }
+    & > span:nth-child(2) {
+      color: #3d3d40;
+      font-size: 14px;
+      font-weight: 500;
+      margin-left: 40px;
+    }
+    & > p:nth-child(1) {
+      color: #3d3d40;
+      font-size: 16px;
+      font-weight: 500;
+    }
+    & > p:nth-child(2) {
+      color: #3d3d40;
+      font-size: 14px;
+      margin-top: 3px;
+      span {
+        margin: 0 10px 0 0;
+      }
+    }
+    .don-con-pos {
+      position: absolute;
+      right: 20px;
+      top: 12px;
+      font-size: 14px;
+      color: #005ea7;
+      & > div {
+        margin-left: 20px;
+        .iconfont {
+          margin-right: 0px;
+          font-size: 14px;
+        }
+      }
     }
   }
 }
