@@ -15,6 +15,7 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  kind                :integer                                # 类型
+#  special_kind        :integer                                # 专题类型： 1:文字新闻 2:图片新闻
 #
 
 # 资讯

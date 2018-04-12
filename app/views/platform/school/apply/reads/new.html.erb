@@ -69,7 +69,7 @@
             <span class="goodtext">上传图片</span>
             <div>
               <div class="addchild-list-up-picture pull-left">
-                <%= webuploader_image 'image_ids[]', label: '上传图片', type: 'project_season_apply_image', asset: @apply.images, id: 'images' %>
+                <%= webuploader_images 'image_ids[]', label: '上传图片', type: 'project_season_apply_image', asset: @apply.images, id: 'images' %>
               </div>
             </div>
           </div>
@@ -264,6 +264,8 @@
             '                  </div>' +
             '                </div>' +
             '              </div>' +
+            '          <input hidden name="project_season_apply[class_ids][]" value="' + bookshelf.id + '">' +
+
             '            </div>'
         )
         $('.overspread-e').overs(".edit-offline-user");
@@ -272,7 +274,6 @@
     function appendAnotherBookshelf(bookshelf) {
         $('#bookshelf-list').append(
             '<div class="clearfix" id="bookshelf-'+ bookshelf.id + '">' +
-            '          <input hidden name="project_season_apply[class_ids][]" value="' + bookshelf.id + '">' +
             '              <span class="pull-left">' + bookshelf.classname + '</span>' +
             '              <span class="pull-left">'+ bookshelf.student_number +'人</span>' +
             '              <div class="pull-right">' +
@@ -287,6 +288,8 @@
             '                  </div>' +
             '                </div>' +
             '              </div>' +
+            '          <input hidden name="project_season_apply[class_ids][]" value="' + bookshelf.id + '">' +
+
             '            </div>'
         )
         $('.overspread-e').overs(".edit-offline-user");

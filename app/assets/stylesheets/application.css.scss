@@ -4944,6 +4944,11 @@ select:disabled {
       font-size: 13px;
       color: #8d8d8d;
     }
+    & > div:nth-child(4) {
+      padding: 24px 0;
+      font-size: 13px;
+      color: #8d8d8d;
+    }
 
   }
   .schools-apply-pair-child {
