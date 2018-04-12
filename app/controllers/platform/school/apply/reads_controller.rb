@@ -20,7 +20,6 @@ class Platform::School::Apply::ReadsController < Platform::School::BaseControlle
 
   def create
     season = ProjectSeason.find(apply_params[:project_season_id])
-    @school = current_user.teacher.school
     if ProjectSeasonApply.allow_apply?(@school, season, Project.read_project)
       # @apply.form = params[:dynamic_form]
       @apply = ProjectSeasonApply.new(apply_params.except(:class_ids).merge(project: Project.read_project, school: @school, bookshelf_type: 'whole', contact_name: apply_params[:consignee], contact_phone: apply_params[:consignee_phone]))
@@ -39,7 +38,6 @@ class Platform::School::Apply::ReadsController < Platform::School::BaseControlle
 
   def create_supplement
     season = ProjectSeason.find(apply_params[:project_season_id])
-    @school = current_user.teacher.school
     if ProjectSeasonApply.allow_apply?(@school, season, Project.read_project)
       @apply = ProjectSeasonApply.new(apply_params.except(:supplement_ids).merge(project: Project.read_project, bookshelf_type: 'supplement', school: @school, contact_name: apply_params[:consignee], contact_phone: apply_params[:consignee_phone]))
       if @apply.save

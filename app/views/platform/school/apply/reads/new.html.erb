@@ -18,16 +18,16 @@
 
           </div>
           <!--<div>-->
-            <!--<span class="goodtext">申请年度</span>-->
+            <!--<span class="goodtext">申请批次</span>-->
             <!--<div>-->
               <!--<button type="button" class="scool-edit-name" disabled>2018年度</button>-->
             <!--</div>-->
 
           <!--</div>-->
           <div>
-            <span class="goodtext">申请年度</span>
+            <span class="goodtext">申请批次</span>
             <div id="doodname">
-              <%= f.input :project_season_id, as: :select, collection: Project.read_project.seasons.collect{|s| [s.name, s.id]}, include_blank: '请选择申请年度', label: false, input_html: {id: 'allcamps', required: true} %>
+              <%= f.input :project_season_id, as: :select, collection: Project.read_project.seasons.collect{|s| [s.name, s.id]}, include_blank: '请选择申请年度', label: false, required: true, input_html: {id: 'allcamps'} %>
             </div>
           </div>
           <div>
@@ -77,7 +77,7 @@
 
       </div>
   <div class="addchild-list addnewreads ">
-    <p class="don-title">收货地址</p>
+    <p class="don-title">收货信息</p>
     <div class="addchild-list-cont">
       <div>
         <span class="goodtext">收货人</span>
@@ -177,7 +177,6 @@
     $('.modified-2').calculate()
     $('.overspread-n').overs(".addnewclass");
 
-    var class_ids= []
     $(function () {
         initMultiImageWebuploader($('#images'), {}, 9);
 //        新增申请班级

@@ -15,4 +15,9 @@ every :hour do
   runner "IncomeRecord.update_income_statistic_record"
 end
 
+every 1.day, :at => '23:59 pm' do
+  runner "ProjectSeasonApplyBookshelf.clear_garbage"
+  runner "BookshelfSupplement.clear_garbage"
+end
+
 # Learn more: http://github.com/javan/whenever

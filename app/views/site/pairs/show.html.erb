@@ -7,7 +7,7 @@
       <div class="referral-cont">
         <p class="referral-cont-p"><%= @project.name %></p>
         <p class="referral-cont-m">已累计捐助 <span><%= @project.donate_record_amount_count %></span> 元</p>
-        <%= link_to new_donate_path do %><div class="referral-cont-but">捐助<%= @project.name %></div><% end %>
+        <%= link_to new_donate_path do %><button class="referral-cont-but">捐助<%= @project.name %></button><% end %>
       </div>
     </div>
   </div>

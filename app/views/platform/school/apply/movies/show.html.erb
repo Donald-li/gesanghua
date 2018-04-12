@@ -1,1 +1,34 @@
-观影详情页
+<div class="person-body-right pull-right">
+
+  <div style="display: block;">
+    <p class="don-title border-b ">
+      <span class="pull-left">观影项目申请详情</span>
+      <span class="pull-right iconfont icon-arrow-right"></span>
+      <span class="pull-right"><%= link_to platform_school_apply_movies_path do %>返回项目管理<% end %></span>
+    </p>
+    <div class="plat-school-apply-pair">
+      <p class="school-apply-pair-tit"><%= @apply.apply_name %></p>
+      <div class="school-apply-pair-table">
+        <p>申请详情</p>
+        <div class="school-apply-pair-table-cont">
+          <p><span>申请编号：</span><%= @apply.apply_no %></p>
+          <p><span>申请年度：</span><%= @apply.season.name %></p>
+        </div>
+      </div>
+      <div class="school-apply-pair-table">
+        <p>申请理由</p>
+        <div class="school-apply-pair-table-cont">
+          <p><%= @apply.describe.html_safe %></p>
+        </div>
+      </div>
+      <div class="don-co">
+        <div class="don-co-but cur" >
+          <a>
+            <span class="apply-show-btn"><%= @apply.enum_name(:audit_state) %></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

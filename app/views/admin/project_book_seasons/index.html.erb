@@ -51,7 +51,7 @@
                   <%= link_to edit_admin_project_book_season_path(season), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-edit"></i> 修改
                   <% end %>
-                  <%= link_to admin_project_book_season_path(season), class: 'btn btn-xs red', method: :delete, data: {confirm: '删除本年度，将会同时删除本年度下的所有申请记录，确定要删除吗？'} do %>
+                  <%= link_to admin_project_book_season_path(season), class: 'btn btn-xs red', method: :delete, data: {confirm: '删除本批次，将会同时删除本批次下的所有申请记录，确定要删除吗？'} do %>
                       <i class="fa fa-trash-o"></i> 删除
                   <% end %>
                 </td>
