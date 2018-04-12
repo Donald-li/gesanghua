@@ -19,6 +19,7 @@ fc3 = FundCategory.find_or_create_by(name: '观影', describe: '观影', kind: '
 fc4 = FundCategory.find_or_create_by(name: '探索营', describe: '探索营', kind: 'directional')
 fc5 = FundCategory.find_or_create_by(name: '广播', describe: '广播', kind: 'directional')
 fc6 = FundCategory.find_or_create_by(name: '护花', describe: '护花', kind: 'directional')
+fc7 = FundCategory.find_or_create_by(name: '活动', describe: '活动', kind: 'directional')
 
 # 二级财务分类
 fc_gesanghua.funds.find_or_create_by(name: "格桑花", management_rate: 0, describe: '格桑花非定向基金池', kind: fc_gesanghua.kind, use_kind: 'unrestricted')

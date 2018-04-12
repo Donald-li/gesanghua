@@ -12,45 +12,50 @@
     <div class="clearfix">
       <div class="pull-left">
         <p class="goodtext">昵称</p>
-        <!-- <input  class="goodinput" type="text"  /> -->
         <%= f.text_field :nickname, required: true, class: 'goodinput', placeholder: '' %>
       </div>
       <div class="pull-right">
         <p class="goodtext">真实姓名</p>
-        <!-- <input  class="goodinput" type="text"  /> -->
         <%= f.text_field :name, required: true, class: 'goodinput', placeholder: '' %>
       </div>
     </div>
     <div class="clearfix sexinput">
       <p class="goodtext pull-left">性别</p>
-      <div class="female pull-left">
-        <input type="radio" id="male" value="male" name="gender" />
-        <label for="male">男</label>
-      </div>
-      <div class="male pull-left">
-        <input type="radio" id="female" value="female" name="gender" checked/>
-        <label for="female">女</label>
-      </div>
+      <% if @offline_user.male? %>
+        <div class="female pull-left">
+          <input type="radio" id="male" value="male" name="gender" checked/>
+          <label for="male">男</label>
+        </div>
+        <div class="male pull-left">
+          <input type="radio" id="female" value="female" name="gender" />
+          <label for="female">女</label>
+        </div>
+      <% else %>
+        <div class="female pull-left">
+          <input type="radio" id="male" value="male" name="gender" />
+          <label for="male">男</label>
+        </div>
+        <div class="male pull-left">
+          <input type="radio" id="female" value="female" name="gender" checked/>
+          <label for="female">女</label>
+        </div>
+      <% end %>
     </div>
     <div class="clearfix">
       <div class="pull-left">
         <p class="goodtext">如何称呼</p>
-        <!-- <input  class="goodinput" type="text"  /> -->
         <%= f.text_field :salutation, class: 'goodinput', placeholder: '孩子如何称呼您' %>
       </div>
       <div class="pull-right">
         <p class="goodtext">联系电话</p>
-        <!-- <input  class="goodinput" type="text"  placeholder="请输入联系电话"/> -->
         <%= f.text_field :phone, required: true, class: 'goodinput', placeholder: '' %>
       </div>
     </div>
     <p class="goodtext">所在地区</p>
     <div class="city-picker-selector" id="city-picker-selector2"></div>
     <p class="goodtext">详细地址</p>
-    <!-- <input class="address-input" type="text"  placeholder="请输入详细地址"/> -->
     <%= f.text_field :address, class: 'address-input', placeholder: '请输入详细地址' %>
-    <!-- <div class="goodbut">保存</div> -->
-    <button class="btn goodbut" type="submit" id="save_form_btn" info="<%= action_name %>">保存</button>
+    <div style="text-align:center;"><button class="btn goodbut" type="submit" id="save_form_btn" info="<%= action_name %>">保存</button></div>
   </div>
 <% end %>
 

@@ -1,4 +1,5 @@
 class Site::GoodsController < Site::BaseController
+  before_action :set_project, only: [:index, :show]
 
   def detail
     @apply = ProjectSeasonApply.find(params[:id])
@@ -7,11 +8,6 @@ class Site::GoodsController < Site::BaseController
   end
 
   def index
-    if params[:type] == 'care'
-      @project = Project.care_project
-    elsif params[:type] == 'radio'
-      @project = Project.radio_project
-    end
     @total = ProjectSeasonApply.where(project: @project).show.raising.raise_project.pass.sorted.count
     scope = ProjectSeasonApply.where(project: @project).show.raising.raise_project.pass.sorted
     scope = scope.where("name like :q", q: "%#{params[:name]}%") if params[:name].present?
@@ -19,14 +15,14 @@ class Site::GoodsController < Site::BaseController
   end
 
   def show
-    if params[:id] == 'care'
-      @project = Project.care_project
-    elsif params[:id] == 'radio'
-      @project = Project.radio_project
-    end
     @total = ProjectSeasonApply.where(project: @project).show.raising.raise_project.pass.sorted.count
     @project_reports = @project.project_reports.project_report.show.sorted
     @donate_records = DonateRecord.where(project: @project).sorted.page(1).per(6)
+  end
+
+  private
+  def set_project
+    @project = Project.find(params[:id])
   end
 
 end
