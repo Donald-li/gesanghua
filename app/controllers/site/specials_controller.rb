@@ -3,6 +3,7 @@ class Site::SpecialsController < Site::BaseController
   def index
     scope = Special.show.sorted
     @specials = scope.page(params[:page]).per(8)
+    @recommend_articles = Article.visible.show.recommend.sorted
   end
 
   def show

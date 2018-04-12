@@ -18,49 +18,28 @@
         <li class="cur selectedDo">热门资讯</li>
       </ul>
     </div>
-    <div class="speciais-right-pos">
-      <%= image_tag 'activity-img.png' %>
-      <div class="speciais-con-con">
-        <div></div>
-        <p class="gsh-cont-2">为爱冲关---安徽卫视《男生女生向前冲》格桑花专场 孩子们和志愿者们一为爱冲关---安徽卫视《男生女生向前冲》格桑花专场 孩子们和志愿者们一</p>
-      </div>
-    </div>
-    <div class="clearfix speciais-right-cont">
-      <div class="speciais-con-img pull-left">
-        <%= image_tag 'ucenter-top-bg.png' %>
-      </div>
-      <div class="speciais-con-con pull-left">
-        <p class="gsh-cont-2">为爱冲关---安徽卫视《男生女生向前冲》格桑花专场 孩子们和志愿者们一</p>
-        <p class="gsh-cont-1">菠菜 |  2018年02月22日</p>
-      </div>
-    </div>
-    <div class="clearfix speciais-right-cont">
-      <div class="speciais-con-img pull-left">
-        <%= image_tag 'ucenter-top-bg.png' %>
-      </div>
-      <div class="speciais-con-con pull-left">
-        <p class="gsh-cont-2">为爱冲关---安徽卫视《男生女生向前冲》格桑花专场 孩子们和志愿者们一</p>
-        <p class="gsh-cont-1">菠菜 |  2018年02月22日</p>
-      </div>
-    </div>
-    <div class="clearfix speciais-right-cont">
-      <div class="speciais-con-img pull-left">
-        <%= image_tag 'ucenter-top-bg.png' %>
-      </div>
-      <div class="speciais-con-con pull-left">
-        <p class="gsh-cont-2">为爱冲关---安徽卫视《男生女生向前冲》格桑花专场 孩子们和志愿者们一</p>
-        <p class="gsh-cont-1">菠菜 |  2018年02月22日</p>
-      </div>
-    </div>
-    <div class="clearfix speciais-right-cont">
-      <div class="speciais-con-img pull-left">
-        <%= image_tag 'ucenter-top-bg.png' %>
-      </div>
-      <div class="speciais-con-con pull-left">
-        <p class="gsh-cont-2">为爱冲关---安徽卫视《男生女生向前冲》格桑花专场 孩子们和志愿者们一</p>
-        <p class="gsh-cont-1">菠菜 |  2018年02月22日</p>
-      </div>
-    </div>
+    <% @recommend_articles.limit(5).each do |recommend_article| %>
+      <%= link_to article_path(recommend_article) do %>
+        <div class="<%= recommend_article == @recommend_articles.first ? 'speciais-right-pos' : 'clearfix speciais-right-cont' %>">
+          <% if recommend_article != @recommend_articles.first %>
+            <div class="speciais-con-img pull-left">
+          <% end %>
+          <%= image_tag recommend_article.image.try(:file).try(:url, :tiny).to_s %>
+          <% if recommend_article != @recommend_articles.first %>
+            </div>
+          <% end %>
+          <div class="speciais-con-con <%= recommend_article == @recommend_articles.first ? '' : 'pull-left' %>">
+            <% if recommend_article == @recommend_articles.first %>
+              <div></div>
+            <% end %>
+            <p class="gsh-cont-2"><%= recommend_article.title %></p>
+            <% if recommend_article != @recommend_articles.first %>
+              <p class="gsh-cont-1"><%= recommend_article.author %> |  <%= recommend_article.published_at.strftime("%Y年%m月%d日") %></p>
+            <% end %>
+          </div>
+        </div>
+      <%end %>
+    <% end %>
   </div>
 
 </div>
