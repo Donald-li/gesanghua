@@ -17,10 +17,9 @@
         <div class="detail-cont-foot border-t ">
           <p>当前筹款<span>￥<%= @apply.present_amount %></span></p>
           <p>参与人数<span><%= @apply.donate_records.grouping(:user_id).count %>人</span></p>
-          <%= link_to donates_path(apply_id: @apply.id, type: 'read') do %>
-              <div class="overspread-show cur">我要捐助</div>
-          <% end %>
-
+          <a>
+            <div class="overspread-show cur">我要捐助</div>
+          </a>
         </div>
       </div>
     </div>
@@ -34,9 +33,9 @@
           <li class="selectedNav">
             <span>申请详情</span>
           </li>
-          <li>
-            <span>物品清单</span>
-          </li>
+          <!--<li>-->
+            <!--<span>物品清单</span>-->
+          <!--</li>-->
           <li>
             <span>执行反馈</span>
             <span class="navmark"><%#= @feedbacks.count %></span>
@@ -54,38 +53,38 @@
       <%#= image_tag 'detail-reduce.png' %>
     </div>
     <!--物品-->
-    <div class="pull-left detail-table-left contentab">
-      <table class="table table-bordered">
-        <thead>
-        <tr>
-          <th scope="col">物品名称</th>
-          <th scope="col">物品价格（元）</th>
-          <th scope="col">物品名称</th>
-          <th scope="col">物品价格（元）</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <th>生理卫生手册</th>
-          <td>3000.00</td>
-          <td>生理卫生手册</td>
-          <td>3000.00</td>
-        </tr>
-        <tr>
-          <th>生理卫生手册</th>
-          <td>3000.00</td>
-          <td>生理卫生手册</td>
-          <td>3000.00</td>
-        </tr>
-        <tr>
-          <th>生理卫生手册</th>
-          <td>3000.00</td>
-          <td>生理卫生手册</td>
-          <td>3000.00</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+    <!--<div class="pull-left detail-table-left contentab">-->
+      <!--<table class="table table-bordered">-->
+        <!--<thead>-->
+        <!--<tr>-->
+          <!--<th scope="col">物品名称</th>-->
+          <!--<th scope="col">物品价格（元）</th>-->
+          <!--<th scope="col">物品名称</th>-->
+          <!--<th scope="col">物品价格（元）</th>-->
+        <!--</tr>-->
+        <!--</thead>-->
+        <!--<tbody>-->
+        <!--<tr>-->
+          <!--<th>生理卫生手册</th>-->
+          <!--<td>3000.00</td>-->
+          <!--<td>生理卫生手册</td>-->
+          <!--<td>3000.00</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+          <!--<th>生理卫生手册</th>-->
+          <!--<td>3000.00</td>-->
+          <!--<td>生理卫生手册</td>-->
+          <!--<td>3000.00</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+          <!--<th>生理卫生手册</th>-->
+          <!--<td>3000.00</td>-->
+          <!--<td>生理卫生手册</td>-->
+          <!--<td>3000.00</td>-->
+        <!--</tr>-->
+        <!--</tbody>-->
+      <!--</table>-->
+    <!--</div>-->
     <!--反馈-->
     <div class="pull-left detail-body-left border-l contentab">
       <ul class="detail-body-ul">
@@ -140,87 +139,17 @@
         <p>选择捐助的班级</p>
         <div>
           <ul class="ui-choose" id="uc_01">
+            <% @apply.bookshelves.each do |bookshelf| %>
             <li class="cur">
-              <p>一年一班图书角</p>
-              <p>还差1300元 </p>
-            </li>
-            <li class="cur">
-              <p>一年一班图书角</p>
-              <p>还差1300元 </p>
+              <p><%= bookshelf.classname %></p>
+              <p>还差<%= bookshelf.surplus_money %>元 </p>
+              <% if bookshelf.present_amount == 0 %>
               <div>
                 <%= image_tag 'integer-read.png' %>
               </div>
+              <% end %>
             </li>
-            <li class="cur">
-              <p>一年一班图书角</p>
-              <p>还差1300元 </p>
-              <div>
-                <%= image_tag 'integer-read.png' %>
-              </div>
-            </li>
-            <li class="cur">
-              <p>一年一班图书角</p>
-              <p>还差1300元 </p>
-              <div>
-                <%= image_tag 'integer-read.png' %>
-              </div>
-            </li>
-            <li class="cur">
-              <p>一年一班图书角</p>
-              <p>还差1300元 </p>
-              <div>
-                <%= image_tag 'integer-read.png' %>
-              </div>
-            </li>
-            <li class="cur">
-              <p>一年一班图书角</p>
-              <p>还差1300元 </p>
-              <div>
-                <%= image_tag 'integer-read.png' %>
-              </div>
-            </li>
-            <li class="cur">
-              <p>一年一班图书角</p>
-              <p>还差1300元 </p>
-              <div>
-                <%= image_tag 'integer-read.png' %>
-              </div>
-            </li>
-            <li class="cur">
-              <p>一年一班图书角</p>
-              <p>还差1300元 </p>
-              <div>
-                <%= image_tag 'integer-read.png' %>
-              </div>
-            </li>
-            <li class="cur">
-              <p>一年一班图书角</p>
-              <p>还差1300元 </p>
-              <div>
-                <%= image_tag 'integer-read.png' %>
-              </div>
-            </li>
-            <li class="cur">
-              <p>一年一班图书角</p>
-              <p>还差1300元 </p>
-              <div>
-                <%= image_tag 'integer-read.png' %>
-              </div>
-            </li>
-            <li class="cur">
-              <p>一年一班图书角</p>
-              <p>还差1300元 </p>
-              <div>
-                <%= image_tag 'integer-read.png' %>
-              </div>
-            </li>
-            <li class="cur">
-              <p>一年一班图书角</p>
-              <p>还差1300元 </p>
-              <div>
-                <%= image_tag 'integer-read.png' %>
-              </div>
-            </li>
+            <% end %>
           </ul>
         </div>
       </div>
