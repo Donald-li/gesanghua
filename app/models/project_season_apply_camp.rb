@@ -22,7 +22,7 @@
 class ProjectSeasonApplyCamp < ApplicationRecord
 
   belongs_to :school
-  belongs_to :camp, optional: true # TODO: 这个是代表什么
+  belongs_to :camp, optional: true
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: :project_season_apply_id
   has_many :camp_members, class_name: 'ProjectSeasonApplyCampMember', dependent: :destroy
 
