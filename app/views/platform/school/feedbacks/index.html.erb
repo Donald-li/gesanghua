@@ -12,45 +12,9 @@
         <%# end %>
       </p>
     </div>
-    <% if @projects.present? %>
-      <div class="school-feedback">
-        <div class="donation-cont border-b">
-          <% @projects.each do |project| %>
-            <div class="clearfix">
-              <div class="donation-cont-img pull-left">
-                <%= image_tag project.try(:image).try(:file).try(:url, :tiny).to_s %>
-              </div>
-              <div class="pull-left feedback-cont-cco">
-                <div class="feedback-cont-c-tit clearfix">
-                  <p class="pull-left"><%= project.name %>项目定期反馈</p>
-                </div>
-                <% if project.continual_feedbacks.present? %>
-                  <div class="school-feed">
-                    <%= image_tag project.continual_feedbacks.last.user.user_avatar %>
-                    <span><%= project.continual_feedbacks.last.user.show_name %> ·</span>
-                    <span><%= project.continual_feedbacks.last.created_at.strftime("%Y-%m-%d")%>发布</span>
-                  </div>
-                <% end %>
-              </div>
-              <%= link_to platform_school_feedback_path(project) do %>
-                <div class="donation-cont-but pull-right cur">
-                  查看反馈详情
-                </div>
-              <% end %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-      <div class="project-foot">
-        <%= paginate @projects, theme: :tiny %>
-      </div>
-    <% else %>
-    <div class="donation-cont-no">
-      <div class="donation-co-no-c">
-        <p>暂无定期反馈</p>
-      </div>
+    <div id="data_list">
+      <%= render partial: "list" %>
     </div>
-    <% end %>
   </div>
 </div>
 

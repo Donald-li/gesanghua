@@ -5,6 +5,10 @@ class Platform::School::FeedbacksController < Platform::School::BaseController
   def index
     scope = Project.open_feedback.sorted
     @projects = scope.page(params[:page]).per(8)
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def show

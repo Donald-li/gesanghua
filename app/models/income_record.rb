@@ -89,6 +89,11 @@ class IncomeRecord < ApplicationRecord
     end
   end
 
+  # 总计捐助金额
+  def self.total_amount
+    self.sum(:amount).to_f
+  end
+
   # TODO: 这个还没实现
   def summary_builder
     Jbuilder.new do |json|
