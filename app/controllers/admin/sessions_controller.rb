@@ -44,6 +44,7 @@ class Admin::SessionsController < Admin::BaseController
 
   def set_current_user(admin)
     session[:user_id] = admin.id
+    Rails.cache.write("donate_project_#{admin.id}", Project.donate_project)
 
     # 因为后台现在只有一个登录入口，所以在这个方法里记登录日志
     # log = admin.administrator_logs.new(kind: 1, ip: request.remote_ip)

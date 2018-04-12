@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'https://gems.ruby-china.org/'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
@@ -162,3 +162,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'js-routes', '~> 1.3.0'               # URL helper at js in rails style
 gem 'toastr-rails'
+
+gem 'pry-rails'                   # Open pry instead of IRB when use rails console
+gem 'pry-byebug'
+
+
+
