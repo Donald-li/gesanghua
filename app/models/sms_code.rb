@@ -29,7 +29,7 @@ class SmsCode < ApplicationRecord
   def self.send_code(mobile, kind='signup')
     if valid_mobile?(mobile, kind)
       code = self.create(kind: kind, mobile: mobile, code: random)
-      code.send_message if code.valid? && Settings.send_sms == 'true'
+      code.send_message if code.valid? && Settings.send_sms == true
     else
       code = self.new(mobile: mobile, kind: kind, code: random)
       code.errors.add(:mobile, '您已发送过验证码，请输入验证码，或者1分钟后再次请求')
