@@ -1,5 +1,5 @@
 class Platform::School::Apply::ReadsController < Platform::School::BaseController
-  before_action :set_apply, only: [:show]
+  before_action :set_apply, only: [:show, :bookshelves, :supplements]
   before_action :set_school
 
   def index
@@ -10,7 +10,7 @@ class Platform::School::Apply::ReadsController < Platform::School::BaseControlle
   def show
   end
 
-  def supplement
+  def new_supplement
     @apply = ProjectSeasonApply.new
   end
 
@@ -53,6 +53,14 @@ class Platform::School::Apply::ReadsController < Platform::School::BaseControlle
     else
       redirect_to platform_school_apply_reads_path, notice: '您已经申请过本批次'
     end
+  end
+
+  def bookshelves
+    @bookshelves = @apply.bookshelves
+  end
+
+  def supplements
+    @supplements = @apply.supplements
   end
 
   private
