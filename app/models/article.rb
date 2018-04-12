@@ -33,6 +33,9 @@ class Article < ApplicationRecord
   enum kind: {simple: 1, special: 2}
   default_value_for :kind, 1
 
+  enum special_kind: {text_news: 1, image_news: 2}
+  default_value_for :special_kind, 1
+
   enum state: {show: 1, hidden: 2}
   default_value_for :state, 1
 

@@ -194,6 +194,14 @@ class DonateRecord < ApplicationRecord
     end.attributes!
   end
 
+  def self.select_record(agent_id, owner_id = nil)
+    if owner_id.present?
+      self.where(agent_id: agent_id, owner_id: owner_id)
+    else
+      self.where(agent_id: agent_id)
+    end
+  end
+
   private
 
   # 补充捐助记录信息

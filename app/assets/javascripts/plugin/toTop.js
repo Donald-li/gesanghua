@@ -8,7 +8,7 @@ jQuery(document).ready(function($) {
 					right:'15px',
 					position:'fixed',
 					cursor:'pointer',
-					zIndex:'222',
+					zIndex:'1',
                     background:'#fff',
                     border:'1px solid #e6e6e6',
                     textAlign:'center',

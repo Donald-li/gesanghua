@@ -1,99 +1,99 @@
-<div class="person-body-right pull-right" id="school-edit" >
-  <div >
+<% content_for :styles do %>
+  <%= stylesheet_link_tag "controllers/orders/index" %>
+<% end %>
+
+<% content_for :scripts do %>
+  <%= javascript_include_tag "controllers/profiles/index" %>
+<% end %>
+
+<% if @profile.new_record? %>
+  <% url_path = account_offline_users_path %>
+  <% method_way = "post" %>
+<% else %>
+  <% url_path = platform_school_profile_path %>
+  <% method_way = "put" %>
+<% end %>
+
+<div class="person-body-right pull-right" id="school-edit">
+  <div>
     <p class="don-title border-b ">
       <span class="pull-left">学校资料</span>
     </p>
   </div>
-  <div class=" marginbottom">
-
-    <div class="addchild-list-img">
-      <%= image_tag 'gsh-img-right.png' %>
-      <div></div>
-      <span>上传logo</span>
+  <%= simple_form_for @profile, url: url_path, method: method_way, html: {'data-parsley-validate': true, id: 'profile_form', method_way: method_way} do |f| %>
+    <%= hidden_field_tag "school[id]", @profile["id"] %>
+    <div class=" marginbottom">
+      <div style="margin-left: 356px; margin-top: 30px;">
+        <%= webuploader_tag :logo_id, label: '上传Logo', type: 'school_logo', asset: @profile.logo, klass: 'single' %>
+      </div>
+      <p class="don-titln">学校信息</p>
+      <div class="addchild-list-cont">
+        <div>
+          <span class="goodtext">学校全称</span>
+          <div>
+            <%= f.text_field :name, required: true, placeholder: '', class: "scool-edit-name", disabled: "disabled" %>
+          </div>
+        </div>
+        <div>
+          <span class="goodtext">所在地区</span>
+          <div style="margin-bottom: 20px;" class="form-group">
+            <div class="city-picker-selector city-group">
+              <%= select_tag 'user[province]', options_for_select(ChinaCity.list, @profile.province.presence), prompt: '省份', class: "selector-item storey province city-select" %>
+              <%= select_tag 'user[city]', options_for_select(ChinaCity.list(@profile.province.to_s), @profile.city.presence), prompt: '城市', class: "selector-item storey city city-select" %>
+              <%= select_tag 'user[district]', options_for_select(ChinaCity.list(@profile.city.to_s), @profile.district.presence), prompt: '地区', class: "selector-item storey district city-select" %>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span class="goodtext">详细地址</span>
+          <%= f.text_field :address, placeholder: '请输入详细地址', class: "goodinput " %>
+        </div>
+        <div>
+          <span class="goodtext">邮政编码</span>
+          <div>
+            <%= f.text_field :postcode, placeholder: '请输入邮政编码', class: "goodinput " %>
+          </div>
+        </div>
+        <div>
+          <span class="goodtext">学生人数</span>
+          <div>
+            <%= f.text_field :number, placeholder: '请输入学生人数', class: "goodinput " %>
+            <span class="income-moy">人</span>
+          </div>
+        </div>
+        <div>
+          <span class="goodtext">教师人数</span>
+          <div>
+            <%= f.text_field :teacher_count, placeholder: '请输入教师人数', class: "goodinput " %>
+            <span class="income-moy">人</span>
+          </div>
+        </div>
+        <div>
+          <span class="goodtext">后勤人数</span>
+          <div>
+            <%= f.text_field :logistic_count, placeholder: '请输入后勤人数', class: "goodinput " %>
+            <span class="income-moy">人</span>
+          </div>
+        </div>
+        <div style="height: 180px;width: 777px;">
+          <span class="goodtext">学校简介</span>
+          <%= f.text_area :describe, placeholder: '请输入学校简介', style: "padding: 5px 13px" %>
+        </div>
+      </div>
+      <div class="childern-submint">
+        <input class="btn  save-btn" id="save_form_btn" name="commit" value="保存" type="button" info="<%= action_name %>">
+        <%= link_to "取消", platform_school_apply_pairs_path, class: "btn cancel-btn" %>
+      </div>
     </div>
-    <p class="don-titln">学校信息</p>
-    <div class="addchild-list-cont">
-      <div>
-        <span class="goodtext">学校全称</span>
-        <div>
-          <button type="button" class="scool-edit-name" disabled>大西庄村小学</button>
-        </div>
-
-      </div>
-
-
-    <div>
-      <span class="goodtext">所在地区</span>
-      <div class="city-picker-selector" id="city-picker-selector"></div>
-    </div>
-      <div>
-        <span class="goodtext">详细地址</span>
-        <input  class="goodinput " type="text"  placeholder="请输入详细地址"/>
-      </div>
-      <div>
-        <span class="goodtext">邮政编码</span>
-        <div>
-          <input  class="goodinput " type="text"  />
-        </div>
-      </div>
-      <div>
-        <span class="goodtext">学生人数</span>
-        <div>
-          <input  class="goodinput " type="text"  />
-          <span class="income-moy">人</span>
-        </div>
-      </div>
-      <div>
-        <span class="goodtext">教师人数</span>
-        <div>
-          <input  class="goodinput " type="text"  />
-          <span class="income-moy">人</span>
-        </div>
-      </div>
-      <div>
-        <span class="goodtext">后勤人数</span>
-        <div>
-          <input  class="goodinput " type="text"  />
-          <span class="income-moy">人</span>
-        </div>
-      </div>
-      <div style="height: 180px;width: 777px;">
-        <span class="goodtext">学校简介</span>
-        <textarea></textarea>
-      </div>
-    </div>
-    <div class="childern-submint">
-      <button>保存</button>
-      <button>取消</button>
-    </div>
-  </div>
-
-
+  <% end %>
 
 
 </div>
 <script>
-    // 模拟城市-无联动/无搜索
-    var selector1 = $('#city-picker-selector').cityPicker({
-        dataJson: cityData,
-        renderMode: true,
-        search: false,
-        autoSelected: false,
-        code: 'cityCode',
-        level: 3
-    });
-    $("#allcamps").select({
-        width: "452px"
-    });
-    $("#grade1").select({
-        width: "145px"
-    });
-    $("#grade2").select({
-        width: "145px"
-    });
-    $("#class").select({
-        width: "142px"
-    });
+  $(function () {
+    initImageWebuploader($('#webuploader'));
+  })
+
 
 </script>
 

@@ -13,6 +13,7 @@ namespace :platform do
         end
       end
       resources :reads do
+        resources :bookshelves
         collection do
           get :supplement
           post :create_supplement
