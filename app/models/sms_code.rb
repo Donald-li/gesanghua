@@ -56,16 +56,7 @@ class SmsCode < ApplicationRecord
   end
 
   def send_message
-    case self.kind.to_s
-    when 'signup'
-      Sms.to self.mobile, code #  "【#{Settings.site_name}】验证码为#{code}，有效时间5分钟，请在页面中输入以完成验证。"
-    when 'find_password'
-      Sms.to self.mobile, code #  "【#{Settings.site_name}】验证码为#{code}，有效时间5分钟，请在页面中输入以完成验证。"
-    when 'change_mobile'
-      Sms.to self.mobile, code #  "【#{Settings.site_name}】验证码为#{code}，有效时间5分钟，请在页面中输入以完成验证。"
-    when 'verify_profile'
-      Sms.to self.mobile, code #  "【#{Settings.site_name}】验证码为#{code}，有效时间5分钟，请在页面中输入以完成验证。"
-    end
+    Baidu.send_sms mobile: self.mobile, code: code, type: self.kind
   end
 
   def set_verified

@@ -6,7 +6,7 @@ module Baidu
   ACCESS_ID = '18bf2b9a12834efebc1643bdf4efb933'
   SECRET_KEY = '736cf755dc6142768dcd18052c7c7520'
   SMS_HOST = 'sms.bj.baidubce.com'
-  SMS_INVOKE_ID = 'd2iL60UT-7N8-22368'
+  SMS_INVOKE_ID = '9zwgVSqL-G3ux-pfry'
   SMS_TEMPLATE_CODE = 'smsTpl:e7476122a1c24e37b3b0de19d04ae900'
 
   # 签名的算法
@@ -28,17 +28,23 @@ module Baidu
     "#{signing_str}/#{signed_headers}/#{signature}"
   end
 
-  def self.send_sms()
+  def self.send_sms(code: '', mobile: '', type: :signup)
+    templates = {
+      find_password: 'smsTpl:e7476122a1c24e37b3b0de19d04ae903',
+    }
+
+    template  = templates[type.to_sym] || 'smsTpl:e7476122a1c24e37b3b0de19d04ae901' # 通用的
+
     path = '/bce/v2/message'
     timestamp = Time.now.utc.strftime('%FT%TZ')
     method = 'POST'
-    content = {
+    body = {
       invokeId: SMS_INVOKE_ID,
-      phoneNumber: '18601299553',
-      templateCode: SMS_TEMPLATE_CODE,
-      contentVar: {code: '2912'}
-    }
-    signed_content = Digest::SHA256.hexdigest(content.to_json)
+      phoneNumber: mobile,
+      templateCode: template,
+      contentVar: {code: code.to_s}
+    }.to_json
+    signed_content = Digest::SHA256.hexdigest(body)
 
     headers = {
       'Host': SMS_HOST,
@@ -46,16 +52,12 @@ module Baidu
       'x-bce-date': timestamp,
       'x-bce-content-sha256': signed_content
     }
-    auth_str = auth_str(method: method, url: path, timestamp: timestamp, headers: headers),
-
+    auth_str = auth_str(method: method, url: path, timestamp: timestamp, headers: headers)
     headers.merge!(Authorization: auth_str)
 
     http = Net::HTTP.new(SMS_HOST)
-    req = Net::HTTP::Post.new(path, headers)
-    req.set_form_data(content)
-    res = http.request(req)
+    res = http.post(path, body, headers)
     JSON.parse(res.body)
-
   end
 
   def self.send_test
