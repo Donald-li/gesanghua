@@ -1,8 +1,4 @@
-﻿
-//版本 1.0
-//作者：聂未
-
-; (function ($, window, document, undefined) {
+﻿(function ($, window, document, undefined) {
     $.fn.extend({
         select: function (options) {
 

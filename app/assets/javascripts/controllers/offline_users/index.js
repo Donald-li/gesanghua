@@ -8,7 +8,7 @@ $(function () {
     url = Routes.edit_account_offline_user_path({
       id: $(this).attr("offlineUserId")
     });
-    console.log(35)
+
     return $modal.load(url, function (response, status, xhr) {
        $(".panel-title").text("编辑捐助人信息")
       return $modal.modal({

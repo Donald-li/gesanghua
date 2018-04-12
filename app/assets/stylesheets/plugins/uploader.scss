@@ -187,7 +187,7 @@
   }
 }
 
-//pc图片上传
+//pc多图片上传
 .image-upload-wrap {
   position: absolute;
   left:0;
@@ -292,6 +292,124 @@
           }
           strong {
             margin-top: 8px;
+            display: block;
+            font-size: 10px;
+            font-weight: normal;
+            color: #8D8D8D;
+          }
+        }
+        img {
+          vertical-align: top;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+}
+//pc单图片上传
+.single-image-upload-wrap {
+  position: absolute;
+  left:0;
+  top:0;
+  width: 672px;
+  &.single {
+    .upload-pick {
+      position: absolute!important;
+    }
+  }
+  .upload-tit {
+    margin-bottom: 10px;
+    font-size: 15px;
+  }
+  .upload-body {
+    .upload-list {
+      margin: 0;
+      padding-left: 0;
+      list-style: none;
+      @include clearfix();
+      min-height: 156px;
+      li {
+        position: relative;
+        float: left;
+        width: 156px;
+        height: 156px;
+        padding: 0;
+        @include border-radius(0);
+        margin-right: 10px;
+        margin-bottom: 10px;
+        border: 1px solid $color-border;
+        overflow: hidden;
+        &.file-item {
+          .state {
+            margin: 0;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            text-align: center;
+            background: #000000;
+            color: #fff;
+            font-size: 10px;
+            padding: 2px;
+          }
+          .progress-bar {
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #4CAF50;
+            height: 3px;
+          }
+          .delete {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 20px;
+            height: 20px;
+            background: #ff4646;
+            text-align: center;
+            line-height: 20px;
+            color: #fff;
+            font-size: 14px;
+            z-index: 1;
+          }
+        }
+        &.upload-pick {
+          margin-right: 0;
+          line-height: 1;
+          color: $color-border;
+          text-align: center;
+          border: none;
+          .iconfont {
+            padding-top: 51px;
+            margin-right: 0;
+            font-size: 22px;
+            color: #8d8d8d;
+          }
+          .webuploader-pick {
+            width: 100%;
+            height: 100%;
+          }
+          .webuploader-element-invisible {
+            position: absolute !important;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1111;
+            clip: auto;
+            @include opacity(0);
+          }
+          span {
+            padding-top: 35px;
+            line-height: 1;
+            display: block;
+            i {
+              font-size: 25px;
+            }
+          }
+          strong {
+            margin-top: 51px;
             display: block;
             font-size: 10px;
             font-weight: normal;

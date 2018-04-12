@@ -10,4 +10,8 @@ class ArticleImageUploader < BaseUploader
     process :resize_to_fill => [360, 208]
   end
 
+  version :large do
+    process :resize_to_fill => [1014, 604]
+  end
+
 end

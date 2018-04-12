@@ -11,7 +11,7 @@
 // about supported directives.
 //
 //= require js-routes
-//= require jquery3
+//= require jquery
 //= require rails-ujs
 //= require 'china_city/jquery.china_city'
 //= require 'plugin/jquery.timeago'
@@ -27,8 +27,8 @@
 //= require 'plugin/jquery.let_it_snow.js'
 //= require 'plugin/checkbox.js'
 //= require 'plugin/progresscircle.js'
-//= require 'plugin/cityPicker-2.0.0.js'
-//= require 'plugin/citydata.min.js'
+// require 'plugin/cityPicker-2.0.0.js'
+// require 'plugin/citydata.min.js'
 //= require 'plugin/tab-nav.js'
 //= require 'plugin/timeago.js'
 //require 'plugin/jquery.select.js'
@@ -38,8 +38,12 @@
 //= require 'plugin/mongolian.js'
 //= require 'plugin/jquery.magnify.js'
 //= require 'plugin/calculate.js'
+//= require toastr
 //= require 'plugin/popper.min.js'
-// require 'plugin/toastr.js'
+//= require 'plugin/parsley.min.js'
+//= require 'plugin/parsley.min.js'
+//= require 'plugin/parsley.min.zextra.js'
+//= require 'plugin/parsley.min.zh_cn.js'
 
 
 

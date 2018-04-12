@@ -85,4 +85,99 @@ class Support::AjaxesController < Support::BaseController
     end
   end
 
+  def create_read_bookshelf
+    @bookshelf = ProjectSeasonApplyBookshelf.new(
+        classname: params[:classname],
+        student_number: params[:number],
+        school: current_user.school,
+        province: current_user.school.try(:province),
+        city: current_user.school.try(:city),
+        district: current_user.school.try(:district),
+        project: Project.read_project
+    )
+    if @bookshelf.save
+      render json: {message: '保存成功', status: true, bookshelf: @bookshelf}
+    else
+      render json: {message: '保存失败，请重试', status: false}
+    end
+  end
+
+  def edit_read_bookshelf
+    @bookshelf = ProjectSeasonApplyBookshelf.find(params[:id])
+    if @bookshelf.present?
+      render json: {message: '获取成功', status: true, bookshelf: @bookshelf}
+    else
+      render json: {message: '获取失败，请重试', status: false}
+    end
+  end
+
+  def update_read_bookshelf
+    @bookshelf = ProjectSeasonApplyBookshelf.find(params[:id])
+    if @bookshelf.update(classname: params[:classname], student_number: params[:number])
+      render json: {message: '修改成功', status: true, bookshelf: @bookshelf}
+    else
+      render json: {message: '修改失败，请重试', status: false}
+    end
+  end
+
+  def delete_read_bookshelf
+    @bookshelf = ProjectSeasonApplyBookshelf.find(params[:id])
+    if @bookshelf.destroy
+      render json: {message: '删除成功', status: true}
+    else
+      render json: {message: '删除失败，请重试', status: false}
+    end
+  end
+
+  def new_read_supplement
+    @school = current_user.teacher.school
+    @bookshelves = @school.bookshelves.where.not(id: params[:bookshelf_ids]).pass_done
+    if @bookshelves.present?
+      render json: {message: '获取成功', status: true, bookshelves: @bookshelves}
+    else
+      render json: {message: '没有可补书班级', status: false}
+    end
+  end
+
+  def create_read_supplement
+    @bookshelf = ProjectSeasonApplyBookshelf.find(params[:bookshelf_id])
+    @supplement = @bookshelf.supplements.new
+    @supplement.loss = params[:loss]
+    @supplement.supply = params[:supply]
+    if @supplement.save
+      render json: {message: '保存成功', status: true, supplement: @supplement, bookshelf: @bookshelf}
+    else
+      render json: {message: '保存失败，请重试', status: false}
+    end
+  end
+
+  def edit_read_supplement
+    @supplement = BookshelfSupplement.find(params[:supplement_id])
+    @bookshelf = @supplement.bookshelf
+    if @supplement.present?
+      render json: {message: '获取成功', status: true, supplement: @supplement, bookshelf: @bookshelf}
+    else
+      render json: {message: '获取失败，请重试', status: false}
+    end
+  end
+
+  def update_read_supplement
+    @supplement = BookshelfSupplement.find(params[:supplement_id])
+    @bookshelf = @supplement.bookshelf
+    if @supplement.update(loss: params[:loss], supply: params[:supply])
+      render json: {message: '修改成功', status: true, supplement: @supplement, bookshelf: @bookshelf}
+    else
+      render json: {message: '修改失败，请重试', status: false}
+    end
+  end
+
+  def delete_read_supplement
+    @supplement = BookshelfSupplement.find(params[:supplement_id])
+    if @supplement.destroy
+      render json: {message: '删除成功', status: true}
+    else
+      render json: {message: '删除失败，请重试', status: false}
+    end
+  end
+
 end

@@ -1,46 +1,43 @@
 <div id="article">
   <div class="article-img">
     <%= image_tag @special.banner.try(:file).try(:url, :large).to_s %>
-    <!-- <%= image_tag 'news-listpage.png' %> -->
   </div>
   <div class="article-title border-b">
     <button class="article-but cur">专题</button>
-    <!-- <p class="article-font">在醋香四溢的城市里  我们收获的不只是爱心</p> -->
     <p class="article-font"><%= @special.name %></p>
-    <!-- <p class="article-con read-more">长江上游的水横穿中国，流到下游不仅滋养了镇江，滋养的产物还被镇江人们酿成了醋。镇江可是闻名全中国的醋生产地，就小编个人来说，从</p> -->
     <p class="article-con read-more"><%= @special.describe.html_safe %></p>
   </div>
   <div class="article-read border-b">
     <p>专题导读</p>
     <div class="article-reads clearfix">
       <div class="pull-left">
-        <%= link_to @special_advert.url do %>
-        <div class="pull-left-img">
-          <!-- <%= image_tag 'news-listpage.png' %> -->
-          <%= image_tag @special_advert.image.try(:file).try(:url, :tiny).to_s %>
-          <div class="pull-left-cont">
-            <p>01</p>
-            <!-- <p>生活即教育，在城市中深度远行 | 2016年格桑花苏州 拓展营记</p> -->
-            <p><%= @special_advert.title %></p>
+        <% if @text_news.first.present? %>
+          <%= link_to article_path(@text_news.first) do %>
+          <div class="pull-left-img">
+            <%= image_tag @text_news.first.image_url(:large).to_s %>
+            <div class="pull-left-cont">
+              <p>01</p>
+              <p><%= @text_news.first.title %></p>
+            </div>
           </div>
-        </div>
+          <% end %>
         <% end %>
       </div>
       <div class="pull-left">
-        <% if @special_article1.present? %>
+        <% if @text_news && @text_news.second.present? %>
           <div>
             <p class="gsh-cont-num">02</p>
-            <p class="gsh-cont-1"><%= @special_article1.author %> | <%= @special_article1.published_at.strftime("%Y年%m月%d日") %></p>
-            <p class="gsh-cont-2"><%= @special_article1.title %></p>
-            <p class="gsh-cont-3"><%= @special_article1.describe %></p>
+            <p class="gsh-cont-1"><%= @text_news.second.author %> | <%= @text_news.second.published_at.strftime("%Y年%m月%d日") %></p>
+            <p class="gsh-cont-2"><%= @text_news.second.title %></p>
+            <p class="gsh-cont-3"><%= @text_news.second.describe %></p>
           </div>
         <% end %>
-        <% if @special_article2.present? %>
+        <% if @text_news && @text_news.third.present? %>
           <div>
             <p class="gsh-cont-num">03</p>
-            <p class="gsh-cont-1"><%= @special_article2.author %> | <%= @special_article2.published_at.strftime("%Y年%m月%d日") %></p>
-            <p class="gsh-cont-2"><%= @special_article2.title %></p>
-            <p class="gsh-cont-3"><%= @special_article2.describe %></p>
+            <p class="gsh-cont-1"><%= @text_news.third.author %> | <%= @text_news.third.published_at.strftime("%Y年%m月%d日") %></p>
+            <p class="gsh-cont-2"><%= @text_news.third.title %></p>
+            <p class="gsh-cont-3"><%= @text_news.third.describe %></p>
           </div>
         <% end %>
 
@@ -51,14 +48,14 @@
     <div class="recommend">
       <p>最新资讯</p>
       <div class="row recommend-cont">
-        <% @articles.each do |article| %>
+        <% @image_news.each do |image_new| %>
           <div class="col-md-4">
-            <%= link_to article_path(article) do %>
+            <%= link_to article_path(image_new) do %>
               <div class="recommend-img">
-                <%= image_tag article.image.try(:file).try(:url, :medium).to_s %>
+                <%= image_tag image_new.image.try(:file).try(:url, :large).to_s %>
               </div>
-              <p class="gsh-cont-1"><%= article.author %> | <%= article.published_at.strftime("%Y年%m月%d日")%></p>
-              <p class="gsh-cont-2"><%= article.title %></p>
+              <p class="gsh-cont-1"><%= image_new.author %> | <%= image_new.published_at.strftime("%Y年%m月%d日")%></p>
+              <p class="gsh-cont-2"><%= image_new.title %></p>
             <% end %>
           </div>
         <% end %>
@@ -66,7 +63,7 @@
     </div>
   </div>
   <div class="project-foot">
-    <%= paginate @articles, theme: :tiny %>
+    <%= paginate @image_news, theme: :tiny %>
   </div>
   <div class="camps-share " >
     <p style="margin: 30px auto 0 auto;">分享</p>

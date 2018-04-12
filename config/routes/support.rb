@@ -34,6 +34,15 @@ scope module: :support do
       post :submit_child_reason
       post :submit_member_reason
       post :submit_camp_members
+      post :create_read_bookshelf
+      get :edit_read_bookshelf
+      post :update_read_bookshelf
+      post :delete_read_bookshelf
+      get :new_read_supplement
+      post :create_read_supplement
+      get :edit_read_supplement
+      post :update_read_supplement
+      post :delete_read_supplement
     end
   end
 end

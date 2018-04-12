@@ -3,98 +3,89 @@
     <p class="don-title">
       <span class="pull-left">图书角补书申请</span>
       <span class="pull-right iconfont icon-arrow-right"></span>
-      <span class="pull-right">返回</span>
+      <span class="pull-right"><%= link_to '返回', platform_school_apply_reads_path %></span>
     </p>
   </div>
-  <div class="addchild-list marginbottom">
-    <p class="don-title">申请信息</p>
-    <div class="addchild-list-cont">
-      <div>
-        <span class="goodtext">申请学校</span>
-        <div>
-          <button type="button" class="scool-edit-name" disabled>涿鹿县北晨中学</button>
-        </div>
+  <%= simple_form_for [:platform, @apply], url: create_supplement_platform_school_apply_reads_path, html: {'data-parsley-validate': true, class: 'user_form'} do |f| %>
+      <div class="addchild-list marginbottom">
+        <p class="don-title">申请信息</p>
+        <div class="addchild-list-cont">
+          <div>
+            <span class="goodtext">申请学校</span>
+            <div>
+              <button type="button" class="scool-edit-name" disabled><%= @school.name %></button>
+            </div>
 
-      </div>
-      <div>
-        <span class="goodtext">申请年度</span>
-        <div>
-          <button type="button" class="scool-edit-name" disabled>2018年度</button>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-
-  <div class="addchild-list addchild-list-up marginbottom">
-    <p class="don-title">补书申请班级管理</p>
-    <div class="reads-new-cont">
-      <div>
-      <div class="clearfix" style="height: 72px;">
-        <p >一年级一班</p>
-        <p >损耗：<span>10本</span>   补书：<span>20本</span>    </p>
-        <div class="clearfix don-con-pos">
-          <div class="pull-right cur delete-offline-user">
-            <span class="iconfont icon-ico-delete1"></span>
-            <span>删除</span>
           </div>
-          <div class="pull-right cur edit-offline-user">
-            <span class="iconfont icon-ico-edit "></span>
-            <span>编辑</span>
+          <div>
+            <span class="goodtext">申请年度</span>
+            <div id="doodname">
+              <%= f.input :project_season_id, as: :select, collection: Project.read_project.seasons.collect {|s| [s.name, s.id]}, include_blank: '请选择申请年度', label: false, input_html: {id: 'allcamps', required: true} %>
+            </div>
           </div>
         </div>
       </div>
-  </div>
-      <button class="school-apply-share-sub addnewclass">
-        <span class="iconfont icon-ico-add1"></span>
-        <span>新增补书班级</span>
-      </button>
-    </div>
-    <div class="addchild-list-cont ">
-      <div>
-        <span class="goodtext">申请理由</span>
-        <textarea ></textarea>
-      </div>
-      <div>
-        <span class="goodtext">上传图片</span>
-        <div  >
-          <div class="addchild-list-up-picture pull-left">
-            <p class="iconfont icon-ico-add"></p>
-            <p>上传反馈图片</p>
+
+
+      <div class="addchild-list addchild-list-up marginbottom">
+        <p class="don-title">补书申请班级管理</p>
+        <div class="reads-new-cont">
+          <div id="supplement-list">
+          </div>
+          <button type="button" class="school-apply-share-sub addnewclass" id="get-bookshelves">
+            <span class="iconfont icon-ico-add1"></span>
+            <span>新增补书班级</span>
+          </button>
+        </div>
+        <div class="addchild-list-cont ">
+          <div>
+            <span class="goodtext">申请理由</span>
+            <textarea name="project_season_apply[describe]" required></textarea>
+          </div>
+          <div>
+            <span class="goodtext">上传图片</span>
+            <div>
+              <div class="addchild-list-up-picture pull-left">
+                <%= webuploader_images 'image_ids[]', label: '上传图片', type: 'project_season_apply_image', asset: @apply.images, id: 'images' %>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
 
-  </div>
-  <div class="addchild-list addnewreads ">
-    <p class="don-title">收货地址</p>
-    <div class="addchild-list-cont">
-      <div>
-        <span class="goodtext">收货人</span>
-        <input  class="goodinput " type="text" name="project_season_apply_child[father]" placeholder="请填写收货人姓名" />
       </div>
-      <div>
-        <span class="goodtext">所在地区</span>
-        <div class="city-picker-selector" id="city-picker-selector"></div>
-      </div>
-      <div>
-        <span class="goodtext">联系电话</span>
-        <input  class="goodinput " type="text" name="project_season_apply_child[father_job]"  />
-      </div>
-      <div>
-        <span class="goodtext">详细地址</span>
-        <input  class="goodinput " type="text" name="project_season_apply_child[mother]" placeholder="请输入详细地址" />
-      </div>
+      <div class="addchild-list addnewreads ">
+        <p class="don-title">收货地址</p>
+        <div class="addchild-list-cont">
+          <div>
+            <span class="goodtext">收货人</span>
+            <input class="goodinput " type="text" name="project_season_apply[consignee]" placeholder="请填写收货人姓名"/>
+          </div>
+          <div>
+            <span class="goodtext">联系电话</span>
+            <input class="goodinput " type="text" name="project_season_apply[consignee_phone]"/>
+          </div>
+          <div>
+            <span class="goodtext">所在地区</span>
+            <div class="city-group">
+              <%= select_tag 'project_season_apply[province]', options_for_select(ChinaCity.list, @apply.province.presence), prompt: '省份', class: "city-select", id: 'province', required: true %>
+              <%= select_tag 'project_season_apply[city]', options_for_select(ChinaCity.list(@apply.province.to_s), @apply.city.presence), prompt: '城市', class: "city-select", id: 'city', required: true %>
+              <%= select_tag 'project_season_apply[district]', options_for_select(ChinaCity.list(@apply.city.to_s), @apply.district.presence), prompt: '地区', class: "city-select", id: 'district', required: true %>
+            </div>
+          </div>
 
-    </div>
-  </div>
-  <div class="childern-submint">
-    <button type="submit">保存</button>
-    <button >取消</button>
-    <%#= link_to '取消', child_list_platform_school_apply_pair_children_path(@apply) %>
-  </div>
+          <div>
+            <span class="goodtext">详细地址</span>
+            <input class="goodinput " type="text" name="project_season_apply[address]" placeholder="请输入详细地址"/>
+          </div>
+
+        </div>
+      </div>
+      <div class="childern-submint">
+        <button type="submit">保存</button>
+        <!--<button >取消</button>-->
+        <%= link_to '取消', platform_school_apply_reads_path %>
+      </div>
+  <% end %>
   <div class="overspread-5 overspread-e">
     <div class="overspread-over"></div>
     <div class="overspread-cont">
@@ -102,70 +93,59 @@
         <div class="pull-left mys-1">编辑补书申请班级</div>
         <div class="pull-right iconfont icon-icondelete cur overspread-but"></div>
       </div>
-      <div class="overspread-constend" >
+      <div class="overspread-constend" id="edit-supplement">
         <div class="supplements">
+          <input type="number" id="supplement-id" hidden>
           <p class="goodtext">选择班级</p>
-          <select id="campstype" name="q[execute_state]">
-            <option value="">活动状态</option>
-            <option value="draft">活动未开始</option>
-            <option value="submit">活动报名中</option>
-            <option value="to_do">报名已结束</option>
-            <option value="doing">活动进行中</option>
-            <option value="done">活动已完成</option>
+          <select id="selected-class" disabled>
           </select>
         </div>
         <div class="overspread-const">
           <div class=" overclass">
             <p class="goodtext">损耗数量</p>
-            <input type="text" />
+            <input type="text" id="loss"/>
             <span>本</span>
           </div>
           <div class=" overclass">
             <p class="goodtext">补充数量</p>
-            <input type="text" />
+            <input type="text" id="supply"/>
             <span>本</span>
           </div>
         </div>
 
       </div>
-      <div class="overspreadsc-but overspread-but  over-but">添加</div>
+      <div class="overspreadsc-but overspread-but  over-but" id="update-supplement">保存</div>
 
     </div>
   </div>
-  <div class="overspread-5 overspread-n">
+  <div class="overspread-5 overspread-n" id="add-supplement">
     <div class="overspread-over"></div>
     <div class="overspread-cont">
       <div class="clearfix">
         <div class="pull-left mys-1">新增补书申请班级</div>
         <div class="pull-right iconfont icon-icondelete cur overspread-but"></div>
       </div>
-      <div class="overspread-constend" >
+      <div class="overspread-constend" id="new-supplement">
         <div class="supplements">
           <p class="goodtext">选择班级</p>
-          <select id="campstyp" name="q[execute_state]">
-            <option value="">活动状态</option>
-            <option value="draft">活动未开始</option>
-            <option value="submit">活动报名中</option>
-            <option value="to_do">报名已结束</option>
-            <option value="doing">活动进行中</option>
-            <option value="done">活动已完成</option>
+          <select id="select-class">
           </select>
         </div>
         <div class="overspread-const">
           <div class=" overclass">
             <p class="goodtext">损耗数量</p>
-            <input type="text" />
+            <input type="text" id="loss"/>
             <span>本</span>
           </div>
           <div class=" overclass">
             <p class="goodtext">补充数量</p>
-            <input type="text" />
+            <input type="text" id="supply"/>
             <span>本</span>
           </div>
         </div>
 
       </div>
-      <div class="overspreadsc-but overspread-but  over-but">添加</div>
+      <div class="overspreadsc-but overspread-but over-but" id="create-supplement">添加</div>
 
     </div>
   </div>
@@ -174,23 +154,197 @@
 
 
 <script>
-    // 模拟城市-无联动/无搜索
-    var selector1 = $('#city-picker-selector').cityPicker({
-        dataJson: cityData,
-        renderMode: true,
-        search: false,
-        autoSelected: false,
-        code: 'cityCode',
-        level: 3
+    $(function () {
+        initMultiImageWebuploader($('#images'));
+        $('#get-bookshelves').click(getSupplement);
+        $('#create-supplement').click(createSupplement);
+        $('#update-supplement').click(updateSupplement);
     });
-    $("#campstype").select({
+
+    $("#allcamps").select({
+        width: "452px"
+    });
+    $("#province").select({
+        width: "148px"
+    });
+    $("#city").select({
+        width: "148px"
+    });
+    $("#district").select({
+        width: "148px"
+    });
+
+    $("#selected-class").select({
         width: "100%"
     });
-    $("#campstyp").select({
+    $("#select-class").select({
         width: "100%"
     });
-    $('.modified-1').calculate()
-    $('.modified-2').calculate()
-    $('.overspread-e').overs(".edit-offline-user");
+    $('.modified-1').calculate();
+    $('.modified-2').calculate();
     $('.overspread-n').overs(".addnewclass");
+
+
+    var bookshelf_ids = []
+    getSupplement();
+    function getSupplement() {
+        $.get("/ajaxes/new_read_supplement",
+            { bookshelf_ids: bookshelf_ids },
+            function(data){
+                if (data.status) {
+                    $("#new-supplement #select-class").find("option").remove();
+                    data.bookshelves.forEach(function (bookshelf) {
+                        $('#new-supplement #select-class').append(
+                            '<option id="class-'+ bookshelf.id +'" value="' + bookshelf.id + '">'+ bookshelf.bookshelf_no + '-' + bookshelf.classname +'</option>'
+                        )
+                    });
+                } else {
+                    layer.msg(data.message, {
+                        icon: 2,
+                        offset: 't c'
+                    });
+                    $('#add-supplement').remove();
+                }
+            });
+    }
+
+    function createSupplement() {
+        var bookshelf_id = $('#new-supplement #select-class').val();
+        var loss = $('#new-supplement #loss').val();
+        var supply = $('#new-supplement #supply').val();
+        if (parseInt(loss) > 0 && parseInt(supply) > 0) {
+            $.post("/ajaxes/create_read_supplement",
+                {
+                    bookshelf_id: bookshelf_id,
+                    loss: loss,
+                    supply: supply
+                },
+                function(data){
+                    if (data.status) {
+                        appendAnotherSupplement(data.supplement, data.bookshelf);
+                        $('#new-supplement #loss').val('');
+                        $('#new-supplement #supply').val('');
+                    } else {
+                        layer.msg(data.message, {
+                            icon: 2,
+                            offset: 't c'
+                        });
+                    }
+                });
+        } else {
+            layer.msg('请检查数据是否填写完整', {
+                icon: 2,
+                offset: 't c'
+            });
+        }
+    }
+
+    function appendAnotherSupplement(supplement, bookshelf) {
+        $('#supplement-list').append(
+            '<div class="clearfix" id="supplement-'+supplement.id + '" style="height: 72px;">' +
+            '          <input hidden name="project_season_apply[supplement_ids][]" value="' + supplement.id + '">' +
+            '              <p>'+ bookshelf.classname + '</p>' +
+            '              <p>损耗：<span>'+ supplement.loss +'本</span> 补书：<span>'+ supplement.supply +'本</span></p>' +
+            '              <div class="clearfix don-con-pos">' +
+            '                <div class="pull-right cur delete-offline-user" onclick="deleteSupplement('+ supplement.id +')">' +
+            '                  <span class="iconfont icon-ico-delete1"></span>' +
+            '                  <span>删除</span>' +
+            '                </div>' +
+            '                <div class="pull-right cur edit-offline-user" onclick="editSupplement('+ supplement.id +')">' +
+            '                  <span class="iconfont icon-ico-edit "></span>' +
+            '                  <span>编辑</span>' +
+            '                </div>' +
+            '              </div>' +
+            '            </div>'
+        )
+        $('.overspread-e').overs(".edit-offline-user");
+        bookshelf_ids.push(bookshelf.id)
+    }
+
+    function replaceCurrentSupplement(supplement, bookshelf) {
+        $('#supplement-' + supplement.id).replaceWith(
+            '<div class="clearfix" id="supplement-'+supplement.id + '" style="height: 72px;">' +
+            '          <input hidden name="project_season_apply[supplement_ids][]" id="bookshelf-ids" value="' + supplement.id + '">' +
+            '              <p>'+ bookshelf.classname + '</p>' +
+            '              <p>损耗：<span>'+ supplement.loss +'本</span> 补书：<span>'+ supplement.supply +'本</span></p>' +
+            '              <div class="clearfix don-con-pos">' +
+            '                <div class="pull-right cur delete-offline-user" onclick="deleteSupplement('+ supplement.id +')">' +
+            '                  <span class="iconfont icon-ico-delete1"></span>' +
+            '                  <span>删除</span>' +
+            '                </div>' +
+            '                <div class="pull-right cur edit-offline-user" onclick="editSupplement('+ supplement.id +')">' +
+            '                  <span class="iconfont icon-ico-edit "></span>' +
+            '                  <span>编辑</span>' +
+            '                </div>' +
+            '              </div>' +
+            '            </div>'
+        )
+        $('.overspread-e').overs(".edit-offline-user");
+    }
+
+
+    function editSupplement(val) {
+        $.get("/ajaxes/edit_read_supplement",
+            { supplement_id: val },
+            function(data){
+                if (data.status) {
+                    $('#edit-supplement #supplement-id').val(val)
+                    $('#edit-supplement #selected-class').append(
+                        '<option selected>'+ data.bookshelf.bookshelf_no + '-' + data.bookshelf.classname +'</option>'
+                    )
+                    $('#edit-supplement #loss').val(data.supplement.loss)
+                    $('#edit-supplement #supply').val(data.supplement.supply)
+                } else {
+                    layer.msg(data.message, {
+                        icon: 2,
+                        offset: 't c'
+                    });
+                }
+            });
+    }
+
+    function updateSupplement() {
+        var supplement_id = $('#edit-supplement #supplement-id').val();
+        var loss = $('#edit-supplement #loss').val();
+        var supply = $('#edit-supplement #supply').val();
+        if (parseInt(loss) > 0 && parseInt(supply) > 0) {
+            $.post("/ajaxes/update_read_supplement",
+                {
+                    supplement_id: supplement_id,
+                    loss: loss,
+                    supply: supply
+                },
+                function(data){
+                    if (data.status) {
+                        replaceCurrentSupplement(data.supplement, data.bookshelf);
+                    } else {
+                        layer.msg(data.message, {
+                            icon: 2,
+                            offset: 't c'
+                        });
+                    }
+                });
+        } else {
+            layer.msg('请检查数据是否填写完整', {
+                icon: 2,
+                offset: 't c'
+            });
+        }
+    }
+
+    function deleteSupplement(val) {
+        $.post("/ajaxes/delete_read_supplement",
+            { supplement_id: val },
+            function(data){
+                if (data.status) {
+                    $('#supplement-' + val).remove()
+                } else {
+                    layer.msg(data.message, {
+                        icon: 2,
+                        offset: 't c'
+                    });
+                }
+            });
+    }
+
 </script>

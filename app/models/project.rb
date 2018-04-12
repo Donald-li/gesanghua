@@ -67,6 +67,7 @@ class Project < ApplicationRecord
 
   scope :sorted, ->{ order(id: :asc) }
   scope :visible, ->{}
+  scope :donate_project, -> {where("fund_id is not NULL or fund_id != 0")}
 
   def self.pair_project
     self.find 1
