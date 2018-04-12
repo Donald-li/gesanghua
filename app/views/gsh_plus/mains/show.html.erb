@@ -68,7 +68,6 @@
       <% end %>
       <div class="wechat-qrcode">
         <div class="qrcode">
-          <%= image_tag 'news-listpage.png' %>
         </div>
         <div class="help"><p>请扫描二维码 </p>
           <p>到微信端进行登录</p></div>
@@ -92,7 +91,6 @@
       <% end %>
       <div class="wechat-qrcode">
         <div class="qrcode">
-          <%= image_tag 'news-listpage.png' %>
         </div>
         <div class="help"><p>请扫描二维码 </p>
           <p>到微信端进行登录</p></div>
@@ -101,3 +99,6 @@
   </div>
 <%= link_to account_orders_path do %><p class="gsh-plus-foot">返回个人中心</p><% end %>
 </div>
+<script type="text/javascript">
+  $('.qrcode').qrcode("<%= @wechat_code_url %>")
+</script>
