@@ -1,7 +1,8 @@
 <div class="person-body-left pull-left">
   <ul>
+    <%# binding.pry %>
     <%= link_to platform_school_apply_pairs_path do %>
-    <li class="<%= display_menu("pairs") %> cur">
+    <li class="<%= display_menu(["pairs","reads","goods_projects","movies","movie_cares","camps"]) %> cur">
       <span class="iconfont icon-ico-team"></span>
       <span>项目管理</span>
     </li>
