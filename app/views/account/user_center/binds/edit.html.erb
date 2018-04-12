@@ -11,10 +11,10 @@
         </div>
         <span>微信</span>
         <span>已绑定</span>
-        <div class="unbind">
+        <div class="unbind cur">
           <button>解绑</button>
         </div>
-        <!--<div class="binding"><button>绑定</button></div>-->
+        <!--<div class="binding cur"><button>绑定</button></div>-->
       </div>
       <div>
         <div>
@@ -22,17 +22,38 @@
         </div>
         <span>格桑花论坛</span>
         <span>未绑定</span>
-        <!--<div class="unbind"><button>解绑</button></div>-->
-        <div class="binding">
+        <!--<div class="unbind cur"><button>解绑</button></div>-->
+        <div class="binding cur">
           <button>绑定</button>
         </div>
       </div>
     </div>
 
   </div>
+  <div class="overspread-3">
+    <div class="overspread-over"></div>
+    <div class="overspread-cont">
+      <div class="clearfix">
+        <div class="pull-left mys-1"></div>
+        <div class="pull-right iconfont icon-icondelete cur overspread-but"></div>
+      </div>
+      <div class="overspread-co">
+        <p class="over-fontns">确定要解除绑定吗？</p>
+      </div>
+      <div class="overspreads-but">
+        <button class="cur">确定</button>
+        <button class="overspread-but cur">取消</button>
+      </div>
+      <!--<div class="overspread-but  over-but">确认</div>-->
+    </div>
+
+  </div>
 
 
 </div>
+<script>
+    $('.overspread-3').overs(".binding");
+</script>
 
 
 
