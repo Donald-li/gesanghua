@@ -70,6 +70,12 @@ body {
     out-line: none;
     color: #2a2a2c;
   }
+.selection:focus{
+  outline: none;
+}
+  .select2-selection--single:focus{
+    outline: none;
+  }
 
   input {
     -webkit-appearance: none;
@@ -79,13 +85,14 @@ body {
   input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px white inset !important;
     border: none !important;
+    outline: none !important;
 
   }
   button {
     border: none;
     font-size: 14px!important;
   }
-  input, button, textarea {
+  input, button, textarea,select {
     outline: none !important;
   }
   textarea {
@@ -106,6 +113,43 @@ body {
     background-color: #dcdcdc;
     background-clip: padding-box;
     border: 1px solid #dcdcdc;
+  }
+  //下拉框
+  .selection{
+    width: 100%;
+
+  }
+  .select2-container--default .select2-selection--single{
+    border: 1px solid $border;
+    border-radius: 3px;
+    height: 40px;
+    font-size: 14px;
+    .select2-selection__rendered{
+      line-height: 40px;
+      color: #2a2a2c;
+    }
+    .select2-selection__arrow{
+      top:6px;
+    }
+  }
+  .select2-results{
+    font-size: 14px;
+  }
+  .select2-container--default .select2-results__option--highlighted[aria-selected]{
+    background-color: $color-border;
+  }
+  .select2-dropdown{
+    border: 1px solid $border;
+  }
+  .select2-container--default .select2-selection--multiple .select2-selection__rendered{
+    outline: none;
+  }
+  .select2-container--default .select2-selection--multiple .select2-selection__rendered li input:focus{
+    border: none!important;
+    outline: none;
+  }
+  .select2-container--default .select2-selection--multiple{
+    border: 1px solid $border;
   }
 
 }
@@ -131,6 +175,7 @@ select:disabled {
   background-color: #eef1f6;
   cursor: not-allowed
 }
+
 
 //边框
 .border-t {
