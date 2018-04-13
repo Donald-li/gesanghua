@@ -1,0 +1,4 @@
+<% form = apply.project.form_submit(apply.form) %>
+  <% form.each do |item| %>
+    <p><span><%= item.first %>：</span><%= item.second || '' %></p>
+  <% end %>
