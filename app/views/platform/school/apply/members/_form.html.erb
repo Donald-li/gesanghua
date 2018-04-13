@@ -64,18 +64,23 @@
 </div>
 <div class="childern-submint">
   <button type="submit">保存</button>
+  <button>
   <%= link_to '取消', member_list_platform_school_apply_camp_members_path(@apply_camp) %>
+  </button>
 </div>
 <% end %>
 <script>
-    $("#allcamps").select({
-        width: "452px"
+    $("#allcamps").select2({
+        width: "452px",
+        minimumResultsForSearch: -1
     });
-    $("#level").select({
-        width: "145px"
+    $("#level").select2({
+        width: "145px",
+        minimumResultsForSearch: -1
     });
-    $("#grade").select({
-        width: "145px"
+    $("#grade").select2({
+        width: "145px",
+        minimumResultsForSearch: -1
     });
     $(function(){
         initAvatarWebuploader($('#child-avatar'));

@@ -1,22 +1,9 @@
 <div id="campaigns">
-
   <div class="camp-body">
     <div class="camps-title">
       <%= search_form_for @search, url: campaigns_path do |f| %>
-          <select id="allcamps" name="q[campaign_category_id]">
-            <option value="">全部活动</option>
-            <% CampaignCategory.sorted.each do |cc| %>
-                <option value="<%= cc.id %>"><%= cc.name %></option>
-            <% end %>
-          </select>
-          <select id="campstype" name="q[execute_state]">
-            <option value="">活动状态</option>
-            <option value="draft">活动未开始</option>
-            <option value="submit">活动报名中</option>
-            <option value="to_do">报名已结束</option>
-            <option value="doing">活动进行中</option>
-            <option value="done">活动已完成</option>
-          </select>
+          <%= f.select :campaign_category_id_eq, CampaignCategory.sorted.collect{|cc| [cc.name, cc.id]}, {include_blank: '全部活动'} %>
+          <%= f.select :execute_state_eq, Campaign.options_for_select(:execute_states, raw: true), {include_blank: '活动状态'} %>
           <button type="submit" class="camps-search">搜索</button>
       <% end %>
     </div>
@@ -60,26 +47,11 @@
   </div>
 </div>
 
-
-
 <div class="project-foot">
   <%= paginate @campaigns, theme: 'tiny' %>
 </div>
 
-</div>
 <script>
-    // 模拟城市-无联动/无搜索
-    var selector1 = $('#city-picker-selector').cityPicker({
-        dataJson: cityData,
-        renderMode: true,
-        search: false,
-        autoSelected: false,
-        code: 'cityCode',
-        level: 1
-    });
-    $("#citys").select({
-        width: "250px"
-    });
     $("#allcamps").select({
         width: "250px"
     });

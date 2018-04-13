@@ -1,0 +1,102 @@
+<% if @profile.new_record? %>
+  <% url_path = account_user_center_profile_path %>
+  <%# method_way = "post" %>
+<% else %>
+  <% url_path = account_user_center_profile_path %>
+  <%# method_way = "put" %>
+<% end %>
+
+<%= simple_form_for @profile, url: url_path, html: {'data-parsley-validate': true, id: 'profile_form', method_way: 'method_way'} do |f| %>
+  <div style="background: #fff;padding: 10px 34px 20px 34px;border: 1px solid #e6e6e6;" class="marginbottom">
+    <p class="don-title border-b ">
+      <span class="pull-left">个人资料</span>
+    </p>
+    <div class="school-edit">
+      <div class="addchild-list-img">
+        <%= webuploader_avatar :avatar_id, label: '上传照片', type: 'user_avatar', asset: @profile.try(:avatar), klass: 'single' %>
+      </div>
+      <p class="don-title">基本信息</p>
+      <div class="addchild-list-cont">
+        <div>
+          <span class="goodtext">昵称</span>
+          <%= f.text_field :nickname, placeholder: '请输入昵称', class: "goodinput" %>
+        </div>
+        <div>
+          <span class="goodtext">真实姓名</span>
+          <%= f.text_field :name, placeholder: '请输入真实姓名', class: "goodinput" %>
+        </div>
+        <div>
+          <span class="goodtext">如何称呼</span>
+          <%= f.text_field :salutation, placeholder: '孩子如何称呼您', class: "goodinput" %>
+        </div>
+        <div class="sexinput">
+          <span class="goodtext ">选择性别</span>
+          <div class="clearfix">
+            <div class="female pull-left">
+              <input type="radio" id="male" value="male" name="user[gender]" <%= @profile.male? ? "checked" : "" %> />
+              <label for="male">男</label>
+            </div>
+            <div class="male pull-left">
+              <input type="radio" id="female" value="female" name="user[gender]" <%= @profile.female? ? "checked" : "" %>/>
+              <label for="female">女</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="background: #fff;padding: 10px 34px 20px 34px;border: 1px solid #e6e6e6;">
+    <div class="school-edit">
+      <p class="don-title">收货地址</p>
+      <div class="addchild-list-cont">
+        <div>
+          <span class="goodtext">收货人</span>
+          <%= f.text_field :consignee, placeholder: '请填写收货人姓名', class: "goodinput" %>
+        </div>
+        <div>
+          <span class="goodtext">联系电话</span>
+          <%= f.text_field :phone, placeholder: '请输入联系电话', class: "goodinput" %>
+        </div>
+        <div>
+          <span class="goodtext">所在地区</span>
+          <div style="margin-bottom: 20px;" class="form-group">
+            <div class="city-picker-selector city-group">
+              <%= select_tag 'user[province]', options_for_select(ChinaCity.list, @profile.province.presence), prompt: '省份', class: "selector-item storey province city-select" %>
+              <%= select_tag 'user[city]', options_for_select(ChinaCity.list(@profile.province.to_s), @profile.city.presence), prompt: '城市', class: "selector-item storey city city-select" %>
+              <%= select_tag 'user[district]', options_for_select(ChinaCity.list(@profile.city.to_s), @profile.district.presence), prompt: '地区', class: "selector-item storey district city-select" %>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span class="goodtext">详细地址</span>
+          <%= f.text_field :address, placeholder: '请输入详细地址', class: "goodinput" %>
+        </div>
+      </div>
+      <div class="childern-submint">
+        <button>保存</button>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script>
+
+  $(function () {
+      initAvatarWebuploader($('#webuploader'));
+    $(".province").select2({
+        width: "170px",
+        minimumResultsForSearch: -1
+    });
+    $(".city").select2({
+        width: "170px",
+        minimumResultsForSearch: -1
+    });
+    $(".district").select2({
+        width: "200px",
+        minimumResultsForSearch: -1
+    });
+
+  })
+</script>
+
+

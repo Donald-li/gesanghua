@@ -37,7 +37,7 @@
         <div>
           <span class="goodtext">所在地区</span>
           <div style="margin-bottom: 20px;" class="form-group">
-            <div class="city-picker-selector city-group">
+            <div >
               <%= select_tag 'user[province]', options_for_select(ChinaCity.list, @profile.province.presence), prompt: '省份', class: "selector-item storey province city-select" %>
               <%= select_tag 'user[city]', options_for_select(ChinaCity.list(@profile.province.to_s), @profile.city.presence), prompt: '城市', class: "selector-item storey city city-select" %>
               <%= select_tag 'user[district]', options_for_select(ChinaCity.list(@profile.city.to_s), @profile.district.presence), prompt: '地区', class: "selector-item storey district city-select" %>
@@ -82,7 +82,7 @@
       </div>
       <div class="childern-submint">
         <input class="btn  save-btn" id="save_form_btn" name="commit" value="保存" type="button" info="<%= action_name %>">
-        <%= link_to "取消", platform_school_apply_pairs_path, class: "btn cancel-btn" %>
+        <%= link_to "取消", platform_school_teachers_path, class: "btn cancel-btn" %>
       </div>
     </div>
   <% end %>
@@ -90,6 +90,18 @@
 
 </div>
 <script>
+    $('.province').select2({
+        width:"200px",
+        minimumResultsForSearch: -1
+    })
+    $('.city').select2({
+        width:"200px",
+        minimumResultsForSearch: -1
+    })
+    $('.district').select2({
+        width:"264px",
+        minimumResultsForSearch: -1
+    })
   $(function () {
     initImageWebuploader($('#webuploader'));
   })

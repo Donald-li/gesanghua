@@ -172,7 +172,7 @@ module ApplicationHelper
   end
 
   def display_menu(name)
-    controller_name === name ? "selectedli" : ""
+    name.include?(controller_name) ? "selectedli" : ""
   end
 
   ##金钱格式化显示为 123,456,789.00

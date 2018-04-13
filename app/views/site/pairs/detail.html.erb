@@ -43,7 +43,7 @@
               <span class="navmark"><%= @feedbacks.count %></span>
             </li>
           </ul>
-          <div class="pull-right share cur">分享</div>
+          <button class="pull-right share cur">分享</button>
         </div>
       </div>
     </div>
@@ -92,6 +92,13 @@
         <ul class="detail-b-r-name" id="donate-records">
           <%= render '/site/donate_records/list', records: @donate_records, owner: @child %>
         </ul>
+        <div class="not-available ">
+          <div class="donation-cont-no">
+            <div class="donation-co-no-c">
+              <p>暂无捐助记录</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
