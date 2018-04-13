@@ -204,6 +204,9 @@ class Donation < ApplicationRecord
   def detail_builder
     Jbuilder.new do |json|
       json.(self, :amount, :order_no, :certificate_no)
+      json.time self.created_at.strftime('%Y-%m-%d %H:%M:%S')
+      json.donate_mode !self.donor.present? # true自己捐 false代捐
+      json.donate_title self.donor_id === self.agent_id ? '' : '代捐' # true自己捐 false代捐
       json.agent self.agent.show_name
       json.userAvatar self.agent.user_avatar
       json.bookshelf self.owner_id if self.owner_type == 'ProjectSeasonApplyBookshelf'
