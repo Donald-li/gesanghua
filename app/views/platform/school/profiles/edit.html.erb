@@ -2,10 +2,6 @@
   <%= stylesheet_link_tag "controllers/orders/index" %>
 <% end %>
 
-<% content_for :scripts do %>
-  <%= javascript_include_tag "controllers/profiles/index" %>
-<% end %>
-
 <% if @profile.new_record? %>
   <% url_path = account_offline_users_path %>
   <% method_way = "post" %>
@@ -46,32 +42,32 @@
         </div>
         <div>
           <span class="goodtext">详细地址</span>
-          <%= f.text_field :address, placeholder: '请输入详细地址', class: "goodinput " %>
+          <%= f.text_field :address, placeholder: '请输入详细地址', class: "goodinput" %>
         </div>
         <div>
           <span class="goodtext">邮政编码</span>
           <div>
-            <%= f.text_field :postcode, placeholder: '请输入邮政编码', class: "goodinput " %>
+            <%= f.text_field :postcode, placeholder: '请输入邮政编码', class: "goodinput", data: {type:"number","parsley-type": "integer"} %>
           </div>
         </div>
         <div>
           <span class="goodtext">学生人数</span>
           <div>
-            <%= f.text_field :number, placeholder: '请输入学生人数', class: "goodinput " %>
+            <%= f.text_field :number, placeholder: '请输入学生人数', class: "goodinput", data: {type:"number","parsley-type": "integer"} %>
             <span class="income-moy">人</span>
           </div>
         </div>
         <div>
           <span class="goodtext">教师人数</span>
           <div>
-            <%= f.text_field :teacher_count, placeholder: '请输入教师人数', class: "goodinput " %>
+            <%= f.text_field :teacher_count, placeholder: '请输入教师人数', class: "goodinput", data: {type:"number","parsley-type": "integer"} %>
             <span class="income-moy">人</span>
           </div>
         </div>
         <div>
           <span class="goodtext">后勤人数</span>
           <div>
-            <%= f.text_field :logistic_count, placeholder: '请输入后勤人数', class: "goodinput " %>
+            <%= f.text_field :logistic_count, placeholder: '请输入后勤人数', class: "goodinput", data: {type:"number","parsley-type": "integer"} %>
             <span class="income-moy">人</span>
           </div>
         </div>
@@ -81,7 +77,7 @@
         </div>
       </div>
       <div class="childern-submint">
-        <input class="btn  save-btn" id="save_form_btn" name="commit" value="保存" type="button" info="<%= action_name %>">
+        <%= f.button :submit, '保存', class: 'btn save-btn' %>
         <%= link_to "取消", platform_school_teachers_path, class: "btn cancel-btn" %>
       </div>
     </div>

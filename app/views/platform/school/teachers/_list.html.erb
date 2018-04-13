@@ -1,0 +1,44 @@
+<div class="paddchild">
+  <div class="school-apply-pair-table">
+    <p>老师信息</p>
+    <p>负责项目</p>
+    <p>操作</p>
+  </div>
+</div>
+<div class="paddchild">
+  <% @teachers.each do |teacher| %>
+    <div class="school-apply-pair-tables">
+      <div class="school-apply-pair-table-cont">
+        <div class="school-apply-pair-child clearfix">
+          <div class="pull-left">
+            <%= image_tag teacher.try(:user).try(:avatar).try(:file).try(:url).to_s %>
+          </div>
+          <div class="pull-left">
+            <p>
+              <span><%= teacher.name %></span>
+              <span><%= teacher.get_age(teacher.id_card) %>
+                岁 | <%= teacher.try(:user).try(:enum_name, :gender) %></span>
+            </p>
+            <p><%= teacher.phone %></p>
+          </div>
+          <div class="pull-right">
+            <p><%= teacher.id_card %></p>
+          </div>
+        </div>
+        <div class="border-l border-r">
+          <% teacher.projects.each do |project| %>
+            <span><%= project.name %></span>
+          <% end %>
+        </div>
+        <div>
+          <%= link_to "修改", edit_platform_school_teacher_path(teacher), class: "btn cancel-btn edit-btn" %>
+          <%= link_to "删除", platform_school_teacher_path(teacher), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <div class="project-foot">
+    <%= link_to_previous_page @teachers, '', class: "iconfont icon-arrow-left cur icon-a", remote: true %>
+    <%= link_to_next_page @teachers, '', class: "iconfont icon-arrow-right cur icon-a", remote: true %>
+  </div>
+</div>

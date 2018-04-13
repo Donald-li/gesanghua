@@ -46,7 +46,7 @@ module ActiveRecord
 
     ##通过身份证号计算年龄
     def get_age(data)
-      birthday = ChinesePid.new(data).birthday
+      birthday = ChinesePid.new(data).birthday if data.present?
       Date.today.year - birthday.year if birthday.present?
     end
 
