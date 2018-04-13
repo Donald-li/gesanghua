@@ -4,11 +4,15 @@
   <div class="addchild-list-cont">
     <div>
       <span class="goodtext">申请学校</span>
-      <%= current_user.school.try(:name) %>
+      <div>
+        <button type="button" class="scool-edit-name" disabled><%= current_user.school.try(:name) %></button>
+      </div>
     </div>
     <div>
       <span class="goodtext">申请年度</span>
-      <%= f.select :project_season_id, collection: @current_project.seasons.enable.map{|p| [p.name, p.id]}, data: {'parsley-required': true} %>
+      <div>
+        <%= f.input :project_season_id, collection: @current_project.seasons.enable.map{|p| [p.name, p.id]}, label: false, include_blank: '请选择申请年度', input_html: {id: 'season-id', data: {'parsley-required': true}} %>
+      </div>
     </div>
     <div>
       <span class="goodtext">学生总数</span>
@@ -20,21 +24,22 @@
   <p class="don-title">申请信息</p>
   <div class="addchild-list-cont">
     <%= render 'dynamic_form', apply: @apply, model: :project_season_apply %>
-    <div>
-      <span class="goodtext">其他说明</span>
-      <%= f.text_area :describe %>
-    </div>
-    <div>
-      <span class="goodtext">上传图片</span>
-      <div class="clearfix ">
-        <div class="addchild-list-up-picture pull-left">
-          <p class="iconfont icon-ico-add"></p>
-          <p></p>
-          <%= webuploader_image 'image_ids[]', label: '上传图片', type: 'project_season_apply_image', asset: @apply.images, klass: 'multiple', id: 'child-image1' %>
+    <div class="addchild-list-cont ">
+      <div>
+        <span class="goodtext">其他说明</span>
+        <%= f.text_area :describe %>
+      </div>
+      <div>
+        <span class="goodtext">上传图片</span>
+        <div class="clearfix ">
+          <div class="addchild-list-up-picture pull-left">
+            <p class="iconfont icon-ico-add"></p>
+            <p></p>
+            <%= webuploader_image 'image_ids[]', label: '上传图片', type: 'project_season_apply_image', asset: @apply.images, klass: 'multiple', id: 'child-image1' %>
+          </div>
         </div>
       </div>
     </div>
-
   </div>
 </div>
 
@@ -72,6 +77,25 @@
 
 <script>
     $(function(){
-        initMultiImageWebuploader($('#child-image1'));
+      $("#season-id").select2({
+          width: "452px",
+          minimumResultsForSearch: -1
+      });
+      $(".select2").select2({
+          minimumResultsForSearch: -1
+      });
+      $("#province").select2({
+          width: "220px",
+          minimumResultsForSearch: -1
+      });
+      $("#city").select2({
+          width: "220px",
+          minimumResultsForSearch: -1
+      });
+      $("#district").select2({
+          width: "220px",
+          minimumResultsForSearch: -1
+      });
+      initMultiImageWebuploader($('#child-image1'));
     })
 </script>

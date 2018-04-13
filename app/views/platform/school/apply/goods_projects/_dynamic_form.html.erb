@@ -10,7 +10,9 @@
         <% elsif item['type'] == 'number'%>
         <%= text_field_tag "#{model}[form][#{item['key']}]", submit[item['key']], type: :number, min: item['options'].to_a[0],max: item['options'].to_a[1], placeholder: item['placeholder'], data: {'parsley-required': item['required'] == 'y'}%>
         <% elsif item['type'] == 'select'%>
-        <%= select_tag "#{model}[form][#{item['key']}]", options_for_select(item['options'], submit[item['key']]), include_blank: true, placeholder: item['placeholder'], data: {'parsley-required': item['required'] == 'y'}%>
+        <div class="">
+          <%= select_tag "#{model}[form][#{item['key']}]", options_for_select(item['options'], submit[item['key']]), include_blank: true, placeholder: item['placeholder'], class: 'select2', data: {'parsley-required': item['required'] == 'y'}%>
+        </div>
         <% end %>
     </div>
   <% end %>
