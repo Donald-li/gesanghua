@@ -2,11 +2,6 @@ class Account::OfflineUsersController < Account::BaseController
 
   def index
     @offline_users = User.where(manager: current_user).sorted
-    if params[:id].present?
-      @offline_user = User.find(params[:id])
-    else
-      @offline_user = current_user.offline_users.new
-    end
   end
 
   def create
@@ -38,7 +33,8 @@ class Account::OfflineUsersController < Account::BaseController
     @offline_user = User.find(params[:id])
     @offline_user.manager_id = nil
     if @offline_user.save
-      redirect_to account_offline_users_path, notice: '删除成功。'
+      flash[:notice] = '删除成功。'
+      redirect_to account_offline_users_path
     end
   end
 

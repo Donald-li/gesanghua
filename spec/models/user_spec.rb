@@ -46,13 +46,14 @@ RSpec.describe User, type: :model do
   let!(:user) { create(:user) }
   let!(:user1) { create(:user, phone: '18866669999') }
   let!(:promoter) { create(:user) }
-  let!(:school) { create(:school, user: user) }
+  let!(:school) { create(:school, creater: user, contact_phone: '18866669999') }
   let!(:teacher) { create(:teacher, school: school, user: user) }
   let!(:project) { create(:project) }
   let!(:season) { create(:project_season, project: project) }
   let!(:apply) { create(:project_season_apply, project: project, season: season, teacher: teacher, school: school) }
   let!(:child) { create(:project_season_apply_child, project: project, season: season, apply: apply, school: school, semester: 'next_term') }
-  let!(:teacher1) { create(:teacher, school: school, phone: '18866669999', kind: 'teacher') }
+  let!(:teacher1) { create(:teacher, school: school, phone: '18866669998', kind: 'teacher') }
+  let!(:headmaster) { create(:teacher, school: school, phone: '18866669999', kind: 'headmaster') }
   let!(:volunteer) { create(:volunteer, phone: '18866669999') }
   let!(:county_user) { create(:county_user, phone: '18866669999') }
 
@@ -88,8 +89,11 @@ RSpec.describe User, type: :model do
   it '测试绑定用户角色' do
     user1.bind_user_roles
     expect(user1.has_role?(:volunteer)).to eq true
+    expect(user1.volunteer.present?).to eq true
     expect(user1.has_role?(:teacher)).to eq true
+    expect(user1.school.present?).to eq true
     expect(user1.has_role?(:county_user)).to eq true
+    expect(user1.county_user.present?).to eq true
   end
 
 end
