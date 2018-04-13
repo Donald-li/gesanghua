@@ -86,13 +86,14 @@ class GshChildGrant < ApplicationRecord
   def self.gen_grant_record(child)
     gsh_child = child.gsh_child
     apply = child.apply
+    season = apply.season
 
     if child.junior?
-      term_amount = Settings.junior_term_amount
-      year_amount = Settings.junior_year_amount
+      term_amount = season.junior_term_amount
+      year_amount = season.junior_year_amount
     elsif child.senior?
-      term_amount = Settings.senior_term_amount
-      year_amount = Settings.senior_year_amount
+      term_amount = season.senior_term_amount
+      year_amount = season.senior_year_amount
     end
 
     apply_num = 4 - child.child_grade_integer
