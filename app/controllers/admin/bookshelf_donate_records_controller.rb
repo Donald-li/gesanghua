@@ -5,7 +5,7 @@ class Admin::BookshelfDonateRecordsController < Admin::BaseController
   before_action :set_bookshelf
 
   def index
-    @donate_records = @bookshelf.donates.paid
+    @donate_records = @bookshelf.donates
     set_search_end_of_day(:created_at_lteq)
     @search = @donate_records.ransack(params[:q])
     scope = @search.result

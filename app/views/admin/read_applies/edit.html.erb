@@ -61,7 +61,6 @@
                               <% if @project_apply.whole? %>
                                 <thead>
                                   <tr>
-                                    <th> 年级 </th>
                                     <th> 班级 </th>
                                     <!-- <th> 筹款金额 </th> -->
                                     <!-- <th> 人数 </th> -->
@@ -75,9 +74,6 @@
                                   <tr>
                                     <%#= b.hidden_field :project_id, value: 2 %>
                                     <%#= b.hidden_field :project_season_id, value: @project_apply.project_season_id %>
-                                    <td>
-                                      <%= b.input :grade, as: :select, label: false, collection: ProjectSeasonApplyBookshelf.options_for_select(:grades), include_blank: false, input_html: { data: {'parsley-required': true} } %>
-                                    </td>
                                     <td>
                                       <%= b.input :classname, label: false, input_html:{ data: {'parsley-required': true}, placeholder: '请填入班级名称'} %>
                                     </td>

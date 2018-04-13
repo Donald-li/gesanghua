@@ -74,6 +74,17 @@
         <% end %>
       </div>
   <% end %>
+
+  <% if controller_name == 'movies' %>
+      <div class="add-reads">
+        <%= link_to new_platform_school_apply_movie_path do %>
+            <button class=" school-apply-share-sub">
+              <span class="iconfont icon-ico-add1"></span>
+              <span>新增申请</span>
+            </button>
+        <% end %>
+      </div>
+  <% end %>
   <% if controller_name == 'goods_projects' %>
       <div class="add-reads">
         <%= link_to new_platform_school_apply_goods_project_path(pid: @current_project) do %>

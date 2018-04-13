@@ -55,6 +55,7 @@
 require 'custom_validators'
 class ProjectSeasonApplyChild < ApplicationRecord
 
+  after_create :distinguish_gender
   before_update :update_pair_state, if: :can_update_pair_state?
 
   attr_accessor :avatar_id
@@ -141,6 +142,12 @@ class ProjectSeasonApplyChild < ApplicationRecord
     today = Date.today
     child_age = (today - birthday).to_i/365
     self.update_columns(age: child_age)
+  end
+
+  def distinguish_gender
+    num = self.id_card[-2]
+    gender = num % 2 == 1 ? 'male' : 'female'
+    self.update_columns(gender: gender)
   end
 
   def secure_name

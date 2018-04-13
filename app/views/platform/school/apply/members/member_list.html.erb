@@ -21,13 +21,13 @@
 
             <div class="add-reads">
               <%= link_to new_platform_school_apply_camp_member_path(@apply_camp, kind: 'teacher') do %>
-              <button class=" school-apply-share-sub">
+              <button class=" school-apply-share-sub cur">
                 <span class="iconfont icon-ico-add1"></span>
                 <span>新增老师</span>
               </button>
               <% end %>
               <%= link_to new_platform_school_apply_camp_member_path(@apply_camp, kind: 'student') do %>
-              <button class=" school-apply-share-sub">
+              <button class=" school-apply-share-sub cur">
                 <span class="iconfont icon-ico-add1"></span>
                 <span>新增学生</span>
               </button>
@@ -72,7 +72,7 @@
                   <% end %>
                 </div>
                 <div>
-                  <%= link_to edit_platform_school_apply_camp_member_path(@apply_camp, member) do %>
+                  <%= link_to edit_platform_school_apply_camp_member_path(@apply_camp, member, kind: member.kind) do %>
                   <button>修改</button>
                   <% end %>
                   <%= link_to platform_school_apply_camp_member_path(@apply_camp, member), method: :delete, data: {confirm: '确定要删除成员信息吗？'} do %>

@@ -72,7 +72,6 @@
               <th rowspan="<%= @project_apply.bookshelves.count + 2 %>">
                 申请班级
               </th>
-              <th>年级</th>
               <th>班级</th>
               <th>筹款金额</th>
               <th>审核状态</th>
@@ -80,7 +79,6 @@
             <tr>
               <% @project_apply.bookshelves.each do |shelf| %>
                 <tr>
-                  <th><%= shelf.enum_name(:grade) %></th>
                   <th><%= shelf.classname %></th>
                   <th><%= shelf.target_amount %></th>
                   <th><%= shelf.enum_name(:audit_state) %></th>
