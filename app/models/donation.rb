@@ -205,6 +205,7 @@ class Donation < ApplicationRecord
     Jbuilder.new do |json|
       json.(self, :amount, :order_no, :certificate_no)
       json.agent self.agent.show_name
+      json.userAvatar self.agent.user_avatar
       json.bookshelf self.owner_id if self.owner_type == 'ProjectSeasonApplyBookshelf'
     end.attributes!
   end
