@@ -220,7 +220,7 @@ select:disabled {
 text-align: center;
   width: 810px;
   color: #8d8d8d;
-  .not-available{
+  .donation-co-no-c{
     margin: 70px auto 70px auto;
     width: 268px;
   }
@@ -1596,6 +1596,9 @@ text-align: center;
     width: 310px;
     background-color: #f8f8f8;
     padding: 0 16px;
+    .not-available{
+      width: 100%;
+    }
   }
   .detail-b-r-t {
     font-size: 16px;
