@@ -10,7 +10,7 @@ set :application_name, 'gesanghua'
 
 set :rvm_use_path, '/usr/local/rvm/scripts/rvm'
 set :shared_dirs, ['public/uploads', 'log', 'tmp/pids', 'tmp/sockets', 'public/images', 'vendor/bundle', 'export']
-set :shared_files, ['config/database.yml', 'config/puma.rb', 'config/settings.local.yml', 'config/secrets.yml', 'config/schedule.rb']
+set :shared_files, ['config/database.yml', 'config/puma.rb', 'config/settings.yml', 'config/secrets.yml', 'config/schedule.rb']
 
 task :environment do
   invoke :'rvm:use', '2.4.1'
