@@ -43,6 +43,7 @@ class ApplicationController < ActionController::Base
 
   def gen_success_message
     render json: {"code"=> 0, "msg"=> "修改成功"}
+    flash[:notice] = '操作成功'
   end
 
   def gen_failure_message(entity =nil)
@@ -50,6 +51,7 @@ class ApplicationController < ActionController::Base
       msg = entity.errors.full_messages.join(',  ')
     end
     render json: {"code"=>"false", "msg"=> msg || "操作失败"}
+    flash[:notice] = msg
   end
 
 end
