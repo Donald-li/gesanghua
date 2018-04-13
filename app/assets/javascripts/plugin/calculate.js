@@ -5,12 +5,15 @@ jQuery.fn.calculate = function() {
         var $objmin = $(this).find(".oversmin");//减
         var $objinput = $(this).find(".oversinputs");//input
         $objadd.on("click",function(){
-            $objinput.val(parseInt($objinput.val())+1);
+            var num = $objinput.val() ? parseInt($objinput.val()) : 0
+            $objinput.val(num+1);
             $objmin.removeAttr("disabled");
         })
         $objmin.on("click",function(){
-            if (parseInt($objinput.val())>1) {
-                $objinput.val(parseInt($objinput.val())-1)
+            var num = $objinput.val() ? parseInt($objinput.val()) : 0
+
+            if (num>1) {
+                $objinput.val(num-1)
             }else{
                 $objmin.attr("disabled","disabled")
             }
