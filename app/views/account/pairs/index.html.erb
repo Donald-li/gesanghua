@@ -14,44 +14,48 @@
           </ul>
           <!--我的捐助-->
           <div class="my-pairs-cont" id="my-pairs-cont">
-            <div class="donation-cont">
-              <div class="clearfix border-b">
-                <div class="my-pairs pull-left">
-                  <%= image_tag 'ucenter-top-bg.png' %>
-                </div>
-                <div class="pull-left donation-cont-cco">
-                  <div class="donation-cont-c-tit clearfix">
-                    <p class="pull-left">卓玛</p>
+            <% if @children.present? %>
+              <div class="donation-cont">
+                <% @children.each do |child| %>
+                  <div class="clearfix border-b">
+                    <div class="my-pairs pull-left">
+                      <%= image_tag child.avatar.try(:file).try(:url, :tiny).to_s %>
+                    </div>
+                    <div class="pull-left donation-cont-cco">
+                      <div class="donation-cont-c-tit clearfix">
+                        <p class="pull-left"><%= child.name %></p>
+                      </div>
+                      <div class="clearfix donation-cont-c-con">
+                        <p >孩子编号：<%= child.gsh_no %></p>
+                        <p>捐助年度：<%= child.semesters.where(user_id: current_user.id).pluck(:title).join('/').gsub(/\s/, '').strip.to_s %></p>
+                      </div>
+                    </div>
+                    <div class="pull-right">
+                      <%= link_to detail_pair_path(child) do %>
+                        <button class="donation-cont-but cur">
+                          查看孩子详情
+                        </button>
+                      <% end %>
+                      <%= link_to account_pair_children_mailboxs_path(pair_id: child.id), class: 'donation-cont-but cur' do %>
+                        孩子信箱 <%= ContinualFeedback.where(gsh_child_grant_id: child.gsh_child_grants.where(user_id: current_user.id).pluck(:id)).count %>
+                      <% end %>
+                    </div>
                   </div>
-                  <div class="clearfix donation-cont-c-con">
-                    <p >孩子编号：No.17090293</p>
-                    <p>捐助年度：2017年下学期 / 2018年全年</p>
+                <% end %>
+              </div>
+              <div class="project-foot">
+                <%= paginate @children, theme: :tiny %>
+              </div>
+            <% else %>
+              <div class="donation-cont-no">
+                <div class="donation-co-no-c">
+                  <div class="donation-co-no-c-img">
+                    <%= image_tag 'my-child.png' %>
                   </div>
+                  <p>暂无捐助学生</p>
                 </div>
-                <div class="pull-right">
-                  <button class="donation-cont-but cur">
-                    查看孩子详情
-                  </button>
-
-                  <%= link_to account_pair_children_mailboxs_path(pair_id: 1), class: 'donation-cont-but cur' do %>
-                    孩子信箱 3
-                  <% end %>
-                </div>
-
               </div>
-            </div>
-            <div class="donation-cont-no">
-              <div class="donation-co-no-c">
-                <div class="donation-co-no-c-img">
-                  <%= image_tag 'my-child.png' %>
-                </div>
-                <p>暂无捐助学生</p>
-              </div>
-            </div>
-            <div class="project-foot">
-              <span class="iconfont icon-arrow-left cur"></span>
-              <span class="iconfont icon-arrow-right cur"></span>
-            </div>
+            <% end %>
         </div>
       </div>
 
