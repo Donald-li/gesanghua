@@ -125,7 +125,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   # 得到可捐助子项
   def get_donate_items
-    self.semesters.succeed.order(id: :asc)
+    self.semesters.pending.order(id: :asc)
   end
 
   # 更新申请状态
