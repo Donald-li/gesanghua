@@ -159,6 +159,11 @@ class ProjectSeasonApplyChild < ApplicationRecord
     end
   end
 
+  def update_state
+    self.done_semester_count = self.semesters.succeed.count
+    self.save!
+  end
+
   # 筹款进度
   def gift_progress
     "#{self.done_semester_count}/#{self.semester_count}"
