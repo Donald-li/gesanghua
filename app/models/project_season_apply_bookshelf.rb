@@ -127,7 +127,7 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
     end
   end
 
-  def show_state
+  def json_show_state
     if self.apply.present? && self.apply.raise_project?
       self.enum_name(:state)
     else
@@ -162,7 +162,7 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
       json.(self, :id, :bookshelf_no, :target_amount, :present_amount)
       json.apply_name self.apply.try(:name)
       json.title self.show_title
-      json.state self.show_state
+      json.state self.json_show_state
     end.attributes!
   end
 
