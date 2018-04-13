@@ -22,8 +22,8 @@ namespace :platform do
           get :supplements
         end
       end
-      resources :goods
-      resources :cares
+      resources :goods_projects
+      # resources :cares
       resources :movies
       resources :movie_cares
       resources :camps do

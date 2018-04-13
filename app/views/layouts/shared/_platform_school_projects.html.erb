@@ -27,13 +27,13 @@
       <% end %>
     </li>
     <% Project.goods.visible.sorted.each do |project| %>
-    <li class="cur border-l <%= 'selectedDo' if params[:pid] == project.id.to_s %>"><%= link_to project.name, platform_school_apply_goods_path(pid: project.id) %>
+    <li class="cur border-l <%= 'selectedDo' if params[:pid] == project.id.to_s %>"><%= link_to project.name, platform_school_apply_goods_projects_path(pid: project.id) %>
       <% if params[:pid] == project.id.to_s %>
           <div class="bottomline"></div>
       <% end %>
     </li>
     <% end %>
-    
+
   </ul>
   <% if controller_name == 'reads' %>
   <div class="add-reads">
@@ -62,9 +62,9 @@
         <% end %>
       </div>
   <% end %>
-  <% if controller_name == 'movies' %>
+  <% if controller_name == 'goods_projects' %>
       <div class="add-reads">
-        <%= link_to new_platform_school_apply_movie_path do %>
+        <%= link_to new_platform_school_apply_goods_project_path(pid: @current_project) do %>
             <button class=" school-apply-share-sub">
               <span class="iconfont icon-ico-add1"></span>
               <span>新增申请</span>

@@ -44,5 +44,11 @@ module ActiveRecord
       I18n.t("#{self.class.name.underscore}_#{enum.to_s.pluralize}.#{self.send enum}")
     end
 
+    ##通过身份证号计算年龄
+    def get_age(data)
+      birthday = ChinesePid.new(data).birthday
+      Date.today.year - birthday.year if birthday.present?
+    end
+
   end
 end

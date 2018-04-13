@@ -1,3 +1,4 @@
+
 <%= simple_form_for [:camp, @apply, @apply_camp], url: @apply_camp.new_record? ? camp_project_project_season_apply_camps_path : camp_project_project_season_apply_camp_path, wrapper: :admin_form, html: {class: 'form-horizontal project_form', 'data-parsley-validate': true} do |f| %>
   <%= f.error_notification %>
   <div class="form-body form-horizontal">

@@ -2,7 +2,7 @@
   <div class="donation-cont border-b">
     <div class="clearfix">
       <div class="donation-cont-img pull-left">
-        <%= image_tag record.project.image.to_s %>
+        <%= image_tag record.project.image.try(:file).try(:url).to_s %>
       </div>
       <div class="pull-left donation-cont-cco">
         <div class="donation-cont-c-tit clearfix">
@@ -24,9 +24,9 @@
           <% end %>
         </div>
       </div>
-      <div class="donation-cont-but pull-right cur">
+      <button class="donation-cont-but pull-right cur">
         查看项目详情
-      </div>
+      </button>
     </div>
   </div>
 <% end %>

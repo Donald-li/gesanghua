@@ -2,6 +2,7 @@
   <%= f.error_notification %>
   <div class="form-body form-horizontal">
     <%= static_form_control '探索营名称', @apply.name %>
+    <%= f.input :camp_id, as: :hidden %>
     <%= f.input :school_id, as: :select, collection: [@apply_camp.school].compact.map{|s| [s.name, s.id]}, label: '选择学校：', input_html: {class: 'schools-ajax'} %>
     <%= f.input :student_number, label: '学生数量：', type: 'number', min: 0, placeholder: '', required: true %>
     <%= f.input :teacher_number, label: '陪同教师：', type: 'number', min: 0, placeholder: '', required: true %>

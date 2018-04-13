@@ -3,10 +3,10 @@
     <div class="paddchild">
       <p class="don-title border-b ">
         <span class="pull-left">教师管理</span>
-        <button class="pull-right school-apply-share-sub">
+        <%= link_to new_platform_school_teacher_path, class: 'pull-right school-apply-share-sub', style:"color: white;", 'data-no-turbolink' => true do %>
           <span class="iconfont icon-ico-add1"></span>
           <span>新增老师</span>
-        </button>
+        <% end %>
       </p>
     </div>
     <div class="school-apply-pair-table-co">
@@ -18,38 +18,43 @@
         </div>
       </div>
 
-      <div class=" paddchild" >
-        <div class="school-apply-pair-tables">
-          <div class="school-apply-pair-table-cont">
-            <div class="school-apply-pair-child clearfix">
-              <div class="pull-left">
-                <%= image_tag 'cooperate-visite-form.png' %>
+      <div class=" paddchild">
+        <% @teachers.each do |teacher| %>
+          <div class="school-apply-pair-tables">
+            <div class="school-apply-pair-table-cont">
+              <div class="school-apply-pair-child clearfix">
+                <div class="pull-left">
+                  <%= image_tag teacher.try(:user).try(:avatar).try(:file).try(:url).to_s %>
+                </div>
+                <div class="pull-left">
+                  <p>
+                    <span><%= teacher.name %></span>
+                    <span><%= teacher.get_age(teacher.id_card) %>岁 | <%= teacher.user.enum_name(:gender) %></span>
+                  </p>
+                  <p><%= teacher.phone %></p>
+                </div>
+                <div class="pull-right">
+                  <p><%= teacher.id_card %></p>
+                </div>
               </div>
-              <div class="pull-left">
-                <p>
-                  <span>赵雷</span>
-                  <span>17岁 | 男</span>
-                </p>
-                <p>13800138000</p>
+              <div class="border-l border-r">
+                <% teacher.projects.each do |project| %>
+                  <span><%= project.name %></span>
+                <% end %>
               </div>
-              <div class="pull-right">
-                <p>130731198812251592</p>
+              <div>
+                <button>修改</button>
+                <button>删除</button>
               </div>
-
-            </div>
-            <div class="border-l border-r">
-              <span>一对一</span>
-              <span>护花</span>
-              <span>广播</span>
-              <span>观影</span>
-            </div>
-
-            <div>
-              <button>修改</button>
-              <button>删除</button>
             </div>
           </div>
-        </div>
+        <% end %>
+
+
+
+
+
+
         <div class="school-apply-pair-tables">
           <div class="school-apply-pair-table-cont">
             <div class="school-apply-pair-child clearfix">
@@ -95,16 +100,16 @@
   </div>
 </div>
 <script>
-    if($('#teachers .school-apply-pair-tables').length===0){
-        $('.donation-cont-no').css('display', 'block')
-        $('.school-apply-pair-table-co').css('display', 'none')
-        $('.project-foot').css('display', 'none')
-    }else{
-        $('.donation-cont-no').css('display', 'none')
-        $('.school-apply-pair-table-co').css('display', 'block')
-        $('.project-foot').css('display', 'block')
+  if ($('#teachers .school-apply-pair-tables').length === 0) {
+    $('.donation-cont-no').css('display', 'block')
+    $('.school-apply-pair-table-co').css('display', 'none')
+    $('.project-foot').css('display', 'none')
+  } else {
+    $('.donation-cont-no').css('display', 'none')
+    $('.school-apply-pair-table-co').css('display', 'block')
+    $('.project-foot').css('display', 'block')
 
-    }
+  }
 </script>
 
 

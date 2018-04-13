@@ -5,7 +5,7 @@ class Account::OrdersController < Account::BaseController
       format.html do
         #@project = Rails.cache.read("donate_project_#{current_user.id}")
         @donate_records = DonateRecord.select_record(current_user.id, params[:type]).sorted.page(params[:page]).per(4)
-        @project = Project.donate_project
+        @projects = Project.visible.sorted.donate_project
       end
       format.js do
         @donate_records = DonateRecord.select_record(current_user.id, params[:type]).sorted.page(params[:page]).per(4)
