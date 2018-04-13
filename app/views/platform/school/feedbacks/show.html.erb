@@ -17,7 +17,7 @@
           <div class="school-apply-pair-table">
             <p>反馈详情</p>
             <div class="school-apply-pair-table-cont ">
-              <p><%= continual.content %></p>
+              <p><%= continual.content.html_safe %></p>
               <% if continual.images.present? %>
                 <div class="feedback-shows-img">
                   <% continual.images.each do |image| %>

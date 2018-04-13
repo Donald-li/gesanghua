@@ -1,4 +1,5 @@
 class Platform::School::Apply::MembersController < Platform::School::BaseController
+  before_action :check_manage_limit
   before_action :set_apply_camp
   before_action :set_member, only: [:edit, :update, :destroy]
 
@@ -41,6 +42,10 @@ class Platform::School::Apply::MembersController < Platform::School::BaseControl
   end
 
   private
+  def check_manage_limit
+    redirect_to root_path unless current_teacher.manage_projects.where(alias: 'camp').exists?
+  end
+
   def set_apply_camp
     @apply_camp = ProjectSeasonApplyCamp.find(params[:camp_id])
   end

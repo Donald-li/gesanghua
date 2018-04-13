@@ -14,7 +14,7 @@ class Platform::School::BaseController < ApplicationController
   end
 
   def logged_in?
-    return true
+    return !! current_teacher
   end
 
   def current_teacher

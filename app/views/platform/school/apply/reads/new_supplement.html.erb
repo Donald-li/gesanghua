@@ -20,7 +20,7 @@
           <div>
             <span class="goodtext">申请批次</span>
             <div >
-              <%= f.input :project_season_id, as: :select, collection: Project.read_project.seasons.collect {|s| [s.name, s.id]}, include_blank: '请选择申请年度', label: false, required: true, input_html: {id: 'allcamps'} %>
+              <%= f.input :project_season_id, as: :select, collection: Project.read_project.seasons.enable.sorted.collect {|s| [s.name, s.id]}, include_blank: '请选择申请年度', label: false, required: true, input_html: {id: 'allcamps'} %>
             </div>
           </div>
         </div>
@@ -83,7 +83,7 @@
       <div class="childern-submint">
         <button type="submit">保存</button>
         <button >取消
-        <%= link_to  platform_school_apply_reads_path %>
+        <%= link_to platform_school_apply_reads_path %>
         </button>
       </div>
   <% end %>

@@ -1,5 +1,7 @@
 class Platform::School::Apply::GoodsProjectsController < Platform::School::BaseController
   before_action :set_goods_project
+  before_action :check_manage_limit
+  
   def index
     scope = @current_project.applies.where(school_id: current_user.school)
     @applies = scope.sorted.page(params[:page]).per(7)
@@ -42,10 +44,15 @@ class Platform::School::Apply::GoodsProjectsController < Platform::School::BaseC
   end
 
   private
+  def check_manage_limit
+    redirect_to root_path unless current_teacher.manage_projects.where(id: @current_project).exists?
+  end
+
   def apply_params
     keys = @current_project.form.map{|i| i['key']} # 动态字段
     params.require(:project_season_apply).permit(:describe, :project_season_id, :student_number, :contact_name, :contact_phone, :address, :province, :city, :district, form: keys)
   end
+
   def set_goods_project
     @current_project ||= Project.goods.visible.find(params[:pid])
   end

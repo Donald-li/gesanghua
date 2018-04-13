@@ -2,28 +2,28 @@
   <%= stylesheet_link_tag "controllers/orders/index" %>
 <% end %>
 
-<%= simple_form_for [:platform, :school, @teacher],  html: {'data-parsley-validate': true, id: 'profile_form', method_way: 'method_way'} do |f| %>
+<%= simple_form_for [:platform, :school, @teacher], html: {'data-parsley-validate': true, id: 'profile_form', class: ""} do |f| %>
   <div class="addchild-list marginbottom" style="padding: 10px 34px 20px 34px;">
-    <div style="margin-left: 356px; margin-top: 30px;">
-      <%= webuploader_tag :avatar_id, label: '上传照片', type: 'user_avatar', asset: @teacher.try(:user).try(:avatar), klass: 'single' %>
-    </div>
+<!--    <div style="margin-left: 356px; margin-top: 30px;">-->
+      <%#= webuploader_tag :avatar_id, label: '上传照片', type: 'user_avatar', asset: @teacher.try(:user).try(:avatar), klass: 'single' %>
+<!--    </div>-->
     <p class="don-title">基本信息</p>
     <div class="addchild-list-cont">
       <div>
         <span class="goodtext">真实姓名</span>
-        <%= f.text_field :name, placeholder: '请输入真实姓名', class: "goodinput" %>
+        <%= f.text_field :name, placeholder: '请输入真实姓名', class: "goodinput", data: {'parsley-required': true} %>
       </div>
       <div>
         <span class="goodtext">身份证号</span>
-        <%= f.text_field :id_card, placeholder: '请输入身份证号', class: "goodinput" %>
+        <%= f.text_field :id_card, placeholder: '请输入身份证号', class: "goodinput", data: {'parsley-required': true} %>
       </div>
-      <div >
-        <span class="goodtext">民族</span>
-        <%= f.input :name, as: :select, collection: ProjectSeasonApplyChild.options_for_enum_select(:nations), include_blank: false, label: false, input_html: {id: 'select-nation', class: '', style:"width: 451px;"} %>
-      </div>
+<!--      <div>-->
+<!--        <span class="goodtext">民族</span>-->
+        <%#= f.input :name, as: :select, collection: ProjectSeasonApplyChild.options_for_enum_select(:nations), include_blank: false, label: false, input_html: {id: 'select-nation', class: '', style: "width: 451px;"} %>
+<!--      </div>-->
       <div>
         <span class="goodtext">QQ号</span>
-        <%= f.text_field :qq, placeholder: '请输入QQ号', class: "goodinput" %>
+        <%= f.text_field :qq, placeholder: '请输入QQ号', class: "goodinput", data: {type:"number","parsley-type": "integer"} %>
       </div>
       <div>
         <span class="goodtext">微信号</span>
@@ -34,46 +34,39 @@
         <%= f.text_field :phone, placeholder: '填写班主任联系方式', class: "goodinput" %>
       </div>
       <div style="position: relative;">
-        <span class="goodtext">联系方式</span>
+        <span class="goodtext">项目权限</span>
         <div style="flex: 7;">
-          <select class="box1" name="state" multiple="multiple">
-            <option value="AL">Alabama</option>
-            <option value="WY">Wyoming</option>
-          </select>
+          <%= f.input :project_ids, as: :select, collection: Project.sorted.map {|c| [c.name, c.id]}, include_blank: false, label: false, input_html: {id: 'select2_project', multiple: true, data: {'parsley-required': true}} %>
         </div>
       </div>
       <div style="margin: -16px 0 0 0 ;">
         <p class="posarrmarl">*项目权限可多选*</p>
       </div>
     </div>
-
   </div>
-    <div class="childern-submint">
-      <input class="btn  save-btn" id="save_form_btn" name="commit" value="保存" type="button" info="<%= action_name %>">
-      <%= link_to "取消", platform_school_apply_pairs_path, class: "btn cancel-btn" %>
-    </div>
+  <div class="childern-submint">
+    <%= f.button :submit, '保存', class: 'btn save-btn' %>
+    <%= link_to "取消", platform_school_teachers_path, class: "btn cancel-btn" %>
+  </div>
 <% end %>
 
-
 <script>
-//   $(document).ready(function() {
-//     $('#selects-id').select2({
-//       language: "zh-CN",
-//       placeholder: '请选择负责人',
-//       allowClear: true,
-//     });
-//   });
-$('.box1').select2({
-    width:'100%',
-    minimumResultsForSearch: -1
-});
+
 
 $('#select-nation').select2({
+    width:"100%",
     minimumResultsForSearch: -1
 })
 
-
+  $(function () {
+    $('#select2_project').select2({
+      width: "98%",
+      language: "zh-CN",
+      placeholder: '支持多选',
+      allowClear: true,
+      multiple: true,
+      minimumResultsForSearch: -1
+    });
+  })
 
 </script>
-
-
