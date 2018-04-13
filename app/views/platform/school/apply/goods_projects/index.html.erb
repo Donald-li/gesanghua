@@ -16,17 +16,14 @@
              <div>
                <p class="school-apply-pair-tit"><%= apply.apply_name %></p>
                <!-- <p class="school-apply-pair-f">申请人：张老师</p> -->
-
              </div>
              <div class="border-l border-r">
-               <%= apply.enum_name(:pair_state) %>
+               <%= apply.apply_state %>
              </div>
              <div>
-               <button><%= link_to '查看申请详情', platform_school_apply_pair_path(apply) %></button>
-               <% if apply.waiting_upload? %>
-                <button><%= link_to '提交名单', child_list_platform_school_apply_pair_children_path(apply) %></button>
-               <% elsif apply.pair_complete? %>
-                <button><%= link_to '查看名单', platform_school_apply_pair_children_path(apply, state: 'pass') %></button>
+               <button><%= link_to '查看申请详情', platform_school_apply_goods_project_path(apply, pid: @current_project) %></button>
+               <% if apply.reject? %>
+                <button><%= link_to '修改申请', edit_platform_school_apply_goods_project_path(apply, pid: @current_project) %></button>
                <% end %>
              </div>
             </div>
@@ -46,6 +43,6 @@
   </div>
 
   <div class="project-foot">
-    <%#= paginate @applies, theme: :tiny %>
+    <%= paginate @applies, theme: :tiny %>
   </div>
 </div>
