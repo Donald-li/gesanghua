@@ -19,6 +19,55 @@
     <% end %>
     <%= link_to  do %>
         <div>
+          <%= image_tag 'gsh-icon-volunteer.png' %>
+          <p class="gsh-plus-c-t">我是志愿者</p>
+          <div class="wechat-qrcode">
+            <div class="qrcode" id="regular-feedback-qrcode">
+            </div>
+            <div class="help"><p>请扫描二维码 </p>
+              <p>到微信端进行登录</p></div>
+          </div>
+        </div>
+    <% end %>
+    <%= link_to  do %>
+        <div>
+          <%= image_tag 'gsh-icon-leader.png' %>
+          <p class="gsh-plus-c-t">我是县领导</p>
+          <div class="wechat-qrcode">
+            <div class="qrcode" id="regular-feedback-qrcode">
+            </div>
+            <div class="help"><p>请扫描二维码 </p>
+              <p>到微信端进行登录</p></div>
+          </div>
+        </div>
+    <% end %>
+
+    <%= link_to  do %>
+        <div>
+          <%= image_tag 'gsh-icon-child.png' %>
+          <p class="gsh-plus-c-t">我是格桑花孩子</p>
+          <div class="wechat-qrcode">
+            <div class="qrcode" id="regular-feedback-qrcode">
+            </div>
+            <div class="help"><p>请扫描二维码 </p>
+              <p>到微信端进行登录</p></div>
+          </div>
+        </div>
+    <% end %>
+    <!--<%= link_to  do %>-->
+        <!--<div>-->
+        <!--<%= image_tag 'gsh-icon-worker.png' %>-->
+        <!--<p class="gsh-plus-c-t">我是工作人员</p>-->
+        <!--<div class="wechat-qrcode">-->
+        <!--<div class="qrcode" id="regular-feedback-qrcode">-->
+        <!--</div>-->
+        <!--<div class="help"><p>请扫描二维码 </p>-->
+        <!--<p>到微信端进行登录</p></div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<% end %>-->
+    <%= link_to  do %>
+        <div>
           <%= image_tag 'childs-feedback.png' %>
           <p class="gsh-plus-c-t">结对反馈</p>
           <div class="wechat-qrcode">
@@ -29,6 +78,7 @@
           </div>
         </div>
     <% end %>
+
 
   </div>
 
@@ -69,7 +119,7 @@
     $('.overspread-6').overs(".overspreadsc-but");
 
     jQuery(function(){
-        jQuery('#regular-feedback-qrcode').qrcode({
+        jQuery('.qrcode').qrcode({
             render: "canvas",
             width: 180,
             height: 180,

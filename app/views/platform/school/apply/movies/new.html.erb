@@ -19,7 +19,7 @@
           <div>
             <span class="goodtext">申请批次</span>
             <div id="doodname">
-              <%= f.input :project_season_id, as: :select, collection: Project.movie_project.seasons.collect{|s| [s.name, s.id]}, include_blank: '请选择申请年度', label: false, required: true, input_html: {id: 'allcamps'} %>
+              <%= f.input :project_season_id, as: :select, collection: Project.movie_project.seasons.enable.sorted.collect{|s| [s.name, s.id]}, include_blank: '请选择申请年度', label: false, required: true, input_html: {id: 'allcamps'} %>
             </div>
           </div>
           <div>

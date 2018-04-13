@@ -1,0 +1,22 @@
+<% submit = apply.form %>
+<% form = apply.project.form %>
+  <% form.each do |item| %>
+    <div>
+      <span class="goodtext <%= item['label'].to_s.length > 4 ? 'numfont' : '' %>"><%= item['label'] %></span>
+        <% if item['type'] == 'text'%>
+        <%= text_field_tag "#{model}[form][#{item['key']}]", submit[item['key']], placeholder: item['placeholder'], data: {'parsley-required': item['required'] == 'y'}%>
+        <% elsif item['type'] == 'textarea'%>
+        <%= text_area_tag "#{model}[form][#{item['key']}]", submit[item['key']], placeholder: item['placeholder'], data: {'parsley-required': item['required'] == 'y'}%>
+        <% elsif item['type'] == 'number'%>
+        <div class="modified modified-2 goods-project-input">
+          <span class="iconfont icon-ico-reduce oversmin"></span>
+          <%= text_field_tag "#{model}[form][#{item['key']}]", submit[item['key']], type: :number, min: item['options'].to_a[0],max: item['options'].to_a[1], placeholder: item['placeholder'], class: "oversinputs", data: {'parsley-required': item['required'] == 'y'}%>
+          <span class="iconfont icon-ico-add1 oversadd"></span>
+        </div>
+        <% elsif item['type'] == 'select'%>
+        <div class="">
+          <%= select_tag "#{model}[form][#{item['key']}]", options_for_select(item['options'], submit[item['key']]), include_blank: true, placeholder: item['placeholder'], class: 'select2', data: {'parsley-required': item['required'] == 'y'}%>
+        </div>
+        <% end %>
+    </div>
+  <% end %>

@@ -143,6 +143,15 @@ class ProjectSeasonApplyChild < ApplicationRecord
     self.update_columns(age: child_age)
   end
 
+  def secure_name
+    return '' if self.name.blank?
+    if self.name.length < 2
+      self.name
+    else
+      self.name.gsub(self.name[1,1], '*')
+    end
+  end
+
   # 筹款进度
   def gift_progress
     "#{self.done_semester_count}/#{self.semester_count}"

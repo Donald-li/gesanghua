@@ -1,8 +1,9 @@
 class Platform::School::Apply::PairsController < Platform::School::BaseController
+  before_action :check_manage_limit
   before_action :set_apply, only: [:show]
 
   def index
-    @school = current_user.school
+    @school = current_user.teacher.school
     scope = ProjectSeasonApply.where(project: Project.pair_project, school: @school).sorted
     @applies = scope.page(params[:page]).per(8)
   end
@@ -11,6 +12,10 @@ class Platform::School::Apply::PairsController < Platform::School::BaseControlle
   end
 
   private
+  def check_manage_limit
+    redirect_to root_path unless current_teacher.manage_projects.where(alias: 'pair').exists?
+  end
+
   def set_apply
     @apply = ProjectSeasonApply.find(params[:id])
   end

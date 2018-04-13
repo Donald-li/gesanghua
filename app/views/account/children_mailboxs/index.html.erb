@@ -4,56 +4,33 @@
     <p class="don-title border-b ">
       <span class="pull-left">孩子信箱</span>
       <span class="pull-right iconfont icon-arrow-right"></span>
-      <span class="pull-right">返回</span>
+      <span class="pull-right"><%= link_to account_pairs_path do %>返回<% end %></span>
     </p>
-    <div class="plat-school-apply-pair border-t">
-    <div class="school-feed">
-      <%= image_tag 'cooperate-visite-form.png' %>
-      <span>123 ·</span>
-      <span>234发布</span>
-    </div>
-    <div class="school-apply-pair-table" >
-      <div class="children_mailboxs">
-        <p>123</p>
-
-        <div class="feedback-shows-img">
-
-          <div>
-            <a data-magnify="gallery"  href="<%=image_url 'cooperate-visite-form.png' %>">
-              <%= image_tag 'cooperate-visite-form.png', :style => "width:211px" %>
-            </a>
-          </div>
-
+    <% @feedbacks.each do |feedback| %>
+      <div class="plat-school-apply-pair border-t">
+        <div class="school-feed">
+          <%= image_tag feedback.user.user_avatar %>
+          <span><%= feedback.user.show_name %> ·</span>
+          <span><%= feedback.created_at.strftime("%Y-%m-%d")%>发布</span>
         </div>
-
-      </div>
-    </div>
-
-  </div>
-    <div class="plat-school-apply-pair border-t">
-      <div class="school-feed">
-        <%= image_tag 'cooperate-visite-form.png' %>
-        <span>123 ·</span>
-        <span>234发布</span>
-      </div>
-      <div class="school-apply-pair-table" >
-        <div class="children_mailboxs">
-          <p>123</p>
-
-          <div class="feedback-shows-img">
-
-            <div>
-              <a data-magnify="gallery"  href="<%=image_url 'cooperate-visite-form.png' %>">
-                <%= image_tag 'cooperate-visite-form.png', :style => "width:211px" %>
-              </a>
-            </div>
-
+        <div class="school-apply-pair-table" >
+          <div class="children_mailboxs">
+            <p><%= feedback.content.html_safe %></p>
+            <% if feedback.images.present? %>
+              <div class="feedback-shows-img">
+                <% feedback.images.each do |image| %>
+                  <div>
+                    <a data-magnify="gallery"  href="<%=image_url image.try(:file).try(:url, :medium).to_s %>">
+                      <%= image_tag image.try(:file).try(:url, :medium).to_s, :style => "width:211px" %>
+                    </a>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
           </div>
-
         </div>
       </div>
-
-    </div>
+    <% end %>
   </div>
 
 </div>

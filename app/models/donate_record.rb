@@ -200,6 +200,18 @@ class DonateRecord < ApplicationRecord
     end
   end
 
+  def show_title
+    if self.owner_type == 'DonateItem' || self.owner_type == 'ProjectSeasonApply'
+      self.agent.show_name + '捐助' + self.owner.name
+    elsif self.owner_type == 'ProjectSeasonApplyChild'
+      self.agent.show_name + '捐助' + self.owner.secure_name
+    elsif self.owner_type == 'ProjectSeasonApplyBookshelf'
+      self.agent.show_name + '捐助' + self.owner.apply.name
+    elsif self.owner_type == 'CampaignEnlist'
+      self.agent.show_name + '捐助' + self.owner.campaign.name
+    end
+  end
+
   private
 
   # 补充捐助记录信息

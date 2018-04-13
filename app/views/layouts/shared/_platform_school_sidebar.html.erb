@@ -1,11 +1,15 @@
 <div class="person-body-left pull-left">
   <ul>
-    <%# binding.pry %>
-    <%= link_to platform_school_apply_pairs_path do %>
-    <li class="<%= display_menu(["pairs","reads","goods_projects","movies","movie_cares","camps"]) %> cur">
+    <% projects = current_user.manage_projects.visible.sorted %>
+    <% if projects.present? %>
+    <% project = projects.first %>
+    <% url = project.goods? ? platform_school_apply_pairs_path(pid: project) : url_for(controller: "platform/school/apply/#{project.alias.pluralize}", action: :index) %>
+    <%= link_to url do %>
+    <li class="<%= display_menu(["pairs","reads","goods_projects","goods","camps"]) %> cur">
       <span class="iconfont icon-ico-team"></span>
       <span>项目管理</span>
     </li>
+    <% end %>
     <% end %>
     <%= link_to platform_school_teachers_path do %>
     <li class="<%= display_menu("teachers") %> cur">

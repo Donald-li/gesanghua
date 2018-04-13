@@ -1,4 +1,5 @@
 class Platform::School::Apply::ReadsController < Platform::School::BaseController
+  before_action :check_manage_limit # 是否可以管理该项目
   before_action :set_apply, only: [:show, :bookshelves, :supplements]
   before_action :set_school
 
@@ -62,12 +63,16 @@ class Platform::School::Apply::ReadsController < Platform::School::BaseControlle
   end
 
   private
+  def check_manage_limit
+    redirect_to root_path unless current_teacher.manage_projects.where(alias: 'read').exists?
+  end
+
   def set_apply
     @apply = ProjectSeasonApply.find(params[:id])
   end
 
   def set_school
-    @school = current_user.school
+    @school = current_user.teacher.school
   end
 
   def apply_params
