@@ -1,32 +1,43 @@
 <p class="don-title border-b">项目管理</p>
 <div class="donations-1">
+  <% projects = current_user.manage_projects %>
   <ul class="donations1 clearfix">
+    <% if projects.detect{|p| p.alias == 'pair'} %>
     <li class="cur <%= 'selectedDo' if controller_name == 'pairs' %> "><%= link_to '一对一', platform_school_apply_pairs_path %>
     <% if controller_name == 'pairs' %>
         <div class="bottomline"></div>
     <% end %>
     </li>
+    <% end %>
+    <% if projects.detect{|p| p.alias == 'camp'} %>
     <li class="cur border-l <%= 'selectedDo' if controller_name == 'camps' %>"><%= link_to '探索营', platform_school_apply_camps_path %>
       <% if controller_name == 'camps' %>
           <div class="bottomline"></div>
       <% end %>
     </li>
+    <% end %>
+    <% if projects.detect{|p| p.alias == 'movie_care'} %>
     <li class="cur border-l <%= 'selectedDo' if controller_name == 'movie_cares' %>"><%= link_to '护花课程', platform_school_apply_movie_cares_path %>
       <% if controller_name == 'movie_cares' %>
           <div class="bottomline"></div>
       <% end %>
     </li>
+    <% end %>
+    <% if projects.detect{|p| p.alias == 'movie'} %>
     <li class="cur border-l <%= 'selectedDo' if controller_name == 'movies' %>"><%= link_to '观影', platform_school_apply_movies_path %>
       <% if controller_name == 'movies' %>
           <div class="bottomline"></div>
       <% end %>
     </li>
+    <% end %>
+    <% if projects.detect{|p| p.alias == 'read'} %>
     <li class="cur border-l <%= 'selectedDo' if controller_name == 'reads' %>"><%= link_to '悦读', platform_school_apply_reads_path %>
       <% if controller_name == 'reads' %>
           <div class="bottomline"></div>
       <% end %>
     </li>
-    <% Project.goods.visible.sorted.each do |project| %>
+    <% end %>
+    <% Project.goods.visible.sorted.each do |project|; next unless projects.detect{|p| p.id == project.id} %>
     <li class="cur border-l <%= 'selectedDo' if params[:pid] == project.id.to_s %>"><%= link_to project.name, platform_school_apply_goods_projects_path(pid: project.id) %>
       <% if params[:pid] == project.id.to_s %>
           <div class="bottomline"></div>
