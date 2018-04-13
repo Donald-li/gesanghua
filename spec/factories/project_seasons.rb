@@ -19,5 +19,9 @@ FactoryBot.define do
   factory :project_season, aliases: [:season] do
     name '2017'
     state 1
+    junior_term_amount 1050.0
+    junior_year_amount 2100.0
+    senior_term_amount 1050.0
+    senior_year_amount 2100.0
   end
 end
