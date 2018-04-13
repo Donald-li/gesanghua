@@ -80,17 +80,22 @@
 <% end %>
 
 <script>
-  // 模拟城市-无联动/无搜索
-  // var selector1 = $('#city-picker-selector').cityPicker({
-  //   dataJson: cityData,
-  //   renderMode: true,
-  //   search: false,
-  //   autoSelected: false,
-  //   code: 'cityCode',
-  //   level: 3
-  // });
+
   $(function () {
       initAvatarWebuploader($('#webuploader'));
+    $(".province").select2({
+        width: "170px",
+        minimumResultsForSearch: -1
+    });
+    $(".city").select2({
+        width: "170px",
+        minimumResultsForSearch: -1
+    });
+    $(".district").select2({
+        width: "200px",
+        minimumResultsForSearch: -1
+    });
+
   })
 </script>
 

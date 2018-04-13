@@ -19,7 +19,7 @@
           </div>
           <div>
             <span class="goodtext">申请批次</span>
-            <div id="doodname">
+            <div >
               <%= f.input :project_season_id, as: :select, collection: Project.read_project.seasons.collect {|s| [s.name, s.id]}, include_blank: '请选择申请年度', label: false, required: true, input_html: {id: 'allcamps'} %>
             </div>
           </div>
@@ -162,24 +162,30 @@
         $('#update-supplement').click(updateSupplement);
     });
 
-    $("#allcamps").select({
-        width: "452px"
+    $("#allcamps").select2({
+        width: "452px",
+        minimumResultsForSearch: -1
     });
-    $("#province").select({
-        width: "148px"
+    $("#province").select2({
+        width: "220px",
+        minimumResultsForSearch: -1
     });
-    $("#city").select({
-        width: "148px"
+    $("#city").select2({
+        width: "220px",
+        minimumResultsForSearch: -1
     });
-    $("#district").select({
-        width: "148px"
+    $("#district").select2({
+        width: "220px",
+        minimumResultsForSearch: -1
     });
 
-    $("#selected-class").select({
-        width: "100%"
+    $("#selected-class").select2({
+        width: "100%",
+        minimumResultsForSearch: -1
     });
-    $("#select-class").select({
-        width: "100%"
+    $("#select-class").select2({
+        width: "100%",
+        minimumResultsForSearch: -1
     });
     $('.modified-1').calculate();
     $('.modified-2').calculate();

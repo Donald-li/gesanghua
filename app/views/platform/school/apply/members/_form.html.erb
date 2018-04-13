@@ -70,14 +70,17 @@
 </div>
 <% end %>
 <script>
-    $("#allcamps").select({
-        width: "452px"
+    $("#allcamps").select2({
+        width: "452px",
+        minimumResultsForSearch: -1
     });
-    $("#level").select({
-        width: "145px"
+    $("#level").select2({
+        width: "145px",
+        minimumResultsForSearch: -1
     });
-    $("#grade").select({
-        width: "145px"
+    $("#grade").select2({
+        width: "145px",
+        minimumResultsForSearch: -1
     });
     $(function(){
         initAvatarWebuploader($('#child-avatar'));

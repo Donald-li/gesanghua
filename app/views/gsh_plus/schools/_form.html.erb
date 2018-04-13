@@ -10,7 +10,7 @@
       <div>
         <span class="goodtext">选择地区</span>
         <!-- <div class="city-picker-selector" id="city-picker-selector"></div> -->
-        <div class="city-group">
+        <div>
           <%= select_tag 'school[province]', options_for_select(ChinaCity.list, @school.province.presence), prompt: '省份', class: "city-select", id: 'province' %>
           <%= select_tag 'school[city]', options_for_select(ChinaCity.list(@school.province.to_s), @school.city.presence), prompt: '城市', class: "city-select", id: 'city' %>
           <%= select_tag 'school[district]', options_for_select(ChinaCity.list(@school.city.to_s), @school.district.presence), prompt: '地区', class: "city-select", id: 'district' %>
@@ -96,11 +96,20 @@
   <button>取消</button>
 </div>
 <% end %>
-
-
-
 </div>
 <script>
+    $("#province").select2({
+        width: "141px",
+        minimumResultsForSearch: -1
+    });
+    $("#city").select2({
+        width: "150px",
+        minimumResultsForSearch: -1
+    });
+    $("#district").select2({
+        width: "150px",
+        minimumResultsForSearch: -1
+    });
   initImageWebuploader($('#school-card'));
   initImageWebuploader($('#school-certificate'));
 </script>
