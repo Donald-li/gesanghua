@@ -80,7 +80,7 @@ class GshChildGrant < ApplicationRecord
   end
 
   def surplus_money
-    self.amount - self.present_amount
+    self.amount
   end
 
   def self.gen_grant_record(child)
