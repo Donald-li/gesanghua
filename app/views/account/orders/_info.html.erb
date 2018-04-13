@@ -24,9 +24,17 @@
           <% end %>
         </div>
       </div>
-      <button class="donation-cont-but pull-right cur">
-        查看项目详情
-      </button>
+      <% case record.id %>
+      <% when 1 %>
+        <% url = pairs_path %>
+      <% when 2 %>
+        <% url = reads_path %>
+      <% when 3 %>
+        <% url = camps_path %>
+      <% else %>
+        <% url = goods_path(id: record.id) %>
+      <% end %>
+      <%= link_to "查看项目详情", url, class: "donation-cont-but pull-right cur" %>
     </div>
   </div>
 <% end %>
