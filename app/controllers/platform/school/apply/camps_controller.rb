@@ -2,7 +2,7 @@ class Platform::School::Apply::CampsController < Platform::School::BaseControlle
   before_action :set_apply_camp, only: [:show]
 
   def index
-    @school = current_user.school
+    @school = current_user.teacher.school
     scope = ProjectSeasonApplyCamp.where(school: @school).sorted
     @apply_camps = scope.page(params[:page]).per(8)
   end

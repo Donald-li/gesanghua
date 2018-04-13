@@ -30,7 +30,7 @@
               <div class="input-group icheck-inline">
                 <% Project.sorted.all.each do |project| %>
                 <label>
-                  <%= check_box_tag 'teacher_projects[]', project.id, @teacher.teacher_projects.find_by(project_id: project.id).present? || @teacher.headmaster? %> <%= project.name %>
+                  <%= check_box_tag 'teacher_projects[]', project.id, @teacher.can_manage_project?(project.id) %> <%= project.name %>
                 </label>
                 <% end %>
               </div>
