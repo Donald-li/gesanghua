@@ -53,6 +53,10 @@ class Teacher < ApplicationRecord
     end.attributes!
   end
 
+  def can_manage_project?(project_id)
+    self.teacher_projects.find_by(project_id: project_id).present? || self.headmaster?
+  end
+
   def identity_teacher_summary_builder
     Jbuilder.new do |json|
       json.merge! summary_builder

@@ -2,69 +2,56 @@
         <!--我的捐助-->
         <div style="display: block;">
           <ul class="donations clearfix">
-            <li class="selectedDon cur">
+            <li class="cur">
               <%= link_to '我的捐助', account_orders_path %>
             </li>
             <li class="cur">
               <%= link_to '我的结对', account_pairs_path %>
             </li>
-            <li class="cur">
+            <li class="selectedDon cur">
               <%= link_to '我的图书角', account_bookshelves_path %>
             </li>
           </ul>
           <!--我的捐助-->
           <div class="donation " style="display: block;">
+            <% if @bookshelves.present? %>
               <div class="donation-cont ">
+                <% @bookshelves.each do |bookshelf| %>
                   <div class="clearfix border-b">
                     <div class="donation-cont-img pull-left">
-                      <%= image_tag 'cooperate-visite-form.png' %>
+                      <%= image_tag bookshelf.apply.cover_image.try(:file).try(:url, :tiny).to_s %>
                     </div>
                     <div class="pull-left donation-cont-cco">
                       <div class="donation-cont-c-tit clearfix">
-                        <p class="pull-left">维基飞翔图书角</p>
+                        <p class="pull-left"><%= bookshelf.show_title %></p>
                       </div>
                       <div class="clearfix donation-cont-c-con">
-                        <p class="donation-cont-c-my-read"><span>项目名称：</span>海宁第二中学三年一班图书角</p>
-                        <p class="donation-cont-c-my-read"><span>图书角编号</span>：1984rt908i13</p>
-                        <p class="donation-cont-c-my-read"><span>图书数量：</span>12346本</p>
+                        <p class="donation-cont-c-my-read"><span>项目名称：</span><%= bookshelf.apply.name %></p>
+                        <p class="donation-cont-c-my-read"><span>图书角编号</span>：<%= bookshelf.bookshelf_no %></p>
+                        <p class="donation-cont-c-my-read"><span>图书数量：</span><%= bookshelf.book_number %>本</p>
                       </div>
                     </div>
-                    <button class="donation-cont-but pull-right cur">
-                 查看项目详情
-                    </button>
+                    <%= link_to detail_read_path(bookshelf.apply) do %>
+                      <button class="donation-cont-but pull-right cur">
+                          查看项目详情
+                      </button>
+                    <% end %>
                   </div>
-                <div class="clearfix border-b">
-                  <div class="donation-cont-img pull-left">
-                    <%= image_tag 'cooperate-visite-form.png' %>
+                <% end %>
+              </div>
+              <div class="project-foot">
+                <%= paginate @bookshelves, theme: :tiny%>
+              </div>
+            <% else %>
+              <div class="donation-cont-no">
+                <div class="donation-co-no-c">
+                  <div class="donation-co-no-c-img">
+                    <%= image_tag 'my-read.png' %>
                   </div>
-                  <div class="pull-left donation-cont-cco">
-                    <div class="donation-cont-c-tit clearfix">
-                      <p class="pull-left">维基飞翔图书角</p>
-                    </div>
-                    <div class="clearfix donation-cont-c-con">
-                      <p class="donation-cont-c-my-read"><span>项目名称：</span>海宁第二中学三年一班图书角</p>
-                      <p class="donation-cont-c-my-read"><span>图书角编号</span>：1984rt908i13</p>
-                      <p class="donation-cont-c-my-read"><span>图书数量：</span>12346本</p>
-                    </div>
-                  </div>
-                  <button class="donation-cont-but pull-right cur">
-                    查看项目详情
-                  </button>
+                  <p>暂无整捐图书角</p>
                 </div>
               </div>
-
-            <div class="donation-cont-no">
-              <div class="donation-co-no-c">
-                <div class="donation-co-no-c-img">
-                  <%= image_tag 'my-read.png' %>
-                </div>
-                <p>暂无整捐图书角</p>
-              </div>
-            </div>
-            <div class="project-foot">
-              <span class="iconfont icon-arrow-left cur"></span>
-              <span class="iconfont icon-arrow-right cur"></span>
-            </div>
+            <% end %>
           </div>
         </div>
       </div>

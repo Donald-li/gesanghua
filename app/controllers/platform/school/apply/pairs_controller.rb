@@ -3,7 +3,7 @@ class Platform::School::Apply::PairsController < Platform::School::BaseControlle
   before_action :set_apply, only: [:show]
 
   def index
-    @school = current_user.school
+    @school = current_user.teacher.school
     scope = ProjectSeasonApply.where(project: Project.pair_project, school: @school).sorted
     @applies = scope.page(params[:page]).per(8)
   end

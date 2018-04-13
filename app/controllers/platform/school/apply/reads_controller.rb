@@ -72,7 +72,7 @@ class Platform::School::Apply::ReadsController < Platform::School::BaseControlle
   end
 
   def set_school
-    @school = current_user.school
+    @school = current_user.teacher.school
   end
 
   def apply_params

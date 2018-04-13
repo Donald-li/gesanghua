@@ -1,66 +1,67 @@
 <p class="don-title border-b">项目管理</p>
 <div class="donations-1">
-  <% projects = current_user.manage_projects %>
   <ul class="donations1 clearfix">
-    <% if projects.detect{|p| p.alias == 'pair'} %>
-    <li class="cur <%= 'selectedDo' if controller_name == 'pairs' %> "><%= link_to '一对一', platform_school_apply_pairs_path %>
-    <% if controller_name == 'pairs' %>
-        <div class="bottomline"></div>
+    <% if current_user.teacher.can_manage_project?(Project.pair_project.id) %>
+        <li class="cur <%= 'selectedDo' if controller_name == 'pairs' %> "><%= link_to '一对一', platform_school_apply_pairs_path %>
+          <% if controller_name == 'pairs' %>
+              <div class="bottomline"></div>
+          <% end %>
+        </li>
     <% end %>
-    </li>
+    <% if current_user.teacher.can_manage_project?(Project.camp_project.id) %>
+        <li class="cur border-l <%= 'selectedDo' if controller_name == 'camps' %>"><%= link_to '探索营', platform_school_apply_camps_path %>
+          <% if controller_name == 'camps' %>
+              <div class="bottomline"></div>
+          <% end %>
+        </li>
     <% end %>
-    <% if projects.detect{|p| p.alias == 'camp'} %>
-    <li class="cur border-l <%= 'selectedDo' if controller_name == 'camps' %>"><%= link_to '探索营', platform_school_apply_camps_path %>
-      <% if controller_name == 'camps' %>
-          <div class="bottomline"></div>
-      <% end %>
-    </li>
+    <% if current_user.teacher.can_manage_project?(Project.care_project.id) %>
+        <li class="cur border-l <%= 'selectedDo' if controller_name == 'movie_cares' %>"><%= link_to '护花课程', platform_school_apply_movie_cares_path %>
+          <% if controller_name == 'movie_cares' %>
+              <div class="bottomline"></div>
+          <% end %>
+        </li>
     <% end %>
-    <% if projects.detect{|p| p.alias == 'movie_care'} %>
-    <li class="cur border-l <%= 'selectedDo' if controller_name == 'movie_cares' %>"><%= link_to '护花课程', platform_school_apply_movie_cares_path %>
-      <% if controller_name == 'movie_cares' %>
-          <div class="bottomline"></div>
-      <% end %>
-    </li>
+    <% if current_user.teacher.can_manage_project?(Project.movie_project.id) %>
+        <li class="cur border-l <%= 'selectedDo' if controller_name == 'movies' %>"><%= link_to '观影', platform_school_apply_movies_path %>
+          <% if controller_name == 'movies' %>
+              <div class="bottomline"></div>
+          <% end %>
+        </li>
     <% end %>
-    <% if projects.detect{|p| p.alias == 'movie'} %>
-    <li class="cur border-l <%= 'selectedDo' if controller_name == 'movies' %>"><%= link_to '观影', platform_school_apply_movies_path %>
-      <% if controller_name == 'movies' %>
-          <div class="bottomline"></div>
-      <% end %>
-    </li>
+    <% if current_user.teacher.can_manage_project?(Project.read_project.id) %>
+        <li class="cur border-l <%= 'selectedDo' if controller_name == 'reads' %>"><%= link_to '悦读', platform_school_apply_reads_path %>
+          <% if controller_name == 'reads' %>
+              <div class="bottomline"></div>
+          <% end %>
+        </li>
     <% end %>
-    <% if projects.detect{|p| p.alias == 'read'} %>
-    <li class="cur border-l <%= 'selectedDo' if controller_name == 'reads' %>"><%= link_to '悦读', platform_school_apply_reads_path %>
-      <% if controller_name == 'reads' %>
-          <div class="bottomline"></div>
-      <% end %>
-    </li>
-    <% end %>
-    <% Project.goods.visible.sorted.each do |project|; next unless projects.detect{|p| p.id == project.id} %>
-    <li class="cur border-l <%= 'selectedDo' if params[:pid] == project.id.to_s %>"><%= link_to project.name, platform_school_apply_goods_projects_path(pid: project.id) %>
-      <% if params[:pid] == project.id.to_s %>
-          <div class="bottomline"></div>
-      <% end %>
-    </li>
+    <% Project.goods.visible.sorted.each do |project| %>
+        <% if current_user.teacher.can_manage_project?(project.id) %>
+            <li class="cur border-l <%= 'selectedDo' if params[:pid] == project.id.to_s %>"><%= link_to project.name, platform_school_apply_goods_projects_path(pid: project.id) %>
+              <% if params[:pid] == project.id.to_s %>
+                  <div class="bottomline"></div>
+              <% end %>
+            </li>
+        <% end %>
     <% end %>
 
   </ul>
   <% if controller_name == 'reads' %>
-  <div class="add-reads">
-    <%= link_to new_supplement_platform_school_apply_reads_path do %>
-    <button class=" school-apply-share-sub">
-      <span class="iconfont icon-ico-add1"></span>
-      <span>补书申请</span>
-    </button>
-    <% end %>
-    <%= link_to new_platform_school_apply_read_path do %>
-    <button class=" school-apply-share-sub">
-      <span class="iconfont icon-ico-add1"></span>
-      <span>新书申请</span>
-    </button>
-    <% end %>
-  </div>
+      <div class="add-reads">
+        <%= link_to new_supplement_platform_school_apply_reads_path do %>
+            <button class=" school-apply-share-sub">
+              <span class="iconfont icon-ico-add1"></span>
+              <span>补书申请</span>
+            </button>
+        <% end %>
+        <%= link_to new_platform_school_apply_read_path do %>
+            <button class=" school-apply-share-sub">
+              <span class="iconfont icon-ico-add1"></span>
+              <span>新书申请</span>
+            </button>
+        <% end %>
+      </div>
   <% end %>
 
   <% if controller_name == 'movie_cares' %>
@@ -91,18 +92,18 @@
         $(this).addClass("selectedDo")
 
     })
-    if($('.donation .donation-cont').length===0){
+    if ($('.donation .donation-cont').length === 0) {
         $('.donation-cont-no').css('display', 'block')
         $('.project-foot').css('display', 'none')
-    }else{
+    } else {
         $('.donation-cont-no').css('display', 'none')
         $('.project-foot').css('display', 'block')
     }
-    if($('.school-apply-pair-table-co .school-apply-pair-tables').length===0){
+    if ($('.school-apply-pair-table-co .school-apply-pair-tables').length === 0) {
         $('.donation-cont-no').css('display', 'block')
         $('.project-foot').css('display', 'none')
         $('.school-apply-pair-table-co').css('display', 'none')
-    }else{
+    } else {
         $('.donation-cont-no').css('display', 'none')
         $('.project-foot').css('display', 'block')
         $('.school-apply-pair-table-co').css('display', 'block')
