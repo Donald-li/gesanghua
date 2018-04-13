@@ -117,10 +117,12 @@
     <% end %>
 
   </div>
-  <%= link_to articles_path do %>
-    <div class="button button--but bul-buton cur " data-text="更多资讯">
-      <span class="button--inverted">更多资讯</span>
-    </div>
+  <% if @articles.present? %>
+    <%= link_to articles_path do %>
+      <div class="button button--but bul-buton cur " data-text="更多资讯">
+        <span class="button--inverted">更多资讯</span>
+      </div>
+    <% end %>
   <% end %>
 </div>
 <div class="collaboration">
