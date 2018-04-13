@@ -73,7 +73,7 @@ class GshChildGrant < ApplicationRecord
     donate_record.update!(amount: amount)
 
     self.apply.present_amount += amount
-    self.pair_project.appoint_fund.balance += amount
+    Project.pair_project.appoint_fund.balance += amount
     self.donate_state = 'succeed'
     self.save!
     self.apply_child.update_state
