@@ -14,8 +14,10 @@
 #  updated_at                        :datetime         not null
 #  project_season_id                 :integer                                # 年度ID
 #  project_season_apply_id           :integer                                # 年度项目ID
+#  project_season_apply_child_id     :integer                                # 年度孩子申请ID
 #  gsh_child_id                      :integer                                # 格桑花孩子id
 #  project_season_apply_bookshelf_id :integer                                # 书架id
+#  donate_item_id                    :integer                                # 可捐助id
 #  income_record_id                  :integer                                # 收入记录
 #  title                             :string                                 # 捐赠标题
 #  source_type                       :string

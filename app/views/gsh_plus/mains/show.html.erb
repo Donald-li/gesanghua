@@ -100,5 +100,12 @@
 <%= link_to account_orders_path do %><p class="gsh-plus-foot">返回个人中心</p><% end %>
 </div>
 <script type="text/javascript">
-  $('.qrcode').qrcode("<%= @wechat_code_url %>")
+  jQuery(function(){
+    jQuery('.qrcode').qrcode({
+      render: "canvas",
+      width: 180,
+      height: 180,
+      text: '<%= @wechat_code_url %>'
+    });
+  })
 </script>
