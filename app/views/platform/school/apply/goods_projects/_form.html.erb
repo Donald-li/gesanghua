@@ -1,0 +1,101 @@
+<%= simple_form_for [:platform, @apply], url: @apply.new_record? ? platform_school_apply_goods_projects_path(pid: @current_project) : platform_school_apply_goods_project_path(@apply, pid: @current_project), html: {'data-parsley-validate': true, class: 'user_form'} do |f| %>
+<div class="addchild-list marginbottom">
+  <p class="don-title">基本信息</p>
+  <div class="addchild-list-cont">
+    <div>
+      <span class="goodtext">申请学校</span>
+      <div>
+        <button type="button" class="scool-edit-name" disabled><%= current_user.school.try(:name) %></button>
+      </div>
+    </div>
+    <div>
+      <span class="goodtext">申请年度</span>
+      <div>
+        <%= f.input :project_season_id, collection: @current_project.seasons.enable.map{|p| [p.name, p.id]}, label: false, include_blank: '请选择申请年度', input_html: {id: 'season-id', data: {'parsley-required': true}} %>
+      </div>
+    </div>
+    <div>
+      <span class="goodtext">学生总数</span>
+      <%= f.text_field :student_number, class: '', min: 0, data: {'parsley-required': true} %>
+    </div>
+  </div>
+</div>
+<div class="addchild-list addchild-list-up marginbottom">
+  <p class="don-title">申请信息</p>
+  <div class="addchild-list-cont">
+    <%= render 'dynamic_form', apply: @apply, model: :project_season_apply %>
+    <div class="addchild-list-cont ">
+      <div>
+        <span class="goodtext">其他说明</span>
+        <%= f.text_area :describe %>
+      </div>
+      <div>
+        <span class="goodtext">上传图片</span>
+        <div class="clearfix ">
+          <div class="addchild-list-up-picture pull-left">
+            <p class="iconfont icon-ico-add"></p>
+            <p></p>
+            <%= webuploader_image 'image_ids[]', label: '上传图片', type: 'project_season_apply_image', asset: @apply.images, klass: 'multiple', id: 'child-image1' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="addchild-list addchild-list-up">
+  <p class="don-title">收件人信息</p>
+  <div class="addchild-list-cont">
+    <div>
+      <span class="goodtext">收件人</span>
+      <%= f.text_field :contact_name, data: {parsley_required: true} %>
+    </div>
+    <div>
+      <span class="goodtext">联系电话</span>
+      <%= f.text_field :contact_phone, data: {parsley_required: true, parsley_mobile: true}%>
+    </div>
+    <div>
+      <span class="goodtext">收货地区</span>
+      <div class="city-group">
+        <%= select_tag 'project_season_apply[province]', options_for_select(ChinaCity.list, @apply.province.presence), prompt: '省份', class: "city-select", id: 'province', data: {parsley_required: true} %>
+        <%= select_tag 'project_season_apply[city]', options_for_select(ChinaCity.list(@apply.province.to_s), @apply.city.presence), prompt: '城市', class: "city-select", id: 'city', data: {parsley_required: true} %>
+        <%= select_tag 'project_season_apply[district]', options_for_select(ChinaCity.list(@apply.city.to_s), @apply.district.presence), prompt: '地区', class: "city-select", id: 'district', data: {parsley_required: true} %>
+      </div>
+    </div>
+    <div>
+      <span class="goodtext">详细地址</span>
+      <%= f.text_field :address, data: {parsley_required: true} %>
+    </div>
+  </div>
+
+</div>
+<div class="childern-submint">
+  <button type="submit">保存</button>
+  <%= link_to '取消', platform_school_apply_goods_projects_path(pid: @current_project) %>
+</div>
+<% end %>
+
+<script>
+    $(function(){
+      $("#season-id").select2({
+          width: "452px",
+          minimumResultsForSearch: -1
+      });
+      $(".select2").select2({
+          minimumResultsForSearch: -1
+      });
+      $("#province").select2({
+          width: "220px",
+          minimumResultsForSearch: -1
+      });
+      $("#city").select2({
+          width: "220px",
+          minimumResultsForSearch: -1
+      });
+      $("#district").select2({
+          width: "220px",
+          minimumResultsForSearch: -1
+      });
+      initMultiImageWebuploader($('#child-image1'));
+    })
+</script>

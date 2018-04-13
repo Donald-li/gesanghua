@@ -6,7 +6,7 @@
       <div class="referal-img-z"></div>
       <div class="referral-cont">
         <p class="referral-cont-p"><%= @project.try(:name) %></p>
-        <p class="referral-cont-m">已累计捐助 <span><%= @project.donate_record_amount_count %></span> 元</p>
+        <p class="referral-cont-m">已累计捐助 <span><%= @project.total_amount %></span> 元</p>
         <%= link_to new_donate_path do %><button class="referral-cont-but cur">捐助<%= @project.name %></button><% end %>
       </div>
     </div>
@@ -85,6 +85,13 @@
       <ul class="detail-b-r-name" id="donate-records">
         <%= render '/site/donate_records/list', owner: @project, records: @donate_records %>
       </ul>
+      <div class="not-available ">
+        <div class="donation-cont-no">
+          <div class="donation-co-no-c">
+            <p>暂无捐助记录</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

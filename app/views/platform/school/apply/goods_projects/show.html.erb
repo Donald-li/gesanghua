@@ -1,1 +1,46 @@
-广播详情页
+<div class="person-body-right pull-right">
+
+  <div style="display: block;">
+    <p class="don-title border-b ">
+      <span class="pull-left"><%= @current_project.name %>申请详情</span>
+      <span class="pull-right iconfont icon-arrow-right"></span>
+      <span class="pull-right"><%= link_to platform_school_apply_goods_projects_path(pid: @current_project) do %>返回项目管理<% end %></span>
+    </p>
+    <div class="plat-school-apply-pair">
+    <p class="school-apply-pair-tit"><%= @apply.apply_name %></p>
+    <div class="school-apply-pair-table">
+      <p>基本信息</p>
+      <div class="school-apply-pair-table-cont">
+        <p><span>申请编号：</span><%= @apply.apply_no %></p>
+        <p><span>申请学校：</span><%= @apply.school.name %></p>
+        <p><span>学生数量：</span><%= @apply.student_number.to_i %>人</p>
+      </div>
+    </div>
+    <div class="school-apply-pair-table">
+      <p>申请信息</p>
+      <div class="school-apply-pair-table-cont">
+        <%= render 'dynamic_form_show', apply: @apply %>
+        <p><span>其他说明：</span><%= @apply.describe %></p>
+        <p><span>申请图片：</span>
+          <div>
+            <% @apply.images.each do |image| %>
+              <%= image_tag image.file.url(:small), width: 100, height: 100 %>
+            <% end %>
+          </div>
+        </p>
+      </div>
+    </div>
+      <div class="school-apply-pair-table">
+        <p>收件人信息</p>
+        <div class="school-apply-pair-table-cont">
+        <p><span>收件人：</span><%= @apply.contact_name %></p>
+        <p><span>联系电话：</span><%= @apply.contact_phone %></p>
+        <p><span>收货地区</span><%= ChinaCity.get(@apply.province) %><%= ChinaCity.get(@apply.city) %><%= ChinaCity.get(@apply.district) %></p>
+        <p><span>详细地址：</span><%= @apply.address %></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

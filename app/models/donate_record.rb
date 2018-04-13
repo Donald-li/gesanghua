@@ -47,8 +47,6 @@ class DonateRecord < ApplicationRecord
   belongs_to :source, polymorphic: true
   belongs_to :owner, polymorphic: true
 
-  # counter_culture :project, column_name: proc{|model| model.project.present? && model.pay_state == 'paid' ? 'donate_record_amount_count' : nil}, delta_magnitude: proc {|model| model.amount}
-  # counter_culture :donor, column_name: proc{|model| model.donor.present? && model.pay_state == 'paid' ? 'donate_count' : nil}, delta_magnitude: proc {|model| model.amount }
   # counter_culture :promoter, column_name: proc{|model| model.promoter.present? && model.pay_state == 'paid' ? 'promoter_amount_count' : nil}, delta_magnitude: proc {|model| model.amount }
   # counter_culture :team, column_name: proc{|model| model.team.present? && model.pay_state == 'paid' ? 'total_donate_amount' : nil}, delta_magnitude: proc {|model| model.amount }
   # counter_culture :team, column_name: proc{|model| model.team.present? && model.pay_state == 'paid' ? 'current_donate_amount' : nil}, delta_magnitude: proc {|model| model.amount }
@@ -199,6 +197,18 @@ class DonateRecord < ApplicationRecord
       self.where(agent_id: agent_id, owner_id: owner_id)
     else
       self.where(agent_id: agent_id)
+    end
+  end
+
+  def show_title
+    if self.owner_type == 'DonateItem' || self.owner_type == 'ProjectSeasonApply'
+      self.agent.show_name + '捐助' + self.owner.name
+    elsif self.owner_type == 'ProjectSeasonApplyChild'
+      self.agent.show_name + '捐助' + self.owner.secure_name
+    elsif self.owner_type == 'ProjectSeasonApplyBookshelf'
+      self.agent.show_name + '捐助' + self.owner.apply.name
+    elsif self.owner_type == 'CampaignEnlist'
+      self.agent.show_name + '捐助' + self.owner.campaign.name
     end
   end
 
