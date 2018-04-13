@@ -19,6 +19,55 @@
     <% end %>
     <%= link_to  do %>
         <div>
+          <%= image_tag 'gsh-icon-volunteer.png' %>
+          <p class="gsh-plus-c-t">我是志愿者</p>
+          <div class="wechat-qrcode">
+            <div class="qrcode" id="regular-feedback-qrcode">
+            </div>
+            <div class="help"><p>请扫描二维码 </p>
+              <p>到微信端进行登录</p></div>
+          </div>
+        </div>
+    <% end %>
+    <%= link_to  do %>
+        <div>
+          <%= image_tag 'gsh-icon-leader.png' %>
+          <p class="gsh-plus-c-t">我是县领导</p>
+          <div class="wechat-qrcode">
+            <div class="qrcode" id="regular-feedback-qrcode">
+            </div>
+            <div class="help"><p>请扫描二维码 </p>
+              <p>到微信端进行登录</p></div>
+          </div>
+        </div>
+    <% end %>
+
+    <%= link_to  do %>
+        <div>
+          <%= image_tag 'gsh-icon-child.png' %>
+          <p class="gsh-plus-c-t">我是格桑花孩子</p>
+          <div class="wechat-qrcode">
+            <div class="qrcode" id="regular-feedback-qrcode">
+            </div>
+            <div class="help"><p>请扫描二维码 </p>
+              <p>到微信端进行登录</p></div>
+          </div>
+        </div>
+    <% end %>
+    <!--<%= link_to  do %>-->
+        <!--<div>-->
+        <!--<%= image_tag 'gsh-icon-worker.png' %>-->
+        <!--<p class="gsh-plus-c-t">我是工作人员</p>-->
+        <!--<div class="wechat-qrcode">-->
+        <!--<div class="qrcode" id="regular-feedback-qrcode">-->
+        <!--</div>-->
+        <!--<div class="help"><p>请扫描二维码 </p>-->
+        <!--<p>到微信端进行登录</p></div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<% end %>-->
+    <%= link_to  do %>
+        <div>
           <%= image_tag 'childs-feedback.png' %>
           <p class="gsh-plus-c-t">结对反馈</p>
           <div class="wechat-qrcode">
@@ -30,67 +79,9 @@
         </div>
     <% end %>
 
+
   </div>
-  <div class="platform-cont clearfix">
-    <% if current_user.county_user? %>
-        <!--<span>-->
-          <!--<%= link_to '我是县领导' %>-->
-          <!--<div class="wechat-qrcode">-->
-        <!--<div class="qrcode">-->
-          <!--<%= image_tag 'news-listpage.png' %>-->
-        <!--</div>-->
-        <!--<div class="help"><p>请扫描二维码 </p>-->
-          <!--<p>到微信端进行登录</p></div>-->
-      <!--</div>-->
-        <!--</span>-->
-    <% end %>
-    <% if current_user.volunteer? %>
-        <!--<span>-->
-          <!--<%= link_to '我是志愿者' %>-->
-          <!--<div class="wechat-qrcode">-->
-        <!--<div class="qrcode">-->
-          <!--<%= image_tag 'news-listpage.png' %>-->
-        <!--</div>-->
-        <!--<div class="help"><p>请扫描二维码 </p>-->
-          <!--<p>到微信端进行登录</p></div>-->
-      <!--</div>-->
-        <!--</span>-->
-    <% end %>
-    <% if current_user.project_manager? || current_user.project_operator? %>
-        <!--<span>-->
-          <!--<%= link_to '我是工作人员' %>-->
-          <!--<div class="wechat-qrcode">-->
-        <!--<div class="qrcode">-->
-          <!--<%= image_tag 'news-listpage.png' %>-->
-        <!--</div>-->
-        <!--<div class="help"><p>请扫描二维码 </p>-->
-          <!--<p>到微信端进行登录</p></div>-->
-      <!--</div>-->
-        <!--</span>-->
-    <% end %>
-    <% if current_user.gsh_child? %>
-        <!--<span class="school-s-but">-->
-          <!--<%= link_to '我是格桑花孩子' %>-->
-          <!--<div class="wechat-qrcode">-->
-        <!--<div class="qrcode">-->
-          <!--<%= image_tag 'news-listpage.png' %>-->
-        <!--</div>-->
-        <!--<div class="help"><p>请扫描二维码 </p>-->
-          <!--<p>到微信端进行登录</p></div>-->
-      <!--</div>-->
-        <!--</span>-->
-    <% end %>
-    <!--<span>-->
-      <!--<%= link_to '结对反馈' %>-->
-      <!--<div class="wechat-qrcode">-->
-        <!--<div class="qrcode">-->
-          <!--<%= image_tag 'news-listpage.png' %>-->
-        <!--</div>-->
-        <!--<div class="help"><p>请扫描二维码 </p>-->
-          <!--<p>到微信端进行登录</p></div>-->
-      <!--</div>-->
-    <!--</span>-->
-  </div>
+
   <%#= link_to '返回个人中心', account_orders_path, class: "gsh-plus-foot" %>
   <div class="overspread-5">
     <div class="overspread-over"></div>

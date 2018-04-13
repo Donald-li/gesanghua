@@ -55,6 +55,7 @@ class IncomeRecord < ApplicationRecord
 
   counter_culture :donor, column_name: proc {|model| model.income_source.present? && model.income_source.online? ? 'online_count' : nil}, delta_magnitude: proc {|model| model.amount}
   counter_culture :donor, column_name: proc {|model| model.income_source.present? && model.income_source.offline? ? 'offline_count' : nil}, delta_magnitude: proc {|model| model.amount}
+  counter_culture :donor, column_name: 'donate_count', delta_magnitude: proc {|model| model.amount }
 
   def has_balance?
     self.balance > 0
