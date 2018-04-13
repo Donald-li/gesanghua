@@ -12,8 +12,8 @@
       <span class="pull-left">个人资料</span>
     </p>
     <div class="school-edit">
-      <div style="margin-left: 356px; margin-top: 30px;">
-        <%= webuploader_tag :avatar_id, label: '上传照片', type: 'user_avatar', asset: @profile.try(:avatar), klass: 'single' %>
+      <div class="addchild-list-img">
+        <%= webuploader_avatar :avatar_id, label: '上传照片', type: 'user_avatar', asset: @profile.try(:avatar), klass: 'single' %>
       </div>
       <p class="don-title">基本信息</p>
       <div class="addchild-list-cont">
@@ -80,7 +80,9 @@
 <% end %>
 
 <script>
-    $(function () {
+
+  $(function () {
+      initAvatarWebuploader($('#webuploader'));
     $(".province").select2({
         width: "170px",
         minimumResultsForSearch: -1
@@ -94,7 +96,6 @@
         minimumResultsForSearch: -1
     });
 
-    initImageWebuploader($('#webuploader'));
   })
 </script>
 
