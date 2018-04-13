@@ -23,7 +23,7 @@
 <!--      </div>-->
       <div>
         <span class="goodtext">QQ号</span>
-        <%= f.text_field :qq, placeholder: '请输入QQ号', class: "goodinput" %>
+        <%= f.text_field :qq, placeholder: '请输入QQ号', class: "goodinput", data: {type:"number","parsley-type": "integer"} %>
       </div>
       <div>
         <span class="goodtext">微信号</span>
