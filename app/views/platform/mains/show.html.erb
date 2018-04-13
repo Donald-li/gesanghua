@@ -22,8 +22,7 @@
           <%= image_tag 'childs-feedback.png' %>
           <p class="gsh-plus-c-t">结对反馈</p>
           <div class="wechat-qrcode">
-            <div class="qrcode">
-              <%= image_tag 'news-listpage.png' %>
+            <div class="qrcode" id="regular-feedback-qrcode">
             </div>
             <div class="help"><p>请扫描二维码 </p>
               <p>到微信端进行登录</p></div>
@@ -127,4 +126,14 @@
 <script>
     $('.overspread-5').overs(".school-s-but");
     $('.overspread-6').overs(".overspreadsc-but");
+
+    jQuery(function(){
+        jQuery('#regular-feedback-qrcode').qrcode({
+            render: "canvas",
+            width: 180,
+            height: 180,
+            text: '<%= @regular_feedback_url %>'
+        }
+    );
+    })
 </script>
