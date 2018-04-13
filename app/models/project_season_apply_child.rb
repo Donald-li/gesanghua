@@ -161,7 +161,8 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   def update_state
     # self.done_semester_count = self.semesters.succeed.count
-    # self.save!
+    self.state = 'hidden'
+    self.save!
   end
 
   # 筹款进度
