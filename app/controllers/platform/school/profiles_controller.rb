@@ -6,13 +6,13 @@ class Platform::School::ProfilesController < Platform::School::BaseController
 
   def update
     @profile = current_user.school
-    if @profile.update_attributes(school_params.merge(province: params[:user][:province], city: params[:user][:city], district: params[:user][:district]))
-      @profile.attach_logo(params[:logo_id])
-      flash[:notice] = '修改成功。'
-      gen_success_message
-    else
-      flash[:notice] = @profile.errors.full_messages
-      gen_failure_message(@profile)
+    respond_to do |format|
+      if @profile.update_attributes(school_params.merge(province: params[:user][:province], city: params[:user][:city], district: params[:user][:district]))
+        @profile.attach_logo(params[:logo_id])
+        format.html {redirect_to edit_platform_school_profile_path, notice: '修改成功。'}
+      else
+        format.html {render :new, notice: @profile.errors.full_messages}
+      end
     end
   end
 
