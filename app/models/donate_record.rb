@@ -125,7 +125,7 @@ class DonateRecord < ApplicationRecord
       end
 
       donate_amount =  donate_records.sum{|r| r.amount}
-      logger.info(donate_amount)
+      logger.info(donate_records)
       source.balance -= donate_amount
       source.save!
 
