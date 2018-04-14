@@ -1,7 +1,7 @@
 class Api::V1::Account::DonateRecordsController < Api::V1::BaseController
 
   def index
-    donations = current_user.donations.where.not(project_id: nil).sorted.page(params[:page]).per(params[:per])
+    donations = current_user.donations.paid.where.not(project_id: nil).sorted.page(params[:page]).per(params[:per])
     donations = donations.where(project_id: params[:project_id].to_i) if params[:project_id].present? && params[:project_id] != 'all'
     api_success(data: {donate_records: donations.map { |r| r.detail_builder }, pagination: json_pagination(donations)})
   end

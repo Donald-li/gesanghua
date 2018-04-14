@@ -209,6 +209,7 @@ class Donation < ApplicationRecord
       json.donate_title self.donor_id === self.agent_id ? '' : '代捐' # true自己捐 false代捐
       json.agent self.agent.show_name
       json.userAvatar self.agent.user_avatar
+      json.apply_cover self.try(:apply).cover_image_url(:small).to_s
       json.bookshelf self.owner_id if self.owner_type == 'ProjectSeasonApplyBookshelf'
     end.attributes!
   end
