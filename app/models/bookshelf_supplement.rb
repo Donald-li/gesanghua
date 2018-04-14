@@ -43,6 +43,22 @@ class BookshelfSupplement < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
+  # 使用捐助
+  def accept_donate(donate_records)
+    donate_record = donate_records.last
+
+    amount = [surplus_money, donate_record.amount].min
+    donate_record.update!(amount: amount)
+
+    self.present_amount += amount
+    self.apply.present_amount += amount
+    self.project.appoint_fund.balance += amount
+
+    self.state = 'to_delivery' if self.present_amount >= self.target_amount
+    self.save!
+    self.apply.save!
+  end
+
   def surplus_money
     self.target_amount - self.present_amount
   end
