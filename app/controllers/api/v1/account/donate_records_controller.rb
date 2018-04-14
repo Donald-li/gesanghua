@@ -11,8 +11,8 @@ class Api::V1::Account::DonateRecordsController < Api::V1::BaseController
   end
 
   def record_details
-    donate_record = DonateRecord.find(params[:id])
-    api_success(data: donate_record.detail_builder)
+    donation = Donation.find(params[:id])
+    api_success(data: donation.detail_builder)
   end
 
   def account_records

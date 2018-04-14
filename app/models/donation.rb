@@ -219,6 +219,7 @@ class Donation < ApplicationRecord
       json.donate_mode !self.donor.present? # true自己捐 false代捐
       json.donate_title self.donor_id === self.agent_id ? '' : '代捐' # true自己捐 false代捐
       json.agent self.agent.show_name
+      json.donor self.donor.show_name
       json.userAvatar self.agent.user_avatar
       json.apply_cover apply_cover
       json.apply_name donate_apply_name
