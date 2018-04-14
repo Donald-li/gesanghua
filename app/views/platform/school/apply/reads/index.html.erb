@@ -28,6 +28,8 @@
                     <button><%= link_to '查看申请详情', platform_school_apply_read_path(apply) %></button>
                     <% if apply.pass? %>
                         <button><%= link_to '查看班级', apply.whole? ? bookshelves_platform_school_apply_read_path(apply) : supplements_platform_school_apply_read_path(apply) %></button>
+                        <% elsif apply.reject? %>
+                        <button><%= link_to '修改申请', apply.whole? ? edit_platform_school_apply_read_path(apply) : edit_supplement_platform_school_apply_read_path(apply) %></button>
                     <% end %>
                   </div>
                 </div>

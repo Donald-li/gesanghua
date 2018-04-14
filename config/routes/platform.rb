@@ -18,6 +18,8 @@ namespace :platform do
           post :create_supplement
         end
         member do
+          get :edit_supplement
+          patch :update_supplement
           get :bookshelves
           get :supplements
         end
