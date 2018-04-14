@@ -334,7 +334,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
       json.level self.enum_name(:level)
       json.gsh_no self.gsh_no
       json.location [self.province, self.city, self.district]
-      json.avatar self.avatar.present? ? self.avatar_url(:tiny).to_s : ''
+      json.avatar self.avatar_url(:tiny).to_s
     end.attributes!
   end
 
