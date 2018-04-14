@@ -107,7 +107,7 @@ class DonateRecord < ApplicationRecord
       # 如果是捐到申请（物资类项目，子项）
       elsif owner.class.name.in?(['ProjectSeasonApply', 'ProjectSeasonApplyChild'])
         # 物资或拓展营
-        if owner.project.goods? || owner.project == Project.camp_project
+        if owner.project.goods? || owner.project == Project.camp_project || (owner.is_a?(ProjectSeasonApply) && owner.supplement?)
           donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, income_record_id: income_record_id, donation_id: donation_id, agent: params[:agent], donor: params[:donor])
           owner.accept_donate(donate_records)
         else
