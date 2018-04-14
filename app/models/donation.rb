@@ -191,6 +191,15 @@ class Donation < ApplicationRecord
     end.attributes!
   end
 
+  def apply_cover
+    if self.project_id == Project.pair_project.id
+      self.try(:project).project_image
+    else
+      self.try(:apply).cover_image_url(:small).to_s
+    end
+
+  end
+
   def donate_apply_name
     if self.apply.present?
       self.apply.try(:name)
@@ -209,7 +218,7 @@ class Donation < ApplicationRecord
       json.donate_title self.donor_id === self.agent_id ? '' : '代捐' # true自己捐 false代捐
       json.agent self.agent.show_name
       json.userAvatar self.agent.user_avatar
-      json.apply_cover self.try(:apply).cover_image_url(:small).to_s || self.try(:project).project_image
+      json.apply_cover apply_cover
       json.bookshelf self.owner_id if self.owner_type == 'ProjectSeasonApplyBookshelf'
     end.attributes!
   end
