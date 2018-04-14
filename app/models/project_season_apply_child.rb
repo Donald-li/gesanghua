@@ -276,7 +276,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   # 受助学生的全部捐助记录
   def donate_all_records
-    self.gsh_child_grants.reverse_sorted
+    self.gsh_child_grants.sorted
   end
 
   # 受助学生未筹款的记录
