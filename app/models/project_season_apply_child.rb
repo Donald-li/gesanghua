@@ -123,6 +123,10 @@ class ProjectSeasonApplyChild < ApplicationRecord
   scope :sorted, -> {order(created_at: :desc)}
   scope :check_list, -> {where(approve_state: [1, 2, 3])}
 
+  def child_avatar
+    self.avatar.try(:file_url, :tiny)
+  end
+
   # 得到可捐助子项
   def get_donate_items
     self.semesters.pending.order(id: :asc)
@@ -269,11 +273,6 @@ class ProjectSeasonApplyChild < ApplicationRecord
     end
   end
 
-  # 捐助一个受助学生
-  def donate_child
-
-  end
-
   # 受助学生的全部捐助记录
   def donate_all_records
     self.gsh_child_grants.sorted
@@ -334,7 +333,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
       json.level self.enum_name(:level)
       json.gsh_no self.gsh_no
       json.location [self.province, self.city, self.district]
-      json.avatar self.avatar_url(:tiny).to_s
+      json.avatar child_avatar
     end.attributes!
   end
 
