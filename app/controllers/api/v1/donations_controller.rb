@@ -18,7 +18,7 @@ class Api::V1::DonationsController < Api::V1::BaseController
     owner = CampaignEnlist.find(params[:campaign_enlist]) if params[:campaign_enlist].present? # 活动报名
 
     if params[:donate_way] == 'wechat'
-      donation = Donation.new(amount: amount, owner: owner, donor_id: donor_id, agent_id: agent.id, team_id: team_id, promoter_id: promoter_id)
+      donation = Donation.new(amount: amount, owner: owner, donor_id: donor_id, agent_id: agent.id, team_id: team_id, promoter_id: promoter_id, project: owner.project.presence, season: owner.season.presence, apply: owner.apply.presence)
       if donation.save
         api_success(data: {order_no: donation.order_no, pay_state: donation.pay_state}.camelize_keys!, message: '成功')
       else
