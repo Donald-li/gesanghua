@@ -207,6 +207,8 @@ class Donation < ApplicationRecord
       self.child.try(:name)
     elsif self.fund.present?
       self.fund.fund_category.try(:name)
+    else
+      '捐助'
     end
   end
 
@@ -219,6 +221,7 @@ class Donation < ApplicationRecord
       json.agent self.agent.show_name
       json.userAvatar self.agent.user_avatar
       json.apply_cover apply_cover
+      json.apply_name donate_apply_name
       json.bookshelf self.owner_id if self.owner_type == 'ProjectSeasonApplyBookshelf'
     end.attributes!
   end
