@@ -195,7 +195,7 @@ class Donation < ApplicationRecord
     if self.project_id == Project.pair_project.id
       self.try(:project).project_image
     else
-      self.try(:apply).cover_image_url(:small).to_s
+      self.try(:apply).try(:cover_image_url, :small)
     end
 
   end
