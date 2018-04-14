@@ -203,7 +203,7 @@ class Donation < ApplicationRecord
   def donate_apply_name
     if self.apply.present?
       self.apply.try(:name)
-    elsif self.owner.is_a(ProjectSeasonApplyChild)
+    elsif self.owner.is_a?(ProjectSeasonApplyChild)
       self.owner.name
     elsif self.fund.present?
       self.fund.fund_category.try(:name)
