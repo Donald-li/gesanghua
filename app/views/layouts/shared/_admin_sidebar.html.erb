@@ -128,33 +128,8 @@
         </ul>
       </li>
 
-      <li class="nav-item  <%= current_nav_class(:admin_apply) %> ">
-        <a href="javascript:;" class="nav-link nav-toggle">
-          <% to_prove_apply = 0 %>
-          <% submited = 0 %>
-          <i class="fa fa-file-text  "></i>
-          <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">捐助申请管理</span>
-          <span class="arrow <%= current_nav_class(:admin_product, current: :open) %>"></span>
-        </a>
-        <ul class="sub-menu">
-          <li class="nav-item <%= current_nav_class(:admin_project_applies) %> ">
-            <%= link_to '', class: 'nav-link' do %>
-                <span class="title">新申请</span>
-                <% if to_prove_apply > 0 %>
-                    <span class="badge badge-danger"><%= to_prove_apply %></span>
-                <% end %>
-            <% end %>
-          </li>
-          <li class="nav-item <%= current_nav_class(:admin_project_lists) %> ">
-            <%= link_to '', class: 'nav-link' do %>
-                <span class="title">全部申请</span>
-                <% if submited > 0 %>
-                    <span class="badge badge-danger"><%= submited %></span>
-                <% end %>
-            <% end %>
-          </li>
-        </ul>
-      </li>
+      <% to_prove_apply = 0 %>
+      <% submited = 0 %>
 
       <li class="nav-item <%= current_nav_class(:admin_month_donate) %>">
         <%= link_to admin_month_donates_path, class: 'nav-link' do %>
@@ -257,7 +232,7 @@
           <% to_prove_pair_apply = Project.pair_project.applies.waiting_check.count %>
           <% to_check_pair_feedback = Project.pair_project.continual_feedbacks.uncheck.count %>
           <i class="fa fa-graduation-cap"></i>
-          <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || submited > 0 %>">一对一</span>
+          <span class="title <%= 'font-red-soft' if to_prove_pair_apply > 0 || to_check_pair_feedback > 0 %>">一对一</span>
           <span class="arrow <%= current_nav_class(:admin_pair, current: :open) %>"></span>
         </a>
         <ul class="sub-menu">
