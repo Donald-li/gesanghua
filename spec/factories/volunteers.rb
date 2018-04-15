@@ -21,6 +21,7 @@
 #  phone              :string                                 # 手机号
 #  workstation        :string                                 # 工作单位
 #  leave_reason       :jsonb                                  # 请假原因[类型, 说明]
+#  task_state         :boolean          default(FALSE)        # 志愿者是否有未查看的指派任务
 #
 
 FactoryBot.define do

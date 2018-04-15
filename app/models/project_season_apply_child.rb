@@ -457,7 +457,6 @@ class ProjectSeasonApplyChild < ApplicationRecord
   end
 
   protected
-
   def create_gsh_child
     gsh_child = GshChild.new
     gsh_child.province = self.province
