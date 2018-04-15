@@ -109,6 +109,21 @@ RSpec.describe DonateRecord, type: :model do
       expect(DonateRecord.last.amount).to eq(2100)
       expect(@user.reload.balance).to eq(100)
     end
+
+    it '捐助给分配申请项（小额零捐情况）' do
+      amount = 50
+      @read_apply.bookshelves.update_all(state: :raising)
+      @income_record.update(amount: amount, balance: amount, kind: :online)
+      DonateRecord.do_donate(:user_donate, @income_record, @read_apply, amount)
+      expect(@income_record.reload.balance).to eq(0)
+      expect(@bookshelf1.reload.present_amount).to eq(2050)
+      expect(@bookshelf3.reload.present_amount).to eq(0)
+      expect(@bookshelf5.reload.present_amount).to eq(0)
+      expect(@read_apply.reload.present_amount).to eq(50)
+      expect(@bookshelf1.state).to eq('raising')
+      expect(DonateRecord.last.amount).to eq(50)
+      expect(@user.reload.balance).to eq(0)
+    end
   end
 
   describe "资金来源" do
