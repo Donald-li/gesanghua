@@ -21,6 +21,9 @@
 
 # 任务志愿者关系表
 class TaskVolunteer < ApplicationRecord
+
+  after_create :notice_volunteer
+
   belongs_to :volunteer
   belongs_to :task, optional: true
   belongs_to :user, optional: true
@@ -99,6 +102,10 @@ class TaskVolunteer < ApplicationRecord
     elsif self.pass? && self.task.start_time < Time.now
       'can_finish'
     end
+  end
+
+  def notice_volunteer
+    self.volunteer.update(task_state: true)
   end
 
 end
