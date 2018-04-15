@@ -213,6 +213,18 @@ class Donation < ApplicationRecord
     end
   end
 
+  def summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :title)
+      json.donor self.donor.try(:name)
+      json.time self.created_at.strftime('%Y-%m-%d %H:%M:%S')
+      json.amount number_to_currency(self.amount)
+      json.amount_float self.amount
+      json.donate_mode !self.donor.present? # true自己捐 false代捐
+      json.donate_title self.donor_id === self.agent_id ? '' : '代捐' # true自己捐 false代捐
+    end.attributes!
+  end
+
   def detail_builder
     Jbuilder.new do |json|
       json.(self, :id, :amount, :title, :order_no, :certificate_no)

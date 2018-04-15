@@ -171,7 +171,8 @@ class DonateRecord < ApplicationRecord
 
   def summary_builder
     Jbuilder.new do |json|
-      json.(self, :id, :donor)
+      json.(self, :id)
+      json.donor self.donor.try(:name)
       json.title self.show_title
       json.time self.created_at.strftime('%Y-%m-%d %H:%M:%S')
       json.amount number_to_currency(self.amount)
@@ -183,7 +184,9 @@ class DonateRecord < ApplicationRecord
 
   def detail_builder
     Jbuilder.new do |json|
-      json.(self, :id, :donor, :project_id, :promoter_id)
+      json.(self, :id, :project_id, :promoter_id)
+      json.title self.show_title
+      json.donor self.donor.try(:name)
       json.user_name self.donor.try(:name) || '爱心人士'
       json.user_avatar self.donor.try(:user_avatar)
       json.time self.created_at.strftime('%Y-%m-%d %H:%M:%S')

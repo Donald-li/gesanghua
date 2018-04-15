@@ -21,7 +21,7 @@ class Api::V1::Account::DonateRecordsController < Api::V1::BaseController
   end
 
   def voucher_records
-    donate_records = current_user.income_records.to_bill.sorted
+    donate_records = current_user.donations.to_bill.sorted
     api_success(data: {donate_records: donate_records.map { |r| r.summary_builder }, donate_count: current_user.donate_count})
   end
 
