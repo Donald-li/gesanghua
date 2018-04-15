@@ -20,25 +20,19 @@ class FileUtil
         income_source_name = s.formatted_value(line, 'E')
         donor = s.formatted_value(line, 'F')
         donor_phone = s.formatted_value(line, 'G')
-        user_name = s.formatted_value(line, 'H')
-        remitter_name = s.formatted_value(line, 'I')
+        agent_name = s.formatted_value(line, 'H')
+        agent_phone = s.formatted_value(line, 'I')
         remark = s.formatted_value(line, 'J')
-        state = s.formatted_value(line, 'K')
-
-        if state == '已开票'
-          state = 'billed'
-        else
-          state = 'to_bill'
-        end
 
         fund = fund_title.present? ? FundCategory.find_by(name: fund_title.split('-').first).funds.find_by(name: fund_title.split('-').second) : nil
         income_source = IncomeSource.find_by(name: income_source_name) || nil
 
-        user = User.find_by(phone: donor_phone)
+        donor = User.find_by(phone: donor_phone)
+        agent = User.find_by(phone: agent_phone)
 
         if fund.present?
           income_time = income_time.class.to_s == 'DateTime' || income_time.class.to_s == 'Date' ? income_time : Time.parse(income_time)
-          IncomeRecord.create(title: title, fund: fund, income_time: income_time, amount: amount, income_source: income_source, agent: user, donor: donor, remitter_name: remitter_name, remark: remark, voucher_state: state)
+          IncomeRecord.create(title: title, fund: fund, income_time: income_time, amount: amount, income_source: income_source, agent: agent, donor: donor, remark: remark)
         end
 
       end
