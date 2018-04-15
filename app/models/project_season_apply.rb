@@ -131,6 +131,8 @@ class ProjectSeasonApply < ApplicationRecord
     # 书架申请
     if self.project == Project.read_project && self.whole?
       self.bookshelves.raising.order(present_amount: :desc)
+    elsif self.project == Project.read_project && self.supplement?
+      self.supplements.raising.order(present_amount: :desc)
     end
   end
 
@@ -344,6 +346,7 @@ class ProjectSeasonApply < ApplicationRecord
       json.state self.enum_name(:pair_state)
       json.created_at self.created_at.strftime("%Y-%m-%d")
       json.list self.inventories.map{|i| i.summary_builder}
+      json.surplus_money self.surplus_money
     end.attributes!
   end
 

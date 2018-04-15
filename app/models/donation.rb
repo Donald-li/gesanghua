@@ -133,7 +133,8 @@ class Donation < ApplicationRecord
     if donation.unpaid?
       donor = donation.donor
       agent = donation.agent
-      amount = result['total_fee']
+      amount = format('%.2f', (result['total_fee'].to_f / 100.to_f))
+      amount = donation.amount if Settings.pay_1_mode # 测试模式入账金额等于捐助金额
 
       # 更新捐助状态
       donation.pay_state = 'paid'
@@ -190,20 +191,36 @@ class Donation < ApplicationRecord
     end.attributes!
   end
 
+  def apply_cover
+    if self.project_id == Project.pair_project.id
+      self.try(:project).project_image
+    else
+      self.try(:apply).try(:cover_image_url, :small)
+    end
+
+  end
+
   def donate_apply_name
     if self.apply.present?
       self.apply.try(:name)
-    elsif self.child.present?
-      self.child.try(:name)
-    elsif self.fund.present?
-      self.fund.fund_category.try(:name)
+    elsif self.owner.is_a?(ProjectSeasonApplyChild)
+      self.owner.name
+    else
+      '捐助'
     end
   end
 
   def detail_builder
     Jbuilder.new do |json|
       json.(self, :amount, :order_no, :certificate_no)
+      json.time self.created_at.strftime('%Y-%m-%d %H:%M:%S')
+      json.donate_mode !self.donor.present? # true自己捐 false代捐
+      json.donate_title self.donor_id === self.agent_id ? '' : '代捐' # true自己捐 false代捐
       json.agent self.agent.show_name
+      json.donor self.donor.show_name
+      json.userAvatar self.agent.user_avatar
+      json.apply_cover apply_cover
+      json.apply_name donate_apply_name
       json.bookshelf self.owner_id if self.owner_type == 'ProjectSeasonApplyBookshelf'
     end.attributes!
   end

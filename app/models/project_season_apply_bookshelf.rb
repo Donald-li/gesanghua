@@ -135,12 +135,18 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
     end
   end
 
+  # 图书角图片
+  def bookshelf_image
+    self.try(:image).try(:file_url) || self.project.project_image
+  end
+
   def summary_builder
     Jbuilder.new do |json|
       json.(self, :id, :classname, :title, :bookshelf_no, :student_number, :book_number, :target_amount, :present_amount, :state)
+      json.surplus_money self.surplus_money
       json.apply_name self.apply.name
       json.title self.show_title
-      json.image self.try(:image).try(:file_url)
+      json.image bookshelf_image
       json.grade self.enum_name(:grade)
     end.attributes!
   end

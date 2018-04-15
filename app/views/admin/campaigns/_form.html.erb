@@ -60,7 +60,7 @@
             <% f.object.build_form if f.object.form.blank? %>
             <% f.object.form.each_with_index do |form_item, i| %>
                 <div class="inline-group">
-                  <%= text_field_tag "campaign[form_attributes][#{i}][key]", form_item['key'], placeholder: '代码'%>
+                  <%= hidden_field_tag "campaign[form_attributes][#{i}][key]", form_item['key'], placeholder: '代码'%>
                   <%= text_field_tag "campaign[form_attributes][#{i}][label]", form_item['label'], placeholder: '标题'%>
                   <%= text_field_tag "campaign[form_attributes][#{i}][placeholder]", form_item['placeholder'], placeholder: '提示'%>
                   <%= select_tag "campaign[form_attributes][#{i}][type]", options_for_select([['文本框', 'text'], ['多行文本框', 'textarea'], ['选项', 'select']], form_item['type']), placeholder: '代码'%>

@@ -3,12 +3,12 @@ class Admin::PairGrantBatchItemsController < Admin::BaseController
   before_action :find_batch
 
   def index
-    @search = GshChildGrant.waiting.where(grant_batch_id: nil).search(params[:q])
+    @search = GshChildGrant.waiting.succeed.where(grant_batch_id: nil).search(params[:q])
     @grants = @search.result.sorted.page(params[:page])
   end
 
   def create
-    @grant = GshChildGrant.waiting.find(params[:grant_id])
+    @grant = GshChildGrant.waiting.succeed.find(params[:grant_id])
     @exist = (@grant.grant_batch == @batch)
     @grant.grant_batch = @batch
     @result = @grant.save

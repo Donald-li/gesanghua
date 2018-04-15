@@ -38,6 +38,8 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def update
+    roles = @user.roles
+    user_params[:roles] = (user_params[:roles] | ( roles & [:superadmin, :admin])).select(&:present?)
     respond_to do |format|
       if @user.update(user_params)
         @user.attach_avatar(params[:avatar_id])

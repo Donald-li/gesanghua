@@ -82,12 +82,8 @@ class TaskVolunteer < ApplicationRecord
       '待审核'
     elsif self.reject?
       '审核未通过'
-    elsif self.pass? && self.task.start_time > Time.now
-      '任务未开始'
-    elsif self.pass? && self.task.start_time < Time.now && self.task.end_time > Time.now
-      '任务进行中'
-    elsif self.pass? && self.task.end_time < Time.now
-      '任务已结束'
+    elsif self.pass?
+      '任务执行中'
     elsif self.turn_over?
       '任务已移交'
     elsif self.to_check?

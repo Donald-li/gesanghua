@@ -115,16 +115,16 @@ class DonateRecord < ApplicationRecord
           # 分解到子项，捐助到子项
 
           owner.get_donate_items.each do |item|
-            if source.balance > item.surplus_money
-              donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, income_record_id: income_record_id, donation_id: donation_id, agent: params[:agent], donor: params[:donor])
+            if (source.balance - donate_records.sum{|r| r.amount}) > 0
+              donate_records << self.create!(source: source, kind: kind, owner: owner, amount: item.surplus_money, income_record_id: income_record_id, donation_id: donation_id, agent: params[:agent], donor: params[:donor])
               item.accept_donate(donate_records)
-              # item.to_delivery!
             end
           end
         end
       end
 
       donate_amount =  donate_records.sum{|r| r.amount}
+      logger.info(donate_records)
       source.balance -= donate_amount
       source.save!
 
