@@ -24,6 +24,8 @@ class BookshelfSupplement < ApplicationRecord
 
   belongs_to :bookshelf, class_name: 'ProjectSeasonApplyBookshelf', foreign_key: 'project_season_apply_bookshelf_id'
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id', optional: true
+  belongs_to :project
+  default_value_for :project, Project.read_project
 
   has_many :donates, class_name: 'DonateRecord'
   has_one :receive_feedback, as: :owner
@@ -42,6 +44,24 @@ class BookshelfSupplement < ApplicationRecord
   scope :pass_done, ->{ pass.done }
 
   scope :sorted, ->{ order(created_at: :desc) }
+
+
+
+  # 使用捐助
+  def accept_donate(donate_records)
+    donate_record = donate_records.last
+
+    amount = [surplus_money, donate_record.amount].min
+    donate_record.update!(amount: amount)
+
+    self.present_amount += amount
+    self.apply.present_amount += amount
+    self.project.appoint_fund.balance += amount
+
+    self.state = 'to_delivery' if self.present_amount >= self.target_amount
+    self.save!
+    self.apply.save!
+  end
 
   def surplus_money
     self.target_amount - self.present_amount

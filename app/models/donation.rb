@@ -195,7 +195,7 @@ class Donation < ApplicationRecord
     if self.project_id == Project.pair_project.id
       self.try(:project).project_image
     else
-      self.try(:apply).cover_image_url(:small).to_s
+      self.try(:apply).try(:cover_image_url, :small)
     end
 
   end
@@ -203,10 +203,8 @@ class Donation < ApplicationRecord
   def donate_apply_name
     if self.apply.present?
       self.apply.try(:name)
-    elsif self.owner.is_a(ProjectSeasonApplyChild)
+    elsif self.owner.is_a?(ProjectSeasonApplyChild)
       self.owner.name
-    elsif self.fund.present?
-      self.fund.fund_category.try(:name)
     else
       '捐助'
     end
@@ -219,6 +217,7 @@ class Donation < ApplicationRecord
       json.donate_mode !self.donor.present? # true自己捐 false代捐
       json.donate_title self.donor_id === self.agent_id ? '' : '代捐' # true自己捐 false代捐
       json.agent self.agent.show_name
+      json.donor self.donor.show_name
       json.userAvatar self.agent.user_avatar
       json.apply_cover apply_cover
       json.apply_name donate_apply_name
