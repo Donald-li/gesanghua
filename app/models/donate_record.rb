@@ -161,7 +161,8 @@ class DonateRecord < ApplicationRecord
 
   def summary_builder
     Jbuilder.new do |json|
-      json.(self, :id, :donor, :title)
+      json.(self, :id, :donor)
+      json.title self.show_title
       json.time self.created_at.strftime('%Y-%m-%d %H:%M:%S')
       json.amount number_to_currency(self.amount)
       json.amount_float self.amount
