@@ -56,7 +56,7 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def invoices
-    @records = @user.donate_records.to_bill
+    @records = @user.donations.to_bill
     set_search_end_of_day(:created_at_lteq)
     @search = @records.ransack(params[:q])
     scope = @search.result

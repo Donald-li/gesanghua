@@ -26,7 +26,7 @@ class Voucher < ApplicationRecord
   belongs_to :user
   has_one :logistic, as: :owner
   accepts_nested_attributes_for :logistic, reject_if: :all_blank
-  has_many :donate_records
+  has_many :donations
   validates :contact_name, :contact_phone, :province, :city, :district, :address, presence: true
   # validates :contact_phone, mobile: true
 
@@ -49,7 +49,7 @@ class Voucher < ApplicationRecord
     self.transaction do
       begin
         self.save!
-        records = ids.map{ |i| IncomeRecord.find_by_id(i) }.compact
+        records = Donation.where(id: ids)
         voucher_id = self.id
         records.each{ |e| e.update!( voucher_state: 'billed', voucher_id: voucher_id ) }
         return true

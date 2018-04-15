@@ -18,7 +18,7 @@ voucher
           <%= search_form_for @search, url: invoices_admin_user_path(@user), class: 'form-inline' do |f| %>
           <div class="form-group">
             <%= f.label :title_cont, '搜索收入' %>
-            <%= f.text_field :user_name_or_user_phone_cont, class: 'form-control', placeholder: '捐助人姓名、捐助人手机号' %>
+            <%= f.text_field :donor_name_or_donor_phone_cont, class: 'form-control', placeholder: '捐助人姓名、捐助人手机号' %>
           </div>
           <div class="form-group">
             <%= f.label '捐助时间' %>
@@ -71,10 +71,10 @@ voucher
                 <%= record.id %>
               </td>
               <td>
-                <%= record.user.name %> ( <%= record.user.phone %> )
+                <%= record.donor.name %> ( <%= record.donor.phone %> )
               </td>
               <td>
-                <%= record.donor %> / <%= record.remitter_name %>
+                <%= record.agent.name %> / <%= record.agent.name %>
               </td>
               <td>
                 <%= l record.created_at %>

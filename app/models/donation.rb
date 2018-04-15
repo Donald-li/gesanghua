@@ -22,6 +22,7 @@
 #  details                 :jsonb                                  # 捐助详情
 #  amount                  :decimal(14, 2)   default(0.0)          # 捐助金额
 #  agent_id                :integer                                # 代理人id
+#  voucher_id              :integer                                # 开票记录id
 #
 
 # 捐助
@@ -39,12 +40,16 @@ class Donation < ApplicationRecord
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: :project_season_apply_id, optional: true
   belongs_to :owner, polymorphic: true
   belongs_to :donate_item, optional: true
+  belongs_to :voucher, optional: true
 
   before_create :set_record_title
   before_create :generate_order_no
 
   enum pay_state: { unpaid: 1, paid: 2}
   default_value_for :pay_state, 1
+
+  enum voucher_state: {to_bill: 1, billed: 2} #收据状态，1:未开票 2:已开票
+  default_value_for :voucher_state, 1
 
   scope :sorted, -> {order(id: :desc)}
 
@@ -55,9 +60,7 @@ class Donation < ApplicationRecord
 
   # 生成收入
   def gen_income_record
-    income_record = self.build_income_record(user: self.user, fund: self.fund, amount: amount, remitter_id: self.remitter_id, remitter_name: self.remitter_name, donor: self.donor, promoter_id: self.promoter_id, income_time: Time.now)
-    self.income_record = income_record
-    self.save
+    IncomeRecord.create(donation: self, agent: self.agent, fund: self.project.fund, amount: self.amount, balance: self.amount, donor: self.donor, promoter_id: self.promoter_id, income_time: Time.now, title: self.title)
   end
 
   # 返回微信支付js
@@ -140,7 +143,7 @@ class Donation < ApplicationRecord
       donation.pay_state = 'paid'
       donation.pay_result = result.to_json
       donation.gen_certificate_no(save: false)
-      donation.income_records.new(agent: agent, donor: donor, amount: amount, balance: amount, voucher_state: 'to_bill', income_source_id: 1, income_time: Time.now)
+      donation.income_records.new(agent: agent, donor: donor, amount: amount, balance: amount, voucher_state: 'to_bill', income_source_id: 1, income_time: Time.now, title: donation.title)
       donation.save
 
       # 执行捐助
