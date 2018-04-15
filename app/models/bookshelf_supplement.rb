@@ -15,6 +15,7 @@
 #  target_amount                     :decimal(14, 2)   default(0.0)          # 目标金额
 #  audit_state                       :integer                                # 审核状态
 #  show_state                        :integer                                # 显示状态
+#  project_id                        :integer                                # 项目id
 #
 
 # 图书角书架补书
@@ -25,7 +26,7 @@ class BookshelfSupplement < ApplicationRecord
   belongs_to :bookshelf, class_name: 'ProjectSeasonApplyBookshelf', foreign_key: 'project_season_apply_bookshelf_id'
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id', optional: true
   belongs_to :project
-  default_value_for :project, Project.read_project
+  default_value_for :project_id, 2 # 悦读项目
 
   has_many :donates, class_name: 'DonateRecord'
   has_one :receive_feedback, as: :owner
