@@ -102,6 +102,6 @@ class Campaign < ApplicationRecord
   private
   def set_form_from_attributes
     return unless self.form_attributes.present?
-    self.form = self.form_attributes.values.map{|item| item['options'] = item['options'].to_s.split('|') || []; item}
+    self.form = self.form_attributes.values.map{|item| item['key'] = item['key'].presence || SecureRandom.hex(10); item['options'] = item['options'].to_s.split('|') || []; item}
   end
 end
