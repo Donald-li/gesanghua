@@ -343,6 +343,7 @@ class ProjectSeasonApply < ApplicationRecord
       json.season_name self.season.try(:name)
       json.state self.enum_name(:pair_state)
       json.created_at self.created_at.strftime("%Y-%m-%d")
+      json.list self.inventories.map{|i| i.summary_builder}
     end.attributes!
   end
 
