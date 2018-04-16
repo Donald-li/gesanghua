@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180415090856) do
+ActiveRecord::Schema.define(version: 20180416091748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -247,6 +247,18 @@ ActiveRecord::Schema.define(version: 20180415090856) do
     t.integer "state", comment: "状态：1:启用 2:禁用）"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "ckeditor_assets", force: :cascade do |t|
+    t.string "data_file_name", null: false
+    t.string "data_content_type"
+    t.integer "data_file_size"
+    t.string "type", limit: 30
+    t.integer "width"
+    t.integer "height"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["type"], name: "index_ckeditor_assets_on_type"
   end
 
   create_table "complaints", force: :cascade, comment: "举报表" do |t|
@@ -703,7 +715,6 @@ ActiveRecord::Schema.define(version: 20180415090856) do
     t.integer "state", comment: "状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "age", comment: "年龄"
   end
 
   create_table "project_season_apply_camp_teachers", force: :cascade, comment: "探索营老师名单" do |t|
@@ -719,7 +730,6 @@ ActiveRecord::Schema.define(version: 20180415090856) do
     t.integer "project_season_apply_id", comment: "营立项id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "age", comment: "年龄"
   end
 
   create_table "project_season_apply_camps", force: :cascade, comment: "探索营配额" do |t|
