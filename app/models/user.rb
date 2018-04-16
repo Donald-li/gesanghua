@@ -123,16 +123,6 @@ class User < ApplicationRecord
   end
 
   # 生成捐赠证书的名称
-  def card_name
-    if self.anonymous?
-      self.nickname
-    elsif self.designation?
-      self.salutation
-    else
-      self.name
-    end
-  end
-
   def show_name
     if self.nickname.present?
       self.nickname
