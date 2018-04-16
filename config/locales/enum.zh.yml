@@ -10,6 +10,7 @@ zh:
     operator: '运营人员'
   advert_kinds:
     banner: 'Banner轮播图'
+    pc_banner: 'PC端Banner轮播图'
   advert_states:
     show: '显示'
     hidden: '隐藏'
