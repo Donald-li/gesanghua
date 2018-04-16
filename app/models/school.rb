@@ -171,10 +171,10 @@ class School < ApplicationRecord
     end.attributes!
   end
 
-  def gen_school_user
-    Teacher.create(name: self.contact_name, school: self, kind: 'headmaster', phone: self.contact_phone, id_card: self.contact_id_card)
-  end
-
+  # def gen_school_user
+  #   Teacher.create(name: self.contact_name, school: self, kind: 'headmaster', phone: self.contact_phone, id_card: self.contact_id_card)
+  # end
+  #
   private
   def gen_school_no
     time_string = Time.now.strftime("%y")
