@@ -67,10 +67,10 @@
                 <%= record.season.name %>
               </td>
               <td>
-                <%= record.user.try(:name) %> ( <%= record.user.try(:phone) %> )
+                <%= record.donor.try(:name) %> ( <%= record.donor.try(:phone) %> )
               </td>
               <td>
-                <%= record.donor %> / <%= record.remitter_name %>
+                <%= record.agent.name %> / <%= record.agent.name %>
               </td>
               <td>
                 <%= l record.created_at %>

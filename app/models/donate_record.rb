@@ -114,13 +114,23 @@ class DonateRecord < ApplicationRecord
           # 如果是捐到申请（书架孩子，没选择子项）
           # 分解到子项，捐助到子项
 
-          owner.get_donate_items.each do |item|
-            if source.balance > item.surplus_money
-              donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, income_record_id: income_record_id, donation_id: donation_id, agent: params[:agent], donor: params[:donor])
-              item.accept_donate(donate_records)
-              # item.to_delivery!
+          if owner.is_a?(ProjectSeasonApplyChild)
+            owner.get_donate_items.each do |item|
+              if source.balance > item.surplus_money
+                donate_records << self.create!(source: source, kind: kind, owner: owner, amount: item.surplus_money, income_record_id: income_record_id, donation_id: donation_id, agent: params[:agent], donor: params[:donor])
+                item.accept_donate(donate_records)
+              end
+            end
+          else
+            owner.get_donate_items.each do |item|
+              if (source.balance - donate_records.sum{|r| r.amount}) > 0
+                donate_amount = [item.surplus_money, source.balance].min
+                donate_records << self.create!(source: source, kind: kind, owner: owner, amount: donate_amount, income_record_id: income_record_id, donation_id: donation_id, agent: params[:agent], donor: params[:donor])
+                item.accept_donate(donate_records)
+              end
             end
           end
+
         end
       end
 
@@ -161,7 +171,9 @@ class DonateRecord < ApplicationRecord
 
   def summary_builder
     Jbuilder.new do |json|
-      json.(self, :id, :donor, :title)
+      json.(self, :id)
+      json.donor self.donor.try(:name)
+      json.title self.show_title
       json.time self.created_at.strftime('%Y-%m-%d %H:%M:%S')
       json.amount number_to_currency(self.amount)
       json.amount_float self.amount
@@ -172,7 +184,9 @@ class DonateRecord < ApplicationRecord
 
   def detail_builder
     Jbuilder.new do |json|
-      json.(self, :id, :donor, :project_id, :promoter_id)
+      json.(self, :id, :project_id, :promoter_id)
+      json.title self.show_title
+      json.donor self.donor.try(:name)
       json.user_name self.donor.try(:name) || '爱心人士'
       json.user_avatar self.donor.try(:user_avatar)
       json.time self.created_at.strftime('%Y-%m-%d %H:%M:%S')

@@ -34,8 +34,10 @@ RSpec.describe DonateRecord, type: :model do
     @user = create(:user, balance: 0)
     @promoter = create(:user)
     @source = create(:income_source, kind: 1)
+    @pair_project = Project.pair_project
     @read_project = Project.read_project
     @radio_project = Project.radio_project
+    @pair_season = create(:project_season, project: @pair_project)
     @read_season = create(:project_season, project: @read_project)
     @radio_season = create(:project_season, project: @radio_project)
     @school = create(:school, user: @user)
@@ -51,6 +53,13 @@ RSpec.describe DonateRecord, type: :model do
     @bookshelf3 = create(:project_season_apply_bookshelf, project: @read_project, season: @read_season, school: @school, apply: @read_apply, target_amount: 2100, present_amount: 0)
     @bookshelf4 = create(:project_season_apply_bookshelf, project: @read_project, season: @read_season, school: @school, apply: @read_apply, target_amount: 2100, present_amount: 0)
     @bookshelf5 = create(:project_season_apply_bookshelf, project: @read_project, season: @read_season, school: @school, apply: @read_apply, target_amount: 2100, present_amount: 0)
+
+    @pair_apply = create(:project_season_apply, project: @pair_project, season: @pair_season, school: @school)
+    @child1 = create(:project_season_apply_child, project: @pair_project, season: @pair_season, school: @school, apply: @pair_apply)
+    @child2 = create(:project_season_apply_child, project: @pair_project, season: @pair_season, school: @school, apply: @pair_apply)
+    @child3 = create(:project_season_apply_child, project: @pair_project, season: @pair_season, school: @school, apply: @pair_apply)
+    @child4 = create(:project_season_apply_child, project: @pair_project, season: @pair_season, school: @school, apply: @pair_apply)
+    @child5 = create(:project_season_apply_child, project: @pair_project, season: @pair_season, school: @school, apply: @pair_apply)
   end
 
   describe "按捐助类型" do
@@ -108,6 +117,41 @@ RSpec.describe DonateRecord, type: :model do
       expect(@bookshelf5.state).to eq('to_delivery')
       expect(DonateRecord.last.amount).to eq(2100)
       expect(@user.reload.balance).to eq(100)
+    end
+
+    it '捐助给分配申请项（小额零捐情况）' do
+      amount = 50
+      @read_apply.bookshelves.update_all(state: :raising)
+      @income_record.update(amount: amount, balance: amount, kind: :online)
+      DonateRecord.do_donate(:user_donate, @income_record, @read_apply, amount)
+      expect(@income_record.reload.balance).to eq(0)
+      expect(@bookshelf1.reload.present_amount).to eq(50)
+      expect(@bookshelf1.reload.surplus_money).to eq(2050)
+      expect(@bookshelf3.reload.present_amount).to eq(0)
+      expect(@bookshelf5.reload.present_amount).to eq(0)
+      expect(@read_apply.reload.present_amount).to eq(50)
+      expect(@bookshelf1.state).to eq('raising')
+      expect(DonateRecord.last.amount).to eq(50)
+      expect(@user.reload.balance).to eq(0)
+    end
+
+    it '捐助给分配申请项（孩子）' do
+      amount = 2100 * 3 + 100
+      GshChildGrant.gen_grant_record(@child1)
+      @income_record.update(amount: amount, balance: amount, kind: :online)
+      DonateRecord.do_donate(:user_donate, @income_record, @child1, amount)
+      expect(@child1.reload.done_semester_count).to eq(3)
+      expect(@user.reload.balance).to eq(100)
+    end
+
+
+    it '捐助给分配申请项（孩子）- 捐助金额不足' do
+      amount = 1800
+      GshChildGrant.gen_grant_record(@child1)
+      @income_record.update(amount: amount, balance: amount, kind: :online)
+      DonateRecord.do_donate(:user_donate, @income_record, @child1, amount)
+      expect(@child1.reload.done_semester_count).to eq(nil)
+      expect(@user.reload.balance).to eq(1800)
     end
   end
 

@@ -34,11 +34,11 @@
           <li class="selectedNav">
             <span>申请详情</span>
           </li>
-
-          <!-- <li>
-            <span>物品清单</span>
-          </li> -->
-
+          <% if @apply.use_inventory? %>
+            <li>
+              <span>物品清单</span>
+            </li>
+          <% end %>
           <li>
             <span>执行反馈</span>
             <span class="navmark"><%= @feedbacks.count %></span>
@@ -55,40 +55,28 @@
       <p class="detail-l-fon"><%= @apply.project_describe %></p>
       <%#= image_tag 'detail-reduce.png' %>
     </div>
-    <% if false %>
     <!--物品-->
-    <div class="pull-left detail-table-left contentab">
-      <table class="table table-bordered">
-        <thead>
-        <tr>
-          <th scope="col">物品名称</th>
-          <th scope="col">物品价格（元）</th>
-          <th scope="col">物品名称</th>
-          <th scope="col">物品价格（元）</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <th>生理卫生手册</th>
-          <td>3000.00</td>
-          <td>生理卫生手册</td>
-          <td>3000.00</td>
-        </tr>
-        <tr>
-          <th>生理卫生手册</th>
-          <td>3000.00</td>
-          <td>生理卫生手册</td>
-          <td>3000.00</td>
-        </tr>
-        <tr>
-          <th>生理卫生手册</th>
-          <td>3000.00</td>
-          <td>生理卫生手册</td>
-          <td>3000.00</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+    <% if @apply.use_inventory? %>
+      <div class="pull-left detail-table-left contentab">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th scope="col">物品名称</th>
+            <th scope="col">物品单价（元）</th>
+            <th scope="col">物品数量</th>
+          </tr>
+          </thead>
+          <tbody>
+            <% @apply.inventories.sorted.each do |invent| %>
+              <tr>
+                <th><%= invent.name %></th>
+                <td><%= invent.unit %></td>
+                <td><%= invent.number %></td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
     <% end %>
     <!--反馈-->
     <div class="pull-left detail-body-left border-l contentab">

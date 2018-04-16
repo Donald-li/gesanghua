@@ -13,10 +13,10 @@ class Admin::PairSeasonsController < Admin::BaseController
 
   def new
     @season = ProjectSeason.new(project_id: Project.pair_project.id)
-    @season.junior_term_amount = 1050
-    @season.junior_year_amount = 2100
-    @season.senior_term_amount = 1050
-    @season.senior_year_amount = 2100
+    @season.junior_term_amount = Settings.junior_term_amount
+    @season.junior_year_amount = Settings.junior_year_amount
+    @season.senior_term_amount = Settings.senior_term_amount
+    @season.senior_year_amount = Settings.senior_year_amount
   end
 
   def edit

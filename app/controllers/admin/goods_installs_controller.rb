@@ -7,11 +7,11 @@ class Admin::GoodsInstallsController < Admin::GoodsBaseController
   end
 
   def show
-    @install = @apply.install
+    @install = @apply.install_feedback
   end
 
   def edit
-    @install = @apply.install
+    @install = @apply.install_feedback
   end
 
   def create
@@ -54,7 +54,7 @@ class Admin::GoodsInstallsController < Admin::GoodsBaseController
     def install_params
       params.require(:install).permit!
     end
-    
+
     def set_project_apply
       @apply = ProjectSeasonApply.find(params[:goods_project_id])
     end

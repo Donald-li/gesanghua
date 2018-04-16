@@ -39,7 +39,6 @@ class Admin::SchoolsController < Admin::BaseController
     end
     respond_to do |format|
       if @school.save
-        @school.attach_logo(params[:logo_id])
         format.html { redirect_to referer_or(admin_schools_url), notice: '学校已增加。' }
       else
         format.html { render :new }
@@ -59,7 +58,6 @@ class Admin::SchoolsController < Admin::BaseController
     end
     respond_to do |format|
       if @school.update(school_params)
-        @school.attach_logo(params[:logo_id])
         format.html { redirect_to referer_or(admin_schools_url), notice: '学校信息已修改。' }
       else
         format.html { render :edit }

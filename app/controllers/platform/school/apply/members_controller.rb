@@ -35,10 +35,22 @@ class Platform::School::Apply::MembersController < Platform::School::BaseControl
   end
 
   def update
-
+    respond_to do |format|
+      if @member.update(member_params)
+        @member.attach_image(params[:image_id])
+        @member.count_age
+        format.html { redirect_to member_list_platform_school_apply_camp_members_path, notice: '新增成功。' }
+      else
+        format.html { render :new }
+      end
+    end
   end
 
   def destroy
+    @member.destroy
+    respond_to do |format|
+        format.html { redirect_to member_list_platform_school_apply_camp_members_path, notice: '删除成功。' }
+    end
   end
 
   private

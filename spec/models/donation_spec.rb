@@ -22,6 +22,7 @@
 #  details                 :jsonb                                  # 捐助详情
 #  amount                  :decimal(14, 2)   default(0.0)          # 捐助金额
 #  agent_id                :integer                                # 代理人id
+#  voucher_id              :integer                                # 开票记录id
 #
 
 require 'rails_helper'
@@ -41,6 +42,7 @@ RSpec.describe Donation, type: :model do
       record.gen_certificate_no
       expect(record.paid?).to eq true
       expect(record.certificate_no.present?).to eq true
+      pp record.donor_certificate_path
     end
 
     it '测试捐赠证书' do

@@ -20,6 +20,7 @@ class Api::V1::Cooperation::TasksController < Api::V1::BaseController
 
   def my_tasks
     volunteer = current_user.volunteer
+    volunteer.update(task_state: false)
     if params[:state] == 'allTask'
       task_volunteers = volunteer.task_volunteers.sorted
     elsif params[:state] == 'applyTask'

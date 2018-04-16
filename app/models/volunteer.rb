@@ -21,6 +21,7 @@
 #  phone              :string                                 # 手机号
 #  workstation        :string                                 # 工作单位
 #  leave_reason       :jsonb                                  # 请假原因[类型, 说明]
+#  task_state         :boolean          default(FALSE)        # 志愿者是否有未查看的指派任务
 #
 
 # 志愿者
@@ -89,7 +90,7 @@ class Volunteer < ApplicationRecord
 
   def summary_builder
     Jbuilder.new do |json|
-      json.(self, :id, :volunteer_no, :duration, :kind, :job_state)
+      json.(self, :id, :volunteer_no, :duration, :kind, :job_state, :task_state)
       json.user_nickname self.try(:user).try(:nickname)
       json.user_phone self.try(:user).try(:phone)
       json.user_province ChinaCity.get(self.try(:user).try(:province)).to_s

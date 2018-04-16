@@ -22,6 +22,7 @@
 #  details                 :jsonb                                  # 捐助详情
 #  amount                  :decimal(14, 2)   default(0.0)          # 捐助金额
 #  agent_id                :integer                                # 代理人id
+#  voucher_id              :integer                                # 开票记录id
 #
 
 # 捐助
@@ -39,12 +40,16 @@ class Donation < ApplicationRecord
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: :project_season_apply_id, optional: true
   belongs_to :owner, polymorphic: true
   belongs_to :donate_item, optional: true
+  belongs_to :voucher, optional: true
 
   before_create :set_record_title
   before_create :generate_order_no
 
   enum pay_state: { unpaid: 1, paid: 2}
   default_value_for :pay_state, 1
+
+  enum voucher_state: {to_bill: 1, billed: 2} #收据状态，1:未开票 2:已开票
+  default_value_for :voucher_state, 1
 
   scope :sorted, -> {order(id: :desc)}
 
@@ -55,9 +60,7 @@ class Donation < ApplicationRecord
 
   # 生成收入
   def gen_income_record
-    income_record = self.build_income_record(user: self.user, fund: self.fund, amount: amount, remitter_id: self.remitter_id, remitter_name: self.remitter_name, donor: self.donor, promoter_id: self.promoter_id, income_time: Time.now)
-    self.income_record = income_record
-    self.save
+    IncomeRecord.create(donation: self, agent: self.agent, fund: self.project.fund, amount: self.amount, balance: self.amount, donor: self.donor, promoter_id: self.promoter_id, income_time: Time.now, title: self.title)
   end
 
   # 返回微信支付js
@@ -133,13 +136,14 @@ class Donation < ApplicationRecord
     if donation.unpaid?
       donor = donation.donor
       agent = donation.agent
-      amount = result['total_fee']
+      amount = format('%.2f', (result['total_fee'].to_f / 100.to_f))
+      amount = donation.amount if Settings.pay_1_mode # 测试模式入账金额等于捐助金额
 
       # 更新捐助状态
       donation.pay_state = 'paid'
       donation.pay_result = result.to_json
       donation.gen_certificate_no(save: false)
-      donation.income_records.new(agent: agent, donor: donor, amount: amount, balance: amount, voucher_state: 'to_bill', income_source_id: 1, income_time: Time.now)
+      donation.income_records.new(agent: agent, donor: donor, amount: amount, balance: amount, voucher_state: 'to_bill', income_source_id: 1, income_time: Time.now, title: donation.title)
       donation.save
 
       # 执行捐助
@@ -190,20 +194,48 @@ class Donation < ApplicationRecord
     end.attributes!
   end
 
+  def apply_cover
+    if self.project_id == Project.pair_project.id
+      self.try(:project).project_image
+    else
+      self.try(:apply).try(:cover_image_url, :small)
+    end
+
+  end
+
   def donate_apply_name
     if self.apply.present?
       self.apply.try(:name)
-    elsif self.child.present?
-      self.child.try(:name)
-    elsif self.fund.present?
-      self.fund.fund_category.try(:name)
+    elsif self.owner.is_a?(ProjectSeasonApplyChild)
+      self.owner.name
+    else
+      '捐助'
     end
+  end
+
+  def summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :title)
+      json.donor self.donor.try(:name)
+      json.time self.created_at.strftime('%Y-%m-%d %H:%M:%S')
+      json.amount number_to_currency(self.amount)
+      json.amount_float self.amount
+      json.donate_mode !self.donor.present? # true自己捐 false代捐
+      json.donate_title self.donor_id === self.agent_id ? '' : '代捐' # true自己捐 false代捐
+    end.attributes!
   end
 
   def detail_builder
     Jbuilder.new do |json|
-      json.(self, :amount, :order_no, :certificate_no)
-      json.agent self.agent.show_name
+      json.(self, :id, :amount, :title, :order_no, :certificate_no)
+      json.time self.created_at.strftime('%Y-%m-%d %H:%M:%S')
+      json.donate_mode !self.donor.present? # true自己捐 false代捐
+      json.donate_title self.donor_id === self.agent_id ? '' : '代捐' # true自己捐 false代捐
+      json.agent self.agent.try(:show_name)
+      json.donor self.donor.show_name
+      json.userAvatar self.agent.user_avatar
+      json.apply_cover apply_cover
+      json.apply_name donate_apply_name
       json.bookshelf self.owner_id if self.owner_type == 'ProjectSeasonApplyBookshelf'
     end.attributes!
   end

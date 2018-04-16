@@ -71,12 +71,10 @@
                 <%= record.child.try(:name) %>
               </td>
               <td>
-                <% if record.user %>
-                <%= record.user.name %> ( <%= record.user.phone %> )
-                <% end %>
+                <%= record.donor.name %> ( <%= record.donor.phone %> )
               </td>
               <td>
-                <%= record.donor %> / <%= record.remitter_name %>
+                <%= record.agent.name %> / <%= record.agent.name %>
               </td>
               <td>
                 <%= l record.created_at %>

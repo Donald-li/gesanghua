@@ -3,7 +3,7 @@ class Admin::DonateRecordsController < Admin::BaseController
   before_action :set_user, only: [:index, :destroy]
 
   def index
-    @donate_records = @user.donate_records.paid
+    @donate_records = @user.donate_records
     set_search_end_of_day(:created_at_lteq)
     @search = @donate_records.ransack(params[:q])
     scope = @search.result

@@ -15,6 +15,7 @@
 #  target_amount                     :decimal(14, 2)   default(0.0)          # 目标金额
 #  audit_state                       :integer                                # 审核状态
 #  show_state                        :integer                                # 显示状态
+#  project_id                        :integer                                # 项目id
 #
 
 FactoryBot.define do

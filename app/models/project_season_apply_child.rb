@@ -55,6 +55,7 @@
 require 'custom_validators'
 class ProjectSeasonApplyChild < ApplicationRecord
 
+  after_create :distinguish_gender
   before_update :update_pair_state, if: :can_update_pair_state?
 
   attr_accessor :avatar_id
@@ -122,9 +123,13 @@ class ProjectSeasonApplyChild < ApplicationRecord
   scope :sorted, -> {order(created_at: :desc)}
   scope :check_list, -> {where(approve_state: [1, 2, 3])}
 
+  def child_avatar
+    self.avatar.try(:file_url, :tiny)
+  end
+
   # 得到可捐助子项
   def get_donate_items
-    self.semesters.succeed.order(id: :asc)
+    self.semesters.pending.order(id: :asc)
   end
 
   # 更新申请状态
@@ -143,6 +148,12 @@ class ProjectSeasonApplyChild < ApplicationRecord
     self.update_columns(age: child_age)
   end
 
+  def distinguish_gender
+    num = self.id_card[-2]
+    gender = num % 2 == 1 ? 'male' : 'female'
+    self.update_columns(gender: gender)
+  end
+
   def secure_name
     return '' if self.name.blank?
     if self.name.length < 2
@@ -150,6 +161,12 @@ class ProjectSeasonApplyChild < ApplicationRecord
     else
       self.name.gsub(self.name[1,1], '*')
     end
+  end
+
+  def update_state
+    # self.done_semester_count = self.semesters.succeed.count
+    self.state = 'hidden'
+    self.save!
   end
 
   # 筹款进度
@@ -256,14 +273,9 @@ class ProjectSeasonApplyChild < ApplicationRecord
     end
   end
 
-  # 捐助一个受助学生
-  def donate_child
-
-  end
-
   # 受助学生的全部捐助记录
   def donate_all_records
-    self.gsh_child_grants.reverse_sorted
+    self.gsh_child_grants.sorted
   end
 
   # 受助学生未筹款的记录
@@ -287,7 +299,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
       json.description self.description
       json.donate_grants self.donate_record_builder
       json.grants do
-        json.array! self.gsh_child_grants.granted.reverse_sorted do |grant|
+        json.array! self.gsh_child_grants.granted.sorted do |grant|
           json.(grant, :id)
           json.(grant, :amount)
           json.reporter grant.grant_person
@@ -321,7 +333,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
       json.level self.enum_name(:level)
       json.gsh_no self.gsh_no
       json.location [self.province, self.city, self.district]
-      json.avatar self.avatar.present? ? self.avatar_url(:tiny).to_s : ''
+      json.avatar child_avatar
     end.attributes!
   end
 
@@ -445,7 +457,6 @@ class ProjectSeasonApplyChild < ApplicationRecord
   end
 
   protected
-
   def create_gsh_child
     gsh_child = GshChild.new
     gsh_child.province = self.province

@@ -1,12 +1,6 @@
 <%= simple_form_for [:admin, @school], url: @school.new_record? ? admin_schools_path : admin_school_path, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'school_form'} do |f| %>
   <%= f.error_notification %>
   <div class="form-body form-horizontal">
-    <div class="form-group">
-        <label class="col-md-2 control-label">学校logo：</label>
-        <div class="col-sm-9">
-          <%= webuploader_tag :logo_id, label: '上传学校logo', type: 'school_logo', asset: @school.logo, klass: 'single' %>
-        </div>
-    </div>
     <%= f.input :name, label: '学校全称：', autofocus: true, placeholder: '学校全称', input_html: { data: {'parsley-required': true}} %>
     <% if @school.new_record? %>
       <%= f.input :creater_id, collection: [@school.creater].compact.map {|u| [u.name, u.id]}, label: '学校申请人：', prompt: "请选择用户", input_html: {class: 'user_selector'} %>

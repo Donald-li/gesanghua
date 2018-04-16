@@ -41,6 +41,7 @@ class GshChildGrant < ApplicationRecord
   # TPDP
   belongs_to :apply_child, class_name: 'ProjectSeasonApplyChild', foreign_key: :project_season_apply_child_id, optional: true
   belongs_to :project_season, optional: true
+  belongs_to :season, class_name: 'ProjectSeason', foreign_key: :project_season_id, optional: true
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id', optional: true
   belongs_to :operator, class_name: 'User', foreign_key: 'operator_id', optional: true
   belongs_to :grant_batch, optional: true
@@ -73,26 +74,30 @@ class GshChildGrant < ApplicationRecord
     donate_record.update!(amount: amount)
 
     self.apply.present_amount += amount
-    self.project.appoint_fund.balance += amount
+    appoint_fund = Project.pair_project.appoint_fund
+    appoint_fund.balance += amount
+    appoint_fund.save!
     self.donate_state = 'succeed'
+    self.user_id = donate_record.donor_id
     self.save!
     self.apply_child.update_state
   end
 
   def surplus_money
-    self.amount - self.present_amount
+    self.amount
   end
 
   def self.gen_grant_record(child)
     gsh_child = child.gsh_child
     apply = child.apply
+    season = apply.season
 
     if child.junior?
-      term_amount = Settings.junior_term_amount
-      year_amount = Settings.junior_year_amount
+      term_amount = season.junior_term_amount
+      year_amount = season.junior_year_amount
     elsif child.senior?
-      term_amount = Settings.senior_term_amount
-      year_amount = Settings.senior_year_amount
+      term_amount = season.senior_term_amount
+      year_amount = season.senior_year_amount
     end
 
     apply_num = 4 - child.child_grade_integer

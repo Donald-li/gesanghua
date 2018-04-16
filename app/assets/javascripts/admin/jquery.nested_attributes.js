@@ -13,6 +13,7 @@ Homepage: https://github.com/patbenatar/jquery-nested_attributes
 
   textInputTypes = {
     text: true,
+    hidden: true,
     search: true,
     number: true,
     email: true,
