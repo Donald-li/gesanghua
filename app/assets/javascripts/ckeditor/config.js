@@ -17,7 +17,7 @@ CKEDITOR.editorConfig = function( config )
   // config.filebrowserFlashBrowseUrl = "/ckeditor/attachment_files";
 
   // The location of a script that handles file uploads in the Flash dialog.
-  config.filebrowserFlashUploadUrl = "/ckeditor/attachment_files";
+  // config.filebrowserFlashUploadUrl = "/ckeditor/attachment_files";
 
   // The location of an external file browser, that should be launched when "Browse Server" button is pressed in the Link tab of Image dialog.
   // config.filebrowserImageBrowseLinkUrl = "/ckeditor/pictures";
@@ -26,12 +26,13 @@ CKEDITOR.editorConfig = function( config )
   // config.filebrowserImageBrowseUrl = "/ckeditor/pictures";
 
   // The location of a script that handles file uploads in the Image dialog.
-  config.filebrowserImageUploadUrl = "/ckeditor/pictures?";
+  // config.filebrowserImageUploadUrl = "/ckeditor/pictures?";
 
   // The location of a script that handles file uploads.
   config.filebrowserUploadUrl = "/ckeditor/attachment_files";
 
   config.allowedContent = true;
+  config.forcePasteAsPlainText = true;
 
   // Toolbar groups configuration.
   config.toolbar_full = [
@@ -55,5 +56,9 @@ CKEDITOR.editorConfig = function( config )
     { name: 'insert', items: [ 'Image', 'Table'] }
   ];
 
-  config.toolbar = "mini";
+  config.toolbar_image = [
+    { name: 'insert', items: [ 'Image'] }
+  ];
+
+  config.toolbar = "image";
 };
