@@ -177,16 +177,17 @@ class DonateRecord < ApplicationRecord
       json.time self.created_at.strftime('%Y-%m-%d %H:%M:%S')
       json.amount number_to_currency(self.amount)
       json.amount_float self.amount
-      json.donate_mode !self.donor.present? # true自己捐 false代捐
+      json.donate_mode self.donor_id == self.agent_id # true自己捐 false代捐
       json.donate_title self.donor_id === self.agent_id ? '' : '代捐' # true自己捐 false代捐
     end.attributes!
   end
 
   def detail_builder
     Jbuilder.new do |json|
-      json.(self, :id, :project_id, :promoter_id)
+      json.(self, :id, :project_id, :promoter_id, :owner_id, :owner_type)
       json.title self.show_title
       json.donor self.donor.try(:name)
+      json.agent self.agent.try(:name)
       json.user_name self.donor.try(:name) || '爱心人士'
       json.user_avatar self.donor.try(:user_avatar)
       json.time self.created_at.strftime('%Y-%m-%d %H:%M:%S')
@@ -203,6 +204,9 @@ class DonateRecord < ApplicationRecord
       json.apply_image self.apply.cover_image_url(:little).to_s if self.apply && self.apply.cover_image
       json.income_source self.try(:income_record).try(:income_source).try(:name)
       json.income_kind self.try(:income_record).try(:income_source).present? ? self.try(:income_record).try(:income_source).enum_name(:kind) : ''
+      json.donate_project self.donate_project
+      json.donate_apply_path_name self.view_project_detail_path_name
+      json.donate_apply_path_params self.view_project_detail_path_params
     end.attributes!
   end
 
@@ -223,6 +227,58 @@ class DonateRecord < ApplicationRecord
       self.agent.show_name + '捐助' + self.owner.apply.name
     elsif self.owner_type == 'CampaignEnlist'
       self.agent.show_name + '捐助' + self.owner.campaign.name
+    end
+  end
+
+  def donate_project
+    if self.owner_type == 'DonateItem' || self.owner_type == 'ProjectSeasonApply'
+      self.owner.try(:name)
+    elsif self.owner_type == 'ProjectSeasonApplyChild'
+      self.owner.try(:project).try(:name) + self.owner.secure_name
+    elsif self.owner_type == 'ProjectSeasonApplyBookshelf'
+      self.owner.try(:apply).try(:name) + self.owner.classname
+    elsif self.owner_type == 'CampaignEnlist'
+      self.owner.try(:campaign).try(:name)
+    end
+  end
+
+  def view_project_detail_path_name
+    if self.owner_type == 'ProjectSeasonApply'
+      if self.owner.project == Project.read_project
+        if self.owner.whole?
+          'read'
+        elsif self.owner.supplement?
+          'read-supplement'
+        end
+      elsif self.owner.project == Project.camp_project
+        'camp'
+      else
+        'goods'
+      end
+    elsif self.owner_type == 'ProjectSeasonApplyBookshelf'
+      'read'
+    elsif self.owner_type == 'DonateItem'
+      'donation'
+    elsif self.owner_type == 'ProjectSeasonApplyChild'
+      'pair'
+    elsif self.owner_type == 'CampaignEnlist'
+      'campaign'
+    end
+  end
+
+  def view_project_detail_path_params
+    if self.owner_type == 'ProjectSeasonApply'
+      if self.owner.project == Project.read_project
+        self.owner_id
+      end
+    elsif self.owner_type == 'ProjectSeasonApplyBookshelf'
+      self.owner.apply.id
+    elsif self.owner_type == 'DonateItem'
+      self.owner.project
+    elsif self.owner_type == 'ProjectSeasonApplyChild'
+      self.owner_id
+    elsif self.owner_type == 'CampaignEnlist'
+      self.owner.campaign.id
     end
   end
 

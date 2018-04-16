@@ -32,7 +32,6 @@ zh:
   user_use_nicknames:
     anonymous: '匿名（使用昵称）'
     autonym: '实名（使用姓名）'
-    designation: '使用称呼'
   support_category_states:
     show: '显示'
     hidden: '隐藏'
