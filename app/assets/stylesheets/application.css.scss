@@ -2332,12 +2332,12 @@ text-align: center;
     }
     .donation {
       display: none;
+      border-bottom: 1px solid $border;
     }
 
     .donations-1 {
       position: relative;
       padding: 26px 0 16px 0;
-      border-bottom: 1px solid $border;
     }
     .donations1 {
       & > li {
