@@ -67,6 +67,8 @@ class GshChildGrant < ApplicationRecord
   counter_culture :apply_child, column_name: "semester_count"
   counter_culture :apply_child, column_name: proc {|model| model.succeed? ? 'done_semester_count' : nil }
 
+  before_create :set_assoc_attrs
+
   # TODO: 现在没有project_id, 以后可以增加这个字段
   def project
     Project.pair_project
@@ -129,6 +131,13 @@ class GshChildGrant < ApplicationRecord
       json.gsh_no gsh_child.gsh_no
       json.state self.enum_name(:state)
     end.attributes!
+  end
+
+  private
+  def set_assoc_attrs
+    return unless child = self.apply_child
+    self.project_season_id ||= child.project_season_id
+    self.project_season_apply_id ||= child.project_season_apply_id
   end
 
 end

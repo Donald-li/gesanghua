@@ -109,8 +109,8 @@ zh:
     cancelled: '已取消'
     refunded: '已退款'
   project_season_apply_read_states:
-    read_executing: '执行中'
-    read_done: '已完成'
+    read_executing: '筹款中'
+    read_done: '已筹满'
   project_season_apply_bookshelf_types:
     whole: '新书申请'
     supplement: '补书申请'

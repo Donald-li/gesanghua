@@ -69,7 +69,7 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
   scope :pass_done, ->{ where(state: ['feedbacked', 'done']) }
 
   scope :raise_complete, -> { where(state: ['to_delivery', 'to_receive', 'to_feedback', 'feedbacked', 'done'])}
-  
+
   scope :sorted, ->{ order(created_at: :asc) }
 
   # counter_culture :apply, column_name: proc{|model| model.to_receive? ? 'present_amount' : nil}, delta_magnitude: proc {|model| model.present_amount }
@@ -145,6 +145,7 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
   def summary_builder
     Jbuilder.new do |json|
       json.(self, :id, :classname, :title, :bookshelf_no, :student_number, :book_number, :target_amount, :present_amount, :state)
+      json.state_name self.enum_name(:state)
       json.surplus_money self.surplus_money
       json.apply_name self.apply.name
       json.title self.show_title

@@ -26,7 +26,7 @@ class Api::V1::MainsController < Api::V1::BaseController
   end
 
   def reads
-    @reads = ProjectSeasonApply.show.raise_project.read_executing.pass.where(project: [Project.book_supply_project, Project.read_project]).sorted.take(3)
+    @reads = ProjectSeasonApply.show.raise_project.read_executing.pass.where(project: Project.read_project).sorted.take(3)
     api_success(data: @reads.map {|item| item.summary_builder})
   end
 

@@ -38,7 +38,7 @@ class Donation < ApplicationRecord
   belongs_to :owner, polymorphic: true
   belongs_to :donate_item, optional: true
 
-  before_create :set_record_title
+  before_create :set_assoc_attrs, :set_record_title
   before_create :generate_order_no
 
   enum pay_state: { unpaid: 1, paid: 2}
@@ -110,6 +110,7 @@ class Donation < ApplicationRecord
 
   # 支付成功
   def self.wechat_payment_success(result)
+    # TODO: 这里也应该加到事务里
     donation = Donation.find_by(order_no: result['out_trade_no'])
     if donation.unpaid?
       donor = donation.donor
@@ -257,5 +258,28 @@ class Donation < ApplicationRecord
        quit_url: quit_url
       }.to_json
     )
+  end
+
+  # 设置关联的外键
+  def set_assoc_attrs
+    case self.owner
+    when GshChildGrant
+      self.project_season_apply_id = self.owner.project_season_apply_id
+      self.project_season_id = self.apply.try(:project_season_id)
+      self.project_id = Project.pair_project.id
+    when ProjectSeasonApplyChild, ProjectSeasonApplyBookshelf
+      self.project_id = self.owner.project_id
+      self.project_season_id = self.owner.project_season_id
+      self.project_season_apply_id = self.owner.project_season_apply_id
+    when ProjectSeasonApply
+      self.project_id = self.owner.project_id
+      self.project_season_id = self.owner.project_season_id
+      self.project_season_apply_id = self.owner_id
+    when BookshelfSupplement
+      self.project_id = self.owner.project_id
+      self.project_season_apply_id = self.owner.try(:project_season_apply_id)
+    when DonateItem
+      self.project_id = self.owner.project.try(:id)
+    end
   end
 end
