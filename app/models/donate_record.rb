@@ -184,17 +184,18 @@ class DonateRecord < ApplicationRecord
   end
 
   def apply_image
-    apply_image = if self.owner_type == 'DonateItem' || self.owner_type == 'ProjectSeasonApply'
-      self.owner.proejct.try(:icon_url, :tiny)
-    elsif self.owner_type == 'GshChildGrant'
+    apply_image = case self.owner_type
+    when 'DonateItem'
+      self.owner.project.try(:icon_url, :tiny)
+    when 'ProjectSeasonApply'
+      self.owner.cover_image_url(:tiny)
+    when 'GshChildGrant'
       self.child.try(:avatar_url, :tiny)
-    elsif self.owner_type == 'ProjectSeasonApplyChild'
+    when 'ProjectSeasonApplyChild'
       self.owner.try(:avatar_url, :tiny)
-    elsif self.owner_type == 'ProjectSeasonApplyBookshelf'
+    when 'ProjectSeasonApplyBookshelf', 'BookshelfSupplement'
       self.owner.apply.try(:cover_image_url, :tiny)
-    elsif self.owner_type == 'BookshelfSupplement'
-      self.owner.apply.try(:cover_image_url, :tiny)
-    elsif self.owner_type == 'CampaignEnlist'
+    when 'CampaignEnlist'
       self.owner.campaign.try(:image_url, :tiny)
     end
     apply_image
