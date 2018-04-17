@@ -31,7 +31,7 @@ class GenDonateCertificate
         c.pointsize '20'
       end
 
-      file_name = Encryption.md5(record.id.to_s)
+      file_name = Encryption.md5(record.certificate_no.to_s)
       rel_path = "/images/certificates/#{record.created_at.strftime('%Y%m%d')}/#{record.id}"
       path_name = Rails.root.to_s + '/public' + rel_path
       FileUtils.mkpath(path_name) unless File.directory?(path_name)

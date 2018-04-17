@@ -10,98 +10,91 @@
       <table class="table table-bordered table-hover">
         <tbody>
         <tr>
-          <th>
+          <td>
             申请编号
-          </th>
-          <th colspan="5">
+          </td>
+          <td colspan="5">
             <%= @project_apply.apply_no %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             申请学校
-          </th>
-          <th colspan="5">
+          </td>
+          <td colspan="5">
             <%= @project_apply.school.try(:name) %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             申请批次
-          </th>
-          <th colspan="5">
+          </td>
+          <td colspan="5">
             <%= @project_apply.season.try(:name) %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             收货人
-          </th>
-          <th colspan="5">
+          </td>
+          <td colspan="5">
             <%= @project_apply.contact_name %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             联系方式
-          </th>
-          <th colspan="5">
+          </td>
+          <td colspan="5">
             <%= @project_apply.contact_phone %>
-          </th>
+          </td>
         </tr>
+        <%= render '/admin/shared/dynamic_form_tr', apply: @project_apply %>
         <tr>
-          <th>
-            申请理由
-          </th>
-          <th colspan="5">
-            <%= @project_apply.describe %>
-          </th>
-        </tr>
-        <tr>
-          <th>
+          <td>
             申请图片
-          </th>
-          <th colspan="5">
+          </td>
+          <td colspan="5">
             <% @project_apply.images.each do |image| %>
                 <%= image_tag image.try(:file).try(:url, :small) %>
             <% end %>
-          </th>
+          </td>
         </tr>
         <% if @project_apply.whole? %>
             <tr>
-              <th rowspan="<%= @project_apply.bookshelves.count + 2 %>">
+              <td rowspan="<%= @project_apply.bookshelves.count + 2 %>">
                 申请班级
-              </th>
-              <th>班级</th>
-              <th>审核状态</th>
+              </td>
+              <td>班级</td>
+              <td>人数</td>
             </tr>
             <tr>
               <% @project_apply.bookshelves.each do |shelf| %>
                 <tr>
-                  <th><%= shelf.classname %></th>
-                  <th><%= shelf.enum_name(:audit_state) %></th>
+                  <td><%= shelf.classname %></td>
+                  <td><%= shelf.student_number %></td>
                 </tr>
             <% end %>
             </tr>
         <% else %>
             <tr>
-              <th rowspan="<%= @project_apply.supplements.count + 2 %>">
+              <td rowspan="<%= @project_apply.supplements.count + 2 %>">
                 申请班级
-              </th>
-              <th>班级</th>
-              <th>损耗数量</th>
-              <th>补书数量</th>
-              <th>筹款金额</th>
-              <th>审核状态</th>
+              </td>
+              <td>班级</td>
+              <td>损耗数量</td>
+              <td>补书数量</td>
+              <td>筹款金额</td>
+              <td>审核状态</td>
             </tr>
             <tr>
               <% @project_apply.supplements.each do |shelf| %>
                 <tr>
-                  <th><%= shelf.bookshelf.classname %></th>
-                  <th><%= shelf.loss %></th>
-                  <th><%= shelf.supply %></th>
-                  <th><%= shelf.target_amount %></th>
-                  <th><%= shelf.enum_name(:audit_state) %></th>
+                  <td><%= shelf.bookshelf.classname %></td>
+                  <td><%= shelf.loss %></td>
+                  <td><%= shelf.supply %></td>
+                  <td><%= shelf.target_amount %></td>
+                  <td><%= shelf.enum_name(:audit_state) %></td>
                 </tr>
             <% end %>
             </tr>

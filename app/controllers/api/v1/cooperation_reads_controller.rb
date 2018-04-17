@@ -100,9 +100,15 @@ class Api::V1::CooperationReadsController < Api::V1::BaseController
     end
   end
 
+  # 获取整捐的金额
+  def whole_amount
+    @bookshelf = ProjectSeasonApplyBookshelf.find(params[:bookshelf_id])
+    api_success(data: @bookshelf.summary_builder)
+  end
+
   def read_donate_item
     @apply = ProjectSeasonApply.find(params[:apply_id])
-    if @apply.whole?
+    if @apply.whole? # 图书角
       shelf = @apply.bookshelves.raising.first
       amount = shelf.target_amount - shelf.present_amount
       item = Project.read_project.donate_item

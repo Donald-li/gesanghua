@@ -297,6 +297,7 @@ namespace :api do
     resources :cooperation_reads, except: [:destroy] do
       collection do
         get :read_donate_item
+        get :whole_amount
       end
     end
     resources :cooperation_goods, except: [:destroy] do
