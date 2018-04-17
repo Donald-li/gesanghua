@@ -52,7 +52,7 @@ RSpec.describe IncomeRecord, type: :model do
     end
 
     it '测试捐赠证书' do
-      expect(record.donor_certificate_path).to eq "/images/certificates/#{record.created_at.strftime('%Y%m%d')}/#{record.id}/#{Encryption.md5(record.id.to_s)}.jpg"
+      expect(record.donor_certificate_path).to eq "/images/certificates/#{record.created_at.strftime('%Y%m%d')}/#{record.id}/#{Encryption.md5(record.certificate_no.to_s)}.jpg"
     end
   end
 end

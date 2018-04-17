@@ -241,7 +241,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   def detail_builder
     Jbuilder.new do |json|
       json.(self, :id, :age, :name)
-      json.avatar self.avatar_url(:tiny)
+      # json.avatar self.avatar_url(:tiny)
       json.level self.enum_name(:level)
       json.gsh_no self.gsh_no
       json.remarks_string self.remarks_string
@@ -292,13 +292,20 @@ class ProjectSeasonApplyChild < ApplicationRecord
   # 是否被用户认捐？
   def donate_by_user?(user)
     return false unless user
-    self.donates.where(agent_id: user.id).exists?
+    donate_grants_by_user(user).exists?
+  end
+
+  # 用户捐助的学期
+  def donate_grants_by_user(user)
+    grant_ids = user.donate_records.where(owner_type: 'GshChildGrant', owner_id: self.gsh_child_grant_ids).pluck(:owner_id)
+    self.gsh_child_grants.where(id: grant_ids)
   end
 
   def summary_builder(user=nil)
     Jbuilder.new do |json|
       json.(self, :id)
       json.name donate_by_user?(user) ? self.name : self.secure_name
+      json.avatar donate_by_user?(user) ? self.avatar_url(:tiny) : nil
       json.age self.age
       json.level self.enum_name(:level)
       json.gsh_no self.gsh_no
@@ -375,7 +382,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
       json.child_id self.id
       json.donate_state self.semesters.pending.size > 0
       json.avatar self.avatar_url(:tiny).to_s
-      json.grants self.donate_all_records.pluck(:title)
+      json.grants self.donate_grants_by_user(user).pluck(:title)
       json.feedbacks_count self.continual_feedbacks.visible.count
     end.attributes!
   end

@@ -70,7 +70,7 @@
       </div>
       <div class="benefactors clearfix">
         <span class="pull-left">选捐助人</span>
-        <select id="benefactor">
+        <select id="benefactor" class="pull-left">
           <option value="1">peekid</option>
           <option value="2">成功2</option>
           <option value="3" >成功3</option>
@@ -159,9 +159,8 @@
         $(".bottomline").css("left", parseFloat($(this)[0].offsetLeft) -10 +  "px")
     })
     $('.ui-choose').ui_choose();
-    $("#benefactor").select({
+    $("#benefactor").select2({
         width: "430px",
-        height:"42px",
-        fontSize:"14px"
+        minimumResultsForSearch: -1
     });
 </script>

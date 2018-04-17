@@ -31,7 +31,7 @@ class DonateRecord < ApplicationRecord
   include ActionView::Helpers::NumberHelper
 
   belongs_to :donor, class_name: 'User', foreign_key: 'donor_id', optional: true
-  belongs_to :agent, class_name: 'User', foreign_key: 'agent_id', optional: true
+  belongs_to :agent, class_name: 'User', foreign_key: 'agent_id', optional:true
   belongs_to :promoter, class_name: 'User', foreign_key: 'promoter_id', optional: true
   belongs_to :fund, optional: true
   belongs_to :project, optional: true
@@ -112,7 +112,8 @@ class DonateRecord < ApplicationRecord
 
           if owner.is_a?(ProjectSeasonApplyChild)
             owner.get_donate_items.each do |item|
-              if source.balance > item.surplus_money
+              remain_amount = source.balance - donate_records.sum{|r| r.amount}
+              if remain_amount >= item.surplus_money
                 donate_records << self.create!(source: source, kind: kind, owner: item, amount: item.surplus_money, income_record_id: income_record_id, donation_id: donation_id, agent: params[:agent], donor: params[:donor])
                 item.accept_donate(donate_records)
               end
@@ -182,55 +183,21 @@ class DonateRecord < ApplicationRecord
     end.attributes!
   end
 
-  # def detail_builder
-  #   Jbuilder.new do |json|
-  #     json.(self, :id, :project_id, :promoter_id, :owner_id, :owner_type)
-  #     json.title self.show_title
-  #     json.donor self.donor.try(:name)
-  #     json.agent self.agent.try(:name)
-  #     json.user_name self.donor.try(:name) || '爱心人士'
-  #     json.user_avatar self.donor.try(:user_avatar)
-  #     json.time self.created_at.strftime('%Y-%m-%d %H:%M:%S')
-  #     json.amount number_to_currency(self.amount)
-  #     json.by_team self.team.present?
-  #     json.team_name self.team.present? ? self.team.name : ''
-  #     json.project self.try(:project).try(:name)
-  #     json.donate_name self.try(:donate_item).try(:name) || self.try(:project).try(:name)
-  #     json.apply_name self.try(:apply).try(:name)
-  #     json.project_image_mode self.try(:project).try(:image).present?
-  #     json.project_image self.try(:project).try(:project_image).to_s
-  #     json.apply_name self.apply.try(:name)
-  #     json.apply_image_mode self.apply.try(:cover_image).present?
-  #     json.apply_image self.apply.cover_image_url(:little).to_s if self.apply && self.apply.cover_image
-  #     json.income_source self.try(:income_record).try(:income_source).try(:name)
-  #     json.income_kind self.try(:income_record).try(:income_source).present? ? self.try(:income_record).try(:income_source).enum_name(:kind) : ''
-  #     json.donate_project self.donate_project
-  #     json.donate_apply_path_name self.view_project_detail_path_name
-  #     json.donate_apply_path_params self.view_project_detail_path_params
-  #   end.attributes!
-  # end
-
-  def self.select_record(agent_id, owner_id = nil)
-    if owner_id.present?
-      self.where(agent_id: agent_id, owner_id: owner_id)
-    else
-      self.where(agent_id: agent_id)
-    end
-  end
-
   def apply_image
-    apply_name = if self.owner_type == 'DonateItem' || self.owner_type == 'ProjectSeasonApply'
+    apply_image = if self.owner_type == 'DonateItem' || self.owner_type == 'ProjectSeasonApply'
       self.owner.proejct.try(:icon_url, :tiny)
     elsif self.owner_type == 'GshChildGrant'
       self.child.try(:avatar_url, :tiny)
     elsif self.owner_type == 'ProjectSeasonApplyChild'
       self.owner.try(:avatar_url, :tiny)
     elsif self.owner_type == 'ProjectSeasonApplyBookshelf'
-      self.owner.apply.try(:cover_url, :tiny)
+      self.owner.apply.try(:cover_image_url, :tiny)
+    elsif self.owner_type == 'BookshelfSupplement'
+      self.owner.apply.try(:cover_image_url, :tiny)
     elsif self.owner_type == 'CampaignEnlist'
       self.owner.campaign.try(:image_url, :tiny)
     end
-    apply_name
+    apply_image
   end
 
   def apply_name
@@ -242,10 +209,21 @@ class DonateRecord < ApplicationRecord
       self.owner.name
     elsif self.owner_type == 'ProjectSeasonApplyBookshelf'
       self.owner.apply.name
+    elsif self.owner_type == 'BookshelfSupplement'
+      self.owner.apply.name
     elsif self.owner_type == 'CampaignEnlist'
       self.owner.campaign.name
     end
   end
+
+  def self.select_record(agent_id, owner_id = nil)
+    if owner_id.present?
+      self.where(agent_id: agent_id, owner_id: owner_id)
+    else
+      self.where(agent_id: agent_id)
+    end
+  end
+
   #
   # def donate_project
   #   if self.owner_type == 'DonateItem' || self.owner_type == 'ProjectSeasonApply'
@@ -313,9 +291,10 @@ class DonateRecord < ApplicationRecord
   def set_assoc_attrs
     case self.owner
     when GshChildGrant
-      self.project_season_id = self.owner.project_season_id
-      self.project_season_apply_id = self.owner.project_season_apply_id
       self.project_season_apply_child_id = self.owner.project_season_apply_child_id
+      self.project_season_apply_id = self.owner.project_season_apply_id
+      self.project_season_id = self.apply.try(:project_season_id)
+      self.project_id = Project.pair_project.id
     when ProjectSeasonApplyChild, ProjectSeasonApplyBookshelf
       self.project_id = self.owner.project_id
       self.project_season_id = self.owner.project_season_id
@@ -323,6 +302,7 @@ class DonateRecord < ApplicationRecord
     when ProjectSeasonApply
       self.project_id = self.owner.project_id
       self.project_season_id = self.owner.project_season_id
+      self.project_season_apply_id = self.owner_id
     when BookshelfSupplement
       self.project_id = self.owner.project_id
       self.project_season_apply_id = self.owner.try(:project_season_apply_id)

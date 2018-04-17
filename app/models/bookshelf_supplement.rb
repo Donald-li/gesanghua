@@ -84,6 +84,8 @@ class BookshelfSupplement < ApplicationRecord
   def summary_builder
     Jbuilder.new do |json|
       json.(self, :id, :supply, :target_amount, :present_amount, :state, :describe)
+      json.state_name self.enum_name(:state)
+      json.surplus_money self.surplus_money
       json.class_id [self.bookshelf.id.to_s]
       json.class_name self.bookshelf.classname
       json.loss self.loss

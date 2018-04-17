@@ -55,16 +55,16 @@
               项目类型
             </th>
             <th>
-              申请/完成班级
-            </th>
-            <th>
               目标/已筹
             </th>
             <th>
-              状态
+              筹款状态
             </th>
             <th>
-              执行状态
+              申请/完成班级
+            </th>
+            <th>
+              状态
             </th>
             <th>
               操作
@@ -90,6 +90,12 @@
                   <%= project.enum_name(:bookshelf_type) %>
                 </td>
                 <td>
+                  <%= project.target_amount %> / <%= project.present_amount %>
+                </td>
+                <td>
+                  <%= project.enum_name(:read_state) %>
+                </td>
+                <td>
                   <% if project.whole? %>
                     <%= project.bookshelves_count %> / <%= project.bookshelves_done_count %>
                   <% else %>
@@ -97,16 +103,10 @@
                   <% end %>
                 </td>
                 <td>
-                  <%= project.target_amount %> / <%= project.present_amount %>
-                </td>
-                <td>
                   <%= link_to switch_admin_read_project_path(project), data: {confirm: "确定#{project.state === 'show' ? '隐藏项目' : '显示项目'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{project.state === 'show' ? 'green' : 'default'}" do %>
                       <%= project.state === 'show' ? '显示' : '隐藏' %>
                       <i class="fa <%= project.state === 'show' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
                   <% end %>
-                </td>
-                <td>
-                  <%= project.enum_name(:read_state) %>
                 </td>
                 <td>
                   <% if project.whole? %>

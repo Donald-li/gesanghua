@@ -104,7 +104,7 @@ class IncomeRecord < ApplicationRecord
   #捐赠证书路径
   def donor_certificate_path
     self.certificate_no ||= Sequence.get_seq(kind: :order_no, prefix: "ZS#{time_string}", length: 7)
-    path = "/images/certificates/#{self.created_at.strftime('%Y%m%d')}/#{self.id}/#{Encryption.md5(self.id.to_s)}.jpg"
+    path = "/images/certificates/#{self.created_at.strftime('%Y%m%d')}/#{self.id}/#{Encryption.md5(self.certificate_no.to_s)}.jpg"
     local_path = Rails.root.to_s + '/public' + path
     if !File::exist?(local_path)
       GenDonateCertificate.create(self)

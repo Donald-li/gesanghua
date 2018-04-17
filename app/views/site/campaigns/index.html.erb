@@ -2,8 +2,8 @@
   <div class="camp-body">
     <div class="camps-title">
       <%= search_form_for @search, url: campaigns_path do |f| %>
-          <%= f.select :campaign_category_id_eq, CampaignCategory.sorted.collect{|cc| [cc.name, cc.id]}, {include_blank: '全部活动'} %>
-          <%= f.select :execute_state_eq, Campaign.options_for_select(:execute_states, raw: true), {include_blank: '活动状态'} %>
+          <%= f.select :campaign_category_id_eq, CampaignCategory.sorted.collect{|cc| [cc.name, cc.id]}, {include_blank: '全部活动'}, class:"allactivities" %>
+          <%= f.select :execute_state_eq, Campaign.options_for_select(:execute_states, raw: true), {include_blank: '活动状态'}, class:"nascentstate" %>
           <button type="submit" class="camps-search">搜索</button>
       <% end %>
     </div>
@@ -52,11 +52,13 @@
 </div>
 
 <script>
-    $("#allcamps").select({
-        width: "250px"
-    });
-    $("#campstype").select({
-        width: "250px"
-    });
+    $('.allactivities').select2({
+        width:"250px",
+        minimumResultsForSearch: -1
+    })
+    $('.nascentstate').select2({
+        width:"250px",
+        minimumResultsForSearch: -1
+    })
 
 </script>

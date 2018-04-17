@@ -19,8 +19,8 @@
   <%= simple_form_for @profile, url: url_path, method: method_way, html: {'data-parsley-validate': true, id: 'profile_form', method_way: method_way} do |f| %>
     <%= hidden_field_tag "school[id]", @profile["id"] %>
     <div class=" marginbottom">
-      <div style="margin-left: 356px; margin-top: 30px;">
-        <%= webuploader_tag :logo_id, label: '上传Logo', type: 'school_logo', asset: @profile.logo, klass: 'single' %>
+      <div class="addchild-list-img">
+        <%= webuploader_avatar :logo_id, label: '上传Logo', type: 'school_logo', asset: @profile.logo, klass: 'single', id: 'webuploader' %>
       </div>
       <p class="don-titln">学校信息</p>
       <div class="addchild-list-cont">
@@ -99,7 +99,7 @@
         minimumResultsForSearch: -1
     })
   $(function () {
-    initImageWebuploader($('#webuploader'));
+      initAvatarWebuploader($('#webuploader'));
   })
 
 
