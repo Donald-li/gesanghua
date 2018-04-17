@@ -4,7 +4,7 @@ class Api::V1::BindPhonesController < Api::V1::BaseController
   def create
     if SmsCode.valid_code?(mobile: params[:mobile], code: params[:code], kind: 'login', write_verified: true)
       current_user.phone = params[:mobile]
-      current_user.save
+      current_user.save!
       current_user.bind_user_roles
       api_success(message: '绑定成功！', data: {state: true})
     else

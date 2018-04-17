@@ -218,9 +218,14 @@ class ProjectSeasonApply < ApplicationRecord
     self.supplements.pass.count
   end
 
-  # 筹款完成的补书数量
+  # 已完成的补书数量
   def supplements_done_count
     self.supplements.pass_done.count
+  end
+
+  # 筹款完成的补书数量
+  def supplements_raise_complete_count
+    self.supplements.raise_complete.count
   end
 
   # 通过审核的班级数量
@@ -228,9 +233,14 @@ class ProjectSeasonApply < ApplicationRecord
     self.bookshelves.pass.count
   end
 
-  # 筹款完成的班级数量
+  # 已完成的班级数量
   def bookshelves_done_count
     self.bookshelves.pass_done.count
+  end
+
+  # 筹款完成的班级数量
+  def bookshelves_raise_complete_count
+    self.bookshelves.raise_complete.count
   end
 
   # 通过审核
@@ -330,8 +340,10 @@ class ProjectSeasonApply < ApplicationRecord
       json.large_url self.cover_image_url(:large).to_s
       json.bookshelves_count self.bookshelves_count
       json.bookshelves_done_count self.bookshelves_done_count
+      json.bookshelves_raise_complete_count self.bookshelves_raise_complete_count
       json.supplements_count self.supplements_count
       json.supplements_done_count self.supplements_done_count
+      json.supplements_raise_complete_count self.supplements_raise_complete_count
     end.attributes!
   end
 

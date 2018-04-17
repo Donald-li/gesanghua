@@ -132,7 +132,7 @@ class Project < ApplicationRecord
   # 可捐助数量
   def to_donate_num
     if self.id == 1
-      GshChild.visible.count
+      ProjectSeasonApplyChild.where(project: Project.pair_project).pass.outside.show.count
     elsif self.id == 2
       ProjectSeasonApplyBookshelf.raising.count
     elsif self.id == 6

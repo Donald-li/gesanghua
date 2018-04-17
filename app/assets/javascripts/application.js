@@ -41,7 +41,6 @@
 //= require 'plugin/parsley.min.js'
 //= require 'plugin/parsley.min.zextra.js'
 //= require 'plugin/parsley.min.zh_cn.js'
-//= require ckeditor/init
 
 
 

@@ -99,7 +99,7 @@ class User < ApplicationRecord
   enum gender: {male: 1, female: 2} #性别 1:男 2:女
   default_value_for :gender, 1
 
-  enum use_nickname: {anonymous: 1, autonym: 2, designation: 3} #使用昵称 1:匿名（使用昵称） 2:实名使用姓名 3.使用称呼
+  enum use_nickname: {anonymous: 1, autonym: 2} #使用昵称 1:匿名（使用昵称） 2:实名使用姓名
   default_value_for :use_nickname, 2
 
   scope :sorted, ->{ order(created_at: :desc) }
@@ -123,16 +123,6 @@ class User < ApplicationRecord
   end
 
   # 生成捐赠证书的名称
-  def card_name
-    if self.anonymous?
-      self.nickname
-    elsif self.designation?
-      self.salutation
-    else
-      self.name
-    end
-  end
-
   def show_name
     if self.nickname.present?
       self.nickname

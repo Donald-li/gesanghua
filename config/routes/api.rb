@@ -185,7 +185,11 @@ namespace :api do
       end
     end
 
-    resources :applies, only: [:index, :show]
+    resources :applies, only: [:index, :show] do
+      collection do
+        post :complaint
+      end
+    end
 
     resource :pair, only: [:show]
     resources :children do

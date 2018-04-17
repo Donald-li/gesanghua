@@ -38,23 +38,28 @@ class Api::V1::CooperationGoodsController < Api::V1::BaseController
   def create
     user = current_user
     @school = user.teacher.school
-    @apply = @project.applies.new
-    @apply.project_season_id = params[:apply][:season][0]
-    @apply.student_number = params[:apply][:student_number]
-    @apply.describe = params[:apply][:describe]
-    @apply.contact_name = params[:apply][:contact_name]
-    @apply.contact_phone = params[:apply][:contact_phone]
-    @apply.province = params[:apply][:location][0]
-    @apply.city = params[:apply][:location][1]
-    @apply.district = params[:apply][:location][2]
-    @apply.address = params[:apply][:address]
-    @apply.form = params[:dynamic_form]
-    @apply.school_id = @school.id
-    if @apply.save
-      @apply.attach_images(params[:images])
-      api_success(data: {result: true, project_id: @project.id})
+    season = ProjectSeason.find(params[:apply][:season][0])
+    if ProjectSeasonApply.allow_apply?(@school, season, @project)
+      @apply = @project.applies.new
+      @apply.project_season_id = params[:apply][:season][0]
+      @apply.student_number = params[:apply][:student_number]
+      @apply.describe = params[:apply][:describe]
+      @apply.contact_name = params[:apply][:contact_name]
+      @apply.contact_phone = params[:apply][:contact_phone]
+      @apply.province = params[:apply][:location][0]
+      @apply.city = params[:apply][:location][1]
+      @apply.district = params[:apply][:location][2]
+      @apply.address = params[:apply][:address]
+      @apply.form = params[:dynamic_form]
+      @apply.school_id = @school.id
+      if @apply.save
+        @apply.attach_images(params[:images])
+        api_success(data: {result: true, project_id: @project.id})
+      else
+        api_success(data: {result: false})
+      end
     else
-      api_success(data: {result: false})
+      api_success(data: {result: false}, message: '您无法申请本批次')
     end
   end
 

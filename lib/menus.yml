@@ -182,6 +182,7 @@ admin:
               actions:
                 'admin/pair_applies': all
                 'admin/pair_students': all
+                'admin/home_visits': all
             admin_pair_lists:
               actions:
                 'admin/pair_student_lists': all

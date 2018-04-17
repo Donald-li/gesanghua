@@ -42,7 +42,9 @@ class BookshelfSupplement < ApplicationRecord
   enum audit_state: {submit: 1, pass: 2, reject: 3}
   default_value_for :audit_state, 1
 
-  scope :pass_done, ->{ pass.done }
+  scope :pass_done, ->{ where(state: ['feedbacked', 'done']) }
+
+  scope :raise_complete, -> { where(state: ['to_delivery', 'to_receive', 'to_feedback', 'feedbacked', 'done'])}
 
   scope :sorted, ->{ order(created_at: :desc) }
 

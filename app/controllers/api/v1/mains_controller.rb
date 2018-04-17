@@ -4,7 +4,7 @@ class Api::V1::MainsController < Api::V1::BaseController
   end
 
   def banners
-    @banners = Advert.visible.sorted
+    @banners = Advert.banner.show.sorted
     api_success(data: @banners.map {|banner| banner.summary_builder})
   end
 

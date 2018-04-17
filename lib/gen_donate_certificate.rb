@@ -10,7 +10,7 @@ class GenDonateCertificate
       source = Image.open(Rails.root.to_s + "/lib/certificate/certificate_template.jpg")
       # donors = record.items.donor.all
       # return if donors.blank?
-      name = record.donor.try(:card_name)
+      name = record.donor.try(:show_name)
       # name |= '用户'
 
       render_text(source, 60, 320, "感谢您！亲爱的#{name}，") {|c| c.pointsize '24'}

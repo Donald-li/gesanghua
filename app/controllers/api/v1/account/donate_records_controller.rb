@@ -11,13 +11,15 @@ class Api::V1::Account::DonateRecordsController < Api::V1::BaseController
   end
 
   def record_details
-    donation = Donation.find(params[:id])
-    api_success(data: donation.detail_builder)
+    donate_record = DonateRecord.find(params[:id])
+    api_success(data: donate_record.detail_builder)
+    # donation = Donation.find(params[:id])
+    # api_success(data: donation.detail_builder)
   end
 
   def account_records
-    donate_records = current_user.donate_records.sorted
-    api_success(data: {donate_records: donate_records.map { |r| r.detail_builder }, donate_count: current_user.donate_count})
+    donate_records = DonateRecord.where(agent_id: current_user.id).sorted #current_user.donate_records.sorted
+    api_success(data: {donate_records: donate_records.map { |r| r.summary_builder }, donate_count: current_user.donate_count})
   end
 
   def voucher_records
