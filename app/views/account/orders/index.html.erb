@@ -24,12 +24,15 @@
     <div class="donation " style="display: block;">
       <div class="donations-1">
         <ul class="donations1 clearfix panel-tabs" url="<%= select_tab_account_orders_path %>">
-          <li class="selectedDo cur" info="0" url="<%= select_tab_account_orders_path %>">全部项目</li>
+          <li class="selectedDo cur" info="0" url="<%= select_tab_account_orders_path %>">全部项目
+            <div class="bottomline"></div></li>
           <% @projects.each do |project| %>
-            <li class="cur border-l" info="<%= project.id %>" url="<%= select_tab_account_orders_path(project.id) %>"><%= project.name %></li>
+            <li class="cur border-l" info="<%= project.id %>" url="<%= select_tab_account_orders_path(project.id) %>"><%= project.name %>
+              <div class=""></div>
+            </li>
           <% end %>
         </ul>
-        <div class="bottomline"></div>
+
       </div>
       <div class="panel-body">
         <div class="tab-content">
