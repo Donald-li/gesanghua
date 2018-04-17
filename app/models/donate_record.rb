@@ -327,7 +327,7 @@ class DonateRecord < ApplicationRecord
       self.project_id = self.owner.project_id
       self.project_season_apply_id = self.owner.try(:project_season_apply_id)
     when DonateItem
-      self.project_id = self.owner.project_id
+      self.project_id = self.owner.project.try(:id)
     end
   end
 

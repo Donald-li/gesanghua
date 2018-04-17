@@ -12,7 +12,6 @@ class GenDonateCertificate
       # return if donors.blank?
       name = record.donor.try(:card_name)
       # name |= '用户'
-      byebug
 
       render_text(source, 60, 320, "感谢您！亲爱的#{name}，") {|c| c.pointsize '24'}
       project_name = record.project_name

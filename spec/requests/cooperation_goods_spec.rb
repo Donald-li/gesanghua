@@ -39,6 +39,7 @@ RSpec.describe "Api::V1::CooperationRadios", tye: :request do
     end
 
     it '创建物资类申请' do
+      apply.destroy # 不能重复申请
       post api_v1_cooperation_goods_path(pid: project.id),
           params: {apply: {season:[season.id], student_number: '30', describe: FFaker::LoremCN.sentence,
           contact_name: FFaker::NameCN.name, contact_phone: '17888889999', location: [110000, 110100, 110101], address: '某街'}},

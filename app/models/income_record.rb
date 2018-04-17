@@ -183,21 +183,6 @@ class IncomeRecord < ApplicationRecord
     # end
     #
 
-    # # 募捐信息
-    # def promoter_record_builder
-    #   Jbuilder.new do |json|
-    #     json.(self, :id)
-    #     json.amount number_to_currency(self.amount)
-    #     json.created_at self.created_at.strftime("%Y-%m-%d %H:%M:%S")
-    #     json.user_name self.donor.try(:user_name) || '爱心人士'
-    #     json.project_name self.try(:project).try(:name)
-    #     json.apply_name self.try(:apply).try(:name)
-    #     json.child_name self.try(:owner).try(:name) if self.owner_type == 'ProjectSeasonApplyChild'
-    #     json.show_name self.donate_apply_name
-    #     json.promoter_amount_count number_to_currency(self.promoter.promoter_amount_count)
-    #   end.attributes!
-    # end
-    #
     #
     #   def summary_builder
     #     Jbuilder.new do |json|
