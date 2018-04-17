@@ -67,6 +67,11 @@ class GshChildGrant < ApplicationRecord
   counter_culture :apply_child, column_name: "semester_count"
   counter_culture :apply_child, column_name: proc {|model| model.succeed? ? 'done_semester_count' : nil }
 
+  # TODO: 现在没有project_id, 以后可以增加这个字段
+  def project
+    Project.pair_project
+  end
+
   # 使用捐助
   def accept_donate(donate_records)
     donate_record = donate_records.last

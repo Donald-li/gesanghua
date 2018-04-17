@@ -30,7 +30,7 @@ RSpec.describe "Api::V1::Account::DonateRecords", type: :request do
       season = create(:project_season, project: project)
       apply = create(:project_season_apply, project: project, season: season, teacher: teacher)
       child = create(:project_season_apply_child, project: project, season: season, apply: apply, school: school)
-      record = create(:donation, project: project, season: season, apply: apply, donor: login_user, agent: login_user)
+      record = create(:income_record, donor: login_user, agent: login_user)
 
       get record_details_api_v1_account_donate_record_path(id: record.id), headers: api_v1_headers(login_user)
       api_v1_expect_success

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180416091748) do
+ActiveRecord::Schema.define(version: 20180416123932) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -319,7 +319,6 @@ ActiveRecord::Schema.define(version: 20180416091748) do
     t.integer "project_season_id", comment: "年度ID"
     t.integer "project_season_apply_id", comment: "年度项目ID"
     t.integer "gsh_child_id", comment: "格桑花孩子id"
-    t.integer "project_season_apply_bookshelf_id", comment: "书架id"
     t.integer "income_record_id", comment: "收入记录"
     t.string "title", comment: "捐赠标题"
     t.string "source_type"
@@ -328,6 +327,7 @@ ActiveRecord::Schema.define(version: 20180416091748) do
     t.bigint "owner_id", comment: "捐助所属捐助项"
     t.integer "donation_id", comment: "捐助id"
     t.integer "kind", comment: "捐助方式 1:捐款 2:配捐"
+    t.integer "project_season_apply_child_id", comment: "一对一孩子"
     t.index ["owner_type", "owner_id"], name: "index_donate_records_on_owner_type_and_owner_id"
     t.index ["source_type", "source_id"], name: "index_donate_records_on_source_type_and_source_id"
   end
@@ -337,12 +337,10 @@ ActiveRecord::Schema.define(version: 20180416091748) do
     t.string "owner_type"
     t.bigint "owner_id", comment: "捐助所属模型"
     t.integer "pay_state", comment: "支付状态"
-    t.integer "voucher_state", comment: "捐赠收据状态"
     t.integer "project_id", comment: "项目id"
     t.integer "project_season_id", comment: "批次/年度id"
     t.integer "project_season_apply_id", comment: "申请id"
     t.string "order_no", comment: "订单编号"
-    t.string "certificate_no", comment: "捐赠证书编号"
     t.string "title", comment: "标题"
     t.integer "promoter_id", comment: "劝捐人"
     t.integer "team_id", comment: "团队id"
@@ -352,7 +350,6 @@ ActiveRecord::Schema.define(version: 20180416091748) do
     t.jsonb "details", comment: "捐助详情"
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "捐助金额"
     t.integer "agent_id", comment: "代理人id"
-    t.integer "voucher_id", comment: "开票记录id"
     t.index ["owner_type", "owner_id"], name: "index_donations_on_owner_type_and_owner_id"
   end
 
@@ -520,6 +517,7 @@ ActiveRecord::Schema.define(version: 20180416091748) do
     t.integer "kind", comment: "来源: 1:线上 2:线下"
     t.integer "team_id", comment: "团队id"
     t.integer "voucher_id", comment: "捐赠收据ID"
+    t.string "certificate_no", comment: "捐赠证书编号"
   end
 
   create_table "income_sources", force: :cascade, comment: "收入来源" do |t|
@@ -1087,9 +1085,9 @@ ActiveRecord::Schema.define(version: 20180416091748) do
     t.string "address", comment: "详细地址"
     t.string "qq", comment: "qq号"
     t.string "id_card", comment: "身份证"
-    t.decimal "donate_count", precision: 14, scale: 2, default: "0.0", comment: "捐助金额"
-    t.decimal "online_count", precision: 14, scale: 2, default: "0.0", comment: "线上捐助金额"
-    t.decimal "offline_count", precision: 14, scale: 2, default: "0.0", comment: "线下捐助金额"
+    t.decimal "donate_amount", precision: 14, scale: 2, default: "0.0", comment: "捐助金额"
+    t.decimal "online_amount", precision: 14, scale: 2, default: "0.0", comment: "线上捐助金额"
+    t.decimal "offline_amount", precision: 14, scale: 2, default: "0.0", comment: "线下捐助金额"
     t.string "auth_token", comment: "Token"
     t.integer "manager_id", comment: "线下用户管理人id"
     t.integer "roles_mask", comment: "角色"

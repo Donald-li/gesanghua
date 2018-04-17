@@ -25,9 +25,9 @@
 #  address               :string                                       # 详细地址
 #  qq                    :string                                       # qq号
 #  id_card               :string                                       # 身份证
-#  donate_count          :decimal(14, 2)   default(0.0)                # 捐助金额
-#  online_count          :decimal(14, 2)   default(0.0)                # 线上捐助金额
-#  offline_count         :decimal(14, 2)   default(0.0)                # 线下捐助金额
+#  donate_amount         :decimal(14, 2)   default(0.0)                # 捐助金额
+#  online_amount         :decimal(14, 2)   default(0.0)                # 线上捐助金额
+#  offline_amount        :decimal(14, 2)   default(0.0)                # 线下捐助金额
 #  auth_token            :string                                       # Token
 #  manager_id            :integer                                      # 线下用户管理人id
 #  roles_mask            :integer                                      # 角色
@@ -71,11 +71,11 @@ class User < ApplicationRecord
   has_many :vouchers
   has_many :campaign_enlists
   has_many :campaigns, through: :campaign_enlists
-  has_many :donate_records, foreign_key: :donor_id, dependent: :nullify
-  has_many :donations, dependent: :nullify, foreign_key: 'donor_id'
+  has_many :donate_records, foreign_key: :agent_id, dependent: :nullify
+  has_many :donations, dependent: :nullify, foreign_key: 'agent_id'
+  has_many :income_records, dependent: :nullify, foreign_key: 'agent_id'
   has_many :visits
 
-  has_many :income_records, dependent: :nullify, foreign_key: 'donor_id'
   has_many :project_season_applies
   has_many :month_donates
 
@@ -123,12 +123,14 @@ class User < ApplicationRecord
   end
 
   # 生成捐赠证书的名称
+  def card_name
+    return self.nickname if self.anonymous?
+    return self.name if self.autonym?
+  end
+
+  # 显示名称，有昵称显示昵称，没有显示真实姓名
   def show_name
-    if self.nickname.present?
-      self.nickname
-    else
-      self.name
-    end
+    self.nickname.presence || self.name
   end
 
   # 用户对外显示的名字
@@ -202,6 +204,11 @@ class User < ApplicationRecord
     self.volunteer.present? ? self.volunteer.approve_state : 'default'
   end
 
+  # # 累计捐助金额
+  # def donate_amount
+  #   self.donate_records.sum(:amount)
+  # end
+
   # 可开票金额
   def to_bill_amount
     self.donations.where({ created_at: (Time.now.beginning_of_year)..(Time.now.end_of_year), voucher_state: 1, pay_state: 2 }).sum(:amount)
@@ -250,7 +257,7 @@ class User < ApplicationRecord
 
   def summary_builder
     Jbuilder.new do |json|
-      json.(self, :id, :nickname, :balance, :donate_count, :role_tag, :team_id, :phone)
+      json.(self, :id, :nickname, :balance, :donate_amount, :role_tag, :team_id, :phone)
       json.login_name self.login
       json.user_avatar self.user_avatar
       json.promoter_count self.promoter_amount_count
@@ -273,13 +280,11 @@ class User < ApplicationRecord
 
   def detail_builder
     Jbuilder.new do |json|
-      json.(self, :id, :nickname, :team_id, :balance)
-      json.login_name self.login
+      json.merge! summary_builder
       json.avatar self.user_avatar
       json.name self.name
       json.gender self.gender == 'male'? ['男'] : ['女']
       json.use_nickname [self.use_nickname]
-      json.salutation self.salutation
       json.email self.email
       json.location [self.province, self.city, self.district]
       json.address self.address
@@ -291,14 +296,14 @@ class User < ApplicationRecord
         json.url self.try(:user_avatar)
         json.protect_token ''
       end
-      json.show_name self.nickname.present?? self.nickname : self.name
+      json.show_name self.show_name
     end.attributes!
   end
 
   def offline_donor_summary_builder
     Jbuilder.new do |json|
       json.(self, :id, :phone, :name, :nickname)
-      json.show_name self.nickname.present?? self.nickname : self.name
+      json.show_name self.show_name
     end.attributes!
   end
 
@@ -307,7 +312,7 @@ class User < ApplicationRecord
       json.(self, :id, :phone, :name, :nickname)
       json.school_name self.try(:teacher).try(:school).try(:name)
       json.kind self.try(:teacher).kind == 'headmaster'? '校长' : '教师'
-      json.show_name self.nickname.present?? self.nickname : self.name
+      json.show_name self.show_name
       json.user_avatar do
         json.id self.try(:avatar).try(:id)
         json.url self.try(:avatar).try(:file_url)

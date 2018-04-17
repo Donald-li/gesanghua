@@ -1,7 +1,7 @@
 class Api::V1::Account::VouchersController < Api::V1::BaseController
 
   def index
-    vouchers = current_user.vouchers
+    vouchers = current_user.vouchers.sorted
     api_success(data: vouchers.map{|voucher| voucher.summary_builder})
   end
 
@@ -13,7 +13,7 @@ class Api::V1::Account::VouchersController < Api::V1::BaseController
   def apply_voucher
     @voucher = current_user.vouchers.build(voucher_params)
     ids = Array(params[:checked_records])
-    if @voucher.save_voucher(ids)
+    if @voucher.save_voucher(current_user, ids)
       api_success(data: true, message: '提交成功')
     else
       api_error(message: '提交失败')

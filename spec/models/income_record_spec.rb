@@ -20,6 +20,7 @@
 #  kind             :integer                                # 来源: 1:线上 2:线下
 #  team_id          :integer                                # 团队id
 #  voucher_id       :integer                                # 捐赠收据ID
+#  certificate_no   :string                                 # 捐赠证书编号
 #
 
 require 'rails_helper'
@@ -39,5 +40,19 @@ RSpec.describe IncomeRecord, type: :model do
     expect(StatisticRecord.income_statistic.where(record_time: Time.now.beginning_of_day..Time.now.end_of_day).first.amount) === IncomeRecord.where(income_time: Time.now.beginning_of_day..Time.now.end_of_day).pluck(:amount).reduce(:+)
     expect(StatisticRecord.income_statistic.where(record_time: (Time.now - 1.day).beginning_of_day..(Time.now - 1.day).end_of_day).first.amount) === IncomeRecord.where(income_time: (Time.now - 1.day).beginning_of_day..(Time.now - 1.day).end_of_day).pluck(:amount).reduce(:+)
 
+  end
+
+  describe '测试捐赠编号和捐赠证书生成方法' do
+    let (:record) {create(:income_record)}
+
+    it '测试捐赠编号方法' do
+      record.gen_certificate_no
+      expect(record.certificate_no.present?).to eq true
+      # pp record.donor_certificate_path
+    end
+
+    it '测试捐赠证书' do
+      expect(record.donor_certificate_path).to eq "/images/certificates/#{record.created_at.strftime('%Y%m%d')}/#{record.id}/#{Encryption.md5(record.id.to_s)}.jpg"
+    end
   end
 end

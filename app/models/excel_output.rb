@@ -29,9 +29,9 @@ class ExcelOutput
                        user.nickname,
                        user.name,
                        user.phone,
-                       user.donate_count,
-                       user.online_count,
-                       user.offline_count]
+                       user.donate_amount,
+                       user.online_amount,
+                       user.offline_amount]
       end
     end
     p.serialize "public/files/用户捐助统计" + DateTime.now.strftime("%Y-%m-%d-%s") + ".xlsx"

@@ -23,7 +23,6 @@ class MenuNav
         elsif  v.is_a?(Array)
           all_actions_name & v.map(&:to_s)
         elsif v.is_a?(Hash)
-          puts v.inspect
           v['except'] ? all_actions_name - v['except'].map(&:to_s) : all_actions_name & v['only'].map(&:to_s)
         else
           all_actions_name & [] << v

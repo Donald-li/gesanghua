@@ -3,7 +3,7 @@ class Api::V1::PairChildrenController < Api::V1::BaseController
 
   def show
     api_error(message: '无效页面') && return unless @pair
-    api_success(data: @pair.summary_builder)
+    api_success(data: @pair.summary_builder(current_user))
   end
 
   def complaint

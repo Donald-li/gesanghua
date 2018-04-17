@@ -25,9 +25,9 @@
 #  address               :string                                       # 详细地址
 #  qq                    :string                                       # qq号
 #  id_card               :string                                       # 身份证
-#  donate_count          :decimal(14, 2)   default(0.0)                # 捐助金额
-#  online_count          :decimal(14, 2)   default(0.0)                # 线上捐助金额
-#  offline_count         :decimal(14, 2)   default(0.0)                # 线下捐助金额
+#  donate_amount         :decimal(14, 2)   default(0.0)                # 捐助金额
+#  online_amount         :decimal(14, 2)   default(0.0)                # 线上捐助金额
+#  offline_amount        :decimal(14, 2)   default(0.0)                # 线下捐助金额
 #  auth_token            :string                                       # Token
 #  manager_id            :integer                                      # 线下用户管理人id
 #  roles_mask            :integer                                      # 角色

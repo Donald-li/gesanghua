@@ -7,12 +7,10 @@
 #  owner_type              :string
 #  owner_id                :integer                                # 捐助所属模型
 #  pay_state               :integer                                # 支付状态
-#  voucher_state           :integer                                # 捐赠收据状态
 #  project_id              :integer                                # 项目id
 #  project_season_id       :integer                                # 批次/年度id
 #  project_season_apply_id :integer                                # 申请id
 #  order_no                :string                                 # 订单编号
-#  certificate_no          :string                                 # 捐赠证书编号
 #  title                   :string                                 # 标题
 #  promoter_id             :integer                                # 劝捐人
 #  team_id                 :integer                                # 团队id
@@ -22,14 +20,13 @@
 #  details                 :jsonb                                  # 捐助详情
 #  amount                  :decimal(14, 2)   default(0.0)          # 捐助金额
 #  agent_id                :integer                                # 代理人id
-#  voucher_id              :integer                                # 开票记录id
 #
 
 # 捐助
 class Donation < ApplicationRecord
   include ActionView::Helpers::NumberHelper
 
-  has_many :income_records, dependent: :nullify
+  has_one :income_record, dependent: :nullify
   has_many :donate_records, dependent: :nullify
   belongs_to :donor, class_name: 'User', foreign_key: 'donor_id', optional: true
   belongs_to :agent, class_name: 'User', foreign_key: 'agent_id', optional: true
@@ -40,7 +37,6 @@ class Donation < ApplicationRecord
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: :project_season_apply_id, optional: true
   belongs_to :owner, polymorphic: true
   belongs_to :donate_item, optional: true
-  belongs_to :voucher, optional: true
 
   before_create :set_record_title
   before_create :generate_order_no
@@ -48,15 +44,7 @@ class Donation < ApplicationRecord
   enum pay_state: { unpaid: 1, paid: 2}
   default_value_for :pay_state, 1
 
-  enum voucher_state: {to_bill: 1, billed: 2} #收据状态，1:未开票 2:已开票
-  default_value_for :voucher_state, 1
-
   scope :sorted, -> {order(id: :desc)}
-
-  # owner的名称
-  def project_name
-    self.project.try(:name) || '格桑花'
-  end
 
   # 生成收入
   def gen_income_record
@@ -98,17 +86,6 @@ class Donation < ApplicationRecord
     return get_alipay_prepay_url('page')
   end
 
-  # 计算开票金额
-  def self.count_amount(ids)
-    donates = DonateRecord.find(ids)
-    if donates.present?
-      amount = donates.sum {|d| d.amount.to_f}
-      return amount
-    else
-      return 0
-    end
-  end
-
   # 项目是否可以退款
   def can_refund?
     self.paid? && self.user && self.system?
@@ -122,6 +99,7 @@ class Donation < ApplicationRecord
       begin
         User.update_counters(user.id, self.amount)
         self.pay_state = :refund
+        # TODO: 还得处理income_record等
         self.save!
         return true
       rescue
@@ -142,41 +120,29 @@ class Donation < ApplicationRecord
       # 更新捐助状态
       donation.pay_state = 'paid'
       donation.pay_result = result.to_json
-      donation.gen_certificate_no(save: false)
-      donation.income_records.new(agent: agent, donor: donor, amount: amount, balance: amount, voucher_state: 'to_bill', income_source_id: 1, income_time: Time.now, title: donation.title)
+      donation.build_income_record(agent: agent, donor: donor, amount: amount, balance: amount, voucher_state: 'to_bill', income_source_id: 1, income_time: Time.now, title: donation.title)
       donation.save
 
       # 执行捐助
-      income_record = donation.income_records.last
+      income_record = donation.income_record
       DonateRecord.do_donate('user_donate', income_record, donation.owner, amount, {agent: agent, donor: donor})
     end
   end
 
-  # 生成捐赠编号
-  def gen_certificate_no(save: false)
-    self.certificate_no ||= 'ZS' + self.order_no
-    self.pay_state = 'paid'
-    # self.donor_certificate_path # TODO 调用捐赠证书方法，生成证书（微信支付调通以后，需要考虑此方法的执行速度）
-    self.save if save
-  end
-
-  #捐赠证书路径
-  def donor_certificate_path
-    self.certificate_no ||= 'ZS' + self.order_no
-    path = "/images/certificates/#{self.created_at.strftime('%Y%m%d')}/#{self.id}/#{Encryption.md5(self.id.to_s)}.jpg"
-    local_path = Rails.root.to_s + '/public' + path
-    if !File::exist?(local_path)
-      GenDonateCertificate.create(self)
-    end
-    self.save
-    path
-  end
-
-  def certificate_builder
+  def detail_builder
     Jbuilder.new do |json|
-      json.(self, :certificate_no)
-      json.certificate self.donor_certificate_path
+      json.(self, :id, :order_no, :amount)
     end.attributes!
+  end
+
+  def donate_apply_name
+    if self.apply.present?
+      self.apply.try(:name)
+    elsif self.owner.is_a?(ProjectSeasonApplyChild)
+      self.owner.name
+    else
+      '捐助'
+    end
   end
 
   # 募捐信息
@@ -191,52 +157,6 @@ class Donation < ApplicationRecord
       json.child_name self.try(:owner).try(:name) if self.owner_type == 'ProjectSeasonApplyChild'
       json.show_name self.donate_apply_name
       json.promoter_amount_count number_to_currency(self.promoter.promoter_amount_count)
-    end.attributes!
-  end
-
-  def apply_cover
-    if self.project_id == Project.pair_project.id
-      self.try(:project).project_image
-    else
-      self.try(:apply).try(:cover_image_url, :small)
-    end
-
-  end
-
-  def donate_apply_name
-    if self.apply.present?
-      self.apply.try(:name)
-    elsif self.owner.is_a?(ProjectSeasonApplyChild)
-      self.owner.name
-    else
-      '捐助'
-    end
-  end
-
-  def summary_builder
-    Jbuilder.new do |json|
-      json.(self, :id, :title)
-      json.donor self.donor.try(:name)
-      json.time self.created_at.strftime('%Y-%m-%d %H:%M:%S')
-      json.amount number_to_currency(self.amount)
-      json.amount_float self.amount
-      json.donate_mode !self.donor.present? # true自己捐 false代捐
-      json.donate_title self.donor_id === self.agent_id ? '' : '代捐' # true自己捐 false代捐
-    end.attributes!
-  end
-
-  def detail_builder
-    Jbuilder.new do |json|
-      json.(self, :id, :amount, :title, :order_no, :certificate_no)
-      json.time self.created_at.strftime('%Y-%m-%d %H:%M:%S')
-      json.donate_mode !self.donor.present? # true自己捐 false代捐
-      json.donate_title self.donor_id === self.agent_id ? '' : '代捐' # true自己捐 false代捐
-      json.agent self.agent.try(:show_name)
-      json.donor self.donor.show_name
-      json.userAvatar self.agent.user_avatar
-      json.apply_cover apply_cover
-      json.apply_name donate_apply_name
-      json.bookshelf self.owner_id if self.owner_type == 'ProjectSeasonApplyBookshelf'
     end.attributes!
   end
 
@@ -338,5 +258,4 @@ class Donation < ApplicationRecord
       }.to_json
     )
   end
-
 end
