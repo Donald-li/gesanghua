@@ -27,4 +27,5 @@
 
 # 持续反馈
 class ContinualFeedback < Feedback
+  scope :visible, ->{}
 end

@@ -20,6 +20,7 @@
 #  kind             :integer                                # 来源: 1:线上 2:线下
 #  team_id          :integer                                # 团队id
 #  voucher_id       :integer                                # 捐赠收据ID
+#  certificate_no   :string                                 # 捐赠证书编号
 #
 
 require 'rails_helper'

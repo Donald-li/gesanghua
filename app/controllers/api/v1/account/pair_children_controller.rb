@@ -1,12 +1,15 @@
 class Api::V1::Account::PairChildrenController < Api::V1::BaseController
 
   def index
-    children = ProjectSeasonApplyChild.where(id: current_user.gsh_child_grants.pluck(:gsh_child_id)).sorted.page(params[:page]).per(params[:per])
+    apply_child_ids = current_user.donate_records.pluck(:project_season_apply_child_id)
+    children = ProjectSeasonApplyChild.where(id: apply_child_ids).sorted.page(params[:page]).per(params[:per])
     api_success(data: {children: children.map { |r| r.donate_children_builder(current_user) }, pagination: json_pagination(children)})
   end
 
   def feedback_list
-    feedbacks = ContinualFeedback.where(gsh_child_grant_id: ProjectSeasonApplyChild.find(params[:child_id]).gsh_child_grants.where(user_id: current_user.id).pluck(:id)).sorted.page(params[:page]).per(params[:per])
+    # 验证权限
+    apply_child_ids = current_user.donate_records.where(project_season_apply_child_id: params[:child_id]).pluck(:project_season_apply_child_id)
+    feedbacks = ContinualFeedback.where(project_season_apply_child_id: apply_child_ids).sorted.page(params[:page]).per(params[:per])
     api_success(data: {feedbacks: feedbacks.map{|f| f.detail_builder}, pagination: json_pagination(feedbacks)})
   end
 

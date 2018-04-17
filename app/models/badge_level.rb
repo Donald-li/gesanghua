@@ -51,7 +51,7 @@ class BadgeLevel < ApplicationRecord
       if kind.end_with?('_task')
         value = owner.volunteer && owner.volunteer.task_volunteers.done.joins(:task).where(tasks: {"#{kind.split('_')[0]}_flag": true}).count
       elsif kind == 'user_donate'
-        value = owner.donate_count
+        value = owner.donate_amount
       elsif kind == 'volunteer_age'
         # value = owner.volunteer.volunteer_age
       elsif owner

@@ -3,7 +3,7 @@ class Admin::DonateStatisticsController < Admin::BaseController
 
   def show
     @search = User.sorted.ransack(params[:q])
-    scope = @search.result.order(donate_count: :desc).limit(200)
+    scope = @search.result.order(donate_amount: :desc).limit(200)
     @donate_statistics = scope.page(params[:page])
   end
 

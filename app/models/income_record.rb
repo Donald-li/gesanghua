@@ -20,9 +20,11 @@
 #  kind             :integer                                # 来源: 1:线上 2:线下
 #  team_id          :integer                                # 团队id
 #  voucher_id       :integer                                # 捐赠收据ID
+#  certificate_no   :string                                 # 捐赠证书编号
 #
 
 # 收入记录
+# 我的捐款，开具发票，款均使用收入记录
 class IncomeRecord < ApplicationRecord
   belongs_to :donation, optional: true
 
@@ -53,17 +55,14 @@ class IncomeRecord < ApplicationRecord
   # 可开票记录
   scope :open_ticket, -> { to_bill.where(created_at: (Time.now.beginning_of_year)..(Time.now.end_of_year)) }
 
-  counter_culture :donor, column_name: proc {|model| model.income_source.present? && model.income_source.online? ? 'online_count' : nil}, delta_magnitude: proc {|model| model.amount}
-  counter_culture :donor, column_name: proc {|model| model.income_source.present? && model.income_source.offline? ? 'offline_count' : nil}, delta_magnitude: proc {|model| model.amount}
-  counter_culture :donor, column_name: 'donate_count', delta_magnitude: proc {|model| model.amount }
+  counter_culture :agent, column_name: proc {|model| model.income_source.present? && model.income_source.online? ? 'online_amount' : nil}, delta_magnitude: proc {|model| model.amount}
+  counter_culture :agent, column_name: proc {|model| model.income_source.present? && model.income_source.offline? ? 'offline_amount' : nil}, delta_magnitude: proc {|model| model.amount}
+  counter_culture :agent, column_name: 'donate_amount', delta_magnitude: proc {|model| model.amount }
+
+  before_create :gen_certificate_no
 
   def has_balance?
     self.balance > 0
-  end
-
-  # 是否可开票
-  def open_ticket?
-    self.to_bill? && self.created_at.between?(Time.now.beginning_of_year, Time.now.end_of_year)
   end
 
   # 微信入账记录
@@ -95,12 +94,137 @@ class IncomeRecord < ApplicationRecord
     self.sum(:amount).to_f
   end
 
-  # TODO: 这个还没实现
+  # 生成捐赠编号
+  def gen_certificate_no
+    self.agent_id ||= self.donor_id
+    time_string = Time.now.strftime("%y%m%d%H")
+    self.certificate_no ||= Sequence.get_seq(kind: :order_no, prefix: "ZS#{time_string}", length: 7)
+  end
+
+  #捐赠证书路径
+  def donor_certificate_path
+    self.certificate_no ||= Sequence.get_seq(kind: :order_no, prefix: "ZS#{time_string}", length: 7)
+    path = "/images/certificates/#{self.created_at.strftime('%Y%m%d')}/#{self.id}/#{Encryption.md5(self.id.to_s)}.jpg"
+    local_path = Rails.root.to_s + '/public' + path
+    if !File::exist?(local_path)
+      GenDonateCertificate.create(self)
+    end
+    self.save
+    path
+  end
+
+  # 是否可开票
+  def open_ticket?
+    self.to_bill? && self.created_at.between?(Time.now.beginning_of_year, Time.now.end_of_year)
+  end
+
+  # 计算开票金额
+  def self.count_amount(ids)
+    donates = IncomeRecord.find(ids)
+    if donates.present?
+      amount = donates.sum {|d| d.amount.to_f}
+      return amount
+    else
+      return 0
+    end
+  end
+
+  # 入账记录的描述
+  def title
+    if self.offline?
+      '线下捐款'
+    else
+      self.donation.try(:title)
+    end
+  end
+
+  # 捐赠证书中用到的项目名称
+  def project_name
+    self.donation.try(:project).try(:name)
+  end
+
   def summary_builder
     Jbuilder.new do |json|
+      json.(self, :id, :kind, :certificate_no)
+      json.title self.title
+      json.donor self.donor.try(:name)
+      json.agent self.agent.try(:name)
+      json.time self.created_at
+      json.amount self.amount
+      json.donate_tag self.donor_id === self.agent_id ? '' : '代捐'
+    end.attributes!
+  end
+
+  def certificate_builder
+    Jbuilder.new do |json|
+      json.(self, :certificate_no)
+      json.certificate self.donor_certificate_path
     end.attributes!
   end
 
 
+  # def apply_cover
+  #   if self.project_id == Project.pair_project.id
+  #     self.try(:project).project_image
+  #   else
+  #     self.try(:apply).try(:cover_image_url, :small)
+  #   end
+  #
+  # end
+  #
+    # def donate_apply_name
+    #   if self.apply.present?
+    #     self.apply.try(:name)
+    #   elsif self.owner.is_a?(ProjectSeasonApplyChild)
+    #     self.owner.name
+    #   else
+    #     '捐助'
+    #   end
+    # end
+    #
+
+    # # 募捐信息
+    # def promoter_record_builder
+    #   Jbuilder.new do |json|
+    #     json.(self, :id)
+    #     json.amount number_to_currency(self.amount)
+    #     json.created_at self.created_at.strftime("%Y-%m-%d %H:%M:%S")
+    #     json.user_name self.donor.try(:user_name) || '爱心人士'
+    #     json.project_name self.try(:project).try(:name)
+    #     json.apply_name self.try(:apply).try(:name)
+    #     json.child_name self.try(:owner).try(:name) if self.owner_type == 'ProjectSeasonApplyChild'
+    #     json.show_name self.donate_apply_name
+    #     json.promoter_amount_count number_to_currency(self.promoter.promoter_amount_count)
+    #   end.attributes!
+    # end
+    #
+    #
+    #   def summary_builder
+    #     Jbuilder.new do |json|
+    #       json.(self, :id, :title)
+    #       json.donor self.donor.try(:name)
+    #       json.time self.created_at.strftime('%Y-%m-%d %H:%M:%S')
+    #       json.amount number_to_currency(self.amount)
+    #       json.amount_float self.amount
+    #       json.donate_mode !self.donor.present? # true自己捐 false代捐
+    #       json.donate_title self.donor_id === self.agent_id ? '' : '代捐' # true自己捐 false代捐
+    #     end.attributes!
+    #   end
+    #
+    #   def detail_builder
+    #     Jbuilder.new do |json|
+    #       json.(self, :id, :amount, :title, :order_no, :certificate_no, :project_id, :project_season_apply_id)
+    #       json.project_alias self.project.try(:alias)
+    #       json.time self.created_at.strftime('%Y-%m-%d %H:%M:%S')
+    #       json.donate_mode !self.donor.present? # true自己捐 false代捐
+    #       json.donate_title self.donor_id === self.agent_id ? '' : '代捐' # true自己捐 false代捐
+    #       json.agent self.agent.try(:show_name)
+    #       json.donor self.donor.show_name
+    #       json.userAvatar self.agent.user_avatar
+    #       json.apply_cover apply_cover
+    #       json.apply_name donate_apply_name
+    #       json.bookshelf self.owner_id if self.owner_type == 'ProjectSeasonApplyBookshelf'
+    #     end.attributes!
+    #   end
 
 end

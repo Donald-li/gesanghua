@@ -2,7 +2,7 @@ class Api::V1::Account::UsersController < Api::V1::BaseController
 
   def index
     user = current_user
-    api_success(data: user.summary_builder)
+    api_success(data: user.summary_builder.merge(donateAmount: user.donate_amount))
   end
 
   def get_user_details

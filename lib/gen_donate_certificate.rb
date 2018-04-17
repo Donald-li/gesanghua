@@ -10,12 +10,14 @@ class GenDonateCertificate
       source = Image.open(Rails.root.to_s + "/lib/certificate/certificate_template.jpg")
       # donors = record.items.donor.all
       # return if donors.blank?
-      name = record.donor.try(:show_name)
+      name = record.donor.try(:card_name)
       # name |= '用户'
+      byebug
 
       render_text(source, 60, 320, "感谢您！亲爱的#{name}，") {|c| c.pointsize '24'}
-      content = if record.project
-        "　　感谢为支持格桑花西部助学#{record.project.try(:name)}项目慷慨捐赠#{number_to_currency record.amount}元。谨代表受帮助的孩子向您表示最崇高敬意和衷心感谢！\n　　特颁此证，以资纪念。"
+      project_name = record.project_name
+      content = if project_name.present?
+        "　　感谢为支持格桑花西部助学#{project_name}项目慷慨捐赠#{number_to_currency record.amount}元。谨代表受帮助的孩子向您表示最崇高敬意和衷心感谢！\n　　特颁此证，以资纪念。"
       else
         "　　感谢为支持格桑花西部助学慷慨捐赠#{number_to_currency record.amount}元。谨代表受帮助的孩子向您表示最崇高敬意和衷心感谢！\n　　特颁此证，以资纪念。"
       end

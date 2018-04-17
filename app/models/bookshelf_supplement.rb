@@ -19,6 +19,7 @@
 #
 
 # 图书角书架补书
+# TODO: 补书少了一个season_id
 class BookshelfSupplement < ApplicationRecord
 
   validates :loss, :supply, presence: true

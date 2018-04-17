@@ -36,7 +36,7 @@ class Voucher < ApplicationRecord
   enum kind: { individual: 1, company: 2, other: 3 } # 审核状态：1:个人 2:企业 3:其他
   default_value_for :kind, 1
 
-  scope :sorted, ->{ order(created_at: :desc) }
+  scope :sorted, ->{ order(id: :desc) }
 
   before_create :gen_voucher_no
 
@@ -44,16 +44,16 @@ class Voucher < ApplicationRecord
     ChinaCity.get(self.province).to_s + ChinaCity.get(self.city).to_s + ChinaCity.get(self.district).to_s + self.address.to_s
   end
 
-  def save_voucher(ids)
+  def save_voucher(user, ids)
     return false if ids.empty?
     self.transaction do
       begin
         self.save!
-        records = Donation.where(id: ids)
-        voucher_id = self.id
-        records.each{ |e| e.update!( voucher_state: 'billed', voucher_id: voucher_id ) }
+        records = user.income_records.to_bill.where(id: ids)
+        records.update_all(voucher_state: :billed, voucher_id: self.id)
         return true
-      rescue
+      rescue => e
+        raise e
         return false
       end
     end
