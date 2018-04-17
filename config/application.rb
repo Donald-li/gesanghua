@@ -13,6 +13,7 @@ module Gesanghua
 
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
+    config.autoload_paths += %w(#{config.root}/app/models/ckeditor)
     config.eager_load_paths += %W(#{config.root}/lib #{config.root}/app/uploaders)
 
     config.active_record.default_timezone = :local

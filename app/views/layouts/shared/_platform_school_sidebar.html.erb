@@ -5,7 +5,7 @@
     <% project = projects.first %>
     <% url = project.goods? ? platform_school_apply_pairs_path(pid: project) : url_for(controller: "platform/school/apply/#{project.alias.pluralize}", action: :index) %>
     <%= link_to url do %>
-    <li class="<%= display_menu(["pairs","reads","goods_projects","goods","camps"]) %> cur">
+    <li class="<%= display_menu(["pairs","reads","goods_projects","goods","camps","movie_cares","movies"]) %> cur">
       <span class="iconfont icon-ico-team"></span>
       <span>项目管理</span>
     </li>

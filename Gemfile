@@ -85,7 +85,7 @@ gem "paranoia", "~> 2.2"
 gem 'ruby-pinyin'
 
 #富文本编辑器
-gem 'ckeditor'
+gem 'ckeditor', '~> 4.2', '>= 4.2.4'
 
 #二维码生成
 gem 'rqrcode'
