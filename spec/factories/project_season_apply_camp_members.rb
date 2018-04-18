@@ -25,6 +25,7 @@
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
 #  phone                        :string                                 # 联系方式（老师角色）
+#  classname                    :string                                 # 年级
 #
 
 FactoryBot.define do
