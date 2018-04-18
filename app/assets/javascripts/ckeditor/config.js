@@ -35,6 +35,10 @@ CKEDITOR.editorConfig = function( config )
 
   config.image_previewText = ' '; //预览区域显示内容为空
 
+  //config.disallowedContent = 'img{width,height};img[width,height]';  去掉上传图片去掉默认的高度或者宽度，4.4以上版本才可以这么设置
+  config.removeDialogTabs = 'image:advanced;image:Link'; //上传图片去掉超链接和高级这两个选项卡
+
+
   // Toolbar groups configuration.
   config.toolbar_full = [
     { name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source'] },
