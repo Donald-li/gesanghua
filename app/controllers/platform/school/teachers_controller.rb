@@ -1,9 +1,10 @@
 class Platform::School::TeachersController < Platform::School::BaseController
 
   before_action :set_teacher, only: [:edit, :update, :destroy]
+  before_action :set_per, only: :index
 
   def index
-    @teachers = Teacher.includes(:projects).sorted.page(params[:page]).per(10)
+    @teachers = Teacher.includes(:projects).sorted.decode_page(params)
     respond_to do |format|
       format.html
       format.js
@@ -57,6 +58,10 @@ class Platform::School::TeachersController < Platform::School::BaseController
 
   def teacher_params
     params.require(:teacher).permit!
+  end
+
+  def set_per
+    params[:per] = 10
   end
 
 end
