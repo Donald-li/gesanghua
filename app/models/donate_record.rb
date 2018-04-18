@@ -194,7 +194,7 @@ class DonateRecord < ApplicationRecord
   def apply_image
     apply_image = case self.owner_type
     when 'DonateItem'
-      self.owner.project.try(:icon_url, :tiny)
+      self.owner.project.try(:icon_url, nil)
     when 'ProjectSeasonApply'
       self.owner.cover_image_url(:tiny)
     when 'GshChildGrant'
