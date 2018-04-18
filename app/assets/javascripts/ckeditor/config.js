@@ -33,6 +33,8 @@ CKEDITOR.editorConfig = function( config )
 
   config.allowedContent = true;
 
+  config.image_previewText = ' '; //预览区域显示内容为空
+
   // Toolbar groups configuration.
   config.toolbar_full = [
     { name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source'] },
