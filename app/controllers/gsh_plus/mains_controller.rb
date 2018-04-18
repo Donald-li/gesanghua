@@ -6,7 +6,7 @@ class GshPlus::MainsController < GshPlus::BaseController
     if current_user.headmaster?
       @school = current_user.school
     elsif current_user.teacher?
-      @school = current_user.teacher.school
+      @school = current_user.teacher.try(:school)
     elsif current_user.create_school.present?
       @school = current_user.create_school
     end
