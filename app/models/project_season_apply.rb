@@ -124,6 +124,7 @@ class ProjectSeasonApply < ApplicationRecord
 
   before_create :gen_code
   before_create :gen_apply_no
+  before_save :check_apply_state # 检查是否完成
   after_save :set_execute_state
 
   # 得到可捐助子项
