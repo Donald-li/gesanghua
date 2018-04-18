@@ -6,7 +6,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 CKEDITOR.editorConfig = function( config )
 {
   // Define changes to default configuration here. For example:
-  config.language = 'zh-CN';
+  //config.language = 'zh-cn';
   // config.uiColor = '#AADC6E';
 
   /* Filebrowser routes */
@@ -32,6 +32,8 @@ CKEDITOR.editorConfig = function( config )
   config.filebrowserUploadUrl = "/ckeditor/attachment_files";
 
   config.allowedContent = true;
+
+  config.image_previewText = ' '; //预览区域显示内容为空
 
   // Toolbar groups configuration.
   config.toolbar_full = [

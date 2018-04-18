@@ -47,7 +47,7 @@ class Api::V1::Cooperation::TasksController < Api::V1::BaseController
     task = Task.find(params[:id])
     volunteer = current_user.volunteer
     tv = TaskVolunteer.find_by(task: task, volunteer: volunteer)
-    if !tv.present? || tv.reject?
+    if tv.blank? || tv.reject?
       tv ||= volunteer.task_volunteers.new(reason: params[:reason], task: task)
       if tv.save
         api_success(data: true)
