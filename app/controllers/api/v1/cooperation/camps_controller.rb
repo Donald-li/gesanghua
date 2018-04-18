@@ -9,7 +9,7 @@ class Api::V1::Cooperation::CampsController < Api::V1::BaseController
       applies = user.school.apply_camps.sorted.page(params[:page]).per(params[:per])
       api_success(data: {applies: applies.map { |r| r.camp_applies_builder }, pagination: json_pagination(applies)})
     elsif user.teacher?
-      applies = user.teacher.apply_camps.sorted.page(params[:page]).per(params[:per])
+      applies = user.teacher.school.apply_camps.sorted.page(params[:page]).per(params[:per])
       api_success(data: {applies: applies.map { |r| r.camp_applies_builder }, pagination: json_pagination(applies)})
     else
       api_success(data: {applies: [], pagination: json_pagination([])})
