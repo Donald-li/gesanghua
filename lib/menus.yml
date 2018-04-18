@@ -221,6 +221,9 @@ admin:
                 'admin/read_projects': all
                 'admin/bookshelves': all
                 'admin/bookshelf_donate_records': all
+            admin_read_reports:
+              actions:
+                'admin/read_reports': all
             admin_read_continual_feedbacks:
               actions:
                 'admin/read_continual_feedbacks': all
@@ -309,6 +312,9 @@ admin:
               actions:
                 'admin/goods_projects': all
                 'admin/goods_donate_records': all
+            admin_project_goods_reports:
+              actions:
+                'admin/goods_reports': all
             admin_project_goods_feedbacks:
               actions:
                 'admin/goods_continual_feedbacks': all

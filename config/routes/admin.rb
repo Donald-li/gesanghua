@@ -82,6 +82,7 @@ namespace :admin do
       end
     end
   end
+  resources :read_reports, concerns: [:switch]
   resources :read_continual_feedbacks, concerns: [:recommend]
   resources :project_movie_seasons
   resources :project_movie_care_seasons
@@ -257,6 +258,7 @@ namespace :admin do
     resource :goods_install, concerns: [:recommend]
     resources :goods_donate_records
   end
+  resources :goods_reports ,concerns: [:switch]
   resources :goods_continual_feedbacks ,concerns: [:recommend]
 
   resources :project_radio_seasons
