@@ -1,4 +1,4 @@
-<%= simple_form_for @report, url: @report.new_record? ? admin_goods_reports_path(pid: @project.id) : admin_goods_report_path(pid: @project.id, id: @report), wrapper: :admin_form, html: {'parsley-validate': true, class: 'report_form'} do |f| %>
+<%= simple_form_for @report, url: @report.new_record? ? admin_goods_reports_path(pid: @current_project.id) : admin_goods_report_path(pid: @current_project.id, id: @report), wrapper: :admin_form, html: {'parsley-validate': true, class: 'report_form'} do |f| %>
     <%= f.error_notification %>
     <div class="form-body form-horizontal">
       <%= f.input :title, label: '报告标题：', autofocus: true, require: true, input_html: { data: {'parsley-required': true}} %>
@@ -22,7 +22,7 @@
       <div class="row">
         <div class="col-md-offset-3 col-md-9">
           <%= f.button :submit, '提交', class: 'btn green' %>
-          <%= link_to '取消', admin_goods_reports_path(pid: @project.id), class: 'btn' %>
+          <%= link_to '取消', admin_goods_reports_path(pid: @current_project.id), class: 'btn' %>
         </div>
       </div>
     </div>

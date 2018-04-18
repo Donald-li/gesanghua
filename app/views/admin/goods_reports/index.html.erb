@@ -3,9 +3,9 @@
     <div class="caption">
       <i class="icon-list"></i>报告管理
     </div>
-    <% if can? :manage_project, current_user, @project %>
+    <% if can? :manage_project, current_user, @current_project %>
     <div class="actions">
-      <%= link_to new_admin_goods_report_path(pid: @project.id), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+      <%= link_to new_admin_goods_report_path(pid: @current_project.id), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
       <i class="icon-plus"></i>
       <span>新增</span>
       <% end %>
@@ -16,7 +16,7 @@
     <div class="dataTables_wrapper no-footer">
       <div class="row">
         <div class="col-md-12 col-sm-12">
-          <%= search_form_for @search, url: admin_goods_reports_path(pid: @project.id), class: 'form-inline' do |f| %>
+          <%= search_form_for @search, url: admin_goods_reports_path, class: 'form-inline' do |f| %>
           <div class="form-group">
             <%= f.label :title_cont, '标题' %>
             <%= f.text_field :title_cont, class: 'form-control', placeholder: '请输入报告标题' %>
@@ -77,16 +77,16 @@
                 <%= report.try(:user).try(:name) %>
               </td>
               <td>
-                <%= link_to switch_admin_goods_report_path(pid: @project.id, id: report), data: {confirm: "确定#{report.state === 'show' ? '隐藏该报告' : '展示该报告'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{report.state === 'show' ? 'green' : 'default'}" do %>
+                <%= link_to switch_admin_goods_report_path(pid: @current_project.id, id: report), data: {confirm: "确定#{report.state === 'show' ? '隐藏该报告' : '展示该报告'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{report.state === 'show' ? 'green' : 'default'}" do %>
                 <%= report.state === 'show' ? '展示' : '隐藏' %>
                 <i class="fa <%= report.state === 'show' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
                 <% end %>
               </td>
               <td>
-                <%= link_to edit_admin_goods_report_path(pid: @project.id, id: report), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                <%= link_to edit_admin_goods_report_path(pid: @current_project.id, id: report), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                   <i class="fa fa-edit"></i> 修改
                 <% end %>
-                <%= link_to admin_goods_report_path(pid: @project.id, id: report), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                <%= link_to admin_goods_report_path(pid: @current_project.id, id: report), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                   <i class="fa fa-trash-o"></i> 删除
                 <% end %>
               </td>
