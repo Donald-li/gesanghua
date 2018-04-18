@@ -3757,14 +3757,20 @@ text-align: center;
     width: 360px !important;
   }
   .recommend-img {
-    width: 360px;
+    width: 100%;
     height: 209px;
     border-radius: 4px;
     overflow: hidden;
     & > img {
-      width: 100%;
-      height: 100%;
+      width: 200%;
+      height: 418px;
+      -webkit-transform: scale(.5);
+      -webkit-transition: 1s;
+      margin: -106px 0 0 -186px;
     }
+  }
+  .recommend-img > img:hover {
+    -webkit-transform: scale(.6);
   }
 
 }
