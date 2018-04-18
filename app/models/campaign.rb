@@ -84,7 +84,7 @@ class Campaign < ApplicationRecord
       json.image self.image_url(:tiny).to_s
       json.banner self.banner_url(:tiny)
       json.category self.campaign_category.name
-      # json.pay_amount self.campaign_enlists.find_by(user_id: user.id).total if user.present?
+      json.pay_amount self.campaign_enlists.paid.find_by(user_id: user.id).total_price if user.present?
     end.attributes!
   end
 
@@ -92,7 +92,7 @@ class Campaign < ApplicationRecord
     Jbuilder.new do |json|
       json.merge! self.summary_builder
       json.number self.number.to_i
-      json.enlist_count self.campaign_enlists.paid.count
+      json.enlist_count self.campaign_enlists.paid.sum(:number)
       json.form self.form
       json.content self.content
       json.state_name self.detail_state_name(user)
@@ -102,6 +102,6 @@ class Campaign < ApplicationRecord
   private
   def set_form_from_attributes
     return unless self.form_attributes.present?
-    self.form = self.form_attributes.values.map{|item| item['key'] = item['key'].presence || SecureRandom.hex(10); item['options'] = item['options'].to_s.split('|') || []; item}
+    self.form = self.form_attributes.values.select{|item| item['label'].present?}.map{|item| item['key'] = item['key'].presence || SecureRandom.hex(10); item['options'] = item['options'].to_s.split('|') || []; item}
   end
 end

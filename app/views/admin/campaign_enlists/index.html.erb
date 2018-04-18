@@ -52,7 +52,7 @@
               <th>
                 联系电话
               </th>
-              <% if @campaign.price != 0 %>
+              <% if @campaign.price > 0 %>
                 <th>
                   金额
                 </th>
@@ -88,7 +88,7 @@
               </td>
               <% if @campaign.price != 0%>
                 <td>
-                  <%= campaign_enlist.total %>
+                  <%= number_to_currency campaign_enlist.total_price %>
                 </td>
                 <td>
                   <%= campaign_enlist.enum_name(:payment_state) %>

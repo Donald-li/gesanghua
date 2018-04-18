@@ -9,7 +9,7 @@ class CreateChildPeriods < ActiveRecord::Migration[5.1]
       t.string :name, comment: '名称'
       t.text :description, comment: '描述'
       t.integer :state, comment: '状态'
-      t.decimal :amount, precision: 14, scale: 2, default: "0.0", comment: "资助金额"
+      t.decimal :amount, precision: 14, scale: 2, default: 0.0, comment: "资助金额"
 
       t.timestamps
     end
