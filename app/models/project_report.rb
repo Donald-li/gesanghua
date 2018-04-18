@@ -40,7 +40,7 @@ class ProjectReport < ApplicationRecord
       json.(self, :id)
       json.title self.title
       json.published_at self.published_at.strftime('%Y-%m-%d')
-      json.publisher self.try(:user).try(:name)
+      json.publisher self.try(:user).try(:show_name)
       json.content self.content
       json.report_images do
         json.array! self.images do |img|

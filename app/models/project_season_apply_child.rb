@@ -312,7 +312,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
       json.tuition self.get_tuition.to_i
       json.description self.description
       json.donate_grants self.donate_record_builder
-      json.grants do
+      json.grants do # 发放记录
         json.array! self.gsh_child_grants.granted.sorted do |grant|
           json.(grant, :id)
           json.(grant, :amount)

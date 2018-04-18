@@ -121,7 +121,7 @@ class Donation < ApplicationRecord
       # 更新捐助状态
       donation.pay_state = 'paid'
       donation.pay_result = result.to_json
-      donation.build_income_record(agent: agent, donor: donor, amount: amount, balance: amount, voucher_state: 'to_bill', income_source_id: 1, income_time: Time.now, title: donation.title)
+      donation.build_income_record(agent: agent, donor: donor, amount: amount, promoter_id: donation.promoter_id, team_id: donation.team_id, balance: amount, voucher_state: 'to_bill', income_source_id: 1, income_time: Time.now, title: donation.title)
       donation.save
 
       # 执行捐助
@@ -133,6 +133,7 @@ class Donation < ApplicationRecord
   def detail_builder
     Jbuilder.new do |json|
       json.(self, :id, :order_no, :amount)
+      json.certificate_no self.income_record.try(:certificate_no)
     end.attributes!
   end
 
@@ -161,16 +162,18 @@ class Donation < ApplicationRecord
     end.attributes!
   end
 
-  private
-  def set_record_title
-    return if self.title.present?
-    if self.donate_item.present?
-      self.title = "#{self.try(:donor).try(:name)}捐助#{self.try(:donate_item).try(:name)}#{self.try(:donate_item).try(:fund).try(:name)}款项"
+  def set_record_title(force: false)
+    return if self.title.present? && !force
+    if self.owner_type == 'DonateItem'
+      self.title = "#{self.try(:donor).try(:name)}捐助#{self.try(:owner).try(:name)}款项"
+    elsif self.owner_type == 'CampaignEnlist'
+      self.title = "#{self.try(:donor).try(:name)}捐助#{self.owner.try(:campaign).try(:name)}活动款项"
     else
       self.title = "#{self.try(:donor).try(:name)}捐助#{self.try(:apply).try(:apply_name)}#{self.try(:child).try(:name)}#{self.try(:bookshelf).try(:show_title)}款项"
     end
   end
 
+  private
   def generate_order_no
     time_string = Time.now.strftime("%y%m%d%H")
     self.order_no ||= Sequence.get_seq(kind: :order_no, prefix: time_string, length: 7)

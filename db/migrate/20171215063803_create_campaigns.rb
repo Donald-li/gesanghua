@@ -2,7 +2,7 @@ class CreateCampaigns < ActiveRecord::Migration[5.1]
   def change
     create_table :campaigns, comment: '活动表' do |t|
       t.string :name, comment: '名称'
-      t.decimal :price, precision: 14, scale: 2, default: "0.0", comment: '报名费'
+      t.decimal :price, precision: 14, scale: 2, default: 0.0, comment: '报名费'
       t.text :content, comment: '内容'
       t.datetime :start_time, comment: '预计开始时间'
       t.datetime :end_time, comment: '预计结束时间'
