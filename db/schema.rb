@@ -250,7 +250,7 @@ ActiveRecord::Schema.define(version: 20180416123932) do
   end
 
   create_table "ckeditor_assets", force: :cascade do |t|
-    t.string "data_file_name", limit: 32
+    t.string "data_file_name", null: false
     t.string "data_content_type"
     t.integer "data_file_size"
     t.string "type", limit: 30

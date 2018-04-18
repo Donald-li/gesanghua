@@ -5468,7 +5468,33 @@ text-align: center;
     }
   }
 }
-
+.childern-submint {
+  text-align: center;
+  margin-top: 20px;
+  & > button:nth-child(1) {
+    width: 130px;
+    height: 38px;
+    line-height: 38px;
+    background-color: $color-border;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    border: none;
+    margin-right: 20px;
+    border-radius: 3px;
+  }
+  & > button:nth-child(2) {
+    width: 130px;
+    height: 38px;
+    line-height: 36px;
+    background-color: #ffffff;
+    color: #8d8d8d;
+    font-size: 14px;
+    text-align: center;
+    border: 1px solid #b3b3b3;
+    border-radius: 3px;
+  }
+}
 //探索营名单
 .camps-child-list {
   .school-apply-pair-share .add-reads {
@@ -7282,4 +7308,38 @@ text-align: center;
   color: red !important;
   margin-right: -146px;
   margin-top: 7px;
+}
+//团队表单
+#teams{
+
+  .addchild-list-cont{
+    padding: 0 100px 10px 0;
+  }
+  .addchild-list-cont > div{
+    width: 100%;
+  }
+.teams-news{
+  height: 172px;
+}
+  .teams-news > div > textarea{
+width: 100%;
+    height: 172px;
+    border: 1px solid #e6e6e6;
+    resize: none;
+    border-radius: 3px;
+    font-size: 14px;
+    color: #2a2a2c;
+    padding: 10px 20px;
+  }
+  .teams-news > div{
+    position: relative;
+    flex: 7;
+  }
+  .teams-textare{
+    position: absolute;
+    right:7px;
+    bottom:7px;
+    font-size: 13px;
+    color: #d7d7d7;
+  }
 }
