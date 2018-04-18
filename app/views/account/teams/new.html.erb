@@ -18,20 +18,20 @@
         <input class="goodinput " type="text" name="name" placeholder="请输入详细地址"/>
       </div>
       <!--<div>-->
-        <!--<span class="goodtext">所在地区</span>-->
-        <!--<div style="margin-bottom: 20px;" class="form-group">-->
-          <!--<div class="city-picker-selector city-group">-->
-            <!--<%#= select_tag 'user[province]', options_for_select(ChinaCity.list, @profile.province.presence), prompt: '省份', class: "selector-item storey province city-select" %>-->
-            <!--<%#= select_tag 'user[city]', options_for_select(ChinaCity.list(@profile.province.to_s), @profile.city.presence), prompt: '城市', class: "selector-item storey city city-select" %>-->
-            <!--<%#= select_tag 'user[district]', options_for_select(ChinaCity.list(@profile.city.to_s), @profile.district.presence), prompt: '地区', class: "selector-item storey district city-select" %>-->
-          <!--</div>-->
-        <!--</div>-->
+      <!--<span class="goodtext">所在地区</span>-->
+      <!--<div style="margin-bottom: 20px;" class="form-group">-->
+      <!--<div class="city-picker-selector city-group">-->
+      <!--<%#= select_tag 'user[province]', options_for_select(ChinaCity.list, @profile.province.presence), prompt: '省份', class: "selector-item storey province city-select" %>-->
+      <!--<%#= select_tag 'user[city]', options_for_select(ChinaCity.list(@profile.province.to_s), @profile.city.presence), prompt: '城市', class: "selector-item storey city city-select" %>-->
+      <!--<%#= select_tag 'user[district]', options_for_select(ChinaCity.list(@profile.city.to_s), @profile.district.presence), prompt: '地区', class: "selector-item storey district city-select" %>-->
       <!--</div>-->
-      <div class="teams-news" >
+      <!--</div>-->
+      <!--</div>-->
+      <div class="teams-news">
         <span class="goodtext">团队介绍</span>
         <div>
-          <textarea maxlength="200" id="weibo"></textarea>
-          <span class="teams-textare"><span id="word">0</span>/200</span>
+          <itextarea maxlength="200" id="inputbox"></itextarea>
+          <span class="teams-textare"><span id="conts">0</span>/200</span>
         </div>
       </div>
     </div>
@@ -42,18 +42,13 @@
   </div>
 </div>
 <script>
-
-
-
-
     $(function () {
-        $("#weibo").keyup(function(){
+        $("#inputbox").keyup(function () {
             var len = $(this).val().length;
-            if(len > 199){
-                $(this).val($(this).val().substring(0,200));
+            if (len > 199) {
+                $(this).val($(this).val().substring(0, 200));
             }
-            var num = 200 - len;
-            $("#word").text(len);
+            $("#conts").text(len);
 
         });
         initAvatarWebuploader($('#user-avatar'));
