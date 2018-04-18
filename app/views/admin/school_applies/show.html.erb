@@ -102,7 +102,7 @@
             身份证图片
           </th>
           <th>
-            <%= image_tag @school_apply.card_image_url(:small) %>
+            <%= link_to image_tag(@school_apply.card_image_url(:small)), @school_apply.card_image_url(nil), target: '_blank' %>
           </th>
         </tr>
         <tr>
@@ -110,7 +110,7 @@
             学校证明图片
           </th>
           <th>
-            <%= image_tag @school_apply.certificate_image_url(:small) %>
+            <%= link_to image_tag(@school_apply.certificate_image_url(:small)), @school_apply.certificate_image_url(nil), target: '_blank' %>
           </th>
         </tr>
         </tbody>

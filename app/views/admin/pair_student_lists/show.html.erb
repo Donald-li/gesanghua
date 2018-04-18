@@ -22,7 +22,7 @@
             孩子头像
           </th>
           <th>
-            <%= image_tag @pair_student_list.avatar.try(:file).try(:url, :small) %>
+            <%= link_to image_tag(@pair_student_list.avatar.try(:file).try(:url, :small)), @pair_student_list.avatar_url(nil), target: '_blank' %>
           </th>
         </tr>
         <tr>
@@ -110,7 +110,7 @@
             身份证
           </th>
           <th>
-            <%= image_tag @pair_student_list.id_image.try(:file).try(:url, :small) %>
+            <%= link_to image_tag(@pair_student_list.id_image_url(:small)), @pair_student_list.id_image_url(nil), target: '_blank' %>
           </th>
         </tr>
         <tr>
@@ -118,7 +118,7 @@
             户口本
           </th>
           <th>
-            <%= image_tag @pair_student_list.residence.try(:file).try(:url, :small) %>
+            <%= link_to image_tag(@pair_student_list.residence_url(:small)), @pair_student_list.residence_url(nil), target: '_blank' %>
           </th>
         </tr>
         <tr>
@@ -126,7 +126,7 @@
             扶贫卡
           </th>
           <th>
-            <%= image_tag @pair_student_list.poverty.try(:file).try(:url, :small) %>
+            <%= link_to image_tag(@pair_student_list.poverty_url(:small)), @pair_student_list.poverty_url(nil), target: '_blank' %>
           </th>
         </tr>
         <tr>
@@ -134,7 +134,7 @@
             家庭照
           </th>
           <th>
-            <%= image_tag @pair_student_list.family_image.try(:file).try(:url, :small) %>
+            <%= link_to image_tag(@pair_student_list.family_image_url(:small)), @pair_student_list.family_image_url(nil), target: '_blank' %>
           </th>
         </tr>
 

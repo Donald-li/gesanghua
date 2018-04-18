@@ -174,6 +174,7 @@ class User < ApplicationRecord
   def manage_projects
     return Project.visible if self.headmaster?
     return self.teacher.projects.visible if self.teacher
+    return Project.where('1<>1') # 空ralation
   end
 
   def school_role
@@ -192,7 +193,7 @@ class User < ApplicationRecord
 
   def school_approve_state
     if self.teacher?
-      self.teacher.school.approve_state
+      self.teacher.try(:school).try(:approve_state)
     elsif self.create_school.present?
       self.create_school.approve_state
     else

@@ -63,8 +63,10 @@ class Admin::CampProjectsController < Admin::BaseController
   end
 
   def camp_member
-    @students = ProjectSeasonApplyCampMember.student.where(apply: @project).joins(:apply_camp).where("project_season_apply_camps.execute_state = ?", 3).pass.sorted
-    @teachers = ProjectSeasonApplyCampMember.teacher.where(apply: @project).joins(:apply_camp).where("project_season_apply_camps.execute_state = ?", 3).pass.sorted
+    # TODO: 需要整理显示的逻辑
+    @students = ProjectSeasonApplyCampMember.student.pass.where(apply: @project).sorted
+    @teachers = ProjectSeasonApplyCampMember.teacher.pass.where(apply: @project).sorted
+    # .joins(:apply_camp).where("project_season_apply_camps.execute_state = ?", 3)
   end
 
   private

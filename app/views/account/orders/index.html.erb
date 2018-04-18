@@ -1,7 +1,6 @@
 <% content_for :scripts do %>
   <%= javascript_include_tag "controllers/orders/tab", "controllers/orders/index" %>
 <% end %>
-
 <% content_for :styles do %>
   <%= stylesheet_link_tag "controllers/orders/index" %>
 <% end %>
@@ -22,17 +21,17 @@
     </ul>
     <!--我的捐助-->
     <div class="donation " style="display: block;">
-      <div class="donations-1">
-        <ul class="donations1 clearfix panel-tabs" url="<%= select_tab_account_orders_path %>">
-          <li class="selectedDo cur" info="0" url="<%= select_tab_account_orders_path %>">全部项目
-            <div class="bottomline"></div></li>
-          <% @projects.each do |project| %>
-            <li class="cur border-l" info="<%= project.id %>" url="<%= select_tab_account_orders_path(project.id) %>"><%= project.name %>
-              <div class=""></div>
-            </li>
-          <% end %>
-        </ul>
-
+        <div class=" donations-1 swiper-container " url="<%= select_tab_account_orders_path %>">
+          <div class="donations1  swiper-wrapper panel-tabs" url="<%= select_tab_account_orders_path %>">
+            <div class="selectedDo swiper-slide cur" info="0" url="<%= select_tab_account_orders_path %>">全部项目
+              <div class="bottomline"></div></div>
+            <% @projects.each do |project| %>
+                <div class="cur border-l swiper-slide" info="<%= project.id %>" url="<%= select_tab_account_orders_path(project.id) %>"><%= project.name %>
+                  <div class=""></div>
+                </div>
+            <% end %>
+          </div>
+          </div>
       </div>
       <div class="panel-body">
         <div class="tab-content">
@@ -52,3 +51,52 @@
   </div>
 
 </div>
+<style>
+  .donation .swiper-container {
+    width: 80%;
+    height: 100%;
+    margin: 0 ;
+  }
+  .donation .swiper-slide {
+    text-align: center;
+    background: #fff;
+    width: 103px;
+    height: 16px;
+    line-height: 16px;
+    font-size: 14px;
+    color: #3d3d40;
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+  }
+
+</style>
+
+<script>
+  $(function(){
+      var swiper = new Swiper('.swiper-container', {
+          slidesPerView: 'auto',
+          pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+          },
+      });
+      $(".donations1 > .swiper-slide").on("click", function () {
+          $(".donations1 > .swiper-slide").removeClass("selectedDo")
+          $(this).addClass("selectedDo")
+          $(".bottomline").css("left", parseFloat($(this)[0].offsetLeft) + 33 +"px")
+
+      })
+  })
+
+</script>
