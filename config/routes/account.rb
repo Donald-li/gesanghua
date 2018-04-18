@@ -20,7 +20,13 @@ namespace :account do
     resources :children_mailboxs
   end
   resources :bookshelves, only: [:index] # 我的图书角
-  resources :teams, only: [:index] # 我的团队
+  resources :teams, only: [:index, :new] do # 我的团队
+    collection do
+      get :guide
+    end
+    resources :transfers
+    resources :donations
+  end
   resources :offline_users # 捐助管理
   resource :level, only: [:show] # 我的勋章
   resources :campaigns
