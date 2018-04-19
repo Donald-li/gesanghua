@@ -125,7 +125,6 @@ class ProjectSeasonApply < ApplicationRecord
   before_create :gen_code
   before_create :gen_apply_no
   before_save :check_apply_state # 检查是否完成
-  after_save :set_execute_state
 
   # 得到可捐助子项
   def get_donate_items
@@ -208,7 +207,6 @@ class ProjectSeasonApply < ApplicationRecord
 
   # 项目是否可以退款
   def can_refund?
-    # debug
     self.pass? && self.raise_project? && (self.raising? || self.canceled?)
   end
 
@@ -548,11 +546,6 @@ class ProjectSeasonApply < ApplicationRecord
         break
       end
     end
-  end
-
-  # 更新筹款状态
-  def set_execute_state
-    self.to_delivery! if self.raising? && self.target_amount.to_f == self.present_amount.to_f && self.raise_project?
   end
 
 end

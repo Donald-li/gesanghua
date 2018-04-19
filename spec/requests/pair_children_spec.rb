@@ -21,9 +21,11 @@ RSpec.describe "Api::V1::PairChildren", type: :request do
 
   describe '测试举报' do
     it '举报孩子' do
+      code = SmsCode.send_code('17866539878', 'verify_profile')
       post complaint_api_v1_pair_children_path,
           params: {id: child1.id,
                    complaint: {contact_name: '刘某', contact_phone: '17866539878', content: '该孩子描述内容不实'},
+                   code: code.code,
                    images: {}},
           headers: api_v1_headers(login_user)
       api_v1_expect_success

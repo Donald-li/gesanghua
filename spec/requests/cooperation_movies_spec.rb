@@ -39,6 +39,7 @@ RSpec.describe "Api::V1::CooperationMovie", tye: :request do
     end
 
     it '创建观影申请' do
+      apply.destroy
       post api_v1_cooperation_movies_path,
           params: {movie_apply: {season:[season.id], student_number: '30', describe: FFaker::LoremCN.sentence,
           contact_name: FFaker::NameCN.name, contact_phone: '17888889999', location: [110000, 110100, 110101], address: '某街'}},
