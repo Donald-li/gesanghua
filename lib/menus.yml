@@ -163,6 +163,7 @@ admin:
         admin_fund_categories:
           actions:
             'admin/fund_categories': all
+            'admin/funds': all
         admin_income_record:
           actions:
             admin/income_records: all

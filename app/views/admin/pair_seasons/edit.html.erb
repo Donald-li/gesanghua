@@ -21,6 +21,7 @@
           <%= f.input :junior_year_amount, label: '初中资助金额（学年）：', required: true, type: 'number' %>
           <%= f.input :senior_term_amount, label: '高中资助金额（学期）：', required: true, type: 'number' %>
           <%= f.input :senior_year_amount, label: '高中资助金额（学年）：', required: true, type: 'number' %>
+          <%= f.input :state, label: '申请状态', as: :radio_buttons, collection: ProjectSeason.options_for_select(:states), wrapper: :inline_inputs, required: true %>
         </div>
         <div class="form-actions">
           <div class="row">

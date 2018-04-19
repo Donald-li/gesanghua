@@ -17,68 +17,74 @@
             </div>
         <% end %>
     <% end %>
-    <%= link_to  do %>
-        <div>
-          <%= image_tag 'gsh-icon-volunteer.png' %>
-          <p class="gsh-plus-c-t">我是志愿者</p>
-          <div class="wechat-qrcode">
-            <div class="qrcode" id="regular-feedback-qrcode">
+    <% if current_user.volunteer? %>
+        <a>
+          <div>
+            <%= image_tag 'gsh-icon-volunteer.png' %>
+            <p class="gsh-plus-c-t">我是志愿者</p>
+            <div class="wechat-qrcode">
+              <div class="qrcode" id="volunteer-qrcode">
+              </div>
+              <div class="help"><p>请扫描二维码 </p>
+                <p>到微信端进行登录</p></div>
             </div>
-            <div class="help"><p>请扫描二维码 </p>
-              <p>到微信端进行登录</p></div>
           </div>
-        </div>
+        </a>
     <% end %>
-    <%= link_to  do %>
-        <div>
-          <%= image_tag 'gsh-icon-leader.png' %>
-          <p class="gsh-plus-c-t">我是县领导</p>
-          <div class="wechat-qrcode">
-            <div class="qrcode" id="regular-feedback-qrcode">
+    <% if current_user.county_user? %>
+        <a>
+          <div>
+            <%= image_tag 'gsh-icon-leader.png' %>
+            <p class="gsh-plus-c-t">我是县领导</p>
+            <div class="wechat-qrcode">
+              <div class="qrcode" id="county-user-qrcode">
+              </div>
+              <div class="help"><p>请扫描二维码 </p>
+                <p>到微信端进行登录</p></div>
             </div>
-            <div class="help"><p>请扫描二维码 </p>
-              <p>到微信端进行登录</p></div>
           </div>
-        </div>
+        </a>
     <% end %>
-
-    <%= link_to  do %>
-        <div>
-          <%= image_tag 'gsh-icon-child.png' %>
-          <p class="gsh-plus-c-t">我是格桑花孩子</p>
-          <div class="wechat-qrcode">
-            <div class="qrcode" id="regular-feedback-qrcode">
+    <% if current_user.gsh_child? %>
+        <a>
+          <div>
+            <%= image_tag 'gsh-icon-child.png' %>
+            <p class="gsh-plus-c-t">我是格桑花孩子</p>
+            <div class="wechat-qrcode">
+              <div class="qrcode" id="gsh-child-qrcode">
+              </div>
+              <div class="help"><p>请扫描二维码 </p>
+                <p>到微信端进行登录</p></div>
             </div>
-            <div class="help"><p>请扫描二维码 </p>
-              <p>到微信端进行登录</p></div>
           </div>
-        </div>
+        </a>
     <% end %>
-    <!--<%= link_to  do %>-->
-        <!--<div>-->
-        <!--<%= image_tag 'gsh-icon-worker.png' %>-->
-        <!--<p class="gsh-plus-c-t">我是工作人员</p>-->
-        <!--<div class="wechat-qrcode">-->
-        <!--<div class="qrcode" id="regular-feedback-qrcode">-->
-        <!--</div>-->
-        <!--<div class="help"><p>请扫描二维码 </p>-->
-        <!--<p>到微信端进行登录</p></div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<% end %>-->
-    <%= link_to  do %>
-        <div>
-          <%= image_tag 'childs-feedback.png' %>
-          <p class="gsh-plus-c-t">结对反馈</p>
-          <div class="wechat-qrcode">
-            <div class="qrcode" id="regular-feedback-qrcode">
-            </div>
-            <div class="help"><p>请扫描二维码 </p>
-              <p>到微信端进行登录</p></div>
+    <% if false %>
+        <a>
+          <!--<div>-->
+          <!--<%= image_tag 'gsh-icon-worker.png' %>-->
+          <!--<p class="gsh-plus-c-t">我是工作人员</p>-->
+          <!--<div class="wechat-qrcode">-->
+          <!--<div class="qrcode" id="operator-qrcode">-->
+          <!--</div>-->
+          <!--<div class="help"><p>请扫描二维码 </p>-->
+          <!--<p>到微信端进行登录</p></div>-->
+          <!--</div>-->
+          <!--</div>-->
+        </a>
+    <% end %>
+    <a>
+      <div>
+        <%= image_tag 'childs-feedback.png' %>
+        <p class="gsh-plus-c-t">结对反馈</p>
+        <div class="wechat-qrcode">
+          <div class="qrcode" id="regular-feedback-qrcode">
           </div>
+          <div class="help"><p>请扫描二维码 </p>
+            <p>到微信端进行登录</p></div>
         </div>
-    <% end %>
-
+      </div>
+    </a>
 
   </div>
 
@@ -118,13 +124,36 @@
     $('.overspread-5').overs(".school-s-but");
     $('.overspread-6').overs(".overspreadsc-but");
 
-    jQuery(function(){
-        jQuery('.qrcode').qrcode({
+    jQuery(function () {
+        jQuery('#volunteer-qrcode').qrcode({
             render: "canvas",
             width: 180,
             height: 180,
-            text: '<%= @regular_feedback_url %>'
-        }
-    );
+            text: '<%= @volunteer_url %>'
+        });
+        jQuery('#county-user-qrcode').qrcode({
+            render: "canvas",
+            width: 180,
+            height: 180,
+            text: '<%= @county_user_url %>'
+        });
+        jQuery('#gsh-child-qrcode').qrcode({
+            render: "canvas",
+            width: 180,
+            height: 180,
+            text: '<%= @gsh_child_url %>'
+        });
+        jQuery('#operator-qrcode').qrcode({
+            render: "canvas",
+            width: 180,
+            height: 180,
+            text: '<%= @operator_url %>'
+        });
+        jQuery('#regular-feedback-qrcode').qrcode({
+            render: "canvas",
+            width: 180,
+            height: 180,
+            text: '<%= @pair_feedback_url %>'
+        });
     })
 </script>

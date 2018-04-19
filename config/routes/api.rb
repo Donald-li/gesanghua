@@ -384,7 +384,7 @@ namespace :api do
     resource :sign_package, only: [:show]
 
     # 绑定手机号
-    resource :bind_phone, only: [:create]
+    resource :bind_phone, only: [:create, :update]
 
     namespace :staff do
       resources :grant_batches, only: [:index, :show] do

@@ -74,9 +74,9 @@
                 <%= record.project.name %>
               </td> -->
               <td>
-                <% if record.system? %>
+                <% if record.user_donate? %>
                   <%= record.donor.try(:name) %> ( <%= record.donor.try(:phone) %> )
-                <% elsif record.platform? %>
+                <% elsif record.platform_donate? %>
                   <% if record.donor.present? %>
                     <%= record.donor.try(:name) %> ( <%= record.donor.try(:phone) %> )
                   <% else %>
@@ -89,9 +89,9 @@
               </td>
               <td>
                 <!-- <%= l record.created_at %> -->
-                <% if record.system? %>
-                  收入单号<%= record.try(:income_record).try(:id) %>
-                <% elsif record.platform? %>
+                <% if record.user_donate? %>
+                  <%= record.try(:income_record).try(:id) ? '在线支付' : '用户余额' %>
+                <% elsif record.platform_donate? %>
                   <% if record.user.present? %>
                     用户余额捐助
                   <% elsif record.income_record.present? %>
@@ -110,7 +110,7 @@
                 <%= link_to admin_read_project_bookshelf_donate_record_path(read_project_id: @apply.id, bookshelf_id: @bookshelf.id, id: record.id), class: 'btn btn-xs blue' do %>
                   <i class="fa fa-file"></i> 查看详情
                 <% end %>
-                <% if record.platform? %>
+                <% if record.platform_donate? %>
                 <%= link_to admin_read_project_bookshelf_donate_record_path(read_project_id: @apply.id, bookshelf_id: @bookshelf.id, id: record.id), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                   <i class="fa fa-trash-o"></i> 删除
                 <% end %>
