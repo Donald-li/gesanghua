@@ -200,7 +200,7 @@ class DonateRecord < ApplicationRecord
     when 'GshChildGrant'
       self.child.try(:avatar_url, :tiny)
     when 'ProjectSeasonApplyChild'
-      self.owner.try(:avatar_url, :tiny)
+      self.owner.project.try(:image_url, :tiny)
     when 'ProjectSeasonApplyBookshelf', 'BookshelfSupplement'
       self.owner.apply.try(:cover_image_url, :tiny)
     when 'CampaignEnlist'

@@ -1,5 +1,5 @@
 class Admin::ProjectGoodsSeasonsController < Admin::GoodsBaseController
-  before_action :set_season, only: [:show, :edit, :update, :destroy]
+  before_action :set_season, only: [:show, :edit, :update, :destroy, :switch]
 
   def index
     @search = @current_project.seasons.sorted.ransack(params[:q])
@@ -45,6 +45,14 @@ class Admin::ProjectGoodsSeasonsController < Admin::GoodsBaseController
     respond_to do |format|
       format.html { redirect_to admin_project_goods_seasons_path, notice: '删除成功。' }
     end
+  end
+
+  def switch
+    @season.enable? ? @season.disable! : @season.enable!
+    if @season.disable?
+      ProjectSeasonApply.where(season: @season).update(state: 'hidden')
+    end
+    redirect_to referer_or(admin_project_goods_seasons_path), notice: @season.enable? ? "#{@season.name}批次已设为可用批次" : '该批次已禁用'
   end
 
   private
