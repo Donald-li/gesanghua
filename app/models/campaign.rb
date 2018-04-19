@@ -59,6 +59,19 @@ class Campaign < ApplicationRecord
     form.push({key: '', label: '', placeholder: '', type: 'text', options: [], required: false})
     self.form = form
   end
+  
+  # 根据form的key显示标签
+  def form_label(key)
+    (self.form || []).detect{|item|item['key'] == key}.try('[]', 'label') || ''
+  end
+
+  def form_submit(form)
+    self.form.map do |i|
+      value = form[i['key']]
+      value ||= 0 if i['type'] == 'number'
+      [form_label(i['key']), value]
+    end
+  end
 
   def detail_state_name(user=nil)
     if user && self.campaign_enlists.paid.exists?(user_id: user.id)
