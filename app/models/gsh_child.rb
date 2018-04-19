@@ -53,7 +53,7 @@ class GshChild < ApplicationRecord
       json.grants self.semesters.where(user_id: self.user_id).pluck(:title).join('/').gsub(/\s/, '').strip
       json.donate_state self.semesters.pending.size > 0
       json.num self.apply_child.feedbacks.continue.count
-      json.avatar self.avatar_url(:tiny).to_s
+      json.avatar self.project_season_apply_children.last.avatar_url(:tiny).to_s
     end.attributes!
   end
 
