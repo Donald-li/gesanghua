@@ -73,12 +73,12 @@ class Api::V1::Cooperation::TasksController < Api::V1::BaseController
     if tv.to_check?
       api_error(message: '您已经提交过任务成果了~')
     else
-    if tv.update(achievement_comment: params[:content], state: 'to_check')
-      tv.attach_images(params[:images].pluck(:id)) if params[:images].present?
-      api_success(message: '成果提交成功')
-    else
-      api_error(message: '提交失败')
-    end
+      if tv.update(achievement_comment: params[:content], state: 'to_check')
+        tv.attach_images(params[:images].pluck(:id)) if params[:images].present?
+        api_success(message: '成果提交成功')
+      else
+        api_error(message: '提交失败')
+      end
     end
   end
 
