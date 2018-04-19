@@ -48,6 +48,9 @@
             <th>
               高中/学年
             </th>
+            <th>
+              状态
+            </th>
             <th width="230px">
               操作
             </th>
@@ -71,7 +74,7 @@
                 <td>
                   ￥<%= season.senior_year_amount %>
                 </td>
-                <td style="display: none">
+                <td>
                   <%= link_to switch_admin_pair_season_path(season), data: {confirm: "确定#{season.disable? ? '设置为可用批次' : '禁用'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{season.enable? ? 'green' : 'default'}" do %>
                       <%= season.enable? ? '可用批次' : '禁用' %>
                       <i class="fa <%= season.enable? ? 'fa-eye' : 'fa-eye-slash' %>"></i>
