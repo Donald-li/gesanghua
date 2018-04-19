@@ -261,7 +261,7 @@ class User < ApplicationRecord
 
   def summary_builder
     Jbuilder.new do |json|
-      json.(self, :id, :nickname, :balance, :donate_amount, :role_tag, :team_id, :phone)
+      json.(self, :id, :nickname, :name, :balance, :donate_amount, :role_tag, :team_id, :phone)
       json.login_name self.login
       json.user_avatar self.user_avatar
       json.promoter_count self.promoter_amount_count
@@ -319,7 +319,7 @@ class User < ApplicationRecord
       json.show_name self.show_name
       json.user_avatar do
         json.id self.try(:avatar).try(:id)
-        json.url self.try(:avatar).try(:file_url)
+        json.url self.try(:user_avatar)
         json.protect_token ''
       end
       json.avatar_src self.user_avatar

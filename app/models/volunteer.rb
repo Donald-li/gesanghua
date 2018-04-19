@@ -22,6 +22,8 @@
 #  workstation        :string                                 # 工作单位
 #  leave_reason       :jsonb                                  # 请假原因[类型, 说明]
 #  task_state         :boolean          default(FALSE)        # 志愿者是否有未查看的指派任务
+#  name               :string                                 # 志愿者真实姓名
+#  id_card            :string                                 # 志愿者身份证
 #
 
 # 志愿者
@@ -62,10 +64,7 @@ class Volunteer < ApplicationRecord
   has_one_asset :image, class_name: 'Asset::VolunteerImage'
 
   before_create :gen_volunteer_apply_no
-
-  def volunteer_name
-    self.user.try(:name)
-  end
+  before_destroy :remove_user_volunteer
 
   def leave_reason_content
     "请假原因：#{self.leave_reason['type']} \\n请假说明：#{self.leave_reason['content']}"
@@ -106,7 +105,7 @@ class Volunteer < ApplicationRecord
   def detail_builder
     Jbuilder.new do |json|
       json.(self, :id, :describe, :workstation)
-      json.user_name self.try(:user).try(:name)
+      json.user_name self.name
       json.user_nickname self.try(:user).try(:nickname)
       json.phone self.phone
       json.user_email self.user.try(:email)
@@ -123,7 +122,7 @@ class Volunteer < ApplicationRecord
   def apply_builder
     Jbuilder.new do |json|
       json.(self, :id, :phone, :describe, :major_ids)
-      json.name self.try(:user).try(:name)
+      json.name self.name
       json.id_card self.user.try(:id_card)
     end.attributes!
   end
@@ -150,6 +149,16 @@ class Volunteer < ApplicationRecord
   def gen_volunteer_apply_no
     time_string = Time.now.strftime("%y%m%d")
     self.volunteer_apply_no ||= Sequence.get_seq(kind: :volunteer_apply_no, prefix: time_string, length: 4)
+  end
+
+  def remove_user_volunteer
+    user = self.user
+    return unless user.present?
+    unless user.has_role?(:volunteer)
+      user.roles = user.roles-[:volunteer]
+      user.save
+    end
+    true
   end
 
 end

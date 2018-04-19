@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180418084818) do
+ActiveRecord::Schema.define(version: 20180419100535) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -250,7 +250,7 @@ ActiveRecord::Schema.define(version: 20180418084818) do
   end
 
   create_table "ckeditor_assets", force: :cascade do |t|
-    t.string "data_file_name", limit: 32
+    t.string "data_file_name", null: false
     t.string "data_content_type"
     t.integer "data_file_size"
     t.string "type", limit: 30
@@ -1174,6 +1174,8 @@ ActiveRecord::Schema.define(version: 20180418084818) do
     t.string "workstation", comment: "工作单位"
     t.jsonb "leave_reason", comment: "请假原因[类型, 说明]"
     t.boolean "task_state", default: false, comment: "志愿者是否有未查看的指派任务"
+    t.string "name", comment: "志愿者真实姓名"
+    t.string "id_card", comment: "志愿者身份证"
   end
 
   create_table "voucher_donate_records", force: :cascade, comment: "捐赠收据捐助记录表" do |t|

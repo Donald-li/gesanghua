@@ -40,7 +40,7 @@
         // 异步加载志愿者列表
         $('#volunteer-ajax').select2({
             language: "zh-CN",
-            placeholder: '<%= @task_volunteer.volunteer.volunteer_name %>',
+            placeholder: '<%= @task_volunteer.volunteer.name %>',
             allowClear: true,
             ajax: {
                 url: "/selects/volunteers",
@@ -58,7 +58,7 @@
                     return {
                         results: $.map(data.items, function (item) {
                             return {
-                                text: item.volunteer_name,
+                                text: item.name,
                                 id: item.id
                             }
                         }),

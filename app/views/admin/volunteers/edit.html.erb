@@ -17,7 +17,7 @@
         <%= f.error_notification %>
         <div class="form-body form-horizontal">
           <%= static_form_control 'ID：', @volunteer.user.try(:id) %>
-          <%= static_form_control '姓名：', @volunteer.user.try(:name) %>
+          <%= static_form_control '姓名：', @volunteer.name %>
           <%= static_form_control '认证时间：', (l @volunteer.created_at) %>
           <%= f.input :internship_state, as: :radio_buttons, wrapper: :inline_inputs, collection: Volunteer.options_for_select(:internship_states), label: '类型：', include_blank: false, input_html: { data: {'parsley-required': true} } %>
           <%= f.input :major_ids, collection: Major.sorted.map{|c| [c.name,c.id]}, label: '专业：', input_html:{ multiple: 'multiple', id: "major_ids", data: {'parsley-required': true} }%>
