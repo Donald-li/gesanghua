@@ -316,7 +316,7 @@ class User < ApplicationRecord
       json.show_name self.show_name
       json.user_avatar do
         json.id self.try(:avatar).try(:id)
-        json.url self.try(:avatar).try(:file_url)
+        json.url self.try(:user_avatar)
         json.protect_token ''
       end
       json.avatar_src self.user_avatar
