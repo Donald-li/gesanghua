@@ -21,18 +21,22 @@ class Api::V1::AppliesController < Api::V1::BaseController
 
   def complaint
     api_error(message: '无效页面') && return unless @apply
-    complaint = Complaint.find_by(contact_phone: complaint_params[:contact_phone], owner: @apply)
-    if complaint.present?
-      api_success(message: '您已经提交过举报信息', data: false)
-    else
-      @complaint = Complaint.new(complaint_params)
-      @complaint.owner = @apply
-      if @complaint.save
-        @complaint.attach_images(params[:images].map{|image| image[:id]}) if params[:images].present?
-        api_success(message: '举报成功，管理员会尽快处理', data: true)
+    if SmsCode.valid_code?(mobile: complaint_params[:contact_phone], code: params[:code], kind: 'verify_profile', write_verified: true)
+      complaint = Complaint.find_by(contact_phone: complaint_params[:contact_phone], owner: @apply)
+      if complaint.present?
+        api_success(message: '您已经提交过举报信息', data: false)
       else
-        api_success(message: '提交失败，请重试', data: false)
+        @complaint = Complaint.new(complaint_params)
+        @complaint.owner = @apply
+        if @complaint.save
+          @complaint.attach_images(params[:images].map{|image| image[:id]}) if params[:images].present?
+          api_success(message: '举报成功，管理员会尽快处理', data: true)
+        else
+          api_success(message: '提交失败，请重试', data: false)
+        end
       end
+    else
+      api_error(message: '验证码错误')
     end
   end
 

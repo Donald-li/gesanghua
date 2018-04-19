@@ -7427,3 +7427,28 @@ select:disabled {
   text-align: center;
   margin-bottom: 10px;
 }
+//我的团队
+.my-team-but{
+  margin-top: 20px;
+  .team-but-1{
+    width: 122px;
+    height: 34px;
+    line-height: 32px;
+    color: $color-border;
+    border:1px solid $color-border;
+    box-shadow: 0px 2px 7px 2px #d632aa4d;
+    border-radius: 20px;
+    float: left;
+    margin-right: 22px;
+  }
+  .team-but-2{
+    width: 122px;
+    height: 34px;
+    line-height: 34px;
+    color: #fff;
+    background: $color-button;
+    box-shadow: 0px 2px 7px 2px #d632aa4d;
+    border-radius: 20px;
+    float: left;
+  }
+}

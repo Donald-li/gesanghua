@@ -355,6 +355,7 @@ namespace :api do
         post :delete_teacher
         get :get_school_user
         post :update_school_user
+        get :school_can_new_apply
       end
     end
 

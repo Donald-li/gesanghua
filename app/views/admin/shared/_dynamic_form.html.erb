@@ -1,5 +1,5 @@
 <% submit = apply.form %>
-<% form = apply.project.form %>
+<% form = apply.is_a?(ProjectSeasonApply) ? apply.project.form : apply.campaign.form %>
   <% form.each do |item| %>
     <div class="form-group">
       <label class="col-md-2 control-label"><%= item['label'] %>：</label>
