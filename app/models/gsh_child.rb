@@ -65,7 +65,7 @@ class GshChild < ApplicationRecord
       json.kind_name self.enum_name(:kind)
       json.gsh_no self.gsh_no
       json.location [self.province, self.city, self.district]
-      json.avatar self.avatar_url(:tiny).to_s
+      json.avatar self.project_season_apply_children.last.avatar_url(:tiny).to_s
     end.attributes!
   end
 
