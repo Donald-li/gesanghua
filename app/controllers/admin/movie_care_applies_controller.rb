@@ -27,7 +27,10 @@ class Admin::MovieCareAppliesController < Admin::BaseController
   def create
     @project_apply = ProjectSeasonApply.new(project_apply_params)
     respond_to do |format|
-      if @project_apply.save
+      if ProjectSeasonApply.find_by(school_id: project_apply_params[:school_id], project_season_id: project_apply_params[:project_season_id], project_id: Project.movie_care_project.id).present?
+        flash[:notice] = '此学校在本批次还有未完成的申请'
+        format.html { render :new }
+      elsif @project_apply.save
         @project_apply.attach_images(params[:image_ids])
         format.html { redirect_to admin_movie_care_applies_path, notice: '新增成功。' }
       else

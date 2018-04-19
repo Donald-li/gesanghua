@@ -148,4 +148,15 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
     end
   end
 
+  # 学校是否可以新增项目申请
+  def school_can_new_apply
+    @school = current_user.teacher.try(:school)
+    @project = Project.find(params[:project_id])
+    if @school.present? && @project.present?
+      api_success(data: {is_school_user: true, result: @school.can_new_apply?(@project)}, message: '')
+    else
+      api_success(data: {is_school_user: false}, message: '您不是学校用户')
+    end
+  end
+
 end

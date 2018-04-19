@@ -119,6 +119,31 @@ class School < ApplicationRecord
     self.update(user: user)
   end
 
+  # 判断学校是否可以新增申请
+  def can_new_apply?(project)
+    return unless project.present?
+    return unless project.user_apply?
+    seasons = project.seasons.enable
+    applied_seasons_count = ProjectSeasonApply.where(school_id: self.id, project_id: project.id).pluck(:project_season_id).uniq.count
+    if project == Project.read_project
+      if applied_seasons_count >= seasons.count
+        return {can_apply: false, can_supply: false}
+      else
+        if self.bookshelves.pass_done.present?
+          return {can_apply: true, can_supply: true}
+        else
+          return {can_apply: true, can_supply: false}
+        end
+      end
+    elsif project == Project.movie_project || project == Project.movie_care_project || project.goods?
+      if applied_seasons_count >= seasons.count
+        return false
+      else
+        return true
+      end
+    end
+  end
+
   def summary_builder
     Jbuilder.new do |json|
       json.(self, :id, :name)

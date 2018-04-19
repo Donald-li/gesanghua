@@ -355,6 +355,7 @@ namespace :api do
         post :delete_teacher
         get :get_school_user
         post :update_school_user
+        get :school_can_new_apply
       end
     end
 
@@ -383,7 +384,7 @@ namespace :api do
     resource :sign_package, only: [:show]
 
     # 绑定手机号
-    resource :bind_phone, only: [:create]
+    resource :bind_phone, only: [:create, :update]
 
     namespace :staff do
       resources :grant_batches, only: [:index, :show] do
