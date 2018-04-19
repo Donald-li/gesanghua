@@ -84,6 +84,9 @@ zh:
     fixed: '固定类'
     apply: '申请类'
     goods: '物资类'
+  project_season_states:
+    enable: '开放申请'
+    disable: '关闭申请'
   project_apply_kinds:
     platform_assign: '平台分配'
     user_apply: '用户申请'
@@ -310,7 +313,8 @@ zh:
     doing: '进行中'
     done: '已结束'
   campaign_enlist_payment_states:
-    paid: '已支付'
+    unpaid: '未支付'
+    paid: '已报名'
     canceled: '已取消'
   voucher_states:
     pending: '未处理'

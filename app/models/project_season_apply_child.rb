@@ -91,7 +91,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   attr_accessor :approve_remark
 
-  # validates :id_card, ShenfenzhengNo: true
+  validates :id_card, shenfenzheng_no: true
   validates :id_card, :name, presence: true
   validates :province, :city, :district, presence: true
   validates :reason, length: {maximum: 20}
@@ -312,7 +312,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
       json.tuition self.get_tuition.to_i
       json.description self.description
       json.donate_grants self.donate_record_builder
-      json.grants do
+      json.grants do # 发放记录
         json.array! self.gsh_child_grants.granted.sorted do |grant|
           json.(grant, :id)
           json.(grant, :amount)

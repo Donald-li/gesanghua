@@ -124,6 +124,7 @@ class ProjectSeasonApply < ApplicationRecord
 
   before_create :gen_code
   before_create :gen_apply_no
+  before_save :check_apply_state # 检查是否完成
   after_save :set_execute_state
 
   # 得到可捐助子项
@@ -152,7 +153,7 @@ class ProjectSeasonApply < ApplicationRecord
   # 更新申请状态
   def check_apply_state
     if self.present_amount >= self.target_amount
-      self.execute_state = :to_delivery if self.raising?
+      self.execute_state = :to_delivery if self.raising? && self.raise_project?
       self.read_state = :read_done if self.read_executing?
       self.camp_state = :camp_raise_done if self.camp_raising?
     end
@@ -363,6 +364,7 @@ class ProjectSeasonApply < ApplicationRecord
       json.created_at self.created_at.strftime("%Y-%m-%d")
       json.list self.inventories.map{|i| i.summary_builder}
       json.surplus_money self.surplus_money
+      json.seasonState self.season.try(:state)
     end.attributes!
   end
 

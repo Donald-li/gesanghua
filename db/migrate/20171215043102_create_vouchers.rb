@@ -2,7 +2,7 @@ class CreateVouchers < ActiveRecord::Migration[5.1]
   def change
     create_table :vouchers, comment: '捐助收据表' do |t|
       t.integer :user_id, comment: '用户ID'
-      t.decimal :amount, precision: 14, scale: 2, default: "0.0", comment: '金额'
+      t.decimal :amount, precision: 14, scale: 2, default: 0.0, comment: '金额'
       t.integer :state, comment: '状态'
       t.string :contact_name, comment: '联系人姓名'
       t.string :contact_phone, comment: '联系人电话'

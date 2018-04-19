@@ -152,7 +152,47 @@ class IncomeRecord < ApplicationRecord
       json.time self.created_at
       json.amount self.amount
       json.donate_tag self.donor_id === self.agent_id ? '' : '代捐'
+      json.project_info_route self.project_info_route
     end.attributes!
+  end
+
+  def project_info_route
+    return false unless self.donation.present?
+    donation = self.donation
+    case donation.owner_type
+    when 'DonateItem'
+      if donation.owner.project.present?
+        if donation.owner.project == Project.read_project
+          {name: 'project-description', query: {name: 'read'}}
+        elsif donation.owner.project == Project.camp_project
+          {name: 'project-description', query: {name: 'camp'}}
+        elsif donation.owner.project == Project.pair_project
+          {name: 'project-description', query: {name: 'pair'}}
+        elsif donation.owner.project.goods?
+          {name: 'project-description', query: {name: donation.owner.project.id}}
+        end
+      else
+        ''
+      end
+    when 'ProjectSeasonApply'
+      if donation.owner.project == Project.read_project
+        if donation.owner.whole?
+          {name: 'read', params: {id: donation.owner_id.to_s }}
+        else
+          {name: 'read-supplement', params: {id: donation.owner_id.to_s }}
+        end
+      elsif donation.owner.project == Project.camp_project
+        {name: 'camp', params: {id: donation.owner_id.to_s }}
+      elsif donation.owner.project.goods?
+        {name: 'goods', params: {id: donation.owner_id.to_s }}
+      end
+    when 'ProjectSeasonApplyBookshelf'
+      {name: 'read', params: {id: donation.owner_id.to_s }}
+    when 'ProjectSeasonApplyChild'
+      {name: 'pair', params: {id: donation.owner_id.to_s }}
+    when 'CampaignEnlist'
+      {name: 'campaign', params: {id: donation.owner.campaign.id.to_s }}
+    end
   end
 
   def certificate_builder

@@ -46,7 +46,7 @@ namespace :admin do
     resources :special_articles
   end
 
-  resources :project_book_seasons
+  resources :project_book_seasons, concerns: [:switch]
   resources :read_applies, concerns: :check do
     member do
       get :audit
@@ -84,8 +84,8 @@ namespace :admin do
   end
   resources :read_reports, concerns: [:switch]
   resources :read_continual_feedbacks, concerns: [:recommend]
-  resources :project_movie_seasons
-  resources :project_movie_care_seasons
+  resources :project_movie_seasons, concerns: [:switch]
+  resources :project_movie_care_seasons, concerns: [:switch]
 
   resources :pair_grant_exceptions
   resources :pair_reports, concerns: [:switch]
@@ -233,7 +233,7 @@ namespace :admin do
   resources :complaints
   resources :beneficial_children, concerns: [:excel_upload, :excel_import]
 
-  resources :project_goods_seasons
+  resources :project_goods_seasons, concerns: [:switch]
   resources :goods_applies, concerns: :check do
     resources :goods_approve_logs
     member do
@@ -261,7 +261,7 @@ namespace :admin do
   resources :goods_reports ,concerns: [:switch]
   resources :goods_continual_feedbacks ,concerns: [:recommend]
 
-  resources :project_radio_seasons
+  resources :project_radio_seasons, concerns: [:switch]
   resources :radio_applies, concerns: :check
   resources :radio_projects, concerns: :switch do
     member do

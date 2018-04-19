@@ -2,12 +2,12 @@
   <div class="donation-cont border-b">
     <div class="clearfix">
       <div class="donation-cont-img pull-left">
-        <%= image_tag record.project.image.try(:file).try(:url).to_s %>
+        <%= image_tag record.project.image_url(:tiny) %>
       </div>
       <div class="pull-left donation-cont-cco">
         <div class="donation-cont-c-tit clearfix">
           <p class="pull-left"><%= record.title %>
-            <span class="order-tag"><%= record.project.name %></span>
+            <span class="order-tag"><%= record.project.try(:name) %></span>
           </p>
         </div>
         <div class="clearfix donation-cont-c-con">

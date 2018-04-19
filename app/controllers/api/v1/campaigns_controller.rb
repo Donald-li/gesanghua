@@ -2,7 +2,7 @@ class Api::V1::CampaignsController < Api::V1::BaseController
 
   def index
     @campaigns = Campaign.show.sorted.page(params[:page])
-    api_success(data: {list: @campaigns.map{|cam| cam.summary_builder(current_user)}, pagination: json_pagination(@campaigns)})
+    api_success(data: {list: @campaigns.map{|cam| cam.summary_builder}, pagination: json_pagination(@campaigns)})
   end
 
   def show

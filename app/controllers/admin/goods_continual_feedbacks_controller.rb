@@ -2,7 +2,7 @@ class Admin::GoodsContinualFeedbacksController < Admin::GoodsBaseController
   before_action :set_continual, only: [:show, :edit, :update, :destroy, :recommend]
 
   def index
-    @continual_feedbacks = ContinualFeedback.where(project_id: [Project.care_project.id, Project.movie_care_project.id])
+    @continual_feedbacks = ContinualFeedback.where(project_id: @current_project.id)
     @search = @continual_feedbacks.ransack(params[:q])
     scope = @search.result
     @continual_feedbacks = scope.sorted.page(params[:page])

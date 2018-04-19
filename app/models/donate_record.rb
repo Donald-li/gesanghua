@@ -44,6 +44,10 @@ class DonateRecord < ApplicationRecord
   belongs_to :income_record, optional: true
   belongs_to :gsh_child, class_name: 'GshChild', optional: true
 
+  counter_culture :project, column_name: :total_amount, delta_magnitude: proc {|model| model.amount }
+  counter_culture :team, column_name: :total_donate_amount, delta_magnitude: proc {|model| model.amount }
+  counter_culture :promoter, column_name: :promoter_amount_count, delta_magnitude: proc {|model| model.amount }
+
   belongs_to :source, polymorphic: true
   belongs_to :owner, polymorphic: true
 
@@ -53,6 +57,7 @@ class DonateRecord < ApplicationRecord
   default_value_for :kind, 1
 
   scope :sorted, -> {order(created_at: :desc)}
+  scope :visible, -> {} #TODO: 以后增加一个状态，处理退款
 
   before_create :set_assoc_attrs
 
@@ -75,9 +80,11 @@ class DonateRecord < ApplicationRecord
     income_record_id = source.instance_of?(IncomeRecord) ? source.id : nil
     donation_id = source.instance_of?(IncomeRecord) ? source.donation_id : nil
 
+    amount = amount.to_f.round(2)
+
     self.transaction do # 事务
       # 来源金额是否充足？
-      if source.balance < amount.to_f
+      if source.balance < amount
         return false
       else
         source.lock! # 加锁
@@ -112,7 +119,7 @@ class DonateRecord < ApplicationRecord
 
           if owner.is_a?(ProjectSeasonApplyChild)
             owner.get_donate_items.each do |item|
-              remain_amount = source.balance - donate_records.sum{|r| r.amount}
+              remain_amount = amount - donate_records.sum{|r| r.amount}
               if remain_amount >= item.surplus_money
                 donate_records << self.create!(source: source, kind: kind, owner: item, amount: item.surplus_money, income_record_id: income_record_id, donation_id: donation_id, agent: params[:agent], donor: params[:donor])
                 item.accept_donate(donate_records)
@@ -120,8 +127,9 @@ class DonateRecord < ApplicationRecord
             end
           else
             owner.get_donate_items.each do |item|
-              if (source.balance - donate_records.sum{|r| r.amount}) > 0
-                donate_amount = [item.surplus_money, source.balance].min
+              remain_amount = amount - donate_records.sum{|r| r.amount}
+              if remain_amount > 0
+                donate_amount = [item.surplus_money, remain_amount].min
                 donate_records << self.create!(source: source, kind: kind, owner: item, amount: donate_amount, income_record_id: income_record_id, donation_id: donation_id, agent: params[:agent], donor: params[:donor])
                 item.accept_donate(donate_records)
               end
@@ -186,13 +194,13 @@ class DonateRecord < ApplicationRecord
   def apply_image
     apply_image = case self.owner_type
     when 'DonateItem'
-      self.owner.project.try(:icon_url, :tiny)
+      self.owner.project.try(:icon_url, nil)
     when 'ProjectSeasonApply'
       self.owner.cover_image_url(:tiny)
     when 'GshChildGrant'
       self.child.try(:avatar_url, :tiny)
     when 'ProjectSeasonApplyChild'
-      self.owner.try(:avatar_url, :tiny)
+      self.owner.project.try(:image_url, :tiny)
     when 'ProjectSeasonApplyBookshelf', 'BookshelfSupplement'
       self.owner.apply.try(:cover_image_url, :tiny)
     when 'CampaignEnlist'
@@ -290,6 +298,10 @@ class DonateRecord < ApplicationRecord
   end
 
   def set_assoc_attrs
+    income_record = self.income_record
+    self.team_id ||= income_record.try(:team_id)
+    self.promoter_id ||= income_record.try(:promoter_id)
+
     case self.owner
     when GshChildGrant
       self.project_season_apply_child_id = self.owner.project_season_apply_child_id

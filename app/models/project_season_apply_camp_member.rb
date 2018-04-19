@@ -25,6 +25,7 @@
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
 #  phone                        :string                                 # 联系方式（老师角色）
+#  classname                    :string                                 # 年级
 #
 
 class ProjectSeasonApplyCampMember < ApplicationRecord
@@ -74,7 +75,7 @@ class ProjectSeasonApplyCampMember < ApplicationRecord
 
   def summary_builder
     Jbuilder.new do |json|
-      json.(self, :id, :name, :age, :kind, :reason)
+      json.(self, :id, :name, :age, :kind, :reason, :classname)
       json.level self.enum_name(:level)
       json.gender self.enum_name(:gender)
       json.nation self.enum_name(:nation)
@@ -84,7 +85,7 @@ class ProjectSeasonApplyCampMember < ApplicationRecord
 
   def detail_builder
     Jbuilder.new do |json|
-      json.(self, :id, :name, :age, :level, :grade, :nation, :gender, :reason, :id_card, :teacher_name, :teacher_phone, :guardian_name, :guardian_phone, :description, :phone)
+      json.(self, :id, :name, :age, :level, :grade, :nation, :gender, :reason, :id_card, :teacher_name, :teacher_phone, :guardian_name, :guardian_phone, :description, :phone, :classname)
       json.image  do
         json.id self.try(:image).try(:id)
         json.url self.try(:image).try(:file).try(:url)

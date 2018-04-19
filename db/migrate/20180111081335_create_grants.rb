@@ -8,7 +8,7 @@ class CreateGrants < ActiveRecord::Migration[5.1]
       t.integer :gsh_child_id, comment: '格桑花孩子ID'
       t.string :grant_no, comment: '发放编号'
       t.integer :state, comment: '状态'
-      t.decimal :amount, precision: 14, scale: 2, default: "0.0", comment: "资助金额"
+      t.decimal :amount, precision: 14, scale: 2, default: 0.0, comment: "资助金额"
 
       t.timestamps
     end

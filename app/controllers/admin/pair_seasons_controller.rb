@@ -54,10 +54,10 @@ class Admin::PairSeasonsController < Admin::BaseController
 
   def switch
     @season.enable? ? @season.disable! : @season.enable!
-    if @season.enable?
-      Pair.where.not(id: @season.id).update(state: 2)
+    if @season.disable?
+      ProjectSeasonApplyChild.where(season: @season).update(state: 'hidden')
     end
-    redirect_to referer_or(admin_pair_seasons_path), notice: @season.enable? ? "#{@season.name}批次已设为当前执行批次" : '该批次已禁用'
+    redirect_to referer_or(admin_pair_seasons_path), notice: @season.enable? ? "#{@season.name}批次已设为可用批次" : '该批次已禁用'
   end
 
 
