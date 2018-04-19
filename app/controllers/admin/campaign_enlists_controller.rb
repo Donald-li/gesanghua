@@ -9,13 +9,10 @@ class Admin::CampaignEnlistsController < Admin::BaseController
     @campaign_enlists = scope.page(params[:page])
   end
 
-  #def show
-  #end
   def excel_output
-    ExcelOutput.campaign_enlist_output(@campaign)
-    file_path = Rails.root.join("public/files/活动" + DateTime.now.strftime("%Y-%m-%d-%s") + ".xlsx")
+    path = ExcelOutput.campaign_enlist_output(@campaign)
     file_name = "活动报名表.xlsx"
-    send_file(file_path, filename: file_name)
+    send_file(path, filename: file_name)
   end
 
   def new

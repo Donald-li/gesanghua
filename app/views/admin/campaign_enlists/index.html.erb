@@ -43,6 +43,11 @@
               <th>
                 报名时间
               </th>
+              <% @campaign.form.each do |key| %>
+              <th>
+                <%= key['label'] %>
+              </th>
+              <% end %>
               <th>
                 报名人数
               </th>
@@ -77,6 +82,11 @@
               <td>
                 <%= campaign_enlist.created_at.strftime('%Y-%m-%d') %>
               </td>
+              <% @campaign.form.each do |key| %>
+              <td>
+                <%= campaign_enlist.form[key['key']] %>
+              </td>
+              <% end %>
               <td>
                 <%= campaign_enlist.number %>
               </td>
