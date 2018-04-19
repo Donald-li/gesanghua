@@ -335,7 +335,7 @@ class User < ApplicationRecord
     volunteer = Volunteer.find_by(phone: self.phone)
     teacher = Teacher.find_by(phone: self.phone)
     county_user = CountyUser.find_by(phone: self.phone)
-    school = School.find_by(contact_phone: self.phone)
+    # school = School.find_by(contact_phone: self.phone)
     self.bind_user_with_volunteer(volunteer) if volunteer.present?
     self.bind_user_with_teacher(teacher) if teacher.present?
     self.bind_user_with_headmaster(school) if school.present?
