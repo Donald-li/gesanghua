@@ -150,6 +150,7 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
       json.apply_name self.apply.name
       json.title self.show_title
       json.image bookshelf_image
+      json.apply_id self.project_season_apply_id
       json.grade self.enum_name(:grade)
     end.attributes!
   end
