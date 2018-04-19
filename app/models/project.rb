@@ -134,11 +134,11 @@ class Project < ApplicationRecord
     if self.id == 1
       ProjectSeasonApplyChild.where(project: Project.pair_project).pass.outside.show.count
     elsif self.id == 2
-      ProjectSeasonApplyBookshelf.raising.count
+      self.applies.show.raising.count
     elsif self.id == 6
-      self.applies.to_delivery.count
+      self.applies.show.raising.count
     elsif self.id == 7
-      self.applies.to_delivery.count
+      self.applies.show.raising.count
     elsif self.id == 3
       self.applies.show.camp_raising.count
     else
@@ -151,7 +151,7 @@ class Project < ApplicationRecord
     if self.id == 1
       '个孩子'
     elsif self.id == 2
-      '个书架'
+      '个项目'
     elsif self.id == 6
       '个项目'
     elsif self.id == 7

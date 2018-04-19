@@ -364,6 +364,7 @@ class ProjectSeasonApply < ApplicationRecord
       json.created_at self.created_at.strftime("%Y-%m-%d")
       json.list self.inventories.map{|i| i.summary_builder}
       json.surplus_money self.surplus_money
+      json.seasonState self.season.try(:state)
     end.attributes!
   end
 

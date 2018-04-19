@@ -8,7 +8,7 @@ before_script:
 
 stages:
   - test
-  - deploy
+  # - deploy
 
 rspec:
   stage: test

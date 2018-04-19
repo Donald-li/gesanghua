@@ -3,6 +3,7 @@
     <%= f.error_notification %>
     <div class="form-body form-horizontal">
       <%= f.input :name, label: '名称：', autofocus: true, placeholder: '名称', required: true %>
+      <%= f.input :state, label: '申请状态', as: :radio_buttons, collection: ProjectSeason.options_for_select(:states), wrapper: :inline_inputs, required: true %>
     </div>
     <div class="form-actions">
       <div class="row">
