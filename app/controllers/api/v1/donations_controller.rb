@@ -8,7 +8,7 @@ class Api::V1::DonationsController < Api::V1::BaseController
     team_id = current_user.team_id
     amount = params[:amount]
     promoter_id = params[:promoter]
-    promoter_id = nil if promoter_id == agent.id
+    promoter_id = nil if promoter_id.to_i == agent.id
 
     donor = User.find donor_id if donor_id
 
