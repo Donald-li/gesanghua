@@ -22,11 +22,7 @@ class Api::V1::GshPlus::VolunteersController < Api::V1::BaseController
       return api_error(message: '该手机号已注册志愿者，请绑定手机号关联角色')
     end
     volunteer = user.volunteer || user.build_volunteer
-    volunteer.attributes = {describe: params[:volunteer][:describe], phone: params[:volunteer][:phone]}
-    user.attributes = {name: params[:volunteer][:name], id_card: params[:volunteer][:id_card]}
-    unless user.save
-      return api_error(message: user.errors.full_messages[0])
-    end
+    volunteer.attributes = {describe: params[:volunteer][:describe], phone: params[:volunteer][:phone], name: params[:volunteer][:name], id_card: params[:volunteer][:id_card]}
     if volunteer.save
       volunteer.submit!
       volunteer.attach_image(params[:image_ids][0]) if params[:image_ids].present?
@@ -44,8 +40,8 @@ class Api::V1::GshPlus::VolunteersController < Api::V1::BaseController
   def update_volunteer
     volunteer = current_user.volunteer
     user = current_user
-    volunteer.attributes = {workstation: params[:volunteer][:workstation], describe: params[:volunteer][:describe], phone: params[:volunteer][:phone]}
-    user.attributes = {name: params[:volunteer][:user_name], email: params[:volunteer][:user_email], qq: params[:volunteer][:user_qq]}
+    volunteer.attributes = {name: params[:volunteer][:user_name], workstation: params[:volunteer][:workstation], describe: params[:volunteer][:describe], phone: params[:volunteer][:phone]}
+    user.attributes = {email: params[:volunteer][:user_email], qq: params[:volunteer][:user_qq]}
     if user.save && volunteer.save
       user.attach_avatar(params[:image_id])
       api_success(message: '修改成功')

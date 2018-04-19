@@ -56,7 +56,7 @@ class Support::SelectsController < Support::BaseController
     scope = Volunteer.available.pass.enable.sorted.joins(:user).where("users.name like :q", q: "%#{params[:q]}%")
     scope = scope.where.not(id: params[:participator_ids]) if params[:participator_ids].present?
     volunteers = scope.page(params[:page])
-    render json: {items: volunteers.as_json(only: [:id], methods: :volunteer_name)}
+    render json: {items: volunteers.as_json(only: [:id, :name])}
   end
 
   def campaign_enlist_user

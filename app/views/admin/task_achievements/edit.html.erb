@@ -17,7 +17,7 @@
       <%= f.error_notification %>
       <div class="form-body form-horizontal">
         <%= static_form_control '任务名称：', @task.name %>
-        <%= static_form_control '志愿者姓名：', @task_achievement.volunteer.try(:user).try(:name) %>
+        <%= static_form_control '志愿者姓名：', @task_achievement.volunteer.try(:name) %>
         <%= static_form_control '成果描述：', @task_achievement.achievement_comment %>
         <% if @task_achievement.images.present? %>
         <div class="form-group">
@@ -31,13 +31,13 @@
         </div>
         <% end %>
         <%= static_form_control '计划时长：', @task.duration %>
-        <div class="form-group approve_reject">
+        <div class="form-group">
           <label class="col-md-2 control-label">实发时长：</label>
           <div class="col-sm-9">
             <input type="number" name="duration">
           </div>
         </div>
-        <div class="form-group approve_reject">
+        <div class="form-group">
           <label class="col-md-2 control-label">备注：</label>
           <div class="col-sm-9">
             <textarea name="comment" class="form-control text"></textarea>

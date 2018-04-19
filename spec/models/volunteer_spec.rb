@@ -22,6 +22,8 @@
 #  workstation        :string                                 # 工作单位
 #  leave_reason       :jsonb                                  # 请假原因[类型, 说明]
 #  task_state         :boolean          default(FALSE)        # 志愿者是否有未查看的指派任务
+#  name               :string                                 # 志愿者真实姓名
+#  id_card            :string                                 # 志愿者身份证
 #
 
 require 'rails_helper'
