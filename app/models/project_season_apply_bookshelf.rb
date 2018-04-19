@@ -43,7 +43,7 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id', optional: true
   belongs_to :school, optional: true
 
-  has_many :donates, class_name: 'DonateRecord', dependent: :destroy
+  has_many :donates, class_name: 'DonateRecord', as: :owner, dependent: :destroy
   has_many :beneficial_children
   has_many :supplements, class_name: 'BookshelfSupplement', foreign_key: 'project_season_apply_bookshelf_id'
   has_one :receive_feedback, as: :owner
