@@ -3,7 +3,7 @@ class Admin::GoodsProjectsController < Admin::GoodsBaseController
 
   def index
     @search = @current_project.applies.raise_project.sorted.ransack(params[:q])
-    scope = @search.result
+    scope = @search.result.includes(:school, :season)
     @project_applies = scope.page(params[:page])
   end
 

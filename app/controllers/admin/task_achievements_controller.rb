@@ -4,7 +4,7 @@ class Admin::TaskAchievementsController < Admin::BaseController
 
   def index
     @search = TaskVolunteer.sorted.where(state: [:pass, :to_check, :done, :cancel, :turn_over]).ransack(params[:q])
-    scope = @search.result.joins(:task)
+    scope = @search.result.includes(:volunteer, :task)
     scope = scope.where(task_id: params[:task_id]) if params[:task_id].present?
     @task_volunteers = scope.page(params[:page])
   end
