@@ -333,6 +333,7 @@ ActiveRecord::Schema.define(version: 20180420074111) do
     t.integer "donation_id", comment: "捐助id"
     t.integer "kind", comment: "捐助方式 1:捐款 2:配捐"
     t.integer "project_season_apply_child_id", comment: "一对一孩子"
+    t.integer "state", comment: "状态"
     t.index ["donation_id"], name: "index_donate_records_on_donation_id"
     t.index ["donor_id"], name: "index_donate_records_on_donor_id"
     t.index ["gsh_child_id"], name: "index_donate_records_on_gsh_child_id"
