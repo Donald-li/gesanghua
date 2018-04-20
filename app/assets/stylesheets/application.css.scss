@@ -3413,11 +3413,8 @@ select:disabled {
   .speciais-con {
     & > .speciais-t {
       padding: 20px 0;
-      border-top: 1px solid $border;
     }
-    & > .speciais-t:first-child {
-      border-top: none;
-    }
+
     .speciais-con-con {
       width: 523px;
       padding: 3px 0 0 20px;
@@ -7437,7 +7434,7 @@ select:disabled {
     line-height: 32px;
     color: $color-border;
     border: 1px solid $color-border;
-    box-shadow: 0px 2px 7px 2px #d632aa4d;
+    box-shadow: 0px 2px 7px 2px #9050de21;
     border-radius: 20px;
     float: left;
     margin-right: 22px;
@@ -7643,10 +7640,87 @@ select:disabled {
 }
 //财务公开
 .disclosures{
+  width: 700px;
+  margin: 20px auto 80px auto;
   .disclosures-tit{
     font-size: 22px;
     color: #3d3d40;
     font-weight: 600;
     margin: 0 0 20px 0;
+    text-align: center;
   }
+  .disclosures-t{
+    font-size: 14px;
+    color: #8d8d8d;
+    text-align: center;
+    margin: 10px auto;
+    margin: 10px auto 20px auto;
+  }
+  .donations-1 {
+    position: relative;
+    padding: 16px 0 14px 0;
+    width: 380px;
+    margin: 0 auto;
+    background-color:#f5f5f5;
+  }
+  .donations1 {
+    & > li {
+      float: left;
+      width: 50%;
+      height: 16px;
+      line-height: 16px;
+      font-size: 14px;
+      color: #3d3d40;
+      text-align: center;
+      position: relative;
+    }
+    .selectedDo {
+      font-weight: 600;
+    }
+  }
+  .bottomline {
+    position: absolute;
+    left: 73px;
+    bottom: -13px;
+    width: 40px;
+    height: 3px;
+    background: $color-button;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+  }
+
+  .speciais-cont-but {
+    width: 100%;
+    text-align: center;
+    padding: 40px 0 0 0;
+    button {
+      width: 130px;
+      height: 38px;
+      line-height: 36px;
+      color: $color-border;
+      border: 1px solid $color-border;
+      border-radius: 20px;
+      font-size: 14px;
+    }
+  }
+}
+.disclosures-c{
+  padding: 20px 0;
+}
+.disclosures-l{
+  font-size: 20px;
+  color: #3d3d40;
+  font-weight: 600;
+}
+.disclosures-s{
+  padding: 10px 0 40px 0;
+}
+
+.disclosures-n{
+  font-size: 13px;
+  color: #8d8d8d;
+}
+.disclosures-show{
+  font-size: 16px;
+  color: #3d3d40;
 }
