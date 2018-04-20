@@ -12,8 +12,8 @@
         <div class="col-md-12 col-sm-12">
           <%= search_form_for @search, url: admin_volunteers_path, class: 'form-inline' do |f| %>
               <div class="form-group">
-                <%= f.label :user_name_cont, '搜索用户' %>
-                <%= f.text_field :user_name_or_user_phone_cont, class: 'form-control', placeholder: '姓名、手机号' %>
+                <%= f.label :name_cont, '搜索志愿者' %>
+                <%= f.text_field :name_or_phone_cont, class: 'form-control', placeholder: '姓名、手机号' %>
               </div>
               <div class="form-group">
                 <div class="city-group">
@@ -80,7 +80,7 @@
                   <%= volunteer.name %>
                 </td>
                 <td>
-                  <%= volunteer.user.try(:phone) %>
+                  <%= volunteer.phone %>
                 </td>
                 <td>
                   <%= volunteer.user.try(:simple_address) %>

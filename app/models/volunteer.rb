@@ -123,7 +123,7 @@ class Volunteer < ApplicationRecord
     Jbuilder.new do |json|
       json.(self, :id, :phone, :describe, :major_ids)
       json.name self.name
-      json.id_card self.user.try(:id_card)
+      json.id_card self.id_card
     end.attributes!
   end
 

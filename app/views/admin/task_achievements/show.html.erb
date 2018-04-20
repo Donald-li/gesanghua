@@ -33,6 +33,7 @@
             <%= @task_achievement.task.try(:duration) %>
           </th>
         </tr>
+
         <tr>
           <th>
             任务时间
@@ -47,7 +48,7 @@
             地点
           </th>
           <th>
-            <%= @task_achievement.task.try(:simple_address) %>
+            <%= @task_achievement.task.try(:workplace).try(:title) %>
           </th>
         </tr>
         <tr>
@@ -92,7 +93,22 @@
           </th>
         </tr>
 
-
+        <tr>
+          <th>
+            实际发放时长
+          </th>
+          <th>
+            <%= @task_achievement.duration %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            成果确认备注
+          </th>
+          <th>
+            <%= @task_achievement.comment %>
+          </th>
+        </tr>
 
         </tbody>
       </table>

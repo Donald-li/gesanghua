@@ -51,18 +51,10 @@
         </tr>
         <tr>
           <th>
-            专业
-          </th>
-          <th>
-            <%= @task.major.try(:name) %>
-          </th>
-        </tr>
-        <tr>
-          <th>
             地区
           </th>
           <th>
-            <%= @task.simple_address %>
+            <%= @task.workplace.try(:title) %>
           </th>
         </tr>
         <tr>
