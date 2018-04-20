@@ -74,6 +74,15 @@ class Admin::PairStudentsController < Admin::BaseController
         if @apply_child.pass?
           @apply_child.approve_pass
         end
+
+        # 审核结果通知
+        notice = Notification.create(
+          owner: @apply_child,
+          user_id: @apply_child.apply.applicant_id,
+          title: @apply_child.pass? ? '#审核通过# 一对一学生审核结果' : '#审核未通过# 一对一学生审核结果',
+          content: @apply_child.pass? ? "#{@apply_child.name}同学审核通过" : "#{@apply_child.name}同学审核未通过"
+        )
+
         format.html { redirect_to admin_pair_apply_pair_students_path(@project_apply), notice: '审核成功' }
       else
         format.html { render :check }
