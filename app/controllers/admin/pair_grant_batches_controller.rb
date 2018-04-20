@@ -8,10 +8,8 @@ class Admin::PairGrantBatchesController < Admin::BaseController
 
   def excel_output
     @batch = GrantBatch.find(params[:format])
-    ExcelOutput.grant_batch_output(@batch)
-    file_path = Rails.root.join("public/files/发放批次" + DateTime.now.strftime("%Y-%m-%d-%s") + ".xlsx")
-    file_name = "一对一发放批次名单.xlsx"
-    send_file(file_path, filename: file_name)
+    path = ExcelOutput.grant_batch_output(@batch)
+    send_file(path, filename: "一对一发放批次名单.xlsx")
   end
 
   def show
