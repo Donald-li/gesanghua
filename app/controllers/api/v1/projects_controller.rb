@@ -1,7 +1,7 @@
 class Api::V1::ProjectsController < Api::V1::BaseController
   before_action :set_project, only: [:description]
   def index
-    scope = Project
+    scope = Project.includes(:donate_item)
     scope = current_user.manage_projects if params[:type] == 'manage'
     scope = scope.goods if params[:type] == 'goods'
     projects = scope.sorted.visible

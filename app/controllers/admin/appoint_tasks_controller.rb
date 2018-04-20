@@ -10,7 +10,7 @@ class Admin::AppointTasksController < Admin::BaseController
   end
 
   def show
-    @search = @task.task_volunteers.sorted.ransack(params[:q])
+    @search = @task.task_volunteers.includes({volunteer: :user}).sorted.ransack(params[:q])
     scope = @search.result
     @task_volunteers = scope.page(params[:page])
   end
