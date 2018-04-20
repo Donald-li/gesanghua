@@ -27,6 +27,7 @@ zh:
     enable: '启用'
     disable: '禁用'
   user_genders:
+    unknow: ''
     male: '男'
     female: '女'
   user_use_nicknames:
@@ -157,6 +158,7 @@ zh:
     waiting_check: '待审核'
     pair_complete: '审核完成'
   project_season_apply_child_genders:
+    unknow: ''
     male: '男'
     female: '女'
   project_season_apply_child_kinds:
@@ -284,6 +286,7 @@ zh:
   gsh_child_grant_donate_states:
     pending: '未筹款'
     succeed: '已筹款'
+    refund: '已退款'
   gsh_child_grant_balance_manages:
     balance_default: '默认'
     transfer: '转捐'
@@ -319,9 +322,8 @@ zh:
   voucher_states:
     pending: '未处理'
     deal: '已处理'
-  donate_record_pay_states:
-    unpay: '未支付'
-    paid: '已支付'
+  donate_record_states:
+    normal: '正常'
     refund: '已退款'
   donate_record_kinds:
     user_donate: '线上捐款'
@@ -385,6 +387,7 @@ zh:
     ems: 'EMS'
     else: '其他'
   beneficial_child_genders:
+    unknow: ''
     male: '男'
     female: '女'
   cross_fund_adjustments:
@@ -500,6 +503,7 @@ zh:
     to_approve: '待审核'
     approved: '审核完成'
   project_season_apply_camp_member_genders:
+    unknow: ''
     female: '女'
     male: '男'
   project_season_apply_camp_member_levels:

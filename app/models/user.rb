@@ -99,8 +99,8 @@ class User < ApplicationRecord
   enum state: {enable: 1, disable: 2} #状态 1:启用 2:禁用
   default_value_for :state, 1
 
-  enum gender: {male: 1, female: 2} #性别 1:男 2:女
-  default_value_for :gender, 1
+  enum gender: {unknow: 0, male: 1, female: 2} #性别 1:男 2:女
+  default_value_for :gender, 0
 
   enum use_nickname: {anonymous: 1, autonym: 2} #使用昵称 1:匿名（使用昵称） 2:实名使用姓名
   default_value_for :use_nickname, 2

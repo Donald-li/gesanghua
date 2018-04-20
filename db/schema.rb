@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180419100535) do
+ActiveRecord::Schema.define(version: 20180420074111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,6 +135,10 @@ ActiveRecord::Schema.define(version: 20180419100535) do
     t.integer "audit_state", comment: "审核状态"
     t.integer "show_state", comment: "显示状态"
     t.integer "project_id", comment: "项目id"
+    t.index ["audit_state"], name: "index_bookshelf_supplements_on_audit_state"
+    t.index ["project_season_apply_bookshelf_id"], name: "index_bookshelf_supplements_on_bookshelf_id"
+    t.index ["project_season_apply_id"], name: "index_bookshelf_supplements_on_project_season_apply_id"
+    t.index ["state"], name: "index_bookshelf_supplements_on_state"
   end
 
   create_table "camp_document_estimates", force: :cascade, comment: "拓展营概算表" do |t|
@@ -215,6 +219,7 @@ ActiveRecord::Schema.define(version: 20180419100535) do
     t.integer "payment_state", default: 1, comment: "支付状态 1:已支付 2:已取消"
     t.integer "income_source_id", comment: "收入来源id"
     t.jsonb "form", comment: "报名表单"
+    t.index ["campaign_id"], name: "index_campaign_enlists_on_campaign_id"
   end
 
   create_table "campaigns", force: :cascade, comment: "活动表" do |t|
@@ -328,7 +333,13 @@ ActiveRecord::Schema.define(version: 20180419100535) do
     t.integer "donation_id", comment: "捐助id"
     t.integer "kind", comment: "捐助方式 1:捐款 2:配捐"
     t.integer "project_season_apply_child_id", comment: "一对一孩子"
+    t.index ["donation_id"], name: "index_donate_records_on_donation_id"
+    t.index ["donor_id"], name: "index_donate_records_on_donor_id"
+    t.index ["gsh_child_id"], name: "index_donate_records_on_gsh_child_id"
     t.index ["owner_type", "owner_id"], name: "index_donate_records_on_owner_type_and_owner_id"
+    t.index ["project_id"], name: "index_donate_records_on_project_id"
+    t.index ["project_season_apply_child_id"], name: "index_donate_records_on_apply_child_id"
+    t.index ["project_season_apply_id"], name: "index_donate_records_on_apply_id"
     t.index ["source_type", "source_id"], name: "index_donate_records_on_source_type_and_source_id"
   end
 
@@ -350,7 +361,12 @@ ActiveRecord::Schema.define(version: 20180419100535) do
     t.jsonb "details", comment: "捐助详情"
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "捐助金额"
     t.integer "agent_id", comment: "代理人id"
+    t.index ["donor_id"], name: "index_donations_on_donor_id"
     t.index ["owner_type", "owner_id"], name: "index_donations_on_owner_type_and_owner_id"
+    t.index ["pay_state"], name: "index_donations_on_pay_state"
+    t.index ["project_id"], name: "index_donations_on_project_id"
+    t.index ["project_season_apply_id"], name: "index_donations_on_project_season_apply_id"
+    t.index ["team_id"], name: "index_donations_on_team_id"
   end
 
   create_table "expenditure_records", force: :cascade, comment: "支出记录表" do |t|
@@ -477,8 +493,12 @@ ActiveRecord::Schema.define(version: 20180419100535) do
     t.integer "user_id", comment: "捐助人"
     t.integer "grant_batch_id", comment: "发放批次"
     t.integer "project_season_apply_child_id", comment: "一对一助学孩子id"
+    t.index ["donate_state"], name: "index_gsh_child_grants_on_donate_state"
+    t.index ["grant_batch_id"], name: "index_gsh_child_grants_on_grant_batch_id"
     t.index ["gsh_child_id"], name: "index_gsh_child_grants_on_gsh_child_id"
+    t.index ["project_season_apply_child_id"], name: "index_gsh_child_grants_on_apply_child_id"
     t.index ["project_season_apply_id"], name: "index_gsh_child_grants_on_project_season_apply_id"
+    t.index ["state"], name: "index_gsh_child_grants_on_state"
   end
 
   create_table "gsh_children", force: :cascade, comment: "格桑花孩子表" do |t|
@@ -518,6 +538,11 @@ ActiveRecord::Schema.define(version: 20180419100535) do
     t.integer "team_id", comment: "团队id"
     t.integer "voucher_id", comment: "捐赠收据ID"
     t.string "certificate_no", comment: "捐赠证书编号"
+    t.index ["agent_id"], name: "index_income_records_on_agent_id"
+    t.index ["donation_id"], name: "index_income_records_on_donation_id"
+    t.index ["donor_id"], name: "index_income_records_on_donor_id"
+    t.index ["team_id"], name: "index_income_records_on_team_id"
+    t.index ["voucher_state"], name: "index_income_records_on_voucher_state"
   end
 
   create_table "income_sources", force: :cascade, comment: "收入来源" do |t|
@@ -640,6 +665,14 @@ ActiveRecord::Schema.define(version: 20180419100535) do
     t.string "camp_principal", comment: "探索营-营负责人"
     t.string "camp_income_source", comment: "探索营-经费来源"
     t.integer "inventory_state", comment: "是否使用物资清单"
+    t.index ["audit_state"], name: "index_project_season_applies_on_audit_state"
+    t.index ["camp_state"], name: "index_project_season_applies_on_camp_state"
+    t.index ["execute_state"], name: "index_project_season_applies_on_execute_state"
+    t.index ["pair_state"], name: "index_project_season_applies_on_pair_state"
+    t.index ["project_id"], name: "index_project_season_applies_on_project_id"
+    t.index ["read_state"], name: "index_project_season_applies_on_read_state"
+    t.index ["school_id"], name: "index_project_season_applies_on_school_id"
+    t.index ["teacher_id"], name: "index_project_season_applies_on_teacher_id"
   end
 
   create_table "project_season_apply_bookshelves", force: :cascade, comment: "项目执行年度申请书架表" do |t|
@@ -666,6 +699,9 @@ ActiveRecord::Schema.define(version: 20180419100535) do
     t.string "contact_name", comment: "联系人"
     t.string "contact_phone", comment: "联系电话"
     t.string "address", comment: "详细地址"
+    t.index ["audit_state"], name: "index_project_season_apply_bookshelves_on_audit_state"
+    t.index ["project_season_apply_id"], name: "index_bookshelves_on_apply_id"
+    t.index ["state"], name: "index_project_season_apply_bookshelves_on_state"
   end
 
   create_table "project_season_apply_camp_members", force: :cascade do |t|
@@ -694,45 +730,6 @@ ActiveRecord::Schema.define(version: 20180419100535) do
     t.string "classname", comment: "年级"
   end
 
-  create_table "project_season_apply_camp_students", force: :cascade, comment: "探索营学生" do |t|
-    t.string "name", comment: "姓名"
-    t.string "id_card", comment: "身份证号"
-    t.integer "nation", comment: "民族"
-    t.integer "gender", comment: "性别"
-    t.integer "school_id", comment: "学校id"
-    t.integer "project_season_apply_camp_id", comment: "探索营配额id"
-    t.integer "camp_id", comment: "探索营id"
-    t.integer "project_season_apply_id", comment: "营立项id"
-    t.integer "grade", comment: "年级"
-    t.integer "level", comment: "初高中"
-    t.string "teacher_name", comment: "老师姓名"
-    t.string "teacher_phone", comment: "老师联系方式"
-    t.string "guardian_name", comment: "监护人姓名"
-    t.string "guardian_phone", comment: "监护人联系方式"
-    t.text "description", comment: "自我介绍"
-    t.string "reason", comment: "推荐理由"
-    t.integer "state", comment: "状态"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "age", comment: "年龄"
-  end
-
-  create_table "project_season_apply_camp_teachers", force: :cascade, comment: "探索营老师名单" do |t|
-    t.string "name", comment: "姓名"
-    t.string "id_card", comment: "身份证号"
-    t.integer "nation", comment: "民族"
-    t.integer "gender", comment: "性别"
-    t.string "phone", comment: "联系方式"
-    t.integer "state", comment: "状态"
-    t.integer "school_id", comment: "学校id"
-    t.integer "project_season_apply_camp_id", comment: "探索营配额id"
-    t.integer "camp_id", comment: "探索营id"
-    t.integer "project_season_apply_id", comment: "营立项id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "age", comment: "年龄"
-  end
-
   create_table "project_season_apply_camps", force: :cascade, comment: "探索营配额" do |t|
     t.integer "project_season_apply_id", comment: "营立项id"
     t.integer "camp_id", comment: "探索营id"
@@ -748,6 +745,8 @@ ActiveRecord::Schema.define(version: 20180419100535) do
     t.integer "execute_state"
     t.string "contact_name"
     t.string "contact_phone"
+    t.index ["execute_state"], name: "index_project_season_apply_camps_on_execute_state"
+    t.index ["project_season_apply_id"], name: "index_apply_camps_on_apply_id"
   end
 
   create_table "project_season_apply_children", force: :cascade, comment: "项目执行年度申请的孩子表" do |t|
@@ -1032,6 +1031,9 @@ ActiveRecord::Schema.define(version: 20180419100535) do
     t.integer "kind", comment: "类型"
     t.text "reason", comment: "申请理由"
     t.integer "state"
+    t.index ["state"], name: "index_task_volunteers_on_state"
+    t.index ["task_id"], name: "index_task_volunteers_on_task_id"
+    t.index ["volunteer_id"], name: "index_task_volunteers_on_volunteer_id"
   end
 
   create_table "tasks", force: :cascade, comment: "任务表" do |t|

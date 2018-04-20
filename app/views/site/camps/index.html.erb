@@ -4,7 +4,7 @@
     <%= image_tag @project.image.try(:file).try(:url, :tiny).to_s %>
     <div class="project-cont">
       <p class="project-cont-tit"><%= @project.name %></p>
-      <div class="project-cont-con "><%= @project.describe %></div>
+      <div class="project-cont-con "><%= @project.describe.html_safe %></div>
       <%= link_to camp_path(@project) do %>
           <button class="project-cont-but cur">
             <span>查看项目介绍</span>
