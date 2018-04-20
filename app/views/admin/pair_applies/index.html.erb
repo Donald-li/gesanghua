@@ -75,7 +75,7 @@
                   <%= apply.school.try(:name) %>
                 </td>
                 <td>
-                  <%= apply.school.enum_name(:level) %>
+                  <%= apply.school.try(:enum_name, :level) %>
                 </td>
                 <td>
                   <%= apply.number %>

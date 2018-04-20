@@ -15,7 +15,7 @@
   <!--</div>-->
   <!--</div>-->
   <!--</div>-->
-  <!--团队成员-->
+  <!--捐助记录-->
   <div class="teams-staff">
     <div class="teams-s clearfix">
       <div class="teams-s-img pull-left">
@@ -28,8 +28,8 @@
           <span class="pull-right teams-s-cont-operate cur">管理</span>
           <ul class="project-nav-heide">
             <!--<li class="cur"><%#= link_to '退出团队' %></li>-->
-            <li class="cur"><%= link_to '修改信息' %></li>
-            <li class="cur"><%= link_to '移交团队' %></li>
+            <li class="cur"><%= link_to '修改信息', new_account_team_path %></li>
+            <li class="cur"><%= link_to '移交团队', account_team_transfers_path(current_user.team) %></li>
             <li class="cur" id="dissolve"><a>解散团队</a></li>
           </ul>
         </div>

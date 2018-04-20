@@ -49,6 +49,7 @@ class Api::V1::CooperationMoviesController < Api::V1::BaseController
       @apply.contact_name = params[:movie_apply][:contact_name]
       @apply.contact_phone = params[:movie_apply][:contact_phone]
       @apply.form = params[:dynamic_form]
+      @apply.applicant_id = params[:applicant]
       @apply.school_id = @school.id
       if @apply.save
         @apply.attach_images(params[:images])

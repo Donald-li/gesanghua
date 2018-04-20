@@ -52,6 +52,7 @@ class Api::V1::CooperationGoodsController < Api::V1::BaseController
       @apply.address = params[:apply][:address]
       @apply.form = params[:dynamic_form]
       @apply.school_id = @school.id
+      @apply.applicant_id = params[:applicant]
       if @apply.save
         @apply.attach_images(params[:images])
         api_success(data: {result: true, project_id: @project.id})

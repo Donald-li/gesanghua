@@ -45,6 +45,7 @@
 #  camp_principal     :string                                 # 探索营-营负责人
 #  camp_income_source :string                                 # 探索营-经费来源
 #  inventory_state    :integer                                # 是否使用物资清单
+#  applicant_id       :integer                                # 申请人id
 #
 
 # 所有项目年度申请表
@@ -60,6 +61,7 @@ class ProjectSeasonApply < ApplicationRecord
   belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id', optional: true
   belongs_to :school, optional: true
   belongs_to :teacher, optional: true
+  belongs_to :applicant, class_name: 'User', foreign_key: 'applicant_id', optional: true # 申请人
   has_many :audits, as: :owner
   has_many :children, class_name: "ProjectSeasonApplyChild"
   has_many :gsh_child_grants

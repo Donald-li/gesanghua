@@ -1,5 +1,5 @@
 <% specials.each do |special| %>
-  <div class="clearfix speciais-t">
+  <div class="clearfix speciais-t border-t">
     <%= link_to special_path(special) do %>
       <div class="speciais-con-img pull-left">
         <%= image_tag special.banner.try(:file).try(:url, :medium).to_s %>
@@ -17,3 +17,6 @@
   <%= link_to specials_path(page: specials.current_page+1), remote: true do %><button>加载更多</button><% end %>
 </div>
 <% end %>
+<script>
+  $('.speciais-t').eq(0).removeClass('border-t')
+</script>
