@@ -19,10 +19,10 @@ class Admin::CampDonateRecordsController < Admin::BaseController
 
   def create
     respond_to do |format|
-      if DonateRecord.platform_donate_apply(params, @apply)
+      if DonateRecord.platform_donate(@apply, params[:amount], params.permit!.merge(current_user: current_user))
         format.html {redirect_to admin_camp_project_camp_donate_records_path(@apply), notice: '新增成功。'}
       else
-        flash[:notice] = '检查余额或表单'
+        flash[:notice] = '配捐失败，检查余额或表单'
         format.html {render :new}
       end
     end

@@ -103,6 +103,14 @@
                   <%= link_to admin_read_project_bookshelf_donate_records_path(@project, bookshelf_id: bookshelf.id), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                     <i class="fa fa-list"></i> 筹款管理
                   <% end %>
+
+                  <% if bookshelf.raising? %>
+                    <%= link_to new_admin_read_project_bookshelf_donate_record_path(@project, bookshelf_id: bookshelf.id), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+                    <i class="icon-plus"></i>
+                    <span>配捐</span>
+                    <% end %>
+                  <% end %>
+
                   <% if bookshelf.to_delivery? %>
                     <%= link_to shipment_admin_read_project_bookshelf_path(@project, bookshelf), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                       <i class="fa fa-truck"></i> 发货
