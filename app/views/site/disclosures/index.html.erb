@@ -1,0 +1,37 @@
+<div class="disclosures">
+  <p class="disclosures-tit">财务公开</p>
+  <div class="donations-1 ">
+    <ul class="donations1 clearfix">
+      <li class="cur selectedDo ">财务报告
+        <div class="bottomline"></div>
+      </li>
+      <li class="cur">
+        <%= link_to '审计报告', audit_reports_path %>
+        <div class=""></div>
+      </li>
+    </ul>
+  </div>
+  <p class="disclosures-t">财务公开系统仅为流水账，其统计功能尚不健全，如有偏差以原始凭证为准</p>
+  <div>
+    <ul class="disclosures-cont">
+      <li class="disclosures-c border-t">
+        <p class="disclosures-l">2016年格桑花财务年报表</p>
+        <p class="disclosures-n">菠菜 |  2018年02月22日</p>
+      </li>
+      <li class="disclosures-c border-t">
+        <p class="disclosures-l">2016年格桑花财务年报表</p>
+        <p class="disclosures-n">菠菜 |  2018年02月22日</p>
+      </li>
+      <li class="disclosures-c border-t">
+        <p class="disclosures-l">2016年格桑花财务年报表</p>
+        <p class="disclosures-n">菠菜 |  2018年02月22日</p>
+      </li>
+    </ul>
+    <div class="speciais-cont-but border-t">
+      <button>加载更多</button>
+    </div>
+  </div>
+</div>
+<script>
+  $('.disclosures-cont li').eq(0).removeClass('border-t')
+</script>
