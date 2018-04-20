@@ -62,6 +62,7 @@ class Api::V1::CooperationReadsController < Api::V1::BaseController
       @apply.address = params[:read_apply][:address]
       @apply.form = params[:dynamic_form]
       @apply.school_id = @school.id
+      @apply.applicant_id = params[:applicant]
       if @apply.save
         ProjectSeasonApplyBookshelf.where(id: params[:class_ids]).update(apply: @apply, season: season)
         @apply.attach_images(params[:images])

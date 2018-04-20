@@ -17,6 +17,7 @@ class Api::V1::ReadSupplementsController < Api::V1::BaseController
     @apply.project_season_id = params[:submit_form][:season][0] if params[:submit_form][:season].present?
     @apply.project = @project
     @apply.describe = params[:submit_form][:describe]
+    @apply.applicant_id = params[:applicant]
     if @apply.save
       @apply.attach_images(params[:images])
       @apply.supplement_ids = params[:class_list]
