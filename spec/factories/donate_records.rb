@@ -24,6 +24,7 @@
 #  donation_id                   :integer                                # 捐助id
 #  kind                          :integer                                # 捐助方式 1:捐款 2:配捐
 #  project_season_apply_child_id :integer                                # 一对一孩子
+#  state                         :integer                                # 状态
 #
 
 FactoryBot.define do
@@ -32,5 +33,6 @@ FactoryBot.define do
     source {create(:user)}
     owner {create(:donate_item)}
     donor {Faker::Name.name}
+    state 1
   end
 end
