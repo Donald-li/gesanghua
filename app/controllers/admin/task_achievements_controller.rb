@@ -21,6 +21,7 @@ class Admin::TaskAchievementsController < Admin::BaseController
     @task_achievement.comment = params[:comment]
     @task_achievement.finish_time = Time.now
     @task_achievement.state = 'done'
+    @task_achievement.user = current_user
     respond_to do |format|
       if @task_achievement.save
         format.html { redirect_to admin_task_achievements_path, notice: '审核成功。' }
