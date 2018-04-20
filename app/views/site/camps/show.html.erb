@@ -41,7 +41,7 @@
     <!--申请详情-->
     <div class="details-left pull-left contentab" style="display: block;">
       <!-- <p class="detail-l-title">护花申请详情</p> -->
-      <p class="detail-l-fon"><%= @project.describe %></p>
+      <p class="detail-l-fon"><%= @project.describe.html_safe %></p>
       <!-- <%= image_tag 'detail-reduce.png' %> -->
     </div>
     <!--报告-->
@@ -82,9 +82,19 @@
 
     <div class="pull-right detail-body-right">
       <p class="detail-b-r-t border-b"><span>捐助记录</span></p>
-      <ul class="detail-b-r-name" id="donate-records">
-        <%= render '/site/donate_records/list', owner: @project, records: @donate_records %>
-      </ul>
+      <% if @donate_records.present? %>
+        <ul class="detail-b-r-name" id="donate-records">
+          <%= render '/site/donate_records/list', owner: @project, records: @donate_records %>
+        </ul>
+      <% else %>
+        <div class="not-available ">
+          <div class="donation-cont-no">
+            <div class="donation-co-no-c">
+              <p>暂无捐助记录</p>
+            </div>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
