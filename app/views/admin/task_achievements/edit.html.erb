@@ -21,7 +21,7 @@
         <%= static_form_control '成果描述：', @task_achievement.achievement_comment %>
         <% if @task_achievement.images.present? %>
         <div class="form-group">
-          <div class="input-group" style="margin-left: 14%">
+          <div class="input-group" style="margin-left: 19%">
             <p class="form-control-static">
               <% @task_achievement.images.each do |image| %>
                   <%= image_tag image.try(:file).try(:url, :small) %>

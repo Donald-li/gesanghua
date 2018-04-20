@@ -84,7 +84,7 @@
           <% @grants.each do |grant| %>
               <tr>
                 <td>
-                  <%= grant.gsh_child.try(:gsh_no) %>
+                  <%= grant.grant_no %>
                 </td>
                 <td>
                   <%= grant.try(:apply).try(:season).try(:name) %>

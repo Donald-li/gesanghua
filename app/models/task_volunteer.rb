@@ -45,7 +45,11 @@ class TaskVolunteer < ApplicationRecord
   counter_culture :volunteer, column_name: proc {|model| model.done? ? 'duration' : nil }, delta_magnitude: proc {|model| model.duration}
 
   def can_turn_over?
-    self.pass? && self.doing?
+    self.pass?
+  end
+
+  def can_approve?
+    self.submit? || self.pass? || self.reject?
   end
 
   def summary_builder

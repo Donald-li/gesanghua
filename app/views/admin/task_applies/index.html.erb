@@ -81,7 +81,7 @@
                   <%= apply.enum_name(:state) %>
                 </td>
                 <td>
-                  <% if apply.submit? %>
+                  <% if apply.can_approve? %>
                   <%= link_to edit_admin_task_task_apply_path(@task, apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-gavel"></i> 报名审核
                   <% end %>
