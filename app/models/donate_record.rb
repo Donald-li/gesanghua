@@ -73,8 +73,27 @@ class DonateRecord < ApplicationRecord
     self.donor || self.user.user_name
   end
 
+  # 平台配捐
+  # grant_number, donate_way(income_record, fund, user_balance), offline_record_id, fund_id, user_id
+  def self.platform_donate(owner, amount, params)
+    source = nil
+    case params[:donate_way]
+    when 'income_record'
+      source = IncomeRecord.offline.find(params[:offline_record_id])
+    when 'fund'
+      source = Fund.find(params[:fund_id])
+    when 'user_balance'
+      source = User.find(params[:user_id])
+    end
+
+    donor = source.is_a?(User) ? source : params[:current_user]
+    agent = donor
+
+    self.do_donate(:platform_donate, source, owner, amount, donor: donor, agent: agent)
+  end
+
   # 处理捐款
-  # kind: 用户捐款、平台配捐；source：资金来源； owner：捐助对象；amount：捐助金额
+  # kind: 用户捐款、平台配捐；source：资金来源； owner：捐助对象；amount：捐助金额, ** agent, donor
   def self.do_donate(kind, source, owner, amount, **params)
     result = false
     income_record_id = source.instance_of?(IncomeRecord) ? source.id : nil

@@ -4,10 +4,6 @@
       <i class="icon-list"></i><%= link_to @apply.name, admin_read_projects_path %> > <%= link_to @bookshelf.classname, admin_read_project_bookshelves_path(@apply) %> > 捐助记录
     </div>
     <div class="actions">
-      <%= link_to new_admin_read_project_bookshelf_donate_record_path(@apply, bookshelf_id: @bookshelf.id), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
-        <i class="icon-plus"></i>
-        <span>平台配捐</span>
-      <% end %>
     </div>
   </div>
   <div class="portlet-body">
@@ -92,7 +88,7 @@
                 <% if record.user_donate? %>
                   <%= record.try(:income_record).try(:id) ? '在线支付' : '用户余额' %>
                 <% elsif record.platform_donate? %>
-                  <% if record.user.present? %>
+                  <% if record.source_type == 'User' %>
                     用户余额捐助
                   <% elsif record.income_record.present? %>
                   <% else %>
@@ -110,7 +106,7 @@
                 <%= link_to admin_read_project_bookshelf_donate_record_path(read_project_id: @apply.id, bookshelf_id: @bookshelf.id, id: record.id), class: 'btn btn-xs blue' do %>
                   <i class="fa fa-file"></i> 查看详情
                 <% end %>
-                <% if record.platform_donate? %>
+                <% if false # record.platform_donate? %>
                 <%= link_to admin_read_project_bookshelf_donate_record_path(read_project_id: @apply.id, bookshelf_id: @bookshelf.id, id: record.id), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                   <i class="fa fa-trash-o"></i> 删除
                 <% end %>

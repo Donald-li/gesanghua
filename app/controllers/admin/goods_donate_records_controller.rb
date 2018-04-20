@@ -19,7 +19,7 @@ class Admin::GoodsDonateRecordsController < Admin::GoodsBaseController
 
   def create
     respond_to do |format|
-      if DonateRecord.platform_donate_apply(params, @apply)
+      if DonateRecord.platform_donate(@apply, params[:amount], params.permit!.merge(current_user: current_user))
         format.html {redirect_to admin_goods_project_goods_donate_records_path(@apply), notice: '新增成功。'}
       else
         flash[:notice] = '检查余额或表单'

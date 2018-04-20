@@ -6,7 +6,7 @@
     <div class="actions">
       <%= link_to new_admin_camp_project_camp_donate_record_path(@apply), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
         <i class="icon-plus"></i>
-        <span>新增筹款</span>
+        <span>配捐</span>
       <% end %>
     </div>
   </div>
@@ -36,7 +36,7 @@
           <thead>
             <tr>
               <th>
-                收入单号
+                ID
               </th>
               <th>
                 受捐项目
@@ -68,7 +68,7 @@
                 <%= record.id %>
               </td>
               <td>
-                <%= record.season.name %>
+                <%= record.apply.name %>
               </td>
               <td>
                 <%= record.donor.try(:name) %> ( <%= record.donor.try(:phone) %> )
@@ -89,7 +89,7 @@
                 <%= link_to admin_camp_project_camp_donate_record_path(@apply, record), class: 'btn btn-xs blue' do %>
                   <i class="fa fa-file"></i> 查看详情
                 <% end %>
-                <% if record.custom? %>
+                <% if false #record.custom? %>
                 <%= link_to admin_camp_project_camp_donate_record_path(@apply, record), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                   <i class="fa fa-trash-o"></i> 删除
                 <% end %>

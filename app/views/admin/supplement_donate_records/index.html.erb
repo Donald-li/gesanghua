@@ -6,7 +6,7 @@
     <div class="actions">
       <%= link_to new_admin_read_project_supplement_donate_record_path(@apply, supplement_id: @supplement), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
         <i class="icon-plus"></i>
-        <span>平台配捐</span>
+        <span>配捐</span>
       <% end %>
     </div>
   </div>
@@ -90,7 +90,7 @@
               <td>
                 <!-- <%= l record.created_at %> -->
                 <% if record.system? %>
-                  收入单号<%= record.try(:income_record).try(:id) %>
+                  <%= record.try(:income_record).try(:id) %>
                 <% elsif record.platform? %>
                   <% if record.user.present? %>
                     用户余额捐助
