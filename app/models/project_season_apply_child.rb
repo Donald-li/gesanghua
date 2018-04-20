@@ -159,7 +159,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
     if self.name.length < 2
       self.name
     else
-      self.name.gsub(self.name[1,1], '*')
+      self.name.sub(self.name[1,1], '*')
     end
   end
 
