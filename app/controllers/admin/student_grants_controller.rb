@@ -33,10 +33,10 @@ class Admin::StudentGrantsController < Admin::BaseController
 
   def match_donate
     respond_to do |format|
-      if DonateRecord.platform_donate_child(params, @child_apply)
+      if DonateRecord.platform_donate(@child_apply, params[:amount], params.permit!.merge(current_user: current_user))
         format.html {redirect_to admin_pair_student_list_student_grants_path(@child_apply), notice: '配捐成功。'}
       else
-        flash[:notice] = '检查余额或表单'
+        flash[:notice] = '配捐失败，请检查余额或表单'
         format.html {render :match}
       end
     end

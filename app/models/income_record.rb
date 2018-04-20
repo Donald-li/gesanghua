@@ -132,7 +132,7 @@ class IncomeRecord < ApplicationRecord
   # 入账记录的描述
   def title
     if self.offline?
-      '线下捐款'
+      self.attributes['title']
     else
       self.donation.try(:title)
     end

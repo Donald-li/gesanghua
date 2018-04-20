@@ -27,10 +27,11 @@ class Admin::IncomeRecordsController < Admin::BaseController
 
   def create
     @income_record = IncomeRecord.new(income_record_params)
-    user = User.find(income_record_params[:user_id])
-    @income_record.donor = user.name
-    @income_record.remitter_name = user.name
-    @income_record.remitter_id = user.id
+    user = User.find(income_record_params[:agent_id])
+    @income_record.donor = user
+    @income_record.kind = :offline
+    # @income_record.remitter_name = user.name
+    # @income_record.remitter_id = user.id
     @income_record.balance = income_record_params[:amount]
     respond_to do |format|
       if @income_record.save
