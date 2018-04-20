@@ -4,7 +4,7 @@
 #
 #  id                      :integer          not null, primary key
 #  push_type               :integer                                # bit_enum，邮件、短信、微信
-#  kind                    :string                                 # 类型
+#  kind                    :string                                 # 类型，通知类型
 #  from_user_id            :integer                                # 发起用户
 #  user_id                 :integer                                # 通知用户
 #  project_id              :integer                                # 项目

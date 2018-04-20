@@ -53,12 +53,12 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.after_initialize do
-    Bullet.enable = true
+    Bullet.enable = ENV['PUNDIT_SLACK'].present?
     Bullet.console = true
     Bullet.rails_logger = true
     Bullet.add_footer = true
     # Bullet.stacktrace_includes = [ 'your_gem', 'your_middleware' ]
     # Bullet.stacktrace_excludes = [ 'their_gem', 'their_middleware' ]
-    Bullet.slack = ENV['PUNDIT_SLACK'] ? { webhook_url: 'https://hooks.slack.com/services/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', channel: '#pundit', username: 'pundit' } : {webhook_url: ''}
+    Bullet.slack = ENV['PUNDIT_SLACK'] ? { webhook_url: 'https://hooks.slack.com/services/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', channel: '#pundit', username: 'pundit' } : { webhook_url: ''}
   end
 end

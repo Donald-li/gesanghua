@@ -86,8 +86,9 @@ class User < ApplicationRecord
 
   belongs_to :manager, class_name: "User", optional: true
 
-  validates :password, confirmation: true, length: { minimum: 6 }, allow_blank: true
-  default_value_for :password, '111111'
+  validates :password, confirmation: true, allow_blank: true
+  validates :password, length: { minimum: 6 }, allow_blank: true
+  # default_value_for :password, '111111'
   validates :email, email: true
   validates :phone, mobile: true, uniqueness: { allow_blank: true }
   validates :name, :login, presence: true
@@ -376,13 +377,6 @@ class User < ApplicationRecord
     county_user.user = self
     county_user.save
     self.save
-  end
-
-  private
-
-  # 创建线下用户
-  def self.create_offline_user(name, phone, gender, salutation, email, province, city, district, address, nickname, use_nickname)
-    User.create(login: phone, name: name, phone: phone, gender: gender, salutation: salutation, email: email, province: province, city: city, district: district, address: address, nickname: nickname, use_nickname: use_nickname)
   end
 
 end

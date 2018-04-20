@@ -32,6 +32,7 @@ class Admin::AdministratorsController < Admin::BaseController
         if @user.save
           format.html {redirect_to admin_administrators_url, notice: '管理员已增加。'}
         else
+          flash[:alert] = @user.errors.full_messages.join(',')
           format.html {render :new}
         end
       end
