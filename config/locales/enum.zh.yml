@@ -324,8 +324,8 @@ zh:
     paid: '已支付'
     refund: '已退款'
   donate_record_kinds:
-    system: '线上捐款'
-    platform: '配捐'
+    user_donate: '线上捐款'
+    platform_donate: '配捐'
   donate_record_voucher_states:
     to_bill: '待开票'
     billed: '已开票'

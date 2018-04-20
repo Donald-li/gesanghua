@@ -91,17 +91,6 @@ class DonateRecord < ApplicationRecord
       end
       donate_records = []
 
-      #
-      # # 如果是捐到捐助项
-      # if owner.is_a?(DonateItem)
-      #   donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, income_record_id: income_record_id, donation_id: donation_id, agent: params[:agent], donor: params[:donor])
-      #   owner.accept_donate(donate_records)
-      #
-      # # 活动报名
-      # elsif owner.is_a?(CampaignEnlist)
-      #   donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, income_record_id: income_record_id, donation_id: donation_id, agent: params[:agent], donor: params[:donor])
-      #   owner.accept_donate(donate_records)
-
       # 如果捐到申请子项 （书架，孩子，指定）和具体的捐助项
       if owner.class.name.in?(['DonateItem', 'CampaignEnlist', 'GshChildGrant', 'ProjectSeasonApplyBookshelf'])
         donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, income_record_id: income_record_id, donation_id: donation_id, agent: params[:agent], donor: params[:donor])
@@ -172,6 +161,10 @@ class DonateRecord < ApplicationRecord
     else
       return 0
     end
+  end
+
+  def can_refund?
+    false
   end
 
   def summary_builder
