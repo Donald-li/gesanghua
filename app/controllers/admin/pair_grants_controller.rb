@@ -79,6 +79,10 @@ class Admin::PairGrantsController < Admin::BaseController
   def create_feedback
     @grant = GshChildGrant.find(params[:feedback][:grant_id])
     @feedback = @grant.build_feedback(content: params[:feedback][:content], state: params[:feedback][:state])
+    @feedback.user = current_user
+    @feedback.project = Project.pair_project
+    @feedback.project_season_apply_id = @grant.project_season_apply_id
+    @feedback.project_season_apply_child_id = @grant.project_season_apply_child_id
     respond_to do |format|
       if @feedback.save
         @feedback.grant!
