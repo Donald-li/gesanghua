@@ -52,9 +52,8 @@ class Admin::ExpenditureRecordsController < Admin::BaseController
   end
 
   def template_download
-    time = DateTime.now.strftime("%Y-%m-%d-%s")
-    ExcelOutput.generate_expenditure_template(time)
-    send_file(File.join(Rails.root, "public/files/templates/支出导入模板" + time + ".xlsx"), filename: "支出导入模板.xlsx")
+    path = ExcelOutput.generate_expenditure_template
+    send_file(path, filename: "支出导入模板.xlsx")
   end
 
   def excel_import

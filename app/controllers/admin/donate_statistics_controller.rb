@@ -8,10 +8,8 @@ class Admin::DonateStatisticsController < Admin::BaseController
   end
 
   def excel_output
-    ExcelOutput.donate_statistics_output
-    file_path = Rails.root.join("public/files/用户捐助统计" + DateTime.now.strftime("%Y-%m-%d-%s") + ".xlsx")
-    file_name = "用户捐助统计.xlsx"
-    send_file(file_path, filename: file_name)
+    path = ExcelOutput.donate_statistics_output
+    send_file(path, filename: "用户捐助统计.xlsx")
   end
 
 end

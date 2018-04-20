@@ -4,7 +4,7 @@ class Admin::TaskAchievementsController < Admin::BaseController
 
   def index
     @search = TaskVolunteer.sorted.where(state: [:pass, :to_check, :done, :cancel, :turn_over]).ransack(params[:q])
-    scope = @search.result.joins(:task)
+    scope = @search.result.includes(:volunteer, :task)
     scope = scope.where(task_id: params[:task_id]) if params[:task_id].present?
     @task_volunteers = scope.page(params[:page])
   end
@@ -21,6 +21,7 @@ class Admin::TaskAchievementsController < Admin::BaseController
     @task_achievement.comment = params[:comment]
     @task_achievement.finish_time = Time.now
     @task_achievement.state = 'done'
+    @task_achievement.user = current_user
     respond_to do |format|
       if @task_achievement.save
         format.html { redirect_to admin_task_achievements_path, notice: '审核成功。' }

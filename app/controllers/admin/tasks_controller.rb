@@ -4,7 +4,7 @@ class Admin::TasksController < Admin::BaseController
 
   def index
     @search = Task.sorted.normal.ransack(params[:q])
-    scope = @search.result
+    scope = @search.result.includes(:workplace)
     @tasks = scope.page(params[:page])
   end
 

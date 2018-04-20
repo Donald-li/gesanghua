@@ -16,14 +16,12 @@ class Admin::SchoolsController < Admin::BaseController
   end
 
   def excel_output
-    ExcelOutput.school_output
-    file_path = Rails.root.join("public/files/学校" + DateTime.now.strftime("%Y-%m-%d-%s") + ".xlsx")
-    file_name = "学校信息.xlsx"
-    send_file(file_path, filename: file_name)
+    path = ExcelOutput.school_output
+    send_file(path, filename: "学校信息.xlsx")
   end
 
   def new
-    @school=School.new
+    @school = School.new
   end
 
   def create

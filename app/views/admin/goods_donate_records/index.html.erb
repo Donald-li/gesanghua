@@ -4,10 +4,12 @@
       <i class="icon-list"></i><%= link_to @apply.name, admin_goods_projects_path %> > 捐助记录
     </div>
     <div class="actions">
-      <!-- <%= link_to new_admin_goods_project_goods_donate_record_path(@apply), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+      <% if @apply.raising? %>
+      <%= link_to new_admin_goods_project_goods_donate_record_path(@apply), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
         <i class="icon-plus"></i>
         <span>新增筹款</span>
-      <% end %> -->
+      <% end %>
+      <% end %>
     </div>
   </div>
   <div class="portlet-body">
@@ -32,7 +34,7 @@
           <thead>
             <tr>
               <th>
-                收入单号
+                ID
               </th>
               <th>
                 受捐项目
@@ -67,10 +69,10 @@
                 <%= record.season.name %>
               </td>
               <td>
-                <%= record.user.try(:name) %> ( <%= record.user.try(:phone) %> )
+                <%= record.donor.try(:show_name) %> ( <%= record.donor.try(:phone) %> )
               </td>
               <td>
-                <%= record.donor %> / <%= record.remitter_name %>
+                <%= record.agent.try(:show_name)%>
               </td>
               <td>
                 <%= l record.created_at %>
@@ -85,7 +87,7 @@
                 <%= link_to admin_goods_project_goods_donate_record_path(@apply, record), class: 'btn btn-xs yellow' do %>
                   <i class="fa fa-file"></i> 查看详情
                 <% end %>
-                <% if record.custom? %>
+                <% if false #record.platform_donate? %>
                 <%= link_to admin_goods_project_goods_donate_record_path(@apply, record), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                   <i class="fa fa-trash-o"></i> 删除
                 <% end %>

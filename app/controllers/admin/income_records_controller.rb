@@ -27,10 +27,11 @@ class Admin::IncomeRecordsController < Admin::BaseController
 
   def create
     @income_record = IncomeRecord.new(income_record_params)
-    user = User.find(income_record_params[:user_id])
-    @income_record.donor = user.name
-    @income_record.remitter_name = user.name
-    @income_record.remitter_id = user.id
+    user = User.find(income_record_params[:agent_id])
+    @income_record.donor = user
+    @income_record.kind = :offline
+    # @income_record.remitter_name = user.name
+    # @income_record.remitter_id = user.id
     @income_record.balance = income_record_params[:amount]
     respond_to do |format|
       if @income_record.save
@@ -62,9 +63,8 @@ class Admin::IncomeRecordsController < Admin::BaseController
   end
 
   def template_download
-    time = DateTime.now.strftime("%Y-%m-%d-%s")
-    ExcelOutput.generate_income_template(time)
-    send_file(File.join(Rails.root, "public/files/templates/收入导入模板" + time + ".xlsx"), filename: "收入导入模板.xlsx")
+    path = ExcelOutput.generate_income_template
+    send_file(path, filename: "收入导入模板.xlsx")
   end
 
   def excel_import

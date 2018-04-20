@@ -5,7 +5,7 @@ class Admin::VolunteersController < Admin::BaseController
 
   def index
     @search = Volunteer.pass.sorted.ransack(params[:q])
-    scope = @search.result.joins(:user)
+    scope = @search.result.includes(:user)
     @volunteers = scope.page(params[:page])
   end
 

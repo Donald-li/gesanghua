@@ -3,9 +3,9 @@ class Admin::PairAppliesController < Admin::BaseController
   before_action :set_project_apply, only: [:show, :edit, :update, :destroy]
 
   def index
-    @search = ProjectSeasonApply.where(project_id: 1).sorted.ransack(params[:q])
-    scope = @search.result.joins(:school)
-    @project_applies = scope.page(params[:page])
+    @search = ProjectSeasonApply.where(project: Project.pair_project).sorted.ransack(params[:q])
+    scope = @search.result
+    @project_applies = scope.includes(:school, :season).page(params[:page])
   end
 
   def show

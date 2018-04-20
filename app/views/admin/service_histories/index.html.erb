@@ -76,7 +76,7 @@
                   结束时间：<br><%= l history.task.end_time if history.try(:task).try(:end_time).present? %>
                 </td>
                 <td>
-                  <%= history.task.try(:simple_address) %>
+                  <%= history.task.try(:workplace).try(:title) %>
                 </td>
                 <td>
                   <%= l history.finish_time if history.finish_time.present? %>

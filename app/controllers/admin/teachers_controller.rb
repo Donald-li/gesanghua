@@ -3,7 +3,7 @@ class Admin::TeachersController < Admin::BaseController
   before_action :set_teacher, only: [:show, :destroy, :edit, :update, :destroy]
 
   def index
-    @search = Teacher.sorted.ransack(params[:q])
+    @search = Teacher.sorted.includes(:school, :teacher_projects).ransack(params[:q])
     scope = @search.result
     @teachers = scope.page(params[:page])
   end

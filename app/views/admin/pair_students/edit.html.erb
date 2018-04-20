@@ -62,8 +62,8 @@
                     <%= f.input :family_income, label: '家庭年收入：', autofocus: true, placeholder: '家庭年收入', required: true %>
                     <%= f.input :family_expenditure, label: '家庭年支出：', autofocus: true, placeholder: '家庭年支出', required: true %>
                     <%= f.input :income_source, label: '收入来源：', autofocus: true, placeholder: '收入来源', required: true %>
-                    <%= f.input :family_condition, label: '家庭情况：', autofocus: true, placeholder: '家庭情况', required: true %>
-                    <%= f.input :brothers, label: '兄弟姐妹：', autofocus: true, placeholder: '兄弟姐妹', required: true %>
+                    <%= f.input :family_condition, as: :text, label: '家庭情况：', autofocus: true, placeholder: '家庭情况', required: true %>
+                    <%= f.input :brothers, as: :text, label: '兄弟姐妹：', autofocus: true, placeholder: '兄弟姐妹', required: true %>
                     <h3>推荐理由</h3>
                     <%= f.input :reason, label: '推荐理由：', placeholder: '推荐理由', input_html: { maxlength: 20 } %>
                     <!--<div class="form-group">-->

@@ -15,7 +15,10 @@ class ExcelOutput
                        school.contact_phone]
       end
     end
-    p.serialize "public/files/学校" + DateTime.now.strftime("%Y-%m-%d-%s") + ".xlsx"
+    FileUtils.mkdir_p(Rails.root.join("public/files"))
+    path = Rails.root.join("public/files/学校" + DateTime.now.strftime("%Y-%m-%d-%s") + ".xlsx")
+    p.serialize path
+    return path
   end
 
   def self.donate_statistics_output
@@ -34,7 +37,10 @@ class ExcelOutput
                        user.offline_amount]
       end
     end
-    p.serialize "public/files/用户捐助统计" + DateTime.now.strftime("%Y-%m-%d-%s") + ".xlsx"
+    FileUtils.mkdir_p(Rails.root.join("public/files"))
+    path = Rails.root.join("public/files/用户捐助统计" + DateTime.now.strftime("%Y-%m-%d-%s") + ".xlsx")
+    p.serialize path
+    return path
   end
 
   # def self.pair_grants_output
@@ -93,7 +99,7 @@ class ExcelOutput
     end
   end
 
-  def self.generate_income_template(time)
+  def self.generate_income_template
     p = Axlsx::Package.new
     wb = p.workbook
     funds = Fund.sorted
@@ -116,11 +122,14 @@ class ExcelOutput
       income_sources.each do |source|
         sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, source.name]
       end
-      p.serialize "public/files/templates/收入导入模板" + time + ".xlsx"
+      FileUtils.mkdir_p(Rails.root.join("public/files"))
+      path = Rails.root.join("public/files/templates/收入导入模板" + DateTime.now.strftime("%Y-%m-%d-%s") + ".xlsx")
+      p.serialize path
+      return path
     end
   end
 
-  def self.generate_expenditure_template(time)
+  def self.generate_expenditure_template
     p = Axlsx::Package.new
     wb = p.workbook
     funds = Fund.sorted
@@ -137,8 +146,10 @@ class ExcelOutput
       funds.each do |fund|
         sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil, "#{fund.fund_category.name}-#{fund.name}"]
       end
-
-      p.serialize "public/files/templates/支出导入模板" + time + ".xlsx"
+      FileUtils.mkdir_p(Rails.root.join("public/files"))
+      path = Rails.root.join("public/files/templates/支出导入模板" + DateTime.now.strftime("%Y-%m-%d-%s") + ".xlsx")
+      p.serialize path
+      return path
     end
   end
 
@@ -160,7 +171,10 @@ class ExcelOutput
                        grant.enum_name(:state)]
         end
     end
-    p.serialize "public/files/发放批次" + DateTime.now.strftime("%Y-%m-%d-%s") + ".xlsx"
+    FileUtils.mkdir_p(Rails.root.join("public/files"))
+    path = Rails.root.join("public/files/发放批次" + DateTime.now.strftime("%Y-%m-%d-%s") + ".xlsx")
+    p.serialize path
+    return path
   end
 
 end
