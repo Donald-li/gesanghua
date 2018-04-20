@@ -44,8 +44,8 @@ class ProjectSeasonApplyCampMember < ApplicationRecord
   include HasAsset
   has_one_asset :image, class_name: 'Asset::CampProtocolImage'
 
-  enum gender: {male: 1, female: 2}
-  default_value_for :gender, 1
+  enum gender: {unknow: 0, male: 1, female: 2} #性别 1:男 2:女
+  default_value_for :gender, 0
 
   enum kind: {student: 1, teacher: 2} # 类型：1:学生 2:老师
   default_value_for :kind, 1

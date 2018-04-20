@@ -118,9 +118,19 @@
       </div>
       <div class="pull-right detail-body-right">
         <p class="detail-b-r-t border-b"><span>捐助记录</span></p>
-        <ul class="detail-b-r-name" id="donate-records">
-          <%= render '/site/donate_records/list', records: @donate_records, owner: @apply %>
-        </ul>
+        <% if @donate_records.present? %>
+          <ul class="detail-b-r-name" id="donate-records">
+            <%= render '/site/donate_records/list', records: @donate_records, owner: @apply %>
+          </ul>
+        <% else %>
+          <div class="not-available ">
+            <div class="donation-cont-no">
+              <div class="donation-co-no-c">
+                <p>暂无捐助记录</p>
+              </div>
+            </div>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

@@ -26,8 +26,9 @@ class Api::V1::DonationsController < Api::V1::BaseController
         api_error
       end
     elsif params[:donate_way] == 'balance'
-      if DonateRecord.do_donate('user_donate', agent, owner, amount, {agent: agent, donor: donor})
-        api_success(data: {pay_state: 'paid', bookshelf: params[:bookshelf], amount: params[:amount]}.camelize_keys!, message: '成功')
+      result, message = DonateRecord.do_donate('user_donate', agent, owner, amount, {agent: agent, donor: donor})
+      if result
+        api_success(data: {pay_state: 'paid', bookshelf: params[:bookshelf], amount: params[:amount]}.camelize_keys!, message: message)
       else
         api_error
       end

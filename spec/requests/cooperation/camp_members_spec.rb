@@ -20,12 +20,14 @@ RSpec.describe "Api::V1::Cooperation::CampMembers", type: :request do
     end
 
     it '学生列表' do
+      student1.draft!
       get students_api_v1_cooperation_camp_members_path(camp_id: apply_camp.id), headers: api_v1_headers(login_user)
       api_v1_expect_success
-      expect(json_body[:data][:students].count).to eq 2
+      expect(json_body[:data][:students].count).to eq 1
     end
 
     it '教师列表' do
+      teacher.draft!
       get teachers_api_v1_cooperation_camp_members_path(camp_id: apply_camp.id), headers: api_v1_headers(login_user)
       api_v1_expect_success
       expect(json_body[:data][:teachers].count).to eq 1
