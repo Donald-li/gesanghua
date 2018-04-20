@@ -53,11 +53,14 @@ class DonateRecord < ApplicationRecord
 
   validates :amount, presence: true
 
+  enum state: {normal: 1, refund: 2} # 状态: 1:正常 2:退款
+  default_value_for :state, 1
+
   enum kind: {user_donate: 1, platform_donate: 2} # 记录类型: 1:用户捐款 2:平台配捐
   default_value_for :kind, 1
 
   scope :sorted, -> {order(created_at: :desc)}
-  scope :visible, -> {} #TODO: 以后增加一个状态，处理退款
+  scope :visible, -> { normal }
 
   before_create :set_assoc_attrs
 
@@ -89,12 +92,14 @@ class DonateRecord < ApplicationRecord
     donor = source.is_a?(User) ? source : params[:current_user]
     agent = donor
 
-    self.do_donate(:platform_donate, source, owner, amount, donor: donor, agent: agent)
+    result, message = self.do_donate(:platform_donate, source, owner, amount, donor: donor, agent: agent)
+    return result
   end
 
   # 处理捐款
   # kind: 用户捐款、平台配捐；source：资金来源； owner：捐助对象；amount：捐助金额, ** agent, donor
   def self.do_donate(kind, source, owner, amount, **params)
+    message = ''
     result = false
     income_record_id = source.instance_of?(IncomeRecord) ? source.id : nil
     donation_id = source.instance_of?(IncomeRecord) ? source.donation_id : nil
@@ -104,7 +109,7 @@ class DonateRecord < ApplicationRecord
     self.transaction do # 事务
       # 来源金额是否充足？
       if source.balance < amount
-        return false
+        return false, '余额不足'
       else
         source.lock! # 加锁
       end
@@ -160,15 +165,18 @@ class DonateRecord < ApplicationRecord
           user.lock!
           user.balance += reback
           user.save!
+          message = "捐助成功，但捐助过程中，项目收到新捐款造成超捐，其中#{reback}元已退回您的账户余额。"
         else
           result = false
+          message = '捐助失败，捐助项收到新捐款造成超捐.'
           raise ActiveRecord::Rollback, "超捐"
         end
       end
       source.save! # 解锁
       result = true
+      message = '捐助成功'
     end
-    return result
+    return result, message
   end
 
   # 计算开票金额
@@ -182,8 +190,26 @@ class DonateRecord < ApplicationRecord
     end
   end
 
+  # 只有格桑花孩子可以退款
   def can_refund?
-    false
+    self.user_donate? && self.agent.present? && self.owner_type == 'GshChildGrant' && (self.owner.waiting? || self.owner.suspend?)
+  end
+
+  # 退款, 捐助记录退款状态，退回账户余额，孩子标记取消
+  def do_refund!
+    return false unless self.can_refund?
+    self.transaction do
+      # 退余额
+      self.agent.lock!
+      self.agent.balance += self.amount
+      self.agent.save!
+
+      self.refund!
+      self.owner.cancel!
+      self.owner.refund!
+    end
+    # TODO: 通知
+    return true
   end
 
   def summary_builder

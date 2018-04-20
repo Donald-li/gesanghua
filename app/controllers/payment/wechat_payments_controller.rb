@@ -5,8 +5,12 @@ class Payment::WechatPaymentsController < Payment::BaseController
     result = Hash.from_xml(request.body.read)["xml"]
     logger.info result
     if WxPay::Sign.verify?(result)
-      Donation.wechat_payment_success(result) if result['result_code'] == 'SUCCESS'
-      render :xml => {return_code: "SUCCESS"}.to_xml(root: 'xml', dasherize: false)
+      succ, message = Donation.wechat_payment_success(result) if result['result_code'] == 'SUCCESS'
+      if succ
+        render :xml => {return_code: "SUCCESS"}.to_xml(root: 'xml', dasherize: false)
+      else
+      render :xml => {return_code: "FAIL", return_msg: "捐款失败"}.to_xml(root: 'xml', dasherize: false)
+      end
     else
       render :xml => {return_code: "FAIL", return_msg: "签名失败"}.to_xml(root: 'xml', dasherize: false)
     end
