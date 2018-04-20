@@ -53,7 +53,7 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.after_initialize do
-    Bullet.enable = true
+    Bullet.enable = ENV['PUNDIT_SLACK'].present?
     Bullet.console = true
     Bullet.rails_logger = true
     Bullet.add_footer = true
