@@ -51,6 +51,9 @@
                 捐助平台
               </th>
               <th>
+                状态
+              </th>
+              <th>
                 操作
               </th>
             </tr>
@@ -62,13 +65,13 @@
                 <%= record.enum_name(:kind) %>
               </td>
               <td>
-                <%= record.child.try(:name) %>
+                <%= record.child.try(:name) %> <%= record.owner.try(:title) %>
               </td>
               <td>
-                <%= record.donor.name %> ( <%= record.donor.phone %> )
+                <%= record.donor.show_name %> ( <%= record.donor.phone %> )
               </td>
               <td>
-                <%= record.agent.name %> / <%= record.agent.name %>
+                <%= record.agent.show_name %>
               </td>
               <td>
                 <%= l record.created_at %>
@@ -80,11 +83,14 @@
                 <%= record.income_record.income_source.try(:name) if record.income_record.present? %>
               </td>
               <td>
+                <%= record.enum_name(:state) %>  
+              </td>
+              <td>
                 <%= link_to admin_pair_donate_record_path(record), class: 'btn btn-xs yellow' do %>
                   <i class="fa fa-file"></i> 查看详情
                 <% end %>
-                <% if record.can_refund? && (record.apply.present? && record.apply.can_refund?) %>
-                  <%= link_to refund_admin_user_donate_record_path(record.user_id, record), method: :post, data: {confirm: '捐款将退回到用户的余额中，确定要进行退款吗？'}, class: 'btn btn-xs red' do %>
+                <% if record.can_refund? %>
+                  <%= link_to refund_admin_user_donate_record_path(record.donor_id, record), method: :post, data: {confirm: '捐款将退回到用户的余额中，确定要进行退款吗？'}, class: 'btn btn-xs red' do %>
                     <i class="fa fa-file"></i> 退款
                   <% end %>
                 <% end %>

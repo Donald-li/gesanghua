@@ -71,7 +71,7 @@ RSpec.describe DonateRecord, type: :model do
     end
 
     it '捐助给申请' do
-      @radio_apply.raise_project! # TODO: 
+      @radio_apply.raise_project! # TODO:
       @income_record.update(amount: 1000, balance: 1000, kind: :online)
       DonateRecord.do_donate(:user_donate, @income_record, @radio_apply, 1000)
       expect(@income_record.reload.balance).to eq(0)
@@ -179,7 +179,7 @@ RSpec.describe DonateRecord, type: :model do
 
     it '配捐-使用入账记录' do
       @income_record.update(amount: 1000, balance: 1000, kind: :offline)
-      result = DonateRecord.do_donate(:platform_donate, @income_record, @radio_apply, 1000)
+      result, message = DonateRecord.do_donate(:platform_donate, @income_record, @radio_apply, 1000)
       expect(result).to be(true)
       expect(DonateRecord.last.amount).to eq(1000)
       expect(@income_record.reload.balance).to eq(0)
@@ -200,7 +200,7 @@ RSpec.describe DonateRecord, type: :model do
     it '余额不足' do
       @radio_apply.update(target_amount: 10000, present_amount: 0)
       @fund.update(balance: 400)
-      result = DonateRecord.do_donate(:platform_donate, @fund, @radio_apply, 4000)
+      result, message = DonateRecord.do_donate(:platform_donate, @fund, @radio_apply, 4000)
       expect(result).to be(false)
     end
 
@@ -208,13 +208,33 @@ RSpec.describe DonateRecord, type: :model do
       # 使用配捐超捐
       @radio_apply.update(target_amount: 1000, present_amount: 0)
       income_record = create(:income_record, fund: @fund, kind: :offline, amount: 10000, balance: 10000, donor: @user)
-      result = DonateRecord.do_donate(:platform_donate, income_record, @radio_apply, 10000)
+      result, message = DonateRecord.do_donate(:platform_donate, income_record, @radio_apply, 10000)
       expect(result).to eq(false)
 
       expect(income_record.reload.balance).to eq(10000)
       expect(@radio_apply.reload.present_amount).to eq(0)
       expect(@radio_apply.execute_state).to eq('raising')
       expect(@user.reload.balance).to eq(0)
+    end
+  end
+
+
+  describe '测试退款' do
+    it '退款' do
+      amount = 2100
+      GshChildGrant.gen_grant_record(@child1)
+      @income_record.update(agent: @user,amount: amount, balance: amount, kind: :online)
+      DonateRecord.do_donate(:user_donate, @income_record, @child1, amount, agent: @user)
+      grant = @child1.gsh_child_grants.first
+      expect(grant.donate_state).to eq('succeed')
+      expect(grant.state).to eq('waiting')
+      donate_record = grant.donate_records.last
+      result = donate_record.do_refund!
+      expect(result).to be(true)
+      expect(donate_record.reload.state).to eq('refund')
+      expect(grant.reload.state).to eq('cancel')
+      expect(grant.donate_state).to eq('refund')
+      expect(@user.reload.balance).to eq(amount)
     end
   end
 end

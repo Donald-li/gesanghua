@@ -29,7 +29,7 @@ class Admin::AdministratorsController < Admin::BaseController
       else
         administrator_params[:roles] = (administrator_params[:roles]).select(&:present?)
         @user = User.new(administrator_params.merge(name: administrator_params[:nickname]))
-        if @user.save && User.create(administrator_params)
+        if @user.save
           format.html {redirect_to referer_or(admin_administrators_url), notice: '管理员已增加。'}
         else
           format.html {render :new}
