@@ -9,12 +9,12 @@ class Api::V1::Cooperation::CampMembersController < Api::V1::BaseController
   end
 
   def students
-    students = @apply_camp.camp_members.student.sorted.page(params[:page]).per(params[:per])
+    students = @apply_camp.camp_members.student.draft.sorted.page(params[:page]).per(params[:per])
     api_success(data: {students: students.map{|st| st.summary_builder}, pagination: json_pagination(students)})
   end
 
   def teachers
-    teachers = @apply_camp.camp_members.teacher.sorted.page(params[:page]).per(params[:per])
+    teachers = @apply_camp.camp_members.teacher.draft.sorted.page(params[:page]).per(params[:per])
     api_success(data: {teachers: teachers.map{|t| t.summary_builder}, pagination: json_pagination(teachers)} )
   end
 
