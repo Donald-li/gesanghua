@@ -45,6 +45,7 @@
 #  camp_principal     :string                                 # 探索营-营负责人
 #  camp_income_source :string                                 # 探索营-经费来源
 #  inventory_state    :integer                                # 是否使用物资清单
+#  applicant_id       :integer                                # 申请人id
 #
 
 require 'rails_helper'

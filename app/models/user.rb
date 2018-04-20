@@ -86,8 +86,9 @@ class User < ApplicationRecord
 
   belongs_to :manager, class_name: "User", optional: true
 
-  validates :password, confirmation: true, length: { minimum: 6 }, allow_blank: true
-  default_value_for :password, '111111'
+  validates :password, confirmation: true, allow_blank: true
+  validates :password, length: { minimum: 6 }, allow_blank: true
+  # default_value_for :password, '111111'
   validates :email, email: true
   validates :phone, mobile: true, uniqueness: { allow_blank: true }
   validates :name, :login, presence: true
