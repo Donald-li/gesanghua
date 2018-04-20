@@ -153,8 +153,8 @@ class ProjectSeasonApply < ApplicationRecord
 
   # 更新申请状态
   def check_apply_state
-    if self.present_amount >= self.target_amount
-      self.execute_state = :to_delivery if self.raising? && self.raise_project?
+    if self.target_amount > 0 && self.present_amount >= self.target_amount
+      self.execute_state = :to_delivery if self.raising?
       self.read_state = :read_done if self.read_executing?
       self.camp_state = :camp_raise_done if self.camp_raising?
     end

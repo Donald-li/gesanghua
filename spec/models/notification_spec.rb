@@ -16,6 +16,7 @@
 #  read                    :boolean                                # 是否已读
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  title                   :string                                 # 消息标题
 #
 
 require 'rails_helper'
