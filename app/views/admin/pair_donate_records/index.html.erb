@@ -30,9 +30,6 @@
           <thead>
             <tr>
               <th>
-                收入单号
-              </th>
-              <th>
                 捐助类型
               </th>
               <th>
@@ -61,9 +58,6 @@
           <tbody>
             <% @donate_records.each do |record| %>
             <tr>
-              <td>
-                <%= record.donate_no %>
-              </td>
               <td>
                 <%= record.enum_name(:kind) %>
               </td>

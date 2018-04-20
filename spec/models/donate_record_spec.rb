@@ -71,6 +71,7 @@ RSpec.describe DonateRecord, type: :model do
     end
 
     it '捐助给申请' do
+      @radio_apply.raise_project! # TODO: 
       @income_record.update(amount: 1000, balance: 1000, kind: :online)
       DonateRecord.do_donate(:user_donate, @income_record, @radio_apply, 1000)
       expect(@income_record.reload.balance).to eq(0)

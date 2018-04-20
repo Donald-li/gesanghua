@@ -47,9 +47,11 @@ RSpec.describe "Api::V1::Camps", type: :request do
     end
 
     it '举报探索营执行' do
+      code = SmsCode.send_code('17866539878', 'verify_profile')
       post complaint_api_v1_camp_path,
           params: {id: apply.id,
                    complaint: {contact_name: '刘某', contact_phone: '17866539878', content: '描述内容不实'},
+                   code: code.code,
                    images: {}},
           headers: api_v1_headers(login_user)
       api_v1_expect_success

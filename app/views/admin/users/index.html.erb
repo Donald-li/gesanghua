@@ -97,20 +97,8 @@
                 <% end %>
               </td>
               <td>
-                <%# if user.administrator.present? %>
-                  <!-- <span class="btn btn-xs yellow">管理员</span> -->
-                <%# end %>
-                <% if user.has_role?(:headmaster) %>
-                  <span class="btn btn-xs yellow">校长</span>
-                <% end %>
-                <% if user.has_role?(:teacher) %>
-                  <span class="btn btn-xs yellow">教师</span>
-                <% end %>
-                <% if user.has_role?(:volunteer) %>
-                  <span class="btn btn-xs yellow">志愿者</span>
-                <% end %>
-                <% if user.has_role?(:county_user) %>
-                  <span class="btn btn-xs yellow">县级领导</span>
+                <% user.roles_name.each do |t| %>
+                  <span class="btn btn-xs yellow"><%= t %></span>
                 <% end %>
               </td>
               <td>

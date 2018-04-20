@@ -39,13 +39,13 @@ RSpec.describe "Api::V1::CooperationMovieCares", tye: :request do
     end
 
     it '创建护花课程申请' do
+      apply.destroy
       post api_v1_cooperation_movie_cares_path,
           params: {movie_care_apply: {season:[season.id], student_number: '30', describe: FFaker::LoremCN.sentence,
           contact_name: FFaker::NameCN.name, contact_phone: '17888889999', location: [110000, 110100, 110101], address: '某街'}},
            headers: api_v1_headers(login_user)
       api_v1_expect_success
       expect(json_body[:data][:result]).to eq true
-
     end
 
     it '修改护花课程申请' do

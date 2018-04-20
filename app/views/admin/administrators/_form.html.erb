@@ -11,7 +11,7 @@
           <abbr title="必填项">*</abbr> 管理员角色：
         </label>
         <div class="col-md-9 user-roles">
-          <%= f.collection_check_boxes :roles, User::ROLES.zip(User::ROLES_NAME), :first, :last %>
+          <%= f.collection_check_boxes :roles, User::ROLES_HASH.slice(*User::ADMIN_ROLES), :first, :last %>
         </div>
       </div>
       <div class="form-group string required project-lists">

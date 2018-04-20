@@ -23,11 +23,12 @@ class Admin::AdministratorsController < Admin::BaseController
   def create
     @administrator = User.new
     respond_to do |format|
-      if User.find_by(login: administrator_params[:user][:login]).present?
+      if User.find_by(login: administrator_params[:login]).present?
         flash[:alert] = '账号已被占用'
         format.html {render :new}
       else
-        @user = User.new(administrator_params[:user].merge(name: administrator_params[:nickname]))
+        administrator_params[:roles] = (administrator_params[:roles]).select(&:present?)
+        @user = User.new(administrator_params.merge(name: administrator_params[:nickname]))
         if @user.save && User.create(administrator_params)
           format.html {redirect_to referer_or(admin_administrators_url), notice: '管理员已增加。'}
         else
@@ -38,6 +39,8 @@ class Admin::AdministratorsController < Admin::BaseController
   end
 
   def update
+    roles = @administrator.roles
+    administrator_params[:roles] = (administrator_params[:roles] | ( roles & User::USER_ROLES)).select(&:present?)
     respond_to do |format|
       if @administrator.update(administrator_params)
         format.html {redirect_to referer_or(admin_administrators_url), notice: '管理员资料已修改。'}
