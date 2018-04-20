@@ -4,7 +4,7 @@
 #
 #  id                      :integer          not null, primary key
 #  push_type               :integer                                # bit_enum，邮件、短信、微信
-#  kind                    :string                                 # 类型
+#  kind                    :string                                 # 类型，通知类型
 #  from_user_id            :integer                                # 发起用户
 #  user_id                 :integer                                # 通知用户
 #  project_id              :integer                                # 项目
@@ -16,38 +16,23 @@
 #  read                    :boolean                                # 是否已读
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  title                   :string                                 # 消息标题
 #
 
 class Notification < ApplicationRecord
+  before_create :set_assoc_attrs
 
-  # 审核完成
-  def self.audit_done(owner, user_id, content='')
-    notice = self.new
-    notice.user_id = user_id
+  default_value_for :read, false
 
-    notice.project_id = owner.project_id if owner.project.present?
-    notice.project_season_id = owner.project_season_id if owner.season.present?
-    notice.project_season_apply_id = owner.project_season_apply_id if owner.apply.present?
-  end
-
-  # 筹款成功
-  def self.raise_success
-  end
-
-  # 发放完成
-  def self.grant_done
-  end
-
-  # 安装反馈
-  def self.install_feedback
-  end
-
-  # 收货反馈
-  def self.receipt_feedback
-  end
+  belongs_to :owner, polymorphic: true
+  belongs_to :project, optional: true
+  belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id', optional: true
+  belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id', optional: true
 
   private
-  # 反馈通知
-  def feedback
+  def set_assoc_attrs
+    self.project = self.owner.project if self.owner.project.present?
+    self.season = self.owner.season if self.owner.season.present?
+    self.apply = self.owner.apply if self.owner.apply.present?
   end
 end

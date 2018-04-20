@@ -24,7 +24,7 @@
                 <%= f.select :project_season_id_eq, ProjectSeason.where(project_id: Project.pair_project.id).all_to_hash, {include_blank: '全部'}, class: 'form-control' %>
               </div>
               <div class="form-group">
-                <%= f.label :kind_eq, '筹款状态' %>
+                <%= f.label :kind_eq, '捐助形式' %>
                 <%= f.select :kind_eq, ProjectSeasonApplyChild.options_for_select(:kinds, raw: true), {include_blank: '全部'}, class: 'form-control' %>
               </div>
               <button type="submit" class="btn btn-default grey">搜索</button>

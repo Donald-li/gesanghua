@@ -59,7 +59,7 @@ class Campaign < ApplicationRecord
     form.push({key: '', label: '', placeholder: '', type: 'text', options: [], required: false})
     self.form = form
   end
-  
+
   # 根据form的key显示标签
   def form_label(key)
     (self.form || []).detect{|item|item['key'] == key}.try('[]', 'label') || ''
@@ -80,7 +80,7 @@ class Campaign < ApplicationRecord
       '活动已结束'
     elsif self.to_do?
       '报名结束'
-    elsif self.number.to_i > 0 && self.campaign_enlists.paid.count > self.number
+    elsif self.number.to_i > 0 && self.campaign_enlists.paid.sum(:number) >= self.number
       '名额已满'
     elsif Time.now < self.sign_up_start_time
       '未开始报名'

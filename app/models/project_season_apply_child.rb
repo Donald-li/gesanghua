@@ -214,7 +214,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   def share_url
     # Rails.application.routes.url_helpers.q_url(:host => Settings.app_host, child_id: self.id)
-    'https://www.baidu.com' # TODO 前段路由定义以后修改为正确的路由
+    "#{Settings.m_root_url}/pair/#{self.id}" # TODO 前段路由定义以后修改为正确的路由
   end
 
   # 通过审核
