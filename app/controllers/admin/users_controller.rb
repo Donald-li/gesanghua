@@ -8,7 +8,7 @@ class Admin::UsersController < Admin::BaseController
         set_search_end_of_day(:created_at_lteq)
         @search = User.ransack(params[:q])
         scope = @search.result
-        @users = scope.sorted.page(params[:page])
+        @users = scope.includes(:volunteer).sorted.page(params[:page])
       end
       #format.json do # Select2 异步选择用户搜索
       #  users = User.enable.where.not(users: {id: 1}).left_joins(:gsh_child).where(gsh_children: {user_id: nil}).where("users.name like :q", q: "%#{params[:q]}%").page(params[:page])

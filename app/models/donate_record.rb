@@ -261,6 +261,7 @@ class DonateRecord < ApplicationRecord
     elsif self.owner_type == 'CampaignEnlist'
       self.owner.campaign.name
     end
+    apply_name
   end
 
   def self.select_record(agent_id, owner_id = nil)

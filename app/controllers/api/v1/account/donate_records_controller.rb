@@ -1,7 +1,7 @@
 class Api::V1::Account::DonateRecordsController < Api::V1::BaseController
 
   def index
-    donations = current_user.donate_records.visible.where.not(project_id: nil).sorted.page(params[:page]).per(params[:per])
+    donations = current_user.donate_records.visible.where.not(project_id: nil).includes(:project, :owner, :donor).sorted.page(params[:page]).per(params[:per])
     donations = donations.where(project_id: params[:project_id].to_i) if params[:project_id].present? && params[:project_id] != 'all'
     api_success(data: {donate_records: donations.map { |r| r.summary_builder }, pagination: json_pagination(donations)})
   end
@@ -17,12 +17,12 @@ class Api::V1::Account::DonateRecordsController < Api::V1::BaseController
 
   # 捐款记录
   def account_records
-    records = current_user.income_records.sorted
+    records = current_user.income_records.includes({donation: :owner}, :donor, :agent).sorted
     api_success(data: {donateRecords: records.map { |r| r.summary_builder }, donateAmount: current_user.donate_amount})
   end
 
   def voucher_records
-    records = current_user.income_records.to_bill.sorted
+    records = current_user.income_records.to_bill.includes({donation: :owner}, :donor, :agent).sorted
     api_success(data: {records: records.map { |r| r.summary_builder }, donate_amount: current_user.donate_amount})
   end
 

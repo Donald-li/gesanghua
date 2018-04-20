@@ -148,6 +148,8 @@ group :development do
 
   gem 'annotate'
   gem 'migration_comments'
+  gem 'bullet'
+  gem 'slack-notifier'
 
   # 服务器部署
   gem 'mina'

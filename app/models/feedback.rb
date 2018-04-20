@@ -79,7 +79,7 @@ class Feedback < ApplicationRecord
       json.time self.created_at.strftime("%Y-%m-%d %H:%M")
       json.name self.owner.name
       json.content self.formatted_content
-      json.user_name self.user.name
+      json.user_name self.user.show_name
       # json.avatar self.child.avatar.present? ? self.child.avatar_url(:tiny).to_s : ''
       json.avatar self.avatar_url
       json.images do
