@@ -105,3 +105,6 @@ IncomeSource.find_or_create_by(name: '线下汇款', description: '线下汇款'
 BadgeLevel.options_for_select(:kinds).each do |kind|
   BadgeLevel.create( kind: kind.second, title: "#{kind.first}默认徽章", rank: '', value: 0, default_level: true)
 end
+
+#捐助协议
+Page.find_or_create_by(title: '《格桑花用户捐助协议》', alias: 'donation_protocol', content: '捐助协议', position: 1)

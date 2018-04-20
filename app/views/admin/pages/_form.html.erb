@@ -2,7 +2,11 @@
     <%= f.error_notification %>
     <div class="form-body form-horizontal">
       <%= f.input :title, label: '标题：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
-      <%= f.input :alias, label: '别名：', input_html: { data: {'parsley-required': true}} %>
+      <% if @page.alias == 'donation_protocol' %>
+        <%= static_form_control '别名', @page.alias %>
+      <% else %>
+        <%= f.input :alias, label: '别名：', input_html: { data: {'parsley-required': true}} %>
+      <% end %>
       <div class="form-group">
         <label class="col-md-2 control-label">详情：</label>
         <div class="col-sm-9">
