@@ -1,20 +1,148 @@
-<div class="person-body-right pull-right ">
+<div class="person-body-right pull-right">
   <p class="don-title border-b ">
     <span class="pull-left">我的团队</span>
   </p>
-  <div class="donation-cont-no">
-    <div class="donation-co-no-c">
-      <div class="donation-co-no-c-img">
-        <%= image_tag 'team-img.png' %>
+  <!--没有团队缺省页-->
+  <!--<div class="donation-cont-no">-->
+    <!--<div class="donation-co-no-c">-->
+      <!--<div class="donation-co-no-c-img">-->
+        <!--<%= image_tag 'team-img.png' %>-->
+      <!--</div>-->
+      <!--<p>您还未加入或创建任何团队</p>-->
+      <!--<div class="my-team-but clearfix">-->
+        <!--<button class="team-but-1">寻找团队</button>-->
+        <!--<button class="team-but-2">创建团队</button>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--团队成员-->
+  <div class="teams-staff">
+    <div class="teams-s clearfix">
+      <div class="teams-s-img pull-left">
+        <%= image_tag 'project-detail-child.png' %>
       </div>
-      <p>您还未加入或创建任何团队</p>
-      <div class="my-team-but clearfix">
-        <button class="team-but-1">寻找团队</button>
-        <button class="team-but-2">创建团队</button>
+      <div class="teams-s-cont pull-left">
+        <div class="teams-s-cont-name clearfix">
+          <span class="pull-left teams-s-name">维基爱心</span>
+          <span class="pull-right iconfont icon-arrow-right"></span>
+          <span class="pull-right teams-s-cont-operate cur">管理</span>
+          <ul class="project-nav-heide">
+            <!--<li class="cur"><%#= link_to '退出团队' %></li>-->
+            <li class="cur"><%= link_to '修改信息' %></li>
+            <li class="cur"><%= link_to '移交团队' %></li>
+            <li class="cur" id="dissolve"><a>解散团队</a></li>
+          </ul>
+        </div>
+        <div class="teams-s-cont-detail clearfix">
+          <div class="pull-left">
+            <p class="teams-s-cont-map" style="margin-top: 3px;"><span class="iconfont icon-ico-adress"></span>合肥 蜀山区
+            </p>
+            <p class="teams-s-c-tit" style="margin-top: 6px;"><span class="teams-s-c-tit">成员人数</span>
+              <span class="teams-s-moy teams-s-border">34</span><span class="teams-s-c-tit">累计劝捐</span>
+              <span class="teams-s-moy">￥45126.00</span></p>
+          </div>
+          <div class="pull-left">
+            <p class="teams-s-moy-bag">￥7655126.00</p>
+            <p class="teams-s-c-tit">累计筹款</p>
+          </div>
+        </div>
       </div>
+    </div>
+    <div class="donations-1 border-b">
+      <ul class="donations1 clearfix">
+        <li class="cur selectedDo border-r">团队成员
+          <div class="bottomline"></div>
+        </li>
+        <li class="cur">捐助记录
+          <div class=""></div>
+        </li>
+      </ul>
+    </div>
+    <div class="transfers">
+      <ul class="transfers-cont clearfix">
+        <li class="transfers-per selected">
+          <div class="transfers-per-img">
+            <%= image_tag 'project-detail-child.png' %>
+          </div>
+          <p class="transfers-per-name">十指紧扣</p>
+          <div class="transfers-per-team">团队创建人</div>
+          <p class="transfers-per-time">加入 2017-10-20</p>
+        </li>
+        <li class="transfers-per ">
+          <div class="transfers-per-img">
+            <%= image_tag 'project-detail-child.png' %>
+          </div>
+          <p class="transfers-per-name">十指紧扣</p>
+          <div class="transfers-per-team">团队创建人</div>
+          <p class="transfers-per-time">加入 2017-10-20</p>
+        </li>
+        <li class="transfers-per">
+          <div class="transfers-per-img">
+            <%= image_tag 'project-detail-child.png' %>
+          </div>
+          <p class="transfers-per-name">十指紧扣</p>
+          <div class="transfers-per-mark">爱心人士</div>
+          <p class="transfers-per-time">加入 2017-10-20</p>
+        </li>
+        <li class="transfers-per">
+          <div class="transfers-per-img">
+            <%= image_tag 'project-detail-child.png' %>
+          </div>
+          <p class="transfers-per-name">十指紧扣</p>
+          <div class="transfers-per-mark">爱心人士</div>
+          <p class="transfers-per-time">加入 2017-10-20</p>
+        </li>
+        <li class="transfers-per">
+          <div class="transfers-per-img">
+            <%= image_tag 'project-detail-child.png' %>
+          </div>
+          <p class="transfers-per-name">十指紧扣</p>
+          <div class="transfers-per-mark">爱心人士</div>
+          <p class="transfers-per-time">加入 2017-10-20</p>
+        </li>
+        <li class="transfers-per">
+          <div class="transfers-per-img">
+            <%= image_tag 'project-detail-child.png' %>
+          </div>
+          <p class="transfers-per-name">十指紧扣</p>
+          <div class="transfers-per-mark">志愿者</div>
+          <p class="transfers-per-time">加入 2017-10-20</p>
+        </li>
+      </ul>
     </div>
   </div>
 
-</div>
+  <div class="overspread-3">
+    <div class="overspread-over"></div>
+    <div class="overspread-cont" style="height: 200px;">
+      <div class="clearfix">
+        <div class="pull-left mys-1"></div>
+        <div class="pull-right iconfont icon-icondelete cur overspread-but"></div>
+      </div>
+      <div class="overspread-co">
+        <p class="over-fontns" style="width: 60%;margin: 27px auto 0 auto;">团队解散后无法恢复,确认解散团队？</p>
+      </div>
+      <div class="overspreads-but">
+        <button>确认</button>
+        <button>取消</button>
+      </div>
+      <!--<div class="overspread-but  over-but">确认</div>-->
+    </div>
 
+  </div>
+</div>
+<script>
+
+    $('.teams-s-cont-operate').bind("click", function (event) {
+        $('.project-nav-heide').css({'display': 'block'});
+        $('.teams-s-cont-name .iconfont').addClass("tranicon")
+        event.stopPropagation();
+    })
+    $("body").on("click", function () {
+        $('.project-nav-heide').css({'display': 'none'})
+        $('.teams-s-cont-name .iconfont').removeClass("tranicon")
+    })
+    $('.overspread-3').overs("#dissolve");
+
+</script>
 

@@ -2564,7 +2564,7 @@ select:disabled {
     font-weight: 500;
     margin-right: 0;
     margin-left: 4px;
-    margin-top: 1px;
+    margin-top: 0px;
   }
   & > span:nth-child(3) {
     font-size: 13px;
@@ -7383,11 +7383,11 @@ select:disabled {
         height: 100%;
       }
     }
-    .transfers-per-name{
+    .transfers-per-name {
       font-size: 16px;
       color: #2a2a2c;
     }
-    .transfers-per-team{
+    .transfers-per-team {
       width: 99px;
       height: 28px;
       line-height: 28px;
@@ -7397,7 +7397,7 @@ select:disabled {
       margin: 10px auto;
       border-radius: 3px;
     }
-    .transfers-per-mark{
+    .transfers-per-mark {
       width: 99px;
       height: 28px;
       line-height: 26px;
@@ -7407,7 +7407,7 @@ select:disabled {
       margin: 10px auto;
       border-radius: 3px;
     }
-    .transfers-per-time{
+    .transfers-per-time {
       font-size: 12px;
       color: #8d8d8d;
     }
@@ -7427,21 +7427,22 @@ select:disabled {
   text-align: center;
   margin-bottom: 10px;
 }
+
 //我的团队
-.my-team-but{
+.my-team-but {
   margin-top: 20px;
-  .team-but-1{
+  .team-but-1 {
     width: 122px;
     height: 34px;
     line-height: 32px;
     color: $color-border;
-    border:1px solid $color-border;
+    border: 1px solid $color-border;
     box-shadow: 0px 2px 7px 2px #d632aa4d;
     border-radius: 20px;
     float: left;
     margin-right: 22px;
   }
-  .team-but-2{
+  .team-but-2 {
     width: 122px;
     height: 34px;
     line-height: 34px;
@@ -7450,5 +7451,202 @@ select:disabled {
     box-shadow: 0px 2px 7px 2px #d632aa4d;
     border-radius: 20px;
     float: left;
+  }
+}
+
+.teams-staff {
+  .transfers .transfers-cont {
+    margin-top: 0;
+  }
+  .transfers {
+    padding: 30px 0 0 0;
+  }
+}
+.teams-s {
+  padding: 20px 0 20px 0;
+  .teams-s-img {
+    width: 90px;
+    height: 90px;
+    border-radius: 3px;
+    overflow: hidden;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .teams-s-cont{
+    width: 720px;
+    margin-left: 20px;
+  }
+  .teams-s-name{
+    font-size: 16px;
+    color: #393d42;
+    font-weight: 600;
+  }
+  .teams-s-cont-name{
+    position: relative;
+    .iconfont{
+      font-size: 13px;
+      color: #393d42;
+      font-weight: 500;
+      margin-right: 0;
+      margin-left: 4px;
+      margin-top: -1px;
+      transform:rotate(90deg);
+      -ms-transform:rotate(90deg);
+      -moz-transform:rotate(90deg);
+      -webkit-transform:rotate(90deg);
+      -o-transform:rotate(90deg);
+
+    }
+    .tranicon{
+      transform:rotate(270deg);
+      -ms-transform:rotate(270deg);
+      -moz-transform:rotate(270deg);
+      -webkit-transform:rotate(270deg);
+      -o-transform:rotate(270deg);
+      transition: all 0.3s ease-in-out;
+      -moz-transition: all 0.3s ease-in-out;
+      -webkit-transition: all 0.3s ease-in-out;
+      -o-transition: all 0.3s ease-in-out;
+    }
+  }
+  .teams-s-cont-operate{
+    font-size: 13px;
+    color: #393d42;
+  }
+  .teams-s-cont-detail{
+    width: 100%;
+    margin-top: 20px;
+    & > div{
+      width: 50%;
+    }
+  }
+  .teams-s-c-tit{
+  font-size: 14px;
+    color: #8d8d8d;
+    margin-right: 5px;
+}
+  .teams-s-cont-map{
+    font-size: 12px;
+    color: #393d42;
+    .iconfont{
+      font-size: 10px;
+      margin-right: 4px;
+    }
+  }
+  .teams-s-moy-bag{
+    font-size: 18px;
+    color: #393d42;
+  }
+  .teams-s-border{
+    border-right: 1px solid #393d42;
+    padding-right: 6px;
+    margin-right: 6px;
+  }
+  .teams-s-moy{
+    font-size: 14px;
+    color: #393d42;
+    height: 13px;
+    line-height: 13px;
+  }
+  .project-nav-heide {
+    position: absolute;
+    right: 0;
+    top: 26px;
+    z-index: 22;
+    list-style: none;
+    background: #fff;
+    border-radius: 4px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 14px;
+    display: none;
+    border: 1px solid $border;
+    .gsh-arrows-1 {
+      position: absolute;
+      left: 70px;
+      top: -7px;
+      width: 14px;
+      height: 9px;
+      line-height: 0;
+      z-index: 2;
+    }
+    .gsh-arrows-1:hover {
+      background: #fff;
+    }
+    & > li {
+      padding: 0 10px;
+      width: 158px;
+      height: 36px;
+      line-height: 36px;
+      font-size: 14px;
+      color: #515154;
+      text-align: center;
+    }
+
+    & > li:hover {
+      background: $color-border;
+      a{
+        color: #fff;
+      }
+
+    }
+  }
+
+}
+//我的团队捐助记录
+.team-donations{
+  ul > li{
+  padding: 20px 0;
+  }
+  .examine{
+    padding: 15px 0;
+    text-align: center;
+    p{
+      font-size: 14px;
+      color: #8b54e3;
+    }
+  }
+}
+.team-donations-img{
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  img{
+    width: 100%;
+    height: 100%;
+  }
+}
+.team-donations-cont{
+  width: 760px;
+  margin-left: 20px;
+  & > div:nth-child(1){
+    margin-top: 5px;
+  }
+.teams-don{
+  font-size: 14px;
+  color: #2a2a2c;
+  span{
+    font-weight: 600;
+  }
+}
+  .teams-don-name{
+    font-size: 14px;
+    color: #2a2a2c;
+  }
+  .teams-don-tiam{
+    font-size: 13px;
+    color: #d7d7d7;
+  }
+}
+//财务公开
+.disclosures{
+  .disclosures-tit{
+    font-size: 22px;
+    color: #3d3d40;
+    font-weight: 600;
+    margin: 0 0 20px 0;
   }
 }
