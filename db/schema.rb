@@ -333,6 +333,7 @@ ActiveRecord::Schema.define(version: 20180420074111) do
     t.integer "donation_id", comment: "捐助id"
     t.integer "kind", comment: "捐助方式 1:捐款 2:配捐"
     t.integer "project_season_apply_child_id", comment: "一对一孩子"
+    t.integer "state", comment: "状态"
     t.index ["donation_id"], name: "index_donate_records_on_donation_id"
     t.index ["donor_id"], name: "index_donate_records_on_donor_id"
     t.index ["gsh_child_id"], name: "index_donate_records_on_gsh_child_id"
@@ -583,6 +584,22 @@ ActiveRecord::Schema.define(version: 20180420074111) do
     t.string "certificate_no", comment: "捐赠证书编号"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.integer "push_type", comment: "bit_enum，邮件、短信、微信"
+    t.string "kind", comment: "类型"
+    t.integer "from_user_id", comment: "发起用户"
+    t.integer "user_id", comment: "通知用户"
+    t.integer "project_id", comment: "项目"
+    t.integer "project_season_id", comment: "批次"
+    t.integer "project_season_apply_id", comment: "申请"
+    t.string "owner_type"
+    t.integer "owner_id"
+    t.text "content", comment: "内容"
+    t.boolean "read", comment: "是否已读"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "pages", force: :cascade, comment: "单页面" do |t|
     t.string "title", comment: "标题"
     t.string "alias", comment: "别名"
@@ -665,6 +682,7 @@ ActiveRecord::Schema.define(version: 20180420074111) do
     t.string "camp_principal", comment: "探索营-营负责人"
     t.string "camp_income_source", comment: "探索营-经费来源"
     t.integer "inventory_state", comment: "是否使用物资清单"
+    t.integer "applicant_id", comment: "申请人id"
     t.index ["audit_state"], name: "index_project_season_applies_on_audit_state"
     t.index ["camp_state"], name: "index_project_season_applies_on_camp_state"
     t.index ["execute_state"], name: "index_project_season_applies_on_execute_state"
