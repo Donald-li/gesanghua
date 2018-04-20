@@ -102,8 +102,8 @@ class ProjectSeasonApplyChild < ApplicationRecord
   enum approve_state: {draft: 0, submit: 1, pass: 2, reject: 3} # 状态：1:待审核 2:通过 3:不通过
   default_value_for :approve_state, 0
 
-  enum gender: {male: 1, female: 2, } # 状态：1:男 2:女
-  default_value_for :gender, 1
+  enum gender: {unknow: 0, male: 1, female: 2} #性别 1:男 2:女
+  default_value_for :gender, 0
 
   enum level: {junior: 1, senior: 2} # 状态：1:初中 2:高中
   default_value_for :level, 1
