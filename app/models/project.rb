@@ -192,6 +192,15 @@ class Project < ApplicationRecord
     end.attributes!
   end
 
+  def protocol_builder
+    Jbuilder.new do |json|
+      json.(self, :id)
+      json.title '格桑花' + self.name + '申请协议'
+      json.content self.protocol
+      json.alias self.alias
+    end.attributes!
+  end
+
   private
   def set_form_from_attributes
     return unless self.form_attributes.present?

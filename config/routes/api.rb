@@ -386,6 +386,9 @@ namespace :api do
     # 绑定手机号
     resource :bind_phone, only: [:create, :update]
 
+    # 捐助、项目申请协议
+    resource :protocols, only: [:show]
+
     namespace :staff do
       resources :grant_batches, only: [:index, :show] do
         resources :grants, only: [:index, :show, :update]

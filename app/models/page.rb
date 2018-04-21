@@ -23,4 +23,10 @@ class Page < ApplicationRecord
   acts_as_list column: :position
   scope :sorted, ->{ order(position: :asc) }
 
+  def summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :title, :alias, :content)
+    end.attributes!
+  end
+
 end
