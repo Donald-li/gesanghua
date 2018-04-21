@@ -86,8 +86,10 @@ class User < ApplicationRecord
 
   belongs_to :manager, class_name: "User", optional: true
 
-  validates :password, confirmation: true, allow_blank: true
-  validates :password, length: { minimum: 6 }, allow_blank: true
+  has_secure_password validations: false
+
+  validates :password, confirmation: true, allow_blank: true, unless: Proc.new { |u| u.openid.present? }
+  validates :password, length: { minimum: 6 }, allow_blank: true, unless: Proc.new { |u| u.openid.present? }
   # default_value_for :password, '111111'
   validates :email, email: true
   validates :phone, mobile: true, uniqueness: { allow_blank: true }
@@ -115,7 +117,6 @@ class User < ApplicationRecord
 
   before_create :generate_auth_token
 
-  has_secure_password
 
   counter_culture :team, column_name: proc {|model| model.team.present? ? 'member_count' : nil}
 

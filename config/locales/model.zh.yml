@@ -5,7 +5,7 @@ zh:
         phone: '手机号码'
         login: '登录名'
         name: '真实姓名'
-        password: '确认密码'
+        password: '密码'
         password_confirmation: '确认密码'
       teacher:
         name: '真实姓名'
