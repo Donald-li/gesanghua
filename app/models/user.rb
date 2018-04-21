@@ -88,8 +88,8 @@ class User < ApplicationRecord
 
   has_secure_password validations: false
 
-  validates :password, confirmation: true, allow_blank: true, unless: Proc.new { |u| u.openid.present? }
-  validates :password, length: { minimum: 6 }, allow_blank: true, unless: Proc.new { |u| u.openid.present? }
+  validates :password, confirmation: true, allow_blank: true, unless: Proc.new { |u| u.password.present? }
+  validates :password, length: { minimum: 6 }, allow_blank: true, unless: Proc.new { |u| u.password.present? }
   # default_value_for :password, '111111'
   validates :email, email: true
   validates :phone, mobile: true, uniqueness: { allow_blank: true }
