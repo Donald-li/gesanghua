@@ -55,13 +55,13 @@
             <%= @donate_record.income_record.income_source.try(:name) if @donate_record.income_record.present? %>
           </th>
         </tr>
-        <% if @donate_record.user %>
+        <% if @donate_record.donor %>
         <tr>
           <th>
             捐助人
           </th>
           <th>
-            <%= @donate_record.user.name %> ( <%= @donate_record.user.phone %> )
+            <%= @donate_record.donor.show_name %> ( <%= @donate_record.donor.phone %> )
           </th>
         </tr>
         <% end %>
