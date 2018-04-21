@@ -18,6 +18,8 @@ class Api::V1::WechatsController < Api::V1::BaseController
     user = User.where(openid: userinfo.result['openid']).first || User.new
     user.attributes = { openid: userinfo.result["openid"], gender: userinfo.result["sex"], name: userinfo.result["nickname"], login: userinfo.result["nickname"], nickname: userinfo.result["nickname"], profile: userinfo.result }
     logger.info(user.attributes.inspect)
+    user.valid?
+    logger.info(user.errors.full_messages)
     if user.disable?
       raise ActionController::RoutingError.new('Not Found')
     elsif user.save
