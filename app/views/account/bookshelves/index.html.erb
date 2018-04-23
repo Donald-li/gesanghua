@@ -19,7 +19,7 @@
                 <% @bookshelves.each do |bookshelf| %>
                   <div class="clearfix border-b">
                     <div class="donation-cont-img pull-left">
-                      <%= image_tag bookshelf.apply.cover_image.try(:file).try(:url, :tiny).to_s %>
+                      <%= image_tag bookshelf.bookshelf_image %>
                     </div>
                     <div class="pull-left donation-cont-cco">
                       <div class="donation-cont-c-tit clearfix">
