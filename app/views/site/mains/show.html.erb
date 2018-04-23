@@ -34,7 +34,7 @@
         </div>
         <div class="bul-img-co">
           <p>捐助动态</p>
-          <div style="overflow: hidden; position: relative; height: 114px;" id="news-container">
+          <div style="overflow: hidden; position: relative; height: 156px;" id="news-container">
             <div class="bul-xian"></div>
             <ul style="position: absolute; margin: 0pt; padding: 0pt; top: 0px;">
               <% @donate_records.each do |record|%>
@@ -53,11 +53,14 @@
         </div>
 
       </div>
+      <div class="bul-img-r">
+        <%= image_tag 'gsh-img-right.png' %>
+      </div>
 
     </div>
-    <div class="bul-img-r">
-      <%= image_tag 'gsh-img-right.png' %>
-    </div>
+    <!--<div class="bul-img-r">-->
+      <!--<%= image_tag 'gsh-img-right.png' %>-->
+    <!--</div>-->
   </div>
 </div>
 <div class="bul-content">
@@ -190,4 +193,5 @@
             prevEl: '.swiper-button-prev'
         }
     });
+
 </script>
