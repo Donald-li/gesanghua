@@ -340,7 +340,7 @@ class User < ApplicationRecord
     volunteer = Volunteer.find_by(phone: self.phone)
     teacher = Teacher.find_by(phone: self.phone)
     county_user = CountyUser.find_by(phone: self.phone)
-    # school = School.find_by(contact_phone: self.phone)
+    school = School.find_by(contact_phone: self.phone)
     self.bind_user_with_volunteer(volunteer) if volunteer.present?
     self.bind_user_with_teacher(teacher) if teacher.present?
     self.bind_user_with_headmaster(school) if school.present?
@@ -356,6 +356,7 @@ class User < ApplicationRecord
 
   # 绑定老师
   def bind_user_with_teacher(teacher)
+    return unless teacher.teacher?
     self.add_role(:teacher)
     teacher.user = self
     teacher.save
@@ -369,8 +370,8 @@ class User < ApplicationRecord
     self.save
 
     # 创建和绑定教师角色
-    teacher = Teacher.create(kind: 'headmaster', name: self.name, phone: self.phone, school: school)
-    bind_user_with_teacher(teacher)
+    teacher = Teacher.find_or_create_by(kind: 'headmaster', phone: self.phone, school: school)
+    teacher.update(name: self.name)
   end
 
   def bind_user_with_county_user(county_user)

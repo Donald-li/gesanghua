@@ -31,8 +31,15 @@
                 </div>
             <% end %>
           </div>
+          <div class="swiper-button-next">
+            <span class="iconfont icon-arrowdown bul-icon-next"></span>
+          </div>
+          <div class="swiper-button-prev">
+            <span class="iconfont icon-arrowdown bul-icon-prev"></span>
+          </div>
           </div>
       </div>
+    <% if @donate_records.present? %>
       <div class="panel-body">
         <div class="tab-content">
           <div class="tab-pane active" id="data_list">
@@ -40,22 +47,75 @@
           </div>
         </div>
       </div>
+        <% else %>
       <div class="donation-cont-no">
         <div class="donation-co-no-c">
           <p>您还未捐助过任何公益项目! </p>
           <p>马上参与捐助，帮助西部孩子 健康成长吧~</p>
         </div>
+        <%= link_to new_donate_path do %>
         <button class="donation-co-no-but">去捐助</button>
+        <% end %>
       </div>
+        <% end %>
     </div>
   </div>
 
 </div>
 <style>
+  .bul-icon-next {
+    position: absolute;
+    left: 0;
+    top: 7px;
+    z-index: 11;
+    color: #8b54e3;
+    width: 100%;
+    height: 100%;
+    font-size: 22px;
+    text-align: center;
+    transform: rotate(270deg);
+    line-height: 18px;
+  }
+  .bul-icon-prev {
+    position: absolute;
+    left: 0;
+    top: -5px;
+    z-index: 11;
+    color: #8b54e3;
+    width: 100%;
+    height: 100%;
+    font-size: 22px;
+    text-align: center;
+    transform: rotate(90deg);
+    line-height: 18px;
+  }
+  .swiper-button-prev, .swiper-container-rtl .swiper-button-next{
+    background-color: inherit;
+    opacity: 1;
+  }
+  .swiper-button-next, .swiper-container-rtl .swiper-button-next{
+    background-color: inherit;
+    opacity: 1;
+  }
   .donation .swiper-container {
-    width: 80%;
+    width: 66%;
     height: 100%;
     margin: 0 ;
+  }
+  .donation .swiper-button-prev, .swiper-container-rtl .swiper-button-next{
+    background-image: none;
+    right: 16px;
+    left: auto;
+  }
+  .donation .swiper-button-next, .swiper-container-rtl .swiper-button-prev{
+    background-image: none;
+    right: 0;
+    left: auto;
+  }
+  .donation .swiper-button-next, .swiper-button-prev{
+    width: 10px;
+    height: 18px;
+    margin-top: -5px;
   }
   .donation .swiper-slide {
     text-align: center;
@@ -89,6 +149,11 @@
           pagination: {
               el: '.swiper-pagination',
               clickable: true,
+          },
+          slidesPerGroup: 5,
+          navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
           },
       });
       $(".donations1 > .swiper-slide").on("click", function () {

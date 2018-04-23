@@ -25,6 +25,9 @@
                   </div>
                   <div>
                     <button><%= link_to '查看申请详情', platform_school_apply_movie_care_path(apply) %></button>
+                    <% if apply.reject? %>
+                    <button><%= link_to '修改申请', edit_platform_school_apply_movie_care_path(apply) %></button>
+                    <% end %>
                   </div>
                 </div>
               </div>
