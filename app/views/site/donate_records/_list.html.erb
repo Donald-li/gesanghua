@@ -1,10 +1,6 @@
 <% records.each do |record| %>
   <li class="border-b clearfix">
-    <% if record.donor.present? && record.donor.avatar.present? %>
-      <%= image_tag record.donor.avatar.try(:file).try(:url, :tiny).to_s %>
-    <% else %>
-      <%= image_tag '' %>
-    <% end %>
+      <%= image_tag record.donor.try(:user_avatar) %>
     <div class="pull-left">
       <div class="clearfix">
         <span class="pull-left detail-name"><%= record.donor.show_name %></span>

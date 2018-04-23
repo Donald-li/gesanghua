@@ -45,7 +45,7 @@ class Platform::School::Apply::ReadsController < Platform::School::BaseControlle
 
   def update
     if @apply.update(apply_params.except(:class_ids)) && @apply.submit!
-      ProjectSeasonApplyBookshelf.where(id: apply_params[:class_ids]).update(apply: @apply, season: @apply.season, audit_state: 'submit')
+      ProjectSeasonApplyBookshelf.where(id: apply_params[:class_ids]).update(apply: @apply, season: @apply.season, audit_state: 'submit', contact_name: apply_params[:consignee], contact_phone: apply_params[:consignee_phone])
       @apply.attach_images(params[:image_ids])
       redirect_to platform_school_apply_reads_path, notice: '提交成功'
     else

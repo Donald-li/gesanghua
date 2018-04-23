@@ -33,6 +33,7 @@
           </div>
           </div>
       </div>
+    <% if @donate_records.present? %>
       <div class="panel-body">
         <div class="tab-content">
           <div class="tab-pane active" id="data_list">
@@ -40,13 +41,17 @@
           </div>
         </div>
       </div>
+        <% else %>
       <div class="donation-cont-no">
         <div class="donation-co-no-c">
           <p>您还未捐助过任何公益项目! </p>
           <p>马上参与捐助，帮助西部孩子 健康成长吧~</p>
         </div>
+        <%= link_to new_donate_path do %>
         <button class="donation-co-no-but">去捐助</button>
+        <% end %>
       </div>
+        <% end %>
     </div>
   </div>
 

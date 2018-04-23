@@ -2,8 +2,8 @@
   <div class="camp-body">
     <div class="camps-title">
       <%= search_form_for @search, url: campaigns_path do |f| %>
-          <%= f.select :campaign_category_id_eq, CampaignCategory.sorted.collect{|cc| [cc.name, cc.id]}, {include_blank: '全部活动'}, class:"allactivities" %>
-          <%= f.select :execute_state_eq, Campaign.options_for_select(:execute_states, raw: true), {include_blank: '活动状态'}, class:"nascentstate" %>
+          <%= f.select :campaign_category_id_eq, CampaignCategory.sorted.collect {|cc| [cc.name, cc.id]}, {include_blank: '全部活动'}, class: "allactivities" %>
+          <%= f.select :execute_state_eq, Campaign.options_for_select(:execute_states, raw: true), {include_blank: '活动状态'}, class: "nascentstate" %>
           <button type="submit" class="camps-search">搜索</button>
       <% end %>
     </div>
@@ -11,39 +11,38 @@
     <div class="camps-body">
       <div class="camps-body-cont row">
         <% @campaigns.each do |campaign| %>
-            <div class="col-md-6 cur ">
-              <div class="clearfix">
-                <div class="camps-body-img ">
-                  <%= image_tag campaign.banner_url(:tiny) %>
-                </div>
-                <%= link_to campaign_path(campaign) do %>
-                  <div class="camps-body-conts ">
-                    <p><%= campaign.name %></p>
-                    <p>报名截止<%= campaign.sign_up_end_time.strftime("%Y年%m月%d日") %></p>
+            <div class="col-md-6 cur">
+              <%= link_to campaign_path(campaign) do %>
+                  <div class="clearfix">
+                    <div class="camps-body-img ">
+                      <%= image_tag campaign.banner_url(:tiny) %>
+                    </div>
+                    <div class="camps-body-conts ">
+                      <p><%= campaign.name %></p>
+                      <p>报名截止<%= campaign.sign_up_end_time.strftime("%Y年%m月%d日") %></p>
+                    </div>
                   </div>
-                <% end %>
-              </div>
-              <% if campaign.price > 0 %>
-                <div class="unit"><span>￥<%= campaign.price %> /</span> 人</div>
-              <% else %>
-                <div class="unit"> <span>免费</span></div>
-              <% end %>
-              <% if campaign.draft? %>
-                  <div class="camps-mark">活动未开始</div>
-              <% elsif campaign.submit? %>
-                  <div class="camps-mark">活动报名中</div>
-              <% elsif campaign.to_do? %>
-                  <div class="camps-mark">报名已结束</div>
-              <% elsif campaign.doing? %>
-                  <div class="camps-mark">活动进行中</div>
-              <% elsif campaign.done? %>
-                  <div class="camps-mark-no">活动已结束</div>
+                  <% if campaign.price > 0 %>
+                      <div class="unit"><span>￥<%= campaign.price %> /</span> 人</div>
+                  <% else %>
+                      <div class="unit"><span>免费</span></div>
+                  <% end %>
+                  <% if campaign.draft? %>
+                      <div class="camps-mark">活动未开始</div>
+                  <% elsif campaign.submit? %>
+                      <div class="camps-mark">活动报名中</div>
+                  <% elsif campaign.to_do? %>
+                      <div class="camps-mark">报名已结束</div>
+                  <% elsif campaign.doing? %>
+                      <div class="camps-mark">活动进行中</div>
+                  <% elsif campaign.done? %>
+                      <div class="camps-mark-no">活动已结束</div>
+                  <% end %>
               <% end %>
             </div>
         <% end %>
       </div>
     </div>
-
   </div>
 </div>
 
@@ -53,11 +52,11 @@
 
 <script>
     $('.allactivities').select2({
-        width:"250px",
+        width: "250px",
         minimumResultsForSearch: -1
     })
     $('.nascentstate').select2({
-        width:"250px",
+        width: "250px",
         minimumResultsForSearch: -1
     })
 

@@ -151,6 +151,9 @@ class ProjectSeasonApply < ApplicationRecord
     self.save!
   end
 
+  def participant_number
+    self.donate_records.group(:agent_id).count.size
+  end
   # 更新申请状态
   def check_apply_state
     if self.target_amount > 0 && self.present_amount >= self.target_amount
