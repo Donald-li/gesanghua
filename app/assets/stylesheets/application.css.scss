@@ -2176,7 +2176,10 @@ select:disabled {
     line-height: 30px;
     border: none;
     background-color: $color-border;
-    color: #fff;
+
+    a{
+      color: #fff;
+    }
   }
 }
 
@@ -6799,6 +6802,53 @@ select:disabled {
 
     }
   }
+}
+
+.check-box {
+  font-size: 12px;
+  width: 224px;
+  margin: 0 auto;
+  text-align: center;
+  .checkbox_item {
+    position: relative;
+    display: inline-block;
+    margin-right: 10px;
+    height: 16px;
+    & > span {
+      font-weight: 500;
+      color: $color-subtitle;
+    }
+  }
+}
+
+.checkbox_item input {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+
+.checkbox_item .check_label {
+  display: inline-block;
+  cursor: default;
+}
+
+.checkbox_icon {
+  display: block;
+  margin-right: 5px;
+  width: 16px;
+  height: 16px;
+  background: url(image-path("check-box.png")) 0 0;
+}
+
+.check_label.on .checkbox_icon {
+  background-position: -16px 0;
+}
+
+.checkbox_text {
+  color: #dadada;
+  float: left;
+  height: 16px;
+  line-height: 16px;
 }
 
 //物资类

@@ -2,19 +2,19 @@
 
   <div style="display: block;">
     <p class="don-title border-b ">
-      <span class="pull-left">定期反馈详情</span>
+      <span class="pull-left"><%= @project.name %>项目定期反馈</span>
       <span class="pull-right iconfont icon-arrow-right"></span>
       <span class="pull-right"><%= link_to platform_school_feedbacks_path do %>返回<% end %></span>
     </p>
-      <div class="plat-school-apply-pair">
-        <p class="school-apply-pair-tit"><%= @project.name %>项目定期反馈</p>
+    <% if @continuals.present? %>
+      <div class="plat-school-apply-pair" style="padding: 10px 0 0 0;">
         <% @continuals.each do |continual| %>
           <div class="school-feed">
             <%= image_tag continual.user.user_avatar %>
             <span><%= continual.user.show_name %> ·</span>
             <span><%= continual.created_at.strftime("%Y-%m-%d")%>发布</span>
           </div>
-          <div class="school-apply-pair-table">
+          <div class="school-apply-pair-table" style="margin: 20px 0;">
             <p>反馈详情</p>
             <div class="school-apply-pair-table-cont ">
               <p><%= continual.content.html_safe %></p>
@@ -33,6 +33,16 @@
           </div>
           <% end %>
       </div>
+        <div class="project-foot">
+          <%= paginate @continuals, theme: 'tiny' %>
+        </div>
+    <% else %>
+    <div class="donation-cont-no">
+      <div class="donation-co-no-c">
+        <p>暂无定期反馈</p>
+      </div>
+    </div>
+    <% end %>
   </div>
 
 </div>
