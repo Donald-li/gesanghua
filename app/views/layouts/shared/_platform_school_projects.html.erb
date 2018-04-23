@@ -48,6 +48,12 @@
     <% end %>
 
   </div>
+    <div class="swiper-button-next">
+      <span class="iconfont icon-arrowdown bul-icon-next"></span>
+    </div>
+    <div class="swiper-button-prev">
+      <span class="iconfont icon-arrowdown bul-icon-prev"></span>
+    </div>
   </div>
   <% if controller_name == 'reads' %>
       <div class="add-reads">
@@ -102,8 +108,57 @@
   .donationsc{
     position: relative;
   }
+  .bul-icon-next {
+    position: absolute;
+    left: 0;
+    top: 7px;
+    z-index: 11;
+    color: #8b54e3;
+    width: 100%;
+    height: 100%;
+    font-size: 22px;
+    text-align: center;
+    transform: rotate(270deg);
+    line-height: 18px;
+  }
+  .bul-icon-prev {
+    position: absolute;
+    left: 0;
+    top: -5px;
+    z-index: 11;
+    color: #8b54e3;
+    width: 100%;
+    height: 100%;
+    font-size: 22px;
+    text-align: center;
+    transform: rotate(90deg);
+    line-height: 18px;
+  }
+  .swiper-button-prev, .swiper-container-rtl .swiper-button-next{
+    background-color: inherit;
+    opacity: 1;
+  }
+  .swiper-button-next, .swiper-container-rtl .swiper-button-next{
+    background-color: inherit;
+    opacity: 1;
+  }
+  .donationsc .swiper-button-prev, .swiper-container-rtl .swiper-button-next{
+    background-image: none;
+    right: 16px;
+    left: auto;
+  }
+  .donationsc .swiper-button-next, .swiper-container-rtl .swiper-button-prev{
+    background-image: none;
+    right: 0;
+    left: auto;
+  }
+  .donationsc .swiper-button-next, .swiper-button-prev{
+    width: 10px;
+    height: 18px;
+    margin-top: -5px;
+  }
   .swiper-container {
-    width: 70%;
+    width: 66%;
     height: 100%;
     margin: 0 ;
   }
@@ -136,7 +191,12 @@
             pagination: {
                 el: '.swiper-pagination',
                 clickable: true,
-            }
+            },
+            slidesPerGroup: 5,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
         });
         $(".donations1 > .swiper-slide").on("click", function () {
             $(".donations1 > .swiper-slide").removeClass("selectedDo")
