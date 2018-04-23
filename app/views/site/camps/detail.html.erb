@@ -20,7 +20,7 @@
           <p>当前筹款<span>￥<%= @apply.present_amount %></span></p>
           <p>参与人数<span><%= @apply.donate_records.grouping(:user_id).count %>人</span></p>
           <%= link_to new_donate_path(apply_id: @apply.id, type: 'camp') do %>
-              <div class="overspread-show cur">我要捐助</div>
+              <button class="overspread-show cur">我要捐助</button>
           <% end %>
         </div>
       </div>
@@ -61,7 +61,7 @@
             <table class="table table-bordered">
               <thead>
               <tr>
-                <th scope="col">物品名称</th>p
+                <th scope="col">物品名称</th>
                 <th scope="col">物品单价（元）</th>
                 <th scope="col">物品数量</th>
               </tr>
@@ -77,11 +77,14 @@
               <% end %>
               </tbody>
             </table>
+        <% else %>
+                  <p>暂无执行反馈</p>
         <% end %>
 
       </div>
 
       <!--反馈-->
+      <% if @feedbacks.present? %>
       <div class="pull-left detail-body-left border-l contentab">
         <ul class="detail-body-ul">
           <% @feedbacks.each do |feedback| %>
@@ -116,6 +119,19 @@
           <% end %>
         </ul>
       </div>
+      <% else %>
+          <div class="not-available contentab pull-left">
+            <div class="donation-cont-no">
+              <div class="donation-co-no-c">
+                <div class="donation-co-no-c-img">
+                  <%= image_tag 'my-read.png' %>
+                </div>
+                <p>暂无执行反馈</p>
+              </div>
+            </div>
+          </div>
+      <% end %>
+
       <div class="pull-right detail-body-right">
         <p class="detail-b-r-t border-b"><span>捐助记录</span></p>
         <% if @donate_records.present? %>

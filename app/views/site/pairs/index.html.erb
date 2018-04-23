@@ -2,7 +2,7 @@
   <div class="project-head">
     <div class="project-img"></div>
     <% if @project.image.present? %>
-      <%= image_tag @project.image.try(:file).try(:url, :tiny).to_s %>
+        <%= image_tag @project.image.try(:file).try(:url, :tiny).to_s %>
     <% else %>
         <%= image_tag 'project-reading.png' %>
     <% end %>
@@ -37,8 +37,8 @@
             <span class="iconfont icon-arrowdown pull-right"></span>
             <ul class="project-nav-heide">
               <li class="cur"><%= link_to '全部', pairs_path %></li>
-              <% @address_list.each do |address|%>
-                <li class="cur"><%= link_to address[:name], pairs_path(city: address[:value]) %></li>
+              <% @address_list.each do |address| %>
+                  <li class="cur"><%= link_to address[:name], pairs_path(city: address[:value]) %></li>
               <% end %>
             </ul>
           </li>
@@ -74,25 +74,14 @@
   <%= paginate @children, theme: :tiny %>
 </div>
 
-</div>
 <script>
 
-    // 模拟城市-无联动/无搜索
-    var selector1 = $('#city-picker-selector').cityPicker({
-        dataJson: cityData,
-        renderMode: true,
-        search: false,
-        autoSelected: false,
-        code: 'cityCode',
-        level: 1
-    });
-
     //导航标题
-    $('#projectshow').mouseenter(function(){
-       $('.project-nav-heide').css({'display':'block'})
+    $('#projectshow').mouseenter(function () {
+        $('.project-nav-heide').css({'display': 'block'})
     })
-    $('#projectshow').mouseleave(function(){
-       $('.project-nav-heide').css({'display':'none'})
+    $('#projectshow').mouseleave(function () {
+        $('.project-nav-heide').css({'display': 'none'})
     })
     // $('.project-nav-heide').mousedown(function(){
     //     $('.project-nav-heide').css({'display':'none'})

@@ -3,8 +3,8 @@ class Api::V1::Cooperation::CampMembersController < Api::V1::BaseController
   before_action :set_member, only: [:edit, :update, :edit_reason, :update_reason]
 
   def index
-    students = @apply_camp.camp_members.student.sorted
-    teachers = @apply_camp.camp_members.teacher.sorted
+    students = @apply_camp.camp_members.student.draft.sorted
+    teachers = @apply_camp.camp_members.teacher.draft.sorted
     api_success(data: {students: students.map{|st| st.summary_builder}, teachers: teachers.map{|t| t.summary_builder}} )
   end
 

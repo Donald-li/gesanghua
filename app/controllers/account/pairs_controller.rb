@@ -1,7 +1,8 @@
 class Account::PairsController < Account::BaseController
 
   def index
-    scope = ProjectSeasonApplyChild.where(id: current_user.gsh_child_grants.pluck(:gsh_child_id)).sorted
+    apply_child_ids = current_user.donate_records.visible.pluck(:project_season_apply_child_id)
+    scope = ProjectSeasonApplyChild.where(id: apply_child_ids).sorted
     @children = scope.page(params[:page]).per(4)
   end
 
