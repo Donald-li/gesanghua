@@ -29,7 +29,7 @@
         <div class="portlet-body">
           <%= search_form_for @search, :url=> admin_pair_grant_batch_items_path(@batch), :remote => true,
             :html => {:method => :get} do |f|%>
-            <%= f.select :project_season_id_eq, ProjectSeason.pair.sorted.enable.all.map{|s| [s.name, s.id]}, include_blank: '全部年度' %>
+            <%= f.select :project_season_id_eq, ProjectSeason.pair.sorted.map{|s| [s.name, s.id]}, include_blank: '全部年度' %>
             <%= f.text_field :school_name_cont, placeholder: '学校名称' %>
             <%= f.text_field :gsh_child_name_or_gsh_child_gsh_no_cont, placeholder: '孩子姓名或编号' %>
             <%= f.submit '搜索', :name=>nil, id: 'search-btn', :class=> "button", :disable_with => '请稍等...'  %>
