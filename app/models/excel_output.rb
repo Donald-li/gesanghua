@@ -160,14 +160,14 @@ class ExcelOutput
     wb.add_worksheet(:name => "表") do |sheet|
       sheet.add_row ["申请批次", "格桑花编号", "姓名", "年龄", "学校", "捐助年度", "发放金额", "筹款状态", "发放状态"]
       grants.each do |grant|
-        sheet.add_row [grant.gsh_child.try(:season).try(:name),
-                       grant.gsh_child.gsh_no,
-                       grant.gsh_child.try(:name),
-                       grant.gsh_child.age,
+        sheet.add_row [grant.apply_child.try(:season).try(:name),
+                       grant.apply_child.gsh_no,
+                       grant.apply_child.try(:name),
+                       grant.apply_child.age,
                        grant.school.try(:name),
                        grant.title,
                        grant.amount,
-                       grant.gsh_child.raise_condition,
+                       grant.apply_child.raise_condition,
                        grant.enum_name(:state)]
         end
     end
