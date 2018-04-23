@@ -12,8 +12,8 @@
               <%= link_to '我的图书角', account_bookshelves_path %>
             </li>
           </ul>
-          <!--我的捐助-->
-          <div class="donation " style="display: block;">
+          <!--我的图书角-->
+          <div>
             <% if @bookshelves.present? %>
               <div class="donation-cont ">
                 <% @bookshelves.each do |bookshelf| %>

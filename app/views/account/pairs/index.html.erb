@@ -12,12 +12,12 @@
               <%= link_to '我的图书角', account_bookshelves_path %>
             </li>
           </ul>
-          <!--我的捐助-->
+          <!--我的结对-->
           <div class="my-pairs-cont" id="my-pairs-cont">
             <% if @children.present? %>
               <div class="donation-cont">
                 <% @children.each do |child| %>
-                  <div class="clearfix border-b">
+                  <div class="clearfix border-t">
                     <div class="my-pairs pull-left">
                       <%= image_tag child.avatar.try(:file).try(:url, :tiny).to_s %>
                     </div>
@@ -64,7 +64,7 @@
 </div>
 <script>
 
-
+$('.donation-cont > div').eq(0).removeClass('border-t')
     //     右tab切换二级
     $(".donations1 li").on("click", function () {
         $(".donations1 li").removeClass("selectedDo")

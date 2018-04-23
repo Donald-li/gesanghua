@@ -3,98 +3,102 @@
 <% end %>
 <%= simple_form_for @user, url: account_registration_path, method: :post, html: {class: ''} do |f| %>
 
-<div id="first-screen" class="first-screen classbody">
-  <div class="screen-body">
-    <div class="screen-body-cell">
-      <div class="auto-box cell-wrap clearfix">
-        <!--<div class="login-box">-->
-        <!--<div class="login-header">用户注册</div>-->
-        <!--<div class="login-body">-->
-        <!--<%= simple_form_for [:user, User.new], url: account_registration_path, wrapper: :admin_form, html: {'data-parsley-validate': true} do |f| %>-->
-            <!--<%= f.error_notification %>-->
-            <!--<div class="form-body">-->
-            <!--<%= f.input :login, label: '登录账号', autofocus: true, placeholder: '请输入手机号码' %>-->
-            <!--<div class="form-group user_rucaptcha yzm">-->
-            <!--<label class="col-md-2 control-label">短信验证码</label>-->
-            <!--<div class="col-md-8">-->
-            <!--<input class="form-control" id="code" name="code" type="text" placeholder="输入验证码">-->
-            <!--</div>-->
-            <!--<div class="col-md-4">-->
-            <!--<button id="send_code" type="button" class="btn btn-primary-line btn-block" onclick="sendSms('verify_profile', $('#organization_login').val());">获取验证码</button>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<%= f.input :password, label: '输入密码', placeholder: '请输入登录密码' %>-->
-            <!--<%#= f.input :password_confirmation, label: '确认密码', placeholder: '重新输入一次密码' %>-->
-            <!--<div class="help-disc">-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<div class="login-btn-wrap">-->
-            <!--<%= f.button :submit, '注册账号', class: 'btn btn-danger btn-lg' %>-->
-            <!--</div>-->
-            <!--
+    <div id="first-screen" class="first-screen classbody">
+      <div class="screen-body">
+        <div class="screen-body-cell">
+          <div class="auto-box cell-wrap clearfix">
+            <!--<div class="login-box">-->
+            <!--<div class="login-header">用户注册</div>-->
+            <!--<div class="login-body">-->
+            <!--<%= simple_form_for [:user, User.new], url: account_registration_path, wrapper: :admin_form, html: {'data-parsley-validate': true} do |f| %>-->
+                <!--<%= f.error_notification %>-->
+                <!--<div class="form-body">-->
+                <!--<%= f.input :login, label: '登录账号', autofocus: true, placeholder: '请输入手机号码' %>-->
+                <!--<div class="form-group user_rucaptcha yzm">-->
+                <!--<label class="col-md-2 control-label">短信验证码</label>-->
+                <!--<div class="col-md-8">-->
+                <!--<input class="form-control" id="code" name="code" type="text" placeholder="输入验证码">-->
+                <!--</div>-->
+                <!--<div class="col-md-4">-->
+                <!--<button id="send_code" type="button" class="btn btn-primary-line btn-block" onclick="sendSms('verify_profile', $('#organization_login').val());">获取验证码</button>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<%= f.input :password, label: '输入密码', placeholder: '请输入登录密码' %>-->
+                <!--<%#= f.input :password_confirmation, label: '确认密码', placeholder: '重新输入一次密码' %>-->
+                <!--<div class="help-disc">-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="login-btn-wrap">-->
+                <!--<%= f.button :submit, '注册账号', class: 'btn btn-danger btn-lg' %>-->
+                <!--</div>-->
+                <!--
         <% end %>-->
-        <!--<%= javascript_include_tag 'global/sms', 'data-turbolinks-track': 'reload' %>-->
-        <!--</div>-->
-        <!--</div>-->
+            <!--<%= javascript_include_tag 'global/sms', 'data-turbolinks-track': 'reload' %>-->
+            <!--</div>-->
+            <!--</div>-->
 
-        <div class="loge pull-left">
-          <canvas width="100%" height="100%" class="flare"></canvas>
-          <div class="loge-cont">
-            <%= image_tag 'login.png' %>
-          </div>
-        </div>
+            <div class="loge pull-left">
+              <canvas width="100%" height="100%" class="flare"></canvas>
+              <div class="loge-cont">
+                <%= image_tag 'login.png' %>
+              </div>
+            </div>
 
-        <div class="logein pull-left">
-          <div class="longin-left">
-            <p class="longin-tit clearfix">
-              <% if params[:kind] == 'by_phone' %>
-                <span class="pull-left cur longin-1">账号注册</span>
-                <%= link_to new_account_registration_path(kind: 'by_email') do %><span class="pull-right cur longin-2">海外邮箱注册</span><% end %>
-              <% end %>
-              <% if params[:kind] == 'by_email' %>
-                <span class="pull-left cur longin-1">邮箱注册</span>
-                <%= link_to new_account_registration_path(kind: 'by_phone') do %><span class="pull-right cur longin-2">账号注册</span><% end %>
-              <% end %>
-            </p>
-            <div class="input-in" style="margin: 5px auto;">
-              <input type="text" name="kind" value="<%= params[:kind] %>" hidden />
-              <!--手机号-->
-              <% if params[:kind] == 'by_phone' %>
+            <div class="logein pull-left">
+              <div class="longin-left">
+                <p class="longin-tit clearfix">
+                  <% if params[:kind] == 'by_phone' %>
+                      <span class="pull-left cur longin-1">账号注册</span>
+                      <%= link_to new_account_registration_path(kind: 'by_email') do %>
+                          <span class="pull-right cur longin-2">海外邮箱注册</span>
+                      <% end %>
+                  <% end %>
+                  <% if params[:kind] == 'by_email' %>
+                      <span class="pull-left cur longin-1">邮箱注册</span>
+                      <%= link_to new_account_registration_path(kind: 'by_phone') do %>
+                          <span class="pull-right cur longin-2">账号注册</span>
+                      <% end %>
+                  <% end %>
+                </p>
+                <div class="input-in" style="margin: 5px auto;">
+                  <input type="text" name="kind" value="<%= params[:kind] %>" hidden/>
+                  <!--手机号-->
+                  <% if params[:kind] == 'by_phone' %>
                 <span class="input input&#45;&#45;hoshi">
                 <!-- <input class="input__field input__field&#45;&#45;hoshi" type="text" id="phonenumber" placeholder="手机号"/> -->
-                <%= f.text_field :login, required: true, class: 'input__field input__field--hoshi', id: 'phonenumber', placeholder: '手机号' %>
-                <label class="input__label input__label&#45;&#45;hoshi input__label&#45;&#45;hoshi-color-1" for="phonenumber"></label>
+                  <%= f.text_field :login, required: true, class: 'input__field input__field--hoshi', id: 'phonenumber', placeholder: '手机号' %>
+                  <label class="input__label input__label&#45;&#45;hoshi input__label&#45;&#45;hoshi-color-1" for="phonenumber"></label>
                 </span>
-              <% end %>
-              <!--邮箱-->
-              <% if params[:kind] == 'by_email' %>
+                  <% end %>
+                  <!--邮箱-->
+                  <% if params[:kind] == 'by_email' %>
                 <span class="input input--hoshi">
                   <!-- <input class="input__field input__field--hoshi" type="text" id="email" placeholder="邮箱"/> -->
                   <%= f.text_field :login, required: true, class: 'input__field input__field--hoshi', id: 'email', placeholder: '邮箱' %>
                   <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="email"></label>
   				      </span>
-              <% end %>
-              <span class="input input--hoshi">
+                  <% end %>
+                  <span class="input input--hoshi">
                 <!-- <input class="input__field input__field--hoshi" type="password" id="password" placeholder="密码"/> -->
-                <%= f.password_field :password, required: true, class: 'input__field input__field--hoshi', id: 'password', placeholder: '密码' %>
-                <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="password"></label>
+                    <%= f.password_field :password, required: true, class: 'input__field input__field--hoshi', id: 'password', placeholder: '密码' %>
+                    <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="password"></label>
 				      </span>
-              <span class="input input--hoshi">
+                  <span class="input input--hoshi">
                 <input class="input__field input__field--hoshi" type="text" id="security" name="code" placeholder="输入验证码"/>
                 <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="security"></label>
-                <!--<button class="security-cont cur">获取验证码</button>-->
-                <input class="security-cont cur" type="button" id="btn" value="获取验证码" />
-               <!--<div id="counter"></div>-->
+                    <!--<button class="security-cont cur">获取验证码</button>-->
+                <input class="security-cont cur" type="button" id="btn" value="获取验证码"/>
+                    <!--<div id="counter"></div>-->
 				      </span>
-            </div>
+                </div>
 
-            <!-- <div class="register"> -->
-              <!--<%= link_to '注册', account_registrations_path, method: :post %>-->
-              <!-- 注册 -->
-            <!-- </div> -->
-            <button class="register" type="submit">注册</button>
+                <!-- <div class="register"> -->
+                <!--<%= link_to '注册', account_registrations_path, method: :post %>-->
+                <!-- 注册 -->
+                <!-- </div> -->
+                <button class="register" type="submit">注册</button>
 
-            <div class="check-box">
+                <div class="check-box">
               <span class="checkbox_item clearfix">
                 <input type="checkbox" name="check"/>
                 <label class="check_label on pull-left">
@@ -103,52 +107,58 @@
                 </label>
                 <span class="pull-left cur">《格桑花用户注册协议》</span>
               </span>
+                </div>
+              </div>
+              <div class="longin-right">
+                <p class="longin-margin">已有账号，<strong class="cur"><%= link_to account_login_path do %>立即登录
+                  <% end %></strong></p>
+                <p class="longin-margin">or</p>
+                <p class="longin-icon cur">
+                  <span class="iconfont icon-wechat pull-left"></span><span class="pull-left">微信登录</span></p>
+              </div>
             </div>
-          </div>
-          <div class="longin-right">
-            <p class="longin-margin">已有账号，<strong class="cur"><%= link_to account_login_path do %>立即登录<% end %></strong></p>
-            <p class="longin-margin">or</p>
-            <p class="longin-icon cur">
-              <span class="iconfont icon-wechat pull-left"></span><span class="pull-left">微信登录</span></p>
           </div>
         </div>
       </div>
+      <footer class="flexdfoot">
+        Copyright(c) 2005-2015 青海格桑花教育救助会 版权所有 All Rights Reserved 青ICP
+      </footer>
     </div>
-  </div>
-  <footer class="flexdfoot">
-    Copyright(c) 2005-2015 青海格桑花教育救助会 版权所有 All Rights Reserved 青ICP
-  </footer>
-</div>
 <% end %>
 <script type="text/javascript" charset="utf-8">
 
-var wait=59;
-function time(o) {
-    if (wait == 0) {
-        o.removeAttribute("disabled");
-        o.value="获取验证码";
-        wait = 59;
-    } else { // www.jbxue.com
-        o.setAttribute("disabled", true);
-        o.value= wait + "秒";
-        wait--;
-        setTimeout(function() {
-                time(o)
-            },
-            1000)
+    var wait = 59;
+
+    function time(o) {
+        if (wait == 0) {
+            o.removeAttribute("disabled");
+            o.value = "获取验证码";
+            wait = 59;
+        } else { // www.jbxue.com
+            o.setAttribute("disabled", true);
+            o.value = wait + "秒";
+            wait--;
+            setTimeout(function () {
+                    time(o)
+                },
+                1000)
+        }
     }
-}
-document.getElementById("btn").onclick=function(){
-  time(this);
-  var mobile = $('#phonenumber').val()
-  $.ajax({
-    type:  "post",
-    url: "/api/v1/common/sms_codes",
-    data: {kind: 'signup', mobile: mobile},
-    success(data){alert(data.message)},
-    error(){}
-  })
-}
+
+    document.getElementById("btn").onclick = function () {
+        time(this);
+        var mobile = $('#phonenumber').val()
+        $.ajax({
+            type: "post",
+            url: "/api/v1/common/sms_codes",
+            data: {kind: 'signup', mobile: mobile},
+            success(data) {
+                alert(data.message)
+            },
+            error() {
+            }
+        })
+    }
     $(".check_label").checkbox();
     $("canvas.flare").let_it_snow({
         windPower: 0,
@@ -166,6 +176,7 @@ document.getElementById("btn").onclick=function(){
     $(window).resize(function () {
         setHeight();
     });
+
     function setHeight() {
         var windowHeight = $(window).height();
         $('#first-screen').css('height', windowHeight + 'px');
