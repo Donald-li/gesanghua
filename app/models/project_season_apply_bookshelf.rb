@@ -88,6 +88,33 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
     self.state = 'to_delivery' if self.present_amount >= self.target_amount
     self.save!
     self.apply.save!
+
+    if self.to_delivery?
+      # 书架筹满通知
+      # 给申请人发通知
+      owner = self
+      title = '#筹款成功# 该书架已筹满'
+      content = "感谢你的支持 #{self.classname}书架 筹款成功，后续书架动态我们会持续通知"
+      notice1 = Notification.create(
+        owner: owner,
+        user_id: owner.apply.applicant_id,
+        title: title,
+        content: content
+      )
+      # 给捐款人发通知
+      donor_ids = []
+      self.donates.each do |d|
+        unless d.donor_id.in? donor_ids
+          notice2 = Notification.create(
+            owner: owner,
+            user_id: d.donor_id,
+            title: title,
+            content: content
+          )
+          donor_ids << d.donor_id
+        end
+      end
+    end
   end
 
   def surplus_money
