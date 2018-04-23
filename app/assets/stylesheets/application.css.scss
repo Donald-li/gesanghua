@@ -767,20 +767,21 @@ select:disabled {
     position: relative;
   }
   .bul-img-r {
-    position: absolute;
-    right: 0;
-    top: 0;
+   flex: 1;
+    margin-left: 32px;
     img {
-      width: 780px;
-      height: 320px;
+      //width: 780px;
+
     }
   }
   .bul-img-n {
     width: 1140px;
     margin: 0 auto;
+    display: flex;
     .bul-img-m {
       width: 470px;
       height: 100%;
+      flex: 1;
       .bul-img-p {
         border-bottom: 1px solid #dcdcdc;
         padding: 36px 0 20px 0;
@@ -1107,6 +1108,24 @@ select:disabled {
 .item {
   padding-top: 15px;
   padding-bottom: 30px;
+}
+//分辨率
+
+@media (max-width: 1280px) {
+  .bul-ai .bul-img-r img{
+    width: 0;
+    height: 0;
+  }
+  .bul-ai .bul-img-n .bul-img-m{
+    width: 1140px;
+    margin: 0 auto;
+   flex: initial;
+  }
+}
+@media (max-width: 1382px){
+  .bul-nav{
+    width: 1382px;
+  }
 }
 
 //底部
