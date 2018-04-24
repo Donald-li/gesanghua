@@ -71,7 +71,7 @@
                             <%= b.object.supply %>
                           </td>
                           <td>
-                            <%= b.input :target_amount, type: 'number', min: 0, label: false, input_html:{data: {'parsley-required': true}, class: 'target-amount', placeholder: '请填入筹款金额'}  %>
+                            <%= b.input :target_amount, type: 'number', label: false, input_html:{data: {'parsley-required': true, 'parsley-min': 1}, class: 'target-amount', placeholder: '请填入筹款金额'}  %>
                           </td>
                           <td>
                             <%= b.input :describe, label: false, input_html:{data: {'parsley-required': true}, class: '', placeholder: '请填入筹款说明'}  %>
