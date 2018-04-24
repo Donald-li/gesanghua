@@ -53,11 +53,11 @@ class Admin::SchoolAppliesController < Admin::BaseController
           content = "你申请的学校 #{@school_apply.name} 已经审核通过。 "
         else
           title = "#学校申请# 审核未通过"
-          content = "你申请的学校 #{@school_apply.name} 审核未通过 未通过理由: #{@school_apply.approve_remark}"
+          content = "你申请的学校 #{@school_apply.name} 审核未通过 未通过理由: #{school_apply_params[:approve_remark]}"
         end
         notice = Notification.create(
           owner: owner,
-          user_id: creater.id,
+          user_id: owner.creater.id,
           title: title,
           content: content
         )
