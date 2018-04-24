@@ -70,13 +70,8 @@
                 <%= grant.enum_name(:donate_state) %>
               </td>
               <td>
-                <% if grant.succeed? %>
-                  <%= grant.enum_name(:state) %>
-                <% end %>
+                <%= grant.enum_name(:state) %>
               </td>
-              <!--<td>-->
-                <!---->
-              <!--</td>-->
             </tr>
           <% end %>
           </tbody>

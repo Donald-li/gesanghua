@@ -28,8 +28,8 @@
                 <%= f.select :project_season_id_eq, ProjectSeason.where(project_id: Project.pair_project.id).all_to_hash, {include_blank: '全部'}, class: 'form-control' %>
               </div>
               <div class="form-group">
-                <%= f.label :kind_eq, '捐助形式' %>
-                <%= f.select :kind_eq, ProjectSeasonApplyChild.options_for_select(:kinds, raw: true), {include_blank: '全部'}, class: 'form-control' %>
+                <%= label_tag :donor_state_eq, '捐助状态' %>
+                <%= select_tag :donor_state_eq, options_for_select([['筹款中', 'raising'], ['可续捐', 'part_done'], ['筹款完成', 'done']], params[:donor_state_eq]), include_blank: '全部', class: 'form-control' %>
               </div>
               <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>
@@ -88,11 +88,11 @@
                 </td>
                 <td>
                   <% child.gsh_child_grants.sorted.reverse.each do |grant| %>
-                    <span class="btn btn-xs <%= grant.pending? ? 'yellow' : 'green' %>" title="<%= grant.pending? ? '未筹款' : '已筹款' %>"><%= grant.title %></span>
+                    <span class="btn btn-xs <%= grant.pending? ? 'yellow' : 'green' %>" title="<%= grant.enum_name(:donate_state) %>"><%= grant.title %></span>
                   <% end %>
                 </td>
                 <td>
-                  <%= child.raise_process %>
+                  <%= child.gift_progress %>
                 </td>
                 <td>
                   <%= child.remarks.count %>

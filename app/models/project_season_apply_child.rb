@@ -28,11 +28,11 @@
 #  school_id               :integer                                # 学校ID
 #  semester                :integer                                # 学期
 #  kind                    :integer                                # 捐助形式：1对外捐助 2内部认捐
-#  reason                  :string                                 # 结对申请理由
 #  donate_user_id          :integer                                # 捐助人id
+#  reason                  :string                                 # 结对申请理由
 #  gsh_no                  :string                                 # 格桑花孩子编号
 #  semester_count          :integer                                # 学期数
-#  done_semester_count     :integer                                # 已完成的学期数
+#  done_semester_count     :integer          default(0)            # 已完成的学期数
 #  user_id                 :integer                                # 关联的用户ID
 #  teacher_name            :string                                 # 班主任
 #  father                  :string                                 # 父亲
@@ -171,21 +171,16 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   # 筹款进度
   def gift_progress
-    "#{self.done_semester_count}/#{self.semester_count}"
-  end
-
-  def raise_process
-    return "#{self.gsh_child_grants.succeed.count} / #{self.gsh_child_grants.count}"
+    "#{self.done_semester_count} / #{self.semester_count}"
   end
 
   def raise_condition
-    total = self.gsh_child_grants.count
-    num = total - self.gsh_child_grants.succeed.count
-
+    total = self.semester_count
+    num = self.done_semester_count
     if num == 0
-      '筹款完成'
-    elsif num == total
       '筹款中'
+    elsif num == total
+      '筹款完成'
     else
       '可续捐'
     end

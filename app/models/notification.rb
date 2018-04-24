@@ -31,8 +31,9 @@ class Notification < ApplicationRecord
 
   private
   def set_assoc_attrs
-    self.project = self.owner.project if self.owner.project.present?
-    self.season = self.owner.season if self.owner.season.present?
-    self.apply = self.owner.apply if self.owner.apply.present?
+    owner = self.owner
+    self.project = owner.project if owner.try(:project).present?
+    self.season = owner.season if owner.try(:season).present?
+    self.apply = owner.apply if owner.try(:apply).present?
   end
 end

@@ -1,0 +1,3 @@
+<% html = j(render('list', donate_records: @donate_records, team_id: @team.id)) %>
+$('.examine').remove()
+$('<%=html%>').appendTo('.team-donations ul')

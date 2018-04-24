@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180424040501) do
+ActiveRecord::Schema.define(version: 20180424071433) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -484,7 +484,6 @@ ActiveRecord::Schema.define(version: 20180424040501) do
     t.text "grant_remark", comment: "发放说明"
     t.string "delay_reason", comment: "暂缓发放原因"
     t.text "delay_remark", comment: "暂缓发放备注"
-    t.string "cancel_reason", comment: "取消原因"
     t.integer "balance_manage", comment: "取消余额处理"
     t.text "cancel_remark", comment: "取消说明"
     t.string "title", comment: "标题"
@@ -494,6 +493,7 @@ ActiveRecord::Schema.define(version: 20180424040501) do
     t.integer "user_id", comment: "捐助人"
     t.integer "grant_batch_id", comment: "发放批次"
     t.integer "project_season_apply_child_id", comment: "一对一助学孩子id"
+    t.integer "cancel_reason", comment: "取消原因"
     t.index ["donate_state"], name: "index_gsh_child_grants_on_donate_state"
     t.index ["grant_batch_id"], name: "index_gsh_child_grants_on_grant_batch_id"
     t.index ["gsh_child_id"], name: "index_gsh_child_grants_on_gsh_child_id"
@@ -586,7 +586,7 @@ ActiveRecord::Schema.define(version: 20180424040501) do
 
   create_table "notifications", force: :cascade do |t|
     t.integer "push_type", comment: "bit_enum，邮件、短信、微信"
-    t.string "kind", comment: "类型，通知类型"
+    t.string "kind", comment: "类型"
     t.integer "from_user_id", comment: "发起用户"
     t.integer "user_id", comment: "通知用户"
     t.integer "project_id", comment: "项目"
@@ -798,7 +798,7 @@ ActiveRecord::Schema.define(version: 20180424040501) do
     t.string "reason", comment: "结对申请理由"
     t.string "gsh_no", comment: "格桑花孩子编号"
     t.integer "semester_count", comment: "学期数"
-    t.integer "done_semester_count", comment: "已完成的学期数"
+    t.integer "done_semester_count", default: 0, comment: "已完成的学期数"
     t.integer "user_id", comment: "关联的用户ID"
     t.string "teacher_name", comment: "班主任"
     t.string "father", comment: "父亲"

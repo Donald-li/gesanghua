@@ -127,6 +127,16 @@ class Donation < ApplicationRecord
       # 执行捐助
       income_record = donation.income_record
       DonateRecord.do_donate('user_donate', income_record, donation.owner, amount, {agent: agent, donor: donor})
+
+      owner = income_record
+      title = '#支付成功# 感谢您的支持'
+      content = "感谢你的支持 捐助款已经收到，后续动态我们会持续通知"
+      notice = Notification.create(
+        owner: owner,
+        user_id: agent.id,
+        title: title,
+        content: content
+      )
     end
   end
 

@@ -17,8 +17,9 @@
         <%= f.error_notification %>
         <div class="form-body">
           <%= static_form_control '学生姓名：', @grant.try(:gsh_child).try(:name) %>
+          <%= static_form_control '申请学年：', @grant.title %>
           <%= static_form_control '余款动向：', @grant.enum_name(:balance_manage) %>
-          <%= static_form_control '取消捐助原因：', @grant.cancel_reason %>
+          <%= static_form_control '取消捐助原因：', @grant.enum_name(:cancel_reason) %>
           <%= static_form_control '取消捐助说明：', @grant.cancel_remark %>
           <%#= f.input :balance_manage, as: :radio_buttons, wrapper: :inline_inputs, collection: GshChildGrant.options_for_select(:balance_manages), label: '余款动向：' %>
           <%#= f.input :cancel_reason, label: '取消捐助原因：', placeholder: '请填写原因', required: true %>

@@ -1,0 +1,70 @@
+<%= simple_form_for [:account, @team], url: @team.new_record? ? account_teams_path : account_team_path , html: {'data-parsley-validate': true, class: 'user_form'} do |f| %>
+  <div class="school-edit" id="teams">
+    <div class="addchild-list-img">
+      <%= webuploader_avatar :logo_id, label: '上传团队图片', type: 'team_logo', asset: @team.try(:logo), klass: 'single', id: 'team-logo' %>
+    </div>
+    <%= f.hidden_field :kind, value: @team.kind %>
+    <p class="don-title">团队信息</p>
+    <div class="addchild-list-cont">
+      <div>
+        <span class="goodtext">团队名称</span>
+        <input class="goodinput " type="text" name="team[name]" value="<%= @team.name %>" required />
+      </div>
+      <div>
+        <span class="goodtext">所在地区</span>
+        <div class="city-group">
+          <%= select_tag 'team[province]', options_for_select(ChinaCity.list, @team.province.presence), prompt: '省份', class: "city-select", id: 'province', required: true %>
+          <%= select_tag 'team[city]', options_for_select(ChinaCity.list(@team.province.to_s), @team.city.presence), prompt: '城市', class: "city-select", id: 'city', required: true %>
+          <%= select_tag 'team[district]', options_for_select(ChinaCity.list(@team.city.to_s), @team.district.presence), prompt: '地区', class: "city-select", id: 'district', required: true %>
+        </div>
+      </div>
+      <div>
+        <span class="goodtext">详细地址</span>
+        <input class="goodinput " type="text" name="team[address]" value="<%= @team.address %>" placeholder="请输入详细地址" required/>
+      </div>
+      <% if @team.college? %>
+        <div>
+          <span class="goodtext">高校名称</span>
+          <input class="goodinput " type="text" name="team[school_name]" value="<%= @team.school_name %>" placeholder="" required/>
+        </div>
+      <% end %>
+      <div class="teams-news">
+        <span class="goodtext">团队介绍</span>
+        <div>
+          <textarea maxlength="200" id="inputbox" name="team[describe]"><%= @team.describe %></textarea>
+          <span class="teams-textare"><span id="conts">0</span>/200</span>
+        </div>
+      </div>
+    </div>
+    <div class="childern-submint">
+      <button type="submit">保存</button>
+      <button><%= link_to account_teams_path do %>取消<% end %></button>
+    </div>
+  </div>
+<% end %>
+
+<script>
+    $(function () {
+        $("#inputbox").keyup(function () {
+            var len = $(this).val().length;
+            if (len > 199) {
+                $(this).val($(this).val().substring(0, 200));
+            }
+            $("#conts").text(len);
+
+        });
+        initAvatarWebuploader($('#team-logo'));
+        $(".province").select2({
+            width: "170px",
+            minimumResultsForSearch: -1
+        });
+        $(".city").select2({
+            width: "170px",
+            minimumResultsForSearch: -1
+        });
+        $(".district").select2({
+            width: "200px",
+            minimumResultsForSearch: -1
+        });
+    })
+</script>
