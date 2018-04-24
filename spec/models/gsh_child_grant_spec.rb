@@ -17,7 +17,6 @@
 #  grant_remark                  :text                                   # 发放说明
 #  delay_reason                  :string                                 # 暂缓发放原因
 #  delay_remark                  :text                                   # 暂缓发放备注
-#  cancel_reason                 :string                                 # 取消原因
 #  balance_manage                :integer                                # 取消余额处理
 #  cancel_remark                 :text                                   # 取消说明
 #  title                         :string                                 # 标题
@@ -27,6 +26,7 @@
 #  user_id                       :integer                                # 捐助人
 #  grant_batch_id                :integer                                # 发放批次
 #  project_season_apply_child_id :integer                                # 一对一助学孩子id
+#  cancel_reason                 :integer                                # 取消原因
 #
 
 require 'rails_helper'

@@ -17,7 +17,6 @@
 #  grant_remark                  :text                                   # 发放说明
 #  delay_reason                  :string                                 # 暂缓发放原因
 #  delay_remark                  :text                                   # 暂缓发放备注
-#  cancel_reason                 :string                                 # 取消原因
 #  balance_manage                :integer                                # 取消余额处理
 #  cancel_remark                 :text                                   # 取消说明
 #  title                         :string                                 # 标题
@@ -27,6 +26,7 @@
 #  user_id                       :integer                                # 捐助人
 #  grant_batch_id                :integer                                # 发放批次
 #  project_season_apply_child_id :integer                                # 一对一助学孩子id
+#  cancel_reason                 :integer                                # 取消原因
 #
 
 # 一对一孩子发放表
@@ -55,11 +55,13 @@ class GshChildGrant < ApplicationRecord
   enum state: {waiting: 1, granted: 2, suspend: 3, cancel: 4}
   default_value_for :state, 1
 
+  enum cancel_reason: {leave: 1, absence: 2, transfor: 3, vacate: 4, other: 5} # 1:请假 2:休学 3:转学 4:学校放假 5:其他
+
   enum donate_state: {pending: 1, succeed: 2, refund: 3} # 捐助状态：1:未筹款 2:已筹款
   default_value_for :donate_state, 1
 
   enum balance_manage: {transfer: 1, send_back: 2} # TODO: 废弃 捐助状态 1:转捐 2:退回
-  # default_value_for :balance_manage, 0
+  # default_value_for :balance_manage, 2
 
   scope :sorted, ->(){ order(id: :asc) }
   scope :reverse_sorted, ->{ sorted.reverse_order }
@@ -90,6 +92,12 @@ class GshChildGrant < ApplicationRecord
     self.user_id = donate_record.donor_id
     self.save!
     self.apply_child.update_state
+  end
+
+  # 退款, 捐助记录退款状态，退回账户余额，孩子标记取消
+  def do_refund!
+    record = self.donate_records.last
+    record.do_refund!
   end
 
   def surplus_money
