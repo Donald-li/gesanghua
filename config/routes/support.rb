@@ -43,6 +43,8 @@ scope module: :support do
       get :edit_read_supplement
       post :update_read_supplement
       post :delete_read_supplement
+      post :dismiss_team
+      post :turn_team
     end
   end
 end

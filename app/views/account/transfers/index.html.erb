@@ -7,54 +7,38 @@
   <div class="transfers">
     <p class="gsh-plus-tit">选择你要移交的团队成员</p>
     <ul class="transfers-cont ui-choose" >
-      <li class="transfers-per selected">
-        <div class="transfers-per-img">
-          <%= image_tag 'project-detail-child.png' %>
-        </div>
-        <p class="transfers-per-name">十指紧扣</p>
-        <div class="transfers-per-team">团队创建人</div>
-        <p class="transfers-per-time">加入 2017-10-20</p>
-      </li>
-      <li class="transfers-per ">
-        <div class="transfers-per-img">
-          <%= image_tag 'project-detail-child.png' %>
-        </div>
-        <p class="transfers-per-name">十指紧扣</p>
-        <div class="transfers-per-team">团队创建人</div>
-        <p class="transfers-per-time">加入 2017-10-20</p>
-      </li>
-      <li class="transfers-per">
-        <div class="transfers-per-img">
-          <%= image_tag 'project-detail-child.png' %>
-        </div>
-        <p class="transfers-per-name">十指紧扣</p>
-        <div class="transfers-per-mark">爱心人士</div>
-        <p class="transfers-per-time">加入 2017-10-20</p>
-      </li>
-      <li class="transfers-per">
-        <div class="transfers-per-img">
-          <%= image_tag 'project-detail-child.png' %>
-        </div>
-        <p class="transfers-per-name">十指紧扣</p>
-        <div class="transfers-per-mark">爱心人士</div>
-        <p class="transfers-per-time">加入 2017-10-20</p>
-      </li>
-      <li class="transfers-per">
-        <div class="transfers-per-img">
-          <%= image_tag 'project-detail-child.png' %>
-        </div>
-        <p class="transfers-per-name">十指紧扣</p>
-        <div class="transfers-per-mark">爱心人士</div>
-        <p class="transfers-per-time">加入 2017-10-20</p>
-      </li>
-      <li class="transfers-per">
-        <div class="transfers-per-img">
-          <%= image_tag 'project-detail-child.png' %>
-        </div>
-        <p class="transfers-per-name">十指紧扣</p>
-        <div class="transfers-per-mark">志愿者</div>
-        <p class="transfers-per-time">加入 2017-10-20</p>
-      </li>
+      <% if @team_creater.present? %>
+        <li class="transfers-per <%= @team_creater.present? ? 'selected' : ''%>" UserId="<%= @team_creater.id %>">
+          <div class="transfers-per-img">
+            <%= image_tag @team_creater.user_avatar %>
+          </div>
+          <p class="transfers-per-name"><%= @team_creater.show_name %></p>
+          <div class="transfers-per-team">团队创建人</div>
+          <p class="transfers-per-time">加入 <%= @team_creater.join_team_time.strftime("%Y-%m-%d") %></p>
+        </li>
+      <% end %>
+      <% if @team_manager.present? %>
+        <li class="transfers-per <%= !@team_creater.present? && @team_manager.present? ? 'selected' : ''%>" UserId="<%= @team_manager.id %>">
+          <div class="transfers-per-img">
+            <%= image_tag @team_manager.user_avatar %>
+          </div>
+          <p class="transfers-per-name"><%= @team_manager.show_name %></p>
+          <div class="transfers-per-team">团队负责人</div>
+          <p class="transfers-per-time">加入 <%= @team_manager.join_team_time.strftime("%Y-%m-%d") %></p>
+        </li>
+      <% end %>
+      <% @team_members.each do |member| %>
+        <li class="transfers-per <%= !@team_creater.present? && !@team_manager.present? ? 'selected' : '' %>" UserId="<%= member.id %>">
+          <div class="transfers-per-img">
+            <%= image_tag member.user_avatar %>
+          </div>
+          <p class="transfers-per-name"><%= member.show_name%></p>
+          <% if member.role_tag.present? %>
+            <div class="transfers-per-mark"><% member.role_tag %></div>
+          <% end %>
+          <p class="transfers-per-time">加入 <%= member.join_team_time.strftime("%Y-%m-%d") %></p>
+        </li>
+      <% end %>
     </ul>
   </div>
   <div class="transfers-button">
@@ -71,7 +55,7 @@
         <p class="over-fontns">确定移交团队？</p>
       </div>
       <div class="overspreads-but">
-        <button>确定</button>
+        <button onclick="turnTeam()">确定</button>
         <button>取消</button>
       </div>
     </div>
@@ -82,6 +66,27 @@
 <script>
     $('.ui-choose').ui_choose();
     $('.overspread-3').overs(".class-button");
+    function turnTeam () {
+      var user_id = $('.ui-choose .selected').attr('UserId');
+      $.post("/ajaxes/turn_team",
+        {
+          user_id: user_id,
+          team_id: '<%= @team.id %>'
+        },
+        function(data){
+          if (data.status) {
+            layer.msg(data.message, {
+              icon: 1,
+              offset: 't c'
+            });
+            setTimeout("javascript:location.href='/account/teams'", 1500);
+          } else {
+            layer.msg(data.message, {
+              icon: 7,
+              offset: 't c'
+            });
+          }
+        }
+      )
+    }
 </script>
-
-

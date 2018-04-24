@@ -20,9 +20,10 @@ namespace :account do
     resources :children_mailboxs
   end
   resources :bookshelves, only: [:index] # 我的图书角
-  resources :teams, only: [:index, :new] do # 我的团队
+  resources :teams, only: [:index, :new, :create, :edit, :update] do # 我的团队
     collection do
       get :guide
+      post :exit_team
     end
     resources :transfers
     resources :donations
