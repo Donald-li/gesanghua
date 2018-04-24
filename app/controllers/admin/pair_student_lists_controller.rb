@@ -4,7 +4,7 @@ class Admin::PairStudentListsController < Admin::BaseController
 
   def index
     @search = ProjectSeasonApplyChild.pass.sorted.ransack(params[:q])
-    scope = @search.result
+    scope = @search.result.includes(:gsh_child_grants)
     @pair_student_lists = scope.page(params[:page])
   end
 

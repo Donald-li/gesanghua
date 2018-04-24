@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180420093536) do
+ActiveRecord::Schema.define(version: 20180424040501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1236,6 +1236,10 @@ ActiveRecord::Schema.define(version: 20180420093536) do
     t.boolean "task_state", default: false, comment: "志愿者是否有未查看的指派任务"
     t.string "name", comment: "志愿者真实姓名"
     t.string "id_card", comment: "志愿者身份证"
+    t.string "province", comment: "省"
+    t.string "city", comment: "市"
+    t.string "district", comment: "区县"
+    t.string "address", comment: "详细地址"
   end
 
   create_table "voucher_donate_records", force: :cascade, comment: "捐赠收据捐助记录表" do |t|

@@ -16,7 +16,7 @@
             <p>还差</p>
           </div>
           <!--只有悦读才有进度-->
-          <% if record.id == 2 %>
+          <% if record.project_id == 2 %>
             <div class="pull-left">
               <p><span><%= record.apply.bookshelves_done_count %></span>/<%= record.apply.bookshelves_count %></p>
               <p>进度</p>
@@ -24,15 +24,15 @@
           <% end %>
         </div>
       </div>
-      <% case record.id %>
-      <% when 1 %>
-        <% url = pairs_path %>
-      <% when 2 %>
-        <% url = reads_path %>
-      <% when 3 %>
-        <% url = camps_path %>
+      <% case record.project_id %>
+      <% when Project.pair_project.id %>
+        <% url = detail_pair_path(record.child) %>
+      <% when Project.read_project.id %>
+        <% url = detail_read_path(record.apply) %>
+      <% when Project.camp_project.id %>
+        <% url = detail_camp_path(record.apply) %>
       <% else %>
-        <% url = goods_path(id: record.id) %>
+        <% url = detail_good_path(record.apply) %>
       <% end %>
       <%= link_to "查看项目详情", url, class: "donation-cont-but pull-right cur" %>
     </div>

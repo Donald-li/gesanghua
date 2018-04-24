@@ -43,9 +43,6 @@
               申请学校
             </th>
             <th>
-              申请年级
-            </th>
-            <th>
               配额数量
             </th>
             <th>
@@ -73,9 +70,6 @@
                 </td>
                 <td>
                   <%= apply.school.try(:name) %>
-                </td>
-                <td>
-                  <%= apply.school.try(:enum_name, :level) %>
                 </td>
                 <td>
                   <%= apply.number %>

@@ -17,9 +17,12 @@ class Admin::VolunteerAppliesController < Admin::BaseController
       @apply.approve_state = approve_state
       if approve_state == 'pass'
         @apply.gen_volunteer_no
+        @apply.enable!
         user = @apply.user
         user.roles = user.roles.push(:volunteer)
         user.save
+      else
+        @apply.disable!
       end
       if @apply.save
         @apply.audits.create(state: approve_state, user_id: current_user.id, comment: volunteer_apply_params[:approve_remark])

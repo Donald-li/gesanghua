@@ -70,26 +70,26 @@ class ExcelOutput
     campaign_enlists = campaign.campaign_enlists.all.sorted
     wb.add_worksheet(:name => "表") do |sheet|
       if campaign.price == 0
-        sheet.add_row ["报名用户", "用户昵称", "报名时间"] | campaign.form.map{|i|i['label']} | ["报名人数", "联系人", "联系电话"]
+        sheet.add_row ["报名用户", "用户昵称", "报名时间"] | campaign.form.map {|i| i['label']} | ["报名人数", "联系人", "联系电话"]
         campaign_enlists.each do |campaign_enlist|
           sheet.add_row [campaign_enlist.user.try(:nickname),
                          campaign_enlist.created_at.strftime("%Y-%m-%d %H:%M")] |
-                         campaign.form.map{|i| campaign_enlist.form[i['key']] } |
-                         [campaign_enlist.number,
-                         campaign_enlist.contact_name,
-                         campaign_enlist.contact_phone]
+                            campaign.form.map {|i| campaign_enlist.form[i['key']]} |
+                            [campaign_enlist.number,
+                             campaign_enlist.contact_name,
+                             campaign_enlist.contact_phone]
         end
       else
-        sheet.add_row ["报名用户", "用户昵称", "报名时间"] | campaign.form.map{|i|i['label']} | ["报名人数", "联系人", "联系电话", '金额', '支付状态']
+        sheet.add_row ["报名用户", "用户昵称", "报名时间"] | campaign.form.map {|i| i['label']} | ["报名人数", "联系人", "联系电话", '金额', '支付状态']
         campaign_enlists.each do |campaign_enlist|
           sheet.add_row [campaign_enlist.user.try(:nickname),
                          campaign_enlist.created_at.strftime("%Y-%m-%d %H:%M")] |
-                         campaign.form.map{|i| campaign_enlist.form[i['key']] } |
-                         [campaign_enlist.number,
-                         campaign_enlist.contact_name,
-                         campaign_enlist.contact_phone,
-                         campaign_enlist.total,
-                         campaign_enlist.enum_name(:payment_state)]
+                            campaign.form.map {|i| campaign_enlist.form[i['key']]} |
+                            [campaign_enlist.number,
+                             campaign_enlist.contact_name,
+                             campaign_enlist.contact_phone,
+                             campaign_enlist.total,
+                             campaign_enlist.enum_name(:payment_state)]
         end
       end
       FileUtils.mkdir_p(Rails.root.join("public/files"))
@@ -108,7 +108,7 @@ class ExcelOutput
     header = wb.styles.add_style :sz => 16, :b => true, :alignment => {:horizontal => :center}
     wb.add_worksheet(:name => "表") do |sheet|
       sheet.add_row ["收入名称", "收入分类", "捐助时间", "捐助金额", "捐助渠道", "捐助人", "手机号码", "代捐人", "代捐人手机号", "备注"], :style => header
-      sheet.add_row ["爱心人士捐助一对一非指定款项", "一对一-非指定",	"2018/1/17 12:30", "2000", "微信支付", "爱心人士", "13800888888", "爱心人士", "18399998888", "好好学习","请按照模板格式填写"], types: [:string] * 9
+      sheet.add_row ["爱心人士捐助一对一非指定款项", "一对一-非指定", "2018/1/17 12:30", "2000", "微信支付", "爱心人士", "13800888888", "爱心人士", "18399998888", "好好学习", "请按照模板格式填写"], types: [:string] * 9
       3.times do
         sheet.add_row []
       end
@@ -141,8 +141,8 @@ class ExcelOutput
       3.times do
         sheet.add_row []
       end
-      sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil,  "录入数据以后，请删除以下数据"], :style => header
-      sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil,  "支出分类名称模板", "请按照支出分类名称模板填写支出分类"], :style => header
+      sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil, "录入数据以后，请删除以下数据"], :style => header
+      sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil, "支出分类名称模板", "请按照支出分类名称模板填写支出分类"], :style => header
       funds.each do |fund|
         sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil, "#{fund.fund_category.name}-#{fund.name}"]
       end
@@ -158,7 +158,7 @@ class ExcelOutput
     wb = p.workbook
     grants = batch.grants.all.sorted
     wb.add_worksheet(:name => "表") do |sheet|
-      sheet.add_row ["申请批次", "格桑花编号", "姓名", "年龄", "学校", "捐助年度", "发放金额", "筹款状态", "发放状态"]
+      sheet.add_row ["申请批次", "格桑花编号", "姓名", "年龄", "学校", "捐助年度", "发放金额", "筹款状态", "发放状态", "捐助人姓名", "捐助人称呼"]
       grants.each do |grant|
         sheet.add_row [grant.apply_child.try(:season).try(:name),
                        grant.apply_child.gsh_no,
@@ -168,8 +168,10 @@ class ExcelOutput
                        grant.title,
                        grant.amount,
                        grant.apply_child.raise_condition,
-                       grant.enum_name(:state)]
-        end
+                       grant.enum_name(:state),
+                       grant.user.try(:name),
+                       grant.user.try(:salutation)]
+      end
     end
     FileUtils.mkdir_p(Rails.root.join("public/files"))
     path = Rails.root.join("public/files/发放批次" + DateTime.now.strftime("%Y-%m-%d-%s") + ".xlsx")

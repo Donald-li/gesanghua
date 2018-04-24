@@ -20,8 +20,8 @@
                 <%= f.text_field :grant_no_or_gsh_child_name_or_gsh_child_id_card_cont, class: 'form-control', placeholder: '发放编号、学生信息' %>
               </div>
               <div class="form-group">
-                <%= f.label :school_name_cont, '搜索学校' %>
-                <%= f.text_field :school_name_cont, class: 'form-control', placeholder: '学校名称' %>
+                <%= f.label :school_id_ep, '搜索学校' %>
+                <%= f.select :school_id_eq, School.all_to_hash, {include_blank: '全部'}, class: 'form-control schools-ajax' %>
               </div>
               <div class="form-group">
                 <%= f.label :state_eq, '发放状态' %>
@@ -93,10 +93,10 @@
                   <span class="btn btn-xs <%= grant.pending? ? 'yellow' : 'green' %>" title="<%= grant.pending? ? '未筹款' : '已筹款' %>"><%= grant.title %></span>
                 </td>
                 <td>
-                  <%= grant.try(:gsh_child).try(:name) %>
+                  <%= grant.try(:apply_child).try(:name) %>
                 </td>
                 <td>
-                  <%= grant.try(:gsh_child).try(:age) %>
+                  <%= grant.try(:apply_child).try(:age) %>
                 </td>
                 <td>
                   <%= grant.granted_at.strftime("%Y-%m-%d") if grant.granted_at %>
@@ -166,4 +166,39 @@
     </div>
   </div>
 </div>
-<!-- END EXAMPLE TABLE PORTLET-->
+<script type="text/javascript">
+    $(function(){
+        // 异步加载学校列表
+        $('.schools-ajax').select2({
+            language: "zh-CN",
+            placeholder: '全部',
+            allowClear: false,
+            ajax: {
+                url: "/selects/schools",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: $.map(data.items, function (item) {
+                            return {
+                                text: item.name,
+                                id: item.id
+                            }
+                        }),
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            }
+        });
+    })
+</script>

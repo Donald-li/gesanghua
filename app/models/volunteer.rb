@@ -24,6 +24,10 @@
 #  task_state         :boolean          default(FALSE)        # 志愿者是否有未查看的指派任务
 #  name               :string                                 # 志愿者真实姓名
 #  id_card            :string                                 # 志愿者身份证
+#  province           :string                                 # 省
+#  city               :string                                 # 市
+#  district           :string                                 # 区县
+#  address            :string                                 # 详细地址
 #
 
 # 志愿者
@@ -70,6 +74,18 @@ class Volunteer < ApplicationRecord
     "请假原因：#{self.leave_reason['type']} \\n请假说明：#{self.leave_reason['content']}"
   end
 
+  def full_address
+    ChinaCity.get(self.province).to_s + ChinaCity.get(self.city).to_s + ChinaCity.get(self.district).to_s + self.address.to_s
+  end
+
+  def simple_address
+    ChinaCity.get(self.province).to_s + " " + ChinaCity.get(self.city).to_s + " " + ChinaCity.get(self.district).to_s
+  end
+
+  def short_address
+    ChinaCity.get(self.city).to_s + " " + ChinaCity.get(self.district).to_s
+  end
+
   def gen_volunteer_no
     time_string = Time.now.strftime("%y")
     self.volunteer_no ||= Sequence.get_seq(kind: :volunteer_no, prefix: 'ZYZ' + time_string, length: 4)
@@ -104,7 +120,8 @@ class Volunteer < ApplicationRecord
 
   def detail_builder
     Jbuilder.new do |json|
-      json.(self, :id, :describe, :workstation)
+      json.(self, :id, :describe, :workstation, :address)
+      json.location [self.province, self.city, self.district]
       json.user_name self.name
       json.user_nickname self.try(:user).try(:nickname)
       json.phone self.phone
@@ -121,9 +138,10 @@ class Volunteer < ApplicationRecord
 
   def apply_builder
     Jbuilder.new do |json|
-      json.(self, :id, :phone, :describe, :major_ids)
+      json.(self, :id, :phone, :describe, :major_ids, :address)
       json.name self.name
       json.id_card self.id_card
+      json.location [self.province, self.city, self.district]
     end.attributes!
   end
 

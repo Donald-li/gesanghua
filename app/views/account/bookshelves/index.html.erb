@@ -12,14 +12,14 @@
               <%= link_to '我的图书角', account_bookshelves_path %>
             </li>
           </ul>
-          <!--我的捐助-->
-          <div class="donation " style="display: block;">
+          <!--我的图书角-->
+          <div>
             <% if @bookshelves.present? %>
               <div class="donation-cont ">
                 <% @bookshelves.each do |bookshelf| %>
                   <div class="clearfix border-b">
                     <div class="donation-cont-img pull-left">
-                      <%= image_tag bookshelf.apply.cover_image.try(:file).try(:url, :tiny).to_s %>
+                      <%= image_tag bookshelf.bookshelf_image %>
                     </div>
                     <div class="pull-left donation-cont-cco">
                       <div class="donation-cont-c-tit clearfix">
