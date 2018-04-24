@@ -109,6 +109,13 @@
 .pretty.o-info input:checked + label i:after {
   border-color: #8b54e3;
 }
+.pretty.o-danger input:checked + label i:before {
+    color: #d632aa;
+}
+
+.pretty.o-danger input:checked + label i:after {
+    border-color: #d632aa;
+}
 
 
 

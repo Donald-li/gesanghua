@@ -12,6 +12,7 @@
  *
  *= require "plugins/uploader"
  *= require "plugins/bootstrap-stars"
+ *= require "plugins/pretty"
  *= require_self
  */
 
@@ -28,7 +29,7 @@ $color-info: #d632aa;
 //主色
 $color-border: #8b54e3;
 //渐变
-$color-button: -webkit-linear-gradient(left top, #d22ca4, #8b54e3);
+$color-button: #8b54e3;
 //边框
 $border: #e6e6e6;
 *,
@@ -44,7 +45,7 @@ $border: #e6e6e6;
 body {
   -webkit-font-smoothing: antialiased;
   background-color: #fff;
-  font-family: "Open Sans", Arial, "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", STHeiti, "WenQuanYi Micro Hei", SimSun, sans-serif;
+  font-family: "Microsoft YaHei", "微软雅黑","Open Sans", Arial, "Hiragino Sans GB",  STHeiti, "WenQuanYi Micro Hei", SimSun, sans-serif!important;
   margin: 0;
   padding: 0;
   border: none;
@@ -76,8 +77,17 @@ body {
 input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px white inset !important;
   border: none !important;
+  outline:none !important;
 
 }
+//消除google浏览器黄色框
+
+ input:-webkit-autofill,
+ input:-webkit-autofill:hover,
+ input:-webkit-autofill:focus {
+   box-shadow:0 0 0 60px #eee inset;
+   -webkit-text-fill-color: #878787;
+ }
 
 span {
   display: inline-block;
@@ -132,28 +142,26 @@ span {
 
   }
 }
-
+.pretty {
+  z-index: 0;
+  line-height: 1;
+  position: relative;
+  display: inline-block;
+  margin: 0 -4px 0 0;
+}
 .loge {
   width: 360px;
   height: 450px;
   overflow: hidden;
-  border-radius: 8px !important;
-  background: -webkit-linear-gradient(left bottom, #d422a5, #8a54e3); /* Safari 5.1 - 6.0 */
-  background: -o-linear-gradient(right bottom, #d422a5, #8a54e3); /* Opera 11.1 - 12.0 */
-  background: -moz-linear-gradient(right bottom, #d422a5, #8a54e3); /* Firefox 3.6 - 15 */
-  background: linear-gradient(to right bottom, #d422a5, #8a54e3); /* 标准的语法 */
-  padding: 0;
   position: relative;
   box-shadow: 0 1px 24px #d12da538;
+  border-radius: 6px;
+  & > img{
+    width: 100%;
+    height: 100%;
+  }
 
 }
-
-canvas {
-  display: block;
-  top: 0;
-  left: 0;
-}
-
 .loge-cont {
   width: 86%;
   position: absolute;
@@ -170,6 +178,10 @@ canvas {
   width: 600px;
   height: 430px;
   display: flex;
+  display: -moz-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   border-radius: 6px !important;
   background-color: #fff;
   box-shadow: 0 1px 24px #d12da538;
@@ -177,7 +189,10 @@ canvas {
 }
 
 .longin-left {
-  flex: 2;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 64%;
+  flex: 0 0 64%;
+  max-width: 64%;
   padding: 0 38px;
   margin-left: 18px;
   text-align: center;
@@ -186,14 +201,16 @@ canvas {
 .register {
   width: 240px;
   height: 40px;
-  background: $color-button;
+  background-color: $color-button;
   color: #fff;
   border-radius: 20px !important;
   margin: 40px auto 20px auto;
   text-align: center;
   line-height: 40px;
-  box-shadow: 0 4px 18px #d12da56b;
-
+  box-shadow: 0 4px 18px #a429f44f;
+}
+.register:hover{
+  background-color: #9750f5;
 }
 
 .longin-con-c{
@@ -227,7 +244,10 @@ canvas {
 }
 
 .longin-right {
-  flex: 1.3;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 33%;
+  flex: 0 0 33%;
+  max-width: 33%;
   border-left: 1px dashed $border;
   text-align: center;
   padding: 100px 0;
@@ -243,9 +263,12 @@ canvas {
     font-size: 14px;
     .iconfont {
       margin-left: 16px;
-      font-size: 26px;
+      font-size: 22px;
       margin-right: 6px;
     }
+  }
+  & > .longin-icon:hover{
+    background-color: #3cac4c;
   }
 }
 
@@ -419,13 +442,12 @@ canvas {
 
 .check-box {
   font-size: 12px;
-  width: 224px;
+  width: 225px;
   margin: 0 auto;
   text-align: center;
   .checkbox_item {
     position: relative;
     display: inline-block;
-    margin-right: 10px;
     height: 16px;
     & > span {
       font-weight: 500;
@@ -447,7 +469,7 @@ canvas {
 
 .checkbox_icon {
   display: block;
-  margin-right: 5px;
+  margin-right: 15px;
   width: 16px;
   height: 16px;
   background: url(image-path("check-box.png")) 0 0;
@@ -459,7 +481,6 @@ canvas {
 
 .checkbox_text {
   color: #dadada;
-  float: left;
   height: 16px;
   line-height: 16px;
 }
@@ -468,11 +489,11 @@ canvas {
 .canforget {
   width: 100%;
   height: 360px;
-  background: -webkit-linear-gradient(left bottom, #d422a5, #8a54e3); /* Safari 5.1 - 6.0 */
-  background: -o-linear-gradient(right bottom, #d422a5, #8a54e3); /* Opera 11.1 - 12.0 */
-  background: -moz-linear-gradient(right bottom, #d422a5, #8a54e3); /* Firefox 3.6 - 15 */
-  background: linear-gradient(to right bottom, #d422a5, #8a54e3); /* 标准的语法 */
   overflow: hidden;
+  & > img{
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .canforget-cont {
@@ -512,6 +533,7 @@ canvas {
   margin: 90px auto;
   img{
     width: 131px;
+
   }
 }
 

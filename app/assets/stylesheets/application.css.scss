@@ -3300,6 +3300,10 @@ select:disabled {
 .activity-detail-co {
   width: 100%;
   display: flex;
+  display: -moz-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   text-align: left;
   margin-top: 7px;
   & > p {
@@ -3780,7 +3784,6 @@ select:disabled {
   bottom: 14px;
   width: 94%;
   & > p:nth-child(1) {
-    font-family: "Arial";
     font-size: 20px;
     color: #fff;
     font-weight: 600;
@@ -3811,7 +3814,6 @@ select:disabled {
   left: -41px;
   top: -7px;
   font-weight: 600;
-  font-family: "Arial";
 }
 
 //资讯2
@@ -3855,6 +3857,10 @@ select:disabled {
 .article1-read-cont {
   width: 100%;
   display: flex;
+  display: -moz-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   margin-bottom: 50px;
   & > div {
     flex: 1;
@@ -4101,6 +4107,10 @@ select:disabled {
     .ui-choose {
       width: 100%;
       display: flex;
+      display: -moz-box;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
       & > li {
         flex: 1;
         height: 36px;
@@ -4200,6 +4210,10 @@ select:disabled {
     .ui-choose {
       width: 100%;
       display: flex;
+      display: -moz-box;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
       & > li {
         flex: 1;
         height: 36px;
@@ -4416,7 +4430,6 @@ select:disabled {
 .member-area > h6 {
   color: #666666;
   float: left;
-  font-family: Lato;
   font-size: 11px;
   letter-spacing: 0.3px;
   margin-top: 15px;
@@ -4516,6 +4529,10 @@ select:disabled {
   width: 100%;
   padding: 30px 200px;
   display: flex;
+  display: -moz-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   & > div {
     flex: 1;
     position: relative;
@@ -4554,6 +4571,10 @@ select:disabled {
   width: 100%;
   padding: 30px 200px;
   display: flex;
+  display: -moz-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   & > a {
     flex: 1;
     img {
@@ -4662,6 +4683,10 @@ select:disabled {
   .school-apply-pair-table {
     width: 100%;
     display: flex;
+    display: -moz-box;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     border: 1px solid $border;
     border-bottom: 0;
     text-align: center;
@@ -4700,6 +4725,10 @@ select:disabled {
   .school-apply-pair-table-cont {
     width: 100%;
     display: flex;
+    display: -moz-box;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     text-align: center;
     padding: 0;
     & > div {
@@ -4795,6 +4824,10 @@ select:disabled {
   .schools-apply-pair-table-cont {
     width: 100%;
     display: flex;
+    display: -moz-box;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     text-align: center;
     & > div {
       flex: 1;
@@ -5445,6 +5478,10 @@ select:disabled {
     & > div {
       width: 555px;
       display: flex;
+      display: -moz-box;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
       height: 40px;
       margin-bottom: 20px;
       position: relative;
@@ -5691,6 +5728,10 @@ select:disabled {
     & > div {
       width: 555px;
       display: flex;
+      display: -moz-box;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
       height: 40px;
       margin-bottom: 20px;
       position: relative;
@@ -5833,6 +5874,10 @@ select:disabled {
   & > div {
     width: 100%;
     display: flex;
+    display: -moz-box;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     line-height: 40px;
     margin-bottom: 16px;
     div:nth-child(1) {
@@ -5889,6 +5934,10 @@ select:disabled {
     & > div {
       width: 555px;
       display: flex;
+      display: -moz-box;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
       height: 40px;
       margin-bottom: 20px;
       position: relative;
@@ -5983,6 +6032,10 @@ select:disabled {
   .feedback-shows-img {
     width: 100%;
     display: flex;
+    display: -moz-box;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     flex-wrap: wrap;
     & > div {
       width: 211px;
@@ -6101,6 +6154,10 @@ select:disabled {
     & > div {
       width: 100%;
       display: flex;
+      display: -moz-box;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
       height: 40px;
       margin-bottom: 20px;
       position: relative;
@@ -6410,6 +6467,10 @@ select:disabled {
     padding: 67px 262px;
     width: 100%;
     display: flex;
+    display: -moz-box;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     & > div:nth-child(1) {
       flex: 1;
       padding-top: 40px;
@@ -6625,6 +6686,10 @@ select:disabled {
     & > div {
       width: 555px;
       display: flex;
+      display: -moz-box;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
       height: 40px;
       margin-bottom: 20px;
       position: relative;
@@ -6829,6 +6894,10 @@ select:disabled {
   .overspread-const {
     width: 100%;
     display: flex;
+    display: -moz-box;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     padding: 0 26px;
     .overclass {
       flex: 1;
@@ -6934,6 +7003,10 @@ select:disabled {
     & > div {
       width: 555px;
       display: flex;
+      display: -moz-box;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
       margin-bottom: 20px;
       position: relative;
       & > span {
@@ -7119,6 +7192,10 @@ select:disabled {
   .overspread-const {
     width: 100%;
     display: flex;
+    display: -moz-box;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     padding: 0 26px;
     .overclass {
       flex: 1;
@@ -7332,6 +7409,10 @@ select:disabled {
         & > div {
           width: 555px;
           display: flex;
+          display: -moz-box;
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: -webkit-flex;
           height: 40px;
           margin-bottom: 20px;
           position: relative;

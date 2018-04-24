@@ -39,7 +39,7 @@
           <!--</div>-->
         <!--</div>-->
         <div class="loge pull-left">
-          <canvas width="100%" height="100%" class="flare"></canvas>
+          <%= image_tag 'bg-left.jpg' %>
           <div class="loge-cont">
             <%= image_tag 'login.png' %>
           </div>
@@ -86,15 +86,6 @@
 <% end %>
 
 <script type="text/javascript" charset="utf-8">
-    $("canvas.flare").let_it_snow({
-        windPower: 0,
-        speed: 0,
-        size: 110,
-        count: 50,
-        opacity: 0.1,
-        interaction: false,
-        image: '<%= image_path('circle.png')%>'
-    });
 
     function refreshCaptcha() {
     $('.img-captcha').attr('src', '/rucaptcha');
