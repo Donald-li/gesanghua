@@ -1,0 +1,13 @@
+<% reports.each do |report| %>
+  <%= link_to audit_report_path(report) do %>
+    <li class="disclosures-c border-t">
+      <p class="disclosures-l"><%= report.title %></p>
+      <p class="disclosures-n"><%= report.user.show_name %> | <%= report.created_at.strftime("%Y年%m月%d日") %></p>
+    </li>
+  <% end %>
+<% end %>
+<% if reports.current_page < reports.total_pages %>
+  <div class="speciais-cont-but border-t">
+    <%= link_to audit_reports_path(page: reports.current_page+1), remote: true do %><button>加载更多</button><% end %>
+  </div>
+<% end %>

@@ -3,8 +3,8 @@ scope module: :site do
   resources :articles, only: [:index, :show]
   resources :specials, only: [:index, :show]
   resources :campaigns, only: [:index, :show]
-  resources :disclosures, only: [:index, :show]
-  resources :audit_reports, only: [:index, :show]
+  resources :disclosures, only: [:index, :show], concerns: [:file_download]
+  resources :audit_reports, only: [:index, :show], concerns: [:file_download]
   get '/p/:alias', to: 'pages#show'
   resource :contribution, only: :show
   resources :pairs, only: [:index, :show], concerns: [:detail]

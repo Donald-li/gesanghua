@@ -1,1 +1,13 @@
-审计报告详情页
+<div class="disclosures">
+  <p class="disclosures-tit" style="margin: 0"><%= @audit_report.title %></p>
+
+    <div class="disclosures-s">
+      <p class="disclosures-n" style="text-align: center;"><%= @audit_report.user.show_name %> |  <%= @audit_report.created_at.strftime("%Y年%m月%d日")%></p>
+    </div>
+  <div class="disclosures-show">
+    <%= @audit_report.content.html_safe %>
+  </div>
+  <% @audit_report.report_files.each do |file| %>
+    <i class="fa fa-download"></i><%= link_to file.file_name, file_download_audit_report_path(file_id: file.id) %><br/>
+  <% end %>
+</div>
