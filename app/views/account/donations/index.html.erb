@@ -3,114 +3,83 @@
     <span class="pull-left">我的团队</span>
   </p>
   <!--没有团队缺省页-->
-  <!--<div class="donation-cont-no">-->
-  <!--<div class="donation-co-no-c">-->
-  <!--<div class="donation-co-no-c-img">-->
-  <!--<%= image_tag 'team-img.png' %>-->
-  <!--</div>-->
-  <!--<p>您还未加入或创建任何团队</p>-->
-  <!--<div class="my-team-but clearfix">-->
-  <!--<button class="team-but-1">寻找团队</button>-->
-  <!--<button class="team-but-2">创建团队</button>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--</div>-->
+  <% if !@has_team %>
+    <div class="donation-cont-no">
+      <div class="donation-co-no-c">
+        <div class="donation-co-no-c-img">
+          <%= image_tag 'team-img.png' %>
+        </div>
+        <p>您还未加入或创建任何团队</p>
+        <div class="my-team-but clearfix">
+          <button class="team-but-1">寻找团队</button>
+          <button class="team-but-2">创建团队</button>
+        </div>
+      </div>
+    </div>
+  <% else %>
   <!--捐助记录-->
-  <div class="teams-staff">
-    <div class="teams-s clearfix">
-      <div class="teams-s-img pull-left">
-        <%= image_tag 'project-detail-child.png' %>
+    <div class="teams-staff">
+      <div class="teams-s clearfix">
+        <div class="teams-s-img pull-left">
+          <%= image_tag @team.logo_url(:medium).to_s %>
+        </div>
+        <div class="teams-s-cont pull-left">
+          <div class="teams-s-cont-name clearfix">
+            <span class="pull-left teams-s-name"><%= @team.name %></span>
+            <span class="pull-right iconfont icon-arrow-right"></span>
+            <span class="pull-right teams-s-cont-operate cur">管理</span>
+            <ul class="project-nav-heide">
+              <% if @team.manager != current_user %>
+                <li class="cur"><%= link_to '退出团队', exit_team_account_teams_path, method: :post %></li>
+              <% else %>
+                <li class="cur"><%= link_to '修改信息', edit_account_team_path(@team) %></li>
+                <li class="cur"><%= link_to '移交团队', account_team_transfers_path(@team) %></li>
+                <li class="cur" id="dissolve"><a>解散团队</a></li>
+              <% end %>
+            </ul>
+          </div>
+          <div class="teams-s-cont-detail clearfix">
+            <div class="pull-left">
+              <p class="teams-s-cont-map" style="margin-top: 3px;"><span class="iconfont icon-ico-adress"></span><%= ChinaCity.get(@team.city) %> <%= ChinaCity.get(@team.district)%>
+              </p>
+              <p class="teams-s-c-tit" style="margin-top: 6px;"><span class="teams-s-c-tit">成员人数</span>
+                <span class="teams-s-moy"><%= @team.member_count %></span></p>
+            </div>
+            <div class="pull-left">
+              <p class="teams-s-moy-bag">￥<%= number_to_currency(@team.total_donate_amount) %></p>
+              <p class="teams-s-c-tit">累计筹款</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="teams-s-cont pull-left">
-        <div class="teams-s-cont-name clearfix">
-          <span class="pull-left teams-s-name">维基爱心</span>
-          <span class="pull-right iconfont icon-arrow-right"></span>
-          <span class="pull-right teams-s-cont-operate cur">管理</span>
-          <ul class="project-nav-heide">
-            <!--<li class="cur"><%#= link_to '退出团队' %></li>-->
-            <li class="cur"><%= link_to '修改信息', new_account_team_path %></li>
-            <li class="cur"><%= link_to '移交团队', account_team_transfers_path(current_user.team) %></li>
-            <li class="cur" id="dissolve"><a>解散团队</a></li>
+      <div class="donations-1 border-b">
+        <ul class="donations1 clearfix">
+          <li class="cur  border-r"><%= link_to account_teams_path do %>团队成员<% end %>
+            <div class=""></div>
+          </li>
+          <li class="cur selectedDo"><%= link_to account_team_donations_path(@team) do %>捐助记录<% end %>
+            <div class="bottomline"></div>
+          </li>
+        </ul>
+      </div>
+      <div class="team-donations">
+        <% if @donate_records.present? %>
+          <ul>
+            <%= render '/account/donations/list', donate_records: @donate_records, team_id: @team.id %>
           </ul>
-        </div>
-        <div class="teams-s-cont-detail clearfix">
-          <div class="pull-left">
-            <p class="teams-s-cont-map" style="margin-top: 3px;"><span class="iconfont icon-ico-adress"></span>合肥 蜀山区
-            </p>
-            <p class="teams-s-c-tit" style="margin-top: 6px;"><span class="teams-s-c-tit">成员人数</span>
-              <span class="teams-s-moy teams-s-border">34</span><span class="teams-s-c-tit">累计劝捐</span>
-              <span class="teams-s-moy">￥45126.00</span></p>
+        <% else %>
+          <!--无捐助记录页面-->
+          <div class="not-available ">
+            <div class="donation-cont-no">
+              <div class="donation-co-no-c">
+                <p>暂无捐助记录</p>
+              </div>
+            </div>
           </div>
-          <div class="pull-left">
-            <p class="teams-s-moy-bag">￥7655126.00</p>
-            <p class="teams-s-c-tit">累计筹款</p>
-          </div>
-        </div>
+        <% end %>
       </div>
     </div>
-    <div class="donations-1 border-b">
-      <ul class="donations1 clearfix">
-        <li class="cur  border-r">团队成员
-          <div class=""></div>
-        </li>
-        <li class="cur selectedDo">捐助记录
-          <div class="bottomline"></div>
-        </li>
-      </ul>
-    </div>
-    <div class="team-donations">
-      <ul>
-        <li class="clearfix border-t">
-          <div class="team-donations-img pull-left">
-            <%= image_tag 'project-detail-child.png' %>
-          </div>
-          <div class="team-donations-cont pull-left">
-            <div class="clearfix">
-              <span class="teams-don-name pull-left">十指紧扣</span>
-              <span class="teams-don-tiam pull-right">1小时前</span>
-            </div>
-            <div class="teams-don">捐助 <span>探索营项目</span> 1570元</div>
-          </div>
-        </li>
-        <li class="clearfix border-t">
-          <div class="team-donations-img pull-left">
-            <%= image_tag 'project-detail-child.png' %>
-          </div>
-          <div class="team-donations-cont pull-left">
-            <div class="clearfix">
-              <span class="teams-don-name pull-left">十指紧扣</span>
-              <span class="teams-don-tiam pull-right">1小时前</span>
-            </div>
-            <div class="teams-don">捐助 <span>探索营项目</span> 1570元</div>
-          </div>
-        </li>
-        <li class="clearfix border-t">
-          <div class="team-donations-img pull-left">
-            <%= image_tag 'project-detail-child.png' %>
-          </div>
-          <div class="team-donations-cont pull-left">
-            <div class="clearfix">
-              <span class="teams-don-name pull-left">十指紧扣</span>
-              <span class="teams-don-tiam pull-right">1小时前</span>
-            </div>
-            <div class="teams-don">捐助 <span>探索营项目</span> 1570元</div>
-          </div>
-        </li>
-        <li class="examine border-t">
-          <p>查看更多记录</p>
-        </li>
-
-      </ul>
-      <!--无捐助记录页面-->
-      <div class="not-available ">
-        <div class="donation-cont-no">
-          <div class="donation-co-no-c">
-            <p>暂无捐助记录</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <% end %>
 
   <div class="overspread-3">
     <div class="overspread-over"></div>
@@ -123,7 +92,7 @@
         <p class="over-fontns" style="width: 60%;margin: 27px auto 0 auto;">团队解散后无法恢复,确认解散团队？</p>
       </div>
       <div class="overspreads-but">
-        <button>确认</button>
+        <button id="dismiss-team">确认</button>
         <button>取消</button>
       </div>
       <!--<div class="overspread-but  over-but">确认</div>-->
@@ -134,7 +103,7 @@
 <script>
     $('.team-donations ul li').eq(0).removeClass('border-t')
 
-   if($('.team-donations ul li').length > 2){
+   if($('.team-donations ul li').length >= 2){
        $('.team-donations ul li').css({'display': 'block'});
        $('.not-available').css({'display': 'none'});
    }else{
@@ -151,6 +120,25 @@
         $('.teams-s-cont-name .iconfont').removeClass("tranicon")
     })
     $('.overspread-3').overs("#dissolve");
-
+    $('#dismiss-team').click(function () {
+      $.post("/ajaxes/dismiss_team",
+      {
+          team_id: '<%= @team.present? ? @team.id : '' %>'
+      },
+      function(data){
+        if (data.status) {
+          layer.msg(data.message, {
+            icon: 1,
+            offset: 't c'
+          });
+          setTimeout(window.location.reload(), 1500);
+        } else {
+          layer.msg(data.message, {
+            icon: 7,
+            offset: 't c'
+          });
+          setTimeout(window.location.reload(), 1500);
+        }
+      });
+    })
 </script>
-

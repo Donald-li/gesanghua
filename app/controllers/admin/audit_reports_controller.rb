@@ -21,7 +21,7 @@ class Admin::AuditReportsController < Admin::BaseController
 
   def create
     @audit_report = AuditReport.new(audit_report_params)
-
+    @audit_report.user_id = current_user.id
     respond_to do |format|
       if @audit_report.save
         @audit_report.attach_report_files(params[:file_ids])

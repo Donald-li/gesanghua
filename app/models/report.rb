@@ -20,6 +20,8 @@ class Report < ApplicationRecord
 
   validates :title, :content, presence: true
 
+  belongs_to :user, optional: true
+  
   scope :sorted, ->{ order(created_at: :desc) }
 
   enum state: {show: 1, hidden: 2} # 状态 1:显示 2:隐藏

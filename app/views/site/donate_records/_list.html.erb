@@ -10,7 +10,7 @@
         <% if record.team.present? %>
         通过 <%= record.team.name %>
         <% end %>
-        捐助 <strong><%= record.owner.try(:name) %></strong> <%= record.amount %>元
+        捐助 <strong><%= record.apply_name %></strong> <%= record.amount %>元
     </div>
   </li>
 <% end %>
