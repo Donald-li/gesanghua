@@ -9,7 +9,7 @@ class Api::V1::CooperationPairsController < Api::V1::BaseController
       applies = user.school.project_season_applies.where(project_id: @pair.id).includes(:season).sorted.page(params[:page]).per(params[:per])
       api_success(data: {applies: applies.map { |r| r.pair_applies_builder }, pagination: json_pagination(applies)})
     elsif user.teacher?
-      applies = user.school.project_season_applies.where(project_id: @pair.id).includes(:season).sorted.page(params[:page]).per(params[:per])
+      applies = user.teacher.school.project_season_applies.where(project_id: @pair.id).includes(:season).sorted.page(params[:page]).per(params[:per])
       api_success(data: {applies: applies.map { |r| r.pair_applies_builder }, pagination: json_pagination(applies)})
     else
       api_success(data: {applies: [], pagination: json_pagination([])})
