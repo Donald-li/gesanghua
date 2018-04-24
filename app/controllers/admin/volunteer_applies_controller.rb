@@ -26,6 +26,23 @@ class Admin::VolunteerAppliesController < Admin::BaseController
       end
       if @apply.save
         @apply.audits.create(state: approve_state, user_id: current_user.id, comment: volunteer_apply_params[:approve_remark])
+
+        # 审核通过发通知
+        owner = @apply
+        if approve_state == 'pass'
+          title = "#志愿者申请# 审核已通过"
+          content = "你的志愿者申请已经审核通过。 "
+        else
+          title = "#志愿者申请# 审核未通过"
+          content = "你的志愿者申请审核未通过 未通过理由: #{volunteer_apply_params[:approve_remark]}"
+        end
+        notice = Notification.create(
+          owner: owner,
+          user_id: owner.user.id,
+          title: title,
+          content: content
+        )
+
         format.html { redirect_to admin_volunteer_applies_path, notice: '操作成功' }
       else
         format.html { render :edit }
