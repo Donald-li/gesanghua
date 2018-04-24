@@ -24,6 +24,10 @@
 #  task_state         :boolean          default(FALSE)        # 志愿者是否有未查看的指派任务
 #  name               :string                                 # 志愿者真实姓名
 #  id_card            :string                                 # 志愿者身份证
+#  province           :string                                 # 省
+#  city               :string                                 # 市
+#  district           :string                                 # 区县
+#  address            :string                                 # 详细地址
 #
 
 require 'rails_helper'
