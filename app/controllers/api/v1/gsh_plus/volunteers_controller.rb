@@ -22,8 +22,7 @@ class Api::V1::GshPlus::VolunteersController < Api::V1::BaseController
       return api_error(message: '该手机号已注册志愿者，请绑定手机号关联角色')
     end
     volunteer = user.volunteer || user.build_volunteer
-    # volunteer.attributes = {describe: params[:volunteer][:describe], phone: params[:volunteer][:phone], name: params[:volunteer][:name], id_card: params[:volunteer][:id_card], province: params[:volunteer][:location][0], city: params[:volunteer][:location][1], district: params[:volunteer][:location][2], address: params[:volunteer][:address]}
-    volunteer.attributes = {describe: params[:volunteer][:describe], phone: params[:volunteer][:phone], name: params[:volunteer][:name], id_card: params[:volunteer][:id_card]}
+    volunteer.attributes = {describe: params[:volunteer][:describe], phone: params[:volunteer][:phone], name: params[:volunteer][:name], id_card: params[:volunteer][:id_card], province: params[:volunteer][:location][0], city: params[:volunteer][:location][1], district: params[:volunteer][:location][2], address: params[:volunteer][:address]}
     if volunteer.save
       volunteer.submit!
       volunteer.attach_image(params[:image_ids][0]) if params[:image_ids].present?
