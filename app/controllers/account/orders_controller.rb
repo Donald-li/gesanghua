@@ -5,24 +5,10 @@ class Account::OrdersController < Account::BaseController
   def index
     respond_to do |format|
       format.html do
-        #@project = Rails.cache.read("donate_project_#{current_user.id}")
-        @donate_records = DonateRecord.select_record(current_user.id, params[:type]).sorted.decode_page(params)
+        @donate_records = DonateRecord.select_record(current_user.id, params[:type])
+        @donate_records = @donate_records.where(project_id: params[:project_id]) if params[:project_id].present?
+        @donate_records = @donate_records.sorted.page(params[:page]).per(8)
         @projects = Project.visible.sorted.donate_project
-      end
-      format.js do
-        @donate_records = DonateRecord.select_record(current_user.id, params[:type]).sorted.decode_page(params)
-      end
-    end
-  end
-
-  def select_tab
-    respond_to do |format|
-      format.html do
-        @donate_records = DonateRecord.select_record(current_user.id, params[:type]).sorted.decode_page(params)
-        render partial: "info"
-      end
-      format.js do
-        @donate_records = DonateRecord.select_record(current_user.id, params[:type]).sorted.decode_page(params)
       end
     end
   end

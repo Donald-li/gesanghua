@@ -9,10 +9,10 @@ $(function () {
   })
   if ($('.donation .donation-cont').length === 0) {
     $('.donation-cont-no').css('display', 'block')
-    $('.project-foot').css('display', 'none')
+    // $('.project-foot').css('display', 'none')
   } else {
     $('.donation-cont-no').css('display', 'none')
-    $('.project-foot').css('display', 'block')
+    // $('.project-foot').css('display', 'block')
   }
 
   // document.getElementById("code_btn").onclick = function () {

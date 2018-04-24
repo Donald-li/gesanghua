@@ -34,7 +34,7 @@
         <label for="inputStandard" class="col-md-3 control-label">性别：</label>
         <div class="col-md-5 control-field">
           <div class="bs-component">
-            <%= f.select :gender, User.options_for_select(:genders, raw: false), class: 'form-control' %>
+            <%= f.select :gender, User.options_for_some_select(:genders, ['male', 'female'], raw: false), class: 'form-control' %>
           </div>
         </div>
       </div>
