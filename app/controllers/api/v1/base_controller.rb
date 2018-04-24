@@ -33,7 +33,7 @@ class Api::V1::BaseController < ApplicationController
   end
 
   def current_user
-    @current_user ||= User.fourth if Settings.development_mode
+    @current_user ||= User.second if Settings.development_mode
     @current_user ||= User.find Settings.api_defautl_user if Rails.env.development? && Settings.api_defautl_user
     @current_user ||= User.find_by(id: session[:id]) if session[:id].present?
     token = request.headers['Authorization'] || params[:auth_token]
