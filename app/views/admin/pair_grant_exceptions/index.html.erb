@@ -13,8 +13,8 @@
         <div class="col-md-12 col-sm-12">
           <%= search_form_for @search, url: admin_pair_grants_path, class: 'form-inline' do |f| %>
               <div class="form-group">
-                <%= f.label :grant_no_or_gsh_child_name_or_gsh_child_id_card_cont, '搜索学生' %>
-                <%= f.text_field :grant_no_or_gsh_child_name_or_gsh_child_id_card_cont, class: 'form-control', placeholder: '发放编号、学生信息' %>
+                <%= f.label :apply_child_gsh_no_or_gsh_child_name_or_gsh_child_id_card_cont, '搜索学生' %>
+                <%= f.text_field :apply_child_gsh_no_or_gsh_child_name_or_gsh_child_id_card_cont, class: 'form-control', placeholder: '编号、学生信息' %>
               </div>
               <div class="form-group">
                 <%= f.label :school_name_cont, '搜索学校' %>
@@ -36,10 +36,13 @@
           <thead>
           <tr>
             <th>
-              发放编号
+              格桑花编号
             </th>
             <th>
               姓名
+            </th>
+            <th>
+              申请学年
             </th>
             <th>
               取消原因
@@ -62,13 +65,16 @@
           <% @grants.each do |grant| %>
               <tr>
                 <td>
-                  <%= grant.grant_no %>
+                  <%= grant.apply_child.gsh_no %>
                 </td>
                 <td>
                   <%= grant.try(:gsh_child).try(:name) %>
                 </td>
                 <td>
-                  <%= grant.cancel_reason %>
+                  <%= grant.title %>
+                </td>
+                <td>
+                  <%= grant.enum_name(:cancel_reason) %>
                 </td>
                 <td>
                   ¥<%= number_to_currency(grant.amount) %>

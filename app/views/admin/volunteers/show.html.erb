@@ -1,0 +1,79 @@
+<div class="portlet light portlet-fit bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="fa fa-sliders font-dark"></i>
+      <span class="caption-subject font-dark bold uppercase">志愿者详情</span>
+    </div>
+    <div class="actions">
+      <%= link_to admin_volunteers_path, class: 'btn btn-xs blue' do %>
+          <i class="fa fa-reply"></i>
+          <span>返回</span>
+      <% end %>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="table-scrollable">
+      <table class="table table-bordered table-hover">
+        <tbody>
+        <tr>
+          <th>
+            姓名
+          </th>
+          <th>
+            <%= @volunteer.name %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            联系方式
+          </th>
+          <th>
+            <%= @volunteer.phone %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            联系地址
+          </th>
+          <th>
+            <%= @volunteer.simple_address %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            身份证
+          </th>
+          <th>
+            <%= @volunteer.id_card %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            个人简介
+          </th>
+          <th>
+            <%= @volunteer.describe %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            证件照片
+          </th>
+          <th>
+            <%= image_tag @volunteer.image_url(:tiny) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            技能特长
+          </th>
+          <th>
+            <%= @volunteer.majors.map(&:name).join(', ') %>
+          </th>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

@@ -25,6 +25,15 @@ class Api::V1::Staff::GrantsController < Api::V1::BaseController
       # )
       # @feedback.save
       @grant.attach_images(@image_ids)
+
+      # 给捐助人发送收货反馈通知
+      notice = Notification.create(
+        owner: @grant,
+        user_id: @grant.donate_records.last.donor_id,
+        title: "#发放通知# 你的捐款发放啦",
+        content: "你捐助的 #{@grant.apply_child.name} 助学款已经发放。发放时间: #{ l(@grant.granted_at) } 发放人: #{ params[:feedback][:grant_person] }"
+      )
+
       # @feedback.attach_images(@image_ids)
       api_success(data: {result: true, grant_id: @grant.id}, message: '发放成功')
     else

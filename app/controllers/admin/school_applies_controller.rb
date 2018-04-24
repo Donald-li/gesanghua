@@ -45,6 +45,23 @@ class Admin::SchoolAppliesController < Admin::BaseController
         #   @school_apply.change_school_user(user)
         # end
         @school_apply.audits.create(state: approve_state, user_id: current_user.id, comment: school_apply_params[:approve_remark])
+
+        # 审核通过发通知
+        owner = @school_apply
+        if approve_state == 'pass'
+          title = "#学校申请# 审核已通过"
+          content = "你申请的学校 #{@school_apply.name} 已经审核通过。 "
+        else
+          title = "#学校申请# 审核未通过"
+          content = "你申请的学校 #{@school_apply.name} 审核未通过 未通过理由: #{school_apply_params[:approve_remark]}"
+        end
+        notice = Notification.create(
+          owner: owner,
+          user_id: owner.creater.id,
+          title: title,
+          content: content
+        )
+
         format.html { redirect_to admin_school_applies_path, notice: '操作成功' }
       else
         format.html { render :show }
