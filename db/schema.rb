@@ -586,7 +586,7 @@ ActiveRecord::Schema.define(version: 20180424070227) do
 
   create_table "notifications", force: :cascade do |t|
     t.integer "push_type", comment: "bit_enum，邮件、短信、微信"
-    t.string "kind", comment: "类型，通知类型"
+    t.string "kind", comment: "类型"
     t.integer "from_user_id", comment: "发起用户"
     t.integer "user_id", comment: "通知用户"
     t.integer "project_id", comment: "项目"

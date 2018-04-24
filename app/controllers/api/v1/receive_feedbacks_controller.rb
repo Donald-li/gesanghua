@@ -25,7 +25,7 @@ class Api::V1::ReceiveFeedbacksController < Api::V1::BaseController
           notice2 = Notification.create(
             owner: @bookshelf,
             user_id: d.donor_id,
-            title: "#收货通知# 图书角已经收货",
+            title: "#收货通知# 图书角补书已经收货",
             content: "你捐助的图书角补书已经收货。"
           )
           donor_ids << d.donor_id
