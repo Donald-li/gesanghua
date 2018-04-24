@@ -38,7 +38,7 @@
             <!--</div>-->
 
             <div class="loge pull-left">
-              <canvas width="100%" height="100%" class="flare"></canvas>
+              <%= image_tag 'bg-left.jpg' %>
               <div class="loge-cont">
                 <%= image_tag 'login.png' %>
               </div>
@@ -97,16 +97,13 @@
                 <!-- 注册 -->
                 <!-- </div> -->
                 <button class="register" type="submit">注册</button>
-
                 <div class="check-box">
-              <span class="checkbox_item clearfix">
-                <input type="checkbox" name="check"/>
-                <label class="check_label on pull-left">
-                  <i class="checkbox_icon pull-left"></i>
-                  <span class="checkbox_text">阅读并同意</span>
-                </label>
-                <span class="pull-left cur">《格桑花用户注册协议》</span>
-              </span>
+                  <div class="pretty o-danger">
+                    <input type="checkbox" checked/>
+                    <label><i class="mdi mdi-check"></i></label>
+                    <span class="checkbox_text">阅读并同意</span>
+                  </div>
+                  <span class=" cur">《格桑花用户注册协议》</span>
                 </div>
               </div>
               <div class="longin-right">

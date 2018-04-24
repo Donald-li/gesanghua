@@ -4,7 +4,7 @@
 
 <div id="first-screen" class="first-screen classbody">
   <div class="canforget">
-    <canvas width="100%" height="100%" class="flare"></canvas>
+    <%= image_tag 'binding-top-bg.jpg' %>
   </div>
   <div class="forget-password-img">
     <%= image_tag 'forget-password-icon.png' %>
@@ -157,15 +157,7 @@
 
 
 <script type="text/javascript" charset="utf-8">
-    $("canvas.flare").let_it_snow({
-        windPower: 0,
-        speed: 0,
-        size: 110,
-        count: 15,
-        opacity: 0.1,
-        interaction: false,
-        image: '<%= image_path('circle.png')%>'
-    });
+
     var wait = 59;
     function time(o) {
         if (wait == 0) {
