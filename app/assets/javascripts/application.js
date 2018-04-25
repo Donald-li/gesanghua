@@ -86,8 +86,8 @@ $(function () {
         $('.read-more').css({ "white-space": "nowrap"})
         $('.redundance').css({ "white-space": "nowrap"})
         $('.project-cont-con').css({ "white-space": "nowrap"})
+        $('.detail-con-font').css({ "white-space": "nowrap"})
     }
-
 
     //二维码设置
     $('#container2').erweima({
@@ -171,4 +171,6 @@ $(function () {
         }
     }
 
+
 });
+
