@@ -1,4 +1,6 @@
 <div id="donates">
+  <form action="<%= donates_path %>" method="post">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
   <div class="donates-img">
     <%= image_tag 'top-bg.png' %>
     <div class="donates-img-cont">
@@ -13,17 +15,13 @@
         <p class="donates-c-l-t">选择你要捐助的项目</p>
         <div class="donations-1" >
           <ul class="donations1 clearfix">
-            <li class="selectedDo cur">办公经费</li>
-            <li class="cur ">格桑花</li>
-            <li class="cur ">一对一</li>
-            <li class="cur">探索营</li>
-            <li class="cur">悦读</li>
-            <li class="cur">护花</li>
-            <li class="cur">广播</li>
+            <% @donate_itmes.each do |d| %>
+            <li class="<%= d == @donate_itmes.first ? 'selectedDo' : '' %> cur donate-item-cur" data-describe="<%= d.describe %>" data-donate-item-id="<%= d.id %>"><%= d.name %></li>
+            <% end %>
           </ul>
           <div class="bottomline"></div>
         </div>
-        <p class="donates-c-l-t">您的捐款将会用于格桑花办公经费的使用！</p>
+        <p class="donates-c-l-t" id="donate-item-describe"><%= @donate_itmes.first.describe %></p>
       </div>
       <!--物资类-->
       <!--<div>-->
@@ -57,38 +55,51 @@
       <!--散捐-->
       <div class="benefactors-moy clearfix">
         <span class="pull-left">捐款金额</span>
-        <input type="text" placeholder="其他金额" class="pull-left"/>
+        <input type="text" placeholder="其他金额" class="pull-left" name="amount" id="donate-amount"/>
         <span >元</span>
         <div class="pull-right">
-          <ul class="ui-choose" id="uc_01">
-            <li class="cur">1300元</li>
-            <li class="cur">1000元</li>
-            <li class="cur">1500元</li>
-            <li class="cur">2000元</li>
+          <ul class="ui-choose ui-choose-tab" id="amount-tab-default" style="display: none">
+            <% Settings.amount_tabs.each do |a| %>
+            <li class="cur amount_tab_cur" data-amount="<%= a %>"><%= number_to_currency a %> 元</li>
+            <% end %>
           </ul>
+          <% @donate_itmes.each do |d| %>
+            <% if d.amount_tabs.count > 0 %>
+            <ul class="ui-choose ui-choose-tab" id="amount-tab-<%= d.id %>">
+            <% d.amount_tabs.each do |a| %>
+              <li class="cur amount_tab_cur" data-amount="<%= a.amount %>"><%= number_to_currency a.amount %> 元 （<%= a.alias %>）</li>
+            <% end %>
+            </ul>
+            <% end %>
+          <% end %>
         </div>
       </div>
       <div class="benefactors clearfix">
         <span class="pull-left">选捐助人</span>
-        <select id="benefactor" class="pull-left">
-          <option value="1">peekid</option>
-          <option value="2">成功2</option>
-          <option value="3" >成功3</option>
+        <select name="donor" id="benefactor" class="pull-left">
+          <option value="<%= current_user.id %>"><%= current_user.show_name %></option>
+          <% @donors.each do |d| %>
+          <option value="<%= d.id %>"><%= d.show_name %></option>
+          <% end %>
         </select>
       </div>
-      <div class="don-my-team">通过 <span>维基飞翔后援团</span> 捐助</div>
+      <% if current_user.team.present? %>
+      <div class="don-my-team">通过 <span>i<%= current_user.team.name %></span> 捐助</div>
+      <% end %>
       <div class="benefactors-way clearfix border-b">
         <span class="pull-left">支付方式</span>
+        <input type="hidden" name="donate_way" value="wechat" id="donate_way">
+        <input type="hidden" name="donate_item" value="1" id="donate_item">
         <ul class="ui-choose pull-left"  id="uc_02">
-          <li>
+          <li class="donate_way" data-way="wechat">
             <%= image_tag 'iconpic-buy-alipay.svg' %>
           </li>
-          <li>
+          <li class="donate_way" data-way="alipay">
             <%= image_tag 'iconpic-buy-weixin.svg' %>
           </li>
-          <li>
+          <li class="donate_way" data-way="balance">
             <%= image_tag 'iconpic-buy-outline.svg' %>
-            <span>123元</span>
+            <span><%= number_to_currency current_user.balance %> 元</span>
           </li>
         </ul>
       </div>
@@ -149,6 +160,7 @@
   </div>
 
 
+</form>
 </div>
 <script>
 //    $('.overspread-2').overs(".class-button");
@@ -165,4 +177,33 @@
         width: "430px",
         minimumResultsForSearch: -1
     });
+
+    // 更新捐助项信息
+    $('.donate-item-cur').click(function () {
+      $('#donate_item').val($(this).data('donate-item-id'))
+      $('#donate-item-describe').text($(this).data('describe'))
+      // 切换金额卡片
+      $('.ui-choose-tab').hide()
+      let amountTabName = '#amount-tab-' + $(this).data('donate-item-id')
+      if ($(amountTabName).length > 0) {
+        $(amountTabName).show()
+      } else {
+        $('#amount-tab-default').show()
+      }
+    })
+
+    // 把卡片金额设置到金额输入框
+    $('.amount_tab_cur').click(function () {
+      $('#donate-amount').val($(this).data('amount'))
+    })
+
+    // 金额框值改变时执行
+    $('#donate-amount').change(function () {
+      $('.amount_tab_cur').removeClass('selected')
+    })
+
+    // 选择支付方式
+    $('.donate_way').click(function () {
+      $('#donate_way').val($(this).data('way'))
+    })
 </script>
