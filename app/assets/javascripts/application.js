@@ -94,7 +94,16 @@ $(function () {
     });
     //二维码移入移除变化
     $('.bullet-tit-icon').click(function () {
-        $('.bullet').css({'display': 'none'})
+      $.post("/ajaxes/close_announcement",
+        {
+        },
+        function(data){
+          if (data.status) {
+            $('.bullet').css({'display': 'none'})
+          } else {
+          }
+        }
+      )
     })
     $('.bul-top-2').mousemove(function () {
         $('.bul-pos4').css({'display': 'block'})

@@ -31,7 +31,7 @@ class Article < ApplicationRecord
   scope :sorted, ->{ order(published_at: :desc) }
   scope :reverse_sorted, ->{ sorted.reverse_order }
 
-  enum kind: {simple: 1, special: 2}
+  enum kind: {simple: 1, special: 2, announcement: 3}# 类型： 1:普通资讯 2: 专题资讯 3: 公告
   default_value_for :kind, 1
 
   enum special_kind: {text_news: 1, image_news: 2}

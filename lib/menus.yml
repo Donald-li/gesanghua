@@ -89,6 +89,9 @@ admin:
             admin_content_partners:
               actions:
                 'admin/partners': all
+            admin_content_announcements:
+              actions:
+                'admin/announcements': all
 
     admin_system:
       menus:

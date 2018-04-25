@@ -1,8 +1,12 @@
-<div class="bullet">
-  <span>青海格桑花教育救助会 “护花健康包” 采购公告</span>
-  <span class="iconfont icon-input_delete bullet-tit-icon cur"></span>
-</div>
-
+<% if !session[:show_announcement].present? || (session[:show_announcement].present? && session[:show_announcement] == true) %>
+  <div class="bullet">
+    <span>格桑花公告</span>
+    <span class="iconfont icon-input_delete bullet-tit-icon cur"></span>
+  </div>
+<% end %>
+<%= session[:show_announcement].present? %>
+<%= session[:show_announcement] %>
+<%= session[:user_id] %>
 <nav class="bul-nav clearfix">
   <div class="bul-img pull-left"><%= image_tag 'gsh-logo-nav.png' %></div>
   <div class="bul-nav-cont clearfix">
