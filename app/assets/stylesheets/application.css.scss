@@ -1029,6 +1029,9 @@ select:disabled {
         border-radius: 4px;
         border: 1px solid #fff;
         & > a {
+          display: inline-block;
+          width: 205px;
+          height: 44px;
           color: #fff;
         }
       }

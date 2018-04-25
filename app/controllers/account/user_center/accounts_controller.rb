@@ -25,6 +25,7 @@ class Account::UserCenter::AccountsController < Account::BaseController
       @user.phone = params[:phone]
       @user.password = params[:new_password]
       if @user.save
+        @user.bind_user_roles
         redirect_to account_user_center_account_path, notice: '手机号绑定成功。' and return
       else
         redirect_to edit_phone_account_user_center_account_path, alert: @user.errors.full_messages.join(',')
@@ -47,6 +48,7 @@ class Account::UserCenter::AccountsController < Account::BaseController
     else
       @user.phone = params[:phone]
       if @user.save
+        @user.bind_user_roles
         redirect_to account_user_center_account_path, notice: '手机号修改成功。' and return
       else
         redirect_to change_phone_account_user_center_account_path, alert: @user.errors.full_messages.join(',')

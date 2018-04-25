@@ -64,13 +64,13 @@
                 <%= record.id %>
               </td>
               <td>
-                <%= record.season.name %>
+                <%= record.apply_name %>
               </td>
               <td>
                 <%= record.donor.try(:name) %> ( <%= record.donor.try(:phone) %> )
               </td>
               <td>
-                <%= record.agent.name %> / <%= record.agent.name %>
+                <%= record.agent.try(:name) %> / <%= record.agent.try(:name) %>
               </td>
               <td>
                 <%= l record.created_at %>
@@ -85,7 +85,7 @@
                 <%= link_to camp_project_donate_record_path(@apply, record), class: 'btn btn-xs blue' do %>
                   <i class="fa fa-file"></i> 查看详情
                 <% end %>
-                <% if record.custom? %>
+                <% if false %>
                 <%= link_to camp_project_donate_record_path(@apply, record), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                   <i class="fa fa-trash-o"></i> 删除
                 <% end %>

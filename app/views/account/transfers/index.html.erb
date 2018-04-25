@@ -28,7 +28,7 @@
         </li>
       <% end %>
       <% @team_members.each do |member| %>
-        <li class="transfers-per <%= !@team_creater.present? && !@team_manager.present? ? 'selected' : '' %>" UserId="<%= member.id %>">
+        <li class="transfers-per <%= !@team_creater.present? && !@team_manager.present? && @team_members.first == member ? 'selected' : '' %>" UserId="<%= member.id %>">
           <div class="transfers-per-img">
             <%= image_tag member.user_avatar %>
           </div>
