@@ -9,11 +9,9 @@ class Account::OfflineUsersController < Account::BaseController
     gender = params[:gender]
     @offline_user = current_user.offline_users.new(offline_user_params.merge(login: login, gender: gender))
     if @offline_user.save
-      flash[:notice] = '创建成功。'
-      gen_success_message
+      render json: {message: '创建成功。', status: true}
     else
-      flash[:notice] = @offline_user.errors.full_messages
-      gen_failure_message(@offline_user)
+      render json: {message: @offline_user.errors.full_messages.first, status: false}
     end
   end
 
@@ -21,11 +19,9 @@ class Account::OfflineUsersController < Account::BaseController
     @offline_user = User.find_by_id(params[:id])
     gender = params[:gender]
     if @offline_user.update_attributes(offline_user_params.merge(login: offline_user_params[:phone], gender: gender))
-      flash[:notice] = '修改成功。'
-      gen_success_message
+      render json: {message: '修改成功', status: true}
     else
-      flash[:notice] = @offline_user.errors.full_messages
-      gen_failure_message(@offline_user)
+      render json: {message: @offline_user.errors.full_messages.first, status: false}
     end
   end
 
@@ -33,8 +29,9 @@ class Account::OfflineUsersController < Account::BaseController
     @offline_user = User.find(params[:id])
     @offline_user.manager_id = nil
     if @offline_user.save
-      flash[:notice] = '删除成功。'
-      redirect_to account_offline_users_path
+      render json: {message: '删除成功', status: true}
+    else
+      render json: {message: '删除失败，请重试。', status: false}
     end
   end
 
