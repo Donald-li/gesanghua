@@ -14,22 +14,8 @@
   <p class="disclosures-t">财务公开系统仅为流水账，其统计功能尚不健全，如有偏差以原始凭证为准</p>
   <div>
     <ul class="disclosures-cont">
-      <li class="disclosures-c border-t">
-        <p class="disclosures-l">2016年格桑花财务年报表</p>
-        <p class="disclosures-n">菠菜 |  2018年02月22日</p>
-      </li>
-      <li class="disclosures-c border-t">
-        <p class="disclosures-l">2016年格桑花财务年报表</p>
-        <p class="disclosures-n">菠菜 |  2018年02月22日</p>
-      </li>
-      <li class="disclosures-c border-t">
-        <p class="disclosures-l">2016年格桑花财务年报表</p>
-        <p class="disclosures-n">菠菜 |  2018年02月22日</p>
-      </li>
+      <%= render '/site/disclosures/list', reports: @financial_reports %>
     </ul>
-    <div class="speciais-cont-but border-t">
-      <button>加载更多</button>
-    </div>
   </div>
 </div>
 <script>

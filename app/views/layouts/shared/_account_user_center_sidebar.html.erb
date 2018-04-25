@@ -4,23 +4,25 @@
     <li class="<%= display_menu("profiles") %> cur">
       <span class="iconfont icon-ico-team"></span>
       <span>个人资料</span>
+      <div class="<%= display_line("profiles") %>"></div>
     </li>
     <% end %>
     <%= link_to account_user_center_account_path do %>
     <li class="<%= display_menu("accounts") %> cur">
       <span class="iconfont icon-ico-month"></span>
       <span>账号信息</span>
+      <div class="<%= display_line("accounts") %>"></div>
     </li>
     <% end %>
-    <%= link_to account_user_center_bind_path do %>
+    <%= link_to edit_account_user_center_bind_path do %>
     <li class="<%= display_menu("binds") %> cur">
       <span class="iconfont icon-ico-month"></span>
       <span>社交账号</span>
+      <div class="<%= display_line("binds") %>"></div>
     </li>
     <% end %>
 
   </ul>
-  <div class="leftLine"></div>
   <div  class="border-t" >
     <%= link_to account_logout_path, method: :delete do %>
     <span class="iconfont icon-off"></span>

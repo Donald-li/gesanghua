@@ -63,7 +63,7 @@ class Api::V1::CooperationPairStudentsController < Api::V1::BaseController
       @student.attach_family_image(params[:family_image][0][:id]) if params[:family_image][0].present?
       api_success(data: {result: true, apply_id: @student.project_season_apply_id}, message: '孩子信息提交成功！')
     else
-      api_success(data: {result: false}, message: '孩子信息提交失败，请重试！')
+      api_success(data: {result: false}, message: @student.errors.full_messages.join(','))
     end
   end
 

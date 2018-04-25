@@ -41,7 +41,7 @@
                       </div>
                     </div>
                     <%= f.input :name, label: '真实姓名：', autofocus: true, placeholder: '姓名', required: true %>
-                    <%= f.input :gender, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApplyChild.options_for_select(:genders), label: '性别：'%>
+                    <%= f.input :gender, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApplyChild.options_for_some_select(:genders, ['male', 'female']), label: '性别：'%>
                     <%= f.input :id_card, label: '身份证号：', autofocus: true, placeholder: '身份证号', required: true %>
                     <%= f.input :nation, as: :select, label: '民族：', collection: ProjectSeasonApplyChild.options_for_enum_select(:nations), include_blank: false %>
                     <%= f.input :level, as: :select, label: '学历：', collection: ProjectSeasonApplyChild.options_for_enum_select(:levels), include_blank: false %>

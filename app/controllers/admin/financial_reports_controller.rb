@@ -20,7 +20,7 @@ class Admin::FinancialReportsController < Admin::BaseController
 
   def create
     @financial_report = FinancialReport.new(financial_report_params)
-
+    @financial_report.user_id = current_user.id
     respond_to do |format|
       if @financial_report.save
         @financial_report.attach_report_files(params[:file_ids])

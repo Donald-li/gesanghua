@@ -2196,6 +2196,11 @@ select:disabled {
     color: #9f9f9f;
     font-size: 14px;
     margin: 0 2px;
+    a{
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+    }
   }
   & > span:hover {
     line-height: 30px;
@@ -2205,6 +2210,15 @@ select:disabled {
     a{
       color: #fff;
     }
+  }
+  .current-page{
+    line-height: 30px;
+    border: none;
+    background-color: $color-border;
+    a{
+      color: #fff;
+    }
+
   }
 }
 
@@ -2327,7 +2341,7 @@ select:disabled {
       .leftLine {
         position: absolute;
         left: 0;
-        top: 10px;
+        top: 0;
         width: 4px;
         height: 54px;
         background: $color-button;
