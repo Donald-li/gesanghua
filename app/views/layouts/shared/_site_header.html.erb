@@ -1,4 +1,4 @@
-<% if session[:hide_announcement] == false %>
+<% if session[:hide_announcement] == false && Article.announcement.show.present? %>
   <div class="bullet ">
       <ul class="font_inner">
         <% Article.announcement.show.sorted.each do |announcement| %>
