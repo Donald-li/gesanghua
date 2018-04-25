@@ -143,18 +143,33 @@
     }
 
     document.getElementById("btn").onclick = function () {
-        time(this);
+        var _this = this
         var mobile = $('#phonenumber').val()
-        $.ajax({
-            type: "post",
-            url: "/api/v1/common/sms_codes",
-            data: {kind: 'signup', mobile: mobile},
-            success(data) {
-                alert(data.message)
-            },
-            error() {
-            }
-        })
+        if (mobile.length > 0) {
+            $.ajax({
+                type: "post",
+                url: "/api/v1/common/sms_codes",
+                data: {kind: 'signup', mobile: mobile},
+                success(data) {
+//                    layer.msg(data.message, {
+//                        icon: 0,
+//                        offset: 't c'
+//                    });
+                    time(_this);
+                },
+                error() {
+                    layer.msg(data.message, {
+                        icon: 2,
+                        offset: 't c'
+                    });
+                }
+            })
+        } else {
+            layer.msg('请输入手机号码', {
+                icon: 2,
+                offset: 't c'
+            });
+        }
     }
     $(".check_label").checkbox();
     $("canvas.flare").let_it_snow({

@@ -91,12 +91,13 @@ class Campaign < ApplicationRecord
 
   def summary_builder(user=nil)
     Jbuilder.new do |json|
-      json.(self, :id, :name, :price, :start_time, :end_time, :sign_up_end_time)
+      json.(self, :id, :name, :price, :start_time, :end_time, :sign_up_end_time, :number)
       json.state_name self.detail_state_name(user)
       json.image_mode self.image.present?
       json.image self.image_url(:tiny).to_s
       json.banner self.banner_url(:tiny)
       json.category self.campaign_category.name
+      json.enlist_count self.campaign_enlists.paid.sum(:number)
       json.pay_amount self.campaign_enlists.paid.find_by(user_id: user.id).total_price if user.present?
     end.attributes!
   end
