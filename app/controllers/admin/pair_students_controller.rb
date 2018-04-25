@@ -79,7 +79,7 @@ class Admin::PairStudentsController < Admin::BaseController
         notice = Notification.create(
           owner: @apply_child,
           user_id: @apply_child.apply.applicant_id,
-          title: @apply_child.pass? ? '#审核通过# 一对一学生审核结果' : '#审核未通过# 一对一学生审核结果',
+          title: @apply_child.pass? ? '#审核通过# 结对助学学生审核结果' : '#审核未通过# 结对助学学生审核结果',
           content: @apply_child.pass? ? "#{@apply_child.name}同学审核通过" : "#{@apply_child.name}同学审核未通过"
         )
 

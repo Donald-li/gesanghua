@@ -69,12 +69,12 @@ class DonateRecord < ApplicationRecord
     self.project.try(:name) || '格桑花'
   end
 
-  def donate_item_name
-    self.donate_item.try(:name)
-  end
-
   def donor_name
     self.donor || self.user.user_name
+  end
+
+  def donate_no
+    self.income_record.try(:donation).try(:order_no)
   end
 
   # 平台配捐

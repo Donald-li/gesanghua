@@ -19,7 +19,7 @@
       </div>
       <% if @child_apply %>
           <div class="form-group">
-            <label class="col-md-2 control-label">可配捐年度：</label>
+            <label class="col-md-2 control-label">可配捐学年：</label>
             <div class="col-sm-9">
               <% @child_apply.gsh_child_grants.pending.sorted.each do |grant| %>
                   <span class="btn btn-xs green"><%= grant.title %></span>
@@ -27,7 +27,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-md-2 control-label">配捐年度数量：</label>
+            <label class="col-md-2 control-label">配捐学年数量：</label>
             <div class="col-sm-9">
               <input class="statistic-form-input" type="number" name="grant_number" min="1" max="<%= @child_apply.gsh_child_grants.pending.count %>" required>
               * 会自动按照学年顺序配捐

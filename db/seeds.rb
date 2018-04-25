@@ -13,7 +13,7 @@ u.update(login: 'admin', password: 'admin!', name: 'Administrator', phone: '1330
 # 一级财务分类
 fc_gesanghua = FundCategory.find_or_create_by(name: '格桑花', describe: '捐助给格桑花', kind: 'nondirectional')
 fc_expense = FundCategory.find_or_create_by(name: '办公经费', describe: '办公经费', kind: 'nondirectional')
-fc1 = FundCategory.find_or_create_by(name: '一对一', describe: '一对一', kind: 'directional')
+fc1 = FundCategory.find_or_create_by(name: '结对助学', describe: '结对助学', kind: 'directional')
 fc2 = FundCategory.find_or_create_by(name: '悦读', describe: '悦读', kind: 'directional')
 fc3 = FundCategory.find_or_create_by(name: '观影', describe: '观影', kind: 'directional')
 fc4 = FundCategory.find_or_create_by(name: '探索营', describe: '探索营', kind: 'directional')
@@ -38,7 +38,7 @@ fc4.funds.find_or_create_by(name: "合肥营", management_rate: 10, describe: '�
 
 # 捐助项
 di_gsh = DonateItem.find_or_create_by(name: '格桑花', describe: '不限制使用途径', fund: Fund.gsh, state: :show)
-di_pair = DonateItem.find_or_create_by(name: '一对一', describe: '用于一对一助学项目', fund: fc1.funds.unrestricted.first, state: :show)
+di_pair = DonateItem.find_or_create_by(name: '结对助学', describe: '用于结对助学项目', fund: fc1.funds.unrestricted.first, state: :show)
 di_read = DonateItem.find_or_create_by(name: '悦读', describe: '用于图书角建设', fund: fc2.funds.unrestricted.first, state: :show)
 di_camp = DonateItem.find_or_create_by(name: '探索营', describe: '用于探索营相关项目', fund: fc4.funds.unrestricted.first, state: :show)
 di_care = DonateItem.find_or_create_by(name: '护花', describe: '用于护花包购买', fund: fc6.funds.unrestricted.first, state: :show)
@@ -47,8 +47,8 @@ di_radio = DonateItem.find_or_create_by(name: '广播', describe: '用于广播�
 # 项目模板一级分类
 content = '用户协议'
 
-p = Project.find_or_initialize_by(name: '一对一')
-p.update(name: '一对一', alias: 'pair', protocol: content, describe: '项目介绍', kind: :fixed,
+p = Project.find_or_initialize_by(name: '结对助学')
+p.update(name: '结对助学', alias: 'pair', protocol: content, describe: '项目介绍', kind: :fixed,
   fund: fc1.funds.unrestricted.first, appoint_fund: fc1.funds.restricted.first, donate_item: di_pair,
   accept_feedback_state: 'close_feedback', apply_kind: 'platform_assign')
 

@@ -9,7 +9,7 @@ class Admin::PairGrantBatchesController < Admin::BaseController
   def excel_output
     @batch = GrantBatch.find(params[:format])
     path = ExcelOutput.grant_batch_output(@batch)
-    send_file(path, filename: "一对一发放批次名单.xlsx")
+    send_file(path, filename: "结对助学发放批次名单.xlsx")
   end
 
   def show
