@@ -265,6 +265,23 @@ class DonateRecord < ApplicationRecord
     apply_name
   end
 
+  def show_apply_name
+    show_apply_name = if self.owner_type == 'DonateItem' || self.owner_type == 'ProjectSeasonApply'
+      self.owner.name
+    elsif self.owner_type == 'GshChildGrant'
+      self.child.secure_name + ' · ' + self.owner.try(:title).to_s
+    elsif self.owner_type == 'ProjectSeasonApplyChild'
+      self.owner.secure_name
+    elsif self.owner_type == 'ProjectSeasonApplyBookshelf'
+      self.owner.apply.name
+    elsif self.owner_type == 'BookshelfSupplement'
+      self.owner.apply.name
+    elsif self.owner_type == 'CampaignEnlist'
+      self.owner.campaign.name
+    end
+    show_apply_name
+  end
+
   def self.select_record(agent_id, owner_id = nil)
     if owner_id.present?
       self.where(agent_id: agent_id, owner_id: owner_id)

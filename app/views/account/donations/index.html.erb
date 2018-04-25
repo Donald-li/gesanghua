@@ -103,13 +103,6 @@
 <script>
     $('.team-donations ul li').eq(0).removeClass('border-t')
 
-   if($('.team-donations ul li').length >= 2){
-       $('.team-donations ul li').css({'display': 'block'});
-       $('.not-available').css({'display': 'none'});
-   }else{
-       $('.team-donations ul li').css({'display': 'none'});
-       $('.not-available').css({'display': 'block'});
-   }
     $('.teams-s-cont-operate').bind("click", function (event) {
         $('.project-nav-heide').css({'display': 'block'});
         $('.teams-s-cont-name .iconfont').addClass("tranicon")

@@ -4,13 +4,13 @@
     <div class="pull-left">
       <div class="clearfix">
         <span class="pull-left detail-name"><%= record.donor.show_name %></span>
-        <span class="timeago pull-right detail-time" data-timeago="<%= record.created_at.to_s(:db) %>"></span>
+        <span class="timeago pull-right detail-time" data-timeago="<%= record.created_at.to_s %>"></span>
       </div>
       <p class="detail-con">
         <% if record.team.present? %>
         通过 <%= record.team.name %>
         <% end %>
-        捐助 <strong><%= record.apply_name %></strong> <%= record.amount %>元
+        捐助 <strong><%= record.show_apply_name %></strong> <%= record.amount %>元
     </div>
   </li>
 <% end %>
