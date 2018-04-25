@@ -56,14 +56,14 @@
                 type: "post",
                 url: "/api/v1/common/sms_codes",
                 data: {kind: 'signup', mobile: mobile},
-                success(data) {
+                success: function (data) {
 //                    layer.msg(data.message, {
 //                        icon: 0,
 //                        offset: 't c'
 //                    });
                     time(_this);
                 },
-                error() {
+                error: function (data) {
                     layer.msg(data.message, {
                         icon: 2,
                         offset: 't c'
