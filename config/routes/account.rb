@@ -40,7 +40,16 @@ namespace :account do
   end
   namespace :user_center do
     resource :profile#, only: [:show, :edit, :update]
-    resource :account, only: [:show, :edit, :update]
+    resource :account, only: [:show] do
+      member do
+        get :edit_phone
+        post :update_phone
+        get :change_phone
+        post :update_change_phone
+        get :edit_password
+        post :update_password
+      end
+    end
     resource :bind, only: [:show, :edit, :update]
   end
   resources :agents, only: [:index, :new, :edit]
