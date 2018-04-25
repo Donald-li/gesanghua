@@ -22,7 +22,7 @@
         <div class="input-group">
           <span class="iconfont icon-ico-search"></span>
           <%= hidden_field_tag :type, params[:type] %>
-          <%= text_field_tag :name, params[:name], name: :name, class: 'form-control', placeholder: '搜索项目' %>
+          <%= text_field_tag :name, params[:name], name: :name, class: 'from-input', placeholder: '搜索项目' %>
         </div>
       </div>
       <% end %>
@@ -36,7 +36,7 @@
               <%= image_tag apply.cover_image.try(:file).try(:url, :tiny).to_s %>
             </div>
             <div class="project-body-cot border-b border-l border-r ">
-              <div class="redundance"><%= apply.name %></div>
+              <div class="redundance project-tits"><%= apply.name %></div>
               <div class="progress">
                 <div class="progress-bar" role="progressbar" aria-valuenow="60"
                      aria-valuemin="0" aria-valuemax="100" style="width: <%= (apply.present_amount / apply.target_amount * 100).round(2) %>%">
