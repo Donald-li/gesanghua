@@ -1,14 +1,12 @@
-
-
 <div class="bul-swiper">
   <div class="swiper-container">
     <div class="swiper-wrapper">
-      <% @adverts.each do |advert|%>
-        <div class="swiper-slide">
-          <%= link_to advert.url do %>
-            <%= image_tag advert.image.try(:file).try(:url, :big).to_s %>
-          <% end %>
-        </div>
+      <% @adverts.each do |advert| %>
+          <div class="swiper-slide">
+            <%= link_to advert.url do %>
+                <%= image_tag advert.image.try(:file).try(:url, :big).to_s %>
+            <% end %>
+          </div>
       <% end %>
     </div>
     <div class="swiper-pagination"></div>
@@ -26,6 +24,7 @@
     <p>LOVE IS HARVEST & JOY</p>
   </div>
   <div class=" bul-ai-cont">
+    <%= image_tag 'homepage.png' %>
     <div class=" bul-img-n">
       <div class="clearfix  bul-img-m">
         <div class="clearfix  bul-img-p">
@@ -37,117 +36,120 @@
           <div style="overflow: hidden; position: relative; height: 156px;" id="news-container">
             <div class="bul-xian"></div>
             <ul style="position: absolute; margin: 0pt; padding: 0pt; top: 0px;">
-              <% @donate_records.each do |record|%>
-                <li>
-                  <div class="clearfix">
-                    <span class="iconfont icon-yuan bul-yuan "></span>
-                    <span class="bul-time pull-left"><%= record.created_at.strftime("%m月%d日 %H:%M") %></span>
-                    <span class="bul-name pull-left"><%= truncate(record.apply_name, length: 22) %></span>
-                    <span class="bul-moy pull-right"><%= record.amount %>元</span>
-                  </div>
-                </li>
+              <% @donate_records.each do |record| %>
+                  <li>
+                    <div class="clearfix">
+                      <span class="iconfont icon-yuan bul-yuan "></span>
+                      <span class="bul-time pull-left"><%= record.created_at.strftime("%m月%d日 %H:%M") %></span>
+                      <span class="bul-name pull-left"><%= truncate(record.agent.show_name + '捐助' + record.apply_name, length: 22) %></span>
+                      <span class="bul-moy pull-right"><%= record.amount %>元</span>
+                    </div>
+                  </li>
               <% end %>
             </ul>
           </div>
 
         </div>
 
-      </div>
+        <!--</div>--
       <div class="bul-img-r">
-        <%= image_tag 'gsh-img-right.png' %>
+        <%= image_tag 'homepage.png' %>
       </div>
 
     </div>
     <!--<div class="bul-img-r">-->
-      <!--<%= image_tag 'gsh-img-right.png' %>-->
-    <!--</div>-->
-  </div>
-</div>
-<div class="bul-content">
-  <div>
-    <div class="bul-mouse">
-      <div id="show1" class="cur">
-        <p class="mouse-1">我们可以</p>
-        <p class="mouse-2">为西部孩子提供帮助</p>
-      </div>
-      <div id="show2" class="cur">
-        <p class="mouse-1">为孩子</p>
-        <p class="mouse-2">每一个孩子都能跟踪反馈</p>
-      </div>
-      <div id="show3" class="cur">
-        <p class="mouse-1">为承诺</p>
-        <p class="mouse-2">每一笔善款去向可查</p>
+        <!--<%= image_tag 'gsh-img-right.png' %>-->
+        <!--</div>-->
       </div>
     </div>
-    <div class="bul-mouse-show">
-      <div id="show11">
-        <%= image_tag 'gsh-arrows-2.png' %>
-        <div class="mouse-show">
-          <p class="mouse-show-1">关注西部教育，帮助西部孩子 健康成长</p>
+    <div class="bul-content">
+      <div>
+        <div class="bul-mouse row">
+          <div id="show1" class="cur col-md-4">
+            <p class="mouse-1">我们可以</p>
+            <p class="mouse-2">为西部孩子提供帮助</p>
+          </div>
+          <div id="show2" class="cur col-md-4 ">
+            <p class="mouse-1">为孩子</p>
+            <p class="mouse-2">每一个孩子都能跟踪反馈</p>
+          </div>
+          <div id="show3" class="cur col-md-4">
+            <p class="mouse-1">为承诺</p>
+            <p class="mouse-2">每一笔善款去向可查</p>
+          </div>
         </div>
-      </div>
-      <div id="show12">
-        <%= image_tag 'gsh-arrows-2.png' %>
-        <div class="mouse-show">
-          <p class="mouse-show-1">关注西部教育，帮助西部孩子 健康成长</p>
-        </div>
-      </div>
-      <div id="show13">
-        <%= image_tag 'gsh-arrows-2.png' %>
-        <div class="mouse-show">
-          <p class="mouse-show-1">关注西部教育，帮助西部孩子 健康成长</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="bul-tit">
-    <p>最美格桑花资讯</p>
-    <p>GESANGHU NEWS</p>
-  </div>
-  <div class="items-container row">
-    <% @articles.each do |article| %>
-      <div class="item col-md-4 cur ">
-        <%= link_to article_path(article) do %>
-          <div class="gsh-img">
-            <%= image_tag article.image.try(:file).try(:url, :medium).to_s %>
-            <div class="ovrly"></div>
-            <div class="buttons">
-              <%= image_tag 'gsh-img-2.png' %>
+        <div class="bul-mouse-show row">
+          <div id="show11" class="col-md-4">
+            <%= image_tag 'gsh-arrows-2.png' %>
+            <div class="mouse-show">
+              <p class="mouse-show-1">关注西部教育，帮助西部孩子 健康成长</p>
             </div>
           </div>
-          <p class="gsh-cont-1"><%= article.author %> | <%= article.published_at.strftime("%Y年%m月%d日") %></p>
-          <p class="gsh-cont-2"><%= article.title %></p>
+          <div id="show12" class="col-md-4">
+            <%= image_tag 'gsh-arrows-2.png' %>
+            <div class="mouse-show">
+              <p class="mouse-show-1">关注西部教育，帮助西部孩子 健康成长</p>
+            </div>
+          </div>
+          <div id="show13" class="col-md-4">
+            <%= image_tag 'gsh-arrows-2.png' %>
+            <div class="mouse-show">
+              <p class="mouse-show-1">关注西部教育，帮助西部孩子 健康成长</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bul-tit">
+        <p>最美格桑花资讯</p>
+        <p>GESANGHU NEWS</p>
+      </div>
+      <div class="items-container row">
+        <% @articles.each do |article| %>
+            <div class="item col-md-4 cur ">
+              <%= link_to article_path(article) do %>
+                  <div class="gsh-img">
+                    <%= image_tag article.image.try(:file).try(:url, :medium).to_s %>
+                    <div class="ovrly"></div>
+                    <div class="buttons">
+                      <%= image_tag 'gsh-img-2.png' %>
+                    </div>
+                  </div>
+                  <p class="gsh-cont-1"><%= article.author %> | <%= article.published_at.strftime("%Y年%m月%d日") %></p>
+                  <p class="gsh-cont-2"><%= article.title %></p>
+              <% end %>
+            </div>
+        <% end %>
+
+      </div>
+      <% if @articles.present? %>
+          <%= link_to articles_path do %>
+              <div class="button button--but bul-buton cur " data-text="更多资讯">
+                <span class="button--inverted">更多资讯</span>
+              </div>
+          <% end %>
+      <% end %>
+    </div>
+    <div class="collaboration">
+      <p>合作伙伴</p>
+      <div>
+        <% if @partners.present? %>
+            <% @partners.limit(6).each do |partner| %>
+                <div class="cur">
+                  <%= link_to partner.url do %><%= image_tag partner.image.try(:file).try(:url, :tiny).to_s %>
+                  <% end %>
+                </div>
+            <% end %>
         <% end %>
       </div>
-    <% end %>
-
-  </div>
-  <% if @articles.present? %>
-    <%= link_to articles_path do %>
-      <div class="button button--but bul-buton cur " data-text="更多资讯">
-        <span class="button--inverted">更多资讯</span>
-      </div>
-    <% end %>
-  <% end %>
-</div>
-<div class="collaboration">
-  <p>合作伙伴</p>
-  <div>
-    <% if @partners.present? %>
-      <% @partners.limit(6).each do |partner| %>
-        <div class="cur">
-          <%= link_to partner.url do %><%= image_tag partner.image.try(:file).try(:url, :tiny).to_s %><% end %>
+    </div>
+    <div class="bul-fo">
+      <div>
+        <p>“让受助者、参与者在格桑花获得温暖、信任、希望、互助、友爱等美好情感，感受生命的意义与价值，共建格桑花精神家园。”</p>
+        <div class="bul-but">
+          <div class="pull-left cur"><%= link_to '我要捐助', new_donate_path %></div>
+          <div class="pull-right cur"><%= link_to '志愿者申请', '' %></div>
         </div>
-      <% end %>
-    <% end %>
-  </div>
-</div>
-<div class="bul-fo">
-  <div>
-    <p>“让受助者、参与者在格桑花获得温暖、信任、希望、互助、友爱等美好情感，感受生命的意义与价值，共建格桑花精神家园。”</p>
-    <div class="bul-but">
-      <div class="pull-left cur"><%= link_to '我要捐助', new_donate_path %></div>
-      <div class="pull-right cur"><%= link_to '志愿者申请', '' %></div>
+      </div>
     </div>
   </div>
 </div>
@@ -186,7 +188,7 @@
         autoplay: true,
         pagination: {
             el: '.swiper-pagination',
-            clickable :true
+            clickable: true
         },
         navigation: {
             nextEl: '.swiper-button-next',

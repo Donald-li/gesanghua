@@ -78,12 +78,12 @@ class Donation < ApplicationRecord
 
   # 返回支付宝支付按钮
   def alipay_prepay_h5
-    return get_alipay_prepay_url('wap')
+    return get_alipay_prepay_url(type='wap')
   end
 
   # 返回PC端支付宝支付按钮
   def alipay_prepay_page
-    return get_alipay_prepay_url('page')
+    return get_alipay_prepay_url(type='page')
   end
 
   # 项目是否可以退款
@@ -256,7 +256,13 @@ class Donation < ApplicationRecord
     notify_url = Settings.app_host + "/payment/alipay_payments/notify"
     quit_url = Settings.app_host + '/m/'
 
-    method = "alipay.trade.#{type}.pay"
+    if type == 'wap'
+      method = "alipay.trade.wap.pay"
+      product_code = 'QUICK_WAP_WAY'
+    else
+      method = "alipay.trade.page.pay"
+      product_code = 'FAST_INSTANT_TRADE_PAY'
+    end
 
     @client = get_alipay_client
     url = @client.page_execute_url(
@@ -265,7 +271,7 @@ class Donation < ApplicationRecord
       notify_url: notify_url,
       biz_content: {
        out_trade_no: self.order_no,
-       product_code: 'QUICK_WAP_WAY',
+       product_code: product_code,
        total_amount: '0.01',
        subject: 'Example: 456',
        quit_url: quit_url

@@ -93,9 +93,6 @@ $(function () {
         label: '微博'
     });
     //二维码移入移除变化
-    $('.bullet-tit-icon').click(function () {
-        $('.bullet').css({'display': 'none'})
-    })
     $('.bul-top-2').mousemove(function () {
         $('.bul-pos4').css({'display': 'block'})
 
