@@ -711,6 +711,7 @@ select:disabled {
       width: 38px;
       height: 38px;
       border-radius: 50%;
+      margin-top: -4px;
     }
   }
 
@@ -1843,9 +1844,7 @@ select:disabled {
   border: 1px solid $border;
   border-radius: 4px;
   position: relative;
-  .read-more {
-    height: 46px;
-  }
+
 }
 
 .detail-body-cont:hover {
@@ -1866,7 +1865,9 @@ select:disabled {
 .de-left-con {
   font-size: 14px;
   color: #3d3d40;
-
+.goods-1{
+  display: block;
+}
 }
 
 .detail-font-tit {
@@ -3292,6 +3293,11 @@ select:disabled {
     text-align: left;
     margin-bottom: 60px;
     padding: 0;
+    img{
+      width: 100%!important;
+      height: auto!important;
+      margin: 15px 0!important;
+    }
   }
 
 }

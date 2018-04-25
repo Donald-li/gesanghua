@@ -17,3 +17,18 @@ jQuery.fn.overs = function(obj) {
         })
     });
 };
+jQuery.fn.overbooleans = function(Booleans) {
+    var show = false
+    return this.each(function () {
+        var $objcont = $(this).find(".overspread-cont");//内容
+        var $objover = $(this).find(".overspread-over");//蒙层
+        if(Booleans = true){
+            $objover.show()
+            $objcont.center()
+            $objcont.fadeIn()
+        }else if( Booleans = false){
+            $objover.hide()
+            $objcont.hide()
+        }
+    });
+};
