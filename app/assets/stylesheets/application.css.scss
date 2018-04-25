@@ -552,8 +552,17 @@ select:disabled {
   height: 45px;
   line-height: 45px;
   background-color: $color-info;
-  color: #fff;
-
+  overflow: hidden;
+  position: relative;
+  ul{
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 695px;
+    font-size: 14px;
+    margin:auto;
+    color: #fff;
+  }
 }
 
 //弹框
@@ -775,25 +784,24 @@ select:disabled {
   padding-bottom: 90px;
   .bul-ai-cont {
     height: 320px;
-    background-color: #fafafa;
     position: relative;
-  }
-  .bul-img-r {
-   flex: 1;
-    margin-left: 32px;
-    img {
-      //width: 780px;
-
+    & > img{
+      position: absolute;
+      left:0;
+      top:0;
+      width: 100%;
+      height: 320px;
+      z-index: -1;
     }
   }
+
   .bul-img-n {
     width: 1140px;
     margin: 0 auto;
-    display: flex;
+    padding-bottom: 90px;
     .bul-img-m {
       width: 470px;
-      height: 100%;
-      flex: 1;
+      height: 320px;
       .bul-img-p {
         border-bottom: 1px solid #dcdcdc;
         padding: 36px 0 20px 0;
@@ -888,6 +896,9 @@ select:disabled {
   width: 1140px;
   border-bottom: 1px solid $border;
   margin: 0 auto;
+  .row{
+    margin: 0;
+  }
 }
 
 .collaboration {
@@ -906,7 +917,10 @@ select:disabled {
     text-align: center;
     margin: 0 auto;
     & > div {
-      flex: 1;
+      -webkit-box-flex: 0;
+      -ms-flex: 0 0 33%;
+      flex: 0 0 33%;
+      max-width: 33%;
     }
   }
 }
@@ -929,9 +943,7 @@ select:disabled {
 .bul-mouse {
   text-align: center;
   width: 100%;
-  display: flex;
   & > div {
-    flex: 1;
     padding: 17px 0 26px 0;
   }
   & > div:nth-child(2) {
@@ -1123,17 +1135,17 @@ select:disabled {
 }
 //分辨率
 
-@media (max-width: 1280px) {
-  .bul-ai .bul-img-r img{
-    width: 0;
-    height: 0;
-  }
-  .bul-ai .bul-img-n .bul-img-m{
-    width: 1140px;
-    margin: 0 auto;
-   flex: initial;
-  }
-}
+//@media (max-width: 1280px) {
+//  .bul-ai .bul-img-r img{
+//    width: 0;
+//    height: 0;
+//  }
+//  .bul-ai .bul-img-n .bul-img-m{
+//    width: 1140px;
+//    margin: 0 auto;
+//   flex: initial;
+//  }
+//}
 @media (max-width: 1382px){
   .bul-nav{
     width: 1382px;
@@ -1988,6 +2000,7 @@ select:disabled {
       text-align: center;
       color: $color-border;
       margin: 14px auto;
+      background: inherit;
       .iconfont {
         font-size: 15px;
         margin-right: 0;
