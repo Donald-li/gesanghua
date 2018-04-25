@@ -3,7 +3,7 @@ class Account::TransfersController < Account::BaseController
 
   def index
     @team_creater = @team.creater if @team.manager != @team.creater
-    @team_members = @team.users.where.not(id: @team.manager.id).sorted
+    @team_members = @team.users.where.not(id: [@team.manager.id, @team.creater.id]).sorted
   end
 
   private
