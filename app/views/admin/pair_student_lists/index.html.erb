@@ -88,7 +88,7 @@
                 </td>
                 <td>
                   <% child.gsh_child_grants.sorted.reverse.each do |grant| %>
-                    <span class="btn btn-xs <%= grant.pending? ? 'yellow' : 'green' %>" title="<%= grant.enum_name(:donate_state) %>"><%= grant.title %></span>
+                    <span class="btn btn-xs <%= grant.button_color %>" title="<%= grant.enum_name(:donate_state) %>"><%= grant.title %></span>
                   <% end %>
                 </td>
                 <td>
@@ -120,7 +120,7 @@
                       <i class="fa fa-list-ul"></i> 查看备注
                   <% end %>
                   <%= link_to admin_pair_student_list_student_grants_path(child), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                      <i class="fa fa-file"></i> 资助年度
+                      <i class="fa fa-file"></i> 资助学年
                   <% end %>
                   <%= link_to share_admin_pair_student_list_path(child), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-file"></i> 分享链接

@@ -100,6 +100,16 @@ class GshChildGrant < ApplicationRecord
     record.do_refund!
   end
 
+  def button_color
+    if self.pending?
+      'yellow'
+    elsif self.succeed?
+      'green'
+    else
+      'grey'
+    end
+  end
+
   def surplus_money
     self.amount
   end
