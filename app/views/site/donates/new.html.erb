@@ -104,7 +104,7 @@
         </ul>
       </div>
       <div style="text-align:center; ">
-        <button class="class-button cur">立即支付</button>
+        <button class="class-button cur" >立即支付</button>
       </div>
 
       <!--<div class="mongolian-hint"><span>您的余额不足，不足以支付</span></div>-->
@@ -120,51 +120,53 @@
         <p>账号：3506 0188 0000 50322</p>
       </div>
     </div>
-
   </div>
-  <div class="overspread-2">
-    <div class="overspread-over"></div>
-    <div class="overspread-cont">
-      <div class="clearfix">
-        <div class="pull-left mys-1"></div>
-        <div class="pull-right iconfont icon-icondelete cur overspread-but"></div>
-      </div>
-      <div class="overspread-co">
-        <p class="over-font">支付失败</p>
-        <p class="over-fontns">请尝试其他支付方式</p>
-      </div>
-      <div style="text-align:center; ">
-        <button class="overspread-but  over-but">确认</button>
-      </div>
-
-
-    </div>
-  </div>
-  <div class="overspread-3">
-    <div class="overspread-over"></div>
-    <div class="overspread-cont">
-      <div class="clearfix">
-        <div class="pull-left mys-1"></div>
-        <div class="pull-right iconfont icon-icondelete cur overspread-but"></div>
-      </div>
-      <div class="overspread-co">
-        <p class="over-fontns">如支付成功关闭此窗口</p>
-      </div>
-      <div class="overspreads-but">
-        <button>支付成功</button>
-        <button>支付失败</button>
-      </div>
-      <!--<div class="overspread-but  over-but">确认</div>-->
-    </div>
-
-  </div>
-
-
 </form>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="myModaldonation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="detail-icon">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+        <div class="overspread-co">
+          <p class="over-font">支付失败</p>
+          <p class="over-fontns">请尝试其他支付方式</p>
+        </div>
+      </div>
+      <div class="modal-footer overspreads-but">
+        <button class="over-but" data-dismiss="modal">确认</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="detail-icon">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+        <div class="overspread-co">
+          <p class="over-fontns">如支付成功关闭此窗口</p>
+        </div>
+      </div>
+      <div class="modal-footer overspreads-but">
+        <button class="succeed">支付成功</button>
+        <button class="defeated" data-dismiss="modal">支付失败</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script>
-//    $('.overspread-2').overs(".class-button");
-    $('.overspread-2').overbooleans(false);
+    //     模态窗
+//    $('#myModal').on('shown.bs.modal', function (e) {}).modal();
+    $('#myModaldonation').on('shown.bs.modal', function (e) {}).modal();
 
     //     右tab切换二级
     $(".donations1 li").on("click", function () {

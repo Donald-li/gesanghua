@@ -40,6 +40,8 @@ $border: #e6e6e6;
 //button hover
 $hover-button:#9750f5;
 $hover-share:#f4f4f4;
+//阴影
+//$color-box:#8a53e354;
 *,
 *:before,
 *:after {
@@ -8010,4 +8012,69 @@ select:disabled {
 .disclosures-show{
   font-size: 16px;
   color: #3d3d40;
+}
+//模态窗
+.detail-icon{
+  font-size: 24px;
+}
+.overspreads-but {
+  text-align: center;
+  .succeed {
+    width: 100px;
+    height: 34px;
+    font-size: 15px;
+    color: #fff;
+    text-align: center;
+    line-height: 32px;
+    background-color: $color-border;
+    margin-right: 10px;
+    border-radius: 3px;
+  }
+  .defeated {
+    width: 100px;
+    height: 34px;
+    border: 1px solid #9d9d9d;
+    text-align: center;
+    line-height: 32px;
+    font-size: 15px;
+    color: #3d3d40;
+    border-radius: 3px;
+  }
+}
+.modal-content{
+  width: 300px;
+  margin: 0 auto;
+  .overspread-co {
+    text-align: center;
+    .over-font {
+      font-size: 18px;
+      color: #3d3d40;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+    .over-fontns {
+      font-size: 14px;
+      color: #3d3d40;
+      margin-top: 10px;
+      padding: 0 40px;
+    }
+
+  }
+  .over-but {
+    width: 180px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    background: $color-button;
+    box-shadow: 0px 2px 7px 2px #8a53e354;
+    border-radius: 20px;
+    color: #fff;
+    font-size: 16px;
+
+  }
+}
+.modal-content .modal-footer{
+  text-align: center;
+  border: none;
+
 }
