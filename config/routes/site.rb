@@ -1,5 +1,10 @@
 scope module: :site do
 
+  resources :announcements do
+    collection do
+      post :close_announcement
+    end
+  end
   resources :articles, only: [:index, :show]
   resources :specials, only: [:index, :show]
   resources :campaigns, only: [:index, :show]

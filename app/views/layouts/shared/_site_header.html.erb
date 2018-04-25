@@ -1,23 +1,19 @@
-<div class="bullet ">
-    <ul class="font_inner">
-      <li>
-       <span>1青海格桑花教育救助会 “护花健康包” 采购公告）</span>
-        <span class="iconfont icon-input_delete bullet-tit-icon cur"></span>
-      </li>
-      <li>
-        <span>2青海格桑花教育救助会 “护花健康包” 采购公告</span>
-        <span class="iconfont icon-input_delete bullet-tit-icon cur"></span>
-      </li>
-      <li>
-        <span>3青海格桑花教育救助会 “护花健康包” 采购公告</span>
-        <span class="iconfont icon-input_delete bullet-tit-icon cur"></span>
-      </li>
-      <li>
-        <span>4青海格桑花教育救助会 “护花健康包” 采购公告</span>
-        <span class="iconfont icon-input_delete bullet-tit-icon cur"></span>
-      </li>
-    </ul>
-</div>
+<% if session[:hide_announcement] == false %>
+  <div class="bullet ">
+      <ul class="font_inner">
+        <% Article.announcement.show.sorted.each do |announcement| %>
+          <%= link_to announcement_path(announcement) do %>
+            <li>
+             <span><%= announcement.title %></span>
+             <%= link_to close_announcement_announcements_path, remote: true, method: :post do %>
+              <span class="iconfont icon-input_delete bullet-tit-icon cur"></span>
+             <% end %>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+  </div>
+<% end %>
 <nav class="bul-nav clearfix">
   <div class="bul-img pull-left"><%= image_tag 'gsh-logo-nav.png' %></div>
   <div class="bul-nav-cont clearfix">

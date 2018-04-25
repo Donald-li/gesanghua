@@ -200,13 +200,4 @@ class Support::AjaxesController < Support::BaseController
     end
   end
 
-  def close_announcement
-    session[:show_announcement] = false
-    if session[:show_announcement] == false
-      render json: {message: '', status: true}
-    else
-      render json: {message: '', status: false}
-    end
-  end
-
 end

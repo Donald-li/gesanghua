@@ -562,6 +562,9 @@ select:disabled {
     font-size: 14px;
     margin:auto;
     color: #fff;
+    & a{
+      color: #fff;
+    }
   }
 }
 

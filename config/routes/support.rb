@@ -45,7 +45,6 @@ scope module: :support do
       post :delete_read_supplement
       post :dismiss_team
       post :turn_team
-      post :close_announcement
     end
   end
 end
