@@ -265,6 +265,16 @@ class DonateRecord < ApplicationRecord
     apply_name
   end
 
+  def apply_surplus_money
+    return false if self.owner_type == 'DonateItem' || self.owner_type == 'GshChildGrant' || self.owner_type == 'ProjectSeasonApplyChild' || self.owner_type == 'CampaignEnlist'
+    apply_surplus_money = if self.owner_type == 'ProjectSeasonApply'
+      self.owner.surplus_money
+    elsif  self.owner_type == 'ProjectSeasonApplyBookshelf' || self.owner_type == 'BookshelfSupplement'
+      self.owner.apply.surplus_money
+    end
+    apply_surplus_money
+  end
+
   def show_apply_name
     show_apply_name = if self.owner_type == 'DonateItem' || self.owner_type == 'ProjectSeasonApply'
       self.owner.name
@@ -280,14 +290,6 @@ class DonateRecord < ApplicationRecord
       self.owner.campaign.name
     end
     show_apply_name
-  end
-
-  def self.select_record(agent_id, owner_id = nil)
-    if owner_id.present?
-      self.where(agent_id: agent_id, owner_id: owner_id)
-    else
-      self.where(agent_id: agent_id)
-    end
   end
 
   #

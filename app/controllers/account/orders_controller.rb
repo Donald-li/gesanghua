@@ -5,9 +5,9 @@ class Account::OrdersController < Account::BaseController
   def index
     respond_to do |format|
       format.html do
-        @donate_records = DonateRecord.select_record(current_user.id, params[:type])
-        @donate_records = @donate_records.where(project_id: params[:project_id]) if params[:project_id].present?
-        @donate_records = @donate_records.sorted.page(params[:page]).per(8)
+        scope = current_user.donate_records.visible.where.not(project_id: nil).includes(:project, :owner, :donor).sorted
+        scope = scope.where(project_id: params[:project_id]) if params[:project_id].present?
+        @donate_records = scope.page(params[:page]).per(8)
         @projects = Project.visible.sorted.donate_project
       end
     end

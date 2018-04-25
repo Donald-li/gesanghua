@@ -21,7 +21,7 @@
             <div class="input-group">
               <span class="iconfont icon-ico-search"></span>
               <%= hidden_field_tag :camp_id, params[:camp_id] %>
-              <%= text_field_tag :name, params[:name], name: :name, placeholder: '搜索项目' %>
+              <%= text_field_tag :name, params[:name], name: :name, class: 'from-input', placeholder: '搜索项目' %>
             </div>
           </div>
       <% end %>
@@ -49,7 +49,7 @@
                   <%= image_tag apply.cover_image.try(:file).try(:url, :tiny).to_s %>
                 </div>
                 <div class="project-body-cot border-b border-l border-r ">
-                  <div class="redundance"><%= apply.name %></div>
+                  <div class="redundance project-tits"><%= apply.name %></div>
                   <% if apply.target_amount != 0 %>
                       <div class="progress">
                         <div class="progress-bar" role="progressbar" aria-valuenow="60"

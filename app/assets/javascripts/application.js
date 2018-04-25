@@ -81,6 +81,13 @@ $(function () {
         $('.bul-nav-heide').css({'display':'none'})
     })
 
+    //判断浏览器
+    if (window.ActiveXObject || "ActiveXObject" in window){
+        $('.read-more').css({ "white-space": "nowrap"})
+        $('.redundance').css({ "white-space": "nowrap"})
+        $('.project-cont-con').css({ "white-space": "nowrap"})
+    }
+
 
     //二维码设置
     $('#container2').erweima({

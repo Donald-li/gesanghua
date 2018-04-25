@@ -30,7 +30,7 @@
       <div class="clearfix  bul-img-m">
         <div class="clearfix  bul-img-p">
           <p class="pull-left">累计捐助:<span><%= number_to_currency(IncomeRecord.total_amount) %></span>元</p>
-          <p class="pull-right cur"><span class="iconfont icon-arrowdown"></span>财务公开</p>
+          <p class="pull-right cur"><%= link_to disclosures_path do %><span class="iconfont icon-arrowdown"></span>财务公开<% end %></p>
         </div>
         <div class="bul-img-co">
           <p>捐助动态</p>
