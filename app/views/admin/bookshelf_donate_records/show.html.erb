@@ -17,10 +17,10 @@
         <tbody>
         <tr>
           <th>
-            ID
+            收入单号
           </th>
           <th>
-            <%= @donate_record.try(:id) %>
+            <%= @donate_record.try(:donate_no) %>
           </th>
         </tr>
         <tr>
@@ -60,7 +60,7 @@
             捐助人
           </th>
           <th>
-            <%= @donate_record.user.try(:name) %> ( <%= @donate_record.user.try(:phone) %> )
+            <%= @donate_record.donor.show_name %> ( <%= @donate_record.donor.try(:phone) %> )
           </th>
         </tr>
         <tr>
@@ -68,7 +68,7 @@
             代捐人/汇款人
           </th>
           <th>
-            <%= @donate_record.donor %> / <%= @donate_record.remitter_name %>
+            <%= @donate_record.agent.show_name %> / <%= @donate_record.agent.show_name %>
           </th>
         </tr>
         </tbody>

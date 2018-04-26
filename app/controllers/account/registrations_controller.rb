@@ -31,7 +31,7 @@ class Account::RegistrationsController < Account::BaseController
         end
         if @user.save
           set_current_user(@user)
-          format.html { redirect_to root_path, user: '注册成功。' }
+          format.html { redirect_to root_path, notice: '注册成功。' }
         else
           format.html {redirect_to new_account_registration_url(kind: params[:kind]), alert: @user.errors.full_messages}
         end

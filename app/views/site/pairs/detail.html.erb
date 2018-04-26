@@ -74,8 +74,8 @@
                 <span class="pull-left"><%= feedback.user.show_name %> ·</span>
                 <span class="pull-left"><%= feedback.created_at.strftime("%Y-%m-%d") %>由发布</span>
               </div>
-              <div class="de-left-con read-more clearfix" id="showdiv">
-                <p><%= feedback.content %></p>
+              <div class="de-left-con  clearfix" id="showdiv">
+                <p class="read-more"><%= feedback.content %></p>
                 <div class="clearfix details-img">
                   <% if feedback.images.present? %>
                     <% feedback.images.each do |img| %>

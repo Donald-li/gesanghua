@@ -3,7 +3,7 @@
   <div class=" donations-1 swiper-container">
   <div class="donations1 clearfix swiper-wrapper">
     <% if current_user.teacher.can_manage_project?(Project.pair_project.id) %>
-        <div class="cur swiper-slide <%= 'selectedDo' if controller_name == 'pairs' %> "><%= link_to '一对一', platform_school_apply_pairs_path %>
+        <div class="cur swiper-slide <%= 'selectedDo' if controller_name == 'pairs' %> "><%= link_to '结对助学', platform_school_apply_pairs_path %>
           <% if controller_name == 'pairs' %>
               <div class="bottomline"></div>
           <% end %>

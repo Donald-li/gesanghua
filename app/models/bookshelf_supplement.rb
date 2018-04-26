@@ -29,7 +29,7 @@ class BookshelfSupplement < ApplicationRecord
   belongs_to :project
   default_value_for :project_id, 2 # 悦读项目
 
-  has_many :donates, class_name: 'DonateRecord'
+  has_many :donates, class_name: 'DonateRecord', as: :owner, dependent: :destroy
   has_one :receive_feedback, as: :owner
   has_one :install_feedback, as: :owner
   has_one :logistic, as: :owner

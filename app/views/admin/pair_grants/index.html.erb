@@ -90,7 +90,7 @@
                   <%= grant.try(:apply).try(:season).try(:name) %>
                 </td>
                 <td>
-                  <span class="btn btn-xs <%= grant.pending? ? 'yellow' : 'green' %>" title="<%= grant.pending? ? '未筹款' : '已筹款' %>"><%= grant.title %></span>
+                  <span class="btn btn-xs <%= grant.button_color %>" title="<%= grant.enum_name(:donate_state) %>"><%= grant.title %></span>
                 </td>
                 <td>
                   <%= grant.try(:apply_child).try(:name) %>

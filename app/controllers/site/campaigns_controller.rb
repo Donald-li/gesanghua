@@ -11,4 +11,22 @@ class Site::CampaignsController < Site::BaseController
     @recommends = Campaign.show.where.not(id: params[:id]).sorted.take(3)
   end
 
+  def submit
+    @campaign = Campaign.find(params[:id])
+    keys = @campaign.form.map{|i| i['key']} # 动态字段
+    @enlist = @campaign.campaign_enlists.new(params.permit(:contact_name, :contact_phone, :number, :remark, form: keys))
+    if @campaign.price
+      #TODO: 交报名费
+      # @enlist.state = :paid
+    else
+      @enlist.state = :paid
+    end
+    @enlist.user = current_user
+    if @enlist.save
+      redirect_to campaign_path, notice: '报名成功'
+    else
+      redirect_to campaign_path, alert: '报名失败'
+    end
+  end
+
 end

@@ -98,12 +98,12 @@ class IncomeRecord < ApplicationRecord
   def gen_certificate_no
     self.agent_id ||= self.donor_id
     time_string = Time.now.strftime("%y%m%d%H")
-    self.certificate_no ||= Sequence.get_seq(kind: :order_no, prefix: "ZS#{time_string}", length: 7)
+    self.certificate_no ||= Sequence.get_seq(kind: :certificate_no, prefix: "ZS#{time_string}", length: 7)
   end
 
   #捐赠证书路径
   def donor_certificate_path
-    self.certificate_no ||= Sequence.get_seq(kind: :order_no, prefix: "ZS#{time_string}", length: 7)
+    self.certificate_no ||= Sequence.get_seq(kind: :certificate_no, prefix: "ZS#{time_string}", length: 7)
     path = "/images/certificates/#{self.created_at.strftime('%Y%m%d')}/#{self.id}/#{Encryption.md5(self.certificate_no.to_s)}.jpg"
     local_path = Rails.root.to_s + '/public' + path
     if !File::exist?(local_path)

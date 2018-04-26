@@ -28,7 +28,7 @@
             捐助项目
           </th>
           <th>
-            一对一助学项目
+            <%= @donate_record.project_name %>
           </th>
         </tr>
         <tr>
@@ -70,7 +70,7 @@
             代捐人/汇款人
           </th>
           <th>
-            <%= @donate_record.donor %> / <%= @donate_record.remitter_name %>
+            <%= @donate_record.agent.show_name %> / <%= @donate_record.agent.show_name %>
           </th>
         </tr>
         <tr>
@@ -78,7 +78,7 @@
             状态
           </th>
           <th>
-            <%= @donate_record.enum_name(:pay_state) %>
+            <%= @donate_record.enum_name(:state) %>
           </th>
         </tr>
         </tbody>

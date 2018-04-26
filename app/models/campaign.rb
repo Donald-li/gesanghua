@@ -65,6 +65,10 @@ class Campaign < ApplicationRecord
     (self.form || []).detect{|item|item['key'] == key}.try('[]', 'label') || ''
   end
 
+  def can_apply?(user)
+    !self.campaign_enlists.paid.exists?(user_id: user.id) && self.submit? && self.campaign_enlists.paid.sum(:number) < self.number
+  end
+
   def form_submit(form)
     self.form.map do |i|
       value = form[i['key']]
@@ -82,7 +86,7 @@ class Campaign < ApplicationRecord
       '报名结束'
     elsif self.number.to_i > 0 && self.campaign_enlists.paid.sum(:number) >= self.number
       '名额已满'
-    elsif Time.now < self.sign_up_start_time
+    elsif self.draft?
       '未开始报名'
     else
       '立即报名'
@@ -91,12 +95,13 @@ class Campaign < ApplicationRecord
 
   def summary_builder(user=nil)
     Jbuilder.new do |json|
-      json.(self, :id, :name, :price, :start_time, :end_time, :sign_up_end_time)
+      json.(self, :id, :name, :price, :start_time, :end_time, :sign_up_end_time, :number)
       json.state_name self.detail_state_name(user)
       json.image_mode self.image.present?
       json.image self.image_url(:tiny).to_s
       json.banner self.banner_url(:tiny)
       json.category self.campaign_category.name
+      json.enlist_count self.campaign_enlists.paid.sum(:number)
       json.pay_amount self.campaign_enlists.paid.find_by(user_id: user.id).total_price if user.present?
     end.attributes!
   end

@@ -1,8 +1,19 @@
-<div class="bullet">
-  <span>青海格桑花教育救助会 “护花健康包” 采购公告</span>
-  <span class="iconfont icon-input_delete bullet-tit-icon cur"></span>
-</div>
-
+<% if session[:hide_announcement] == false && Article.announcement.show.present? %>
+  <div class="bullet ">
+      <ul class="font_inner">
+        <% Article.announcement.show.sorted.each do |announcement| %>
+          <%= link_to announcement_path(announcement) do %>
+            <li>
+             <span><%= announcement.title %></span>
+             <%= link_to close_announcement_announcements_path, remote: true, method: :post do %>
+              <span class="iconfont icon-input_delete bullet-tit-icon cur"></span>
+             <% end %>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+  </div>
+<% end %>
 <nav class="bul-nav clearfix">
   <div class="bul-img pull-left"><%= image_tag 'gsh-logo-nav.png' %></div>
   <div class="bul-nav-cont clearfix">
@@ -15,7 +26,7 @@
           项目中心
           <span class="iconfont icon-arrowdown"></span>
           <ul class="bul-nav-heide">
-            <li onclick="javascript:document.getElementById(<%= Project.pair_project.id %>).click();"><%= link_to '一对一助学', pairs_path, id: Project.pair_project.id %></li>
+            <li onclick="javascript:document.getElementById(<%= Project.pair_project.id %>).click();"><%= link_to '结对助学', pairs_path, id: Project.pair_project.id %></li>
             <li onclick="javascript:document.getElementById(<%= Project.camp_project.id %>).click();"><%= link_to '探索营', camps_path, id: Project.camp_project.id %></li>
             <li onclick="javascript:document.getElementById(<%= Project.read_project.id %>).click();"><%= link_to '悦读项目', reads_path, id: Project.read_project.id %></li>
             <% Project.goods.visible.sorted.all.each do |project| %>
@@ -35,7 +46,7 @@
       </div>
     <% end %>
   </div>
-  <div class="bul-nav-sh pull-right cur"><span class="iconfont icon-ico-search"></span></div>
+  <!--<div class="bul-nav-sh pull-right cur"><span class="iconfont icon-ico-search"></span></div>-->
   <div class="bul-nav-dl pull-right cur">
     <% if logged_in? %>
       <%= link_to account_orders_path do %>
@@ -48,3 +59,48 @@
     <% end %>
   </div>
 </nav>
+<script type="text/javascript">
+    $(function(){
+        $(".font_inner li:eq(0)").clone(true).appendTo($(".font_inner"));
+        var liHeight = $(".bullet").height();
+        var totalHeight = ($(".font_inner li").length *  $(".font_inner li").eq(0).height()) -liHeight;
+        $(".font_inner").height(totalHeight);
+        var index = 0;
+        var autoTimer = 0;
+        var clickEndFlag = true;
+
+        function tab(){
+            $(".font_inner").stop().animate({
+                top: -index * liHeight
+            },400,function(){
+                clickEndFlag = true;//图片走完才会true
+                if(index == $(".font_inner li").length -1) {
+                    $(".font_inner").css({top:0});
+                    index = 0;
+                }
+            })
+        }
+        function next() {
+            index++;
+            if(index > $(".font_inner li").length - 1) {//判断index为最后一个Li时index为0
+                index = 0;
+            }
+            tab();
+        }
+        function prev() {
+            index--;
+            if(index < 0) {
+                index = $(".font_inner li").size() - 2;//因为index的0 == 第一个Li，减二是因为一开始就克隆了一个LI在尾部也就是多出了一个Li，减二也就是_index = Li的长度减二
+                $(".font_inner").css("top",- ($(".font_inner li").size() -1) * liHeight);//当_index为-1时执行这条，也就是走到li的最后一个
+            }
+            tab();
+        }
+        //自动轮播
+        autoTimer = setInterval(next,3000);
+        $(".font_inner a").hover(function(){
+            clearInterval(autoTimer);
+        },function() {
+            autoTimer = setInterval(next,3000);
+        })
+    })
+</script>

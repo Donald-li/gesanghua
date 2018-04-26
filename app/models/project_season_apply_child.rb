@@ -127,6 +127,18 @@ class ProjectSeasonApplyChild < ApplicationRecord
     self.avatar.try(:file_url, :tiny)
   end
 
+  def count_donate_amount_by_grant_number(number)
+    count = 0
+    self.get_donate_items.each_with_index do |item, index|
+      if index < number
+        count += item.amount
+      else
+        break
+      end
+    end
+    return count
+  end
+
   # 得到可捐助子项
   def get_donate_items
     self.semesters.pending.order(id: :asc)

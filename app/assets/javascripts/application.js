@@ -81,6 +81,13 @@ $(function () {
         $('.bul-nav-heide').css({'display':'none'})
     })
 
+    //判断浏览器
+    if (window.ActiveXObject || "ActiveXObject" in window){
+        $('.read-more').css({ "white-space": "nowrap"})
+        $('.redundance').css({ "white-space": "nowrap"})
+        $('.project-cont-con').css({ "white-space": "nowrap"})
+        $('.detail-con-font').css({ "white-space": "nowrap"})
+    }
 
     //二维码设置
     $('#container2').erweima({
@@ -93,9 +100,6 @@ $(function () {
         label: '微博'
     });
     //二维码移入移除变化
-    $('.bullet-tit-icon').click(function () {
-        $('.bullet').css({'display': 'none'})
-    })
     $('.bul-top-2').mousemove(function () {
         $('.bul-pos4').css({'display': 'block'})
 
@@ -167,4 +171,6 @@ $(function () {
         }
     }
 
+
 });
+

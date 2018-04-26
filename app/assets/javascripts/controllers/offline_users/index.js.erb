@@ -48,12 +48,20 @@ $(function () {
       dataType: "html",
       url: $("#offline_user_form").attr("action"),
       data: $("#offline_user_form").serialize(), // serializes the form"s elements.
-      success: function (msg) {
-        console.log(msg)
-        if (JSON.parse(msg).code === 0) {
-          window.location.href = "/account/offline_users"
+      success: function (data) {
+        data = JSON.parse(data)
+        if (data.status) {
+          layer.msg(data.message, {
+            icon: 1,
+            offset: 't c'
+          });
+          setTimeout("javascript:location.href='/account/offline_users'", 1000);
         } else {
-          toastr.error(JSON.parse(msg).msg)
+          layer.msg(data.message, {
+            icon: 2,
+            offset: 't c'
+          });
+          // toastr.error(JSON.parse(msg).msg)
           $("#save_form_btn").removeAttr("style");
           $("#save_form_btn").removeAttr("disabled")
           $("#save_form_btn").val(btn_name);
