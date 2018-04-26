@@ -27,7 +27,7 @@
           <p><%= @campaign.price %>元/人</p>
         </div>
       </div>
-      <button class="activity-detail-but activity-color-but-1">立即报名</button>
+        <button class="activity-detail-but activity-color-but-1" id="<%= 'submit-campaign' if !@campaign.campaign_enlists.paid.exists?(user_id: current_user.id) %>"><%= @campaign.detail_state_name(current_user) %></button>
     </div>
     <div class="camps-cont-detail">
       <%= @campaign.content.html_safe %>
@@ -64,42 +64,43 @@
         <div class="pull-left mys-1">活动报名</div>
         <div class="pull-right iconfont icon-icondelete cur overspread-but"></div>
       </div>
-
+      <%= simple_form_for @campaign, url: submit_campaign_path, method: :post, html: {data: {'parsley-validate': true, class: 'campaign_form'}} do |f| %>
       <div class="overspread-co" id="cmapaigns-but">
-        <p>活动费用：<span>￥120.00/人</span></p>
+        <p>活动费用：<span>￥<%= @campaign.price %>/人</span></p>
         <div>
           <p class="goodtext">联系人</p>
-          <input type="text" name="classname" />
+          <input type="text" name="contact_name" required />
         </div>
         <div>
           <p class="goodtext">联系电话</p>
-          <input type="text" name="student_number" />
+          <input type="text" name="contact_phone" required />
         </div>
         <div>
         <span class="goodtext">参与人数</span>
         <div class="modified modified-1 goods-project-input">
         <span class="iconfont icon-ico-reduce oversmin"></span>
-        <input type="text" name="project_season_apply[student_number]" value="1" class="oversinputs" />
+        <input type="text" name="number" value="1" class="oversinputs" />
         <span class="iconfont icon-ico-add1 oversadd"></span>
         </div>
         </div>
         <div>
           <p class="goodtext">备注</p>
-          <textarea required placeholder="格式为:男 XL 1件；女S 1件"></textarea>
+          <textarea placeholder="<%= @campaign.remark %>" name="remark"></textarea>
         </div>
 
       </div>
       <div style="text-align: center;">
         <button class="overspreadsc-but overspread-but  over-but">支付</button>
       </div>
-
+      <% end %>
 
     </div>
   </div>
 </div>
 <script>
-    $('#cmapaigns-e').overs(".activity-color-but-1");
+    $('#cmapaigns-e').overs("#submit-campaign");
     $('#share-2').share({
         sites: ['qzone', 'wechat', 'weibo', 'qq']
     });
+    $('.modified-1').calculate()
 </script>

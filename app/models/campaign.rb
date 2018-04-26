@@ -82,7 +82,7 @@ class Campaign < ApplicationRecord
       '报名结束'
     elsif self.number.to_i > 0 && self.campaign_enlists.paid.sum(:number) >= self.number
       '名额已满'
-    elsif Time.now < self.sign_up_start_time
+    elsif self.draft?
       '未开始报名'
     else
       '立即报名'
