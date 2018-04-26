@@ -6,6 +6,8 @@ class Site::DonatesController < Site::BaseController
     @donors = current_user.offline_users.reverse_sorted
 
     render 'child' if params[:child].present?
+    render 'apply' if params[:apply].present?
+    render 'bookshelf' if params[:bookshelf].present?
   end
 
   def create
