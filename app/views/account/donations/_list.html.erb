@@ -1,11 +1,11 @@
 <% donate_records.each do |record| %>
   <li class="clearfix border-t">
     <div class="team-donations-img pull-left">
-      <%= image_tag record.donor.user_avatar %>
+      <%= image_tag record.donor.try(:user_avatar).to_s %>
     </div>
     <div class="team-donations-cont pull-left">
       <div class="clearfix">
-        <span class="teams-don-name pull-left"><%= record.donor.show_name %></span>
+        <span class="teams-don-name pull-left"><%= record.donor.try(:show_name).to_s %></span>
         <span class="teams-don-tiam pull-right" data-timeago="<%= record.created_at.to_s %>"></span>
       </div>
       <div class="teams-don">捐助 <span><%= record.apply_name %></span> <%= number_to_currency(record.amount) %>元</div>
