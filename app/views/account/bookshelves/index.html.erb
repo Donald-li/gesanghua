@@ -40,7 +40,7 @@
                 <% end %>
               </div>
               <div class="project-foot">
-                <%= paginate @bookshelves, theme: :tiny%>
+                <%= paginate @bookshelves, theme: :tiny %>
               </div>
             <% else %>
               <div class="donation-cont-no">
@@ -55,15 +55,3 @@
           </div>
         </div>
       </div>
-
-
-
-<script>
-    if($('.donation .donation-cont > div').length===0){
-        $('.donation-cont-no').css('display', 'block')
-        $('.project-foot').css('display', 'none')
-    }else{
-        $('.donation-cont-no').css('display', 'none')
-        $('.project-foot').css('display', 'block')
-    }
-</script>
