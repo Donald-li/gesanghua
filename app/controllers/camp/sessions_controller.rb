@@ -12,7 +12,7 @@ class Camp::SessionsController < Camp::BaseController
       flash[:alert] = '验证码错误'
       render action: :new and return
     end
-    camp =  User.find_by(login: session_params[:login])
+    camp =  User.find_by_login(session_params[:login])
     unless camp && camp.has_role?(:camp_manager)
       flash[:alert] = '该帐号不存在'
       render(action: :new) && return

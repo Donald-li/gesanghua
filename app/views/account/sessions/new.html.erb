@@ -1,5 +1,6 @@
 <%= content_for :page_style do %>
     <%= stylesheet_link_tag 'blank', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <script src="http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
 <% end %>
 
 <%= simple_form_for @user, url: account_session_path, method: :post, html: {class: 'login-form'} do |f| %>
@@ -74,6 +75,7 @@
             <p class="longin-margin">or</p>
             <p class="longin-icon cur">
               <span class="iconfont icon-wechat pull-left"></span><span class="pull-left">微信登录</span></p>
+              <div id="wxqrcode"></div>
           </div>
         </div>
       </div>
@@ -87,11 +89,24 @@
 
 <script type="text/javascript" charset="utf-8">
 
-    function refreshCaptcha() {
+  function refreshCaptcha() {
     $('.img-captcha').attr('src', '/rucaptcha');
+  }
+
+  function initQrcode (){
+    var obj = new WxLogin({
+      id: "wxqrcode",    //div的id
+      appid: "<%= Settings.wechat_open_id %>",
+      scope: "snsapi_login",
+      redirect_uri: "<%= callback_wechats_url(host: Settings.app_host, port: 80) %>",        //回调地址
+      state: "weixin",　　　　　　　　　//参数，可带可不带
+      style: "",　　　　　　　　　//样式  提供"black"、"white"可选，默认为黑色文字描述
+      href: ""                 //自定义样式链接，第三方可根据实际需求覆盖默认样式。
+    });
   }
   $(function () {
     setHeight();
+    initQrcode();
   });
   $(window).resize(function () {
     setHeight();

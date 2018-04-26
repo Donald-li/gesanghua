@@ -12,7 +12,7 @@ class Admin::SessionsController < Admin::BaseController
       flash[:alert] = '验证码错误'
       render action: :new and return
     end
-    admin =  User.find_by(login: session_params[:login])
+    admin =  User.find_by_login(session_params[:login])
     unless admin && admin.has_role?([:superadmin, :admin, :project_manager, :project_operator, :financial_staff])
       flash[:alert] = '该帐号不存在'
       render(action: :new) && return

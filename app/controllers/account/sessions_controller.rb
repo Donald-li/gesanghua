@@ -9,7 +9,7 @@ class Account::SessionsController < Account::BaseController
 
   def create
     @user = User.new session_params.permit!
-    user = User.find_by(login: session_params[:login])
+    user = User.find_by_login(session_params[:login])
     if user.blank?
       flash[:alert] = '该帐号不存在'
       render(action: :new) && return
@@ -21,7 +21,7 @@ class Account::SessionsController < Account::BaseController
     end
     if user.authenticate(session_params[:password])
       set_current_user(user)
-      redirect_to root_path
+      redirect_to root_path`
     else
       flash[:alert] = '用户密码错误'
       render(action: :new) && return
@@ -46,7 +46,7 @@ class Account::SessionsController < Account::BaseController
           render js: "alert('验证码不正确');closeCaptchaModal();refreshCaptcha();" and return
         end
 
-        @user = User.find_by(login: session_params[:login])
+        @user = User.find_by_login(session_params[:login])
         if @user.blank?
           flash[:alert] = '该帐号不存在'
           render(action: :new) && return
@@ -67,7 +67,7 @@ class Account::SessionsController < Account::BaseController
       if session_params[:login].blank?
         format.html {redirect_to forget_account_session_url(kind: 'by_email'), alert: '请输入邮箱地址'}
       else
-        @user = User.find_by(login: session_params[:login])
+        @user = User.find_by_login(session_params[:login])
         if @user.blank?
           format.html {redirect_to forget_account_session_url(kind: 'by_email'), alert: '该账号不存在'}
         else
@@ -94,7 +94,7 @@ class Account::SessionsController < Account::BaseController
           render js: "alert('验证码不正确');closeCaptchaModal();refreshCaptcha();" and return
         end
 
-        @user = User.find_by(login: session_params[:login])
+        @user = User.find_by_login(session_params[:login])
         if @user.blank?
           flash[:alert] = '该帐号不存在'
           render(action: :new) && return
