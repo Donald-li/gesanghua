@@ -4865,6 +4865,22 @@ select:disabled {
           color: $color-border;
         }
       }
+      & > button:nth-child(3) {
+        margin-top: 10px;
+        outline: none;
+        background-color: #f4f4f4;
+        width: 101px;
+        height: 30px;
+        line-height: 28px;
+        border: 1px solid $border;
+        font-size: 13px;
+        color: #3d3d40;
+        border-radius: 2px;
+        margin-bottom: 10px;
+        a {
+          color: #3d3d40;
+        }
+      }
     }
   }
 }

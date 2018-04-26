@@ -2,7 +2,7 @@
 <div id="project">
   <div class="project-head">
     <div class="project-img"></div>
-    <%= image_tag @project.image.try(:file).try(:url, :tiny).to_s %>
+    <%= image_tag @project.project_image.to_s %>
     <div class="project-cont">
       <p class="project-cont-tit"><%= @project.name %></p>
       <div class="project-cont-con "><%= @project.describe.html_safe %></div>
@@ -62,9 +62,9 @@
                 </div>
                 <div class="border-l">
                   <% if apply.whole? %>
-                    <p><span><%= apply.bookshelves_done_count %></span>/<%= apply.bookshelves_count%></p>
+                    <p><span><%= apply.bookshelves_raise_complete_count %></span>/<%= apply.bookshelves_count%></p>
                   <% else %>
-                    <p><span><%= apply.supplements_done_count %></span>/<%= apply.supplements_count%></p>
+                    <p><span><%= apply.supplements_raise_complete_count %></span>/<%= apply.supplements_count%></p>
                   <% end %>
                   <p>进度</p>
                 </div>

@@ -35,6 +35,8 @@ namespace :platform do
           end
         end
       end
+      resources :receive_feedbacks, only: [:new, :create] #收货反馈
+      resources :install_feedbacks, only: [:new, :create] #安装发放反馈
     end
     resources :teachers # 教师管理
     resources :feedbacks # 定期反馈

@@ -1,16 +1,16 @@
 <% records.each do |record| %>
   <li class="border-b clearfix">
-      <%= image_tag record.donor.try(:user_avatar) %>
+      <%= image_tag record.donor.try(:user_avatar).to_s %>
     <div class="pull-left">
       <div class="clearfix">
-        <span class="pull-left detail-name"><%= record.donor.show_name %></span>
+        <span class="pull-left detail-name"><%= record.donor.try(:show_name).to_s %></span>
         <span class="timeago pull-right detail-time" data-timeago="<%= record.created_at.to_s %>"></span>
       </div>
       <p class="detail-con">
         <% if record.team.present? %>
         通过 <%= record.team.name %>
         <% end %>
-        捐助 <strong><%= record.show_apply_name %></strong> <%= record.amount %>元
+        捐助 <strong><%= record.show_apply_name.to_s %></strong> <%= record.amount %>元
     </div>
   </li>
 <% end %>

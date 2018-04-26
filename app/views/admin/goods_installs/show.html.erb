@@ -54,7 +54,10 @@
             反馈内容
           </th>
           <th>
-            <%= @install.content.html_safe %>
+            <%= @install.content.html_safe %><br/>
+            <% @install.images.each do |img| %>
+              <%= image_tag img.try(:file).try(:url, :tiny).to_s %>
+            <% end %>
           </th>
         </tr>
         </tbody>

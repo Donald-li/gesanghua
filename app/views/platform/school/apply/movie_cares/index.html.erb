@@ -16,9 +16,7 @@
                 <div class="school-apply-pair-table-cont">
                   <div>
                     <p class="school-apply-pair-tit"><%= apply.apply_name %></p>
-                    <% if apply.raise_project? %>
-                        <p class="school-apply-pair-f">目标筹款/累计：<%= apply.target_amount %>元/<%= apply.present_amount %>元</p>
-                    <% end %>
+                    <p class="school-apply-pair-f">申请人：<%= apply.contact_name %></p>
                   </div>
                   <div class="border-l border-r">
                     <%= apply.apply? ? apply.enum_name(:audit_state) : apply.enum_name(:read_state) %>
@@ -38,9 +36,9 @@
           <div class="donation-co-no-c">
             <p>您的学校暂未申请护花课程</p>
           </div>
-          <%= link_to new_donate_path do %>
+          <!-- <%= link_to new_donate_path do %>
               <button class="donation-co-no-but">去捐助</button>
-          <% end %>
+          <% end %> -->
         </div>
     <% end %>
   </div>

@@ -26,7 +26,7 @@ class CampaignEnlist < ApplicationRecord
 
   belongs_to :income_source, optional: true
 
-  validates :number, presence: true
+  validates :number, :contact_name, :contact_phone, presence: true
 
   validates :contact_phone, phone: true
 

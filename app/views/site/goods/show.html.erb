@@ -2,7 +2,7 @@
 <div id="detail">
   <div class="referral-head">
     <div class="referral-img">
-      <%= image_tag @project.image.try(:file).try(:url, :large).to_s %>
+      <%= image_tag @project.project_image.to_s %>
       <div class="referal-img-z"></div>
       <div class="referral-cont">
         <p class="referral-cont-p"><%= @project.name %></p>

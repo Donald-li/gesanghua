@@ -11,7 +11,7 @@
     <div>
       <span class="goodtext">申请年度</span>
       <div >
-        <%= f.select :project_season_id, @current_project.seasons.enable.map{|p| [p.name, p.id]}, {include_blank: '请选择申请年度'}, class: 'select2', data: {'parsley-required': true} %>
+        <%= f.input :project_season_id, as: :select, collection: @current_project.seasons.enable.sorted.collect {|s| [s.name, s.id]}, include_blank: '请选择申请年度', label: false, required: true, input_html: {id: 'season-id'} %>
       </div>
 
     </div>
@@ -42,8 +42,7 @@
         <span class="goodtext">上传图片</span>
         <div class="clearfix" style="flex: 7;">
           <div class="addchild-list-up-picture pull-left">
-            <p></p>
-            <%= webuploader_image 'image_ids[]', label: '上传图片', type: 'project_season_apply_image', asset: @apply.images, klass: 'multiple', id: 'child-image1' %>
+            <%= webuploader_images 'image_ids[]', label: '上传图片', type: 'project_season_apply_image', asset: @apply.images, klass: 'multiple', id: 'child-image1' %>
           </div>
         </div>
       </div>
@@ -92,26 +91,22 @@
           language:'zh-CN',
           minimumResultsForSearch: -1
       });
-      $(".select2").select2({
-          language:'zh-CN',
-          minimumResultsForSearch: -1
-      });
       $("#province").select2({
-          width: "220px",
+          width: "148px",
           language:'zh-CN',
           minimumResultsForSearch: -1
       });
       $("#city").select2({
-          width: "220px",
+          width: "148px",
           language:'zh-CN',
           minimumResultsForSearch: -1
       });
       $("#district").select2({
-          width: "220px",
+          width: "148px",
           language:'zh-CN',
           minimumResultsForSearch: -1
      });
       $('.modified-2').calculate();
-      initMultiImageWebuploader($('#child-image1'));
+      initMultiImageWebuploader($('#child-image1'), {}, 9);
     })
 </script>

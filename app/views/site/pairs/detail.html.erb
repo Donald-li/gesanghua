@@ -17,14 +17,11 @@
             <span>选择学期</span>
           <ul class="ui-choose" multiple="multiple" id="uc_03">
             <% @gsh_child_grants.each do |grant| %>
-              <li><%= grant.title %></li>
+              <li class="semester"><%= grant.title %></li>
             <% end %>
           </ul>
           </div>
-          <%= link_to '' do %>
-              <button class="child-but">我要捐助</button>
-          <% end %>
-
+          <button id="donate-btn" class="child-but" data-semester="0">我要捐助</button>
         </div>
       </div>
     </div>
@@ -134,7 +131,18 @@
             }
         })
     })
-    $('.ui-choose').ui_choose();
+    $('.ui-choose').ui_choose({
+      // 处理学期选择
+      change: function () {
+        let count = 0
+        $('.semester').each(function () {
+          if($(this).hasClass('selected')) {
+            count++
+          }
+        })
+        $('#donate-btn').data('semester', count)
+      }
+    });
 
     $('.circlechart').circlechart()
     $('#dtails-cont').myTab()
@@ -143,4 +151,10 @@
         $("#" + id + " > .detail-font-tit > span").css('display', 'none')
         $("#" + id + " .details-img").css('display', 'block')
     }
+
+  $('#donate-btn').click(function () {
+    let semesterCount = $(this).data('semester')
+    window.location.href='<%= new_donate_path(child: @child.id) %>&semester_count=' + semesterCount
+  })
+
 </script>

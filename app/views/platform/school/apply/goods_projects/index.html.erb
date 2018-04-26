@@ -15,7 +15,7 @@
             <div class="school-apply-pair-table-cont">
              <div>
                <p class="school-apply-pair-tit"><%= apply.apply_name %></p>
-               <!-- <p class="school-apply-pair-f">申请人：张老师</p> -->
+               <p class="school-apply-pair-f">申请人：<%= apply.contact_name %></p>
              </div>
              <div class="border-l border-r">
                <%= apply.apply_state %>
@@ -24,6 +24,13 @@
                <button><%= link_to '查看申请详情', platform_school_apply_goods_project_path(apply, pid: @current_project) %></button>
                <% if apply.reject? %>
                 <button><%= link_to '修改申请', edit_platform_school_apply_goods_project_path(apply, pid: @current_project) %></button>
+               <% end %>
+               <% if apply.to_receive? %>
+               <button><%= link_to '确认收货', new_platform_school_apply_receive_feedback_path(apply_id: apply.id) %></button>
+               <button><%= link_to '查看物流', apply.logistic.qurey_result, target: 'new' %></button>
+               <% end %>
+               <% if apply.to_feedback? %>
+               <button><%= link_to '安装/发放反馈', new_platform_school_apply_install_feedback_path(apply_id: apply.id) %></button>
                <% end %>
              </div>
             </div>
@@ -35,9 +42,9 @@
         <div class="donation-co-no-c">
           <p>您的学校暂未有<%= @current_project.name %>项目申请</p>
         </div>
-        <%= link_to new_donate_path do %>
+        <!-- <%= link_to new_donate_path do %>
           <button class="donation-co-no-but">去捐助</button>
-        <% end %>
+        <% end %> -->
       </div>
     <% end %>
   </div>
