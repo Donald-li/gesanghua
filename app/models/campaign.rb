@@ -65,6 +65,10 @@ class Campaign < ApplicationRecord
     (self.form || []).detect{|item|item['key'] == key}.try('[]', 'label') || ''
   end
 
+  def can_apply?(user)
+    !self.campaign_enlists.paid.exists?(user_id: user.id) && self.submit? && self.campaign_enlists.paid.sum(:number) < self.number
+  end
+
   def form_submit(form)
     self.form.map do |i|
       value = form[i['key']]
@@ -82,7 +86,7 @@ class Campaign < ApplicationRecord
       '报名结束'
     elsif self.number.to_i > 0 && self.campaign_enlists.paid.sum(:number) >= self.number
       '名额已满'
-    elsif Time.now < self.sign_up_start_time
+    elsif self.draft?
       '未开始报名'
     else
       '立即报名'
