@@ -18,7 +18,8 @@
           <p>当前筹款<span>￥<%= @apply.present_amount %></span></p>
           <p>参与人数<span><%= @apply.participant_number %>人</span></p>
           <a>
-            <button class="overspread-show cur">我要捐助</button>
+            <button class="overspread-show cur">整捐冠名</button>
+            <button id="donate-part-btn" class="cur">捐助申请</button>
           </a>
         </div>
       </div>
@@ -252,4 +253,9 @@
     } else {
         $('.overspread-co ').css({"padding": "0 30px", "overflow": "visible"});
     }
+
+    // 散捐
+    $('#donate-part-btn').click(function () {
+      window.location.href="<%= new_donate_path(apply: @apply.id) %>"
+    })
 </script>
