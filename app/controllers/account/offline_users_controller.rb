@@ -6,8 +6,7 @@ class Account::OfflineUsersController < Account::BaseController
 
   def create
     login = offline_user_params[:phone]
-    gender = params[:gender]
-    @offline_user = current_user.offline_users.new(offline_user_params.merge(login: login, gender: gender))
+    @offline_user = current_user.offline_users.new(offline_user_params.merge(login: login))
     if @offline_user.save
       render json: {message: '创建成功。', status: true}
     else
@@ -17,8 +16,7 @@ class Account::OfflineUsersController < Account::BaseController
 
   def update
     @offline_user = User.find_by_id(params[:id])
-    gender = params[:gender]
-    if @offline_user.update_attributes(offline_user_params.merge(login: offline_user_params[:phone], gender: gender))
+    if @offline_user.update_attributes(offline_user_params.merge(login: offline_user_params[:phone]))
       render json: {message: '修改成功', status: true}
     else
       render json: {message: @offline_user.errors.full_messages.first, status: false}
