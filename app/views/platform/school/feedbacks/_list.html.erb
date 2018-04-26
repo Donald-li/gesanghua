@@ -4,7 +4,7 @@
       <% @projects.each do |project| %>
         <div class="clearfix">
           <div class="donation-cont-img pull-left">
-            <%= image_tag project.try(:image).try(:file).try(:url, :tiny).to_s %>
+            <%= image_tag project.project_image.to_s %>
           </div>
           <div class="pull-left feedback-cont-cco">
             <div class="feedback-cont-c-tit clearfix">
