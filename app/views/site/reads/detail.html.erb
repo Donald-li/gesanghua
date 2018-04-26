@@ -176,16 +176,25 @@
         <p>选择捐助的班级</p>
         <div>
           <ul class="ui-choose" id="uc_01">
-            <% @apply.bookshelves.show.raising.each do |bookshelf| %>
-                <li class="cur">
-                  <p><%= bookshelf.classname %></p>
-                  <p>还差<%= bookshelf.surplus_money %>元 </p>
-                  <% if bookshelf.present_amount == 0 %>
-                      <div>
-                        <%= image_tag 'integer-read.png' %>
-                      </div>
-                  <% end %>
-                </li>
+            <% if @apply.whole? %>
+              <% @apply.bookshelves.show.raising.each do |bookshelf| %>
+                  <li class="cur">
+                    <p><%= bookshelf.classname %></p>
+                    <p>还差<%= bookshelf.surplus_money %>元 </p>
+                    <% if bookshelf.present_amount == 0 %>
+                        <div>
+                          <%= image_tag 'integer-read.png' %>
+                        </div>
+                    <% end %>
+                  </li>
+              <% end %>
+            <% elsif @apply.supplement? %>
+              <% @apply.supplements.show.raising.each do |supplement| %>
+                  <li class="cur">
+                    <p><%= supplement.bookshelf.classname %></p>
+                    <p>还差<%= supplement.surplus_money %>元 </p>
+                  </li>
+              <% end %>
             <% end %>
           </ul>
         </div>
