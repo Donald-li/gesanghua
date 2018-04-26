@@ -17,7 +17,7 @@
             <p>
               <span><%= teacher.name %></span>
               <span><%= teacher.get_age(teacher.id_card) %>
-                岁 | <%= teacher.try(:user).try(:enum_name, :gender) %></span>
+                岁 | <%= teacher.get_gender %></span>
             </p>
             <p><%= teacher.phone %></p>
           </div>

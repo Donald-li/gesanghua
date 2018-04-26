@@ -47,6 +47,12 @@ class Teacher < ApplicationRecord
     self.school.contact_telephone[4..10] if self.school.contact_telephone.present?
   end
 
+  def get_gender
+    return unless self.id_card.present?
+    num = self.id_card[-2]
+    num % 2 == 1 ? '男' : '女'
+  end
+
   def summary_builder
     Jbuilder.new do |json|
       json.(self, :id, :name, :phone)
