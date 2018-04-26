@@ -90,7 +90,7 @@
         <span class="pull-left">支付方式</span>
         <input type="hidden" name="donate_way" value="wechat" id="donate_way">
         <input type="hidden" name="donate_item" value="1" id="donate_item">
-        <ul class="ui-choose pull-left"  id="uc_02">
+        <ul class="ui-choose pull-left"  >
           <li class="donate_way" data-way="wechat">
             <%= image_tag 'iconpic-buy-alipay.svg' %>
           </li>
@@ -115,7 +115,7 @@
         <p>银行转账至（请注明捐助项目）</p>
       </div>
       <div class="donates-con-r-con">
-        <p>户名：格桑花西部助学</p>
+        <p >户名：格桑花西部助学</p>
         <p>开户银行：中国光大银行北京朝阳支行</p>
         <p>账号：3506 0188 0000 50322</p>
       </div>
@@ -206,6 +206,9 @@
 
     // 选择支付方式
     $('.donate_way').click(function () {
+        alert('aaa')
       $('#donate_way').val($(this).data('way'))
+        $('.donate_way').removeClass('selected')
+        $(this).addClass('selected')
     })
 </script>
