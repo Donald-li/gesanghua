@@ -1,5 +1,13 @@
 <%
 child = ProjectSeasonApplyChild.find(params[:child])
+semester_count = params[:semester_count].to_i || 0
+semesters = child.donate_pending_records.reorder(:id)
+amount = 0.0
+i = 0
+semesters.each do |s|
+  amount = amount + s.amount if i < semester_count
+  i = i + 1
+end
 %>
 <div id="donates">
   <form action="<%= donates_path %>" method="post">
@@ -20,10 +28,9 @@ child = ProjectSeasonApplyChild.find(params[:child])
           <div class="donates-c-l-coss clearfix">
             <div class="pull-left">
               <p><%= child.name %></p>
-              <p>目标 2100.00 元</p>
+              <p>捐款金额 <%= number_to_currency amount  %> 元</p>
             </div>
             <div class="pull-right">
-              还差 <span>1300</span> 元
             </div>
           </div>
         </div>
@@ -57,8 +64,9 @@ child = ProjectSeasonApplyChild.find(params[:child])
       <% end %>
       <div class="benefactors-way clearfix border-b">
         <span class="pull-left">支付方式</span>
+        <input type="hidden" name="amount" value="<%= amount %>">
         <input type="hidden" name="donate_way" value="wechat" id="donate_way">
-        <input type="hidden" name="donate_item" value="1" id="donate_item">
+        <input type="hidden" name="child" value="<%= child.id %>">
         <ul class="ui-choose pull-left"  id="uc_02">
           <li class="donate_way" data-way="wechat">
             <%= image_tag 'iconpic-buy-alipay.svg' %>
@@ -151,7 +159,6 @@ child = ProjectSeasonApplyChild.find(params[:child])
 
     // 更新捐助项信息
     $('.donate-item-cur').click(function () {
-      $('#donate_item').val($(this).data('donate-item-id'))
       $('#donate-item-describe').text($(this).data('describe'))
       // 切换金额卡片
       $('.ui-choose-tab').hide()
