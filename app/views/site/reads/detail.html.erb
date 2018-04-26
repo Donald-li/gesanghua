@@ -179,7 +179,7 @@
           <ul class="ui-choose" id="uc_01">
             <% if @apply.whole? %>
               <% @apply.bookshelves.show.raising.each do |bookshelf| %>
-                  <li class="cur">
+                  <li class="cur bookshelf" data-bookshelf-id="<%= bookshelf.id %>">
                     <p><%= bookshelf.classname %></p>
                     <p>还差<%= bookshelf.surplus_money %>元 </p>
                     <% if bookshelf.present_amount == 0 %>
@@ -191,7 +191,7 @@
               <% end %>
             <% elsif @apply.supplement? %>
               <% @apply.supplements.show.raising.each do |supplement| %>
-                  <li class="cur">
+                  <li class="cur bookshelf" data-bookshelf-id="<%= bookshelf.id %>">
                     <p><%= supplement.bookshelf.classname %></p>
                     <p>还差<%= supplement.surplus_money %>元 </p>
                   </li>
@@ -200,7 +200,7 @@
           </ul>
         </div>
       </div>
-      <div class="overspread-but  over-but" style="margin: 30px auto 20px auto;">立即支付</div>
+      <div class="over-but" style="margin: 30px auto 20px auto;" id="donate-bookshelf-btn">立即支付</div>
       <div class="check-box">
         <span class="checkbox_item clearfix">
           <input type="checkbox"/>
@@ -257,5 +257,15 @@
     // 散捐
     $('#donate-part-btn').click(function () {
       window.location.href="<%= new_donate_path(apply: @apply.id) %>"
+    })
+
+    // 整捐书架
+    $('#donate-bookshelf-btn').click(function () {
+      window.location.href="<%= new_donate_path(bookshelf: '') %>" + $(this).data('bookshelf-id')
+    })
+
+    // 书架选择
+    $('.bookshelf').click(function () {
+      $('#donate-bookshelf-btn').data('bookshelf-id', $(this).data('bookshelf-id'))
     })
 </script>
