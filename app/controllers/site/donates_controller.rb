@@ -1,8 +1,11 @@
 class Site::DonatesController < Site::BaseController
 
   def new
+
     @donate_itmes = DonateItem.includes(:amount_tabs).sorted.show
     @donors = current_user.offline_users.reverse_sorted
+
+    render 'child' if params[:child].present?
   end
 
   def create
