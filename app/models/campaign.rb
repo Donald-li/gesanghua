@@ -65,6 +65,10 @@ class Campaign < ApplicationRecord
     (self.form || []).detect{|item|item['key'] == key}.try('[]', 'label') || ''
   end
 
+  def can_apply?(user)
+    !self.campaign_enlists.paid.exists?(user_id: user.id) && self.submit?
+  end
+
   def form_submit(form)
     self.form.map do |i|
       value = form[i['key']]

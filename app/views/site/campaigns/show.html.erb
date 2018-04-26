@@ -27,7 +27,7 @@
           <p><%= @campaign.price %>元/人</p>
         </div>
       </div>
-        <button class="activity-detail-but activity-color-but-1" id="<%= 'submit-campaign' if !@campaign.campaign_enlists.paid.exists?(user_id: current_user.id) %>"><%= @campaign.detail_state_name(current_user) %></button>
+        <button class="activity-detail-but activity-color-but-1" id="<%= 'submit-campaign' if @campaign.can_apply?(current_user) %>"><%= @campaign.detail_state_name(current_user) %></button>
     </div>
     <div class="camps-cont-detail">
       <%= @campaign.content.html_safe %>
