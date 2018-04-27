@@ -2,8 +2,23 @@
 <p class="gsh-plus-tit">通过格桑花+  您可以参与到我们的公益事业</p>
   <div class="gsh-plus-cont">
     <div>
-      <% if (current_user.headmaster? || current_user.teacher?) && @school.pass? %>
+      <% if current_user.headmaster? && @school.pass? %>
         <%= link_to platform_school_apply_pairs_path do %>
+          <%= image_tag 'gsh-icon-school.png' %>
+          <p class="gsh-plus-c-t">学校申请</p>
+          <p class="gsh-plus-c-n">可参与公益活动</p>
+          <div class="gsh-plus-c-but">审核通过</div>
+        <% end %>
+      <% elsif current_user.teacher? && @school.pass? %>
+          <% project = current_user.teacher.projects.first %>
+        <% if project == Project.pair_project %>
+          <% url = platform_school_apply_pairs_path %>
+        <% elsif project == Project.read_project %>
+          <% url = platform_school_apply_reads_path %>
+        <% elsif project.goods? %>
+          <% url = platform_school_apply_goods_projects_path(pid: project.id) %>
+        <% end %>
+        <%= link_to url do %>
           <%= image_tag 'gsh-icon-school.png' %>
           <p class="gsh-plus-c-t">学校申请</p>
           <p class="gsh-plus-c-n">可参与公益活动</p>
