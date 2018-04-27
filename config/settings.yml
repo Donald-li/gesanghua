@@ -33,7 +33,7 @@ wechat_app_token: "3147d1cea898763a7f677b3c"
 
 # 微信开放平台
 wechat_open_id: "wxe41f15aeaef1c627"
-wechat_open_secret: "2b45ea0694762f2418f0e9a1e01072c4"
+wechat_open_secret: "95a116793c2e5fa2f22c0b61b4772764"
 wechat_open_token: "3147d1cea898763a7f677b3c"
 
 # 微信支付
