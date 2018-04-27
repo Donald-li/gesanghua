@@ -805,20 +805,17 @@ select:disabled {
   padding-bottom: 90px;
   .bul-ai-cont {
     height: 320px;
-    position: relative;
-    & > img {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
+    background-color: #fafafa;
+    .bul-img-right {
+      width: auto;
       height: 320px;
-      z-index: -1;
+      position: absolute;
+      left:500px;
+      top:0;
     }
   }
 
   .bul-img-n {
-    width: 1140px;
-    margin: 0 auto;
     padding-bottom: 90px;
     .bul-img-m {
       width: 470px;
@@ -996,7 +993,7 @@ select:disabled {
     -ms-flex: 0 0 33.33%;
     flex: 0 0 33.33%;
     max-width: 33.33%;
-    width:33.33%;
+    width: 33.33%;
     position: relative;
     .mouse-show {
       margin: 0 auto;
@@ -1357,13 +1354,11 @@ select:disabled {
   outline: none;
 }
 
-
-
-
 .button--ujarak {
   -webkit-transition: border-color 0.4s, color 0.4s;
   transition: border-color 0.4s, color 0.4s;
 }
+
 .button--ujarak::before {
   content: '';
   position: absolute;
@@ -1381,17 +1376,21 @@ select:disabled {
   -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
   transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
 }
+
 .button--ujarak.button--round-s::before {
   border-radius: 2px;
 }
+
 .button--ujarak.button--inverted::before {
   background: #8b54e3;
 }
+
 .button--ujarak,
 .button--ujarak::before {
   -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
   transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
 }
+
 .button--ujarak:hover {
   color: #fff;
   border-color: #8b54e3;
@@ -1622,7 +1621,7 @@ select:disabled {
           margin-left: 17px;
         }
       }
-      & > button{
+      & > button {
         margin-top: 34px;
         text-align: center;
         color: $color-border;
@@ -1633,7 +1632,7 @@ select:disabled {
         line-height: 36px;
         background-color: #f9f9f9;
       }
-      & >  button:hover {
+      & > button:hover {
         color: #fff;
         border: none;
         background-color: $hover-button;
@@ -2322,7 +2321,7 @@ select:disabled {
         -ms-flex: 0 0 33.33%;
         flex: 0 0 33.33%;
         max-width: 33.33%;
-        width:33.33%;
+        width: 33.33%;
         float: left;
         & > p {
           font-size: 14px;
@@ -2738,11 +2737,21 @@ select:disabled {
       float: left;
     }
   }
-  .don-con-co:after{
+  .don-con-co:after {
     display: block;
     content: '';
     clear: both;
   }
+
+}
+#popup-container {
+  .modal-content {
+    overflow: hidden;
+  }
+  .modal-header .close{
+    font-size: 24px!important;
+  }
+
 }
 
 .don-co {
@@ -2898,6 +2907,7 @@ select:disabled {
     margin-bottom: 0;
     font-size: 14px;
     color: #2a2a2c;
+    font-weight: 500;
   }
   input[type="radio"] + label::before {
     content: "\a0"; /*不换行空格*/
@@ -2942,7 +2952,15 @@ select:disabled {
   color: #fff;
   text-align: center;
   background-color: $color-border;
-  margin-top: 23px;
+  margin-top: 20px;
+  border-radius: 3px;
+}
+
+.goodbut:hover {
+  background-color: $hover-button;
+  a {
+    color: #fff;
+  }
 }
 
 //我的勋章
@@ -4634,8 +4652,8 @@ select:disabled {
   background-color: #fff;
   margin: 0 auto;
   text-align: center;
-  .gsh-plus-cont{
-    & > div{
+  .gsh-plus-cont {
+    & > div {
       width: 33.33%;
       float: left;
     }
@@ -6712,7 +6730,7 @@ select:disabled {
   width: 100%;
   flex-wrap: wrap;
   padding-top: 20px;
-  & > a{
+  & > a {
     margin-right: 19px;
     margin-bottom: 20px;
     display: inline-block;
@@ -6720,7 +6738,7 @@ select:disabled {
     float: left;
   }
 
-  & > a:nth-child(3n){
+  & > a:nth-child(3n) {
     margin-right: 0;
   }
   .donation-active-cont {
@@ -6759,8 +6777,6 @@ select:disabled {
       }
     }
   }
-
-
 
 }
 
