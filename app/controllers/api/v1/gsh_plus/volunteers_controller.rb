@@ -22,7 +22,8 @@ class Api::V1::GshPlus::VolunteersController < Api::V1::BaseController
       return api_error(message: '该手机号已注册志愿者，请绑定手机号关联角色')
     end
     volunteer = user.volunteer || user.build_volunteer
-    volunteer.attributes = {describe: params[:volunteer][:describe], phone: params[:volunteer][:phone], name: params[:volunteer][:name], id_card: params[:volunteer][:id_card], province: params[:volunteer][:location][0], city: params[:volunteer][:location][1], district: params[:volunteer][:location][2], address: params[:volunteer][:address]}
+    location = params[:volunteer][:location] || []
+    volunteer.attributes = {describe: params[:volunteer][:describe], phone: params[:volunteer][:phone], name: params[:volunteer][:name], id_card: params[:volunteer][:id_card], province: location[0], city: location[1], district: location[2], address: params[:volunteer][:address]}
     if volunteer.save
       volunteer.submit!
       volunteer.attach_image(params[:image_ids][0]) if params[:image_ids].present?
@@ -40,7 +41,8 @@ class Api::V1::GshPlus::VolunteersController < Api::V1::BaseController
   def update_volunteer
     volunteer = current_user.volunteer
     user = current_user
-    volunteer.attributes = {name: params[:volunteer][:user_name], workstation: params[:volunteer][:workstation], describe: params[:volunteer][:describe], phone: params[:volunteer][:phone], province: params[:volunteer][:location][0], city: params[:volunteer][:location][1], district: params[:volunteer][:location][2], address: params[:volunteer][:address]}
+    location = params[:volunteer][:location] || []
+    volunteer.attributes = {name: params[:volunteer][:user_name], workstation: params[:volunteer][:workstation], describe: params[:volunteer][:describe], phone: params[:volunteer][:phone], province: location[0], city: location[1], district: location[2], address: params[:volunteer][:address]}
     user.attributes = {email: params[:volunteer][:user_email], qq: params[:volunteer][:user_qq]}
     if user.save && volunteer.save
       user.attach_avatar(params[:image_id])

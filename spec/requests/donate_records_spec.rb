@@ -5,7 +5,7 @@ RSpec.describe "Api::V1::DonateRecords", type: :request do
   let!(:login_user) { create(:user) }
   describe '捐助记录' do
 
-    it '一对一项目捐助记录' do
+    it '结对助学项目捐助记录' do
       user = create(:user)
       school = create(:school)
       teacher = create(:teacher, school: school, user: user)

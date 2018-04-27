@@ -12,7 +12,7 @@ RSpec.describe "Api::V1::Staff::Grants", type: :request do
   let!(:child) { create(:project_season_apply_child, project: project, season: season, apply: apply, school: school, semester: 'next_term') }
   let!(:batch){ create(:grant_batch, project: Project.pair_project)}
 
-  describe '一对一发放' do
+  describe '结对助学发放' do
     it '发放列表' do
       child.approve_pass
       child.gsh_child_grants.update(grant_batch_id: batch.id)

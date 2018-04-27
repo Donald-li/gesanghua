@@ -4,7 +4,7 @@ RSpec.describe "Api::V1::Campaigns", tye: :request do
   let!(:category) { create(:campaign_category) }
   let!(:campaign1) { create(:campaign, campaign_category: category) }
   let!(:campaign2) { create(:campaign, campaign_category: category) }
-  let!(:enlist) { create(:campaign_enlist, campaign: campaign1, user: login_user) }
+  let!(:enlist) { create(:campaign_enlist, contact_name: '林则徐', contact_phone: '17888886666', campaign: campaign1, user: login_user) }
 
   describe '测试活动' do
 

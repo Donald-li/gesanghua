@@ -25,7 +25,7 @@
 #  grant_person                  :string                                 # 发放人
 #  user_id                       :integer                                # 捐助人
 #  grant_batch_id                :integer                                # 发放批次
-#  project_season_apply_child_id :integer                                # 一对一助学孩子id
+#  project_season_apply_child_id :integer                                # 结对助学助学孩子id
 #  cancel_reason                 :integer                                # 取消原因
 #
 

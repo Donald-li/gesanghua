@@ -29,10 +29,8 @@ scope module: :site do
   # 支付页
   resource :pay, only: [:new, :show]
 
-end
-
-scope module: :user do
-  resources :wechat_connects, only: :new do
+  # 微信登录
+  resources :wechats, only: :new do
     collection do
       get :callback
     end

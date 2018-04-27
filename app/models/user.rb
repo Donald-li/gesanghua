@@ -93,8 +93,8 @@ class User < ApplicationRecord
   # default_value_for :password, '111111'
   validates :email, email: true
   validates :phone, mobile: true, uniqueness: { allow_blank: true }
-  validates :name, :login, presence: true
-  validates :login, uniqueness: true
+  validates :name, presence: true
+  # validates :login, uniqueness: true
   validates :balance, numericality: { greater_than_or_equal_to: 0 }
 
   default_value_for :profile, {}
@@ -119,6 +119,27 @@ class User < ApplicationRecord
 
 
   counter_culture :team, column_name: proc {|model| model.team.present? ? 'member_count' : nil}
+
+  def self.find_by_login(login)
+    return nil if login.blank?
+    case login
+    when /\S+@\S+\.\S+/
+      self.find_by(email: login)
+    when /1\d{10}/
+      self.find_by(phone: login)
+    else
+      self.find_by(openid: login)
+    end
+  end
+
+  def login
+    self.phone.presence || self.email
+  end
+
+  def bind_wechat?
+    # 有微信账号，且已设置密码。
+    self.password_digest.present? && self.openid.present?
+  end
 
   def generate_auth_token
     loop do
@@ -264,7 +285,7 @@ class User < ApplicationRecord
   def summary_builder
     Jbuilder.new do |json|
       json.(self, :id, :nickname, :name, :balance, :donate_amount, :role_tag, :team_id, :phone)
-      json.login_name self.login
+      # json.logi_name self.login
       json.user_avatar self.user_avatar
       json.promoter_count self.promoter_amount_count
       json.team_name self.team.present? ? self.team.name : ''
