@@ -5,7 +5,7 @@
 <%= simple_form_for [:admin, @advert], wrapper: :admin_form, html: {'data-parsley-validate': true} do |f| %>
   <%= f.error_notification %>
   <div class="form-body form-horizontal">
-    <%= f.input :kind, collection: Advert.options_for_some_select(:kinds, ['banner', 'pc_banner']), label: '广告分类：', input_html: { data: {'parsley-required': true}} %>
+    <%= f.input :kind, collection: Advert.options_for_some_select(:kinds, ['banner', 'pc_banner']), label: '广告分类：', include_blank: false, input_html: { data: {'parsley-required': true}} %>
     <%= f.input :title, label: '广告标题：', autofocus: true, placeholder: '', hint: '请填写广告标题' %>
     <div class="form-group">
       <label class="col-md-2 control-label">广告图片：</label>
