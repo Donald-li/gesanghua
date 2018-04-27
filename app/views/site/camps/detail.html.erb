@@ -19,7 +19,7 @@
         <div class="detail-cont-foot border-t ">
           <p>当前筹款<span>￥<%= @apply.present_amount %></span></p>
           <p>参与人数<span><%= @apply.participant_number %>人</span></p>
-          <%= link_to new_donate_path(apply_id: @apply.id, type: 'camp') do %>
+          <%= link_to new_donate_path(apply: @apply.id) do %>
               <button class="overspread-show cur">我要捐助</button>
           <% end %>
         </div>
@@ -81,9 +81,9 @@
           <div class="not-available contentab pull-left">
             <div class="donation-cont-no">
               <div class="donation-co-no-c">
-                <!--<div class="donation-co-no-c-img">-->
-                  <!--<%= image_tag 'my-read.png' %>-->
-                <!--</div>-->
+                <div class="donation-co-no-c-img">
+                <%= image_tag 'not-available.png' %>
+                </div>
                 <p>暂无整捐物品清单</p>
               </div>
             </div>
@@ -131,7 +131,7 @@
             <div class="donation-cont-no">
               <div class="donation-co-no-c">
                 <div class="donation-co-no-c-img">
-                  <%= image_tag 'my-read.png' %>
+                  <%= image_tag 'not-available.png' %>
                 </div>
                 <p>暂无执行反馈</p>
               </div>

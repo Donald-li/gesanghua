@@ -23,7 +23,7 @@ class Admin::AdministratorsController < Admin::BaseController
   def create
     @administrator = User.new
     respond_to do |format|
-      if User.find_by(login: administrator_params[:login]).present?
+      if User.find_by_login(administrator_params[:login]).present?
         flash[:alert] = '账号已被占用'
         format.html {render :new}
       else

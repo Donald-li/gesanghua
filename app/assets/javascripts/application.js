@@ -190,7 +190,7 @@ var JPlaceHolder = {
             var self = $(this), txt = self.attr('placeholder');
             self.wrap($('<div></div>').css({position:'relative', zoom:'1', border:'none', background:'none', padding:'none', margin:'none'}));
             var pos = self.position(), h = self.outerHeight(true), paddingleft = self.css('padding-left');
-            var holder = $('<span></span>').text(txt).css({position:'absolute', left:pos.left+10, top:pos.top+8, height:h, lienHeight:h, paddingLeft:paddingleft, color:'#aaa'}).appendTo(self.parent());
+            var holder = $('<span></span>').text(txt).css({position:'absolute', left:pos.left+10, top:pos.top, height:h, lienHeight:h, paddingLeft:paddingleft, color:'#aaa'}).appendTo(self.parent());
             self.focusin(function(e) {
                 holder.hide();
             }).focusout(function(e) {

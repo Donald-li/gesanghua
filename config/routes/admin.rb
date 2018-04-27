@@ -80,6 +80,7 @@ namespace :admin do
         get :shipment
         post :create_shipment
         get :supplement_receive
+        get :supplement_install
       end
     end
   end

@@ -56,7 +56,7 @@
       <%#= image_tag 'detail-reduce.png' %>
     </div>
     <!--物品-->
-    <% if @apply.use_inventory? %>
+    <% if @apply.present? %>
       <div class="pull-left detail-table-left contentab">
         <table class="table table-bordered">
           <thead>
@@ -77,9 +77,22 @@
           </tbody>
         </table>
       </div>
+    <% else %>
+        <div class="not-available contentab pull-left">
+          <div class="donation-cont-no">
+            <div class="donation-co-no-c">
+              <div class="donation-co-no-c-img">
+                <%= image_tag 'not-available.png' %>
+              </div>
+              <p>暂无物品清单</p>
+            </div>
+          </div>
+        </div>
     <% end %>
     <!--反馈-->
+    <% if @feedbacks.present? %>
     <div class="pull-left detail-body-left border-l contentab">
+
       <ul class="detail-body-ul">
         <% @feedbacks.each do |feedback| %>
           <li class="detail-body-cont" id="<%= feedback.id %>">
@@ -112,7 +125,20 @@
           </li>
         <% end %>
       </ul>
+
     </div>
+      <% else %>
+          <div class="not-available contentab pull-left">
+            <div class="donation-cont-no">
+              <div class="donation-co-no-c">
+                <div class="donation-co-no-c-img">
+                  <%= image_tag 'not-available.png' %>
+                </div>
+                <p>暂无执行反馈</p>
+              </div>
+            </div>
+          </div>
+      <% end %>
     <div class="pull-right detail-body-right">
       <p class="detail-b-r-t border-b"><span>捐助记录</span></p>
       <% if @donate_records.present? %>

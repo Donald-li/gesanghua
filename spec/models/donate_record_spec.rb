@@ -23,7 +23,7 @@
 #  owner_id                      :integer                                # 捐助所属捐助项
 #  donation_id                   :integer                                # 捐助id
 #  kind                          :integer                                # 捐助方式 1:捐款 2:配捐
-#  project_season_apply_child_id :integer                                # 一对一孩子
+#  project_season_apply_child_id :integer                                # 结对助学孩子
 #  state                         :integer                                # 状态
 #
 
@@ -152,7 +152,7 @@ RSpec.describe DonateRecord, type: :model do
       GshChildGrant.gen_grant_record(@child1)
       @income_record.update(amount: amount, balance: amount, kind: :online)
       DonateRecord.do_donate(:user_donate, @income_record, @child1, amount)
-      expect(@child1.reload.done_semester_count).to eq(nil)
+      expect(@child1.reload.done_semester_count).to eq(0)
       expect(@user.reload.balance).to eq(1800)
     end
   end
