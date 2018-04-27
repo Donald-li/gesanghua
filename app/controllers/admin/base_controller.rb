@@ -1,5 +1,5 @@
 class Admin::BaseController < ManagementBaseController
-  before_action :logged_in?
+  before_action :login_require
   before_action :set_paper_trail_whodunnit
 
   helper_method :current_user
@@ -14,7 +14,7 @@ class Admin::BaseController < ManagementBaseController
     { ip: request.remote_ip }
   end
 
-  def logged_in?
+  def login_require
     if session[:user_id].present?
       return true
     else

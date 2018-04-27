@@ -12,6 +12,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def login_require
+    unless logged_in?
+      session[:return_path] ||= request.path if request.get?
+      redirect_to account_login_path
+    end
+  end
+
   # 修改日期选择查询中最后一天
   def set_search_end_of_day(attr=:created_at_lteqeq)
     return unless params[:q]
