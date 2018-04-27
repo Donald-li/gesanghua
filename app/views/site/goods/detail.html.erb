@@ -18,9 +18,9 @@
         <div class="detail-cont-foot border-t ">
           <p>当前筹款<span>￥<%= @apply.present_amount %></span></p>
           <p>参与人数<span><%= @apply.participant_number %>人</span></p>
-          <%= link_to donates_path(apply_id: @apply.id, type: 'read') do %>
+          <%= link_to new_donate_path(apply: @apply.id) do %>
           <button>我要捐助</button>
-              <% end %>
+          <% end %>
         </div>
       </div>
     </div>

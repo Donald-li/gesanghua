@@ -6688,13 +6688,22 @@ select:disabled {
   width: 100%;
   flex-wrap: wrap;
   padding-top: 20px;
+  & > a{
+    margin-right: 19px;
+    margin-bottom: 20px;
+    display: inline-block;
+    width: 264px;
+    float: left;
+  }
+
+  & > a:nth-child(3n){
+    margin-right: 0;
+  }
   .donation-active-cont {
     width: 264px;
     border: 1px solid $border;
     border-radius: 3px;
     overflow: hidden;
-    margin-left: 19px;
-    margin-bottom: 20px;
     float: left;
     div:nth-child(1) {
       img {
@@ -6726,12 +6735,8 @@ select:disabled {
       }
     }
   }
-  .donation-active-cont:nth-child(1) {
-    margin-left: 0;
-  }
-  .donation-active-cont:nth-child(3n+1) {
-    margin-left: 0;
-  }
+
+
 
 }
 

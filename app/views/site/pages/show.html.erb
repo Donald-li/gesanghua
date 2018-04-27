@@ -4,49 +4,32 @@
   <div class="clearfix pages-content">
     <div class="pull-left page-left">
       <ul class="page-left-ul">
-        <li class="selectedli">
-          <a>关于我们</a>
-            <ul class="page-left-li">
-              <li>组织架构</li>
-              <li>组织架构</li>
-              <li>大事记</li>
-            </ul>
-            <div class="page-left-border"></div>
-        </li>
-        <li>
-          <a>用户协议
-
-          </a>
-          <ul class="page-left-li">
-            <li>版权声明</li>
-          </ul>
-          <!--<div class="page-left-border"></div>-->
-        </li>
-        <li>
-          <a>加入我们
-          </a>
-          <!--<div class="page-left-border"></div>-->
-        </li>
-        <li>
-          <a>联系我们
-          </a>
-          <!--<div class="page-left-border"></div>-->
-        </li>
+        <% @pages.each do |page| %>
+          <li class="<%= page == @page ? 'selectedli' : '' %>">
+            <!-- <a>关于我们</a> -->
+            <%= link_to "/p/" + page.alias do %><%= page.title %><% end %>
+              <!-- <ul class="page-left-li"> -->
+                <!-- <li>组织架构</li> -->
+                <!-- <li>组织架构</li> -->
+                <!-- <li>大事记</li> -->
+              <!-- </ul> -->
+              <% if page == @page %>
+                <div class="page-left-border"></div>
+              <% end %>
+          </li>
+        <% end %>
       </ul>
     </div>
     <div class="pull-right page-right">
-      <div class="page-left-title">
-        <p>关于我们</p>
+      <% if @page.present? %>
+        <div class="page-left-title">
+          <p><%= @page.title %></p>
 
-      </div>
-      <div class="page-right-content">
-        中国国际电子商务中心培训学院是“国家电子商务专业技术人才知识更新工程”实施机构、人力资源和社会保障部“国家电子商务专业技术人员继续教育基地”、商务部“电子商务培训基地”。
-
-        学院拥有涵盖学术界及企业界近300位知名电商专家和精英讲师，课程内容涵盖“农村电商”、“电商扶贫”、“互联网+乡村振兴”、“企业互联网转型”、“跨境电商”、“新零售”、“TTT讲师能力培训”、“互联网金融”、“创新创业”、“大数据”等多个方向千余门课程。
-
-        采用“核心精品课”+“行业定制课”+“实践操作课”+“在线公开课”相结合的培训模式，系统化培养符合社会发展需要的实用型、复合型电商人才。目前，学院已拥有“中国电商讲师大赛”、“全国农村电商讲师培训”、“全国扶贫电商讲师培训”等多个知名品牌产品，已挖掘并培养了来自全国30个省市近3000名电商讲师。
-      </div>
-
+        </div>
+        <div class="page-right-content">
+          <%= @page.content.html_safe %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

@@ -11,7 +11,8 @@
     <div class="school-apply-feedback-cont">
       <%= simple_form_for [:apply, @receive], url: platform_school_apply_receive_feedbacks_path(@receive), html: {'data-parsley-validate': true, class: 'user_form'} do |f| %>
           <div class="addchild-list-cont ">
-            <%= f.hidden_field :owner_id, value: params[:apply_id] %>
+            <%= f.hidden_field :owner_id, value: @receive.owner_id %>
+            <%= f.hidden_field :owner_type, value: @receive.owner_type %>
             <div style="height: 172px;width: 777px;">
               <span class="goodtext">反馈内容</span>
               <textarea placeholder="内容会推送给捐助者，请认真填写~" name="receive_feedback[content]" required><%= @receive.content %></textarea>
