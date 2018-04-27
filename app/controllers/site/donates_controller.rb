@@ -1,4 +1,5 @@
 class Site::DonatesController < Site::BaseController
+  before_action :login_require
 
   def new
 

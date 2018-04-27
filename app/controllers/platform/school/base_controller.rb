@@ -1,5 +1,5 @@
 class Platform::School::BaseController < ApplicationController
-  before_action :logged_in?
+  before_action :login_require
   before_action :set_paper_trail_whodunnit
   helper_method :current_teacher
   layout 'platform_school'
@@ -13,7 +13,7 @@ class Platform::School::BaseController < ApplicationController
     { ip: request.remote_ip }
   end
 
-  def logged_in?
+  def login_require
     return !! current_teacher
   end
 

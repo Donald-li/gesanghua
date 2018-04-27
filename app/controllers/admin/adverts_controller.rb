@@ -3,7 +3,7 @@ class Admin::AdvertsController < Admin::BaseController
   before_action :set_advert, only: [:show, :edit, :update, :destroy, :switch, :move]
 
   def index
-    @search = Advert.visible.sorted.ransack(params[:q])
+    @search = Advert.where(kind: [1, 3]).sorted.ransack(params[:q])
     scope = @search.result
     @adverts = scope.includes(:image).sorted.page(params[:page])
   end

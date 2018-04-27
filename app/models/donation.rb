@@ -232,9 +232,11 @@ class Donation < ApplicationRecord
       spbill_create_ip: remote_ip,
       notify_url: notify_url,
       trade_type: 'JSAPI', # could be "JSAPI" or "NATIVE",
-      openid: self.agent.openid# required when trade_type is `JSAPI`
+      openid: self.agent.profile['openid'] # required when trade_type is `JSAPI`
     }
     res = WxPay::Service.invoke_unifiedorder params
+    logger.info '+++++++++ wechat prepay id +++++++++'
+    logger.info(res.inspect)
     return res['prepay_id']
   end
 
@@ -249,7 +251,7 @@ class Donation < ApplicationRecord
       spbill_create_ip: remote_ip,
       notify_url: notify_url,
       trade_type: 'MWEB', # could be "JSAPI" or "NATIVE",
-      openid: self.agent.openid# required when trade_type is `JSAPI`
+      openid: self.agent.profile['openid']# required when trade_type is `JSAPI`
     }
     res = WxPay::Service.invoke_unifiedorder params
     return res['mweb_url']
@@ -265,7 +267,8 @@ class Donation < ApplicationRecord
       # (self.amount * 100).to_i,
       spbill_create_ip: remote_ip,
       notify_url: notify_url,
-      trade_type: 'NATIVE' # could be "JSAPI" or "NATIVE",
+      trade_type: 'NATIVE', # could be "JSAPI" or "NATIVE",
+      openid: self.agent.profile['openid']# required when trade_type is `JSAPI`
     }
     res = WxPay::Service.invoke_unifiedorder params
     return res['code_url']
