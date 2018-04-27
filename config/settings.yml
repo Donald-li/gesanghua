@@ -32,8 +32,8 @@ wechat_app_secret: "727a1fe9d8216c3ba8bfb21be61ec6bd"
 wechat_app_token: "3147d1cea898763a7f677b3c"
 
 # 微信开放平台
-wechat_open_id: "wx71d7dff45ae750ce"
-wechat_open_secret: "071338458c7a590a43126a66249a8761"
+wechat_open_id: "wxe41f15aeaef1c627"
+wechat_open_secret: "2b45ea0694762f2418f0e9a1e01072c4"
 wechat_open_token: "3147d1cea898763a7f677b3c"
 
 # 微信支付
