@@ -23,9 +23,10 @@
     <p>爱,是收获和喜悦</p>
     <p>LOVE IS HARVEST & JOY</p>
   </div>
-  <div class=" bul-ai-cont">
-    <%= image_tag 'homepage.png' %>
-    <div class=" bul-img-n">
+  <div class=" bul-ai-cont ">
+    <div style="width: 1140px; margin: 0 auto;position: relative;" class="clearfix">
+
+    <div class=" bul-img-n pull-left" >
       <div class="clearfix  bul-img-m">
         <div class="clearfix  bul-img-p">
           <p class="pull-left">累计捐助:<span><%= number_to_currency(IncomeRecord.total_amount) %></span>元</p>
@@ -50,6 +51,8 @@
           </div>
         </div>
       </div>
+    </div>
+      <%= image_tag 'homepage.jpg', class:' bul-img-right' %>
     </div>
   </div>
 </div>
