@@ -31,6 +31,7 @@
 class ProjectSeasonApplyCampMember < ApplicationRecord
 
   after_create :count_age
+  after_create :distinguish_gender
 
   belongs_to :apply_camp, class_name: 'ProjectSeasonApplyCamp', foreign_key: :project_season_apply_camp_id
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: :project_season_apply_id
@@ -81,6 +82,12 @@ class ProjectSeasonApplyCampMember < ApplicationRecord
     today = Date.today
     child_age = (today - birthday).to_i/365
     self.update_columns(age: child_age)
+  end
+
+  def distinguish_gender
+    num = self.id_card[-2]
+    gender = num % 2 == 1 ? 'male' : 'female'
+    self.update_columns(gender: gender)
   end
 
   def summary_builder
