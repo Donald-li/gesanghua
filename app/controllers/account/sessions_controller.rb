@@ -11,6 +11,9 @@ class Account::SessionsController < Account::BaseController
 
   def create
     @user = User.new session_params.permit!
+    callback_url = callback_wechats_url(host: Settings.app_host, port: 80)
+    @wechat_url = $wechat_open_client.qrcode_authorize_url(callback_url, "snsapi_login", "wechat")
+    
     if session_params[:password].blank?
       flash[:alert] = '请填写密码'
       render(action: :new) && return

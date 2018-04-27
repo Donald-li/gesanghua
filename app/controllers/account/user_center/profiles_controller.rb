@@ -9,7 +9,7 @@ class Account::UserCenter::ProfilesController < Account::BaseController
     respond_to do |format|
       if current_user.update(user_params)
         current_user.attach_avatar(params[:avatar_id])
-        format.html { redirect_to edit_account_user_center_profile_path, notice: '用户已修改。' }
+        format.html { redirect_to edit_account_user_center_profile_path, notice: '用户资料已修改。' }
       else
         format.html { render :edit }
       end
