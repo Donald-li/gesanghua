@@ -1228,12 +1228,13 @@ select:disabled {
     margin-bottom: 10px;
     font-size: 14px;
     color: #d7d7d7;
-
   }
   .footer-3 {
     font-size: 14px;
     color: #d7d7d7;
-
+    & > a {
+      color: #d7d7d7;
+    }
   }
   .right-foot-1 {
     width: 132px;
