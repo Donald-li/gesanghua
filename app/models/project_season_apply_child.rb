@@ -123,6 +123,11 @@ class ProjectSeasonApplyChild < ApplicationRecord
   scope :sorted, -> {order(created_at: :desc)}
   scope :check_list, -> {where(approve_state: [1, 2, 3])}
 
+  def self.allow_apply?(season, school, id_card)
+    return false if season.nil?
+    return false if self.where(school: school, id_card: id_card).present?
+  end
+
   def child_avatar
     self.avatar.try(:file_url, :tiny)
   end
