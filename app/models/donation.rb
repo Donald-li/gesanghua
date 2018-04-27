@@ -235,6 +235,8 @@ class Donation < ApplicationRecord
       openid: self.agent.openid# required when trade_type is `JSAPI`
     }
     res = WxPay::Service.invoke_unifiedorder params
+    logger.info '+++++++++ wechat prepay id +++++++++'
+    logger.info(res.inspect)
     return res['prepay_id']
   end
 
