@@ -4,27 +4,26 @@
     <p class="don-title border-b ">
       <span class="pull-left">我的活动</span>
     </p>
-    <div class="donation " style="display: block;">
+    <div>
       <% if @camapigns.present? %>
-          <div class="donation-active clearfix">
-            <% @camapigns.each do |cam| %>
 
-                <div class="donation-active-cont">
-                  <div>
-                    <%= image_tag cam.banner_url(:tiny) %>
-                  </div>
-                  <%= link_to campaign_path(cam) do %>
+          <div class="donation-active clearfix ">
+            <% @camapigns.each do |cam| %>
+                <%= link_to campaign_path(cam) do %>
+                    <div class="donation-active-cont">
+                      <div>
+                        <%= image_tag cam.banner_url(:tiny) %>
+                      </div>
 
                       <div class="camps-body-conts">
                         <p class="redundance"><%= cam.name %></p>
                         <p>￥<%= cam.price %>/人</p>
                         <p>报名截止<%= cam.sign_up_end_time.strftime("%Y年%m月%d日") %></p>
                       </div>
-                      </div>
-                  <% end %>
+                    </div>
+                <% end %>
 
             <% end %>
-
           </div>
           <div class="project-foot">
             <%= paginate @camapigns, theme: 'tiny' %>

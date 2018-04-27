@@ -23,7 +23,11 @@ class Site::CampaignsController < Site::BaseController
     end
     @enlist.user = current_user
     if @enlist.save
-      redirect_to campaign_path, notice: '报名成功'
+      if @enlist.paid?
+        redirect_to campaign_path, notice: '报名成功'
+      else
+        redirect_to new_donate_path
+      end
     else
       redirect_to campaign_path, alert: '报名失败'
     end

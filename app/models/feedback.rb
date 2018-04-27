@@ -27,6 +27,9 @@
 
 # 反馈表
 class Feedback < ApplicationRecord
+  include SanitizeContent
+  sanitize_content :content
+
   belongs_to :owner, polymorphic: true
   belongs_to :user
   belongs_to :project
