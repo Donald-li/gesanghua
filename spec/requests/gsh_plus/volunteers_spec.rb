@@ -12,7 +12,7 @@ RSpec.describe "Api::V1::GshPlus::Volunteer", type: :request do
     it '志愿者申请' do
       post api_v1_gsh_plus_volunteers_path,
            params: {
-               volunteer: {name: '林则徐', IdCard: '110229190001010913', phone: '18888888888', describe: '屋里哇啦'},
+               volunteer: {name: '林则徐', IdCard: '110229190001010913', phone: '18888888888', describe: '屋里哇啦', location: ['']},
                majorIds: [major1.id, major2.id]
            }, headers: api_v1_headers(login_user)
       api_v1_expect_success
@@ -29,7 +29,7 @@ RSpec.describe "Api::V1::GshPlus::Volunteer", type: :request do
 
       post update_volunteer_api_v1_gsh_plus_volunteers_path,
            params: {
-               volunteer: {user_name: '林则徐', user_qq: '11022919', user_phone: '18888888889', describe: '屋里哇啦', workstation: '中科院'}
+               volunteer: {user_name: '林则徐', user_qq: '11022919', user_phone: '18888888889', describe: '屋里哇啦', workstation: '中科院', location: ['']}
            }, headers: api_v1_headers(login_user)
       api_v1_expect_success
 
