@@ -4,7 +4,7 @@ class Platform::School::TeachersController < Platform::School::BaseController
   before_action :set_per, only: :index
 
   def index
-    @teachers = Teacher.includes(:projects).sorted.decode_page(params)
+    @teachers = current_user.school.teachers.includes(:projects).sorted.decode_page(params)
     respond_to do |format|
       format.html
       format.js
