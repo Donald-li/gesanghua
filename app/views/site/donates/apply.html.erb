@@ -1,3 +1,6 @@
+<%
+apply = ProjectSeasonApply.find(params[:apply])
+%>
 <div id="donates">
   <form action="<%= donates_path %>" method="post">
     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
@@ -10,68 +13,33 @@
   </div>
   <div  class="donates-content clearfix">
     <div class="pull-left donates-content-left">
-      <!--项目类-->
-      <div>
-        <p class="donates-c-l-t">选择你要捐助的项目</p>
-        <div class="donations-1" >
-          <ul class="donations1 clearfix">
-            <% @donate_itmes.each do |d| %>
-            <li class="<%= d == @donate_itmes.first ? 'selectedDo' : '' %> cur donate-item-cur" data-describe="<%= d.describe %>" data-donate-item-id="<%= d.id %>"><%= d.name %></li>
-            <% end %>
-          </ul>
-          <div class="bottomline"></div>
-        </div>
-        <p class="donates-c-l-t" id="donate-item-describe"><%= @donate_itmes.first.describe %></p>
-      </div>
       <!--物资类-->
-      <!--<div>-->
-        <!--<p class="donates-c-l-t">您的捐款将会用于格桑花护花项目的使用！</p>-->
-        <!--<div class="donates-c-l-co">-->
-          <!--<div class="donates-c-l-coss clearfix">-->
-            <!--<div class="pull-left">-->
-              <!--<p>护花行动“风暴”来袭</p>-->
-              <!--<p>目标 2100.00 元</p>-->
-            <!--</div>-->
-            <!--<div class="pull-right">-->
-              <!--还差 <span>1300</span> 元-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</div>-->
+      <div>
+        <p class="donates-c-l-t">您的捐款将会用于格桑花<%= apply.project.name %>项目的使用！</p>
+        <div class="donates-c-l-co">
+          <div class="donates-c-l-coss clearfix">
+            <div class="pull-left">
+              <p><%= apply.name %></p>
+              <p>目标 <%= number_to_currency apply.target_amount %> 元</p>
+            </div>
+            <div class="pull-right">
+              还差 <span><%= number_to_currency apply.surplus_money %></span> 元
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <!--整捐-->
-      <!--<div class="benefactors-integer clearfix">-->
-        <!--<span class="pull-left">捐款金额</span>-->
-        <!--<div class="pull-right">-->
-          <!--<ul class="ui-choose" id="uc_01">-->
-            <!--<li class="selected">1300元-->
-              <!--<span>-->
-                <!--<%#= image_tag 'integer-read.png' %>-->
-              <!--</span>-->
-            <!--</li>-->
-          <!--</ul>-->
-        <!--</div>-->
-      <!--</div>-->
       <!--散捐-->
       <div class="benefactors-moy clearfix">
         <span class="pull-left">捐款金额</span>
-        <input type="text" placeholder="其他金额" class="pull-left" name="amount" id="donate-amount"/>
+        <input type="text" placeholder="其他金额" class="pull-left" name="amount" id="donate-amount" value="100"/>
         <span >元</span>
         <div class="pull-right">
-          <ul class="ui-choose ui-choose-tab" id="amount-tab-default" style="display: none">
+          <ul class="ui-choose ui-choose-tab" id="amount-tab-default">
             <% Settings.amount_tabs.each do |a| %>
             <li class="cur amount_tab_cur" data-amount="<%= a %>"><%= number_to_currency a %> 元</li>
             <% end %>
           </ul>
-          <% @donate_itmes.each do |d| %>
-            <% if d.amount_tabs.count > 0 %>
-            <ul class="ui-choose ui-choose-tab" id="amount-tab-<%= d.id %>">
-            <% d.amount_tabs.each do |a| %>
-              <li class="cur amount_tab_cur" data-amount="<%= a.amount %>"><%= number_to_currency a.amount %> 元 （<%= a.alias %>）</li>
-            <% end %>
-            </ul>
-            <% end %>
-          <% end %>
         </div>
       </div>
       <div class="benefactors clearfix">
@@ -89,8 +57,8 @@
       <div class="benefactors-way clearfix border-b">
         <span class="pull-left">支付方式</span>
         <input type="hidden" name="donate_way" value="wechat" id="donate_way">
-        <input type="hidden" name="donate_item" value="1" id="donate_item">
-        <ul class="ui-choose pull-left"  >
+        <input type="hidden" name="apply" value="<%= apply.id %>">
+        <ul class="ui-choose pull-left"  id="uc_02">
           <li class="donate_way" data-way="wechat">
             <%= image_tag 'iconpic-buy-alipay.svg' %>
           </li>
@@ -115,7 +83,7 @@
         <p>银行转账至（请注明捐助项目）</p>
       </div>
       <div class="donates-con-r-con">
-        <p >户名：格桑花西部助学</p>
+        <p>户名：格桑花西部助学</p>
         <p>开户银行：中国光大银行北京朝阳支行</p>
         <p>账号：3506 0188 0000 50322</p>
       </div>
@@ -206,9 +174,6 @@
 
     // 选择支付方式
     $('.donate_way').click(function () {
-        alert('aaa')
       $('#donate_way').val($(this).data('way'))
-        $('.donate_way').removeClass('selected')
-        $(this).addClass('selected')
     })
 </script>

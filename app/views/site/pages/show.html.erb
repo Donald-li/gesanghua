@@ -1,1 +1,35 @@
-关于我们
+<div class="classbody" style="min-height: 605px;padding: 30px">
+
+
+  <div class="clearfix pages-content">
+    <div class="pull-left page-left">
+      <ul class="page-left-ul">
+        <% @pages.each do |page| %>
+          <li class="<%= page == @page ? 'selectedli' : '' %>">
+            <!-- <a>关于我们</a> -->
+            <%= link_to "/p/" + page.alias do %><%= page.title %><% end %>
+              <!-- <ul class="page-left-li"> -->
+                <!-- <li>组织架构</li> -->
+                <!-- <li>组织架构</li> -->
+                <!-- <li>大事记</li> -->
+              <!-- </ul> -->
+              <% if page == @page %>
+                <div class="page-left-border"></div>
+              <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="pull-right page-right">
+      <% if @page.present? %>
+        <div class="page-left-title">
+          <p><%= @page.title %></p>
+
+        </div>
+        <div class="page-right-content">
+          <%= @page.content.html_safe %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

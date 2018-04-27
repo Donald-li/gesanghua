@@ -2,7 +2,7 @@ class Api::V1::ProtocolsController < Api::V1::BaseController
 
   def show
     if params[:type] === 'donation-protocol'
-      @protocol = Page.show.find_by(alias: 'donation_protocol')
+      @protocol = Page.find_by(alias: 'donation_protocol')
       api_success(data: @protocol.summary_builder)
     elsif params[:type] === 'project-apply-protocol'
       @project = Project.find(params[:id])

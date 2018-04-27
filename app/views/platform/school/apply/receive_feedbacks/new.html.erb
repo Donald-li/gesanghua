@@ -1,0 +1,45 @@
+<div class="person-body-right pull-right" id="children" style="position: relative;">
+
+  <div class="children-body">
+    <div class="paddchild">
+      <p class="don-title border-b ">
+        <span class="pull-left">收货反馈</span>
+        <span class="pull-right iconfont icon-arrow-right"></span>
+        <!-- <span class="pull-right"><%#= link_to platform_school_feedbacks_path do %>返回<%# end %></span> -->
+      </p>
+    </div>
+    <div class="school-apply-feedback-cont">
+      <%= simple_form_for [:apply, @receive], url: platform_school_apply_receive_feedbacks_path(@receive), html: {'data-parsley-validate': true, class: 'user_form'} do |f| %>
+          <div class="addchild-list-cont ">
+            <%= f.hidden_field :owner_id, value: params[:apply_id] %>
+            <div style="height: 172px;width: 777px;">
+              <span class="goodtext">反馈内容</span>
+              <textarea placeholder="内容会推送给捐助者，请认真填写~" name="receive_feedback[content]" required><%= @receive.content %></textarea>
+            </div>
+            <div style="height: 100%;width: 100%; margin-bottom: 0;" class="border-b">
+              <span class="goodtext">上传图片</span>
+              <div style="height: 100%;margin-bottom: 20px;">
+                  <p></p>
+                  <%= webuploader_images 'image_ids[]', label: '上传图片', type: 'feedback_image', asset: @receive.images %>
+              </div>
+            </div>
+          </div>
+
+
+
+      <div style="text-align:center;">
+        <button class="class-button" type="submit">提交反馈</button>
+        </div>
+        <% end %>
+      </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+    $(function () {
+        initMultiImageWebuploader($('#webuploader'));
+    })
+</script>
