@@ -19,7 +19,6 @@
           <% end %>
         </li>
       </ul>
-
     </div>
     <div class="school-apply-pair-table-co">
       <div class="school-apply-pair-table clearfix">
@@ -37,7 +36,7 @@
             <div class="schools-apply-pair-table-cont clearfix">
               <div class="schools-apply-pair-child clearfix pull-left">
                 <div class="pull-left">
-                  <%= image_tag child.avatar.try(:file).try(:url, :tiny).to_s %>
+                  <%= image_tag child.avatar_url(:tiny) %>
                 </div>
                 <div class="pull-left ">
                   <p>

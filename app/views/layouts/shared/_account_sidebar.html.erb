@@ -29,7 +29,7 @@
     <%= link_to account_offline_users_path do %>
     <li class="<%= display_menu("offline_users") %> cur">
       <span class="iconfont icon-ico-replace"></span>
-      <span>捐助管理</span>
+      <span>捐助人管理</span>
       <div class="<%= display_line("offline_users") %>"></div>
     </li>
     <% end %>
@@ -47,13 +47,13 @@
       <div class="<%= display_line("gsh_plus") %>"></div>
     </li>
     <% end %>
-    <%= link_to account_level_path do %>
-    <li class="<%= display_menu("levels") %> cur">
-      <span class="iconfont icon-ico-badge"></span>
-      <span>我的勋章</span>
-      <div class="<%= display_line("levels") %>"></div>
-    </li>
-    <% end %>
+    <%#= link_to account_level_path do %>
+    <!--<li class="<%= display_menu("levels") %> cur">-->
+      <!--<span class="iconfont icon-ico-badge"></span>-->
+      <!--<span>我的勋章</span>-->
+      <!--<div class="<%= display_line("levels") %>"></div>-->
+    <!--</li>-->
+    <%# end %>
   </ul>
   <div  class="border-t" >
     <%= link_to account_logout_path, method: :delete do %>

@@ -31,6 +31,7 @@
 class ProjectSeasonApplyCampMember < ApplicationRecord
 
   after_create :count_age
+  after_create :distinguish_gender
 
   belongs_to :apply_camp, class_name: 'ProjectSeasonApplyCamp', foreign_key: :project_season_apply_camp_id
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: :project_season_apply_id
@@ -67,9 +68,13 @@ class ProjectSeasonApplyCampMember < ApplicationRecord
   scope :sorted, -> {order(created_at: :desc)}
 
   def self.allow_apply?(apply_camp, id_card, member=nil)
-    return false if self.where(apply_camp: apply_camp, id_card: id_card).present? && member.nil?
-    return false if self.where.not(id: member.id).where(apply_camp: apply_camp, id_card: id_card).present?
-    return true
+    if member.nil?
+      return false if self.where(apply_camp: apply_camp, id_card: id_card).present?
+      return true
+    else
+      return false if self.where.not(id: member.id).where(apply_camp: apply_camp, id_card: id_card).present?
+      return true
+    end
   end
 
   def count_age
@@ -77,6 +82,12 @@ class ProjectSeasonApplyCampMember < ApplicationRecord
     today = Date.today
     child_age = (today - birthday).to_i/365
     self.update_columns(age: child_age)
+  end
+
+  def distinguish_gender
+    num = self.id_card[-2]
+    gender = num % 2 == 1 ? 'male' : 'female'
+    self.update_columns(gender: gender)
   end
 
   def summary_builder

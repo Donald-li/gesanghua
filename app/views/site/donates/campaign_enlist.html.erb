@@ -2,7 +2,7 @@
 campaign_enlist = CampaignEnlist.find(params[:campaign_enlist])
 %>
 <div id="donates">
-  <form action="<%= donates_path %>" method="post">
+  <form action="<%= donates_path %>" method="post" data-parsley-validate="true">
     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
   <div class="donates-img">
     <%= image_tag 'top-bg.png' %>
@@ -45,10 +45,10 @@ campaign_enlist = CampaignEnlist.find(params[:campaign_enlist])
         <input type="hidden" name="donor" value="<%= current_user.id %>">
         <input type="hidden" name="amount" value="<%= campaign_enlist.total %>">
         <ul class="ui-choose pull-left"  id="uc_02">
-          <li class="donate_way" data-way="wechat">
+          <li class="donate_way selected" data-way="alipay">
             <%= image_tag 'iconpic-buy-alipay.svg' %>
           </li>
-          <li class="donate_way" data-way="alipay">
+          <li class="donate_way" data-way="wechat">
             <%= image_tag 'iconpic-buy-weixin.svg' %>
           </li>
         </ul>
@@ -136,7 +136,7 @@ campaign_enlist = CampaignEnlist.find(params[:campaign_enlist])
       $('#donate-item-describe').text($(this).data('describe'))
       // 切换金额卡片
       $('.ui-choose-tab').hide()
-      let amountTabName = '#amount-tab-' + $(this).data('donate-item-id')
+      var amountTabName = '#amount-tab-' + $(this).data('donate-item-id')
       if ($(amountTabName).length > 0) {
         $(amountTabName).show()
       } else {

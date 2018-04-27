@@ -1,5 +1,5 @@
 <div id="donates">
-  <form action="<%= donates_path %>" method="post">
+  <form action="<%= donates_path %>" method="post" data-parsley-validate="true">
     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
   <div class="donates-img">
     <%= image_tag 'top-bg.png' %>
@@ -23,39 +23,9 @@
         </div>
         <p class="donates-c-l-t" id="donate-item-describe"><%= @donate_itmes.first.describe %></p>
       </div>
-      <!--物资类-->
-      <!--<div>-->
-        <!--<p class="donates-c-l-t">您的捐款将会用于格桑花护花项目的使用！</p>-->
-        <!--<div class="donates-c-l-co">-->
-          <!--<div class="donates-c-l-coss clearfix">-->
-            <!--<div class="pull-left">-->
-              <!--<p>护花行动“风暴”来袭</p>-->
-              <!--<p>目标 2100.00 元</p>-->
-            <!--</div>-->
-            <!--<div class="pull-right">-->
-              <!--还差 <span>1300</span> 元-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</div>-->
-
-      <!--整捐-->
-      <!--<div class="benefactors-integer clearfix">-->
-        <!--<span class="pull-left">捐款金额</span>-->
-        <!--<div class="pull-right">-->
-          <!--<ul class="ui-choose" id="uc_01">-->
-            <!--<li class="selected">1300元-->
-              <!--<span>-->
-                <!--<%#= image_tag 'integer-read.png' %>-->
-              <!--</span>-->
-            <!--</li>-->
-          <!--</ul>-->
-        <!--</div>-->
-      <!--</div>-->
-      <!--散捐-->
       <div class="benefactors-moy clearfix">
         <span class="pull-left">捐款金额</span>
-        <input type="text" placeholder="其他金额" class="pull-left" value="100" name="amount" id="donate-amount"/>
+        <input type="text" placeholder="其他金额" class="pull-left" value="100" name="amount" id="donate-amount" data-parsley-required="true" data-parsley-min="1" />
         <span >元</span>
         <div class="pull-right">
           <ul class="ui-choose ui-choose-tab" id="amount-tab-default" style="display: none">
@@ -91,10 +61,10 @@
         <input type="hidden" name="donate_way" value="wechat" id="donate_way">
         <input type="hidden" name="donate_item" value="1" id="donate_item">
         <ul class="ui-choose pull-left"  >
-          <li class="donate_way" data-way="wechat">
+          <li class="donate_way selected" data-way="alipay">
             <%= image_tag 'iconpic-buy-alipay.svg' %>
           </li>
-          <li class="donate_way" data-way="alipay">
+          <li class="donate_way" data-way="wechat">
             <%= image_tag 'iconpic-buy-weixin.svg' %>
           </li>
           <li class="donate_way" data-way="balance">
@@ -186,7 +156,7 @@
       $('#donate-item-describe').text($(this).data('describe'))
       // 切换金额卡片
       $('.ui-choose-tab').hide()
-      let amountTabName = '#amount-tab-' + $(this).data('donate-item-id')
+      var amountTabName = '#amount-tab-' + $(this).data('donate-item-id')
       if ($(amountTabName).length > 0) {
         $(amountTabName).show()
       } else {

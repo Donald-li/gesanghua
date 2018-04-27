@@ -61,7 +61,7 @@ class Account::UserCenter::AccountsController < Account::BaseController
   end
 
   def update_password
-    if !@user.authenticate(params[:old_password])
+    if @user.password_digest.present? && !@user.authenticate(params[:old_password])
       redirect_to edit_password_account_user_center_account_path, notice: '原密码错误。' and return
     elsif params[:new_password] != params[:confirm_password] || params[:new_password].empty?
       redirect_to edit_password_account_user_center_account_path, notice: '确认密码错误。' and return

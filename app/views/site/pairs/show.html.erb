@@ -53,8 +53,8 @@
       <!-- <%= image_tag 'detail-reduce.png' %> -->
     </div>
     <!--报告-->
+    <% if @project_reports.present? %>
     <div class="pull-left detail-body-left border-l contentab">
-      <% if @project_reports.present? %>
       <ul class="detail-body-ul">
           <% @project_reports.each do |report| %>
             <li class="detail-body-cont" id="<%= report.id %>">
@@ -101,6 +101,7 @@
         </div>
     <% end %>
     <% if @visit_reports.present? %>
+    <div class="pull-left detail-body-left border-l contentab">
       <ul class="detail-body-ul">
           <% @visit_reports.each do |report| %>
             <li class="detail-body-cont" id="<%= report.id %>">
@@ -133,6 +134,7 @@
             </li>
           <% end %>
       </ul>
+    </div>
     <% else %>
         <div class="not-available contentab pull-left">
           <div class="donation-cont-no">
@@ -146,6 +148,7 @@
         </div>
     <% end %>
     <% if @grant_reports.present? %>
+    <div class="pull-left detail-body-left border-l contentab">
       <ul class="detail-body-ul">
           <% @grant_reports.each do |report| %>
             <li class="detail-body-cont" id="<%= report.id %>">
@@ -178,6 +181,7 @@
             </li>
           <% end %>
       </ul>
+    </div>
     <% else %>
         <div class="not-available contentab pull-left">
           <div class="donation-cont-no">
@@ -211,8 +215,6 @@
 
   </div>
 </div>
-</div>
-</div>
 <script type="text/javascript">
     // //图片展示
     $('[data-magnify]').magnify({
@@ -223,22 +225,22 @@
     });
     $('#dtails-cont').myTab()
     $('.circlechart').circlechart()
-    function showHideCode(id) {
-        $("#" + id + " > .de-left-con").toggleClass('read-more')
-        $("#" + id + " > .detail-font-tit > span").css('display', 'none')
-        $("#" + id + " .details-img").css('display', 'block')
+    function showHideCode (id) {
+        $("#" + id + " > .de-left-con").toggleClass('read-more');
+        $("#" + id + " > .detail-font-tit > span").css('display', 'none');
+        $("#" + id + " .details-img").css('display', 'block');
     }
     // //内容信息导航吸顶
-     $(document).ready(function () {
-         var navHeight = $("#navHeight").offset().top;
-         var navFix = $("#navHeight");
-         $(window).scroll(function () {
-             if ($(this).scrollTop() > navHeight) {
-                 navFix.addClass("navFix");
-             }
-             else {
-                 navFix.removeClass("navFix");
-             }
-         })
-     })
+     // $(document).ready(function () {
+     //     var navHeight = $("#navHeight").offset().top;
+     //     var navFix = $("#navHeight");
+     //     $(window).scroll(function () {
+     //         if ($(this).scrollTop() > navHeight) {
+     //             navFix.addClass("navFix");
+     //         }
+     //         else {
+     //             navFix.removeClass("navFix");
+     //         }
+     //     })
+     // })
 </script>
