@@ -308,6 +308,9 @@
 .single-image-upload-wrap {
 
   width: 672px;
+  position: absolute;
+  left:0;
+  top:0;
   &.single {
     .upload-pick {
       position: absolute!important;

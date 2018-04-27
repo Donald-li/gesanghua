@@ -21,7 +21,7 @@ class Platform::School::Apply::ChildrenController < Platform::School::BaseContro
   def create
     @child = ProjectSeasonApplyChild.new(child_params.merge(project: Project.pair_project, season: @apply.season, apply: @apply, school: @apply.school, province: @apply.province, city: @apply.city, district: @apply.district))
     respond_to do |format|
-      if ProjectSeasonApplyChild.allow_apply?(@project_apply.school, apply_child_params[:id_card])
+      if ProjectSeasonApplyChild.allow_apply?(@apply.school, child_params[:id_card])
         if @child.save
           @child.attach_avatar(params[:avatar_id])
           @child.attach_id_image(params[:id_image_id])
@@ -45,7 +45,7 @@ class Platform::School::Apply::ChildrenController < Platform::School::BaseContro
 
   def update
     respond_to do |format|
-      if ProjectSeasonApplyChild.allow_apply?(@project_apply.school, apply_child_params[:id_card], @child)
+      if ProjectSeasonApplyChild.allow_apply?(@apply.school, child_params[:id_card], @child)
         if @child.update(child_params)
           @child.attach_avatar(params[:avatar_id])
           @child.attach_id_image(params[:id_image_id])
