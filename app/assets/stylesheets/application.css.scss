@@ -2725,13 +2725,22 @@ select:disabled {
     margin-top: 6px;
     span {
       flex: 1;
+      width: 10%;
       color: #8d8d8d;
+      float: left;
     }
     p {
       color: #3d3d40;
+      width: 90%;
       flex: 9;
       text-align: left;
+      float: left;
     }
+  }
+  .don-con-co:after{
+    display: block;
+    content: '';
+    clear: both;
   }
 }
 
@@ -2898,7 +2907,7 @@ select:disabled {
     height: 16px;
     margin-right: .4em;
     border-radius: 50%;
-    border: 1px solid $color-border;
+    border: 1px solid $border;
     text-indent: .15em;
     line-height: 1;
   }
@@ -2907,6 +2916,7 @@ select:disabled {
     background-clip: content-box;
     padding: 3px;
     box-sizing: border-box;
+    border: 1px solid $color-border;
   }
 }
 
@@ -3170,6 +3180,7 @@ select:disabled {
     -ms-flex: 0 0 47%;
     flex: 0 0 47%;
     max-width: 47%;
+    width: 47%;
     margin-bottom: 40px;
     padding: 0;
     overflow: hidden;
@@ -4582,7 +4593,7 @@ select:disabled {
   }
 }
 
-//格桑花+入口
+//格桑花+入口 协作平台
 .gsh-plus-nmushow {
   padding: 60px 34px 40px 34px !important;
   text-align: center;
@@ -4591,6 +4602,11 @@ select:disabled {
     a {
       height: 187px;
       flex-wrap: wrap;
+      width: 33.33%;
+      flex: 33.33%;
+      -ms-flex: 0 0 33.33;
+      float: left;
+      display: inline-block;
     }
     div {
       position: relative;
@@ -4617,6 +4633,12 @@ select:disabled {
   background-color: #fff;
   margin: 0 auto;
   text-align: center;
+  .gsh-plus-cont{
+    & > div{
+      width: 33.33%;
+      float: left;
+    }
+  }
 
 }
 
