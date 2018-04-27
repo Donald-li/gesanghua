@@ -14,6 +14,8 @@ class Site::WechatsController < Site::BaseController
 
   #回调
   def callback
+    return_url = session.delete(:return_path).presence || root_url
+
     userinfo = get_userinfo
     logger.info userinfo.inspect
     if userinfo.result['unionid'].blank?
@@ -26,13 +28,13 @@ class Site::WechatsController < Site::BaseController
     user.nickname ||= userinfo.result['nickname']
     if user.disable?
       flash[:alert] = '登录失败'
-      redirect_to root_url and return
+      redirect_to return_url and return
     elsif user.save
       set_current_user(user)
-      redirect_to root_url and return
+      redirect_to return_url and return
     else
       flash[:alert] = '登录失败'
-      redirect_to root_url and return
+      redirect_to return_url and return
     end
   end
 

@@ -1,5 +1,5 @@
 class Account::RegistrationsController < Account::BaseController
-  skip_before_action :logged_in?, only: [:new, :create]
+  skip_before_action :login_require, only: [:new, :create]
 
   layout 'blank'
 
