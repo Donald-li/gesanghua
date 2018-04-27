@@ -22,46 +22,56 @@ class Admin::PairStudentsController < Admin::BaseController
   end
 
   def create
-    @apply_child = @project_apply.children.build(apply_child_params.merge(province: @project_apply.province, city: @project_apply.city, district: @project_apply.district))
-    @apply_child.audits.build
-    # @apply_child.attach_images(params[:image_ids])
-    @apply_child.attach_avatar(params[:avatar_id])
-    @apply_child.attach_id_image(params[:id_image_id])
-    @apply_child.attach_residence(params[:residence_id])
-    @apply_child.attach_poverty(params[:poverty_id])
-    @apply_child.attach_family_image(params[:family_image_id])
     respond_to do |format|
-      if @apply_child.approve_pass
-
-        @apply_child.count_age
-        format.html { redirect_to admin_pair_apply_pair_students_path(@project_apply), notice: '新增成功。' }
+      @apply_child = @project_apply.children.build(apply_child_params.merge(province: @project_apply.province, city: @project_apply.city, district: @project_apply.district))
+      if ProjectSeasonApplyChild.allow_apply?(@project_apply.school, apply_child_params[:id_card])
+        @apply_child.audits.build
+        # @apply_child.attach_images(params[:image_ids])
+        @apply_child.attach_avatar(params[:avatar_id])
+        @apply_child.attach_id_image(params[:id_image_id])
+        @apply_child.attach_residence(params[:residence_id])
+        @apply_child.attach_poverty(params[:poverty_id])
+        @apply_child.attach_family_image(params[:family_image_id])
+        if @apply_child.approve_pass
+          @apply_child.count_age
+          format.html {redirect_to admin_pair_apply_pair_students_path(@project_apply), notice: '新增成功。'}
+        else
+          format.html {render :new}
+        end
       else
-        format.html { render :new }
+        flash[:alert] = '身份证号已占用'
+        format.html {render :new}
       end
     end
   end
 
   def update
-    # @apply_child.attach_images(params[:image_ids])
-    @apply_child.attach_avatar(params[:avatar_id])
-    @apply_child.attach_id_image(params[:id_image_id])
-    @apply_child.attach_residence(params[:residence_id])
-    @apply_child.attach_poverty(params[:poverty_id])
-    @apply_child.attach_family_image(params[:family_image_id])
     respond_to do |format|
-      if @apply_child.update(apply_child_params)
-        @apply_child.count_age
-        format.html { redirect_to admin_pair_apply_pair_students_path(@project_apply), notice: '修改成功。' }
+      if ProjectSeasonApplyChild.allow_apply?(@project_apply.school, apply_child_params[:id_card], @apply_child)
+        # @apply_child.attach_images(params[:image_ids])
+        @apply_child.attach_avatar(params[:avatar_id])
+        @apply_child.attach_id_image(params[:id_image_id])
+        @apply_child.attach_residence(params[:residence_id])
+        @apply_child.attach_poverty(params[:poverty_id])
+        @apply_child.attach_family_image(params[:family_image_id])
+        if @apply_child.update(apply_child_params)
+          @apply_child.count_age
+          format.html {redirect_to admin_pair_apply_pair_students_path(@project_apply), notice: '修改成功。'}
+        else
+          format.html {render :edit}
+        end
       else
-        format.html { render :edit }
+        flash[:alert] = '身份证号已占用'
+        format.html {render :edit}
       end
     end
+
   end
 
   def destroy
     @apply_child.destroy
     respond_to do |format|
-      format.html { redirect_to admin_pair_apply_pair_students_path(@project_apply), notice: '删除成功。' }
+      format.html {redirect_to admin_pair_apply_pair_students_path(@project_apply), notice: '删除成功。'}
     end
   end
 
@@ -77,15 +87,15 @@ class Admin::PairStudentsController < Admin::BaseController
 
         # 审核结果通知
         notice = Notification.create(
-          owner: @apply_child,
-          user_id: @apply_child.apply.applicant_id,
-          title: @apply_child.pass? ? '#审核通过# 结对助学学生审核结果' : '#审核未通过# 结对助学学生审核结果',
-          content: @apply_child.pass? ? "#{@apply_child.name}同学审核通过" : "#{@apply_child.name}同学审核未通过"
+            owner: @apply_child,
+            user_id: @apply_child.apply.applicant_id,
+            title: @apply_child.pass? ? '#审核通过# 结对助学学生审核结果' : '#审核未通过# 结对助学学生审核结果',
+            content: @apply_child.pass? ? "#{@apply_child.name}同学审核通过" : "#{@apply_child.name}同学审核未通过"
         )
 
-        format.html { redirect_to admin_pair_apply_pair_students_path(@project_apply), notice: '审核成功' }
+        format.html {redirect_to admin_pair_apply_pair_students_path(@project_apply), notice: '审核成功'}
       else
-        format.html { render :check }
+        format.html {render :check}
       end
     end
   end
@@ -114,7 +124,7 @@ class Admin::PairStudentsController < Admin::BaseController
         params[:audit][:state] == 'pass' ? @apply_child.approve_pass : @apply_child.approve_reject
         format.js
       else
-        format.html { render :new_audit }
+        format.html {render :new_audit}
       end
     end
   end
@@ -132,26 +142,26 @@ class Admin::PairStudentsController < Admin::BaseController
         params[:audit][:state] == 'pass' ? @apply_child.approve_pass : @apply_child.approve_reject
         format.js
       else
-        format.html { render :edit }
+        format.html {render :edit}
       end
     end
   end
 
   private
-    def set_project_apply
-      @project_apply = ProjectSeasonApply.find(params[:pair_apply_id])
-    end
+  def set_project_apply
+    @project_apply = ProjectSeasonApply.find(params[:pair_apply_id])
+  end
 
-    def apply_child_params
-      params.require(:project_season_apply_child).permit!
-    end
+  def apply_child_params
+    params.require(:project_season_apply_child).permit!
+  end
 
-    def set_apply_child
-      @apply_child = ProjectSeasonApplyChild.find(params[:id])
-    end
+  def set_apply_child
+    @apply_child = ProjectSeasonApplyChild.find(params[:id])
+  end
 
-    def check_auth
-      auth_operate_project(Project.pair_project)
-    end
+  def check_auth
+    auth_operate_project(Project.pair_project)
+  end
 
 end

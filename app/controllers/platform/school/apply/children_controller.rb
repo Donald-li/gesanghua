@@ -21,16 +21,21 @@ class Platform::School::Apply::ChildrenController < Platform::School::BaseContro
   def create
     @child = ProjectSeasonApplyChild.new(child_params.merge(project: Project.pair_project, season: @apply.season, apply: @apply, school: @apply.school, province: @apply.province, city: @apply.city, district: @apply.district))
     respond_to do |format|
-      if @child.save
-        @child.attach_avatar(params[:avatar_id])
-        @child.attach_id_image(params[:id_image_id])
-        @child.attach_residence(params[:residence_id])
-        @child.attach_poverty(params[:poverty_id])
-        @child.attach_family_image(params[:family_image_id])
-        @child.count_age
-        format.html { redirect_to child_list_platform_school_apply_pair_children_path, notice: '新增成功。' }
+      if ProjectSeasonApplyChild.allow_apply?(@project_apply.school, apply_child_params[:id_card])
+        if @child.save
+          @child.attach_avatar(params[:avatar_id])
+          @child.attach_id_image(params[:id_image_id])
+          @child.attach_residence(params[:residence_id])
+          @child.attach_poverty(params[:poverty_id])
+          @child.attach_family_image(params[:family_image_id])
+          @child.count_age
+          format.html {redirect_to child_list_platform_school_apply_pair_children_path, notice: '新增成功。'}
+        else
+          format.html {render :new}
+        end
       else
-        format.html { render :new }
+        flash[:alert] = '身份证号已占用'
+        format.html {render :new}
       end
     end
   end
@@ -40,16 +45,21 @@ class Platform::School::Apply::ChildrenController < Platform::School::BaseContro
 
   def update
     respond_to do |format|
-      if @child.update(child_params)
-        @child.attach_avatar(params[:avatar_id])
-        @child.attach_id_image(params[:id_image_id])
-        @child.attach_residence(params[:residence_id])
-        @child.attach_poverty(params[:poverty_id])
-        @child.attach_family_image(params[:family_image_id])
-        @child.count_age
-        format.html { redirect_to child_list_platform_school_apply_pair_children_path, notice: '修改成功。' }
+      if ProjectSeasonApplyChild.allow_apply?(@project_apply.school, apply_child_params[:id_card], @child)
+        if @child.update(child_params)
+          @child.attach_avatar(params[:avatar_id])
+          @child.attach_id_image(params[:id_image_id])
+          @child.attach_residence(params[:residence_id])
+          @child.attach_poverty(params[:poverty_id])
+          @child.attach_family_image(params[:family_image_id])
+          @child.count_age
+          format.html {redirect_to child_list_platform_school_apply_pair_children_path, notice: '修改成功。'}
+        else
+          format.html {render :edit}
+        end
       else
-        format.html { render :edit }
+        flash[:alert] = '身份证号已占用'
+        format.html {render :edit}
       end
     end
   end

@@ -66,6 +66,12 @@ class ProjectSeasonApplyCampMember < ApplicationRecord
 
   scope :sorted, -> {order(created_at: :desc)}
 
+  def self.allow_apply?(apply_camp, id_card, member=nil)
+    return false if self.where(apply_camp: apply_camp, id_card: id_card).present? && member.nil?
+    return false if self.where.not(id: member.id).where(apply_camp: apply_camp, id_card: id_card).present?
+    return true
+  end
+
   def count_age
     birthday = ChinesePid.new("#{self.id_card}").birthday
     today = Date.today

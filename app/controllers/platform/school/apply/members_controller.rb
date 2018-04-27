@@ -21,11 +21,16 @@ class Platform::School::Apply::MembersController < Platform::School::BaseControl
   def create
     @member = ProjectSeasonApplyCampMember.new(member_params.merge(apply_camp: @apply_camp, apply: @apply_camp.apply, school: @apply_camp.school, camp: @apply_camp.camp))
     respond_to do |format|
+      if ProjectSeasonApplyCampMember.allow_apply?(@apply_camp, member_params[:id_card])
       if @member.save
         @member.attach_image(params[:image_id])
         @member.count_age
         format.html { redirect_to member_list_platform_school_apply_camp_members_path, notice: '新增成功。' }
       else
+        format.html { render :new }
+      end
+      else
+        flash[:alert] = '身份证号已占用'
         format.html { render :new }
       end
     end
@@ -36,12 +41,17 @@ class Platform::School::Apply::MembersController < Platform::School::BaseControl
 
   def update
     respond_to do |format|
+      if ProjectSeasonApplyCampMember.allow_apply?(@apply_camp, member_params[:id_card], @member)
       if @member.update(member_params)
         @member.attach_image(params[:image_id])
         @member.count_age
         format.html { redirect_to member_list_platform_school_apply_camp_members_path, notice: '新增成功。' }
       else
-        format.html { render :new }
+        format.html { render :edit }
+      end
+      else
+        flash[:alert] = '身份证号已占用'
+        format.html { render :edit }
       end
     end
   end
