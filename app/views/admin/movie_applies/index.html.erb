@@ -72,7 +72,7 @@
                   <%= apply.school.try(:name) %>
                 </td>
                 <td>
-                  <%= apply.school.simple_address %>
+                  <%= apply.school.try(:simple_address) %>
                 </td>
                 <td>
                   <%= l apply.created_at %>

@@ -285,16 +285,16 @@ class Donation < ApplicationRecord
   # 得到一个支付宝链接 type: {wap|page}
   def get_alipay_prepay_url(type='wap')
     require 'alipay'
-    notify_url = Settings.app_host + "/payment/alipay_payments/notify"
+    notify_url = "http://" + Settings.app_host + "/payment/alipay_payments/notify"
 
     if type == 'wap'
       method = "alipay.trade.wap.pay"
       product_code = 'QUICK_WAP_WAY'
-      quit_url = Settings.app_host + '/m/'
+      quit_url = 'http://' + Settings.app_host + '/m/'
     else
       method = "alipay.trade.page.pay"
       product_code = 'FAST_INSTANT_TRADE_PAY'
-      quit_url = Settings.app_host
+      quit_url = 'http://' + Settings.app_host
     end
 
     @client = get_alipay_client

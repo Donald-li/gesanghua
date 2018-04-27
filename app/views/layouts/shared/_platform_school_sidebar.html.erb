@@ -5,19 +5,21 @@
     <% project = projects.first %>
     <% url = project.goods? ? platform_school_apply_pairs_path(pid: project) : url_for(controller: "platform/school/apply/#{project.alias.pluralize}", action: :index) %>
     <%= link_to url do %>
-    <li class="<%= display_menu(["pairs","reads","goods_projects","goods","camps","movie_cares","movies"]) %> cur">
+    <li class="<%= display_menu(["pairs", "children","reads","goods_projects","goods","camps", "members","movie_cares","movies"]) %> cur">
       <span class="iconfont icon-ico-team"></span>
       <span>项目管理</span>
-      <div class="<%= display_line(["pairs","reads","goods_projects","goods","camps","movie_cares","movies"]) %>"></div>
+      <div class="<%= display_line(["pairs", "children","reads","goods_projects","goods","camps", "members","movie_cares","movies"]) %>"></div>
     </li>
     <% end %>
     <% end %>
+    <% if current_user.headmaster? %>
     <%= link_to platform_school_teachers_path do %>
-    <li class="<%= display_menu("teachers") %> cur">
-      <span class="iconfont icon-ico-month"></span>
-      <span>教师管理</span>
-      <div class="<%= display_line("teachers") %>"></div>
-    </li>
+      <li class="<%= display_menu("teachers") %> cur">
+        <span class="iconfont icon-ico-month"></span>
+        <span>教师管理</span>
+        <div class="<%= display_line("teachers") %>"></div>
+      </li>
+      <% end %>
     <% end %>
     <%= link_to platform_school_feedbacks_path do %>
     <li class="<%= display_menu("feedbacks") %> cur">
@@ -26,12 +28,14 @@
       <div class="<%= display_line("feedbacks") %>"></div>
     </li>
     <% end %>
-    <%= link_to edit_platform_school_profile_path do %>
-    <li class="<%= display_menu("profiles") %> cur">
-      <span class="iconfont icon-ico-info"></span>
-      <span>学校资料</span>
-      <div class="<%= display_line("profiles") %>"></div>
-    </li>
+    <% if current_user.headmaster? %>
+      <%= link_to edit_platform_school_profile_path do %>
+      <li class="<%= display_menu("profiles") %> cur">
+        <span class="iconfont icon-ico-info"></span>
+        <span>学校资料</span>
+        <div class="<%= display_line("profiles") %>"></div>
+      </li>
+      <% end %>
     <% end %>
   </ul>
   <div  class="border-t" >

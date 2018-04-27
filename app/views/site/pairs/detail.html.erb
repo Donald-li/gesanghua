@@ -1,5 +1,4 @@
 <div id="detail">
-
   <div class="detail-head">
     <div class="child-detail-img clearfix">
       <%= image_tag @child.donate_by_user?(current_user) ? @child.avatar_url(:tiny) : 'project-reducepage-child.png' %>
@@ -134,27 +133,27 @@
     $('.ui-choose').ui_choose({
       // 处理学期选择
       change: function () {
-        let count = 0
+        var count = 0;
         $('.semester').each(function () {
           if($(this).hasClass('selected')) {
-            count++
+            count++ ;
           }
         })
-        $('#donate-btn').data('semester', count)
+        $('#donate-btn').data('semester', count);
       }
     });
 
-    $('.circlechart').circlechart()
-    $('#dtails-cont').myTab()
+    $('.circlechart').circlechart();
+    $('#dtails-cont').myTab();
     function showHideCode(id) {
-        $("#" + id + " > .de-left-con").toggleClass('read-more')
-        $("#" + id + " > .detail-font-tit > span").css('display', 'none')
-        $("#" + id + " .details-img").css('display', 'block')
+        $("#" + id + " > .de-left-con").toggleClass('read-more');
+        $("#" + id + " > .detail-font-tit > span").css('display', 'none');
+        $("#" + id + " .details-img").css('display', 'block');
     }
 
   $('#donate-btn').click(function () {
-    let semesterCount = $(this).data('semester')
-    window.location.href='<%= new_donate_path(child: @child.id) %>&semester_count=' + semesterCount
+    var semesterCount = $(this).data('semester');
+    window.location.href='<%= new_donate_path(child: @child.id) %>&semester_count=' + semesterCount;
   })
 
 </script>
