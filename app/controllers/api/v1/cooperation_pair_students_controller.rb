@@ -54,17 +54,22 @@ class Api::V1::CooperationPairStudentsController < Api::V1::BaseController
       city: apply.city,
       district: apply.district
     )
-    if @student.save
-      @student.count_age
-      @student.attach_avatar(params[:avatar][:id]) if params[:avatar].present?
-      @student.attach_id_image(params[:id_image][0][:id]) if params[:id_image][0].present?
-      @student.attach_residence(params[:residence][0][:id]) if params[:residence][0].present?
-      @student.attach_poverty(params[:poverty][0][:id]) if params[:poverty][0].present?
-      @student.attach_family_image(params[:family_image][0][:id]) if params[:family_image][0].present?
-      api_success(data: {result: true, apply_id: @student.project_season_apply_id}, message: '孩子信息提交成功！')
+    if ProjectSeasonApplyChild.allow_apply?(apply.school, params[:id_card])
+      if @student.save
+        @student.count_age
+        @student.attach_avatar(params[:avatar][:id]) if params[:avatar].present?
+        @student.attach_id_image(params[:id_image][0][:id]) if params[:id_image][0].present?
+        @student.attach_residence(params[:residence][0][:id]) if params[:residence][0].present?
+        @student.attach_poverty(params[:poverty][0][:id]) if params[:poverty][0].present?
+        @student.attach_family_image(params[:family_image][0][:id]) if params[:family_image][0].present?
+        api_success(data: {result: true, apply_id: @student.project_season_apply_id}, message: '孩子信息提交成功！')
+      else
+        api_success(data: {result: false}, message: @student.errors.full_messages.join(','))
+      end
     else
-      api_success(data: {result: false}, message: @student.errors.full_messages.join(','))
+      api_error(message: '身份证号已占用')
     end
+
   end
 
   def edit
@@ -74,6 +79,7 @@ class Api::V1::CooperationPairStudentsController < Api::V1::BaseController
 
   def update
     @student = ProjectSeasonApplyChild.find(params[:student_id])
+    if ProjectSeasonApplyChild.allow_apply?(@student.school, params[:id_card], @student)
     nation = params[:nation].first if params[:nation]
     level = params[:level].first if params[:level]
     grade = params[:grade].first if params[:grade]
@@ -111,6 +117,9 @@ class Api::V1::CooperationPairStudentsController < Api::V1::BaseController
       api_success(data: {result: true, apply_id: @student.project_season_apply_id}, message: '孩子信息提交成功！')
     else
       api_success(data: {result: false}, message: '孩子信息提交失败，请重试！')
+    end
+    else
+      api_error(message: '身份证号已占用')
     end
   end
 

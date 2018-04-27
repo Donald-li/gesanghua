@@ -19,10 +19,15 @@ class Admin::ProjectSeasonApplyCampStudentsController < Admin::BaseController
   def create
     @camp_student = ProjectSeasonApplyCampMember.new(camp_student_params.merge(camp: @apply_camp.camp, apply: @apply_camp.apply, school: @apply_camp.school, apply_camp: @apply_camp, kind: 'student', state: 'submit'))
     respond_to do |format|
+      if ProjectSeasonApplyCampMember.allow_apply?(@apply_camp, camp_student_params[:id_card])
       if @camp_student.save
         @camp_student.attach_image(params[:image_id])
         format.html { redirect_to admin_project_season_apply_camp_students_path(apply_camp_id: @apply_camp.id), notice: '新增成功。' }
       else
+        format.html { render :new }
+      end
+      else
+        flash[:alert] = '身份证号已占用'
         format.html { render :new }
       end
     end
@@ -33,10 +38,15 @@ class Admin::ProjectSeasonApplyCampStudentsController < Admin::BaseController
 
   def update
     respond_to do |format|
+      if ProjectSeasonApplyCampMember.allow_apply?(@apply_camp, camp_student_params[:id_card], @camp_student)
       if @camp_student.update(camp_student_params)
         @camp_student.attach_image(params[:image_id])
         format.html { redirect_to admin_project_season_apply_camp_students_path(apply_camp_id: @apply_camp.id), notice: '修改成功。' }
       else
+        format.html { render :edit }
+      end
+      else
+        flash[:alert] = '身份证号已占用'
         format.html { render :edit }
       end
     end
