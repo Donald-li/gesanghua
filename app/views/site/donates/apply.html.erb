@@ -59,10 +59,10 @@ apply = ProjectSeasonApply.find(params[:apply])
         <input type="hidden" name="donate_way" value="wechat" id="donate_way">
         <input type="hidden" name="apply" value="<%= apply.id %>">
         <ul class="ui-choose pull-left"  id="uc_02">
-          <li class="donate_way" data-way="wechat">
+          <li class="donate_way selected" data-way="alipay">
             <%= image_tag 'iconpic-buy-alipay.svg' %>
           </li>
-          <li class="donate_way" data-way="alipay">
+          <li class="donate_way" data-way="wechat">
             <%= image_tag 'iconpic-buy-weixin.svg' %>
           </li>
           <li class="donate_way" data-way="balance">
@@ -154,7 +154,7 @@ apply = ProjectSeasonApply.find(params[:apply])
       $('#donate-item-describe').text($(this).data('describe'))
       // 切换金额卡片
       $('.ui-choose-tab').hide()
-      let amountTabName = '#amount-tab-' + $(this).data('donate-item-id')
+      var amountTabName = '#amount-tab-' + $(this).data('donate-item-id')
       if ($(amountTabName).length > 0) {
         $(amountTabName).show()
       } else {
