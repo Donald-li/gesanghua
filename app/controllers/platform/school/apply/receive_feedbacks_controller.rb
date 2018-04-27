@@ -42,7 +42,7 @@ class Platform::School::Apply::ReceiveFeedbacksController < Platform::School::Ba
       end
       @receive.save
       if @receive.owner_type == 'ProjectSeasonApply'
-        if @receive.project = Project.read_project
+        if @receive.project == Project.read_project
           redirect_to platform_school_apply_reads_path
         elsif @receive.project.goods?
           redirect_to platform_school_apply_goods_projects_path(pid: @receive.project.id)

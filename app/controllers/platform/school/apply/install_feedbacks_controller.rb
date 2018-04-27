@@ -42,7 +42,7 @@ class Platform::School::Apply::InstallFeedbacksController < Platform::School::Ba
       end
       @install.save
       if @install.owner_type == 'ProjectSeasonApply'
-        if @install.project = Project.read_project
+        if @install.project == Project.read_project
           redirect_to platform_school_apply_reads_path
         elsif @install.project.goods?
           redirect_to platform_school_apply_goods_projects_path(pid: @install.project.id)
