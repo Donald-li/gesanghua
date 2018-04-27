@@ -58,6 +58,11 @@ class Admin::SupplementsController < Admin::BaseController
     @receive = @supplement.receive_feedback
   end
 
+  def supplement_install
+    @supplement = BookshelfSupplement.find(params[:id])
+    @install = @supplement.install_feedback
+  end
+
   private
   def set_project
     @project = ProjectSeasonApply.find(params[:read_project_id])
