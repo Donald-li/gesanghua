@@ -18,10 +18,10 @@
       <p class="pull-left cur">当前共有 <%= @total %> 个孩子需要帮助</p>
       <%= form_tag pairs_path, method: :get do %>
           <div class="pull-right">
-            <div class="input-group">
-              <span class="iconfont icon-ico-search"></span>
+            <div class="input-group clearfix">
+              <span class="iconfont icon-ico-search pull-left"></span>
               <!-- <input type="text" class="form-control" placeholder="搜索孩子"> -->
-              <%= text_field_tag :name, params[:name], name: :name, class: 'from-input', placeholder: '搜索孩子' %>
+              <%= text_field_tag :name, params[:name], name: :name, class: 'from-input pull-left', placeholder: '搜索孩子' %>
             </div>
           </div>
       <% end %>
