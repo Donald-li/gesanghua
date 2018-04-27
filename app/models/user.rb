@@ -132,6 +132,14 @@ class User < ApplicationRecord
     end
   end
 
+  def school
+    self.headmaster? ? School.find_by(user_id: self) : self.teacher.try(:school)
+  end
+
+  def school_name
+    self.school.try(:name)
+  end
+
   def bind_wechat?
     # 有微信账号，且已设置密码。
     self.password_digest.present? && self.openid.present?

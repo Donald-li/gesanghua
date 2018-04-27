@@ -1,4 +1,4 @@
-<%= simple_form_for [:platform, @apply], url: @apply.new_record? ? platform_school_apply_goods_projects_path(pid: @current_project) : platform_school_apply_goods_project_path(@apply, pid: @current_project), html: {'data-parsley-validate': true, class: 'user_form'} do |f| %>
+<%= simple_form_for [:platform, @apply], url: @apply.new_record? ? platform_school_apply_goods_projects_path(pid: @current_project) : platform_school_apply_goods_project_path(@apply, pid: @current_project), html: {'data-parsley-validate': true, class: 'good-project-form'} do |f| %>
 <div class="addchild-list marginbottom">
   <p class="don-title">基本信息</p>
   <div class="addchild-list-cont">

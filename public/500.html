@@ -12,8 +12,12 @@
     text-align: center;
   }
   .error-content > p{
-    font-size: 24px;
+    font-size: 18px;
     margin: 0 0 20px 0;
+  }
+  .error-image{
+    width: 500px;
+    height: auto;
   }
   .back {
     width: 240px;
@@ -35,7 +39,7 @@
 <body class="rails-default-error-page">
   <!-- This file lives in public/500.html -->
   <div class="error-content">
-    <img src="/bg-500-img.png">
+    <img src="/bg-500-img.png" class="error-image"s>
     <p>服务器错误，请稍后访问</p>
     <a class="back" href="/">返回首页</a>
   </div>
