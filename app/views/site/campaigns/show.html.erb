@@ -11,23 +11,23 @@
           <p><%= @campaign.start_time.strftime("%Y年%m月%d日") %></p>
         </div>
         <!--<div class="activity-detail-co">-->
-          <!--<span>地点</span>-->
-          <!--<p>合肥“岭上花园”——官亭林海景区</p>-->
+        <!--<span>地点</span>-->
+        <!--<p>合肥“岭上花园”——官亭林海景区</p>-->
         <!--</div>-->
         <!--<div class="activity-detail-co">-->
-          <!--<span>目标</span>-->
-          <!--<p>为西部的孩子走出高原看世界募集善款</p>-->
+        <!--<span>目标</span>-->
+        <!--<p>为西部的孩子走出高原看世界募集善款</p>-->
         <!--</div>-->
         <!--<div class="activity-detail-co">-->
-          <!--<span>里程</span>-->
-          <!--<p>10公里</p>-->
+        <!--<span>里程</span>-->
+        <!--<p>10公里</p>-->
         <!--</div>-->
         <div class="activity-detail-co">
           <span>费用</span>
           <p><%= @campaign.price %>元/人</p>
         </div>
       </div>
-        <button class="activity-detail-but activity-color-but-1" id="<%= 'submit-campaign' if @campaign.can_apply?(current_user) %>"><%= @campaign.detail_state_name(current_user) %></button>
+      <button class="activity-detail-but activity-color-but-1" id="<%= 'submit-campaign' if @campaign.can_apply?(current_user) %>"><%= @campaign.detail_state_name(current_user) %></button>
     </div>
     <div class="camps-cont-detail">
       <%= @campaign.content.html_safe %>
@@ -41,22 +41,24 @@
       </ol>
     </div>
   </div>
- <div class="recommend">
-   <p>推荐活动</p>
-   <div class="row recommend-cont">
-     <% @recommends.each do |recommend| %>
-     <div class="col-md-4">
-       <div class="recommend-img">
-         <%= image_tag recommend.banner_url(:tiny) %>
-       </div>
-       <%= link_to campaign_path(recommend.id) do %>
-         <p class="gsh-cont-1"><%= recommend.start_time.strftime("%Y年%m月%d日") %></p>
-         <p class="gsh-cont-2"><%= recommend.name %></p>
-       <% end %>
-     </div>
-     <% end %>
-   </div>
- </div>
+  <div class="recommend">
+    <p>推荐活动</p>
+    <div class="row recommend-cont">
+      <% @recommends.each do |recommend| %>
+          <div class="col-md-4">
+            <%= link_to campaign_path(recommend.id) do %>
+                <div class="recommend-img">
+                  <%= image_tag recommend.banner_url(:tiny) %>
+                </div>
+                <div>
+                  <p class="gsh-cont-1"><%= recommend.start_time.strftime("%Y年%m月%d日") %></p>
+                  <p class="gsh-cont-2"><%= recommend.name %></p>
+                </div>
+            <% end %>
+          </div>
+      <% end %>
+    </div>
+  </div>
   <div class="overspread-5 " id="cmapaigns-e">
     <div class="overspread-over"></div>
     <div class="overspread-cont">
@@ -65,33 +67,33 @@
         <div class="pull-right iconfont icon-icondelete cur overspread-but"></div>
       </div>
       <%= simple_form_for @campaign, url: submit_campaign_path, method: :post, html: {data: {'parsley-validate': true, class: 'campaign_form'}} do |f| %>
-      <div class="overspread-co" id="cmapaigns-but">
-        <p>活动费用：<span>￥<%= @campaign.price %>/人</span></p>
-        <div>
-          <p class="goodtext">联系人</p>
-          <input type="text" name="contact_name" required />
-        </div>
-        <div>
-          <p class="goodtext">联系电话</p>
-          <input type="text" name="contact_phone" required />
-        </div>
-        <div>
-        <span class="goodtext">参与人数</span>
-        <div class="modified modified-1 goods-project-input">
-        <span class="iconfont icon-ico-reduce oversmin"></span>
-        <input type="text" name="number" value="1" class="oversinputs" />
-        <span class="iconfont icon-ico-add1 oversadd"></span>
-        </div>
-        </div>
-        <div>
-          <p class="goodtext">备注</p>
-          <textarea placeholder="<%= @campaign.remark %>" name="remark"></textarea>
-        </div>
+          <div class="overspread-co" id="cmapaigns-but">
+            <p>活动费用：<span>￥<%= @campaign.price %>/人</span></p>
+            <div>
+              <p class="goodtext">联系人</p>
+              <input type="text" name="contact_name" required/>
+            </div>
+            <div>
+              <p class="goodtext">联系电话</p>
+              <input type="text" name="contact_phone" required/>
+            </div>
+            <div>
+              <span class="goodtext">参与人数</span>
+              <div class="modified modified-1 goods-project-input">
+                <span class="iconfont icon-ico-reduce oversmin"></span>
+                <input type="text" name="number" value="1" class="oversinputs"/>
+                <span class="iconfont icon-ico-add1 oversadd"></span>
+              </div>
+            </div>
+            <div>
+              <p class="goodtext">备注</p>
+              <textarea placeholder="<%= @campaign.remark %>" name="remark"></textarea>
+            </div>
 
-      </div>
-      <div style="text-align: center;">
-        <button class="overspreadsc-but overspread-but  over-but">支付</button>
-      </div>
+          </div>
+          <div style="text-align: center;">
+            <button class="overspreadsc-but overspread-but  over-but">支付</button>
+          </div>
       <% end %>
 
     </div>

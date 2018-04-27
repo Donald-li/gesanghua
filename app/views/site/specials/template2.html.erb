@@ -50,7 +50,7 @@
     <div class="swiper-wrapper">
       <% @image_news.each do |image_new| %>
       <div class="swiper-slide">
-        <%= link_to article_path(@text_news.first) do %>
+        <%= link_to article_path(image_new) do %>
           <div class="recommend-img">
             <%= image_tag image_new.image.try(:file).try(:url, :medium).to_s %>
           </div>
@@ -87,10 +87,12 @@
     height: 60px;
   }
   .article1-read-swiper .swiper-button-prev {
-    left: 70px
+    left: 20px;
+    top:25%;
   }
   .article1-read-swiper .swiper-button-next {
-    right: 70px
+    right: 20px;
+    top:25%;
   }
   .article1-read-swiper .bul-icon-next {
     position: absolute;
