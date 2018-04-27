@@ -3,7 +3,7 @@
   <div class="portlet-title">
     <div class="caption">
       <i class="fa fa-sliders font-dark"></i>
-      <span class="caption-subject font-dark bold uppercase"><%= link_to @receive.owner.bookshelf.bookshelf_no, admin_read_project_supplements_path(@project) %> > 收货凭证详情</span>
+      <span class="caption-subject font-dark bold uppercase"><%= link_to @install.owner.bookshelf.bookshelf_no, admin_read_project_supplements_path(@project) %> > 反馈详情</span>
     </div>
     <div class="actions">
       <div class="btn-group">
@@ -22,7 +22,7 @@
             图书角编号
           </th>
           <th>
-            <%= @receive.owner.bookshelf.bookshelf_no %>
+            <%= @install.owner.bookshelf.bookshelf_no %>
           </th>
         </tr>
         <tr>
@@ -30,7 +30,7 @@
             班级
           </th>
           <th>
-            <%= @receive.owner.bookshelf.classname %>
+            <%= @install.owner.bookshelf.classname %>
           </th>
         </tr>
         <tr>
@@ -38,7 +38,7 @@
             反馈人
           </th>
           <th>
-            <%= @receive.user.try(:name) %>
+            <%= @install.user.try(:name) %>
           </th>
         </tr>
         <tr>
@@ -46,7 +46,7 @@
             反馈时间
           </th>
           <th>
-            <%= l @receive.created_at %>
+            <%= l @install.created_at %>
           </th>
         </tr>
         <tr>
@@ -54,9 +54,9 @@
             反馈内容
           </th>
           <th>
-            <%= @receive.content.html_safe %><br/>
-            <% @receive.images.each do |img| %>
-              <%= image_tag img.try(:file).try(:url, :tiny).to_s %>
+            <%= @install.content.html_safe %> <br>
+            <% @install.images.each do |image| %>
+              <%= image_tag image.try(:file).try(:url, :tiny) %>
             <% end %>
           </th>
         </tr>

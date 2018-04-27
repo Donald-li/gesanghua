@@ -17,6 +17,7 @@
                   <div>
                     <p class="school-apply-pair-tit"><%= apply.apply_name %></p>
                      <p class="school-apply-pair-f">申请类型：<%= apply.enum_name(:bookshelf_type) %></p>
+                     <p class="school-apply-pair-f">申请人：<%= apply.contact_name %></p>
                     <% if apply.raise_project? %>
                      <p class="school-apply-pair-f">目标筹款/累计：<%= apply.target_amount %>元/<%= apply.present_amount %>元</p>
                     <% end %>

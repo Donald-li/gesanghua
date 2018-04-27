@@ -19,7 +19,7 @@
         <div class="detail-cont-foot border-t ">
           <p>当前筹款<span>￥<%= @apply.present_amount %></span></p>
           <p>参与人数<span><%= @apply.participant_number %>人</span></p>
-          <%= link_to new_donate_path(apply_id: @apply.id, type: 'camp') do %>
+          <%= link_to new_donate_path(apply: @apply.id) do %>
               <button class="overspread-show cur">我要捐助</button>
           <% end %>
         </div>
@@ -111,7 +111,7 @@
                       <span class="pull-left"><%= feedback.created_at.strftime("%Y-%m-%d") %>发布</span>
                     </div>
                     <div class="de-left-con read-more clearfix" id="showdiv">
-                      <p><%= feedback.content.html_safe %></p>
+                      <%= sanitize(feedback.content, tags: %w(img br p), attributes: %w(src)).gsub('<p>', '').gsub('</p>', '<br/>').html_safe %>
                       <div class="clearfix details-img">
                         <% if feedback.images.present? %>
                             <% feedback.images.each do |img| %>
