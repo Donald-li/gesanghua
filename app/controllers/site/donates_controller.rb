@@ -8,6 +8,7 @@ class Site::DonatesController < Site::BaseController
     render 'child' if params[:child].present?
     render 'apply' if params[:apply].present?
     render 'bookshelf' if params[:bookshelf].present?
+    render 'campaign_enlist' if params[:campaign_enlist].present?
   end
 
   def create

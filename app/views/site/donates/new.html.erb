@@ -55,7 +55,7 @@
       <!--散捐-->
       <div class="benefactors-moy clearfix">
         <span class="pull-left">捐款金额</span>
-        <input type="text" placeholder="其他金额" class="pull-left" name="amount" id="donate-amount"/>
+        <input type="text" placeholder="其他金额" class="pull-left" value="100" name="amount" id="donate-amount"/>
         <span >元</span>
         <div class="pull-right">
           <ul class="ui-choose ui-choose-tab" id="amount-tab-default" style="display: none">
@@ -166,7 +166,7 @@
 <script>
     //     模态窗
 //    $('#myModal').on('shown.bs.modal', function (e) {}).modal();
-    $('#myModaldonation').on('shown.bs.modal', function (e) {}).modal();
+    // $('#myModaldonation').on('shown.bs.modal', function (e) {}).modal();
 
     //     右tab切换二级
     $(".donations1 li").on("click", function () {
@@ -206,7 +206,6 @@
 
     // 选择支付方式
     $('.donate_way').click(function () {
-        alert('aaa')
       $('#donate_way').val($(this).data('way'))
         $('.donate_way').removeClass('selected')
         $(this).addClass('selected')
