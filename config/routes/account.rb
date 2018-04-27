@@ -50,7 +50,7 @@ namespace :account do
         post :update_password
       end
     end
-    resource :bind, only: [:show, :edit, :update]
+    resource :bind, only: [:show, :edit, :destroy]
   end
   resources :agents, only: [:index, :new, :edit]
   resources :activities, only: [:index]

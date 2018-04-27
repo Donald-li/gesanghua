@@ -132,6 +132,15 @@ class User < ApplicationRecord
     end
   end
 
+  def login
+    self.phone.presence || self.email
+  end
+
+  def bind_wechat?
+    # 有微信账号，且已设置密码。
+    self.password_digest.present? && self.openid.present?
+  end
+
   def generate_auth_token
     loop do
       self.auth_token = SecureRandom.base64(64)

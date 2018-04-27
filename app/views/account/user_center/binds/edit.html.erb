@@ -12,10 +12,13 @@
         <span>微信</span>
         <span>已绑定</span>
         <div class="unbind cur">
-          <button>解绑</button>
+          <% if current_user.bind_wechat? %>
+          <button><%= link_to '解绑' %></button>
+          <% end %>
         </div>
         <!--<div class="bind  ing cur"><button>绑定</button></div>-->
       </div>
+      <% if false %>
       <div>
         <div>
           <%= image_tag 'uc-user-gsh.png' %>
@@ -27,6 +30,7 @@
           <button>绑定</button>
         </div>
       </div>
+      <% end %>
     </div>
 
   </div>
@@ -54,6 +58,3 @@
 <script>
     $('.overspread-3').overs(".binding");
 </script>
-
-
-

@@ -5,10 +5,16 @@ class Account::SessionsController < Account::BaseController
 
   def new
     @user = User.new
+    callback_url = callback_wechats_url(host: Settings.app_host, port: 80)
+    @wechat_url = $wechat_open_client.qrcode_authorize_url(callback_url, "snsapi_login", "wechat")
   end
 
   def create
     @user = User.new session_params.permit!
+    if session_params[:password].blank?
+      flash[:alert] = '请填写密码'
+      render(action: :new) && return
+    end
     user = User.find_by_login(session_params[:login])
     if user.blank?
       flash[:alert] = '该帐号不存在'
@@ -21,7 +27,7 @@ class Account::SessionsController < Account::BaseController
     end
     if user.authenticate(session_params[:password])
       set_current_user(user)
-      redirect_to root_path`
+      redirect_to root_path
     else
       flash[:alert] = '用户密码错误'
       render(action: :new) && return

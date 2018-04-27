@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180426063426) do
+ActiveRecord::Schema.define(version: 20180424071433) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1159,6 +1159,7 @@ ActiveRecord::Schema.define(version: 20180426063426) do
     t.integer "camp_id", comment: "探索营id"
     t.jsonb "project_ids", default: [], comment: "可管理项目（项目管理员）"
     t.boolean "notice_state", default: false, comment: "用户是否有未查看的公告"
+    t.string "login"
     t.index ["email"], name: "index_users_on_email"
     t.index ["phone"], name: "index_users_on_phone"
   end
