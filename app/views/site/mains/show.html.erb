@@ -41,7 +41,7 @@
                     <div class="clearfix">
                       <span class="iconfont icon-yuan bul-yuan "></span>
                       <span class="bul-time pull-left"><%= record.created_at.strftime("%m月%d日 %H:%M") %></span>
-                      <span class="bul-name pull-left"><%= truncate(record.donor.try(:show_name).to_s + '捐助' + record.show_apply_name.to_s, length: 22) %></span>
+                      <span class="bul-name pull-left"><%= truncate(record.donor.try(:show_name).to_s + '捐助' + record.show_apply_name.to_s, length: 18) %></span>
                       <span class="bul-moy pull-right"><%= record.amount %>元</span>
                     </div>
                   </li>
