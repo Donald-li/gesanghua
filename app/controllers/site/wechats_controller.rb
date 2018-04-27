@@ -18,7 +18,7 @@ class Site::WechatsController < Site::BaseController
     logger.info userinfo.inspect
     if userinfo.result['unionid'].blank?
       flash[:alert] = '登录失败'
-      redirect_to root_url
+      redirect_to root_url and return
     end
     user = User.where(openid: userinfo.result['unionid']).first || User.new
     user.attributes = { openid: userinfo.result["unionid"], gender: userinfo.result["sex"], profile: userinfo.result }
@@ -26,13 +26,13 @@ class Site::WechatsController < Site::BaseController
     user.nickname ||= userinfo.result['nickname']
     if user.disable?
       flash[:alert] = '登录失败'
-      redirect_to root_url
+      redirect_to root_url and return
     elsif user.save
       set_current_user(user)
-      redirect_to root_url
+      redirect_to root_url and return
     else
       flash[:alert] = '登录失败'
-      redirect_to root_url
+      redirect_to root_url and return
     end
   end
 
