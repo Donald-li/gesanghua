@@ -4,15 +4,15 @@
     <%= render '/layouts/shared/platform_school_projects' %>
     <% if @applies.present? %>
       <div class="school-apply-pair-table-co">
-        <div class="school-apply-pair-table">
-          <p>申请项目名称</p>
-          <p>申请状态</p>
-          <p>操作</p>
+        <div class="school-apply-pair-table clearfix">
+          <p class="pull-left">申请项目名称</p>
+          <p class="pull-left">申请状态</p>
+          <p class="pull-left">操作</p>
         </div>
         <% @applies.each do |apply| %>
           <div class="school-apply-pair-tables">
             <p>申请时间：<%= apply.created_at.strftime("%Y-%m-%d %H:%M")%> <span>申请编号：<%= apply.apply_no %></span></p>
-            <div class="school-apply-pair-table-cont">
+            <div class="school-apply-pair-table-cont clearfix">
              <div>
                <p class="school-apply-pair-tit"><%= apply.apply_name %></p>
                <!-- <p class="school-apply-pair-f">申请人：张老师</p> -->
@@ -22,11 +22,11 @@
                <%= apply.enum_name(:pair_state) %>
              </div>
              <div>
-               <button><%= link_to '查看申请详情', platform_school_apply_pair_path(apply) %></button>
+              <%= link_to '查看申请详情', platform_school_apply_pair_path(apply), class:'lookapply' %>
                <% if apply.waiting_upload? %>
-                <button><%= link_to '提交名单', child_list_platform_school_apply_pair_children_path(apply) %></button>
+                <%= link_to '提交名单', child_list_platform_school_apply_pair_children_path(apply), class:'lookbutton' %>
                <% elsif apply.pair_complete? %>
-                <button><%= link_to '查看名单', platform_school_apply_pair_children_path(apply, state: 'pass') %></button>
+               <%= link_to '查看名单', platform_school_apply_pair_children_path(apply, state: 'pass'), class:'lookbutton' %>
                <% end %>
              </div>
             </div>
