@@ -46,7 +46,7 @@
           <div class="col-md-3 cur ">
             <%= link_to detail_camp_path(apply) do %>
                 <div class="project-body-img">
-                  <%= image_tag apply.cover_image.try(:file).try(:url, :tiny).to_s %>
+                  <%= image_tag apply.cover_image_url(:tiny) %>
                 </div>
                 <div class="project-body-cot border-b border-l border-r ">
                   <div class="redundance project-tits"><%= apply.name %></div>

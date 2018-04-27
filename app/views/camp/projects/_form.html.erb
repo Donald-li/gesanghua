@@ -9,7 +9,7 @@
       </div>
     </div>
     <%= f.input :camp_income_source, label: '经费来源：', placeholder: '', required: true %>
-    <%= f.input :target_amount, label: '目标筹款金额：', placeholder: '', required: true %>
+    <%= f.input :target_amount, label: '目标筹款金额：', placeholder: '', input_html:{data: {'parsley-required': true, 'parsley-min': 1}} %>
     <%= f.input :camp_principal, label: '营负责人：', placeholder: '', required: true %>
     <%= f.input :number, label: '计划人数：', type: 'number', min: 0, placeholder: '', required: true %>
     <div class="form-group">

@@ -53,8 +53,8 @@
       <!-- <%= image_tag 'detail-reduce.png' %> -->
     </div>
     <!--报告-->
-    <% if @project_reports.present? %>
     <div class="pull-left detail-body-left border-l contentab">
+      <% if @project_reports.present? %>
       <ul class="detail-body-ul">
           <% @project_reports.each do |report| %>
             <li class="detail-body-cont" id="<%= report.id %>">
@@ -87,6 +87,7 @@
             </li>
           <% end %>
       </ul>
+    </div>
     <% else %>
         <div class="not-available contentab pull-left">
           <div class="donation-cont-no">

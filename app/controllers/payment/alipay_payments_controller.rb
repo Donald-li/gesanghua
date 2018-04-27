@@ -15,13 +15,11 @@ class Payment::AlipayPaymentsController < Payment::BaseController
       succ, message = Donation.alipay_payment_success(params)
     end
 
-    if succ
-      render text: 'success'
-    end
+    render :plain => 'success'
   end
 
   def success
-     render(:text => 'success')
+    render :plain => 'success'
   end
 
   def failure

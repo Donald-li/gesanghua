@@ -10,7 +10,15 @@
         <% end %>
     <% end %>
     <% if current_user.teacher? %>
-        <%= link_to platform_school_apply_pairs_path do %>
+      <% project = current_user.teacher.projects.first %>
+    <% if project == Project.pair_project %>
+      <% url = platform_school_apply_pairs_path %>
+    <% elsif project == Project.read_project %>
+      <% url = platform_school_apply_reads_path %>
+    <% elsif project.goods? %>
+      <% url = platform_school_apply_goods_projects_path(pid: project.id) %>
+    <% end %>
+        <%= link_to url do %>
             <div>
               <%= image_tag 'platform-teacher.png' %>
               <p class="gsh-plus-c-t">我是教师</p>

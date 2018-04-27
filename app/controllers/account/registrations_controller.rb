@@ -5,6 +5,8 @@ class Account::RegistrationsController < Account::BaseController
 
   def new
     @user = User.new
+    callback_url = callback_wechats_url(host: Settings.app_host, port: 80)
+    @wechat_url = $wechat_open_client.qrcode_authorize_url(callback_url, "snsapi_login", "wechat")
   end
 
   def create
