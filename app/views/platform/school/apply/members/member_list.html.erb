@@ -13,8 +13,8 @@
         <%= search_form_for @search, url: member_list_platform_school_apply_camp_members_path(@apply_camp) do |f| %>
 
         <div class="input-group pull-left">
-          <span class="iconfont icon-ico-search"></span>
-          <%= f.text_field :name_cont, class: 'form-input', placeholder: '输入姓名' %>
+          <span class="iconfont icon-ico-search pull-left"></span>
+          <%= f.text_field :name_cont, class: 'form-input pull-left', placeholder: '输入姓名' %>
         </div>
         <button type="submit" class="school-apply-share-share pull-left">搜索</button>
         <% end %>
@@ -35,17 +35,17 @@
             </div>
       </div>
       <div class="paddchild">
-        <div class="school-apply-pair-table">
-          <p>成员信息</p>
-          <p>身份</p>
-          <p>操作</p>
+        <div class="school-apply-pair-table clearfix">
+          <p class="pull-left" >成员信息</p>
+          <p class="pull-left">身份</p>
+          <p class="pull-left">操作</p>
         </div>
       </div>
 
       <div class="posscroll paddchild" id="checked">
         <% @members.each do |member| %>
-            <div class="school-apply-pair-tables">
-              <div class="school-apply-pair-table-cont">
+            <div class="school-apply-pair-tables clearfix">
+              <div class="school-apply-pair-table-cont clearfix">
                 <div class="school-apply-pair-child clearfix">
                   <div class="pretty o-info pull-left">
                     <input type="checkbox" value="<%= member.id %>"/>
@@ -63,20 +63,20 @@
 
                 </div>
 
-                <div class=" border-r border-l">
+                <div class=" border-r border-l" >
                   <%= member.enum_name(:kind) %>
                 </div>
                 <div class=" border-r">
                   <% if member.student? %>
-                  <button class="recommend-but" onclick="setMemberReason(<%= member.id %>, '<%= member.reason %>')">填写推荐理由</button>
+                  <button class="lookapply" onclick="setMemberReason(<%= member.id %>, '<%= member.reason %>')">填写推荐理由</button>
                   <% end %>
                 </div>
                 <div>
-                  <%= link_to edit_platform_school_apply_camp_member_path(@apply_camp, member, kind: member.kind) do %>
-                  <button>修改</button>
+                  <%= link_to edit_platform_school_apply_camp_member_path(@apply_camp, member, kind: member.kind), class:'lookbutton' do  %>
+                  修改
                   <% end %>
                   <%= link_to platform_school_apply_camp_member_path(@apply_camp, member), method: :delete, data: {confirm: '确定要删除成员信息吗？'} do %>
-                  <button>删除</button>
+                  删除
                   <% end %>
                 </div>
               </div>

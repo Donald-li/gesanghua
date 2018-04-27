@@ -1,13 +1,13 @@
 <% content_for :styles do %>
-  <%= stylesheet_link_tag "controllers/orders/index" %>
+    <%= stylesheet_link_tag "controllers/orders/index" %>
 <% end %>
 
 <% if @profile.new_record? %>
-  <% url_path = account_offline_users_path %>
-  <% method_way = "post" %>
+    <% url_path = account_offline_users_path %>
+    <% method_way = "post" %>
 <% else %>
-  <% url_path = platform_school_profile_path %>
-  <% method_way = "put" %>
+    <% url_path = platform_school_profile_path %>
+    <% method_way = "put" %>
 <% end %>
 
 <div class="person-body-right pull-right" id="school-edit">
@@ -17,90 +17,101 @@
     </p>
   </div>
   <%= simple_form_for @profile, url: url_path, method: method_way, html: {'data-parsley-validate': true, id: 'profile_form', method_way: method_way} do |f| %>
-    <%= hidden_field_tag "school[id]", @profile["id"] %>
-    <div class=" marginbottom">
-      <!-- <div class="addchild-list-img">
+      <%= hidden_field_tag "school[id]", @profile["id"] %>
+      <div class=" marginbottom">
+        <!-- <div class="addchild-list-img">
         <%= webuploader_avatar :logo_id, label: '上传Logo', type: 'school_logo', asset: @profile.logo, klass: 'single', id: 'webuploader' %>
       </div> -->
-      <p class="don-titln">学校信息</p>
-      <div class="addchild-list-cont">
-        <div>
-          <span class="goodtext">学校全称</span>
-          <div>
-            <%= f.text_field :name, required: true, placeholder: '', class: "scool-edit-name", disabled: "disabled" %>
-          </div>
-        </div>
-        <div>
-          <span class="goodtext">所在地区</span>
-          <div style="margin-bottom: 20px;" class="form-group city-group">
-            <div >
-              <%= select_tag 'user[province]', options_for_select(ChinaCity.list, @profile.province.presence), prompt: '省份', class: "selector-item storey province city-select" %>
-              <%= select_tag 'user[city]', options_for_select(ChinaCity.list(@profile.province.to_s), @profile.city.presence), prompt: '城市', class: "selector-item storey city city-select" %>
-              <%= select_tag 'user[district]', options_for_select(ChinaCity.list(@profile.city.to_s), @profile.district.presence), prompt: '地区', class: "selector-item storey district city-select" %>
+        <p class="don-titln">学校信息</p>
+        <div class="addchild-list-cont">
+          <div class="clearfix">
+            <span class="goodtext pull-left">学校全称</span>
+            <div class="pull-left">
+              <%= f.text_field :name, required: true, placeholder: '', class: "scool-edit-name", disabled: "disabled" %>
             </div>
           </div>
-        </div>
-        <div>
-          <span class="goodtext">详细地址</span>
-          <%= f.text_field :address, placeholder: '请输入详细地址', class: "goodinput" %>
-        </div>
-        <div>
-          <span class="goodtext">邮政编码</span>
-          <div>
-            <%= f.text_field :postcode, placeholder: '请输入邮政编码', class: "goodinput", data: {type:"number","parsley-type": "integer"} %>
+          <div class="clearfix">
+            <span class="goodtext pull-left">所在地区</span>
+            <div style="margin-bottom: 20px;" class="form-group city-group pull-left">
+              <div>
+                <%= select_tag 'user[province]', options_for_select(ChinaCity.list, @profile.province.presence), prompt: '省份', class: "selector-item storey province city-select" %>
+                <%= select_tag 'user[city]', options_for_select(ChinaCity.list(@profile.province.to_s), @profile.city.presence), prompt: '城市', class: "selector-item storey city city-select" %>
+                <%= select_tag 'user[district]', options_for_select(ChinaCity.list(@profile.city.to_s), @profile.district.presence), prompt: '地区', class: "selector-item storey district city-select" %>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix">
+            <span class="goodtext pull-left">详细地址</span>
+            <%= f.text_field :address, placeholder: '请输入详细地址', class: "goodinput pull-left", style: "-ms-flex: 0 0 70%;
+        flex: 0 0 70%;
+        max-width: 70%;
+        width:70%;" %>
+          </div>
+          <div class="clearfix">
+            <span class="goodtext pull-left">邮政编码</span>
+            <div class="pull-left">
+              <%= f.text_field :postcode, placeholder: '请输入邮政编码', class: "goodinput pull-left", data: {type: "number", "parsley-type": "integer"} %>
+            </div>
+          </div>
+          <div class="clearfix">
+            <span class="goodtext pull-left">学生人数</span>
+            <div class="pull-left">
+              <%= f.text_field :number, placeholder: '请输入学生人数', class: "goodinput ", data: {type: "number", "parsley-type": "integer"} %>
+              <span class="income-moy">人</span>
+            </div>
+          </div>
+          <div class="clearfix">
+            <span class="goodtext pull-left">教师人数</span>
+            <div class="pull-left">
+              <%= f.text_field :teacher_count, placeholder: '请输入教师人数', class: "goodinput", data: {type: "number", "parsley-type": "integer"} %>
+              <span class="income-moy">人</span>
+            </div>
+          </div>
+          <div class="clearfix">
+            <span class="goodtext pull-left">后勤人数</span>
+            <div class="pull-left">
+              <%= f.text_field :logistic_count, placeholder: '请输入后勤人数', class: "goodinput", data: {type: "number", "parsley-type": "integer"} %>
+              <span class="income-moy">人</span>
+            </div>
+          </div>
+          <div style="height: 180px;width: 777px;" class="clearfix">
+            <span class="goodtext pull-left">学校简介</span>
+            <%= f.text_area :describe, placeholder: '请输入学校简介', style: "padding: 5px 13px;height:172px; -ms-flex: 0 0 70%;
+        flex: 0 0 70%;
+        max-width: 70%;
+        width:70%;
+        border: 1px solid #e6e6e6;
+        resize: none;
+        border-radius: 3px;
+        font-size: 14px;
+        color: #2a2a2c;", class: 'pull-left' %>
           </div>
         </div>
-        <div>
-          <span class="goodtext">学生人数</span>
-          <div>
-            <%= f.text_field :number, placeholder: '请输入学生人数', class: "goodinput", data: {type:"number","parsley-type": "integer"} %>
-            <span class="income-moy">人</span>
-          </div>
-        </div>
-        <div>
-          <span class="goodtext">教师人数</span>
-          <div>
-            <%= f.text_field :teacher_count, placeholder: '请输入教师人数', class: "goodinput", data: {type:"number","parsley-type": "integer"} %>
-            <span class="income-moy">人</span>
-          </div>
-        </div>
-        <div>
-          <span class="goodtext">后勤人数</span>
-          <div>
-            <%= f.text_field :logistic_count, placeholder: '请输入后勤人数', class: "goodinput", data: {type:"number","parsley-type": "integer"} %>
-            <span class="income-moy">人</span>
-          </div>
-        </div>
-        <div style="height: 180px;width: 777px;">
-          <span class="goodtext">学校简介</span>
-          <%= f.text_area :describe, placeholder: '请输入学校简介', style: "padding: 5px 13px" %>
+        <div class="childern-submint">
+          <%= f.button :submit, '保存', class: ' save-btn' %>
+          <%= link_to "取消", platform_school_teachers_path, class: "btn cancel-btn" %>
         </div>
       </div>
-      <div class="childern-submint">
-        <%= f.button :submit, '保存', class: 'btn save-btn' %>
-        <%= link_to "取消", platform_school_teachers_path, class: "btn cancel-btn" %>
-      </div>
-    </div>
   <% end %>
 
 
 </div>
 <script>
     $('.province').select2({
-        width:"200px",
+        width: "100px",
         minimumResultsForSearch: -1
     })
     $('.city').select2({
-        width:"200px",
+        width: "110px",
         minimumResultsForSearch: -1
     })
     $('.district').select2({
-        width:"264px",
+        width: "164px",
         minimumResultsForSearch: -1
     })
-  $(function () {
-      initAvatarWebuploader($('#webuploader'));
-  })
+    $(function () {
+        initAvatarWebuploader($('#webuploader'));
+    })
 
 
 </script>
