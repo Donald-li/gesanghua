@@ -1,6 +1,6 @@
 <div class="bul-swiper">
   <div class="swiper-container">
-    <div class="swiper-wrapper">
+    <div class="swiper-wrapper clearfix">
       <% @adverts.each do |advert| %>
           <div class="swiper-slide">
             <%= link_to advert.url do %>
@@ -18,7 +18,6 @@
     </div>
   </div>
 </div>
-
 <div class="bul-ai">
   <div class="bul-tit">
     <p>爱,是收获和喜悦</p>
@@ -187,5 +186,5 @@
             prevEl: '.swiper-button-prev'
         }
     });
-
+    $('.carousel').carousel()
 </script>

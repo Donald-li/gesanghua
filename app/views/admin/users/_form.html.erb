@@ -15,7 +15,7 @@
     <%= f.input :nickname, label: '昵称：', autofocus: true, placeholder: '请填写用户昵称', required: true %>
     <%= f.input :name, label: '真实姓名：', placeholder: '请填写真实姓名', required: true %>
     <%= f.input :salutation, label: '如何称呼：', placeholder: '孩子们如何称呼我' %>
-    <%= f.input :gender, as: :radio_buttons, wrapper: :inline_inputs, collection: User.options_for_select(:genders), label: '性别：'%>
+    <%= f.input :gender, as: :radio_buttons, wrapper: :inline_inputs, collection: User.options_for_some_select(:genders, ['male', 'female']), label: '性别：'%>
     <h4>收货地址</h4>
     <%= f.input :consignee, label: '收件人：', placeholder: '请填写正确的收件人' %>
     <div style="margin-bottom: 20px;" class="form-group">
@@ -36,7 +36,6 @@
     </div>
     <%= f.input :address, label: '详细地址：', placeholder: '请填写正确的收件地址' %>
     <h4>账号信息</h4>
-    <%= f.input :login, label: '登录名：', placeholder: '设置用户登录名', input_html: { data: {'parsley-required': true}} %>
     <%= f.input :password, label: '设置密码：', hint: '设置登录密码', placeholder: '如果不修改密码，请留空', input_html: {id: 'password'} %>
     <%= f.input :phone, label: '绑定手机：', placeholder: '填写正确的手机号码', input_html: { data: {'parsley-required': true}} %>
     <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: User.options_for_select(:states), label: '账号状态：'%>

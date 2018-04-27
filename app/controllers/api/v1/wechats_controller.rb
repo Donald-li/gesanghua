@@ -15,8 +15,8 @@ class Api::V1::WechatsController < Api::V1::BaseController
   #回调
   def callback
     userinfo = get_userinfo
-    user = User.where(openid: userinfo.result['openid']).first || User.new
-    user.attributes = { openid: userinfo.result["openid"], gender: userinfo.result["sex"], name: userinfo.result["nickname"], login: userinfo.result["nickname"], nickname: userinfo.result["nickname"], profile: userinfo.result }
+    user = User.where(openid: userinfo.result['unionid']).first || User.new
+    user.attributes = { openid: userinfo.result["unionid"], gender: userinfo.result["sex"], name: userinfo.result["nickname"], login: userinfo.result["nickname"], nickname: userinfo.result["nickname"], profile: userinfo.result }
     logger.info(user.attributes.inspect)
     user.valid?
     logger.info(user.errors.full_messages)

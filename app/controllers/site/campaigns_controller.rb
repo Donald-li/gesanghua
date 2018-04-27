@@ -1,4 +1,5 @@
 class Site::CampaignsController < Site::BaseController
+  before_action :login?, only: [:submit]
 
   def index
     @search = Campaign.show.sorted.ransack(params[:q])

@@ -5,12 +5,14 @@ class Account::RegistrationsController < Account::BaseController
 
   def new
     @user = User.new
+    callback_url = callback_wechats_url(host: Settings.app_host, port: 80)
+    @wechat_url = $wechat_open_client.qrcode_authorize_url(callback_url, "snsapi_login", "wechat")
   end
 
   def create
     @user = User.new(user_params)
     respond_to do |format|
-      if User.find_by(login: user_params[:login])
+      if User.find_by_login(user_params[:login])
         format.html {redirect_to new_account_registration_url(kind: params[:kind]), alert: params[:kind] == 'by_phone'? '手机号已注册。' : '邮箱已注册。'}
       else
         if params[:check] != 'on'

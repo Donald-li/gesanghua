@@ -40,10 +40,10 @@ RSpec.describe Project, type: :model do
     child = create(:project_season_apply_child, project: project, season: season, apply: apply, school: school)
   end
 
-  it '测试一对一项目基本操作' do
+  it '测试结对助学项目基本操作' do
     expect(project.seasons.first.name).to eq '2017'
     expect(project.valid?).to be true
-    expect(project.name).to eq '一对一'
+    expect(project.name).to eq '结对助学'
   end
 
   it '测试新增自定义项目' do

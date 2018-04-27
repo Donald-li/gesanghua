@@ -53,6 +53,7 @@
       <!-- <%= image_tag 'detail-reduce.png' %> -->
     </div>
     <!--报告-->
+    <% if @project_reports.present? %>
     <div class="pull-left detail-body-left border-l contentab">
       <ul class="detail-body-ul">
           <% @project_reports.each do |report| %>
@@ -86,7 +87,19 @@
             </li>
           <% end %>
       </ul>
-
+    <% else %>
+        <div class="not-available contentab pull-left">
+          <div class="donation-cont-no">
+            <div class="donation-co-no-c">
+              <div class="donation-co-no-c-img">
+                <%= image_tag 'not-available.png' %>
+              </div>
+              <p>暂无项目报告</p>
+            </div>
+          </div>
+        </div>
+    <% end %>
+    <% if @visit_reports.present? %>
       <ul class="detail-body-ul">
           <% @visit_reports.each do |report| %>
             <li class="detail-body-cont" id="<%= report.id %>">
@@ -119,7 +132,19 @@
             </li>
           <% end %>
       </ul>
-
+    <% else %>
+        <div class="not-available contentab pull-left">
+          <div class="donation-cont-no">
+            <div class="donation-co-no-c">
+              <div class="donation-co-no-c-img">
+                <%= image_tag 'not-available.png' %>
+              </div>
+              <p>暂无回访报告</p>
+            </div>
+          </div>
+        </div>
+    <% end %>
+    <% if @grant_reports.present? %>
       <ul class="detail-body-ul">
           <% @grant_reports.each do |report| %>
             <li class="detail-body-cont" id="<%= report.id %>">
@@ -152,24 +177,37 @@
             </li>
           <% end %>
       </ul>
-    </div>
-
-    <div class="pull-right detail-body-right">
-      <p class="detail-b-r-t border-b"><span>捐助记录</span></p>
-      <% if @donate_records.present? %>
-        <ul class="detail-b-r-name" id="donate-records">
-          <%= render '/site/donate_records/list', owner: @project, records: @donate_records %>
-        </ul>
-      <% else %>
-        <div class="not-available ">
+    <% else %>
+        <div class="not-available contentab pull-left">
           <div class="donation-cont-no">
             <div class="donation-co-no-c">
-              <p>暂无捐助记录</p>
+              <div class="donation-co-no-c-img">
+                <%= image_tag 'not-available.png' %>
+              </div>
+              <p>暂无发放报告</p>
             </div>
           </div>
         </div>
+    <% end %>
+    <div class="pull-right detail-body-right">
+      <p class="detail-b-r-t border-b"><span>捐助记录</span></p>
+      <% if @donate_records.present? %>
+          <ul class="detail-b-r-name" id="donate-records">
+            <%= render '/site/donate_records/list', owner: @project, records: @donate_records %>
+          </ul>
+      <% else %>
+          <div class="not-available ">
+            <div class="donation-cont-no">
+              <div class="donation-co-no-c">
+                <p>暂无捐助记录</p>
+              </div>
+            </div>
+          </div>
       <% end %>
     </div>
+    </div>
+
+
   </div>
 </div>
 </div>
