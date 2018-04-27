@@ -14,10 +14,12 @@ class Site::CampaignsController < Site::BaseController
   def submit
     @campaign = Campaign.find(params[:id])
     keys = @campaign.form.map{|i| i['key']} # 动态字段
+    total = @campaign.price.to_f * params[:number].to_i
     @enlist = @campaign.campaign_enlists.new(params.permit(:contact_name, :contact_phone, :number, :remark, form: keys))
     if @campaign.price
       #TODO: 交报名费
       # @enlist.state = :paid
+      @enlist.total = total
     else
       @enlist.state = :paid
     end
@@ -26,7 +28,7 @@ class Site::CampaignsController < Site::BaseController
       if @enlist.paid?
         redirect_to campaign_path, notice: '报名成功'
       else
-        redirect_to new_donate_path
+        redirect_to new_donate_path(campaign_enlist: @enlist.id)
       end
     else
       redirect_to campaign_path, alert: '报名失败'
