@@ -3,7 +3,7 @@
   <div class="form-body form-horizontal">
     <%= f.input :name, label: '姓名：', placeholder: '', required: true %>
     <%= f.input :id_card, label: '身份证号：', placeholder: '', required: true %>
-    <%= f.input :gender, as: :select, collection: ProjectSeasonApplyCampMember.options_for_enum_select(:genders), include_blank: false, label: '性别：', placeholder: '' %>
+    <%= f.input :gender, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApplyCampMember.options_for_some_select(:genders, ['male', 'female']), include_blank: false, label: '性别：', placeholder: '' %>
     <%= f.input :nation, as: :select, collection: ProjectSeasonApplyCampMember.options_for_enum_select(:nations), include_blank: false, label: '民族：', placeholder: '' %>
     <%= f.input :reason, label: '推荐理由：', placeholder: '', required: true %>
     <%= f.input :description, label: '自我介绍：', placeholder: '', required: true %>

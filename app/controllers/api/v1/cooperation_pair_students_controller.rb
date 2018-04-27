@@ -54,7 +54,7 @@ class Api::V1::CooperationPairStudentsController < Api::V1::BaseController
       city: apply.city,
       district: apply.district
     )
-    if ProjectSeasonApplyChild.allow_apply?(apply.season, apply.school, params[:id_card])
+    if ProjectSeasonApplyChild.allow_apply?(apply.school, params[:id_card])
       if @student.save
         @student.count_age
         @student.attach_avatar(params[:avatar][:id]) if params[:avatar].present?
@@ -79,7 +79,7 @@ class Api::V1::CooperationPairStudentsController < Api::V1::BaseController
 
   def update
     @student = ProjectSeasonApplyChild.find(params[:student_id])
-    if ProjectSeasonApplyChild.allow_apply?(@student.season, @student.school, params[:id_card])
+    if ProjectSeasonApplyChild.allow_apply?(@student.school, params[:id_card], @student)
     nation = params[:nation].first if params[:nation]
     level = params[:level].first if params[:level]
     grade = params[:grade].first if params[:grade]

@@ -20,11 +20,15 @@ class Api::V1::Cooperation::CampMembersController < Api::V1::BaseController
 
   def create
     @member = ProjectSeasonApplyCampMember.new(member_params.except(:image).merge(camp: @apply_camp.camp, school: @apply_camp.school, apply: @apply_camp.apply, state: 'draft'))
+    if ProjectSeasonApplyCampMember.allow_apply?(@apply_camp, member_params[:id_card])
     if @member.save
       @member.attach_image(params[:image][:id]) if params[:image][:id].present?
       api_success(data: {result: true, camp_id: @apply_camp.id}, message: '提交成功' )
     else
       api_success(data: {result: false}, message: '提交失败，请重试' )
+    end
+    else
+      api_error(message: '身份证号已占用')
     end
   end
 
@@ -33,11 +37,15 @@ class Api::V1::Cooperation::CampMembersController < Api::V1::BaseController
   end
 
   def update
+    if ProjectSeasonApplyCampMember.allow_apply?(@apply_camp, member_params[:id_card], @member)
     if @member.update(member_params)
       @member.attach_image(params[:image][:id]) if params[:image][:id].present?
       api_success(data: {result: true, camp_id: @apply_camp.id}, message: '提交成功' )
     else
       api_success(data: {result: false}, message: '提交失败，请重试' )
+    end
+    else
+      api_error(message: '身份证号已占用')
     end
   end
 
