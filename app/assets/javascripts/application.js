@@ -41,6 +41,9 @@
 //= require 'plugin/parsley.min.zextra.js'
 //= require 'plugin/parsley.min.zh_cn.js'
 //= require 'plugin/jquery.placeholder.min.js'
+//= require 'plugin/full-screen-slide.min.js'
+//= require 'plugin/changeImg.js'
+
 
 
 $(function () {

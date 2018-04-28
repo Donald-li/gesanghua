@@ -1,0 +1,84 @@
+/*! full-screen-slide.min.css v1.0.0 | tianjia | https://github.com/tianjiax/Personal-plug-in-library/tree/master/Full-screen-slide */
+body {
+    overflow-x: hidden
+}
+
+.w-auto-Center {
+    margin: 0 auto
+}
+
+.slide-box {
+    width: 1140px;
+    height: 420px;
+    position: relative;
+    margin: 0 auto
+}
+
+.slide-box .slide-out {
+    width: 500%
+}
+
+.slide-box .slide-out .slide-li {
+    float: left;
+    overflow: hidden;
+    text-align: center;
+}
+
+
+
+.slide-box .slide-out .slide-li .slide-li-content {
+    width: 100%;
+    margin: 0
+}
+
+.slide-page .slide-button-prev, .slide-page .slide-button-next {
+    position: absolute;
+    top: 50%;
+    margin-top: -30px;
+    cursor: pointer
+}
+
+
+.slide-page .slide-button-prev {
+    left: 30px;
+}
+
+.slide-page .slide-button-next {
+    right: 71px;
+}
+
+.slide-page .slide-button-prev span, .slide-page .slide-button-next span {
+    display: block;
+    width: 40px;
+    height: 60px;
+    opacity: .7;
+    background: #000;
+}
+
+
+.slide-page .slide-button-prev:hover span, .slide-page .slide-button-next:hover span {
+    opacity: 1
+}
+
+.slide-pagination {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center
+}
+
+.slide-pagination .slide-pagination-bullet {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #fff;
+    margin: 0 5px;
+    cursor: pointer;
+    opacity: .4
+}
+
+.slide-pagination .slide-pagination-bullet.slide-pagination-bullet-active {
+    background: #8b54e3;
+    opacity: 1
+}
