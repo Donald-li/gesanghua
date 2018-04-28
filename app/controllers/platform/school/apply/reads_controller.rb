@@ -29,7 +29,7 @@ class Platform::School::Apply::ReadsController < Platform::School::BaseControlle
     season = ProjectSeason.find(apply_params[:project_season_id])
     if ProjectSeasonApply.allow_apply?(@school, season, Project.read_project)
       # @apply.form = params[:dynamic_form]
-      @apply = ProjectSeasonApply.new(apply_params.except(:class_ids).merge(project: Project.read_project, school: @school, bookshelf_type: 'whole', contact_name: apply_params[:consignee], contact_phone: apply_params[:consignee_phone]))
+      @apply = ProjectSeasonApply.new(apply_params.except(:class_ids).merge(project: Project.read_project, school: @school, bookshelf_type: 'whole'))
       if @apply.save
         ProjectSeasonApplyBookshelf.where(id: apply_params[:class_ids]).update(apply: @apply, season: season)
         @apply.attach_images(params[:image_ids])
@@ -45,7 +45,7 @@ class Platform::School::Apply::ReadsController < Platform::School::BaseControlle
 
   def update
     if @apply.update(apply_params.except(:class_ids)) && @apply.submit!
-      ProjectSeasonApplyBookshelf.where(id: apply_params[:class_ids]).update(apply: @apply, season: @apply.season, audit_state: 'submit', contact_name: apply_params[:consignee], contact_phone: apply_params[:consignee_phone])
+      ProjectSeasonApplyBookshelf.where(id: apply_params[:class_ids]).update(apply: @apply, season: @apply.season, audit_state: 'submit')
       @apply.attach_images(params[:image_ids])
       redirect_to platform_school_apply_reads_path, notice: '提交成功'
     else
@@ -58,7 +58,7 @@ class Platform::School::Apply::ReadsController < Platform::School::BaseControlle
     @apply.update(apply_params.except(:supplement_ids))
     if @apply.save && @apply.submit!
       @apply.attach_images(params[:image_ids])
-      @apply.supplement_ids = apply_params[:supplement_ids]
+      BookshelfSupplement.where(id: apply_params[:supplement_ids]).update(apply: @apply, audit_state: 'submit')
       redirect_to platform_school_apply_reads_path, notice: '提交成功'
     else
       flash[:alert] = "修改失败，请重试"
@@ -69,8 +69,8 @@ class Platform::School::Apply::ReadsController < Platform::School::BaseControlle
   def create_supplement
     season = ProjectSeason.find(apply_params[:project_season_id])
     if ProjectSeasonApply.allow_apply?(@school, season, Project.read_project)
-      if apply_params[:supplement_ids].length == 0
-        @apply = ProjectSeasonApply.new(apply_params.except(:supplement_ids).merge(project: Project.read_project, bookshelf_type: 'supplement', school: @school, contact_name: apply_params[:consignee], contact_phone: apply_params[:consignee_phone]))
+      if apply_params[:supplement_ids].length > 0
+        @apply = ProjectSeasonApply.new(apply_params.except(:supplement_ids).merge(project: Project.read_project, bookshelf_type: 'supplement', school: @school))
         if @apply.save
           @apply.attach_images(params[:image_ids])
           @apply.supplement_ids = apply_params[:supplement_ids]

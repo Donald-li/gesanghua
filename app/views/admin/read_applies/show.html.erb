@@ -43,6 +43,14 @@
         </tr>
         <tr>
           <td>
+            收货地址
+          </td>
+          <td colspan="5">
+            <%= @project_apply.receive_address %>
+          </td>
+        </tr>
+        <tr>
+          <td>
             联系方式
           </td>
           <td colspan="5">
@@ -50,6 +58,14 @@
           </td>
         </tr>
         <%= render '/admin/shared/dynamic_form_tr', apply: @project_apply %>
+        <tr>
+          <td>
+            申请理由
+          </td>
+          <td colspan="5">
+            <%= @project_apply.describe %>
+          </td>
+        </tr>
         <tr>
           <td>
             申请图片

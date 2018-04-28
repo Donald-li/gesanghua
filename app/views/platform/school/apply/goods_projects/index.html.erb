@@ -18,7 +18,7 @@
                <p class="school-apply-pair-f">申请人：<%= apply.contact_name %></p>
              </div>
              <div class="border-l border-r">
-               <%= apply.apply_state %>
+               <p class="read-more" data-toggle="tooltip" data-placement="top" title="<%= apply.audits.last.try(:comment) if apply.reject? %>" style="padding: 0 14px;"><%= apply.apply_state %></p>
              </div>
              <div class="pull-left">
                <%= link_to '查看申请详情', platform_school_apply_goods_project_path(apply, pid: @current_project), class:'lookapply' %>
@@ -53,3 +53,7 @@
     <%= paginate @applies, theme: :tiny %>
   </div>
 </div>
+
+<script type="text/javascript" charset="utf-8">
+    $('[data-toggle="tooltip"]').tooltip()
+</script>

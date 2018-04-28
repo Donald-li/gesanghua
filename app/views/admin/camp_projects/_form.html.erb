@@ -44,7 +44,7 @@
                       <%= b.input :name, label: false, label: false, input_html:{data: {'parsley-required': true}} %>
                     </td>
                     <td>
-                      <%= b.input :unit, label: false, input_html:{data: {'parsley-required': true}} %>
+                      <%= b.input :unit, label: false, input_html:{data: {'parsley-required': true, 'parsley-min': 0.01}} %>
                     </td>
                     <td>
                       <%= b.input :number, type: 'number', label: false, input_html:{data: {'parsley-required': true, 'parsley-min': 1}, placeholder: '请填入数量'}  %>
