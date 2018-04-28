@@ -10,9 +10,9 @@
         <div class="login-box" style="height: 320px;">
           <div class="login-header">重设密码</div>
           <div class="login-body">
-            <%= simple_form_for @organization, as: :organization, url: organization_session_path, wrapper: :admin_form, method: :patch, html: {class: 'login-school'} do |f| %>
-                <%= f.input :password, label: '新密码', placeholder: '输入密码' %>
-                <%= f.input :password_confirmation, label: '确认密码', placeholder: '确认密码' %>
+            <%= simple_form_for @organization, as: :organization, url: organization_session_path, wrapper: :admin_form, method: :patch, html: {'data-parsley-validate': true, class: 'login-school'} do |f| %>
+                <%= f.input :password, label: '新密码', placeholder: '输入密码', data: {'parsley-required': true} %>
+                <%= f.input :password_confirmation, label: '确认密码', placeholder: '确认密码' data: {'parsley-required': true}%>
                 <div class="login-btn-wrap">
                   <%= f.button :submit, '确认修改', class: :'btn btn-danger btn-lg' %>
                 </div>
@@ -45,11 +45,3 @@
         $('#first-screen').css('height', windowHeight + 'px');
     }
 </script>
-
-
-
-
-
-
-
-

@@ -79,7 +79,7 @@
           </div>
           <div class="clearfix">
             <span class="goodtext pull-left">联系电话</span>
-            <input class="goodinput pull-left" type="text" name="project_season_apply[consignee_phone]" value="<%= @apply.consignee_phone %>"/>
+            <input class="goodinput pull-left" type="text" name="project_season_apply[consignee_phone]" value="<%= @apply.consignee_phone %>" data-parsley-phone/>
           </div>
           <div class="clearfix">
             <span class="goodtext pull-left">所在地区</span>
@@ -121,12 +121,12 @@
         <div class="overspread-const">
           <div class=" overclass">
             <p class="goodtext">损耗数量</p>
-            <input type="text" id="loss"/>
+            <input type="number" id="loss" min="0"/>
             <span>本</span>
           </div>
           <div class=" overclass">
             <p class="goodtext">补充数量</p>
-            <input type="text" id="supply"/>
+            <input type="number" id="supply" min="0"/>
             <span>本</span>
           </div>
         </div>
@@ -152,12 +152,12 @@
         <div class="overspread-const">
           <div class=" overclass">
             <p class="goodtext">损耗数量</p>
-            <input type="text" id="loss"/>
+            <input type="number" id="loss" min="0"/>
             <span>本</span>
           </div>
           <div class=" overclass">
             <p class="goodtext">补充数量</p>
-            <input type="text" id="supply"/>
+            <input type="number" id="supply" min="0"/>
             <span>本</span>
           </div>
         </div>
