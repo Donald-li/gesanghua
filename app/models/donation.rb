@@ -41,6 +41,9 @@ class Donation < ApplicationRecord
   before_create :set_assoc_attrs, :set_record_title
   before_create :generate_order_no
 
+  enum pay_way: { wechat: 1, alipay: 2}
+  # default_value_for :pay_way, 1
+
   enum pay_state: { unpaid: 1, paid: 2}
   default_value_for :pay_state, 1
 
