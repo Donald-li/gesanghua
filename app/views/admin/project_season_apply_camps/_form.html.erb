@@ -9,15 +9,15 @@
     <%= f.input :describe, label: '申请要求：', placeholder: '', required: true %>
     <%= f.input :contact_name, label: '联系老师：', placeholder: '', required: true %>
     <%= f.input :contact_phone, label: '联系方式：', placeholder: '', required: true %>
-    <%= f.input :time_limit, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApplyCamp.options_for_some_select(:time_limits, ['restrict', 'unrestrict']), label: '设置截止时间：', required: 'required', input_html: { class: 'limit_state', onclick: 'toggleState();'} %>
-    <div class="limit_state">
-      <div class="form-group">
-        <label class="col-md-2 control-label">报名截止时间：</label>
-        <div class="col-sm-9">
-          <%= f.text_field :end_time, class: 'datetime-picker', placeholder: '报名截止时间', required: true %>
-        </div>
-      </div>
-    </div>
+    <%#= f.input :time_limit, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApplyCamp.options_for_some_select(:time_limits, ['restrict', 'unrestrict']), label: '设置截止时间：', required: 'required', input_html: { class: 'limit_state', onclick: 'toggleState();'} %>
+    <!--<div class="limit_state">-->
+      <!--<div class="form-group">-->
+        <!--<label class="col-md-2 control-label">报名截止时间：</label>-->
+        <!--<div class="col-sm-9">-->
+          <!--<%#= f.text_field :end_time, class: 'datetime-picker', placeholder: '报名截止时间', required: true %>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
   </div>
   <div class="form-actions">
     <div class="row">
