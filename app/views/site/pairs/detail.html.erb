@@ -14,7 +14,7 @@
           <p>资助学费<span>￥<%= @child.get_tuition %>/年</span></p>
           <div class="child-checked">
             <span>选择学期</span>
-          <ul class="ui-choose" multiple="multiple" id="uc_03">
+          <ul class="ui-choose  choose-type-right" multiple="multiple" id="uc_03">
             <% @gsh_child_grants.each do |grant| %>
               <li class="semester"><%= grant.title %></li>
             <% end %>
@@ -130,17 +130,38 @@
             }
         })
     })
-    $('.ui-choose').ui_choose({
-      // 处理学期选择
-      change: function () {
-        var count = 0;
-        $('.semester').each(function () {
-          if($(this).hasClass('selected')) {
-            count++ ;
-          }
-        })
-        $('#donate-btn').data('semester', count);
+    // $('.ui-choose').ui_choose({
+    //   // 处理学期选择
+    //   change: function () {
+    //     var count = 0;
+    //     $('.semester').each(function () {
+    //       if($(this).hasClass('selected')) {
+    //         count++ ;
+    //       }
+    //     })
+    //     $('#donate-btn').data('semester', count);
+    //   }
+    // });
+
+    $('.ui-choose li').on('click', function(el){
+      var li = $(el.target)
+      // 如果自己没选中，将自己和之前的所有选中
+      // 如果自己选中了，取消自己和之后的选中
+      if (!li.hasClass('selected')) {
+        li.addClass('selected')
+         li.prevAll('li').addClass('selected')
+      } else {
+        li.removeClass('selected')
+         li.nextAll('li').removeClass('selected')
       }
+      // 处理学期选择
+      var count = 0;
+      $('.semester').each(function () {
+        if($(this).hasClass('selected')) {
+          count++ ;
+        }
+        $('#donate-btn').data('semester', count);
+      })
     });
 
     $('.circlechart').circlechart();
@@ -153,6 +174,10 @@
 
   $('#donate-btn').click(function () {
     var semesterCount = $(this).data('semester');
+    if (!semesterCount) {
+      layer.msg('请勾选您要提交的学期', { icon: 2, offset: 't c' });
+      return false
+    }
     window.location.href='<%= new_donate_path(child: @child.id) %>&semester_count=' + semesterCount;
   })
 

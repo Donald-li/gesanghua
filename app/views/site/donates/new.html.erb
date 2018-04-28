@@ -67,10 +67,12 @@
           <li class="donate_way" data-way="wechat">
             <%= image_tag 'iconpic-buy-weixin.svg' %>
           </li>
+          <% if current_user.balance > 0 %>
           <li class="donate_way" data-way="balance">
             <%= image_tag 'iconpic-buy-outline.svg' %>
             <span><%= number_to_currency current_user.balance %> 元</span>
           </li>
+          <% end %>
         </ul>
       </div>
       <div style="text-align:center; ">

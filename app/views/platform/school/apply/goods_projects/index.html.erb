@@ -20,17 +20,17 @@
              <div class="border-l border-r">
                <%= apply.apply_state %>
              </div>
-             <div>
-               <button><%= link_to '查看申请详情', platform_school_apply_goods_project_path(apply, pid: @current_project) %></button>
+             <div class="pull-left">
+               <%= link_to '查看申请详情', platform_school_apply_goods_project_path(apply, pid: @current_project), class:'lookapply' %>
                <% if apply.reject? %>
-                <button><%= link_to '修改申请', edit_platform_school_apply_goods_project_path(apply, pid: @current_project) %></button>
+                <%= link_to '修改申请', edit_platform_school_apply_goods_project_path(apply, pid: @current_project), class:'lookbutton' %>
                <% end %>
                <% if apply.to_receive? %>
-               <button><%= link_to '确认收货', new_platform_school_apply_receive_feedback_path(apply_id: apply.id) %></button>
-               <button><%= link_to '查看物流', apply.logistic.qurey_result, target: 'new' %></button>
+               <%= link_to '确认收货', new_platform_school_apply_receive_feedback_path(apply_id: apply.id), class:'lookbutton' %>
+               <%= link_to '查看物流', apply.logistic.qurey_result, class:'lookbutton', target: 'new' %>
                <% end %>
                <% if apply.to_feedback? %>
-               <button><%= link_to '安装/发放反馈', new_platform_school_apply_install_feedback_path(apply_id: apply.id) %></button>
+               <%= link_to '安装/发放反馈', new_platform_school_apply_install_feedback_path(apply_id: apply.id), class:'lookbutton' %>
                <% end %>
              </div>
             </div>
