@@ -1,0 +1,13 @@
+<% @donate_records.each do |record| %>
+  <li class="clearfix border-t clearfix">
+    <div class="team-donations-cont pull-left" style="width: 70%;">
+      <div class="clearfix">
+        <span class="teams-don-name pull-left"><%= record.donor.try(:show_name).to_s %></span>
+        <span class="teams-don-tiam pull-right" data-timeago="<%= record.created_at.to_s %>"></span>
+      </div>
+      <div class="teams-don">捐助 <span><%= record.title %></span> <%= number_to_currency(record.amount) %>元</div>
+    </div>
+    <%#= link_to "查看证书", '', class: "donation-cont-but pull-right cur" ,style:'margin:0;' %>
+  </li>
+<% end %>
+
