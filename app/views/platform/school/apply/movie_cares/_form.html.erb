@@ -18,7 +18,7 @@
           <span class="goodtext pull-left">学生总数</span>
           <div class="modified modified-1 pull-left">
             <span class="iconfont icon-ico-reduce oversmin"></span>
-            <input type="text" name="project_season_apply[student_number]" value="<%= @apply.student_number %>" class="oversinputs"/>
+            <input type="number" name="project_season_apply[student_number]" value="<%= @apply.student_number %>" class="oversinputs" min="0"/>
             <span class="iconfont icon-ico-add1 oversadd"></span>
           </div>
         </div>
@@ -26,7 +26,7 @@
           <span class="goodtext pull-left">班级总数</span>
           <div class="modified modified-2 pull-left">
             <span class="iconfont icon-ico-reduce oversmin"></span>
-            <input type="text" value="<%= @apply.class_number %>" name="project_season_apply[class_number]"  class="oversinputs"/>
+            <input type="number" value="<%= @apply.class_number %>" name="project_season_apply[class_number]"  class="oversinputs" min="0"/>
             <span class="iconfont icon-ico-add1 oversadd"></span>
           </div>
         </div>
@@ -57,7 +57,7 @@
         </div>
         <div class="clearfix">
           <span class="goodtext pull-left" style=" flex: 0 0 10%;max-width: 10%;width: 10%;">联系电话</span>
-          <input  class="goodinput pull-left" type="text" style="width: 70%;" name="project_season_apply[contact_phone]" value="<%= @apply.contact_phone %>" required />
+          <input  class="goodinput pull-left" type="text" style="width: 70%;" name="project_season_apply[contact_phone]" value="<%= @apply.contact_phone %>" required data-parsley-phone/>
         </div>
 
       </div>

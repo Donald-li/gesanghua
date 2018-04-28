@@ -26,21 +26,21 @@
       <div>
         <span class="goodtext">学生人数</span>
         <div>
-          <input class="goodinput" type="number" name="school[number]" value="<%= @school.number %>" required/>
+          <input class="goodinput" type="number" name="school[number]" value="<%= @school.number %>" required data-parsley-type="integer" min="0"/>
           <span class="income-moy">人</span>
         </div>
       </div>
       <div>
         <span class="goodtext">教师人数</span>
         <div>
-          <input class="goodinput" type="number" name="school[teacher_count]" value="<%= @school.teacher_count %>" required/>
+          <input class="goodinput" type="number" name="school[teacher_count]" value="<%= @school.teacher_count %>" required data-parsley-type="integer" min="0"/>
           <span class="income-moy">人</span>
         </div>
       </div>
       <div>
         <span class="goodtext">后勤人数</span>
         <div>
-          <input class="goodinput" type="number" name="school[logistic_count]" value="<%= @school.logistic_count %>" required/>
+          <input class="goodinput" type="number" name="school[logistic_count]" value="<%= @school.logistic_count %>" required data-parsley-type="integer" min="0"/>
           <span class="income-moy">人</span>
         </div>
       </div>
@@ -62,15 +62,15 @@
       </div>
       <div>
         <span class="goodtext">身份证号</span>
-        <input class="goodinput " type="text" name="school[contact_id_card]" value="<%= @school.contact_id_card %>" required/>
+        <input class="goodinput " type="text" name="school[contact_id_card]" value="<%= @school.contact_id_card %>" required data-parsley-shenfen/>
       </div>
       <div>
         <span class="goodtext">手机号码</span>
-        <input class="goodinput " type="text" name="school[contact_phone]" value="<%= @school.contact_phone %>" required />
+        <input class="goodinput " type="text" name="school[contact_phone]" value="<%= @school.contact_phone %>" required data-parsley-phone/>
       </div>
       <div>
         <span class="goodtext">办公电话</span>
-        <input class="goodinput " type="text" name="school[contact_telephone]" value="<%= @school.contact_telephone %>"/>
+        <input class="goodinput " type="text" name="school[contact_telephone]" value="<%= @school.contact_telephone %>" data-parsley-telephone/>
       </div>
       <div  class="school-list-picture">
         <span class="goodtext">上传图片</span>

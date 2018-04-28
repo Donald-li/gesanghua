@@ -50,7 +50,7 @@
         <div class="input-in">
             <span class="input input&#45;&#45;hoshi">
               <%= f.hidden_field :login, value: params[:login] %>
-            <input class="input__field input__field&#45;&#45;hoshi" type="text" id="phonenumber" name="code" placeholder="请输入验证码"/>
+            <input class="input__field input__field&#45;&#45;hoshi" type="text" id="phonenumber" name="code" placeholder="请输入验证码" required/>
             <label class="input__label input__label&#45;&#45;hoshi input__label&#45;&#45;hoshi-color-1" for="phonenumber"></label>
             </span>
         </div>
@@ -79,7 +79,7 @@
         <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="phonenumber"></label>
         </span>
         <span class="input input--hoshi">
-        <input class="input__field input__field--hoshi" type="text" id="security" name="code" placeholder="输入验证码"/>
+        <input class="input__field input__field--hoshi" type="text" id="security" name="code" placeholder="输入验证码" required/>
         <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="security"></label>
         <input class="security-cont cur" type="button" id="btn" value="获取验证码" />
         </span>
