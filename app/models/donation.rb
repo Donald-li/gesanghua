@@ -271,6 +271,7 @@ class Donation < ApplicationRecord
       openid: self.agent.profile['openid']# required when trade_type is `JSAPI`
     }
     res = WxPay::Service.invoke_unifiedorder params
+    logger.info(res)
     return res['code_url']
   end
 
