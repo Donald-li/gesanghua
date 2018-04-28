@@ -2,29 +2,29 @@
     <div class="addchild-list marginbottom">
       <p class="don-title">申请信息</p>
       <div class="addchild-list-cont">
-        <div>
-          <span class="goodtext">申请学校</span>
-          <div>
+        <div class="clearfix">
+          <span class="goodtext pull-left">申请学校</span>
+          <div class="pull-left">
             <button type="button" class="scool-edit-name" disabled><%= @school.name %></button>
           </div>
         </div>
-        <div>
-          <span class="goodtext">申请批次</span>
-          <div id="doodname">
+        <div class="clearfix">
+          <span class="goodtext pull-left">申请批次</span>
+          <div id="doodname" class="pull-left">
             <%= f.input :project_season_id, as: :select, collection: Project.movie_project.seasons.enable.sorted.collect{|s| [s.name, s.id]}, include_blank: '请选择申请年度', label: false, required: true, input_html: {id: 'allcamps'} %>
           </div>
         </div>
-        <div>
-          <span class="goodtext">学生总数</span>
-          <div class="modified modified-1">
+        <div class="clearfix">
+          <span class="goodtext pull-left">学生总数</span>
+          <div class="modified modified-1 pull-left">
             <span class="iconfont icon-ico-reduce oversmin"></span>
             <input type="text" name="project_season_apply[student_number]" value="<%= @apply.student_number %>" class="oversinputs"/>
             <span class="iconfont icon-ico-add1 oversadd"></span>
           </div>
         </div>
-        <div>
-          <span class="goodtext">班级总数</span>
-          <div class="modified modified-2">
+        <div class="clearfix">
+          <span class="goodtext pull-left">班级总数</span>
+          <div class="modified modified-2 pull-left">
             <span class="iconfont icon-ico-reduce oversmin"></span>
             <input type="text" value="<%= @apply.class_number %>" name="project_season_apply[class_number]" class="oversinputs"/>
             <span class="iconfont icon-ico-add1 oversadd"></span>
@@ -34,13 +34,13 @@
     </div>
     <div class="addchild-list addchild-list-up marginbottom">
       <div class="addchild-list-cont ">
-        <div>
-          <span class="goodtext">申请理由</span>
-          <textarea name="project_season_apply[describe]" required><%= @apply.describe %></textarea>
+        <div class="clearfix">
+          <span class="goodtext pull-left">申请理由</span>
+          <textarea name="project_season_apply[describe]" class="pull-left" required><%= @apply.describe %></textarea>
         </div>
-        <div>
-          <span class="goodtext">上传图片</span>
-          <div>
+        <div class="clearfix">
+          <span class="goodtext pull-left">上传图片</span>
+          <div class="pull-left">
             <div style="height: 100%;">
               <%= webuploader_images 'image_ids[]', label: '上传图片', type: 'project_season_apply_image', asset: @apply.images, id: 'images' %>
             </div>
@@ -52,13 +52,13 @@
     <div class="addchild-list addnewreads ">
       <p class="don-title">联系人信息</p>
       <div class="addchild-list-cont">
-        <div>
-          <span class="goodtext">联系人</span>
-          <input  class="goodinput " type="text" name="project_season_apply[contact_name]" value="<%= @apply.contact_name %>" placeholder="请填写收货人姓名" required/>
+        <div class="clearfix">
+          <span class="goodtext pull-left" style=" flex: 0 0 10%;max-width: 10%;width: 10%;">联系人</span>
+          <input  class="goodinput pull-left" type="text" style="width: 70%;" name="project_season_apply[contact_name]" value="<%= @apply.contact_name %>" placeholder="请填写收货人姓名" required/>
         </div>
-        <div>
-          <span class="goodtext">联系电话</span>
-          <input  class="goodinput " type="text" name="project_season_apply[contact_phone]" value="<%= @apply.contact_phone %>" required />
+        <div class="clearfix">
+          <span class="goodtext pull-left" style=" flex: 0 0 10%;max-width: 10%;width: 10%;">联系电话</span>
+          <input  class="goodinput pull-left " type="text" style="width: 70%;" name="project_season_apply[contact_phone]" value="<%= @apply.contact_phone %>" required />
         </div>
 
       </div>
@@ -73,7 +73,7 @@
 <% end %>
 <script>
     $("#allcamps").select2({
-        width: "452px",
+        width: "390px",
         minimumResultsForSearch: -1
     });
     $('.modified-1').calculate()

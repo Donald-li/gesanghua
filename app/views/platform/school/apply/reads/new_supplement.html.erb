@@ -10,16 +10,16 @@
       <div class="addchild-list marginbottom">
         <p class="don-title">申请信息</p>
         <div class="addchild-list-cont">
-          <div>
-            <span class="goodtext">申请学校</span>
-            <div>
+          <div class="clearfix">
+            <span class="goodtext pull-left">申请学校</span>
+            <div class="pull-left">
               <button type="button" class="scool-edit-name" disabled><%= @school.name %></button>
             </div>
 
           </div>
-          <div>
-            <span class="goodtext">申请批次</span>
-            <div >
+          <div class="clearfix">
+            <span class="goodtext pull-left">申请批次</span>
+            <div class="pull-left" >
               <%= f.input :project_season_id, as: :select, collection: Project.read_project.seasons.enable.sorted.collect {|s| [s.name, s.id]}, include_blank: '请选择申请年度', label: false, required: true, input_html: {id: 'allcamps'} %>
             </div>
           </div>
@@ -38,13 +38,13 @@
           </button>
         </div>
         <div class="addchild-list-cont ">
-          <div>
-            <span class="goodtext">申请理由</span>
-            <textarea name="project_season_apply[describe]" required></textarea>
+          <div class="clearfix">
+            <span class="goodtext pull-left">申请理由</span>
+            <textarea name="project_season_apply[describe]" class="pull-left" required></textarea>
           </div>
-          <div>
-            <span class="goodtext">上传图片</span>
-            <div>
+          <div class="clearfix">
+            <span class="goodtext pull-left">上传图片</span>
+            <div class="pull-left">
               <div style="height: 100%;">
                 <%= webuploader_images 'image_ids[]', label: '上传图片', type: 'project_season_apply_image', asset: @apply.images, id: 'images' %>
               </div>
@@ -56,26 +56,28 @@
       <div class="addchild-list addnewreads ">
         <p class="don-title">收货信息</p>
         <div class="addchild-list-cont">
-          <div>
-            <span class="goodtext">收货人</span>
-            <input class="goodinput " type="text" name="project_season_apply[consignee]" placeholder="请填写收货人姓名"/>
+          <div class="clearfix">
+            <span class="goodtext pull-left">收货人</span>
+            <input class="goodinput pull-left " type="text" name="project_season_apply[consignee]" />
+            <!--placeholder="请填写收货人姓名"-->
           </div>
-          <div>
-            <span class="goodtext">联系电话</span>
-            <input class="goodinput " type="text" name="project_season_apply[consignee_phone]"/>
+          <div class="clearfix">
+            <span class="goodtext pull-left">联系电话</span>
+            <input class="goodinput pull-left" type="text" name="project_season_apply[consignee_phone]"/>
           </div>
-          <div>
-            <span class="goodtext">所在地区</span>
-            <div class="city-group">
+          <div class="clearfix">
+            <span class="goodtext pull-left">所在地区</span>
+            <div class="city-group pull-left">
               <%= select_tag 'project_season_apply[province]', options_for_select(ChinaCity.list, @apply.province.presence), prompt: '省份', class: "city-select", id: 'province', required: true %>
               <%= select_tag 'project_season_apply[city]', options_for_select(ChinaCity.list(@apply.province.to_s), @apply.city.presence), prompt: '城市', class: "city-select", id: 'city', required: true %>
               <%= select_tag 'project_season_apply[district]', options_for_select(ChinaCity.list(@apply.city.to_s), @apply.district.presence), prompt: '地区', class: "city-select", id: 'district', required: true %>
             </div>
           </div>
 
-          <div>
-            <span class="goodtext">详细地址</span>
-            <input class="goodinput " type="text" name="project_season_apply[address]" placeholder="请输入详细地址"/>
+          <div class="clearfix">
+            <span class="goodtext pull-left">详细地址</span>
+            <input class="goodinput pull-left" type="text" name="project_season_apply[address]" />
+            <!--placeholder="请输入详细地址"-->
           </div>
 
         </div>
@@ -163,19 +165,19 @@
     });
 
     $("#allcamps").select2({
-        width: "452px",
+        width: "390px",
         minimumResultsForSearch: -1
     });
     $("#province").select2({
-        width: "220px",
+        width: "180px",
         minimumResultsForSearch: -1
     });
     $("#city").select2({
-        width: "220px",
+        width: "180px",
         minimumResultsForSearch: -1
     });
     $("#district").select2({
-        width: "220px",
+        width: "177px",
         minimumResultsForSearch: -1
     });
 
