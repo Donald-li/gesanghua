@@ -20,6 +20,7 @@
 #  details                 :jsonb                                  # 捐助详情
 #  amount                  :decimal(14, 2)   default(0.0)          # 捐助金额
 #  agent_id                :integer                                # 代理人id
+#  pay_way                 :integer                                # 支付方式
 #
 
 FactoryBot.define do
