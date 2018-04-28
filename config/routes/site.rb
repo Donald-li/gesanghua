@@ -27,7 +27,11 @@ scope module: :site do
   resources :donates, only: [:new, :create]
 
   # 支付页
-  resource :pay, only: [:new, :show]
+  resource :pay, only: [:new, :show] do
+    member do
+      get :failure
+    end
+  end
 
   # 微信登录
   resources :wechats, only: :new do
