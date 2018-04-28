@@ -22,7 +22,7 @@
       <% end %>
       <% if @text_news.second.present? %>
         <div class="border-r">
-          <%= link_to article_path(@text_news.first) do %>
+          <%= link_to article_path(@text_news.second) do %>
             <div class="ovrly" style="background: #bd47ee;"></div>
             <p class="gsh-cont-1"><%= @text_news.second.author %> | <%= @text_news.second.published_at.strftime("%Y年%m月%d日") %></p>
             <p class="gsh-cont-2"><%= @text_news.second.title %></p>
@@ -32,7 +32,7 @@
       <% end %>
       <% if @text_news.third.present? %>
         <div>
-          <%= link_to article_path(@text_news.first) do %>
+          <%= link_to article_path(@text_news.third) do %>
             <div class="ovrly" style="background: #8b54e3;"></div>
             <p class="gsh-cont-1"><%= @text_news.third.author %> | <%= @text_news.third.published_at.strftime("%Y年%m月%d日") %></p>
             <p class="gsh-cont-2"><%= @text_news.third.title %></p>
