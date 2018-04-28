@@ -25,7 +25,8 @@ scope module: :site do
   resource :feedback, only: [:new, :create]
   resources :book_angles, only: [:index, :show]
   resources :donates, only: [:new, :create]
-
+  resources :income_records, only: [:index]
+  resources :expenditure_records, only: [:index, :show]
   # 支付页
   resource :pay, only: [:new, :show] do
     member do
