@@ -4,10 +4,10 @@
     <%= render '/layouts/shared/platform_school_projects' %>
     <% if @applies.present? %>
       <div class="school-apply-pair-table-co">
-        <div class="school-apply-pair-table">
-          <p>申请项目名称</p>
-          <p>申请状态</p>
-          <p>操作</p>
+        <div class="school-apply-pair-table clearfix">
+          <p class="pull-left">申请项目名称</p>
+          <p class="pull-left">申请状态</p>
+          <p class="pull-left">操作</p>
         </div>
         <% @applies.each do |apply| %>
           <div class="school-apply-pair-tables">

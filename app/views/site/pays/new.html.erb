@@ -17,11 +17,6 @@
       <p class="pull-left"><span class="iconfont icon-icon-succeed"></span>订单提交成功，请您尽快完成支付~     订单号：<%= @donation.order_no %></p>
       <p class="pull-right">应付金额：<span><%= number_to_currency @donation.amount %> 元</span></p>
       <p>
-        <!-- TODO: 调试完去掉 -->
-        调试信息
-        qrcode链接：<%= @wechat_code_url %>
-      </p>
-      <p>
         <%= link_to '支付宝支付', @ali_pay_url %>
       </p>
     </div>
@@ -36,9 +31,9 @@
         <%= image_tag 'wechart-pay.png' %>
       </div>
     </div>
-    <p><span class="iconfont icon-arrow-left"></span>选择其他支付方式</p>
+    <p><span class="iconfont icon-arrow-left"></span><%= link_to '选择其他支付方式', new_donate_path %></p>
   </div>
 </div>
 <script type="text/javascript">
-     $('#qrcode').qrcode("<%= @wechat_code_url %>");
+$('#qrcode').qrcode({text: "<%= @wechat_code_url %>"});
 </script>

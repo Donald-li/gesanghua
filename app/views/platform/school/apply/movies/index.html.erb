@@ -5,26 +5,26 @@
 
     <% if @applies.present? %>
         <div class="school-apply-pair-table-co">
-          <div class="school-apply-pair-table">
-            <p>申请项目名称</p>
-            <p>申请状态</p>
-            <p>操作</p>
+          <div class="school-apply-pair-table clearfix">
+            <p class="pull-left">申请项目名称</p>
+            <p class="pull-left">申请状态</p>
+            <p class="pull-left">操作</p>
           </div>
           <% @applies.each do |apply| %>
               <div class="school-apply-pair-tables">
                 <p>申请时间：<%= apply.created_at.strftime("%Y-%m-%d %H:%M") %> <span>申请编号：<%= apply.apply_no %></span></p>
-                <div class="school-apply-pair-table-cont">
-                  <div>
+                <div class="school-apply-pair-table-cont clearfix">
+                  <div class="pull-left">
                     <p class="school-apply-pair-tit"><%= apply.apply_name %></p>
                     <p class="school-apply-pair-f">申请人：<%= apply.contact_name %></p>
                   </div>
-                  <div class="border-l border-r">
+                  <div class="border-l border-r pull-left">
                     <%= apply.apply? ? apply.enum_name(:audit_state) : apply.enum_name(:read_state) %>
                   </div>
-                  <div>
-                    <button><%= link_to '查看申请详情', platform_school_apply_movie_path(apply) %></button>
+                  <div class="pull-left">
+                   <%= link_to '查看申请详情', platform_school_apply_movie_path(apply), class:'lookapply' %>
                     <% if apply.reject? %>
-                        <button><%= link_to '修改申请', edit_platform_school_apply_movie_path(apply) %></button>
+                        <%= link_to '修改申请', edit_platform_school_apply_movie_path(apply), class:'lookbutton'  %>
                     <% end %>
                   </div>
                 </div>

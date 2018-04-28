@@ -4,13 +4,13 @@
       <span class="pull-left">社交账号</span>
     </p>
     <div class="social">
-      <div>
-        <div>
+      <div  class="clearfix">
+        <div  class="pull-left">
           <%= image_tag 'uc-user-wx.png' %>
         </div>
-        <span>微信</span>
-        <span>已绑定</span>
-        <div class="unbind cur">
+        <span  class="pull-left">微信</span>
+        <span  class="pull-left">已绑定</span>
+        <div class="unbind cur pull-left">
           <% if current_user.bind_wechat? %>
           <button><%= link_to '解绑' %></button>
           <% end %>
@@ -18,14 +18,14 @@
         <!--<div class="bind  ing cur"><button>绑定</button></div>-->
       </div>
       <% if false %>
-      <div>
-        <div>
+      <div class="clearfix">
+        <div class="pull-left">
           <%= image_tag 'uc-user-gsh.png' %>
         </div>
-        <span>格桑花论坛</span>
-        <span>未绑定</span>
+        <span class="pull-left">格桑花论坛</span>
+        <span class="pull-left">未绑定</span>
         <!--<div class="unbind cur"><button>解绑</button></div>-->
-        <div class="binding cur">
+        <div class="binding cur pull-left">
           <button>绑定</button>
         </div>
       </div>

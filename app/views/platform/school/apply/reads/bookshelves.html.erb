@@ -25,15 +25,15 @@
 </div> -->
 <div class="person-body-right pull-right">
   <div class="school-apply-pair-table-co">
-    <div class="school-apply-pair-table">
-      <p>班级名称</p>
-      <p>状态</p>
-      <p>操作</p>
+    <div class="school-apply-pair-table clearfix">
+      <p class="pull-left">班级名称</p>
+      <p class="pull-left">状态</p>
+      <p class="pull-left">操作</p>
     </div>
     <% @bookshelves.each do |bookshelf| %>
         <div class="school-apply-pair-tables">
-          <div class="school-apply-pair-table-cont">
-            <div>
+          <div class="school-apply-pair-table-cont clearfix">
+            <div class="pull-left">
               <p class="school-apply-pair-tit"><%= bookshelf.classname %></p>
                <p class="school-apply-pair-f">图书角编号：<%= bookshelf.bookshelf_no %></p>
               <% if bookshelf.raising? %>
@@ -42,16 +42,16 @@
                 <p class="school-apply-pair-f">筹款总额：<%= bookshelf.target_amount %>元</p>
               <% end %>
             </div>
-            <div class="border-l border-r">
+            <div class="border-l border-r pull-left">
               <%= bookshelf.enum_name(:state) %>
             </div>
-            <div>
+            <div class="pull-left">
               <% if bookshelf.to_receive? %>
-              <button><%= link_to '查看物流', bookshelf.logistic.qurey_result, target: 'new' %></button>
-              <button><%= link_to '确认收货', new_platform_school_apply_receive_feedback_path(bookshelf_id: bookshelf.id) %></button>
+              <%= link_to '查看物流', bookshelf.logistic.qurey_result, target: 'new', class:'lookapply' %>
+             <%= link_to '确认收货', new_platform_school_apply_receive_feedback_path(bookshelf_id: bookshelf.id), class:'lookbutton' %>
               <% end %>
               <% if bookshelf.to_feedback? %>
-              <button><%= link_to '安装/发放反馈', new_platform_school_apply_install_feedback_path(bookshelf_id: bookshelf.id) %></button>
+              <%= link_to '安装/发放反馈', new_platform_school_apply_install_feedback_path(bookshelf_id: bookshelf.id), class:'lookbutton' %>
               <% end %>
             </div>
           </div>

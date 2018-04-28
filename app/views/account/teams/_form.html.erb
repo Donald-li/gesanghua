@@ -6,31 +6,31 @@
     <%= f.hidden_field :kind, value: @team.kind %>
     <p class="don-title">团队信息</p>
     <div class="addchild-list-cont">
-      <div>
-        <span class="goodtext">团队名称</span>
-        <input class="goodinput " type="text" name="team[name]" value="<%= @team.name %>" required />
+      <div class="clearfix">
+        <span class="goodtext pull-left">团队名称</span>
+        <input class="goodinput pull-left" type="text" name="team[name]" value="<%= @team.name %>" required />
       </div>
-      <div>
-        <span class="goodtext">所在地区</span>
-        <div class="city-group">
+      <div class="clearfix">
+        <span class="goodtext pull-left">所在地区</span>
+        <div class="city-group pull-left">
           <%= select_tag 'team[province]', options_for_select(ChinaCity.list, @team.province.presence), prompt: '省份', class: "city-select", id: 'province', required: true %>
           <%= select_tag 'team[city]', options_for_select(ChinaCity.list(@team.province.to_s), @team.city.presence), prompt: '城市', class: "city-select", id: 'city', required: true %>
           <%= select_tag 'team[district]', options_for_select(ChinaCity.list(@team.city.to_s), @team.district.presence), prompt: '地区', class: "city-select", id: 'district', required: true %>
         </div>
       </div>
-      <div>
-        <span class="goodtext">详细地址</span>
-        <input class="goodinput " type="text" name="team[address]" value="<%= @team.address %>" placeholder="请输入详细地址" required/>
+      <div class="clearfix">
+        <span class="goodtext pull-left">详细地址</span>
+        <input class="goodinput pull-left" type="text" name="team[address]" value="<%= @team.address %>" placeholder="请输入详细地址" required/>
       </div>
       <% if @team.college? %>
-        <div>
-          <span class="goodtext">高校名称</span>
-          <input class="goodinput " type="text" name="team[school_name]" value="<%= @team.school_name %>" placeholder="" required/>
+        <div class="clearfix">
+          <span class="goodtext pull-left">高校名称</span>
+          <input class="goodinput pull-left" type="text" name="team[school_name]" value="<%= @team.school_name %>" placeholder="" required/>
         </div>
       <% end %>
-      <div class="teams-news">
-        <span class="goodtext">团队介绍</span>
-        <div>
+      <div class="teams-news clearfix">
+        <span class="goodtext pull-left">团队介绍</span>
+        <div class="pull-left">
           <textarea maxlength="200" id="inputbox" name="team[describe]"><%= @team.describe %></textarea>
           <span class="teams-textare"><span id="conts">0</span>/200</span>
         </div>
@@ -44,6 +44,18 @@
 <% end %>
 
 <script>
+    $("#province").select2({
+        width: "160px",
+        minimumResultsForSearch: -1
+    });
+    $("#city").select2({
+        width: "163px",
+        minimumResultsForSearch: -1
+    });
+    $("#district").select2({
+        width: "180px",
+        minimumResultsForSearch: -1
+    });
     $(function () {
         $("#inputbox").keyup(function () {
             var len = $(this).val().length;
@@ -54,17 +66,6 @@
 
         });
         initAvatarWebuploader($('#team-logo'));
-        $("#province").select2({
-            width: "199px",
-            minimumResultsForSearch: -1
-        });
-        $("#city").select2({
-            width: "199px",
-            minimumResultsForSearch: -1
-        });
-        $("#district").select2({
-            width: "199px",
-            minimumResultsForSearch: -1
-        });
+
     })
 </script>
