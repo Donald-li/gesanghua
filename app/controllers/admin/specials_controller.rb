@@ -24,7 +24,7 @@ class Admin::SpecialsController < Admin::BaseController
     respond_to do |format|
       if @special.save
         @special.attach_banner(params[:banner_id])
-        format.html { redirect_to admin_specials_path, notice: '专题已增加。' }
+        format.html { redirect_to edit_admin_special_path(@special), notice: '专题已增加。' }
       else
         format.html { render :new }
       end
