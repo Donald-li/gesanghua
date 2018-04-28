@@ -2,15 +2,15 @@
 <div class="addchild-list marginbottom">
   <p class="don-title">基本信息</p>
   <div class="addchild-list-cont">
-    <div >
-      <span class="goodtext">申请学校</span>
-      <div class="goods-project-input">
+    <div class="clearfix" >
+      <span class="goodtext pull-left">申请学校</span>
+      <div class="goods-project-input pull-left">
         <button type="button" class="scool-edit-name" disabled><%= current_user.school.try(:name) %></button>
       </div>
     </div>
-    <div>
-      <span class="goodtext">申请年度</span>
-      <div >
+    <div class="clearfix" >
+      <span class="goodtext pull-left">申请年度</span>
+      <div class="pull-left">
         <%= f.input :project_season_id, as: :select, collection: @current_project.seasons.enable.sorted.collect {|s| [s.name, s.id]}, include_blank: '请选择申请年度', label: false, required: true, input_html: {id: 'season-id'} %>
       </div>
 
@@ -23,9 +23,9 @@
         <!--<span class="iconfont icon-ico-add1 oversadd"></span>-->
       <!--</div>-->
     <!--</div>-->
-    <div>
-      <span class="goodtext">学生总数</span>
-      <%= f.text_field :student_number, class: '', min: 0, data: {'parsley-required': true} %>
+    <div class="clearfix" >
+      <span class="goodtext pull-left">学生总数</span>
+      <%= f.text_field :student_number, class: 'pull-left', min: 0, data: {'parsley-required': true} %>
     </div>
   </div>
 </div>
@@ -33,14 +33,14 @@
   <p class="don-title">申请信息</p>
   <div class="addchild-list-cont">
     <%= render 'dynamic_form', apply: @apply, model: :project_season_apply %>
-      <div>
-        <span class="goodtext">其他说明</span>
-        <%= f.text_area :describe %>
+      <div class="clearfix" >
+        <span class="goodtext pull-left">其他说明</span>
+        <%= f.text_area :describe ,class:'pull-left'%>
       </div>
 
-      <div>
-        <span class="goodtext">上传图片</span>
-        <div class="clearfix" style="flex: 7;">
+      <div class="clearfix" >
+        <span class="goodtext pull-left">上传图片</span>
+        <div class="clearfix" style="-ms-flex: 0 0 70%;flex: 0 0 70%;max-width: 70%;width:70%;">
           <div class="addchild-list-up-picture pull-left">
             <%= webuploader_images 'image_ids[]', label: '上传图片', type: 'project_season_apply_image', asset: @apply.images, klass: 'multiple', id: 'child-image1' %>
           </div>
@@ -53,25 +53,25 @@
 <div class="addchild-list ">
   <p class="don-title">收件人信息</p>
   <div class="addchild-list-cont">
-    <div>
-      <span class="goodtext">收件人</span>
-      <%= f.text_field :contact_name, data: {parsley_required: true} %>
+    <div  class="clearfix">
+      <span class="goodtext pull-left">收件人</span>
+      <%= f.text_field :contact_name, data: {parsley_required: true}, class:'pull-left' %>
     </div>
-    <div>
-      <span class="goodtext">联系电话</span>
-      <%= f.text_field :contact_phone, data: {parsley_required: true, parsley_mobile: true}%>
+    <div  class="clearfix">
+      <span class="goodtext pull-left">联系电话</span>
+      <%= f.text_field :contact_phone, data: {parsley_required: true, parsley_mobile: true}, class:'pull-left' %>
     </div>
-    <div>
-      <span class="goodtext">收货地区</span>
-      <div class="city-group">
+    <div  class="clearfix">
+      <span class="goodtext pull-left">收货地区</span>
+      <div class="city-group pull-left">
         <%= select_tag 'project_season_apply[province]', options_for_select(ChinaCity.list, @apply.province.presence), prompt: '省份', class: "city-select", id: 'province', data: {parsley_required: true} %>
         <%= select_tag 'project_season_apply[city]', options_for_select(ChinaCity.list(@apply.province.to_s), @apply.city.presence), prompt: '城市', class: "city-select", id: 'city', data: {parsley_required: true} %>
         <%= select_tag 'project_season_apply[district]', options_for_select(ChinaCity.list(@apply.city.to_s), @apply.district.presence), prompt: '地区', class: "city-select", id: 'district', data: {parsley_required: true} %>
       </div>
     </div>
-    <div>
-      <span class="goodtext">详细地址</span>
-      <%= f.text_field :address, data: {parsley_required: true} %>
+    <div  class="clearfix">
+      <span class="goodtext pull-left">详细地址</span>
+      <%= f.text_field :address, data: {parsley_required: true},class:'pull-left' %>
     </div>
   </div>
 
@@ -87,22 +87,22 @@
 <script>
     $(function(){
       $("#season-id").select2({
-          width: "452px",
+          width: "390px",
           language:'zh-CN',
           minimumResultsForSearch: -1
       });
       $("#province").select2({
-          width: "148px",
+          width: "120px",
           language:'zh-CN',
           minimumResultsForSearch: -1
       });
       $("#city").select2({
-          width: "148px",
+          width: "130px",
           language:'zh-CN',
           minimumResultsForSearch: -1
       });
       $("#district").select2({
-          width: "148px",
+          width: "130px",
           language:'zh-CN',
           minimumResultsForSearch: -1
      });

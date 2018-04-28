@@ -17,21 +17,21 @@
       </div>
       <p class="don-title">基本信息</p>
       <div class="addchild-list-cont">
-        <div>
-          <span class="goodtext">昵称</span>
-          <%= f.text_field :nickname, placeholder: '请输入昵称', class: "goodinput" %>
+        <div class="clearfix">
+          <span class="goodtext pull-left">昵称</span>
+          <%= f.text_field :nickname, placeholder: '请输入昵称', class: "goodinput pull-left",style:"width: 70%;" %>
         </div>
-        <div>
-          <span class="goodtext">真实姓名</span>
-          <%= f.text_field :name, placeholder: '请输入真实姓名', class: "goodinput", data: {'parsley-required': true} %>
+        <div class="clearfix">
+          <span class="goodtext pull-left">真实姓名</span>
+          <%= f.text_field :name, placeholder: '请输入真实姓名', class: "goodinput pull-left", data: {'parsley-required': true},style:"width: 70%;" %>
         </div>
-        <div>
-          <span class="goodtext">如何称呼</span>
-          <%= f.text_field :salutation, placeholder: '孩子如何称呼您', class: "goodinput" %>
+        <div class="clearfix">
+          <span class="goodtext pull-left">如何称呼</span>
+          <%= f.text_field :salutation, placeholder: '孩子如何称呼您', class: "goodinput pull-left",style:"width: 70%;" %>
         </div>
-        <div class="sexinput">
-          <span class="goodtext ">选择性别</span>
-          <div class="clearfix">
+        <div class="sexinput clearfix">
+          <span class="goodtext pull-left">选择性别</span>
+          <div class="clearfix pull-left">
             <div class="female pull-left">
               <input type="radio" id="male" value="male" name="user[gender]" <%= @profile.male? ? "checked" : "" %> />
               <label for="male">男</label>
@@ -49,17 +49,17 @@
     <div class="school-edit">
       <p class="don-title">收货地址</p>
       <div class="addchild-list-cont">
-        <div>
-          <span class="goodtext">收货人</span>
-          <%= f.text_field :consignee, placeholder: '请填写收货人姓名', class: "goodinput" %>
+        <div class="clearfix">
+          <span class="goodtext pull-left">收货人</span>
+          <%= f.text_field :consignee, placeholder: '请填写收货人姓名', class: "goodinput pull-left",style:"width: 70%;" %>
         </div>
-        <div>
-          <span class="goodtext">联系电话</span>
-          <%= f.text_field :phone, placeholder: '请输入联系电话', class: "goodinput", data: {'parsley-required': true} %>
+        <div  class="clearfix">
+          <span class="goodtext pull-left">联系电话</span>
+          <%= f.text_field :phone, placeholder: '请输入联系电话', class: "goodinput pull-left", data: {'parsley-required': true},style:"width: 70%;" %>
         </div>
-        <div>
-          <span class="goodtext">所在地区</span>
-          <div style="margin-bottom: 20px;" class="form-group">
+        <div  class="clearfix">
+          <span class="goodtext pull-left">所在地区</span>
+          <div style="margin-bottom: 20px;" class="form-group pull-left">
             <div class="city-picker-selector city-group">
               <%= select_tag 'user[province]', options_for_select(ChinaCity.list, @profile.province.presence), prompt: '省份', class: "selector-item storey province city-select" %>
               <%= select_tag 'user[city]', options_for_select(ChinaCity.list(@profile.province.to_s), @profile.city.presence), prompt: '城市', class: "selector-item storey city city-select" %>
@@ -67,9 +67,9 @@
             </div>
           </div>
         </div>
-        <div>
-          <span class="goodtext">详细地址</span>
-          <%= f.text_field :address, placeholder: '请输入详细地址', class: "goodinput" %>
+        <div  class="clearfix">
+          <span class="goodtext pull-left">详细地址</span>
+          <%= f.text_field :address, placeholder: '请输入详细地址', class: "goodinput pull-left",style:"width: 70%;"  %>
         </div>
       </div>
       <div class="childern-submint">
@@ -80,21 +80,21 @@
 <% end %>
 
 <script>
-
-  $(function () {
-      initAvatarWebuploader($('#webuploader'));
     $(".province").select2({
-        width: "170px",
+        width: "140px",
         minimumResultsForSearch: -1
     });
     $(".city").select2({
-        width: "170px",
+        width: "140px",
         minimumResultsForSearch: -1
     });
     $(".district").select2({
-        width: "200px",
+        width: "180px",
         minimumResultsForSearch: -1
     });
+  $(function () {
+      initAvatarWebuploader($('#webuploader'));
+
 
   })
 </script>

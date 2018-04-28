@@ -105,6 +105,16 @@ class Project < ApplicationRecord
     self.describe.length > 90 ? self.describe.slice(0..90) : self.describe
   end
 
+  # 金额选项卡
+  def amount_tabs(limit_amount=nil)
+    donate_items = self.donate_item.amount_tabs.sorted.show if self.donate_item
+    donate_items = donate_items.presence || Settings.amount_tabs
+    if limit_amount
+      donate_items = donate_items.select{|i| i <= limit_amount}.push(limit_amount)
+    end
+    donate_items.sort.uniq[-4..-1]
+  end
+
   # 给form添加一行
   def build_form
     form = self.form || []
@@ -125,9 +135,9 @@ class Project < ApplicationRecord
     end
   end
 
-  def project_image
-    ActionController::Base.helpers.asset_path(self.image_url(:tiny))
-  end
+  # def project_image
+  #   ActionController::Base.helpers.asset_path(self.image_url(:tiny))
+  # end
 
   # 可捐助数量
   def to_donate_num

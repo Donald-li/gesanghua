@@ -2,7 +2,7 @@
 <div id="project">
   <div class="project-head">
     <div class="project-img"></div>
-    <%= image_tag @project.project_image.to_s %>
+    <%= image_tag @project.image_url(:tiny) %>
     <div class="project-cont">
       <p class="project-cont-tit"><%= @project.name %></p>
       <div class="project-cont-con "><%= @project.describe.html_safe %></div>
@@ -19,10 +19,10 @@
       <p class="pull-left cur">当前共有 <%= @total %> 所学校在筹款</p>
       <%= form_tag reads_path, method: :get do %>
       <div class="pull-right">
-        <div class="input-group">
-          <span class="iconfont icon-ico-search"></span>
+        <div class="input-group clearfix">
+          <span class="iconfont icon-ico-search pull-left"></span>
           <%= hidden_field_tag :type, params[:type] %>
-          <%= text_field_tag :name, params[:name], name: :name, class: 'from-input', placeholder: '搜索项目' %>
+          <%= text_field_tag :name, params[:name], name: :name, class: 'from-input pull-left', placeholder: '搜索项目' %>
         </div>
       </div>
       <% end %>

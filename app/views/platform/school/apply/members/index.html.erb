@@ -22,18 +22,18 @@
 
     </div>
     <div class="school-apply-pair-table-co">
-      <div class="school-apply-pair-table">
-        <p>成员信息</p>
-        <p>身份</p>
-        <p>申请状态</p>
+      <div class="school-apply-pair-table clearfix">
+        <p class="pull-left">成员信息</p>
+        <p class="pull-left">身份</p>
+        <p class="pull-left">申请状态</p>
         <% if params[:state] == 'reject' %>
-        <p>驳回理由</p>
+        <p class="pull-left">驳回理由</p>
         <% end %>
       </div>
       <% @members.each do |member| %>
         <div class="school-apply-pair-tables">
-          <div class="schools-apply-pair-table-cont">
-            <div class="schools-apply-pair-child clearfix">
+          <div class="schools-apply-pair-table-cont clearfix">
+            <div class="schools-apply-pair-child clearfix pull-left">
               <div class="pull-left">
                 <p>
                   <span><%= member.name %></span>
@@ -43,16 +43,16 @@
               </div>
 
             </div>
-            <div class="border-l">
+            <div class="border-l pull-left">
               <p>
                   <%= member.enum_name(:kind) %>
               </p>
             </div>
-            <div class="border-l">
+            <div class="border-l pull-left">
               <p><%= member.enum_name(:state) %></p>
             </div>
             <% if params[:state] == 'reject' %>
-                <div class="border-l">
+                <div class="border-l pull-left">
                   <p class="read-more" data-toggle="tooltip" data-placement="left" title="<%= member.audits.last.try(:comment) %>" style="padding: 0 14px;"><%= member.audits.last.comment %></p>
                 </div>
             <% end %>

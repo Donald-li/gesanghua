@@ -95,6 +95,8 @@ body {
     border-radius: 3px;
   }
 
+
+
   input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px white inset !important;
     outline: none;
@@ -185,7 +187,9 @@ body {
 
 
 }
-
+.login-input{
+  color: #8d8d8d;
+}
 span {
   display: inline-block;
 }
@@ -305,7 +309,7 @@ select:disabled {
   border-radius: 3px;
   border: 1px solid $border;
   font-size: 14px;
-  color: #2a2a2c;
+  color: #8d8d8d;
 
 }
 
@@ -4276,7 +4280,7 @@ select:disabled {
     margin: 0 34px 0 6px;
   }
   & > input {
-    width: 430px;
+    width: 426px;
     padding: 6px 0px 7px 10px;
     font-size: 14px;
   }
@@ -4300,13 +4304,18 @@ select:disabled {
       display: -ms-flexbox;
       display: -webkit-flex;
       & > li {
-        flex: 1;
+
+        -ms-flex: 0 0 23%;
+        flex: 0 0 23%;
+        max-width: 23%;
+        width:23%;
         height: 36px;
         line-height: 34px;
         margin-left: 10px;
         border-radius: 2px;
         border: 1px solid $border;
         text-align: center;
+        float: left;
 
       }
       & > li:first-child {
@@ -5829,8 +5838,8 @@ select:disabled {
       & > div:nth-child(1) {
         margin-left: 0;
       }
-
     }
+
   }
   .addchild-list-up-picture {
     margin-left: 14px;
@@ -6063,7 +6072,11 @@ select:disabled {
   .sexinput {
     & > div {
       margin: 0;
-      flex: 7;
+
+      -ms-flex: 0 0 70%;
+      flex: 0 0 70%;
+      max-width: 70%;
+      width:70%;
       & > div {
         margin: 6px 10px 0px 10px;
       }
@@ -6076,6 +6089,9 @@ select:disabled {
   }
   .city-picker-selector .selector-item {
     width: 170px;
+  }
+  .childern-submint > button:hover{
+    background-color: $hover-button;
   }
 }
 
@@ -6117,6 +6133,7 @@ select:disabled {
       border-radius: 3px;
       text-align: center;
       line-height: 36px;
+      background-color: #fff;
     }
   }
   .accounts-cont-input {
@@ -6127,9 +6144,7 @@ select:disabled {
     }
     & > div {
       margin: 20px 0;
-      & > input {
-        width: 548px;
-      }
+
       & > button {
         width: 100px;
         height: 36px;
@@ -6158,7 +6173,10 @@ select:disabled {
     line-height: 40px;
     margin-bottom: 16px;
     div:nth-child(1) {
-      flex: .4;
+      -ms-flex: 0 0 20%;
+      flex: 0 0 20%;
+      max-width: 20%;
+      width:20%;
     }
     img {
       width: 40px;
@@ -6168,14 +6186,24 @@ select:disabled {
     span:nth-child(2) {
       font-size: 14px;
       color: #2a2a2c;
-      flex: 1;
+      -ms-flex: 0 0 33.33%;
+      flex: 0 0 33.33%;
+      max-width: 33.33%;
+      width:33.33%;
     }
     span:nth-child(3) {
-      flex: 1;
+      -ms-flex: 0 0 33.33%;
+      flex: 0 0 33.33%;
+      max-width: 33.33%;
+      width:33.33%;
       font-size: 14px;
       color: #2a2a2c;
     }
     .unbind {
+      -ms-flex: 0 0 33.33%;
+      flex: 0 0 33.33%;
+      max-width: 33.33%;
+      width:33.33%;
       button {
         width: 100px;
         height: 38px;
@@ -6186,10 +6214,14 @@ select:disabled {
         color: #3d3d40;
       }
 
-      flex: 1;
     }
     .binding {
-      flex: 1;
+
+      -ms-flex: 0 0 33.33%;
+      flex: 0 0 33.33%;
+      max-width: 33.33%;
+      width:33.33%;
+
       button {
         width: 100px;
         height: 38px;
@@ -6974,6 +7006,14 @@ select:disabled {
       font-weight: 500;
     }
   }
+  .addchild-list-up{
+    .addchild-list-cont > div > span{
+      flex: 0 0 10%;
+      max-width: 10%;
+      width: 10%;
+    }
+  }
+
   .addchild-list-cont {
     padding: 0 0 10px 0;
     & > div {
@@ -6987,16 +7027,25 @@ select:disabled {
       margin-bottom: 20px;
       position: relative;
       & > span {
-        flex: 1;
+        -ms-flex: 0 0 14%;
+        flex: 0 0 14%;
+        max-width: 14%;
+        width:14%;
         margin: 0 40px 0 0;
         line-height: 40px;
         text-align: right;
       }
       & > input {
-        flex: 7;
+        -ms-flex: 0 0 70%;
+        flex: 0 0 70%;
+        max-width: 70%;
+        width:70%;
       }
       & > textarea {
-        flex: 9.8;
+        -ms-flex: 0 0 70%;
+        flex: 0 0 70%;
+        max-width: 70%;
+        width:70%;
         height: 172px;
         border: 1px solid $border;
         resize: none;
@@ -7005,9 +7054,12 @@ select:disabled {
         color: #2a2a2c;
       }
       & > div {
-        flex: 7;
+        -ms-flex: 0 0 70%;
+        flex: 0 0 70%;
+        max-width: 70%;
+        width:70%;
         & > input {
-          width: 216px;
+          width: 70%;
         }
         .selector-item {
           width: 210px;
@@ -7160,9 +7212,7 @@ select:disabled {
       & > div {
         width: 810px;
         padding-right: 29px;
-        span {
-          flex: .7;
-        }
+
       }
     }
   }
@@ -7303,18 +7353,27 @@ select:disabled {
       margin-bottom: 20px;
       position: relative;
       & > span {
-        flex: 1;
+        -ms-flex: 0 0 14%;
+        flex: 0 0 14%;
+        max-width: 14%;
+        width:14%;
         margin: 0 40px 0 0;
         line-height: 40px;
         text-align: right;
       }
       & > input {
-        flex: 7;
+        -ms-flex: 0 0 70%;
+        flex: 0 0 70%;
+        max-width: 70%;
+        width:70%;
         height: 40px;
         text-indent: 1em;
       }
       & > textarea {
-        flex: 6.3;
+        -ms-flex: 0 0 70%;
+        flex: 0 0 70%;
+        max-width: 70%;
+        width:70%;
         height: 172px;
         border: 1px solid $border;
         resize: none;
@@ -7323,7 +7382,10 @@ select:disabled {
         color: #2a2a2c;
       }
       & > .goods-project-input {
-        flex: 7;
+        -ms-flex: 0 0 70%;
+        flex: 0 0 70%;
+        max-width: 70%;
+        width:70%;
         height: 40px;
         & > input {
           width: 216px;
@@ -7825,6 +7887,14 @@ select:disabled {
   .teams-news {
     height: 172px;
   }
+  .addchild-list-cont{
+    & > div > span{
+      -ms-flex: 0 0 10%;
+      flex: 0 0 10%;
+      max-width: 10%;
+      width:10%;
+    }
+  }
   .teams-news > div > textarea {
     width: 100%;
     height: 172px;
@@ -7837,7 +7907,10 @@ select:disabled {
   }
   .teams-news > div {
     position: relative;
-    flex: 7;
+    -ms-flex: 0 0 70%;
+    flex: 0 0 70%;
+    max-width: 70%;
+    width:70%;
   }
   .teams-textare {
     position: absolute;
@@ -7925,6 +7998,7 @@ select:disabled {
 //我的团队
 .my-team-but {
   margin-top: 20px;
+  text-align: center;
   .team-but-1 {
     width: 122px;
     height: 34px;
@@ -7944,7 +8018,7 @@ select:disabled {
     background: $color-button;
     box-shadow: 0px 2px 7px 2px #d632aa4d;
     border-radius: 20px;
-    float: left;
+    //float: left;
   }
 }
 

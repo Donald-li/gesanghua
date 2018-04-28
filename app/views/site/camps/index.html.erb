@@ -1,7 +1,7 @@
 <div id="project">
   <div class="project-head">
     <div class="project-img"></div>
-    <%= image_tag @project.project_image.to_s %>
+    <%= image_tag @project.image_url(:tinye) %>
     <div class="project-cont">
       <p class="project-cont-tit"><%= @project.name %></p>
       <div class="project-cont-con "><%= @project.describe.html_safe %></div>
