@@ -256,9 +256,9 @@ class DonateRecord < ApplicationRecord
     elsif self.owner_type == 'ProjectSeasonApplyChild'
       self.owner.name
     elsif self.owner_type == 'ProjectSeasonApplyBookshelf'
-      self.owner.apply.name
+      self.owner.apply.try(:name)
     elsif self.owner_type == 'BookshelfSupplement'
-      self.owner.apply.name
+      self.owner.apply.try(:name)
     elsif self.owner_type == 'CampaignEnlist'
       self.owner.campaign.name
     end
