@@ -267,8 +267,7 @@ class Donation < ApplicationRecord
       # (self.amount * 100).to_i,
       spbill_create_ip: remote_ip,
       notify_url: notify_url,
-      trade_type: 'NATIVE', # could be "JSAPI" or "NATIVE",
-      openid: self.agent.profile['openid']# required when trade_type is `JSAPI`
+      trade_type: 'NATIVE' # could be "JSAPI" or "NATIVE",
     }
     res = WxPay::Service.invoke_unifiedorder params
     logger.info(res)
