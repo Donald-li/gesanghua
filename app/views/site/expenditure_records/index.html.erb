@@ -1,3 +1,83 @@
-支出
+<div class="disclosures-table">
+  <div class="disclosures-font">
+    <p class="disclosures-f-1 clearfix">
+      <span class="disclosures-f-bg pull-left">财务公开</span>
+      <span class="disclosures-f-min pull-left">累计收入:</span>
+      <span class="disclosures-f-moy pull-left">12467115678.0元</span>
+    </p>
+    <p class="disclosures-pos">
+      查看财务报告  |  查看审计报告
+    </p>
+  </div>
+  <div class="speciais-con">
+    <div class="donations-1 border-b clearfix" >
+      <ul class="donations1 clearfix pull-left">
+        <li class="cur  "><%= link_to articles_path do %>财务收入
+              <div class=""></div><% end %></li>
+        <li class="cur  selectedDo"><%= link_to specials_path do %>财务支出
+              <div class="bottomline"></div><% end %></li>
+      </ul>
+      <div class=" searchinput  clearfix">
+        <div class="input-group pull-left">
+          <span class="iconfont icon-ico-search pull-left"></span>
+          <input type="text" class="form-input pull-left" placeholder="搜索单号、名称、汇款人、经办人、备注" />
+        </div>
+        <button type="submit" class="school-apply-share-share pull-left">搜索</button>
+      </div>
+    </div>
+  </div>
 
-<%= link_to '查看凭证', expenditure_record_path(id: 1) %>
+
+  <div class="contentab">
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th scope="col">支出单号</th>
+        <th scope="col">支出名称</th>
+        <th scope="col">支出分类</th>
+        <th scope="col">支出时间</th>
+        <th scope="col">支出金额</th>
+        <th scope="col">支出凭证</th>
+        <th scope="col">经办人</th>
+        <th scope="col">备注</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <th>201703293948885</th>
+        <td>王娜娜助学款</td>
+        <td>一对一助学 定向捐助</td>
+        <td>2017-09-09 13:45:23</td>
+        <th>199.00</th>
+        <td ><%= link_to '查看凭证', expenditure_record_path(id: 1), style:'color: #5765f0;' %></td>
+        <td>李*力</td>
+        <td></td>
+      </tr>
+      <tr>
+        <th></th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <th></th>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th></th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <th></th>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+
