@@ -1,4 +1,4 @@
-<% html = j(render('list', records: @records, owner: @owner)) %>
+<% html = j(render('list', records: @records, owner: @owner, child: @child)) %>
 $('#donate-records .more').remove()
 $('<%=html%>').appendTo('#donate-records')
 
