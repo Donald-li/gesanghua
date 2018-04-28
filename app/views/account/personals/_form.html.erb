@@ -51,7 +51,7 @@
         <label for="inputStandard" class="col-md-3 control-label">联系电话：</label>
         <div class="col-md-5 control-field">
           <div class="bs-component">
-            <%= f.text_field :phone, class: 'form-control', placeholder: "请填写联系电话" %>
+            <%= f.text_field :phone, class: 'form-control', placeholder: "请填写联系电话", data: {'parsley-phone': true, 'parsley-required': true} %>
           </div>
         </div>
       </div>

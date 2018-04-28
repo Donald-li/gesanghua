@@ -64,6 +64,8 @@ class ProjectSeasonApplyCampMember < ApplicationRecord
   default_value_for :nation, 0
 
   validates :name, :id_card, presence: true
+  validates :id_card, shenfenzheng_no: true
+  validates :teacher_phone, :guardian_phone, mobile: true
 
   scope :sorted, -> {order(created_at: :desc)}
 
@@ -78,6 +80,7 @@ class ProjectSeasonApplyCampMember < ApplicationRecord
   end
 
   def count_age
+    return unless self.id_card.present?
     birthday = ChinesePid.new("#{self.id_card}").birthday
     today = Date.today
     child_age = (today - birthday).to_i/365
