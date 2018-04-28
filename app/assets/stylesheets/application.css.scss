@@ -95,6 +95,8 @@ body {
     border-radius: 3px;
   }
 
+
+
   input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px white inset !important;
     outline: none;
@@ -185,7 +187,9 @@ body {
 
 
 }
-
+.login-input{
+  color: #8d8d8d;
+}
 span {
   display: inline-block;
 }
@@ -305,7 +309,7 @@ select:disabled {
   border-radius: 3px;
   border: 1px solid $border;
   font-size: 14px;
-  color: #2a2a2c;
+  color: #8d8d8d;
 
 }
 
@@ -4276,7 +4280,7 @@ select:disabled {
     margin: 0 34px 0 6px;
   }
   & > input {
-    width: 430px;
+    width: 426px;
     padding: 6px 0px 7px 10px;
     font-size: 14px;
   }
@@ -4300,13 +4304,18 @@ select:disabled {
       display: -ms-flexbox;
       display: -webkit-flex;
       & > li {
-        flex: 1;
+
+        -ms-flex: 0 0 23%;
+        flex: 0 0 23%;
+        max-width: 23%;
+        width:23%;
         height: 36px;
         line-height: 34px;
         margin-left: 10px;
         border-radius: 2px;
         border: 1px solid $border;
         text-align: center;
+        float: left;
 
       }
       & > li:first-child {

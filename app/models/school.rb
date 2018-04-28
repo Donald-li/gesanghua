@@ -106,7 +106,7 @@ class School < ApplicationRecord
       if user.teacher.present?
         user.teacher.update(kind: 'headmaster', school_id: self.id)
       else
-        Teacher.create(name: user.name, phone: user.phone, school: self, user: user, kind: 'headmaster')
+        Teacher.create(name: self.contact_name, phone: self.contact_phone, id_card: self.contact_id_card, school: self, user: user, kind: 'headmaster')
       end
       user.add_role(:headmaster)
       user.remove_role(:teacher)

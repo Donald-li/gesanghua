@@ -40,53 +40,51 @@
 //= require 'plugin/parsley.min.js'
 //= require 'plugin/parsley.min.zextra.js'
 //= require 'plugin/parsley.min.zh_cn.js'
-
-
-
+//= require 'plugin/jquery.placeholder.min.js'
 
 
 $(function () {
-  // head搜索
-  $('.search-box .form-control').focus(function () {
-    $(this).closest('.search-box').addClass('focus');
-  }).blur(function () {
-    if ($(this).val() === '') {
-      $(this).closest('.search-box').removeClass('focus');
-    }
-  })
+    // head搜索
+    $('.search-box .form-control').focus(function () {
+        $(this).closest('.search-box').addClass('focus');
+    }).blur(function () {
+        if ($(this).val() === '') {
+            $(this).closest('.search-box').removeClass('focus');
+        }
+    })
 
-  var windowInnerHeight = $(window).innerHeight();
+    var windowInnerHeight = $(window).innerHeight();
 
-  $('.min-wrap').css('min-height', windowInnerHeight - 198);
+    $('.min-wrap').css('min-height', windowInnerHeight - 198);
 
-  //timeago
-  $('.timeago').timeago();
-  var timeagoInstance = new timeago();
-  $('.timeago').each(function(index, el){
-    $(el).html( timeagoInstance.format($(el).data('timeago'), 'zh_CN') )
-  })
-  // timeagoInstance.format('2016-06-12', 'zh_CN');
+    //timeago
+    $('.timeago').timeago();
+    var timeagoInstance = new timeago();
+    $('.timeago').each(function (index, el) {
+        $(el).html(timeagoInstance.format($(el).data('timeago'), 'zh_CN'))
+    })
+    // timeagoInstance.format('2016-06-12', 'zh_CN');
 
     //判断屏幕高度
-    if ($(window).height() <= $(document.body).height()){
-        $('.bul-footer').css({'position':'static'})
-    }else {
-        $('.bul-footer').css({'position':'fixed','left':'0','bottom':'0'})
+    if ($(window).height() <= $(document.body).height()) {
+        $('.bul-footer').css({'position': 'static'})
+    } else {
+        $('.bul-footer').css({'position': 'fixed', 'left': '0', 'bottom': '0'})
     }
     //导航标题
-    $('#navshow').mouseenter(function(){
-        $('.bul-nav-heide').css({'display':'block'})
+    $('#navshow').mouseenter(function () {
+        $('.bul-nav-heide').css({'display': 'block'})
     })
-    $('#navshow').mouseleave(function(){
-        $('.bul-nav-heide').css({'display':'none'})
+    $('#navshow').mouseleave(function () {
+        $('.bul-nav-heide').css({'display': 'none'})
     })
 
     //判断浏览器
-    if (window.ActiveXObject || "ActiveXObject" in window){
-        $('.read-more').css({ "white-space": "nowrap"})
-        $('.redundance').css({ "white-space": "nowrap"})
-        $('.project-cont-con').css({ "white-space": "nowrap"})
-        $('.detail-con-font').css({ "white-space": "nowrap"})
+    if (window.ActiveXObject || "ActiveXObject" in window) {
+        $('.read-more').css({"white-space": "nowrap"})
+        $('.redundance').css({"white-space": "nowrap"})
+        $('.project-cont-con').css({"white-space": "nowrap"})
+        $('.detail-con-font').css({"white-space": "nowrap"})
     }
 
     //二维码设置
@@ -137,11 +135,11 @@ $(function () {
     //         }
     //     })
     // })
-    if($('.school-apply-pair-tables').length>8){
-        $('.posscroll').css('height','800px')
+    if ($('.school-apply-pair-tables').length > 8) {
+        $('.posscroll').css('height', '800px')
     }
 //    遮罩
-    jQuery.fn.center = function(loaded) {
+    jQuery.fn.center = function (loaded) {
         var obj = this;
         body_width = parseInt($(window).width());
         body_height = parseInt($(window).height());
@@ -151,20 +149,22 @@ $(function () {
         left_position = parseInt((body_width / 2) - (block_width / 2) + $(window).scrollLeft());
         if (body_width < block_width) {
             left_position = 0 + $(window).scrollLeft();
-        };
+        }
+        ;
 
         top_position = parseInt((body_height / 2) - (block_height / 2) + $(window).scrollTop());
         if (body_height < block_height) {
             top_position = 0 + $(window).scrollTop();
-        };
+        }
+        ;
 
         if (!loaded) {
 
 
-            $(window).bind('resize', function() {
+            $(window).bind('resize', function () {
                 obj.center(!loaded);
             });
-            $(window).bind('scroll', function() {
+            $(window).bind('scroll', function () {
                 obj.center(!loaded);
             });
 
@@ -172,41 +172,6 @@ $(function () {
     }
 
 
-});
-var JPlaceHolder = {
-    //检测
-    _check : function(){
-        return 'placeholder' in document.createElement('input');
-    },
-    //初始化
-    init : function(){
-        if(!this._check()){
-            this.fix();
-        }
-    },
-    //修复
-    fix : function(){
-        jQuery(':input[placeholder]').each(function(index, element) {
-            var self = $(this), txt = self.attr('placeholder');
-            self.wrap($('<div></div>').css({position:'relative', zoom:'1', border:'none', background:'none', padding:'none', margin:'none'}));
-            var pos = self.position(), h = self.outerHeight(true), paddingleft = self.css('padding-left');
-            var holder = $('<span></span>').text(txt).css({position:'absolute', left:pos.left+10, top:'10px', height:'0', paddingLeft:paddingleft, color:'#aaa'}).appendTo(self.parent());
-            self.focusin(function(e) {
-                holder.hide();
-            }).focusout(function(e) {
-                if(!self.val()){
-                    holder.show();
-                }
-            });
-            holder.click(function(e) {
-                holder.hide();
-                self.focus();
-            });
-        });
-    }
-};
-//执行
-jQuery(function(){
-    JPlaceHolder.init();
-});
+})
+
 

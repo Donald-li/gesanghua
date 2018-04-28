@@ -267,7 +267,9 @@ class Donation < ApplicationRecord
       # (self.amount * 100).to_i,
       spbill_create_ip: remote_ip,
       notify_url: notify_url,
-      trade_type: 'NATIVE' # could be "JSAPI" or "NATIVE",
+      trade_type: 'NATIVE', # could be "JSAPI" or "NATIVE",
+      product_id: self.order_no,
+      is_subscribe: 'Y'
     }
     res = WxPay::Service.invoke_unifiedorder params
     return res['code_url']

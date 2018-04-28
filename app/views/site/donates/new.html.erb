@@ -25,17 +25,18 @@
       </div>
       <div class="benefactors-moy clearfix">
         <span class="pull-left">捐款金额</span>
-        <input type="text" placeholder="其他金额" class="pull-left" value="100" name="amount" id="donate-amount" data-parsley-required="true" data-parsley-min="1" />
+        <input type="text" class="pull-left" value="100" name="amount" id="donate-amount" data-parsley-required="true" data-parsley-min="1" />
+        <!--placeholder="其他金额" -->
         <span >元</span>
         <div class="pull-right">
-          <ul class="ui-choose ui-choose-tab" id="amount-tab-default" style="display: none">
+          <ul class="ui-choose ui-choose-tab clearfix" id="amount-tab-default" style="display: none">
             <% Settings.amount_tabs.each do |a| %>
             <li class="cur amount_tab_cur" data-amount="<%= a %>"><%= number_to_currency a %> 元</li>
             <% end %>
           </ul>
           <% @donate_itmes.each do |d| %>
             <% if d.amount_tabs.count > 0 %>
-            <ul class="ui-choose ui-choose-tab" id="amount-tab-<%= d.id %>">
+            <ul class="ui-choose ui-choose-tab clearfix" id="amount-tab-<%= d.id %>">
             <% d.amount_tabs.each do |a| %>
               <li class="cur amount_tab_cur" data-amount="<%= a.amount %>"><%= number_to_currency a.amount %> 元 （<%= a.alias %>）</li>
             <% end %>
@@ -67,10 +68,12 @@
           <li class="donate_way" data-way="wechat">
             <%= image_tag 'iconpic-buy-weixin.svg' %>
           </li>
+          <% if current_user.balance > 0 %>
           <li class="donate_way" data-way="balance">
             <%= image_tag 'iconpic-buy-outline.svg' %>
             <span><%= number_to_currency current_user.balance %> 元</span>
           </li>
+          <% end %>
         </ul>
       </div>
       <div style="text-align:center; ">
@@ -146,7 +149,7 @@
     })
     $('.ui-choose').ui_choose();
     $("#benefactor").select2({
-        width: "430px",
+        width: "426px",
         minimumResultsForSearch: -1
     });
 

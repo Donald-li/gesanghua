@@ -1,7 +1,7 @@
 class Platform::School::Apply::GoodsProjectsController < Platform::School::BaseController
   before_action :set_goods_project
   before_action :check_manage_limit
-  
+
   def index
     scope = @current_project.applies.where(school_id: current_user.school)
     @applies = scope.sorted.page(params[:page]).per(7)
@@ -34,7 +34,7 @@ class Platform::School::Apply::GoodsProjectsController < Platform::School::BaseC
   def update
     @apply = @current_project.applies.where(school_id: current_user.school).find(params[:id])
     @apply.attributes = apply_params
-
+    @apply.audit_state = 'submit'
     if @apply.save
       @apply.attach_images(params[:image_ids])
       redirect_to platform_school_apply_goods_projects_path(pid: @current_project)

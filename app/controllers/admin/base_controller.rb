@@ -15,7 +15,7 @@ class Admin::BaseController < ManagementBaseController
   end
 
   def login_require
-    if session[:user_id].present?
+    if current_user.present?
       return true
     else
       redirect_to admin_login_path
@@ -23,8 +23,13 @@ class Admin::BaseController < ManagementBaseController
   end
 
   def current_user
-    @current_user ||= User.find_by id: session[:user_id]
+    unless @current_user
+      user = User.find_by id: session[:user_id]
+      @current_user = user if user.has_role? User::ADMIN_ROLES
+    end
+    @current_user
   end
+
 
   def auth_superadmin
     authorize! :manage_superadmin, current_user

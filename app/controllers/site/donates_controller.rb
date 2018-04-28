@@ -2,14 +2,32 @@ class Site::DonatesController < Site::BaseController
   before_action :login_require
 
   def new
+    if params[:child].present?
+      @project = Project.pair_project
+    elsif params[:apply].present?
+      @apply = ProjectSeasonApply.find(params[:apply])
+      @surplus_money = @apply.surplus_money
+      @project = @apply.project
+    elsif params[:bookshelf].present?
+      @project = Project.read_project
+      @apply = ProjectSeasonApplyBookshelf.find(params[:bookshelf]).apply
+      @surplus_money = @apply.surplus_money
+    end
 
-    @donate_itmes = DonateItem.includes(:amount_tabs).sorted.show
+    if @project
+      @amount_tabs = @project.amount_tabs(@surplus_money)
+    else
+      @amount_tabs = Settings.amount_tabs
+    end
+
     @donors = current_user.offline_users.reverse_sorted
 
     render 'child' if params[:child].present?
     render 'apply' if params[:apply].present?
     render 'bookshelf' if params[:bookshelf].present?
     render 'campaign_enlist' if params[:campaign_enlist].present?
+
+    @donate_itmes = DonateItem.includes(:amount_tabs).sorted.show
   end
 
   def create
