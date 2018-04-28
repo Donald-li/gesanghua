@@ -33,8 +33,8 @@ class Site::DonatesController < Site::BaseController
   def create
     donate_way = params[:donate_way]
 
-    donor_id = params[:donor]
     agent = current_user
+    donor_id = params[:donor].presence || agent.id
     team_id = current_user.team_id
     amount = params[:amount]
     promoter_id = params[:promoter]
