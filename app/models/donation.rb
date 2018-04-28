@@ -302,7 +302,7 @@ class Donation < ApplicationRecord
     else
       method = "alipay.trade.page.pay"
       product_code = 'FAST_INSTANT_TRADE_PAY'
-      quit_url = 'http://' + Settings.app_host + 'pay?order_no=' + self.order_no
+      quit_url = 'http://' + Settings.app_host + '/pay?order_no=' + self.order_no
     end
 
     @client = get_alipay_client

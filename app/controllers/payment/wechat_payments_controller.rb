@@ -5,7 +5,7 @@ class Payment::WechatPaymentsController < Payment::BaseController
     result = Hash.from_xml(request.body.read)["xml"]
     logger.info result
     donation = Donation.find_by(order_no: result['out_trade_no'])
-    url = pay_path(order_no: donation.id)
+    url = pay_path(order_no: donation.order_no)
     if WxPay::Sign.verify?(result)
       succ, message = Donation.wechat_payment_success(result) if result['result_code'] == 'SUCCESS'
       if succ
