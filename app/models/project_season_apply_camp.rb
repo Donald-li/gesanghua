@@ -27,7 +27,7 @@ class ProjectSeasonApplyCamp < ApplicationRecord
   has_many :camp_members, class_name: 'ProjectSeasonApplyCampMember', dependent: :destroy
 
   enum time_limit: {restrict: 1, unrestrict: 2}
-  default_value_for :time_limit, 1
+  default_value_for :time_limit, 2
 
   # enum message_type: {system: 1, note: 2}
 
