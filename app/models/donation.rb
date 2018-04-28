@@ -270,7 +270,6 @@ class Donation < ApplicationRecord
       trade_type: 'NATIVE' # could be "JSAPI" or "NATIVE",
     }
     res = WxPay::Service.invoke_unifiedorder params
-    logger.info(res)
     return res['code_url']
   end
 
