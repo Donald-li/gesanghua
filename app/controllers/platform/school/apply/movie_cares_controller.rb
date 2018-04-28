@@ -18,7 +18,7 @@ class Platform::School::Apply::MovieCaresController < Platform::School::BaseCont
   def create
     season = ProjectSeason.find(apply_params[:project_season_id])
     if ProjectSeasonApply.allow_apply?(@school, season, Project.read_project)
-      @apply = ProjectSeasonApply.new(apply_params.merge(project: Project.movie_care_project, school: @school, contact_name: apply_params[:consignee], contact_phone: apply_params[:consignee_phone]))
+      @apply = ProjectSeasonApply.new(apply_params.merge(project: Project.movie_care_project, school: @school))
       if @apply.save
         @apply.attach_images(params[:image_ids])
         redirect_to platform_school_apply_movie_cares_path, notice: '提交成功'
@@ -35,7 +35,7 @@ class Platform::School::Apply::MovieCaresController < Platform::School::BaseCont
   end
 
   def update
-    if @apply.update(apply_params.merge(contact_name: apply_params[:consignee], contact_phone: apply_params[:consignee_phone], audit_state: 'submit'))
+    if @apply.update(apply_params.merge(audit_state: 'submit'))
       @apply.attach_images(params[:image_ids])
       redirect_to platform_school_apply_movie_cares_path, notice: '提交成功'
     else
