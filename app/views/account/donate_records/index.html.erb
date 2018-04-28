@@ -1,0 +1,62 @@
+<div class="person-body-right pull-right">
+  <!--我的捐助-->
+  <div style="display: block;">
+    <div class="donations-1 border-b">
+      <ul class="donations1 clearfix">
+        <li class="<%= 'selectedDo' if params[:type] === 'donor' %> cur"><%= link_to '累计捐助', account_donate_records_path(type: 'donor') %>
+          <% if params[:type] === 'donor' %>
+              <div class="bottomline"></div>
+          <% end %>
+        </li>
+        <li class="<%= 'selectedDo' if params[:type] === 'promoter' %> cur border-l"><%= link_to '累计劝捐', account_donate_records_path(type: 'promoter') %>
+          <% if params[:type] === 'promoter' %>
+              <div class="bottomline"></div>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+    <div class="team-donations">
+      <% if @donate_records.present? %>
+          <ul>
+            <%= render 'list' %>
+          </ul>
+          <div class="project-foot">
+            <%= paginate @donate_records, theme: :tiny %>
+          </div>
+      <% else %>
+          <!--无捐助记录页面-->
+          <div class="not-available ">
+            <div class="donation-cont-no">
+              <div class="donation-co-no-c">
+                <p>您没有任何捐助记录! </p>
+                <p>马上参与捐助，帮助西部孩子 健康成长吧~</p>
+              </div>
+              <%= link_to new_donate_path do %>
+                  <button class="donation-co-no-but">去捐助</button>
+              <% end %>
+            </div>
+          </div>
+          </div>
+      <% end %>
+      </div>
+</div>
+</div>
+
+<script>
+    $('.team-donations ul li').eq(0).removeClass('border-t')
+    $(function () {
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 'auto',
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            slidesPerGroup: 5,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    })
+
+</script>

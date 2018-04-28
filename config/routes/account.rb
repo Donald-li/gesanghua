@@ -34,6 +34,7 @@ namespace :account do
   resource :registration, only: [:show, :new, :create]
   resource :modify_password, only: [:edit, :update]
   resources :donations, only: [:index]
+  resources :donate_records, only: :index
   resources :raises, only: [:index]
   resources :pairs, only: [:index, :show] do
     resources :mailboxes, only: [:index, :show]
