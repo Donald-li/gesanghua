@@ -23,7 +23,7 @@
 #  owner_id                      :integer                                # 捐助所属捐助项
 #  donation_id                   :integer                                # 捐助id
 #  kind                          :integer                                # 捐助方式 1:捐款 2:配捐
-#  project_season_apply_child_id :integer                                # 结对助学孩子
+#  project_season_apply_child_id :integer                                # 一对一孩子
 #  state                         :integer                                # 状态
 #
 
