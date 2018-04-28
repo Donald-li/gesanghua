@@ -178,7 +178,7 @@ class Project < ApplicationRecord
   def detail_builder
     Jbuilder.new do |json|
       json.merge! summary_builder
-      json.head_image_url self.head_image_url(:tiny).to_s
+      json.head_image_url self.image_url(:medium).to_s
       json.total self.total_amount
       json.num self.to_donate_num
       json.unit self.unit

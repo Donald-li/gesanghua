@@ -133,7 +133,7 @@ class User < ApplicationRecord
   end
 
   def school
-    self.headmaster? ? School.find_by(user_id: self) : self.teacher.try(:school)
+    self.teacher.try(:school)
   end
 
   def school_name

@@ -7,7 +7,10 @@
   <div class="disclosures-show">
     <%= @audit_report.content.html_safe %>
   </div>
-  <% @audit_report.report_files.each do |file| %>
-    <i class="fa fa-download"></i><%= link_to file.file_name, file_download_audit_report_path(file_id: file.id) %><br/>
-  <% end %>
+  <div style="text-align: center">
+    <% @audit_report.report_files.each do |file| %>
+        <i class="fa fa-download"></i><%= link_to file.file_name, file_download_audit_report_path(file_id: file.id) %><br/>
+    <% end %>
+  </div>
+
 </div>

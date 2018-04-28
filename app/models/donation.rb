@@ -260,15 +260,14 @@ class Donation < ApplicationRecord
   def get_wechat_prepay_code(remote_ip)
     notify_url = Settings.app_host + "/payment/wechat_payments/notify"
     params = {
-      body: '需要一个商品名称',
+      body: '捐助给格桑花',
       out_trade_no: self.order_no,
       # total_fee: Settings.pay_1_mode ? 1 : (self.amount * 100).to_i,
       total_fee: 1,
       # (self.amount * 100).to_i,
       spbill_create_ip: remote_ip,
       notify_url: notify_url,
-      trade_type: 'NATIVE', # could be "JSAPI" or "NATIVE",
-      openid: self.agent.profile['openid']# required when trade_type is `JSAPI`
+      trade_type: 'NATIVE' # could be "JSAPI" or "NATIVE",
     }
     res = WxPay::Service.invoke_unifiedorder params
     return res['code_url']
