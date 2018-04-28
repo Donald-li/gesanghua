@@ -7,7 +7,7 @@
 
 <div class="person-body-right pull-right">
   <!--我的捐助-->
-  <div style="display: block;">
+  <div>
     <ul class="donations clearfix">
       <li class="selectedDon cur">
         <%= link_to '我的捐助', account_orders_path %>
@@ -20,32 +20,61 @@
       </li>
     </ul>
     <!--我的捐助-->
-    <div class="donation " style="display: block;">
-      <div class=" donations-1 swiper-container ">
-        <div class="donations1  swiper-wrapper panel-tabs">
+    <!--<div class="donation " style="display: block;">-->
+      <!--<div class=" donations-1 swiper-container ">-->
+        <!--<div class="donations1  swiper-wrapper panel-tabs">-->
 
-          <div class="swiper-slide cur <%= 'selectedDo' if params[:project_id].nil? %>">
-            <%= link_to '全部项目', account_orders_path %>
-            <% if params[:project_id].nil? %>
-                <div class="bottomline"></div>
-            <% end %>
-          </div>
+          <!--<div class="swiper-slide cur <%= 'selectedDo' if params[:project_id].nil? %>">-->
+            <!--<%= link_to '全部项目', account_orders_path %>-->
+            <!--<% if params[:project_id].nil? %>-->
+                <!--<div class="bottomline"></div>-->
+            <!--<% end %>-->
+          <!--</div>-->
+          <!--<% @projects.each do |project| %>-->
+              <!--<div class="cur border-l swiper-slide <%= 'selectedDo' if params[:project_id] == project.id %>">-->
+                <!--<%= link_to project.name, account_orders_path(project_id: project.id) %>-->
+                <!--<% if params[:project_id] === project.id.to_s %>-->
+                    <!--<div class="bottomline"></div>-->
+                <!--<% end %>-->
+              <!--</div>-->
+          <!--<% end %>-->
+        <!--</div>-->
+        <!--<div class="swiper-button-next">-->
+          <!--<span class="iconfont icon-arrowdown bul-icon-next"></span>-->
+        <!--</div>-->
+        <!--<div class="swiper-button-prev">-->
+          <!--<span class="iconfont icon-arrowdown bul-icon-prev"></span>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+
+
+    <div class="focus-img" id="focus-img">
+      <div class="focus-img-con" id="focus-img-con">
+        <ul>
+          <li>
+            <div class=" cur <%= 'selectedDo' if params[:project_id].nil? %>">
+              <%= link_to '全部项目', account_orders_path %>
+              <% if params[:project_id].nil? %>
+                  <div class="bottomline"></div>
+              <% end %>
+            </div>
+          </li>
           <% @projects.each do |project| %>
-              <div class="cur border-l swiper-slide <%= 'selectedDo' if params[:project_id] == project.id %>">
-                <%= link_to project.name, account_orders_path(project_id: project.id) %>
-                <% if params[:project_id] === project.id.to_s %>
-                    <div class="bottomline"></div>
-                <% end %>
-              </div>
+          <li>
+            <div class="cur border-l  <%= 'selectedDo' if params[:project_id] == project.id %>">
+              <%= link_to project.name, account_orders_path(project_id: project.id) %>
+              <% if params[:project_id] === project.id.to_s %>
+                  <div class="bottomline"></div>
+              <% end %>
+            </div>
+          </li>
           <% end %>
-        </div>
-        <div class="swiper-button-next">
-          <span class="iconfont icon-arrowdown bul-icon-next"></span>
-        </div>
-        <div class="swiper-button-prev">
-          <span class="iconfont icon-arrowdown bul-icon-prev"></span>
-        </div>
+        </ul>
       </div>
+
+
+
     </div>
     <% if @donate_records.present? %>
         <div class="panel-body">
@@ -73,95 +102,14 @@
 </div>
 
 </div>
-<style>
-  .bul-icon-next {
-    position: absolute;
-    left: 0;
-    top: 7px;
-    z-index: 11;
-    color: #8b54e3;
-    width: 100%;
-    height: 100%;
-    font-size: 22px;
-    text-align: center;
-    transform: rotate(270deg);
-    line-height: 18px;
-  }
 
-  .bul-icon-prev {
-    position: absolute;
-    left: 0;
-    top: -5px;
-    z-index: 11;
-    color: #8b54e3;
-    width: 100%;
-    height: 100%;
-    font-size: 22px;
-    text-align: center;
-    transform: rotate(90deg);
-    line-height: 18px;
-  }
-
-  .swiper-button-prev, .swiper-container-rtl .swiper-button-next {
-    background-color: inherit;
-    opacity: 1;
-  }
-
-  .swiper-button-next, .swiper-container-rtl .swiper-button-next {
-    background-color: inherit;
-    opacity: 1;
-  }
-
-  .donation .swiper-container {
-    width: 66%;
-    height: 100%;
-    margin: 0;
-  }
-
-  .donation .swiper-button-prev, .swiper-container-rtl .swiper-button-next {
-    background-image: none;
-    right: 16px;
-    left: auto;
-  }
-
-  .donation .swiper-button-next, .swiper-container-rtl .swiper-button-prev {
-    background-image: none;
-    right: 0;
-    left: auto;
-  }
-
-  .donation .swiper-button-next, .swiper-button-prev {
-    width: 10px;
-    height: 18px;
-    margin-top: -5px;
-  }
-
-  .donation .swiper-slide {
-    text-align: center;
-    background: #fff;
-    width: 103px;
-    height: 16px;
-    line-height: 16px;
-    font-size: 14px;
-    color: #3d3d40;
-    position: relative;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
-    align-items: center;
-  }
-
-</style>
 
 <script>
+    $("#focus-img").changeImg({
+        'boxWidth':560,
+        'autoChange':false,
+        'changeLen':5
+    });
     $(function () {
         var swiper = new Swiper('.swiper-container', {
             slidesPerView: 'auto',

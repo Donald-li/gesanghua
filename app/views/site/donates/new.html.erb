@@ -1,4 +1,5 @@
 <div id="donates">
+  <% item_id = params[:item] || @donate_itmes.first.try(:id) %>
   <form action="<%= donates_path %>" method="post" data-parsley-validate="true">
     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
   <div class="donates-img">
@@ -16,12 +17,12 @@
         <div class="donations-1" >
           <ul class="donations1 clearfix">
             <% @donate_itmes.each do |d| %>
-            <li class="<%= d == @donate_itmes.first ? 'selectedDo' : '' %> cur donate-item-cur" data-describe="<%= d.describe %>" data-donate-item-id="<%= d.id %>"><%= d.name %></li>
+            <li class="<%= item_id.to_s == d.id.to_s ? 'selectedDo' : '' %> cur donate-item-cur" data-describe="<%= d.describe %>" data-donate-item-id="<%= d.id %>"><%= d.name %></li>
             <% end %>
           </ul>
           <div class="bottomline"></div>
         </div>
-        <p class="donates-c-l-t" id="donate-item-describe"><%= @donate_itmes.first.describe %></p>
+        <p class="donates-c-l-t" id="donate-item-describe"><%= @donate_itmes.detect{|i| i.id.to_s == item_id.to_s}.try(:describe) %></p>
       </div>
       <div class="benefactors-moy clearfix">
         <span class="pull-left">捐款金额</span>
@@ -29,19 +30,18 @@
         <!--placeholder="其他金额" -->
         <span >元</span>
         <div class="pull-right">
-          <ul class="ui-choose ui-choose-tab clearfix" id="amount-tab-default" style="display: none">
-            <% Settings.amount_tabs.each do |a| %>
-            <li class="cur amount_tab_cur" data-amount="<%= a %>"><%= number_to_currency a %> 元</li>
-            <% end %>
-          </ul>
           <% @donate_itmes.each do |d| %>
+            <ul class="ui-choose ui-choose-tab clearfix" id="amount-tab-<%= d.id %>" style="display: <%= item_id.to_s == d.id.to_s ? 'block' : 'none' %>">
             <% if d.amount_tabs.count > 0 %>
-            <ul class="ui-choose ui-choose-tab clearfix" id="amount-tab-<%= d.id %>">
-            <% d.amount_tabs.each do |a| %>
-              <li class="cur amount_tab_cur" data-amount="<%= a.amount %>"><%= number_to_currency a.amount %> 元 （<%= a.alias %>）</li>
+              <% d.amount_tabs.each do |a| %>
+                <li class="cur amount_tab_cur" data-amount="<%= a.amount %>"><%= number_to_currency a.amount %> 元 （<%= a.alias %>）</li>
+              <% end %>
+            <% else %>
+              <% Settings.amount_tabs.each do |a| %>
+                <li class="cur amount_tab_cur" data-amount="<%= a %>"><%= number_to_currency a %> 元</li>
+              <% end %>
             <% end %>
             </ul>
-            <% end %>
           <% end %>
         </div>
       </div>
@@ -59,14 +59,14 @@
       <% end %>
       <div class="benefactors-way clearfix border-b">
         <span class="pull-left">支付方式</span>
-        <input type="hidden" name="donate_way" value="alipay" id="donate_way">
+        <input type="hidden" name="donate_way" value="wechat" id="donate_way">
         <input type="hidden" name="donate_item" value="1" id="donate_item">
         <ul class="ui-choose pull-left"  >
-          <li class="donate_way selected" data-way="alipay">
-            <%= image_tag 'iconpic-buy-alipay.svg' %>
-          </li>
-          <li class="donate_way" data-way="wechat">
+          <li class="donate_way selected" data-way="wechat">
             <%= image_tag 'iconpic-buy-weixin.svg' %>
+          </li>
+          <li class="donate_way" data-way="alipay">
+            <%= image_tag 'iconpic-buy-alipay.svg' %>
           </li>
           <% if current_user.balance > 0 %>
           <li class="donate_way" data-way="balance">

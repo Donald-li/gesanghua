@@ -3,20 +3,40 @@
     <p><%= @article.title %></p>
     <p class="articles-time"><%= @article.author %> |  <%= @article.published_at.strftime("%Y年%m月%d日")%> </p>
     <div class="camps-bodys articles-cont">
-      <div class="swiper-container">
-        <div class="swiper-wrapper">
-          <% @article.carousel_images.each do |carousel_image| %>
-            <div class="swiper-slide">
-              <%= image_tag carousel_image.try(:file).try(:url, :large).to_s %>
+      <!--<div class="swiper-container">-->
+        <!--<div class="swiper-wrapper">-->
+          <!--<% @article.carousel_images.each do |carousel_image| %>-->
+            <!--<div class="swiper-slide">-->
+              <!--<%= image_tag carousel_image.try(:file).try(:url, :large).to_s %>-->
+            <!--</div>-->
+          <!--<% end %>-->
+        <!--</div>-->
+        <!--<div class="swiper-pagination"></div>-->
+        <!--<div class="swiper-button-next">-->
+          <!--<span class="iconfont icon-arrow-left bul-icon-next"></span>-->
+        <!--</div>-->
+        <!--<div class="swiper-button-prev">-->
+          <!--<span class="iconfont icon-arrow-left bul-icon-prev"></span>-->
+        <!--</div>-->
+      <!--</div>-->
+      <div class="slide-box-demo" style="height: 460px;">
+        <div class="slide-box" style="height: 460px;">
+          <!-- 轮播图主体模块 -->
+          <div class="slide-con" style="height: 460px;">
+            <div class="slide-out clearfix">
+              <% @article.carousel_images.each do |carousel_image| %>
+                  <div class="slide-li pull-left" style="height: 460px;" >
+                        <%= image_tag carousel_image.try(:file).try(:url, :large).to_s , style:'width:100%;height:460px;' %>
+                  </div>
+              <% end %>
             </div>
-          <% end %>
-        </div>
-        <div class="swiper-pagination"></div>
-        <div class="swiper-button-next">
-          <span class="iconfont icon-arrow-left bul-icon-next"></span>
-        </div>
-        <div class="swiper-button-prev">
-          <span class="iconfont icon-arrow-left bul-icon-prev"></span>
+          </div>
+          <div class="slide-page">
+            <div class="slide-button-prev" id="slide-button-prev"><span class="iconfont icon-arrow-left bul-icon-prev"></span></div>
+            <div class="slide-button-next" id="slide-button-next">
+              <span class="iconfont icon-arrow-left bul-icon-next"></span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -56,18 +76,8 @@
     $('#share-2').share({
         sites: ['qzone', 'wechat', 'weibo', 'qq']
     });
-    var mySwiper = new Swiper('.swiper-container', {
-        slidesPerView: 'auto',
-        centeredSlides: true,
-        loop: true,
-        autoplay: true,
-        pagination: {
-            el: '.swiper-pagination',
-            clickable :true
-        },
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev'
-        }
-    });
+    $('.slide-box-demo').setSlide({
+        pagination:true,
+        pagingTrigger:'hover'
+    })
 </script>

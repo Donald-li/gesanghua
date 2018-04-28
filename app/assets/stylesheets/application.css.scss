@@ -17,6 +17,8 @@
  *= require "plugins/ui-choose"
  *= require "plugins/pretty"
  *= require "plugins/jquery.magnify"
+ *= require "plugins/full-screen-slide.min"
+ *= require "plugins/focusImg"
  *= require_self
  */
 //@import "toastr";
@@ -728,52 +730,14 @@ select:disabled {
 
 .bul-swiper {
   margin-top: 30px;
-  .swiper-container {
-    width: 100%;
-    height: 420px;
-
-    .swiper-slide {
-      width: 1140px !important;
-      text-align: center;
-      font-size: 18px;
-      margin-right: 10px;
-      margin-left: 10px;
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: -webkit-flex;
-      display: flex;
-      float: left;
-      -webkit-box-pack: center;
-      -ms-flex-pack: center;
-      -webkit-justify-content: center;
-      justify-content: center;
-      -webkit-box-align: center;
-      -ms-flex-align: center;
-      -webkit-align-items: center;
-      align-items: center;
-    }
-
+  .slide-box{
+    height: 420px!important;
   }
-  .swiper-pagination-bullet {
-    width: 8px;
-    height: 8px;
-    display: inline-block;
-    border-radius: 100%;
-    background: #ffffff;
-    opacity: 1;
+  .slide-out{
+    height: 420px!important;
   }
-
-  .swiper-button-next, .swiper-button-prev {
-    background-image: none;
-    opacity: .5;
-    width: 38px;
-    height: 60px;
-  }
-  .swiper-button-prev {
-    left: 70px
-  }
-  .swiper-button-next {
-    right: 70px
+  .slide-li{
+    height: 420px!important;
   }
   .bul-icon-next {
     position: absolute;
@@ -3815,18 +3779,7 @@ select:disabled {
 }
 
 .articles-cont {
-  .swiper-button-next, .swiper-button-prev {
-    background-image: none;
-    opacity: .5;
-    width: 38px;
-    height: 60px;
-  }
-  .swiper-button-prev {
-    left: 30px
-  }
-  .swiper-button-next {
-    right: 30px
-  }
+
   .bul-icon-next {
     position: absolute;
     left: 0;
@@ -3851,14 +3804,6 @@ select:disabled {
     font-size: 30px;
     text-align: center;
     line-height: 60px;
-  }
-  .swiper-pagination-bullet {
-    width: 8px;
-    height: 8px;
-    display: inline-block;
-    border-radius: 100%;
-    background: #fff;
-    opacity: 1;
   }
 }
 
