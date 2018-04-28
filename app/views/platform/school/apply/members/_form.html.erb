@@ -9,7 +9,7 @@
     </div>
     <div class="clearfix">
       <span class="goodtext pull-left">身份证号</span>
-      <input  class="goodinput pull-left" type="text" value="<%= @member.id_card %>" name="project_season_apply_camp_member[id_card]" required/>
+      <input  class="goodinput pull-left" type="text" value="<%= @member.id_card %>" name="project_season_apply_camp_member[id_card]" required data-parsley-shenfen/>
     </div>
     <div class="clearfix">
       <span class="goodtext pull-left">民族</span>
@@ -35,7 +35,7 @@
     </div>
     <div class="clearfix">
       <span class="goodtext pull-left">联系方式</span>
-      <input  class="goodinput pull-left from-input" type="text" name="project_season_apply_camp_member[teacher_phone]" value="<%= @member.teacher_phone %>"  required/>
+      <input  class="goodinput pull-left from-input" type="text" name="project_season_apply_camp_member[teacher_phone]" value="<%= @member.teacher_phone %>"  required data-parsley-phone/>
       <!--placeholder="填写班主任联系方式"-->
     </div>
     <div class="clearfix">
@@ -45,7 +45,7 @@
     </div>
     <div class="clearfix">
       <span class="goodtext pull-left">联系方式</span>
-      <input  class="goodinput pull-left from-input" type="text" name="project_season_apply_camp_member[guardian_phone]" value="<%= @member.guardian_phone %>"  required/>
+      <input  class="goodinput pull-left from-input" type="text" name="project_season_apply_camp_member[guardian_phone]" value="<%= @member.guardian_phone %>"  required data-parsley-phone/>
       <!--placeholder="联系方式"-->
     </div>
         <div style="height: 172px;width: 777px;" class="clearfix">

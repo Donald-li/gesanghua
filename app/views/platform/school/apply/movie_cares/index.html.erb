@@ -19,7 +19,7 @@
                     <p class="school-apply-pair-f">申请人：<%= apply.contact_name %></p>
                   </div>
                   <div class="border-l border-r pull-left">
-                    <%= apply.apply? ? apply.enum_name(:audit_state) : apply.enum_name(:read_state) %>
+                    <p class="read-more" data-toggle="tooltip" data-placement="top" title="<%= apply.audits.last.try(:comment) if apply.reject? %>" style="padding: 0 14px;"><%= apply.apply_state %></p>
                   </div>
                   <div class="pull-left">
                     <%= link_to '查看申请详情', platform_school_apply_movie_care_path(apply), class:'lookapply' %>

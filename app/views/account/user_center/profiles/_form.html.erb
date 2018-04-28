@@ -55,7 +55,7 @@
         </div>
         <div  class="clearfix">
           <span class="goodtext pull-left">联系电话</span>
-          <%= f.text_field :phone, placeholder: '请输入联系电话', class: "goodinput pull-left", data: {'parsley-required': true},style:"width: 70%;" %>
+          <%= f.text_field :phone, placeholder: '请输入联系电话', class: "goodinput pull-left", data: {'parsley-required': true, 'parsley-phone': true}, style:"width: 70%;" %>
         </div>
         <div  class="clearfix">
           <span class="goodtext pull-left">所在地区</span>
@@ -98,5 +98,3 @@
 
   })
 </script>
-
-

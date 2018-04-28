@@ -10,7 +10,11 @@
         <% if record.team.present? %>
         通过 <%= record.team.name %>
         <% end %>
+        <% if child.present? %>
+        捐助 <strong><%= child.present? && child.donate_by_user?(current_user) ? record.apply_name.to_s : record.show_apply_name.to_s %></strong> <%= record.amount %>元
+        <% else %>
         捐助 <strong><%= record.show_apply_name.to_s %></strong> <%= record.amount %>元
+        <% end %>
     </div>
   </li>
 <% end %>

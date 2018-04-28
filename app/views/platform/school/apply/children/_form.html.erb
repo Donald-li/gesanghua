@@ -14,7 +14,7 @@
     </div>
     <div>
       <span class="goodtext">身份证号</span>
-      <input  class="goodinput " type="text" value="<%= @child.id_card %>" name="project_season_apply_child[id_card]" required/>
+      <input  class="goodinput " type="text" value="<%= @child.id_card %>" name="project_season_apply_child[id_card]" required data-parsley-shenfen/>
     </div>
     <div>
       <span class="goodtext">民族</span>
@@ -45,7 +45,7 @@
     </div>
     <div>
       <span class="goodtext">联系方式</span>
-      <input  class="goodinput " type="text" name="project_season_apply_child[teacher_phone]" value="<%= @child.teacher_phone %>" placeholder="填写班主任联系方式" required/>
+      <input  class="goodinput " type="text" name="project_season_apply_child[teacher_phone]" value="<%= @child.teacher_phone %>" placeholder="填写班主任联系方式" required data-parsley-phone/>
     </div>
     <div style="height: 172px;width: 777px;">
       <span class="goodtext">自我介绍</span>
@@ -86,12 +86,12 @@
     </div>
     <div>
       <span class="goodtext">年收入</span>
-      <input  class="goodinput " type="number" name="project_season_apply_child[family_income]" value="<%= @child.family_income %>" required/>
+      <input  class="goodinput " type="number" name="project_season_apply_child[family_income]" value="<%= @child.family_income %>" required min="0"/>
       <span class="income-moy">元/年</span>
     </div>
     <div>
       <span class="goodtext">年支出</span>
-      <input  class="goodinput " type="number" name="project_season_apply_child[family_expenditure]" value="<%= @child.family_expenditure %>" required />
+      <input  class="goodinput " type="number" name="project_season_apply_child[family_expenditure]" value="<%= @child.family_expenditure %>" required min="0"/>
       <span class="income-moy">元/年</span>
     </div>
     <div style="height: 172px;width: 777px;">

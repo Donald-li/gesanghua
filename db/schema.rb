@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180424071433) do
+ActiveRecord::Schema.define(version: 20180428083851) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -362,6 +362,7 @@ ActiveRecord::Schema.define(version: 20180424071433) do
     t.jsonb "details", comment: "捐助详情"
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "捐助金额"
     t.integer "agent_id", comment: "代理人id"
+    t.integer "pay_way", comment: "支付方式"
     t.index ["donor_id"], name: "index_donations_on_donor_id"
     t.index ["owner_type", "owner_id"], name: "index_donations_on_owner_type_and_owner_id"
     t.index ["pay_state"], name: "index_donations_on_pay_state"
@@ -854,6 +855,8 @@ ActiveRecord::Schema.define(version: 20180424071433) do
     t.string "family_condition", comment: "家庭情况"
     t.string "brothers", comment: "兄弟姐妹"
     t.string "teacher_phone", comment: "班主任联系方式"
+    t.integer "grant_count", comment: "申请学年总数"
+    t.integer "succeed_grant_count", comment: "已筹款学年总数"
   end
 
   create_table "project_season_apply_gooods", force: :cascade, comment: "项目执行年度申请的物品表" do |t|

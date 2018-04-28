@@ -40,7 +40,7 @@ campaign_enlist = CampaignEnlist.find(params[:campaign_enlist])
       <% end %>
       <div class="benefactors-way clearfix border-b">
         <span class="pull-left">支付方式</span>
-        <input type="hidden" name="donate_way" value="wechat" id="donate_way">
+        <input type="hidden" name="donate_way" value="alipay" id="donate_way">
         <input type="hidden" name="campaign_enlist" value="<%= campaign_enlist.id %>">
         <input type="hidden" name="donor" value="<%= current_user.id %>">
         <input type="hidden" name="amount" value="<%= campaign_enlist.total %>">

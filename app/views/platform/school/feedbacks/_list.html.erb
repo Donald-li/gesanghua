@@ -10,13 +10,6 @@
             <div class="feedback-cont-c-tit clearfix">
               <p class="pull-left"><%= project.name %>项目定期反馈</p>
             </div>
-            <% if project.continual_feedbacks.present? %>
-              <div class="school-feed">
-                <%= image_tag project.continual_feedbacks.last.user.user_avatar %>
-                <span><%= project.continual_feedbacks.last.user.show_name %> ·</span>
-                <span><%= project.continual_feedbacks.last.created_at.strftime("%Y-%m-%d") %>发布</span>
-              </div>
-            <% end %>
           </div>
           <%= link_to platform_school_feedback_path(project) do %>
             <button class="donation-cont-but pull-right cur">

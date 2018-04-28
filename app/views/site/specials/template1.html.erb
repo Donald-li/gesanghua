@@ -25,20 +25,24 @@
       </div>
       <div class="pull-left">
         <% if @text_news && @text_news.second.present? %>
-          <div>
-            <p class="gsh-cont-num">02</p>
-            <p class="gsh-cont-1"><%= @text_news.second.author %> | <%= @text_news.second.published_at.strftime("%Y年%m月%d日") %></p>
-            <p class="gsh-cont-2"><%= @text_news.second.title %></p>
-            <p class="gsh-cont-3"><%= @text_news.second.describe %></p>
-          </div>
+          <%= link_to article_path(@text_news.second) do %>
+            <div>
+              <p class="gsh-cont-num">02</p>
+              <p class="gsh-cont-1"><%= @text_news.second.author %> | <%= @text_news.second.published_at.strftime("%Y年%m月%d日") %></p>
+              <p class="gsh-cont-2"><%= @text_news.second.title %></p>
+              <p class="gsh-cont-3"><%= @text_news.second.describe %></p>
+            </div>
+          <% end %>
         <% end %>
         <% if @text_news && @text_news.third.present? %>
-          <div>
-            <p class="gsh-cont-num">03</p>
-            <p class="gsh-cont-1"><%= @text_news.third.author %> | <%= @text_news.third.published_at.strftime("%Y年%m月%d日") %></p>
-            <p class="gsh-cont-2"><%= @text_news.third.title %></p>
-            <p class="gsh-cont-3"><%= @text_news.third.describe %></p>
-          </div>
+          <%= link_to article_path(@text_news.third) do %>
+            <div>
+              <p class="gsh-cont-num">03</p>
+              <p class="gsh-cont-1"><%= @text_news.third.author %> | <%= @text_news.third.published_at.strftime("%Y年%m月%d日") %></p>
+              <p class="gsh-cont-2"><%= @text_news.third.title %></p>
+              <p class="gsh-cont-3"><%= @text_news.third.describe %></p>
+            </div>
+          <% end %>
         <% end %>
 
       </div>

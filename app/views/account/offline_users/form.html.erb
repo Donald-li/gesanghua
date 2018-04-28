@@ -37,7 +37,7 @@
       </div>
       <div class="pull-right">
         <p class="goodtext">联系电话</p>
-        <%= f.text_field :phone, required: true, class: 'goodinput', placeholder: '', input_html: {required: true} %>
+        <%= f.text_field :phone, required: true, class: 'goodinput', placeholder: '', input_html: {required: true}, data: {parsley_phone: true} %>
       </div>
     </div>
     <p class="goodtext">所在地区</p>

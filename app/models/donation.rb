@@ -20,6 +20,7 @@
 #  details                 :jsonb                                  # 捐助详情
 #  amount                  :decimal(14, 2)   default(0.0)          # 捐助金额
 #  agent_id                :integer                                # 代理人id
+#  pay_way                 :integer                                # 支付方式
 #
 
 # 捐助
@@ -40,6 +41,9 @@ class Donation < ApplicationRecord
 
   before_create :set_assoc_attrs, :set_record_title
   before_create :generate_order_no
+
+  enum pay_way: { wechat: 1, alipay: 2}
+  # default_value_for :pay_way, 1
 
   enum pay_state: { unpaid: 1, paid: 2}
   default_value_for :pay_state, 1
@@ -298,7 +302,7 @@ class Donation < ApplicationRecord
     else
       method = "alipay.trade.page.pay"
       product_code = 'FAST_INSTANT_TRADE_PAY'
-      quit_url = 'http://' + Settings.app_host
+      quit_url = 'http://' + Settings.app_host + '/pay?order_no=' + self.order_no
     end
 
     @client = get_alipay_client

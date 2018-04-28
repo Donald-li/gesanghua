@@ -268,7 +268,7 @@ class ProjectSeasonApply < ApplicationRecord
       if self.submit?
         '待审核'
       elsif self.pass?
-        '审核完成'
+        '审核通过'
       elsif self.reject?
         '审核未通过'
       end

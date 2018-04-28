@@ -61,7 +61,7 @@ $(function () {
     $('.min-wrap').css('min-height', windowInnerHeight - 198);
 
     //timeago
-    $('.timeago').timeago();
+    // $('.timeago').timeago();
     var timeagoInstance = new timeago();
     $('.timeago').each(function (index, el) {
         $(el).html(timeagoInstance.format($(el).data('timeago'), 'zh_CN'))
