@@ -106,8 +106,9 @@ BadgeLevel.options_for_select(:kinds).each do |kind|
   BadgeLevel.create( kind: kind.second, title: "#{kind.first}默认徽章", rank: '', value: 0, default_level: true)
 end
 
-#捐助协议
-Page.find_or_create_by(title: '《格桑花用户捐助协议》', alias: 'donation_protocol', content: '捐助协议', position: 1)
-
 #关于我们
-Page.find_or_create_by(title: '关于我们', alias: 'about-us', content: '关于我们', position: 2)
+Page.find_or_create_by(title: '关于我们', alias: 'about-us', content: '关于我们', position: 1)
+
+
+#捐助协议
+Page.find_or_create_by(title: '《格桑花用户捐助协议》', alias: 'donation_protocol', content: '捐助协议', position: 2)
