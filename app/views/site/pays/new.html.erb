@@ -1,4 +1,6 @@
-
+<%= content_for :page_head do %>
+  <%= javascript_include_tag 'cable', 'data-turbolinks-track': 'reload' %>
+<% end %>
 
 <!--<h1>支付页</h1>-->
 
@@ -35,5 +37,16 @@
   </div>
 </div>
 <script type="text/javascript">
-$('#qrcode').qrcode({text: "<%= @wechat_code_url %>"});
+  $('#qrcode').qrcode({text: "<%= @wechat_code_url %>"});
+  $(function(){
+    App.cable.subscriptions.create({
+      channel: "OrderChannel",
+      no: "<%= @donation.order_no %>"},
+      {
+        received: function (data){
+        console.log(data)
+        window.location.replace(data.url)
+      }
+    })
+  })
 </script>
