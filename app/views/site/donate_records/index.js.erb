@@ -1,3 +1,8 @@
 <% html = j(render('list', records: @records, owner: @owner)) %>
 $('#donate-records .more').remove()
 $('<%=html%>').appendTo('#donate-records')
+
+var timeagoInstance = new timeago();
+$('.timeago').each(function (index, el) {
+    $(el).html(timeagoInstance.format($(el).data('timeago'), 'zh_CN'))
+})
