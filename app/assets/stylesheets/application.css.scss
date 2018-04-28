@@ -175,7 +175,12 @@ body {
     outline: none;
   }
   .select2-container--default .select2-selection--multiple {
+    min-height: 40px;
     border: 1px solid $border;
+
+  }
+  .select2-container--default .select2-search--inline .select2-search__field{
+    margin-top: 10px;
   }
 
 
@@ -553,12 +558,7 @@ select:disabled {
   }
 }
 
-//input
-.from-input {
-  height: 37px;
-  line-height: 36px;
-  vertical-align: middle;
-}
+
 
 //首页
 //首页头部隐藏条
@@ -1799,7 +1799,13 @@ select:disabled {
     }
   }
 }
-
+//input
+.from-input {
+  height: 37px;
+  line-height: 36px;
+  vertical-align: middle;
+  margin-left: 10px;
+}
 //执行反馈
 .detail-body-left {
   width: 810px;
@@ -2071,6 +2077,13 @@ select:disabled {
       border: 1px solid $border;
       margin-left: 10px;
       padding: 0 10px;
+      //input
+      .from-input {
+        height: 37px;
+        line-height: 36px;
+        vertical-align: middle;
+        margin-left: 10px;
+      }
 
       & > span {
         margin-right: 0;
@@ -2779,13 +2792,44 @@ select:disabled {
     color: #fff;
     a {
       color: #fff;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+    }
+    .apply-show-btn{
+      width: 191px;
+      height: 38px;
+      background: $color-button;
+    }
+    .apply-show-btn:hover{
+      background: $hover-button;
     }
   }
   .iconfont {
     margin-right: 6px;
   }
 }
-
+.btns {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
 //遮罩
 #goodcover {
   display: none;
@@ -4797,12 +4841,6 @@ select:disabled {
   .don-co .don-co-but {
     margin: 30px auto 20px auto;
     overflow: hidden;
-    button {
-      width: 100%;
-      height: 100%;
-      color: #fff;
-      background: inherit;
-    }
   }
 }
 
@@ -5167,6 +5205,22 @@ select:disabled {
   padding: 10px 0 0 0 !important;
   .paddchild {
     padding: 0 34px;
+    .school-apply-pair-table > p:nth-child(1) {
+      text-align: left;
+      padding-left: 16px;
+      -ms-flex: 0 0 47%;
+      flex: 0 0 47%;
+      max-width: 47%;
+      width: 47%;
+      box-sizing: border-box;
+    }
+    .school-apply-pair-table > p:nth-child(3) {
+      -ms-flex: 0 0 35.5%;
+      flex: 0 0 35.5%;
+      max-width: 35.5%;
+      width: 35.5%;
+      box-sizing: border-box;
+    }
   }
   .children-body {
     .donations-1 {
@@ -5202,7 +5256,11 @@ select:disabled {
   }
   .school-apply-pair-table-cont {
     & > div:nth-child(1) {
-      flex: 3;
+      -ms-flex: 0 0 48%;
+      flex: 0 0 47%;
+      max-width: 47%;
+      width:47%;
+
     }
     & > div:nth-child(2) {
       padding: 10px 0;
@@ -5369,6 +5427,13 @@ select:disabled {
     border-radius: 3px;
     border: 1px solid $border;
     padding: 0 10px;
+    //input
+    .from-input {
+      height: 37px;
+      line-height: 36px;
+      vertical-align: middle;
+      margin-left: 10px;
+    }
 
     & > span {
       margin-right: 0;
@@ -5664,16 +5729,41 @@ select:disabled {
       margin-bottom: 20px;
       position: relative;
       & > span {
-        flex: 1;
+        -ms-flex: 0 0 14%;
+        flex: 0 0 14%;
+        max-width: 14%;
+        width:14%;
         margin: 0 40px 0 0;
         line-height: 40px;
         text-align: right;
       }
+      .goodtextare{
+        -ms-flex: 0 0 10%;
+        flex: 0 0 10%;
+        max-width: 10%;
+        width:10%;
+      }
+      .from-input{
+        margin: 0;
+      }
+      .goodinput{
+        -ms-flex: 0 0 70%;
+        flex: 0 0 70%;
+        max-width: 70%;
+        width:70%;
+      }
       & > input {
-        flex: 7;
+        -ms-flex: 0 0 70%;
+        flex: 0 0 70%;
+        max-width: 70%;
+        width:70%;
+
       }
       & > textarea {
-        flex: 9.8;
+        -ms-flex: 0 0 80%;
+        flex: 0 0 80%;
+        max-width: 80%;
+        width:80%;
         height: 172px;
         border: 1px solid $border;
         resize: none;
@@ -5914,21 +6004,30 @@ select:disabled {
       margin-bottom: 20px;
       position: relative;
       & > span {
-        flex: 1;
+        -ms-flex: 0 0 14%;
+        flex: 0 0 14%;
+        max-width: 14%;
+        width:14%;
         margin: 0 40px 0 0;
         line-height: 40px;
         text-align: right;
       }
       & > input {
-        flex: 7;
+        -ms-flex: 0 0 70%;
+        flex: 0 0 70%;
+        max-width: 70%;
+        width:70%;
       }
       .edit-input {
-        flex: 7;
+        -ms-flex: 0 0 70%;
+        flex: 0 0 70%;
+        max-width: 70%;
+        width:70%;
         & > input:nth-child(1) {
-          width: 100px;
+          width: 120px;
         }
         & > input:nth-child(3) {
-          width: 260px;
+          width: 180px;
         }
       }
 
@@ -6341,16 +6440,25 @@ select:disabled {
       position: relative;
 
       & > span {
-        flex: 1;
+        -ms-flex: 0 0 14%;
+        flex: 0 0 14%;
+        max-width: 14%;
+        width:14%;
         margin: 0 40px 0 0;
         line-height: 40px;
         text-align: right;
       }
       & > input {
-        flex: 10.5;
+        -ms-flex: 0 0 70%;
+        flex: 0 0 70%;
+        max-width: 70%;
+        width:70%;
       }
       & > textarea {
-        flex: 9.8;
+        -ms-flex: 0 0 70%;
+        flex: 0 0 70%;
+        max-width: 70%;
+        width:70%;
         height: 172px;
         border: 1px solid $border;
         resize: none;
@@ -6359,7 +6467,10 @@ select:disabled {
         color: #2a2a2c;
       }
       & > div {
-        flex: 10.5;
+        -ms-flex: 0 0 70%;
+        flex: 0 0 70%;
+        max-width: 70%;
+        width:70%;
         & > input {
           width: 216px;
         }
@@ -6378,10 +6489,11 @@ select:disabled {
           text-indent: 1em;
           text-align: left;
           cursor: not-allowed;
+          height: 40px;
         }
         .income-moy {
           position: absolute;
-          left: 290px;
+          left: 332px;
           top: 9px;
           font-size: 14px;
           color: #2a2a2c;

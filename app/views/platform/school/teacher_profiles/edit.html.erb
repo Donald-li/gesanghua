@@ -23,19 +23,18 @@
       <div class="addchild-list-img">
         <%= webuploader_avatar :avatar_id, label: '上传正面照', type: 'user_avatar', asset: @user.avatar, klass: 'single', id: 'user-avatar' %>
       </div>
-
       <p class="don-title">基本信息</p>
-      <div class="addchild-list-cont">
-        <div>
-          <span class="goodtext">真实姓名</span>
-          <input  class="goodinput " type="text" name="name" value="<%= @user.name %>" />
+      <div class="addchild-list-cont ">
+        <div class="clearfix">
+          <span class="goodtext pull-left">真实姓名</span>
+          <input  class="goodinput pull-left " type="text" name="name" value="<%= @user.name %>" />
         </div>
-        <div>
-          <span class="goodtext">办公电话</span>
-          <div class="edit-input">
-            <input  class="goodinput " type="text" name="phone_head" value="<%= @user.teacher.phone_head %>" placeholder="区号"/>
-            <span>-</span>
-            <input  class="goodinput " type="text" name="phone_body" value="<%= @user.teacher.phone_body %>" />
+        <div class="clearfix">
+          <span class="goodtext pull-left">办公电话</span>
+          <div class="edit-input pull-left">
+            <input  class="goodinput pull-left " style="width: 120px;" type="text" name="phone_head" value="<%= @user.teacher.phone_head %>" placeholder="区号"/>
+            <span class="pull-left" style="line-height: 38px;">-</span>
+            <input  class="goodinput pull-left" style="width: 180px;"type="text" name="phone_body" value="<%= @user.teacher.phone_body %>" />
           </div>
 
         </div>

@@ -23,11 +23,18 @@
   border: none;
   color: #fff;
 }
+.save-btn:hover{
+  background-color: #9750f5;
+}
+
 .cancel-btn {
   width: 130px;
   background-color: #ffffff;
   color: #8d8d8d;
   border: 1px solid #b3b3b3;
+}
+.cancel-btn:hover{
+  background-color: #f4f4f4;
 }
 .order-tag {
   padding: 2px 9px;

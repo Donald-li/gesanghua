@@ -1,15 +1,15 @@
 <div class="paddchild">
-  <div class="school-apply-pair-table">
-    <p>老师信息</p>
-    <p>负责项目</p>
-    <p>操作</p>
+  <div class="school-apply-pair-table clearfix">
+    <p class="pull-left">老师信息</p>
+    <p class="pull-left">负责项目</p>
+    <p class="pull-left">操作</p>
   </div>
 </div>
 <div class="paddchild">
   <% @teachers.each do |teacher| %>
     <div class="school-apply-pair-tables">
-      <div class="school-apply-pair-table-cont">
-        <div class="school-apply-pair-child clearfix">
+      <div class="school-apply-pair-table-cont clearfix">
+        <div class="school-apply-pair-child pull-left clearfix">
           <div class="pull-left">
             <%= image_tag teacher.try(:user).try(:avatar).try(:file).try(:url).to_s %>
           </div>
@@ -25,7 +25,7 @@
             <p><%= teacher.id_card %></p>
           </div>
         </div>
-        <div class="border-l border-r">
+        <div class="border-l pull-left border-r">
           <% teacher.projects.each do |project| %>
             <span><%= project.name %></span>
           <% end %>
