@@ -342,6 +342,7 @@
     }
 
     function deleteSupplement(val) {
+        bookshelf_ids.pop(val)
         $.post("/ajaxes/delete_read_supplement",
             { supplement_id: val },
             function(data){

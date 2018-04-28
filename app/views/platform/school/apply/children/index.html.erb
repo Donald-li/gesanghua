@@ -63,7 +63,7 @@
               </div>
               <% if params[:state] == 'reject' %>
                   <div class="border-l pull-left">
-                    <p class=" read-more" data-toggle="tooltip" data-placement="left" title="<%= child.audits.last.try(:comment) %>" style="padding: 0 14px;"><%= child.audits.last.try(:comment) %></p>
+                    <p class="read-more" data-toggle="tooltip" data-placement="left" title="<%= child.audits.last.try(:comment) %>" style="padding: 0 14px;"><%= child.audits.last.try(:comment) %></p>
                   </div>
               <% end %>
             </div>
