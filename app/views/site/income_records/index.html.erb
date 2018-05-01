@@ -3,26 +3,29 @@
     <p class="disclosures-f-1 clearfix">
       <span class="disclosures-f-bg pull-left">财务公开</span>
       <span class="disclosures-f-min pull-left">累计收入:</span>
-      <span class="disclosures-f-moy pull-left">12467115678.0元</span>
+      <span class="disclosures-f-moy pull-left"><%= number_to_currency(IncomeRecord.total_amount) %>元</span>
     </p>
     <p class="disclosures-pos">
-      查看财务报告  |  查看审计报告
+      <%= link_to disclosures_path do %>查看财务报告<% end %>  |  <%= link_to audit_reports_path do %>查看审计报告<% end %>
     </p>
   </div>
   <div class="speciais-con">
     <div class="donations-1 border-b clearfix" >
       <ul class="donations1 clearfix pull-left">
-        <li class="cur selectedDo"><%= link_to articles_path do %>财务收入
+        <li class="cur selectedDo"><%= link_to income_records_path do %>财务收入
               <div class="bottomline"></div><% end %></li>
-        <li class="cur  "><%= link_to specials_path do %>财务支出
+        <li class="cur  "><%= link_to expenditure_records_path do %>财务支出
               <div class=""></div><% end %></li>
       </ul>
       <div class=" searchinput  clearfix">
+        <%= search_form_for @search, url: income_records_path do |f| %>
         <div class="input-group pull-left">
           <span class="iconfont icon-ico-search pull-left"></span>
-          <input type="text" class="form-input pull-left" placeholder="搜索单号、名称、汇款人、经办人、备注" />
+          <!-- <input type="text" class="form-input pull-left" placeholder="搜索单号、名称、汇款人、经办人、备注" /> -->
+          <%= f.text_field :title_or_donor_name_or_agent_name_or_remark_cont, class: 'form-input', placeholder: '搜索单号、名称、汇款人、经办人、备注' %>
         </div>
         <button type="submit" class="school-apply-share-share pull-left">搜索</button>
+        <% end %>
       </div>
     </div>
   </div>
@@ -44,39 +47,19 @@
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <th>201703293948885</th>
-        <td>王娜娜助学款</td>
-        <td>一对一助学 定向捐助</td>
-        <td>2017-09-09 13:45:23</td>
-        <th>199.00</th>
-        <td>线下</td>
-        <td>李*力</td>
-        <td>李*力</td>
-        <td></td>
-      </tr>
-      <tr>
-        <th></th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <th></th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <th></th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <th></th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
+      <% @income_records.each do |income_record| %>
+        <tr>
+          <th><%= income_record.id %></th>
+          <td><%= income_record.title %></td>
+          <td><%= income_record.fund.try(:fund_category).try(:name) %> <%= income_record.fund.try(:name) %></td>
+          <td><%= l income_record.income_time %></td>
+          <th><%= number_to_currency(income_record.amount) %></th>
+          <td><%= income_record.income_source.try(:name) %></td>
+          <td><%= income_record.donor.try(:secure_name) %></td>
+          <td><%= income_record.agent.try(:secure_name) %></td>
+          <td><%= income_record.remark %></td>
+        </tr>
+      <% end %>
       </tbody>
     </table>
   </div>

@@ -51,4 +51,13 @@ class ExpenditureRecord < ApplicationRecord
     FileUtil.import_expenditure_records(original_filename: file.original_filename, path: file.path) if file.present?
   end
 
+  def secure_operator
+    return unless self.present?
+    return '' if self.operator.blank?
+    if self.operator.length < 2
+      self.operator
+    else
+      self.operator.sub(self.operator[1,1], '*')
+    end
+  end
 end

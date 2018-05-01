@@ -280,6 +280,15 @@ class User < ApplicationRecord
     end
   end
 
+  def secure_name
+    return '' if self.name.blank?
+    if self.name.length < 2
+      self.name
+    else
+      self.name.sub(self.name[1,1], '*')
+    end
+  end
+
   # 扣用户余额
   def deduct_balance(amount)
     self.balance -= amount
