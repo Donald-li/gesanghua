@@ -1,0 +1,36 @@
+
+.rowE .warp-pic-list{position:relative;width:100%;overflow:hidden;  height: 38px;}
+.rowE .mt20{
+    margin: 10px;
+    width: 62%;
+}
+
+.rowE #count1>li{width:103px;float: left;text-align: center;position: relative;height: 16px;}
+.rowE .butt{display:block;height:16px;position:absolute;top:2px;width:15px;z-index:200;cursor:pointer;line-height: 16px;}
+.qh_title{line-height: 28px;text-align: center;display: block;font-size: 16px;}
+.rowE .prev{right:0px; color: #8b54e3;}
+.rowE .next{ right:14px;color: #8b54e3}
+.rowE .bul-icon-next {
+    font-size: 20px;
+    transform: rotate(90deg);
+}
+.rowE .bul-icon-prev {
+    transform: rotate(270deg);
+    font-size: 20px;
+
+}
+
+
+ .rowE .bottomline {
+     position: absolute;
+     left: 0;
+     bottom: -1px;
+     width: 60px;
+     height: 3px;
+     background: #8B54E3;
+     border-radius: 20px;
+     transition: all 0.3s ease;
+ }
+ .rowE .selectedDo {
+     font-weight: 600;
+ }
