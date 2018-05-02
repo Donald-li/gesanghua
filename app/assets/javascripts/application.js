@@ -88,7 +88,13 @@ $(function () {
         $('.read-more').css({"white-space": "nowrap"})
         $('.redundance').css({"white-space": "nowrap"})
         $('.project-cont-con').css({"white-space": "nowrap"})
+        $('.recommend-cont .gsh-cont-2').css({"white-space": "nowrap"})
+        $('.gsh-cont-3').css({"white-space": "nowrap"})
         $('.detail-con-font').css({"white-space": "nowrap"})
+        $('.speciais .speciais-con .speciais-con-con .gsh-cont-3').css({"white-space": "nowrap"})
+        $('.speciais .speciais-right .speciais-con-con .gsh-cont-2').css({"white-space": "nowrap"})
+        $('.speciais .speciais-con .speciais-con-con .gsh-cont-2').css({"white-space": "nowrap"})
+        $('.speciais-right .speciais-right-pos .speciais-con-con > div').css({"height": "38px"})
     }
 
     //二维码设置
