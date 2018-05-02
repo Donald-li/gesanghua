@@ -52,4 +52,10 @@ class Api::V1::Account::UsersController < Api::V1::BaseController
     api_success(data: user.balance)
   end
 
+  def account_records
+    user = current_user
+    account_records = user.account_records.sorted
+    api_success(data: {balance: user.balance, account_records: account_records.map{|record| record.summary_builder}})
+  end
+
 end
