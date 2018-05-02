@@ -1,7 +1,11 @@
-
-.rowE .warp-pic-list{position:relative;width:100%;overflow:hidden;  height: 38px;}
+.rowE{
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid #e6e6e6;
+}
+.rowE .warp-pic-list{position:relative;width:100%;overflow:hidden;  height: 32px;}
 .rowE .mt20{
-    margin: 10px;
+    margin: 16px 0 0 0;
     width: 62%;
 }
 
