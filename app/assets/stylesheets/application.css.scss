@@ -2460,16 +2460,7 @@ select:disabled {
         font-weight: 600;
       }
     }
-    .bottomline {
-      position: absolute;
-      left: 31px;
-      bottom: -16px;
-      width: 40px;
-      height: 3px;
-      background: $color-button;
-      border-radius: 20px;
-      transition: all 0.3s ease;
-    }
+
     .donation-cont {
       //padding: 30px 0;
       & > div {

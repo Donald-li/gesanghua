@@ -5,9 +5,9 @@
       <div id="wrapBox1" class="wrapBox" >
         <ul id="count1" class="count clearfix">
           <% if current_user.teacher.can_manage_project?(Project.pair_project.id) %>
-              <li>
+              <li  style="height: 32px;">
 
-                <div class="cur swiper-slide <%= 'selectedDo' if controller_name == 'pairs' %> "><%= link_to '结对助学', platform_school_apply_pairs_path %>
+                <div class="cur  <%= 'selectedDo' if controller_name == 'pairs' %> "><%= link_to '结对助学', platform_school_apply_pairs_path %>
                   <% if controller_name == 'pairs' %>
                       <div class="bottomline"></div>
                   <% end %>
@@ -16,8 +16,8 @@
               </li>
           <% end %>
           <% if current_user.teacher.can_manage_project?(Project.camp_project.id) %>
-              <li>
-                <div class="cur border-l swiper-slide <%= 'selectedDo' if controller_name == 'camps' %>"><%= link_to '探索营', platform_school_apply_camps_path %>
+              <li  style="height: 32px;">
+                <div class="cur border-l  <%= 'selectedDo' if controller_name == 'camps' %>"><%= link_to '探索营', platform_school_apply_camps_path %>
                   <% if controller_name == 'camps' %>
                       <div class="bottomline"></div>
                   <% end %>
@@ -25,8 +25,8 @@
               </li>
           <% end %>
           <% if current_user.teacher.can_manage_project?(Project.care_project.id) %>
-              <li>
-                <div class="cur border-l swiper-slide <%= 'selectedDo' if controller_name == 'movie_cares' %>"><%= link_to '护花课程', platform_school_apply_movie_cares_path %>
+              <li  style="height: 32px;">
+                <div class="cur border-l  <%= 'selectedDo' if controller_name == 'movie_cares' %>"><%= link_to '护花课程', platform_school_apply_movie_cares_path %>
                   <% if controller_name == 'movie_cares' %>
                       <div class="bottomline"></div>
                   <% end %>
@@ -34,8 +34,8 @@
               </li>
           <% end %>
           <% if current_user.teacher.can_manage_project?(Project.movie_project.id) %>
-              <li>
-                <div class="cur border-l swiper-slide <%= 'selectedDo' if controller_name == 'movies' %>"><%= link_to '观影', platform_school_apply_movies_path %>
+              <li  style="height: 32px;">
+                <div class="cur border-l  <%= 'selectedDo' if controller_name == 'movies' %>"><%= link_to '观影', platform_school_apply_movies_path %>
                   <% if controller_name == 'movies' %>
                       <div class="bottomline"></div>
                   <% end %>
@@ -43,8 +43,8 @@
               </li>
           <% end %>
           <% if current_user.teacher.can_manage_project?(Project.read_project.id) %>
-              <li>
-                <div class="cur border-l swiper-slide <%= 'selectedDo' if controller_name == 'reads' %>"><%= link_to '悦读', platform_school_apply_reads_path %>
+              <li  style="height: 32px;">
+                <div class="cur border-l  <%= 'selectedDo' if controller_name == 'reads' %>"><%= link_to '悦读', platform_school_apply_reads_path %>
                   <% if controller_name == 'reads' %>
                       <div class="bottomline"></div>
                   <% end %>
@@ -53,8 +53,8 @@
           <% end %>
           <% Project.goods.visible.sorted.each do |project| %>
               <% if current_user.teacher.can_manage_project?(project.id) %>
-                  <li>
-                    <div class="cur border-l swiper-slide <%= 'selectedDo' if params[:pid] == project.id.to_s %>"><%= link_to project.name, platform_school_apply_goods_projects_path(pid: project.id) %>
+                  <li  style="height: 32px;">
+                    <div class="cur border-l  <%= 'selectedDo' if params[:pid] == project.id.to_s %>"><%= link_to project.name, platform_school_apply_goods_projects_path(pid: project.id) %>
                       <% if params[:pid] == project.id.to_s %>
                           <div class="bottomline"></div>
                       <% end %>

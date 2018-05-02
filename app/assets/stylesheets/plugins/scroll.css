@@ -65,9 +65,9 @@
 
 .rowE .bottomline {
     position: absolute;
-    left: 0;
-    bottom: -1px;
-    width: 60px;
+    left: 31px;
+    bottom: 0px;
+    width: 40px;
     height: 3px;
     background: #8B54E3;
     border-radius: 20px;

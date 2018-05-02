@@ -32,7 +32,7 @@
 
         function init() {
             $(o.parent_ele).css({'width': wrapbox_w + 'px', 'overflow': 'hidden'});
-            $(target_ele).css({'width': scrollbox_w + 'px', 'height': out_height + 'px'});
+            $(target_ele).css({'width': scrollbox_w + 'px'});
             if (o.auto) {
                 auto_play();
             }
