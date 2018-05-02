@@ -43,17 +43,17 @@ class School < ApplicationRecord
   has_one_asset :certificate_image, class_name: 'Asset::SchoolCertificateImage'
   has_many_assets :images, class_name: 'Asset::SchoolImage'
 
-  has_many :bookshelves, class_name: 'ProjectSeasonApplyBookshelf'
+  has_many :bookshelves, class_name: 'ProjectSeasonApplyBookshelf', dependent: :restrict_with_error
 
-  # has_many :supplements, class_name: 'BookshelfSupplement', foreign_key: 'project_season_apply_id'
+  # has_many :supplements, class_name: 'BookshelfSupplement', foreign_key: 'project_season_apply_id', dependent: :restrict_with_error
   has_many :teachers, dependent: :destroy
-  has_many :book_shelves
-  has_many :project_season_applies
-  has_many :gsh_children
-  has_many :audits, as: :owner
+  # has_many :book_shelves
+  has_many :project_season_applies, dependent: :restrict_with_error
+  has_many :gsh_children, dependent: :restrict_with_error
+  has_many :audits, as: :owner, dependent: :destroy
   belongs_to :user, optional: true # 校长user
   belongs_to :creater, class_name: 'User', foreign_key: :creater_id, optional: true
-  has_many :apply_camps, class_name: 'ProjectSeasonApplyCamp'
+  has_many :apply_camps, class_name: 'ProjectSeasonApplyCamp', dependent: :restrict_with_error
 
   validates :name, :province, :city, :district, presence: true
   validates :contact_phone, mobile: true

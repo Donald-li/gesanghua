@@ -136,7 +136,7 @@
                   <%= link_to admin_volunteer_path(volunteer), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                       <i class="fa fa-eye"></i> 查看
                   <% end %>
-                  <%= link_to admin_volunteer_path(volunteer), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                  <%= link_to admin_volunteer_path(volunteer), class: 'btn btn-xs red', method: :delete, data: {confirm: '删除志愿者将同时删除该志愿者的相关任务记录，确定要删除吗？'} do %>
                       <i class="fa fa-trash-o"></i> 删除
                   <% end %>
                 </td>

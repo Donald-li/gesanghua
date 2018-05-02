@@ -35,17 +35,17 @@ class Project < ApplicationRecord
   has_one_asset :head_image, class_name: 'Asset::ProjectHeadImage'
   has_one_asset :icon, class_name: 'Asset::ProjectIcon'
 
-  has_many :seasons, class_name: 'ProjectSeason', dependent: :destroy
-  has_many :applies, class_name: 'ProjectSeasonApply', dependent: :destroy
-  has_many :children, class_name: 'ProjectSeasonApplyChild', dependent: :destroy
-  has_many :bookshelves, class_name: 'ProjectSeasonApplyBookshelf', dependent: :destroy
-  has_many :goods, class_name: 'ProjectSeasonApplyGoods', dependent: :destroy
+  has_many :seasons, class_name: 'ProjectSeason', dependent: :restrict_with_error
+  has_many :applies, class_name: 'ProjectSeasonApply', dependent: :restrict_with_error
+  has_many :children, class_name: 'ProjectSeasonApplyChild', dependent: :restrict_with_error
+  has_many :bookshelves, class_name: 'ProjectSeasonApplyBookshelf', dependent: :restrict_with_error
+  has_many :goods, class_name: 'ProjectSeasonApplyGoods', dependent: :restrict_with_error
   has_many :volunteer, class_name: 'Volunteer', dependent: :destroy
-  has_many :donate_records
-  has_many :teacher_projects
+  has_many :donate_records, dependent: :nullify
+  has_many :teacher_projects, dependent: :destroy
   has_many :teachers, through: :teacher_projects
-  has_many :project_reports
-  has_many :continual_feedbacks, as: :owner
+  has_many :project_reports, dependent: :restrict_with_error
+  has_many :continual_feedbacks, as: :owner, dependent: :destroy
   belongs_to :donate_item, optional: true
 
   belongs_to :fund, optional: true # 定项非指定

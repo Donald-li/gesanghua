@@ -62,28 +62,28 @@ class ProjectSeasonApply < ApplicationRecord
   belongs_to :school, optional: true
   belongs_to :teacher, optional: true
   belongs_to :applicant, class_name: 'User', foreign_key: 'applicant_id', optional: true # 申请人
-  has_many :audits, as: :owner
-  has_many :children, class_name: "ProjectSeasonApplyChild"
-  has_many :gsh_child_grants
-  has_many :gsh_children, class_name: 'ProjectSeasonApplyChild', dependent: :destroy
-  has_many :bookshelves, ->{ order(id: :asc) }, class_name: 'ProjectSeasonApplyBookshelf', foreign_key: 'project_season_apply_id'
-  has_many :supplements, ->{ order(id: :asc) }, class_name: 'BookshelfSupplement', foreign_key: 'project_season_apply_id'
-  has_many :beneficial_children
-  has_many :donate_records
-  has_many :camp_document_estimates
-  has_many :camp_document_finances
-  has_many :camp_document_summaries
-  has_many :camp_document_volunteers
-  has_many :apply_camps, class_name: 'ProjectSeasonApplyCamp'
-  has_many :camp_members, class_name: 'ProjectSeasonApplyCampMember'
-  has_many :inventories, class_name: 'ProjectSeasonApplyInventory'
+  has_many :audits, as: :owner, dependent: :destroy
+  has_many :children, class_name: "ProjectSeasonApplyChild", dependent: :restrict_with_error
+  has_many :gsh_child_grants, dependent: :restrict_with_error
+  # has_many :gsh_children, class_name: 'ProjectSeasonApplyChild', dependent: :restrict_with_error
+  has_many :bookshelves, ->{ order(id: :asc) }, class_name: 'ProjectSeasonApplyBookshelf', foreign_key: 'project_season_apply_id', dependent: :restrict_with_error
+  has_many :supplements, ->{ order(id: :asc) }, class_name: 'BookshelfSupplement', foreign_key: 'project_season_apply_id', dependent: :restrict_with_error
+  has_many :beneficial_children, dependent: :destroy
+  has_many :donate_records, dependent: :nullify
+  has_many :camp_document_estimates, dependent: :destroy
+  has_many :camp_document_finances, dependent: :destroy
+  has_many :camp_document_summaries, dependent: :destroy
+  has_many :camp_document_volunteers, dependent: :destroy
+  has_many :apply_camps, class_name: 'ProjectSeasonApplyCamp', dependent: :restrict_with_error
+  has_many :camp_members, class_name: 'ProjectSeasonApplyCampMember', dependent: :restrict_with_error
+  has_many :inventories, class_name: 'ProjectSeasonApplyInventory', dependent: :destroy
 
-  has_many :complaints, as: :owner
-  has_one :install_feedback, as: :owner
-  has_one :receive_feedback, as: :owner
-  has_many :continual_feedbacks, as: :owner # 探索营反馈
-  has_one :radio_information
-  has_one :logistic, as: :owner
+  has_many :complaints, as: :owner, dependent: :destroy
+  has_one :install_feedback, as: :owner, dependent: :destroy
+  has_one :receive_feedback, as: :owner, dependent: :destroy
+  has_many :continual_feedbacks, as: :owner # 探索营反馈, dependent: :destroy
+  has_one :radio_information, dependent: :destroy
+  has_one :logistic, as: :owner, dependent: :destroy
   accepts_nested_attributes_for :radio_information, update_only: true
   accepts_nested_attributes_for :bookshelves, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :supplements, allow_destroy: true, reject_if: :all_blank #proc { |attributes| attributes['project_season_apply_bookshelf_id'].blank? }

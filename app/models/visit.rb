@@ -38,8 +38,8 @@ class Visit < ApplicationRecord
 
   belongs_to :owner, polymorphic: true, optional: true
 
-  has_many :visit_children
-  has_many :members, class_name: 'FamilyMember', foreign_key: :visit_id
+  has_many :visit_children, dependent: :destroy
+  has_many :members, class_name: 'FamilyMember', foreign_key: :visit_id, dependent: :destroy
 
   belongs_to :apply_child, class_name: 'ProjectSeasonApplyChild', optional: true
   belongs_to :user

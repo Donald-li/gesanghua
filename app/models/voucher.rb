@@ -26,7 +26,7 @@ class Voucher < ApplicationRecord
   belongs_to :user
   has_one :logistic, as: :owner
   accepts_nested_attributes_for :logistic, reject_if: :all_blank
-  has_many :donations
+  has_many :donations, dependent: :nullify
   validates :contact_name, :contact_phone, :province, :city, :district, :address, presence: true
   # validates :contact_phone, mobile: true
 

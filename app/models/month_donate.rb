@@ -24,7 +24,7 @@ class MonthDonate < ApplicationRecord
   belongs_to :fund
   belongs_to :project, optional: true
 
-  has_many :donate_records, dependent: :destroy
+  has_many :donate_records, dependent: :nullify
 
   validates :plan_period, :donated_period, :amount, :start_time, presence: true
 

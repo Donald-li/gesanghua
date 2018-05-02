@@ -10,8 +10,8 @@
 
 # 志愿者专业
 class Major < ApplicationRecord
-  has_many :tasks
-  has_many :volunteer_major_ships
+  # has_many :tasks
+  has_many :volunteer_major_ships, dependent: :destroy
   has_many :volunteers, through: :volunteer_major_ships
 
   scope :sorted, ->{ order(created_at: :desc) }

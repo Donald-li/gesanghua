@@ -73,18 +73,18 @@ class ProjectSeasonApplyChild < ApplicationRecord
   belongs_to :gsh_child, optional: true
   belongs_to :school
   belongs_to :user, optional: true
-  has_many :visits, foreign_key: 'apply_child_id'
-  has_many :audits, as: :owner
-  has_many :remarks, as: :owner
-  has_many :complaints, as: :owner
-  has_many :donates, class_name: 'DonateRecord', dependent: :destroy, as: :owner #TODO: 待检查
+  has_many :visits, foreign_key: 'apply_child_id', dependent: :destroy
+  has_many :audits, as: :owner, dependent: :destroy
+  has_many :remarks, as: :owner, dependent: :destroy
+  has_many :complaints, as: :owner, dependent: :destroy
+  has_many :donates, class_name: 'DonateRecord', dependent: :nullify, as: :owner #TODO: 待检查
   has_many :gsh_child_grants, dependent: :destroy
   #FIXME: 跟上面的关系重复了？
   has_many :semesters, class_name: 'GshChildGrant', dependent: :destroy
-  has_many :feedbacks, as: :owner
-  has_many :continual_feedbacks
+  has_many :feedbacks, as: :owner, dependent: :destroy
+  has_many :continual_feedbacks, dependent: :destroy
 
-  has_many :period_child_ships
+  has_many :period_child_ships, dependent: :destroy
   has_many :project_season_apply_periods, through: :period_child_ships
   accepts_nested_attributes_for :project_season_apply_periods
   accepts_nested_attributes_for :audits

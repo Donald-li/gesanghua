@@ -16,7 +16,7 @@
 class DonateItem < ApplicationRecord
 
   belongs_to :fund, optional: true
-  has_many :donate_records
+  has_many :donate_records, dependent: :restrict_with_error
   has_many :amount_tabs, dependent: :destroy
   has_one :project
 

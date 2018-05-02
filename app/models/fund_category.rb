@@ -16,7 +16,7 @@
 
 # 一级财务分类
 class FundCategory < ApplicationRecord
-  has_many :funds
+  has_many :funds, dependent: :restrict_with_error
 
   validates :name, :describe, presence: true
 

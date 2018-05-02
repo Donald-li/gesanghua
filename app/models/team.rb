@@ -26,8 +26,8 @@ class Team < ApplicationRecord
   belongs_to :creater, class_name: 'User', foreign_key: 'creater_id'
   belongs_to :manager, class_name: 'User', foreign_key: 'manage_id', optional: true
 
-  has_many :users
-  has_many :donate_records
+  has_many :users, dependent: :nullify
+  has_many :donate_records, dependent: :nullify
 
   include HasAsset
   has_one_asset :logo, class_name: 'Asset::TeamLogo'

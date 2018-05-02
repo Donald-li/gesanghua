@@ -117,7 +117,7 @@
                   <%= link_to edit_admin_task_url(task), class: 'btn btn-xs blue' do %>
                       <i class="fa fa-edit"></i> 修改
                   <% end %>
-                  <%= link_to admin_task_url(task), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                  <%= link_to admin_task_url(task), class: 'btn btn-xs red', method: :delete, data: {confirm: '删除任务将同时删除该任务的报名名单，确定要删除吗？'} do %>
                       <i class="fa fa-trash-o"></i> 删除
                   <% end %>
                 </td>

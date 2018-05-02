@@ -99,9 +99,12 @@ class Admin::ReadAppliesController < Admin::BaseController
   end
 
   def destroy
-    @project_apply.destroy
     respond_to do |format|
-      format.html { redirect_to admin_read_applies_path, notice: '删除成功。' }
+      if @project_apply.destroy
+        format.html { redirect_to admin_read_applies_path, notice: '删除成功。' }
+      else
+        format.html { redirect_to admin_read_applies_path, notice: '请先删除该申请下的图书角。' }
+      end
     end
   end
 
