@@ -1,6 +1,6 @@
 class Admin::StudentGrantsController < Admin::BaseController
   before_action :check_auth
-  before_action :set_grant, only: [:show, :destroy]
+  before_action :set_grant, only: [:show, :edit, :update, :destroy]
   before_action :set_child_apply
 
   def index
@@ -27,6 +27,23 @@ class Admin::StudentGrantsController < Admin::BaseController
       end
     end
   end
+
+  def edit
+  end
+
+  def update
+    respond_to do |format|
+      if @grant.update(grant_params)
+        format.html {redirect_to admin_pair_student_list_student_grants_path(@child_apply), notice: '修改成功。'}
+      else
+        format.html {render :edit}
+      end
+    end
+  end
+  #
+  # def close
+  #
+  # end
 
   def match
   end

@@ -15,6 +15,7 @@ RSpec.describe "Api::V1::Cooperation::Camps", type: :request do
 
   describe '协作平台-探索营管理' do
     it '申请列表' do
+      create(:teacher, school: school, user: login_user, kind: 'headmaster')
       login_user.add_role(:headmaster)
       login_user.save
       get api_v1_cooperation_camps_path, headers: api_v1_headers(login_user)

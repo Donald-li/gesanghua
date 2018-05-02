@@ -13,6 +13,7 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  title            :string                                 # 标题
+#  state            :integer                                # 类型
 #
 
 require 'rails_helper'
