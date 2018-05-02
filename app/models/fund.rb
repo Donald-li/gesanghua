@@ -20,13 +20,11 @@
 # 二级财务分类
 class Fund < ApplicationRecord
   belongs_to :fund_category
-  has_many :donate_records
-  has_many :income_records
-  has_many :expenditure_records
-  has_many :projects
-
-  has_many :projects
-  has_many :month_donates
+  has_many :donate_records, dependent: :restrict_with_error
+  has_many :income_records, dependent: :restrict_with_error
+  has_many :expenditure_records, dependent: :restrict_with_error
+  has_many :projects, dependent: :restrict_with_error
+  has_many :month_donates, dependent: :restrict_with_error
 
   validates :name, :describe, presence: true
 

@@ -36,6 +36,8 @@ class ExpenditureRecord < ApplicationRecord
   # default_value_for :deliver_state, 1
   # enum kind: {}
 
+  before_create :gen_expend_no
+
   scope :sorted, ->{ order(created_at: :desc) }
 
   def self.download_path
@@ -59,5 +61,11 @@ class ExpenditureRecord < ApplicationRecord
     else
       self.operator.sub(self.operator[1,1], '*')
     end
+  end
+
+  private
+  def gen_expend_no
+    time_string = Time.now.strftime("%y%m%d")
+    self.expend_no ||= Sequence.get_seq(kind: :expend_no, prefix: time_string, length: 7)
   end
 end

@@ -38,8 +38,8 @@ class Volunteer < ApplicationRecord
   has_many :tasks, through: :task_volunteers
   has_many :volunteer_major_ships
   has_many :majors, through: :volunteer_major_ships
-  has_many :audits, as: :owner
-  has_many :remarks, as: :owner
+  has_many :audits, as: :owner, dependent: :destroy
+  has_many :remarks, as: :owner, dependent: :destroy
 
   enum job_state: {available: 1, leave: 2} # 任务状态 1:可接受任务 2:请假
   default_value_for :job_state, 1

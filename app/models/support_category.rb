@@ -13,7 +13,7 @@
 
 # 帮助分类
 class SupportCategory < ApplicationRecord
-  has_many :supports
+  has_many :supports, dependent: :destroy
 
   validates :name, presence: true
 

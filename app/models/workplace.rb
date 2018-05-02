@@ -17,7 +17,7 @@
 # 志愿者任务地点
 class Workplace < ApplicationRecord
 
-  has_many :tasks
+  has_many :tasks, dependent: :restrict_with_error
 
   enum state: {show: 1, hidden: 2} # 状态：1:显示 2:隐藏
 

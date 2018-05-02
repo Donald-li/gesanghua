@@ -146,7 +146,7 @@
                 <%= link_to admin_campaign_campaign_enlists_path(campaign), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                   <i class="fa fa-list"></i> 报名表
                 <% end %>
-                <%= link_to admin_campaign_path(campaign), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                <%= link_to admin_campaign_path(campaign), class: 'btn btn-xs red', method: :delete, data: {confirm: '删除活动将会同时删除此此活动的相关报名记录，确定要删除吗？'} do %>
                   <i class="fa fa-trash-o"></i> 删除
                 <% end %>
               </td>

@@ -26,7 +26,7 @@ class GshChild < ApplicationRecord
   belongs_to :user, optional: true
 
   has_many :project_season_apply_children, dependent: :destroy
-  has_many :continual_feedbacks, as: :owner
+  has_many :continual_feedbacks, as: :owner, dependent: :destroy
 
   validates :name, presence: true
   validates :province, :city, :district, presence: true

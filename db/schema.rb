@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180428083851) do
+ActiveRecord::Schema.define(version: 20180502032050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -540,6 +540,7 @@ ActiveRecord::Schema.define(version: 20180428083851) do
     t.integer "team_id", comment: "团队id"
     t.integer "voucher_id", comment: "捐赠收据ID"
     t.string "certificate_no", comment: "捐赠证书编号"
+    t.string "income_no", comment: "收入编号"
     t.index ["agent_id"], name: "index_income_records_on_agent_id"
     t.index ["donation_id"], name: "index_income_records_on_donation_id"
     t.index ["donor_id"], name: "index_income_records_on_donor_id"
@@ -748,45 +749,6 @@ ActiveRecord::Schema.define(version: 20180428083851) do
     t.datetime "updated_at", null: false
     t.string "phone", comment: "联系方式（老师角色）"
     t.string "classname", comment: "年级"
-  end
-
-  create_table "project_season_apply_camp_students", force: :cascade, comment: "探索营学生" do |t|
-    t.string "name", comment: "姓名"
-    t.string "id_card", comment: "身份证号"
-    t.integer "nation", comment: "民族"
-    t.integer "gender", comment: "性别"
-    t.integer "school_id", comment: "学校id"
-    t.integer "project_season_apply_camp_id", comment: "探索营配额id"
-    t.integer "camp_id", comment: "探索营id"
-    t.integer "project_season_apply_id", comment: "营立项id"
-    t.integer "grade", comment: "年级"
-    t.integer "level", comment: "初高中"
-    t.string "teacher_name", comment: "老师姓名"
-    t.string "teacher_phone", comment: "老师联系方式"
-    t.string "guardian_name", comment: "监护人姓名"
-    t.string "guardian_phone", comment: "监护人联系方式"
-    t.text "description", comment: "自我介绍"
-    t.string "reason", comment: "推荐理由"
-    t.integer "state", comment: "状态"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "age", comment: "年龄"
-  end
-
-  create_table "project_season_apply_camp_teachers", force: :cascade, comment: "探索营老师名单" do |t|
-    t.string "name", comment: "姓名"
-    t.string "id_card", comment: "身份证号"
-    t.integer "nation", comment: "民族"
-    t.integer "gender", comment: "性别"
-    t.string "phone", comment: "联系方式"
-    t.integer "state", comment: "状态"
-    t.integer "school_id", comment: "学校id"
-    t.integer "project_season_apply_camp_id", comment: "探索营配额id"
-    t.integer "camp_id", comment: "探索营id"
-    t.integer "project_season_apply_id", comment: "营立项id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "age", comment: "年龄"
   end
 
   create_table "project_season_apply_camps", force: :cascade, comment: "探索营配额" do |t|

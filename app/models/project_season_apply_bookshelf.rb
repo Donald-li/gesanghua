@@ -43,12 +43,12 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id', optional: true
   belongs_to :school, optional: true
 
-  has_many :donates, class_name: 'DonateRecord', as: :owner, dependent: :destroy
-  has_many :beneficial_children
-  has_many :supplements, class_name: 'BookshelfSupplement', foreign_key: 'project_season_apply_bookshelf_id'
-  has_one :receive_feedback, as: :owner
-  has_one :install_feedback, as: :owner
-  has_one :logistic, as: :owner
+  has_many :donates, class_name: 'DonateRecord', as: :owner, dependent: :nullify
+  has_many :beneficial_children, dependent: :destroy
+  has_many :supplements, class_name: 'BookshelfSupplement', foreign_key: 'project_season_apply_bookshelf_id', dependent: :destroy
+  has_one :receive_feedback, as: :owner, dependent: :destroy
+  has_one :install_feedback, as: :owner, dependent: :destroy
+  has_one :logistic, as: :owner, dependent: :destroy
 
   scope :gsh_bookshelf, -> { to_delivery }
 

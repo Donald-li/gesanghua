@@ -41,9 +41,12 @@ class Admin::FundCategoriesController < Admin::BaseController
   end
 
   def destroy
-    @fund_category.destroy
     respond_to do |format|
-      format.html { redirect_to admin_fund_categories_path, notice: '删除成功。' }
+      if @fund_category.destroy
+        format.html { redirect_to admin_fund_categories_path, notice: '删除成功。' }
+      else
+        format.html { redirect_to admin_fund_categories_path, notice: '请先删除二级分类。' }
+      end
     end
   end
 

@@ -17,7 +17,7 @@
 class Camp < ApplicationRecord
   belongs_to :fund
   belongs_to :manager, class_name: 'User', foreign_key: :manager_id
-  has_many :applies, class_name: 'ProjectSeasonApply'
+  has_many :applies, class_name: 'ProjectSeasonApply', dependent: :restrict_with_error
   has_many :users
   has_many :camp_project_resources
   has_many :apply_camps, class_name: 'ProjectSeasonApplyCamp'
