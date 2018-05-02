@@ -1,6 +1,6 @@
 class Admin::StudentGrantsController < Admin::BaseController
   before_action :check_auth
-  before_action :set_grant, only: [:show, :edit, :update, :destroy]
+  before_action :set_grant, only: [:show, :edit, :update, :destroy, :close]
   before_action :set_child_apply
 
   def index
@@ -40,10 +40,16 @@ class Admin::StudentGrantsController < Admin::BaseController
       end
     end
   end
-  #
-  # def close
-  #
-  # end
+
+  def close
+    respond_to do |format|
+      if @grant.close!
+        format.html {redirect_to admin_pair_student_list_student_grants_path(@child_apply), notice: '关闭成功。'}
+      else
+        format.html {redirect_to admin_pair_student_list_student_grants_path(@child_apply), notice: '关闭失败。'}
+      end
+    end
+  end
 
   def match
   end

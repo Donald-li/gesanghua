@@ -112,6 +112,9 @@ namespace :admin do
         get :match
         post :match_donate
       end
+      member do
+        post :close
+      end
     end
     member do
       put :turn_over
