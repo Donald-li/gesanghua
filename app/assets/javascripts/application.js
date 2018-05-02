@@ -43,6 +43,7 @@
 //= require 'plugin/jquery.placeholder.min.js'
 //= require 'plugin/full-screen-slide.min.js'
 //= require 'plugin/changeImg.js'
+//= require 'plugin/scroll.1.3.js'
 
 
 

@@ -26,6 +26,14 @@
           <p><%= @apply_camp.describe.html_safe %></p>
         </div>
       </div>
+      <div class="school-apply-pair-table">
+        <p>成员名单</p>
+        <div class="school-apply-pair-table-cont">
+          <% @apply_camp.camp_members.where(state: [1, 2, 3]).each do |member| %>
+          <p><span><%= member.name %></span><%= member.enum_name(:kind) %> | <%= member.age %>岁 | <%= member.enum_name(:gender) %> | <%= member.enum_name(:level) %> <%= member.enum_name(:grade) %></p>
+          <% end %>
+        </div>
+      </div>
       <div class="don-co">
         <div class="don-co-but cur" >
           <% if @apply_camp.to_submit? %>

@@ -1,58 +1,77 @@
 <p class="don-title border-b">项目管理</p>
-<div class="donationsc" style="border-bottom: 1px solid #e6e6e6;">
-  <div class=" donations-1 swiper-container">
-  <div class="donations1 clearfix swiper-wrapper">
-    <% if current_user.teacher.can_manage_project?(Project.pair_project.id) %>
-        <div class="cur swiper-slide <%= 'selectedDo' if controller_name == 'pairs' %> "><%= link_to '结对助学', platform_school_apply_pairs_path %>
-          <% if controller_name == 'pairs' %>
-              <div class="bottomline"></div>
-          <% end %>
-        </div>
-    <% end %>
-    <% if current_user.teacher.can_manage_project?(Project.camp_project.id) %>
-        <div class="cur border-l swiper-slide <%= 'selectedDo' if controller_name == 'camps' %>"><%= link_to '探索营', platform_school_apply_camps_path %>
-          <% if controller_name == 'camps' %>
-              <div class="bottomline"></div>
-          <% end %>
-        </div>
-    <% end %>
-    <% if current_user.teacher.can_manage_project?(Project.care_project.id) %>
-        <div class="cur border-l swiper-slide <%= 'selectedDo' if controller_name == 'movie_cares' %>"><%= link_to '护花课程', platform_school_apply_movie_cares_path %>
-          <% if controller_name == 'movie_cares' %>
-              <div class="bottomline"></div>
-          <% end %>
-        </div>
-    <% end %>
-    <% if current_user.teacher.can_manage_project?(Project.movie_project.id) %>
-        <div class="cur border-l swiper-slide <%= 'selectedDo' if controller_name == 'movies' %>"><%= link_to '观影', platform_school_apply_movies_path %>
-          <% if controller_name == 'movies' %>
-              <div class="bottomline"></div>
-          <% end %>
-        </div>
-    <% end %>
-    <% if current_user.teacher.can_manage_project?(Project.read_project.id) %>
-        <div class="cur border-l swiper-slide <%= 'selectedDo' if controller_name == 'reads' %>"><%= link_to '悦读', platform_school_apply_reads_path %>
-          <% if controller_name == 'reads' %>
-              <div class="bottomline"></div>
-          <% end %>
-        </div>
-    <% end %>
-    <% Project.goods.visible.sorted.each do |project| %>
-        <% if current_user.teacher.can_manage_project?(project.id) %>
-            <div class="cur border-l swiper-slide <%= 'selectedDo' if params[:pid] == project.id.to_s %>"><%= link_to project.name, platform_school_apply_goods_projects_path(pid: project.id) %>
-              <% if params[:pid] == project.id.to_s %>
-                  <div class="bottomline"></div>
-              <% end %>
-            </div>
-        <% end %>
-    <% end %>
+<div class="rowE" style="width: 100%;">
+  <div class="bd mt20">
+    <div id="sca1" class="warp-pic-list" >
+      <div id="wrapBox1" class="wrapBox" >
+        <ul id="count1" class="count clearfix">
+          <% if current_user.teacher.can_manage_project?(Project.pair_project.id) %>
+              <li>
 
-  </div>
-    <div class="swiper-button-next">
-      <span class="iconfont icon-arrowdown bul-icon-next"></span>
-    </div>
-    <div class="swiper-button-prev">
-      <span class="iconfont icon-arrowdown bul-icon-prev"></span>
+                <div class="cur swiper-slide <%= 'selectedDo' if controller_name == 'pairs' %> "><%= link_to '结对助学', platform_school_apply_pairs_path %>
+                  <% if controller_name == 'pairs' %>
+                      <div class="bottomline"></div>
+                  <% end %>
+                </div>
+
+              </li>
+          <% end %>
+          <% if current_user.teacher.can_manage_project?(Project.camp_project.id) %>
+              <li>
+                <div class="cur border-l swiper-slide <%= 'selectedDo' if controller_name == 'camps' %>"><%= link_to '探索营', platform_school_apply_camps_path %>
+                  <% if controller_name == 'camps' %>
+                      <div class="bottomline"></div>
+                  <% end %>
+                </div>
+              </li>
+          <% end %>
+          <% if current_user.teacher.can_manage_project?(Project.care_project.id) %>
+              <li>
+                <div class="cur border-l swiper-slide <%= 'selectedDo' if controller_name == 'movie_cares' %>"><%= link_to '护花课程', platform_school_apply_movie_cares_path %>
+                  <% if controller_name == 'movie_cares' %>
+                      <div class="bottomline"></div>
+                  <% end %>
+                </div>
+              </li>
+          <% end %>
+          <% if current_user.teacher.can_manage_project?(Project.movie_project.id) %>
+              <li>
+                <div class="cur border-l swiper-slide <%= 'selectedDo' if controller_name == 'movies' %>"><%= link_to '观影', platform_school_apply_movies_path %>
+                  <% if controller_name == 'movies' %>
+                      <div class="bottomline"></div>
+                  <% end %>
+                </div>
+              </li>
+          <% end %>
+          <% if current_user.teacher.can_manage_project?(Project.read_project.id) %>
+              <li>
+                <div class="cur border-l swiper-slide <%= 'selectedDo' if controller_name == 'reads' %>"><%= link_to '悦读', platform_school_apply_reads_path %>
+                  <% if controller_name == 'reads' %>
+                      <div class="bottomline"></div>
+                  <% end %>
+                </div>
+              </li>
+          <% end %>
+          <% Project.goods.visible.sorted.each do |project| %>
+              <% if current_user.teacher.can_manage_project?(project.id) %>
+                  <li>
+                    <div class="cur border-l swiper-slide <%= 'selectedDo' if params[:pid] == project.id.to_s %>"><%= link_to project.name, platform_school_apply_goods_projects_path(pid: project.id) %>
+                      <% if params[:pid] == project.id.to_s %>
+                          <div class="bottomline"></div>
+                      <% end %>
+                    </div>
+                  </li>
+              <% end %>
+          <% end %>
+
+        </ul>
+      </div>
+      <div id="right1" class="prev   butt">
+        <span class="iconfont icon-arrowdown bul-icon-prev"></span>            </div>
+      <div id="left1" class="next   butt">
+
+        <span class="iconfont icon-arrowdown bul-icon-next"></span>
+
+      </div>
     </div>
   </div>
   <% if controller_name == 'reads' %>
@@ -104,119 +123,42 @@
       </div>
   <% end %>
 </div>
-<style>
-  .donationsc{
-    position: relative;
-  }
-  .bul-icon-next {
-    position: absolute;
-    left: 0;
-    top: 7px;
-    z-index: 11;
-    color: #8b54e3;
-    width: 100%;
-    height: 100%;
-    font-size: 22px;
-    text-align: center;
-    transform: rotate(270deg);
-    line-height: 18px;
-  }
-  .bul-icon-prev {
-    position: absolute;
-    left: 0;
-    top: -5px;
-    z-index: 11;
-    color: #8b54e3;
-    width: 100%;
-    height: 100%;
-    font-size: 22px;
-    text-align: center;
-    transform: rotate(90deg);
-    line-height: 18px;
-  }
-  .swiper-button-prev, .swiper-container-rtl .swiper-button-next{
-    background-color: inherit;
-    opacity: 1;
-  }
-  .swiper-button-next, .swiper-container-rtl .swiper-button-next{
-    background-color: inherit;
-    opacity: 1;
-  }
-  .donationsc .swiper-button-prev, .swiper-container-rtl .swiper-button-next{
-    background-image: none;
-    right: 16px;
-    left: auto;
-  }
-  .donationsc .swiper-button-next, .swiper-container-rtl .swiper-button-prev{
-    background-image: none;
-    right: 0;
-    left: auto;
-  }
-  .donationsc .swiper-button-next, .swiper-button-prev{
-    width: 10px;
-    height: 18px;
-    margin-top: -5px;
-  }
-  .swiper-container {
-    width: 66%;
-    height: 100%;
-    margin: 0 ;
-  }
-  .swiper-slide {
-    text-align: center;
-    width: 103px;
-    line-height: 16px;
-    font-size: 14px;
-    color: #3d3d40;
-    position: relative;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
-    align-items: center;
-  }
 
-</style>
 <script>
+    $("#count1").dayuwscroll({
+        parent_ele: '#wrapBox1',
+        list_btn: '#tabT04',
+        pre_btn: '#left1',
+        next_btn: '#right1',
+        path: 'left',
+        auto: false,
+        time: 3000,
+        num: 5,
+        gd_num: 5,
+        waite_time: 1000
+
+    })
     $(function(){
-        var swiper = new Swiper('.swiper-container', {
-            slidesPerView: 'auto',
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            slidesPerGroup: 5,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-        });
         $(".donations1 > .swiper-slide").on("click", function () {
             $(".donations1 > .swiper-slide").removeClass("selectedDo")
             $(this).addClass("selectedDo")
         })
-    if ($('.donation .donation-cont').length === 0) {
-        $('.donation-cont-no').css('display', 'block')
-        $('.project-foot').css('display', 'none')
-    } else {
-        $('.donation-cont-no').css('display', 'none')
-        $('.project-foot').css('display', 'block')
-    }
-    if ($('.school-apply-pair-table-co .school-apply-pair-tables').length === 0) {
-        $('.donation-cont-no').css('display', 'block')
-        $('.project-foot').css('display', 'none')
-        $('.school-apply-pair-table-co').css('display', 'none')
-    } else {
-        $('.donation-cont-no').css('display', 'none')
-        $('.project-foot').css('display', 'block')
-        $('.school-apply-pair-table-co').css('display', 'block')
-    }
+        if ($('.donation .donation-cont').length === 0) {
+            $('.donation-cont-no').css('display', 'block')
+            $('.project-foot').css('display', 'none')
+        } else {
+            $('.donation-cont-no').css('display', 'none')
+            $('.project-foot').css('display', 'block')
+        }
+        if ($('.school-apply-pair-table-co .school-apply-pair-tables').length === 0) {
+            $('.donation-cont-no').css('display', 'block')
+            $('.project-foot').css('display', 'none')
+            $('.school-apply-pair-table-co').css('display', 'none')
+        } else {
+            $('.donation-cont-no').css('display', 'none')
+            $('.project-foot').css('display', 'block')
+            $('.school-apply-pair-table-co').css('display', 'block')
+        }
     })
 </script>
+

@@ -19,9 +19,11 @@
  *= require "plugins/jquery.magnify"
  *= require "plugins/full-screen-slide.min"
  *= require "plugins/focusImg"
+ *= require "plugins/scroll"
  *= require_self
  */
 //@import "toastr";
+
 
 //bootstrap  reset
 // 通用样式
@@ -632,7 +634,7 @@ select:disabled {
       color: $color-border;
 
     }
-    button{
+    button {
       width: 100%;
     }
   }
@@ -652,7 +654,6 @@ select:disabled {
     margin: 0 auto;
     display: inline-block;
 
-
     .bul-nav-ul > li {
       float: left;
       width: 100px;
@@ -671,7 +672,7 @@ select:disabled {
     }
     .bul-nav-heide {
       position: absolute;
-      left: 100px;
+      left: 68px;
       top: 64px;
       z-index: 22;
       list-style: none;
@@ -737,14 +738,14 @@ select:disabled {
 
 .bul-swiper {
   margin-top: 30px;
-  .slide-box{
-    height: 420px!important;
+  .slide-box {
+    height: 420px !important;
   }
-  .slide-out{
-    height: 420px!important;
+  .slide-out {
+    height: 420px !important;
   }
-  .slide-li{
-    height: 420px!important;
+  .slide-li {
+    height: 420px !important;
   }
   .bul-icon-next {
     position: absolute;
@@ -1160,7 +1161,7 @@ select:disabled {
 @media (max-width: 1100px) {
   .bul-nav {
     width: 1100px;
-  } 
+  }
 }
 
 //底部
@@ -5435,7 +5436,7 @@ select:disabled {
 .add-reads {
   position: absolute;
   right: 0;
-  bottom: 12px;
+  bottom: 7px;
   height: 34px;
   & > a:nth-child(1) button {
     margin-right: 10px;
@@ -8414,15 +8415,16 @@ select:disabled {
   font-size: 13px;
   color: #8f959a;
 }
+
 //收入
-.disclosures-table{
+.disclosures-table {
   width: 1140px;
   margin: 50px auto 80px auto;
-  .contentab{
+  .contentab {
     margin-top: 20px;
   }
-  .table-bordered{
-    thead th{
+  .table-bordered {
+    thead th {
       background-color: #4b4a4e;
       color: #fff;
       text-align: center;
@@ -8431,9 +8433,9 @@ select:disabled {
       width: 145px;
       height: 50px;
       padding: 0;
-      vertical-align: middle!important;
+      vertical-align: middle !important;
     }
-    tbody{
+    tbody {
       text-align: center;
       font-size: 15px;
       font-weight: 400;
@@ -8443,16 +8445,16 @@ select:disabled {
         padding: 0;
         width: 145px;
         height: 50px;
-        vertical-align: middle!important;
+        vertical-align: middle !important;
       }
     }
   }
-  .table-bordered td{
+  .table-bordered td {
     font-weight: 400;
     padding: 0;
     width: 145px;
     height: 50px;
-    vertical-align: middle!important;
+    vertical-align: middle !important;
     font-size: 14px;
     color: #2a2a2c;
   }
@@ -8521,61 +8523,62 @@ select:disabled {
     }
 
   }
-  .searchinput{
+  .searchinput {
     position: absolute;
-    right:0;
-    top:10px;
-    .input-group{
+    right: 0;
+    top: 10px;
+    .input-group {
       width: 296px;
       height: 34px;
       line-height: 32px;
       border: 1px solid $border;
       border-radius: 3px;
       padding-left: 10px;
-      input{
+      input {
         border: none;
         height: 32px;
         width: 89%;
       }
     }
-    .school-apply-share-share{
+    .school-apply-share-share {
       background-color: $color-info;
       margin-left: 10px;
     }
   }
-  .disclosures-font{
+  .disclosures-font {
     position: relative;
-    .disclosures-f-bg{
+    .disclosures-f-bg {
       font-size: 22px;
       color: #3d3d40;
       font-weight: 600;
     }
-    .disclosures-f-min{
+    .disclosures-f-min {
       font-size: 16px;
       color: #3d3d40;
       margin-top: 5px;
       margin-left: 30px;
 
     }
-    .disclosures-f-moy{
+    .disclosures-f-moy {
       font-size: 22px;
       color: #3d3d40;
       font-weight: 600;
     }
-    .disclosures-pos{
+    .disclosures-pos {
       font-size: 14px;
       color: #3d3d40;
       position: absolute;
-      right:0;
-      top:0;
+      right: 0;
+      top: 0;
     }
   }
 }
-.evidence{
+
+.evidence {
   margin: 50px auto 80px auto;
   width: 800px;
-  & > img{
-    margin:0 0 20px 0;
+  & > img {
+    margin: 0 0 20px 0;
     width: 100%;
     height: auto;
   }

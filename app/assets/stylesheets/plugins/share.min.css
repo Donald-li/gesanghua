@@ -202,10 +202,10 @@
     border: 1px solid #eee;
     position: absolute;
     z-index: 9;
-    top: -213px;
+    top: -241px;
     left: -76px;
     width: 200px;
-    height: 201px;
+    height: 227px;
     color: #666;
     font-size: 12px;
     text-align: center;
@@ -237,7 +237,7 @@
 }
 
 .social-share .icon-wechat .wechat-qrcode .qrcode {
-    width: 105px;
+    width: 140px;
     margin: 10px auto
 }
 
