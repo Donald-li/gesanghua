@@ -20,6 +20,7 @@ namespace :admin do
         post :refund # 退款
       end
     end
+    resources :account_records
   end
   resources :administrators, concerns: :switch
   resources :audits, only: [:index, :show]

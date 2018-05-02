@@ -45,6 +45,8 @@ class DonateRecord < ApplicationRecord
   belongs_to :income_record, optional: true
   belongs_to :gsh_child, class_name: 'GshChild', optional: true
 
+  has_one :account_records
+
   counter_culture :project, column_name: :total_amount, delta_magnitude: proc {|model| model.amount }
   counter_culture :team, column_name: :total_donate_amount, delta_magnitude: proc {|model| model.amount }
   counter_culture :promoter, column_name: :promoter_amount_count, delta_magnitude: proc {|model| model.amount }
@@ -166,6 +168,7 @@ class DonateRecord < ApplicationRecord
           user.lock!
           user.balance += reback
           user.save!
+          # AccountRecord.create(title: source.title + '退款', kind: 'refund', amount: reback, income_record: source, user: source.agent, donor: source.donor)
           message = "捐助成功，但捐助过程中，项目收到新捐款造成超捐，其中#{reback}元已退回您的账户余额。"
         else
           result = false
@@ -204,6 +207,7 @@ class DonateRecord < ApplicationRecord
       self.agent.lock!
       self.agent.balance += self.amount
       self.agent.save!
+      # AccountRecord.create(title: self.apply_name + '退款', kind: 'refund', amount: self.amount, donate_record: self, user: self.agent, donor: self.donor)
 
       self.refund!
       self.owner.cancel!

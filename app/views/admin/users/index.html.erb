@@ -129,6 +129,9 @@
                 <%= link_to admin_user_donate_records_path(user), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                   <i class="fa fa-file-text-o"></i> 捐助记录
                 <% end %>
+                <%= link_to admin_user_account_records_path(user), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                    <i class="fa fa-file-list"></i> 账户记录
+                <% end %>
               </td>
             </tr>
             <% end %>

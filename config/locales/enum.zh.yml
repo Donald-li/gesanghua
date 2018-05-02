@@ -23,6 +23,11 @@ zh:
   partner_states:
     show: '显示'
     hidden: '隐藏'
+  account_record_kinds:
+    adjust: '调整'
+    donate: '捐助'
+    refund: '退款'
+    charge: '充值'
   user_states:
     enable: '启用'
     disable: '禁用'
