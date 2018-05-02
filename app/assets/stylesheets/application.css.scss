@@ -83,6 +83,7 @@ body {
     out-line: none;
     color: #2a2a2c;
   }
+
   .selection:focus {
     outline: none;
   }
@@ -4903,6 +4904,7 @@ select:disabled {
       max-width: 17.5%;
       width: 17.5%;
       float: left;
+      height: 100%;
     }
     & > div:nth-child(1) {
       -ms-flex: 0 0 65%;
