@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180502032050) do
+ActiveRecord::Schema.define(version: 20180502075017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "account_records", force: :cascade, comment: "账户记录" do |t|
+    t.integer "user_id", comment: "用户ID"
+    t.integer "kind", comment: "操作类型"
+    t.integer "income_record_id"
+    t.integer "donate_record_id"
+    t.integer "donor_id"
+    t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "金额"
+    t.text "remark", comment: "备注"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "administrator_logs", force: :cascade, comment: "管理员日志" do |t|
     t.integer "administrator_id", comment: "管理员id"

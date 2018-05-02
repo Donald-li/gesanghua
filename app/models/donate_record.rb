@@ -45,6 +45,8 @@ class DonateRecord < ApplicationRecord
   belongs_to :income_record, optional: true
   belongs_to :gsh_child, class_name: 'GshChild', optional: true
 
+  has_one :account_records
+
   counter_culture :project, column_name: :total_amount, delta_magnitude: proc {|model| model.amount }
   counter_culture :team, column_name: :total_donate_amount, delta_magnitude: proc {|model| model.amount }
   counter_culture :promoter, column_name: :promoter_amount_count, delta_magnitude: proc {|model| model.amount }

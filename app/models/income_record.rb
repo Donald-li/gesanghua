@@ -33,6 +33,7 @@ class IncomeRecord < ApplicationRecord
   belongs_to :agent, class_name: 'User', foreign_key: 'agent_id', optional: true
   belongs_to :promoter, class_name: 'User', foreign_key: 'promoter_id', optional: true
   belongs_to :voucher, optional: true
+  has_one :account_records
 
   has_many :donate_records, dependent: :nullify
 
