@@ -47,7 +47,7 @@
         <!--</div>-->
       <!--</div>-->
     <!--</div>-->
-      <div class=" row rowE" style="width: 100%;">
+      <div class="rowE" style="width: 100%;">
         <div class="bd mt20">
           <div id="sca1" class="warp-pic-list">
             <div id="wrapBox1" class="wrapBox">
@@ -62,7 +62,7 @@
                 </li>
                 <% @projects.each do |project| %>
                     <li>
-                      <div class="cur border-l  <%= 'selectedDo' if params[:project_id] == project.id %>">
+                      <div class="cur border-l  <%= 'selectedDo' if params[:project_id] === project.id.to_s %>">
                         <%= link_to project.name, account_orders_path(project_id: project.id) %>
                         <% if params[:project_id] === project.id.to_s %>
                             <div class="bottomline"></div>
