@@ -8,7 +8,7 @@
     <p class="article-font"><%= @special.name %></p>
     <p class="article-con read-more"><%= @special.describe.html_safe %></p>
   </div>
-  <div class="article1-read-cont">
+  <div class="article1-read-cont clearfix">
     <% if @text_news.present? %>
       <% if @text_news.first.present? %>
         <div class="border-r">
@@ -45,29 +45,63 @@
   <div class="swiper-collaboration">
     <p>专题资讯</p>
   </div>
-<div class="article1-read-swiper">
-  <div class="swiper-container">
-    <div class="swiper-wrapper">
-      <% @image_news.each do |image_new| %>
-      <div class="swiper-slide">
-        <%= link_to article_path(image_new) do %>
-          <div class="recommend-img">
-            <%= image_tag image_new.image.try(:file).try(:url, :medium).to_s %>
+<!--<div class="article1-read-swiper">-->
+  <!--<div class="swiper-container">-->
+    <!--<div class="swiper-wrapper">-->
+      <!--<% @image_news.each do |image_new| %>-->
+      <!--<div class="swiper-slide">-->
+        <!--<%= link_to article_path(image_new) do %>-->
+          <!--<div class="recommend-img">-->
+            <!--<%= image_tag image_new.image.try(:file).try(:url, :medium).to_s %>-->
+          <!--</div>-->
+          <!--<p class="gsh-cont-1"><%= image_new.author %> | <%= image_new.published_at.strftime("%Y年%m月%d日")%></p>-->
+          <!--<p class="gsh-cont-2"><%= image_new.title %></p>-->
+        <!--<% end %>-->
+      <!--</div>-->
+      <!--<% end %>-->
+    <!--</div>-->
+    <!--<div class="swiper-button-next">-->
+      <!--<span class="iconfont icon-arrow-left bul-icon-next"></span>-->
+    <!--</div>-->
+    <!--<div class="swiper-button-prev">-->
+      <!--<span class="iconfont icon-arrow-left bul-icon-prev"></span>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+
+
+
+
+  <div class="article1-read-swiper">
+    <div class="bd mt20" >
+      <div id="sca1" class="warp-pic-list" style="position: relative;">
+        <div id="wrapBox2" class="wrapBox">
+          <ul id="count2" class="count clearfix" style="margin-bottom: 80px;">
+            <% @image_news.each do |image_new| %>
+                <li  class="pull-left">
+                  <%= link_to article_path(image_new) do %>
+                      <div class="recommend-img">
+                        <%= image_tag image_new.image.try(:file).try(:url, :medium).to_s %>
+                      </div>
+                      <p class="gsh-cont-1"><%= image_new.author %> | <%= image_new.published_at.strftime("%Y年%m月%d日")%></p>
+                      <p class="gsh-cont-2"><%= image_new.title %></p>
+                  <% end %>
+                </li>
+            <% end %>
+
+          </ul>
+        </div>
+        <div class="scaase">
+          <div id="right2" class="prev  butn">
+            <span class="iconfont icon-arrow-left bul-icon-prev"></span>
           </div>
-          <p class="gsh-cont-1"><%= image_new.author %> | <%= image_new.published_at.strftime("%Y年%m月%d日")%></p>
-          <p class="gsh-cont-2"><%= image_new.title %></p>
-        <% end %>
+          <div id="left2" class="next  butn">
+            <span class="iconfont icon-arrow-left bul-icon-next"></span>
+          </div>
+        </div>
       </div>
-      <% end %>
-    </div>
-    <div class="swiper-button-next">
-      <span class="iconfont icon-arrow-left bul-icon-next"></span>
-    </div>
-    <div class="swiper-button-prev">
-      <span class="iconfont icon-arrow-left bul-icon-prev"></span>
     </div>
   </div>
-</div>
   <div class="camps-share " >
     <p style="margin: 30px auto 0 auto;">分享</p>
     <ol>
@@ -79,81 +113,27 @@
   </div>
 
 </div>
-<style>
-  .article1-read-swiper .swiper-button-next, .swiper-button-prev {
-    background-image: none;
-    opacity: .5;
-    width: 38px;
-    height: 60px;
-  }
-  .article1-read-swiper .swiper-button-prev {
-    left: 20px;
-    top:25%;
-  }
-  .article1-read-swiper .swiper-button-next {
-    right: 20px;
-    top:25%;
-  }
-  .article1-read-swiper .bul-icon-next {
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 11;
-    color: #9e9e9e;
-    width: 100%;
-    height: 100%;
-    font-size: 30px;
-    text-align: center;
-    transform: rotate(180deg);
-    line-height: 100px;
-  }
-  .article1-read-swiper .bul-icon-prev {
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 11;
-    color: #9e9e9e;
-    width: 100%;
-    height: 100%;
-    font-size: 30px;
-    text-align: center;
-    line-height: 100px;
-  }
-  .article1-read-swiper .swiper-button-next, .swiper-button-prev{
-    border-radius: 100px 0 0 100px;
-    width: 50px;
-    height: 100px;
-  }
-</style>
 <script>
     $('#share-2').share({
         sites: ['qzone', 'wechat', 'weibo', 'qq']
     });
-    var swiper = new Swiper('.swiper-container', {
-        slidesPerView: 'auto',
-        spaceBetween: 30,
-        freeMode: true,
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-        on: {
-            slideChange: function(){
-                if(this.isEnd){
-                    this.navigation.$nextEl.css('display','none');
-                }else{
-                    this.navigation.$nextEl.css('display','block');
-                }
-                if(this.isBeginning){
-                    this.navigation.$prevEl.css('display','none');
-                }else{
-                    this.navigation.$prevEl.css('display','block');
-                }
-            },
-        }
-    });
+
+    $("#count2").dayuwscroll({
+        parent_ele: '#wrapBox2',
+        list_btn: '#tabT04',
+        pre_btn: '#left2',
+        next_btn: '#right2',
+        path: 'left',
+        auto: true,
+        time: 3000,
+        num: 3.6,
+        gd_num: 4,
+        waite_time: 1000
+
+    })
+    if($('#coun2 li').length <=3){
+        $('#left2').css({'display': 'none'})
+        $('#right2').css({'display': 'none'})
+
+    }
 </script>

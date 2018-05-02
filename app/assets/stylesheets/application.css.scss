@@ -3493,12 +3493,12 @@ select:disabled {
     }
     .recommend-img {
       width: 100%;
-      height: 209px;
+      height: 210px;
       border-radius: 4px;
       overflow: hidden;
       & > img {
-        width: 200%;
-        height: 418px;
+        width: 204%;
+        height: 422px;
         -webkit-transform: scale(.5);
         -webkit-transition: 1s;
         -moz-transition: 1s;
@@ -3776,6 +3776,7 @@ select:disabled {
       .gsh-cont-1 {
         margin-top: 4px;
         margin-bottom: 0px;
+        font-size: 12px;
       }
     }
     .donations1 {
@@ -3900,7 +3901,7 @@ select:disabled {
   & > div:nth-child(2) {
     width: 477px;
     margin-left: 67px;
-    & > div {
+    div {
       position: relative;
       margin-bottom: 10px;
     }
@@ -3976,9 +3977,6 @@ select:disabled {
 
 .article1-read-swiper {
   margin-bottom: 70px;
-  .swiper-slide {
-    width: 360px !important;
-  }
   .recommend-img {
     width: 100%;
     height: 209px;
@@ -3995,7 +3993,7 @@ select:disabled {
       -moz-transform: scale(.5);
       -ms-transform: scale(.5);
       -o-transform: scale(.5);
-      margin: -106px 0 0 -186px;
+      margin: -105px 0 0 -180px;
     }
   }
   .recommend-img > img:hover {
@@ -4004,7 +4002,6 @@ select:disabled {
     -ms-transform: scale(.6);
     -o-transform: scale(.6);
   }
-
 }
 
 .article1-read-cont {
@@ -4016,11 +4013,15 @@ select:disabled {
   display: -webkit-flex;
   margin-bottom: 50px;
   & > div {
-    flex: 1;
+    -ms-flex: 0 0 33.33%;
+    flex: 0 0 33.33%;
+    max-width: 33.33%;
+    width:33.33%;
     height: 320px;
     padding: 30px 50px;
     position: relative;
     overflow: hidden;
+    float: left;
     .ovrly {
       background-color: $color-info;
       height: 100%;
