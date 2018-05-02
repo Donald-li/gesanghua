@@ -23,32 +23,23 @@
  *= require_self
  */
 //@import "toastr";
-
-
 //bootstrap  reset
 // 通用样式
 //主标题
-$color-theme: #2a2a2c;
-//副标题及段落文字
-$color-subtitle: #3d3d40;
-//提示
-$color-section: #8d8d8d;
-//主色
-$color-info: #d632aa;
-//主色
-$color-border: #8b54e3;
-//渐变
-$color-button: #8b54e3;
-//边框
-$border: #e6e6e6;
-//button hover
+$color-theme: #2a2a2c; //副标题及段落文字
+$color-subtitle: #3d3d40; //提示
+$color-section: #8d8d8d; //主色
+$color-info: #d632aa; //主色
+$color-border: #8b54e3; //渐变
+$color-button: #8b54e3; //边框
+$border: #e6e6e6; //button hover
 $hover-button: #9750f5;
-$hover-share: #f4f4f4;
-//阴影
+$hover-share: #f4f4f4; //阴影
 //$color-box:#8a53e354;
+
 *,
-*:before,
-*:after {
+*:after,
+*:before {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -66,6 +57,7 @@ body {
   box-sizing: border-box;
   font-size: 14px;
   overflow-x: hidden;
+
   .progress {
     margin-bottom: 8px;
   }
@@ -73,12 +65,18 @@ body {
   p {
     margin-bottom: 0;
   }
-  dl, ol, ul {
+
+  dl,
+  ol,
+  ul {
     list-style: none;
     margin-bottom: 0;
   }
 
-  a:hover, a:visited, a:link, a:active {
+  a:active,
+  a:hover,
+  a:link,
+  a:visited {
     text-decoration: none;
     out-line: none;
     color: #2a2a2c;
@@ -87,9 +85,11 @@ body {
   .selection:focus {
     outline: none;
   }
+
   .select2-selection--single {
     height: 40px !important;
   }
+
   .select2-selection--single:focus {
     outline: none;
   }
@@ -100,35 +100,55 @@ body {
     border-radius: 3px;
   }
 
-  input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+  input:-webkit-autofill,
+  select:-webkit-autofill,
+  textarea:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px white inset !important;
     outline: none;
+  }
 
-  }
-  input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+  input::-webkit-input-placeholder,
+  textarea::-webkit-input-placeholder {
     color: #8d8d8d;
   }
-  input::-moz-placeholder, textarea::-webkit-input-placeholder { /* Mozilla Firefox 19+ */
+
+  input::-moz-placeholder,
+  textarea::-webkit-input-placeholder {
+    /* Mozilla Firefox 19+ */
     color: #8d8d8d;
   }
-  input:-moz-placeholder, textarea::-webkit-input-placeholder { /* Mozilla Firefox 4 to 18 */
+
+  input:-moz-placeholder,
+  textarea::-webkit-input-placeholder {
+    /* Mozilla Firefox 4 to 18 */
     color: #8d8d8d;
   }
-  input:-ms-input-placeholder, textarea::-webkit-input-placeholder { /* Internet Explorer 10-11 */
+
+  input:-ms-input-placeholder,
+  textarea::-webkit-input-placeholder {
+    /* Internet Explorer 10-11 */
     color: #8d8d8d;
   }
+
   button {
     border: none;
     font-size: 14px !important;
   }
-  input, button, textarea, select {
+
+  button,
+  input,
+  select,
+  textarea {
     outline: none !important;
   }
+
   textarea {
     padding: 5px 20px;
     overflow: auto;
   }
-  img[src=""], img:not([src]) {
+
+  img[src=""],
+  img:not([src]) {
     opacity: 0;
   }
 
@@ -136,8 +156,8 @@ body {
     width: 2px;
     height: 5px;
     border-radius: 50%;
-
   }
+
   textarea::-webkit-scrollbar-thumb {
     background-color: #dcdcdc;
     background-clip: padding-box;
@@ -146,48 +166,56 @@ body {
   //下拉框
   .selection {
     width: 100%;
-
   }
+
   .select2-container {
     width: 100%;
   }
+
   .select2-container--default .select2-selection--single {
     border: 1px solid $border;
     border-radius: 3px;
     font-size: 14px;
+
     .select2-selection__rendered {
       line-height: 40px;
       color: #2a2a2c;
     }
+
     .select2-selection__arrow {
       top: 6px;
     }
   }
+
   .select2-results {
     font-size: 14px;
   }
+
   .select2-container--default .select2-results__option--highlighted[aria-selected] {
     background-color: $color-border;
   }
+
   .select2-dropdown {
     border: 1px solid $border;
   }
+
   .select2-container--default .select2-selection--multiple .select2-selection__rendered {
     outline: none;
   }
+
   .select2-container--default .select2-selection--multiple .select2-selection__rendered li input:focus {
     border: none !important;
     outline: none;
   }
+
   .select2-container--default .select2-selection--multiple {
     min-height: 40px;
     border: 1px solid $border;
-
   }
+
   .select2-container--default .select2-search--inline .select2-search__field {
     margin-top: 10px;
   }
-
 }
 
 .login-input {
@@ -208,15 +236,15 @@ select {
   width: 160px;
   height: 36px;
   margin-right: 10px;
-  box-shadow: 0 0 5px #eee
+  box-shadow: 0 0 5px #eee;
 }
 
 select:disabled {
   background-color: #eef1f6;
-  cursor: not-allowed
+  cursor: not-allowed;
 }
-
 //边框
+
 .border-t {
   border-top: 1px solid $border;
 }
@@ -246,8 +274,8 @@ select:disabled {
 .pull-left {
   float: left;
 }
-
 //多余的省略号
+
 .read-more {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -255,8 +283,8 @@ select:disabled {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
-
 //多余的省略号
+
 .redundance {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -268,8 +296,8 @@ select:disabled {
 .marginbottom {
   margin-bottom: 14px;
 }
-
 //小手
+
 .cur {
   cursor: pointer;
 }
@@ -281,21 +309,23 @@ select:disabled {
   text-align: center;
   background: $color-button;
   margin: 0 auto;
-  box-shadow: 0px 2px 7px 2px #d632aa4d;
+  box-shadow: 0 2px 7px 2px #d632aa4d;
   border-radius: 20px;
   color: #fff;
   font-size: 16px;
 }
-
 //轮播按钮
-.swiper-button-prev, .swiper-container-rtl .swiper-button-next {
+
+.swiper-button-prev,
+.swiper-container-rtl .swiper-button-next {
   background-color: #000;
-  opacity: .3;
+  opacity: 0.3;
 }
 
-.swiper-button-next, .swiper-container-rtl .swiper-button-prev {
+.swiper-button-next,
+.swiper-container-rtl .swiper-button-prev {
   background-color: #000;
-  opacity: .3;
+  opacity: 0.3;
 }
 
 .swiper-pagination-bullet-active {
@@ -314,10 +344,9 @@ select:disabled {
   border: 1px solid $border;
   font-size: 14px;
   color: #8d8d8d;
-
 }
-
 //清浮动
+
 .clearfix:after {
   display: block;
   content: "";
@@ -328,16 +357,18 @@ select:disabled {
   text-align: center;
   width: 810px;
   color: #8d8d8d;
+
   .donation-co-no-c {
-    margin: 70px auto 70px auto;
+    margin: 70px auto;
     width: 268px;
   }
+
   .donation-co-no-c-img {
     margin-bottom: 20px;
   }
 }
-
 //模态框2
+
 .overspread-2 {
   .overspread-cont {
     display: none;
@@ -356,50 +387,54 @@ select:disabled {
 
     .overspread-co {
       text-align: center;
+
       .over-font {
         font-size: 18px;
         color: #3d3d40;
         font-weight: 600;
         margin-top: 10px;
       }
+
       .over-fontns {
         font-size: 14px;
         color: #3d3d40;
         margin-top: 10px;
         padding: 0 40px;
       }
-
     }
+
     & > div:nth-child(1) {
       height: 40px;
       padding: 0 30px;
       line-height: 40px;
+
       .iconfont {
         margin-right: 0;
       }
     }
+
     .mys-1 {
       font-size: 18px;
       color: #4e4e4e;
       font-weight: 600;
     }
   }
+
   .over-but {
     width: 180px;
     height: 34px;
     line-height: 34px;
     text-align: center;
     background: $color-button;
-    margin: 22px auto 0 auto;
-    box-shadow: 0px 2px 7px 2px #d632aa4d;
+    margin: 22px auto 0;
+    box-shadow: 0 2px 7px 2px #d632aa4d;
     border-radius: 20px;
     color: #fff;
     font-size: 16px;
-
   }
 }
-
 //模态框3
+
 .overspread-3 {
   .overspread-cont {
     display: none;
@@ -424,38 +459,42 @@ select:disabled {
         color: #3d3d40;
         margin-top: 27px;
       }
-
     }
+
     & > div:nth-child(1) {
       height: 40px;
       padding: 0 30px;
       line-height: 40px;
+
       .iconfont {
         margin-right: 0;
       }
     }
+
     .mys-1 {
       font-size: 18px;
       color: #4e4e4e;
       font-weight: 600;
     }
   }
+
   .over-but {
     width: 180px;
     height: 34px;
     line-height: 34px;
     text-align: center;
     background: $color-button;
-    margin: 22px auto 0 auto;
-    box-shadow: 0px 2px 7px 2px #d632aa4d;
+    margin: 22px auto 0;
+    box-shadow: 0 2px 7px 2px #d632aa4d;
     border-radius: 20px;
     color: #fff;
     font-size: 16px;
-
   }
+
   .overspreads-but {
     text-align: center;
     margin-top: 22px;
+
     button:nth-child(1) {
       width: 100px;
       height: 34px;
@@ -467,6 +506,7 @@ select:disabled {
       margin-right: 10px;
       border-radius: 3px;
     }
+
     button:nth-child(2) {
       width: 100px;
       height: 34px;
@@ -479,8 +519,8 @@ select:disabled {
     }
   }
 }
-
 //模态框4
+
 .overspread-4 {
   .overspread-cont {
     display: none;
@@ -511,39 +551,41 @@ select:disabled {
         color: #3d3d40;
         resize: none;
       }
-
     }
+
     & > div:nth-child(1) {
       height: 40px;
       padding: 0 30px;
       line-height: 40px;
       background-color: #f5f5f5;
+
       .iconfont {
         margin-right: 0;
       }
     }
+
     .mys-1 {
       font-size: 18px;
       color: #4e4e4e;
       font-weight: 600;
     }
   }
+
   .over-but {
     width: 180px;
     height: 34px;
     line-height: 34px;
     text-align: center;
     background: $color-button;
-    margin: 22px auto 0 auto;
-    box-shadow: 0px 2px 7px 2px #d632aa4d;
+    margin: 22px auto 0;
+    box-shadow: 0 2px 7px 2px #d632aa4d;
     border-radius: 20px;
     color: #fff;
     font-size: 16px;
-
   }
 }
-
 //余额不足
+
 .mongolian-hint {
   position: absolute;
   left: 0;
@@ -556,18 +598,19 @@ select:disabled {
   text-align: center;
   line-height: 40px;
   background-color: #000;
-  opacity: .7;
+  opacity: 0.7;
   color: #fff;
   font-size: 15px;
   border-radius: 3px;
   z-index: 5;
+
   span {
     z-index: 6;
   }
 }
-
 //首页
 //首页头部隐藏条
+
 .bullet {
   text-align: center;
   width: 100%;
@@ -576,6 +619,7 @@ select:disabled {
   background-color: $color-info;
   overflow: hidden;
   position: relative;
+
   ul {
     position: relative;
     top: 0;
@@ -584,15 +628,17 @@ select:disabled {
     font-size: 14px;
     margin: auto;
     color: #fff;
+
     & a {
       color: #fff;
     }
   }
 }
-
 //弹框
+
 .layui-layer {
   min-width: 200px !important;
+
   .layui-layer-title {
     border-bottom: 0;
     font-size: 18px;
@@ -601,16 +647,17 @@ select:disabled {
     height: auto;
     line-height: normal;
   }
-  .layui-layer-content {
 
+  .layui-layer-content {
     //padding: 10px 30px 20px !important;
   }
+
   .layui-layer-padding {
     //padding: 20px 20px 20px 55px !important;
   }
 }
-
 //nav
+
 .bul-nav {
   width: 100%;
   border-bottom: 1px solid #e5e5e5;
@@ -631,10 +678,11 @@ select:disabled {
     overflow: hidden;
     border-radius: 20px;
     margin-right: 30px;
+
     .iconfont {
       color: $color-border;
-
     }
+
     button {
       width: 100%;
     }
@@ -644,11 +692,12 @@ select:disabled {
     color: #fff;
     //background: $color-button;
     border: none;
+
     .iconfont {
       color: #fff;
-
     }
   }
+
   .bul-nav-cont {
     width: auto;
     height: 64px;
@@ -663,14 +712,15 @@ select:disabled {
       text-align: center;
       list-style: none;
       cursor: pointer;
+
       .iconfont {
         margin-right: 0;
         font-size: 14px;
         color: $color-subtitle;
         margin-left: 5px;
-
       }
     }
+
     .bul-nav-heide {
       position: absolute;
       left: 68px;
@@ -682,7 +732,8 @@ select:disabled {
       padding-top: 10px;
       padding-bottom: 10px;
       display: none;
-      box-shadow: 0px 0px 10px 3px #cccccc33;
+      box-shadow: 0 0 10px 3px #cccccc33;
+
       .gsh-arrows-1 {
         position: absolute;
         left: 70px;
@@ -692,9 +743,11 @@ select:disabled {
         line-height: 0;
         z-index: 2;
       }
+
       .gsh-arrows-1:hover {
         background: #fff;
       }
+
       & > li {
         width: 156px;
         height: 40px;
@@ -705,27 +758,32 @@ select:disabled {
 
       & > li:hover {
         background: $color-border;
+
         & > a {
           color: #fff;
         }
       }
     }
   }
+
   .bul-nav-dl {
     width: 90px;
     font-size: 16px;
     color: #2a2a2c;
     border-left: 1px solid #d2d2d2;
   }
+
   .bul-nav-sh {
     width: 80px;
     font-size: 16px;
     color: #2a2a2c;
     border-left: 1px solid #d2d2d2;
+
     .iconfont {
       margin-right: 0;
     }
   }
+
   .bul-nav-img {
     & > img {
       width: 38px;
@@ -734,20 +792,23 @@ select:disabled {
       margin-top: -4px;
     }
   }
-
 }
 
 .bul-swiper {
   margin-top: 30px;
+
   .slide-box {
     height: 420px !important;
   }
+
   .slide-out {
     height: 420px !important;
   }
+
   .slide-li {
     height: 420px !important;
   }
+
   .bul-icon-next {
     position: absolute;
     left: 0;
@@ -761,6 +822,7 @@ select:disabled {
     transform: rotate(180deg);
     line-height: 60px;
   }
+
   .bul-icon-prev {
     position: absolute;
     left: 0;
@@ -785,9 +847,11 @@ select:disabled {
 .bul-ai {
   width: 100%;
   padding-bottom: 90px;
+
   .bul-ai-cont {
     height: 320px;
     background-color: #fafafa;
+
     .bul-img-right {
       width: auto;
       height: 320px;
@@ -799,49 +863,55 @@ select:disabled {
 
   .bul-img-n {
     padding-bottom: 90px;
+
     .bul-img-m {
       width: 470px;
       height: 320px;
+
       .bul-img-p {
         border-bottom: 1px solid #dcdcdc;
-        padding: 36px 0 20px 0;
+        padding: 36px 0 20px;
+
         & > p:nth-child(1) {
           color: #262626;
           font-weight: 600;
           font-size: 18px;
           margin-bottom: 0;
+
           & > span {
             padding: 0 12px;
             color: $color-info;
             font-size: 22px;
           }
         }
+
         & > p:nth-child(2) {
           color: #262626;
           font-size: 12px;
           margin-bottom: 0;
           line-height: 34px;
+
           .iconfont {
             transform: rotate(-90deg);
             margin-right: 4px;
           }
         }
       }
+
       .bul-img-co {
         & > p {
-          padding: 20px 0 10px 0;
+          padding: 20px 0 10px;
           color: #262626;
           font-weight: 600;
           font-size: 18px;
           margin-bottom: 0;
-
         }
       }
     }
   }
 }
-
 ////文字滚动
+
 #news-container {
   width: 470px;
   height: 156px !important;
@@ -868,6 +938,7 @@ select:disabled {
   height: 40px;
   line-height: 40px;
   position: relative;
+
   .bul-yuan {
     font-size: 10px;
     color: $color-border;
@@ -875,16 +946,19 @@ select:disabled {
     left: 0;
     top: 0;
   }
+
   .bul-time {
     font-size: 13px;
     color: #262626;
     margin-left: 20px;
   }
+
   .bul-name {
     font-size: 15px;
     color: #262626;
     margin-left: 40px;
   }
+
   .bul-moy {
     font-size: 15px;
     color: #262626;
@@ -896,6 +970,7 @@ select:disabled {
   width: 1140px;
   border-bottom: 1px solid $border;
   margin: 0 auto;
+
   .row {
     margin: 0;
   }
@@ -903,22 +978,25 @@ select:disabled {
 
 .collaboration {
   width: 100%;
-  padding: 40px 0 63px 0;
+  padding: 40px 0 63px;
+
   & > p {
     text-align: center;
     font-size: 26px;
     color: #262626;
     font-weight: 600;
   }
+
   & > div {
     width: 1140px;
-    padding: 40px 0 0 0;
+    padding: 40px 0 0;
     display: -webkit-box;
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
     text-align: center;
     margin: 0 auto;
+
     & > div {
       -webkit-box-flex: 0;
       -ms-flex: 0 0 33%;
@@ -930,13 +1008,15 @@ select:disabled {
 
 .bul-tit {
   text-align: center;
-  padding: 60px 0 30px 0;
+  padding: 60px 0 30px;
+
   & > p:nth-child(1) {
     font-weight: 600;
     font-size: 26px;
     color: $color-theme;
     margin-bottom: 14px;
   }
+
   & > p:nth-child(2) {
     font-size: 18px;
     color: $color-theme;
@@ -946,17 +1026,21 @@ select:disabled {
 .bul-mouse {
   text-align: center;
   width: 100%;
+
   & > div {
-    padding: 17px 0 26px 0;
+    padding: 17px 0 26px;
   }
+
   & > div:nth-child(2) {
     border-left: 1px solid $border;
     border-right: 1px solid $border;
   }
+
   .mouse-1 {
     font-size: 18px;
     color: $color-subtitle;
   }
+
   .mouse-2 {
     font-size: 20px;
     color: $color-theme;
@@ -971,12 +1055,14 @@ select:disabled {
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
+
   & > div {
     -ms-flex: 0 0 33.33%;
     flex: 0 0 33.33%;
     max-width: 33.33%;
     width: 33.33%;
     position: relative;
+
     .mouse-show {
       margin: 0 auto;
       padding: 12px 20px;
@@ -985,20 +1071,24 @@ select:disabled {
       border-radius: 4px;
       color: #fff;
       font-weight: 600;
-      box-shadow: 0px 2px 7px 2px #d632aa4d;
+      box-shadow: 0 2px 7px 2px #d632aa4d;
     }
+
     & > img {
       position: absolute;
       left: 48%;
       top: -4px;
     }
   }
+
   #show11 {
     visibility: hidden;
   }
+
   #show12 {
     visibility: hidden;
   }
+
   #show13 {
     visibility: hidden;
   }
@@ -1009,15 +1099,19 @@ select:disabled {
   padding: 45px 0;
   background-color: $color-border;
   text-align: center;
+
   & > div {
     width: 542px;
     margin: 0 auto;
+
     & > p {
       color: #fff;
       font-size: 16px;
     }
+
     .bul-but {
       padding: 34px;
+
       & > div {
         width: 205px;
         height: 44px;
@@ -1025,6 +1119,7 @@ select:disabled {
         line-height: 40px;
         border-radius: 4px;
         border: 1px solid #fff;
+
         & > a {
           display: inline-block;
           width: 205px;
@@ -1032,13 +1127,14 @@ select:disabled {
           color: #fff;
         }
       }
+
       & > div:hover {
         background-color: #fff;
         border: 1px solid #fff;
+
         a {
           color: $color-border;
         }
-
       }
     }
   }
@@ -1054,7 +1150,6 @@ select:disabled {
   margin: 50px auto;
   border-radius: 20px;
   border: 1px solid $color-subtitle;
-
 }
 
 .gsh-img {
@@ -1063,7 +1158,6 @@ select:disabled {
   border-radius: 4px;
   position: relative;
   overflow: hidden;
-
 }
 
 .gsh-cont-1 {
@@ -1092,7 +1186,7 @@ select:disabled {
 .gsh-img .ovrly {
   position: absolute;
   background: $color-border;
-  opacity: .7;
+  opacity: 0.7;
   height: 100%;
   left: -100%;
   top: 0;
@@ -1128,26 +1222,21 @@ select:disabled {
 }
 
 .gsh-img:hover {
-
-  -webkit-box-shadow: 0px 12px 30px 2px #44444469;
-  -moz-box-shadow: 0px 12px 30px 2px #44444469;
-  box-shadow: 0px 12px 30px 2px #44444469;
-
+  -webkit-box-shadow: 0 12px 30px 2px #44444469;
+  -moz-box-shadow: 0 12px 30px 2px #44444469;
+  box-shadow: 0 12px 30px 2px #44444469;
 }
 
 .items-container {
   width: 1140px;
   margin: 0 auto;
-
 }
 
 .item {
   padding-top: 15px;
   padding-bottom: 30px;
 }
-
 //分辨率
-
 //@media (max-width: 1280px) {
 //  .bul-ai .bul-img-r img{
 //    width: 0;
@@ -1164,28 +1253,33 @@ select:disabled {
     width: 1100px;
   }
 }
-
 //底部
+
 .bul-footer {
   width: 100%;
   background-color: #3b3b3b;
+
   .foot-img {
     width: 108px;
     height: 90px;
+
     img {
       width: 108px;
       height: 90px;
     }
   }
+
   & > div {
     width: 1140px;
     margin: 0 auto;
-    padding: 30px 0 20px 0;
+    padding: 30px 0 20px;
     border-bottom: 1px solid #515151;
+
     .footwidth {
       width: 212px;
     }
   }
+
   & > p {
     text-align: center;
     padding: 14px 0;
@@ -1193,28 +1287,34 @@ select:disabled {
     color: #737373;
     margin-bottom: 0;
   }
+
   .footer-left-1 {
     margin-left: 88px;
     margin-right: 70px;
   }
+
   .footer-1 {
     margin-bottom: 30px;
     font-weight: 600;
     font-size: 15px;
     color: #d7d7d7;
   }
+
   .footer-2 {
     margin-bottom: 10px;
     font-size: 14px;
     color: #d7d7d7;
   }
+
   .footer-3 {
     font-size: 14px;
     color: #d7d7d7;
+
     & > a {
       color: #d7d7d7;
     }
   }
+
   .right-foot-1 {
     width: 132px;
     height: 30px;
@@ -1225,14 +1325,15 @@ select:disabled {
     margin-bottom: 10px;
     color: #fff;
     background: #3b3b3b;
-
   }
+
   .right-foot-3 {
     margin-bottom: 15px;
     font-weight: 600;
     font-size: 15px;
     color: #d7d7d7;
   }
+
   .right-foot-2 {
     width: 132px;
     height: 30px;
@@ -1243,7 +1344,6 @@ select:disabled {
     color: #fff;
     background: #3b3b3b;
   }
-
 }
 
 .bul-pos1 {
@@ -1281,9 +1381,11 @@ select:disabled {
     height: 100px;
     padding-top: 30px;
     padding-right: 14px;
+
     & > p:nth-child(1) {
       font-weight: 600;
     }
+
     & > p:nth-child(2) {
       font-size: 13px;
     }
@@ -1306,6 +1408,7 @@ select:disabled {
   color: #868686;
   z-index: 1;
   text-align: center;
+
   .iconfont {
     margin-right: 0;
     font-size: 28px;
@@ -1315,12 +1418,13 @@ select:disabled {
 .bul-top-2:hover {
   border: 1px solid $color-border;
   background-color: $color-border;
+
   .iconfont {
     color: #fff;
   }
 }
-
 //动态滑动
+
 .button {
   display: block;
   background: none;
@@ -1383,8 +1487,8 @@ select:disabled {
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 }
-
 //  svg
+
 .circle-chart {
   width: 68px;
   height: 68px;
@@ -1431,13 +1535,11 @@ select:disabled {
 .success-stroke {
   stroke: $color-border;
 }
-
 @keyframes circle-chart-fill {
   to {
     stroke-dasharray: 0 100;
   }
 }
-
 @keyframes circle-chart-appear {
   to {
     opacity: 1;
@@ -1450,16 +1552,17 @@ select:disabled {
     display: none;
   }
 }
-
 //项目详情,介绍
+
 #detail {
   width: 100%;
   position: relative;
+
   .referral-head {
     width: 100%;
     padding: 30px 0;
-
   }
+
   .referral-img {
     width: 1140px;
     margin: 0 auto;
@@ -1467,27 +1570,30 @@ select:disabled {
     border-radius: 3px;
     overflow: hidden;
     height: 280px;
+
     & > img {
       width: 100%;
       height: 100%;
     }
   }
+
   .referal-img-z {
     position: absolute;
     left: 0;
     top: 0;
     background: #000;
-    opacity: .3;
+    opacity: 0.3;
     width: 100%;
     height: 280px;
   }
+
   .referral-cont {
     position: absolute;
     left: 0;
     top: 0;
     bottom: 0;
     right: 0;
-    margin: 63px auto 0 auto;
+    margin: 63px auto 0;
     color: #fff;
     text-align: center;
     z-index: 2;
@@ -1496,19 +1602,23 @@ select:disabled {
       color: #fff;
     }
   }
+
   .referral-cont-p {
     font-weight: 600;
     font-size: 26px;
   }
+
   .referral-cont-m {
     font-size: 14px;
+
     & > span {
       font-size: 18px;
       font-weight: 600;
     }
   }
+
   .referral-cont-but {
-    margin: 56px auto 0 auto;
+    margin: 56px auto 0;
     font-size: 16px;
     width: 200px;
     height: 40px;
@@ -1517,14 +1627,15 @@ select:disabled {
     border: 2px solid #fff;
     background-color: transparent;
     color: #fff;
-
   }
+
   .referral-cont-but:hover {
     background-color: $hover-button;
     color: #fff;
     border: none;
     line-height: 40px;
   }
+
   .referral-school {
     width: 200px;
     height: 38px;
@@ -1536,34 +1647,41 @@ select:disabled {
     border-radius: 4px;
     margin: 14px 20px 14px 0;
   }
+
   .referral-school:hover {
     background-color: $hover-button;
   }
+
   .detail-head {
     width: 100%;
     background-color: #f9f9f9;
     padding: 30px 0;
   }
+
   .detail-img {
     width: 1140px;
     margin: 0 auto;
+
     & > img {
       float: left;
       width: 730px;
       height: 410px;
       border-radius: 7px;
-      box-shadow: 0px 3px 12px 4px #e4e4e4;
+      box-shadow: 0 3px 12px 4px #e4e4e4;
     }
   }
+
   .detail-cont {
     width: 342px;
     height: 100%;
     padding-top: 10px;
+
     .detail-con-t {
       font-size: 26px;
       color: #3d3d40;
       font-weight: 600;
     }
+
     .detail-con-font {
       width: 304px;
       font-size: 14px;
@@ -1575,34 +1693,42 @@ select:disabled {
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
     }
+
     .detail-con-number {
-      padding: 28px 0 20px 0;
+      padding: 28px 0 20px;
     }
+
     .detail-num {
       width: 247px;
       margin-left: 22px;
+
       & > p:nth-child(1) {
         font-size: 28px;
         color: #2a2a2c;
         font-weight: 600;
       }
+
       & > p:nth-child(2) {
         font-size: 14px;
         color: #3d3d40;
       }
     }
+
     .detail-cont-foot {
       padding-top: 16px;
+
       & > p {
         font-size: 14px;
         color: #3d3d40;
         font-weight: 600;
+
         & > span {
           color: #3d3d40;
           font-weight: 500;
           margin-left: 17px;
         }
       }
+
       & > button {
         margin-top: 34px;
         text-align: center;
@@ -1614,12 +1740,14 @@ select:disabled {
         line-height: 36px;
         background-color: #f9f9f9;
       }
+
       & > button:hover {
         color: #fff;
         border: none;
         background-color: $hover-button;
         line-height: 40px;
       }
+
       & > a > button {
         margin-top: 34px;
         text-align: center;
@@ -1631,6 +1759,7 @@ select:disabled {
         line-height: 36px;
         background-color: #f9f9f9;
       }
+
       & > a > button:hover {
         color: #fff;
         border: none;
@@ -1639,16 +1768,18 @@ select:disabled {
       }
     }
   }
+
   .detail-nav {
     box-shadow: 0 3px 9px 2px #b7b7b72b;
+
     .detail-fiexd {
       width: 100%;
       height: 64px;
       line-height: 62px;
       background-color: #ffffff;
       border-bottom: 1px solid $border;
-
     }
+
     .fhNav {
       position: relative;
       box-sizing: border-box;
@@ -1668,9 +1799,11 @@ select:disabled {
       color: #2c2c2c;
       font-size: 16px;
     }
+
     .selectedNav {
       font-weight: 600;
     }
+
     .bottomLine {
       position: absolute;
       left: 0;
@@ -1680,6 +1813,7 @@ select:disabled {
       background: $color-button;
       transition: all 0.3s ease;
     }
+
     .navmark {
       position: absolute;
       left: 66px;
@@ -1687,6 +1821,7 @@ select:disabled {
       color: #282832;
       font-size: 12px;
     }
+
     .share {
       width: 90px;
       height: 38px;
@@ -1699,9 +1834,11 @@ select:disabled {
       margin: 14px 0;
       background-color: #fff;
     }
+
     .share:hover {
       background-color: $hover-share;
     }
+
     .referral-share {
       width: 200px;
       height: 38px;
@@ -1719,8 +1856,8 @@ select:disabled {
       -webkit-transform: translate3d(-100%, 0, 0);
       transform: translate3d(-100%, 0, 0);
     }
-
   }
+
   .navFix {
     width: 100%;
     margin: 0 auto;
@@ -1731,35 +1868,43 @@ select:disabled {
     background-color: #fff;
     z-index: 22;
   }
+
   .detail-body {
     width: 1140px;
     margin: 0 auto;
-    padding: 40px 0 80px 0;
+    padding: 40px 0 80px;
   }
+
   .detail-body-right {
     width: 310px;
     background-color: #f8f8f8;
     padding: 0 16px;
+
     .not-available {
       width: 100%;
     }
   }
+
   .detail-b-r-t {
     font-size: 16px;
     color: #262626;
     font-weight: 600;
     height: 55px;
     line-height: 54px;
+
     & > span {
       border-bottom: 2px solid #8859d5;
     }
   }
+
   .detail-b-r-name {
     list-style: none;
     width: 100%;
+
     & > li {
       width: 100%;
       padding: 21px 0;
+
       & > img {
         width: 48px;
         height: 48px;
@@ -1767,6 +1912,7 @@ select:disabled {
         float: left;
         margin-right: 15px;
       }
+
       & > div {
         width: 77%;
         line-height: 24px;
@@ -1774,16 +1920,16 @@ select:disabled {
     }
   }
 }
-
 //input
+
 .from-input {
   height: 37px;
   line-height: 36px;
   vertical-align: middle;
   margin-left: 10px;
 }
-
 //执行反馈
+
 .detail-body-left {
   width: 810px;
   height: 100%;
@@ -1818,6 +1964,7 @@ select:disabled {
   & > li:nth-child(1) {
     margin-top: 0;
   }
+
   & > li {
     margin-top: 30px;
   }
@@ -1828,11 +1975,11 @@ select:disabled {
   border: 1px solid $border;
   border-radius: 4px;
   position: relative;
-
 }
 
 .detail-body-cont:hover {
   box-shadow: 0 4px 12px 3px #b8b0c629;
+
   .detail-body-hover {
     color: #8b54e3;
   }
@@ -1849,6 +1996,7 @@ select:disabled {
 .de-left-con {
   font-size: 14px;
   color: #3d3d40;
+
   .goods-1 {
     display: block;
   }
@@ -1856,15 +2004,18 @@ select:disabled {
 
 .detail-font-tit {
   margin-bottom: 10px;
+
   & > p {
     font-size: 18px;
     color: #2a2a2c;
     font-weight: 600;
   }
+
   & > span {
     font-size: 12px;
     color: #8b54e3;
     line-height: 28px;
+
     .iconfont {
       transform: rotate(-90deg);
       margin-right: 5px;
@@ -1882,9 +2033,11 @@ select:disabled {
     border-radius: 50%;
     float: left;
   }
+
   & > span:nth-child(3) {
     margin-left: 3px;
   }
+
   & > span {
     font-size: 14px;
     color: #d7d7d7;
@@ -1896,6 +2049,7 @@ select:disabled {
 .details-img {
   display: none;
   margin-top: 30px;
+
   img {
     width: 211px;
     height: 143px;
@@ -1903,12 +2057,13 @@ select:disabled {
     margin-right: 20px;
     margin-bottom: 20px;
   }
+
   img:nth-child(3n) {
     margin-right: 0;
   }
 }
-
 //物品清单
+
 .detail-table-left {
   width: 810px;
   height: 100%;
@@ -1922,18 +2077,21 @@ select:disabled {
     font-size: 16px;
     color: #2a2a2c;
   }
-  & > tbody th, td {
+
+  & > tbody th,
+  td {
     font-weight: 500;
     font-size: 14px;
     color: #2a2a2c;
   }
 }
-
 //申请详情
+
 .details-left {
   width: 810px;
   height: 100%;
   padding: 0 35px 0 0;
+
   & > img {
     width: 100%;
     margin-top: 30px;
@@ -1952,8 +2110,8 @@ select:disabled {
   color: #282832;
   line-height: 30px;
 }
-
 //项目列表
+
 #project {
   .project-img {
     width: 100%;
@@ -1961,11 +2119,12 @@ select:disabled {
     background-color: #e5e5e5;
     background-size: 100%;
     overflow: hidden;
-
   }
+
   .project-head {
     position: relative;
     border-top: 1px solid #E5E5E5;
+
     & > img {
       width: 350px;
       height: 203px;
@@ -1977,17 +2136,19 @@ select:disabled {
       margin: 50px auto;
       border-radius: 4px;
       box-shadow: 0 2px 20px 2px #76767b57;
-
     }
+
     .project-cont {
       text-align: center;
-      margin: 80px auto 60px auto;
+      margin: 80px auto 60px;
     }
+
     .project-cont-tit {
       font-size: 26px;
       color: #3d3d40;
       font-weight: 600;
     }
+
     .project-cont-con {
       font-size: 14px;
       color: #3d3d40;
@@ -1999,6 +2160,7 @@ select:disabled {
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
     }
+
     .project-cont-but {
       width: 200px;
       height: 40px;
@@ -2009,11 +2171,13 @@ select:disabled {
       color: $color-border;
       margin: 14px auto;
       background: #fff;
+
       .iconfont {
         font-size: 15px;
         margin-right: 0;
       }
     }
+
     .project-cont-but:hover {
       background: $color-button;
       color: #fff;
@@ -2021,12 +2185,15 @@ select:disabled {
       line-height: 40px;
     }
   }
+
   .project-body {
     width: 1140px;
     margin: 0 auto;
+
     .pull-down {
       position: relative;
     }
+
     .project-ul > li {
       float: left;
       width: 160px;
@@ -2039,13 +2206,14 @@ select:disabled {
       border-radius: 4px;
       padding: 0 10px;
       font-size: 14px;
+
       .iconfont {
         margin-right: 0;
         color: $color-subtitle;
         margin-left: 5px;
-
       }
     }
+
     .input-group {
       width: 230px;
       height: 37px;
@@ -2065,6 +2233,7 @@ select:disabled {
       & > span {
         margin-right: 0;
       }
+
       input {
         border: none;
         font-size: 14px;
@@ -2073,11 +2242,13 @@ select:disabled {
         margin-left: 6px;
         line-height: 36px;
       }
+
       input:focus {
         box-shadow: none;
         outline: none;
       }
     }
+
     .project-nav-heide {
       position: absolute;
       right: 0;
@@ -2091,6 +2262,7 @@ select:disabled {
       font-size: 14px;
       display: none;
       border: 1px solid $border;
+
       .gsh-arrows-1 {
         position: absolute;
         left: 70px;
@@ -2100,9 +2272,11 @@ select:disabled {
         line-height: 0;
         z-index: 2;
       }
+
       .gsh-arrows-1:hover {
         background: #fff;
       }
+
       & > li {
         padding: 0 10px;
         width: 158px;
@@ -2111,6 +2285,7 @@ select:disabled {
         font-size: 14px;
         color: #515154;
         text-align: left;
+
         a {
           width: 158px;
           height: 36px;
@@ -2119,22 +2294,26 @@ select:disabled {
 
       & > li:hover {
         background: $color-border;
+
         a {
           color: #fff;
         }
       }
     }
+
     .project-body-cont {
-      padding: 30px 0 0 0;
+      padding: 30px 0 0;
       margin-right: 0;
       margin-left: 0;
+
       .col-md-3 {
         margin-bottom: 30px;
       }
+
       .col-md-3:hover {
         box-shadow: 0 2px 20px 2px #d9d9d957;
-
       }
+
       & > div {
         border-radius: 4px;
         -webkit-box-flex: 0;
@@ -2146,34 +2325,41 @@ select:disabled {
         padding-right: 0;
         padding-left: 0;
       }
+
       .project-body-img {
         width: 100%;
         height: 179px;
         border-top-left-radius: 4px;
         border-top-right-radius: 4px;
         overflow: hidden;
+
         & > img {
           width: 100%;
           height: 100%;
         }
       }
+
       .project-body-cot {
         border-bottom-left-radius: 4px;
         border-bottom-right-radius: 4px;
-        padding: 10px 12px 0 12px;
+        padding: 10px 12px 0;
+
         .project-tits {
           margin-bottom: 20px;
         }
+
         .progress {
           height: 6px;
           width: 100% -2px;
           background-color: #ececec;
           border-radius: 4px;
         }
+
         .progress-bar {
           background: $color-button;
         }
       }
+
       .project-body-contn {
         width: 100%;
         display: flex;
@@ -2182,42 +2368,46 @@ select:disabled {
         display: -ms-flexbox;
         text-align: left;
         padding: 15px 0;
+
         & > div {
           -ms-flex: 0 0 50%;
           flex: 0 0 50%;
           max-width: 50%;
           font-size: 12px;
           color: #4a4a4b;
+
           span {
             font-size: 16px;
             color: #2a2a2c;
             font-weight: 600;
           }
         }
+
         & > div:nth-child(2) {
           padding-left: 15px;
           border-radius: 0;
         }
       }
-
     }
   }
+
   .project-body-t {
     width: 100%;
     height: 56px;
     line-height: 56px;
+
     & > p {
       font-size: 18px;
       color: #3d3d40;
       font-weight: 600;
     }
   }
-
 }
 
 .project-foot {
-  margin: 0 auto 80px auto;
+  margin: 0 auto 80px;
   text-align: center;
+
   & > span {
     width: 30px;
     height: 30px;
@@ -2228,12 +2418,14 @@ select:disabled {
     color: #9f9f9f;
     font-size: 14px;
     margin: 0 2px;
+
     a {
       display: inline-block;
       width: 30px;
       height: 30px;
     }
   }
+
   & > span:hover {
     line-height: 30px;
     border: none;
@@ -2243,42 +2435,47 @@ select:disabled {
       color: #fff;
     }
   }
+
   .current-page {
     line-height: 30px;
     border: none;
     background-color: $color-border;
+
     a {
       color: #fff;
     }
-
   }
 }
-
 //个人中心
+
 #account {
   .person-head {
     width: 100%;
     text-align: center;
     position: relative;
+
     & > img {
       width: 100%;
       height: 120px;
     }
+
     .person-h-img {
       position: absolute;
       left: 0;
       top: 0;
       right: 0;
       bottom: 0;
-      margin: 50px auto 0 auto;
+      margin: 50px auto 0;
+
       & > img {
         width: 116px;
         height: 116px;
         border-radius: 50%;
         border: 2px solid #fff;
-        box-shadow: 0px 4px 6px 3px #d8d8d882;
+        box-shadow: 0 4px 6px 3px #d8d8d882;
       }
     }
+
     .person-h-right {
       width: 1140px;
       position: absolute;
@@ -2286,27 +2483,32 @@ select:disabled {
       top: 0;
       right: 0;
       bottom: 0;
-      margin: 92px auto 0 auto;
+      margin: 92px auto 0;
       text-align: right;
       font-size: 14px;
       color: #fff;
+
       .iconfont {
         margin-right: 4px;
       }
+
       & > a {
         color: #fff;
       }
     }
+
     .person-h-cont {
       width: 100%;
       background: #F5F5F5;
       text-align: center;
-      padding: 60px 0 40px 0;
+      padding: 60px 0 40px;
+
       & > p {
         font-size: 26px;
         color: #2a2a2c;
       }
     }
+
     .person-h-cont-d {
       width: 1140px;
       margin: 0 auto;
@@ -2325,34 +2527,40 @@ select:disabled {
         display: inline-block;
         z-index: 2;
       }
+
       p {
         font-size: 14px;
         color: #3d3d40;
+
         span {
           font-size: 18px;
           font-weight: 600;
         }
       }
-
     }
   }
+
   .person-body {
     background-color: #f5f5f5;
     width: 100%;
     padding-bottom: 80px;
+
     .person-bo {
       width: 1140px;
       margin: 0 auto;
     }
+
     .person-body-left {
       width: 220px;
       background-color: #fff;
       border: 1px solid $border;
       position: relative;
+
       & > ul {
         width: 100%;
         //text-align: center;
-        padding: 10px 0 20px 0;
+        padding: 10px 0 20px;
+
         li {
           padding: 0 0 0 30px;
           width: 100%;
@@ -2361,6 +2569,7 @@ select:disabled {
           font-size: 16px;
           color: #2a2a2c;
           position: relative;
+
           & > i {
             position: absolute;
             right: 62px;
@@ -2370,6 +2579,7 @@ select:disabled {
           }
         }
       }
+
       & > div {
         text-align: center;
         width: 100%;
@@ -2377,10 +2587,12 @@ select:disabled {
         line-height: 54px;
         font-size: 16px;
         color: #2a2a2c;
+
         .iconfont {
           margin-right: 5px;
         }
       }
+
       .leftLine {
         position: absolute;
         left: 0;
@@ -2390,18 +2602,22 @@ select:disabled {
         background: $color-button;
         transition: all 0.3s ease;
       }
+
       .selectedli {
         background-color: #f5f5f5;
       }
     }
+
     .person-body-right {
       width: 900px;
       border: 1px solid $border;
-      padding: 10px 34px 20px 34px;
+      padding: 10px 34px 20px;
       background-color: #fff;
+
       .project-foot {
-        margin: 20px 0 0 0;
+        margin: 20px 0 0;
         text-align: center;
+
         & > span {
           width: 30px;
           height: 30px;
@@ -2412,6 +2628,7 @@ select:disabled {
           color: #9f9f9f;
           font-size: 14px;
         }
+
         & > span:hover {
           line-height: 30px;
           border: none;
@@ -2420,8 +2637,10 @@ select:disabled {
         }
       }
     }
+
     .donations {
       border-bottom: 1px solid $border;
+
       & > li {
         float: left;
         width: 120px;
@@ -2431,12 +2650,14 @@ select:disabled {
         font-size: 16px;
         color: #8d8d8d;
       }
+
       .selectedDon {
         font-weight: 600;
         font-size: 18px;
         color: #2a2a2c;
       }
     }
+
     .donation {
       display: none;
       border-bottom: 1px solid $border;
@@ -2444,8 +2665,9 @@ select:disabled {
 
     .donations-1 {
       position: relative;
-      padding: 26px 0 16px 0;
+      padding: 26px 0 16px;
     }
+
     .donations1 {
       & > li {
         float: left;
@@ -2457,6 +2679,7 @@ select:disabled {
         text-align: center;
         position: relative;
       }
+
       .selectedDo {
         font-weight: 600;
       }
@@ -2468,22 +2691,27 @@ select:disabled {
         padding: 30px 0;
       }
     }
+
     .donation-cont-img {
       width: 175px;
       height: 100px;
       border-radius: 4px;
       overflow: hidden;
+
       & > img {
         width: 100%;
         height: 100%;
       }
     }
+
     .donation-cont-cco {
       padding-left: 24px;
     }
+
     .donation-cont-c-tit {
       font-size: 16px;
       color: #3d3d40;
+
       p {
         margin-bottom: 8px;
         width: 400px;
@@ -2492,26 +2720,30 @@ select:disabled {
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
-
       }
-
     }
+
     .donation-cont-c-con {
       margin-top: 12px;
+
       & > div:nth-child(2) {
         margin-left: 40px;
       }
+
       span {
         font-size: 16px;
         color: #2a2a2c;
       }
+
       p {
         font-size: 12px;
         color: #4a4a4b;
       }
+
       .donation-cont-c-my-read {
         font-size: 12px;
         color: #4a4a4b;
+
         & > span {
           font-size: 12px;
           color: #4a4a4b;
@@ -2519,6 +2751,7 @@ select:disabled {
         }
       }
     }
+
     .donation-cont-but {
       width: 116px;
       height: 34px;
@@ -2530,18 +2763,21 @@ select:disabled {
       background-color: #f5f5f5;
       color: #3d3d40;
     }
-
   }
+
   .project-recom-cont {
-    padding: 30px 0 0 0;
+    padding: 30px 0 0;
     margin-right: 0;
     margin-left: 0;
+
     .col-md-4 {
       margin-bottom: 30px;
     }
+
     .col-md-4:hover {
       box-shadow: 0 2px 20px 2px #d9d9d957;
     }
+
     & > div {
       width: 264px;
       flex: 0 !important;
@@ -2551,64 +2787,74 @@ select:disabled {
       margin-right: 6px;
       margin-left: 6px;
     }
+
     .project-recom-img {
       width: 264px;
       height: 153px;
       border-top-left-radius: 4px;
       border-top-right-radius: 4px;
       overflow: hidden;
+
       & > img {
         width: 100%;
         height: 100%;
       }
     }
+
     .project-recom-cot {
       width: 264px;
       border-bottom-left-radius: 4px;
       border-bottom-right-radius: 4px;
-      padding: 15px 12px 0 12px;
+      padding: 15px 12px 0;
+
       .progress {
         height: 6px;
         background-color: #ececec;
         border-radius: 4px;
       }
+
       .progress-bar {
         background: $color-button;
       }
     }
+
     .project-recom-contn {
       width: 249px;
       display: flex;
       text-align: left;
       padding: 15px 0;
+
       & > div {
         flex: 1;
         font-size: 12px;
         color: #4a4a4b;
+
         span {
           font-size: 16px;
           color: #2a2a2c;
           font-weight: 600;
         }
       }
+
       & > div:nth-child(2) {
         padding-left: 15px;
         border-radius: 0;
       }
     }
-
   }
 }
-
 //缺省图
+
 .donation-cont-no {
   text-align: center;
   font-size: 14px;
   color: #8d8d8d;
+
   .donation-co-no-c {
-    margin: 70px auto 70px auto;
+    margin: 70px auto;
     width: 268px;
   }
+
   .donation-co-no-but {
     width: 191px;
     height: 38px;
@@ -2618,7 +2864,7 @@ select:disabled {
     color: #fff;
     font-size: 14px;
     border-radius: 20px;
-    margin: 0 auto 80px auto;
+    margin: 0 auto 80px;
     box-shadow: 0 3px 16px #d12da56b;
   }
 }
@@ -2627,10 +2873,12 @@ select:disabled {
   text-align: center;
   font-size: 14px;
   color: #8d8d8d;
+
   .donation-co-no-c {
-    margin: 80px auto 24px auto;
+    margin: 80px auto 24px;
     width: 268px;
   }
+
   .donation-co-no-but {
     width: 191px;
     height: 38px;
@@ -2640,7 +2888,7 @@ select:disabled {
     color: #fff;
     font-size: 14px;
     border-radius: 20px;
-    margin: 0 auto 80px auto;
+    margin: 0 auto 80px;
     box-shadow: 0 3px 16px #d12da56b;
   }
 }
@@ -2653,25 +2901,27 @@ select:disabled {
   font-size: 18px;
   color: #3d3d40;
   font-weight: 600;
+
   & > span:nth-child(2) {
     font-size: 13px;
     color: #393d42;
     font-weight: 500;
     margin-right: 0;
     margin-left: 4px;
-    margin-top: 0px;
+    margin-top: 0;
   }
+
   & > span:nth-child(3) {
     font-size: 13px;
     color: #393d42;
     font-weight: 500;
-
   }
 }
-
 //捐助管理
+
 .don-cont {
-  padding: 30px 0 20px 0;
+  padding: 30px 0 20px;
+
   .don-content {
     padding: 20px;
     margin-bottom: 20px;
@@ -2679,12 +2929,14 @@ select:disabled {
     border-radius: 4px;
     position: relative;
   }
+
   .don-content > div:nth-child(1) > span:nth-child(1) {
     font-size: 18px;
     color: #2a2a2c;
     margin-bottom: 10px;
     font-weight: 600;
   }
+
   .don-content > div:nth-child(1) > span:nth-child(2) {
     font-size: 13px;
     color: #fff;
@@ -2697,31 +2949,37 @@ select:disabled {
     margin-left: 18px;
     margin-top: -10px;
   }
+
   .don-con-pos {
     position: absolute;
     right: 20px;
     bottom: 20px;
     font-size: 14px;
     color: #005ea7;
+
     & > div {
       margin-left: 20px;
+
       .iconfont {
-        margin-right: 0px;
+        margin-right: 0;
         font-size: 14px;
       }
     }
   }
+
   .don-con-co {
     width: 100%;
     display: flex;
     font-size: 14px;
     margin-top: 6px;
+
     span {
       flex: 1;
       width: 10%;
       color: #8d8d8d;
       float: left;
     }
+
     p {
       color: #3d3d40;
       width: 90%;
@@ -2730,28 +2988,29 @@ select:disabled {
       float: left;
     }
   }
+
   .don-con-co:after {
     display: block;
     content: '';
     clear: both;
   }
-
 }
 
 #popup-container {
   .modal-content {
     overflow: hidden;
   }
+
   .modal-header .close {
     font-size: 24px !important;
   }
-
 }
 
 .don-co {
   text-align: center;
   font-size: 14px;
   color: #8d8d8d;
+
   .don-co-but {
     width: 191px;
     height: 38px;
@@ -2760,24 +3019,28 @@ select:disabled {
     line-height: 38px;
     font-size: 14px;
     border-radius: 20px;
-    margin: 0 auto 80px auto;
+    margin: 0 auto 80px;
     box-shadow: 0 3px 16px #d12da56b;
     color: #fff;
+
     a {
       color: #fff;
       display: inline-block;
       width: 100%;
       height: 100%;
     }
+
     .apply-show-btn {
       width: 191px;
       height: 38px;
       background: $color-button;
     }
+
     .apply-show-btn:hover {
       background: $hover-button;
     }
   }
+
   .iconfont {
     margin-right: 6px;
   }
@@ -2804,13 +3067,13 @@ select:disabled {
   border: 1px solid transparent;
   border-radius: 4px;
 }
-
 //遮罩
+
 #goodcover {
   display: none;
   position: fixed;
-  bottom: 0%;
-  left: 0%;
+  bottom: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   background-color: #575762;
@@ -2839,10 +3102,10 @@ select:disabled {
 .close1 {
   background-color: #f5f5f5;
   padding: 15px 30px;
+
   .iconfont {
     margin-right: 0;
   }
-
 }
 
 .close1 > span:nth-child(1) {
@@ -2869,6 +3132,7 @@ select:disabled {
 
 .remove-title {
   padding: 15px 30px;
+
   .iconfont {
     margin-right: 0;
   }
@@ -2879,9 +3143,11 @@ select:disabled {
   color: #2a2a2c;
   text-align: center;
   padding: 0 22px;
+
   & > p {
     margin-top: 10px;
   }
+
   & > div > div {
     width: 120px;
     height: 36px;
@@ -2889,10 +3155,12 @@ select:disabled {
     margin-top: 30px;
     border-radius: 18px;
   }
+
   & > div > div:nth-child(1) {
     border: 1px solid $color-border;
     color: $color-border;
   }
+
   & > div > div:nth-child(2) {
     border: 1px solid $border;
   }
@@ -2901,7 +3169,7 @@ select:disabled {
 .goodtext {
   font-size: 14px;
   color: #8d8d8d;
-  margin: 20px 0 6px 0;
+  margin: 20px 0 6px;
 }
 
 .numfont {
@@ -2923,32 +3191,38 @@ select:disabled {
 
 .sexinput {
   margin-top: 10px;
+
   & > div {
-    margin: 17px 10px 0px 10px;
+    margin: 17px 10px 0;
   }
+
   input[type="radio"] {
     position: absolute;
     clip: rect(0, 0, 0, 0);
   }
+
   input[type="radio"] + label {
     margin-bottom: 0;
     font-size: 14px;
     color: #2a2a2c;
     font-weight: 500;
   }
+
   input[type="radio"] + label::before {
-    content: "\a0"; /*不换行空格*/
+    content: "\a0";
+    /*不换行空格*/
     display: inline-block;
     vertical-align: middle;
     font-size: 18px;
     width: 16px;
     height: 16px;
-    margin-right: .4em;
+    margin-right: 0.4em;
     border-radius: 50%;
     border: 1px solid $border;
-    text-indent: .15em;
+    text-indent: 0.15em;
     line-height: 1;
   }
+
   input[type="radio"]:checked + label::before {
     background-color: $color-border;
     background-clip: content-box;
@@ -2959,8 +3233,7 @@ select:disabled {
 }
 
 .goodcont {
-  padding: 0 30px 0 30px;
-
+  padding: 0 30px;
 }
 
 .goodtxt p {
@@ -2985,17 +3258,19 @@ select:disabled {
 
 .goodbut:hover {
   background-color: $hover-button;
+
   a {
     color: #fff;
   }
 }
-
 //我的勋章
+
 .medal {
   .items-container {
     width: 100%;
-    margin: 30px 0 0 0;
+    margin: 30px 0 0;
   }
+
   .col-md-4 {
     width: 264px;
     height: 278px;
@@ -3007,28 +3282,34 @@ select:disabled {
     padding: 0;
     margin-bottom: 20px;
     position: relative;
+
     .ucenter-mark {
       position: absolute;
       right: -6px;
       top: 12px;
       z-index: 1;
+
       & > img {
         width: 66px;
         height: 28px;
         margin-top: 0;
       }
     }
+
     .gsh-img {
       width: 263px;
       height: 276px;
       text-align: center;
+
       .medal-cont {
         margin-top: 10px;
+
         & > p:nth-child(1) {
           font-size: 18px;
           color: #2a2a2c;
           font-weight: 600;
           position: relative;
+
           & > span {
             position: absolute;
             right: 22%;
@@ -3043,39 +3324,46 @@ select:disabled {
             border-radius: 4px;
           }
         }
+
         & > p:nth-child(2) {
           font-size: 14px;
           color: #868a8f;
         }
       }
+
       img {
         margin-top: 20px;
       }
+
       .ovrly {
         height: 278px;
         z-index: 2;
-        opacity: .9;
+        opacity: 0.9;
       }
     }
+
     .gsh-img:hover {
-      box-shadow: 0px 6px 18px -1px #44444429;
+      box-shadow: 0 6px 18px -1px #44444429;
     }
+
     .buttons {
       z-index: 3;
       text-align: center;
       padding-left: 0;
       width: 78%;
     }
+
     .buttons > p:nth-child(1) {
       font-size: 18px;
       font-weight: 600;
-
     }
+
     .buttons > p:nth-child(2) {
       text-align: left;
       font-size: 14px;
       margin-top: 10px;
     }
+
     .buttons > div {
       text-align: center;
       font-size: 16px;
@@ -3085,23 +3373,23 @@ select:disabled {
       line-height: 34px;
       border: 1px solid #fff;
       border-radius: 4px;
-      margin: 50px auto 0 auto;
+      margin: 50px auto 0;
     }
   }
+
   .items-container > div:nth-child(3n) {
     margin-right: 0;
   }
-
 }
-
 //一对一列表页
+
 #project .project-body .pairs-body-cont {
   margin-right: 0;
   margin-left: 0;
 }
 
 .pairs-body {
-  margin: 30px 0 0 0;
+  margin: 30px 0 0;
 }
 
 .pairs-body-cont {
@@ -3116,36 +3404,44 @@ select:disabled {
     width: 49%;
     margin-bottom: 30px;
   }
+
   & > div:nth-child(2n) {
     margin-left: 22px;
   }
+
   .pairs-body-img {
     width: 120px;
     height: 120px;
     border-radius: 50%;
     overflow: hidden;
+
     & > img {
       width: 100%;
       height: 100%;
     }
   }
+
   .pairs-body-conts {
     margin-left: 20px;
+
     & > p:nth-child(1) {
       font-size: 16px;
       color: #2a2a2c;
       font-weight: 600;
     }
+
     & > p:nth-child(2) {
       font-size: 13px;
       color: #d7d7d7;
       margin-top: 6px;
     }
+
     & > p:nth-child(3) {
       font-size: 14px;
       color: #3d3d40;
       margin-top: 10px;
     }
+
     button {
       margin-top: 20px;
       width: 106px;
@@ -3159,21 +3455,23 @@ select:disabled {
       outline: none;
       border-radius: 4px;
     }
+
     button:hover {
       background-color: $hover-button;
     }
   }
 }
-
 //活动首页
+
 #campaigns {
   .camp-body .camps-body-cont {
     margin-right: 0;
     margin-left: 0;
   }
+
   .camps-body {
     width: 1140px;
-    margin: 30px auto 0 auto;
+    margin: 30px auto 0;
   }
 }
 
@@ -3182,15 +3480,19 @@ select:disabled {
     width: 100%;
     margin-top: 0;
   }
+
   .oversmin {
     margin: 0 7px 0 0;
   }
+
   .oversinputs {
     text-indent: 0;
     margin: 0 7px;
   }
+
   .overspread-cont {
     height: 590px;
+
     .overspread-co {
       textarea {
         width: 100%;
@@ -3207,13 +3509,14 @@ select:disabled {
 
 #cmapaigns-but {
   text-align: left;
+
   & > p {
     margin-top: 20px;
     font-size: 14px;
     color: #2a2a2c;
+
     & > span {
       font-size: 18px;
-
     }
   }
 }
@@ -3232,23 +3535,25 @@ select:disabled {
     overflow: hidden;
     background-color: #fff;
     position: relative;
-
   }
 
   .col-md-6:hover {
     box-shadow: 0 6px 20px 4px #afafaf2e;
   }
+
   .unit {
     position: absolute;
     right: 20px;
     bottom: 20px;
     font-size: 16px;
     color: #2a2a2c;
+
     & > span {
       font-size: 20px;
       font-weight: 600;
     }
   }
+
   .camps-mark {
     width: 86px;
     height: 32px;
@@ -3262,6 +3567,7 @@ select:disabled {
     border-radius: 3px;
     text-align: center;
   }
+
   .camps-mark-no {
     width: 100px;
     height: 34px;
@@ -3275,20 +3581,25 @@ select:disabled {
     border-radius: 4px;
     text-align: center;
   }
+
   & > .col-md-6:nth-child(2n) {
     margin-left: 30px;
   }
+
   .camps-body-img {
     width: 100%;
     height: 310px;
     overflow: hidden;
+
     & > img {
       width: 100%;
       height: 100%;
     }
   }
+
   .camps-body-conts {
     padding: 20px;
+
     & > p:nth-child(1) {
       font-size: 20px;
       color: #3d3d40;
@@ -3300,10 +3611,10 @@ select:disabled {
       -webkit-box-orient: vertical;
       margin-bottom: 30px;
     }
+
     & > p:nth-child(2) {
       font-size: 14px;
       color: #8d8d8d;
-
     }
   }
 }
@@ -3329,22 +3640,24 @@ select:disabled {
   margin: auto 0;
   border-radius: 3px;
 }
-
 //活动详情
+
 .camps-detail {
   width: 1140px;
-  margin: 51px auto 80px auto;
+  margin: 51px auto 80px;
 }
 
 .camps-body-detail {
   padding: 0 200px;
   text-align: center;
+
   & > p {
     padding: 0 40px;
     font-size: 28px;
     color: #3d3d40;
     font-weight: 600;
   }
+
   .camps-cont-detail {
     font-size: 16px;
     color: #3d3d40;
@@ -3353,19 +3666,20 @@ select:disabled {
     text-align: left;
     margin-bottom: 60px;
     padding: 0;
+
     img {
       width: 100% !important;
       height: auto !important;
       margin: 15px 0 !important;
     }
   }
-
 }
 
 .camps-share {
   width: 100%;
   margin: 0 auto;
   text-align: center;
+
   & > p {
     font-size: 16px;
     color: #3b3b3b;
@@ -3385,6 +3699,7 @@ select:disabled {
 .activity-detail-img {
   width: 100%;
   height: 460px;
+
   & > img {
     width: 100%;
     height: 100%;
@@ -3408,30 +3723,30 @@ select:disabled {
   font-size: 16px;
   color: #fff;
   border-radius: 20px;
-  box-shadow: 0px 3px 18px 1px #8a53e354;
+  box-shadow: 0 3px 18px 1px #8a53e354;
 }
-
 //立即报名
+
 .activity-color-but-1 {
   background: $color-button;
 }
-
 //名额已满
+
 .activity-color-but-2 {
   background: #d22c6e;
 }
-
 //已报名
+
 .activity-color-but-3 {
   background: #d22ca4;
 }
-
 //报名已结束
+
 .activity-color-but-4 {
   background: #9565ea;
 }
-
 //活动已结束
+
 .activity-color-but-5 {
   background: #717171;
 }
@@ -3445,11 +3760,13 @@ select:disabled {
   display: -webkit-flex;
   text-align: left;
   margin-top: 7px;
+
   & > p {
     flex: 10;
     font-size: 14px;
     color: #3d3d40;
   }
+
   & > span {
     flex: 1;
     font-size: 14px;
@@ -3457,17 +3774,19 @@ select:disabled {
     font-weight: 600;
   }
 }
-
 //推荐
+
 .recommend {
-  margin: 40px 0 80px 0;
+  margin: 40px 0 80px;
   text-align: center;
+
   & > p {
     font-size: 24px;
     color: #2a2a2c;
     font-weight: 600;
     margin-bottom: 30px;
   }
+
   .recommend-cont {
     & > div {
       border-radius: 4px;
@@ -3477,17 +3796,18 @@ select:disabled {
       padding: 0;
       margin-right: 15px;
       margin-bottom: 30px;
-
     }
+
     & > div:nth-child(3n) {
       margin-right: 0;
-
     }
+
     .recommend-img {
       width: 100%;
       height: 210px;
       border-radius: 4px;
       overflow: hidden;
+
       & > img {
         width: 204%;
         height: 422px;
@@ -3500,23 +3820,23 @@ select:disabled {
         -ms-transform: scale(.5);
         -o-transform: scale(.5);
         margin: -106px 0 0 -186px;
-
       }
     }
+
     .recommend-img > img:hover {
       -webkit-transform: scale(.6);
       -moz-transform: scale(.6);
       -ms-transform: scale(.6);
       -o-transform: scale(.6);
     }
-
   }
 }
-
 //孩子详情
+
 #detail .child-detail-img {
   width: 1140px;
   margin: 0 auto;
+
   & > img {
     width: 310px;
     height: 310px;
@@ -3525,10 +3845,13 @@ select:disabled {
     float: left;
     margin-right: 40px;
   }
+
   .detail-cont {
     width: 69%;
+
     & > div:nth-child(1) {
       margin-bottom: 16px;
+
       & > p > span {
         margin-left: 6px;
         font-size: 14px;
@@ -3537,42 +3860,50 @@ select:disabled {
       }
     }
   }
+
   .detail-con-font {
     width: 100%;
   }
+
   .detail-con-serial {
     margin: 6px 0;
     font-size: 15px;
     color: #3d3d40;
     font-weight: 600;
   }
+
   .detail-cont-foot {
     .child-but {
       width: 342px;
       margin-top: 30px;
     }
+
     .child-but:hover {
       background-color: $hover-button;
       color: #fff;
       border: 2px solid $hover-button;
     }
   }
+
   .detail-cont-foot {
     & > p {
       font-size: 14px;
       color: #3d3d40;
       font-weight: 500;
+
       & > span {
         font-size: 16px;
         color: #3d3d40;
         font-weight: 600;
       }
     }
+
     .child-checked {
       border: none;
       margin-left: 0;
       margin-top: 16px;
       text-align: left;
+
       & > span {
         font-size: 14px;
         color: #3d3d40;
@@ -3580,11 +3911,13 @@ select:disabled {
       }
     }
   }
-  ul.choose-type-right > li.selected {
-    background: url(image-path("ico-right-mark.png")) no-repeat right bottom;
+
+  ul .choose-type-right > li.selected {
+    background: url(image-path("ico-right-mark.png"))no-repeat right bottom;
     background-size: 17%;
     border: 1px solid $color-info;
   }
+
   ul.ui-choose > li {
     box-sizing: border-box;
     border: 1px solid $border;
@@ -3600,21 +3933,23 @@ select:disabled {
     margin-left: 10px;
   }
 }
-
 //资讯详情页
+
 .camps-body-detail .articles-time {
   font-size: 14px;
   color: #8d8d8d;
   margin-top: 20px;
 }
-
 //资讯列表页
+
 .speciais {
   width: 1140px;
-  margin: 40px auto 80px auto;
+  margin: 40px auto 80px;
+
   .donations-1 {
     position: relative;
-    padding: 26px 0 14px 0;
+    padding: 26px 0 14px;
+
     .bottomline {
       position: absolute;
       left: 34px;
@@ -3626,6 +3961,7 @@ select:disabled {
       transition: all 0.3s ease;
     }
   }
+
   .donations1 {
     & > li {
       float: left;
@@ -3637,15 +3973,17 @@ select:disabled {
       text-align: center;
       position: relative;
     }
+
     .selectedDo {
       font-weight: 600;
     }
   }
+
   .speciais-left {
     width: 792px;
   }
-  .speciais-con {
 
+  .speciais-con {
     & > .speciais-t {
       padding: 20px 0;
     }
@@ -3653,6 +3991,7 @@ select:disabled {
     .speciais-con-con {
       width: 523px;
       padding: 3px 0 0 20px;
+
       .gsh-cont-2 {
         overflow: hidden;
         text-overflow: ellipsis;
@@ -3660,30 +3999,34 @@ select:disabled {
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
       }
+
       .gsh-cont-3 {
         margin-top: 18px;
       }
+
       .gsh-cont-1 {
         margin-top: 4px;
       }
-
     }
+
     .speciais-con-img {
       width: 240px;
       height: 140px;
       border-radius: 4px;
       overflow: hidden;
+
       img {
         width: 100%;
         height: 100%;
       }
     }
-
   }
+
   .speciais-cont-but {
     width: 100%;
     text-align: center;
-    padding: 40px 0 0 0;
+    padding: 40px 0 0;
+
     button {
       width: 130px;
       height: 38px;
@@ -3694,8 +4037,10 @@ select:disabled {
       font-size: 14px;
     }
   }
+
   .speciais-right {
     width: 292px;
+
     .speciais-right-pos {
       width: 100%;
       height: 174px;
@@ -3703,16 +4048,19 @@ select:disabled {
       border-radius: 4px;
       overflow: hidden;
       margin-bottom: 10px;
+
       & > img {
         width: 100%;
         height: 100%;
       }
+
       .speciais-con-con {
         position: absolute;
         left: 0;
         bottom: 0;
         height: 54px;
         width: 100%;
+
         div {
           position: absolute;
           left: 0;
@@ -3720,9 +4068,10 @@ select:disabled {
           height: 54px;
           width: 100%;
           background-color: #000;
-          opacity: .4;
+          opacity: 0.4;
           z-index: 1;
         }
+
         .gsh-cont-2 {
           z-index: 2;
           color: #fff;
@@ -3735,27 +4084,30 @@ select:disabled {
           display: -webkit-box;
           -webkit-line-clamp: 2;
           -webkit-box-orient: vertical;
-
         }
-
       }
     }
+
     .speciais-con-img {
       width: 100px;
       height: 60px;
       border-radius: 4px;
       overflow: hidden;
+
       img {
         width: 100%;
         height: 100%;
       }
     }
+
     .speciais-right-cont {
       padding: 10px 0;
     }
+
     .speciais-con-con {
       width: 180px;
       padding: 0 0 0 10px;
+
       .gsh-cont-2 {
         font-weight: 500;
         font-size: 14px;
@@ -3765,12 +4117,14 @@ select:disabled {
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
       }
+
       .gsh-cont-1 {
         margin-top: 4px;
-        margin-bottom: 0px;
+        margin-bottom: 0;
         font-size: 12px;
       }
     }
+
     .donations1 {
       li {
         width: 100%;
@@ -3781,7 +4135,6 @@ select:disabled {
 }
 
 .articles-cont {
-
   .bul-icon-next {
     position: absolute;
     left: 0;
@@ -3795,6 +4148,7 @@ select:disabled {
     transform: rotate(180deg);
     line-height: 60px;
   }
+
   .bul-icon-prev {
     position: absolute;
     left: 0;
@@ -3808,24 +4162,23 @@ select:disabled {
     line-height: 60px;
   }
 }
-
 //资讯首页1
+
 .article-title {
   width: 100%;
   text-align: center;
   padding-bottom: 49px;
-
 }
 
 .article-img {
   width: 100%;
   height: 370px;
   position: relative;
+
   & > img {
     width: 100%;
     height: 100%;
   }
-
 }
 
 .article-but {
@@ -3850,22 +4203,26 @@ select:disabled {
   font-size: 15px;
   color: #3d3d40;
   width: 610px;
-  margin: 20px auto 0 auto;
+  margin: 20px auto 0;
 }
 
 .article-new {
   width: 1140px;
   margin: 0 auto;
+
   .recommend-cont {
     margin: 0;
   }
+
   .recommend {
-    margin: 40px 0 10px 0;
+    margin: 40px 0 10px;
     text-align: center;
   }
+
   .recommend .recommend-cont > div {
     flex: 0 0 32.4%;
   }
+
   .recommend > p {
     text-align: left;
     font-size: 20px;
@@ -3877,9 +4234,10 @@ select:disabled {
   width: 100%;
   padding-bottom: 49px;
   padding-top: 40px;
+
   & > p {
     width: 1140px;
-    margin: 0 auto 30px auto;
+    margin: 0 auto 30px;
     color: #2a2a2c;
     font-weight: 600;
     text-align: left;
@@ -3890,14 +4248,17 @@ select:disabled {
 .article-reads {
   width: 1140px;
   margin: 0 auto;
+
   & > div:nth-child(2) {
     width: 477px;
     margin-left: 67px;
+
     div {
       position: relative;
       margin-bottom: 10px;
     }
   }
+
   .gsh-cont-1 {
     margin-top: 20px;
   }
@@ -3909,6 +4270,7 @@ select:disabled {
   border-radius: 4px;
   overflow: hidden;
   position: relative;
+
   & > img {
     width: 100%;
     height: 100%;
@@ -3920,11 +4282,13 @@ select:disabled {
   left: 20px;
   bottom: 14px;
   width: 94%;
+
   & > p:nth-child(1) {
     font-size: 20px;
     color: #fff;
     font-weight: 600;
   }
+
   & > p:nth-child(2) {
     font-size: 22px;
     color: #fff;
@@ -3952,28 +4316,30 @@ select:disabled {
   top: -7px;
   font-weight: 600;
 }
-
 //资讯2
+
 .article1-title {
   width: 100%;
   text-align: center;
   padding-bottom: 49px;
+
   .article-but {
     border: none;
     background-color: $color-border;
     color: #fff;
     border-radius: 3px;
-
   }
 }
 
 .article1-read-swiper {
   margin-bottom: 70px;
+
   .recommend-img {
     width: 100%;
     height: 209px;
     border-radius: 4px;
     overflow: hidden;
+
     & > img {
       width: 200%;
       height: 418px;
@@ -3988,6 +4354,7 @@ select:disabled {
       margin: -105px 0 0 -180px;
     }
   }
+
   .recommend-img > img:hover {
     -webkit-transform: scale(.6);
     -moz-transform: scale(.6);
@@ -4004,16 +4371,18 @@ select:disabled {
   display: -ms-flexbox;
   display: -webkit-flex;
   margin-bottom: 50px;
+
   & > div {
     -ms-flex: 0 0 33.33%;
     flex: 0 0 33.33%;
     max-width: 33.33%;
-    width:33.33%;
+    width: 33.33%;
     height: 320px;
     padding: 30px 50px;
     position: relative;
     overflow: hidden;
     float: left;
+
     .ovrly {
       background-color: $color-info;
       height: 100%;
@@ -4028,24 +4397,27 @@ select:disabled {
       transition: all 0.5s;
     }
   }
+
   & > div:hover {
     .ovrly {
-
       top: 0;
     }
+
     .gsh-cont-1 {
       color: #fff;
     }
+
     .gsh-cont-2 {
       color: #fff;
     }
+
     .gsh-cont-3 {
       color: #fff;
     }
   }
 }
-
 //支付
+
 #donates {
   position: relative;
 }
@@ -4055,10 +4427,12 @@ select:disabled {
   height: 180px;
   position: relative;
   z-index: -1;
+
   & > img {
     width: 100%;
     height: 100%;
   }
+
   .donates-img-cont {
     position: absolute;
     left: 0;
@@ -4070,10 +4444,12 @@ select:disabled {
     height: 53px;
     font-weight: 500;
     text-align: center;
+
     & > p:nth-child(1) {
       font-weight: 600;
       font-size: 22px;
     }
+
     & > p:nth-child(2) {
       margin-top: 6px;
       font-size: 16px;
@@ -4085,8 +4461,8 @@ select:disabled {
   width: 1140px;
   height: 650px;
   background-color: #fff;
-  box-shadow: 0px 2px 7px 2px #cac7c94d;
-  margin: -40px auto 80px auto;
+  box-shadow: 0 2px 7px 2px #cac7c94d;
+  margin: -40px auto 80px;
   border-radius: 4px;
   overflow: hidden;
 }
@@ -4110,15 +4486,16 @@ select:disabled {
   text-align: left;
   line-height: 26px;
   padding-bottom: 4px;
+
   & > p:nth-child(1) {
     font-size: 16px;
     color: #2a2a2c;
     font-weight: 600;
   }
+
   & > p:nth-child(2) {
     font-size: 12px;
     color: #8d8d8d;
-
   }
 }
 
@@ -4126,11 +4503,13 @@ select:disabled {
   width: 860px;
   padding: 42px 30px;
   position: relative;
+
   .donations-1 {
     position: relative;
-    padding: 26px 0 14px 0;
+    padding: 26px 0 14px;
     border-bottom: 1px solid #e6e6e6;
     margin-bottom: 20px;
+
     .bottomline {
       position: absolute;
       left: 0;
@@ -4142,6 +4521,7 @@ select:disabled {
       transition: all 0.3s ease;
     }
   }
+
   .donations1 {
     & > li {
       float: left;
@@ -4153,12 +4533,11 @@ select:disabled {
       font-weight: 400;
       padding-right: 40px;
     }
+
     .selectedDo {
       font-weight: 600;
     }
-
   }
-
 }
 
 .donates-c-l-t {
@@ -4185,14 +4564,17 @@ select:disabled {
     color: #2a2a2c;
     font-weight: 600;
   }
+
   & > div:nth-child(1) > p:nth-child(2) {
     font-size: 14px;
     color: #8d8d8d;
   }
+
   & > div:nth-child(2) {
     font-size: 14px;
     color: #2a2a2c;
     padding: 12px 0;
+
     & > span {
       font-weight: 600;
     }
@@ -4201,12 +4583,14 @@ select:disabled {
 
 .benefactors {
   margin-top: 30px;
+
   & > span:nth-child(1) {
     font-size: 14px;
     color: #3d3d40;
     line-height: 36px;
     margin: 0 34px 0 6px;
   }
+
   .select_container_nw {
     font-size: 14px;
   }
@@ -4218,6 +4602,7 @@ select:disabled {
   font-size: 12px;
   color: #636364;
   margin-top: 10px;
+
   & > span {
     color: $color-info;
   }
@@ -4227,17 +4612,20 @@ select:disabled {
   margin-top: 30px;
   width: 526px;
   position: relative;
+
   & > span {
     font-size: 14px;
     color: #3d3d40;
     line-height: 36px;
     margin: 0 34px 0 6px;
   }
+
   & > input {
     width: 426px;
-    padding: 6px 0px 7px 10px;
+    padding: 6px 0 7px 10px;
     font-size: 14px;
   }
+
   & > span:nth-child(3) {
     position: absolute;
     right: 0;
@@ -4246,10 +4634,12 @@ select:disabled {
     color: #3d3d40;
     margin: 0 22px 0 0;
   }
+
   & > div {
     margin-top: 16px;
     width: 430px;
     height: 40px;
+
     .ui-choose {
       width: 100%;
       display: flex;
@@ -4257,8 +4647,8 @@ select:disabled {
       display: -webkit-box;
       display: -ms-flexbox;
       display: -webkit-flex;
-      & > li {
 
+      & > li {
         -ms-flex: 0 0 23%;
         flex: 0 0 23%;
         max-width: 23%;
@@ -4270,12 +4660,13 @@ select:disabled {
         border: 1px solid $border;
         text-align: center;
         float: left;
-
       }
+
       & > li:first-child {
         margin-left: 0;
       }
     }
+
     ul.ui-choose > li.selected {
       z-index: 3;
       border-color: #d632aa;
@@ -4285,14 +4676,16 @@ select:disabled {
 }
 
 .benefactors-way {
-  margin: 22px 0 40px 0;
+  margin: 22px 0 40px;
   padding-bottom: 50px;
+
   & > span {
     font-size: 14px;
     color: #3d3d40;
     line-height: 36px;
     margin: 20px 34px 0 6px;
   }
+
   .ui-choose > li {
     width: 185px;
     height: 70px;
@@ -4302,14 +4695,17 @@ select:disabled {
     margin-left: 20px;
     border: 1px solid #fff;
     position: relative;
+
     & > a {
       width: 185px;
       height: 70px;
       display: inline-block;
     }
+
     & > img {
       height: 80%;
     }
+
     & > span {
       color: #2a2a2c;
       font-weight: 600;
@@ -4322,18 +4718,21 @@ select:disabled {
       margin-left: 4px;
     }
   }
+
   .ui-choose > li:first-child {
     margin-left: 0;
   }
+
   ul.ui-choose > li.selected {
     background: url(image-path("ico-right-mark.png")) no-repeat right bottom;
     background-size: 17%;
-    box-shadow: 0px 2px 7px 3px #d632aa1f;
+    box-shadow: 0 2px 7px 3px #d632aa1f;
     border: 1px solid $color-info;
   }
+
   ul.ui-choose > li:hover {
     border: 1px solid $color-info;
-    box-shadow: 0px 2px 7px 3px #d632aa1f;
+    box-shadow: 0 2px 7px 3px #d632aa1f;
   }
 }
 
@@ -4341,17 +4740,20 @@ select:disabled {
   margin-top: 40px;
   width: 526px;
   position: relative;
+
   & > span {
     font-size: 14px;
     color: #3d3d40;
     line-height: 36px;
     margin: 0 34px 0 6px;
   }
+
   & > input {
     width: 430px;
-    padding: 6px 0px 7px 10px;
+    padding: 6px 0 7px 10px;
     font-size: 14px;
   }
+
   & > span:nth-child(3) {
     position: absolute;
     right: 0;
@@ -4360,9 +4762,11 @@ select:disabled {
     color: #3d3d40;
     margin: 0 22px 0 0;
   }
+
   & > div {
     width: 430px;
     height: 40px;
+
     .ui-choose {
       width: 100%;
       display: flex;
@@ -4370,6 +4774,7 @@ select:disabled {
       display: -webkit-box;
       display: -ms-flexbox;
       display: -webkit-flex;
+
       & > li {
         flex: 1;
         height: 36px;
@@ -4379,23 +4784,26 @@ select:disabled {
         border: 1px solid $border;
         text-align: center;
         position: relative;
+
         & > span {
           position: absolute;
           right: -5px;
           top: -15px;
           z-index: 1;
+
           & > img {
             width: 56px;
             height: 26px;
             margin-top: 0;
           }
         }
-
       }
+
       & > li:first-child {
         margin-left: 0;
       }
     }
+
     ul.ui-choose > li.selected {
       z-index: 3;
       border-color: #d632aa;
@@ -4403,22 +4811,24 @@ select:disabled {
     }
   }
 }
-
 //个人信息
+
 .profile-sec {
   float: left;
   margin-top: 24px;
   width: 100%;
+
   .profile-avatar {
     float: left;
     max-width: 460px;
     padding-left: 155px;
     position: relative;
     margin-top: -11px;
+
     .vip {
       cursor: pointer;
       position: relative;
-      padding: 0px 5px;
+      padding: 0 5px;
       color: #fd7e14;
       border-radius: 5px;
       border: 1px solid #fd7e14;
@@ -4435,6 +4845,7 @@ select:disabled {
   -webkit-border-radius: 50px;
   border-radius: 50px;
   border: 2px solid #e4e8ec;
+
   & > ul {
     margin-top: 31px;
     text-align: center;
@@ -4446,10 +4857,9 @@ select:disabled {
     filter: alpha(opacity=80);
   }
 }
-
 //内容
-
 //图书捐助
+
 #overspread-1 {
   .overspread-cont {
     display: none;
@@ -4477,9 +4887,11 @@ select:disabled {
         color: #8d8d8d;
         margin-top: 20px;
       }
+
       .ui-choose {
         margin-top: 10px;
       }
+
       .ui-choose > li {
         box-sizing: border-box;
         border: 1px solid $border;
@@ -4494,42 +4906,49 @@ select:disabled {
         margin-left: 18px;
         margin-bottom: 20px;
         padding-top: 18px;
+
         & > p:nth-child(1) {
           font-size: 14px;
           color: #2a2a2c;
           font-weight: 600;
         }
+
         & > p:nth-child(2) {
           font-size: 14px;
           color: #8d8d8d;
         }
+
         & > div {
           position: absolute;
           right: -5px;
           top: -9px;
           z-index: 1;
+
           & > img {
             width: 56px;
             height: 26px;
             margin-top: 0;
           }
-
         }
       }
+
       .ui-choose > li:nth-child(2n-1) {
         margin-left: 0;
       }
+
       ul.ui-choose > li.selected {
         background: url(image-path("ico-right-mark.png")) no-repeat right bottom;
         background-size: 17%;
         border: 1px solid $color-info;
       }
     }
+
     .overspread-co::-webkit-scrollbar {
       width: 5px;
       height: 10px;
       border-radius: 50%;
     }
+
     .overspread-co::-webkit-scrollbar-thumb {
       background-color: #dcdcdc;
       background-clip: padding-box;
@@ -4541,38 +4960,39 @@ select:disabled {
       height: 40px;
       padding: 0 30px;
       line-height: 40px;
-
       background-color: #f6f6f6;
+
       .iconfont {
         margin-right: 0;
       }
     }
+
     .mys-1 {
       font-size: 18px;
       color: #4e4e4e;
       font-weight: 600;
     }
   }
+
   .over-but {
     width: 310px;
     height: 40px;
     line-height: 38px;
     text-align: center;
     background: $color-button;
-    margin: 30px auto 0 auto;
-    box-shadow: 0px 2px 7px 2px #d632aa4d;
+    margin: 30px auto 0;
+    box-shadow: 0 2px 7px 2px #d632aa4d;
     border-radius: 20px;
     color: #fff;
     font-size: 16px;
-
   }
 }
-
 //不知
+
 .live-visitor {
   background: none repeat scroll 0 0 #fff;
   float: left;
-  padding: 0px;
+  padding: 0;
   position: relative;
   width: 100%;
 }
@@ -4591,7 +5011,7 @@ select:disabled {
   margin-top: 15px;
   text-align: center;
   width: 100%;
-  margin-bottom: 0px;
+  margin-bottom: 0;
   margin-left: -26px !important;
 }
 
@@ -4599,6 +5019,7 @@ select:disabled {
   border: 2px solid #e4e8ec;
   margin-right: 10px;
   max-width: 19% !important;
+
   ul {
     text-align: center;
   }
@@ -4617,24 +5038,27 @@ select:disabled {
   margin-left: 160px;
   margin-top: 5px;
 }
-
 //
+
 .person-h-cont-d-pairs {
   width: 100%;
   font-size: 15px;
   color: #3d3d40;
   text-align: center;
+
   .iconfont {
     margin-right: 4px;
   }
 }
-
 //格桑花+入口 协作平台
+
 .gsh-plus-nmushow {
   padding: 60px 34px 40px 34px !important;
   text-align: center;
+
   .platform-plus-cont {
     padding: 30px 0;
+
     a {
       height: 187px;
       flex-wrap: wrap;
@@ -4644,19 +5068,21 @@ select:disabled {
       float: left;
       display: inline-block;
     }
+
     div {
       position: relative;
+
       .wechat-qrcode {
         width: 163px;
       }
     }
+
     div:hover {
       .wechat-qrcode {
         display: block;
         top: -200px;
         left: 0;
         margin: 0 auto;
-
       }
     }
   }
@@ -4665,17 +5091,17 @@ select:disabled {
 .gsh-plus-show {
   width: 1140px;
   border: 1px solid #e6e6e6;
-  padding: 60px 34px 40px 34px;
+  padding: 60px 34px 40px;
   background-color: #fff;
   margin: 0 auto;
   text-align: center;
+
   .gsh-plus-cont {
     & > div {
       width: 33.33%;
       float: left;
     }
   }
-
 }
 
 .gsh-plus-tit {
@@ -4687,7 +5113,6 @@ select:disabled {
 }
 
 .gsh-plus-foot {
-
   font-size: 14px;
   color: #393d42;
 }
@@ -4700,6 +5125,7 @@ select:disabled {
   display: -webkit-box;
   display: -ms-flexbox;
   display: -webkit-flex;
+
   & > div {
     flex: 1;
     position: relative;
@@ -4708,16 +5134,17 @@ select:disabled {
       height: 160px;
     }
   }
+
   & > div:hover {
     .wechat-qrcode {
       display: block;
-      top: 0px;
+      top: 0;
       left: 13px;
     }
   }
 }
-
 //孩子信箱
+
 .children_mailboxs {
   padding: 0;
   font-size: 13px;
@@ -4729,6 +5156,7 @@ select:disabled {
   .school-apply-pair-table {
     border: none;
   }
+
   .plat-school-apply-pair {
     padding: 0;
   }
@@ -4742,8 +5170,10 @@ select:disabled {
   display: -webkit-box;
   display: -ms-flexbox;
   display: -webkit-flex;
+
   & > a {
     flex: 1;
+
     img {
       height: 160px;
     }
@@ -4769,13 +5199,14 @@ select:disabled {
   color: #fff;
   background-color: #c5c5c5;
   border-radius: 2px;
-  margin: 10px auto 20px auto;
+  margin: 10px auto 20px;
 }
 
 .platform-cont {
   width: 100%;
-  padding: 0 270px 40px 270px;
+  padding: 0 270px 40px;
   text-align: center;
+
   & > span {
     //float: left;
     padding: 6px;
@@ -4787,22 +5218,24 @@ select:disabled {
     font-weight: 600;
     position: relative;
   }
+
   & > span:first-child {
     margin-left: 0;
   }
+
   & > span:hover {
     .wechat-qrcode {
       display: block;
-
     }
   }
 }
-
 //协同平台
+
 .plat-school-apply-pair {
-  padding: 20px 0 0 0;
+  padding: 20px 0 0;
+
   .don-co .don-co-but {
-    margin: 30px auto 20px auto;
+    margin: 30px auto 20px;
     overflow: hidden;
   }
 }
@@ -4817,6 +5250,7 @@ select:disabled {
   border: 1px solid $border;
   border-radius: 2px;
   margin: 10px 0;
+
   & > p {
     padding-left: 20px;
     width: 100%;
@@ -4833,6 +5267,7 @@ select:disabled {
   font-size: 13px;
   color: #3d3d40;
   line-height: 23px;
+
   span {
     font-weight: 600;
     margin-right: 10px;
@@ -4840,7 +5275,8 @@ select:disabled {
 }
 
 .school-apply-pair-table-co {
-  padding: 20px 0 0 0;
+  padding: 20px 0 0;
+
   .school-apply-pair-table {
     width: 100%;
     display: flex;
@@ -4851,6 +5287,7 @@ select:disabled {
     border: 1px solid $border;
     border-bottom: 0;
     text-align: center;
+
     & > p {
       -ms-flex: 0 0 17.5%;
       flex: 0 0 17.5%;
@@ -4859,8 +5296,8 @@ select:disabled {
       font-size: 14px;
       color: #3d3d40;
       padding-left: 0;
-
     }
+
     & > p:nth-child(1) {
       text-align: left;
       padding-left: 16px;
@@ -4876,7 +5313,8 @@ select:disabled {
 .school-apply-pair-tables {
   border: 1px solid $border;
   border-radius: 2px;
-  margin: 10px 0 10px 0;
+  margin: 10px 0;
+
   & > p {
     padding-left: 16px;
     width: 100%;
@@ -4885,10 +5323,12 @@ select:disabled {
     font-size: 13px;
     color: #8d8d8d;
     border-bottom: 1px solid $border;
+
     span {
       margin-left: 30px;
     }
   }
+
   .school-apply-pair-table-cont {
     width: 100%;
     display: flex;
@@ -4898,6 +5338,7 @@ select:disabled {
     display: -webkit-flex;
     text-align: center;
     padding: 0;
+
     & > div {
       -ms-flex: 0 0 17.5%;
       flex: 0 0 17.5%;
@@ -4906,6 +5347,7 @@ select:disabled {
       float: left;
       height: 100%;
     }
+
     & > div:nth-child(1) {
       -ms-flex: 0 0 65%;
       flex: 0 0 65%;
@@ -4914,13 +5356,16 @@ select:disabled {
       text-align: left;
       padding: 20px;
     }
+
     & > div:nth-child(2) {
       padding: 24px 0;
       font-size: 13px;
       color: #8d8d8d;
     }
+
     & > div:nth-child(3) {
       padding: 10px 0;
+
       .lookapply {
         outline: none;
         background-color: #f4f4f4;
@@ -4934,6 +5379,7 @@ select:disabled {
         margin-bottom: 10px;
         display: inline-block;
       }
+
       .lookbutton {
         outline: none;
         background-color: #fff;
@@ -4945,13 +5391,36 @@ select:disabled {
         color: $color-border;
         border-radius: 2px;
         display: inline-block;
-
       }
-
     }
   }
 }
+.lookapply {
+  outline: none;
+  background-color: #f4f4f4;
+  width: 101px;
+  height: 30px;
+  line-height: 28px;
+  border: 1px solid $border;
+  font-size: 13px;
+  color: #3d3d40;
+  border-radius: 2px;
+  margin-bottom: 10px;
+  display: inline-block;
+}
 
+.lookbutton {
+  outline: none;
+  background-color: #fff;
+  width: 101px;
+  height: 30px;
+  line-height: 28px;
+  border: 1px solid $color-border;
+  font-size: 13px;
+  color: $color-border;
+  border-radius: 2px;
+  display: inline-block;
+}
 .school-apply-pair-f {
   font-size: 13px;
   color: #3d3d40;
@@ -4962,6 +5431,7 @@ select:disabled {
     margin: 20px 20px 0 0;
     z-index: 0;
   }
+
   & > div:nth-child(2) {
     & > img {
       width: 48px;
@@ -4969,19 +5439,23 @@ select:disabled {
       border-radius: 50%;
     }
   }
+
   & > div:nth-child(3) {
     margin-left: 15px;
+
     & > p:nth-child(1) {
       & > span:nth-child(1) {
         font-size: 16px;
         color: #2a2a2c;
         font-weight: 600;
       }
+
       & > span:nth-child(2) {
         font-size: 13px;
         color: #3d3d40;
       }
     }
+
     & > p:nth-child(2) {
       font-size: 14px;
       color: #3d3d40;
@@ -4991,9 +5465,11 @@ select:disabled {
 
 #childrens {
   padding: 10px 34px 34px 34px !important;
+
   .paddchild {
     padding: 0 34px;
   }
+
   .schools-apply-pair-table-cont {
     width: 100%;
     display: flex;
@@ -5002,38 +5478,44 @@ select:disabled {
     display: -ms-flexbox;
     display: -webkit-flex;
     text-align: center;
+
     & > div {
       -ms-flex: 0 0 17.5%;
       flex: 0 0 17.5%;
       max-width: 17.5%;
       width: 17.5%;
     }
+
     & > div:nth-child(1) {
       -ms-flex: 0 0 65%;
       flex: 0 0 65%;
       max-width: 65%;
       width: 65%;
     }
+
     & > div:nth-child(2) {
       padding: 24px 10px;
       font-size: 13px;
       color: #8d8d8d;
     }
+
     & > div:nth-child(3) {
       padding: 24px 0;
       font-size: 13px;
       color: #8d8d8d;
     }
+
     & > div:nth-child(4) {
       padding: 24px 0;
       font-size: 13px;
       color: #8d8d8d;
     }
-
   }
+
   .schools-apply-pair-child {
     padding: 20px;
     text-align: left;
+
     & > div:nth-child(1) {
       & > img {
         width: 48px;
@@ -5041,32 +5523,37 @@ select:disabled {
         border-radius: 50%;
       }
     }
+
     & > div:nth-child(2) {
       margin-left: 15px;
+
       & > p:nth-child(1) {
         & > span:nth-child(1) {
           font-size: 16px;
           color: #2a2a2c;
           font-weight: 600;
         }
+
         & > span:nth-child(2) {
           font-size: 13px;
           color: #3d3d40;
         }
       }
+
       & > p:nth-child(2) {
         font-size: 14px;
         color: #3d3d40;
       }
     }
-
   }
+
   .children-body {
     .donations-1 {
       position: relative;
-      padding: 26px 0 16px 0;
+      padding: 26px 0 16px;
       border-bottom: 1px solid $border;
     }
+
     .donations1 {
       & > li {
         float: left;
@@ -5078,10 +5565,12 @@ select:disabled {
         text-align: center;
         position: relative;
       }
+
       .selectedDo {
         font-weight: 600;
       }
     }
+
     .bottomline {
       position: absolute;
       left: 40px;
@@ -5093,12 +5582,15 @@ select:disabled {
       transition: all 0.3s ease;
     }
   }
+
   .school-apply-pair-table-cont {
     & > div:nth-child(1) {
       flex: 3;
     }
+
     & > div:nth-child(3) {
       padding: 10px 0;
+
       & > button:nth-child(1) {
         outline: none;
         background-color: #f4f4f4;
@@ -5111,6 +5603,7 @@ select:disabled {
         border-radius: 2px;
         margin-bottom: 10px;
       }
+
       & > button:nth-child(2) {
         outline: none;
         background-color: #fff;
@@ -5123,8 +5616,10 @@ select:disabled {
         border-radius: 2px;
       }
     }
+
     & > div:nth-child(4) {
       padding: 10px 0;
+
       & > button:nth-child(2) {
         outline: none;
         width: 101px;
@@ -5135,6 +5630,7 @@ select:disabled {
         border: 1px solid #fff;
         background-color: #fff;
       }
+
       & > button:nth-child(1) {
         outline: none;
         background-color: #fff;
@@ -5149,14 +5645,18 @@ select:disabled {
       }
     }
   }
+
   .school-apply-pair-table {
-    margin: 10px 0 10px 0;
+    margin: 10px 0;
+
     & > p:nth-child(1) {
       flex: 4;
     }
+
     & > p:nth-child(2) {
       flex: 1;
     }
+
     & > p:nth-child(3) {
       flex: 1;
     }
@@ -5165,8 +5665,10 @@ select:disabled {
 
 #children {
   padding: 10px 0 0 0 !important;
+
   .paddchild {
     padding: 0 34px;
+
     .school-apply-pair-table > p:nth-child(1) {
       text-align: left;
       padding-left: 16px;
@@ -5176,6 +5678,7 @@ select:disabled {
       width: 47%;
       box-sizing: border-box;
     }
+
     .school-apply-pair-table > p:nth-child(3) {
       -ms-flex: 0 0 35.5%;
       flex: 0 0 35.5%;
@@ -5184,12 +5687,14 @@ select:disabled {
       box-sizing: border-box;
     }
   }
+
   .children-body {
     .donations-1 {
       position: relative;
-      padding: 26px 0 16px 0;
+      padding: 26px 0 16px;
       border-bottom: 1px solid $border;
     }
+
     .donations1 {
       & > li {
         float: left;
@@ -5201,10 +5706,12 @@ select:disabled {
         text-align: center;
         position: relative;
       }
+
       .selectedDo {
         font-weight: 600;
       }
     }
+
     .bottomline {
       position: absolute;
       left: 40px;
@@ -5216,16 +5723,18 @@ select:disabled {
       transition: all 0.3s ease;
     }
   }
+
   .school-apply-pair-table-cont {
     & > div:nth-child(1) {
       -ms-flex: 0 0 48%;
       flex: 0 0 47%;
       max-width: 47%;
       width: 47%;
-
     }
+
     & > div:nth-child(2) {
       padding: 10px 0;
+
       & > button:nth-child(1) {
         outline: none;
         background-color: #f4f4f4;
@@ -5238,6 +5747,7 @@ select:disabled {
         border-radius: 2px;
         margin-bottom: 10px;
       }
+
       & > button:nth-child(2) {
         outline: none;
         background-color: #fff;
@@ -5250,8 +5760,10 @@ select:disabled {
         border-radius: 2px;
       }
     }
+
     & > div:nth-child(3) {
       padding: 10px 0;
+
       & > a:nth-child(2) {
         outline: none;
         width: 101px;
@@ -5262,8 +5774,8 @@ select:disabled {
         border: 1px solid #fff;
         background-color: #fff;
         display: inline-block;
-
       }
+
       & > a:nth-child(1) {
         outline: none;
         background-color: #fff;
@@ -5276,13 +5788,16 @@ select:disabled {
         border-radius: 2px;
         margin-bottom: 10px;
         display: inline-block;
+
         button {
           color: $color-border;
         }
       }
     }
+
     & > div:nth-child(4) {
       padding: 10px 0;
+
       & > a:nth-child(2) {
         outline: none;
         width: 101px;
@@ -5293,8 +5808,8 @@ select:disabled {
         border: 1px solid #fff;
         background-color: #fff;
         display: inline-block;
-
       }
+
       & > a:nth-child(1) {
         outline: none;
         background-color: #fff;
@@ -5307,20 +5822,25 @@ select:disabled {
         border-radius: 2px;
         margin-bottom: 10px;
         display: inline-block;
+
         button {
           color: $color-border;
         }
       }
     }
   }
+
   .school-apply-pair-table {
-    margin: 10px 0 10px 0;
+    margin: 10px 0;
+
     & > p:nth-child(1) {
       flex: 1;
     }
+
     & > p:nth-child(2) {
-      flex: .65;
+      flex: 0.65;
     }
+
     & > p:nth-child(3) {
       flex: 1.32;
     }
@@ -5330,14 +5850,12 @@ select:disabled {
 .posscroll {
   height: 100%;
   overflow: auto;
-
 }
 
 .posscroll::-webkit-scrollbar {
   width: 2px;
   height: 5px;
   border-radius: 50%;
-
 }
 
 .posscroll::-webkit-scrollbar-thumb {
@@ -5349,12 +5867,13 @@ select:disabled {
 .school-apply-pair-but-n {
   height: 60px;
   line-height: 60px;
-  box-shadow: 0px -3px 10px 0px #d4d4d461;
+  box-shadow: 0 -3px 10px 0 #d4d4d461;
   margin-top: 10px;
+
   & > div {
     padding-left: 20px;
-
   }
+
   .school-apply-pairbut {
     width: 174px;
     background: $color-button;
@@ -5362,15 +5881,17 @@ select:disabled {
     font-size: 16px;
     text-align: center;
     height: 60px;
-
   }
+
   .school-apply-pairsub {
     font-size: 14px;
     color: #3d3d40;
+
     & > span {
       font-weight: 600;
     }
   }
+
   .school-apply-paircheck {
     margin-right: 20px;
     font-size: 14px;
@@ -5380,8 +5901,9 @@ select:disabled {
 }
 
 .school-apply-pair-share {
-  padding: 0 34px 10px 34px;
+  padding: 0 34px 10px;
   position: relative;
+
   .input-group {
     width: 230px;
     height: 34px;
@@ -5402,12 +5924,14 @@ select:disabled {
       font-size: 14px;
       color: #8d8d8d;
     }
+
     input {
       border: none;
       font-size: 13px;
       color: #8d8d8d;
       outline: none;
     }
+
     input:focus {
       box-shadow: none;
       outline: none;
@@ -5432,6 +5956,7 @@ select:disabled {
   right: 0;
   bottom: 7px;
   height: 34px;
+
   & > a:nth-child(1) button {
     margin-right: 10px;
     background: #fff;
@@ -5454,12 +5979,12 @@ select:disabled {
   border: none;
   box-shadow: none;
   border-radius: 3px;
+
   & > span {
     font-size: 13px;
     margin-top: 1px;
     margin-right: 6px;
   }
-
 }
 
 .overspread-5 {
@@ -5491,6 +6016,7 @@ select:disabled {
         font-size: 14px;
         color: #8d8d8d;
       }
+
       input:nth-child(2) {
         width: 279px;
         height: 40px;
@@ -5501,6 +6027,7 @@ select:disabled {
         color: #8d8d8d;
         margin-right: 20px;
       }
+
       button {
         width: 106px;
         height: 40px;
@@ -5512,35 +6039,37 @@ select:disabled {
         background-color: $color-info;
         border-radius: 3px;
       }
-
     }
+
     & > div:nth-child(1) {
       height: 40px;
       padding: 0 30px;
       line-height: 40px;
       background-color: #f5f5f5;
+
       .iconfont {
         margin-right: 0;
       }
     }
+
     .mys-1 {
       font-size: 18px;
       color: #4e4e4e;
       font-weight: 600;
     }
   }
+
   .over-but {
     width: 180px;
     height: 34px;
     line-height: 34px;
     text-align: center;
     background: $color-button;
-    margin: 28px auto 0 auto;
-    box-shadow: 0px 2px 7px 2px #d632aa4d;
+    margin: 28px auto 0;
+    box-shadow: 0 2px 7px 2px #d632aa4d;
     border-radius: 20px;
     color: #fff;
     font-size: 16px;
-
   }
 }
 
@@ -5551,7 +6080,7 @@ select:disabled {
   width: 100%;
   height: 100%;
   background-color: #585862;
-  opacity: .6;
+  opacity: 0.6;
   display: none;
   z-index: 2;
 }
@@ -5580,50 +6109,54 @@ select:disabled {
         width: 100px;
         height: 88px;
       }
+
       .over-fontns {
         font-size: 16px;
         color: #3d3d40;
         margin-top: 27px;
         font-weight: 600;
       }
-
     }
+
     & > div:nth-child(1) {
       height: 40px;
       padding: 0 30px;
       line-height: 40px;
       background-color: #f5f5f5;
+
       .iconfont {
         margin-right: 0;
       }
     }
+
     .mys-1 {
       font-size: 18px;
       color: #4e4e4e;
       font-weight: 600;
     }
   }
+
   .over-but {
     width: 180px;
     height: 34px;
     line-height: 34px;
     text-align: center;
     background: $color-button;
-    margin: 22px auto 0 auto;
-    box-shadow: 0px 2px 7px 2px #d632aa4d;
+    margin: 22px auto 0;
+    box-shadow: 0 2px 7px 2px #d632aa4d;
     border-radius: 20px;
     color: #fff;
     font-size: 16px;
-
   }
 }
-
 //新增学生名单
+
 #addchildrenlist {
   width: 900px;
   border: none !important;
   padding: 0 0 0 0 !important;
   background-color: #f5f5f5 !important;
+
   .addchild-list-img {
     width: 90px;
     height: 90px;
@@ -5635,6 +6168,7 @@ select:disabled {
     margin: 30px auto;
     overflow: hidden;
     position: relative;
+
     & > img {
       width: 100%;
       height: 100%;
@@ -5642,6 +6176,7 @@ select:disabled {
       left: 0;
       top: 0;
     }
+
     & > div {
       width: 100%;
       height: 100%;
@@ -5649,8 +6184,9 @@ select:disabled {
       left: 0;
       top: 0;
       background-color: #000;
-      opacity: .5;
+      opacity: 0.5;
     }
+
     & > span {
       width: 100%;
       height: 100%;
@@ -5661,25 +6197,31 @@ select:disabled {
       //z-index: 2;
     }
   }
+
   input:focus {
     border: 1px solid #6c757d;
   }
+
   .paddchild {
     padding: 5px 34px;
     background-color: #fff;
     border: 1px solid $border;
   }
+
   .addchild-list {
     padding: 10px 34px;
     background-color: #fff;
     border: 1px solid $border;
+
     .don-title {
       font-size: 16px;
       font-weight: 500;
     }
   }
+
   .addchild-list-cont {
-    padding: 0 0 10px 0;
+    padding: 0 0 10px;
+
     & > div {
       width: 555px;
       display: flex;
@@ -5690,6 +6232,7 @@ select:disabled {
       height: 40px;
       margin-bottom: 20px;
       position: relative;
+
       & > span {
         -ms-flex: 0 0 14%;
         flex: 0 0 14%;
@@ -5699,28 +6242,32 @@ select:disabled {
         line-height: 40px;
         text-align: right;
       }
+
       .goodtextare {
         -ms-flex: 0 0 10%;
         flex: 0 0 10%;
         max-width: 10%;
         width: 10%;
       }
+
       .from-input {
         margin: 0;
       }
+
       .goodinput {
         -ms-flex: 0 0 70%;
         flex: 0 0 70%;
         max-width: 70%;
         width: 70%;
       }
+
       & > input {
         -ms-flex: 0 0 70%;
         flex: 0 0 70%;
         max-width: 70%;
         width: 70%;
-
       }
+
       & > textarea {
         -ms-flex: 0 0 80%;
         flex: 0 0 80%;
@@ -5733,15 +6280,19 @@ select:disabled {
         font-size: 14px;
         color: #2a2a2c;
       }
+
       .sclectedgrade {
         flex: 10.6;
+
         & > div {
           margin-left: 10px;
         }
+
         & > div:nth-child(1) {
           margin-left: 0;
         }
       }
+
       .income-moy {
         position: absolute;
         right: 0;
@@ -5758,9 +6309,11 @@ select:disabled {
       }
     }
   }
+
   .childern-submint {
     text-align: center;
     margin-top: 20px;
+
     & > button:nth-child(1) {
       width: 130px;
       height: 38px;
@@ -5773,6 +6326,7 @@ select:disabled {
       margin-right: 20px;
       border-radius: 3px;
     }
+
     & > button:nth-child(2) {
       width: 130px;
       height: 38px;
@@ -5785,15 +6339,17 @@ select:disabled {
       border-radius: 3px;
     }
   }
+
   .addchild-list-up {
-    padding: 10px 34px 30px 34px;
+    padding: 10px 34px 30px;
+
     & > div {
       & > div:nth-child(1) {
         margin-left: 0;
       }
     }
-
   }
+
   .addchild-list-up-picture {
     margin-left: 14px;
     text-align: center;
@@ -5804,8 +6360,9 @@ select:disabled {
     background-color: #f9f9f9;
     font-size: 14px;
     color: #8d8d8d;
-    padding: 50px 0 0 0;
+    padding: 50px 0 0;
     position: relative;
+
     .iconfont {
       margin-right: 0;
       font-size: 22px;
@@ -5816,6 +6373,7 @@ select:disabled {
 .childern-submint {
   text-align: center;
   margin-top: 20px;
+
   & > button:nth-child(1) {
     width: 130px;
     height: 38px;
@@ -5828,6 +6386,7 @@ select:disabled {
     margin-right: 20px;
     border-radius: 3px;
   }
+
   & > button:nth-child(2) {
     width: 130px;
     height: 38px;
@@ -5840,11 +6399,12 @@ select:disabled {
     border-radius: 3px;
   }
 }
-
 //探索营名单
+
 .camps-child-list {
   .school-apply-pair-share .add-reads {
     padding-right: 34px;
+
     & > a:nth-child(1) button {
       background: #fff;
       border: 1px solid $color-border;
@@ -5852,18 +6412,21 @@ select:disabled {
       line-height: 31px;
     }
   }
+
   .school-apply-pair-table > p:nth-child(1) {
     flex: 1.73 !important;
   }
+
   .school-apply-pair-table > p:nth-child(2) {
-    flex: .59 !important;
+    flex: 0.59 !important;
   }
+
   .school-apply-pair-table > p:nth-child(3) {
     flex: 1.1 !important;
   }
 }
-
 //图片查看
+
 .magnify-modal {
   box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.3);
 }
@@ -5899,7 +6462,8 @@ select:disabled {
 
 .swiper-collaboration {
   width: 100%;
-  padding: 0px 0 40px 0;
+  padding: 0 0 40px;
+
   & > p {
     text-align: center;
     font-size: 26px;
@@ -5907,8 +6471,8 @@ select:disabled {
     font-weight: 600;
   }
 }
-
 //学校个人资料
+
 .school-edit {
   .addchild-list-img {
     width: 90px;
@@ -5921,6 +6485,7 @@ select:disabled {
     margin: 30px auto;
     overflow: hidden;
     position: relative;
+
     & > img {
       width: 100%;
       height: 100%;
@@ -5928,6 +6493,7 @@ select:disabled {
       left: 0;
       top: 0;
     }
+
     & > div {
       width: 100%;
       height: 100%;
@@ -5935,8 +6501,9 @@ select:disabled {
       left: 0;
       top: 0;
       background-color: #000;
-      opacity: .5;
+      opacity: 0.5;
     }
+
     & > span {
       width: 100%;
       height: 100%;
@@ -5946,15 +6513,19 @@ select:disabled {
       color: #fff;
     }
   }
+
   input:focus {
     border: 1px solid #6c757d;
   }
+
   .don-title {
     font-size: 16px;
     font-weight: 500;
   }
+
   .addchild-list-cont {
-    padding: 0 0 10px 0;
+    padding: 0 0 10px;
+
     & > div {
       width: 555px;
       display: flex;
@@ -5965,6 +6536,7 @@ select:disabled {
       height: 40px;
       margin-bottom: 20px;
       position: relative;
+
       & > span {
         -ms-flex: 0 0 14%;
         flex: 0 0 14%;
@@ -5974,31 +6546,35 @@ select:disabled {
         line-height: 40px;
         text-align: right;
       }
+
       & > input {
         -ms-flex: 0 0 70%;
         flex: 0 0 70%;
         max-width: 70%;
         width: 70%;
       }
+
       .edit-input {
         -ms-flex: 0 0 70%;
         flex: 0 0 70%;
         max-width: 70%;
         width: 70%;
+
         & > input:nth-child(1) {
           width: 120px;
         }
+
         & > input:nth-child(3) {
           width: 180px;
         }
       }
-
     }
   }
+
   .childern-submint {
     padding-left: 105px;
-
     margin-bottom: 10px;
+
     & > button:nth-child(1) {
       width: 130px;
       height: 38px;
@@ -6013,8 +6589,8 @@ select:disabled {
     }
   }
 }
-
 //个人中心个人资料
+
 #teacher-profiles {
   background-color: #f5f5f5 !important;
   border: none !important;
@@ -6022,44 +6598,51 @@ select:disabled {
   .school-edit .addchild-list-cont > div {
     width: 668px;
   }
+
   .sexinput {
     & > div {
       margin: 0;
-
       -ms-flex: 0 0 70%;
       flex: 0 0 70%;
       max-width: 70%;
       width: 70%;
+
       & > div {
-        margin: 6px 10px 0px 10px;
+        margin: 6px 10px 0;
       }
     }
   }
+
   .childern-submint {
     padding-left: 119px;
     margin-top: 0;
     margin-bottom: 10px;
   }
+
   .city-picker-selector .selector-item {
     width: 170px;
   }
+
   .childern-submint > button:hover {
     background-color: $hover-button;
   }
 }
-
 //个人中心账号信息
+
 .accounts-cont {
   padding: 40px 55px 0 20px;
+
   & > div {
     margin-bottom: 30px;
   }
+
   .accounts-co {
     margin-bottom: 20px;
+
     & > span {
       margin: 0;
-
     }
+
     p {
       margin-left: 39px;
       width: 377px;
@@ -6067,6 +6650,7 @@ select:disabled {
       color: #2a2a2c;
       line-height: 20px;
     }
+
     .accounts-but {
       width: 100px;
       height: 36px;
@@ -6077,6 +6661,7 @@ select:disabled {
       text-align: center;
       line-height: 36px;
     }
+
     .accounts-butn {
       width: 100px;
       height: 36px;
@@ -6089,12 +6674,15 @@ select:disabled {
       background-color: #fff;
     }
   }
+
   .accounts-cont-input {
     width: 100%;
     padding-left: 94px;
+
     & > input:nth-child(1) {
       width: 100%;
     }
+
     & > div {
       margin: 20px 0;
 
@@ -6111,11 +6699,12 @@ select:disabled {
     }
   }
 }
-
 //社交账号
+
 .social {
   width: 520px;
   padding-top: 24px;
+
   & > div {
     width: 100%;
     display: flex;
@@ -6125,17 +6714,20 @@ select:disabled {
     display: -webkit-flex;
     line-height: 40px;
     margin-bottom: 16px;
+
     div:nth-child(1) {
       -ms-flex: 0 0 20%;
       flex: 0 0 20%;
       max-width: 20%;
       width: 20%;
     }
+
     img {
       width: 40px;
       height: 40px;
       border-radius: 50%;
     }
+
     span:nth-child(2) {
       font-size: 14px;
       color: #2a2a2c;
@@ -6144,6 +6736,7 @@ select:disabled {
       max-width: 33.33%;
       width: 33.33%;
     }
+
     span:nth-child(3) {
       -ms-flex: 0 0 33.33%;
       flex: 0 0 33.33%;
@@ -6152,11 +6745,13 @@ select:disabled {
       font-size: 14px;
       color: #2a2a2c;
     }
+
     .unbind {
       -ms-flex: 0 0 33.33%;
       flex: 0 0 33.33%;
       max-width: 33.33%;
       width: 33.33%;
+
       button {
         width: 100px;
         height: 38px;
@@ -6166,10 +6761,9 @@ select:disabled {
         font-size: 14px;
         color: #3d3d40;
       }
-
     }
-    .binding {
 
+    .binding {
       -ms-flex: 0 0 33.33%;
       flex: 0 0 33.33%;
       max-width: 33.33%;
@@ -6187,12 +6781,14 @@ select:disabled {
     }
   }
 }
-
 //定期反馈表单
+
 .school-apply-feedback-cont {
-  padding: 20px 0 0 0;
+  padding: 20px 0 0;
+
   .addchild-list-cont {
-    padding: 0 34px 10px 34px;
+    padding: 0 34px 10px;
+
     & > div {
       width: 555px;
       display: flex;
@@ -6203,12 +6799,14 @@ select:disabled {
       height: 40px;
       margin-bottom: 20px;
       position: relative;
+
       & > span {
         flex: 1;
         margin: 0 40px 0 0;
         line-height: 40px;
         text-align: right;
       }
+
       & > textarea {
         flex: 9.8;
         height: 172px;
@@ -6218,10 +6816,12 @@ select:disabled {
         font-size: 14px;
         color: #2a2a2c;
       }
+
       & > div {
         flex: 11;
       }
     }
+
     .addchild-list-up-picture {
       text-align: center;
       width: 156px;
@@ -6231,31 +6831,35 @@ select:disabled {
       background-color: #f9f9f9;
       font-size: 14px;
       color: #8d8d8d;
-      padding: 50px 0 0 0;
+      padding: 50px 0 0;
       position: relative;
+
       .iconfont {
         margin-right: 0;
         font-size: 22px;
       }
     }
   }
+
   .class-button {
-    margin: 10px auto 20px auto;
+    margin: 10px auto 20px;
   }
-
 }
-
 //反馈列表
+
 #feedbacks {
   .school-apply-share-sub {
     margin-top: 7px;
     width: 100px;
   }
+
   .feedback-cont-cco {
     padding-left: 24px;
+
     .feedback-cont-c-tit {
       font-size: 16px;
       color: #3d3d40;
+
       p {
         margin-bottom: 10px;
         width: 400px;
@@ -6264,9 +6868,7 @@ select:disabled {
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
-
       }
-
     }
   }
 }
@@ -6278,6 +6880,7 @@ select:disabled {
     border-radius: 50%;
     margin-right: 10px;
   }
+
   & > span {
     font-size: 13px;
     color: #d7d7d7;
@@ -6286,11 +6889,13 @@ select:disabled {
 
 #feedback-shows {
   .school-apply-pair-table-cont {
-    padding: 16px 20px 6px 20px;
+    padding: 16px 20px 6px;
   }
+
   .plat-school-apply-pair .school-feed {
-    margin: 10px 0 20px 0;
+    margin: 10px 0 20px;
   }
+
   .feedback-shows-img {
     width: 100%;
     display: flex;
@@ -6299,6 +6904,7 @@ select:disabled {
     display: -ms-flexbox;
     display: -webkit-flex;
     flex-wrap: wrap;
+
     & > div {
       width: 211px;
       height: 143px;
@@ -6311,16 +6917,18 @@ select:disabled {
         height: 143px;
       }
     }
+
     & > div:first-child {
       margin-left: 0;
     }
+
     & > div:nth-child(3n+1) {
       margin-left: 0;
     }
   }
 }
-
 //学校资料
+
 #school-edit {
   .don-titln {
     font-size: 16px;
@@ -6331,9 +6939,11 @@ select:disabled {
     line-height: 50px;
     text-align: left;
   }
+
   .childern-submint {
     text-align: center;
     margin-top: 20px;
+
     & > button:nth-child(1) {
       width: 130px;
       height: 38px;
@@ -6346,6 +6956,7 @@ select:disabled {
       margin-right: 20px;
       border-radius: 3px;
     }
+
     & > button:nth-child(2) {
       width: 130px;
       height: 38px;
@@ -6358,6 +6969,7 @@ select:disabled {
       border-radius: 3px;
     }
   }
+
   .addchild-list-img {
     width: 90px;
     height: 90px;
@@ -6369,6 +6981,7 @@ select:disabled {
     margin: 30px auto;
     overflow: hidden;
     position: relative;
+
     & > img {
       width: 100%;
       height: 100%;
@@ -6376,6 +6989,7 @@ select:disabled {
       left: 0;
       top: 0;
     }
+
     & > div {
       width: 100%;
       height: 100%;
@@ -6383,8 +6997,9 @@ select:disabled {
       left: 0;
       top: 0;
       background-color: #000;
-      opacity: .5;
+      opacity: 0.5;
     }
+
     & > span {
       width: 100%;
       height: 100%;
@@ -6394,25 +7009,31 @@ select:disabled {
       color: #fff;
     }
   }
+
   input:focus {
     border: 1px solid #6c757d;
   }
+
   .paddchild {
     padding: 5px 34px;
     background-color: #fff;
     border: 1px solid $border;
   }
+
   .addchild-list {
     padding: 10px 34px;
     background-color: #fff;
     border: 1px solid $border;
+
     .don-title {
       font-size: 16px;
       font-weight: 500;
     }
   }
+
   .addchild-list-cont {
-    padding: 0 52px 0px 0;
+    padding: 0 52px 0 0;
+
     & > div {
       width: 100%;
       display: flex;
@@ -6433,12 +7054,14 @@ select:disabled {
         line-height: 40px;
         text-align: right;
       }
+
       & > input {
         -ms-flex: 0 0 70%;
         flex: 0 0 70%;
         max-width: 70%;
         width: 70%;
       }
+
       & > textarea {
         -ms-flex: 0 0 70%;
         flex: 0 0 70%;
@@ -6451,20 +7074,25 @@ select:disabled {
         font-size: 14px;
         color: #2a2a2c;
       }
+
       & > div {
         -ms-flex: 0 0 70%;
         flex: 0 0 70%;
         max-width: 70%;
         width: 70%;
+
         & > input {
           width: 216px;
         }
+
         .selector-item {
           width: 210px;
         }
+
         .selector-item:nth-child(1) {
           width: 213px;
         }
+
         .scool-edit-name {
           width: 100%;
           background-color: #eeeeee;
@@ -6476,6 +7104,7 @@ select:disabled {
           cursor: not-allowed;
           height: 40px;
         }
+
         .income-moy {
           position: absolute;
           left: 332px;
@@ -6487,16 +7116,19 @@ select:disabled {
     }
   }
 }
-
 //教师管理列表
+
 #teachers {
   padding: 10px 0 20px 0 !important;
+
   .paddchild {
     padding: 0 34px;
+
     .don-title a span {
       color: #fff;
     }
   }
+
   .school-apply-share-sub {
     margin-top: 7px;
   }
@@ -6505,11 +7137,13 @@ select:disabled {
     & > div:nth-child(1) {
       flex: 2.19;
     }
+
     & > div:nth-child(2) {
       flex: 1.1;
       flex-wrap: wrap;
       text-align: left;
       padding: 10px 20px;
+
       span {
         padding: 2px 9px;
         color: #3d3d40;
@@ -6518,18 +7152,21 @@ select:disabled {
         margin-right: 0;
         margin-left: 10px;
         margin-bottom: 10px;
-
       }
+
       & > span:first-child {
         margin-left: 0;
       }
+
       & > span:nth-child(3n+1) {
         margin-left: 0;
       }
     }
+
     & > div:nth-child(3) {
       padding: 10px 0;
-      flex: .82;
+      flex: 0.82;
+
       & > button:nth-child(2) {
         outline: none;
         background-color: #fff;
@@ -6541,12 +7178,14 @@ select:disabled {
         color: #3d3d40;
         border-radius: 2px;
         margin-bottom: 10px;
+
         a {
           width: 100%;
           height: 100%;
           color: #3d3d40;
         }
       }
+
       & > button:nth-child(1) {
         outline: none;
         background-color: #fff;
@@ -6557,6 +7196,7 @@ select:disabled {
         font-size: 13px;
         color: $color-border;
         border-radius: 2px;
+
         a {
           width: 100%;
           height: 100%;
@@ -6564,58 +7204,66 @@ select:disabled {
         }
       }
     }
-
   }
-  .school-apply-pair-child {
 
+  .school-apply-pair-child {
     & > div:nth-child(1) {
       margin: 0;
+
       & > img {
         width: 48px;
         height: 48px;
         border-radius: 50%;
       }
     }
+
     & > div:nth-child(2) {
       margin-left: 15px;
+
       & > p:nth-child(1) {
         & > span:nth-child(1) {
           font-size: 16px;
           color: #2a2a2c;
           font-weight: 600;
         }
+
         & > span:nth-child(2) {
           font-size: 13px;
           color: #3d3d40;
         }
       }
+
       & > p:nth-child(2) {
         font-size: 14px;
         color: #3d3d40;
       }
     }
+
     & > div:nth-child(3) {
       font-size: 13px;
       color: #3d3d40;
       margin-left: 0;
     }
   }
+
   .school-apply-pair-table {
-    margin: 10px 0 10px 0;
+    margin: 10px 0;
+
     & > p:nth-child(1) {
       flex: 2.1;
     }
+
     & > p:nth-child(2) {
       flex: 1;
     }
+
     & > p:nth-child(3) {
-      flex: .75;
+      flex: 0.75;
     }
   }
-
 }
-
 //  多选
+
 .posarrowdown {
   position: absolute;
   right: 0;
@@ -6628,7 +7276,6 @@ select:disabled {
   font-size: 13px;
   color: #8d8d8d;
   margin: 0 !important;
-
 }
 
 .drop {
@@ -6651,12 +7298,13 @@ select:disabled {
   display: inline-block;
   padding-right: 5px;
   padding-left: 5px;
-  margin: 1px 5px 1px;
+  margin: 1px 5px;
   line-height: 20px;
   background-color: #a9a9a9;
   color: #fff;
   cursor: pointer;
   border-radius: 3px;
+
   .iconfont {
     margin-right: 0;
     margin-left: 5px;
@@ -6682,7 +7330,8 @@ select:disabled {
   cursor: pointer;
 }
 
-.drop-dwon li:hover, .drop-dwon li.active:hover {
+.drop-dwon li.active:hover,
+.drop-dwon li:hover {
   color: #fff;
   background-color: $color-border;
 }
@@ -6691,21 +7340,24 @@ select:disabled {
   color: #fff;
   background-color: $color-border;
 }
-
 //扫码支付
+
 .pays-new-tit {
   width: 1140px;
   margin: 30px auto;
+
   & > p {
     font-size: 18px;
     color: #4e4e4e;
     font-weight: 600;
   }
+
   & > div {
     font-size: 14px;
     color: #4e4e4e;
     line-height: 24px;
     margin-top: 4px;
+
     p:nth-child(1) {
       span {
         color: #f54e4e;
@@ -6713,6 +7365,7 @@ select:disabled {
         margin-right: 8px;
       }
     }
+
     p:nth-child(2) {
       span {
         color: $color-info;
@@ -6726,18 +7379,21 @@ select:disabled {
 .pays-new-conts {
   width: 1140px;
   padding-bottom: 30px;
-  margin: 0 auto 100px auto;
+  margin: 0 auto 100px;
   background-color: #fff;
   border-radius: 4px;
-  box-shadow: 0px 2px 7px 2px #cac7c94d;
+  box-shadow: 0 2px 7px 2px #cac7c94d;
+
   & > p {
     padding-left: 30px;
     font-size: 13px;
     color: #4e4e4e;
+
     .iconfont {
       font-size: 12px;
     }
   }
+
   .pays-new-cont {
     padding: 67px 262px;
     width: 100%;
@@ -6746,17 +7402,21 @@ select:disabled {
     display: -webkit-box;
     display: -ms-flexbox;
     display: -webkit-flex;
+
     & > div:nth-child(1) {
       flex: 1;
       padding-top: 40px;
+
       div {
         width: 200px;
         height: 200px;
       }
+
       img {
         width: 200px;
         height: 200px;
       }
+
       p {
         margin-top: 20px;
         width: 200px;
@@ -6765,39 +7425,43 @@ select:disabled {
         color: #424242;
       }
     }
+
     & > div:nth-child(2) {
       flex: 1;
+
       img {
         width: 242px;
         height: 307px;
       }
     }
   }
-
 }
-
 //支付状态
+
 .donates-contents {
   width: 1140px;
   background-color: #fff;
-  box-shadow: 0px 2px 7px 2px #cac7c94d;
-  margin: -40px auto 30px auto;
+  box-shadow: 0 2px 7px 2px #cac7c94d;
+  margin: -40px auto 30px;
   border-radius: 4px;
-  padding: 0 40px 40px 40px;
+  padding: 0 40px 40px;
 }
 
 #donatesn {
   .donates-contents-but {
     width: 1140px;
-    margin: 0 auto 80px auto;
+    margin: 0 auto 80px;
   }
+
   .donates-con-tits {
     padding: 40px 0;
+
     & > img {
       float: left;
       width: 30px;
       height: 30px;
     }
+
     & > p {
       line-height: 28px;
       float: left;
@@ -6807,38 +7471,44 @@ select:disabled {
       margin-left: 20px;
     }
   }
+
   .donates-con-c {
     padding-top: 30px;
+
     & > p {
       font-size: 16px;
       color: #424242;
       font-weight: 600;
     }
+
     & > div {
       padding-top: 20px;
       line-height: 30px;
+
       p {
         font-size: 14px;
         color: #3d3d40;
+
         span {
           font-weight: 600;
         }
       }
+
       p:nth-child(1) {
         span {
           color: $color-info;
-
         }
       }
     }
   }
 }
-
 //我的活动
+
 .donation-active {
   width: 100%;
   flex-wrap: wrap;
   padding-top: 20px;
+
   & > a {
     margin-right: 19px;
     margin-bottom: 20px;
@@ -6850,20 +7520,24 @@ select:disabled {
   & > a:nth-child(3n) {
     margin-right: 0;
   }
+
   .donation-active-cont {
     width: 264px;
     border: 1px solid $border;
     border-radius: 3px;
     overflow: hidden;
     float: left;
+
     div:nth-child(1) {
       img {
         width: 100%;
         height: 153px;
       }
     }
+
     .camps-body-conts {
       padding: 20px;
+
       & > p:nth-child(1) {
         font-size: 20px;
         color: #3d3d40;
@@ -6875,18 +7549,19 @@ select:disabled {
         -webkit-box-orient: vertical;
         margin-bottom: 10px;
       }
+
       & > p:nth-child(2) {
         font-size: 16px;
         color: #2a2a2c;
         font-weight: 600;
       }
+
       & > p:nth-child(3) {
         font-size: 14px;
         color: #8d8d8d;
       }
     }
   }
-
 }
 
 .donation-co-no-c-img {
@@ -6897,12 +7572,13 @@ select:disabled {
   }
   margin-bottom: 20px;
 }
-
 //我的结对
+
 #my-pairs-cont {
   .donation-cont-c-con {
     margin-top: 3px !important;
   }
+
   .donation-cont .donation-cont-but {
     width: 116px;
     height: 34px;
@@ -6915,12 +7591,14 @@ select:disabled {
     color: #3d3d40;
     display: block;
   }
+
   .donation-cont-but:nth-child(2) {
     background-color: #fff;
     color: $color-border;
     border: 1px solid $color-border;
     line-height: 32px;
   }
+
   .donation-cont .donation-cont-but:first-child {
     margin-top: 0;
   }
@@ -6932,10 +7610,9 @@ select:disabled {
     height: 78px;
     border-radius: 50%;
   }
-
 }
-
 //新书申请
+
 #reads-new {
   width: 900px;
   border: none !important;
@@ -6945,20 +7622,24 @@ select:disabled {
   input:focus {
     border: 1px solid #6c757d;
   }
+
   .paddchild {
     padding: 5px 34px;
     background-color: #fff;
     border: 1px solid $border;
   }
+
   .addchild-list {
     padding: 10px 34px;
     background-color: #fff;
     border: 1px solid $border;
+
     .don-title {
       font-size: 16px;
       font-weight: 500;
     }
   }
+
   .addchild-list-up {
     .addchild-list-cont > div > span {
       flex: 0 0 10%;
@@ -6968,7 +7649,8 @@ select:disabled {
   }
 
   .addchild-list-cont {
-    padding: 0 0 10px 0;
+    padding: 0 0 10px;
+
     & > div {
       width: 555px;
       display: flex;
@@ -6979,6 +7661,7 @@ select:disabled {
       height: 40px;
       margin-bottom: 20px;
       position: relative;
+
       & > span {
         -ms-flex: 0 0 14%;
         flex: 0 0 14%;
@@ -6988,12 +7671,14 @@ select:disabled {
         line-height: 40px;
         text-align: right;
       }
+
       & > input {
         -ms-flex: 0 0 70%;
         flex: 0 0 70%;
         max-width: 70%;
         width: 70%;
       }
+
       & > textarea {
         -ms-flex: 0 0 70%;
         flex: 0 0 70%;
@@ -7006,20 +7691,25 @@ select:disabled {
         font-size: 14px;
         color: #2a2a2c;
       }
+
       & > div {
         -ms-flex: 0 0 70%;
         flex: 0 0 70%;
         max-width: 70%;
         width: 70%;
+
         & > input {
           width: 70%;
         }
+
         .selector-item {
           width: 210px;
         }
+
         .selector-item:nth-child(1) {
           width: 213px;
         }
+
         .scool-edit-name {
           width: 100%;
           background-color: #eeeeee;
@@ -7031,12 +7721,13 @@ select:disabled {
           cursor: not-allowed;
         }
       }
-
     }
   }
+
   .childern-submint {
     text-align: center;
     margin-top: 20px;
+
     & > button:nth-child(1) {
       width: 130px;
       height: 38px;
@@ -7049,6 +7740,7 @@ select:disabled {
       margin-right: 20px;
       border-radius: 3px;
     }
+
     & > button:nth-child(2) {
       width: 130px;
       height: 38px;
@@ -7061,30 +7753,35 @@ select:disabled {
       border-radius: 3px;
     }
   }
+
   .addchild-list-up {
-    padding: 10px 34px 20px 34px;
+    padding: 10px 34px 20px;
+
     & > div {
       & > div:nth-child(1) {
         height: 172px;
         width: 777px;
       }
+
       & > div:nth-child(2) {
         height: 100%;
         width: 777px;
         margin-bottom: 0;
+
         & > div {
           height: 100%;
           flex: 10;
         }
       }
     }
-
   }
+
   .reads-new-cont {
     & > div {
       width: 777px;
       height: 100% !important;
     }
+
     & > div > div {
       width: 100%;
       border: 1px solid $border;
@@ -7093,44 +7790,53 @@ select:disabled {
       height: 48px;
       padding: 12px 20px;
       margin-bottom: 20px;
+
       & > span:nth-child(1) {
         color: #3d3d40;
         font-size: 14px;
       }
+
       & > span:nth-child(2) {
         color: #3d3d40;
         font-size: 14px;
         font-weight: 600;
         margin-left: 40px;
       }
+
       & > p:nth-child(1) {
         color: #3d3d40;
         font-size: 16px;
         font-weight: 600;
       }
+
       & > p:nth-child(2) {
         color: #3d3d40;
         font-size: 14px;
         margin-top: 3px;
+
         span {
           margin: 0 10px 0 0;
         }
       }
+
       .don-con-pos {
         position: absolute;
         right: 20px;
         top: 12px;
         font-size: 14px;
         color: #005ea7;
+
         & > div {
           margin-left: 20px;
+
           .iconfont {
-            margin-right: 0px;
+            margin-right: 0;
             font-size: 14px;
           }
         }
       }
     }
+
     .school-apply-share-sub {
       background: #fff;
       color: $color-border;
@@ -7140,6 +7846,7 @@ select:disabled {
       width: 130px;
     }
   }
+
   .addchild-list-up-picture {
     margin-left: 14px;
     text-align: center;
@@ -7150,43 +7857,49 @@ select:disabled {
     background-color: #f9f9f9;
     font-size: 14px;
     color: #8d8d8d;
-    padding: 50px 0 0 0;
+    padding: 50px 0 0;
     position: relative;
+
     .iconfont {
       margin-right: 0;
       font-size: 22px;
     }
   }
+
   .addchild-list-up-picture:nth-child(1) {
     margin-left: 0;
   }
+
   .addnewreads {
     & > div {
       & > div {
         width: 810px;
         padding-right: 29px;
-
       }
     }
   }
+
   .overspread-5 .overspread-cont {
     height: 299px;
   }
+
   .overspread-co {
     & > div {
       p {
         text-align: left;
       }
+
       input {
         width: 100%;
         margin-top: 0;
       }
     }
-
   }
+
   .supplements {
     padding: 0 36px;
   }
+
   .overspread-const {
     width: 100%;
     display: flex;
@@ -7195,10 +7908,12 @@ select:disabled {
     display: -ms-flexbox;
     display: -webkit-flex;
     padding: 0 26px;
+
     .overclass {
       flex: 1;
       padding: 0 10px;
       position: relative;
+
       span {
         position: absolute;
         right: 20px;
@@ -7206,9 +7921,11 @@ select:disabled {
         font-size: 14px;
         color: #3d3d40;
       }
+
       p {
         text-align: left;
       }
+
       input {
         width: 100%;
         height: 40px;
@@ -7218,7 +7935,6 @@ select:disabled {
         margin-top: 0;
         text-indent: 1em;
       }
-
     }
   }
 }
@@ -7228,11 +7944,13 @@ select:disabled {
   width: 224px;
   margin: 0 auto;
   text-align: center;
+
   .checkbox_item {
     position: relative;
     display: inline-block;
     margin-right: 10px;
     height: 16px;
+
     & > span {
       font-weight: 500;
       color: $color-subtitle;
@@ -7269,8 +7987,8 @@ select:disabled {
   height: 16px;
   line-height: 16px;
 }
-
 //物资类
+
 #site-from {
   width: 900px;
   border: none !important;
@@ -7280,22 +7998,27 @@ select:disabled {
   input:focus {
     border: 1px solid #6c757d;
   }
+
   .paddchild {
     padding: 5px 34px;
     background-color: #fff;
     border: 1px solid $border;
   }
+
   .addchild-list {
     padding: 10px 34px;
     background-color: #fff;
     border: 1px solid $border;
+
     .don-title {
       font-size: 16px;
       font-weight: 500;
     }
   }
+
   .addchild-list-cont {
-    padding: 0 0 10px 0;
+    padding: 0 0 10px;
+
     & > div {
       width: 555px;
       display: flex;
@@ -7305,6 +8028,7 @@ select:disabled {
       display: -webkit-flex;
       margin-bottom: 20px;
       position: relative;
+
       & > span {
         -ms-flex: 0 0 14%;
         flex: 0 0 14%;
@@ -7314,6 +8038,7 @@ select:disabled {
         line-height: 40px;
         text-align: right;
       }
+
       & > input {
         -ms-flex: 0 0 70%;
         flex: 0 0 70%;
@@ -7322,6 +8047,7 @@ select:disabled {
         height: 40px;
         text-indent: 1em;
       }
+
       & > textarea {
         -ms-flex: 0 0 70%;
         flex: 0 0 70%;
@@ -7334,21 +8060,26 @@ select:disabled {
         font-size: 14px;
         color: #2a2a2c;
       }
+
       & > .goods-project-input {
         -ms-flex: 0 0 70%;
         flex: 0 0 70%;
         max-width: 70%;
         width: 70%;
         height: 40px;
+
         & > input {
           width: 216px;
         }
+
         .selector-item {
           width: 210px;
         }
+
         .selector-item:nth-child(1) {
           width: 213px;
         }
+
         .scool-edit-name {
           width: 100%;
           background-color: #eeeeee;
@@ -7360,12 +8091,13 @@ select:disabled {
           cursor: not-allowed;
         }
       }
-
     }
   }
+
   .childern-submint {
     text-align: center;
     margin-top: 20px;
+
     & > button:nth-child(1) {
       width: 130px;
       height: 38px;
@@ -7378,6 +8110,7 @@ select:disabled {
       margin-right: 20px;
       border-radius: 3px;
     }
+
     & > button:nth-child(2) {
       width: 130px;
       height: 38px;
@@ -7390,11 +8123,13 @@ select:disabled {
       border-radius: 3px;
     }
   }
+
   .reads-new-cont {
     & > div {
       width: 777px;
       height: 100% !important;
     }
+
     & > div > div {
       width: 100%;
       border: 1px solid $border;
@@ -7403,44 +8138,53 @@ select:disabled {
       height: 48px;
       padding: 12px 20px;
       margin-bottom: 20px;
+
       & > span:nth-child(1) {
         color: #3d3d40;
         font-size: 14px;
       }
+
       & > span:nth-child(2) {
         color: #3d3d40;
         font-size: 14px;
         font-weight: 600;
         margin-left: 40px;
       }
+
       & > p:nth-child(1) {
         color: #3d3d40;
         font-size: 16px;
         font-weight: 600;
       }
+
       & > p:nth-child(2) {
         color: #3d3d40;
         font-size: 14px;
         margin-top: 3px;
+
         span {
           margin: 0 10px 0 0;
         }
       }
+
       .don-con-pos {
         position: absolute;
         right: 20px;
         top: 12px;
         font-size: 14px;
         color: #005ea7;
+
         & > div {
           margin-left: 20px;
+
           .iconfont {
-            margin-right: 0px;
+            margin-right: 0;
             font-size: 14px;
           }
         }
       }
     }
+
     .school-apply-share-sub {
       background: #fff;
       color: $color-border;
@@ -7450,6 +8194,7 @@ select:disabled {
       width: 130px;
     }
   }
+
   .addchild-list-up-picture {
     margin-left: 14px;
     text-align: center;
@@ -7460,43 +8205,51 @@ select:disabled {
     font-size: 14px;
     color: #8d8d8d;
     position: relative;
+
     .iconfont {
       margin-right: 0;
       font-size: 22px;
     }
   }
+
   .addchild-list-up-picture:nth-child(1) {
     margin-left: 0;
   }
+
   .addnewreads {
     & > div {
       & > div {
         width: 810px;
         padding-right: 29px;
+
         span {
-          flex: .7;
+          flex: 0.7;
         }
       }
     }
   }
+
   .overspread-5 .overspread-cont {
     height: 299px;
   }
+
   .overspread-co {
     & > div {
       p {
         text-align: left;
       }
+
       input {
         width: 100%;
         margin-top: 0;
       }
     }
-
   }
+
   .supplements {
     padding: 0 36px;
   }
+
   .overspread-const {
     width: 100%;
     display: flex;
@@ -7505,10 +8258,12 @@ select:disabled {
     display: -ms-flexbox;
     display: -webkit-flex;
     padding: 0 26px;
+
     .overclass {
       flex: 1;
       padding: 0 10px;
       position: relative;
+
       span {
         position: absolute;
         right: 20px;
@@ -7516,9 +8271,11 @@ select:disabled {
         font-size: 14px;
         color: #3d3d40;
       }
+
       p {
         text-align: left;
       }
+
       input {
         width: 100%;
         height: 40px;
@@ -7528,14 +8285,14 @@ select:disabled {
         margin-top: 0;
         text-indent: 1em;
       }
-
     }
   }
 }
-
 //查看班级
+
 .bookshelves-cont {
   padding: 20px 0 0 0 !important;
+
   .school-apply-pair-table > p {
     font-size: 14px;
     color: #3d3d40;
@@ -7551,47 +8308,55 @@ select:disabled {
     padding: 12px 20px;
     border: 1px solid $border;
     margin: 10px 0;
+
     & > span:nth-child(1) {
       color: #3d3d40;
       font-size: 14px;
     }
+
     & > span:nth-child(2) {
       color: #3d3d40;
       font-size: 14px;
       font-weight: 600;
       margin-left: 40px;
     }
+
     & > p:nth-child(1) {
       color: #3d3d40;
       font-size: 16px;
       font-weight: 600;
     }
+
     & > p:nth-child(2) {
       color: #3d3d40;
       font-size: 14px;
       margin-top: 3px;
+
       span {
         margin: 0 10px 0 0;
       }
     }
+
     .don-con-pos {
       position: absolute;
       right: 20px;
       top: 12px;
       font-size: 14px;
       color: #005ea7;
+
       & > div {
         margin-left: 20px;
+
         .iconfont {
-          margin-right: 0px;
+          margin-right: 0;
           font-size: 14px;
         }
       }
     }
   }
 }
-
 //加减
+
 .modified {
   & > span {
     width: 40px;
@@ -7604,16 +8369,18 @@ select:disabled {
     font-size: 15px;
     color: #e6e6e6;
   }
-  & > span:nth-child(1) {
 
+  & > span:nth-child(1) {
     margin: 0;
   }
+
   & > span:hover {
     border: none;
     line-height: 40px;
     color: #fff;
     background-color: $color-border;
   }
+
   & > input {
     width: 126px !important;
     height: 40px;
@@ -7626,8 +8393,8 @@ select:disabled {
     text-align: center;
   }
 }
-
 //二维码
+
 .wechat-qrcode {
   display: none;
   border: 1px solid #eee;
@@ -7645,6 +8412,7 @@ select:disabled {
   transition: all 200ms;
   -webkit-tansition: all 350ms;
   -moz-transition: all 350ms;
+
   h4 {
     font-weight: normal;
     height: 26px;
@@ -7655,18 +8423,22 @@ select:disabled {
     padding: 0;
     color: #777;
   }
+
   .qrcode {
     width: 140px;
     margin: 10px auto;
+
     img {
       width: 140px;
       height: 140px;
     }
+
     canvas {
       width: 140px;
       height: 140px;
     }
   }
+
   .help p {
     font-weight: normal;
     line-height: 16px;
@@ -7687,8 +8459,8 @@ select:disabled {
   border-style: solid;
   border-color: #fff transparent transparent transparent;
 }
-
 //学校申请
+
 .school-apply-list {
   width: 1140px;
   margin: 0 auto;
@@ -7696,24 +8468,29 @@ select:disabled {
   .paddchild {
     padding: 0 34px;
     background-color: #fff;
+
     .don-title {
       text-align: center;
     }
-
   }
+
   .school-apply-list-cont {
     background-color: #fff;
     padding: 10px 34px;
     border: 1px solid $border;
+
     .school-a-l-con {
       width: 560px;
       margin: 0 auto;
+
       .don-title {
         font-size: 16px;
         font-weight: 500;
       }
+
       .addchild-list-cont {
-        padding: 0 0 10px 0;
+        padding: 0 0 10px;
+
         & > div {
           width: 555px;
           display: flex;
@@ -7724,25 +8501,31 @@ select:disabled {
           height: 40px;
           margin-bottom: 20px;
           position: relative;
+
           & > div .selector-item {
             width: 136px;
           }
+
           & > div {
             flex: 7;
             position: relative;
+
             input {
               width: 100%;
             }
           }
+
           & > span {
             flex: 1;
             margin: 0 40px 0 0;
             line-height: 40px;
             text-align: right;
           }
+
           & > input {
             flex: 7;
           }
+
           & > textarea {
             flex: 6.3;
             height: 172px;
@@ -7761,15 +8544,17 @@ select:disabled {
             color: #2a2a2c;
             margin-right: 20px;
           }
-
         }
+
         .school-list-picture {
           height: 100%;
           width: 100%;
+
           & > div {
             height: 156px;
           }
         }
+
         .addchild-list-up-picture {
           margin-left: 14px;
           text-align: center;
@@ -7780,22 +8565,26 @@ select:disabled {
           background-color: #f9f9f9;
           font-size: 14px;
           color: #8d8d8d;
-          padding: 50px 0 0 0;
+          padding: 50px 0 0;
           position: relative;
+
           .iconfont {
             margin-right: 0;
             font-size: 22px;
           }
         }
+
         .addchild-list-up-picture:first-child {
           margin-left: 0;
         }
       }
     }
   }
+
   .childern-submint {
     text-align: center;
     margin-top: 20px;
+
     & > button:nth-child(1) {
       width: 130px;
       height: 38px;
@@ -7808,6 +8597,7 @@ select:disabled {
       margin-right: 20px;
       border-radius: 3px;
     }
+
     & > button:nth-child(2) {
       width: 130px;
       height: 38px;
@@ -7827,19 +8617,21 @@ select:disabled {
   margin-right: -146px;
   margin-top: 7px;
 }
-
 //团队表单
-#teams {
 
+#teams {
   .addchild-list-cont {
     padding: 0 100px 10px 0;
   }
+
   .addchild-list-cont > div {
     width: 100%;
   }
+
   .teams-news {
     height: 172px;
   }
+
   .addchild-list-cont {
     & > div > span {
       -ms-flex: 0 0 10%;
@@ -7848,6 +8640,7 @@ select:disabled {
       width: 10%;
     }
   }
+
   .teams-news > div > textarea {
     width: 100%;
     height: 172px;
@@ -7858,6 +8651,7 @@ select:disabled {
     color: #2a2a2c;
     padding: 10px 20px;
   }
+
   .teams-news > div {
     position: relative;
     -ms-flex: 0 0 70%;
@@ -7865,6 +8659,7 @@ select:disabled {
     max-width: 70%;
     width: 70%;
   }
+
   .teams-textare {
     position: absolute;
     right: 7px;
@@ -7873,14 +8668,16 @@ select:disabled {
     color: #d7d7d7;
   }
 }
-
 //移交团队
+
 .transfers {
-  padding: 30px 0 20px 0;
+  padding: 30px 0 20px;
+
   .transfers-cont {
     width: 100%;
     flex-wrap: wrap;
     margin-top: 24px;
+
     .transfers-per {
       width: 149px;
       border: 1px solid $border;
@@ -7892,21 +8689,25 @@ select:disabled {
       text-align: center;
       padding: 20px 0;
     }
+
     .transfers-per-img {
       width: 70px;
       height: 70px;
-      margin: 0 auto 16px auto;
+      margin: 0 auto 16px;
       border-radius: 50%;
       overflow: hidden;
+
       img {
         width: 100%;
         height: 100%;
       }
     }
+
     .transfers-per-name {
       font-size: 16px;
       color: #2a2a2c;
     }
+
     .transfers-per-team {
       width: 99px;
       height: 28px;
@@ -7917,6 +8718,7 @@ select:disabled {
       margin: 10px auto;
       border-radius: 3px;
     }
+
     .transfers-per-mark {
       width: 99px;
       height: 28px;
@@ -7927,15 +8729,16 @@ select:disabled {
       margin: 10px auto;
       border-radius: 3px;
     }
+
     .transfers-per-time {
       font-size: 12px;
       color: #8d8d8d;
     }
+
     .transfers-per:nth-child(5n) {
       margin-right: 0;
     }
   }
-
 }
 
 .transfers .ui-choose .selected {
@@ -7947,29 +8750,31 @@ select:disabled {
   text-align: center;
   margin-bottom: 10px;
 }
-
 //我的团队
+
 .my-team-but {
   margin-top: 20px;
   text-align: center;
+
   .team-but-1 {
     width: 122px;
     height: 34px;
     line-height: 32px;
     color: $color-border;
     border: 1px solid $color-border;
-    box-shadow: 0px 2px 7px 2px #9050de21;
+    box-shadow: 0 2px 7px 2px #9050de21;
     border-radius: 20px;
     float: left;
     margin-right: 22px;
   }
+
   .team-but-2 {
     width: 122px;
     height: 34px;
     line-height: 34px;
     color: #fff;
     background: $color-button;
-    box-shadow: 0px 2px 7px 2px #d632aa4d;
+    box-shadow: 0 2px 7px 2px #d632aa4d;
     border-radius: 20px;
     //float: left;
   }
@@ -7979,34 +8784,41 @@ select:disabled {
   .transfers .transfers-cont {
     margin-top: 0;
   }
+
   .transfers {
-    padding: 30px 0 0 0;
+    padding: 30px 0 0;
   }
 }
 
 .teams-s {
-  padding: 20px 0 20px 0;
+  padding: 20px 0;
+
   .teams-s-img {
     width: 90px;
     height: 90px;
     border-radius: 3px;
     overflow: hidden;
+
     img {
       width: 100%;
       height: 100%;
     }
   }
+
   .teams-s-cont {
     width: 720px;
     margin-left: 20px;
   }
+
   .teams-s-name {
     font-size: 16px;
     color: #393d42;
     font-weight: 600;
   }
+
   .teams-s-cont-name {
     position: relative;
+
     .iconfont {
       font-size: 13px;
       color: #393d42;
@@ -8019,8 +8831,8 @@ select:disabled {
       -moz-transform: rotate(90deg);
       -webkit-transform: rotate(90deg);
       -o-transform: rotate(90deg);
-
     }
+
     .tranicon {
       transform: rotate(270deg);
       -ms-transform: rotate(270deg);
@@ -8033,45 +8845,55 @@ select:disabled {
       -o-transition: all 0.3s ease-in-out;
     }
   }
+
   .teams-s-cont-operate {
     font-size: 13px;
     color: #393d42;
   }
+
   .teams-s-cont-detail {
     width: 100%;
     margin-top: 20px;
+
     & > div {
       width: 50%;
     }
   }
+
   .teams-s-c-tit {
     font-size: 14px;
     color: #8d8d8d;
     margin-right: 5px;
   }
+
   .teams-s-cont-map {
     font-size: 12px;
     color: #393d42;
+
     .iconfont {
       font-size: 10px;
       margin-right: 4px;
     }
   }
+
   .teams-s-moy-bag {
     font-size: 18px;
     color: #393d42;
   }
+
   .teams-s-border {
     border-right: 1px solid #393d42;
     padding-right: 6px;
     margin-right: 6px;
   }
+
   .teams-s-moy {
     font-size: 14px;
     color: #393d42;
     height: 13px;
     line-height: 13px;
   }
+
   .project-nav-heide {
     position: absolute;
     right: 0;
@@ -8085,6 +8907,7 @@ select:disabled {
     font-size: 14px;
     display: none;
     border: 1px solid $border;
+
     .gsh-arrows-1 {
       position: absolute;
       left: 70px;
@@ -8094,9 +8917,11 @@ select:disabled {
       line-height: 0;
       z-index: 2;
     }
+
     .gsh-arrows-1:hover {
       background: #fff;
     }
+
     & > li {
       padding: 0 10px;
       width: 158px;
@@ -8109,23 +8934,24 @@ select:disabled {
 
     & > li:hover {
       background: $color-border;
+
       a {
         color: #fff;
       }
-
     }
   }
-
 }
-
 //我的团队捐助记录
+
 .team-donations {
   ul > li {
     padding: 20px 0;
   }
+
   .examine {
     padding: 15px 0;
     text-align: center;
+
     p {
       font-size: 14px;
       color: #8b54e3;
@@ -8138,6 +8964,7 @@ select:disabled {
   height: 48px;
   border-radius: 50%;
   overflow: hidden;
+
   img {
     width: 100%;
     height: 100%;
@@ -8147,51 +8974,59 @@ select:disabled {
 .team-donations-cont {
   width: 760px;
   margin-left: 20px;
+
   & > div:nth-child(1) {
     margin-top: 5px;
   }
+
   .teams-don {
     font-size: 14px;
     color: #2a2a2c;
+
     span {
       font-weight: 600;
     }
   }
+
   .teams-don-name {
     font-size: 14px;
     color: #2a2a2c;
   }
+
   .teams-don-tiam {
     font-size: 13px;
     color: #d7d7d7;
   }
 }
-
 //财务公开
+
 .disclosures {
   width: 700px;
-  margin: 20px auto 80px auto;
+  margin: 20px auto 80px;
+
   .disclosures-tit {
     font-size: 22px;
     color: #3d3d40;
     font-weight: 600;
-    margin: 0 0 20px 0;
+    margin: 0 0 20px;
     text-align: center;
   }
+
   .disclosures-t {
     font-size: 14px;
     color: #8d8d8d;
     text-align: center;
-    margin: 10px auto;
-    margin: 10px auto 20px auto;
+    margin: 10px auto 20px;
   }
+
   .donations-1 {
     position: relative;
-    padding: 16px 0 14px 0;
+    padding: 16px 0 14px;
     width: 380px;
     margin: 0 auto;
     background-color: #f5f5f5;
   }
+
   .donations1 {
     & > li {
       float: left;
@@ -8203,10 +9038,12 @@ select:disabled {
       text-align: center;
       position: relative;
     }
+
     .selectedDo {
       font-weight: 600;
     }
   }
+
   .bottomline {
     position: absolute;
     left: 73px;
@@ -8221,7 +9058,8 @@ select:disabled {
   .speciais-cont-but {
     width: 100%;
     text-align: center;
-    padding: 40px 0 0 0;
+    padding: 40px 0 0;
+
     button {
       width: 130px;
       height: 38px;
@@ -8245,7 +9083,7 @@ select:disabled {
 }
 
 .disclosures-s {
-  padding: 10px 0 40px 0;
+  padding: 10px 0 40px;
 }
 
 .disclosures-n {
@@ -8257,14 +9095,15 @@ select:disabled {
   font-size: 16px;
   color: #3d3d40;
 }
-
 //模态窗
+
 .detail-icon {
   font-size: 24px;
 }
 
 .overspreads-but {
   text-align: center;
+
   .succeed {
     width: 100px;
     height: 34px;
@@ -8276,6 +9115,7 @@ select:disabled {
     margin-right: 10px;
     border-radius: 3px;
   }
+
   .defeated {
     width: 100px;
     height: 34px;
@@ -8291,59 +9131,63 @@ select:disabled {
 .modal-content {
   width: 300px;
   margin: 0 auto;
+
   .overspread-co {
     text-align: center;
+
     .over-font {
       font-size: 18px;
       color: #3d3d40;
       font-weight: 600;
       margin-top: 10px;
     }
+
     .over-fontns {
       font-size: 14px;
       color: #3d3d40;
       margin-top: 10px;
       padding: 0 40px;
     }
-
   }
+
   .over-but {
     width: 180px;
     height: 34px;
     line-height: 34px;
     text-align: center;
     background: $color-button;
-    box-shadow: 0px 2px 7px 2px #8a53e354;
+    box-shadow: 0 2px 7px 2px #8a53e354;
     border-radius: 20px;
     color: #fff;
     font-size: 16px;
-
   }
 }
 
 .modal-content .modal-footer {
   text-align: center;
   border: none;
-
 }
-
 //关于我们
+
 .pages-content {
   width: 1100px;
-  margin: 0 auto 35px auto;
+  margin: 0 auto 35px;
   background-color: #fff;
   padding: 35px 10px;
 }
 
 .page-left {
   width: 136px;
+
   .page-left-ul {
     border-right: 2px solid #dcdcdc;
     padding-left: 30px;
+
     & > li {
       position: relative;
     }
   }
+
   .page-left-ul > li > a {
     font-size: 16px;
     line-height: 26px;
@@ -8352,6 +9196,7 @@ select:disabled {
     margin-bottom: 35px;
     text-align: left;
   }
+
   .page-left-li > li {
     font-size: 14px;
     line-height: 26px;
@@ -8360,18 +9205,20 @@ select:disabled {
     color: #2a2a2c;
     margin-bottom: 35px;
     font-weight: 500;
-
   }
-  .page-left-ul > li a, .page-left-li > li > a {
+
+  .page-left-li > li > a,
+  .page-left-ul > li a {
     line-height: 26px;
     width: 100%;
     display: inline-block;
     color: #2a2a2c;
-
   }
+
   .selectedli {
     font-weight: 600;
   }
+
   .page-left-border {
     width: 2px;
     height: 24px;
@@ -8385,6 +9232,7 @@ select:disabled {
 .page-right {
   width: 920px;
   padding: 0 10px;
+
   .page-left-title {
     width: 100%;
     font-weight: 600;
@@ -8397,7 +9245,7 @@ select:disabled {
 }
 
 .page-right-content {
-  padding: 20px 0 0 0;
+  padding: 20px 0 0;
   font-size: 14px;
   color: #3d3d40;
   line-height: 30px;
@@ -8405,18 +9253,20 @@ select:disabled {
 
 .crumbs {
   width: 1100px;
-  margin: 0 auto 10px auto;
+  margin: 0 auto 10px;
   font-size: 13px;
   color: #8f959a;
 }
-
 //收入
+
 .disclosures-table {
   width: 1140px;
-  margin: 50px auto 80px auto;
+  margin: 50px auto 80px;
+
   .contentab {
     margin-top: 20px;
   }
+
   .table-bordered {
     thead th {
       background-color: #4b4a4e;
@@ -8429,6 +9279,7 @@ select:disabled {
       padding: 0;
       vertical-align: middle !important;
     }
+
     tbody {
       text-align: center;
       font-size: 15px;
@@ -8443,6 +9294,7 @@ select:disabled {
       }
     }
   }
+
   .table-bordered td {
     font-weight: 400;
     padding: 0;
@@ -8452,10 +9304,12 @@ select:disabled {
     font-size: 14px;
     color: #2a2a2c;
   }
+
   .donations-1 {
     position: relative;
-    padding: 26px 0 16px 0;
+    padding: 26px 0 16px;
   }
+
   .donations1 {
     & > li {
       float: left;
@@ -8467,10 +9321,12 @@ select:disabled {
       text-align: center;
       position: relative;
     }
+
     .selectedDo {
       font-weight: 600;
     }
   }
+
   .bottomline {
     position: absolute;
     left: 31px;
@@ -8481,8 +9337,10 @@ select:disabled {
     border-radius: 20px;
     transition: all 0.3s ease;
   }
+
   .speciais-con {
     position: relative;
+
     & > .speciais-t {
       padding: 20px 0;
     }
@@ -8490,6 +9348,7 @@ select:disabled {
     .speciais-con-con {
       width: 523px;
       padding: 3px 0 0 20px;
+
       .gsh-cont-2 {
         overflow: hidden;
         text-overflow: ellipsis;
@@ -8497,30 +9356,34 @@ select:disabled {
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
       }
+
       .gsh-cont-3 {
         margin-top: 18px;
       }
+
       .gsh-cont-1 {
         margin-top: 4px;
       }
-
     }
+
     .speciais-con-img {
       width: 240px;
       height: 140px;
       border-radius: 4px;
       overflow: hidden;
+
       img {
         width: 100%;
         height: 100%;
       }
     }
-
   }
+
   .searchinput {
     position: absolute;
     right: 0;
     top: 10px;
+
     .input-group {
       width: 296px;
       height: 34px;
@@ -8528,36 +9391,42 @@ select:disabled {
       border: 1px solid $border;
       border-radius: 3px;
       padding-left: 10px;
+
       input {
         border: none;
         height: 32px;
         width: 89%;
       }
     }
+
     .school-apply-share-share {
       background-color: $color-info;
       margin-left: 10px;
     }
   }
+
   .disclosures-font {
     position: relative;
+
     .disclosures-f-bg {
       font-size: 22px;
       color: #3d3d40;
       font-weight: 600;
     }
+
     .disclosures-f-min {
       font-size: 16px;
       color: #3d3d40;
       margin-top: 5px;
       margin-left: 30px;
-
     }
+
     .disclosures-f-moy {
       font-size: 22px;
       color: #3d3d40;
       font-weight: 600;
     }
+
     .disclosures-pos {
       font-size: 14px;
       color: #3d3d40;
@@ -8569,12 +9438,110 @@ select:disabled {
 }
 
 .evidence {
-  margin: 50px auto 80px auto;
+  margin: 50px auto 80px;
   width: 800px;
+
   & > img {
-    margin: 0 0 20px 0;
+    margin: 0 0 20px;
     width: 100%;
     height: auto;
   }
+}
+// 项目表格
 
+.project-list-table {
+  vertical-align: middle !important;
+  border-spacing: 0;
+  border-collapse: collapse;
+
+  thead {
+    border-radius: 2px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+  }
+
+  thead tr th {
+    text-align: center;
+  }
+
+  tbody {
+    tr {
+      border: 1px solid $border;
+      border-radius: 4px;
+    }
+
+    td {
+      text-align: center;
+      border: 1px solid $border;
+      .lookbutton {
+        color: $color-border;
+      }
+      .detail-table{
+background-color: #fff;
+width: 101px;
+height: 30px;
+line-height: 28px;
+border: 1px solid #fff;
+font-size: 13px;
+color: #3d3d40;
+border-radius: 2px;
+margin-bottom: 10px;
+display: inline-block;
+      }
+    }
+  }
+
+  .project-span {
+    padding: 2px 9px;
+    color: #3d3d40;
+    font-size: 13px;
+    background-color: #f2f2f2;
+    margin-right: 0;
+    margin-left: 10px;
+    margin-bottom: 10px;
+  }
+
+  .notable {
+    height: 20px;
+    border: none;
+
+    td {
+      border: none;
+    }
+  }
+
+  .school-apply-pair-child {
+    padding: 20px;
+    width: 538px;
+    font-weight: 400;
+  }
+
+  .table-tit-1 {
+    width: 538px;
+    text-align: left;
+    padding-left: 16px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #3d3d40;
+    padding: 4px 0 4px 16px;
+    background-color: #f5f5f5;
+  }
+
+  .table-tit-2 {
+    width: 145px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #3d3d40;
+    padding: 4px 0;
+    background-color: #f5f5f5;
+  }
+
+  .table-tit-3 {
+    width: 145px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #3d3d40;
+    padding: 4px 0;
+    background-color: #f5f5f5;
+  }
 }
