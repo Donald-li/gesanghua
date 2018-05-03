@@ -96,6 +96,7 @@ namespace :api do
           get :get_projects
           get :get_applies
           get :get_school_list
+          get :get_exception_records
         end
       end
     end

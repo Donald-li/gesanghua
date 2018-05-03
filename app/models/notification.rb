@@ -29,6 +29,51 @@ class Notification < ApplicationRecord
   belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id', optional: true
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id', optional: true
 
+
+  def summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :title, :content)
+      json.school_name self.notification_school.try(:name)
+      json.created_at self.created_at.strftime("%Y-%m-%d")
+      json.school_contact_name self.notification_school.try(:contact_name)
+      json.school_contact_phone self.notification_school.try(:contact_phone)
+    end.attributes!
+  end
+
+  def notification_school
+    return unless self.owner.class.name.in?(['ProjectSeasonApply', 'ProjectSeasonApplyBookshelf', 'BookshelfSupplement'])
+    if self.owner.class.name.in?(['ProjectSeasonApply', 'ProjectSeasonApplyBookshelf'])
+      school = self.owner.school
+    elsif self.owner.class.name == 'BookshelfSupplement'
+      school = self.owner.apply.school
+    end
+    school
+  end
+
+  # def send_template_msg(url)
+  #   user = self.user
+  #   data = {
+  #       first: {
+  #           value: "看板消息",
+  #           color: "#173277"
+  #       },
+  #       keyword1: {
+  #           value: "看板：#{self.kanban.try(:title)}",
+  #           color: "#173177"
+  #       },
+  #       keyword2: {
+  #           value: self.created_at.to_s(:db),
+  #           color: "#274177"
+  #       },
+  #       remark: {
+  #           value: "#{self.from_user.try(:nickname)}#{self.plain_content}",
+  #           color: "#274377"
+  #       }
+  #   }
+  #   $wechat_client.send_template_msg(user.wechat_profile['openid'], Settings.wechat_template_message_id, url, "#173177", data)
+  # end
+
+
   private
   def set_assoc_attrs
     owner = self.owner

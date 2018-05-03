@@ -61,7 +61,7 @@ class TaskVolunteer < ApplicationRecord
 
   def list_builder
     Jbuilder.new do |json|
-      json.(self, :id)
+      json.(self, :id, :reason)
       json.task_id self.task_id
       json.task_name self.task.try(:name)
       json.task_num self.task.num
@@ -103,8 +103,10 @@ class TaskVolunteer < ApplicationRecord
   def task_action
     if self.submit?
       'can_cancel'
-    elsif self.pass? && self.task.start_time < Time.now
+    elsif self.pass?
       'can_finish'
+    elsif self.reject?
+      'can_retry'
     end
   end
 
