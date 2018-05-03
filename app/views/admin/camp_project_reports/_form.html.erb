@@ -16,7 +16,7 @@
           <%= webuploader_tag 'image_ids[]', label: '上传报告图片', type: 'project_report_image', asset: @report.images %>
         </div>
       </div>
-      <%= f.input :kind, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectReport.options_for_select(:kinds), label: '报告类型：' %>
+      <%= f.hidden_field :kind, value: 'project_report' %>
       <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectReport.options_for_select(:states), label: '状态：' %>
     </div>
     <div class="form-actions">

@@ -2,9 +2,10 @@ class Platform::School::Apply::ReadsController < Platform::School::BaseControlle
   before_action :check_manage_limit # 是否可以管理该项目
   before_action :set_apply, only: [:show, :edit, :update, :edit_supplement, :update_supplement, :bookshelves, :supplements]
   before_action :set_school
+  before_action :set_project
 
   def index
-    scope = ProjectSeasonApply.where(project: Project.read_project, school: @school).sorted
+    scope = ProjectSeasonApply.where(project: @project, school: @school).sorted
     @applies = scope.page(params[:page]).per(8)
   end
 
@@ -12,11 +13,11 @@ class Platform::School::Apply::ReadsController < Platform::School::BaseControlle
   end
 
   def new_supplement
-    @apply = ProjectSeasonApply.new
+    @apply = @project.applies.new
   end
 
   def new
-    @apply = ProjectSeasonApply.new
+    @apply = @project.applies.new
   end
 
   def edit
@@ -27,9 +28,9 @@ class Platform::School::Apply::ReadsController < Platform::School::BaseControlle
 
   def create
     season = ProjectSeason.find(apply_params[:project_season_id])
-    if ProjectSeasonApply.allow_apply?(@school, season, Project.read_project)
+    if ProjectSeasonApply.allow_apply?(@school, season, @project)
       # @apply.form = params[:dynamic_form]
-      @apply = ProjectSeasonApply.new(apply_params.except(:class_ids).merge(project: Project.read_project, school: @school, bookshelf_type: 'whole'))
+      @apply = ProjectSeasonApply.new(apply_params.except(:class_ids).merge(project: @project, school: @school, bookshelf_type: 'whole'))
       if @apply.save
         ProjectSeasonApplyBookshelf.where(id: apply_params[:class_ids]).update(apply: @apply, season: season)
         @apply.attach_images(params[:image_ids])
@@ -68,9 +69,9 @@ class Platform::School::Apply::ReadsController < Platform::School::BaseControlle
 
   def create_supplement
     season = ProjectSeason.find(apply_params[:project_season_id])
-    if ProjectSeasonApply.allow_apply?(@school, season, Project.read_project)
+    if ProjectSeasonApply.allow_apply?(@school, season, @project)
       if apply_params[:supplement_ids].length > 0
-        @apply = ProjectSeasonApply.new(apply_params.except(:supplement_ids).merge(project: Project.read_project, bookshelf_type: 'supplement', school: @school))
+        @apply = ProjectSeasonApply.new(apply_params.except(:supplement_ids).merge(project: @project, bookshelf_type: 'supplement', school: @school))
         if @apply.save
           @apply.attach_images(params[:image_ids])
           @apply.supplement_ids = apply_params[:supplement_ids]
@@ -108,6 +109,10 @@ class Platform::School::Apply::ReadsController < Platform::School::BaseControlle
 
   def set_school
     @school = current_user.teacher.school
+  end
+
+  def set_project
+    @project = Project.read_project
   end
 
   def apply_params
