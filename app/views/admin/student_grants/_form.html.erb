@@ -1,0 +1,16 @@
+<%= simple_form_for [:admin, @child_apply, @grant], url: admin_pair_student_list_student_grant_path(@child_apply), wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'category_form'} do |f| %>
+    <%= f.error_notification %>
+    <div class="form-body form-horizontal">
+      <%= f.input :title, label: '申请学年：', autofocus: true, placeholder: '学年', required: true %>
+      <%= f.input :amount, label: '资助金额：', placeholder: '金额', required: true, type: 'number' %>
+      <%= f.input :remark, label: '备注：', placeholder: '' %>
+    </div>
+    <div class="form-actions">
+      <div class="row">
+        <div class="col-md-offset-2 col-md-9">
+          <%= f.button :submit, '提交', class: 'btn blue' %>
+          <%= link_to '取消', admin_pair_student_list_student_grants_path(@child_apply), class: 'btn' %>
+        </div>
+      </div>
+    </div>
+<% end %>

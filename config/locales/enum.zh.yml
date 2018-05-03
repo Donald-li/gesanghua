@@ -298,6 +298,7 @@ zh:
     pending: '未筹款'
     succeed: '已筹款'
     refund: '已退款'
+    close: '已关闭'
   gsh_child_grant_balance_manages:
     balance_default: '默认'
     transfer: '转捐'

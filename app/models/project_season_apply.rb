@@ -82,9 +82,7 @@ class ProjectSeasonApply < ApplicationRecord
   has_one :install_feedback, as: :owner, dependent: :destroy
   has_one :receive_feedback, as: :owner, dependent: :destroy
   has_many :continual_feedbacks, as: :owner # 探索营反馈, dependent: :destroy
-  has_one :radio_information, dependent: :destroy
   has_one :logistic, as: :owner, dependent: :destroy
-  accepts_nested_attributes_for :radio_information, update_only: true
   accepts_nested_attributes_for :bookshelves, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :supplements, allow_destroy: true, reject_if: :all_blank #proc { |attributes| attributes['project_season_apply_bookshelf_id'].blank? }
   accepts_nested_attributes_for :inventories, allow_destroy: true

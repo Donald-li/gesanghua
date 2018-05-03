@@ -166,7 +166,7 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
 
   # 图书角图片
   def bookshelf_image
-    self.try(:image).try(:file_url) || self.project.project_image
+    self.try(:image).try(:file_url) || self.project.try(:project_image)
   end
 
   def summary_builder
