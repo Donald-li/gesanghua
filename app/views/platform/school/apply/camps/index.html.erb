@@ -3,37 +3,50 @@
   <div style="display: block;">
     <%= render '/layouts/shared/platform_school_projects' %>
     <% if @apply_camps.present? %>
-      <div class="school-apply-pair-table-co">
-        <div class="school-apply-pair-table clearfix">
-          <p class="pull-left">申请项目名称</p>
-          <p class="pull-left">申请状态</p>
-          <p class="pull-left">操作</p>
-        </div>
-        <% @apply_camps.each do |camp| %>
-          <div class="school-apply-pair-tables">
-            <p>申请时间：<%= camp.created_at.strftime("%Y-%m-%d %H:%M")%> <span>申请编号：<%= camp.apply.try(:apply_no) %></span></p>
-            <div class="school-apply-pair-table-cont clearfix">
-             <div class="pull-left">
-               <p class="school-apply-pair-tit"><%= camp.apply.apply_name %></p>
-                <p class="school-apply-pair-f">学生配额：<%= camp.student_number %></p>
-                <p class="school-apply-pair-f">教师配额：<%= camp.teacher_number %></p>
+    <div class="project-list-table-co">
+      <table class="project-list-table" >
+        <thead>
+          <tr>
+            <th scope="col" class="table-tit-1">申请项目名称</th>
+            <th scope="col" class="table-tit-2">申请状态</th>
+            <th scope="col" class="table-tit-3">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @apply_camps.each do |camp| %>
+            <tr class="notable">
+              <td colspan="3"></td>
+            </tr>
+            <tr >
+              <td colspan="3" class="apply-title-tables">
+                <p>申请时间：<%= camp.created_at.strftime("%Y-%m-%d %H:%M")%> <span>申请编号：<%= camp.apply.try(:apply_no) %></span></p>
+              </td>
+            </tr>
+            <tr class="school-apply-pair-table-cont ">
+              <th style="padding: 20px;">
+                <div>
+                  <p class="school-apply-pair-tit"><%= camp.apply.apply_name %></p>
+                   <p class="school-apply-pair-f">学生配额：<%= camp.student_number %></p>
+                   <p class="school-apply-pair-f">教师配额：<%= camp.teacher_number %></p>
 
-             </div>
-             <div class="border-l border-r pull-left">
-               <%= camp.enum_name(:execute_state) %>
-             </div>
-             <div class="pull-left">
-              <%= link_to '查看申请详情', platform_school_apply_camp_path(camp), class:'lookapply'  %>
-               <% if camp.to_submit? %>
-                <%= link_to '提交名单', member_list_platform_school_apply_camp_members_path(camp), class:'lookbutton'  %>
-               <% elsif camp.approved? %>
-                <%= link_to '查看名单', platform_school_apply_camp_members_path(camp, state: 'pass'), class:'lookbutton'  %>
-               <% end %>
-             </div>
-            </div>
-          </div>
-        <% end %>
-      </div>
+                </div>
+              </th>
+              <td class="apply-tables-2 ">
+             <%= camp.enum_name(:execute_state) %>
+              </td>
+              <td>
+                <%= link_to '查看申请详情', platform_school_apply_camp_path(camp), class:'lookapply'  %>
+                 <% if camp.to_submit? %>
+                  <%= link_to '提交名单', member_list_platform_school_apply_camp_members_path(camp), class:'lookbutton'  %>
+                 <% elsif camp.approved? %>
+                  <%= link_to '查看名单', platform_school_apply_camp_members_path(camp, state: 'pass'), class:'lookbutton'  %>
+                 <% end %>
+              </td>
+            </tr>
+            <% end %>
+        </tbody>
+      </table>
+    </div>
     <% else %>
       <div class="donation-cont-no">
         <div class="donation-co-no-c">
@@ -47,4 +60,3 @@
     <%= paginate @apply_camps, theme: :tiny %>
   </div>
 </div>
-

@@ -22,7 +22,7 @@ class Admin::PairContinualFeedbacksController < Admin::BaseController
       if @continual.update(continual_params)
         format.html { redirect_to admin_pair_continual_feedbacks_path(@project), notice: '修改成功。' }
       else
-        format.html { render :new }
+        format.html { render :edit }
       end
     end
   end

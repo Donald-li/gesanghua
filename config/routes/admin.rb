@@ -105,6 +105,7 @@ namespace :admin do
     end
   end
   resources :pair_continual_feedbacks, concerns: [:recommend]
+  resources :pair_thank_notes
   resources :home_visits, only: [:index, :show]
   resources :pair_student_lists, concerns: [:switch, :remarks, :share, :qrcode_download] do
     resources :student_grants do
