@@ -100,13 +100,6 @@ class Admin::PairStudentsController < Admin::BaseController
     end
   end
 
-  def remarks
-    @apply_child = ProjectSeasonApplyChild.find(params[:id])
-    @search = @apply_child.remarks.sorted.ransack(params[:q])
-    scope = @search.result
-    @remarks = scope.page(params[:page])
-  end
-
   def new_audit
     @apply_child = ProjectSeasonApplyChild.find(params[:id])
     @audit = @apply_child.audits.build

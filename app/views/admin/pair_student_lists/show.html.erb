@@ -137,6 +137,14 @@
             <%= link_to image_tag(@pair_student_list.family_image_url(:small)), @pair_student_list.family_image_url(nil), target: '_blank' %>
           </th>
         </tr>
+        <tr>
+          <th>
+            备注
+          </th>
+          <th>
+            <%= @pair_student_list.remark %>
+          </th>
+        </tr>
 
         </tbody>
       </table>
