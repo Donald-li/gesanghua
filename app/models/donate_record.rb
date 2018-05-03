@@ -156,8 +156,6 @@ class DonateRecord < ApplicationRecord
       end
 
       donate_amount =  donate_records.sum{|r| r.amount}
-      source.balance -= donate_amount
-      source.save!
 
       reback = amount.to_f - donate_amount
       if reback > 0
@@ -166,7 +164,7 @@ class DonateRecord < ApplicationRecord
           source.balance -= reback
           user = source.donor
           user.lock!
-          user.balance += reback
+          AccountRecord.create!(title: '超捐退款', kind: 'refund', amount: reback, income_record: source, user: source.agent, donor: source.donor)
           user.save!
           message = "捐助成功，但捐助过程中，项目收到新捐款造成超捐，其中#{reback}元已退回您的账户余额。"
         else
@@ -175,7 +173,15 @@ class DonateRecord < ApplicationRecord
           raise ActiveRecord::Rollback, "超捐"
         end
       end
+
+      # 记录余额消耗记录
+      if source.is_a?(User)
+        AccountRecord.create!(title: '使用余额捐助', kind: 'donate', amount: 0 - amount, user: source, donor: params[:donor])
+      else
+        source.balance -= donate_amount
+      end
       source.save! # 解锁
+
       result = true
       message = '捐助成功'
     end
@@ -204,7 +210,7 @@ class DonateRecord < ApplicationRecord
     self.transaction do
       # 退余额
       self.agent.lock!
-      self.agent.balance += self.amount
+      AccountRecord.create!(title: self.apply_name + '退款', kind: 'refund', amount: self.amount, donate_record: self, user: self.agent, donor: self.donor)
       self.agent.save!
 
       self.refund!

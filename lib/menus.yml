@@ -10,6 +10,8 @@ admin:
         admin_user:
           actions:
             'admin/users': all
+            'admin/donate_records': ['index']
+            'admin/account_records': all
         admin_volunteers:
           menus:
             admin_volunteer_list:

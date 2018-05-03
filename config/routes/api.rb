@@ -34,6 +34,7 @@ namespace :api do
           post :update_user
           get :has_team
           get :balance
+          get :account_records
         end
       end
 

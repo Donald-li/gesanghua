@@ -12,6 +12,8 @@
 #  remark           :text                                   # 备注
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  title            :string                                 # 标题
+#  state            :integer                                # 类型
 #
 
 class AccountRecord < ApplicationRecord
@@ -24,5 +26,14 @@ class AccountRecord < ApplicationRecord
   default_value_for :kind, 1
 
   counter_culture :user, column_name: 'balance', delta_magnitude: proc {|model| model.amount }
+
+  scope :sorted, -> { order(created_at: :desc) }
+
+  def summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :title, :amount)
+      json.time self.created_at.strftime('%Y-%m-%d %H:%M:%S')
+    end.attributes!
+  end
 
 end
