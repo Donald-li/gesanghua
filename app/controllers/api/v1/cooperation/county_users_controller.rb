@@ -79,4 +79,9 @@ class Api::V1::Cooperation::CountyUsersController < Api::V1::BaseController
     api_success(data: {schools: schools.map{ |s| s.detail_builder }, pagination: json_pagination(schools)})
   end
 
+  def get_exception_records
+    notifications = Notification.where(user_id: current_user.id, kind: 'county_user_exception_record').page(params[:page]).per(params[:per])
+    api_success(data: {notifications: notifications.map{ |s| s.summary_builder }, pagination: json_pagination(notifications)})
+  end
+
 end

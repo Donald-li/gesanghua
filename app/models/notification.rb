@@ -29,6 +29,26 @@ class Notification < ApplicationRecord
   belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id', optional: true
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id', optional: true
 
+  def summary_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :title, :content)
+      json.school_name self.notification_school.try(:name)
+      json.created_at self.created_at.strftime("%Y-%m-%d")
+      json.school_contact_name self.notification_school.try(:contact_name)
+      json.school_contact_phone self.notification_school.try(:contact_phone)
+    end.attributes!
+  end
+
+  def notification_school
+    return unless self.owner.class.name.in?(['ProjectSeasonApply', 'ProjectSeasonApplyBookshelf', 'BookshelfSupplement'])
+    if self.owner.class.name.in?(['ProjectSeasonApply', 'ProjectSeasonApplyBookshelf'])
+      school = self.owner.school
+    elsif self.owner.class.name == 'BookshelfSupplement'
+      school = self.owner.apply.school
+    end
+    school
+  end
+
   private
   def set_assoc_attrs
     owner = self.owner
