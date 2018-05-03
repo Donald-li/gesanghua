@@ -90,6 +90,13 @@ namespace :api do
           post :update_reason
         end
       end
+      resources :county_users do # 县级用户
+        collection do
+          get :get_projects
+          get :get_applies
+          get :get_school_list
+        end
+      end
     end
 
     # 格桑花+

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180502075017) do
+ActiveRecord::Schema.define(version: 20180502081911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -302,6 +302,7 @@ ActiveRecord::Schema.define(version: 20180502075017) do
     t.string "district", comment: "区/县"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "duty", comment: "职务"
   end
 
   create_table "cross_fund_adjustments", force: :cascade do |t|
@@ -763,6 +764,45 @@ ActiveRecord::Schema.define(version: 20180502075017) do
     t.string "classname", comment: "年级"
   end
 
+  create_table "project_season_apply_camp_students", force: :cascade, comment: "探索营学生" do |t|
+    t.string "name", comment: "姓名"
+    t.string "id_card", comment: "身份证号"
+    t.integer "nation", comment: "民族"
+    t.integer "gender", comment: "性别"
+    t.integer "school_id", comment: "学校id"
+    t.integer "project_season_apply_camp_id", comment: "探索营配额id"
+    t.integer "camp_id", comment: "探索营id"
+    t.integer "project_season_apply_id", comment: "营立项id"
+    t.integer "grade", comment: "年级"
+    t.integer "level", comment: "初高中"
+    t.string "teacher_name", comment: "老师姓名"
+    t.string "teacher_phone", comment: "老师联系方式"
+    t.string "guardian_name", comment: "监护人姓名"
+    t.string "guardian_phone", comment: "监护人联系方式"
+    t.text "description", comment: "自我介绍"
+    t.string "reason", comment: "推荐理由"
+    t.integer "state", comment: "状态"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "age", comment: "年龄"
+  end
+
+  create_table "project_season_apply_camp_teachers", force: :cascade, comment: "探索营老师名单" do |t|
+    t.string "name", comment: "姓名"
+    t.string "id_card", comment: "身份证号"
+    t.integer "nation", comment: "民族"
+    t.integer "gender", comment: "性别"
+    t.string "phone", comment: "联系方式"
+    t.integer "state", comment: "状态"
+    t.integer "school_id", comment: "学校id"
+    t.integer "project_season_apply_camp_id", comment: "探索营配额id"
+    t.integer "camp_id", comment: "探索营id"
+    t.integer "project_season_apply_id", comment: "营立项id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "age", comment: "年龄"
+  end
+
   create_table "project_season_apply_camps", force: :cascade, comment: "探索营配额" do |t|
     t.integer "project_season_apply_id", comment: "营立项id"
     t.integer "camp_id", comment: "探索营id"
@@ -829,8 +869,6 @@ ActiveRecord::Schema.define(version: 20180502075017) do
     t.string "family_condition", comment: "家庭情况"
     t.string "brothers", comment: "兄弟姐妹"
     t.string "teacher_phone", comment: "班主任联系方式"
-    t.integer "grant_count", comment: "申请学年总数"
-    t.integer "succeed_grant_count", comment: "已筹款学年总数"
   end
 
   create_table "project_season_apply_gooods", force: :cascade, comment: "项目执行年度申请的物品表" do |t|
