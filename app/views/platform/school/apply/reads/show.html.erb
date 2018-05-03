@@ -25,6 +25,7 @@
         <p>申请班级</p>
         <div class="school-apply-pair-table-cont">
           <% if @apply.whole? %>
+            <%= render 'dynamic_form_show', apply: @apply %>
             <% @apply.bookshelves.each do |bookshelf| %>
               <div class="clearfix" >
                 <span><%= bookshelf.classname %></span>
