@@ -432,7 +432,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   def donate_record_builder
     Jbuilder.new do |json|
-      json.array! self.donate_all_records do |grant|
+      json.array! self.donate_all_records.visible do |grant|
         json.(grant, :id)
         json.(grant, :title)
         json.(grant, :amount)
