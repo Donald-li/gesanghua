@@ -34,7 +34,8 @@ $color-border: #8b54e3; //渐变
 $color-button: #8b54e3; //边框
 $border: #e6e6e6; //button hover
 $hover-button: #9750f5;
-$hover-share: #f4f4f4; //阴影
+$hover-share: #f4f4f4;
+$hover-share-but: #d9d9d9; //阴影
 //$color-box:#8a53e354;
 
 *,
@@ -2611,7 +2612,7 @@ select:disabled {
     .person-body-right {
       width: 900px;
       border: 1px solid $border;
-      padding: 10px 34px 34px 34px;
+      padding: 10px 34px 34px;
       background-color: #fff;
 
       .project-foot {
@@ -5248,7 +5249,6 @@ select:disabled {
 
 .school-apply-pair-table {
   border: 1px solid $border;
-  border-radius: 2px;
   margin: 10px 0;
 
   & > p {
@@ -5312,8 +5312,7 @@ select:disabled {
 
 .school-apply-pair-tables {
   border: 1px solid $border;
-  border-radius: 2px;
-  margin: 10px 0;
+  margin: 20px 0;
 
   & > p {
     padding-left: 16px;
@@ -5728,6 +5727,8 @@ select:disabled {
   }
 
   .school-apply-pair-table-cont {
+    display: table;
+
     & > div:nth-child(1) {
       -ms-flex: 0 0 48%;
       flex: 0 0 47%;
@@ -5736,7 +5737,8 @@ select:disabled {
     }
 
     & > div:nth-child(2) {
-      padding: 10px 0;
+      display: table-cell;
+      vertical-align: middle;
 
       & > button:nth-child(1) {
         outline: none;
@@ -5765,70 +5767,32 @@ select:disabled {
     }
 
     & > div:nth-child(3) {
-      padding: 10px 0;
+      padding: 20px 0;
 
-      & > a:nth-child(2) {
-        outline: none;
-        width: 101px;
-        height: 30px;
-        line-height: 28px;
-        font-size: 13px;
-        color: #3d3d40;
-        border: 1px solid #fff;
-        background-color: #fff;
-        display: inline-block;
-      }
-
-      & > a:nth-child(1) {
-        outline: none;
-        background-color: #fff;
-        width: 101px;
-        height: 30px;
-        line-height: 28px;
-        border: 1px solid $color-border;
-        font-size: 13px;
-        color: $color-border;
-        border-radius: 2px;
-        margin-bottom: 10px;
-        display: inline-block;
-
-        button {
-          color: $color-border;
-        }
+      .lookapply:hover {
+        background-color: $hover-share;
       }
     }
 
     & > div:nth-child(4) {
       padding: 10px 0;
 
-      & > a:nth-child(2) {
-        outline: none;
-        width: 101px;
-        height: 30px;
-        line-height: 28px;
-        font-size: 13px;
-        color: #3d3d40;
-        border: 1px solid #fff;
-        background-color: #fff;
-        display: inline-block;
+      .lookbutton {
+        color: #8b54e3;
       }
 
-      & > a:nth-child(1) {
-        outline: none;
-        background-color: #fff;
-        width: 101px;
-        height: 30px;
-        line-height: 28px;
-        border: 1px solid $color-border;
-        font-size: 13px;
-        color: $color-border;
-        border-radius: 2px;
-        margin-bottom: 10px;
-        display: inline-block;
+      .lookbutton:hover {
+        background-color: $hover-button;
+        color: #fff;
+      }
 
-        button {
-          color: $color-border;
-        }
+      .detail-table {
+        color: #3d3d40;
+        margin-top: 10px;
+      }
+
+      .detail-table:hover {
+        color: #868686;
       }
     }
   }
@@ -5879,11 +5843,15 @@ select:disabled {
 
   .school-apply-pairbut {
     width: 174px;
-    background: $color-button;
+    background-color: $color-button;
     color: #fff;
     font-size: 16px;
     text-align: center;
     height: 60px;
+  }
+
+  .school-apply-pairbut:hover {
+    background-color: $hover-button;
   }
 
   .school-apply-pairsub {
@@ -5946,12 +5914,16 @@ select:disabled {
   width: 70px;
   height: 34px;
   line-height: 34px;
-  color: #fff;
+  color: #3d3d40;
   font-size: 13px;
   text-align: center;
-  background-color: #c6c6c6;
+  background-color: #e9e9e9;
   border-radius: 3px;
   margin-left: 5px;
+}
+
+.school-apply-share-share:hover {
+  background-color: $hover-share-but;
 }
 
 .add-reads {
@@ -6412,11 +6384,33 @@ select:disabled {
   .school-apply-pair-share .add-reads {
     padding-right: 34px;
 
-    & > a:nth-child(1) button {
-      background: #fff;
+    a {
+      display: inline-block;
+    }
+
+    .school-teach-sub {
+      background-color: #fff;
       border: 1px solid $color-border;
       color: $color-border;
       line-height: 31px;
+      outline: none !important;
+      width: 100px;
+      height: 34px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      span {
+        font-size: 13px;
+        margin-top: 1px;
+        margin-right: 6px;
+      }
+      box-shadow: none;
+      border-radius: 3px;
+    }
+    .school-teach-sub:hover{
+      background-color: $hover-button;
+      color: #fff;
+      border: none;
     }
   }
 
@@ -9468,9 +9462,11 @@ select:disabled {
   }
 }
 // 项目表格
-.project-list-table-co{
+
+.project-list-table-co {
   padding: 20px 0 0;
 }
+
 .project-list-table {
   vertical-align: middle !important;
   border-spacing: 0;
@@ -9522,7 +9518,7 @@ select:disabled {
     }
 
     td .detail-table:hover {
-      background-color: $hover-share;
+      color: #868686;
     }
   }
 
@@ -9600,7 +9596,54 @@ select:disabled {
   }
 }
 
+.apply-child-table {
+  .pretty {
+    margin: 20px 20px 0 0;
+    z-index: 0;
+  }
+
+  .apply-child-content {
+    p:nth-child(1) {
+      span:nth-child(1) {
+        font-size: 16px;
+        color: #2a2a2c;
+        font-weight: 600;
+        margin-right: 10px;
+      }
+
+      span:nth-child(2) {
+        font-size: 13px;
+        color: #3d3d40;
+        font-weight: 600;
+        margin-right: 10px;
+      }
+    }
+
+    p:nth-child(2) {
+      font-size: 14px;
+      color: #3d3d40;
+      font-weight: 400;
+    }
+  }
+}
+
+.detail-table {
+  background-color: #fff;
+  width: 101px;
+  height: 30px;
+  line-height: 28px;
+  border: 1px solid #fff;
+  font-size: 13px;
+  color: #3d3d40;
+  border-radius: 2px;
+  display: inline-block;
+}
+
 .lookapply:hover {
+  background-color: $hover-share;
+}
+
+.detail-table :hover {
   background-color: $hover-share;
 }
 
