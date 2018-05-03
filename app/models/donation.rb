@@ -52,7 +52,7 @@ class Donation < ApplicationRecord
 
   # 生成收入
   def gen_income_record
-    IncomeRecord.create(donation: self, agent: self.agent, fund: self.project.fund, amount: self.amount, balance: self.amount, donor: self.donor, promoter_id: self.promoter_id, income_time: Time.now, title: self.title)
+    IncomeRecord.create(donation: self, agent: self.agent, fund: self.project.try(:fund), amount: self.amount, balance: self.amount, donor: self.donor, promoter_id: self.promoter_id, income_time: Time.now, title: self.title)
   end
 
   # 返回微信支付js
