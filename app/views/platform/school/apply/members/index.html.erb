@@ -21,6 +21,60 @@
       </ul>
 
     </div>
+    <div class="project-list-table-co">
+      <table class="project-list-table" >
+        <thead>
+          <tr>
+            <th scope="col" class="table-tit-1">成员信息</th>
+            <th scope="col" class="table-tit-2">身份</th>
+            <th scope="col" class="table-tit-3">申请状态</th>
+            <% if params[:state] == 'reject' %>
+            <th scope="col" class="table-tit-3">驳回理由</th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+        <% @members.each do |member| %>
+            <tr class="notable">
+              <td colspan="3"></td>
+            </tr>
+            <tr >
+              <td colspan="3" class="apply-title-tables">
+                <p>申请时间：<%= camp.created_at.strftime("%Y-%m-%d %H:%M")%> <span>申请编号：<%= camp.apply.try(:apply_no) %></span></p>
+              </td>
+            </tr>
+            <tr class="school-apply-pair-table-cont ">
+              <th style="padding: 20px;">
+                <div>
+                  <p>
+                    <span><%= member.name %></span>
+                    <span><%= member.age %>岁 | <%= member.enum_name(:gender) %></span>
+                  </p>
+                  <p><%= member.school.name %> <%= member.enum_name(:level) %> <%= member.enum_name(:grade) %></p>
+
+                </div>
+              </th>
+              <td class="apply-tables-2 ">
+                <p>
+                    <%= member.enum_name(:kind) %>
+                </p>
+              </td>
+              <td>
+                  <p><%= member.enum_name(:state) %></p>
+              </td>
+              <td>
+                <% if params[:state] == 'reject' %>
+                    <div class="border-l pull-left">
+                      <p class="read-more" data-toggle="tooltip" data-placement="left" title="<%= member.audits.last.try(:comment) %>" style="padding: 0 14px;"><%= member.audits.last.comment %></p>
+                    </div>
+                <% end %>
+              </td>
+            </tr>
+            <% end %>
+        </tbody>
+      </table>
+    </div>
+
     <div class="school-apply-pair-table-co">
       <div class="school-apply-pair-table clearfix">
         <p class="pull-left">成员信息</p>

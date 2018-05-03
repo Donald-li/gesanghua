@@ -21,7 +21,7 @@
 
             <div class="add-reads">
               <%= link_to new_platform_school_apply_camp_member_path(@apply_camp, kind: 'teacher') do %>
-              <button class=" school-apply-share-sub cur">
+              <button class=" school-teach-sub cur">
                 <span class="iconfont icon-ico-add1"></span>
                 <span>新增老师</span>
               </button>
@@ -51,9 +51,7 @@
                     <input type="checkbox" value="<%= member.id %>"/>
                     <label><i class="mdi mdi-check"></i></label>
                   </div>
-                  <div class="pull-left">
-                  </div>
-                  <div class="pull-left">
+                  <div class="pull-left" >
                     <p>
                       <span><%= member.name %></span>
                       <span><%= member.age %>岁 | <%= member.enum_name(:gender) %></span>
@@ -63,10 +61,10 @@
 
                 </div>
 
-                <div class=" border-r border-l" >
+                <div class=" border-r border-l" style="height: 90px;">
                   <%= member.enum_name(:kind) %>
                 </div>
-                <div class=" border-r">
+                <div class=" border-r" style="height: 90px;">
                   <% if member.student? %>
                   <button class="lookapply" onclick="setMemberReason(<%= member.id %>, '<%= member.reason %>')">填写推荐理由</button>
                   <% end %>
@@ -75,7 +73,7 @@
                   <%= link_to edit_platform_school_apply_camp_member_path(@apply_camp, member, kind: member.kind), class:'lookbutton' do  %>
                   修改
                   <% end %>
-                  <%= link_to platform_school_apply_camp_member_path(@apply_camp, member), method: :delete, data: {confirm: '确定要删除成员信息吗？'} do %>
+                  <%= link_to platform_school_apply_camp_member_path(@apply_camp, member), method: :delete, data: {confirm: '确定要删除成员信息吗？'},class:'detail-table' do %>
                   删除
                   <% end %>
                 </div>
