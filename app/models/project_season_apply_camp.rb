@@ -53,6 +53,7 @@ class ProjectSeasonApplyCamp < ApplicationRecord
     Jbuilder.new do |json|
       json.(self, :id, :execute_state, :student_number, :teacher_number)
       json.name self.apply.try(:apply_name)
+      json.school_name self.school.try(:name)
     end.attributes!
   end
 

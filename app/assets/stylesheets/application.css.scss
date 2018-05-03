@@ -28,11 +28,9 @@
 //主标题
 $color-theme: #2a2a2c; //副标题及段落文字
 $color-subtitle: #3d3d40; //提示
-$color-section: #8d8d8d;
-//主色
+$color-section: #8d8d8d; //主色
 $color-info: #d632aa; //主色
-$color-border: #8b54e3;
-//渐变
+$color-border: #8b54e3; //渐变
 $color-button: #8b54e3; //边框
 $border: #e6e6e6; //button hover
 $hover-button: #9750f5;
@@ -2613,7 +2611,7 @@ select:disabled {
     .person-body-right {
       width: 900px;
       border: 1px solid $border;
-      padding: 10px 34px 20px;
+      padding: 10px 34px 34px 34px;
       background-color: #fff;
 
       .project-foot {
@@ -5370,7 +5368,7 @@ select:disabled {
 
       .lookapply {
         outline: none;
-        background-color: #f4f4f4;
+        background-color: #eaeaea;
         width: 101px;
         height: 30px;
         line-height: 28px;
@@ -5400,7 +5398,7 @@ select:disabled {
 
 .lookapply {
   outline: none;
-  background-color: #f4f4f4;
+  background-color: #eaeaea;
   width: 101px;
   height: 30px;
   line-height: 28px;
@@ -5428,6 +5426,7 @@ select:disabled {
 .school-apply-pair-f {
   font-size: 13px;
   color: #3d3d40;
+  font-weight: 400;
 }
 
 .school-apply-pair-child {
@@ -5989,6 +5988,10 @@ select:disabled {
     margin-top: 1px;
     margin-right: 6px;
   }
+}
+
+.school-apply-share-sub:hover {
+  background-color: $hover-button;
 }
 
 .overspread-5 {
@@ -9253,7 +9256,8 @@ select:disabled {
   font-size: 14px;
   color: #3d3d40;
   line-height: 30px;
-  img{
+
+  img {
     width: auto!important;
     height: auto!important;
   }
@@ -9292,10 +9296,12 @@ select:disabled {
       text-align: center;
       font-size: 15px;
       font-weight: 400;
-      tr:nth-child(n){
+
+      tr:nth-child(n) {
         background-color: #ffffff;
       }
-      tr:nth-child(2n){
+
+      tr:nth-child(2n) {
         background-color: #f8f8f8;
       }
 
@@ -9462,7 +9468,9 @@ select:disabled {
   }
 }
 // 项目表格
-
+.project-list-table-co{
+  padding: 20px 0 0;
+}
 .project-list-table {
   vertical-align: middle !important;
   border-spacing: 0;
@@ -9490,10 +9498,8 @@ select:disabled {
 
       .lookbutton {
         color: $color-border;
-      }
-
-      .lookbutton :hover {
-        background-color: $hover-button;
+        background-color: #fff;
+        margin-bottom: 10px;
       }
 
       .detail-table {
@@ -9505,9 +9511,18 @@ select:disabled {
         font-size: 13px;
         color: #3d3d40;
         border-radius: 2px;
-        margin-bottom: 10px;
         display: inline-block;
       }
+    }
+
+    td .lookbutton:hover {
+      background-color: $hover-button;
+      color: #fff;
+      barder: none;
+    }
+
+    td .detail-table:hover {
+      background-color: $hover-share;
     }
   }
 
@@ -9564,6 +9579,25 @@ select:disabled {
     padding: 4px 0;
     background-color: #f5f5f5;
   }
+
+  .apply-tables-2 {
+    padding: 24px 0;
+    font-size: 13px;
+    color: #8d8d8d;
+  }
+
+  .apply-title-tables {
+    border: 1px solid $border;
+    font-size: 13px;
+    color: #8d8d8d;
+    background-color: #f5f5f5;
+    padding: 4px 0 4px 16px;
+    text-align: left;
+
+    span {
+      margin-left: 30px;
+    }
+  }
 }
 
 .lookapply:hover {
@@ -9572,4 +9606,5 @@ select:disabled {
 
 .lookbutton :hover {
   background-color: $hover-button;
+  color: #fff;
 }

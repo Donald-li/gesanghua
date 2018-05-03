@@ -25,6 +25,7 @@
 #  kind                          :integer                                # 捐助方式 1:捐款 2:配捐
 #  project_season_apply_child_id :integer                                # 一对一孩子
 #  state                         :integer                                # 状态
+#  school_id                     :integer                                # 学校id
 #
 
 # 捐助记录
@@ -44,12 +45,14 @@ class DonateRecord < ApplicationRecord
   belongs_to :team, optional: true
   belongs_to :income_record, optional: true
   belongs_to :gsh_child, class_name: 'GshChild', optional: true
+  belongs_to :school, optional: true
 
   has_one :account_records
 
   counter_culture :project, column_name: :total_amount, delta_magnitude: proc {|model| model.amount }
   counter_culture :team, column_name: :total_donate_amount, delta_magnitude: proc {|model| model.amount }
   counter_culture :promoter, column_name: :promoter_amount_count, delta_magnitude: proc {|model| model.amount }
+  counter_culture :school, column_name: :total_amount, delta_magnitude: proc {|model| model.amount }
 
   belongs_to :source, polymorphic: true
   belongs_to :owner, polymorphic: true
@@ -118,16 +121,28 @@ class DonateRecord < ApplicationRecord
       end
       donate_records = []
 
+      if owner.class.name == 'GshChildGrant'
+        school = owner.apply_child.school
+      elsif owner.class.name == 'ProjectSeasonApplyBookshelf'
+        school = owner.apply.school
+      elsif owner.class.name == 'ProjectSeasonApply'
+        school = owner.school
+      elsif owner.class.name == 'ProjectSeasonApplyChild'
+        school = owner.school
+      else
+        school = nil
+      end
+
       # 如果捐到申请子项 （书架，孩子，指定）和具体的捐助项
       if owner.class.name.in?(['DonateItem', 'CampaignEnlist', 'GshChildGrant', 'ProjectSeasonApplyBookshelf'])
-        donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, income_record_id: income_record_id, donation_id: donation_id, agent: params[:agent], donor: params[:donor])
+        donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, income_record_id: income_record_id, donation_id: donation_id, agent: params[:agent], donor: params[:donor], school: school)
         owner.accept_donate(donate_records)
 
       # 如果是捐到申请（物资类项目，子项）
       elsif owner.class.name.in?(['ProjectSeasonApply', 'ProjectSeasonApplyChild'])
         # 物资或拓展营
         if owner.project.goods? || owner.project == Project.camp_project
-          donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, income_record_id: income_record_id, donation_id: donation_id, agent: params[:agent], donor: params[:donor])
+          donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, income_record_id: income_record_id, donation_id: donation_id, agent: params[:agent], donor: params[:donor], school: school)
           owner.accept_donate(donate_records)
         else
           # 如果是捐到申请（书架孩子，没选择子项）
@@ -137,7 +152,7 @@ class DonateRecord < ApplicationRecord
             owner.get_donate_items.each do |item|
               remain_amount = amount - donate_records.sum{|r| r.amount}
               if remain_amount >= item.surplus_money
-                donate_records << self.create!(source: source, kind: kind, owner: item, amount: item.surplus_money, income_record_id: income_record_id, donation_id: donation_id, agent: params[:agent], donor: params[:donor])
+                donate_records << self.create!(source: source, kind: kind, owner: item, amount: item.surplus_money, income_record_id: income_record_id, donation_id: donation_id, agent: params[:agent], donor: params[:donor], school: school)
                 item.accept_donate(donate_records)
               end
             end
@@ -146,7 +161,7 @@ class DonateRecord < ApplicationRecord
               remain_amount = amount - donate_records.sum{|r| r.amount}
               if remain_amount > 0
                 donate_amount = [item.surplus_money, remain_amount].min
-                donate_records << self.create!(source: source, kind: kind, owner: item, amount: donate_amount, income_record_id: income_record_id, donation_id: donation_id, agent: params[:agent], donor: params[:donor])
+                donate_records << self.create!(source: source, kind: kind, owner: item, amount: donate_amount, income_record_id: income_record_id, donation_id: donation_id, agent: params[:agent], donor: params[:donor], school: school)
                 item.accept_donate(donate_records)
               end
             end

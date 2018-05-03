@@ -4,33 +4,46 @@
     <%= render '/layouts/shared/platform_school_projects' %>
 
     <% if @applies.present? %>
-        <div class="school-apply-pair-table-co">
-          <div class="school-apply-pair-table clearfix">
-            <p class="pull-left">申请项目名称</p>
-            <p class="pull-left">申请状态</p>
-            <p class="pull-left">操作</p>
-          </div>
+    <div class="project-list-table-co">
+      <table class="project-list-table" >
+        <thead>
+          <tr>
+            <th scope="col" class="table-tit-1">申请项目名称</th>
+            <th scope="col" class="table-tit-2">申请状态</th>
+            <th scope="col" class="table-tit-3">操作</th>
+          </tr>
+        </thead>
+        <tbody>
           <% @applies.each do |apply| %>
-              <div class="school-apply-pair-tables">
+            <tr class="notable">
+              <td colspan="3"></td>
+            </tr>
+            <tr >
+              <td colspan="3" class="apply-title-tables">
                 <p>申请时间：<%= apply.created_at.strftime("%Y-%m-%d %H:%M") %> <span>申请编号：<%= apply.apply_no %></span></p>
-                <div class="school-apply-pair-table-cont clearfix">
-                  <div class="pull-left">
-                    <p class="school-apply-pair-tit"><%= apply.apply_name %></p>
-                    <p class="school-apply-pair-f">申请人：<%= apply.contact_name %></p>
-                  </div>
-                  <div class="border-l border-r pull-left">
-                    <p class="read-more" data-toggle="tooltip" data-placement="top" title="<%= apply.audits.last.try(:comment) if apply.reject? %>" style="padding: 0 14px;"><%= apply.apply_state %></p>
-                  </div>
-                  <div class="pull-left">
-                    <%= link_to '查看申请详情', platform_school_apply_movie_care_path(apply), class:'lookapply' %>
-                    <% if apply.reject? %>
-                  <%= link_to '修改申请', edit_platform_school_apply_movie_care_path(apply), class:'lookbutton' %>
-                    <% end %>
-                  </div>
+              </td>
+            </tr>
+            <tr class="school-apply-pair-table-cont ">
+              <th style="padding: 20px;">
+                <div>
+                  <p class="school-apply-pair-tit"><%= apply.apply_name %></p>
+                  <p class="school-apply-pair-f">申请人：<%= apply.contact_name %></p>
                 </div>
-              </div>
-          <% end %>
-        </div>
+              </th>
+              <td class="apply-tables-2 ">
+              <p class="read-more" data-toggle="tooltip" data-placement="top" title="<%= apply.audits.last.try(:comment) if apply.reject? %>" style="padding: 0 14px;"><%= apply.apply_state %></p>
+              </td>
+              <td>
+                <%= link_to '查看申请详情', platform_school_apply_movie_care_path(apply), class:'lookapply' %>
+                <% if apply.reject? %>
+              <%= link_to '修改申请', edit_platform_school_apply_movie_care_path(apply), class:'lookbutton' %>
+                <% end %>
+              </td>
+            </tr>
+            <% end %>
+        </tbody>
+      </table>
+    </div>
     <% else %>
         <div class="donation-cont-non">
           <div class="donation-co-no-c">

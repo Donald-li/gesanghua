@@ -23,29 +23,38 @@
     </div>
   </div>
 </div> -->
+
 <div class="person-body-right pull-right">
-  <div class="school-apply-pair-table-co">
-    <div class="school-apply-pair-table clearfix">
-      <p class="pull-left">班级名称</p>
-      <p class="pull-left">状态</p>
-      <p class="pull-left">操作</p>
-    </div>
-    <% @bookshelves.each do |bookshelf| %>
-        <div class="school-apply-pair-tables">
-          <div class="school-apply-pair-table-cont clearfix">
-            <div class="pull-left">
-              <p class="school-apply-pair-tit"><%= bookshelf.classname %></p>
-               <p class="school-apply-pair-f">图书角编号：<%= bookshelf.bookshelf_no %></p>
-              <% if bookshelf.raising? %>
-                <p class="school-apply-pair-f">目标筹款/累计：<%= bookshelf.target_amount %>元/<%= bookshelf.present_amount %>元</p>
-              <% else %>
-                <p class="school-apply-pair-f">筹款总额：<%= bookshelf.target_amount %>元</p>
-              <% end %>
-            </div>
-            <div class="border-l border-r pull-left">
-              <%= bookshelf.enum_name(:state) %>
-            </div>
-            <div class="pull-left">
+  <div class="project-list-table-co">
+    <table class="project-list-table" >
+      <thead>
+        <tr>
+          <th scope="col" class="table-tit-1">班级名称</th>
+          <th scope="col" class="table-tit-2">状态</th>
+          <th scope="col" class="table-tit-3">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+            <% @bookshelves.each do |bookshelf| %>
+          <tr class="notable">
+            <td colspan="3"></td>
+          </tr>
+          <tr class="school-apply-pair-table-cont ">
+            <th style="padding: 20px;">
+              <div>
+                <p class="school-apply-pair-tit"><%= bookshelf.classname %></p>
+                 <p class="school-apply-pair-f">图书角编号：<%= bookshelf.bookshelf_no %></p>
+                <% if bookshelf.raising? %>
+                  <p class="school-apply-pair-f">目标筹款/累计：<%= bookshelf.target_amount %>元/<%= bookshelf.present_amount %>元</p>
+                <% else %>
+                  <p class="school-apply-pair-f">筹款总额：<%= bookshelf.target_amount %>元</p>
+                <% end %>
+              </div>
+            </th>
+            <td class="apply-tables-2 ">
+    <%= bookshelf.enum_name(:state) %>
+            </td>
+            <td>
               <% if bookshelf.to_receive? %>
               <%= link_to '查看物流', bookshelf.logistic.qurey_result, target: 'new', class:'lookapply' %>
              <%= link_to '确认收货', new_platform_school_apply_receive_feedback_path(bookshelf_id: bookshelf.id), class:'lookbutton' %>
@@ -53,10 +62,11 @@
               <% if bookshelf.to_feedback? %>
               <%= link_to '安装/发放反馈', new_platform_school_apply_install_feedback_path(bookshelf_id: bookshelf.id), class:'lookbutton' %>
               <% end %>
-            </div>
-          </div>
-        </div>
-    <% end %>
+            </td>
+          </tr>
+          <% end %>
+      </tbody>
+    </table>
   </div>
 </div>
 <script>
