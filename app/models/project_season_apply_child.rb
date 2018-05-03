@@ -315,7 +315,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   # 用户捐助的学期
   def donate_grants_by_user(user)
     grant_ids = user.donate_records.where(owner_type: 'GshChildGrant', owner_id: self.gsh_child_grant_ids).pluck(:owner_id)
-    self.gsh_child_grants.where(id: grant_ids)
+    self.gsh_child_grants.sorted.where(id: grant_ids)
   end
 
   def summary_builder(user=nil)

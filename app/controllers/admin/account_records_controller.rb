@@ -1,4 +1,5 @@
 class Admin::AccountRecordsController < Admin::BaseController
+  before_action :auth_manage_operation
   before_action :set_user
   before_action :set_account_record, only: [:destroy]
 

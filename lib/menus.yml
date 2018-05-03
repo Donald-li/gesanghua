@@ -210,6 +210,9 @@ admin:
             admin_pair_reports:
               actions:
                 'admin/pair_reports': all
+            admin_pair_thank_notes:
+              actions:
+                'admin/pair_thank_notes': all
             admin_pair_continual_feedbacks:
               actions:
                 'admin/pair_continual_feedbacks': all
