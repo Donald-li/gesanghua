@@ -95,7 +95,7 @@ namespace :admin do
   resources :pair_seasons, concerns: [:switch]
   resources :pair_donate_records, only: [:index, :show]
   resources :pair_applies do
-    resources :pair_students, concerns: [:remarks, :check] do
+    resources :pair_students, concerns: [:check] do
       member do
         patch :update_audit
       end
@@ -107,7 +107,7 @@ namespace :admin do
   resources :pair_continual_feedbacks, concerns: [:recommend]
   resources :pair_thank_notes
   resources :home_visits, only: [:index, :show]
-  resources :pair_student_lists, concerns: [:switch, :remarks, :share, :qrcode_download] do
+  resources :pair_student_lists, concerns: [:switch, :share, :qrcode_download] do
     resources :student_grants do
       collection do
         get :match
