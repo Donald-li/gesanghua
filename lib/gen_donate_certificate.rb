@@ -20,12 +20,11 @@ class GenDonateCertificate
       end
 
       content1 ="　　感谢您为支持格桑花西部助学慷慨捐赠"
-      amount = "#{number_to_currency record.amount}"
-      content2 ="元。谨代表受助学生向您表示最崇高的敬意和衷心的感谢！\n　　特颁此证，以资纪念。"
+      amount = "#{number_to_currency record.amount}元"
+      content2 ="。谨代表受助学生向您表示最崇高的敬意和衷心的感谢！\n　　特颁此证，以资纪念。"
       render_text(source, 60, 300, content1)
 
-      length = 0
-      amount.each_char { |chr| length += (chr.ord < 129 ? 1 : 2);length += 12 }
+      length = (amount.length + 1) * 11
       render_text(source, 60, 340, amount) do |c|
         c.pointsize '22'
         c.fill '#d22ca4'
@@ -55,7 +54,7 @@ class GenDonateCertificate
   def self.format_text(text)
     text.gsub("\r\n", "\n").each_line.map do |line|
       str = ""; index = 1
-      line.each_char { |chr| str << chr; index += (chr.ord < 129 ? 1 : 2); str << "\n" and index = 1 if index > 36 }
+      line.each_char { |chr| str << chr; index += (chr.ord < 129 ? 1 : 2); str << "\n" and index = 1 if index > 37 }
       str
     end.join
   end
