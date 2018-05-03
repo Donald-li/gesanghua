@@ -17,6 +17,22 @@ class Admin::TaskAppliesController < Admin::BaseController
       state = task_apply_params[:state] == 'pass' ? 'pass' : 'reject'
       if @task_apply.update(state: state, approve_time: Time.now)
         @task_apply.audits.create(state: state, user_id: current_user.id, comment: params[:approve_remark])
+
+        owner = @task_apply
+        if state == 'pass'
+          title = "#任务申请# 审核已通过"
+          content = "任务：#{@task_apply.task.try(:name)}申请已经审核通过。 "
+        else
+          title = "#任务申请# 审核未通过"
+          content = "任务：#{@task_apply.task.try(:name)}申请审核未通过 未通过理由: #{params[:approve_remark]}"
+        end
+        notice = Notification.create(
+            owner: owner,
+            user_id: owner.volunteer.user_id,
+            title: title,
+            content: content
+        )
+
         format.html { redirect_to admin_task_task_applies_path(@task), notice: '审核成功。' }
       else
         format.html { render :edit }
