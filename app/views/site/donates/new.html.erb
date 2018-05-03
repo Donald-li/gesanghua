@@ -17,10 +17,12 @@
         <div class="donations-1" >
           <ul class="donations1 clearfix">
             <% @donate_itmes.each do |d| %>
-            <li class="<%= item_id.to_s == d.id.to_s ? 'selectedDo' : '' %> cur donate-item-cur" data-describe="<%= d.describe %>" data-donate-item-id="<%= d.id %>"><%= d.name %></li>
+            <li class="<%= item_id.to_s == d.id.to_s ? 'selectedDo' : '' %> cur donate-item-cur" data-describe="<%= d.describe %>" data-donate-item-id="<%= d.id %>"><span><%= d.name %></span>
+              <div class=""></div>
+            </li>
             <% end %>
           </ul>
-          <div class="bottomline"></div>
+
         </div>
         <p class="donates-c-l-t" id="donate-item-describe"><%= @donate_itmes.detect{|i| i.id.to_s == item_id.to_s}.try(:describe) %></p>
       </div>
@@ -140,12 +142,16 @@
     //     模态窗
 //    $('#myModal').on('shown.bs.modal', function (e) {}).modal();
     // $('#myModaldonation').on('shown.bs.modal', function (e) {}).modal();
-
+$(function () {
+  $('.selectedDo > div').addClass('bottomline')
+  $('.selectedDo > span').width
+})
     //     右tab切换二级
     $(".donations1 li").on("click", function () {
         $(".donations1 li").removeClass("selectedDo")
+        $(".donations1 li>div").removeClass("bottomline")
         $(this).addClass("selectedDo")
-        $(".bottomline").css("left", parseFloat($(this)[0].offsetLeft) -10 +  "px")
+        $('.selectedDo > div').addClass('bottomline')
     })
     $('.ui-choose').ui_choose();
     $("#benefactor").select2({

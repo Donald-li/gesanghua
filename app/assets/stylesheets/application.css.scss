@@ -1152,6 +1152,7 @@ select:disabled {
   margin: 50px auto;
   border-radius: 20px;
   border: 1px solid $color-subtitle;
+  overflow:hidden;
 }
 
 .gsh-img {
@@ -4523,16 +4524,7 @@ select:disabled {
     border-bottom: 1px solid #e6e6e6;
     margin-bottom: 20px;
 
-    .bottomline {
-      position: absolute;
-      left: 0;
-      bottom: -1px;
-      width: 60px;
-      height: 3px;
-      background: $color-button;
-      border-radius: 20px;
-      transition: all 0.3s ease;
-    }
+
   }
 
   .donations1 {
@@ -4545,6 +4537,20 @@ select:disabled {
       text-align: left;
       font-weight: 400;
       padding-right: 40px;
+      position: relative;
+      .bottomline {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        right:0;
+        top:0;
+        margin: 27px 0 0 0;
+        width: 40px;
+        height: 3px;
+        background: $color-button;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+      }
     }
 
     .selectedDo {
@@ -4557,6 +4563,9 @@ select:disabled {
   font-size: 16px;
   color: #2a2a2c;
   font-weight: 600;
+  .donations1 li{
+    position: relative;
+  }
 }
 
 .donates-c-l-co {
@@ -9444,6 +9453,10 @@ select:disabled {
     .school-apply-share-share {
       background-color: $color-info;
       margin-left: 10px;
+      color: #fff;
+    }
+    .school-apply-share-share:hover{
+      background-color: #ca279e;
     }
   }
 
