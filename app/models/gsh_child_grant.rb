@@ -65,6 +65,7 @@ class GshChildGrant < ApplicationRecord
 
   scope :sorted, ->(){ order(id: :asc) }
   scope :reverse_sorted, ->{ sorted.reverse_order }
+  scope :visible, -> { where(donate_state: [:pending, :succeed]) }
 
   counter_culture :gsh_child, column_name: "semester_count"
   counter_culture :gsh_child, column_name: proc {|model| model.succeed? ? 'done_semester_count' : nil }

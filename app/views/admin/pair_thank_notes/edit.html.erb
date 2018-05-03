@@ -1,0 +1,45 @@
+<div class="portlet light bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-icon"></i>
+      <span class="caption-subject">修改反馈</span>
+    </div>
+    <div class="actions">
+      <div class="portlet-input input-inline input-small">
+        <div class="input-icon right">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body form">
+    <%= simple_form_for [:admin, @note], url: admin_pair_thank_note_path, method: :patch, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'continual_form'} do |f| %>
+      <%= f.error_notification %>
+      <div class="form-body form-horizontal">
+        <%= static_form_control '反馈学生', @note.child.try(:name) %>
+        <%= static_form_control '捐助人', @note.grant.try(:donator).try(:name) %>
+        <%= static_form_control '反馈时间', ( l @note.created_at) %>
+        <%= f.input :content, input_html: { data: {'parsley-required': true}}, label: '反馈内容：', required: true  %>
+        <div class="form-group">
+          <label class="col-md-2 control-label">反馈图片(最多9张)：</label>
+          <div class="col-sm-9">
+            <%= webuploader_tag 'image_ids[]', label: '上传图片', type: 'feedback_image', asset: @note.images %>
+          </div>
+        </div>
+      </div>
+      <div class="form-actions">
+        <div class="row">
+          <div class="col-md-offset-2 col-md-9">
+            <%= f.button :submit, '提交', class: 'btn blue' %>
+            <%= link_to '取消', admin_pair_thank_notes_path, class: 'btn' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<script type="text/javascript">
+    $(function(){
+        initMultiImageWebuploader('.upload-wrap', null, 9);
+        $('.upload-list').viewer();
+    })
+</script>
