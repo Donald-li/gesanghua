@@ -20,13 +20,13 @@
 #  task_category_id :integer                                # 任务分类ID
 #  workplace_id     :integer                                # 工作地点ID
 #  apply_end_at     :datetime                               # 申请结束时间
-#  principal_id     :integer                                # 任务负责人
 #  task_no          :string                                 # 任务编号
 #  ordinary_flag    :boolean          default(FALSE)        # 日常
 #  intensive_flag   :boolean          default(FALSE)        # 重点
 #  urgency_flag     :boolean          default(FALSE)        # 紧急
 #  innovative_flag  :boolean          default(FALSE)        # 创新
 #  difficult_flag   :boolean          default(FALSE)        # 难点
+#  principal        :string                                 # 任务负责人
 #
 
 # 志愿者任务
@@ -37,7 +37,6 @@ class Task < ApplicationRecord
   # has :major, optional: true
   belongs_to :task_category
   belongs_to :workplace
-  belongs_to :principal, class_name: 'User', foreign_key: 'principal_id'
 
   has_many :task_volunteers, dependent: :destroy
   has_many :volunteers, through: :task_volunteers
@@ -81,9 +80,7 @@ class Task < ApplicationRecord
     Jbuilder.new do |json|
       json.(self, :id, :name, :num, :duration, :content, :ordinary_flag, :intensive_flag, :urgency_flag, :innovative_flag, :difficult_flag)
       json.location self.workplace.try(:title)
-      json.principal self.principal.try(:name)
-      json.avatar_mode self.principal.try(:user_avatar).present?
-      json.avatar_url self.principal.try(:user_avatar)
+      json.principal self.principal
       json.category self.task_category.try(:name)
       json.start_time self.start_time.strftime("%Y-%m-%d %H:%M")
       json.end_time self.end_time.strftime("%Y-%m-%d %H:%M")
