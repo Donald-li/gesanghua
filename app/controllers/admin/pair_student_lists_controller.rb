@@ -28,7 +28,7 @@ class Admin::PairStudentListsController < Admin::BaseController
 
     respond_to do |format|
       if @pair_student_list.save
-        format.html { redirect_to admin_pair_student_lists_path, notice: '新增成功。' }
+        format.html { redirect_to referer_or(admin_pair_student_lists_path), notice: '新增成功。' }
       else
         format.html { render :new }
       end
@@ -38,7 +38,7 @@ class Admin::PairStudentListsController < Admin::BaseController
   def update
     respond_to do |format|
       if @pair_student_list.update(pair_student_list_params)
-        format.html { redirect_to admin_pair_student_lists_path, notice: '修改成功。' }
+        format.html { redirect_to referer_or(admin_pair_student_lists_path), notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -48,13 +48,13 @@ class Admin::PairStudentListsController < Admin::BaseController
   def destroy
     @pair_student_list.destroy
     respond_to do |format|
-      format.html { redirect_to admin_pair_student_lists_path, notice: '删除成功。' }
+      format.html { redirect_to referer_or(admin_pair_student_lists_path), notice: '删除成功。' }
     end
   end
 
   def switch
     @pair_student_list.show? ? @pair_student_list.hidden! : @pair_student_list.show!
-    redirect_to admin_pair_student_lists_path, notice:  @pair_student_list.show? ? '已开启筹款' : '已关闭筹款'
+    redirect_to referer_or(admin_pair_student_lists_path), notice:  @pair_student_list.show? ? '已开启筹款' : '已关闭筹款'
   end
 
   def remarks
@@ -66,7 +66,7 @@ class Admin::PairStudentListsController < Admin::BaseController
 
   def turn_over
     @pair_student_list.inside? ? @pair_student_list.outside! : @pair_student_list.inside!
-    redirect_to admin_pair_student_lists_path, notice:  @pair_student_list.inside? ? '标记内部认捐成功' : '标记对外捐助成功'
+    redirect_to referer_or(admin_pair_student_lists_path), notice:  @pair_student_list.inside? ? '标记内部认捐成功' : '标记平台可见成功'
   end
 
   def share
