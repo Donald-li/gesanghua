@@ -14,6 +14,7 @@
 #  district      :string                                 # 区/县
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  duty          :string                                 # 职务
 #
 
 require 'rails_helper'

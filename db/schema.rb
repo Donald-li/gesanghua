@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180502103741) do
+ActiveRecord::Schema.define(version: 20180503040510) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -304,6 +304,7 @@ ActiveRecord::Schema.define(version: 20180502103741) do
     t.string "district", comment: "区/县"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "duty", comment: "职务"
   end
 
   create_table "cross_fund_adjustments", force: :cascade do |t|
@@ -348,6 +349,7 @@ ActiveRecord::Schema.define(version: 20180502103741) do
     t.integer "kind", comment: "捐助方式 1:捐款 2:配捐"
     t.integer "project_season_apply_child_id", comment: "一对一孩子"
     t.integer "state", comment: "状态"
+    t.integer "school_id", comment: "学校id"
     t.index ["donation_id"], name: "index_donate_records_on_donation_id"
     t.index ["donor_id"], name: "index_donate_records_on_donor_id"
     t.index ["gsh_child_id"], name: "index_donate_records_on_gsh_child_id"
@@ -870,6 +872,7 @@ ActiveRecord::Schema.define(version: 20180502103741) do
     t.string "family_condition", comment: "家庭情况"
     t.string "brothers", comment: "兄弟姐妹"
     t.string "teacher_phone", comment: "班主任联系方式"
+    t.text "remark", comment: "备注"
   end
 
   create_table "project_season_apply_gooods", force: :cascade, comment: "项目执行年度申请的物品表" do |t|
@@ -1006,6 +1009,7 @@ ActiveRecord::Schema.define(version: 20180502103741) do
     t.integer "logistic_count", comment: "后勤人数"
     t.string "contact_telephone", comment: "联系人座机号码"
     t.integer "creater_id", comment: "申请人ID"
+    t.integer "total_amount", comment: "累计获捐"
   end
 
   create_table "sequences", force: :cascade do |t|

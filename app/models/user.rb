@@ -324,6 +324,7 @@ class User < ApplicationRecord
       json.merge! summary_builder
       json.avatar self.user_avatar
       json.name self.name
+      json.salutation [self.salutation]
       json.gender self.gender == 'male'? ['男'] : ['女']
       json.use_nickname [self.use_nickname]
       json.email self.email

@@ -25,6 +25,7 @@
 #  kind                          :integer                                # 捐助方式 1:捐款 2:配捐
 #  project_season_apply_child_id :integer                                # 一对一孩子
 #  state                         :integer                                # 状态
+#  school_id                     :integer                                # 学校id
 #
 
 require 'rails_helper'

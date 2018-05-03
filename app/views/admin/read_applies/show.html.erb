@@ -6,6 +6,8 @@
     </div>
   </div>
   <div class="portlet-body">
+    <%= simple_form_for [:admin, @project_apply], url: check_admin_read_apply_path, method: :patch, wrapper: :admin_form, html: {id: 'approve-form', 'data-parsley-validate': true} do |f| %>
+        <%= f.error_notification %>
     <div class="table-scrollable">
       <table class="table table-bordered table-hover">
         <tbody>
@@ -83,14 +85,20 @@
               </td>
               <td>班级</td>
               <td>人数</td>
+              <td>是否通过审核</td>
             </tr>
             <tr>
-              <% @project_apply.bookshelves.each do |shelf| %>
-                <tr>
-                  <td><%= shelf.classname %></td>
-                  <td><%= shelf.student_number %></td>
-                </tr>
-            <% end %>
+              <%= f.fields_for :bookshelves, wrapper: 'inline_inputs' do |b| %>
+                <%# @project_apply.bookshelves.each do |shelf| %>
+                  <tr>
+                    <td><%= b.object.classname %></td>
+                    <td><%= b.object.student_number %></td>
+                    <td>
+                      <%= b.input :audit_state, as: :select, wrapper: :inline_inputs, collection: ProjectSeasonApplyBookshelf.options_for_select(:audit_states), label: false, include_blank: false %>
+                    </td>
+                  </tr>
+                <%# end %>
+              <% end %>
             </tr>
         <% else %>
             <tr>
@@ -100,27 +108,30 @@
               <td>班级</td>
               <td>损耗数量</td>
               <td>补书数量</td>
-              <td>筹款金额</td>
-              <td>审核状态</td>
+              <!-- <td>筹款金额</td> -->
+              <td>是否通过审核</td>
             </tr>
             <tr>
-              <% @project_apply.supplements.each do |shelf| %>
+              <%= f.fields_for :supplements, wrapper: 'inline_inputs' do |b| %>
+                <%# @project_apply.supplements.each do |shelf| %>
                 <tr>
-                  <td><%= shelf.bookshelf.classname %></td>
-                  <td><%= shelf.loss %></td>
-                  <td><%= shelf.supply %></td>
-                  <td><%= shelf.target_amount %></td>
-                  <td><%= shelf.enum_name(:audit_state) %></td>
+                  <td><%= b.object.bookshelf.classname %></td>
+                  <td><%= b.object.loss %></td>
+                  <td><%= b.object.supply %></td>
+                  <!-- <td><%#= shelf.target_amount %></td> -->
+                  <td>
+                    <%= b.input :audit_state, as: :select, wrapper: :inline_inputs, collection: BookshelfSupplement.options_for_select(:audit_states), label: false %>
+                  </td>
                 </tr>
-            <% end %>
+                <%# end %>
+              <% end %>
             </tr>
         <% end %>
         </tbody>
       </table>
     </div>
     <div class="portlet-body form">
-      <%= simple_form_for [:admin, @project_apply], url: check_admin_read_apply_path, method: :patch, wrapper: :admin_form, html: {id: 'approve-form', 'data-parsley-validate': true} do |f| %>
-          <%= f.error_notification %>
+
           <div class="form-body form-horizontal">
             <%= f.input :audit_state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApply.options_for_some_select(:audit_states, ['pass', 'reject']), label: '审核状态：', required: true, input_html: {class: 'approve_state', onclick: 'toggleState();'} %>
             <div class="approve_reject">

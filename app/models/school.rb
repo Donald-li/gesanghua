@@ -28,6 +28,7 @@
 #  logistic_count    :integer                                # 后勤人数
 #  contact_telephone :string                                 # 联系人座机号码
 #  creater_id        :integer                                # 申请人ID
+#  total_amount      :integer                                # 累计获捐
 #
 
 # 学校
@@ -51,6 +52,7 @@ class School < ApplicationRecord
   has_many :project_season_applies, dependent: :restrict_with_error
   has_many :gsh_children, dependent: :restrict_with_error
   has_many :audits, as: :owner, dependent: :destroy
+  has_many :donate_records
   belongs_to :user, optional: true # 校长user
   belongs_to :creater, class_name: 'User', foreign_key: :creater_id, optional: true
   has_many :apply_camps, class_name: 'ProjectSeasonApplyCamp', dependent: :restrict_with_error
@@ -144,6 +146,52 @@ class School < ApplicationRecord
     end
   end
 
+  #学校在执行项目数量
+  def school_executing_project_number
+    num = 0
+    Project.all.each do |project|
+      num += self.school_executing_applies(project).count
+    end
+    num
+  end
+
+  #学校已完成项目数量
+  def school_done_project_number
+    num = 0
+    Project.all.each do |project|
+      num += self.school_done_applies(project).count
+    end
+    num
+  end
+
+  def school_executing_applies(project)
+    if project == Project.pair_project
+      ProjectSeasonApply.where(school: self, project: project, pair_state: ['waiting_upload', 'waiting_check'])
+    elsif project == Project.read_project
+      ProjectSeasonApply.where(school: self, project: project, read_state: 'read_executing')
+    elsif project == Project.movie_project || project == Project.movie_care_project
+      ProjectSeasonApply.where(school: self, project: project, audit_state: ['submit', 'reject'])
+    elsif project.goods?
+      ProjectSeasonApply.where(school: self, project: project, execute_state: ['raising', 'to_delivery', 'to_receive', 'to_feedback', 'feedbacked'])
+    elsif project == Project.camp_project
+      ProjectSeasonApplyCamp.where(school: self, execute_state: ['to_submit', 'to_approve'])
+    end
+  end
+
+  def school_done_applies(project)
+    if project == Project.pair_project
+      ProjectSeasonApply.where(school: self, project: project, pair_state: 'pair_complete')
+    elsif project == Project.read_project
+      ProjectSeasonApply.where(school: self, project: project, read_state: 'read_done')
+    elsif project == Project.movie_project || project == Project.movie_care_project
+      ProjectSeasonApply.where(school: self, project: project, audit_state: 'pass')
+    elsif project.goods?
+      ProjectSeasonApply.where(school: self, project: project, execute_state: 'done')
+    elsif project == Project.camp_project
+      ProjectSeasonApplyCamp.where(school: self, execute_state: 'approved')
+    end
+  end
+
   def summary_builder
     Jbuilder.new do |json|
       json.(self, :id, :name)
@@ -187,6 +235,8 @@ class School < ApplicationRecord
         json.id self.try(:certificate_image).try(:id)
         json.url self.certificate_image_url(:small).to_s
       end
+      json.executing_project_number self.school_executing_project_number
+      json.total_amount self.total_amount
     end.attributes!
   end
 
