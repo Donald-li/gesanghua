@@ -23,7 +23,7 @@
       </div>
 
     </div>
-    <div style="width: 777px;">
+    <div>
       <span class="goodtext">选择年级</span>
       <div class="sclectedgrade clearfix">
         <div class="pull-left">
@@ -48,7 +48,7 @@
       <input  class="goodinput " type="text" name="project_season_apply_child[teacher_phone]" value="<%= @child.teacher_phone %>" placeholder="填写班主任联系方式" required data-parsley-phone/>
     </div>
     <div style="height: 172px;width: 777px;">
-      <span class="goodtext">自我介绍</span>
+      <span class="goodtext" style="flex: 0 0 10%;max-width: 10%;width: 10%;">自我介绍</span>
       <textarea name="project_season_apply_child[description]" required><%= @child.description %></textarea>
     </div>
   </div>
@@ -95,11 +95,11 @@
       <span class="income-moy">元/年</span>
     </div>
     <div style="height: 172px;width: 777px;">
-      <span class="goodtext">家庭情况</span>
+      <span class="goodtext"  style="flex: 0 0 10%;max-width: 10%;width: 10%;">家庭情况</span>
       <textarea placeholder="请写明具体家庭情况和贫困原因" name="project_season_apply_child[family_condition]" required><%= @child.family_condition %></textarea>
     </div>
     <div style="height: 172px;width: 777px;">
-      <span class="goodtext">兄弟姐妹</span>
+      <span class="goodtext"  style="flex: 0 0 10%;max-width: 10%;width: 10%;">兄弟姐妹</span>
       <textarea placeholder="请写明具体家中兄弟姐妹的情况" name="project_season_apply_child[brothers]" required><%= @child.brothers %></textarea>
     </div>
   </div>
@@ -142,22 +142,22 @@
 <script>
     $("#allcamps").select2({
         language:'zh-CN',
-        width: "452px",
+        width: "390px",
         minimumResultsForSearch: -1
     });
     $("#level").select2({
         language:'zh-CN',
-        width: "145px",
+        width: "124px",
         minimumResultsForSearch: -1
     });
     $("#grade").select2({
         language:'zh-CN',
-        width: "145px",
+        width: "122px",
         minimumResultsForSearch: -1
     });
     $("#semester").select2({
         language:'zh-CN',
-        width: "142px",
+        width: "123px",
         minimumResultsForSearch: -1
     });
     $(function(){
