@@ -32,7 +32,7 @@
       </div>
       <%= f.input :workplace_id, as: :select, collection: Workplace.sorted.map {|place| [place.title, place.id]}, label: '任务地点：', required: true, input_html: {class: 'task-workplace'} %>
 
-      <%= f.input :principal_id, collection: [@task.principal].compact.map {|u| [u.name, u.id]}, label: '任务负责人：', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
+      <%= f.input :principal, label: '任务负责人：', required: true %>
       <div class="form-group">
         <label class="col-md-2 control-label">任务类型：</label>
         <div class="col-sm-9">
@@ -72,37 +72,5 @@
             language: "zh-CN",
             placeholder: '请选择工作地点'
         })
-
-        $(".user_selector").select2({
-            language: "zh-CN",
-            placeholder: '请选择负责人',
-            allowClear: true,
-            ajax: {
-                url: "/selects/users",
-                dataType: 'json',
-                delay: 250,
-                data: function (params) {
-                    return {
-                        q: params.term, // search term
-                        page: params.page
-                    };
-                },
-                processResults: function (data, params) {
-                    params.page = params.page || 1;
-                    return {
-                        results: $.map(data.items, function (item) {
-                            return {
-                                text: item.name,
-                                id: item.id
-                            }
-                        }),
-                        pagination: {
-                            more: (params.page * 30) < data.total_count
-                        }
-                    };
-                },
-                cache: true
-            }
-        });
     })
 </script>
