@@ -28,9 +28,11 @@
 //主标题
 $color-theme: #2a2a2c; //副标题及段落文字
 $color-subtitle: #3d3d40; //提示
-$color-section: #8d8d8d; //主色
+$color-section: #8d8d8d;
+//主色
 $color-info: #d632aa; //主色
-$color-border: #8b54e3; //渐变
+$color-border: #8b54e3;
+//渐变
 $color-button: #8b54e3; //边框
 $border: #e6e6e6; //button hover
 $hover-button: #9750f5;
@@ -5395,6 +5397,7 @@ select:disabled {
     }
   }
 }
+
 .lookapply {
   outline: none;
   background-color: #f4f4f4;
@@ -5421,6 +5424,7 @@ select:disabled {
   border-radius: 2px;
   display: inline-block;
 }
+
 .school-apply-pair-f {
   font-size: 13px;
   color: #3d3d40;
@@ -8774,7 +8778,7 @@ select:disabled {
     line-height: 34px;
     color: #fff;
     background: $color-button;
-    box-shadow: 0 2px 7px 2px #d632aa4d;
+    box-shadow: 0 2px 7px 2px #8a53e354;
     border-radius: 20px;
     //float: left;
   }
@@ -9249,6 +9253,10 @@ select:disabled {
   font-size: 14px;
   color: #3d3d40;
   line-height: 30px;
+  img{
+    width: auto!important;
+    height: auto!important;
+  }
 }
 
 .crumbs {
@@ -9284,6 +9292,12 @@ select:disabled {
       text-align: center;
       font-size: 15px;
       font-weight: 400;
+      tr:nth-child(n){
+        background-color: #ffffff;
+      }
+      tr:nth-child(2n){
+        background-color: #f8f8f8;
+      }
 
       th {
         text-align: center;
@@ -9473,20 +9487,26 @@ select:disabled {
     td {
       text-align: center;
       border: 1px solid $border;
+
       .lookbutton {
         color: $color-border;
       }
-      .detail-table{
-background-color: #fff;
-width: 101px;
-height: 30px;
-line-height: 28px;
-border: 1px solid #fff;
-font-size: 13px;
-color: #3d3d40;
-border-radius: 2px;
-margin-bottom: 10px;
-display: inline-block;
+
+      .lookbutton :hover {
+        background-color: $hover-button;
+      }
+
+      .detail-table {
+        background-color: #fff;
+        width: 101px;
+        height: 30px;
+        line-height: 28px;
+        border: 1px solid #fff;
+        font-size: 13px;
+        color: #3d3d40;
+        border-radius: 2px;
+        margin-bottom: 10px;
+        display: inline-block;
       }
     }
   }
@@ -9544,4 +9564,12 @@ display: inline-block;
     padding: 4px 0;
     background-color: #f5f5f5;
   }
+}
+
+.lookapply:hover {
+  background-color: $hover-share;
+}
+
+.lookbutton :hover {
+  background-color: $hover-button;
 }
