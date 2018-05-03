@@ -23,6 +23,11 @@ zh:
   partner_states:
     show: '显示'
     hidden: '隐藏'
+  account_record_kinds:
+    adjust: '调整'
+    donate: '捐助'
+    refund: '退款'
+    charge: '充值'
   user_states:
     enable: '启用'
     disable: '禁用'
@@ -293,6 +298,7 @@ zh:
     pending: '未筹款'
     succeed: '已筹款'
     refund: '已退款'
+    close: '已关闭'
   gsh_child_grant_balance_manages:
     balance_default: '默认'
     transfer: '转捐'

@@ -13,7 +13,7 @@
 # 任务分类
 class TaskCategory < ApplicationRecord
 
-  has_many :tasks
+  has_many :tasks, dependent: :destroy
 
   scope :sorted, ->{ order(created_at: :desc) }
 

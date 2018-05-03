@@ -27,7 +27,7 @@ class TaskVolunteer < ApplicationRecord
   belongs_to :volunteer
   belongs_to :task, optional: true
   belongs_to :user, optional: true
-  has_many :audits, as: :owner # 报名审核
+  has_many :audits, as: :owner, dependent: :destroy # 报名审核
 
   include HasAsset
   has_many_assets :images, class_name: 'Asset::AchievementImage'

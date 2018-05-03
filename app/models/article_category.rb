@@ -12,7 +12,7 @@
 #
 
 class ArticleCategory < ApplicationRecord
-  has_many :articles
+  has_many :articles, dependent: :destroy
 
   validates :name, presence: true
 

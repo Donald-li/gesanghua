@@ -21,6 +21,7 @@
 #  team_id          :integer                                # 团队id
 #  voucher_id       :integer                                # 捐赠收据ID
 #  certificate_no   :string                                 # 捐赠证书编号
+#  income_no        :string                                 # 收入编号
 #
 
 # 收入记录
@@ -32,6 +33,7 @@ class IncomeRecord < ApplicationRecord
   belongs_to :agent, class_name: 'User', foreign_key: 'agent_id', optional: true
   belongs_to :promoter, class_name: 'User', foreign_key: 'promoter_id', optional: true
   belongs_to :voucher, optional: true
+  has_one :account_records
 
   has_many :donate_records, dependent: :nullify
 
@@ -45,6 +47,8 @@ class IncomeRecord < ApplicationRecord
 
   enum voucher_state: {to_bill: 1, billed: 2} #收据状态，1:未开票 2:已开票
   default_value_for :voucher_state, 1
+
+  before_create :gen_income_no
 
   include HasAsset
   has_one_asset :income_record_excel, class_name: 'Asset::IncomeRecordExcel'
@@ -252,4 +256,9 @@ class IncomeRecord < ApplicationRecord
     #     end.attributes!
     #   end
 
+    private
+    def gen_income_no
+      time_string = Time.now.strftime("%y%m%d%H")
+      self.income_no ||= Sequence.get_seq(kind: :income_no, prefix: time_string, length: 7)
+    end
 end

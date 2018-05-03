@@ -21,6 +21,7 @@
 #  team_id          :integer                                # 团队id
 #  voucher_id       :integer                                # 捐赠收据ID
 #  certificate_no   :string                                 # 捐赠证书编号
+#  income_no        :string                                 # 收入编号
 #
 
 FactoryBot.define do

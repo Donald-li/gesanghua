@@ -37,9 +37,9 @@ class Admin::SchoolsController < Admin::BaseController
     end
     respond_to do |format|
       if @school.save
-        format.html { redirect_to referer_or(admin_schools_url), notice: '学校已增加。' }
+        format.html {redirect_to referer_or(admin_schools_url), notice: '学校已增加。'}
       else
-        format.html { render :new }
+        format.html {render :new}
       end
     end
   end
@@ -56,33 +56,37 @@ class Admin::SchoolsController < Admin::BaseController
     end
     respond_to do |format|
       if @school.update(school_params)
-        format.html { redirect_to referer_or(admin_schools_url), notice: '学校信息已修改。' }
+        format.html {redirect_to referer_or(admin_schools_url), notice: '学校信息已修改。'}
       else
-        format.html { render :edit }
+        format.html {render :edit}
       end
     end
   end
 
   def destroy
-    @school.destroy
-    if @school.user.present?
-      @school.user.remove_role(:headmaster)
-      @school.user.save
-    end
-    @school.teachers.each do |teacher|
-      if teacher.user.present?
-        teacher.user.remove_role(:teacher)
-        teacher.user.save
-      end
-    end
     respond_to do |format|
-      format.html { redirect_to referer_or(admin_schools_url), notice: '学校已删除。' }
+      if @school.destroy
+        if @school.user.present?
+          @school.user.remove_role(:headmaster)
+          @school.user.save
+        end
+        @school.teachers.each do |teacher|
+          if teacher.user.present?
+            teacher.user.remove_role(:teacher)
+            teacher.user.save
+          end
+        end
+        format.html {redirect_to referer_or(admin_schools_url), notice: '学校已删除。'}
+      else
+        format.html {redirect_to referer_or(admin_schools_url), notice: '请先删除该学校相关申请记录。'}
+      end
+
     end
   end
 
   def switch
     @school.enable? ? @school.disable! : @school.enable!
-    redirect_to admin_schools_url, notice:  @school.enable? ? '学校已启用' : '学校已禁用'
+    redirect_to admin_schools_url, notice: @school.enable? ? '学校已启用' : '学校已禁用'
   end
 
   private

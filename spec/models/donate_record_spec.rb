@@ -87,6 +87,7 @@ RSpec.describe DonateRecord, type: :model do
       expect(@radio_apply.execute_state).to eq('to_delivery')
       expect(DonateRecord.last.amount).to eq(9000)
       expect(@user.reload.balance).to eq(1000)
+      expect(@user.account_records.last.amount).to eq(1000)
     end
 
     it '捐助给指定申请项' do
@@ -104,6 +105,7 @@ RSpec.describe DonateRecord, type: :model do
       expect(@bookshelf2.reload.present_amount).to eq(2100)
       expect(income_record.reload.balance).to eq(0)
       expect(@user.reload.balance).to eq(7900)
+      expect(@user.account_records.last.amount).to eq(7900)
     end
 
     it '捐助给分配申请项' do
@@ -236,6 +238,7 @@ RSpec.describe DonateRecord, type: :model do
       expect(grant.reload.state).to eq('cancel')
       expect(grant.donate_state).to eq('refund')
       expect(@user.reload.balance).to eq(amount)
+      expect(@user.account_records.last.amount).to eq(amount)
     end
   end
 end

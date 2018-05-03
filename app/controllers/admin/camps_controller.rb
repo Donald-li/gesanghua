@@ -43,9 +43,12 @@ class Admin::CampsController < Admin::BaseController
   end
 
   def destroy
-    @camp.destroy
     respond_to do |format|
-      format.html { redirect_to admin_camps_path, notice: '删除成功。' }
+      if @camp.destroy
+        format.html { redirect_to admin_camps_path, notice: '删除成功。' }
+      else
+        format.html { redirect_to admin_camps_path, notice: '请先删除该营下的项目记录。' }
+      end
     end
   end
 

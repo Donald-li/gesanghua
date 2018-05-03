@@ -67,7 +67,7 @@
                 <%= link_to edit_admin_article_category_path(cate), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                   <i class="fa fa-edit"></i> 修改
                 <% end %>
-                <%= link_to admin_article_category_path(cate), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                <%= link_to admin_article_category_path(cate), class: 'btn btn-xs red', method: :delete, data: {confirm: '删除分类将会同时删除该分类下的相关资讯，确定要删除吗？'} do %>
                    <i class="fa fa-trash-o"></i> 删除
                <% end %>
               </td>

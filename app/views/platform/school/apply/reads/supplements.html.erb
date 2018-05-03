@@ -43,10 +43,10 @@
                 <p class="school-apply-pair-f">筹款总额：<%= supplement.target_amount %>元</p>
               <% end %>
             </div>
-            <div class="border-l border-r pull-left">
+            <div class="border-l border-r pull-left" style="height: 100%;">
               <%= supplement.enum_name(:state) %>
             </div>
-            <div  class="pull-left">
+            <div  class="pull-left" style="height: 100%;">
               <% if supplement.to_receive? %>
               <%= link_to '查看物流', supplement.logistic.qurey_result, target: 'new', class:'lookapply'  %>
               <%= link_to '确认收货', new_platform_school_apply_receive_feedback_path(supplement_id: supplement.id), class:'lookbutton' %>

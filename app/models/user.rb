@@ -78,6 +78,7 @@ class User < ApplicationRecord
   has_many :donations, dependent: :nullify, foreign_key: 'agent_id'
   has_many :income_records, dependent: :nullify, foreign_key: 'agent_id'
   has_many :visits
+  has_many :account_records
 
   has_many :project_season_applies
   has_many :month_donates
@@ -330,6 +331,7 @@ class User < ApplicationRecord
       json.address self.address
       json.phone self.phone
       json.has_team self.team.present?
+      json.team_id self.team_id
       json.team_name self.team.try(:name)
       json.avatar_image  do
         json.id self.try(:avatar).try(:id)

@@ -57,7 +57,7 @@ class GshChildGrant < ApplicationRecord
 
   enum cancel_reason: {leave: 1, absence: 2, transfor: 3, vacate: 4, other: 5} # 1:请假 2:休学 3:转学 4:学校放假 5:其他
 
-  enum donate_state: {pending: 1, succeed: 2, refund: 3} # 捐助状态：1:未筹款 2:已筹款
+  enum donate_state: {pending: 1, succeed: 2, refund: 3, close: 4} # 捐助状态：1:未筹款 2:已筹款 4:关闭
   default_value_for :donate_state, 1
 
   enum balance_manage: {transfer: 1, send_back: 2} # TODO: 废弃 捐助状态 1:转捐 2:退回
@@ -65,6 +65,7 @@ class GshChildGrant < ApplicationRecord
 
   scope :sorted, ->(){ order(id: :asc) }
   scope :reverse_sorted, ->{ sorted.reverse_order }
+  scope :visible, -> { where(donate_state: [:pending, :succeed]) }
 
   counter_culture :gsh_child, column_name: "semester_count"
   counter_culture :gsh_child, column_name: proc {|model| model.succeed? ? 'done_semester_count' : nil }

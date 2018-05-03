@@ -22,7 +22,7 @@
         <div class="input-group pull-left">
           <span class="iconfont icon-ico-search pull-left"></span>
           <!-- <input type="text" class="form-input pull-left" placeholder="搜索单号、名称、汇款人、经办人、备注" /> -->
-          <%= f.text_field :title_or_donor_name_or_agent_name_or_remark_cont, class: 'form-input', placeholder: '搜索单号、名称、汇款人、经办人、备注' %>
+          <%= f.text_field :income_no_or_title_or_donor_name_or_agent_name_or_remark_cont, class: 'form-input', placeholder: '搜索单号、名称、汇款人、经办人、备注' %>
         </div>
         <button type="submit" class="school-apply-share-share pull-left">搜索</button>
         <% end %>
@@ -49,7 +49,7 @@
       <tbody>
       <% @income_records.each do |income_record| %>
         <tr>
-          <th><%= income_record.id %></th>
+          <th><%= income_record.income_no %></th>
           <td><%= income_record.title %></td>
           <td><%= income_record.fund.try(:fund_category).try(:name) %> <%= income_record.fund.try(:name) %></td>
           <td><%= l income_record.income_time %></td>

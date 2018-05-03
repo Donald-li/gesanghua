@@ -38,7 +38,7 @@ class ProjectSeasonApplyCampMember < ApplicationRecord
   belongs_to :school
   belongs_to :camp
 
-  has_many :audits, as: :owner
+  has_many :audits, as: :owner, dependent: :destroy
 
   attr_accessor :approve_remark
 

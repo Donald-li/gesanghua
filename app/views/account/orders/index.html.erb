@@ -47,13 +47,13 @@
         <!--</div>-->
       <!--</div>-->
     <!--</div>-->
-      <div class=" row rowE" style="width: 100%;">
+      <div class="rowE" style="width: 100%;">
         <div class="bd mt20">
           <div id="sca1" class="warp-pic-list">
             <div id="wrapBox1" class="wrapBox">
-              <ul id="count1" class="count clearfix">
-                <li>
-                  <div class=" cur <%= 'selectedDo' if params[:project_id].nil? %>">
+              <ul id="count1" class="count clearfix" >
+                <li  style="height: 32px;">
+                  <div class=" cur <%= 'selectedDo' if params[:project_id].nil? %>" >
                     <%= link_to '全部项目', account_orders_path %>
                     <% if params[:project_id].nil? %>
                         <div class="bottomline"></div>
@@ -61,8 +61,8 @@
                   </div>
                 </li>
                 <% @projects.each do |project| %>
-                    <li>
-                      <div class="cur border-l  <%= 'selectedDo' if params[:project_id] == project.id %>">
+                    <li style="height: 32px;">
+                      <div class="cur border-l  <%= 'selectedDo' if params[:project_id] === project.id.to_s %>">
                         <%= link_to project.name, account_orders_path(project_id: project.id) %>
                         <% if params[:project_id] === project.id.to_s %>
                             <div class="bottomline"></div>

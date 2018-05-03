@@ -23,7 +23,7 @@ class ProjectSeasonApplyPeriod < ApplicationRecord
   acts_as_list column: :position
   scope :sorted, ->{ order(position: :asc) }
 
-  has_many :period_child_ships
+  has_many :period_child_ships, dependent: :destroy
   has_many :project_season_apply_children, through: :period_child_ships
 
   validates :name, presence: true

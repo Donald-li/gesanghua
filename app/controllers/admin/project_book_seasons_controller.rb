@@ -42,9 +42,12 @@ class Admin::ProjectBookSeasonsController < Admin::BaseController
   end
 
   def destroy
-    @season.destroy
     respond_to do |format|
-      format.html { redirect_to admin_project_book_seasons_path, notice: '删除成功。' }
+      if @season.destroy
+        format.html { redirect_to admin_project_book_seasons_path, notice: '删除成功。' }
+      else
+        format.html { redirect_to admin_project_book_seasons_path, notice: '请先删除该批次下的申请/项目。' }
+      end
     end
   end
 

@@ -19,10 +19,10 @@
 class ProjectSeason < ApplicationRecord
   belongs_to :project
 
-  has_many :goods, class_name: 'ProjectSeasonGoods', dependent: :destroy
+  has_many :goods, class_name: 'ProjectSeasonGoods', dependent: :restrict_with_error
   accepts_nested_attributes_for :goods, allow_destroy: true, reject_if: proc { |attributes| attributes['name'].blank? }
 
-  has_many :applies, class_name: 'ProjectSeasonApply', dependent: :destroy
+  has_many :applies, class_name: 'ProjectSeasonApply', dependent: :restrict_with_error
 
   validates :name, presence: true
 
