@@ -27,18 +27,18 @@
 
       </div>
       <div class="paddchild">
-        <div class="school-apply-pair-table">
-          <p>学生信息</p>
-          <p>推荐理由</p>
-          <p>操作</p>
+        <div class="school-apply-pair-table clearfix">
+          <p class="pull-left" style="flex: 0 0 65%;max-width: 65%;width: 65%;">学生信息</p>
+          <p class="pull-left" style="flex: 0 0 17.5%;max-width: 17.5%;width: 17.5%;">推荐理由</p>
+          <p class="pull-left" style="flex: 0 0 17.5%;max-width: 17.5%;width: 17.5%;">操作</p>
         </div>
       </div>
 
       <div class="posscroll paddchild" id="checked">
         <% @children.each do |child| %>
-            <div class="school-apply-pair-tables">
-              <div class="school-apply-pair-table-cont">
-                <div class="school-apply-pair-child clearfix">
+            <div class="school-apply-pair-tables" style="height:90px;">
+              <div class="school-apply-pair-table-cont clearfix">
+                <div class="school-apply-pair-child pull-left" style="flex: 0 0 65%;max-width: 65%;width: 65%;">
                   <div class="pretty o-info pull-left">
                     <input type="checkbox" value="<%= child.id %>"/>
                     <label><i class="mdi mdi-check"></i></label>
@@ -56,15 +56,15 @@
 
                 </div>
 
-                <div class=" border-r border-l">
+                <div class=" border-r border-l pull-left">
                   <button class="recommend-but" onclick="setChildReason(<%= child.id %>, '<%= child.reason %>')">填写推荐理由</button>
                 </div>
-                <div>
-                  <%= link_to edit_platform_school_apply_pair_child_path(@apply, child) do %>
-                  <button>修改</button>
+                <div class="pull-left" style="    padding: 10px 0;">
+                  <%= link_to edit_platform_school_apply_pair_child_path(@apply, child),class:'lookbutton',style:'margin-bottom:10px;' do %>
+                修改
                   <% end %>
-                  <%= link_to platform_school_apply_pair_child_path(@apply, child), method: :delete, data: {confirm: '确定要删除学生信息吗？'} do %>
-                  <button>删除</button>
+                  <%= link_to platform_school_apply_pair_child_path(@apply, child), method: :delete, data: {confirm: '确定要删除学生信息吗？'},class:'detail-table' do %>
+                  删除
                   <% end %>
                 </div>
               </div>
