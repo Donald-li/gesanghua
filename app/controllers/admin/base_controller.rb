@@ -30,7 +30,6 @@ class Admin::BaseController < ManagementBaseController
     @current_user
   end
 
-
   def auth_superadmin
     authorize! :manage_superadmin, current_user
   end
