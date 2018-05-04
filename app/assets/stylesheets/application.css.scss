@@ -102,6 +102,8 @@ body {
     border: 1px solid $border;
     border-radius: 3px;
   }
+  input::-ms-clear{display:none;}
+  input::-ms-reveal{display:none;}
 
   input:-webkit-autofill,
   select:-webkit-autofill,
@@ -132,6 +134,7 @@ body {
     /* Internet Explorer 10-11 */
     color: #8d8d8d;
   }
+
 
   button {
     border: none;
@@ -317,6 +320,9 @@ select:disabled {
   color: #fff;
   font-size: 16px;
 }
+.class-button:hover{
+  background:$hover-button;
+}
 //轮播按钮
 
 .swiper-button-prev,
@@ -430,10 +436,13 @@ select:disabled {
     text-align: center;
     background: $color-button;
     margin: 22px auto 0;
-    box-shadow: 0 2px 7px 2px #d632aa4d;
+    box-shadow: 0 2px 7px 2px #8a53e354;
     border-radius: 20px;
     color: #fff;
     font-size: 16px;
+  }
+  .over-but:hover{
+    background: $hover-button;
   }
 }
 //模态框3
@@ -488,7 +497,7 @@ select:disabled {
     text-align: center;
     background: $color-button;
     margin: 22px auto 0;
-    box-shadow: 0 2px 7px 2px #d632aa4d;
+    box-shadow: 0 2px 7px 2px #8a53e354;
     border-radius: 20px;
     color: #fff;
     font-size: 16px;
@@ -581,7 +590,7 @@ select:disabled {
     text-align: center;
     background: $color-button;
     margin: 22px auto 0;
-    box-shadow: 0 2px 7px 2px #d632aa4d;
+    box-shadow: 0 2px 7px 2px #8a53e354;
     border-radius: 20px;
     color: #fff;
     font-size: 16px;
@@ -688,6 +697,8 @@ select:disabled {
 
     button {
       width: 100%;
+      border-radius: 20px;
+      overflow: hidden;
     }
   }
 
@@ -1074,7 +1085,7 @@ select:disabled {
       border-radius: 4px;
       color: #fff;
       font-weight: 600;
-      box-shadow: 0 2px 7px 2px #d632aa4d;
+      box-shadow: 0 2px 7px 2px #8a53e354;
     }
 
     & > img {
@@ -5010,7 +5021,7 @@ select:disabled {
     text-align: center;
     background: $color-button;
     margin: 30px auto 0;
-    box-shadow: 0 2px 7px 2px #d632aa4d;
+    box-shadow: 0 2px 7px 2px #8a53e354;
     border-radius: 20px;
     color: #fff;
     font-size: 16px;
@@ -6086,7 +6097,7 @@ select:disabled {
     text-align: center;
     background: $color-button;
     margin: 28px auto 0;
-    box-shadow: 0 2px 7px 2px #d632aa4d;
+    box-shadow: 0 2px 7px 2px #8a53e354;
     border-radius: 20px;
     color: #fff;
     font-size: 16px;
@@ -6163,7 +6174,7 @@ select:disabled {
     text-align: center;
     background: $color-button;
     margin: 22px auto 0;
-    box-shadow: 0 2px 7px 2px #d632aa4d;
+    box-shadow: 0 2px 7px 2px #8a53e354;
     border-radius: 20px;
     color: #fff;
     font-size: 16px;
@@ -9352,7 +9363,7 @@ select:disabled {
 
   .table-bordered td {
     font-weight: 400;
-    padding: 0 4px;
+    padding: 0 6px;
     width: 145px;
     height: 50px;
     vertical-align: middle !important;
