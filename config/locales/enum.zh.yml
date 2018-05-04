@@ -137,6 +137,10 @@ zh:
   volunteer_states:
     enable: '启用'
     disable: '禁用'
+  volunteer_genders:
+    unknow: ''
+    male: '男'
+    female: '女'
   volunteer_job_states:
     available: '可接受任务'
     leave: '请假'
