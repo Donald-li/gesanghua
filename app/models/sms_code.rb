@@ -39,13 +39,13 @@ class SmsCode < ApplicationRecord
 
   # 验证手机号码，判断之前最后一次验证是否早于1分钟
   def self.valid_mobile?(mobile, kind="signup")
-    code = self.where(mobile: mobile, kind: self.kinds[kind]).last
+    code = self.where(mobile: mobile, kind: self.kinds[kind.to_s]).last
     return (code.blank? or (code.created_at < 1.minutes.ago))
   end
 
   # 验证手机号码，判断5分钟内是否已经发送过验证码,并且能够匹配
   def self.valid_code?(mobile: nil, code: nil, kind: 'signup', write_verified: false)
-    sms_code = self.where(mobile: mobile, kind: self.kinds[kind]).last
+    sms_code = self.where(mobile: mobile, kind: self.kinds[kind.to_s]).last
     return false if sms_code.blank?
     if sms_code.created_at > 5.minutes.ago and sms_code.code == code
       sms_code.set_verified if write_verified
