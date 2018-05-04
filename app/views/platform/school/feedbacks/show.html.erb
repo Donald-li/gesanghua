@@ -17,6 +17,9 @@
           <div class="school-apply-pair-table" style="margin: 20px 0;">
             <p>反馈详情</p>
             <div class="school-apply-pair-table-cont ">
+              <% if continual.project.complex? %>
+              <p>开展时间：<%= continual.arise_at %>   开展班级：<%= continual.arise_class %>   参与人数：<%= continual.number %></p>
+              <% end %>
               <p><%= continual.content.html_safe %></p>
               <% if continual.images.present? %>
                 <div class="feedback-shows-img">

@@ -82,8 +82,9 @@ class Feedback < ApplicationRecord
 
   def detail_builder
     Jbuilder.new do |json|
-      json.(self, :id)
-      json.time self.created_at.strftime("%Y-%m-%d %H:%M")
+      json.(self, :id, :arise_class, :number)
+      json.time self.created_at
+      json.arise_at self.arise_at.present? ? self.arise_at.strftime('%Y-%m-%d %H:%M') : ''
       json.name self.owner.name
       json.content self.formatted_content
       json.user_name self.user.show_name
