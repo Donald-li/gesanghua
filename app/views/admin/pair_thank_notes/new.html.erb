@@ -1,0 +1,78 @@
+<div class="portlet light bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-icon"></i>
+      <span class="caption-subject">修改反馈</span>
+    </div>
+    <div class="actions">
+      <div class="portlet-input input-inline input-small">
+        <div class="input-icon right">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body form">
+    <%= simple_form_for [:admin, @note], url: admin_pair_thank_notes_path, method: :post, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'continual_form'} do |f| %>
+      <%= f.error_notification %>
+      <div class="form-body form-horizontal">
+        <%= f.input :gsh_child_grant_id, as: :select, label: '选择记录：', input_html: {class: 'grants-ajax'}, required: true %>
+        <%= f.input :content, input_html: { data: {'parsley-required': true}}, label: '反馈内容：', required: true  %>
+        <div class="form-group">
+          <label class="col-md-2 control-label">反馈图片(最多9张)：</label>
+          <div class="col-sm-9">
+            <%= webuploader_tag 'image_ids[]', label: '上传图片', type: 'feedback_image', asset: @note.images %>
+          </div>
+        </div>
+      </div>
+      <div class="form-actions">
+        <div class="row">
+          <div class="col-md-offset-2 col-md-9">
+            <%= f.button :submit, '提交', class: 'btn blue' %>
+            <%= link_to '取消', admin_pair_thank_notes_path, class: 'btn' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<script type="text/javascript">
+    $(function(){
+        initMultiImageWebuploader('.upload-wrap', null, 9);
+        $('.upload-list').viewer();
+    })
+    $(function () {
+        $('.grants-ajax').select2({
+            language: "zh-CN",
+            placeholder: '请选择记录',
+            allowClear: true,
+            ajax: {
+                url: "/selects/child_grants",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: $.map(data.items, function (item) {
+                            return {
+                                text: item.search_title,
+                                id: item.id
+                            }
+                        }),
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            }
+        });
+
+    })
+</script>
+
