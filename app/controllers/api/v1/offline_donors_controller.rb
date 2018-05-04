@@ -1,7 +1,7 @@
 class Api::V1::OfflineDonorsController < Api::V1::BaseController
 
   def donor_list
-    donors = current_user.offline_users.sorted
+    donors = current_user.offline_users.unactived.sorted
     api_success(data: donors.map{|donor| donor.offline_donor_summary_builder})
   end
 
@@ -25,7 +25,7 @@ class Api::V1::OfflineDonorsController < Api::V1::BaseController
   end
 
   def get_donor_info
-    @user = current_user.offline_users.find(params[:id])
+    @user = current_user.offline_users.unactived.find(params[:id])
     api_success(data: @user.detail_builder)
   end
 
