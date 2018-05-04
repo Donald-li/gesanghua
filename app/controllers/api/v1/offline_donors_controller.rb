@@ -46,7 +46,7 @@ class Api::V1::OfflineDonorsController < Api::V1::BaseController
     else
       gender = 'female'
     end
-    @donor = User.new(login: phone, name: name, phone: phone, gender: gender, salutation: salutation, email: email, province: province, city: city, district: district, address: address, nickname: nickname, use_nickname: use_nickname)
+    @donor = User.new(login: phone, name: name, phone: phone, gender: gender, salutation: salutation, email: email, province: province, city: city, district: district, address: address, nickname: nickname, use_nickname: use_nickname, state: 'unactived')
     if @donor.save
       @donor.update(manager_id: @user.id)
       api_success(data: {result: true, donor: @donor.offline_donor_summary_builder}, message: '创建捐助人信息成功')

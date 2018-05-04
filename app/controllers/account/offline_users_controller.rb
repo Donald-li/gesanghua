@@ -6,7 +6,7 @@ class Account::OfflineUsersController < Account::BaseController
 
   def create
     login = offline_user_params[:phone]
-    @offline_user = current_user.offline_users.new(offline_user_params.merge(login: login))
+    @offline_user = current_user.offline_users.new(offline_user_params.merge(login: login, state: 'unactived'))
     if @offline_user.save
       render json: {message: '创建成功。', status: true}
     else

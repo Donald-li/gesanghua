@@ -67,11 +67,11 @@ p.update(name: '探索营', alias: 'camp', protocol: content, describe: '项目�
 
 p = Project.find_or_initialize_by(name: '观影')
 p.update(name: '观影', alias: 'movie', protocol: content, describe: '项目介绍', kind: :apply,
-  fund: nil, appoint_fund: nil, accept_feedback_state: 'open_feedback', feedback_period: 4, apply_kind: 'user_apply')
+  fund: nil, appoint_fund: nil, accept_feedback_state: 'open_feedback', feedback_period: 4, apply_kind: 'user_apply', feedback_format: 'complex')
 
 p = Project.find_or_initialize_by(name: '护花课程')
 p.update(name: '护花课程', alias: 'movie_care', protocol: content, describe: '项目介绍', kind: :apply,
-  fund: nil, appoint_fund: nil, accept_feedback_state: 'open_feedback', feedback_period: 4, apply_kind: 'user_apply')
+  fund: nil, appoint_fund: nil, accept_feedback_state: 'open_feedback', feedback_period: 4, apply_kind: 'user_apply', feedback_format: 'complex')
 
 p = Project.find_or_initialize_by(name: '广播')
 p.update(name: '广播', alias: 'radio', protocol: content, describe: '项目介绍', kind: :goods,

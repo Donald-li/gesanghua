@@ -25,6 +25,32 @@
               <%= @continual.user.try(:teacher).try(:school).try(:name) %>
             </th>
           </tr>
+          <% if @continual.project.complex? %>
+            <tr>
+              <th>
+                开展班级
+              </th>
+              <th>
+                <%= @continual.arise_class %>
+              </th>
+            </tr>
+            <tr>
+              <th>
+                开展时间
+              </th>
+              <th>
+                <%= l @continual.arise_at %>
+              </th>
+            </tr>
+            <tr>
+              <th>
+                参与人数
+              </th>
+              <th>
+                <%= @continual.number %>
+              </th>
+            </tr>
+        <% end %>
         <tr>
           <th>
             反馈人

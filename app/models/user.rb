@@ -100,7 +100,7 @@ class User < ApplicationRecord
 
   default_value_for :profile, {}
 
-  enum state: {enable: 1, disable: 2} #状态 1:启用 2:禁用
+  enum state: {unactived: 0, enable: 1, disable: 2} #状态 0: 未激活（代捐人） 1:启用 2:禁用
   default_value_for :state, 1
 
   enum gender: {unknow: 0, male: 1, female: 2} #性别 1:男 2:女
@@ -365,12 +365,18 @@ class User < ApplicationRecord
     end.attributes!
   end
 
+  # TODO 待处理
   # 微信绑定手机号之后，根据手机号合并user记录，绑定volunteer,teacher(headmaster),county_user角色（gsh_child有单独绑定途径）
   def combine_user
     users = User.where(phone: self.phone)
     if users.present?
       # 合并方法（待定）
     end
+  end
+
+  # 迁移捐款记录；用户注册绑定手机号和注册
+  def migrate_donate_record
+
   end
 
   def bind_user_roles

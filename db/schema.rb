@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180503092515) do
+ActiveRecord::Schema.define(version: 20180504024521) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -438,6 +438,9 @@ ActiveRecord::Schema.define(version: 20180503092515) do
     t.string "class_name", comment: "反馈班级"
     t.integer "gsh_child_grant_id", comment: "学生某学期的持续反馈（感谢信）"
     t.integer "school_id", comment: "学校id"
+    t.datetime "arise_at", comment: "开展时间"
+    t.string "arise_class", comment: "开展班级"
+    t.integer "number", comment: "参与人数"
   end
 
   create_table "fund_categories", force: :cascade do |t|
@@ -958,6 +961,7 @@ ActiveRecord::Schema.define(version: 20180503092515) do
     t.integer "accept_feedback_state", comment: "是否接受定期反馈：1:open_feedback 2:close_feedback"
     t.integer "feedback_period", comment: "建议定期反馈次数/年"
     t.integer "apply_kind", default: 1, comment: "申请类型 1:平台分配 2:用户申请"
+    t.integer "feedback_format", comment: "反馈形式"
   end
 
   create_table "remarks", force: :cascade, comment: "备注信息表" do |t|

@@ -309,6 +309,7 @@ admin:
                 'admin/movie_care_feedbacks': all
             admin_movie_care_continual_feedbacks:
               actions:
+                'admin/movie_care_continual_feedbacks': all
         admin_project_goods:
           menus:
             admin_project_goods_season:
