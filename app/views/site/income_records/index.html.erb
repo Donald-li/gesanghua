@@ -49,11 +49,11 @@
       <tbody>
       <% @income_records.each do |income_record| %>
         <tr>
-          <th><%= income_record.income_no %></th>
+          <td><%= income_record.income_no %></th>
           <td><%= income_record.title %></td>
           <td><%= income_record.fund.try(:fund_category).try(:name) %> <%= income_record.fund.try(:name) %></td>
           <td><%= l income_record.income_time %></td>
-          <th><%= number_to_currency(income_record.amount) %></th>
+          <td><%= number_to_currency(income_record.amount) %></th>
           <td><%= income_record.income_source.try(:name) %></td>
           <td><%= income_record.donor.try(:secure_name) %></td>
           <td><%= income_record.agent.try(:secure_name) %></td>

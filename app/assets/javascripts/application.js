@@ -48,6 +48,7 @@
 
 
 $(function () {
+  $("body").css("font-family","'PingFang SC', '微软雅黑', 'Microsoft YaHei', Helvetica, 'Helvetica Neue', Tahoma, Arial, sans-serif")
     // head搜索
     $('.search-box .form-control').focus(function () {
         $(this).closest('.search-box').addClass('focus');
@@ -165,21 +166,14 @@ $(function () {
         top_position = parseInt((body_height / 2) - (block_height / 2) + $(window).scrollTop());
         if (body_height < block_height) {
             top_position = 0 + $(window).scrollTop();
-        }
-        ;
-
+        };
         if (!loaded) {
-
-
             $(window).bind('resize', function () {
                 obj.center(!loaded);
             });
             $(window).bind('scroll', function () {
                 obj.center(!loaded);
             });
-
         }
     }
-
-
 })

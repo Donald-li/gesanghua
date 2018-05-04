@@ -48,11 +48,11 @@
       <tbody>
       <% @expenditure_records.each do |expenditure_record| %>
         <tr>
-          <th><%= expenditure_record.expend_no %></th>
+          <td><%= expenditure_record.expend_no %></th>
           <td><%= expenditure_record.name %></td>
           <td><%= expenditure_record.fund.try(:fund_category).try(:name) %>  <%= expenditure_record.fund.try(:name) %></td>
           <td><%= l expenditure_record.expended_at %></td>
-          <th><%= number_to_currency(expenditure_record.amount) %></th>
+          <td><%= number_to_currency(expenditure_record.amount) %></th>
           <td ><%= link_to '查看凭证', expenditure_record_path(expenditure_record), style:'color: #5765f0;' %></td>
           <td><%= expenditure_record.secure_operator %></td>
           <td><%= expenditure_record.remark %></td>
