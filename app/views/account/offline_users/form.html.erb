@@ -35,7 +35,7 @@
         <p class="goodtext">如何称呼</p>
         <%#= f.text_field :salutation, class: 'goodinput', placeholder: '孩子如何称呼您' %>
         <%= f.input :project_ids, as: :select, collection: ['哥哥', '姐姐', '弟弟', '妹妹', '叔叔', '阿姨', '爷爷', '奶奶'], include_blank: false, label: false, input_html: {data: {}, class: 'goodinput',id:'nickname'} %>
-      </div>
+        </div>
       <div class="pull-right">
         <p class="goodtext">联系电话</p>
         <%= f.text_field :phone, required: true, class: 'goodinput', placeholder: '', input_html: {required: true}, data: {parsley_phone: true} %>
