@@ -5,7 +5,13 @@ class Admin::GoodsContinualFeedbacksController < Admin::GoodsBaseController
     @continual_feedbacks = ContinualFeedback.where(project_id: @current_project.id)
     @search = @continual_feedbacks.ransack(params[:q])
     scope = @search.result
-    @continual_feedbacks = scope.sorted.page(params[:page])
+    respond_to do |format|
+      format.html { @continual_feedbacks = scope.page(params[:page]) }
+      format.xlsx {
+        @continual_feedbacks = scope.sorted.all
+        response.headers['Content-Disposition'] = 'attachment; filename= "反馈记录" ' + Date.today.to_s + '.xlsx'
+      }
+    end
   end
 
   def show

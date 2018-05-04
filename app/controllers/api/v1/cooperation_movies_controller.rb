@@ -45,14 +45,12 @@ class Api::V1::CooperationMoviesController < Api::V1::BaseController
       @apply.project_season_id = params[:movie_apply][:season][0]
       @apply.student_number = params[:movie_apply][:student_number]
       @apply.class_number = params[:movie_apply][:class_number]
-      @apply.describe = params[:movie_apply][:describe]
       @apply.contact_name = params[:movie_apply][:contact_name]
       @apply.contact_phone = params[:movie_apply][:contact_phone]
       @apply.form = params[:dynamic_form]
       @apply.applicant_id = params[:applicant]
       @apply.school_id = @school.id
       if @apply.save
-        @apply.attach_images(params[:images])
         api_success(data: {result: true})
       else
         api_success(data: {result: false})
@@ -68,13 +66,11 @@ class Api::V1::CooperationMoviesController < Api::V1::BaseController
         project_season_id: params[:movie_apply][:season][0],
         student_number: params[:movie_apply][:student_number],
         class_number: params[:movie_apply][:class_number],
-        describe: params[:movie_apply][:describe],
         contact_name: params[:movie_apply][:contact_name],
         contact_phone: params[:movie_apply][:contact_phone],
         form: params[:dynamic_form]
     }
     if @apply.update(attributes)
-      @apply.attach_images(params[:images])
       @apply.update(audit_state: 'submit')
       api_success(data: {result: true})
     else
