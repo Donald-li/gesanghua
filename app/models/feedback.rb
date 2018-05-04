@@ -23,6 +23,9 @@
 #  class_name                        :string                                 # 反馈班级
 #  gsh_child_grant_id                :integer                                # 学生某学期的持续反馈（感谢信）
 #  school_id                         :integer                                # 学校id
+#  arise_at                          :datetime                               # 开展时间
+#  arise_class                       :string                                 # 开展班级
+#  number                            :integer                                # 参与人数
 #
 
 # 反馈表

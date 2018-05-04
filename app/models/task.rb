@@ -69,7 +69,7 @@ class Task < ApplicationRecord
 
   def summary_builder(user=nil)
     Jbuilder.new do |json|
-      json.(self, :id, :name, :num, :duration, :ordinary_flag, :intensive_flag, :urgency_flag, :innovative_flag, :difficult_flag)
+      json.(self, :id, :name, :num, :duration, :orudinary_flag, :intensive_flag, :urgency_flag, :innovative_flag, :difficult_flag)
       json.location self.workplace.try(:title)
       json.cover_mode self.cover.present?
       json.cover_url self.cover_url(:small)

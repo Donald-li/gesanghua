@@ -20,6 +20,7 @@
 #  accept_feedback_state :integer                                     # 是否接受定期反馈：1:open_feedback 2:close_feedback
 #  feedback_period       :integer                                     # 建议定期反馈次数/年
 #  apply_kind            :integer          default("platform_assign") # 申请类型 1:平台分配 2:用户申请
+#  feedback_format       :integer                                     # 反馈形式
 #
 
 require 'rails_helper'

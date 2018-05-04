@@ -92,6 +92,7 @@
   <%= f.input :accept_feedback_state, as: :radio_buttons, wrapper: :inline_inputs, collection: Project.options_for_enum_select(:accept_feedback_states), label: '是否开启定期反馈：', input_html: { class: 'feedback_state', onclick: 'toggleState();'} %>
   <div class="open_period">
     <%= f.input :feedback_period, label: '定期反馈周期：', input_html: {type: 'number'}, required: true, placeholder: '次/年' %>
+    <%= f.input :feedback_format, as: :radio_buttons, wrapper: :inline_inputs, collection: Project.options_for_enum_select(:feedback_formats), label: '反馈形式：' %>
   </div>
 <div class="form-actions">
   <div class="row">

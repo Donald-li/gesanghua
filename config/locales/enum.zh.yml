@@ -93,6 +93,9 @@ zh:
   project_season_states:
     enable: '开放申请'
     disable: '关闭申请'
+  project_feedback_formats:
+    simple: '只许填写内容并提交照片'
+    complex: '需要填写举办班级相关信息'
   project_apply_kinds:
     platform_assign: '平台分配'
     user_apply: '用户申请'

@@ -20,6 +20,7 @@
 #  accept_feedback_state :integer                                     # 是否接受定期反馈：1:open_feedback 2:close_feedback
 #  feedback_period       :integer                                     # 建议定期反馈次数/年
 #  apply_kind            :integer          default("platform_assign") # 申请类型 1:平台分配 2:用户申请
+#  feedback_format       :integer                                     # 反馈形式
 #
 
 # 项目父表
@@ -65,8 +66,10 @@ class Project < ApplicationRecord
   enum apply_kind: { platform_assign: 1, user_apply: 2}
   default_value_for :apply_kind, 1
 
+  enum feedback_format: {simple: 1, complex: 2}
+  default_value_for :feedback_format, 1
+
   scope :sorted, ->{ order(id: :asc) }
-  scope :visible, ->{}
   scope :donate_project, -> {where("fund_id is not NULL or fund_id != 0")}
 
   def self.pair_project
@@ -175,7 +178,7 @@ class Project < ApplicationRecord
 
   def summary_builder
     Jbuilder.new do |json|
-      json.(self, :id, :name, :describe, :alias, :apply_kind, :kind)
+      json.(self, :id, :name, :describe, :alias, :apply_kind, :kind, :feedback_format)
       json.last_feedback_time self.continual_feedbacks.present? ? self.continual_feedbacks.last.created_at.strftime("%Y-%m-%d %H:%M") : ''
       json.cover_mode self.image.present?
       json.cover_url self.image_url(:medium).to_s
