@@ -29,6 +29,7 @@ zh:
     refund: '退款'
     charge: '充值'
   user_states:
+    unactived: '未激活'
     enable: '启用'
     disable: '禁用'
   user_genders:

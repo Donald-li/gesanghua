@@ -91,9 +91,13 @@
                 ￥<%= number_to_currency(user.income_records.open_ticket.sum(:amount)) %>
               </td>
               <td>
-                <%= link_to switch_admin_user_path(user), data: {confirm: "确定#{user.state === 'enable' ? '禁用该用户' : '启用该用户'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{user.state === 'enable' ? 'green' : 'default'}" do %>
-                <%= user.state === 'enable' ? '启用' : '禁用' %>
-                <i class="fa <%= user.state === 'enable' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                <% if user.unactived? %>
+                  <span class="btn btn-xs default"><%= user.enum_name(:state) %></span>
+                <% else %>
+                  <%= link_to switch_admin_user_path(user), data: {confirm: "确定#{user.state === 'enable' ? '禁用该用户' : '启用该用户'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{user.state === 'enable' ? 'green' : 'default'}" do %>
+                  <%= user.state === 'enable' ? '启用' : '禁用' %>
+                  <i class="fa <%= user.state === 'enable' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                  <% end %>
                 <% end %>
               </td>
               <td>

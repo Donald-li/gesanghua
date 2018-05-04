@@ -8,24 +8,24 @@
   </div>
   <p class="don-title">基本信息</p>
   <div class="addchild-list-cont">
-    <div>
-      <span class="goodtext">真实姓名</span>
-      <input  class="goodinput " type="text" name="project_season_apply_child[name]" value="<%= @child.name %>" required />
+    <div class="clearfix">
+      <span class="goodtext pull-left">真实姓名</span>
+      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[name]" value="<%= @child.name %>" required />
     </div>
-    <div>
-      <span class="goodtext">身份证号</span>
-      <input  class="goodinput " type="text" value="<%= @child.id_card %>" name="project_season_apply_child[id_card]" required data-parsley-shenfen/>
+    <div class="clearfix">
+      <span class="goodtext pull-left">身份证号</span>
+      <input  class="goodinput pull-left" type="text" value="<%= @child.id_card %>" name="project_season_apply_child[id_card]" required data-parsley-shenfen/>
     </div>
-    <div>
-      <span class="goodtext">民族</span>
-      <div>
+    <div class="clearfix">
+      <span class="goodtext pull-left">民族</span>
+      <div class="pull-left">
         <%= f.input :nation, as: :select, collection: ProjectSeasonApplyChild.options_for_enum_select(:nations), include_blank: false, label: false, input_html: {id: 'allcamps', class: ''} %>
       </div>
 
     </div>
-    <div>
-      <span class="goodtext">选择年级</span>
-      <div class="sclectedgrade clearfix">
+    <div class="clearfix">
+      <span class="goodtext pull-left">选择年级</span>
+      <div class="sclectedgrade pull-left">
         <div class="pull-left">
           <%= f.input :level, as: :select, collection: ProjectSeasonApplyChild.options_for_enum_select(:levels), include_blank: false, label: false, input_html: {id: 'level'} %>
         </div>
@@ -39,68 +39,68 @@
 
 
     </div>
-    <div>
-      <span class="goodtext">班主任</span>
-      <input  class="goodinput " type="text" name="project_season_apply_child[teacher_name]" value="<%= @child.teacher_name %>" placeholder="班主任姓名" required/>
+    <div class="clearfix">
+      <span class="goodtext pull-left">班主任</span>
+      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[teacher_name]" value="<%= @child.teacher_name %>" placeholder="班主任姓名" required/>
     </div>
-    <div>
-      <span class="goodtext">联系方式</span>
-      <input  class="goodinput " type="text" name="project_season_apply_child[teacher_phone]" value="<%= @child.teacher_phone %>" placeholder="填写班主任联系方式" required data-parsley-phone/>
+    <div class="clearfix">
+      <span class="goodtext pull-left">联系方式</span>
+      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[teacher_phone]" value="<%= @child.teacher_phone %>" placeholder="填写班主任联系方式" required data-parsley-phone/>
     </div>
-    <div style="height: 172px;width: 777px;">
-      <span class="goodtext" style="flex: 0 0 10%;max-width: 10%;width: 10%;">自我介绍</span>
-      <textarea name="project_season_apply_child[description]" required><%= @child.description %></textarea>
+    <div style="height: 172px;width: 777px;" class="clearfix">
+      <span class="goodtext pull-left" style="flex: 0 0 10%;max-width: 10%;width: 10%;">自我介绍</span>
+      <textarea name="project_season_apply_child[description]" class="pull-left" required><%= @child.description %></textarea>
     </div>
   </div>
 </div>
 <div class="addchild-list marginbottom">
   <p class="don-title">家庭信息</p>
   <div class="addchild-list-cont">
-    <div>
-      <span class="goodtext">父亲姓名</span>
-      <input  class="goodinput " type="text" name="project_season_apply_child[father]" value="<%= @child.father %>" required/>
+    <div class="clearfix">
+      <span class="goodtext pull-left">父亲姓名</span>
+      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[father]" value="<%= @child.father %>" required/>
     </div>
-    <div>
-      <span class="goodtext">职业</span>
-      <input  class="goodinput " type="text" name="project_season_apply_child[father_job]" value="<%= @child.father_job %>" required/>
+    <div class="clearfix">
+      <span class="goodtext pull-left">职业</span>
+      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[father_job]" value="<%= @child.father_job %>" required/>
     </div>
-    <div>
-      <span class="goodtext">母亲姓名</span>
-      <input  class="goodinput " type="text" name="project_season_apply_child[mother]" value="<%= @child.mother %>" required/>
+    <div class="clearfix">
+      <span class="goodtext pull-left">母亲姓名</span>
+      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[mother]" value="<%= @child.mother %>" required/>
     </div>
-    <div>
-      <span class="goodtext">职业</span>
-      <input  class="goodinput " type="text" name="project_season_apply_child[mother_job]" value="<%= @child.mother_job %>" required/>
+    <div class="clearfix">
+      <span class="goodtext pull-left">职业</span>
+      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[mother_job]" value="<%= @child.mother_job %>" required/>
     </div>
-    <div>
-      <span class="goodtext">监护人</span>
-      <input  class="goodinput " type="text" name="project_season_apply_child[guardian]" value="<%= @child.guardian %>" required placeholder="监护人姓名"/>
+    <div class="clearfix">
+      <span class="goodtext pull-left">监护人</span>
+      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[guardian]" value="<%= @child.guardian %>" required placeholder="监护人姓名"/>
     </div>
-    <div>
-      <span class="goodtext">与其关系</span>
-      <input  class="goodinput " type="text" name="project_season_apply_child[guardian_relation]" value="<%= @child.guardian_relation %>" required placeholder="填写孩子与监护人的关系"/>
+    <div class="clearfix">
+      <span class="goodtext pull-left">与其关系</span>
+      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[guardian_relation]" value="<%= @child.guardian_relation %>" required placeholder="填写孩子与监护人的关系"/>
     </div>
-    <div>
-      <span class="goodtext">收入来源</span>
-      <input  class="goodinput " type="text" name="project_season_apply_child[income_source]" value="<%= @child.income_source %>" required/>
+    <div class="clearfix">
+      <span class="goodtext pull-left">收入来源</span>
+      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[income_source]" value="<%= @child.income_source %>" required/>
     </div>
-    <div>
-      <span class="goodtext">年收入</span>
-      <input  class="goodinput " type="number" name="project_season_apply_child[family_income]" value="<%= @child.family_income %>" required min="0"/>
+    <div class="clearfix">
+      <span class="goodtext pull-left">年收入</span>
+      <input  class="goodinput pull-left" type="number" name="project_season_apply_child[family_income]" value="<%= @child.family_income %>" required min="0"/>
       <span class="income-moy">元/年</span>
     </div>
-    <div>
-      <span class="goodtext">年支出</span>
-      <input  class="goodinput " type="number" name="project_season_apply_child[family_expenditure]" value="<%= @child.family_expenditure %>" required min="0"/>
+    <div class="clearfix">
+      <span class="goodtext pull-left">年支出</span>
+      <input  class="goodinput pull-left" type="number" name="project_season_apply_child[family_expenditure]" value="<%= @child.family_expenditure %>" required min="0"/>
       <span class="income-moy">元/年</span>
     </div>
-    <div style="height: 172px;width: 777px;">
-      <span class="goodtext"  style="flex: 0 0 10%;max-width: 10%;width: 10%;">家庭情况</span>
-      <textarea placeholder="请写明具体家庭情况和贫困原因" name="project_season_apply_child[family_condition]" required><%= @child.family_condition %></textarea>
+    <div style="height: 172px;width: 777px;" class="clearfix">
+      <span class="goodtext pull-left"  style="flex: 0 0 10%;max-width: 10%;width: 10%;">家庭情况</span>
+      <textarea class="pull-left" placeholder="请写明具体家庭情况和贫困原因" name="project_season_apply_child[family_condition]" required><%= @child.family_condition %></textarea>
     </div>
-    <div style="height: 172px;width: 777px;">
-      <span class="goodtext"  style="flex: 0 0 10%;max-width: 10%;width: 10%;">兄弟姐妹</span>
-      <textarea placeholder="请写明具体家中兄弟姐妹的情况" name="project_season_apply_child[brothers]" required><%= @child.brothers %></textarea>
+    <div style="height: 172px;width: 777px;" class="clearfix">
+      <span class="goodtext pull-left"  style="flex: 0 0 10%;max-width: 10%;width: 10%;">兄弟姐妹</span>
+      <textarea class="pull-left" placeholder="请写明具体家中兄弟姐妹的情况" name="project_season_apply_child[brothers]" required><%= @child.brothers %></textarea>
     </div>
   </div>
 </div>
@@ -142,7 +142,7 @@
 <script>
     $("#allcamps").select2({
         language:'zh-CN',
-        width: "390px",
+        width: "389px",
         minimumResultsForSearch: -1
     });
     $("#level").select2({
