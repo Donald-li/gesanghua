@@ -23,7 +23,9 @@ class Site::WechatsController < Site::BaseController
       redirect_to root_url and return
     end
     user = User.where(openid: userinfo.result['unionid']).first || User.new
-    user.attributes = { openid: userinfo.result["unionid"], gender: userinfo.result["sex"], profile: userinfo.result }
+    user.attributes = { openid: userinfo.result["unionid"], gender: userinfo.result["sex"] }
+    # 如果已经存在，不能更新，微信端支付使用的是openid
+    user.profile = user.profile.presence || userinfo.result
     user.name ||= userinfo.result['nickname']
     user.nickname ||= userinfo.result['nickname']
     if user.disable?
