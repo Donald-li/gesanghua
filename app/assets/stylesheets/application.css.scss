@@ -320,6 +320,9 @@ select:disabled {
   color: #fff;
   font-size: 16px;
 }
+.class-button:hover{
+  background:$hover-button;
+}
 //轮播按钮
 
 .swiper-button-prev,
@@ -9360,7 +9363,7 @@ select:disabled {
 
   .table-bordered td {
     font-weight: 400;
-    padding: 0 4px;
+    padding: 0 6px;
     width: 145px;
     height: 50px;
     vertical-align: middle !important;
