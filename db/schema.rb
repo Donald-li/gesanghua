@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180504024521) do
+ActiveRecord::Schema.define(version: 20180504065537) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1263,6 +1263,9 @@ ActiveRecord::Schema.define(version: 20180504024521) do
     t.string "city", comment: "市"
     t.string "district", comment: "区县"
     t.string "address", comment: "详细地址"
+    t.integer "gender", comment: "性别"
+    t.string "source", comment: "获知渠道"
+    t.text "experience", comment: "志愿者经历"
   end
 
   create_table "voucher_donate_records", force: :cascade, comment: "捐赠收据捐助记录表" do |t|

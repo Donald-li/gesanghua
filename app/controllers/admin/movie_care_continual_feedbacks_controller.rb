@@ -7,7 +7,13 @@ class Admin::MovieCareContinualFeedbacksController < Admin::BaseController
     @continual_feedbacks = @project.continual_feedbacks
     @search = @continual_feedbacks.ransack(params[:q])
     scope = @search.result
-    @continual_feedbacks = scope.sorted.page(params[:page])
+    respond_to do |format|
+      format.html { @continual_feedbacks = scope.page(params[:page]) }
+      format.xlsx {
+        @continual_feedbacks = scope.sorted.all
+        response.headers['Content-Disposition'] = 'attachment; filename= "反馈记录" ' + Date.today.to_s + '.xlsx'
+      }
+    end
   end
 
   def show

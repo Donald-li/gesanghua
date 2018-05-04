@@ -1,0 +1,16 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "收入记录") do |sheet|
+sheet.add_row ["反馈学校", "反馈人", "反馈时间", "开展班级", "开展时间", "参与人数", "反馈内容", "反馈图片"]
+@continual_feedbacks.each do |feedback|
+sheet.add_row [
+  feedback.school.try(:name),
+  feedback.user.try(:name),
+  feedback.created_at.strftime("%Y-%m-%d %H:%M:%S"),
+  feedback.arise_class,
+  (feedback.arise_at.strftime("%Y-%m-%d %H:%M") if feedback.arise_at),
+  feedback.number,
+  feedback.content,
+  feedback.images.map{|image| image.file.public_url}.join(',')]
+end
+sheet.column_widths 20,20,30,20,30,20,20,40
+end
