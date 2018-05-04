@@ -138,12 +138,6 @@ apply = ProjectSeasonApply.find(params[:apply])
 //    $('#myModal').on('shown.bs.modal', function (e) {}).modal();
     // $('#myModaldonation').on('shown.bs.modal', function (e) {}).modal();
 
-    //     右tab切换二级
-    $(".donations1 li").on("click", function () {
-        $(".donations1 li").removeClass("selectedDo")
-        $(this).addClass("selectedDo")
-        $(".bottomline").css("left", parseFloat($(this)[0].offsetLeft) -10 +  "px")
-    })
     $('.ui-choose').ui_choose();
     $("#benefactor").select2({
         width: "426px",

@@ -4534,17 +4534,17 @@ select:disabled {
       line-height: 16px;
       font-size: 15px;
       color: #3d3d40;
-      text-align: left;
+      text-align: center;
       font-weight: 400;
-      padding-right: 40px;
+      padding: 0 14px;
       position: relative;
       .bottomline {
         position: absolute;
         left: 0;
-        bottom: 0;
+        bottom: -41px;
         right:0;
         top:0;
-        margin: 27px 0 0 0;
+        margin: auto;
         width: 40px;
         height: 3px;
         background: $color-button;
@@ -4725,7 +4725,7 @@ select:disabled {
     }
 
     & > img {
-      height: 80%;
+      height: 79%;
     }
 
     & > span {
