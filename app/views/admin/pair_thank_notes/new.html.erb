@@ -13,30 +13,55 @@
   </div>
   <div class="portlet-body form">
     <%= simple_form_for [:admin, @note], url: admin_pair_thank_notes_path, method: :post, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'continual_form'} do |f| %>
-      <%= f.error_notification %>
-      <div class="form-body form-horizontal">
-        <%= f.input :gsh_child_grant_id, as: :select, label: '选择记录：', input_html: {class: 'grants-ajax'}, required: true %>
-        <%= f.input :content, input_html: { data: {'parsley-required': true}}, label: '反馈内容：', required: true  %>
-        <div class="form-group">
-          <label class="col-md-2 control-label">反馈图片(最多9张)：</label>
-          <div class="col-sm-9">
-            <%= webuploader_tag 'image_ids[]', label: '上传图片', type: 'feedback_image', asset: @note.images %>
+        <%= f.error_notification %>
+        <div class="form-body form-horizontal">
+          <%= f.input :gsh_child_grant_id, as: :select, label: '选择记录：', input_html: {class: 'grants-ajax'}, required: true %>
+          <%= f.input :content, input_html: {data: {'parsley-required': true}}, label: '反馈内容：', required: true %>
+          <div class="form-group">
+            <label class="col-md-2 control-label">反馈图片(最多9张)：</label>
+            <div class="col-sm-9">
+              <%= webuploader_tag 'image_ids[]', label: '上传图片', type: 'feedback_image', asset: @note.images %>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="form-actions">
+        <div class="form-actions">
+          <div class="row">
+            <div class="col-md-offset-2 col-md-9">
+              <%= f.button :submit, '提交', class: 'btn blue' %>
+              <%= link_to '取消', admin_pair_thank_notes_path, class: 'btn' %>
+            </div>
+          </div>
+        </div>
+        <div class="form-actions">
+          <div class="row">
+            <div class="form-group">
+              <label class="col-md-2 control-label">微信反馈链接：</label>
+              <div class="col-md-9">
+                <div class="input-group">
+                  <input id="share_url" class="form-control" style="max-width: 100%;" value="<%= Settings.pair_feedback_url %>">
+                  <span class="input-group-addon" onclick="copyShareUrl()" style="cursor: pointer"><i class="fa fa-cut"></i> 点击复制链接</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-actions">
         <div class="row">
-          <div class="col-md-offset-2 col-md-9">
-            <%= f.button :submit, '提交', class: 'btn blue' %>
-            <%= link_to '取消', admin_pair_thank_notes_path, class: 'btn' %>
+          <div class="form-group">
+            <label class="col-md-2 control-label">微信反馈二维码：</label>
+            <div class="col-md-9">
+              <div class="input-group">
+                <%= image_tag ContinualFeedback.qrcode_url %>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+        </div>
     <% end %>
   </div>
 </div>
 <script type="text/javascript">
-    $(function(){
+    $(function () {
         initMultiImageWebuploader('.upload-wrap', null, 9);
         $('.upload-list').viewer();
     })
