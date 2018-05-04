@@ -1,4 +1,6 @@
 class Api::V1::Common::SmsCodesController < Api::V1::BaseController
+  skip_before_action :login?
+  
   def create
     code = SmsCode.send_code(params[:mobile], params[:kind])
     if code.valid?
