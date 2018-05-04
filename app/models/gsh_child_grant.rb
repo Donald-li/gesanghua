@@ -79,6 +79,10 @@ class GshChildGrant < ApplicationRecord
     Project.pair_project
   end
 
+  def search_title
+    self.apply_child.try(:name) + ' ' + self.title
+  end
+
   # 使用捐助
   def accept_donate(donate_records)
     donate_record = donate_records.last
