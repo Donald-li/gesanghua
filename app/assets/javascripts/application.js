@@ -36,7 +36,7 @@
 //= require 'plugin/jquery.magnify.js'
 //= require 'plugin/calculate.js'
 //= require toastr
-//= require 'plugin/popper.min.js'
+// = require 'plugin/popper.min.js'
 //= require 'plugin/parsley.min.js'
 //= require 'plugin/parsley.min.zextra.js'
 //= require 'plugin/parsley.min.zh_cn.js'
