@@ -97,6 +97,11 @@ class Support::SelectsController < Support::BaseController
     render json: {items: camp_users.as_json(only: [:id, :name])}
   end
 
+  def child_grants
+    child_grants = GshChildGrant.granted.joins(:apply_child).where("title like :q or project_season_apply_children.name like :q", q: "%#{params[:q]}%").sorted
+    render json: {items: child_grants.as_json(only: [:id], methods: :search_title)}
+  end
+
   # def income_records
   #   scope = IncomeRecord.sorted.where("name like :q", q: "%#{params[:q]}%")
   #   records = scope.page(params[:page])

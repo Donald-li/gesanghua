@@ -37,7 +37,7 @@ class Feedback < ApplicationRecord
   belongs_to :user
   belongs_to :project
   belongs_to :school, optional: true
-  belongs_to :gsh_child_grant, optional: true
+  belongs_to :gsh_child_grant, optional: true # TODO 与下边关系重复
   belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id', optional: true
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id', optional: true
   belongs_to :child, class_name: "ProjectSeasonApplyChild", foreign_key: 'project_season_apply_child_id', optional: true
