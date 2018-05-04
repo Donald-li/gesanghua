@@ -7580,7 +7580,7 @@ select:disabled {
     .camps-body-conts {
       padding: 20px;
 
-      & > p:nth-child(1) {
+      .camps-cont-1 {
         font-size: 20px;
         color: #3d3d40;
         font-weight: 600;
@@ -7603,6 +7603,7 @@ select:disabled {
         color: #8d8d8d;
       }
     }
+
   }
 }
 
