@@ -36,8 +36,9 @@ $border: #e6e6e6; //button hover
 $hover-button: #9750f5;
 $hover-share: #f4f4f4;
 $hover-share-but: #d9d9d9;
-$hover-deta-sub: #e9e9e9; //阴影
-//$color-box:#8a53e354;
+$hover-deta-sub: #e9e9e9;
+$hover-info: #ca279e;
+//$color-box:#8a53e354;//阴影
 
 *,
 *:after,
@@ -52,7 +53,7 @@ $hover-deta-sub: #e9e9e9; //阴影
 body {
   -webkit-font-smoothing: antialiased;
   background-color: #fff;
-  font-family: "PingFang SC", "微软雅黑", "Microsoft YaHei", Helvetica, "Helvetica Neue", Tahoma, Arial, sans-serif !important;
+
   margin: 0;
   padding: 0;
   border: none;
@@ -3654,6 +3655,9 @@ select:disabled {
   margin: auto 0;
   border-radius: 3px;
 }
+.camps-search:hover{
+  background-color:$hover-info;
+}
 //活动详情
 
 .camps-detail {
@@ -3743,6 +3747,9 @@ select:disabled {
 
 .activity-color-but-1 {
   background: $color-button;
+}
+.activity-color-but-1:hover{
+  background: $hover-button;
 }
 //名额已满
 
@@ -9284,10 +9291,6 @@ select:disabled {
 
 .page-right-content {
   padding: 20px 0 0;
-  font-size: 14px;
-  color: #3d3d40;
-  line-height: 30px;
-
   img {
     width: auto!important;
     height: auto!important;
@@ -9348,7 +9351,7 @@ select:disabled {
 
   .table-bordered td {
     font-weight: 400;
-    padding: 0;
+    padding: 0 4px;
     width: 145px;
     height: 50px;
     vertical-align: middle !important;
