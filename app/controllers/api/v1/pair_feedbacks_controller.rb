@@ -1,8 +1,10 @@
 class Api::V1::PairFeedbacksController < Api::V1::BaseController
 
   def find_child
-    @child = GshChild.find_by(id_card: params[:id_card])
-    if @child.present?
+    scope = GshChild.find_by(id_card: params[:id_card]) if params[:id_card].present? && params[:id_card] !=(nil || '')
+    scope = GshChild.find_by(gsh_no: params[:gsh_no]) if params[:gsh_no].present? && params[:gsh_no] !=(nil || '')
+    @child = scope
+    if @child.present? && (params[:id_card] && params[:id_card] !=(nil || '') || (params[:gsh_no] && params[:name] && @child.name == params[:name]))
       api_success(data: {seach_values: @child.pair_feedback_builder, result: true})
     else
       api_success(data: {result: false})
