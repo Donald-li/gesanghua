@@ -23,7 +23,7 @@ class Api::V1::GshPlus::VolunteersController < Api::V1::BaseController
     end
     volunteer = user.volunteer || user.build_volunteer
     location = params[:volunteer][:location] || []
-    volunteer.attributes = {describe: params[:volunteer][:describe], phone: params[:volunteer][:phone], name: params[:volunteer][:name], id_card: params[:volunteer][:id_card], province: location[0], city: location[1], district: location[2], address: params[:volunteer][:address], source: params[:volunteer][:source][0], experience: params[:volunteer][:experience]}
+    volunteer.attributes = {describe: params[:volunteer][:describe], phone: params[:volunteer][:phone], name: params[:volunteer][:name], id_card: params[:volunteer][:id_card], province: location[0], city: location[1], district: location[2], address: params[:volunteer][:address], source: params[:volunteer][:source].try(:first), experience: params[:volunteer][:experience]}
     if volunteer.save
       volunteer.submit!
       volunteer.attach_image(params[:image_ids][0]) if params[:image_ids].present?
