@@ -37,7 +37,7 @@ class Feedback < ApplicationRecord
   belongs_to :user
   belongs_to :project
   belongs_to :school, optional: true
-  belongs_to :gsh_child_grant, optional: true
+  belongs_to :gsh_child_grant, optional: true # TODO 与下边关系重复
   belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id', optional: true
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id', optional: true
   belongs_to :child, class_name: "ProjectSeasonApplyChild", foreign_key: 'project_season_apply_child_id', optional: true
@@ -102,5 +102,29 @@ class Feedback < ApplicationRecord
     end.attributes!
   end
 
+  def self.generate_qrcode
+    qrcode = RQRCode::QRCode.new(self.share_url)
+    png = qrcode.as_png(
+        resize_gte_to: true,
+        resize_exactly_to: true,
+        fill: 'white',
+        color: 'black',
+        size: 480,
+        border_modules: 0,
+        module_px_size: 1,
+        file: nil # path to write
+    )
+    FileUtils.mkdir_p("public/uploads/qrcode") unless File.exists?("public/uploads/qrcode")
+    f = File.new("public/uploads/qrcode/pair_feedback.png", "w+")
+    f.syswrite(png)
+  end
+
+  def self.qrcode_url
+    "/uploads/qrcode/pair_feedback.png"
+  end
+
+  def self.share_url
+    "#{Settings.pair_feedback_url}"
+  end
 
 end

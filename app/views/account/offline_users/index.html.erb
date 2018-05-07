@@ -28,9 +28,9 @@
               <div class="don-con-co">
                 <span>详细地址：</span><p><%= current_user.address %></p>
               </div>
-              <div class="don-con-co">
-                <span>邮箱地址：</span><p><%= current_user.email %></p>
-              </div>
+              <!--<div class="don-con-co">-->
+                <!--<span>邮箱地址：</span><p><%= current_user.email %></p>-->
+              <!--</div>-->
             </div>
             <% @offline_users.each do |offline_user| %>
               <div class="don-content">
@@ -46,9 +46,9 @@
                 <div class="don-con-co">
                   <span>详细地址：</span><p><%= offline_user.address %></p>
                 </div>
-                <div class="don-con-co">
-                  <span>邮箱地址：</span><p><%= offline_user.email %></p>
-                </div>
+                <!--<div class="don-con-co">-->
+                  <!--<span>邮箱地址：</span><p><%= offline_user.email %></p>-->
+                <!--</div>-->
                 <div class="clearfix don-con-pos">
                   <div class="pull-right cur delete-offline-user" offlineUserId="<%= offline_user.id %>" id="delete">
                     <span class="iconfont icon-ico-delete1"></span>
@@ -127,7 +127,7 @@
         type: "delete",
         url: "offline_users/" + id,
         data: {},
-       success(data){
+        success: function(data){
          if (data.status) {
            layer.msg(data.message, {
              icon: 1,

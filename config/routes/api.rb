@@ -1,6 +1,7 @@
 namespace :api do
   namespace :v1 do
     resource :session, only: :create
+    resource :registration, only: :create
 
     # 捐款
     resources :donations, only: [:create, :show]

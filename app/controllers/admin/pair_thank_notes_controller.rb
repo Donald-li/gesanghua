@@ -3,7 +3,7 @@ class Admin::PairThankNotesController < Admin::BaseController
   before_action :set_thank_note, only: [:show, :edit, :update, :destroy, :recommend]
 
   def index
-    @notes = ContinualFeedback.includes(:child).where.not(project_season_apply_child_id: nil)
+    @notes = ContinualFeedback.includes(:child, :owner).where.not(project_season_apply_child_id: nil)
     set_search_end_of_day(:created_at_lteq)
     @search = @notes.ransack(params[:q])
     scope = @search.result
@@ -12,6 +12,24 @@ class Admin::PairThankNotesController < Admin::BaseController
 
   def show
     @note.update(check: 2)
+  end
+
+  def new
+    @note = ContinualFeedback.new
+  end
+
+  def create
+    @project = Project.pair_project
+    @user = current_user
+    @grant = GshChildGrant.find(note_params[:gsh_child_grant_id])
+    @child = @grant.gsh_child
+    @feedback = ContinualFeedback.new(content: note_params[:content], owner: @child, project: Project.pair_project, user: @user, gsh_child_grant: @grant, season: @grant.season, apply: @grant.apply, child: @grant.apply_child)
+    if @feedback.save
+      @feedback.attach_images(params[:image_ids])
+      redirect_to admin_pair_thank_notes_path, notice: '新增成功。'
+    else
+      render :new
+    end
   end
 
   def edit

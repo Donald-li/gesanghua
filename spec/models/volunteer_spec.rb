@@ -28,6 +28,9 @@
 #  city               :string                                 # 市
 #  district           :string                                 # 区县
 #  address            :string                                 # 详细地址
+#  gender             :integer                                # 性别
+#  source             :string                                 # 获知渠道
+#  experience         :text                                   # 志愿者经历
 #
 
 require 'rails_helper'

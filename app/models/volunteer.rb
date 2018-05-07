@@ -28,10 +28,15 @@
 #  city               :string                                 # 市
 #  district           :string                                 # 区县
 #  address            :string                                 # 详细地址
+#  gender             :integer                                # 性别
+#  source             :string                                 # 获知渠道
+#  experience         :text                                   # 志愿者经历
 #
 
 # 志愿者
 class Volunteer < ApplicationRecord
+
+  after_create :distinguish_gender
 
   belongs_to :user, optional: true
   has_many :task_volunteers, dependent: :destroy
@@ -56,6 +61,9 @@ class Volunteer < ApplicationRecord
   enum approve_state: { submit: 1, pass: 2, reject: 3 } # 审核状态：1:审核中 2:申请通过 3:申请不通过
   default_value_for :approve_state, 1
 
+  enum gender: {unknow: 0, male: 1, female: 2} #性别 1:男 2:女
+  default_value_for :gender, 0
+
   default_value_for :approve_time, Time.now
 
   default_value_for :level, 0
@@ -72,6 +80,12 @@ class Volunteer < ApplicationRecord
 
   def leave_reason_content
     "请假原因：#{self.leave_reason['type']} \\n请假说明：#{self.leave_reason['content']}"
+  end
+
+  def distinguish_gender
+    num = self.id_card[-2]
+    gender = num % 2 == 1 ? 'male' : 'female'
+    self.update_columns(gender: gender)
   end
 
   def full_address
@@ -114,6 +128,7 @@ class Volunteer < ApplicationRecord
       json.approve_time self.approve_time.strftime("%Y-%m-%d")
       json.practice self.practice? ? '实习中' : ''
       json.avatar_mode self.user.try(:avatar).present?
+      json.source [self.source]
       json.user_avatar_src self.try(:user).try(:user_avatar)
     end.attributes!
   end
@@ -138,9 +153,10 @@ class Volunteer < ApplicationRecord
 
   def apply_builder
     Jbuilder.new do |json|
-      json.(self, :id, :phone, :describe, :major_ids, :address)
+      json.(self, :id, :phone, :describe, :major_ids, :experience)
       json.name self.name
       json.id_card self.id_card
+      json.source [self.source]
       json.location [self.province, self.city, self.district]
     end.attributes!
   end

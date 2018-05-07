@@ -19,6 +19,14 @@
         </tr>
         <tr>
           <th>
+            性别
+          </th>
+          <th>
+            <%= @apply.enum_name(:gender) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
             联系方式
           </th>
           <th>
@@ -63,6 +71,22 @@
           </th>
           <th>
             <%= @apply.majors.map(&:name).join(', ') %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            获知渠道
+          </th>
+          <th>
+            <%= @apply.source %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            志愿者经历
+          </th>
+          <th>
+            <%= @apply.experience %>
           </th>
         </tr>
         </tbody>
