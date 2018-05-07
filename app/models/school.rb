@@ -34,6 +34,8 @@
 # 学校
 class School < ApplicationRecord
 
+  has_paper_trail only: [:name, :approve_state, :approve_remark, :contact_name, :contact_phone, :contact_position, :contact_telephone, :contact_id_card, :postcode, :province, :city, :district, :address, :describe, :state, :level, :kind, :user_id]
+
   require 'custom_validators'
 
   attr_accessor :logo_id

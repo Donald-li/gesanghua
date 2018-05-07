@@ -15,6 +15,8 @@
 #
 
 class CampDocumentSummary < ApplicationRecord
+  has_paper_trail only: [:user_id, :free_resource, :resource_value, :donate_amount, :publicize_count, :project_season_apply_id, :camp_id]
+
   include HasAsset
   has_one_asset :report, class_name: 'Asset::ReportFile'
 

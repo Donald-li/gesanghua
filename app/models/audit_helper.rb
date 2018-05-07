@@ -12,12 +12,27 @@ class AuditHelper
 
   def self.item_types
     [
-      ['管理员', 'Administrator'],
-      ['商家', 'Company'],
-      ['商品', 'Product'],
-      ['二维码预发码', 'QrcodeAdvance'],
-      ['申请码或分配码', 'QrcodeApply'],
-      ['绑定二维码','QrcodeBind']
+      ['用户', 'User'],
+      ['学校', 'School'],
+      ['老师', 'Teacher'],
+      ['项目', 'Project'],
+      ['项目批次', 'ProjectSeason'],
+      ['申请', 'ProjectSeasonApply'],
+      ['申请孩子','ProjectSeasonApplyChild'],
+      ['发放批次','GrantBatch'],
+      ['孩子发放', 'GshChildGrant'],
+      ['格桑花孩子', 'GshChild'],
+      ['申请书架', 'ProjectSeasonApplyBookshelf'],
+      ['申请补书', 'BookshelfSupplement'],
+      ['探索营', 'Camp'],
+      ['探索营概算', 'CampDocumentEstimate'],
+      ['探索营预算或决算', 'CampDocumentFinance'],
+      ['探索营志愿者', 'CampDocumentVolunteer'],
+      ['探索营总结', 'CampDocumentSummary'],
+      ['探索营资源', 'CampProjectResource'],
+      ['志愿者', 'Volunteer'],
+      ['活动', 'Campaign'],
+      ['活动报名表', 'CampaignEnlist']
   ]
   end
 
@@ -27,8 +42,8 @@ class AuditHelper
 
   def self.display_name(audit)
     attributes = audit.reify.try(:attributes) || audit.next.try(:reify).try(:attributes) || audit.item.try(:attributes) || {}
-    attributes['nickname'] || attributes['name'] || attributes['title'] || attributes['code'] ||
-    attributes['bind_no'] || attributes['batch_no'] || attributes['phone']
+    audit.item.try(:apply_name) || audit.item.try(:bookshelf).try(:classname) || attributes['nickname'] || attributes['name'] || attributes['title'] ||
+    attributes['bind_no'] || attributes['batch_no'] || attributes['phone'] || attributes['classname']
   end
 
   def self.attr_name(item_type, attr)
@@ -39,17 +54,41 @@ class AuditHelper
   def self.attr_value(audit, attr, value)
     return '' if value.blank?
     case attr
-    when 'state', 'approve_state', 'apply_type', 'code_type'
+    when 'state', 'approve_state', 'apply_type', 'code_type', 'show_state', 'execute_state', 'read_state', 'pair_state', 'gender', 'nation',
+       'level', 'grade', 'semester', 'kind', 'audit_state', 'inventory_state', 'accept_feedback_state', 'feedback_format', 'apply_kind', 'job_state',
+        'internship_state', 'phone_verify', 'use_nickname'
       klass = audit.item_type.constantize
       klass.enum_name(attr.pluralize, value)
+    when 'province', 'city', 'district'
+      ChinaCity.get(value).to_s
+    when 'form'
+      project = audit.item.try(:project)
+      if project.present?
+        form = project.form_submit(value)
+        a = ''
+        form.each do |item|
+          a += item.first + ': ' + item.second + "\n"
+        end
+      end
+      a
     when /_id$/
       item = audit.item
       return unless item
       asso = item.send(attr.gsub('_id', ''))
-      asso && (asso.attributes['name'] || asso.attributes['batch_no'])
+      # klass = klass.gsub('_id', '').camelize.constantize
+      # asso = item.send(attr)
+      # a = klass.find(asso)
+      # asso && (asso.attributes['name'] || asso.attributes['batch_no'])
+      # if klass.name == 'Fund'
+        # a && (a.fund_category.attributes['name'] + a.attributes['name'])
+      # else
+        a && (a.attributes['name'] || a.attributes['nickname'] || a.attributes['classname'])
+      # end
     when /_at$/
       I18n.localize(value)
-    when 'content'
+    when  'camp_start_time', 'start_time', 'end_time', 'sign_up_end_time', 'sign_up_start_time'
+      I18n.localize(value)
+    when 'content', 'protocol', 'describe', 'experience'
       value.html_safe
     else
       value

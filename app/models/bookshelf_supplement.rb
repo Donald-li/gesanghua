@@ -21,6 +21,8 @@
 # 图书角书架补书
 # TODO: 补书少了一个season_id
 class BookshelfSupplement < ApplicationRecord
+  has_paper_trail only: [:project_id, :project_season_apply_bookshelf_id, :project_season_apply_id, :loss, :state, :describe, :supply, :audit_state, :show_state,
+    :target_amount, :present_amount]
 
   validates :loss, :supply, presence: true
 

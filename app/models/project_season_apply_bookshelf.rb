@@ -30,6 +30,8 @@
 
 # 项目年度图书角申请
 class ProjectSeasonApplyBookshelf < ApplicationRecord
+  has_paper_trail only: [:project_id, :project_season_id, :project_season_apply_id, :province, :city, :district, :classname, :title, :school_id, :audit_state, :show_state, :state, :grade,
+    :bookshelf_no, :target_amount, :present_amount, :book_number, :student_number, :contact_name, :contact_phone, :address]
 
   attr_accessor :image_id
 

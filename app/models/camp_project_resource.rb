@@ -19,6 +19,7 @@
 require 'custom_validators'
 
 class CampProjectResource < ApplicationRecord
+  has_paper_trail only: [:company, :resource, :contact_name, :contact_phone, :gsh_contact_name, :gsh_contact_phone, :remark, :camp_id]
 
   belongs_to :user
   belongs_to :camp

@@ -14,6 +14,8 @@
 #
 
 class CampDocumentEstimate < ApplicationRecord
+  has_paper_trail only: [:item, :amount, :remark, :project_season_apply_id, :camp_id]
+
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: :project_season_apply_id
   belongs_to :user
   belongs_to :camp

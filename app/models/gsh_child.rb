@@ -22,6 +22,7 @@
 
 require 'custom_validators'
 class GshChild < ApplicationRecord
+  has_paper_trail only: [:name, :kind, :workstation, :province, :city, :district, :gsh_no, :phone, :qq, :user_id, :id_card, :semester_count, :done_semester_count]
 
   belongs_to :user, optional: true
 
