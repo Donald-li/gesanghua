@@ -85,7 +85,8 @@ class Volunteer < ApplicationRecord
   end
 
   def distinguish_gender
-    num = self.id_card[-2]
+    num = self.id_card.try(:[], -2)
+    return unless num
     gender = num % 2 == 1 ? 'male' : 'female'
     self.update_columns(gender: gender)
   end

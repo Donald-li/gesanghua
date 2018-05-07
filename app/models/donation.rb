@@ -178,7 +178,7 @@ class Donation < ApplicationRecord
 
   def detail_builder
     Jbuilder.new do |json|
-      json.(self, :id, :order_no, :amount)
+      json.(self, :id, :order_no, :amount, :pay_state)
       json.certificate_no self.income_record.try(:certificate_no)
     end.attributes!
   end
@@ -298,7 +298,7 @@ class Donation < ApplicationRecord
     if type == 'wap'
       method = "alipay.trade.wap.pay"
       product_code = 'QUICK_WAP_WAY'
-      quit_url = 'http://' + Settings.app_host + '/m/'
+      quit_url = 'http://' + Settings.app_host + '/m/donate-result?order_no=' + self.order_no
     else
       method = "alipay.trade.page.pay"
       product_code = 'FAST_INSTANT_TRADE_PAY'
