@@ -323,6 +323,15 @@ class ProjectSeasonApplyChild < ApplicationRecord
     self.gsh_child_grants.sorted.where(id: grant_ids)
   end
 
+  #用于操作日志查找关系
+  def project_season
+    self.season
+  end
+
+  def project_season_apply
+    self.apply
+  end
+
   def summary_builder(user=nil)
     Jbuilder.new do |json|
       json.(self, :id)

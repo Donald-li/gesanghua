@@ -73,6 +73,15 @@ class BookshelfSupplement < ApplicationRecord
     self.target_amount - self.present_amount
   end
 
+  #用于操作日志查找关系
+  def project_season_apply_bookshelf
+    self.bookshelf
+  end
+
+  def project_season_apply
+    self.apply
+  end
+
   def class_list_summary_builder
     Jbuilder.new do |json|
       json.(self, :id, :target_amount, :present_amount)

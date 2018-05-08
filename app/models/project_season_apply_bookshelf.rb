@@ -171,6 +171,15 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
     self.try(:image).try(:file_url) || self.project.try(:project_image)
   end
 
+  #用户操作日志查找关系
+  def project_season
+    self.season
+  end
+
+  def project_season_apply
+    self.apply
+  end
+
   def summary_builder
     Jbuilder.new do |json|
       json.(self, :id, :classname, :title, :bookshelf_no, :student_number, :book_number, :target_amount, :present_amount, :state)

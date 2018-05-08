@@ -151,6 +151,15 @@ class GshChildGrant < ApplicationRecord
 
   end
 
+  #用于操作用户查找关系
+  def project_season_apply
+    self.apply
+  end
+
+  def project_season_apply_child
+    self.apply_child
+  end
+
   def summary_builder
     Jbuilder.new do |json|
       json.(self, :id, :title, :amount, :donate_state, :grant_batch_id)

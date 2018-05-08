@@ -75,15 +75,7 @@ class AuditHelper
       item = audit.item
       return unless item
       asso = item.send(attr.gsub('_id', ''))
-      # klass = klass.gsub('_id', '').camelize.constantize
-      # asso = item.send(attr)
-      # a = klass.find(asso)
-      # asso && (asso.attributes['name'] || asso.attributes['batch_no'])
-      # if klass.name == 'Fund'
-        # a && (a.fund_category.attributes['name'] + a.attributes['name'])
-      # else
-        a && (a.attributes['name'] || a.attributes['nickname'] || a.attributes['classname'])
-      # end
+      asso && (asso.attributes['name'] || asso.attributes['nickname'] || asso.attributes['classname'] || asso.try(:apply_name))
     when /_at$/
       I18n.localize(value)
     when  'camp_start_time', 'start_time', 'end_time', 'sign_up_end_time', 'sign_up_start_time'

@@ -323,6 +323,11 @@ class ProjectSeasonApply < ApplicationRecord
     return false
   end
 
+  #用于操作日志查找关系
+  def project_season
+    self.season
+  end
+
   # 动态表单内容的builder
   def form_builder
     project = self.project

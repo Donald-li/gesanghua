@@ -22,4 +22,9 @@ class CampDocumentVolunteer < ApplicationRecord
 
   scope :sorted, ->{order(id: :asc)}
   scope :in_apply, ->(apply){where(apply: apply)}
+
+  # 操作日志查找关系
+  def project_season_apply
+      self.apply
+  end
 end
