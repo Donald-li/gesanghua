@@ -87,6 +87,7 @@ class Admin::PairStudentsController < Admin::BaseController
 
         # 审核结果通知
         notice = Notification.create(
+            kind: @apply_child.pass? ? 'approve_pass' : 'approve_reject',
             owner: @apply_child,
             user_id: @apply_child.apply.applicant_id,
             title: @apply_child.pass? ? '#审核通过# 结对助学学生审核结果' : '#审核未通过# 结对助学学生审核结果',

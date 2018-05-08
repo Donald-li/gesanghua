@@ -96,6 +96,7 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
       title = '#筹款成功# 该书架已筹满'
       content = "感谢你的支持 #{self.classname}书架 筹款成功，后续书架动态我们会持续通知"
       notice1 = Notification.create(
+        kind: 'project_success',
         owner: owner,
         user_id: owner.apply.applicant_id,
         title: title,
@@ -106,6 +107,7 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
       self.donates.each do |d|
         unless d.donor_id.in? donor_ids
           notice2 = Notification.create(
+            kind: 'project_success',
             owner: owner,
             user_id: d.donor_id,
             title: title,
