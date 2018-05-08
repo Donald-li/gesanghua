@@ -20,6 +20,7 @@
 # 活动报名
 require 'custom_validators'
 class CampaignEnlist < ApplicationRecord
+  has_paper_trail only: [:campaign_id, :user_id, :number, :remark, :total, :contact_name, :contact_phone, :payment_state, :income_source_id, :form]
 
   belongs_to :campaign
   belongs_to :user

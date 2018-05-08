@@ -44,6 +44,9 @@
 # 用户
 require 'custom_validators'
 class User < ApplicationRecord
+
+  has_paper_trail only: [:nickname, :name, :password_digest, :state, :gender, :balance, :phone, :email, :address, :salutation, :consignee, :province, :city, :district, :id_card, :qq, :kind, :phone_verify, :use_nickname]
+
   include HasBitEnum
   ROLES = %w[superadmin admin project_manager project_operator financial_staff volunteer county_user gsh_child custom_service headmaster teacher camp_manager]
   ROLES_HASH = Hash[*ROLES.zip(%w[超级管理员 管理员 项目管理员 项目操作员 财务人员 志愿者 教育局用户 格桑花孩子 客服 校长 老师 营管理员]).flatten]

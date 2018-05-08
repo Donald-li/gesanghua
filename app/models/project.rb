@@ -25,6 +25,8 @@
 
 # 项目父表
 class Project < ApplicationRecord
+  has_paper_trail only: [:kind, :name, :describe, :protocol, :fund_id, :alias, :appoint_fund_id, :form, :donate_item_id, :accept_feedback_state, :apply_kind, :feedback_format, :feedback_period]
+
   include ActionView::Helpers::NumberHelper
 
   attr_accessor :image_id, :form_attributes

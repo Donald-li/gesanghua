@@ -15,6 +15,8 @@
 #
 
 class Camp < ApplicationRecord
+  has_paper_trail only: [:name, :province, :city, :district, :fund_id, :manager_id, :state]
+
   belongs_to :fund
   belongs_to :manager, class_name: 'User', foreign_key: :manager_id
   has_many :applies, class_name: 'ProjectSeasonApply', dependent: :restrict_with_error

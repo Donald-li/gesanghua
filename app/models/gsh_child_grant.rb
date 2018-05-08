@@ -31,6 +31,8 @@
 
 # 一对一孩子发放表
 class GshChildGrant < ApplicationRecord
+  has_paper_trail only: [:gsh_child_id, :project_season_apply_id, :amount, :school_id, :state, :project_season_id, :donate_state, :grant_no, :granted_at,
+  :grant_remark, :delay_reason, :delay_remark, :balance_manage, :cancel_remark, :title, :operator_id, :grant_person, :user_id, :grant_batch_id, :project_season_apply_child_id, :cancel_reason]
 
   include HasAsset
   has_many_assets :images, class_name: 'Asset::GshChildGrantImage'
@@ -147,6 +149,15 @@ class GshChildGrant < ApplicationRecord
 
     # child.semester
 
+  end
+
+  #用于操作用户查找关系
+  def project_season_apply
+    self.apply
+  end
+
+  def project_season_apply_child
+    self.apply_child
   end
 
   def summary_builder

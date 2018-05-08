@@ -18,6 +18,7 @@
 #
 # 教师
 class Teacher < ApplicationRecord
+  has_paper_trail only: [:nickname, :name, :user_id, :school_id, :kind, :phone, :id_card, :state, :qq]
 
   require 'custom_validators'
 
