@@ -56,6 +56,10 @@
 require 'custom_validators'
 class ProjectSeasonApplyChild < ApplicationRecord
 
+  has_paper_trail only: [:project_id, :project_season_id, :project_season_apply_id, :gsh_child_id, :name, :province, :city, :district, :phone, :qq, :nation, :id_card, :parent_name, :description, :state,
+     :approve_state, :age, :level, :grade, :gender, :school_id, :semester, :kind, :reson, :gsh_no, :teacher_name, :teacher_phone, :father, :father_job, :mother, :mother_job, :guardian, :guardian_relation, :guardian_phone, :address,
+   :family_income, :family_expenditure, :income_source, :family_condition, :brothers, :remark]
+
   after_create :distinguish_gender
   before_update :update_pair_state, if: :can_update_pair_state?
 
@@ -317,6 +321,15 @@ class ProjectSeasonApplyChild < ApplicationRecord
   def donate_grants_by_user(user)
     grant_ids = user.donate_records.where(owner_type: 'GshChildGrant', owner_id: self.gsh_child_grant_ids).pluck(:owner_id)
     self.gsh_child_grants.sorted.where(id: grant_ids)
+  end
+
+  #用于操作日志查找关系
+  def project_season
+    self.season
+  end
+
+  def project_season_apply
+    self.apply
   end
 
   def summary_builder(user=nil)

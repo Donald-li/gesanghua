@@ -51,6 +51,10 @@
 # 所有项目年度申请表
 class ProjectSeasonApply < ApplicationRecord
 
+  has_paper_trail only: [:project_id, :project_season_id, :school_id, :describe, :province, :city, :district, :address, :state, :name, :number, :apply_no, :bookshelf_type,
+     :contact_name, :contact_phone, :audit_state, :consignee, :consignee_phone, :target_amount, :present_amount, :execute_state, :project_type, :class_number, :student_number,
+     :project_describe, :form, :pair_state, :read_state, :camp_id, :camp_start_time, :camp_period, :camp_state, :camp_principal, :camp_income_source, :inventory_state, :applicant_id]
+
   attr_accessor :cover_image_id
   include HasAsset
   has_many_assets :images, class_name: 'Asset::ProjectSeasonApplyImage'
@@ -317,6 +321,11 @@ class ProjectSeasonApply < ApplicationRecord
       end
     end
     return false
+  end
+
+  #用于操作日志查找关系
+  def project_season
+    self.season
   end
 
   # 动态表单内容的builder

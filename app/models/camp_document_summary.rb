@@ -15,6 +15,8 @@
 #
 
 class CampDocumentSummary < ApplicationRecord
+  has_paper_trail only: [:user_id, :free_resource, :resource_value, :donate_amount, :publicize_count, :project_season_apply_id, :camp_id]
+
   include HasAsset
   has_one_asset :report, class_name: 'Asset::ReportFile'
 
@@ -29,4 +31,9 @@ class CampDocumentSummary < ApplicationRecord
   scope :sorted, ->{order(id: :asc)}
   scope :in_apply, ->(apply){where(apply: apply)}
 
+  #用于操作日志查找关系
+  def project_season_apply
+    self.apply
+  end
+  
 end

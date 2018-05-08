@@ -35,6 +35,8 @@
 
 # 志愿者
 class Volunteer < ApplicationRecord
+  has_paper_trail only: [:level, :duration, :user_id, :job_state, :state, :kind, :approve_state, :approve_time, :approve_remark, :volunteer_no, :volunteer_apply_no,
+     :internship_state, :describe, :phone, :workstation, :leave_reason, :name, :id_card, :province, :city, :district, :address, :gender, :source, :experience]
 
   after_create :distinguish_gender
 

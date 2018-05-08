@@ -16,6 +16,8 @@
 
 # 一对一发放批次
 class GrantBatch < ApplicationRecord
+  has_paper_trail only: [:project_id, :batch_no, :name, :description, :state, :user_id, :grant_at]
+
   belongs_to :project
   belongs_to :user, optional: true
   has_many :grants, class_name: 'GshChildGrant', foreign_key: :grant_batch_id, dependent: :nullify

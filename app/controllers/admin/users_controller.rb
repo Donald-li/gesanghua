@@ -40,7 +40,7 @@ class Admin::UsersController < Admin::BaseController
 
   def update
     roles = @user.roles
-    user_params[:roles] = (user_params[:roles] | ( roles & User::ADMIN_ROLES)).select(&:present?)
+    user_params[:roles] = (user_params[:roles] | ( roles & User::ADMIN_ROLES)).select(&:present?) if user_params[:roles].present?
     respond_to do |format|
       if @user.update(user_params)
         @user.attach_avatar(params[:avatar_id])

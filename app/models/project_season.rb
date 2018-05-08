@@ -17,6 +17,8 @@
 
 # 项目年度（批次）
 class ProjectSeason < ApplicationRecord
+  has_paper_trail only: [:project_id, :name, :state, :junior_term_amount, :junior_year_amount, :senior_term_amount, :senior_year_amount, :bookshelf_univalence]
+
   belongs_to :project
 
   has_many :goods, class_name: 'ProjectSeasonGoods', dependent: :restrict_with_error
