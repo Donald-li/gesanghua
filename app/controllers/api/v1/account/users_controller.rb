@@ -58,4 +58,13 @@ class Api::V1::Account::UsersController < Api::V1::BaseController
     api_success(data: {balance: user.balance, account_records: account_records.map{|record| record.summary_builder}})
   end
 
+  def set_password
+    user = current_user
+    if user.update(password: params[:password])
+      api_success(data: true, message: '设置密码成功')
+    else
+      api_success(data: false, message: user.errors.full_messages.first)
+    end
+  end
+
 end
