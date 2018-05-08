@@ -87,6 +87,14 @@ zh:
   teacher_kinds:
     headmaster: '校长'
     teacher: '老师'
+  protocol_kinds:
+    register_protocol: '注册协议'
+    donate_protocol: '捐助协议'
+    project_apply_protocol: '项目申请协议'
+    volunteer_apply_protocol: '志愿者申请协议'
+  protocol_states:
+    show: '显示'
+    hidden: '隐藏'
   project_kinds:
     fixed: '固定类'
     apply: '申请类'

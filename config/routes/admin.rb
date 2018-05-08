@@ -23,6 +23,7 @@ namespace :admin do
     resources :account_records
   end
   resources :administrators, concerns: :switch
+  resources :protocols, concerns: :switch
   resources :audits, only: [:index, :show]
   resources :adverts, concerns: [:move, :switch]
   resources :articles, concerns: [:switch, :recommend]
