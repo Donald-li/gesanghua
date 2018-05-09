@@ -6,11 +6,9 @@
     </li>
   </ul>
   <div class="leftLine"></div>
-  <div  class="border-t" >
-    <%= link_to platform_school_apply_pairs_path do %>
+  <div  class="border-t" id="gobackbtn">
     <span class="iconfont icon-rollback"></span>
-    <span>返回协作平台</span>
-    <% end %>
+    <span>返回</span>
   </div>
 </div>
 <div class="person-body-right pull-right" style="margin-top: 40px;">
@@ -50,5 +48,8 @@
 <script>
     $(function(){
         initAvatarWebuploader($('#user-avatar'));
+    })
+    $('#gobackbtn').click(function () {
+      window.location.href = "javascript:history.go(-1)";
     })
 </script>
