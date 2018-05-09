@@ -1,7 +1,7 @@
 @font-face {
     font-family: "socialshare";
-    src: url("fonts/iconfont.eot");
-    src: url("fonts/iconfont.eot?#iefix") format("embedded-opentype"), url("fonts/iconfont.woff") format("woff"), url("fonts/iconfont.ttf") format("truetype"), url("fonts/iconfont.svg#iconfont") format("svg")
+    src: asset-url("iconfont.eot");
+    src: asset-url("iconfont.eot?#iefix") format("embedded-opentype"), asset-url("iconfont.woff") format("woff"), asset-url("iconfont.ttf") format("truetype"), asset-url("iconfont.svg#iconfont") format("svg")
 }
 
 .social-share {
