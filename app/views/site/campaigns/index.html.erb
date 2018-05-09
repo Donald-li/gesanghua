@@ -9,7 +9,7 @@
     </div>
 
     <div class="camps-body">
-      <div class="camps-body-cont row">
+      <div class="camps-body-cont row clearfix">
         <% @campaigns.each do |campaign| %>
             <div class="col-md-6 cur">
               <%= link_to campaign_path(campaign) do %>

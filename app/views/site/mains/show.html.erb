@@ -61,7 +61,7 @@
 </div>
 <div class="bul-content">
   <div>
-    <div class="bul-mouse row">
+    <div class="bul-mouse row clearfix">
       <div id="show1" class="cur col-md-4">
         <p class="mouse-1">我们可以</p>
         <p class="mouse-2">为西部孩子提供帮助</p>
@@ -75,7 +75,7 @@
         <p class="mouse-2">每一笔善款去向可查</p>
       </div>
     </div>
-    <div class="bul-mouse-show row">
+    <div class="bul-mouse-show row clearfix">
       <div id="show11" class="col-md-4">
         <%= image_tag 'gsh-arrows-2.png' %>
         <div class="mouse-show">
@@ -100,9 +100,9 @@
     <p>最美格桑花资讯</p>
     <p>GESANGHUA NEWS</p>
   </div>
-  <div class="items-container row">
+  <div class="items-container row clearfix">
     <% @articles.each do |article| %>
-        <div class="item col-md-4 cur ">
+        <div class="item col-md-4 cur " >
           <%= link_to article_path(article) do %>
               <div class="gsh-img">
                 <%= image_tag article.image.try(:file).try(:url, :medium).to_s %>

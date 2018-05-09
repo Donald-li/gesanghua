@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180504091621) do
+ActiveRecord::Schema.define(version: 20180508030716) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -923,6 +923,17 @@ ActiveRecord::Schema.define(version: 20180504091621) do
     t.integer "feedback_period", comment: "建议定期反馈次数/年"
     t.integer "apply_kind", default: 1, comment: "申请类型 1:平台分配 2:用户申请"
     t.integer "feedback_format", comment: "反馈形式"
+  end
+
+  create_table "protocols", force: :cascade, comment: "协议" do |t|
+    t.integer "kind", comment: "类型"
+    t.string "title", comment: "标题"
+    t.text "content", comment: "内容"
+    t.string "version", comment: "版本"
+    t.integer "project_id", comment: "关联项目id"
+    t.integer "state", comment: "状态"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "remarks", force: :cascade, comment: "备注信息表" do |t|

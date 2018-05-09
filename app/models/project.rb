@@ -49,6 +49,7 @@ class Project < ApplicationRecord
   has_many :teachers, through: :teacher_projects
   has_many :project_reports, dependent: :restrict_with_error
   has_many :continual_feedbacks, as: :owner, dependent: :destroy
+  has_many :protocols, dependent: :destroy
   belongs_to :donate_item, optional: true
 
   belongs_to :fund, optional: true # 定项非指定

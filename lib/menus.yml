@@ -77,6 +77,9 @@ admin:
             admin_content_articles:
               actions:
                 'admin/articles': all
+            admin_content_protocols:
+              actions:
+                'admin/protocols': all
             admin_content_supports:
               actions:
                 'admin/supports': all

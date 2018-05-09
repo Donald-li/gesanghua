@@ -111,5 +111,13 @@ Page.find_or_create_by(title: '关于我们', alias: 'about-us', content: '关�
 
 
 #捐助协议
-Page.find_or_create_by(title: '《格桑花用户捐助协议》', alias: 'donation_protocol', content: '捐助协议', position: 2)
-Page.find_or_create_by(title: '《格桑花志愿者申请协议》', alias: 'volunteer_apply_protocol', content: '志愿者申请协议', position: 3)
+Protocol.find_or_create_by(title: '《格桑花结对助学项目申请协议》', version: '2018年版', content: '项目申请协议', kind: 'project_apply_protocol', state: 'show', project_id: 1)
+Protocol.find_or_create_by(title: '《格桑花悦读项目申请协议》', version: '2018年版', content: '项目申请协议', kind: 'project_apply_protocol', state: 'show', project_id: 2)
+Protocol.find_or_create_by(title: '《格桑花探索营项目申请协议》', version: '2018年版', content: '项目申请协议', kind: 'project_apply_protocol', state: 'show', project_id: 3)
+Protocol.find_or_create_by(title: '《格桑花观影项目申请协议》', version: '2018年版', content: '项目申请协议', kind: 'project_apply_protocol', state: 'show', project_id: 4)
+Protocol.find_or_create_by(title: '《格桑花护花课程项目申请协议》', version: '2018年版', content: '项目申请协议', kind: 'project_apply_protocol', state: 'show', project_id: 5)
+Protocol.find_or_create_by(title: '《格桑花广播项目申请协议》', version: '2018年版', content: '项目申请协议', kind: 'project_apply_protocol', state: 'show', project_id: 6)
+Protocol.find_or_create_by(title: '《格桑花护花项目申请协议》', version: '2018年版', content: '项目申请协议', kind: 'project_apply_protocol', state: 'show', project_id: 7)
+Protocol.find_or_create_by(title: '《格桑花用户捐助协议》', version: '2018年版', content: '捐助协议', kind: 'donate_protocol', state: 'show')
+Protocol.find_or_create_by(title: '《格桑花志愿者申请协议》', version: '2018年版', content: '志愿者申请协议', kind: 'volunteer_apply_protocol', state: 'show')
+Protocol.find_or_create_by(title: '《格桑花用户注册协议》', version: '2018年版', content: '用户注册协议', kind: 'register_protocol', state: 'show')
