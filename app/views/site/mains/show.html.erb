@@ -1,6 +1,6 @@
 <div class="bul-swiper">
   <div class="slide-box-demo">
-    <div class="slide-box" style="height: 420px;">
+    <div class="slide-box" >
       <div class="slide-con">
         <div class="slide-out clearfix">
           <% @adverts.each do |advert| %>
@@ -182,8 +182,10 @@
         pagination:true,
         pagingTrigger:'hover',
         autoPlay:true,
-        slideTime: 2500,
-        switchingSpeed:400
+        slideTime: 3000,
+        switchingSpeed:400,
+        slideLiw:1140,
+	      slideLih:420,
     })
 
 
