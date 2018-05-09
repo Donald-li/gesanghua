@@ -136,6 +136,7 @@ class Donation < ApplicationRecord
       title = '#支付成功# 感谢您的支持'
       content = "感谢你的支持 捐助款已经收到，后续动态我们会持续通知"
       notice = Notification.create(
+        kind: 'donate',
         owner: owner,
         user_id: agent.id,
         title: title,
@@ -168,6 +169,7 @@ class Donation < ApplicationRecord
       title = '#支付成功# 感谢您的支持'
       content = "感谢你的支持 捐助款已经收到，后续动态我们会持续通知"
       notice = Notification.create(
+        kind: 'donate',
         owner: owner,
         user_id: agent.id,
         title: title,

@@ -27,6 +27,7 @@ class Admin::TaskAppliesController < Admin::BaseController
           content = "任务：#{@task_apply.task.try(:name)}申请审核未通过 未通过理由: #{params[:approve_remark]}"
         end
         notice = Notification.create(
+            kind: state == 'pass' ? 'approve_pass' : 'approve_reject',
             owner: owner,
             user_id: owner.volunteer.user_id,
             title: title,

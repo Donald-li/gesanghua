@@ -53,3 +53,9 @@ alipay_public_key: "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A
 
 # 微信结对反馈链接
 pair_feedback_url: 'http://gesanghua.wikiflyer.cn/m/cooperation/pair-feedback'
+
+# 微信模板消息
+# 捐助结果通知 first 项目keyword1 时间keyword2 remark
+wechat_template_project: 'gs83bIVFUBUBVwjG7lBh9BwXkJsgRnoPtlHlkzsTz2E'
+# 消息通知 first 提醒内容keyword1 时间keyword2 remark
+wechat_template_notify: 'k9sRVPi2_ibSYVFHo5oE1CBfBu3cWKnA-Le_ecO4HTo'

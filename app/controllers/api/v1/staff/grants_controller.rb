@@ -28,6 +28,7 @@ class Api::V1::Staff::GrantsController < Api::V1::BaseController
 
       # 给捐助人发送收货反馈通知
       notice = Notification.create(
+        kind: 'feedback_grant',
         owner: @grant,
         user_id: @grant.donate_records.last.donor_id,
         title: "#发放通知# 你的捐款发放啦",

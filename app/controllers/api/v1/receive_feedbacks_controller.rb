@@ -23,6 +23,7 @@ class Api::V1::ReceiveFeedbacksController < Api::V1::BaseController
       @bookshelf_supplement.donates.each do |d|
         unless d.donor_id.in? donor_ids
           notice2 = Notification.create(
+            kind: 'feedback_receive',
             owner: @bookshelf,
             user_id: d.donor_id,
             title: "#收货通知# 图书角补书已经收货",
@@ -48,6 +49,7 @@ class Api::V1::ReceiveFeedbacksController < Api::V1::BaseController
       @bookshelf.donates.each do |d|
         unless d.donor_id.in? donor_ids
           notice2 = Notification.create(
+            kind: 'feedback_receive',
             owner: @bookshelf,
             user_id: d.donor_id,
             title: "#收货通知# 图书角已经收货",
