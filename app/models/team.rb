@@ -82,6 +82,11 @@ class Team < ApplicationRecord
     return status
   end
 
+  #用于操作日志查找关系
+  def manage
+    self.manager
+  end
+
   private
   def gen_team_no
     self.team_no ||= Sequence.get_seq(kind: :team_no, prefix: 'T', length: 6)

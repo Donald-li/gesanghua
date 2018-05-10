@@ -23,7 +23,7 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def create
-    user_params[:roles] = (user_params[:roles]).select(&:present?)
+    user_params[:roles] = (user_params[:roles]).select(&:present?) if user_params[:roles].present?
     @user = User.new(user_params)
     @user.attach_avatar(params[:avatar_id])
     respond_to do |format|

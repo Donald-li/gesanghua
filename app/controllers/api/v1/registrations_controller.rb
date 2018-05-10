@@ -8,9 +8,8 @@ class Api::V1::RegistrationsController < Api::V1::BaseController
         u = User.find_by_login(user_params[:login])
         if u.state != 'unactived'
           return api_error(message: '账号已被注册')
-        elsif u.state == 'unactived'
-          u.enable!
-          # TODO 合并用户
+        elsif u.state == 'unactived' && u.manager_id.present?
+          u.offline_user_activation(u.phone, nil)
           return api_success(message: '注册成功')
         end
       else

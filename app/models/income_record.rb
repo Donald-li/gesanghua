@@ -59,7 +59,7 @@ class IncomeRecord < ApplicationRecord
   # 可开票记录
   scope :open_ticket, -> { to_bill.where(created_at: (Time.now.beginning_of_year)..(Time.now.end_of_year)) }
 
-  counter_culture :agent, column_name: proc {|model| model.income_source.present? && model.income_source.online? ? 'online_amount' : nil}, delta_magnitude: proc {|model| model.amount}
+  counter_culture :agent, column_name: proc {|model| model.income_source.present? && !model.income_source.offline? ? 'online_amount' : nil}, delta_magnitude: proc {|model| model.amount}
   counter_culture :agent, column_name: proc {|model| model.income_source.present? && model.income_source.offline? ? 'offline_amount' : nil}, delta_magnitude: proc {|model| model.amount}
   counter_culture :agent, column_name: 'donate_amount', delta_magnitude: proc {|model| model.amount }
 
