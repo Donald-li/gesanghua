@@ -368,7 +368,6 @@ class User < ApplicationRecord
     end.attributes!
   end
 
-  # TODO 待处理
   # 微信绑定手机号之后，根据手机号合并user记录，绑定volunteer,teacher(headmaster),county_user角色（gsh_child有单独绑定途径）
   # 合并账号
   def self.combine_user(phone, wechat_user)
@@ -409,7 +408,9 @@ class User < ApplicationRecord
       #数据迁移： 捐款记录等
       phone_user.migrate_donate_record(wechat_user)
       # 合并账号openid、手机和wechat_profile
-      phone_user.update!(openid: wechat_user.openid, profile: wechat_user.profile)
+      phone_user.update!(openid: wechat_user.openid, profile: wechat_user.profile, auth_token: wechat_user.auth_token)
+      wechat_user.generate_auth_token
+      wechat_user.save!
       # 通知
       owner = wechat_user
       title = '#账户合并# 账户已合并'
@@ -417,6 +418,7 @@ class User < ApplicationRecord
       notice = Notification.create!(owner: owner, user_id: wechat_user.id, title: title, content: content, kind: 'combine_user')
       #旧用户禁用
       wechat_user.disable!
+      phone_user.enable!
     end
   end
 
@@ -456,9 +458,9 @@ class User < ApplicationRecord
       if wechat_user.present?
         User.combine_user(phone, wechat_user)
       else
+        self.migrate_donate_record(self)
         self.enable!
       end
-      #重算缓存
       #通知代理人
       owner = self
       title = '#账户已激活# 捐助人已激活账户'
