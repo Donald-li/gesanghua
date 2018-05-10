@@ -24,7 +24,7 @@ class Admin::BaseController < ManagementBaseController
 
   def current_user
     unless @current_user
-      user = User.find_by id: session[:user_id]
+      user = User.find_by id: session[:admin_user_id]
       @current_user = user if user && user.has_role?(User::ADMIN_ROLES)
     end
     @current_user

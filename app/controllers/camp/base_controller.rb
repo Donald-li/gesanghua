@@ -15,7 +15,7 @@ class Camp::BaseController < ManagementBaseController
   end
 
   def login_require
-    if session[:user_id].present?
+    if session[:camp_user_id].present?
       return true
     else
       redirect_to user_login_path

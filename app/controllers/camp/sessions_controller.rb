@@ -43,6 +43,6 @@ class Camp::SessionsController < Camp::BaseController
   end
 
   def set_current_user(camp)
-    session[:user_id] = camp.id
+    session[:camp_user_id] = camp.id
   end
 end

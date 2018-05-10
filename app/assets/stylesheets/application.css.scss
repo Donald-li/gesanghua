@@ -717,7 +717,7 @@ select:disabled {
     height: 64px;
     margin: 0 auto;
     display: inline-block;
-
+    margin-left: 30px;
     .bul-nav-ul > li {
       float: left;
       width: 100px;
@@ -726,7 +726,7 @@ select:disabled {
       text-align: center;
       list-style: none;
       cursor: pointer;
-
+      font-weight: 500;
       .iconfont {
         margin-right: 0;
         font-size: 14px;
@@ -756,6 +756,7 @@ select:disabled {
       padding-bottom: 10px;
       display: none;
       box-shadow: 0 0 10px 3px #cccccc33;
+      font-weight: 400;
 
       .gsh-arrows-1 {
         position: absolute;
@@ -816,11 +817,26 @@ select:disabled {
     }
   }
 }
-
+.paddingLeft{
+  padding-left:0!important;
+}
+.slide-page .slide-button-prev span, .slide-page .slide-button-next span{
+  opacity: .5;
+}
+.slide-page .slide-button-prev{
+    left: 10px;
+}
+.slide-page .slide-button-next{
+    right: 50px;
+}
 .bul-swiper {
   margin-top: 30px;
 
   .slide-box {
+  border-radius:4px;
+  }
+  .slide-con{
+    border-radius:4px;
     overflow: hidden;
   }
 
@@ -1278,9 +1294,9 @@ float: left;
 //   flex: initial;
 //  }
 //}
-@media (max-width: 1100px) {
+@media (max-width: 1114px) {
   .bul-nav {
-    width: 1100px;
+    width: 1114px;
   }
 }
 //底部
@@ -3470,26 +3486,32 @@ display: none;
 }
 
 .pairs-body-cont {
-  .col-md-6 {
+  .col-md-4{
     border: 1px solid $border;
-    padding: 22px;
+    padding: 0 22px 22px 22px ;
     border-radius: 4px;
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 49%;
-    flex: 0 0 49%;
-    max-width: 49%;
-    width: 49%;
+    -ms-flex: 0 0 23.5%;
+    flex: 0 0 23.5%;
+    max-width: 23.5%;
+    width: 23.5%;
     margin-bottom: 30px;
     float: left;
+    margin-right: 22px;
+    margin-bottom: 20px;
+    margin-top: 90px;
+
   }
 .col-md-6:hover{
       // box-shadow: 0 2px 20px 2px #d9d9d957;
 }
-  & > div:nth-child(2n) {
-    margin-left: 22px;
+  & > div:nth-child(4n) {
+    margin-right: 0;
   }
 
   .pairs-body-img {
+
+    margin: -65px auto 10px auto;
     width: 120px;
     height: 120px;
     border-radius: 50%;
@@ -3502,8 +3524,7 @@ display: none;
   }
 
   .pairs-body-conts {
-    margin-left: 20px;
-
+  text-align: center;
     & > p:nth-child(1) {
       font-size: 16px;
       color: #2a2a2c;
@@ -3516,10 +3537,18 @@ display: none;
       margin-top: 6px;
     }
 
-    & > p:nth-child(3) {
+    .pairs-body-c-p {
       font-size: 14px;
       color: #3d3d40;
       margin-top: 10px;
+      height: 40px;
+      padding: 0 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
     }
 
     button {
@@ -3738,18 +3767,18 @@ display: none;
   padding: 0 200px;
   text-align: center;
 
-  & > p {
+  .camps-title-font{
     padding: 0 40px;
     font-size: 28px;
     color: #3d3d40;
     font-weight: 600;
   }
 
-  .camps-cont-detail {
+    .camps-cont-detail {
     font-size: 16px;
     color: #3d3d40;
     line-height: 30px;
-    font-weight: 500;
+
     text-align: left;
     margin-bottom: 60px;
     padding: 0;
@@ -6799,8 +6828,15 @@ display: none;
       font-size: 14px;
       border-radius: 3px;
       text-align: center;
-      line-height: 36px;
+      line-height: 34px;
       background-color: #fff;
+      cursor: pointer;
+    }
+    .accounts-butn:hover {
+      background-color:   $hover-button;
+      color:#fff;
+      line-height: 36px;
+      border: none;
     }
   }
 
@@ -6824,6 +6860,10 @@ display: none;
         border-radius: 3px;
         text-align: center;
         line-height: 36px;
+        cursor: pointer;
+      }
+      & > button:hover{
+        background-color: $hover-info;
       }
     }
   }
@@ -7878,7 +7918,9 @@ display: none;
       margin-right: 20px;
       border-radius: 3px;
     }
-
+& > button:nth-child(1):hover{
+  background-color: $hover-button;
+}
     & > button:nth-child(2) {
       width: 130px;
       height: 38px;
@@ -7889,6 +7931,9 @@ display: none;
       text-align: center;
       border: 1px solid #b3b3b3;
       border-radius: 3px;
+    }
+    & > button:nth-child(2):hover{
+      background-color: $hover-share;
     }
   }
 

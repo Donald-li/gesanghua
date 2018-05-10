@@ -9,10 +9,17 @@
           <%= image_tag 'uc-user-wx.png' %>
         </div>
         <span  class="pull-left">微信</span>
-        <span  class="pull-left">已绑定</span>
+        <span  class="pull-left"><%= current_user.openid.present? ? '已绑定' : '未绑定' %></span>
         <div class="unbind cur pull-left">
           <% if current_user.bind_wechat? %>
-          <button><%= link_to '解绑' %></button>
+            <%= link_to  account_user_center_bind_path, method: :delete, data: {confirm: '你确定要解绑微信吗？'} do %>
+              <button>解绑</button>
+            <% end %>
+          <% elsif current_user.openid.blank? %>
+          <% wechat_url = $wechat_open_client.qrcode_authorize_url(callback_account_user_center_bind_url, "snsapi_login", "wechat") %>
+            <%= link_to wechat_url do %>
+              <button>扫码绑定</button>
+            <% end %>
           <% end %>
         </div>
         <!--<div class="bind  ing cur"><button>绑定</button></div>-->
@@ -33,27 +40,11 @@
     </div>
 
   </div>
-  <div class="overspread-3">
-    <div class="overspread-over"></div>
-    <div class="overspread-cont">
-      <div class="clearfix">
-        <div class="pull-left mys-1"></div>
-        <div class="pull-right iconfont icon-icondelete cur overspread-but"></div>
-      </div>
-      <div class="overspread-co">
-        <p class="over-fontns">确定要解除绑定吗？</p>
-      </div>
-      <div class="overspreads-but">
-        <button class="cur">确定</button>
-        <button class="overspread-but cur">取消</button>
-      </div>
-      <!--<div class="overspread-but  over-but">确认</div>-->
-    </div>
 
   </div>
 
 
 </div>
 <script>
-    $('.overspread-3').overs(".unbind");
+    // $('.overspread-3').overs(".unbind");
 </script>

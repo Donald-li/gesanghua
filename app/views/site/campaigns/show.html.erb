@@ -1,6 +1,6 @@
 <div class="camps-detail">
   <div class="camps-body-detail border-b">
-    <p><%= @campaign.name %></p>
+    <span class="camps-title-font"><%= @campaign.name %></p>
     <div class="camps-bodys">
       <div class="activity-detail-img">
         <%= image_tag @campaign.banner_url(:tiny) %>
@@ -35,7 +35,7 @@
     <div class="camps-share">
       <p>分享到：</p>
       <ol>
-        <li class="row" style="padding: 30px 268px;">
+        <li class="row" style="padding: 30px 225px;">
           <div id="share-2"></div>
         </li>
       </ol>

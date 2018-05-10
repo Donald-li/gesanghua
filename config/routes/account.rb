@@ -51,7 +51,11 @@ namespace :account do
         post :update_password
       end
     end
-    resource :bind, only: [:show, :edit, :destroy]
+    resource :bind, only: [:edit, :destroy] do
+      member do
+        get :callback
+      end
+    end
   end
   resources :agents, only: [:index, :new, :edit]
   resources :activities, only: [:index]

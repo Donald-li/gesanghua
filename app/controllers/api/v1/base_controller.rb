@@ -33,9 +33,9 @@ class Api::V1::BaseController < ApplicationController
   end
 
   def current_user
-    @current_user ||= User.second if Settings.development_mode
-    @current_user ||= User.find Settings.api_defautl_user if Rails.env.development? && Settings.api_defautl_user
-    @current_user ||= User.find_by(id: session[:id]) if session[:id].present?
+    # @current_user ||= User.second if Settings.development_mode
+    # @current_user ||= User.find Settings.api_defautl_user if Rails.env.development? || Settings.api_defautl_user
+    @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id].present?
     token = request.headers['Authorization'] || params[:auth_token]
     return nil if token.blank?
     @current_user ||= User.find_by(auth_token: token)
@@ -43,7 +43,7 @@ class Api::V1::BaseController < ApplicationController
   end
 
   def set_current_user(new_user)
-    session[:id] = (new_user.nil? || new_user.is_a?(Symbol)) ? nil : new_user.id
+    session[:user_id] = (new_user.nil? || new_user.is_a?(Symbol)) ? nil : new_user.id
     @current_user = new_user
   end
 
