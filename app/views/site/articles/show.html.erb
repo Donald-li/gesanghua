@@ -1,6 +1,6 @@
   <div class="camps-detail">
   <div class="camps-body-detail border-b">
-    <p><%= @article.title %></p>
+    <span class="camps-title-font"><%= @article.title %></span>
     <p class="articles-time"><%= @article.author %> |  <%= @article.published_at.strftime("%Y年%m月%d日")%> </p>
     <div class="camps-bodys articles-cont">
       <div class="slide-box-demo2">
@@ -16,7 +16,7 @@
           </div>
           <div class="slide-page">
             <div class="slide-button-prev" id="slide-button-prev"><span class="iconfont icon-arrow-left bul-icon-prev"></span></div>
-            <div class="slide-button-next" id="slide-button-next" style="right:130px;">
+            <div class="slide-button-next" id="slide-button-next" style="right:112px;">
               <span class="iconfont icon-arrow-left bul-icon-next"></span>
             </div>
           </div>
@@ -31,7 +31,7 @@
       <ol>
 
 
-        <li class="row" style="padding: 30px 268px;">
+        <li class="row" style="padding: 30px 225px;">
           <div id="share-2"></div>
         </li>
 
@@ -57,8 +57,7 @@
 </div>
 <script>
     $('#share-2').share({
-        sites: ['qzone', 'wechat', 'weibo', 'qq'],
-        image: "image_path('wechat-qrcode.png')"
+        sites: ['qzone', 'wechat', 'weibo', 'qq']
 
     });
     $('.slide-box-demo2').setSlide({

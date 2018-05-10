@@ -90,7 +90,7 @@ $(function () {
         $('.project-cont-con').css({"white-space": "nowrap"})
         $('.recommend-cont .gsh-cont-2').css({"white-space": "nowrap"})
         $('.camps-body-conts .camps-cont-1').css({"white-space": "nowrap"})
-
+        $('.pairs-body-conts .pairs-body-c-p').css({"white-space": "nowrap"})
         $('.gsh-cont-3').css({"white-space": "nowrap"})
         $('.detail-con-font').css({"white-space": "nowrap"})
         $('.speciais .speciais-con .speciais-con-con .gsh-cont-3').css({"white-space": "nowrap"})
