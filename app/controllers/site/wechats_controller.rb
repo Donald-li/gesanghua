@@ -18,12 +18,13 @@ class Site::WechatsController < Site::BaseController
 
     userinfo = get_userinfo
     logger.info userinfo.inspect
-    if userinfo.result['unionid'].blank?
+    unionid = userinfo.result['unionid']
+    if unionid.blank?
       flash[:alert] = '登录失败'
       redirect_to root_url and return
     end
-    user = User.where(openid: userinfo.result['unionid']).first || User.new
-    user.attributes = { openid: userinfo.result["unionid"], gender: userinfo.result["sex"] }
+    user = User.where(openid: unionid).first || User.new
+    user.attributes = { openid: unionid, gender: userinfo.result["sex"] }
     # 如果已经存在，不能更新，微信端支付使用的是openid
     user.profile = user.profile.presence || userinfo.result
     user.name ||= userinfo.result['nickname']
