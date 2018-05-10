@@ -102,11 +102,7 @@
 <script>
     $('#cmapaigns-e').overs("#submit-campaign");
     $('#share-2').share({
-        sites: ['qzone', 'wechat', 'weibo', 'qq'],
-        title: '<%= @campaign.name %>',
-        description: '<%= @campaign.name %>',
-        image: 'http://<%= Settings.app_host%><%= @campaign.image_url(nil) %>'
-
+        sites: ['qzone', 'wechat', 'weibo', 'qq']
     });
     $('.modified-1').calculate()
 </script>

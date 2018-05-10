@@ -29,12 +29,9 @@
     <div class="camps-share">
       <p>分享到：</p>
       <ol>
-
-
         <li class="row" style="padding: 30px 225px;">
           <div id="share-2"></div>
         </li>
-
       </ol>
     </div>
   </div>
@@ -57,10 +54,7 @@
 </div>
 <script>
     $('#share-2').share({
-        sites: ['qzone', 'wechat', 'weibo', 'qq'],
-        title: '<%= @article.title %>',
-        description: '<%= @article.title %>',
-        image: 'http://<%= Settings.app_host%><%= @article.image_url(nil) %>'
+        sites: ['qzone', 'wechat', 'weibo', 'qq']
 
     });
     $('.slide-box-demo2').setSlide({

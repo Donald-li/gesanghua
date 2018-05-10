@@ -20,68 +20,44 @@
       </li>
     </ul>
     <!--我的捐助-->
-    <!--<div class="donation " style="display: block;">-->
-      <!--<div class=" donations-1 swiper-container ">-->
-        <!--<div class="donations1  swiper-wrapper panel-tabs">-->
 
-          <!--<div class="swiper-slide cur <%= 'selectedDo' if params[:project_id].nil? %>">-->
-            <!--<%= link_to '全部项目', account_orders_path %>-->
-            <!--<% if params[:project_id].nil? %>-->
-                <!--<div class="bottomline"></div>-->
-            <!--<% end %>-->
-          <!--</div>-->
-          <!--<% @projects.each do |project| %>-->
-              <!--<div class="cur border-l swiper-slide <%= 'selectedDo' if params[:project_id] == project.id %>">-->
-                <!--<%= link_to project.name, account_orders_path(project_id: project.id) %>-->
-                <!--<% if params[:project_id] === project.id.to_s %>-->
-                    <!--<div class="bottomline"></div>-->
-                <!--<% end %>-->
-              <!--</div>-->
-          <!--<% end %>-->
-        <!--</div>-->
-        <!--<div class="swiper-button-next">-->
-          <!--<span class="iconfont icon-arrowdown bul-icon-next"></span>-->
-        <!--</div>-->
-        <!--<div class="swiper-button-prev">-->
-          <!--<span class="iconfont icon-arrowdown bul-icon-prev"></span>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
-      <div class="rowE" style="width: 100%;">
-        <div class="bd mt20">
-          <div id="sca1" class="warp-pic-list">
-            <div id="wrapBox1" class="wrapBox">
-              <ul id="count1" class="count clearfix" >
-                <li  style="height: 32px;">
-                  <div class=" cur <%= 'selectedDo' if params[:project_id].nil? %>" >
-                    <%= link_to '全部项目', account_orders_path %>
-                    <% if params[:project_id].nil? %>
+    <div id="swipertab">
+
+      <div class="row">
+        <div class="span12 border-b" style="height: 49px;position: relative;">
+
+          <div id="owl-demo" class="owl-carousel">
+            <div class="item">
+              <div class=" cur <%= 'selectedDo' if params[:project_id].nil? %>" >
+                <%= link_to '全部项目', account_orders_path %>
+                <% if params[:project_id].nil? %>
+                    <div class="bottomline"></div>
+                <% end %>
+              </div>
+            </div>
+            <% @projects.each do |project| %>
+                <div class="item">
+                  <div class="cur border-l  <%= 'selectedDo' if params[:project_id] === project.id.to_s %>">
+                    <%= link_to project.name, account_orders_path(project_id: project.id) %>
+                    <% if params[:project_id] === project.id.to_s %>
                         <div class="bottomline"></div>
                     <% end %>
                   </div>
-                </li>
-                <% @projects.each do |project| %>
-                    <li style="height: 32px;">
-                      <div class="cur border-l  <%= 'selectedDo' if params[:project_id] === project.id.to_s %>">
-                        <%= link_to project.name, account_orders_path(project_id: project.id) %>
-                        <% if params[:project_id] === project.id.to_s %>
-                            <div class="bottomline"></div>
-                        <% end %>
-                      </div>
-                    </li>
-                <% end %>
-              </ul>
-            </div>
-            <div id="right1" class="prev   butt">
-              <span class="iconfont icon-arrowdown bul-icon-prev"></span>            </div>
-            <div id="left1" class="next   butt">
+                </div>
+            <% end %>
 
-              <span class="iconfont icon-arrowdown bul-icon-next"></span>
 
-            </div>
-          </div>
         </div>
+          <div class="customNavigation">
+            <a class=" prev">
+              <span class="iconfont icon-arrowdown bul-icon-prev"></span>
+            </a>
+            <a class=" next"><span class="iconfont icon-arrowdown bul-icon-next"></span></a>
+          </div>
       </div>
+
+
+    </div>
     <!--</div>-->
     <% if @donate_records.present? %>
         <div class="panel-body">
@@ -112,17 +88,13 @@
 
 
 <script>
-    $("#count1").dayuwscroll({
-        parent_ele: '#wrapBox1',
-        list_btn: '#tabT04',
-        pre_btn: '#left1',
-        next_btn: '#right1',
-        path: 'left',
-        auto: false,
-        time: 3000,
-        num: 5,
-        gd_num: 5,
-        waite_time: 1000
-
+    $("#owl-demo").owlCarousel({
+        items : 5
+    });
+    $(".next").click(function(){
+        $("#owl-demo").trigger('owl.next');
+    })
+    $(".prev").click(function(){
+        $("#owl-demo").trigger('owl.prev');
     })
 </script>
