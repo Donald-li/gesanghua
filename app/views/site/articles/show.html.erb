@@ -57,7 +57,10 @@
 </div>
 <script>
     $('#share-2').share({
-        sites: ['qzone', 'wechat', 'weibo', 'qq']
+        sites: ['qzone', 'wechat', 'weibo', 'qq'],
+        title: '<%= @article.title %>',
+        description: '<%= @article.title %>',
+        image: 'http://<%= Settings.app_host%><%= @article.image_url(nil) %>'
 
     });
     $('.slide-box-demo2').setSlide({

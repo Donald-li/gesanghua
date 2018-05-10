@@ -26,7 +26,8 @@
             <span class="navmark"><%= @project_reports.count %></span>
           </li>
         </ul>
-        <button class="pull-right share cur">分享</button>
+        <span class="pull-right" id="share-2"></span>
+        <!-- <button class="pull-right share cur">分享</button> -->
         <%= link_to camps_path do %><div class="pull-right referral-school cur"><%= @total %> 个探索营在筹款</div><% end %>
         <!--<div class="pull-right referral-share">-->
           <!--<span class="iconfont icon-wechat"></span>-->
@@ -141,4 +142,10 @@
              }
          })
      })
+     $('#share-2').share({
+       sites: ['qzone', 'wechat', 'weibo', 'qq'],
+       title: '<%= @project.name %>',
+       description: '<%= @project.name %>',
+       image: 'http://<%= Settings.app_host%><%= @project.image_url(:tiny) %>'
+     });
 </script>
