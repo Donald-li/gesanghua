@@ -43,7 +43,7 @@ class Admin::SessionsController < Admin::BaseController
   end
 
   def set_current_user(admin)
-    session[:user_id] = admin.id
+    session[:admin_user_id] = admin.id
     Rails.cache.write("donate_project_#{admin.id}", Project.donate_project)
 
     # 因为后台现在只有一个登录入口，所以在这个方法里记登录日志

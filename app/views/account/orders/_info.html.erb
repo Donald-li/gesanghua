@@ -54,7 +54,7 @@
             <% url = read_path(Project.read_project) %>
         <% end %>
       <% when Project.camp_project.id %>
-        <% url = detail_camp_path(record.apply) %>
+        <% url = detail_camp_path(record.apply) if record.apply %>
       <% else %>
         <% if record.owner_type == 'DonateItem' %>
           <% url = good_path(id: record.project_id) %>
