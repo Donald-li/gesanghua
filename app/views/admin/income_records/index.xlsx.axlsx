@@ -1,6 +1,6 @@
 wb = xlsx_package.workbook
 wb.add_worksheet(name: "收入记录") do |sheet|
-  sheet.add_row ["收入单号", "收入名称", "收入分类", "捐助时间", "捐助金额", "捐助渠道", "捐助人", "手机号码", "代捐人", "汇款人", "备注"]
+  sheet.add_row ["收入单号", "收入名称", "收入分类", "捐助时间", "捐助金额", "捐助渠道", "捐助人", "手机号码", "代捐人", "备注"]
   @income_records.each do |record|
     sheet.add_row [
       record.income_no,
@@ -9,10 +9,9 @@ wb.add_worksheet(name: "收入记录") do |sheet|
       (record.income_time.strftime("%Y-%m-%d %H:%M") if record.income_time),
       record.amount,
       record.income_source.try(:name),
-      record.donor.try(:name),
+      record.donor.try(:show_name),
       record.donor.try(:phone),
-      record.agent.try(:name),
-      record.agent.try(:name),
+      record.agent_name,
       record.remark]
     end
     sheet.column_widths 20,30,20,30,30,40,20,20,20

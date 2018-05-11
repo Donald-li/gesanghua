@@ -30,6 +30,8 @@ class Notification < ApplicationRecord
   belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id', optional: true
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id', optional: true
 
+  after_create :send_template_msg
+
 
   def summary_builder
     Jbuilder.new do |json|

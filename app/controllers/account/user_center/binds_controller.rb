@@ -20,7 +20,7 @@ class Account::UserCenter::BindsController < Account::BaseController
     current_user.attributes = { openid: unionid, gender: userinfo.result["sex"] }
     # 如果已经存在，不能更新，微信端支付使用的是openid
     current_user.profile = current_user.profile.presence || userinfo.result
-    current_user.name ||= userinfo.result['nickname']
+    # current_user.name ||= userinfo.result['nickname']
     current_user.nickname ||= userinfo.result['nickname']
     current_user.save
     # TODO: 处理绑定

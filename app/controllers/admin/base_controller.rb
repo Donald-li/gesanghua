@@ -5,6 +5,9 @@ class Admin::BaseController < ManagementBaseController
   helper_method :current_user
   layout 'admin'
 
+  rescue_from ActionController::RoutingError, :with => :render_404
+  rescue_from Exception, :with => :render_500
+
   protected
   def user_for_paper_trail
     "管理员：#{current_user.nickname}" if current_user
@@ -50,4 +53,11 @@ class Admin::BaseController < ManagementBaseController
     authorize! :operate_project, current_user, project
   end
 
+  def render_404(exception = nil)
+    render :file => "#{Rails.root}/public/admin-404.html", :status => 404, :layout => false
+  end
+
+  def render_500(exception = nil)
+    render :file => "#{Rails.root}/public/admin-500.html", :status => 404, :layout => false
+  end
 end
