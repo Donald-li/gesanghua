@@ -250,6 +250,56 @@ select:disabled {
   background-color: #eef1f6;
   cursor: not-allowed;
 }
+// 协议
+.donates-content-left .check-box {
+  font-size: 12px;
+  width: 228px;
+  margin: 20px auto 0 auto;
+  text-align: center;
+  .checkbox_item {
+    position: relative;
+    display: inline-block;
+    height: 16px;
+    & > span {
+      font-weight: 500;
+      color: $color-subtitle;
+    }
+  }
+}
+.donates-content-left .pretty{
+      margin: 0 0px 5px 0;
+}
+.checkbox_item input {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+
+.checkbox_item .check_label {
+  display: inline-block;
+  cursor: default;
+}
+
+.checkbox_icon {
+  display: block;
+  margin-right: 15px;
+  width: 16px;
+  height: 16px;
+  background: url(image-path("check-box.png")) 0 0;
+}
+
+.check_label.on .checkbox_icon {
+  background-position: -16px 0;
+}
+
+.donates-content-left .checkbox_text {
+    color: #dadada;
+    height: 16px;
+    line-height: 16px;
+    float: none;
+  }
+
+
 //边框
 
 .border-t {
@@ -2553,7 +2603,7 @@ display: none;
       top: 0;
       right: 0;
       bottom: 0;
-      margin: 92px auto 0;
+      margin: 83px auto 0;
       text-align: right;
       font-size: 14px;
       color: #fff;
@@ -2576,6 +2626,7 @@ display: none;
       & > p {
         font-size: 26px;
         color: #2a2a2c;
+        font-weight: 500;
       }
     }
 
@@ -2614,7 +2665,9 @@ display: none;
     background-color: #f5f5f5;
     width: 100%;
     padding-bottom: 80px;
-
+    .panel-body{
+      padding: 0;
+    }
     .person-bo {
       width: 1140px;
       margin: 0 auto;
@@ -4059,6 +4112,7 @@ display: none;
   font-size: 14px;
   color: #8d8d8d;
   margin-top: 20px;
+  font-weight: 400;
 }
 //资讯列表页
 
@@ -8863,12 +8917,12 @@ display: none;
     margin-top: 24px;
 
     .transfers-per {
-      width: 149px;
+      width: 188px;
       border: 1px solid $border;
       border-radius: 4px;
       float: left;
-      margin-right: 20px;
-      margin-bottom: 20px;
+      margin-right: 26px;
+      margin-bottom: 26px;
       overflow: hidden;
       text-align: center;
       padding: 20px 0;
@@ -8893,10 +8947,11 @@ display: none;
     }
 
     .transfers-per-team {
-      width: 99px;
+      padding: 0 6px;
+      width: auto;
       height: 28px;
       line-height: 28px;
-      font-size: 14px;
+      font-size: 12px;
       color: #3d3d40;
       background-color: #e8e8e8;
       margin: 10px auto;
@@ -8904,10 +8959,11 @@ display: none;
     }
 
     .transfers-per-mark {
-      width: 99px;
+      padding: 0 6px;
+      width: auto;
       height: 28px;
       line-height: 26px;
-      font-size: 14px;
+      font-size: 12px;
       color: $color-border;
       border: 1px solid $color-border;
       margin: 10px auto;
@@ -8919,7 +8975,7 @@ display: none;
       color: #8d8d8d;
     }
 
-    .transfers-per:nth-child(5n) {
+    .transfers-per:nth-child(4n) {
       margin-right: 0;
     }
   }
@@ -8970,11 +9026,14 @@ display: none;
 .teams-staff {
   .transfers .transfers-cont {
     margin-top: 0;
+
+
   }
 
   .transfers {
     padding: 30px 0 0;
   }
+
 }
 
 .teams-s {
@@ -9117,6 +9176,9 @@ display: none;
       font-size: 14px;
       color: #515154;
       text-align: center;
+      a{
+        color: #515154;
+      }
     }
 
     & > li:hover {
