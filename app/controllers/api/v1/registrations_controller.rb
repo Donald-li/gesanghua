@@ -5,7 +5,14 @@ class Api::V1::RegistrationsController < Api::V1::BaseController
     @user = User.new(user_params.slice(:password, :login))
     respond_to do |format|
       if User.find_by_login(user_params[:login])
-        return api_error(message: '账号已被注册')
+        u = User.find_by_login(user_params[:login])
+        if u.state != 'unactived'
+          return api_error(message: '账号已被注册')
+        elsif u.state == 'unactived'
+          u.enable!
+          # TODO 合并用户
+          return api_success(message: '注册成功')
+        end
       else
         if user_params[:password].empty?
           return api_error(message: '请输入密码')
@@ -35,6 +42,6 @@ class Api::V1::RegistrationsController < Api::V1::BaseController
   end
 
   def set_current_user(user)
-    session[:current_user_id] = user.id
+    session[:user_id] = user.id
   end
 end

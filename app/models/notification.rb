@@ -25,6 +25,7 @@ class Notification < ApplicationRecord
   default_value_for :read, false
 
   belongs_to :owner, polymorphic: true
+  belongs_to :user
   belongs_to :project, optional: true
   belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id', optional: true
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id', optional: true
@@ -50,28 +51,65 @@ class Notification < ApplicationRecord
     school
   end
 
-  # def send_template_msg(url)
-  #   user = self.user
-  #   data = {
-  #       first: {
-  #           value: "看板消息",
-  #           color: "#173277"
-  #       },
-  #       keyword1: {
-  #           value: "看板：#{self.kanban.try(:title)}",
-  #           color: "#173177"
-  #       },
-  #       keyword2: {
-  #           value: self.created_at.to_s(:db),
-  #           color: "#274177"
-  #       },
-  #       remark: {
-  #           value: "#{self.from_user.try(:nickname)}#{self.plain_content}",
-  #           color: "#274377"
-  #       }
-  #   }
-  #   $wechat_client.send_template_msg(user.wechat_profile['openid'], Settings.wechat_template_message_id, url, "#173177", data)
-  # end
+  def kind_title
+  end
+
+  def send_template_msg
+    return unless self.user.profile['openid']
+    template_id = title = keyword1 = url = nil
+    case self.kind
+    when /feedback_/
+      title = '项目反馈'
+      template_id = Settings.wechat_template_project
+      keyword1 = self.project.try(:name)
+      url = "#{Settings.m_root_url}/account/my-donate"
+    when 'donate'
+      title = '捐助结果'
+      template_id = Settings.wechat_template_project
+      keyword1 = self.project.try(:name)
+      url = "#{Settings.m_root_url}/donate-records"
+    when /project_/
+      title = '项目进度'
+      template_id = Settings.wechat_template_project
+      keyword1 = self.project.try(:name)
+      url = "#{Settings.m_root_url}/account/my-donate"
+    when /approve_/
+      title = '审核通知'
+      template_id = Settings.wechat_template_project
+      keyword1 = self.project.try(:name)
+      url = "#{Settings.m_root_url}/cooperation"
+    when 'exception_record'
+      title = '异常提醒'
+      template_id = Settings.wechat_template_notify
+      keyword1 = self.content
+      url = "#{Settings.m_root_url}/cooperation"
+    else
+      title = '消息提醒'
+      template_id = Settings.wechat_template_notify
+      keyword1 = self.content
+      url = "#{Settings.m_root_url}/account"
+    end
+    user = self.user
+    data = {
+        first: {
+            value: title,
+            color: "#173277"
+        },
+        keyword1: {
+            value: keyword1,
+            color: "#173177"
+        },
+        keyword2: {
+            value: self.created_at.to_s(:db),
+            color: "#274177"
+        },
+        remark: {
+            value: self.content,
+            color: "#274377"
+        }
+    }
+    $client.send_template_msg(self.user.profile['openid'], template_id, url, "#173177", data)
+  end
 
 
   private

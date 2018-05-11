@@ -44,7 +44,8 @@
             <span class="navmark"><%= @feedbacks.count %></span>
           </li>
         </ul>
-        <button class="pull-right share cur">分享</button>
+        <span class="pull-right" id="share-2"></span>
+        <!-- <button class="pull-right share cur">分享</button> -->
       </div>
     </div>
   </div>
@@ -189,4 +190,10 @@
       $("#" + id + " > .detail-font-tit > span").css('display', 'none')
       $("#" + id + " .details-img").css('display', 'block')
     }
+    $('#share-2').share({
+      sites: ['qzone', 'wechat', 'weibo', 'qq'],
+      title: '<%= @apply.name %>',
+      description: '<%= @apply.name %>',
+      image: 'http://<%= Settings.app_host%><%= @apply.cover_image_url(:tiny) %>'
+    });
 </script>

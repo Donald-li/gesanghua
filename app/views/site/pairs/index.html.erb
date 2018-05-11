@@ -42,18 +42,18 @@
       </div>
     </div>
     <div class="pairs-body">
-      <div class="pairs-body-cont row">
+      <div class="pairs-body-cont row clearfix">
         <% @children.each do |child| %>
-            <div class="col-md-6 cur ">
+            <div class="col-md-4 cur ">
               <%= link_to detail_pair_path(child) do %>
                   <div class="clearfix">
-                    <div class="pairs-body-img pull-left">
+                    <div class="pairs-body-img ">
                       <%= image_tag 'project-reducepage-child.png' %>
                     </div>
-                    <div class="pairs-body-conts pull-left">
+                    <div class="pairs-body-conts ">
                       <p><%= child.secure_name %></p>
                       <p><%= ChinaCity.get(child.province) %> <%= ChinaCity.get(child.city) %>  <%= ChinaCity.get(child.district) %></p>
-                      <p><%= child.reason %></p>
+                      <p class="pairs-body-c-p"><%= child.reason %></p>
                       <button>去捐助</button>
                     </div>
                   </div>

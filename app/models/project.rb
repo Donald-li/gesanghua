@@ -25,6 +25,8 @@
 
 # 项目父表
 class Project < ApplicationRecord
+  has_paper_trail only: [:kind, :name, :describe, :protocol, :fund_id, :alias, :appoint_fund_id, :form, :donate_item_id, :accept_feedback_state, :apply_kind, :feedback_format, :feedback_period]
+
   include ActionView::Helpers::NumberHelper
 
   attr_accessor :image_id, :form_attributes
@@ -47,6 +49,7 @@ class Project < ApplicationRecord
   has_many :teachers, through: :teacher_projects
   has_many :project_reports, dependent: :restrict_with_error
   has_many :continual_feedbacks, as: :owner, dependent: :destroy
+  has_many :protocols, dependent: :destroy
   belongs_to :donate_item, optional: true
 
   belongs_to :fund, optional: true # 定项非指定

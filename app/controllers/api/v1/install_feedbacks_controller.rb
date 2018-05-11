@@ -23,6 +23,7 @@ class Api::V1::InstallFeedbacksController < Api::V1::BaseController
       @bookshelf_supplement.donates.each do |d|
         unless d.donor_id.in? donor_ids
           notice2 = Notification.create(
+            kind: 'feedback_install',
             owner: @bookshelf,
             user_id: d.donor_id,
             title: "#安装反馈# 图书角补书已经安装",
@@ -49,6 +50,7 @@ class Api::V1::InstallFeedbacksController < Api::V1::BaseController
       @bookshelf.donates.each do |d|
         unless d.donor_id.in? donor_ids
           notice2 = Notification.create(
+            kind: 'feedback_install',
             owner: @bookshelf,
             user_id: d.donor_id,
             title: "#安装反馈# 图书角已经安装",

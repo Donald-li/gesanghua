@@ -88,7 +88,10 @@
 </div>
 <script>
     $('#share-2').share({
-        sites: ['qzone', 'wechat', 'weibo', 'qq']
+        sites: ['qzone', 'wechat', 'weibo', 'qq'],
+        title: '<%= @special.name %>',
+        description: '<%= @special.name %>',
+        image: 'http://<%= Settings.app_host%><%= @special.banner_url(nil) %>'
     });
 
     $("#count2").dayuwscroll({

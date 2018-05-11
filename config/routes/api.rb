@@ -36,6 +36,7 @@ namespace :api do
           get :has_team
           get :balance
           get :account_records
+          post :set_password
         end
       end
 

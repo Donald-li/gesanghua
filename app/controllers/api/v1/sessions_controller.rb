@@ -34,6 +34,6 @@ class Api::V1::SessionsController < Api::V1::BaseController
   end
 
   def set_current_user(user)
-    session[:current_user_id] = user.id
+    session[:user_id] = user.id
   end
 end

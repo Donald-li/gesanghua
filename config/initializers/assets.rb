@@ -10,4 +10,7 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
+Rails.application.config.assets.paths << Rails.root.join("app", "assets", "fonts")
+Rails.application.config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
+
 Rails.application.config.assets.precompile += %w( admin.js cable.js admin/login.css admin.css blank.css global/sms.js controllers/*.js controllers/*.scss controllers/*.css ckeditor/*)

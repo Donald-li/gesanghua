@@ -59,7 +59,7 @@
       <li class="nav-item <%= current_nav_class(:admin_user_main) %> <%= current_nav_class(:admin_user_county_users) %> <%= current_nav_class(:admin_user_gsh_children) %> <%= current_nav_class(:admin_user_teachers) %>">
         <%= link_to '', class: 'nav-link' do %>
             <i class="fa fa-users"></i>
-            <span class="title">用户管理</span>
+            <span class="title">用户身份</span>
             <span class="arrow <%= current_nav_class(:admin_user, current: :open) %>"></span>
         <% end %>
         <ul class="sub-menu">
@@ -198,6 +198,11 @@
           <li class="nav-item <%= current_nav_class(:admin_content_specials) %>">
             <%= link_to admin_specials_path, class: 'nav-link' do %>
                 <span class="title">专题管理</span>
+            <% end %>
+          </li>
+          <li class="nav-item <%= current_nav_class(:admin_content_protocols) %>">
+            <%= link_to admin_protocols_path, class: 'nav-link' do %>
+                <span class="title">协议管理</span>
             <% end %>
           </li>
           <li class="nav-item <%= current_nav_class(:admin_content_supports) %>">

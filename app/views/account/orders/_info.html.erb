@@ -50,11 +50,15 @@
           <% url = detail_read_path(record.owner) %>
         <% elsif record.owner_type == 'ProjectSeasonApplyBookshelf' || record.owner_type == 'BookshelfSupplement' %>
           <% url = detail_read_path(record.owner.apply) %>
-          <% elsif record.owner_type == 'DonateItem'%>
-            <% url = read_path(Project.read_project) %>
+        <% elsif record.owner_type == 'DonateItem'%>
+          <% url = read_path(record.project_id) %>
         <% end %>
       <% when Project.camp_project.id %>
-        <% url = detail_camp_path(record.apply) %>
+        <% if record.apply %>
+          <% url = detail_camp_path(record.apply) %>
+        <% else %>
+          <% url = camp_path(record.project_id) %>
+        <% end %>
       <% else %>
         <% if record.owner_type == 'DonateItem' %>
           <% url = good_path(id: record.project_id) %>

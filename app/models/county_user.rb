@@ -58,7 +58,7 @@ class CountyUser < ApplicationRecord
 
   #异常记录数量
   def exception_record_number
-    Notification.where(user_id: self.user, kind: 'county_user_exception_record').count
+    Notification.where(user_id: self.user, kind: 'exception_record').count
   end
 
   def summary_builder

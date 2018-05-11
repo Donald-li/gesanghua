@@ -56,6 +56,7 @@ class Admin::SchoolAppliesController < Admin::BaseController
           content = "你申请的学校 #{@school_apply.name} 审核未通过 未通过理由: #{school_apply_params[:approve_remark]}"
         end
         notice = Notification.create(
+          kind: approve_state == 'pass' ? 'approve_pass' : 'approve_reject',
           owner: owner,
           user_id: owner.creater.id,
           title: title,

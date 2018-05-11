@@ -14,6 +14,8 @@
 #
 
 class CampDocumentEstimate < ApplicationRecord
+  has_paper_trail only: [:item, :amount, :remark, :project_season_apply_id, :camp_id]
+
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: :project_season_apply_id
   belongs_to :user
   belongs_to :camp
@@ -24,4 +26,8 @@ class CampDocumentEstimate < ApplicationRecord
   scope :sorted, ->{order(id: :asc)}
   scope :in_apply, ->(apply){where(apply: apply)}
 
+  #用于操作日志查找关系
+  def project_season_apply
+    self.apply
+  end
 end

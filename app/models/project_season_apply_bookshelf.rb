@@ -30,6 +30,8 @@
 
 # 项目年度图书角申请
 class ProjectSeasonApplyBookshelf < ApplicationRecord
+  has_paper_trail only: [:project_id, :project_season_id, :project_season_apply_id, :province, :city, :district, :classname, :title, :school_id, :audit_state, :show_state, :state, :grade,
+    :bookshelf_no, :target_amount, :present_amount, :book_number, :student_number, :contact_name, :contact_phone, :address]
 
   attr_accessor :image_id
 
@@ -96,6 +98,7 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
       title = '#筹款成功# 该书架已筹满'
       content = "感谢你的支持 #{self.classname}书架 筹款成功，后续书架动态我们会持续通知"
       notice1 = Notification.create(
+        kind: 'project_success',
         owner: owner,
         user_id: owner.apply.applicant_id,
         title: title,
@@ -106,6 +109,7 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
       self.donates.each do |d|
         unless d.donor_id.in? donor_ids
           notice2 = Notification.create(
+            kind: 'project_success',
             owner: owner,
             user_id: d.donor_id,
             title: title,
@@ -167,6 +171,15 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
   # 图书角图片
   def bookshelf_image
     self.try(:image).try(:file_url) || self.project.try(:project_image)
+  end
+
+  #用户操作日志查找关系
+  def project_season
+    self.season
+  end
+
+  def project_season_apply
+    self.apply
   end
 
   def summary_builder

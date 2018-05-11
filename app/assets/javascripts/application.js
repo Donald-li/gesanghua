@@ -22,7 +22,6 @@
 //= require 'plugin/jquery-html5Validate-pc.js'
 //= require 'plugin/jquery.vticker-min.js'
 //= require 'plugin/jqueryqr.js'
-//= require 'plugin/qrcode.js'
 //= require 'plugin/toTop.js'
 //= require 'plugin/jquery.let_it_snow.js'
 //= require 'plugin/checkbox.js'
@@ -44,6 +43,7 @@
 //= require 'plugin/full-screen-slide.min.js'
 //= require 'plugin/changeImg.js'
 //= require 'plugin/scroll.1.3.js'
+//= require 'plugin/owl.carousel.js'
 
 
 
@@ -91,7 +91,7 @@ $(function () {
         $('.project-cont-con').css({"white-space": "nowrap"})
         $('.recommend-cont .gsh-cont-2').css({"white-space": "nowrap"})
         $('.camps-body-conts .camps-cont-1').css({"white-space": "nowrap"})
-
+        $('.pairs-body-conts .pairs-body-c-p').css({"white-space": "nowrap"})
         $('.gsh-cont-3').css({"white-space": "nowrap"})
         $('.detail-con-font').css({"white-space": "nowrap"})
         $('.speciais .speciais-con .speciais-con-con .gsh-cont-3').css({"white-space": "nowrap"})
@@ -100,17 +100,6 @@ $(function () {
         $('.speciais .speciais-con .speciais-con-con .gsh-cont-2').css({"white-space": "nowrap"})
         $('.speciais-right .speciais-right-pos .speciais-con-con > div').css({"height": "38px"})
     }
-
-    //二维码设置
-    $('#container2').erweima({
-        label: '格桑花'
-    });
-    $('#container3').erweima({
-        label: '微博'
-    });
-    $('#container4').erweima({
-        label: '微博'
-    });
     //二维码移入移除变化
     $('.bul-top-2').mousemove(function () {
         $('.bul-pos4').css({'display': 'block'})
@@ -180,3 +169,5 @@ $(function () {
         }
     }
 })
+// $('.qrcode > img').attr("src","wechat-qrcode.png");
+// console.log($('.qrcode > img').src)
