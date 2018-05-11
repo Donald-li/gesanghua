@@ -1,8 +1,8 @@
 <% if @projects.present? %>
   <div class="school-feedback">
-    <div class="donation-cont border-b">
+    <div class="donation-cont ">
       <% @projects.each do |project| %>
-        <div class="clearfix">
+        <div class="clearfix border-b">
           <div class="donation-cont-img pull-left">
             <%= image_tag project.image_url(:tiny) %>
           </div>

@@ -409,7 +409,7 @@ select:disabled {
   border-radius: 3px;
   border: 1px solid $border;
   font-size: 14px;
-  color: #8d8d8d;
+  color: #2a2a2c;
 }
 //清浮动
 
@@ -854,7 +854,7 @@ select:disabled {
   }
 
   .bul-nav-dl {
-    width: 90px;
+    width: 70px;
     font-size: 16px;
     color: #2a2a2c;
     border-left: 1px solid #d2d2d2;
@@ -2639,7 +2639,7 @@ select:disabled {
       width: 100%;
       background: #F5F5F5;
       text-align: center;
-      padding: 60px 0 40px;
+      padding: 70px 0 20px;
 
       & > p {
         font-size: 26px;
@@ -2650,7 +2650,7 @@ select:disabled {
 
     .person-h-cont-d {
       width: 1140px;
-      margin: 0 auto;
+      margin: 10px auto;
       padding: 0 330px;
       display: -webkit-box;
       display: -ms-flexbox;
@@ -2673,7 +2673,7 @@ select:disabled {
 
         span {
           font-size: 18px;
-          font-weight: 600;
+          // font-weight: 600;
         }
       }
     }
@@ -3088,7 +3088,7 @@ select:disabled {
   & > span:nth-child(3) {
     font-size: 13px;
     color: #393d42;
-    font-weight: 500;
+    font-weight: 400;
   }
 }
 //捐助管理
@@ -6207,12 +6207,12 @@ color: #8d8d8d;
   text-align: center;
   line-height: 33px;
   font-size: 13px;
-  font-weight: 600;
   background: $color-button;
   color: #fff;
   border: none;
   box-shadow: none;
   border-radius: 3px;
+  font-weight: 400;
 
   & > span {
     font-size: 13px;
@@ -9800,7 +9800,6 @@ color: #8d8d8d;
     height: 34px;
     text-align: center;
     font-size: 13px;
-    font-weight: 600;
 
     span {
       font-size: 13px;

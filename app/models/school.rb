@@ -52,7 +52,7 @@ class School < ApplicationRecord
   has_many :teachers, dependent: :destroy
   # has_many :book_shelves
   has_many :project_season_applies, dependent: :restrict_with_error
-  has_many :gsh_children, dependent: :restrict_with_error
+  # has_many :gsh_children, dependent: :restrict_with_error
   has_many :audits, as: :owner, dependent: :destroy
   has_many :donate_records
   belongs_to :user, optional: true # 校长user
