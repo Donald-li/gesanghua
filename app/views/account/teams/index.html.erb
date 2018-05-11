@@ -64,12 +64,15 @@
       </div>
       <div class="transfers">
         <ul class="transfers-cont clearfix">
-          <li class="transfers-per selected">
+          <li class="transfers-per ">
             <div class="transfers-per-img">
               <%= image_tag @team_creater.user_avatar %>
             </div>
             <p class="transfers-per-name"><%= @team_creater.show_name %></p>
-            <div class="transfers-per-team">团队创建人</div>
+            <div>
+              <span class="transfers-per-team">团队创建人</span>
+              <span class="transfers-per-team">团队负责人</span>
+            </div>
             <p class="transfers-per-time">加入 <%= @team_creater.join_team_time.strftime("%Y-%m-%d") %></p>
           </li>
           <li class="transfers-per ">
@@ -77,7 +80,10 @@
               <%= image_tag @team_manager.user_avatar %>
             </div>
             <p class="transfers-per-name"><%= @team_manager.show_name %></p>
-            <div class="transfers-per-team">团队负责人</div>
+            <div>
+              <span class="transfers-per-team">团队负责人</span>
+            </div>
+
             <p class="transfers-per-time">加入 <%= @team_manager.join_team_time.strftime("%Y-%m-%d") %></p>
           </li>
           <% @team_members.each do |member| %>
@@ -87,7 +93,10 @@
               </div>
               <p class="transfers-per-name"><%= member.name %></p>
               <% if member.role_tag.present? %>
-                <div class="transfers-per-mark"><%= member.role_tag %></div>
+              <div>
+                  <span class="transfers-per-mark"><%= member.role_tag %></div>
+              </div>
+
               <% end %>
               <p class="transfers-per-time">加入 <%= member.join_team_time.strftime("%Y-%m-%d") %></p>
             </li>

@@ -1,143 +1,146 @@
 <p class="don-title border-b">项目管理</p>
-<div class="rowE" style="width: 100%;">
-  <div class="bd mt20">
-    <div id="sca1" class="warp-pic-list" >
-      <div id="wrapBox1" class="wrapBox" >
-        <ul id="count1" class="count clearfix">
-          <% if current_user.teacher.can_manage_project?(Project.pair_project.id) %>
-              <li  style="height: 32px;">
 
-                <div class="cur  <%= 'selectedDo' if controller_name == 'pairs' %> "><%= link_to '结对助学', platform_school_apply_pairs_path %>
-                  <% if controller_name == 'pairs' %>
-                      <div class="bottomline"></div>
-                  <% end %>
-                </div>
+      <div id="swipertab">
 
-              </li>
-          <% end %>
-          <% if current_user.teacher.can_manage_project?(Project.camp_project.id) %>
-              <li  style="height: 32px;">
-                <div class="cur border-l  <%= 'selectedDo' if controller_name == 'camps' %>"><%= link_to '探索营', platform_school_apply_camps_path %>
-                  <% if controller_name == 'camps' %>
-                      <div class="bottomline"></div>
-                  <% end %>
-                </div>
-              </li>
-          <% end %>
-          <% if current_user.teacher.can_manage_project?(Project.care_project.id) %>
-              <li  style="height: 32px;">
-                <div class="cur border-l  <%= 'selectedDo' if controller_name == 'movie_cares' %>"><%= link_to '护花课程', platform_school_apply_movie_cares_path %>
-                  <% if controller_name == 'movie_cares' %>
-                      <div class="bottomline"></div>
-                  <% end %>
-                </div>
-              </li>
-          <% end %>
-          <% if current_user.teacher.can_manage_project?(Project.movie_project.id) %>
-              <li  style="height: 32px;">
-                <div class="cur border-l  <%= 'selectedDo' if controller_name == 'movies' %>"><%= link_to '观影', platform_school_apply_movies_path %>
-                  <% if controller_name == 'movies' %>
-                      <div class="bottomline"></div>
-                  <% end %>
-                </div>
-              </li>
-          <% end %>
-          <% if current_user.teacher.can_manage_project?(Project.read_project.id) %>
-              <li  style="height: 32px;">
-                <div class="cur border-l  <%= 'selectedDo' if controller_name == 'reads' %>"><%= link_to '悦读', platform_school_apply_reads_path %>
-                  <% if controller_name == 'reads' %>
-                      <div class="bottomline"></div>
-                  <% end %>
-                </div>
-              </li>
-          <% end %>
-          <% Project.goods.visible.sorted.each do |project| %>
-              <% if current_user.teacher.can_manage_project?(project.id) %>
-                  <li  style="height: 32px;">
-                    <div class="cur border-l  <%= 'selectedDo' if params[:pid] == project.id.to_s %>"><%= link_to project.name, platform_school_apply_goods_projects_path(pid: project.id) %>
-                      <% if params[:pid] == project.id.to_s %>
-                          <div class="bottomline"></div>
-                      <% end %>
+          <div class="row">
+            <div class="span12 border-b" style="height: 49px;position: relative;">
+
+              <div id="owl-demo" class="owl-carousel">
+                <% if current_user.teacher.can_manage_project?(Project.pair_project.id) %>
+                    <div class="item">
+
+                      <div class="cur  <%= 'selectedDo' if controller_name == 'pairs' %> "><%= link_to '结对助学', platform_school_apply_pairs_path %>
+                        <% if controller_name == 'pairs' %>
+                            <div class="bottomline"></div>
+                        <% end %>
+                      </div>
+
                     </div>
-                  </li>
+                <% end %>
+                <% if current_user.teacher.can_manage_project?(Project.camp_project.id) %>
+                    <div  class="item">
+                      <div class="cur border-l  <%= 'selectedDo' if controller_name == 'camps' %>"><%= link_to '探索营', platform_school_apply_camps_path %>
+                        <% if controller_name == 'camps' %>
+                            <div class="bottomline"></div>
+                        <% end %>
+                      </div>
+                    </div>
+                <% end %>
+                <% if current_user.teacher.can_manage_project?(Project.care_project.id) %>
+                    <div  class="item">
+                      <div class="cur border-l  <%= 'selectedDo' if controller_name == 'movie_cares' %>"><%= link_to '护花课程', platform_school_apply_movie_cares_path %>
+                        <% if controller_name == 'movie_cares' %>
+                            <div class="bottomline"></div>
+                        <% end %>
+                      </div>
+                    </div>
+                <% end %>
+                <% if current_user.teacher.can_manage_project?(Project.movie_project.id) %>
+                    <div class="item">
+                      <div class="cur border-l  <%= 'selectedDo' if controller_name == 'movies' %>"><%= link_to '观影', platform_school_apply_movies_path %>
+                        <% if controller_name == 'movies' %>
+                            <div class="bottomline"></div>
+                        <% end %>
+                      </div>
+                    </div>
+                <% end %>
+                <% if current_user.teacher.can_manage_project?(Project.read_project.id) %>
+                    <div  class="item">
+                      <div class="cur border-l  <%= 'selectedDo' if controller_name == 'reads' %>"><%= link_to '悦读', platform_school_apply_reads_path %>
+                        <% if controller_name == 'reads' %>
+                            <div class="bottomline"></div>
+                        <% end %>
+                      </div>
+                    </div>
+                <% end %>
+                <% Project.goods.visible.sorted.each do |project| %>
+                    <% if current_user.teacher.can_manage_project?(project.id) %>
+                        <div  class="item">
+                          <div class="cur border-l  <%= 'selectedDo' if params[:pid] == project.id.to_s %>"><%= link_to project.name, platform_school_apply_goods_projects_path(pid: project.id) %>
+                            <% if params[:pid] == project.id.to_s %>
+                                <div class="bottomline"></div>
+                            <% end %>
+                          </div>
+                        </div>
+                    <% end %>
+                <% end %>
+
+              </div>
+
+              <div class="customNavigation">
+                <a class=" prev">
+                  <span class="iconfont icon-arrowdown bul-icon-prev"></span>
+                </a>
+                <a class=" next"><span class="iconfont icon-arrowdown bul-icon-next"></span></a>
+              </div>
+
+              <% if controller_name == 'reads' %>
+                  <div class="add-reads">
+                    <%= link_to new_supplement_platform_school_apply_reads_path do %>
+                        <button class=" school-teach-sub">
+                          <span class="iconfont icon-ico-add1"></span>
+                          <span>补书申请</span>
+                        </button>
+                    <% end %>
+                    <%= link_to new_platform_school_apply_read_path do %>
+                        <button class=" school-apply-share-sub">
+                          <span class="iconfont icon-ico-add1"></span>
+                          <span>新书申请</span>
+                        </button>
+                    <% end %>
+                  </div>
               <% end %>
-          <% end %>
 
-        </ul>
-      </div>
-      <div id="right1" class="prev   butt">
-        <span class="iconfont icon-arrowdown bul-icon-prev"></span>            </div>
-      <div id="left1" class="next   butt">
+              <% if controller_name == 'movie_cares' %>
+                  <div class="add-reads">
+                    <%= link_to new_platform_school_apply_movie_care_path do %>
+                        <button class=" school-teach-sub">
+                          <span class="iconfont icon-ico-add1"></span>
+                          <span>新增申请</span>
+                        </button>
+                    <% end %>
+                  </div>
+              <% end %>
 
-        <span class="iconfont icon-arrowdown bul-icon-next"></span>
+              <% if controller_name == 'movies' %>
+                  <div class="add-reads">
+                    <%= link_to new_platform_school_apply_movie_path do %>
+                        <button class=" school-teach-sub">
+                          <span class="iconfont icon-ico-add1"></span>
+                          <span>新增申请</span>
+                        </button>
+                    <% end %>
+                  </div>
+              <% end %>
+              <% if controller_name == 'goods_projects' %>
+                  <div class="add-reads">
+                    <%= link_to new_platform_school_apply_goods_project_path(pid: @current_project) do %>
+                        <button class=" school-teach-sub">
+                          <span class="iconfont icon-ico-add1"></span>
+                          <span>新增申请</span>
+                        </button>
+                    <% end %>
+                  </div>
+              <% end %>
 
-      </div>
+            </div>
+          </div>
+
+
     </div>
-  </div>
-  <% if controller_name == 'reads' %>
-      <div class="add-reads">
-        <%= link_to new_supplement_platform_school_apply_reads_path do %>
-            <button class=" school-teach-sub">
-              <span class="iconfont icon-ico-add1"></span>
-              <span>补书申请</span>
-            </button>
-        <% end %>
-        <%= link_to new_platform_school_apply_read_path do %>
-            <button class=" school-apply-share-sub">
-              <span class="iconfont icon-ico-add1"></span>
-              <span>新书申请</span>
-            </button>
-        <% end %>
-      </div>
-  <% end %>
-
-  <% if controller_name == 'movie_cares' %>
-      <div class="add-reads">
-        <%= link_to new_platform_school_apply_movie_care_path do %>
-            <button class=" school-teach-sub">
-              <span class="iconfont icon-ico-add1"></span>
-              <span>新增申请</span>
-            </button>
-        <% end %>
-      </div>
-  <% end %>
-
-  <% if controller_name == 'movies' %>
-      <div class="add-reads">
-        <%= link_to new_platform_school_apply_movie_path do %>
-            <button class=" school-teach-sub">
-              <span class="iconfont icon-ico-add1"></span>
-              <span>新增申请</span>
-            </button>
-        <% end %>
-      </div>
-  <% end %>
-  <% if controller_name == 'goods_projects' %>
-      <div class="add-reads">
-        <%= link_to new_platform_school_apply_goods_project_path(pid: @current_project) do %>
-            <button class=" school-teach-sub">
-              <span class="iconfont icon-ico-add1"></span>
-              <span>新增申请</span>
-            </button>
-        <% end %>
-      </div>
-  <% end %>
-</div>
 
 <script>
-    $("#count1").dayuwscroll({
-        parent_ele: '#wrapBox1',
-        list_btn: '#tabT04',
-        pre_btn: '#left1',
-        next_btn: '#right1',
-        path: 'left',
-        auto: false,
-        time: 3000,
-        num: 5,
-        gd_num: 5,
-        waite_time: 1000
 
-    })
+
+$("#owl-demo").owlCarousel({
+      items : 5
+      });
+$(".next").click(function(){
+    $("#owl-demo").trigger('owl.next');
+})
+$(".prev").click(function(){
+    $("#owl-demo").trigger('owl.prev');
+})
     $(function(){
         $(".donations1 > .swiper-slide").on("click", function () {
             $(".donations1 > .swiper-slide").removeClass("selectedDo")

@@ -51,7 +51,7 @@
       <div class="addchild-list-cont">
         <div class="clearfix">
           <span class="goodtext pull-left">收货人</span>
-          <%= f.text_field :consignee, placeholder: '请填写收货人姓名', class: "goodinput pull-left",style:"width: 70%;" %>
+          <%= f.text_field :consignee, placeholder: '请填写收货人姓名', class: "goodinput pull-left" %>
         </div>
         <div  class="clearfix">
           <span class="goodtext pull-left">联系电话</span>
@@ -80,6 +80,11 @@
 <% end %>
 
 <script>
+
+$(".salutation").select2({
+    width: "467px",
+    minimumResultsForSearch: -1
+});
     $(".province").select2({
         width: "140px",
         minimumResultsForSearch: -1

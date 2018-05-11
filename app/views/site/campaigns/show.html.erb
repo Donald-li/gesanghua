@@ -1,6 +1,6 @@
 <div class="camps-detail">
   <div class="camps-body-detail border-b">
-    <span class="camps-title-font"><%= @campaign.name %></p>
+    <p class="camps-title-font"><%= @campaign.name %></p>
     <div class="camps-bodys">
       <div class="activity-detail-img">
         <%= image_tag @campaign.banner_url(:tiny) %>
@@ -103,10 +103,7 @@
     $('#cmapaigns-e').overs("#submit-campaign");
     $('#share-2').share({
         sites: ['qzone', 'wechat', 'weibo', 'qq'],
-        title: '<%= @campaign.name %>',
-        description: '<%= @campaign.name %>',
-        image: 'http://<%= Settings.app_host%><%= @campaign.image_url(nil) %>'
-
+        url: '<%= @wechat_code_url %>'
     });
     $('.modified-1').calculate()
 </script>

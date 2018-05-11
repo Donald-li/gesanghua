@@ -1,6 +1,6 @@
 class Admin::ReadProjectsController < Admin::BaseController
   before_action :check_auth
-  before_action :set_project, only: [:edit, :update, :switch, :supply_edit]
+  before_action :set_project, only: [:edit, :update, :switch, :supply_edit, :finish_project]
 
   def index
     @search = ProjectSeasonApply.where(project_id: [2, Project.book_supply_project.id]).raise_project.sorted.ransack(params[:q])
@@ -36,6 +36,11 @@ class Admin::ReadProjectsController < Admin::BaseController
   def switch
     @project.show? ? @project.hidden! : @project.show!
     redirect_to admin_read_projects_url, notice: @project.show? ? '项目已启用' : '项目已暂停'
+  end
+
+  def finish_project
+    @project.read_done! && @project.done!
+    redirect_to admin_read_projects_path, notice: '操作成功。'
   end
 
   private

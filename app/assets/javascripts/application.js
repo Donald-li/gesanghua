@@ -43,6 +43,7 @@
 //= require 'plugin/full-screen-slide.min.js'
 //= require 'plugin/changeImg.js'
 //= require 'plugin/scroll.1.3.js'
+//= require 'plugin/owl.carousel.js'
 
 
 

@@ -28,6 +28,7 @@
       <% end %>
 
     </div>
+    <% if @applies.present? %>
     <div class="project-body-cont row clearfix">
       <% @applies.each do |apply|%>
         <div class="col-md-3 cur ">
@@ -57,6 +58,15 @@
           </div>
       <% end %>
     </div>
+    <% else %>
+    <div class="not-project-body contentab ">
+      <div class="donation-cont-no">
+        <div class="donation-co-no-c">
+          <p>暂无搜索结果</p>
+        </div>
+      </div>
+    </div>
+    <% end %>
 
     </div>
   </div>
