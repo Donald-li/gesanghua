@@ -42,7 +42,9 @@
       </div>
     </div>
     <div class="pairs-body">
+        <% if @children.present? %>
       <div class="pairs-body-cont row clearfix">
+
         <% @children.each do |child| %>
             <div class="col-md-4 cur ">
               <%= link_to detail_pair_path(child) do %>
@@ -59,6 +61,15 @@
                   </div>
               <% end %>
             </div>
+        <% end %>
+        <% else %>
+        <div class="not-project-body contentab ">
+          <div class="donation-cont-no">
+            <div class="donation-co-no-c">
+              <p>暂无搜索结果</p>
+            </div>
+          </div>
+        </div>
         <% end %>
       </div>
     </div>
