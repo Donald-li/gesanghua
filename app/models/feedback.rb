@@ -67,10 +67,10 @@ class Feedback < ApplicationRecord
   scope :sorted, ->{ order(created_at: :desc) }
 
   def avatar_url
-    if self.child.present? && self.child.gsh_child.avatar.present?
-      self.child.gsh_child.avatar_url(:tiny).to_s
+    if self.child.avatar.present?
+      self.child.avatar_url(:tiny)
     elsif self.user.avatar.present?
-      self.user.avatar_url(:tiny).to_s
+      self.user.avatar_url(:tiny)
     else
       ''
     end

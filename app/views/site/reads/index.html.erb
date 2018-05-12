@@ -41,7 +41,9 @@
       </div>
 
     </div>
+      <% if @applies.present? %>
     <div class="project-body-cont row clearfix">
+
       <% @applies.each do |apply|%>
         <div class="col-md-3 cur ">
           <%= link_to detail_read_path(apply) do %>
@@ -72,9 +74,18 @@
             </div>
             <% end %>
           </div>
-      <% end %>
+  <% end %>
     </div>
 
+    <% else %>
+    <div class="not-project-body contentab ">
+      <div class="donation-cont-no">
+        <div class="donation-co-no-c">
+          <p>暂无搜索结果</p>
+        </div>
+      </div>
+    </div>
+    <% end %>
     </div>
   </div>
   <div class="project-foot">

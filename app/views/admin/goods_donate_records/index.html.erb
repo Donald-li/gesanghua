@@ -72,7 +72,7 @@
                 <%= record.donor.try(:show_name) %> ( <%= record.donor.try(:phone) %> )
               </td>
               <td>
-                <%= record.agent.try(:show_name)%>
+                <%= record.agent_name %>
               </td>
               <td>
                 <%= l record.created_at %>

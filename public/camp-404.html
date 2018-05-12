@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>服务器错误，请稍后访问</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    .rails-default-error-page {
+      font-family: "PingFang SC", "微软雅黑", "Microsoft YaHei", Helvetica, "Helvetica Neue", Tahoma, Arial, sans-serif !important;
+    }
+    .error-content {
+      text-align: center;
+    }
+    .error-content > .title{
+      font-size: 18px;
+      margin: 0 0 10px 0;
+    }
+    .error-content > .title-ss{
+      font-size: 14px;
+      margin: 0 0 20px 0;
+      color: #464646;
+    }
+    .error-image{
+      width: 500px;
+      height: auto;
+    }
+    .back {
+      width: 240px;
+      height: 40px;
+      background-color: #8b54e3;
+      color: #fff;
+      border-radius: 20px !important;
+      margin: 0 auto ;
+      text-align: center;
+      line-height: 40px;
+      box-shadow: 0 4px 18px #8a53e354;
+      display: inline-block;
+      text-decoration:none;
+    }
+
+  </style>
+</head>
+
+<body class="rails-default-error-page">
+<!-- This file lives in public/500.html -->
+<div class="error-content">
+  <img src="/bg-404-img.png" class="error-image">
+  <p class="title">抱歉, 你访问的页面不存在!</p>
+  <p class="title-ss"> 你找的页面可能被删除，已更改名称或者暂时不存在。</p>
+  <a class="back" href="/camp/main">返回管理首页</a>
+</div>
+</body>
+</html>

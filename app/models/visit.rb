@@ -51,7 +51,7 @@ class Visit < ApplicationRecord
   def simple_builder
     Jbuilder.new do |json|
       json.(self, :id)
-      json.author self.user.name
+      json.author self.user.show_name
       json.child self.apply_child.name
     end.attributes!
   end

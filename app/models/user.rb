@@ -97,8 +97,8 @@ class User < ApplicationRecord
   # default_value_for :password, '111111'
   validates :email, email: true
   validates :phone, mobile: true, uniqueness: { allow_blank: true }
-  validates :name, presence: true
-  # validates :login, uniqueness: true
+  # validates :name, presence: true
+  validates :login, uniqueness: true, if: Proc.new {|u| u.login.present?}
   validates :balance, numericality: { greater_than_or_equal_to: 0 }
 
   default_value_for :profile, {}

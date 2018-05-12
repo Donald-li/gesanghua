@@ -1,9 +1,10 @@
 <div class="paddchild">
+  <% if @teachers.present? %>
   <table class="project-list-table">
     <thead>
       <tr>
-        <th scope="col" class="table-tit-1">老师信息</th>
-        <th scope="col" class="table-tit-2">负责项目</th>
+        <th scope="col" class="table-tit-1" style="width:423px;">老师信息</th>
+        <th scope="col" class="table-tit-2" style="width:250px;">负责项目</th>
         <th scope="col" class="table-tit-3">操作</th>
       </tr>
     </thead>
@@ -13,7 +14,7 @@
           <td colspan="3"></td>
         </tr>
         <tr class="school-apply-pair-table-cont">
-          <th class="school-apply-pair-child pull-left clearfix">
+          <th class="school-apply-pair-child pull-left clearfix" style="width:423px;">
             <div class="pull-left">
               <%= image_tag teacher.try(:user).try(:avatar).try(:file).try(:url).to_s %>
             </div>
@@ -30,7 +31,7 @@
               <p><%= teacher.id_card %></p>
             </div>
           </th>
-          <td>
+          <td style="text-align:left;">
             <% teacher.projects.each do |project| %>
               <span class="project-span"><%= project.name %></span>
             <% end %>
@@ -45,6 +46,15 @@
           <% end %>
     </tbody>
   </table>
+  <% else %>
+  <div class="not-project-body contentab ">
+    <div class="donation-cont-no">
+      <div class="donation-co-no-c">
+        <p>暂无搜索结果</p>
+      </div>
+    </div>
+  </div>
+  <% end %>
   <div class="project-foot">
     <%= link_to_previous_page @teachers, '', class: "iconfont icon-arrow-left cur icon-a", remote: true %>
     <%= link_to_next_page @teachers, '', class: "iconfont icon-arrow-right cur icon-a", remote: true %>

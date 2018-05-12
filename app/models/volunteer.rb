@@ -165,7 +165,7 @@ class Volunteer < ApplicationRecord
   def check_builder
     Jbuilder.new do |json|
       json.(self, :id, :phone)
-      json.name self.user.name
+      json.name self.user.show_name
       json.kind '志愿者'
     end.attributes!
   end

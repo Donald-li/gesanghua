@@ -296,7 +296,7 @@ class ProjectSeasonApply < ApplicationRecord
     apply = self
     if params[:donate_way] == 'offline'
       user = User.find(params[:user_id])
-      donate_record = DonateRecord.new(params.merge(project_season_apply_child_id: child_id, fund: apply.project.fund, pay_state: 'paid', amount: amount, project: apply.project, donor: user.name, remitter_id: user.id, remitter_name: user.name, season: apply.season, apply: apply, kind: 'custom'))
+      donate_record = DonateRecord.new(params.merge(project_season_apply_child_id: child_id, fund: apply.project.fund, pay_state: 'paid', amount: amount, project: apply.project, donor: user.show_name, remitter_id: user.id, remitter_name: user.show_name, season: apply.season, apply: apply, kind: 'custom'))
     elsif params[:donate_way] == 'match'
       match_fund = Fund.find(params[:match_fund_id])
       match_fund.amount -= amount.to_f
@@ -306,7 +306,7 @@ class ProjectSeasonApply < ApplicationRecord
       user = User.find(params[:balance_id])
       user.balance -= amount
       return false if user.balance < 0
-      donate_record = DonateRecord.new(params.merge(project_season_apply_child_id: child_id, fund: apply.project.fund, pay_state: 'paid', amount: amount, project: apply.project, donor: user.name, remitter_id: user.id, remitter_name: user.name, season: apply.season, apply: apply, kind: 'custom'))
+      donate_record = DonateRecord.new(params.merge(project_season_apply_child_id: child_id, fund: apply.project.fund, pay_state: 'paid', amount: amount, project: apply.project, donor: user.show_name, remitter_id: user.id, remitter_name: user.show_name, season: apply.season, apply: apply, kind: 'custom'))
     end
     income_record = IncomeRecord.new(donate_record: donate_record, user: donate_record.user, fund: donate_record.fund, amount: amount, remitter_id: donate_record.remitter_id, remitter_name: donate_record.remitter_name, donor: donate_record.donor, promoter_id: donate_record.promoter_id, income_time: Time.now)
     income_record.income_source_id = params[:source_id]
