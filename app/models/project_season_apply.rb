@@ -114,7 +114,7 @@ class ProjectSeasonApply < ApplicationRecord
   enum pair_state: {waiting_upload: 1, waiting_check: 2, pair_complete: 3}
   default_value_for :pair_state, 1
 
-  enum read_state: {read_executing: 1, read_done: 2}
+  enum read_state: {read_executing: 1, read_done: 2} # 悦读筹款状态
   default_value_for :read_state, 1
 
   default_value_for :class_number, 0

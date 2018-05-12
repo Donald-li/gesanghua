@@ -368,6 +368,20 @@ class User < ApplicationRecord
     end.attributes!
   end
 
+  def remove_teacher_role(operator)
+    self.remove_role(:teacher) if self.has_role?(:teacher)
+    self.remove_role(:headmaster) if self.has_role?(:headmaster)
+    self.save!
+      Notification.create(
+          kind: 'remove_teacher_role',
+          owner: self,
+          user_id: self.id,
+          title: '教师角色移除通知',
+          content: "#{operator.name}将您的#{self.school}老师角色移除"
+      )
+    return true, '操作成功'
+  end
+
   # TODO 待处理
   # 微信绑定手机号之后，根据手机号合并user记录，绑定volunteer,teacher(headmaster),county_user角色（gsh_child有单独绑定途径）
   def combine_user

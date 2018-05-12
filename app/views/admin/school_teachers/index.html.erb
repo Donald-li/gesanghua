@@ -68,7 +68,7 @@
                 <%= teacher.qq %>
               </td>
               <td>
-                <%= teacher.openid %>
+                <%= teacher.wechat %>
               </td>
               <td>
                 <%= teacher.phone %>
@@ -91,8 +91,10 @@
                 <%= link_to edit_admin_school_school_teacher_path(teacher.school, teacher), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                   <i class="fa fa-edit"></i> 修改信息
                 <% end %>
+                <% unless teacher.headmaster? %>
                 <%= link_to admin_school_school_teacher_path(teacher.school, teacher), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                   <i class="fa fa-trash-o"></i> 删除
+                <% end %>
                 <% end %>
               </td>
             </tr>

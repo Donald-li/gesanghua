@@ -37,6 +37,7 @@ admin:
             admin_school_list:
               actions:
                 'admin/schools': all
+                'admin/school_teachers': all
             admin_school_applies:
               actions:
                 'admin/school_applies': all

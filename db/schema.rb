@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180508030716) do
+ActiveRecord::Schema.define(version: 20180511053009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1176,6 +1176,7 @@ ActiveRecord::Schema.define(version: 20180508030716) do
     t.string "id_card", comment: "身份证"
     t.string "qq", comment: "QQ"
     t.string "openid", comment: "微信openid"
+    t.string "wechat", comment: "微信"
   end
 
   create_table "teams", force: :cascade, comment: "小组" do |t|

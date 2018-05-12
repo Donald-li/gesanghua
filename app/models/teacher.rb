@@ -15,8 +15,9 @@
 #  id_card    :string                                 # 身份证
 #  qq         :string                                 # QQ
 #  openid     :string                                 # 微信openid
+#  wechat     :string                                 # 微信
 #
-# 教师
+
 class Teacher < ApplicationRecord
   has_paper_trail only: [:nickname, :name, :user_id, :school_id, :kind, :phone, :id_card, :state, :qq]
 
@@ -29,16 +30,16 @@ class Teacher < ApplicationRecord
   has_many :projects, through: :teacher_projects
 
   validates :name, :phone, presence: true
-  # validates :phone, uniqueness: true
+  validates :phone, uniqueness: true
   validates :id_card, shenfenzheng_no: true
   validates :qq, qq: true
 
   enum state: {show: 1, hidden: 2} # 状态：1:启用 2:禁用
   default_value_for :state, 1
 
-  enum kind: { headmaster: 1, teacher: 2 } # 老师类型：1:校长 2:老师
+  enum kind: {headmaster: 1, teacher: 2} # 老师类型：1:校长 2:老师
 
-  scope :sorted, ->{ order(created_at: :desc) }
+  scope :sorted, -> {order(created_at: :desc)}
 
   def phone_head
     self.school.contact_telephone[0..3] if self.school.contact_telephone.present?
@@ -50,8 +51,7 @@ class Teacher < ApplicationRecord
 
   def get_gender
     return unless self.id_card.present?
-    num = self.id_card[-2]
-    num % 2 == 1 ? '男' : '女'
+    ChinesePid.new(self.id_card).gender == 1 ? '男' : '女'
   end
 
   def summary_builder
@@ -79,7 +79,7 @@ class Teacher < ApplicationRecord
       json.phone self.phone
       json.id_card self.try(:id_card)
       json.qq self.try(:qq)
-      json.openid self.try(:openid)
+      json.wechat self.try(:wechat)
       json.teacher_projects do
         json.array! self.teacher_projects do |teacher_project|
           json.id teacher_project.project_id
@@ -88,6 +88,75 @@ class Teacher < ApplicationRecord
         end
       end
     end.attributes!
+  end
+
+  def bind_user_by_phone(operator)
+    result = false
+    notice = ''
+    user = User.find_by(phone: self.phone)
+    self.transaction do
+      if user.present?
+        if user.has_role?(:teacher) || user.has_role?(:headmaster)
+          result, notice = false, self.user.present? ? "关联用户已经有#{self.user.has_role?(:headmaster) ? '校长' : '教师'}角色" : "手机号已绑定过#{user.has_role?(:headmaster) ? '校长' : '教师'}角色"
+          raise ActiveRecord::Rollback
+        else
+          if self.teacher?
+            user.add_role(:teacher)
+          else
+            user.add_role(:headmaster)
+            self.school.update!(user: user)
+          end
+          user.save!
+          self.user = user
+        end
+      end
+      unless self.save
+        result = false
+        notice = '手机号已占用'
+        raise ActiveRecord::Rollback
+      end
+      self.create_notification(operator)
+      result, notice = true, '操作成功'
+    end
+    return result, notice
+  end
+
+  def update_teacher(params, operator)
+    result = false
+    notice = ''
+    self.transaction do
+      begin
+        old_user = self.user
+        self.update!(params)
+        result, notice = old_user.remove_teacher_role(operator) if old_user.present?
+      rescue => e
+        raise ActiveRecord::Rollback
+      end
+    end
+    return result, notice
+  end
+
+  def destroy_teacher(operator)
+    result = false
+    notice = ''
+    self.transaction do
+      user = self.user
+      result, notice = user.remove_teacher_role(operator) if user.present?
+      self.destroy!
+    end
+    return result, notice
+  end
+
+  def create_notification(operator)
+    if self.user.present?
+      Notification.create(
+          kind: 'bind_teacher_by_phone',
+          owner: self,
+          user_id: self.user.id,
+          title: '教师角色关联通知',
+          content: "#{operator.name}将您添加为#{self.school}的老师"
+      )
+    end
   end
 
 end

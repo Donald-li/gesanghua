@@ -4,7 +4,7 @@ class Admin::SchoolTeachersController < Admin::BaseController
   before_action :set_school, only: [:new, :index, :create, :edit, :update]
 
   def index
-    @search = @school.teachers.sorted.ransack(params[:q])
+    @search = @school.teachers.teacher.sorted.ransack(params[:q])
     scope = @search.result
     @teachers = scope.page(params[:page])
   end
@@ -18,18 +18,6 @@ class Admin::SchoolTeachersController < Admin::BaseController
 
   def create
     @teacher = @school.teachers.new(teacher_params)
-    if @teacher.user.present?
-      @user = @teacher.user
-      @teacher.name = @user.name? ? @user.name : @teacher.name
-      @teacher.phone = @user.phone? ? @user.phone : @teacher.phone
-      @teacher.qq = @user.qq? ? @user.qq : @teacher.qq
-      @teacher.openid = @user.openid? ? @user.openid : @teacher.openid
-      @teacher.id_card = @user.id_card? ? @user.id_card : @teacher.id_card
-      if !@user.has_role?(:teacher)
-        @user.roles = @user.roles.push(:teacher)
-        @user.save
-      end
-    end
     respond_to do |format|
       if @teacher.save
         if teacher_projects_params.present?
@@ -39,6 +27,7 @@ class Admin::SchoolTeachersController < Admin::BaseController
         end
         format.html { redirect_to admin_school_school_teachers_path(@school), notice: '教师创建成功。' }
       else
+        flash[:notice] = notice
         format.html { render :new }
       end
     end
@@ -48,30 +37,9 @@ class Admin::SchoolTeachersController < Admin::BaseController
   end
 
   def update
-    @u = @teacher.user if @teacher.user.present?
-    if @u.present?
-      if @u.has_role?(:teacher)
-        @u.roles = @u.roles-[:teacher]
-        @u.save
-      end
-    end
-    if teacher_params[:user_id] !=nil && teacher_params[:user_id] != ""
-      @user = User.find(teacher_params[:user_id])
-      if !@user.has_role?(:teacher) || !@user.has_role?(:headmaster)
-        @user.roles = @user.roles.push(:teacher)
-        @user.save
-      end
-    end
     respond_to do |format|
-      if @teacher.update(teacher_params)
-        if @user.present?
-          @teacher.name = @user.name? ? @user.name : @teacher.name
-          @teacher.phone = @user.phone? ? @user.phone : @teacher.phone
-          @teacher.qq = @user.qq? ? @user.qq : @teacher.qq
-          @teacher.openid = @user.openid? ? @user.openid : @teacher.openid
-          @teacher.id_card = @user.id_card? ? @user.id_card : @teacher.id_card
-          @teacher.save
-        end
+      result, notice = @teacher.update_teacher(teacher_params, current_user)
+      if result
         @teacher.teacher_projects.destroy_all
         if teacher_projects_params.present?
           teacher_projects_params.each do |teacher_project|
@@ -80,19 +48,14 @@ class Admin::SchoolTeachersController < Admin::BaseController
         end
         format.html { redirect_to referer_or(admin_school_school_teachers_url), notice: '教师信息已修改。' }
       else
+        flash[:notice] = notice
         format.html { render :edit }
       end
     end
   end
 
   def destroy
-    @teacher.destroy
-    if @teacher.user.present?
-      if @teacher.user.has_role?(:teacher)
-        @teacher.user.roles = @teacher.user.roles-[:teacher]
-        @teacher.user.save
-      end
-    end
+    @teacher.destroy_teacher(current_user)
     respond_to do |format|
       format.html { redirect_to referer_or(admin_school_school_teachers_url), notice: '教师已删除。' }
     end

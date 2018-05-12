@@ -37,7 +37,9 @@
           </td>
           <td>
             <%= link_to "修改", edit_platform_school_teacher_path(teacher),class:'lookbutton' %>
+            <% if teacher.teacher? %>
             <%= link_to "删除", platform_school_teacher_path(teacher),class:'detail-table', method: :delete, data: {confirm: '确定要删除吗？'}  %>
+            <% end %>
           </td>
         </tr>
           <% end %>
