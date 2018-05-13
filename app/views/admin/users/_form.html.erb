@@ -14,7 +14,7 @@
     </div>
     <%= f.input :nickname, label: '昵称：', autofocus: true, placeholder: '请填写用户昵称', required: true %>
     <%= f.input :name, label: '真实姓名：', placeholder: '请填写真实姓名', required: true %>
-    <%= f.input :salutation, as: :select, collection: ['哥哥', '姐姐', '弟弟', '妹妹', '叔叔', '阿姨', '爷爷', '奶奶'], include_blank: false, label: false, input_html: {data: {}, class: 'goodinput',id:'nickname'} %>
+    <%= f.input :salutation, as: :select, collection: ['哥哥', '姐姐', '弟弟', '妹妹', '叔叔', '阿姨', '爷爷', '奶奶'], include_blank: false, label: '如何称呼', input_html: {data: {}, class: 'goodinput',id:'nickname'} %>
     <%= f.input :gender, as: :radio_buttons, wrapper: :inline_inputs, collection: User.options_for_some_select(:genders, ['male', 'female']), label: '性别：'%>
     <h4>收货地址</h4>
     <%= f.input :consignee, label: '收件人：', placeholder: '请填写正确的收件人' %>

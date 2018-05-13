@@ -368,7 +368,6 @@ class User < ApplicationRecord
     end.attributes!
   end
 
-
   def remove_teacher_role(operator)
     self.remove_role(:teacher) if self.has_role?(:teacher)
     self.remove_role(:headmaster) if self.has_role?(:headmaster)
@@ -382,8 +381,6 @@ class User < ApplicationRecord
       )
     return true, '操作成功'
   end
-
-
 
   # 微信绑定手机号之后，根据手机号合并user记录，绑定volunteer,teacher(headmaster),county_user角色（gsh_child有单独绑定途径）
   # 合并账号

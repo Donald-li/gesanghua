@@ -7,14 +7,14 @@ class Api::V1::BindPhonesController < Api::V1::BaseController
         if user.unactived? && user.manager_id.present?
           if user.offline_user_activation(user.phone, current_user)
             set_current_user(user)
-            api_success(message: '绑定成功', data: {state: true, has_password: current_user.password.present? ? true : false})
+            api_success(message: '绑定成功', data: {state: true, has_password: current_user.password_digest.present? ? true : false})
           else
             api_success(message: '绑定失败', data: {state: false})
           end
         elsif !user.openid.present?
           if User.combine_user(params[:phone], current_user)
             set_current_user(user)
-            api_success(message: '绑定成功', data: {state: true, has_password: user.password.present? ? true : false})
+            api_success(message: '绑定成功', data: {state: true, has_password: user.password_digest.present? ? true : false})
           else
             api_success(message: '绑定失败', data: {state: false})
           end
@@ -25,7 +25,7 @@ class Api::V1::BindPhonesController < Api::V1::BaseController
         current_user.phone = params[:mobile]
         if current_user.save
           current_user.bind_user_roles
-          api_success(message: '绑定成功', data: {state: true, has_password: current_user.password.present? ? true : false})
+          api_success(message: '绑定成功', data: {state: true, has_password: current_user.password_digest.present? ? true : false})
         else
           api_success(message: '绑定失败，手机号已占用', data: {state: false})
         end
