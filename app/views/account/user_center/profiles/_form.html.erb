@@ -27,7 +27,7 @@
         </div>
         <div class="clearfix">
           <span class="goodtext pull-left">如何称呼</span>
-          <%= f.text_field :salutation, placeholder: '孩子如何称呼您', class: "goodinput pull-left",style:"width: 70%;" %>
+          <%= f.input :salutation, as: :select, collection: ['哥哥', '姐姐', '弟弟', '妹妹', '叔叔', '阿姨', '爷爷', '奶奶'], include_blank: false, label: false, input_html: {data: {}, class: 'goodinput',id:'nickname'} %>
         </div>
         <div class="sexinput clearfix">
           <span class="goodtext pull-left">选择性别</span>
@@ -51,7 +51,7 @@
       <div class="addchild-list-cont">
         <div class="clearfix">
           <span class="goodtext pull-left">收货人</span>
-          <%= f.text_field :consignee, placeholder: '请填写收货人姓名', class: "goodinput pull-left",style:"width: 70%;" %>
+          <%= f.text_field :consignee, placeholder: '请填写收货人姓名', class: "goodinput pull-left" %>
         </div>
         <div  class="clearfix">
           <span class="goodtext pull-left">联系电话</span>
@@ -80,6 +80,11 @@
 <% end %>
 
 <script>
+
+$(".salutation").select2({
+    width: "467px",
+    minimumResultsForSearch: -1
+});
     $(".province").select2({
         width: "140px",
         minimumResultsForSearch: -1

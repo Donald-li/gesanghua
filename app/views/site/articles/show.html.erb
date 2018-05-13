@@ -1,7 +1,7 @@
   <div class="camps-detail">
   <div class="camps-body-detail border-b">
-    <span class="camps-title-font"><%= @article.title %></span>
-    <p class="articles-time"><%= @article.author %> |  <%= @article.published_at.strftime("%Y年%m月%d日")%> </p>
+    <p class="camps-title-font"><%= @article.title %></span>
+    <p class="articles-time"><%= @article.author %> |  <%= @article.published_at.strftime("%Y年%m月%d日")%> </span>
     <div class="camps-bodys articles-cont">
       <div class="slide-box-demo2">
         <div class="slide-box ">
@@ -29,12 +29,9 @@
     <div class="camps-share">
       <p>分享到：</p>
       <ol>
-
-
         <li class="row" style="padding: 30px 225px;">
           <div id="share-2"></div>
         </li>
-
       </ol>
     </div>
   </div>
@@ -57,7 +54,8 @@
 </div>
 <script>
     $('#share-2').share({
-        sites: ['qzone', 'wechat', 'weibo', 'qq']
+        sites: ['qzone', 'wechat', 'weibo', 'qq'],
+        url: '<%= @wechat_code_url %>'
 
     });
     $('.slide-box-demo2').setSlide({

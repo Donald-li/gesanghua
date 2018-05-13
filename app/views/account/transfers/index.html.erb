@@ -4,6 +4,8 @@
     <span class="pull-right iconfont icon-arrow-right"></span>
     <span class="pull-right"><%= link_to '返回我的团队', account_teams_path %></span>
   </p>
+    <% if @team_creater.present? %>
+    <div>
   <div class="transfers">
     <p class="gsh-plus-tit">选择你要移交的团队成员</p>
     <ul class="transfers-cont ui-choose" >
@@ -44,6 +46,18 @@
   <div class="transfers-button">
     <button class="class-button">立即移交</button>
   </div>
+  </div>
+
+
+  <% else %>
+  <div class="not-available contentab pull-left">
+    <div class="donation-cont-no">
+      <div class="donation-co-no-c">
+        <p>暂无团队成员</p>
+      </div>
+    </div>
+  </div>
+  <% end %>
   <div class="overspread-3">
     <div class="overspread-over"></div>
     <div class="overspread-cont">

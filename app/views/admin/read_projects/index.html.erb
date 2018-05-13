@@ -61,6 +61,9 @@
               筹款状态
             </th>
             <th>
+              项目状态
+            </th>
+            <th>
               申请/完成班级
             </th>
             <th>
@@ -96,6 +99,9 @@
                   <%= project.enum_name(:read_state) %>
                 </td>
                 <td>
+                  <%= project.enum_name(:execute_state) %>
+                </td>
+                <td>
                   <% if project.whole? %>
                     <%= project.bookshelves_count %> / <%= project.bookshelves_done_count %>
                   <% else %>
@@ -116,6 +122,11 @@
                     <%= link_to admin_read_project_bookshelves_path(project), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
                         <i class="fa fa-list"></i> 筹款班级
                     <% end %>
+                      <% if project.bookshelves_done_count == project.bookshelves.count && !project.done? %>
+                      <%= link_to finish_project_admin_read_project_path(project), data: {confirm: '确认标记为已完成？'}, method: :put, 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                          <i class="fa fa-check-square-o"></i> 标记完成
+                      <% end %>
+                      <% end %>
                   <% else %>
                     <%= link_to supply_edit_admin_read_project_path(project), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                         <i class="fa fa-edit"></i> 修改项目
@@ -123,6 +134,11 @@
                     <%= link_to admin_read_project_supplements_path(project), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                         <i class="fa fa-list"></i> 补书班级
                     <% end %>
+                      <% if project.supplements_done_count == project.supplements && !project.done? %>
+                      <%= link_to finish_project_admin_read_project_path(project), data: {confirm: '确认标记为已完成？'}, method: :put, 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                          <i class="fa fa-check-square-o"></i> 标记完成
+                      <% end %>
+                      <% end %>
                   <% end %>
                 </td>
               </tr>

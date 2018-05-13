@@ -27,11 +27,11 @@
         </div>
         <div class="clearfix">
           <span class="goodtext pull-left">微信号</span>
-          <%= f.text_field :openid, placeholder: '请输入微信号', class: "goodinput pull-left" %>
+          <%= f.text_field :wechat, placeholder: '请输入微信号', class: "goodinput pull-left" %>
         </div>
         <div class="clearfix">
           <span class="goodtext pull-left">联系方式</span>
-          <%= f.text_field :phone, placeholder: '填写班主任联系方式', class: "goodinput pull-left", data: {'parsley-required': true, 'parsley-phone': true} %>
+          <%= f.text_field :phone, placeholder: '填写手机号码', class: "goodinput pull-left", data: {'parsley-required': true, 'parsley-phone': true} %>
         </div>
         <div style="position: relative;height: auto;" class="clearfix">
           <span class="goodtext pull-left">项目权限</span>

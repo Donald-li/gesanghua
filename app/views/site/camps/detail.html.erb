@@ -43,7 +43,8 @@
               <span class="navmark"><%#= @feedbacks.count %></span>
             </li>
           </ul>
-          <button class="pull-right share cur">分享</button>
+          <span class="pull-right share" id="share-2"></span>
+          <!-- <button class="pull-right share cur">分享</button> -->
         </div>
       </div>
     </div>
@@ -193,4 +194,10 @@
     $(".check_label").checkbox();
     $('.ui-choose').ui_choose();
 
+    $('#share-2').share({
+      sites: ['qzone', 'wechat', 'weibo', 'qq'],
+      title: '<%= @apply.name %>',
+      description: '<%= @apply.name %>',
+      image: 'http://<%= Settings.app_host%><%= @apply.cover_image_url(:tiny) %>'
+    });
 </script>

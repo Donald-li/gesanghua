@@ -19,7 +19,7 @@
           <p>参与人数<span><%= @apply.participant_number %>人</span></p>
           <a>
             <button class="overspread-show cur">整捐冠名</button>
-            <button id="donate-part-btn" class="cur">直接捐助</button>
+            <button id="donate-part-btn" class="cur" style="margin-top: 20px;">直接捐助</button>
           </a>
         </div>
       </div>
@@ -42,7 +42,8 @@
               <span class="navmark"><%#= @feedbacks.count %></span>
             </li>
           </ul>
-          <button class="pull-right share cur">分享</button>
+          <span class="pull-right share" id="share-2"></span>
+
         </div>
       </div>
     </div>
@@ -268,4 +269,10 @@
     $('.bookshelf').click(function () {
       $('#donate-bookshelf-btn').data('bookshelf-id', $(this).data('bookshelf-id'))
     })
+    $('#share-2').share({
+      sites: ['qzone', 'wechat', 'weibo', 'qq'],
+      title: '<%= @apply.name %>',
+      description: '<%= @apply.name %>',
+      image: 'http://<%= Settings.app_host%><%= @apply.cover_image_url(:tiny) %>'
+    });
 </script>

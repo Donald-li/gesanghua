@@ -26,14 +26,9 @@
             <span class="navmark"><%= @project_reports.count %></span>
           </li>
         </ul>
-        <button class="pull-right share cur">分享</button>
+        <span class="pull-right share" id="share-2"></span>
+        <!-- <button class="pull-right share cur">分享</button> -->
         <%= link_to goods_path(id: @project) do %><div class="pull-right referral-school cur"><%= @total %> 所学校在筹款</div><% end %>
-        <!--<div class="pull-right referral-share">-->
-          <!--<span class="iconfont icon-wechat"></span>-->
-          <!--<span class="iconfont icon-wechat"></span>-->
-          <!--<span class="iconfont icon-wechat"></span>-->
-          <!--<span class="iconfont icon-wechat"></span>-->
-        <!--</div>-->
       </div>
     </div>
   </div>
@@ -133,4 +128,10 @@
         $("#" + id + " > .detail-font-tit > span").css('display', 'none')
         $("#" + id + " .details-img").css('display', 'block')
     }
+     $('#share-2').share({
+       sites: ['qzone', 'wechat', 'weibo', 'qq'],
+       title: '<%= @project.name %>',
+       description: '<%= @project.name %>',
+       image: 'http://<%= Settings.app_host%><%= @project.image_url(:tiny) %>'
+     });
 </script>

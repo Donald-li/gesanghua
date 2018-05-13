@@ -5,6 +5,9 @@ class Camp::BaseController < ManagementBaseController
   helper_method :current_user
   layout 'camp'
 
+  rescue_from ActionController::RoutingError, :with => :render_404
+  rescue_from Exception, :with => :render_500
+
   protected
   def user_for_paper_trail
     "管理员：#{current_user.nickname}" if current_user
@@ -18,12 +21,19 @@ class Camp::BaseController < ManagementBaseController
     if session[:camp_user_id].present?
       return true
     else
-      redirect_to user_login_path
+      redirect_to camp_login_path
     end
   end
 
   def current_user
-    @current_user ||= User.find_by id: session[:user_id]
+    @current_user ||= User.find_by id: session[:camp_user_id]
   end
 
+  def render_404(exception = nil)
+    render :file => "#{Rails.root}/public/camp-404.html", :status => 404, :layout => false
+  end
+
+  def render_500(exception = nil)
+    render :file => "#{Rails.root}/public/camp-500.html", :status => 404, :layout => false
+  end
 end

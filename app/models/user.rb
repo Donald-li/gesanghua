@@ -97,8 +97,8 @@ class User < ApplicationRecord
   # default_value_for :password, '111111'
   validates :email, email: true
   validates :phone, mobile: true, uniqueness: { allow_blank: true }
-  validates :name, presence: true
-  # validates :login, uniqueness: true
+  # validates :name, presence: true
+  validates :login, uniqueness: true, if: Proc.new {|u| u.login.present?}
   validates :balance, numericality: { greater_than_or_equal_to: 0 }
 
   default_value_for :profile, {}
@@ -367,6 +367,23 @@ class User < ApplicationRecord
       json.avatar_src self.user_avatar
     end.attributes!
   end
+
+
+  def remove_teacher_role(operator)
+    self.remove_role(:teacher) if self.has_role?(:teacher)
+    self.remove_role(:headmaster) if self.has_role?(:headmaster)
+    self.save!
+      Notification.create(
+          kind: 'remove_teacher_role',
+          owner: self,
+          user_id: self.id,
+          title: '教师角色移除通知',
+          content: "#{operator.name}将您的#{self.school}老师角色移除"
+      )
+    return true, '操作成功'
+  end
+
+
 
   # 微信绑定手机号之后，根据手机号合并user记录，绑定volunteer,teacher(headmaster),county_user角色（gsh_child有单独绑定途径）
   # 合并账号
