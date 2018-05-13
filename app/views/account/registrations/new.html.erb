@@ -1,7 +1,7 @@
 <%= content_for :page_style do %>
     <%= stylesheet_link_tag 'blank', media: 'all', 'data-turbolinks-track': 'reload' %>
 <% end %>
-<%= simple_form_for @user, url: account_registration_path, method: :post, html: {class: ''} do |f| %>
+<%= simple_form_for @user, url: account_registration_path, method: :post, html: {'data-parsley-validate': true, class: ''} do |f| %>
 
     <div  class="first-screen classbody">
       <div class="screen-body" style="min-height: 605px;">
@@ -66,7 +66,7 @@
                   <% if params[:kind] == 'by_phone' %>
                 <span class="input input&#45;&#45;hoshi">
                 <!-- <input class="input__field input__field&#45;&#45;hoshi" type="text" id="phonenumber" placeholder="手机号"/> -->
-                  <%= f.text_field :login, required: true, class: 'input__field input__field--hoshi', id: 'phonenumber', placeholder: '手机号' %>
+                  <%= f.text_field :login, class: 'input__field input__field--hoshi', id: 'phonenumber', placeholder: '手机号' %>
                   <label class="input__label input__label&#45;&#45;hoshi input__label&#45;&#45;hoshi-color-1" for="phonenumber"></label>
                 </span>
                   <% end %>
@@ -74,13 +74,13 @@
                   <% if params[:kind] == 'by_email' %>
                 <span class="input input--hoshi">
                   <!-- <input class="input__field input__field--hoshi" type="text" id="email" placeholder="邮箱"/> -->
-                  <%= f.text_field :login, required: true, class: 'input__field input__field--hoshi', id: 'email', placeholder: '邮箱' %>
+                  <%= f.text_field :login, class: 'input__field input__field--hoshi', id: 'email', placeholder: '邮箱' %>
                   <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="email"></label>
   				      </span>
                   <% end %>
                   <span class="input input--hoshi ">
                 <!-- <input class="input__field input__field--hoshi" type="password" id="password" placeholder="密码"/> -->
-                    <%= f.password_field :password, required: true, class: 'input__field input__field--hoshi login-put', id: 'password', placeholder: '密码' %>
+                    <%= f.password_field :password, class: 'input__field input__field--hoshi login-put', id: 'password', placeholder: '密码' %>
                     <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="password"></label>
 				      </span>
                   <span class="input input--hoshi">
@@ -99,7 +99,7 @@
                 <button class="register" type="submit">注册</button>
                 <div class="check-box">
                   <div class="pretty o-danger">
-                    <input type="checkbox" checked/>
+                    <input type="checkbox" name="protocol" checked/>
                     <label><i class="mdi mdi-check"></i></label>
                     <span class="checkbox_text">阅读并同意</span>
                   </div>
@@ -153,10 +153,10 @@
                 url: "/api/v1/common/sms_codes",
                 data: {kind: 'signup', mobile: mobile},
                 success: function (data) {
-//                    layer.msg(data.message, {
-//                        icon: 0,
-//                        offset: 't c'
-//                    });
+                  // layer.msg(data.message, {
+                  //      icon: 0,
+                  //      offset: 't c'
+                  //  });
                     time(_this);
                 },
                 error: function (data) {

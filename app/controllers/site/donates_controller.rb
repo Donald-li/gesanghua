@@ -20,7 +20,7 @@ class Site::DonatesController < Site::BaseController
       @amount_tabs = Settings.amount_tabs
     end
 
-    @donors = current_user.offline_users.reverse_sorted
+    @donors = current_user.offline_users.unactived.reverse_sorted
 
     render 'child' if params[:child].present?
     render 'apply' if params[:apply].present?

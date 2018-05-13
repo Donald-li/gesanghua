@@ -6,12 +6,14 @@ class Api::V1::BindPhonesController < Api::V1::BaseController
         user = User.find_by(phone: params[:mobile])
         if user.unactived? && user.manager_id.present?
           if user.offline_user_activation(user.phone, current_user)
+            set_current_user(user)
             api_success(message: '绑定成功', data: {state: true, has_password: current_user.password.present? ? true : false})
           else
             api_success(message: '绑定失败', data: {state: false})
           end
         elsif !user.openid.present?
           if User.combine_user(params[:phone], current_user)
+            set_current_user(user)
             api_success(message: '绑定成功', data: {state: true, has_password: user.password.present? ? true : false})
           else
             api_success(message: '绑定失败', data: {state: false})

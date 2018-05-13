@@ -348,7 +348,7 @@ class User < ApplicationRecord
 
   def offline_donor_summary_builder
     Jbuilder.new do |json|
-      json.(self, :id, :phone, :name, :nickname)
+      json.(self, :id, :phone, :name, :nickname, :state)
       json.show_name self.show_name
     end.attributes!
   end

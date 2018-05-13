@@ -36,6 +36,9 @@
               <div class="don-content">
                 <div>
                   <span><%= offline_user.show_name %></span>
+                  <% if offline_user.state != 'unactived' %>
+                    <span>已激活</span>
+                  <% end %>
                 </div>
                 <div class="don-con-co">
                   <span>联系电话：</span><p><%= offline_user.phone %></p>
@@ -49,16 +52,18 @@
                 <!--<div class="don-con-co">-->
                   <!--<span>邮箱地址：</span><p><%= offline_user.email %></p>-->
                 <!--</div>-->
-                <div class="clearfix don-con-pos">
-                  <div class="pull-right cur delete-offline-user" offlineUserId="<%= offline_user.id %>" id="delete">
-                    <span class="iconfont icon-ico-delete1"></span>
-                    <span>删除</span>
+                <% if offline_user.state == 'unactived' %>
+                  <div class="clearfix don-con-pos">
+                    <div class="pull-right cur delete-offline-user" offlineUserId="<%= offline_user.id %>" id="delete">
+                      <span class="iconfont icon-ico-delete1"></span>
+                      <span>删除</span>
+                    </div>
+                    <div class="pull-right cur edit-offline-user edit_button" offlineUserId="<%= offline_user.id %>" id="edit">
+                      <span class="iconfont icon-ico-edit "></span>
+                      <span>编辑</span>
+                    </div>
                   </div>
-                  <div class="pull-right cur edit-offline-user edit_button" offlineUserId="<%= offline_user.id %>" id="edit">
-                    <span class="iconfont icon-ico-edit "></span>
-                    <span>编辑</span>
-                  </div>
-                </div>
+                <% end %>
               </div>
             <% end %>
           </div>
