@@ -56,7 +56,7 @@
           <td><%= number_to_currency(income_record.amount) %></th>
           <td><%= income_record.income_source.try(:name) %></td>
           <td><%= income_record.donor.try(:show_name) %></td>
-          <td><%= income_record.agentname %></td>
+          <td><%= income_record.agent_name %></td>
           <td><%= income_record.remark %></td>
         </tr>
       <% end %>

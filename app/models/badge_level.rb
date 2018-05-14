@@ -53,7 +53,7 @@ class BadgeLevel < ApplicationRecord
       elsif kind == 'user_donate'
         value = owner.donate_amount
       elsif kind == 'volunteer_age'
-        # value = owner.volunteer.volunteer_age
+        value = owner.volunteer.try(:volunteer_age).to_i
       elsif owner
         level_of_user(owner.team, kind)
       end
@@ -74,7 +74,7 @@ class BadgeLevel < ApplicationRecord
       json.(self, :rank, :title, :current_value, :default_level)
       json.icon_url self.icon_url(nil)
       json.title self.enum_name(:kind)
-      json.describe self.desc_of_kind
+      json.describe self.description
     end.attributes!
   end
 
