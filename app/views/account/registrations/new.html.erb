@@ -4,7 +4,7 @@
 <%= simple_form_for @user, url: account_registration_path, method: :post, html: {'data-parsley-validate': true, class: ''} do |f| %>
 
     <div  class="first-screen classbody">
-      <div class="screen-body" style="min-height: 605px;">
+      <div class="screen-body" style="min-height: 300px;">
         <div class="screen-body-cell">
           <div class="auto-box cell-wrap clearfix">
             <!--<div class="login-box">-->
@@ -124,6 +124,11 @@
       </footer>
     </div>
 <% end %>
+<style lang="css" scoped>
+  body{
+    background-color: #f5f5f5;
+  }
+</style>
 <script type="text/javascript" charset="utf-8">
 
     var wait = 59;
