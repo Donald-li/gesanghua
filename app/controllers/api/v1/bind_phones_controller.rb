@@ -1,5 +1,9 @@
 class Api::V1::BindPhonesController < Api::V1::BaseController
 
+  def show
+    api_success(data: current_user.password_digest.present?)
+  end
+
   def create
     if SmsCode.valid_code?(mobile: params[:mobile], code: params[:code], kind: 'login', write_verified: true)
       if User.find_by(phone: params[:mobile]).present?
@@ -7,25 +11,34 @@ class Api::V1::BindPhonesController < Api::V1::BaseController
         if user.unactived? && user.manager_id.present?
           if user.offline_user_activation(user.phone, current_user)
             set_current_user(user)
-            api_success(message: '绑定成功', data: {state: true, has_password: current_user.password_digest.present? ? true : false})
+            if params[:password].present?
+              user.password = params[:password]
+              user.save
+            end
+            api_success(message: '绑定成功', data: {state: true})
           else
             api_success(message: '绑定失败', data: {state: false})
           end
         elsif !user.openid.present?
-          if User.combine_user(params[:phone], current_user)
-            set_current_user(user)
-            api_success(message: '绑定成功', data: {state: true, has_password: user.password_digest.present? ? true : false})
-          else
-            api_success(message: '绑定失败', data: {state: false})
+          User.combine_user(params[:mobile], current_user)
+          set_current_user(user)
+          if params[:password].present?
+            user.phone = params[:mobile]
+            user.password = params[:password]
+            user.save
           end
+          api_success(message: '绑定成功', data: {state: true})
         else
           api_success(message: '绑定失败，手机号已占用', data: {state: false})
         end
       else
         current_user.phone = params[:mobile]
+        if params[:password].present?
+          current_user.password = params[:password]
+        end
         if current_user.save
           current_user.bind_user_roles
-          api_success(message: '绑定成功', data: {state: true, has_password: current_user.password_digest.present? ? true : false})
+          api_success(message: '绑定成功', data: {state: true})
         else
           api_success(message: '绑定失败，手机号已占用', data: {state: false})
         end

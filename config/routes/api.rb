@@ -395,7 +395,7 @@ namespace :api do
     resource :sign_package, only: [:show]
 
     # 绑定手机号
-    resource :bind_phone, only: [:create, :update]
+    resource :bind_phone
 
     # 捐助、项目申请协议
     resource :protocols, only: [:show]
