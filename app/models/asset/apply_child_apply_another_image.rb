@@ -19,8 +19,8 @@
 #  updated_at    :datetime         not null
 #
 
-class Asset::ApplyChildFamilyImage < Asset
+class Asset::ApplyChildApplyAnotherImage < Asset
 
-  mount_uploader :file, ApplyChildFamilyImageUploader
+  mount_uploader :file, ApplyChildApplyAnotherUploader
 
 end

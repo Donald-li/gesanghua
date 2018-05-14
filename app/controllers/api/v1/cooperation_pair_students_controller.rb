@@ -52,16 +52,20 @@ class Api::V1::CooperationPairStudentsController < Api::V1::BaseController
       brothers: params[:brothers],
       province: apply.province,
       city: apply.city,
-      district: apply.district
+      district: apply.district,
+      parent_information: params[:parent_information],
+      expenditure_information: params[:expenditure_information],
+      debt_information: params[:debt_information]
     )
     if ProjectSeasonApplyChild.allow_apply?(apply.school, params[:id_card])
       if @student.save
-        @student.count_age
         @student.attach_avatar(params[:avatar][:id]) if params[:avatar].present?
         @student.attach_id_image(params[:id_image][0][:id]) if params[:id_image][0].present?
-        @student.attach_residence(params[:residence][0][:id]) if params[:residence][0].present?
         @student.attach_poverty(params[:poverty][0][:id]) if params[:poverty][0].present?
-        @student.attach_family_image(params[:family_image][0][:id]) if params[:family_image][0].present?
+        @student.attach_room_image(params[:room_image][0][:id]) if params[:room_image][0].present?
+        @student.attach_yard_image(params[:yard_image][0][:id]) if params[:yard_image][0].present?
+        @student.attach_apply_one(params[:apply_one][0][:id]) if params[:apply_one][0].present?
+        @student.attach_apply_two(params[:apply_two][0][:id]) if params[:apply_two][0].present?
         api_success(data: {result: true, apply_id: @student.project_season_apply_id}, message: '孩子信息提交成功！')
       else
         api_success(data: {result: false}, message: @student.errors.full_messages.join(','))
@@ -108,12 +112,13 @@ class Api::V1::CooperationPairStudentsController < Api::V1::BaseController
         family_condition: params[:family_condition],
         brothers: params[:brothers]
       )
-      @student.count_age
       @student.attach_avatar(params[:avatar][:id]) if params[:avatar].present?
       @student.attach_id_image(params[:id_image][0][:id]) if params[:id_image][0].present?
-      @student.attach_residence(params[:residence][0][:id]) if params[:residence][0].present?
       @student.attach_poverty(params[:poverty][0][:id]) if params[:poverty][0].present?
-      @student.attach_family_image(params[:family_image][0][:id]) if params[:family_image][0].present?
+      @student.attach_room_image(params[:room_image][0][:id]) if params[:room_image][0].present?
+      @student.attach_yard_image(params[:yard_image][0][:id]) if params[:yard_image][0].present?
+      @student.attach_apply_one(params[:apply_one][0][:id]) if params[:apply_one][0].present?
+      @student.attach_apply_two(params[:apply_two][0][:id]) if params[:apply_two][0].present?
       api_success(data: {result: true, apply_id: @student.project_season_apply_id}, message: '孩子信息提交成功！')
     else
       api_success(data: {result: false}, message: '孩子信息提交失败，请重试！')

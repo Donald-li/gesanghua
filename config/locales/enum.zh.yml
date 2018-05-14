@@ -505,6 +505,9 @@ zh:
   team_kinds:
     society: '社会团队'
     college: '高校团队'
+  team_states:
+    normal: '正常'
+    dismiss: '解散'
   badge_level_kinds:
     user_donate: '用户筹款'
     society_team: '社会团队筹款'

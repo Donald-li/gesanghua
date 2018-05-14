@@ -2,7 +2,7 @@ class Api::V1::Account::TeamsController < Api::V1::BaseController
   before_action :set_team, only: [:show, :edit, :update, :member, :donate_records, :turn_team, :dismiss, :join_team, :exit_team]
 
   def index
-    teams = Team.sorted.where(kind: params[:kind]).where.not(manage_id: nil)
+    teams = Team.normal.sorted.where(kind: params[:kind])
     teams = teams.where("name like ?", "%#{params[:team_name]}%") if params[:team_name].present?
     teams = teams.page(params[:page]).per(params[:per])
     api_success(data: {teams: teams.map{|team| team.summary_builder}, pagination: json_pagination(teams)})
@@ -50,7 +50,7 @@ class Api::V1::Account::TeamsController < Api::V1::BaseController
   end
 
   def dismiss
-    if @team.users.update(team_id: nil) && @team.update(manage_id: nil)
+    if @team.users.update(team_id: nil) && @team.dismiss!
       api_success(data: true, message: '解散成功')
     else
       api_success(data: false, message: '解散失败')

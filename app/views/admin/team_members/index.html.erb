@@ -1,0 +1,92 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i><%= link_to @team.name, admin_teams_path %> > 团队成员
+    </div>
+
+  </div>
+  <div class="portlet-body">
+    <div class="dataTables_wrapper no-footer">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <%= search_form_for @search, url: admin_team_team_members_path(@team), class: 'form-inline' do |f| %>
+              <div class="form-group">
+                <%= f.label :name_cont, '搜索' %>
+                <%= f.text_field :name_or_phone_cont, class: 'form-control', placeholder: '姓名、手机号' %>
+              </div>
+              <button type="submit" class="btn btn-default grey">查询</button>
+          <% end %>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="dataTables_filter pull-right"></div>
+        </div>
+      </div>
+      <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover" id="sample_2">
+          <thead>
+          <tr>
+            <th>
+              用户id
+            </th>
+            <th>
+              姓名
+            </th>
+            <th>
+              所在地
+            </th>
+            <th>
+              加入时间
+            </th>
+            <th>
+              期间捐助
+            </th>
+            <th>
+              操作
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @members.each do |member| %>
+              <tr>
+                <td>
+                  <%= member.id %>
+                </td>
+                <td>
+                  <%= member.name %>
+                </td>
+                <td>
+                  <%= member.simple_address %>
+                </td>
+                <td>
+                  <%= l member.join_team_time %>
+                </td>
+                <td>
+                  <%= member.donate_records.where(team_id: @team.id).sum(:amount) %>
+                </td>
+                <td>
+                  <% unless member == @team.manager %>
+                  <%= link_to admin_team_team_member_path(@team, member), method: :patch, 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                      <i class="fa fa-edit"></i> 移交团队
+                  <% end %>
+                  <%= link_to admin_team_team_member_path(@team, member), data: {confirm: '确定要请离团队吗？'}, method: :delete, class: 'btn btn-xs red' do %>
+                      <i class="fa fa-trash-o"></i> 请理团队
+                  <% end %>
+                  <% end %>
+                </td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-5 col-sm-12">
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@members) %></div>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <%= paginate @members, theme: '' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END EXAMPLE TABLE PORTLET-->

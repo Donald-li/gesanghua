@@ -1,4 +1,4 @@
-class ApplyChildFamilyImageUploader < BaseUploader
+class ApplyChildApplyAnotherUploader < BaseUploader
 
   process :auto_orient
 

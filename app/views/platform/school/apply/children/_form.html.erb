@@ -58,27 +58,43 @@
   <div class="addchild-list-cont">
     <div class="clearfix">
       <span class="goodtext pull-left">父亲姓名</span>
-      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[father]" value="<%= @child.father %>" required/>
+      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[father]" value="<%= @child.father %>"/>
     </div>
     <div class="clearfix">
       <span class="goodtext pull-left">职业</span>
-      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[father_job]" value="<%= @child.father_job %>" required/>
+      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[father_job]" value="<%= @child.father_job %>"/>
     </div>
     <div class="clearfix">
       <span class="goodtext pull-left">母亲姓名</span>
-      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[mother]" value="<%= @child.mother %>" required/>
+      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[mother]" value="<%= @child.mother %>"/>
     </div>
     <div class="clearfix">
       <span class="goodtext pull-left">职业</span>
-      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[mother_job]" value="<%= @child.mother_job %>" required/>
+      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[mother_job]" value="<%= @child.mother_job %>"/>
+    </div>
+    <div class="clearfix">
+      <span class="goodtext pull-left">父母情况</span>
+      <div class="pull-left">
+        <%= f.input :parent_information, as: :select, collection: ['父母健在且共同生活', '父母离异', '父亲去世', '母亲去世', '父母均去世', '父亲下落不明', '母亲下落不明', '父母下落不明'], include_blank: false, label: false, input_html: {id: 'parent_info', class: ''} %>
+      </div>
     </div>
     <div class="clearfix">
       <span class="goodtext pull-left">监护人</span>
       <input  class="goodinput pull-left" type="text" name="project_season_apply_child[guardian]" value="<%= @child.guardian %>" required placeholder="监护人姓名"/>
     </div>
     <div class="clearfix">
+      <span class="goodtext pull-left">联系方式</span>
+      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[guardian_phone]" value="<%= @child.guardian_phone %>" required placeholder="监护人联系方式"/>
+    </div>
+    <div class="clearfix">
       <span class="goodtext pull-left">与其关系</span>
-      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[guardian_relation]" value="<%= @child.guardian_relation %>" required placeholder="填写孩子与监护人的关系"/>
+      <div class="pull-left">
+        <%= f.input :guardian_relation, as: :select, collection: ['父子', '母子', '父女', '母女', '祖孙', '舅甥', '其他'], label: false, include_blank: false, input_html: {id: 'guardian_info', class: ''} %>
+      </div>
+    </div>
+    <div class="clearfix">
+      <span class="goodtext pull-left">家庭住址</span>
+      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[address]" value="<%= @child.address %>" required placeholder="家庭住址"/>
     </div>
     <div class="clearfix">
       <span class="goodtext pull-left">收入来源</span>
@@ -95,12 +111,16 @@
       <span class="income-moy">元/年</span>
     </div>
     <div style="height: 172px;width: 777px;" class="clearfix">
-      <span class="goodtext pull-left"  style="flex: 0 0 10%;max-width: 10%;width: 10%;">家庭情况</span>
-      <textarea class="pull-left" placeholder="请写明具体家庭情况和贫困原因" name="project_season_apply_child[family_condition]" required><%= @child.family_condition %></textarea>
+      <span class="goodtext pull-left"  style="flex: 0 0 10%;max-width: 10%;width: 10%;">支出情况</span>
+      <textarea class="pull-left" placeholder="请写明支出情况" name="project_season_apply_child[expenditure_information]" required><%= @child.expenditure_information %></textarea>
     </div>
     <div style="height: 172px;width: 777px;" class="clearfix">
-      <span class="goodtext pull-left"  style="flex: 0 0 10%;max-width: 10%;width: 10%;">兄弟姐妹</span>
-      <textarea class="pull-left" placeholder="请写明具体家中兄弟姐妹的情况" name="project_season_apply_child[brothers]" required><%= @child.brothers %></textarea>
+      <span class="goodtext pull-left"  style="flex: 0 0 10%;max-width: 10%;width: 10%;">家庭负债</span>
+      <textarea class="pull-left" placeholder="请写明具体家中负债的情况" name="project_season_apply_child[debt_information]" required><%= @child.debt_information %></textarea>
+    </div>
+    <div style="height: 172px;width: 777px;" class="clearfix">
+      <span class="goodtext pull-left"  style="flex: 0 0 10%;max-width: 10%;width: 10%;">家庭情况</span>
+      <textarea class="pull-left" placeholder="请写明具体家庭情况和贫困原因" name="project_season_apply_child[family_condition]" required><%= @child.family_condition %></textarea>
     </div>
   </div>
 </div>
@@ -114,18 +134,28 @@
     </div>
     <div class="addchild-list-up-picture pull-left">
       <p class="iconfont icon-ico-add"></p>
-      <p></p>
-      <%= webuploader_image :residence_id, label: '上传户口本', type: 'apply_child_residence', asset: @child.residence, klass: 'single', id: 'child-image2' %>
+      <%= webuploader_image :apply_one_id, label: '上传申请1', type: 'apply_child_apply_image', asset: @child.apply_one, klass: 'single', id: 'child-image2' %>
     </div>
     <div class="addchild-list-up-picture pull-left">
       <p class="iconfont icon-ico-add"></p>
       <p></p>
-      <%= webuploader_image :family_image_id, label: '上传家庭照', type: 'apply_child_family_image', asset: @child.family_image, klass: 'single', id: 'child-image3' %>
+      <%= webuploader_image :apply_two_id, label: '上传申请2', type: 'apply_child_apply_another_image', asset: @child.apply_two, klass: 'single', id: 'child-image3' %>
     </div>
     <div class="addchild-list-up-picture pull-left">
       <p class="iconfont icon-ico-add"></p>
       <p></p>
-      <%= webuploader_image :poverty_id, label: '上传扶贫卡', type: 'apply_child_poverty', asset: @child.poverty, klass: 'single', id: 'child-image4' %>
+      <%= webuploader_image :room_image_id, label: '上传客厅照片', type: 'apply_child_room_image', asset: @child.room_image, klass: 'single', id: 'child-image4' %>
+    </div>
+    <div class="addchild-list-up-picture pull-left">
+      <p class="iconfont icon-ico-add"></p>
+      <p></p>
+      <%= webuploader_image :yard_image_id, label: '上传院子照片', type: 'apply_child_yard_image', asset: @child.yard_image, klass: 'single', id: 'child-image5' %>
+    </div>
+
+    <div class="addchild-list-up-picture pull-left">
+      <p class="iconfont icon-ico-add"></p>
+      <p></p>
+      <%= webuploader_image :poverty_id, label: '上传扶贫卡', type: 'apply_child_poverty', asset: @child.poverty, klass: 'single', id: 'child-image6' %>
     </div>
 
   </div>
@@ -160,12 +190,24 @@
         width: "123px",
         minimumResultsForSearch: -1
     });
+    $("#parent_info").select2({
+        language:'zh-CN',
+        width: "389px",
+        minimumResultsForSearch: -1
+    });
+    $("#guardian_info").select2({
+        language:'zh-CN',
+        width: "389px",
+        minimumResultsForSearch: -1
+    });
     $(function(){
         initAvatarWebuploader($('#child-avatar'));
         initImageWebuploader($('#child-image1'));
         initImageWebuploader($('#child-image2'));
         initImageWebuploader($('#child-image3'));
         initImageWebuploader($('#child-image4'));
+        initImageWebuploader($('#child-image5'));
+        initImageWebuploader($('#child-image6'));
     })
 
 </script>

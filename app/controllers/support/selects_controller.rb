@@ -102,6 +102,15 @@ class Support::SelectsController < Support::BaseController
     render json: {items: child_grants.as_json(only: [:id], methods: :search_title)}
   end
 
+  def team_manager
+    unless params[:team_id].present?
+      users = User.sorted.where(team_id: nil)
+    else
+      users = User.where(team_id: params[:team_id]) if params[:team_id].present?
+    end
+    render json: {items: users.as_json(only: [:id, :name])}
+  end
+
   # def income_records
   #   scope = IncomeRecord.sorted.where("name like :q", q: "%#{params[:q]}%")
   #   records = scope.page(params[:page])

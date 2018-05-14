@@ -6,105 +6,115 @@
   </div>
   <!--没有团队缺省页-->
   <% if !@has_team %>
-    <div class="donation-cont-no">
-      <div class="donation-co-no-c">
-        <div class="donation-co-no-c-img">
-          <%= image_tag 'team-img.png' %>
-        </div>
-        <p>您还未加入或创建任何团队</p>
-        <div class="my-team-but clearfix">
-          <!-- <%= link_to '' do %><button class="team-but-1">寻找团队</button><% end %> -->
-          <%= link_to guide_account_teams_path do %><button class="team-but-2">创建团队</button><% end %>
+      <div class="donation-cont-no">
+        <div class="donation-co-no-c">
+          <div class="donation-co-no-c-img">
+            <%= image_tag 'team-img.png' %>
+          </div>
+          <p>您还未加入或创建任何团队</p>
+          <div class="my-team-but clearfix">
+            <!-- <%= link_to '' do %><button class="team-but-1">寻找团队</button>
+            <% end %> -->
+            <%= link_to guide_account_teams_path do %>
+                <button class="team-but-2">创建团队</button>
+            <% end %>
+          </div>
         </div>
       </div>
-    </div>
   <% else %>
-    <!--团队成员-->
-    <div class="teams-staff">
-      <div class="teams-s clearfix">
-        <div class="teams-s-img pull-left">
-          <%= image_tag @team.logo_url(:medium).to_s %>
-        </div>
-        <div class="teams-s-cont pull-left">
-          <div class="teams-s-cont-name clearfix">
-            <span class="pull-left teams-s-name"><%= @team.name %></span>
-            <span class="pull-right iconfont icon-arrow-right"></span>
-            <span class="pull-right teams-s-cont-operate cur">管理</span>
-            <ul class="project-nav-heide">
-              <% if @team.manager != current_user %>
-                <li class="cur"><%= link_to '退出团队', exit_team_account_teams_path, method: :post %></li>
-              <% else %>
-                <li class="cur"><%= link_to '修改信息', edit_account_team_path(@team) %></li>
-                <li class="cur"><%= link_to '移交团队', account_team_transfers_path(@team) %></li>
-                <li class="cur" id="dissolve"><a>解散团队</a></li>
-              <% end %>
-            </ul>
+      <!--团队成员-->
+      <div class="teams-staff">
+        <div class="teams-s clearfix">
+          <div class="teams-s-img pull-left">
+            <%= image_tag @team.logo_url(:medium).to_s %>
           </div>
-          <div class="teams-s-cont-detail clearfix">
-            <div class="pull-left">
-              <p class="teams-s-cont-map" style="margin-top: 3px;"><span class="iconfont icon-ico-adress"></span><%= ChinaCity.get(@team.city) %> <%= ChinaCity.get(@team.district)%>
-              </p>
-              <p class="teams-s-c-tit" style="margin-top: 6px;"><span class="teams-s-c-tit">成员人数</span>
-                <span class="teams-s-moy"><%= @team.member_count %></span></p>
+          <div class="teams-s-cont pull-left">
+            <div class="teams-s-cont-name clearfix">
+              <span class="pull-left teams-s-name"><%= @team.name %></span>
+              <span class="pull-right iconfont icon-arrow-right"></span>
+              <span class="pull-right teams-s-cont-operate cur">管理</span>
+              <ul class="project-nav-heide">
+                <% if @team.manager != current_user %>
+                    <li class="cur"><%= link_to '退出团队', exit_team_account_teams_path, method: :post %></li>
+                <% else %>
+                    <li class="cur"><%= link_to '修改信息', edit_account_team_path(@team) %></li>
+                    <li class="cur"><%= link_to '移交团队', account_team_transfers_path(@team) %></li>
+                    <li class="cur" id="dissolve"><a>解散团队</a></li>
+                <% end %>
+              </ul>
             </div>
-            <div class="pull-left">
-              <p class="teams-s-moy-bag">￥<%= number_to_currency(@team.total_donate_amount) %></p>
-              <p class="teams-s-c-tit">累计筹款</p>
+            <div class="teams-s-cont-detail clearfix">
+              <div class="pull-left">
+                <p class="teams-s-cont-map" style="margin-top: 3px;">
+                  <span class="iconfont icon-ico-adress"></span><%= ChinaCity.get(@team.city) %> <%= ChinaCity.get(@team.district) %>
+                </p>
+                <p class="teams-s-c-tit" style="margin-top: 6px;"><span class="teams-s-c-tit">成员人数</span>
+                  <span class="teams-s-moy"><%= @team.member_count %></span></p>
+              </div>
+              <div class="pull-left">
+                <p class="teams-s-moy-bag">￥<%= number_to_currency(@team.total_donate_amount) %></p>
+                <p class="teams-s-c-tit">累计筹款</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="donations-1 border-b">
-        <ul class="donations1 clearfix">
-          <li class="cur selectedDo border-r"><%= link_to account_teams_path do %>团队成员<% end %>
-            <div class="bottomline"></div>
-          </li>
-          <li class="cur"><%= link_to account_team_donations_path(@team) do %>捐助记录<% end %>
-            <div class=""></div>
-          </li>
-        </ul>
-      </div>
-      <div class="transfers">
-        <ul class="transfers-cont clearfix">
-          <li class="transfers-per ">
-            <div class="transfers-per-img">
-              <%= image_tag @team_creater.user_avatar %>
-            </div>
-            <p class="transfers-per-name"><%= @team_creater.show_name %></p>
-            <div>
-              <span class="transfers-per-team">团队创建人</span>
-              <span class="transfers-per-team">团队负责人</span>
-            </div>
-            <p class="transfers-per-time">加入 <%= @team_creater.join_team_time.strftime("%Y-%m-%d") %></p>
-          </li>
-          <li class="transfers-per ">
-            <div class="transfers-per-img">
-              <%= image_tag @team_manager.user_avatar %>
-            </div>
-            <p class="transfers-per-name"><%= @team_manager.show_name %></p>
-            <div>
-              <span class="transfers-per-team">团队负责人</span>
-            </div>
-
-            <p class="transfers-per-time">加入 <%= @team_manager.join_team_time.strftime("%Y-%m-%d") %></p>
-          </li>
-          <% @team_members.each do |member| %>
-            <li class="transfers-per">
-              <div class="transfers-per-img">
-                <%= image_tag member.user_avatar %>
-              </div>
-              <p class="transfers-per-name"><%= member.name %></p>
-              <% if member.role_tag.present? %>
-              <div>
-                  <span class="transfers-per-mark"><%= member.role_tag %></div>
-              </div>
-                <p class="transfers-per-time">加入 <%= member.join_team_time.strftime("%Y-%m-%d") %></p>
+        <div class="donations-1 border-b">
+          <ul class="donations1 clearfix">
+            <li class="cur selectedDo border-r"><%= link_to account_teams_path do %>团队成员
               <% end %>
+              <div class="bottomline"></div>
             </li>
-          <% end %>
-        </ul>
+            <li class="cur"><%= link_to account_team_donations_path(@team) do %>捐助记录
+              <% end %>
+              <div class=""></div>
+            </li>
+          </ul>
+        </div>
+        <div class="transfers">
+          <ul class="transfers-cont clearfix">
+            <li class="transfers-per ">
+              <div class="transfers-per-img">
+                <%= image_tag @team_creater.user_avatar %>
+              </div>
+              <p class="transfers-per-name"><%= @team_creater.show_name %></p>
+              <div>
+                <span class="transfers-per-team">团队创建人</span>
+                <% if @team_creater == @team_manager %>
+                    <span class="transfers-per-team">团队负责人</span>
+                <% end %>
+              </div>
+              <p class="transfers-per-time">加入 <%= @team_creater.join_team_time.strftime("%Y-%m-%d") %></p>
+            </li>
+            <% unless @team_creater == @team_manager %>
+                <li class="transfers-per ">
+                  <div class="transfers-per-img">
+                    <%= image_tag @team_manager.user_avatar %>
+                  </div>
+                  <p class="transfers-per-name"><%= @team_manager.show_name %></p>
+                  <div>
+                    <span class="transfers-per-team">团队负责人</span>
+                  </div>
+
+                  <p class="transfers-per-time">加入 <%= @team_manager.join_team_time.strftime("%Y-%m-%d") %></p>
+                </li>
+            <% end %>
+            <% @team_members.each do |member| %>
+                <li class="transfers-per">
+                  <div class="transfers-per-img">
+                    <%= image_tag member.user_avatar %>
+                  </div>
+                  <p class="transfers-per-name"><%= member.name %></p>
+                  <% if member.role_tag.present? %>
+                      <div>
+                        <span class="transfers-per-mark"><%= member.role_tag %></span>
+                      </div>
+                  <% end %>
+                  <p class="transfers-per-time">加入 <%= member.join_team_time.strftime("%Y-%m-%d") %></p>
+                </li>
+            <% end %>
+          </ul>
+        </div>
       </div>
-    </div>
   <% end %>
 
   <div class="overspread-3">
@@ -139,24 +149,24 @@
     })
     $('.overspread-3').overs("#dissolve");
     $('#dismiss-team').click(function () {
-      $.post("/ajaxes/dismiss_team",
-      {
-          team_id: '<%= @team.present? ? @team.id : '' %>'
-      },
-      function(data){
-        if (data.status) {
-          layer.msg(data.message, {
-            icon: 1,
-            offset: 't c'
-          });
-          setTimeout(window.location.reload(), 1500);
-        } else {
-          layer.msg(data.message, {
-            icon: 7,
-            offset: 't c'
-          });
-          setTimeout(window.location.reload(), 1500);
-        }
-      });
+        $.post("/ajaxes/dismiss_team",
+            {
+                team_id: '<%= @team.present? ? @team.id : '' %>'
+            },
+            function (data) {
+                if (data.status) {
+                    layer.msg(data.message, {
+                        icon: 1,
+                        offset: 't c'
+                    });
+                    setTimeout(window.location.reload(), 1500);
+                } else {
+                    layer.msg(data.message, {
+                        icon: 7,
+                        offset: 't c'
+                    });
+                    setTimeout(window.location.reload(), 1500);
+                }
+            });
     })
 </script>

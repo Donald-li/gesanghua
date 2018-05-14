@@ -11,6 +11,7 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  default_level :boolean          default(FALSE)        # 默认徽章
+#  description   :string                                 # 徽章描述
 #
 
 FactoryBot.define do

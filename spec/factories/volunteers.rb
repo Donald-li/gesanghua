@@ -31,6 +31,7 @@
 #  gender             :integer                                # 性别
 #  source             :string                                 # 获知渠道
 #  experience         :text                                   # 志愿者经历
+#  volunteer_age      :integer                                # 服务年限
 #
 
 FactoryBot.define do

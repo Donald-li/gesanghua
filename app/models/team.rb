@@ -19,6 +19,7 @@
 #  describe              :text                                   # 简介
 #  school_name           :string                                 # 高校名称
 #  manage_id             :integer                                # 负责人
+#  state                 :integer
 #
 
 # 团队
@@ -34,11 +35,26 @@ class Team < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
+  enum state: {normal: 1, dismiss: 2} # 1.正常 2.解散
+  default_value_for :state, 1
+
   enum kind: {society: 1, college: 2} # 1.社会（society）2.高校（college）
 
   default_value_for :member_count, 0
 
   before_create :gen_team_no
+
+  def full_address
+    ChinaCity.get(self.province).to_s + ChinaCity.get(self.city).to_s + ChinaCity.get(self.district).to_s + self.address.to_s
+  end
+
+  def simple_address
+    ChinaCity.get(self.province).to_s + " " + ChinaCity.get(self.city).to_s + " " + ChinaCity.get(self.district).to_s
+  end
+
+  def short_address
+    ChinaCity.get(self.city).to_s + " " + ChinaCity.get(self.district).to_s
+  end
 
   def summary_builder
     Jbuilder.new do |json|

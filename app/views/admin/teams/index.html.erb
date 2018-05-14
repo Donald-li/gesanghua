@@ -1,0 +1,118 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i>团队管理
+    </div>
+
+  </div>
+  <div class="portlet-body">
+    <div class="dataTables_wrapper no-footer">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <%= search_form_for @search, url: admin_teams_path, class: 'form-inline' do |f| %>
+              <div class="form-group">
+                <%= f.label :name_cont, '搜索' %>
+                <%= f.text_field :name_cont, class: 'form-control', placeholder: '名称' %>
+              </div>
+              <div class="form-group">
+                <%= f.label :kind_eq, '类型' %>
+                <%= f.select :kind_eq, Team.options_for_select(:kinds, raw: true), {include_blank: '全部'}, placeholder: '', class: 'form-control' %>
+              </div>
+              <div class="form-group">
+                <%= f.label :state_eq, '状态' %>
+                <%= f.select :state_eq, Team.options_for_select(:states, raw: true), {include_blank: '全部'}, placeholder: '', class: 'form-control' %>
+              </div>
+              <button type="submit" class="btn btn-default grey">查询</button>
+          <% end %>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="dataTables_filter pull-right"></div>
+        </div>
+      </div>
+      <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover" id="sample_2">
+          <thead>
+          <tr>
+            <th>
+              团队编号
+            </th>
+            <th>
+              名称
+            </th>
+            <th>
+              所在地
+            </th>
+            <th>
+              成员数量
+            </th>
+            <th>
+              累计捐助
+            </th>
+            <th>
+              类型
+            </th>
+            <th>
+              状态
+            </th>
+            <th>
+              操作
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @teams.each do |team| %>
+              <tr>
+                <td>
+                  <%= team.team_no %>
+                </td>
+                <td>
+                  <%= team.name %>
+                </td>
+                <td>
+                  <%= team.full_address %>
+                </td>
+                <td>
+                  <%= team.member_count %>
+                </td>
+                <td>
+                  <%= team.total_donate_amount %>
+                </td>
+                <td>
+                  <%= team.enum_name(:kind) %>
+                </td>
+                <td>
+                  <%= team.enum_name(:state) %>
+                </td>
+                <td>
+                  <% if team.normal? %>
+                      <%= link_to edit_admin_team_path(team), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                          <i class="fa fa-edit"></i> 团队管理
+                      <% end %>
+                      <%= link_to dismiss_admin_team_path(team), data: {confirm: '确定要解散该团队吗？'}, method: :put, class: 'btn btn-xs red' do %>
+                          <i class="fa fa-trash-o"></i> 解散团队
+                      <% end %>
+                  <% end %>
+                  <%= link_to admin_team_team_members_path(team), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                      <i class="fa fa-list"></i> 团队成员
+                  <% end %>
+                  <%= link_to donate_records_admin_team_path(team), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                      <i class="fa fa-list"></i> 捐助记录
+                  <% end %>
+                </td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-5 col-sm-12">
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@teams) %></div>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <%= paginate @teams, theme: '' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END EXAMPLE TABLE PORTLET-->

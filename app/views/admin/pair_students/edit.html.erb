@@ -42,28 +42,31 @@
                   </div>
                   <%= f.input :name, label: '真实姓名：', autofocus: true, placeholder: '姓名', required: true %>
                   <%= f.input :gender, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApplyChild.options_for_some_select(:genders, ['male', 'female']), label: '性别：' %>
-                  <%= f.input :id_card, label: '身份证号：', autofocus: true, placeholder: '身份证号', required: true %>
+                  <%= f.input :id_card, label: '身份证号：', placeholder: '身份证号', required: true %>
                   <%= f.input :nation, as: :select, label: '民族：', collection: ProjectSeasonApplyChild.options_for_enum_select(:nations), include_blank: false %>
                   <%= f.input :level, as: :select, label: '学历：', collection: ProjectSeasonApplyChild.options_for_enum_select(:levels), include_blank: false %>
                   <%= f.input :grade, as: :select, label: '年级：', collection: ProjectSeasonApplyChild.options_for_enum_select(:grades), include_blank: false %>
                   <%= f.input :semester, as: :select, label: '学期：', collection: ProjectSeasonApplyChild.options_for_enum_select(:semesters), include_blank: false %>
-                  <%= f.input :teacher_name, label: '班主任：', autofocus: true, placeholder: '填写班主任姓名', required: true %>
-                  <%= f.input :teacher_phone, label: '联系方式：', autofocus: true, placeholder: '填写班主任联系方式', required: true %>
-                  <%= f.input :description, label: '自我介绍：', autofocus: true, placeholder: '自我介绍', required: true %>
+                  <%= f.input :teacher_name, label: '班主任：', placeholder: '填写班主任姓名', required: true %>
+                  <%= f.input :teacher_phone, label: '联系方式：', placeholder: '填写班主任联系方式', required: true %>
+                  <%= f.input :description, label: '自我介绍：', placeholder: '自我介绍', required: true %>
                   <h3>家庭信息</h3>
-                  <%= f.input :father, label: '父亲：', autofocus: true, placeholder: '父亲', required: true %>
-                  <%= f.input :father_job, label: '父亲职业：', autofocus: true, placeholder: '父亲职业' %>
-                  <%= f.input :mother, label: '母亲：', autofocus: true, placeholder: '母亲', required: true %>
-                  <%= f.input :mother_job, label: '母亲职业：', autofocus: true, placeholder: '母亲职业', required: true %>
-                  <%= f.input :guardian, label: '监护人：', autofocus: true, placeholder: '监护人', required: true %>
-                  <%= f.input :guardian_relation, label: '与其关系：', autofocus: true, placeholder: '与其关系', required: true %>
-                  <%= f.input :guardian_phone, label: '联系方式：', autofocus: true, placeholder: '联系方式', required: true %>
-                  <%= f.input :address, label: '家庭住址：', autofocus: true, placeholder: '家庭住址', required: true %>
-                  <%= f.input :family_income, label: '家庭年收入：', autofocus: true, placeholder: '家庭年收入', required: true %>
-                  <%= f.input :family_expenditure, label: '家庭年支出：', autofocus: true, placeholder: '家庭年支出', required: true %>
-                  <%= f.input :income_source, label: '收入来源：', autofocus: true, placeholder: '收入来源', required: true %>
-                  <%= f.input :family_condition, as: :text, label: '家庭情况：', autofocus: true, placeholder: '家庭情况', required: true %>
-                  <%= f.input :brothers, as: :text, label: '兄弟姐妹：', autofocus: true, placeholder: '兄弟姐妹', required: true %>
+                  <%= f.input :father, label: '父亲：', placeholder: '父亲', required: true %>
+                  <%= f.input :father_job, label: '父亲职业：', placeholder: '父亲职业' %>
+                  <%= f.input :mother, label: '母亲：', placeholder: '母亲', required: true %>
+                  <%= f.input :mother_job, label: '母亲职业：', placeholder: '母亲职业', required: true %>
+                  <%= f.input :parent_information, as: :select, collection: ['父母健在且共同生活', '父母离异', '父亲去世', '母亲去世', '父母均去世', '父亲下落不明', '母亲下落不明', '父母下落不明'], label: '父母情况：', include_blank: false %>
+                  <%= f.input :guardian, label: '监护人：', placeholder: '监护人', required: true %>
+                  <%= f.input :guardian_relation, as: :select, collection: ['父子', '母子', '父女', '母女', '祖孙', '舅甥', '其他'], label: '与其关系：', include_blank: false %>
+                  <%= f.input :guardian_phone, label: '联系方式：', placeholder: '联系方式', required: true %>
+                  <%= f.input :address, label: '家庭住址：', placeholder: '家庭住址', required: true %>
+                  <%= f.input :family_income, label: '家庭年收入：', placeholder: '家庭年收入', required: true %>
+                  <%= f.input :income_source, label: '收入来源：', placeholder: '收入来源', required: true %>
+                  <%= f.input :family_expenditure, label: '家庭年支出：', placeholder: '家庭年支出', required: true %>
+                  <%= f.input :expenditure_information, label: '支出情况：', placeholder: '支出情况', required: true %>
+                  <%= f.input :debt_information, label: '负债情况：', placeholder: '负债情况', required: true %>
+                  <%= f.input :family_condition, as: :text, label: '家庭情况：', placeholder: '家庭情况', required: true %>
+                  <%#= f.input :brothers, as: :text, label: '兄弟姐妹：', placeholder: '兄弟姐妹', required: true %>
                   <h3>推荐理由</h3>
                   <%= f.input :reason, label: '推荐理由：', placeholder: '推荐理由', input_html: {maxlength: 20} %>
                   <!--<div class="form-group">-->
@@ -90,30 +93,35 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-md-2 control-label">上传户口本：</label>
+                    <label class="col-md-2 control-label">上传申请书1：</label>
                     <div class="col-sm-9">
-                      <%= webuploader_tag :residence_id, label: '上传图片', type: 'apply_child_residence', asset: @apply_child.residence, klass: 'single', id: 'single-upload3' %>
+                      <%= webuploader_tag :apply_one_id, label: '上传图片', type: 'apply_child_apply_image', asset: @apply_child.apply_one, klass: 'single', id: 'single-upload3' %>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">上传申请书2：</label>
+                    <div class="col-sm-9">
+                      <%= webuploader_tag :apply_two_id, label: '上传图片', type: 'apply_child_apply_another_image', asset: @apply_child.apply_two, klass: 'single', id: 'single-upload4' %>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">上传客厅照片：</label>
+                    <div class="col-sm-9">
+                      <%= webuploader_tag :room_image_id, label: '上传图片', type: 'apply_child_room_image', asset: @apply_child.room_image, klass: 'single', id: 'single-upload5' %>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">上传院子照片：</label>
+                    <div class="col-sm-9">
+                      <%= webuploader_tag :yard_image_id, label: '上传图片', type: 'apply_child_yard_image', asset: @apply_child.yard_image, klass: 'single', id: 'single-upload6' %>
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="col-md-2 control-label">上传扶贫卡：</label>
                     <div class="col-sm-9">
-                      <%= webuploader_tag :poverty_id, label: '上传图片', type: 'apply_child_poverty', asset: @apply_child.poverty, klass: 'single', id: 'single-upload4' %>
+                      <%= webuploader_tag :poverty_id, label: '上传图片', type: 'apply_child_poverty', asset: @apply_child.poverty, klass: 'single', id: 'single-upload7' %>
                     </div>
                   </div>
-                  <div class="form-group">
-                    <label class="col-md-2 control-label">上传家庭照：</label>
-                    <div class="col-sm-9">
-                      <%= webuploader_tag :family_image_id, label: '上传图片', type: 'apply_child_family_image', asset: @apply_child.family_image, klass: 'single', id: 'single-upload5' %>
-                    </div>
-                  </div>
-                  <!-- <div class="form-group">
-                      <label class="col-md-2 control-label">孩子图片：</label>
-                      <div class="col-sm-9">
-                        <%= webuploader_tag 'image_ids[]', label: '上传孩子图片', type: 'apply_child_image', asset: @apply_child.images %>
-                        <span style="color: red">注意：左起第一张图片为展示第一张图片</span>
-                      </div>
-                    </div> -->
                   <%= f.input :remark, label: '备注：', placeholder: '备注' %>
                   </div>
                   <div class="form-actions">
@@ -135,13 +143,13 @@
 
 <script>
     $(function () {
-        // initMultiImageWebuploader($('#webuploader'));
         initImageWebuploader($('#single-upload1'));
         initImageWebuploader($('#single-upload2'));
         initImageWebuploader($('#single-upload3'));
         initImageWebuploader($('#single-upload4'));
         initImageWebuploader($('#single-upload5'));
-        // $('.single-upload').viewer();
+        initImageWebuploader($('#single-upload6'));
+        initImageWebuploader($('#single-upload7'));
     })
 
 

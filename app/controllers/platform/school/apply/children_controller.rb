@@ -25,10 +25,11 @@ class Platform::School::Apply::ChildrenController < Platform::School::BaseContro
         if @child.save
           @child.attach_avatar(params[:avatar_id])
           @child.attach_id_image(params[:id_image_id])
-          @child.attach_residence(params[:residence_id])
           @child.attach_poverty(params[:poverty_id])
-          @child.attach_family_image(params[:family_image_id])
-          @child.count_age
+          @child.attach_room_image(params[:room_image_id])
+          @child.attach_yard_image(params[:yard_image_id])
+          @child.attach_apply_one(params[:apply_one_id])
+          @child.attach_apply_two(params[:apply_two_id])
           format.html {redirect_to child_list_platform_school_apply_pair_children_path, notice: '新增成功。'}
         else
           format.html {render :new}
@@ -49,10 +50,11 @@ class Platform::School::Apply::ChildrenController < Platform::School::BaseContro
         if @child.update(child_params)
           @child.attach_avatar(params[:avatar_id])
           @child.attach_id_image(params[:id_image_id])
-          @child.attach_residence(params[:residence_id])
           @child.attach_poverty(params[:poverty_id])
-          @child.attach_family_image(params[:family_image_id])
-          @child.count_age
+          @child.attach_room_image(params[:room_image_id])
+          @child.attach_yard_image(params[:yard_image_id])
+          @child.attach_apply_one(params[:apply_one_id])
+          @child.attach_apply_two(params[:apply_two_id])
           format.html {redirect_to child_list_platform_school_apply_pair_children_path, notice: '修改成功。'}
         else
           format.html {render :edit}

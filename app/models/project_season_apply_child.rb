@@ -50,9 +50,11 @@
 #  brothers                :string                                 # 兄弟姐妹
 #  teacher_phone           :string                                 # 班主任联系方式
 #  remark                  :text                                   # 备注
+#  expenditure_information :text                                   # 支出详情
+#  debt_information        :text                                   # 负债情况
+#  parent_information      :string                                 # 父母情况
 #
 
-# 项目年度结对申请孩子
 require 'custom_validators'
 class ProjectSeasonApplyChild < ApplicationRecord
 
@@ -60,7 +62,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
      :approve_state, :age, :level, :grade, :gender, :school_id, :semester, :kind, :reson, :gsh_no, :teacher_name, :teacher_phone, :father, :father_job, :mother, :mother_job, :guardian, :guardian_relation, :guardian_phone, :address,
    :family_income, :family_expenditure, :income_source, :family_condition, :brothers, :remark]
 
-  after_create :distinguish_gender
+  after_save :distinguish_gender, :count_age
   before_update :update_pair_state, if: :can_update_pair_state?
 
   attr_accessor :avatar_id
@@ -68,9 +70,11 @@ class ProjectSeasonApplyChild < ApplicationRecord
   has_many_assets :images, class_name: 'Asset::ApplyChildImage'
   has_one_asset :avatar, class_name: 'Asset::ApplyChildAvatar' # 前台上传的个人照片作为孩子头像
   has_one_asset :id_image, class_name: 'Asset::ApplyChildIdCard'
-  has_one_asset :residence, class_name: 'Asset::ApplyChildResidence'
   has_one_asset :poverty, class_name: 'Asset::ApplyChildPoverty'
-  has_one_asset :family_image, class_name: 'Asset::ApplyChildFamilyImage'
+  has_one_asset :room_image, class_name: 'Asset::ApplyChildRoomImage'
+  has_one_asset :yard_image, class_name: 'Asset::ApplyChildYardImage'
+  has_one_asset :apply_one, class_name: 'Asset::ApplyChildApplyImage'
+  has_one_asset :apply_two, class_name: 'Asset::ApplyChildApplyAnotherImage'
 
   belongs_to :project
   belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id'
@@ -458,11 +462,12 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   def whole_builder
     Jbuilder.new do |json|
-      json.(self, :id, :name, :id_card, :teacher_name, :teacher_phone, :description, :father, :father_job, :mother, :mother_job, :guardian, :guardian_relation, :guardian_phone, :address, :family_income, :family_expenditure, :income_source, :family_condition, :brothers)
+      json.(self, :id, :name, :id_card, :teacher_name, :teacher_phone, :description, :parent_information, :debt_information, :expenditure_information, :father, :father_job, :mother, :mother_job, :guardian, :guardian_relation, :guardian_phone, :address, :family_income, :family_expenditure, :income_source, :family_condition, :brothers)
       json.level self.level
       json.nation self.nation
       json.grade self.grade
       json.semester self.semester
+
       json.avatar do
         json.id self.try(:avatar).try(:id)
         json.url self.try(:avatar).try(:file_url)
@@ -473,20 +478,30 @@ class ProjectSeasonApplyChild < ApplicationRecord
         json.url self.try(:id_image).try(:file_url)
         json.protect_token self.try(:id_image).try(:protect_token)
       end
-      json.residence do
-        json.id self.try(:residence).try(:id)
-        json.url self.try(:residence).try(:file_url)
-        json.protect_token self.try(:residence).try(:protect_token)
-      end
       json.poverty do
         json.id self.try(:poverty).try(:id)
         json.url self.try(:poverty).try(:file_url)
         json.protect_token self.try(:poverty).try(:protect_token)
       end
-      json.family_image do
-        json.id self.try(:family_image).try(:id)
-        json.url self.try(:family_image).try(:file_url)
-        json.protect_token self.try(:family_image).try(:protect_token)
+      json.room_image do
+        json.id self.try(:room_image).try(:id)
+        json.url self.try(:room_image).try(:file_url)
+        json.protect_token self.try(:room_image).try(:protect_token)
+      end
+      json.yard_image do
+        json.id self.try(:yard_image).try(:id)
+        json.url self.try(:yard_image).try(:file_url)
+        json.protect_token self.try(:yard_image).try(:protect_token)
+      end
+      json.apply_one do
+        json.id self.try(:apply_one).try(:id)
+        json.url self.try(:apply_one).try(:file_url)
+        json.protect_token self.try(:apply_one).try(:protect_token)
+      end
+      json.apply_two do
+        json.id self.try(:apply_two).try(:id)
+        json.url self.try(:apply_two).try(:file_url)
+        json.protect_token self.try(:apply_two).try(:protect_token)
       end
     end.attributes!
   end

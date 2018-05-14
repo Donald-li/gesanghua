@@ -6591,7 +6591,7 @@ color: #8d8d8d;
   }
 
   .addchild-list-up-picture {
-    margin-left: 14px;
+    margin-right: 14px;
     text-align: center;
     width: 156px;
     height: 156px;
@@ -6602,11 +6602,15 @@ color: #8d8d8d;
     color: #8d8d8d;
     padding: 50px 0 0;
     position: relative;
+    margin-bottom: 14px;
 
     .iconfont {
       margin-right: 0;
       font-size: 22px;
     }
+  }
+  .addchild-list-up-picture:nth-child(4n){
+    margin-right: 0;
   }
 }
 
