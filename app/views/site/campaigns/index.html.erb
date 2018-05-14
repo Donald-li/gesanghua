@@ -1,4 +1,4 @@
-<div id="campaigns">
+<div id="campaigns" style="min-height:400px;">
   <div class="camp-body">
     <div class="camps-title">
       <%= search_form_for @search, url: campaigns_path do |f| %>
@@ -7,7 +7,7 @@
           <button type="submit" class="camps-search">搜索</button>
       <% end %>
     </div>
-
+  <% if @campaigns.present? %>
     <div class="camps-body">
       <div class="camps-body-cont row clearfix">
         <% @campaigns.each do |campaign| %>
@@ -43,6 +43,16 @@
         <% end %>
       </div>
     </div>
+    <% else %>
+    <div class="not-project-body contentab ">
+      <div class="donation-cont-no">
+        <div class="donation-co-no-c">
+          <p>暂无搜索结果</p>
+        </div>
+      </div>
+    </div>
+    <% end %>
+
   </div>
 </div>
 
