@@ -38,7 +38,7 @@
                   <% if d.amount_tabs.count > 0 %>
                     <% d.amount_tabs.each do |a| %>
                       <li class="cur amount_tab_cur" data-amount="<%= a.amount %>"><%= number_to_currency a.amount %>
-                        元 （<%= a.alias %>）</li>
+                        元 <%= "(#{a.alias})" if a.alias.present? %></li>
                     <% end %>
                   <% else %>
                     <% Settings.amount_tabs.each do |a| %>
@@ -61,7 +61,7 @@
           </div>
           <% if current_user.team.present? %>
             <div class="don-my-team">通过
-              <span>i<%= current_user.team.name %></span>
+              <span><%= current_user.team.name %></span>
               捐助</div>
           <% end %>
           <div class="benefactors-way clearfix border-b">

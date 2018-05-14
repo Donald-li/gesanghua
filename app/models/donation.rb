@@ -55,6 +55,12 @@ class Donation < ApplicationRecord
     IncomeRecord.create(donation: self, agent: self.agent, fund: self.project.try(:fund), amount: self.amount, balance: self.amount, donor: self.donor, promoter_id: self.promoter_id, income_time: Time.now, title: self.title)
   end
 
+  # 代捐人名称
+  def agent_name
+    return '无' if self.agent.blank?
+    self.agent_id == self.donor_id ? '无' : self.agent.try(:show_name)
+  end
+
   # 返回微信支付js
   def wechat_prepay_js(remote_ip)
     prepay_id = get_wechat_prepay_id(remote_ip)

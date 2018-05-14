@@ -52,23 +52,17 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
       phone = params[:phone]
       id_card = params[:id_card]
       qq = params[:qq]
-      openid = params[:openid]
+      wechat = params[:wechat]
       teacher_projects = params[:teacher_projects]
-      @teacher = @school.teachers.new(name: name, phone: phone, id_card: id_card, qq: qq, openid: openid)
-      # @teacher.new(name: name, phone: phone, id_card: id_card, qq: qq, openid: openid)
-      if User.find_by(phone: params[:phone]).present?
-        @user = User.find_by(phone: params[:phone])
-        @teacher.user_id = @user.id
-        @user.roles = @user.roles.push(:teacher)
-        @user.save
-      end
-      if @teacher.save
+      @teacher = @school.teachers.new(name: name, phone: phone, id_card: id_card, qq: qq, wechat: wechat)
+      result, notice = @teacher.bind_user_by_phone(current_user)
+      if result
         teacher_projects.each do |teacher_project|
           TeacherProject.create(project_id: teacher_project, teacher: @teacher)
         end
         api_success(data: {is_school_user: true, result: true}, message: '新建教师信息成功')
       else
-        api_success(data: {is_school_user: true, result: false}, message: @teacher.errors.full_messages.first)
+        api_success(data: {is_school_user: true, result: false}, message: notice || @teacher.errors.full_messages.join(','))
       end
     else
       api_success(data: {is_school_user: false}, message: '您不是学校用户')
@@ -92,10 +86,10 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
       phone = params[:phone]
       id_card = params[:id_card]
       qq = params[:qq]
-      openid = params[:openid]
+      wechat = params[:wechat]
       teacher_projects = params[:teacher_projects]
       @teacher = Teacher.find(params[:id])
-      if @teacher.update(name: name, phone: phone, id_card: id_card, qq: qq, openid: openid)
+      if @teacher.update(name: name, phone: phone, id_card: id_card, qq: qq, wechat: wechat)
         TeacherProject.where(teacher: @teacher).destroy_all
         teacher_projects.each do |teacher_project|
           TeacherProject.create(project_id: teacher_project, teacher: @teacher)
@@ -113,7 +107,7 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
     @school = current_user.teacher.try(:school)
     if @school.present?
       @teacher = @school.teachers.find(params[:id])
-      if @teacher.destroy
+      if @teacher.destroy_teacher(current_user)
         api_success(data: {is_school_user: true, result: true}, message: '删除教师信息成功')
       else
         api_success(data: {is_school_user: true, result: false}, message: @teacher.errors.full_messages.first)

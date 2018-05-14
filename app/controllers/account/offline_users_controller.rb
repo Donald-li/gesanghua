@@ -1,7 +1,7 @@
 class Account::OfflineUsersController < Account::BaseController
 
   def index
-    @offline_users = User.where(manager: current_user).unactived.sorted
+    @offline_users = User.where(manager: current_user).sorted
   end
 
   def create

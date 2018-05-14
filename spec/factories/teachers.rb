@@ -15,6 +15,7 @@
 #  id_card    :string                                 # 身份证
 #  qq         :string                                 # QQ
 #  openid     :string                                 # 微信openid
+#  wechat     :string                                 # 微信
 #
 
 FactoryBot.define do

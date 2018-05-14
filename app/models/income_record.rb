@@ -59,7 +59,7 @@ class IncomeRecord < ApplicationRecord
   # 可开票记录
   scope :open_ticket, -> { to_bill.where(created_at: (Time.now.beginning_of_year)..(Time.now.end_of_year)) }
 
-  counter_culture :agent, column_name: proc {|model| model.income_source.present? && model.income_source.online? ? 'online_amount' : nil}, delta_magnitude: proc {|model| model.amount}
+  counter_culture :agent, column_name: proc {|model| model.income_source.present? && !model.income_source.offline? ? 'online_amount' : nil}, delta_magnitude: proc {|model| model.amount}
   counter_culture :agent, column_name: proc {|model| model.income_source.present? && model.income_source.offline? ? 'offline_amount' : nil}, delta_magnitude: proc {|model| model.amount}
   counter_culture :agent, column_name: 'donate_amount', delta_magnitude: proc {|model| model.amount }
 
@@ -142,6 +142,12 @@ class IncomeRecord < ApplicationRecord
     end
   end
 
+  # 代捐人名称
+  def agent_name
+    return '无' if self.agent.blank?
+    self.agent_id == self.donor_id ? '无' : self.agent.try(:show_name)
+  end
+
   # 捐赠证书中用到的项目名称
   def project_name
     self.donation.try(:project).try(:name)
@@ -151,8 +157,8 @@ class IncomeRecord < ApplicationRecord
     Jbuilder.new do |json|
       json.(self, :id, :kind, :certificate_no)
       json.title self.title
-      json.donor self.donor.try(:name)
-      json.agent self.agent.try(:name)
+      json.donor self.donor.try(:show_name)
+      json.agent self.agent_name
       json.time self.created_at
       json.amount self.amount
       json.donate_tag self.donor_id === self.agent_id ? '' : '代捐'
@@ -206,59 +212,9 @@ class IncomeRecord < ApplicationRecord
     end.attributes!
   end
 
-
-  # def apply_cover
-  #   if self.project_id == Project.pair_project.id
-  #     self.try(:project).project_image
-  #   else
-  #     self.try(:apply).try(:cover_image_url, :small)
-  #   end
-  #
-  # end
-  #
-    # def donate_apply_name
-    #   if self.apply.present?
-    #     self.apply.try(:name)
-    #   elsif self.owner.is_a?(ProjectSeasonApplyChild)
-    #     self.owner.name
-    #   else
-    #     '捐助'
-    #   end
-    # end
-    #
-
-    #
-    #   def summary_builder
-    #     Jbuilder.new do |json|
-    #       json.(self, :id, :title)
-    #       json.donor self.donor.try(:name)
-    #       json.time self.created_at.strftime('%Y-%m-%d %H:%M:%S')
-    #       json.amount number_to_currency(self.amount)
-    #       json.amount_float self.amount
-    #       json.donate_mode !self.donor.present? # true自己捐 false代捐
-    #       json.donate_title self.donor_id === self.agent_id ? '' : '代捐' # true自己捐 false代捐
-    #     end.attributes!
-    #   end
-    #
-    #   def detail_builder
-    #     Jbuilder.new do |json|
-    #       json.(self, :id, :amount, :title, :order_no, :certificate_no, :project_id, :project_season_apply_id)
-    #       json.project_alias self.project.try(:alias)
-    #       json.time self.created_at.strftime('%Y-%m-%d %H:%M:%S')
-    #       json.donate_mode !self.donor.present? # true自己捐 false代捐
-    #       json.donate_title self.donor_id === self.agent_id ? '' : '代捐' # true自己捐 false代捐
-    #       json.agent self.agent.try(:show_name)
-    #       json.donor self.donor.show_name
-    #       json.userAvatar self.agent.user_avatar
-    #       json.apply_cover apply_cover
-    #       json.apply_name donate_apply_name
-    #       json.bookshelf self.owner_id if self.owner_type == 'ProjectSeasonApplyBookshelf'
-    #     end.attributes!
-    #   end
-
-    private
-    def gen_income_no
-      time_string = Time.now.strftime("%y%m%d%H")
-      self.income_no ||= Sequence.get_seq(kind: :income_no, prefix: time_string, length: 7)
-    end
+  private
+  def gen_income_no
+    time_string = Time.now.strftime("%y%m%d%H")
+    self.income_no ||= Sequence.get_seq(kind: :income_no, prefix: time_string, length: 7)
+  end
 end

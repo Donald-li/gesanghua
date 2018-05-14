@@ -97,8 +97,8 @@ class User < ApplicationRecord
   # default_value_for :password, '111111'
   validates :email, email: true
   validates :phone, mobile: true, uniqueness: { allow_blank: true }
-  validates :name, presence: true
-  # validates :login, uniqueness: true
+  # validates :name, presence: true
+  validates :login, uniqueness: true, if: Proc.new {|u| u.login.present?}
   validates :balance, numericality: { greater_than_or_equal_to: 0 }
 
   default_value_for :profile, {}
@@ -348,7 +348,7 @@ class User < ApplicationRecord
 
   def offline_donor_summary_builder
     Jbuilder.new do |json|
-      json.(self, :id, :phone, :name, :nickname)
+      json.(self, :id, :phone, :name, :nickname, :state)
       json.show_name self.show_name
     end.attributes!
   end
@@ -368,18 +368,120 @@ class User < ApplicationRecord
     end.attributes!
   end
 
-  # TODO 待处理
+  def remove_teacher_role(operator)
+    self.remove_role(:teacher) if self.has_role?(:teacher)
+    self.remove_role(:headmaster) if self.has_role?(:headmaster)
+    self.save!
+      Notification.create(
+          kind: 'remove_teacher_role',
+          owner: self,
+          user_id: self.id,
+          title: '教师角色移除通知',
+          content: "#{operator.name}将您的#{self.school}老师角色移除"
+      )
+    return true, '操作成功'
+  end
+
   # 微信绑定手机号之后，根据手机号合并user记录，绑定volunteer,teacher(headmaster),county_user角色（gsh_child有单独绑定途径）
-  def combine_user
-    users = User.where(phone: self.phone)
-    if users.present?
-      # 合并方法（待定）
+  # 合并账号
+  def self.combine_user(phone, wechat_user)
+    return unless User.find_by(phone: phone).present?
+    phone_user = User.find_by(phone: phone)
+    self.transaction do
+      #所有业务表改为手机用户
+      School.where(creater_id: wechat_user.id).each do |school|
+        school.update!(creater_id: phone_user.id)
+      end
+      School.where(user_id: wechat_user.id).each do |school|
+        school.update!(user_id: phone_user.id)
+      end
+      Teacher.where(user_id: wechat_user.id).each do |teacher|
+        teacher.update!(user_id: phone_user.id)
+      end
+      Volunteer.where(user_id: wechat_user.id).each do |volunteer|
+        volunteer.update!(user_id: phone_user.id)
+      end
+      CountyUser.where(user_id: wechat_user.id).each do |county_user|
+        county_user.update!(user_id: phone_user.id)
+      end
+      Camp.where(manager_id: wechat_user.id).each do |camp|
+        camp.update!(manager_id: phone_user.id)
+      end
+      Team.where(creater_id: wechat_user.id).each do |team|
+        team.update!(creater_id: phone_user.id)
+      end
+      Team.where(manage_id: wechat_user.id).each do |team|
+        team.update!(manage_id: phone_user.id)
+      end
+      phone_user.update!(team_id: wechat_user.team_id)
+      #角色绑定
+      wechat_user.roles.each do |role|
+        phone_user.add_role(role)
+      end
+      phone_user.save!
+      #数据迁移： 捐款记录等
+      phone_user.migrate_donate_record(wechat_user)
+      # 合并账号openid、手机和wechat_profile
+      phone_user.update!(openid: wechat_user.openid, profile: wechat_user.profile, auth_token: wechat_user.auth_token)
+      wechat_user.generate_auth_token
+      wechat_user.save!
+      # 通知
+      owner = wechat_user
+      title = '#账户合并# 账户已合并'
+      content = "您的账户已与其他账户合并，相关数据已迁移"
+      notice = Notification.create!(owner: owner, user_id: wechat_user.id, title: title, content: content, kind: 'combine_user')
+      #旧用户禁用
+      wechat_user.disable!
+      phone_user.enable!
     end
   end
 
   # 迁移捐款记录；用户注册绑定手机号和注册
-  def migrate_donate_record
+  def migrate_donate_record(old_user)
+    self.transaction do
+      DonateRecord.where(donor_id: old_user.id).each do |record|
+        record.update!(donor_id: self.id, agent_id: self.id)
+      end
+      Donation.where(donor_id: old_user.id).each do |donation|
+        donation.update!(donor_id: self.id, agent_id: self.id)
+      end
+      IncomeRecord.where(donor_id: old_user.id).each do |record|
+        record.update!(donor_id: self.id, agent_id: self.id)
+      end
+      AccountRecord.where(donor_id: old_user.id).each do |record|
+        record.update!(donor_id: self.id, user_id: self.id)
+      end
+      #重算两个账号的缓存数据
+      offline_income_resource = IncomeSource.offline
+      if IncomeRecord.where(agent_id: self.id).sum(:amount) != self.donate_amount
+        self.update!(donate_amount: IncomeRecord.where(agent_id: self.id).sum(:amount))
+      elsif IncomeRecord.where(agent_id: self.id, income_source_id: offline_income_resource.ids).sum(:amount) != self.offline_amount
+        self.update!(offline_amount: IncomeRecord.where(agent_id: self.id, income_source_id: offline_income_resource.ids).sum(:amount))
+      elsif IncomeRecord.where(agent_id: self.id).where.not(income_source_id: offline_income_resource.ids).sum(:amount) != self.online_amount
+        self.update!(online_amount: IncomeRecord.where(agent_id: self.id).where.not(income_source_id: offline_income_resource.ids).sum(:amount))
+      elsif AccountRecord.where(user_id: self.id).sum(:amount) != self.balance
+        self.update!(balance: AccountRecord.where(user_id: self.id).sum(:amount))
+      end
+    end
+  end
 
+  # 代捐人激活
+  def offline_user_activation(phone, wechat_user)
+    return unless self.unactived? && self.manager_id.present?
+    self.transaction do
+      if wechat_user.present?
+        User.combine_user(phone, wechat_user)
+      else
+        self.migrate_donate_record(self)
+        self.enable!
+      end
+      #通知代理人
+      owner = self
+      title = '#账户已激活# 捐助人已激活账户'
+      content = "您的捐助人#{self.show_name}账户已激活，您将不能管理该账户"
+      notice = Notification.create!(owner: owner, user_id: self.manager_id, title: title, content: content)
+      #将代捐人状态改为已注册，在代捐人列表中显示但不可用
+    end
   end
 
   def bind_user_roles

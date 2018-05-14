@@ -4,7 +4,7 @@ class Platform::School::TeachersController < Platform::School::BaseController
   before_action :set_per, only: :index
 
   def index
-    @teachers = current_user.school.teachers.includes(:projects).sorted.decode_page(params)
+    @teachers = current_user.school.teachers.teacher.includes(:projects).sorted.decode_page(params)
     respond_to do |format|
       format.html
       format.js
@@ -19,10 +19,12 @@ class Platform::School::TeachersController < Platform::School::BaseController
     @teacher = Teacher.new(teacher_params.merge(school: current_user.school))
     #@teacher.attach_avatar(params[:avatar_id])
     respond_to do |format|
-      if @teacher.save
+      result, notice = @teacher.bind_user_by_phone(current_user)
+      if result
         format.html {redirect_to platform_school_teachers_path, notice: '创建成功。'}
       else
-        format.html {render :new, notice: @teacher.errors.full_messages}
+        flash[:notice] = notice || @teacher.errors.full_messages.join(',')
+        format.html { render :new }
       end
     end
   end
@@ -38,13 +40,14 @@ class Platform::School::TeachersController < Platform::School::BaseController
         #@teacher.attach_avatar(params[:avatar_id])
         format.html {redirect_to platform_school_teachers_path, notice: '教师已修改。'}
       else
-        format.html {render :edit, notice: @teacher.errors.full_messages}
+        flash[:notice] = @teacher.errors.full_messages.join(',')
+        format.html { render :edit }
       end
     end
   end
 
   def destroy
-    @teacher.destroy
+    @teacher.destroy_teacher(current_user)
     respond_to do |format|
       format.html {redirect_to platform_school_teachers_path, notice: '删除成功。'}
     end

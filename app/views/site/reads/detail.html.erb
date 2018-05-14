@@ -192,7 +192,7 @@
               <% end %>
             <% elsif @apply.supplement? %>
               <% @apply.supplements.show.raising.each do |supplement| %>
-                  <li class="cur bookshelf" data-bookshelf-id="<%= bookshelf.id %>">
+                  <li class="cur bookshelf" data-bookshelf-id="<%= supplement.id %>">
                     <p><%= supplement.bookshelf.classname %></p>
                     <p>还差<%= supplement.surplus_money %>元 </p>
                   </li>

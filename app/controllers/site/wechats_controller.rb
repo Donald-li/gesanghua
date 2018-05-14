@@ -27,7 +27,7 @@ class Site::WechatsController < Site::BaseController
     user.attributes = { openid: unionid, gender: userinfo.result["sex"] }
     # 如果已经存在，不能更新，微信端支付使用的是openid
     user.profile = user.profile.presence || userinfo.result
-    user.name ||= userinfo.result['nickname']
+    # user.name ||= userinfo.result['nickname']
     user.nickname ||= userinfo.result['nickname']
     if user.disable?
       flash[:alert] = '登录失败'

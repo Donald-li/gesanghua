@@ -52,7 +52,7 @@ apply = ProjectSeasonApply.find(params[:apply])
         </select>
       </div>
       <% if current_user.team.present? %>
-      <div class="don-my-team">通过 <span>i<%= current_user.team.name %></span> 捐助</div>
+      <div class="don-my-team">通过 <span><%= current_user.team.name %></span> 捐助</div>
       <% end %>
       <div class="benefactors-way clearfix border-b">
         <span class="pull-left">支付方式</span>

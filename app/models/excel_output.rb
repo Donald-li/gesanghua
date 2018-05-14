@@ -30,7 +30,7 @@ class ExcelOutput
       users.each do |user|
         sheet.add_row [user.id,
                        user.nickname,
-                       user.name,
+                       user.show_name,
                        user.phone,
                        user.donate_amount,
                        user.online_amount,

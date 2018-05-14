@@ -82,6 +82,12 @@ class DonateRecord < ApplicationRecord
     self.income_record.try(:donation).try(:order_no)
   end
 
+  # 代捐人名称
+  def agent_name
+    return '无' if self.agent.blank?
+    self.agent_id == self.donor_id ? '无' : self.agent.try(:show_name)
+  end
+
   # 平台配捐
   # grant_number, donate_way(income_record, fund, user_balance), offline_record_id, fund_id, user_id
   def self.platform_donate(owner, amount, params)
@@ -240,7 +246,7 @@ class DonateRecord < ApplicationRecord
     Jbuilder.new do |json|
       json.(self, :id, :project_id, :project_season_apply_id, :project_season_apply_child_id)
       json.project_alias self.project.try(:alias)
-      json.donor self.donor.try(:name)
+      json.donor self.donor.try(:show_name)
       json.project_name self.project.try(:name)
       json.apply_name self.apply_name
       json.apply_image self.apply_image
@@ -256,7 +262,7 @@ class DonateRecord < ApplicationRecord
   def apply_image
     apply_image = case self.owner_type
     when 'DonateItem'
-      self.owner.project.try(:icon_url, nil)
+      self.owner.project.try(:image_url, :tiny)
     when 'ProjectSeasonApply'
       self.owner.cover_image_url(:tiny)
     when 'GshChildGrant'

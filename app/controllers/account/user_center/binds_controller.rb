@@ -14,19 +14,32 @@ class Account::UserCenter::BindsController < Account::BaseController
     end
 
     if User.where(openid: unionid).exists?
-      flash[:alert] = '该微信已经绑定其他账号'
-      redirect_to edit_account_user_center_bind_path and return
+      # flash[:alert] = '该微信已经绑定其他账号'
+      # redirect_to edit_account_user_center_bind_path and return
+      user = User.find_by(openid: unionid)
+      User.combine_user(current_user.phone, user)
+      set_current_user(user)
+      flash[:notice] = '绑定成功'
+      redirect_to edit_account_user_center_bind_path
     end
     current_user.attributes = { openid: unionid, gender: userinfo.result["sex"] }
     # 如果已经存在，不能更新，微信端支付使用的是openid
     current_user.profile = current_user.profile.presence || userinfo.result
-    current_user.name ||= userinfo.result['nickname']
+    # current_user.name ||= userinfo.result['nickname']
     current_user.nickname ||= userinfo.result['nickname']
     current_user.save
-    # TODO: 处理绑定
     flash[:notice] = '绑定成功'
     redirect_to edit_account_user_center_bind_path
   end
+
+  # TODO:提示已有用户是否绑定
+  # def do_combine_user(openid)
+  #   user = User.find_by(openid: unionid)
+  #   User.combine_user(current_user.phone, user)
+  #   set_current_user(user)
+  #   flash[:notice] = '绑定成功'
+  #   redirect_to edit_account_user_center_bind_path
+  # end
 
   # 解绑
   def destroy
