@@ -12,10 +12,11 @@
 
 <div class="person-body-right pull-right" id="school-edit">
   <div>
-    <p class="don-title border-b ">
+    <div class="don-title border-b  clearfix">
       <span class="pull-left">学校资料</span>
-    </p>
+    </div>
   </div>
+
   <%= simple_form_for @profile, url: url_path, method: method_way, html: {'data-parsley-validate': true, id: 'profile_form', method_way: method_way} do |f| %>
       <%= hidden_field_tag "school[id]", @profile["id"] %>
       <div class=" marginbottom">

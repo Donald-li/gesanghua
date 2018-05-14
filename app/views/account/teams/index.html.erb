@@ -1,7 +1,9 @@
 <div class="person-body-right pull-right">
-  <p class="don-title border-b ">
+
+  <div class="don-title border-b  clearfix">
     <span class="pull-left">我的团队</span>
-  </p>
+
+  </div>
   <!--没有团队缺省页-->
   <% if !@has_team %>
     <div class="donation-cont-no">
@@ -96,9 +98,8 @@
               <div>
                   <span class="transfers-per-mark"><%= member.role_tag %></div>
               </div>
-
+                <p class="transfers-per-time">加入 <%= member.join_team_time.strftime("%Y-%m-%d") %></p>
               <% end %>
-              <p class="transfers-per-time">加入 <%= member.join_team_time.strftime("%Y-%m-%d") %></p>
             </li>
           <% end %>
         </ul>

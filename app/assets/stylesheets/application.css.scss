@@ -2769,7 +2769,7 @@ select:disabled {
     .person-body-right {
       width: 900px;
       border: 1px solid $border;
-      padding: 10px 34px 34px;
+      padding:10px 34px 20px 34px;
       background-color: #fff;
 
       .project-foot {
@@ -3075,21 +3075,23 @@ select:disabled {
   font-size: 18px;
   color: #3d3d40;
   font-weight: 600;
-
-  & > span:nth-child(2) {
+.don-title-icon{
+  span:nth-child(1) {
     font-size: 13px;
     color: #393d42;
     font-weight: 500;
     margin-right: 0;
     margin-left: 4px;
-    margin-top: 0;
+    margin-top: 1px;
   }
 
-  & > span:nth-child(3) {
+   span:nth-child(2) {
     font-size: 13px;
     color: #393d42;
     font-weight: 400;
   }
+}
+
 }
 //捐助管理
 
@@ -6848,7 +6850,9 @@ color: #8d8d8d;
       margin-right: 20px;
       border-radius: 3px;
     }
-
+    & > button:nth-child(2):hover {
+        background-color: #f4f4f4;
+    }
     .submit-button:hover {
       background-color: $hover-button;
     }
@@ -9232,7 +9236,7 @@ color: #8d8d8d;
     }
 
     & > li {
-      padding: 0 10px;
+      //padding: 0 10px;
       width: 158px;
       height: 36px;
       line-height: 36px;
@@ -9241,6 +9245,8 @@ color: #8d8d8d;
       text-align: center;
 
       a {
+        width: 100%;
+        display: inline-block;
         color: #515154;
       }
     }

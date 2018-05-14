@@ -2,11 +2,18 @@
 
   <div class="children-body">
     <div class="paddchild">
-      <p class="don-title border-b ">
+
+      <div class="don-title clearfix border-b">
         <span class="pull-left">安装/发放反馈</span>
-        <span class="pull-right iconfont icon-arrow-right"></span>
-        <!-- <span class="pull-right"><%#= link_to platform_school_feedbacks_path do %>返回<%# end %></span> -->
-      </p>
+        <div class="don-title-icon pull-right">
+
+              <span class="pull-right iconfont icon-arrow-right"></span>
+          <!-- <span class="pull-right"><%#= link_to platform_school_feedbacks_path do %>返回<%# end %></span> -->
+
+
+        </div>
+
+      </div>
     </div>
     <div class="school-apply-feedback-cont">
       <%= simple_form_for [:apply, @install], url: platform_school_apply_install_feedbacks_path(@install), html: {'data-parsley-validate': true, class: 'user_form'} do |f| %>

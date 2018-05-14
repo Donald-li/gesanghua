@@ -1,11 +1,16 @@
 <div class="person-body-right pull-right">
 
   <div >
-    <p class="don-title border-b ">
+    <div class="don-title border-b clearfix ">
       <span class="pull-left">护花课程申请详情</span>
-      <span class="pull-right iconfont icon-arrow-right"></span>
-      <span class="pull-right"><%= link_to platform_school_apply_movie_cares_path do %>返回项目管理<% end %></span>
-    </p>
+
+    <div class="don-title-icon pull-right">
+      <%= link_to platform_school_apply_movie_cares_path do %>
+          <span class="pull-right iconfont icon-arrow-right"></span>
+          <span class="pull-right">返回项目管理</span>
+      <% end %>
+    </div>
+    </div>
     <div class="plat-school-apply-pair">
       <p class="school-apply-pair-tit"><%= @apply.apply_name %></p>
       <div class="school-apply-pair-table">
