@@ -1,11 +1,16 @@
 <div class="person-body-right pull-right" id="childrens">
 
   <div class="children-body">
-    <p class="don-title border-b ">
+    <div class="don-title clearfix border-b">
       <span class="pull-left">审核探索营名单</span>
-      <span class="pull-right iconfont icon-arrow-right"></span>
-      <span class="pull-right"><%= link_to platform_school_apply_camps_path do %>返回项目管理<% end %></span>
-    </p>
+      <div class="don-title-icon pull-right">
+        <%= link_to platform_school_apply_camps_path do %>
+            <span class="pull-right iconfont icon-arrow-right"></span>
+            <span class="pull-right">返回项目管理</span>
+        <% end %>
+      </div>
+
+    </div>
     <div class="donations-1" >
       <ul class="donations1 clearfix">
         <li class="<%= 'selectedDo' if params[:state] == 'pass' %> cur"><%= link_to '审核通过名单', platform_school_apply_camp_members_path(@apply_camp, state: 'pass') %>

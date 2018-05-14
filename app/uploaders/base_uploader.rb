@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 class BaseUploader < CarrierWave::Uploader::Base
-
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
@@ -22,7 +21,8 @@ class BaseUploader < CarrierWave::Uploader::Base
   # Provide a default URL as a default if there hasn't been a file uploaded:
   def default_url
     #"/assets/missing/missing.jpg"
-    "missing/#{model.class.to_s.underscore}/#{mounted_as}/#{[version_name, "default.png"].compact.join('_')}"
+    ActionController::Base.helpers.asset_path('default.jpg')
+    # "missing/#{model.class.to_s.underscore}/#{mounted_as}/#{[version_name, "default.png"].compact.join('_')}"
   end
 
   def filename

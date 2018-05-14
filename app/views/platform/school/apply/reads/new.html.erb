@@ -1,10 +1,14 @@
 <div class="person-body-right pull-right" id="reads-new">
   <div class="paddchild marginbottom">
-    <p class="don-title">
+    <div class="don-title  clearfix">
       <span class="pull-left">新图书角申请</span>
-      <span class="pull-right iconfont icon-arrow-right"></span>
-      <span class="pull-right"><%= link_to '返回', platform_school_apply_reads_path %></span>
-    </p>
+      <div class="don-title-icon pull-right">
+        <%= link_to platform_school_apply_reads_path do %>
+            <span class="pull-right iconfont icon-arrow-right"></span>
+            <span class="pull-right">返回</span>
+        <% end %>
+      </div>
+    </div>
   </div>
   <%= render 'form' %>
 </div>

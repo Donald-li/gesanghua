@@ -21,6 +21,6 @@
 
 class Asset::BadgeIcon < Asset
 
-  mount_uploader :file, ProjectIconUploader
+  mount_uploader :file, BadgeIconUploader
 
 end

@@ -17,7 +17,8 @@ module HasAsset
             self.try(key).try(:file).try(:url)
           end
         else
-          return ActionController::Base.helpers.asset_path('default.jpg')
+          return class_name.constantize.new.file.default_url
+          # return ActionController::Base.helpers.asset_path('default.jpg')
         end
       end
 

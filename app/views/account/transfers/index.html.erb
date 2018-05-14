@@ -1,9 +1,14 @@
 <div class="person-body-right pull-right ">
-  <p class="don-title border-b ">
+
+  <div class="don-title border-b  clearfix">
     <span class="pull-left">移交团队</span>
-    <span class="pull-right iconfont icon-arrow-right"></span>
-    <span class="pull-right"><%= link_to '返回我的团队', account_teams_path %></span>
-  </p>
+    <div class="don-title-icon pull-right">
+      <%= link_to account_teams_path do %>
+          <span class="pull-right iconfont icon-arrow-right"></span>
+          <span class="pull-right">返回我的团队</span>
+      <% end %>
+    </div>
+  </div>
     <% if @team_creater.present? %>
     <div>
   <div class="transfers">

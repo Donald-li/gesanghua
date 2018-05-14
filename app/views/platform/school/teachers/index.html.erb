@@ -1,13 +1,16 @@
 <div class="person-body-right pull-right" id="teachers">
   <div class="children-body">
     <div class="paddchild">
-      <p class="don-title border-b ">
+
+      <div class="don-title clearfix border-b">
         <span class="pull-left">教师管理</span>
-        <%= link_to new_platform_school_teacher_path, class: 'pull-right school-apply-share-sub', style: "color: white;", 'data-no-turbolink' => true do %>
-          <span class="iconfont icon-ico-add1"></span>
-          <span>新增老师</span>
-        <% end %>
-      </p>
+        <div class="don-title-icon pull-right">
+          <%= link_to new_platform_school_teacher_path, class: 'pull-right school-apply-share-sub', style: "color: white;", 'data-no-turbolink' => true do %>
+              <span class="iconfont icon-ico-add1"></span>
+              <span>新增老师</span>
+          <% end %>
+        </div>
+      </div>
     </div>
 
     <% if @teachers.present? %>

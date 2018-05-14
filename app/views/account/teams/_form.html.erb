@@ -10,7 +10,7 @@
         <span class="goodtext pull-left">团队名称</span>
         <input class="goodinput pull-left" type="text" name="team[name]" value="<%= @team.name %>" required />
       </div>
-      <div class="clearfix" >
+      <div class="clearfix" style="height:100%;">
         <span class="goodtext pull-left">所在地区</span>
         <div class="city-group pull-left">
           <%= select_tag 'team[province]', options_for_select(ChinaCity.list, @team.province.presence), prompt: '省份', class: "city-select", id: 'province', required: true %>
@@ -37,7 +37,7 @@
       </div>
     </div>
     <div class="childern-submint paddingLeft">
-      <button type="submit">保存</button>
+      <button type="submit" class="sub  mit-button">保存</button>
       <button><%= link_to account_teams_path do %>取消<% end %></button>
     </div>
   </div>

@@ -32,6 +32,7 @@
 
 
   <div class="contentab">
+    <% if @income_records.present? %>
     <table class="table table-bordered">
       <thead>
       <tr>
@@ -56,11 +57,20 @@
           <td><%= number_to_currency(income_record.amount) %></th>
           <td><%= income_record.income_source.try(:name) %></td>
           <td><%= income_record.donor.try(:show_name) %></td>
-          <td><%= income_record.agentname %></td>
+          <td><%= income_record.agent_name %></td>
           <td><%= income_record.remark %></td>
         </tr>
       <% end %>
       </tbody>
     </table>
+    <% else %>
+        <div class="not-project-body contentab ">
+          <div class="donation-cont-no">
+            <div class="donation-co-no-c">
+              <p>暂无内容</p>
+            </div>
+          </div>
+        </div>
+    <% end %>
   </div>
 </div>
