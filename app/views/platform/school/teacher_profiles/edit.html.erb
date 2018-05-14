@@ -14,9 +14,9 @@
 <div class="person-body-right pull-right" style="margin-top: 40px;">
   <%= simple_form_for [:platform, @user], url: platform_school_teacher_profile_path, html: {'data-parsley-validate': true, class: 'user_form'} do |f| %>
   <div style="display: block;">
-    <p class="don-title border-b ">
+    <div class="don-title border-b  clearfix">
       <span class="pull-left">个人资料</span>
-    </p>
+    </div>
     <div class="school-edit">
       <div class="addchild-list-img">
         <%= webuploader_avatar :avatar_id, label: '上传正面照', type: 'user_avatar', asset: @user.avatar, klass: 'single', id: 'user-avatar' %>
@@ -37,7 +37,7 @@
 
         </div>
       </div>
-      <div class="childern-submint">
+      <div class="childern-submint paddingLeft">
         <button type="submit" class="submit-button">保存</button>
       </div>
     </div>
