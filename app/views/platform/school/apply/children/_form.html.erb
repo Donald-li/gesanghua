@@ -83,10 +83,18 @@
       <input  class="goodinput pull-left" type="text" name="project_season_apply_child[guardian]" value="<%= @child.guardian %>" required placeholder="监护人姓名"/>
     </div>
     <div class="clearfix">
+      <span class="goodtext pull-left">联系方式</span>
+      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[guardian_phone]" value="<%= @child.guardian_phone %>" required placeholder="监护人联系方式"/>
+    </div>
+    <div class="clearfix">
       <span class="goodtext pull-left">与其关系</span>
       <div class="pull-left">
         <%= f.input :guardian_relation, as: :select, collection: ['父子', '母子', '父女', '母女', '祖孙', '舅甥', '其他'], label: false, include_blank: false, input_html: {id: 'guardian_info', class: ''} %>
       </div>
+    </div>
+    <div class="clearfix">
+      <span class="goodtext pull-left">家庭住址</span>
+      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[address]" value="<%= @child.address %>" required placeholder="家庭住址"/>
     </div>
     <div class="clearfix">
       <span class="goodtext pull-left">收入来源</span>
