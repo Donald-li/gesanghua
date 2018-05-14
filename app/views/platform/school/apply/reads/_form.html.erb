@@ -20,22 +20,24 @@
         <div class="clearfix">
           <span class="goodtext pull-left">申请批次</span>
           <div class="pull-left">
-            <%= f.input :project_season_id, as: :select, collection: Project.read_project.seasons.enable.sorted.collect {|s| [s.name, s.id]}, include_blank: '请选择申请年度', label: false, required: true, input_html: {id: 'allcamps'} %>
+            <%= f.input :project_season_id, as: :select, collection: Project.read_project.seasons.enable.sorted.collect {|s| [s.name, s.id]}, include_blank: '请选择申请年度', label: false, required: true, input_html: {id: 'allcamps',data: {parsley_required: true,'parsley-errors-container': '#season-errors'}} %>
           </div>
+          <div id="season-errors"></div>
         </div>
           <% else %>
           <div class="clearfix">
             <span class="goodtext pull-left">申请批次</span>
             <div class="pull-left">
-              <%= f.input :project_season_id, as: :select, collection: Project.read_project.seasons.enable.sorted.collect {|s| [s.name, s.id]}, include_blank: '请选择申请年度', label: false, required: true, disabled: true, input_html: {id: 'allcamps'} %>
+              <%= f.input :project_season_id, as: :select, collection: Project.read_project.seasons.enable.sorted.collect {|s| [s.name, s.id]}, include_blank: '请选择申请年度', label: false, required: true, disabled: true, input_html: {id: 'allcamps',data: {parsley_required: true,'parsley-errors-container': '#season-errors'}} %>
             </div>
+            <div id="season-errors"></div>
           </div>
           <% end %>
         <div class="clearfix">
           <span class="goodtext pull-left">学生总数</span>
           <div class="modified modified-1 pull-left">
             <span class="iconfont icon-ico-reduce oversmin"></span>
-            <input type="number" name="project_season_apply[student_number]" value="<%= @apply.student_number %>" min="1" class="oversinputs"/>
+            <input type="number" name="project_season_apply[student_number]" value="<%= @apply.student_number %>" min="1"  class="oversinputs"/>
             <span class="iconfont icon-ico-add1 oversadd"></span>
           </div>
         </div>
@@ -113,10 +115,11 @@
         <div class="clearfix">
           <span class="goodtext pull-left">所在地区</span>
           <div class="city-group pull-left">
-            <%= select_tag 'project_season_apply[province]', options_for_select(ChinaCity.list, @apply.province.presence), prompt: '省份', class: "city-select", id: 'province', required: true %>
-            <%= select_tag 'project_season_apply[city]', options_for_select(ChinaCity.list(@apply.province.to_s), @apply.city.presence), prompt: '城市', class: "city-select", id: 'city', required: true %>
-            <%= select_tag 'project_season_apply[district]', options_for_select(ChinaCity.list(@apply.city.to_s), @apply.district.presence), prompt: '地区', class: "city-select", id: 'district', required: true %>
+            <%= select_tag 'project_season_apply[province]', options_for_select(ChinaCity.list, @apply.province.presence), prompt: '省份', class: "city-select", id: 'province', required: true, data: {'parsley-errors-container': '#distirct-errors'} %>
+            <%= select_tag 'project_season_apply[city]', options_for_select(ChinaCity.list(@apply.province.to_s), @apply.city.presence), prompt: '城市', class: "city-select", id: 'city', required: true, data: {'parsley-errors-container': '#distirct-errors'} %>
+            <%= select_tag 'project_season_apply[district]', options_for_select(ChinaCity.list(@apply.city.to_s), @apply.district.presence), prompt: '地区', class: "city-select", id: 'district', required: true, data: {'parsley-errors-container': '#distirct-errors'} %>
           </div>
+          <div id="distirct-errors" class="errors"></div>
         </div>
         <div class="clearfix">
           <span class="goodtext pull-left">详细地址</span>
