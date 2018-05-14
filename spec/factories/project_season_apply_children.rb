@@ -50,6 +50,9 @@
 #  brothers                :string                                 # 兄弟姐妹
 #  teacher_phone           :string                                 # 班主任联系方式
 #  remark                  :text                                   # 备注
+#  expenditure_information :text                                   # 支出详情
+#  debt_information        :text                                   # 负债情况
+#  parent_information      :string                                 # 父母情况
 #
 
 FactoryBot.define do

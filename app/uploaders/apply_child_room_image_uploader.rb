@@ -1,4 +1,4 @@
-class ApplyChildResidenceUploader < BaseUploader
+class ApplyChildRoomImageUploader < BaseUploader
 
   process :auto_orient
 

@@ -83,10 +83,10 @@
         </tr>
         <tr>
           <th>
-            家长姓名
+            描述
           </th>
           <th>
-            <%= @pair_student_list.parent_name %>
+            <%= @pair_student_list.description %>
           </th>
         </tr>
         <tr>
@@ -99,12 +99,21 @@
         </tr>
         <tr>
           <th>
-            描述
+            家长姓名
           </th>
           <th>
-            <%= @pair_student_list.description %>
+            父亲：<%= @pair_student_list.father %> 母亲：<%= @pair_student_list.mother %>
           </th>
         </tr>
+        <tr>
+          <th>
+            监护人
+          </th>
+          <th>
+            <%= @pair_student_list.guardian %>
+          </th>
+        </tr>
+
         <tr>
           <th>
             身份证
@@ -115,10 +124,34 @@
         </tr>
         <tr>
           <th>
-            户口本
+           申请1
           </th>
           <th>
-            <%= link_to image_tag(@pair_student_list.residence_url(:small)), @pair_student_list.residence_url(nil), target: '_blank' %>
+            <%= link_to image_tag(@pair_student_list.apply_one_url(:small)), @pair_student_list.apply_one_url(nil), target: '_blank' %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            申请2
+          </th>
+          <th>
+            <%= link_to image_tag(@pair_student_list.apply_two_url(:small)), @pair_student_list.apply_two_url(nil), target: '_blank' %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            客厅照片
+          </th>
+          <th>
+            <%= link_to image_tag(@pair_student_list.room_image_url(:small)), @pair_student_list.room_image_url(nil), target: '_blank' %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            院子照片
+          </th>
+          <th>
+            <%= link_to image_tag(@pair_student_list.yard_image_url(:small)), @pair_student_list.yard_image_url(nil), target: '_blank' %>
           </th>
         </tr>
         <tr>
@@ -127,14 +160,6 @@
           </th>
           <th>
             <%= link_to image_tag(@pair_student_list.poverty_url(:small)), @pair_student_list.poverty_url(nil), target: '_blank' %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            家庭照
-          </th>
-          <th>
-            <%= link_to image_tag(@pair_student_list.family_image_url(:small)), @pair_student_list.family_image_url(nil), target: '_blank' %>
           </th>
         </tr>
         <tr>

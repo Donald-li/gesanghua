@@ -26,14 +26,14 @@ class Admin::PairStudentsController < Admin::BaseController
       @apply_child = @project_apply.children.build(apply_child_params.merge(province: @project_apply.province, city: @project_apply.city, district: @project_apply.district))
       if ProjectSeasonApplyChild.allow_apply?(@project_apply.school, apply_child_params[:id_card])
         @apply_child.audits.build
-        # @apply_child.attach_images(params[:image_ids])
-        @apply_child.attach_avatar(params[:avatar_id])
-        @apply_child.attach_id_image(params[:id_image_id])
-        @apply_child.attach_residence(params[:residence_id])
-        @apply_child.attach_poverty(params[:poverty_id])
-        @apply_child.attach_family_image(params[:family_image_id])
         if @apply_child.approve_pass
-          @apply_child.count_age
+          @apply_child.attach_avatar(params[:avatar_id])
+          @apply_child.attach_id_image(params[:id_image_id])
+          @apply_child.attach_poverty(params[:poverty_id])
+          @apply_child.attach_room_image(params[:room_image_id])
+          @apply_child.attach_yard_image(params[:yard_image_id])
+          @apply_child.attach_apply_one(params[:apply_one_id])
+          @apply_child.attach_apply_two(params[:apply_two_id])
           format.html {redirect_to admin_pair_apply_pair_students_path(@project_apply), notice: '新增成功。'}
         else
           format.html {render :new}
@@ -48,14 +48,14 @@ class Admin::PairStudentsController < Admin::BaseController
   def update
     respond_to do |format|
       if ProjectSeasonApplyChild.allow_apply?(@project_apply.school, apply_child_params[:id_card], @apply_child)
-        # @apply_child.attach_images(params[:image_ids])
-        @apply_child.attach_avatar(params[:avatar_id])
-        @apply_child.attach_id_image(params[:id_image_id])
-        @apply_child.attach_residence(params[:residence_id])
-        @apply_child.attach_poverty(params[:poverty_id])
-        @apply_child.attach_family_image(params[:family_image_id])
         if @apply_child.update(apply_child_params)
-          @apply_child.count_age
+          @apply_child.attach_avatar(params[:avatar_id])
+          @apply_child.attach_id_image(params[:id_image_id])
+          @apply_child.attach_poverty(params[:poverty_id])
+          @apply_child.attach_room_image(params[:room_image_id])
+          @apply_child.attach_yard_image(params[:yard_image_id])
+          @apply_child.attach_apply_one(params[:apply_one_id])
+          @apply_child.attach_apply_two(params[:apply_two_id])
           format.html {redirect_to admin_pair_apply_pair_students_path(@project_apply), notice: '修改成功。'}
         else
           format.html {render :edit}

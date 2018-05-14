@@ -19,8 +19,8 @@
 #  updated_at    :datetime         not null
 #
 
-class Asset::ApplyChildResidence < Asset
+class Asset::ApplyChildYardImage < Asset
 
-  mount_uploader :file, ApplyChildResidenceUploader
+  mount_uploader :file, ApplyChildYardImageUploader
 
 end
