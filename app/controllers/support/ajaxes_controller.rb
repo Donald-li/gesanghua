@@ -183,7 +183,7 @@ class Support::AjaxesController < Support::BaseController
 
   def dismiss_team
     @team = Team.find(params[:team_id])
-    if @team.users.update(team_id: nil) && @team.update(manage_id: nil)
+    if @team.users.update(team_id: nil) && @team.dismiss!
       render json: {message: '解散成功', status: true}
     else
       render json: {message: '解散失败，请重试', status: false}

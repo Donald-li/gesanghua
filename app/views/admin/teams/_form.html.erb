@@ -1,0 +1,91 @@
+<%= simple_form_for [:admin, @team], wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'school_form'} do |f| %>
+  <%= f.error_notification %>
+  <div class="form-body form-horizontal">
+    <div class="form-group">
+      <label class="col-md-2 control-label">团队logo：</label>
+      <div class="col-sm-9">
+        <%= webuploader_tag :logo_id, label: '上传Logo', type: 'team_logo', asset: @team.logo, klass: 'single' %>
+      </div>
+    </div>
+    <%= f.input :name, label: '名称：', autofocus: true, placeholder: '名称', input_html: { data: {'parsley-required': true}} %>
+    <%= static_form_control '创建人：', @team.try(:creater).try(:name) %>
+    <%= static_form_control '创建时间：', (l @team.created_at) %>
+    <%= f.input :manage_id, collection: [@team.manager].compact.map {|u| [u.name, u.id]}, label: '负责人：', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
+    <div style="margin-bottom: 20px;" class="form-group">
+      <label class="col-md-2 control-label select required" for="project_category_id">所在地区：</label>
+      <div class="col-sm-6">
+        <div class="row city-group">
+          <div class="col-sm-3">
+            <%= select_tag 'team[province]', options_for_select(ChinaCity.list, @team.province.presence), prompt: '省份', class: "form-control city-select" %>
+          </div>
+          <div class="col-sm-3">
+            <%= select_tag 'team[city]', options_for_select(ChinaCity.list(@team.province.to_s), @team.city.presence), prompt: '城市', class: "form-control city-select" %>
+          </div>
+          <div class="col-sm-3">
+            <%= select_tag 'team[district]', options_for_select(ChinaCity.list(@team.city.to_s), @team.district.presence), prompt: '地区', class: "form-control city-select" %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= f.input :describe, label: '简介：', placeholder: '请填写团队介绍' %>
+    <%= f.input :kind, as: :radio_buttons, wrapper: :inline_inputs, collection: Team.options_for_some_select(:kinds, ['society', 'college']), label: '团队类型：', required: 'required', input_html: { class: 'approve_state', onclick: 'toggleState();'} %>
+    <div class="approve_reject">
+      <%= f.input :school_name, label: '学校名称：', input_html: {class: 'form-control'}, required: true %>
+    </div>
+  </div>
+  <div class="form-actions">
+    <div class="row">
+      <div class="col-md-offset-2 col-md-9">
+        <%= f.button :submit, '提交', class: 'btn blue' %>
+        <%= link_to '取消', admin_teams_path, class: 'btn' %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script>
+    $(function(){
+        initImageWebuploader($('#webuploader'));
+
+        $(".school_form .user_selector").select2({
+          language: "zh-CN",
+          placeholder: '请选择用户',
+          allowClear: true,
+          ajax: {
+            url: "/selects/team_manager",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+              return {
+                q: params.term, // search term
+                page: params.page,
+                team_id: '<%= @team.id %>'
+              };
+            },
+            processResults: function (data, params) {
+              params.page = params.page || 1;
+              return {
+                  results: $.map(data.items, function (item) {
+                    return {
+                      text: item.name,
+                      id: item.id
+                  }
+                }),
+                pagination: {
+                  more: (params.page * 30) < data.total_count
+                }
+              };
+            },
+            cache: true
+          }
+        });
+
+    })
+
+    function toggleState(){
+        toggleRadioInput('.approve_state', {
+            college: '.approve_reject'
+        })
+    }
+    toggleState();
+</script>

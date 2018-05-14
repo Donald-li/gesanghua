@@ -49,6 +49,15 @@ namespace :admin do
     resources :special_articles
   end
 
+  resource :team_statistic, only: [:show]
+  resources :teams do
+    member do
+      put :dismiss
+      get :donate_records
+    end
+    resources :team_members
+  end
+
   resources :project_book_seasons, concerns: [:switch]
   resources :read_applies, concerns: :check do
     member do

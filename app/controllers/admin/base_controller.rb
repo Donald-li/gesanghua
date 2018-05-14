@@ -54,10 +54,18 @@ class Admin::BaseController < ManagementBaseController
   end
 
   def render_404(exception = nil)
-    render :file => "#{Rails.root}/public/admin-404.html", :status => 404, :layout => false
+    unless Rails.env == 'development'
+      render :file => "#{Rails.root}/public/admin-404.html", :status => 404, :layout => false
+    else
+      raise exception
+    end
   end
 
   def render_500(exception = nil)
-    render :file => "#{Rails.root}/public/admin-500.html", :status => 404, :layout => false
+    unless Rails.env == 'development'
+      render :file => "#{Rails.root}/public/admin-500.html", :status => 500, :layout => false
+    else
+      raise exception
+    end
   end
 end

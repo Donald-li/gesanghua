@@ -58,7 +58,7 @@
       </li>
       <li class="nav-item <%= current_nav_class(:admin_user_main) %> <%= current_nav_class(:admin_user_county_users) %> <%= current_nav_class(:admin_user_gsh_children) %> <%= current_nav_class(:admin_user_teachers) %>">
         <%= link_to '', class: 'nav-link' do %>
-            <i class="fa fa-users"></i>
+            <i class="fa fa-user"></i>
             <span class="title">用户身份</span>
             <span class="arrow <%= current_nav_class(:admin_user, current: :open) %>"></span>
         <% end %>
@@ -75,11 +75,30 @@
                 <span class="title">教师用户</span>
             <% end %>
           </li>
-
           <li class="nav-item <%= current_nav_class(:admin_user_county_users) %> ">
             <%= link_to admin_county_users_path, class: 'nav-link' do %>
                 <i class="fa fa-briefcase"></i>
                 <span class="title">县级领导</span>
+            <% end %>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item <%= current_nav_class(:admin_manage_teams) %> ">
+        <a href="javascript:;" class="nav-link nav-toggle">
+          <i class="fa fa-users"></i>
+          <span class="title">团队管理</span>
+          <span class="arrow <%= current_nav_class(:admin_teams, current: :open) %>"></span>
+        </a>
+        <ul class="sub-menu">
+          <li class="nav-item  <%= current_nav_class(:admin_team_list) %>">
+            <%= link_to admin_teams_path, class: 'nav-link' do %>
+                <span class="title">团队管理</span>
+            <% end %>
+          </li>
+          <li class="nav-item  <%= current_nav_class(:admin_team_statistic) %>">
+            <%= link_to admin_team_statistic_path, class: 'nav-link' do %>
+                <span class="title">捐助统计</span>
             <% end %>
           </li>
         </ul>
@@ -97,9 +116,9 @@
           <li class="nav-item  <%= current_nav_class(:admin_volunteer_apply) %>">
             <%= link_to admin_volunteer_applies_path, class: 'nav-link' do %>
                 <span class="title">志愿者申请</span>
-              <% if to_approve_volunteer > 0 %>
-                <span class="badge badge-danger"><%= to_approve_volunteer %></span>
-              <% end %>
+                <% if to_approve_volunteer > 0 %>
+                    <span class="badge badge-danger"><%= to_approve_volunteer %></span>
+                <% end %>
             <% end %>
           </li>
           <li class="nav-item  <%= current_nav_class(:admin_volunteer_list) %>">
@@ -119,10 +138,10 @@
           </li>
           <li class="nav-item  <%= current_nav_class(:admin_task_check) %>">
             <%= link_to admin_task_achievements_path, class: 'nav-link' do %>
-              <span class="title">任务执行管理</span>
-              <% if to_check_task > 0 %>
-                <span class="badge badge-danger"><%= to_check_task %></span>
-              <% end %>
+                <span class="title">任务执行管理</span>
+                <% if to_check_task > 0 %>
+                    <span class="badge badge-danger"><%= to_check_task %></span>
+                <% end %>
             <% end %>
           </li>
         </ul>

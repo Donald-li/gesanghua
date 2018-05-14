@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180514035524) do
+ActiveRecord::Schema.define(version: 20180514081446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(version: 20180514035524) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "default_level", default: false, comment: "默认徽章"
+    t.string "description", comment: "徽章描述"
   end
 
   create_table "beneficial_children", force: :cascade do |t|
@@ -1160,6 +1161,7 @@ ActiveRecord::Schema.define(version: 20180514035524) do
     t.text "describe", comment: "简介"
     t.string "school_name", comment: "高校名称"
     t.integer "manage_id", comment: "负责人"
+    t.integer "state"
   end
 
   create_table "users", force: :cascade, comment: "用户" do |t|
@@ -1284,6 +1286,7 @@ ActiveRecord::Schema.define(version: 20180514035524) do
     t.integer "gender", comment: "性别"
     t.string "source", comment: "获知渠道"
     t.text "experience", comment: "志愿者经历"
+    t.integer "volunteer_age", comment: "服务年限"
   end
 
   create_table "voucher_donate_records", force: :cascade, comment: "捐赠收据捐助记录表" do |t|

@@ -69,6 +69,14 @@ admin:
           actions:
             admin/month_donates: all
 
+        admin_manage_teams:
+          menus:
+            admin_team_list:
+              actions:
+                'admin/teams': all
+            admin_team_statistic:
+              actions:
+                'admin/team_statistics': all
         # 平台管理
         admin_platform_content:
           menus:

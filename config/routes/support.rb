@@ -23,6 +23,7 @@ scope module: :support do
       get :camps
       get :camp_users
       get :child_grants
+      get :team_manager
     end
   end
   resources :ajaxes, only: [] do

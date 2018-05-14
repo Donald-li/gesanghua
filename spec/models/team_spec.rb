@@ -19,6 +19,7 @@
 #  describe              :text                                   # 简介
 #  school_name           :string                                 # 高校名称
 #  manage_id             :integer                                # 负责人
+#  state                 :integer
 #
 
 require 'rails_helper'
