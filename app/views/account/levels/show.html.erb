@@ -1,157 +1,22 @@
 <div class="person-body-right pull-right" >
   <div>
-
     <div class="don-title border-b  clearfix">
-      <span class="pull-left">我的徽章</span>
+      <span class="pull-left">我的勋章</span>
     </div>
     <div class="medal">
       <div class="items-container row">
+        <% @my_badges.each do |badge| %>
         <div class="item col-md-4 cur ">
           <div class="gsh-img">
-           <%= image_tag 'medal-icon.png' %>
+           <%= image_tag badge.icon_url(nil), width: 149, height: 176%>
             <div class="medal-cont">
-              <p>工龄勋章</p>
-              <p>累计为格桑花义务服务六年可获得</p>
-            </div>
-            <div class="ovrly"></div>
-            <div class="buttons">
-              <p>工龄勋章</p>
-              <p>收获勋章需要您累计为格桑花义 务服务六年，且每年义务捐款满 2000元，可获得</p>
-              <div>领取</div>
-            </div>
-          </div>
-          <div class="ucenter-mark">
-            <%= image_tag 'ucenter-mark.png' %>
-          </div>
-        </div>
-        <div class="item col-md-4 cur">
-          <div class="gsh-img">
-            <%= image_tag 'medal-icon-1.png' %>
-            <div class="medal-cont">
-              <p>工龄勋章<span>Lv1</span></p>
-              <p>累计为格桑花义务服务六年可获得</p>
-            </div>
-            <div class="ovrly"></div>
-            <div class="buttons">
-              <p>工龄勋章</p>
-              <p>收获勋章需要您累计为格桑花义 务服务六年，且每年义务捐款满 2000元，可获得</p>
-              <div>领取</div>
-            </div>
-          </div>
-
-        </div>
-        <div class="item col-md-4 cur ">
-          <div class="gsh-img">
-            <%= image_tag 'medal-icon-1.png' %>
-            <div class="medal-cont">
-              <p>日常任务<span>Lv1</span></p>
-              <p>累计为格桑花义务服务六年可获得</p>
-            </div>
-            <div class="ovrly"></div>
-            <div class="buttons">
-              <p>日常任务</p>
-              <p>收获勋章需要您累计为格桑花义 务服务六年，且每年义务捐款满 2000元，可获得</p>
-              <div>领取</div>
-            </div>
-          </div>
-
-        </div>
-        <div class="item col-md-4  cur">
-          <div class="gsh-img">
-            <%= image_tag 'medal-icon.png' %>
-            <div class="medal-cont">
-              <p>紧急任务</p>
-              <p>累计为格桑花义务服务六年可获得</p>
-            </div>
-            <div class="ovrly"></div>
-            <div class="buttons">
-              <p>紧急任务</p>
-              <p>收获勋章需要您累计为格桑花义 务服务六年，且每年义务捐款满 2000元，可获得</p>
-              <div>领取</div>
-            </div>
-          </div>
-          <div class="ucenter-mark">
-            <%= image_tag 'ucenter-mark.png' %>
-          </div>
-        </div>
-        <div class="item col-md-4 cur">
-          <div class="gsh-img">
-            <%= image_tag 'medal-icon-1.png' %>
-
-            <div class="medal-cont">
-              <p>重点任务<span>Lv1</span></p>
-              <p>累计为格桑花义务服务六年可获得</p>
-            </div>
-            <div class="ovrly"></div>
-            <div class="buttons">
-              <p>重点任务</p>
-              <p>收获勋章需要您累计为格桑花义 务服务六年，且每年义务捐款满 2000元，可获得</p>
-              <div>领取</div>
+              <p><%= badge.title %> <%= badge.rank  unless badge.default_level? %></p>
+              <p><%= badge.description %></p>
             </div>
           </div>
         </div>
-        <div class="item col-md-4 cur">
-          <div class="gsh-img">
-            <%= image_tag 'medal-icon-1.png' %>
-
-            <div class="medal-cont">
-              <p>日常任务<span>Lv1</span></p>
-              <p>累计为格桑花义务服务六年可获得</p>
-            </div>
-            <div class="ovrly"></div>
-            <div class="buttons">
-              <p>日常任务</p>
-              <p>收获勋章需要您累计为格桑花义 务服务六年，且每年义务捐款满 2000元，可获得</p>
-              <div>领取</div>
-            </div>
-          </div>
-        </div>
-        <div class="item col-md-4 cur">
-          <div class="gsh-img">
-            <%= image_tag 'medal-icon.png' %>
-            <div class="medal-cont">
-              <p>难点任务</p>
-              <p>累计为格桑花义务服务六年可获得</p>
-            </div>
-            <div class="ovrly"></div>
-            <div class="buttons">
-              <p>难点任务</p>
-              <p>收获勋章需要您累计为格桑花义 务服务六年，且每年义务捐款满 2000元，可获得</p>
-              <div>领取</div>
-            </div>
-          </div>
-          <div class="ucenter-mark">
-            <%= image_tag 'ucenter-mark.png' %>
-          </div>
-        </div>
-
+        <% end %>
       </div>
     </div>
   </div>
 </div>
-<div id="goodcover"></div>
-
-<script>
-    $('#ClickMe').click(function () {
-        $('#code').center();
-        $('#goodcover').show();
-        $('#code').fadeIn();
-    });
-    $('#closebt').click(function () {
-        $('#code').hide();
-        $('#goodcover').hide();
-    });
-    $('.goodbut').click(function () {
-        $('#code').hide();
-        $('#goodcover').hide();
-    });
-    $('#delete').click(function () {
-        $('#remove').center();
-        $('#goodcover').show();
-        $('#remove').fadeIn();
-    });
-    $('#remove-but').click(function () {
-        $('#remove').hide();
-        $('#goodcover').hide();
-    });
-</script>
