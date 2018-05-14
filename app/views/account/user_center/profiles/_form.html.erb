@@ -8,9 +8,9 @@
 
 <%= simple_form_for @profile, url: url_path, html: {'data-parsley-validate': true, id: 'profile_form', method_way: 'method_way'} do |f| %>
   <div style="background: #fff;padding: 10px 34px 20px 34px;border: 1px solid #e6e6e6;" class="marginbottom">
-    <p class="don-title border-b ">
+    <div class="don-title border-b  clearfix">
       <span class="pull-left">个人资料</span>
-    </p>
+    </div>
     <div class="school-edit">
       <div class="addchild-list-img">
         <%= webuploader_avatar :avatar_id, label: '上传照片', type: 'user_avatar', asset: @profile.try(:avatar), klass: 'single' %>
