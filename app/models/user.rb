@@ -385,8 +385,8 @@ class User < ApplicationRecord
   # 微信绑定手机号之后，根据手机号合并user记录，绑定volunteer,teacher(headmaster),county_user角色（gsh_child有单独绑定途径）
   # 合并账号
   def self.combine_user(phone, wechat_user)
-    return unless User.find_by(phone: phone).present?
     phone_user = User.find_by(phone: phone)
+    return unless phone_user
     self.transaction do
       #所有业务表改为手机用户
       School.where(creater_id: wechat_user.id).each do |school|

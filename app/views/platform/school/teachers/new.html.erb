@@ -1,12 +1,14 @@
 <div class="person-body-right pull-right" id="addchildrenlist">
   <div class="paddchild marginbottom">
-    <p class="don-title">
+    <div class="don-title clearfix">
       <span class="pull-left">新增教师</span>
-      <%= link_to platform_school_teachers_path, 'data-no-turbolink' => true do %>
-        <span class="pull-right iconfont icon-arrow-right"></span>
-        <span class="pull-right">返回</span>
-      <% end %>
-    </p>
+      <div class="don-title-icon pull-right">
+        <%= link_to platform_school_teachers_path, 'data-no-turbolink' => true do %>
+            <span class="pull-right iconfont icon-arrow-right"></span>
+            <span class="pull-right">返回</span>
+        <% end %>
+      </div>
+    </div>
   </div>
   <%= render partial: "form" %>
 </div>

@@ -1,11 +1,16 @@
 <div class="person-body-right pull-right">
 
-  <div style="display: block;">
-    <p class="don-title border-b ">
+  <div>
+    <div class="don-title clearfix border-b">
       <span class="pull-left">探索营申请详情</span>
-      <span class="pull-right iconfont icon-arrow-right"></span>
-      <span class="pull-right"><%= link_to platform_school_apply_camps_path do %>返回项目管理<% end %></span>
-    </p>
+      <div class="don-title-icon pull-right">
+        <%= link_to platform_school_apply_camps_path do %>
+            <span class="pull-right iconfont icon-arrow-right"></span>
+            <span class="pull-right">返回项目管理</span>
+        <% end %>
+      </div>
+
+    </div>
     <div class="plat-school-apply-pair">
     <p class="school-apply-pair-tit"><%= @apply_camp.apply.apply_name %></p>
       <div class="school-apply-pair-table">
