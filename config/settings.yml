@@ -21,8 +21,8 @@ pay_1_mode: true
 api_defautl_user: false
 
 # 配置学费
-junior_term_amount: 1050
-junior_year_amount: 2100
+junior_term_amount: 785
+junior_year_amount: 1570
 senior_term_amount: 1050
 senior_year_amount: 2100
 
