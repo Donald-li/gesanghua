@@ -12,6 +12,9 @@ scope module: :site do
       post :submit
     end
   end
+
+  resource :information, only: [:show]
+
   resources :disclosures, only: [:index, :show], concerns: [:file_download]
   resources :audit_reports, only: [:index, :show], concerns: [:file_download]
   get '/p/:alias', to: 'pages#show'

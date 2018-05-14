@@ -7018,26 +7018,24 @@ color: #8d8d8d;
     span:nth-child(2) {
       font-size: 14px;
       color: #2a2a2c;
-      -ms-flex: 0 0 33.33%;
-      flex: 0 0 33.33%;
-      max-width: 33.33%;
-      width: 33.33%;
+      -ms-flex: 0 0 30%;
+      flex: 0 0 30%;
+      max-width: 30%;
+      width: 30%;
     }
 
     span:nth-child(3) {
-      -ms-flex: 0 0 33.33%;
-      flex: 0 0 33.33%;
-      max-width: 33.33%;
-      width: 33.33%;
+      -ms-flex: 0 0 30%;
+      flex: 0 0 30%;
+      max-width: 30%;
+      width: 30%;
       font-size: 14px;
       color: #2a2a2c;
     }
 
     .unbind {
-      -ms-flex: 0 0 33.33%;
-      flex: 0 0 33.33%;
-      max-width: 33.33%;
-      width: 33.33%;
+
+      width: 100px;
 
       button {
         width: 100px;
@@ -10011,4 +10009,50 @@ color: #8d8d8d;
 .lookbutton:hover {
   background-color: $hover-button;
   color: #fff;
+}
+//浏览器版本
+.information{
+  text-align: center;
+  padding: 100px 0;
+}
+.information-font{
+  font-size: 16px;
+  color: #2a2a2c;
+  width: 70%;
+  margin: 20px auto;
+  line-height: 28px;
+}
+.information-font-go{
+  font-size: 18px;
+  color: #8859d5;
+  font-weight: 600;
+}
+.information-font-go:hover{
+  color: $hover-button;
+}
+.information-img{
+  width: 30%;
+  margin: 30px auto;
+  a{
+    width: 50%;
+    display: inline-block;
+    float: left;
+    img{
+      width: 101px;
+      height: auto;
+    }
+  }
+}
+//验证失败
+.errors{
+  & > ul{
+    display: none;
+    margin-left: 10px;
+  }
+  & > ul:first-child{
+    display: block;
+  }
+}
+.parsley-errors-list{
+  margin-left: 10px;
 }

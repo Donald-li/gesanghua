@@ -46,9 +46,8 @@
 //= require 'plugin/owl.carousel.js'
 
 
-
 $(function () {
-  $("body").css("font-family","'PingFang SC', '微软雅黑', 'Microsoft YaHei', Helvetica, 'Helvetica Neue', Tahoma, Arial, sans-serif")
+    $("body").css("font-family", "'PingFang SC', '微软雅黑', 'Microsoft YaHei', Helvetica, 'Helvetica Neue', Tahoma, Arial, sans-serif")
     // head搜索
     $('.search-box .form-control').focus(function () {
         $(this).closest('.search-box').addClass('focus');
@@ -99,6 +98,17 @@ $(function () {
         $('.speciais .speciais-right .speciais-con-con .gsh-cont-2').css({"white-space": "nowrap"})
         $('.speciais .speciais-con .speciais-con-con .gsh-cont-2').css({"white-space": "nowrap"})
         $('.speciais-right .speciais-right-pos .speciais-con-con > div').css({"height": "38px"})
+    }
+    var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+    var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1; //判断是否IE<11浏览器
+    if (isIE) {
+        var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+        reIE.test(userAgent);
+        var fIEVersion = parseFloat(RegExp["$1"]);
+        if (fIEVersion < 9) {
+            window.open("http://192.168.31.73:3000/information");
+        }
+
     }
     //二维码移入移除变化
     $('.bul-top-2').mousemove(function () {
@@ -158,7 +168,8 @@ $(function () {
         top_position = parseInt((body_height / 2) - (block_height / 2) + $(window).scrollTop());
         if (body_height < block_height) {
             top_position = 0 + $(window).scrollTop();
-        };
+        }
+        ;
         if (!loaded) {
             $(window).bind('resize', function () {
                 obj.center(!loaded);
@@ -169,5 +180,5 @@ $(function () {
         }
     }
 })
-// $('.qrcode > img').attr("src","wechat-qrcode.png");
-// console.log($('.qrcode > img').src)
+
+

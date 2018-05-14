@@ -1,0 +1,2 @@
+module Site::InformationHelper
+end
