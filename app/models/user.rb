@@ -50,8 +50,8 @@ class User < ApplicationRecord
   include HasBitEnum
   ROLES = %w[superadmin admin project_manager project_operator financial_staff volunteer county_user gsh_child custom_service headmaster teacher camp_manager]
   ROLES_HASH = Hash[*ROLES.zip(%w[超级管理员 管理员 项目管理员 项目操作员 财务人员 志愿者 教育局用户 格桑花孩子 客服 校长 老师 营管理员]).flatten]
-  USER_ROLES = %w[volunteer county_user gsh_child headmaster teacher camp_manager]
-  ADMIN_ROLES = %w[superadmin admin project_manager project_operator financial_staff custom_service]
+  USER_ROLES = %w[volunteer county_user gsh_child headmaster teacher]
+  ADMIN_ROLES = %w[superadmin admin project_manager project_operator financial_staff custom_service camp_manager]
   has_bit_enum :role, ROLES, ROLES_HASH
 
   scope :admin_user, ->{where("(users.roles_mask::bit(12) & B'100000011111')::integer > 0")}
