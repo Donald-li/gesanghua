@@ -4,6 +4,11 @@
       <i class="icon-list"></i> <%= link_to @user.show_name, admin_users_path %> > 捐助记录
     </div>
     <div class="actions">
+      <div class="btn btn-xs yellow">
+        <i class="fa fa-cny"></i>
+        <span>捐助统计：<%= @user.donate_amount %></span>
+      </div>
+
       <%= link_to invoices_admin_user_path(@user), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
       <i class="icon-plus"></i>
       <span>申请发票</span>
@@ -28,7 +33,8 @@
           <% end %>
         </div>
         <div class="col-md-6 col-sm-12">
-          <div class="dataTables_filter pull-right"></div>
+          <div class="dataTables_filter pull-right">
+          </div>
         </div>
       </div>
       <div class="table-scrollable">
