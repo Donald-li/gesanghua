@@ -1298,7 +1298,19 @@ select:disabled {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
-
+//.gsh-cont-5{
+//  position: relative;
+//  height: 20px;
+//}
+//.gsh-cont-5:after{
+//  content:"..."!important;
+//  font-weight:bold;
+//  position:absolute;
+//  bottom:0;
+//  right:-5px;
+//  background-color: #fff;
+//  width:50px;
+//}
 .gsh-cont-2:hover {
   color: $color-border;
 }
@@ -2138,6 +2150,11 @@ select:disabled {
     display: block;
   }
 }
+.de-left-con-fon{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+}
 
 .detail-font-tit {
   margin-bottom: 10px;
@@ -2163,15 +2180,7 @@ select:disabled {
 
 .detail-body-title {
   margin-bottom: 15px;
-
-  & > img {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    float: left;
-  }
-
-  & > span:nth-child(3) {
+  & > span:nth-child(2) {
     margin-left: 3px;
   }
 
@@ -2179,7 +2188,7 @@ select:disabled {
     font-size: 14px;
     color: #d7d7d7;
     line-height: 28px;
-    margin-left: 12px;
+    //margin-left: 12px;
   }
 }
 
