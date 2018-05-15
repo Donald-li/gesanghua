@@ -18,7 +18,7 @@
         </div>
       </div>
     </div>
-    <%= f.input :manager_id, collection: [@camp.manager].compact.map {|u| [u.name, u.id]}, label: '负责人：', prompt: "请选择用户", input_html: {class: 'user_selector'}, required: true %>
+    <%= f.input :manager, label: '负责人：', prompt: "请选择用户", required: true %>
     <%= f.input :fund_id, collection: [@camp.fund].compact.map {|u| [u.name, u.id]}, label: '财务分类：', prompt: "请选择财务分类", input_html: {class: 'fund_selector'}, required: true %>
     <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Camp.options_for_select(:states), label: '状态：'%>
 
@@ -35,38 +35,6 @@
 
 <script type="text/javascript" charset="utf-8">
   $(function () {
-      $(".user_selector").select2({
-          language: "zh-CN",
-          placeholder: '请选择用户',
-          allowClear: true,
-          ajax: {
-              url: "/selects/users",
-              dataType: 'json',
-              delay: 250,
-              data: function (params) {
-                  return {
-                      q: params.term, // search term
-                      page: params.page
-                  };
-              },
-              processResults: function (data, params) {
-                  params.page = params.page || 1;
-                  return {
-                      results: $.map(data.items, function (item) {
-                          return {
-                              text: item.name,
-                              id: item.id
-                          }
-                      }),
-                      pagination: {
-                          more: (params.page * 30) < data.total_count
-                      }
-                  };
-              },
-              cache: true
-          }
-      });
-
       $(".fund_selector").select2({
           language: "zh-CN",
           placeholder: '请选择财务分类',

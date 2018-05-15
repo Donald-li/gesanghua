@@ -48,7 +48,7 @@ class Api::V1::OfflineDonorsController < Api::V1::BaseController
     use_nickname = params[:use_nickname][0] if params[:use_nickname].present?
     if params[:gender] == ['男']
       gender = 'male'
-    else
+    elsif params[:gender] == ['女']
       gender = 'female'
     end
     @donor = User.new(login: phone, name: name, phone: phone, gender: gender, salutation: salutation, email: email, province: province, city: city, district: district, address: address, nickname: nickname, use_nickname: use_nickname, state: 'unactived')

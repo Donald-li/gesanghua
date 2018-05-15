@@ -21,17 +21,21 @@ class Platform::School::Apply::MembersController < Platform::School::BaseControl
   def create
     @member = ProjectSeasonApplyCampMember.new(member_params.merge(apply_camp: @apply_camp, apply: @apply_camp.apply, school: @apply_camp.school, camp: @apply_camp.camp))
     respond_to do |format|
-      if ProjectSeasonApplyCampMember.allow_apply?(@apply_camp, member_params[:id_card])
-      if @member.save
-        @member.attach_image(params[:image_id])
-        @member.count_age
-        format.html { redirect_to member_list_platform_school_apply_camp_members_path, notice: '新增成功。' }
+      if params[:image_id]
+        if ProjectSeasonApplyCampMember.allow_apply?(@apply_camp, member_params[:id_card])
+          if @member.save
+            @member.attach_image(params[:image_id])
+            format.html {redirect_to member_list_platform_school_apply_camp_members_path, notice: '新增成功。'}
+          else
+            format.html {render :new}
+          end
+        else
+          flash[:alert] = '身份证号已占用'
+          format.html {render :new}
+        end
       else
-        format.html { render :new }
-      end
-      else
-        flash[:alert] = '身份证号已占用'
-        format.html { render :new }
+        flash[:alert] = '请上传安全协议'
+        format.html {render :new}
       end
     end
   end
@@ -41,17 +45,21 @@ class Platform::School::Apply::MembersController < Platform::School::BaseControl
 
   def update
     respond_to do |format|
-      if ProjectSeasonApplyCampMember.allow_apply?(@apply_camp, member_params[:id_card], @member)
-      if @member.update(member_params)
-        @member.attach_image(params[:image_id])
-        @member.count_age
-        format.html { redirect_to member_list_platform_school_apply_camp_members_path, notice: '新增成功。' }
+      if params[:image_id]
+        if ProjectSeasonApplyCampMember.allow_apply?(@apply_camp, member_params[:id_card], @member)
+          if @member.update(member_params)
+            @member.attach_image(params[:image_id])
+            format.html {redirect_to member_list_platform_school_apply_camp_members_path, notice: '新增成功。'}
+          else
+            format.html {render :edit}
+          end
+        else
+          flash[:alert] = '身份证号已占用'
+          format.html {render :edit}
+        end
       else
-        format.html { render :edit }
-      end
-      else
-        flash[:alert] = '身份证号已占用'
-        format.html { render :edit }
+        flash[:alert] = '请上传安全协议'
+        format.html {render :edit}
       end
     end
   end
@@ -59,7 +67,7 @@ class Platform::School::Apply::MembersController < Platform::School::BaseControl
   def destroy
     @member.destroy
     respond_to do |format|
-        format.html { redirect_to member_list_platform_school_apply_camp_members_path, notice: '删除成功。' }
+      format.html {redirect_to member_list_platform_school_apply_camp_members_path, notice: '删除成功。'}
     end
   end
 
@@ -79,4 +87,5 @@ class Platform::School::Apply::MembersController < Platform::School::BaseControl
   def member_params
     params.require(:project_season_apply_camp_member).permit!
   end
+
 end

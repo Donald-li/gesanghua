@@ -86,6 +86,7 @@ class Admin::PairGrantsController < Admin::BaseController
     respond_to do |format|
       if @feedback.save
         @feedback.grant!
+        @feedback.attach_images(params[:image_ids])
         format.html { redirect_to admin_pair_grants_path, notice: '发放反馈已生成。' }
       else
         format.html { render :new_feedback }
@@ -97,6 +98,7 @@ class Admin::PairGrantsController < Admin::BaseController
     @feedback = @grant.feedback
     respond_to do |format|
       if @feedback.update(content: params[:feedback][:content], state: params[:feedback][:state])
+        @feedback.attach_images(params[:image_ids])
         format.html { redirect_to admin_pair_grants_path, notice: '发放反馈已修改。' }
       else
         format.html { render :edit }

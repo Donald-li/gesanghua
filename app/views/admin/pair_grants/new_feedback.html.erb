@@ -13,11 +13,17 @@
     </div>
   </div>
   <div class="portlet-body form">
-    <%= simple_form_for [:admin, @grant, @feedback], url: create_feedback_admin_pair_grants_path, wrapper: :admin_form, html: {class: 'form-horizontal grant_form'} do |f| %>
+    <%= simple_form_for [:admin, @grant, @feedback], url: create_feedback_admin_pair_grants_path, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'form-horizontal grant_form'} do |f| %>
         <%= f.error_notification %>
         <div class="form-body">
           <%= f.hidden_field :grant_id, value: @grant.id %>
           <%= f.input :content, label: '内容：', placeholder: '请填写反馈内容', required: true %>
+          <div class="form-group">
+            <label class="col-md-2 control-label">反馈图片(最多9张)：</label>
+            <div class="col-sm-9">
+              <%= webuploader_tag 'image_ids[]', label: '上传反馈图片', type: 'feedback_image', asset: @feedback.images %>
+            </div>
+          </div>
           <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Feedback.options_for_select(:states), label: '状态：' %>
         </div>
         <div class="form-actions">
@@ -31,3 +37,10 @@
     <% end %>
   </div>
 </div>
+
+<script type="text/javascript">
+    $(function(){
+        initMultiImageWebuploader('.upload-wrap', null, 9);
+        $('.upload-list').viewer();
+    })
+</script>

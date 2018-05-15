@@ -1,7 +1,7 @@
 <div class="portlet light">
   <div class="portlet-title">
     <div class="caption">
-      <i class="icon-list"></i>探索营管理
+      <i class="icon-list"></i>分站管理
     </div>
     <div class="actions">
       <%= link_to new_admin_camp_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
@@ -61,7 +61,7 @@
                 <%= cate.simple_address %>
               </td>
               <td>
-                <%= cate.manager.try(:name) %>
+                <%= cate.manager %>
               </td>
               <td>
                 <%= cate.fund.try(:name) %>
