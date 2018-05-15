@@ -20,6 +20,10 @@ class Api::V1::Account::VouchersController < Api::V1::BaseController
     end
   end
 
+  def address
+    api_success(data: {location: [current_user.province, current_user.city, current_user.district], address: current_user.address})
+  end
+
   private
   def voucher_params
     params.require(:voucher).permit!

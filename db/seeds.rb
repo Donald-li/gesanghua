@@ -121,3 +121,4 @@ Protocol.find_or_create_by(title: '《格桑花护花项目申请协议》', ver
 Protocol.find_or_create_by(title: '《格桑花用户捐助协议》', version: '2018年版', content: '捐助协议', kind: 'donate_protocol', state: 'show')
 Protocol.find_or_create_by(title: '《格桑花志愿者申请协议》', version: '2018年版', content: '志愿者申请协议', kind: 'volunteer_apply_protocol', state: 'show')
 Protocol.find_or_create_by(title: '《格桑花用户注册协议》', version: '2018年版', content: '用户注册协议', kind: 'register_protocol', state: 'show')
+Protocol.find_or_create_by(title: '《捐赠收据申请说明》', version: '2018年版', content: '捐赠收据申请说明', kind: 'voucher_protocol', state: 'show')
