@@ -14,6 +14,13 @@ class Admin::ComplaintsController < Admin::BaseController
   def update
     respond_to do |format|
       if @complaint.update(complaint_params)
+        notice = Notification.create(
+            kind: 'handle_complaint',
+            owner: @complaint,
+            user_id: @complaint.user.id,
+            title: '举报已处理',
+            content: "#{current_user.name}已处理并备注：#{@complaint.remark}"
+        )
         format.html { redirect_to admin_complaints_path, notice: '举报已处理' }
       else
         format.html { render :edit }

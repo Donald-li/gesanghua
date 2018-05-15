@@ -21,7 +21,7 @@ class Protocol < ApplicationRecord
 
   scope :sorted, ->{order(created_at: :desc)}
 
-  enum kind: {register_protocol: 1, donate_protocol: 2, project_apply_protocol: 3, volunteer_apply_protocol: 4}#类型 1注册协议 2捐助协议 3项目申请协议 4志愿者申请协议
+  enum kind: {register_protocol: 1, donate_protocol: 2, project_apply_protocol: 3, volunteer_apply_protocol: 4, voucher_protocol: 5}#类型 1注册协议 2捐助协议 3项目申请协议 4志愿者申请协议 5捐赠收据说明
 
   enum state: {show: 1, hidden: 2}
   default_value_for :state, 1

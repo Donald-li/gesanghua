@@ -12,12 +12,13 @@
 #  remark        :text                                   # 处理备注
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  user_id       :integer
 #
 
 # 举报
 class Complaint < ApplicationRecord
   belongs_to :owner, polymorphic: true # project_season_apply;project_season_apply_child
-
+  belongs_to :user # 举报人
   enum state: {submit: 1, check: 2} # 处理状态： 1:待处理 2:已处理
   default_value_for :state, 1
 

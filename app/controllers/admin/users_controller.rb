@@ -69,7 +69,7 @@ class Admin::UsersController < Admin::BaseController
     @voucher = @user.vouchers.build(voucher_params)
     ids = Array(params[:ids])
     respond_to do |format|
-      if @voucher.save_voucher(ids)
+      if @voucher.save_voucher(@user, ids)
         format.html { redirect_to invoices_admin_user_path(@user), notice: '开票申请提交成功。' }
       else
         format.html { redirect_to invoices_admin_user_path(@user), alert: '开票申请提交失败。' }

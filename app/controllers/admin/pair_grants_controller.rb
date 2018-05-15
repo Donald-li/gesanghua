@@ -12,7 +12,7 @@ class Admin::PairGrantsController < Admin::BaseController
       format.html { @grants = scope.page(params[:page]) }
       format.xlsx {
         @grants = scope.sorted.all
-        response.headers['Content-Disposition'] = 'attachment; filename= "一对一发放列表" ' + Date.today.to_s + '.xlsx'
+        response.headers['Content-Disposition'] = 'attachment; filename= "结对发放列表" ' + Date.today.to_s + '.xlsx'
       }
     end
 

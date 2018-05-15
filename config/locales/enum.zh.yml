@@ -92,6 +92,7 @@ zh:
     donate_protocol: '捐助协议'
     project_apply_protocol: '项目申请协议'
     volunteer_apply_protocol: '志愿者申请协议'
+    voucher_protocol: '捐赠收据申请说明'
   protocol_states:
     show: '显示'
     hidden: '隐藏'

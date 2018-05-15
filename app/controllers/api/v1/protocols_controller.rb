@@ -10,6 +10,9 @@ class Api::V1::ProtocolsController < Api::V1::BaseController
     elsif params[:type] === 'volunteer-apply-protocol'
       @protocol = Protocol.volunteer_apply_protocol.show.last
       api_success(data: @protocol.summary_builder)
+    elsif params[:type] === 'voucher-protocol'
+      @protocol = Protocol.voucher_protocol.show.last
+      api_success(data: @protocol.summary_builder)
     else
       api_success(data: false)
     end
