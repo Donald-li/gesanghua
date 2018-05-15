@@ -228,19 +228,19 @@
         $("#show" + id + " .details-img").css('display', 'block')
         $('.de-left-con .de-left-con-fon').css({"white-space": "pre-wrap"})
     }
-    // //内容信息导航吸顶
-     // $(document).ready(function () {
-     //     var navHeight = $("#navHeight").offset().top;
-     //     var navFix = $("#navHeight");
-     //     $(window).scroll(function () {
-     //         if ($(this).scrollTop() > navHeight) {
-     //             navFix.addClass("navFix");
-     //         }
-     //         else {
-     //             navFix.removeClass("navFix");
-     //         }
-     //     })
-     // })
+     //内容信息导航吸顶
+      $(document).ready(function () {
+          var navHeight = $("#navHeight").offset().top;
+          var navFix = $("#navHeight");
+          $(window).scroll(function () {
+              if ($(this).scrollTop() > navHeight) {
+                  navFix.addClass("navFix");
+              }
+              else {
+                  navFix.removeClass("navFix");
+              }
+          })
+      })
      $('#share-2').share({
        sites: ['qzone', 'wechat', 'weibo', 'qq'],
        title: '<%= @project.name %>',
