@@ -121,6 +121,18 @@
         ],
         initMaximized: true
     });
+    $(document).ready(function () {
+        var navHeight = $("#navHeight").offset().top;
+        var navFix = $("#navHeight");
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > navHeight) {
+                navFix.addClass("navFix");
+            }
+            else {
+                navFix.removeClass("navFix");
+            }
+        })
+    })
     $('#dtails-cont').myTab()
     $('.circlechart').circlechart()
     function showHideCode(id) {

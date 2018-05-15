@@ -40,8 +40,9 @@
       <!-- <%= image_tag 'detail-reduce.png' %> -->
     </div>
     <!--报告-->
+    <% if @project_reports.present? %>
     <div class="pull-left detail-body-left border-l contentab">
-      <% if @project_reports.present? %>
+
       <ul class="detail-body-ul">
           <% @project_reports.each do |report| %>
             <li class="detail-body-cont" id="show<%= report.id %>">
@@ -74,20 +75,20 @@
             </li>
           <% end %>
       </ul>
-      <% else %>
-          <div class="not-available contentab pull-left">
-            <div class="donation-cont-no">
-              <div class="donation-co-no-c">
-                <div class="donation-co-no-c-img">
-                  <%= image_tag 'not-available.png' %>
-                </div>
-                <p>暂无项目报告</p>
+
+    </div>
+    <% else %>
+        <div class="not-available contentab pull-left">
+          <div class="donation-cont-no">
+            <div class="donation-co-no-c">
+              <div class="donation-co-no-c-img">
+                <%= image_tag 'not-available.png' %>
               </div>
+              <p>暂无项目报告</p>
             </div>
           </div>
-      <% end %>
-    </div>
-
+        </div>
+    <% end %>
     <div class="pull-right detail-body-right">
       <p class="detail-b-r-t border-b"><span>捐助记录</span></p>
       <% if @donate_records.present? %>
