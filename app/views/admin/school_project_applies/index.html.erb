@@ -16,16 +16,16 @@
       <div class="row">
         <div class="col-md-12 col-sm-12">
           <%= search_form_for @search, url: admin_school_school_project_applies_path, class: 'form-inline' do |f| %>
-          <div class="form-group">
-            <%= f.label :project_id_eq, '项目名称' %>
-            <%= f.select :project_id_eq, Project.all.map{|c| [c.name, c.id]}, {include_blank: '选择项目名称'}, placeholder: '', class: 'form-control' %>
-          </div>
-          <div class="form-group">
-            <%= f.label '申请时间' %>
-            <%= f.text_field :created_at_gteq, class: 'form-control datepicker', placeholder: '开始时间' %>
-            <%= f.text_field :created_at_lteq, class: 'form-control datepicker', placeholder: '结束时间' %>
-          </div>
-          <button type="submit" class="btn btn-default grey">搜索</button>
+              <div class="form-group">
+                <%= f.label :project_id_eq, '项目名称' %>
+                <%= f.select :project_id_eq, Project.all.map {|c| [c.name, c.id]}, {include_blank: '选择项目名称'}, placeholder: '', class: 'form-control' %>
+              </div>
+              <div class="form-group">
+                <%= f.label '申请时间' %>
+                <%= f.text_field :created_at_gteq, class: 'form-control datepicker', placeholder: '开始时间' %>
+                <%= f.text_field :created_at_lteq, class: 'form-control datepicker', placeholder: '结束时间' %>
+              </div>
+              <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>
         </div>
         <div class="col-md-6 col-sm-12">
@@ -92,36 +92,40 @@
                 </td>
                 <td>
                   <% if school_project_apply.teacher.present? %>
-                    <%= school_project_apply.teacher.try(:name) %>
+                      <%= school_project_apply.teacher.try(:name) %>
                   <% else %>
-                    <%= school_project_apply.try(:contact_name) %>
+                      <%= school_project_apply.try(:contact_name) %>
                   <% end %>
                 </td>
                 <td>
                   <% if school_project_apply.teacher.present? %>
-                    <%= school_project_apply.teacher.try(:phone) %>
+                      <%= school_project_apply.teacher.try(:phone) %>
                   <% else %>
-                    <%= school_project_apply.try(:contact_phone) %>
+                      <%= school_project_apply.try(:contact_phone) %>
                   <% end %>
                 </td>
                 <td>
-                  <% if school_project_apply.raise_project? %>
-                    <%= school_project_apply.enum_name(:execute_state)%>
+                  <% if school_project_apply.project == Project.pair_project || school_project_apply.project == Project.camp_project %>
+                  ----
                   <% else %>
-                    <%= school_project_apply.enum_name(:audit_state) %>
+                      <% if school_project_apply.raise_project? %>
+                          <%= school_project_apply.enum_name(:execute_state) %>
+                      <% else %>
+                          <%= school_project_apply.enum_name(:audit_state) %>
+                      <% end %>
                   <% end %>
                 </td>
                 <td>
                   <% if school_project_apply.project.id == 1 %>
-                    <% if school_project_apply.children.present? %>
-                      <%= link_to admin_pair_apply_pair_students_url(school_project_apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
-                          <i class="fa fa-list-ul"></i> 查看名单（<%= school_project_apply.children.count %>）
+                      <% if school_project_apply.children.present? %>
+                          <%= link_to admin_pair_apply_pair_students_url(school_project_apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                              <i class="fa fa-list-ul"></i> 查看名单（<%= school_project_apply.children.count %>）
+                          <% end %>
+                      <% else %>
+                          <%= link_to new_admin_pair_apply_pair_student_url(school_project_apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                              <i class="fa fa-list-ul"></i> 提交名单
+                          <% end %>
                       <% end %>
-                    <% else %>
-                      <%= link_to new_admin_pair_apply_pair_student_url(school_project_apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
-                          <i class="fa fa-list-ul"></i> 提交名单
-                      <% end %>
-                    <% end %>
                   <% end %>
                 </td>
               </tr>
