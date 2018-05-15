@@ -22,7 +22,7 @@
           <div class="pull-left">
             <%= f.input :project_season_id, as: :select, collection: Project.read_project.seasons.enable.sorted.collect {|s| [s.name, s.id]}, include_blank: '请选择申请年度', label: false, required: true, input_html: {id: 'allcamps',data: {parsley_required: true,'parsley-errors-container': '#season-errors'}} %>
           </div>
-          <div id="season-errors"></div>
+          <div id="season-errors" class="errors"></div>
         </div>
           <% else %>
           <div class="clearfix">
@@ -30,7 +30,7 @@
             <div class="pull-left">
               <%= f.input :project_season_id, as: :select, collection: Project.read_project.seasons.enable.sorted.collect {|s| [s.name, s.id]}, include_blank: '请选择申请年度', label: false, required: true, disabled: true, input_html: {id: 'allcamps',data: {parsley_required: true,'parsley-errors-container': '#season-errors'}} %>
             </div>
-            <div id="season-errors"></div>
+            <div id="season-errors" style="flex: 0 0 90%;max-width: 90%;width: 90%"></div>
           </div>
           <% end %>
         <div class="clearfix">

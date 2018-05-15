@@ -2511,6 +2511,8 @@ select:disabled {
           -ms-flex: 0 0 50%;
           flex: 0 0 50%;
           max-width: 50%;
+          width: 49%;
+          float: left;
           font-size: 12px;
           color: #4a4a4b;
 
@@ -2525,6 +2527,11 @@ select:disabled {
           padding-left: 15px;
           border-radius: 0;
         }
+      }
+      .project-body-contn:after{
+        display: block;
+        content: "";
+        clear: both;
       }
     }
   }
@@ -10049,14 +10056,33 @@ color: #8d8d8d;
 }
 //验证失败
 .errors{
+  flex: none!important;
+  max-width: none !important;
+  width: auto !important;
   & > ul{
     display: none;
-    margin-left: 10px;
+
+    li{
+      i{
+        margin-left: 10px;
+      }
+    }
   }
   & > ul:first-child{
     display: block;
   }
 }
 .parsley-errors-list{
-  margin-left: 10px;
+  li{
+    i{
+      margin-left: 10px;
+    }
+  }
+  .parsley-phone{
+    margin-left: 10px;
+  }
+  .parsley-shenfen{
+    margin-left: 10px;
+  }
 }
+

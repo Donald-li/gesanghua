@@ -11,9 +11,9 @@
         <div class="clearfix">
           <span class="goodtext pull-left">申请批次</span>
           <div id="doodname" class="pull-left">
-            <%= f.input :project_season_id, as: :select, collection: Project.movie_project.seasons.enable.sorted.collect{|s| [s.name, s.id]}, include_blank: '请选择申请年度', label: false, required: true, input_html: {id: 'allcamps',data: {parsley_required: true,'parsley-errors-container': '#season-errors'}} %>
+            <%= f.input :project_season_id, as: :select, collection: Project.movie_project.seasons.enable.sorted.collect{|s| [s.name, s.id]}, include_blank: '请选择申请年度', label: false,  input_html: {id: 'allcamps',data: {parsley_required: true,'parsley-errors-container': '#season-errors'}} %>
           </div>
-          <div id="season-errors"></div>
+          <div id="season-errors" class="errors"></div>
         </div>
         <div class="clearfix">
           <span class="goodtext pull-left">学生总数</span>

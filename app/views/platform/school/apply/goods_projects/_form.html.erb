@@ -13,7 +13,7 @@
       <div class="pull-left">
         <%= f.input :project_season_id, as: :select, collection: @current_project.seasons.enable.sorted.collect {|s| [s.name, s.id]}, include_blank: '请选择申请年度', label: false,  input_html: {id: 'season-id', data: {parsley_required: true,'parsley-errors-container': '#season-errors'}} %>
       </div>
-      <div id="season-errors"></div>
+      <div id="season-errors" class="errors"></div>
     </div>
     <!--<div>-->
       <!--<span class="goodtext">学生总数</span>-->

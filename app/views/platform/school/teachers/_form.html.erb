@@ -38,7 +38,7 @@
           <div style="-ms-flex: 0 0 70%;flex: 0 0 70%;max-width: 70%;width:70%;" class="pull-left">
             <%= f.input :project_ids, as: :select, collection: Project.sorted.map {|c| [c.name, c.id]}, include_blank: false, label: false, input_html: {id: 'select2_project', multiple: true, data: {'parsley-required': true,'parsley-errors-container': '#season-errors'}}, class: 'goodinput pull-left'%>
           </div>
-          <div id="season-errors"></div>
+          <div id="season-errors" class="errors"></div>
         </div>
         <div style="margin: -16px 0 0 0 ;">
           <p class="posarrmarl">*项目权限可多选*</p>
