@@ -11,9 +11,9 @@
     <div class="clearfix" >
       <span class="goodtext pull-left">申请年度</span>
       <div class="pull-left">
-        <%= f.input :project_season_id, as: :select, collection: @current_project.seasons.enable.sorted.collect {|s| [s.name, s.id]}, include_blank: '请选择申请年度', label: false, required: true, input_html: {id: 'season-id'} %>
+        <%= f.input :project_season_id, as: :select, collection: @current_project.seasons.enable.sorted.collect {|s| [s.name, s.id]}, include_blank: '请选择申请年度', label: false,  input_html: {id: 'season-id', data: {parsley_required: true,'parsley-errors-container': '#season-errors'}} %>
       </div>
-
+      <div id="season-errors" class="errors"></div>
     </div>
     <!--<div>-->
       <!--<span class="goodtext">学生总数</span>-->
@@ -64,10 +64,12 @@
     <div  class="clearfix">
       <span class="goodtext pull-left">收货地区</span>
       <div class="city-group pull-left">
-        <%= select_tag 'project_season_apply[province]', options_for_select(ChinaCity.list, @apply.province.presence), prompt: '省份', class: "city-select", id: 'province', data: {parsley_required: true} %>
-        <%= select_tag 'project_season_apply[city]', options_for_select(ChinaCity.list(@apply.province.to_s), @apply.city.presence), prompt: '城市', class: "city-select", id: 'city', data: {parsley_required: true} %>
-        <%= select_tag 'project_season_apply[district]', options_for_select(ChinaCity.list(@apply.city.to_s), @apply.district.presence), prompt: '地区', class: "city-select", id: 'district', data: {parsley_required: true} %>
+        <%= select_tag 'project_season_apply[province]', options_for_select(ChinaCity.list, @apply.province.presence), prompt: '省份', class: "city-select", id: 'province', data: {parsley_required: true,'parsley-errors-container': '#distirct-errors'} %>
+        <%= select_tag 'project_season_apply[city]', options_for_select(ChinaCity.list(@apply.province.to_s), @apply.city.presence), prompt: '城市', class: "city-select", id: 'city', data: {parsley_required: true, 'parsley-errors-container': '#distirct-errors'} %>
+        <%= select_tag 'project_season_apply[district]', options_for_select(ChinaCity.list(@apply.city.to_s), @apply.district.presence), prompt: '地区', class: "city-select", id: 'district', data: {parsley_required: true,'parsley-errors-container': '#distirct-errors'} %>
+
       </div>
+      <div id="distirct-errors" class="errors"></div>
     </div>
     <div  class="clearfix">
       <span class="goodtext pull-left">详细地址</span>

@@ -1,0 +1,17 @@
+<div class="information" style="min-height: 600px;">
+  <h2>Hi，你的浏览器版本过低</h2>
+  <div class="information-font">
+    <p>为了能得到我们网站最好的体验效果,</p>
+    <p >我们建议您升级到最新版本的IE浏览器或尝试一下其他浏览器</p>
+  </div>
+  <!--<%#= link_to  do %><span class="information-font-go ">>> 去升级</span><%# end %>-->
+  <div class="information-img clearfix">
+    <%= link_to 'https://www.google.cn/chrome/' do %>
+        <%= image_tag 'google_chrome.png' %>
+    <% end %>
+    <%= link_to 'http://www.firefox.com.cn/' do %>
+        <%= image_tag 'firefox.png' %>
+    <% end %>
+  </div>
+
+</div>
