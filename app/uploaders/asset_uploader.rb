@@ -28,7 +28,7 @@ class AssetUploader < CarrierWave::Uploader::Base
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_white_list
-    %w(pdf doc xls ppt docx xlsx pptx wps zip rar 7z)
+    %w(pdf doc xls ppt docx xlsx pptx wps zip rar 7z jpg png jpeg)
   end
 
   protected

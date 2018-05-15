@@ -17,12 +17,8 @@ class Admin::CampsController < Admin::BaseController
 
   def create
     @camp = Camp.new(camp_params)
-    user = User.find(camp_params[:manager_id])
     respond_to do |format|
       if @camp.save
-        user.camp_id = @camp.id
-        user.add_role(:camp_manager)
-        user.save
         format.html { redirect_to admin_camps_path, notice: '新增成功。' }
       else
         format.html { render :new }
@@ -31,10 +27,8 @@ class Admin::CampsController < Admin::BaseController
   end
 
   def update
-    user = User.find(camp_params[:manager_id])
     respond_to do |format|
       if @camp.update(camp_params)
-        user.update(camp_id: @camp.id)
         format.html { redirect_to admin_camps_path, notice: '修改成功。' }
       else
         format.html { render :edit }

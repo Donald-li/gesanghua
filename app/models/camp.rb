@@ -8,23 +8,22 @@
 #  city       :string                                 # 市
 #  district   :string                                 # 区、县
 #  fund_id    :integer                                # 资金id
-#  manager_id :integer                                # 负责人id
 #  state      :integer                                # 状态：1:启用 2:禁用）
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  manager    :string                                 # 负责人
 #
 
 class Camp < ApplicationRecord
   has_paper_trail only: [:name, :province, :city, :district, :fund_id, :manager_id, :state]
 
   belongs_to :fund
-  belongs_to :manager, class_name: 'User', foreign_key: :manager_id
   has_many :applies, class_name: 'ProjectSeasonApply', dependent: :restrict_with_error
-  has_many :users
+  has_many :users, dependent: :nullify
   has_many :camp_project_resources
   has_many :apply_camps, class_name: 'ProjectSeasonApplyCamp'
 
-  validates :name, :province, :city, :district, presence: true
+  validates :name, :province, :manager, :city, :district, presence: true
 
   enum state: {enable: 1, disable: 2} #状态 1:启用 2:禁用
   default_value_for :state, 1
