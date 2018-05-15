@@ -13,7 +13,7 @@
     </div>
   </div>
   <div class="portlet-body form">
-    <%= simple_form_for [:admin, @grant], url: admin_pair_grant_path, wrapper: :admin_form, html: {class: 'form-horizontal grant_form'} do |f| %>
+    <%= simple_form_for [:admin, @grant], url: admin_pair_grant_path, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'form-horizontal grant_form'} do |f| %>
         <%= f.error_notification %>
         <div class="form-body">
           <div class="form-group">

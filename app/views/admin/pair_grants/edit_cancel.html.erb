@@ -13,12 +13,12 @@
     </div>
   </div>
   <div class="portlet-body form">
-    <%= simple_form_for [:admin, @grant], url: update_cancel_admin_pair_grant_path, wrapper: :admin_form, html: {class: 'form-horizontal grant_form'} do |f| %>
+    <%= simple_form_for [:admin, @grant], url: update_cancel_admin_pair_grant_path, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'form-horizontal grant_form'} do |f| %>
         <%= f.error_notification %>
         <div class="form-body">
           <%= static_form_control '学生姓名：', @grant.try(:gsh_child).try(:name) %>
           <%#= f.input :balance_manage, as: :radio_buttons, wrapper: :inline_inputs, collection: GshChildGrant.options_for_some_select(:balance_manages, ['send_back']), label: '余款动向：' %>
-          <%= f.input :cancel_reason, as: :select, collection: GshChildGrant.options_for_enum_select(:cancel_reasons), label: '取消捐助原因：', include_blank: '请填写原因', required: true %>
+          <%= f.input :cancel_reason, as: :select, collection: GshChildGrant.options_for_enum_select(:cancel_reasons), label: '取消捐助原因：', include_blank: '请选择原因', required: true %>
           <%= f.input :cancel_remark, label: '取消捐助说明：', placeholder: '请填写详细说明', required: true %>
         </div>
         <div class="form-actions">

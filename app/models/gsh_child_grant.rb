@@ -57,7 +57,7 @@ class GshChildGrant < ApplicationRecord
   enum state: {waiting: 1, granted: 2, suspend: 3, cancel: 4}
   default_value_for :state, 1
 
-  enum cancel_reason: {leave: 1, absence: 2, transfor: 3, vacate: 4, other: 5} # 1:请假 2:休学 3:转学 4:学校放假 5:其他
+  enum cancel_reason: {drop_out: 1, demand: 2} # 1:辍学 2:捐助人要求
 
   enum donate_state: {pending: 1, succeed: 2, refund: 3, close: 4} # 捐助状态：1:未筹款 2:已筹款 4:关闭
   default_value_for :donate_state, 1
