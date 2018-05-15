@@ -44,7 +44,7 @@
       <% if @project_reports.present? %>
       <ul class="detail-body-ul">
           <% @project_reports.each do |report| %>
-            <li class="detail-body-cont" id="<%= report.id %>">
+            <li class="detail-body-cont" id="show<%= report.id %>">
               <span class="detail-body-hover iconfont icon-yuan"></span>
               <div class="clearfix detail-font-tit">
                 <p class="pull-left"><%= report.title %></p>
@@ -60,7 +60,7 @@
                 <span class="pull-left"><%= report.published_at.strftime("%Y-%m-%d")%>由发布</span>
               </div>
               <div class="de-left-con read-more clearfix">
-                <p><%= report.content %></p>
+                <div class="de-left-con-fon"><%= report.content %></div>
                 <div class="clearfix details-img">
                   <% if report.images.present? %>
                     <% report.images.each do |img|%>
@@ -119,9 +119,10 @@
     $('#dtails-cont').myTab()
     $('.circlechart').circlechart()
     function showHideCode(id) {
-        $("#" + id + " > .de-left-con").toggleClass('read-more')
-        $("#" + id + " > .detail-font-tit > span").css('display', 'none')
-        $("#" + id + " .details-img").css('display', 'block')
+        $("#show" + id + " .de-left-con").removeClass('read-more')
+        $("#show" + id + " .detail-font-tit > span").css('display', 'none')
+        $("#show" + id + " .details-img").css('display', 'block')
+        $('.de-left-con .de-left-con-fon').css({"white-space": "pre-wrap"})
     }
     // //内容信息导航吸顶
      $(document).ready(function () {

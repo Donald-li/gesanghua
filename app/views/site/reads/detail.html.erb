@@ -106,7 +106,7 @@
           <div class="pull-left detail-body-left border-l contentab">
             <ul class="detail-body-ul">
               <% @feedbacks.each do |feedback| %>
-                  <li class="detail-body-cont" id="<%= feedback.id %>">
+                  <li class="detail-body-cont" id="show<%= feedback.id %>">
                     <span class="detail-body-hover iconfont icon-yuan"></span>
                     <div class="clearfix detail-font-tit">
                       <p class="pull-left"><%= feedback.bookshelf.classname %></p>
@@ -121,8 +121,8 @@
                       <span class="pull-left"><%= feedback.user.show_name %> ·</span>
                       <span class="pull-left"><%= feedback.created_at.strftime("%Y-%m-%d") %>发布</span>
                     </div>
-                    <div class="de-left-con  clearfix" id="showdiv">
-                      <p class="read-more"><%= feedback.content %></p>
+                    <div class="de-left-con read-more clearfix" id="showdiv">
+                      <div class="de-left-con-fon"><%= feedback.content %></div>
                       <div class="clearfix details-img">
                         <% if feedback.images.present? %>
                             <% feedback.images.each do |img| %>
@@ -240,9 +240,10 @@
     $('#dtails-cont').myTab()
 
     function showHideCode(id) {
-        $("#" + id + " > .de-left-con").toggleClass('read-more')
-        $("#" + id + " > .detail-font-tit > span").css('display', 'none')
-        $("#" + id + " .details-img").css('display', 'block')
+        $("#show" + id + " .de-left-con").removeClass('read-more')
+        $("#show" + id + " .detail-font-tit > span").css('display', 'none')
+        $("#show" + id + " .details-img").css('display', 'block')
+        $('.de-left-con .de-left-con-fon').css({"white-space": "pre-wrap"})
     }
 
     $(".check_label").checkbox();

@@ -45,7 +45,6 @@
 //= require 'plugin/scroll.1.3.js'
 //= require 'plugin/owl.carousel.js'
 
-
 $(function () {
     $("body").css("font-family", "'PingFang SC', '微软雅黑', 'Microsoft YaHei', Helvetica, 'Helvetica Neue', Tahoma, Arial, sans-serif")
     // head搜索
@@ -99,6 +98,7 @@ $(function () {
         $('.speciais .speciais-con .speciais-con-con .gsh-cont-2').css({"white-space": "nowrap"})
         $('.speciais-right .speciais-right-pos .speciais-con-con > div').css({"height": "38px"})
     }
+
     var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
     var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1; //判断是否IE<11浏览器
     if (isIE) {
