@@ -24,12 +24,12 @@
                 <%= f.select :school_id_eq, School.all_to_hash, {include_blank: '全部'}, class: 'form-control schools-ajax' %>
               </div>
               <div class="form-group">
-                <%= f.label :state_eq, '发放状态' %>
-                <%= f.select :state_eq, GshChildGrant.options_for_select(:states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
-              </div>
-              <div class="form-group">
                 <%= f.label :donate_state_eq, '筹款状态' %>
                 <%= f.select :donate_state_eq, GshChildGrant.options_for_select(:donate_states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
+              </div>
+              <div class="form-group">
+                <%= f.label :state_eq, '发放状态' %>
+                <%= f.select :state_eq, GshChildGrant.options_for_select(:states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
               </div>
               <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>
