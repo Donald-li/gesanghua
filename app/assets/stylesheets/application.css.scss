@@ -9499,11 +9499,22 @@ color: #8d8d8d;
     color: #fff;
     font-size: 16px;
   }
+  textarea {
+    margin-top: 10px;
+    width: 100%;
+    height: 80px;
+    border-radius: 3px;
+    border: 1px solid $border;
+    font-size: 14px;
+    color: #3d3d40;
+    resize: none;
+  }
 }
 
 .modal-content .modal-footer {
   text-align: center;
   border: none;
+  padding: 15px 15px 24px 15px;
 }
 //关于我们
 

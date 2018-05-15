@@ -62,7 +62,7 @@
                 </div>
 
                 <div class=" border-r border-l pull-left">
-                  <button class="recommend-but" onclick="setChildReason(<%= child.id %>, '<%= child.reason %>')">填写推荐理由</button>
+                  <button class="recommend-but" data-toggle="modal" data-target="#myModal" onclick="setChildReason(<%= child.id %>, '<%= child.reason %>')">填写推荐理由</button>
                 </div>
                 <div class="pull-left" style="    padding: 10px 0;">
                   <%= link_to edit_platform_school_apply_pair_child_path(@apply, child),class:'lookbutton',style:'margin-bottom:10px;' do %>
@@ -94,26 +94,32 @@
       </div>
     </div>
   </div>
-  <div class="overspread-4">
-    <div class="overspread-over"></div>
-    <div class="overspread-cont">
-      <div class="clearfix">
-        <div class="pull-left mys-1">填写推荐理由</div>
-        <div class="pull-right iconfont icon-icondelete cur overspread-but"></div>
-      </div>
-      <div class="overspread-co">
-        <input type="number" hidden name="child_id" id="child-id">
-        <textarea placeholder="请写你对学生的推荐理由" id="reason"></textarea>
-      </div>
-      <div style="text-align: center;">
-      <button class="overspread-but  over-but" id="submit-child-reason">确认</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="width: auto;">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" class="detail-icon">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">填写推荐理由</h4>
+        </div>
+        <div class="modal-body">
+
+            <input type="number" hidden name="child_id" id="child-id">
+            <textarea placeholder="请写你对学生的推荐理由" id="reason"></textarea>
+
+        </div>
+        <div class="modal-footer overspreads-but">
+          <button class="overspread-but  over-but" id="submit-child-reason">确认</button>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 <script type="text/javascript">
-    $('.overspread-4').overs(".recommend-but");
+//    $('.overspread-4').overs(".recommend-but");
     $(function () {
         $("#checkedse").click(function () {
             var isChecked = $("#checkedse").prop("checked");

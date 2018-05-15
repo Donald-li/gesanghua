@@ -49,7 +49,7 @@
     </ul>
   </div>
   <div class="transfers-button">
-    <button class="class-button">立即移交</button>
+    <button class="class-button" data-toggle="modal" data-target="#myModal">立即移交</button>
   </div>
   </div>
 
@@ -63,28 +63,31 @@
     </div>
   </div>
   <% end %>
-  <div class="overspread-3">
-    <div class="overspread-over"></div>
-    <div class="overspread-cont">
-      <div class="clearfix">
-        <div class="pull-left mys-1"></div>
-        <div class="pull-right iconfont icon-icondelete cur overspread-but"></div>
-      </div>
-      <div class="overspread-co">
-        <p class="over-fontns">确定移交团队？</p>
-      </div>
-      <div class="overspreads-but">
-        <button onclick="turnTeam()">确定</button>
-        <button class="overspread-but">取消</button>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom: none;">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" class="detail-icon">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel"></h4>
+        </div>
+        <div class="modal-body">
+          <div class="overspread-co">
+            <p class="over-fontns">确定移交团队？</p>
+          </div>
+        </div>
+        <div class="modal-footer overspreads-but">
+          <button class="succeed" onclick="turnTeam()">确认</button>
+          <button class="defeated" data-dismiss="modal">取消</button>
+        </div>
       </div>
     </div>
-
   </div>
 
 </div>
 <script>
     $('.ui-choose').ui_choose();
-    $('.overspread-3').overs(".class-button");
     function turnTeam () {
       var user_id = $('.ui-choose .selected').attr('UserId');
       if (user_id) {
