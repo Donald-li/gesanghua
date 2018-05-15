@@ -38,6 +38,10 @@ class Admin::CampsController < Admin::BaseController
 
   def destroy
     respond_to do |format|
+      @camp.users.each do |user|
+        user.remove_role(:camp_manager)
+        user.save
+      end
       if @camp.destroy
         format.html { redirect_to admin_camps_path, notice: '删除成功。' }
       else
