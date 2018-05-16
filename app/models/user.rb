@@ -49,7 +49,7 @@ class User < ApplicationRecord
 
   include HasBitEnum
   ROLES = %w[superadmin admin project_manager project_operator financial_staff volunteer county_user gsh_child custom_service headmaster teacher camp_manager]
-  ROLES_HASH = Hash[*ROLES.zip(%w[超级管理员 管理员 项目管理员 项目操作员 财务人员 志愿者 教育局用户 格桑花孩子 客服 校长 老师 营管理员]).flatten]
+  ROLES_HASH = Hash[*ROLES.zip(%w[超级管理员 管理员 项目管理员 项目操作员 财务人员 志愿者 教育局用户 格桑花孩子 客服 学校负责人 老师 营管理员]).flatten]
   USER_ROLES = %w[volunteer county_user gsh_child headmaster teacher camp_manager]
   ADMIN_ROLES = %w[superadmin admin project_manager project_operator financial_staff custom_service]
   has_bit_enum :role, ROLES, ROLES_HASH
@@ -357,7 +357,7 @@ class User < ApplicationRecord
     Jbuilder.new do |json|
       json.(self, :id, :phone, :name, :nickname)
       json.school_name self.try(:teacher).try(:school).try(:name)
-      json.kind self.try(:teacher).kind == 'headmaster'? '校长' : '教师'
+      json.kind self.try(:teacher).kind == 'headmaster'? '学校负责人' : '教师'
       json.show_name self.show_name
       json.user_avatar do
         json.id self.try(:avatar).try(:id)

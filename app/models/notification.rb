@@ -79,7 +79,7 @@ class Notification < ApplicationRecord
       title = '审核通知'
       template_id = Settings.wechat_template_project
       keyword1 = self.project.try(:name)
-      url = "#{Settings.m_root_url}/cooperation"
+      url = "#{Settings.m_root_url}/gesanghua+"
     when 'exception_record'
       title = '异常提醒'
       template_id = Settings.wechat_template_notify

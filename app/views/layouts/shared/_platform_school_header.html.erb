@@ -11,7 +11,7 @@
     <p><%= current_user.show_name %></p>
     <div class="person-h-cont-d">
       <% if current_user.headmaster? %>
-        <p class="person-h-cont-d-pairs"><%= current_user.try(:school).try(:name) %> | <span class="iconfont icon-ico-role- "></span>校长</p>
+        <p class="person-h-cont-d-pairs"><%= current_user.try(:school).try(:name) %> | <span class="iconfont icon-ico-role- "></span>负责人</p>
       <% elsif current_user.teacher? %>
         <p class="person-h-cont-d-pairs"><%= current_user.try(:teacher).try(:school).try(:name) %> | <span class="iconfont icon-ico-role- "></span>教师</p>
       <% end %>

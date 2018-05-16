@@ -7,7 +7,7 @@
     <% else %>
       <%= static_form_control '学校申请人：', @school.try(:creater).try(:name) %>
     <% end %>
-    <%= f.input :user_id, collection: [@school.user].compact.map {|u| [u.name, u.id]}, label: '指定为校长：', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
+    <%= f.input :user_id, collection: [@school.user].compact.map {|u| [u.name, u.id]}, label: '指定为学校负责人：', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
     <div style="margin-bottom: 20px;" class="form-group">
       <label class="col-md-2 control-label select required" for="project_category_id">所在地区：</label>
       <div class="col-sm-6">
@@ -27,9 +27,9 @@
     <%= f.input :address, label: '通信地址：', placeholder: '通信地址', input_html: { data: {'parsley-required': true}} %>
     <%= f.input :postcode, label: '邮政编码：', placeholder: '邮政编码', input_html: { data: {'parsley-required': true}} %>
     <%#= static_form_control '校长姓名：', @school.contact_name %>
-    <%= f.input :contact_name, label: '校长姓名：', placeholder: '校长姓名', input_html: { data: {'parsley-required': true}} %>
-    <%= f.input :contact_id_card, label: '校长身份证号码：', placeholder: '校长身份证号码', input_html: { data: {'parsley-required': true}} %>
-    <%= f.input :contact_phone, label: '校长手机号码：', placeholder: '校长手机号码', input_html: { data: {'parsley-required': true}} %>
+    <%= f.input :contact_name, label: '学校负责人姓名：', placeholder: '负责人姓名', input_html: { data: {'parsley-required': true}} %>
+    <%= f.input :contact_id_card, label: '负责人身份证号码：', placeholder: '身份证号码', input_html: { data: {'parsley-required': true}} %>
+    <%= f.input :contact_phone, label: '负责人手机号码：', placeholder: '手机号码', input_html: { data: {'parsley-required': true}} %>
     <%= f.input :number, label: '学生人数：', placeholder: '学生人数', input_html: { data: {'parsley-required': true}, type: 'number', min: 0} %>
     <%= f.input :teacher_count, label: '教师人数：', placeholder: '教师人数', input_html: { data: {'parsley-required': true}, type: 'number', min: 0} %>
     <%= f.input :logistic_count, label: '后勤人数：', placeholder: '后勤人数', input_html: { data: {'parsley-required': true}, type: 'number', min: 0} %>
