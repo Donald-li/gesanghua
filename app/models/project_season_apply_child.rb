@@ -347,7 +347,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
       json.description self.description
       json.donate_grants self.donate_record_builder
       json.grants do # 发放记录
-        json.array! self.gsh_child_grants.granted.order(granted_at: :asc) do |grant|
+        json.array! self.gsh_child_grants.granted.sorted do |grant|
           json.(grant, :id)
           json.(grant, :amount)
           json.reporter grant.grant_person
