@@ -7,6 +7,13 @@ class Admin::PairStudentsController < Admin::BaseController
     @search = @project_apply.children.where(school: @project_apply.school).check_list.sorted.ransack(params[:q])
     scope = @search.result
     @children = scope.page(params[:page])
+    respond_to do |format|
+      format.html { @children = scope.page(params[:page]) }
+      format.xlsx {
+        @children = scope.all
+        response.headers['Content-Disposition'] = 'attachment; filename=' + @project_apply.school.try(:name) + '孩子名单' + Date.today.to_s + '.xlsx'
+      }
+    end
   end
 
   def show
