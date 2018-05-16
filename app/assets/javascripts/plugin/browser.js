@@ -19,7 +19,7 @@ $(function(){
     if (navigator.userAgent.indexOf('Firefox') >= 0) {
         $('.read-more').css({"white-space": "nowrap"})
         $('.read-more').addClass('gsh-cont-5')
-
+        $('#owl-article .owl-item .item .gsh-cont-2').css({"white-space": "nowrap"})
         $('.redundance').css({"white-space": "nowrap"})
         $('.redundance').addClass('gsh-cont-5')
         $('.project-cont-con').css({"white-space": "nowrap"})
