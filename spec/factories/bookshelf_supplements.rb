@@ -16,6 +16,7 @@
 #  audit_state                       :integer                                # 审核状态
 #  show_state                        :integer                                # 显示状态
 #  project_id                        :integer                                # 项目id
+#  management_fee_state              :integer                                # 计提管理费状态
 #
 
 FactoryBot.define do
