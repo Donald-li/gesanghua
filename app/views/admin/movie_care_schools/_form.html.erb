@@ -20,9 +20,10 @@
                 <%= f.input :student_number, label: '受益学生数：', placeholder: '', required: true, input_html: {type: 'number', min: 0} %>
                 <%= f.input :describe, label: '申请理由：', placeholder: '', required: true %>
                 <div class="form-group">
-                  <label class="col-md-2 control-label"></label>
+                  <label class="col-md-2 control-label">申请图片</label>
                   <div class="col-sm-9">
                     <%= webuploader_tag 'image_ids[]', label: '照片', type: 'project_season_apply_image', asset: @project_apply.images %>
+                    <p class="help-block">支持上传png、jpg格式 ，图片尺寸960X552px</p>
                   </div>
                 </div>
                 <%= f.input :contact_name, label: '联系人：', placeholder: '', required: true %>

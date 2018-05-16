@@ -7,6 +7,7 @@
         <label class="col-md-2 control-label">任务封面：</label>
         <div class="col-sm-9">
           <%= webuploader_tag :cover_id, label: '上传封面', type: 'task_cover', asset: @task.cover, klass: 'single' %>
+          <p class="help-block">支持上传png、jpg格式 ，图片尺寸960X552px</p>
         </div>
       </div>
       <div class="form-group">

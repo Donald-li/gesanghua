@@ -50,13 +50,13 @@
                   <% if params[:kind] == 'by_phone' %>
                       <span class="pull-left cur longin-1">账号注册</span>
                       <%= link_to new_account_registration_path(kind: 'by_email') do %>
-                          <span class="pull-right cur longin-2">海外邮箱注册</span>
+                          <span class="pull-right cur longin-2 longin-hover">海外邮箱注册</span>
                       <% end %>
                   <% end %>
                   <% if params[:kind] == 'by_email' %>
                       <span class="pull-left cur longin-1">邮箱注册</span>
                       <%= link_to new_account_registration_path(kind: 'by_phone') do %>
-                          <span class="pull-right cur longin-2">账号注册</span>
+                          <span class="pull-right cur longin-2 longin-hover">账号注册</span>
                       <% end %>
                   <% end %>
                 </p>
@@ -107,7 +107,7 @@
                 </div>
               </div>
               <div class="longin-right">
-                <p class="longin-margin">已有账号，<strong class="cur"><%= link_to account_login_path do %>立即登录
+                <p class="longin-margin">已有账号，<strong class="cur"><%= link_to account_login_path,class:'longin-hover' do %>立即登录
                   <% end %></strong></p>
                 <p class="longin-margin">or</p>
                 <p class="longin-icon cur">
