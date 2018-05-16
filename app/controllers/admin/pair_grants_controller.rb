@@ -9,7 +9,7 @@ class Admin::PairGrantsController < Admin::BaseController
     scope = scope.includes(:school, :gsh_child)
 
     respond_to do |format|
-      format.html { @grants = scope.page(params[:page]) }
+      format.html {@grants = scope.page(params[:page])}
       format.xlsx {
         @grants = scope.sorted.all
         response.headers['Content-Disposition'] = 'attachment; filename= "结对发放列表" ' + Date.today.to_s + '.xlsx'
@@ -17,6 +17,7 @@ class Admin::PairGrantsController < Admin::BaseController
     end
 
   end
+
   #
   # def excel_output
   #   ExcelOutput.pair_grants_output
@@ -38,12 +39,12 @@ class Admin::PairGrantsController < Admin::BaseController
 
   def update
     respond_to do |format|
-      @grant.attach_images(params[:image_ids])
       if @grant.update(grant_params)
+        @grant.attach_images(params[:image_ids])
         @grant.granted!
-        format.html { redirect_to admin_pair_grants_path, notice: '操作成功。' }
+        format.html {redirect_to admin_pair_grants_path, notice: '操作成功。'}
       else
-        format.html { render :edit }
+        format.html {render :edit}
       end
     end
   end
@@ -54,21 +55,16 @@ class Admin::PairGrantsController < Admin::BaseController
   def edit_cancel
   end
 
-  def new_feedback
-    @feedback = @grant.build_feedback
-  end
-
   def edit_feedback
-    @feedback = @grant.feedback
   end
 
   def update_delay
     respond_to do |format|
       if @grant.update(grant_params)
         @grant.suspend!
-        format.html { redirect_to admin_pair_grants_path, notice: '操作成功。' }
+        format.html {redirect_to admin_pair_grants_path, notice: '操作成功。'}
       else
-        format.html { render :edit }
+        format.html {render :edit_delay}
       end
     end
   end
@@ -77,62 +73,35 @@ class Admin::PairGrantsController < Admin::BaseController
     respond_to do |format|
       if @grant.update(grant_params.merge(operator_id: current_user.id))
         @grant.do_refund!
-        format.html { redirect_to admin_pair_grants_path, notice: '操作成功。' }
+        format.html {redirect_to admin_pair_grants_path, notice: '操作成功。'}
       else
-        format.html { render :edit }
-      end
-    end
-  end
-
-  def create_feedback
-    @grant = GshChildGrant.find(params[:feedback][:grant_id])
-    @feedback = @grant.build_feedback(content: params[:feedback][:content], state: params[:feedback][:state])
-    @feedback.user = current_user
-    @feedback.project = Project.pair_project
-    @feedback.project_season_apply_id = @grant.project_season_apply_id
-    @feedback.project_season_apply_child_id = @grant.project_season_apply_child_id
-    respond_to do |format|
-      if @feedback.save
-        @feedback.grant!
-        @feedback.attach_images(params[:image_ids])
-        format.html { redirect_to admin_pair_grants_path, notice: '发放反馈已生成。' }
-      else
-        format.html { render :new_feedback }
+        format.html {render :edit_cancel}
       end
     end
   end
 
   def update_feedback
-    @feedback = @grant.feedback
     respond_to do |format|
-      if @feedback.update(content: params[:feedback][:content], state: params[:feedback][:state])
-        @feedback.attach_images(params[:image_ids])
-        format.html { redirect_to admin_pair_grants_path, notice: '发放反馈已修改。' }
+      if @grant.update(grant_params)
+        @grant.attach_images(params[:image_ids])
+        format.html {redirect_to admin_pair_grants_path, notice: '发放反馈已修改。'}
       else
-        format.html { render :edit }
+        format.html {render :edit_feedback}
       end
     end
   end
 
-  # def destroy
-  #   @grant.destroy
-  #   respond_to do |format|
-  #     format.html { redirect_to admin_pair_grants_path, notice: '项目报告已删除。' }
-  #   end
-  # end
-
-
   private
-    def set_grant
-      @grant = GshChildGrant.find(params[:id])
-    end
+  def set_grant
+    @grant = GshChildGrant.find(params[:id])
+  end
 
-    def grant_params
-      params.require(:gsh_child_grant).permit!
-    end
+  def grant_params
+    params.require(:gsh_child_grant).permit!
+  end
 
-    def check_auth
-      auth_operate_project(Project.pair_project)
-    end
+  def check_auth
+    auth_operate_project(Project.pair_project)
+  end
 
 end
