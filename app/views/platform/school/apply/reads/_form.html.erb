@@ -81,7 +81,7 @@
               </div>
           <% end %>
         </div>
-        <button type="button" class="school-apply-share-sub addnewclass">
+        <button type="button" class="school-apply-share-sub addnewclass"  data-toggle="modal" data-target="#myModal">
           <span class="iconfont icon-ico-add1"></span>
           <span>新增申请班级</span>
         </button>
@@ -138,51 +138,66 @@
     </div>
 
 <% end %>
-<div class="overspread-5 overspread-e">
-  <div class="overspread-over"></div>
-  <div class="overspread-cont">
-    <div class="clearfix">
-      <div class="pull-left mys-1">编辑申请班级</div>
-      <div class="pull-right iconfont icon-icondelete cur overspread-but"></div>
-    </div>
-    <div class="overspread-co" id="edit-bookshelf">
-      <input type="number" name="bookshelf_id" id="bookshelf-id" hidden>
-      <div>
-        <p class="goodtext">班级名称</p>
-        <input type="text" name="classname" id="classname" required/>
+<div class="modal fade" id="offlineModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width: auto;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="detail-icon">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">编辑申请班级</h4>
       </div>
-      <div>
-        <p class="goodtext">班级人数</p>
-        <input type="number" name="student_number" id="student-number" min="0" required/>
+      <div class="modal-body" style="padding: 0 15px 15px 15px;">
+
+        <div  id="edit-bookshelf">
+          <input type="number" name="bookshelf_id" id="bookshelf-id" hidden>
+          <div>
+            <p class="goodtext">班级名称</p>
+            <input type="text" name="classname" id="classname" required/>
+          </div>
+          <div>
+            <p class="goodtext">班级人数</p>
+            <input type="number" name="student_number" id="student-number" min="0" required/>
+          </div>
+
+        </div>
       </div>
-
+      <div class="modal-footer overspreads-but">
+        <button class="overspread-but over-but" data-dismiss="modal" id="update-bookshelf">保存</button>
+      </div>
     </div>
-    <div class="overspreadsc-but overspread-but  over-but" id="update-bookshelf">保存</div>
-
   </div>
 </div>
-<div class="overspread-5 overspread-n">
-  <div class="overspread-over"></div>
-  <div class="overspread-cont">
-    <div class="clearfix">
-      <div class="pull-left mys-1">新增申请班级</div>
-      <div class="pull-right iconfont icon-icondelete cur overspread-but"></div>
-    </div>
-    <div class="overspread-co" id="new-bookshelf">
-      <div>
-        <p class="goodtext">班级名称</p>
-        <input type="text" name="classname" id="classname" required/>
-      </div>
-      <div>
-        <p class="goodtext">班级人数</p>
-        <input type="number" name="student_nember" id="student-number" min="0" required/>
-      </div>
 
-    </div>
-    <div class="overspreadsc-but overspread-but  over-but" id="create-bookshelf">添加</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width: auto;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="detail-icon">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">新增申请班级</h4>
+      </div>
+      <div class="modal-body" style="padding: 0 15px 15px 15px;">
 
+        <div  id="new-bookshelf">
+          <div>
+            <p class="goodtext">班级名称</p>
+            <input type="text" name="classname" id="classname" required/>
+          </div>
+          <div>
+            <p class="goodtext">班级人数</p>
+            <input type="number" name="student_nember" id="student-number" min="0" required/>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="modal-footer overspreads-but">
+        <button class="overspread-but over-but"  id="create-bookshelf">添加</button>
+      </div>
+    </div>
   </div>
 </div>
+
 <script>
 
     $("#allcamps").select2({
@@ -233,6 +248,7 @@
                             });
                         }
                     });
+                $('#myModal').modal('hide')
             } else {
                 layer.msg('请填写完整申请班级信息', {
                     icon: 2,
@@ -285,7 +301,7 @@
             '                    <span class="iconfont icon-ico-delete1"></span>' +
             '                    <span>删除</span>' +
             '                  </div>' +
-            '                  <div class="pull-right cur edit-offline-user" onclick="editBookshelf(' + bookshelf.id + ')">' +
+            '                  <div class="pull-right cur edit-offline-user" onclick="editBookshelf(' + bookshelf.id + ')"  data-toggle="modal" data-target="#offlineModal">' +
             '                    <span class="iconfont icon-ico-edit "></span>' +
             '                    <span>编辑</span>' +
             '                  </div>' +
@@ -295,7 +311,7 @@
 
             '            </div>'
         )
-        $('.overspread-e').overs(".edit-offline-user");
+
     }
 
     function appendAnotherBookshelf(bookshelf) {
@@ -309,7 +325,7 @@
             '                    <span class="iconfont icon-ico-delete1"></span>' +
             '                    <span>删除</span>' +
             '                  </div>' +
-            '                  <div class="pull-right cur edit-offline-user" onclick="editBookshelf(' + bookshelf.id + ')">' +
+            '                  <div class="pull-right cur edit-offline-user" onclick="editBookshelf(' + bookshelf.id + ')"  data-toggle="modal" data-target="#offlineModal">' +
             '                    <span class="iconfont icon-ico-edit "></span>' +
             '                    <span>编辑</span>' +
             '                  </div>' +
@@ -319,7 +335,7 @@
 
             '            </div>'
         )
-        $('.overspread-e').overs(".edit-offline-user");
+
     }
 
     function editBookshelf(val) {
