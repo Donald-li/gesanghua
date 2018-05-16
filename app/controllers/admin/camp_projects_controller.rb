@@ -1,5 +1,5 @@
 class Admin::CampProjectsController < Admin::BaseController
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :switch, :change_state, :camp_member]
+  before_action :set_project, only: [:show, :edit, :accrue, :update, :destroy, :switch, :change_state, :camp_member]
 
   def index
     @search = ProjectSeasonApply.where(project_id: Project.camp_project.id).pass.raise_project.sorted.ransack(params[:q])
@@ -15,6 +15,14 @@ class Admin::CampProjectsController < Admin::BaseController
   end
 
   def edit
+  end
+
+  # 计提管理费
+  def accrue
+    @item = @project
+    @fund = Project.camp_project.appoint_fund
+    @management_fee = ManagementFee.new
+    render template: '/admin/management_fees/accrue'
   end
 
   def create

@@ -105,8 +105,8 @@ class ProjectSeasonApply < ApplicationRecord
   default_value_for :execute_state, 1
 
   # 是否计提管理费
-  enum management_fee_state: {unaccrue: 1, accrued: 2} # 状态：1:未计提 2:已计提
-  default_value_for :management_fee_state, 1
+  enum management_fee_state: {unaccrue: 0, accrued: 2} # 状态：1:未计提 2:已计提
+  default_value_for :management_fee_state, 0
 
   enum project_type: {apply: 1, raise_project: 2} # 筹款类型：1:申请 2:筹款项目
   default_value_for :project_type, 1
@@ -143,6 +143,11 @@ class ProjectSeasonApply < ApplicationRecord
     elsif self.project == Project.read_project && self.supplement?
       self.supplements.raising.order(present_amount: :desc)
     end
+  end
+
+  # 统一显示的名称
+  def show_name
+    self.name
   end
 
   # 使用捐助

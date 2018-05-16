@@ -19,8 +19,9 @@ class Admin::BookshelvesController < Admin::BaseController
   # 计提管理费
   def accrue
     @item = ProjectSeasonApplyBookshelf.find(params[:id])
-    @fund = Project.read_project.fund
+    @fund = Project.read_project.appoint_fund
     @management_fee = ManagementFee.new
+    render template: '/admin/management_fees/accrue'
   end
 
   def update

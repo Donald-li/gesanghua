@@ -140,6 +140,7 @@ namespace :admin do
 
   resources :pair_grants, concerns: [:excel_output] do
     member do
+      get :accrue
       get :edit_delay
       get :edit_cancel
       get :new_feedback
@@ -161,6 +162,7 @@ namespace :admin do
   resources :camp_applies, concerns: [:switch, :check]
   resources :camp_projects, concerns: [:switch] do
     member do
+      get :accrue
       put :change_state
       get :camp_member
     end

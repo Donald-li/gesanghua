@@ -67,8 +67,8 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
   default_value_for :state, 1
 
   # 是否计提管理费
-  enum management_fee_state: {unaccrue: 1, accrued: 2} # 状态：1:未计提 2:已计提
-  default_value_for :management_fee_state, 1
+  enum management_fee_state: {unaccrue: 0, accrued: 2} # 状态：1:未计提 2:已计提
+  default_value_for :management_fee_state, 0
 
   enum grade: {juniorone: 1, juniortwo: 2, juniorthree: 3, seniorone: 4, seniortwo: 5, seniorthree: 6}
   default_value_for :grade, 1
@@ -80,6 +80,11 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
   scope :sorted, ->{ order(created_at: :asc) }
 
   # counter_culture :apply, column_name: proc{|model| model.to_receive? ? 'present_amount' : nil}, delta_magnitude: proc {|model| model.present_amount }
+
+  # 统一显示名称
+  def show_name
+    "#{self.apply.try(:show_name)} #{self.classname}"
+  end
 
   # 使用捐助
   def accept_donate(donate_records)

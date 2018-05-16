@@ -28,6 +28,14 @@ class Admin::PairGrantsController < Admin::BaseController
   def edit
   end
 
+  # 计提管理费
+  def accrue
+    @item = @grant
+    @fund = Project.pair_project.appoint_fund
+    @management_fee = ManagementFee.new
+    render template: '/admin/management_fees/accrue'
+  end
+
   def update
     respond_to do |format|
       @grant.attach_images(params[:image_ids])

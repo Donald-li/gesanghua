@@ -18,7 +18,7 @@
       <%= simple_form_for [:admin, @management_fee], wrapper: :admin_form, html: {class: 'form-horizontal project_form', 'data-parsley-validate': true} do |f| %>
           <%= f.error_notification %>
           <div class="form-body">
-            <%= static_form_control '项目：', @item.name %>
+            <%= static_form_control '项目：', @item.show_name %>
             <%= hidden_field_tag :url, request.referer %>
             <%= f.input :owner_type, as: :hidden, input_html: {value: @item.class.name}  %>
             <%= f.input :owner_id, as: :hidden, input_html: {value: @item.id}  %>

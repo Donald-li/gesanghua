@@ -44,8 +44,8 @@ class BookshelfSupplement < ApplicationRecord
   default_value_for :state, 1
 
   # 是否计提管理费
-  enum management_fee_state: {unaccrue: 1, accrued: 2} # 状态：1:未计提 2:已计提
-  default_value_for :management_fee_state, 1
+  enum management_fee_state: {unaccrue: 0, accrued: 2} # 状态：1:未计提 2:已计提
+  default_value_for :management_fee_state, 0
 
   enum audit_state: {submit: 1, pass: 2, reject: 3}
   default_value_for :audit_state, 1
@@ -55,8 +55,6 @@ class BookshelfSupplement < ApplicationRecord
   scope :raise_complete, -> { where(state: ['to_delivery', 'to_receive', 'to_feedback', 'feedbacked', 'done'])}
 
   scope :sorted, ->{ order(created_at: :desc) }
-
-
 
   # 使用捐助
   def accept_donate(donate_records)
@@ -76,6 +74,11 @@ class BookshelfSupplement < ApplicationRecord
 
   def surplus_money
     self.target_amount - self.present_amount
+  end
+
+  # 统一显示名称
+  def show_name
+    self.bookshelf.try(:show_name)
   end
 
   #用于操作日志查找关系

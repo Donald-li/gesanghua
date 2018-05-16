@@ -62,6 +62,9 @@ class GshChildGrant < ApplicationRecord
   enum donate_state: {pending: 1, succeed: 2, refund: 3, close: 4} # 捐助状态：1:未筹款 2:已筹款 4:关闭
   default_value_for :donate_state, 1
 
+  enum management_fee_state: {unaccrue: 0, accrued: 2} # 状态：1:未计提 2:已计提
+  default_value_for :management_fee_state, 0
+
   enum balance_manage: {transfer: 1, send_back: 2} # TODO: 废弃 捐助状态 1:转捐 2:退回
   # default_value_for :balance_manage, 2
 
@@ -81,8 +84,17 @@ class GshChildGrant < ApplicationRecord
     Project.pair_project
   end
 
-  def search_title
+  # 统一显示名称
+  def show_name
     self.apply_child.try(:name) + ' ' + self.title
+  end
+
+  def target_amount
+    self.amount
+  end
+
+  def search_title
+    self.show_name
   end
 
   # 使用捐助

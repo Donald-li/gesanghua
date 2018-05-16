@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180515092600) do
+ActiveRecord::Schema.define(version: 20180516033358) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -517,6 +517,7 @@ ActiveRecord::Schema.define(version: 20180515092600) do
     t.integer "grant_batch_id", comment: "发放批次"
     t.integer "project_season_apply_child_id", comment: "一对一助学孩子id"
     t.integer "cancel_reason", comment: "取消原因"
+    t.integer "management_fee_state", comment: "计提管理费状态"
     t.index ["donate_state"], name: "index_gsh_child_grants_on_donate_state"
     t.index ["grant_batch_id"], name: "index_gsh_child_grants_on_grant_batch_id"
     t.index ["gsh_child_id"], name: "index_gsh_child_grants_on_gsh_child_id"
@@ -859,7 +860,6 @@ ActiveRecord::Schema.define(version: 20180515092600) do
     t.text "expenditure_information", comment: "支出详情"
     t.text "debt_information", comment: "负债情况"
     t.string "parent_information", comment: "父母情况"
-    t.integer "management_fee_state", comment: "计提管理费状态"
   end
 
   create_table "project_season_apply_gooods", force: :cascade, comment: "项目执行年度申请的物品表" do |t|
