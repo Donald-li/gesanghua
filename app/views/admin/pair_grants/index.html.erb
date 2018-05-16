@@ -17,19 +17,19 @@
           <%= search_form_for @search, url: admin_pair_grants_path, class: 'form-inline' do |f| %>
               <div class="form-group">
                 <%= f.label :grant_no_or_gsh_child_name_or_gsh_child_id_card_cont, '搜索学生' %>
-                <%= f.text_field :grant_no_or_gsh_child_name_or_gsh_child_id_card_cont, class: 'form-control', placeholder: '发放编号、学生信息' %>
+                <%= f.text_field :grant_no_or_gsh_child_name_or_gsh_child_id_card_cont, class: 'form-control gsh-input-share', placeholder: '发放编号、学生信息' %>
               </div>
-              <div class="form-group">
-                <%= f.label :school_id_ep, '搜索学校' %>
-                <%= f.select :school_id_eq, School.all_to_hash, {include_blank: '全部'}, class: 'form-control schools-ajax' %>
+              <div class="form-group" style="margin: 0 10px">
+                <%= f.label :school_id_ep, '搜索学校',class:'gsh-input-share-r' %>
+                <%= f.select :school_id_eq, School.all_to_hash, {include_blank: '全部'}, class: 'form-control schools-ajax ' %>
               </div>
               <div class="form-group">
                 <%= f.label :donate_state_eq, '筹款状态' %>
-                <%= f.select :donate_state_eq, GshChildGrant.options_for_select(:donate_states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
+                <%= f.select :donate_state_eq, GshChildGrant.options_for_select(:donate_states, raw: true), {include_blank: '全部'}, class: 'form-control gsh-input-share' %>
               </div>
               <div class="form-group">
                 <%= f.label :state_eq, '发放状态' %>
-                <%= f.select :state_eq, GshChildGrant.options_for_select(:states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
+                <%= f.select :state_eq, GshChildGrant.options_for_select(:states, raw: true), {include_blank: '全部'}, class: 'form-control gsh-input-share' %>
               </div>
               <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>

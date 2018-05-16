@@ -21,16 +21,16 @@
           <%= search_form_for @search, url: admin_users_path, class: 'form-inline' do |f| %>
           <div class="form-group">
             <%= f.label :nickname_or_name_or_phone_cont, '搜索' %>
-            <%= f.text_field :nickname_or_name_or_phone_cont, class: 'form-control', placeholder: '使用姓名、昵称或手机号搜索' %>
+            <%= f.text_field :nickname_or_name_or_phone_cont, class: 'form-control gsh-input-share', placeholder: '使用姓名、昵称或手机号搜索',style:'width:200px;' %>
           </div>
           <div class="form-group">
             <%= f.label '注册时间' %>
-            <%= f.text_field :created_at_gteq, class: 'form-control datepicker', placeholder: '开始时间' %>
-            <%= f.text_field :created_at_lteq, class: 'form-control datepicker', placeholder: '结束时间' %>
+            <%= f.text_field :created_at_gteq, class: 'form-control datepicker gsh-input-share-l', placeholder: '开始时间' %>
+            <%= f.text_field :created_at_lteq, class: 'form-control datepicker gsh-input-share-r', placeholder: '结束时间' %>
           </div>
           <div class="form-group">
             <%= f.label :state_eq, '状态' %>
-            <%= f.select :state_eq, User.options_for_select(:states, raw: true), {include_blank: '全部'}, placeholder: '', class: 'form-control' %>
+            <%= f.select :state_eq, User.options_for_select(:states, raw: true), {include_blank: '全部'}, placeholder: '', class: 'form-control gsh-input-share' %>
           </div>
           <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>
