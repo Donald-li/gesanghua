@@ -137,6 +137,15 @@
                   <%= link_to admin_camp_project_camp_execute_feedbacks_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-list"></i> 反馈管理
                   <% end %>
+                  <% unless apply.camp_raising? %>
+                    <% if !apply.accrued? %>
+                      <%= link_to accrue_admin_camp_project_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
+                      <i class="fa fa-yen"></i> 计提管理费
+                      <% end %>
+                    <% else %>
+                      <a href="javascript:;" class="btn btn-xs grey"><i class="fa fa-yen"></i> 已计提管理费</a>
+                    <% end %>
+                  <% end %>
                 </td>
               </tr>
           <% end %>

@@ -124,6 +124,13 @@
                     <% else %>
                       <span class="btn btn-xs default"><i class="fa fa-truck"></i> 查看收货凭证</span>
                     <% end %>
+                    <% if !bookshelf.accrued? %>
+                      <%= link_to accrue_admin_read_project_bookshelf_path(@project, bookshelf), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
+                      <i class="fa fa-yen"></i> 计提管理费
+                      <% end %>
+                    <% else %>
+                      <a href="javascript:;" class="btn btn-xs grey"><i class="fa fa-yen"></i> 已计提管理费</a>
+                    <% end %>
                   <% end %>
                   <% if bookshelf.to_feedback? || bookshelf.feedbacked? || bookshelf.done? %>
                     <% if bookshelf.install_feedback.present? %>

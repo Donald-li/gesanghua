@@ -1,0 +1,41 @@
+<div class="portlet light bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-note"> </i> 计提管理费
+      <span class="caption-subject"></span>
+      <span class="caption-helper"></span>
+    </div>
+    <div class="actions">
+      <div class="btn-group">
+        <a href="<%= url_for(:back) %>" class="btn btn-xs blue">
+          <i class="fa fa-reply"></i>返回
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body form">
+    <div class="form-body form-horizontal">
+      <%= simple_form_for [:admin, @management_fee], wrapper: :admin_form, html: {class: 'form-horizontal project_form', 'data-parsley-validate': true} do |f| %>
+          <%= f.error_notification %>
+          <div class="form-body">
+            <%= static_form_control '项目：', @item.show_name %>
+            <%= hidden_field_tag :url, request.referer %>
+            <%= f.input :owner_type, as: :hidden, input_html: {value: @item.class.name}  %>
+            <%= f.input :owner_id, as: :hidden, input_html: {value: @item.id}  %>
+            <%= f.input :fund_id, as: :hidden, input_html: {value: @fund.id}  %>
+            <%= f.input :total_amount, as: :hidden, min: 0, input_html: {value: @item.target_amount}  %>
+            <%= f.input :amount, label: '计提金额', input_html: {value: @item.target_amount}  %>
+            <%= static_form_control '管理费率：', "#{@fund.try(:management_rate).to_i}%"%>
+          </div>
+          <div class="form-actions">
+            <div class="row">
+              <div class="col-md-offset-2 col-md-9">
+                <%= f.button :submit, '提交', class: 'btn blue' %>
+              </div>
+            </div>
+          </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>

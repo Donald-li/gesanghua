@@ -197,7 +197,7 @@ class School < ApplicationRecord
   def summary_builder
     Jbuilder.new do |json|
       json.(self, :id, :name)
-      json.kind '校长'
+      json.kind '学校负责人'
       json.user_nickname self.try(:user).try(:nickname)
       json.user_name self.try(:user).try(:name)
       json.contact_telephone self.try(:contact_telephone)

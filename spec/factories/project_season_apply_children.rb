@@ -53,6 +53,7 @@
 #  expenditure_information :text                                   # 支出详情
 #  debt_information        :text                                   # 负债情况
 #  parent_information      :string                                 # 父母情况
+#  information             :text                                   # 对外展示的孩子介绍
 #
 
 FactoryBot.define do

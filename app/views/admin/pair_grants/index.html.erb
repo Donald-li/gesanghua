@@ -133,14 +133,15 @@
                           <i class="fa fa-stop"></i> 取消捐助
                       <% end %>
                     <% elsif grant.granted? %>
-                      <% if grant.feedback.present? %>
                         <%= link_to edit_feedback_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
                             <i class="fa fa-edit"></i> 修改发放反馈
                         <% end %>
-                      <% else %>
-                        <%= link_to new_feedback_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
-                            <i class="fa fa-edit"></i> 新增发放反馈
+                      <% if !grant.accrued? %>
+                        <%= link_to accrue_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
+                        <i class="fa fa-yen"></i> 计提管理费
                         <% end %>
+                      <% else %>
+                        <a href="javascript:;" class="btn btn-xs grey"><i class="fa fa-yen"></i> 已计提管理费</a>
                       <% end %>
                     <% elsif grant.suspend? %>
                       <%= link_to edit_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>

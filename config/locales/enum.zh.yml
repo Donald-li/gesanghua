@@ -85,7 +85,7 @@ zh:
     cheng_guan_primary_school: '城关小学'
     other: '其他'
   teacher_kinds:
-    headmaster: '校长'
+    headmaster: '学校负责人'
     teacher: '老师'
   protocol_kinds:
     register_protocol: '注册协议'
@@ -607,3 +607,6 @@ zh:
   project_season_apply_camp_member_kinds:
     student: '学生'
     teacher: '老师'
+  management_fee_month_states:
+    unaccrue: '未提取'
+    accrued: '已提取'

@@ -12,11 +12,11 @@
     <div class="clearfix">
       <div class="pull-left">
         <p class="goodtext">昵称</p>
-        <%= f.text_field :nickname, required: true, class: 'goodinput', placeholder: '' %>
+        <%= f.text_field :nickname, class: 'goodinput', placeholder: '', required: true, data: {parsley_required: true} %>
       </div>
       <div class="pull-right">
         <p class="goodtext">真实姓名</p>
-        <%= f.text_field :name, required: true, class: 'goodinput', placeholder: '', input_html: {required: true} %>
+        <%= f.text_field :name, class: 'goodinput', placeholder: '', data: {parsley_required: true} %>
       </div>
     </div>
     <div class="clearfix sexinput">
@@ -34,18 +34,18 @@
       <div class="pull-left">
         <p class="goodtext">如何称呼</p>
         <%#= f.text_field :salutation, class: 'goodinput', placeholder: '孩子如何称呼您' %>
-        <%= f.input :salutation, as: :select, collection: ['哥哥', '姐姐', '弟弟', '妹妹', '叔叔', '阿姨', '爷爷', '奶奶'], include_blank: false, label: false, input_html: {data: {}, class: 'goodinput',id:'nickname'} %>
+        <%= f.input :salutation, as: :select, collection: ['哥哥', '姐姐', '弟弟', '妹妹', '叔叔', '阿姨', '爷爷', '奶奶'], include_blank: false, label: false, input_html: {data: {parsley_required: true}, class: 'goodinput',id:'nickname'} %>
         </div>
       <div class="pull-right">
         <p class="goodtext">联系电话</p>
-        <%= f.text_field :phone, required: true, class: 'goodinput', placeholder: '', input_html: {required: true}, data: {parsley_phone: true} %>
+        <%= f.text_field :phone, required: true, class: 'goodinput', placeholder: '', data: {parsley_required: true, parsley_phone: true} %>
       </div>
     </div>
     <p class="goodtext">所在地区</p>
     <div class="city-group">
-      <%= select_tag 'user[province]', options_for_select(ChinaCity.list, @offline_user.province.presence), prompt: '省份', class: "city-select", id: 'province' %>
-      <%= select_tag 'user[city]', options_for_select(ChinaCity.list(@offline_user.province.to_s), @offline_user.city.presence), prompt: '城市', class: "city-select", id: 'city' %>
-      <%= select_tag 'user[district]', options_for_select(ChinaCity.list(@offline_user.city.to_s), @offline_user.district.presence), prompt: '地区', class: "city-select", id: 'district' %>
+      <%= select_tag 'user[province]', options_for_select(ChinaCity.list, @offline_user.province.presence), prompt: '省份', class: "city-select", id: 'province', input_html: {data: {parsley_required: true}} %>
+      <%= select_tag 'user[city]', options_for_select(ChinaCity.list(@offline_user.province.to_s), @offline_user.city.presence), prompt: '城市', class: "city-select", id: 'city', input_html: {data: {parsley_required: true}} %>
+      <%= select_tag 'user[district]', options_for_select(ChinaCity.list(@offline_user.city.to_s), @offline_user.district.presence), prompt: '地区', class: "city-select", id: 'district', input_html: {data: {parsley_required: true}} %>
     </div>
     <!-- <div class="city-picker-selector" id="city-picker-selector2"></div> -->
     <p class="goodtext">详细地址</p>

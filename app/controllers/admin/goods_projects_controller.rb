@@ -1,5 +1,5 @@
 class Admin::GoodsProjectsController < Admin::GoodsBaseController
-  before_action :set_project_apply, only: [:show, :edit, :update, :destroy,:shipment, :create_shipment, :switch, :receive, :done, :cancelled, :refunded]
+  before_action :set_project_apply, only: [:show, :edit, :accrue, :update, :destroy,:shipment, :create_shipment, :switch, :receive, :done, :cancelled, :refunded]
 
   def index
     @search = @current_project.applies.raise_project.sorted.ransack(params[:q])
@@ -15,6 +15,14 @@ class Admin::GoodsProjectsController < Admin::GoodsBaseController
   end
 
   def edit
+  end
+
+  # 计提管理费
+  def accrue
+    @item = @project_apply
+    @fund = @current_project.appoint_fund
+    @management_fee = ManagementFee.new
+    render template: '/admin/management_fees/accrue'
   end
 
   def create

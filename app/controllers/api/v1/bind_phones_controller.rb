@@ -22,11 +22,12 @@ class Api::V1::BindPhonesController < Api::V1::BaseController
         elsif !user.openid.present?
           User.combine_user(params[:mobile], current_user)
           set_current_user(user)
+          user.phone = params[:mobile]
           if params[:password].present?
-            user.phone = params[:mobile]
             user.password = params[:password]
-            user.save
           end
+          user.save
+
           api_success(message: '绑定成功', data: {state: true})
         else
           api_success(message: '绑定失败，手机号已占用', data: {state: false})

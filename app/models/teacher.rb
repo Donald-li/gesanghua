@@ -37,7 +37,7 @@ class Teacher < ApplicationRecord
   enum state: {show: 1, hidden: 2} # 状态：1:启用 2:禁用
   default_value_for :state, 1
 
-  enum kind: {headmaster: 1, teacher: 2} # 老师类型：1:校长 2:老师
+  enum kind: {headmaster: 1, teacher: 2} # 老师类型：1:学校负责人 2:老师
 
   scope :sorted, -> {order(created_at: :desc)}
 
@@ -97,7 +97,7 @@ class Teacher < ApplicationRecord
     self.transaction do
       if user.present?
         if user.has_role?(:teacher) || user.has_role?(:headmaster)
-          result, notice = false, self.user.present? ? "关联用户已经有#{self.user.has_role?(:headmaster) ? '校长' : '教师'}角色" : "手机号已绑定过#{user.has_role?(:headmaster) ? '校长' : '教师'}角色"
+          result, notice = false, self.user.present? ? "关联用户已经有#{self.user.has_role?(:headmaster) ? '学校负责人' : '教师'}角色" : "手机号已绑定过#{user.has_role?(:headmaster) ? '学校负责人' : '教师'}角色"
           raise ActiveRecord::Rollback
         else
           if self.teacher?

@@ -10,7 +10,13 @@ class Admin::PairStudentListsController < Admin::BaseController
       scope = scope.where('done_semester_count = semester_count') if donor_state == 'done'
       scope = scope.where('done_semester_count between 1 and semester_count - 1') if donor_state == 'part_done'
     end
-    @pair_student_lists = scope.page(params[:page])
+    respond_to do |format|
+      format.html { @pair_student_lists = scope.page(params[:page]) }
+      format.xlsx {
+        @pair_student_lists = scope.all
+        response.headers['Content-Disposition'] = 'attachment; filename="捐助管理学生名单"' + Date.today.to_s + '.xlsx'
+      }
+    end
   end
 
   def show

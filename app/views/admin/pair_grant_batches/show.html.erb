@@ -20,7 +20,7 @@
         <i class="icon-plus"></i>
         <span>添加孩子</span>
       </a>
-      <%= link_to excel_output_admin_pair_grant_batches_path(@batch), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+      <%= link_to url_for(params.permit!.merge(format: :xlsx)), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
           <i class="fa fa-download"></i>
           <span>导出</span>
       <% end %>

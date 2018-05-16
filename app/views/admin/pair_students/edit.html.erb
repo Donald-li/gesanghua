@@ -85,7 +85,6 @@
                   <!--</div>-->
                   <!--</div>-->
                   <%#= f.input :approve_state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApplyChild.options_for_select(:approve_states), label: '审核：'%>
-                  <%= f.input :description, label: '描述：', placeholder: '描述' %>
                   <div class="form-group">
                     <label class="col-md-2 control-label">上传身份证：</label>
                     <div class="col-sm-9">
@@ -120,6 +119,12 @@
                     <label class="col-md-2 control-label">上传扶贫卡：</label>
                     <div class="col-sm-9">
                       <%= webuploader_tag :poverty_id, label: '上传图片', type: 'apply_child_poverty', asset: @apply_child.poverty, klass: 'single', id: 'single-upload7' %>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">孩子介绍：</label>
+                    <div class="col-sm-9">
+                      <%= f.cktext_area :information  %>
                     </div>
                   </div>
                   <%= f.input :remark, label: '备注：', placeholder: '备注' %>

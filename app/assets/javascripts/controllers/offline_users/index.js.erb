@@ -39,36 +39,42 @@ $(function () {
   //创建、编辑
   $("#popup-container").delegate("#save_form_btn", "click", function (e) {
 
-    var btn_name = $("#save_form_btn").text()
+    if ($('#offline_user_form').parsley().validate()) {
+        var btn_name = $("#save_form_btn").text()
 
-    $("#save_form_btn").attr("style", "background:#999").val("操作中...");
-    $("#save_form_btn").attr("disabled", "disabled")
-    $.ajax({
-      type: $("#offline_user_form").attr("method_way"),
-      dataType: "html",
-      url: $("#offline_user_form").attr("action"),
-      data: $("#offline_user_form").serialize(), // serializes the form"s elements.
-      success: function (data) {
-        data = JSON.parse(data)
-        if (data.status) {
-          layer.msg(data.message, {
-            icon: 1,
-            offset: 't c'
-          });
-          setTimeout("javascript:location.href='/account/offline_users'", 1000);
-        } else {
-          layer.msg(data.message, {
-            icon: 2,
-            offset: 't c'
-          });
-          // toastr.error(JSON.parse(msg).msg)
-          $("#save_form_btn").removeAttr("style");
-          $("#save_form_btn").removeAttr("disabled")
-          $("#save_form_btn").val(btn_name);
-          return false;
-        }
-      },
-    });
+        $("#save_form_btn").attr("style", "background:#999").val("操作中...");
+        $("#save_form_btn").attr("disabled", "disabled")
+        $.ajax({
+            type: $("#offline_user_form").attr("method_way"),
+            dataType: "html",
+            url: $("#offline_user_form").attr("action"),
+            data: $("#offline_user_form").serialize(), // serializes the form"s elements.
+            success: function (data) {
+                data = JSON.parse(data)
+                if (data.status) {
+                    layer.msg(data.message, {
+                        icon: 1,
+                        offset: 't c'
+                    });
+                    setTimeout("javascript:location.href='/account/offline_users'", 1000);
+                } else {
+                    layer.msg(data.message, {
+                        icon: 2,
+                        offset: 't c'
+                    });
+                    // toastr.error(JSON.parse(msg).msg)
+                    $("#save_form_btn").removeAttr("style");
+                    $("#save_form_btn").removeAttr("disabled")
+                    $("#save_form_btn").val(btn_name);
+                    return false;
+                }
+            },
+        });
+    } else {
+        return false
+    }
+
+
 
   })
 

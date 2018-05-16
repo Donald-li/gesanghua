@@ -16,6 +16,14 @@ class Admin::BookshelvesController < Admin::BaseController
     @bookshelf = ProjectSeasonApplyBookshelf.find(params[:id])
   end
 
+  # 计提管理费
+  def accrue
+    @item = ProjectSeasonApplyBookshelf.find(params[:id])
+    @fund = Project.read_project.appoint_fund
+    @management_fee = ManagementFee.new
+    render template: '/admin/management_fees/accrue'
+  end
+
   def update
     @bookshelf = ProjectSeasonApplyBookshelf.find(params[:id])
     @bookshelf.attach_image(params[:image_id])

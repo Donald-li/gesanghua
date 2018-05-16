@@ -6,8 +6,14 @@ class Admin::PairDonateRecordsController < Admin::BaseController
     set_search_end_of_day(:created_at_lteq)
     @search = @donate_records.ransack(params[:q])
     scope = @search.result
-    @donate_records = scope.sorted.page(params[:page])
     # @donante_amount = @donate_records.sum(:amount)
+    respond_to do |format|
+      format.html { @donate_records = scope.sorted.page(params[:page]) }
+      format.xlsx {
+        @donate_records = scope.sorted
+        response.headers['Content-Disposition'] = 'attachment; filename="结对助学捐助记录"' + Date.today.to_s + '.xlsx'
+      }
+    end
   end
 
   def show

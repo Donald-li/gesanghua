@@ -81,6 +81,7 @@ namespace :admin do
     resources :supplement_donate_records
     resources :bookshelves, concerns: :switch do
       member do
+        get :accrue
         get :shipment
         post :create_shipment
         get :bookshelf_receive
@@ -96,6 +97,8 @@ namespace :admin do
       end
     end
   end
+  resources :management_fee_months, only: [:index, :update]
+  resources :management_fees, only: [:index, :show, :create]
   resources :read_reports, concerns: [:switch]
   resources :read_continual_feedbacks, concerns: [:recommend]
   resources :project_movie_seasons, concerns: [:switch]
@@ -138,6 +141,7 @@ namespace :admin do
 
   resources :pair_grants, concerns: [:excel_output] do
     member do
+      get :accrue
       get :edit_delay
       get :edit_cancel
       get :new_feedback
@@ -159,6 +163,7 @@ namespace :admin do
   resources :camp_applies, concerns: [:switch, :check]
   resources :camp_projects, concerns: [:switch] do
     member do
+      get :accrue
       put :change_state
       get :camp_member
     end
@@ -265,6 +270,7 @@ namespace :admin do
   end
   resources :goods_projects, concerns: [:switch] do
     member do
+      get :accrue
       get :shipment
       post :create_shipment
       put :receive
