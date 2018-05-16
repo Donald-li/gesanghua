@@ -3,6 +3,12 @@
     <div class="caption">
       <i class="icon-list"></i> 捐助记录
     </div>
+    <div class="actions">
+      <%= link_to url_for(params.permit!.merge(format: :xlsx)), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+          <i class="fa fa-download"></i>
+          <span>导出</span>
+      <% end %>
+    </div>
   </div>
   <div class="portlet-body">
     <div class="dataTables_wrapper no-footer">

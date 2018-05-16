@@ -4,12 +4,16 @@ class Admin::UsersController < Admin::BaseController
 
   def index
     respond_to do |format|
+      set_search_end_of_day(:created_at_lteq)
+      @search = User.ransack(params[:q])
+      scope = @search.result
       format.html do # HTML页面
-        set_search_end_of_day(:created_at_lteq)
-        @search = User.ransack(params[:q])
-        scope = @search.result
         @users = scope.includes(:volunteer).sorted.page(params[:page])
       end
+      format.xlsx {
+        @users = scope.sorted
+        response.headers['Content-Disposition'] = 'attachment; filename="用户名单"' + Date.today.to_s + '.xlsx'
+      }
       #format.json do # Select2 异步选择用户搜索
       #  users = User.enable.where.not(users: {id: 1}).left_joins(:gsh_child).where(gsh_children: {user_id: nil}).where("users.name like :q", q: "%#{params[:q]}%").page(params[:page])
       #  render json: {items: users.as_json(only: [:id, :name])}
