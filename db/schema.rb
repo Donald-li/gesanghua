@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180516033358) do
+ActiveRecord::Schema.define(version: 20180516060909) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -595,6 +595,15 @@ ActiveRecord::Schema.define(version: 20180516033358) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "management_fee_months", force: :cascade, comment: "管理费提取" do |t|
+    t.string "month", comment: "月份"
+    t.integer "count", default: 0, comment: "项目数"
+    t.decimal "fee", precision: 14, scale: 2, default: "0.0", comment: "管理费"
+    t.integer "state", comment: "状态"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "management_fees", force: :cascade, comment: "管理费" do |t|
     t.string "owner_type", comment: "所属项目"
     t.integer "owner_id", comment: "所属项目ID"
@@ -607,6 +616,7 @@ ActiveRecord::Schema.define(version: 20180516033358) do
     t.integer "state", comment: "状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "month_id", comment: "月份"
   end
 
   create_table "month_donates", force: :cascade, comment: "月捐表" do |t|

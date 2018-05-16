@@ -97,7 +97,8 @@ namespace :admin do
       end
     end
   end
-  resources :management_fees, only: :create
+  resources :management_fee_months, only: [:index, :update]
+  resources :management_fees, only: [:index, :show, :create]
   resources :read_reports, concerns: [:switch]
   resources :read_continual_feedbacks, concerns: [:recommend]
   resources :project_movie_seasons, concerns: [:switch]

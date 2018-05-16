@@ -1,0 +1,19 @@
+wb = xlsx_package.workbook
+styles = wb.styles
+header = styles.add_style :sz => 16, :b => true, :alignment => {:horizontal => :center}
+wb.add_worksheet(name: "管理费") do |sheet|
+
+  sheet.add_row ["序号", "月份", "已提项目数", "管理费总计", "管理费状态"]
+  @months.each_with_index do |month, index|
+    sheet.add_row [
+                      index + 1,
+                      month.month,
+                      month.count,
+                      number_to_currency(month.fee),
+                      month.enum_name(:state)
+                  ]
+  end
+
+  sheet.column_widths 10, 20, 10, 20, 10
+
+end

@@ -1,0 +1,90 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i>管理费
+    </div>
+    <div class="actions">
+      <%= link_to url_for(params.permit!.merge(format: :xlsx)), class: 'btn btn-xs green', 'data-no-turbolink' => true do %>
+        <i class="fa fa-download"></i>
+        <span>导出</span>
+      <% end %>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="dataTables_wrapper no-footer">
+      <div class="row" style="text-align:center">
+        <% total = ManagementFee.sum(:fee) %>
+        <div class="col-md-4 col-sm-4">
+          累计管理费 <strong><%= number_to_currency total %></strong>
+        </div>
+        <% deal = ManagementFee.joins(:month).where(management_fee_months: {state: 2}).sum(:fee) %>
+        <div class="col-md-4 col-sm-4">
+          已提取 <strong><%= number_to_currency deal %></strong>
+        </div>
+        <div class="col-md-4 col-sm-4">
+          剩余可提取 <strong><%= number_to_currency total - deal %></strong>
+        </div>
+      </div>
+      <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover" id="sample_2">
+          <thead>
+          <tr>
+            <th>
+              月份
+            </th>
+            <th>
+              已提管理费项目数
+            </th>
+            <th>
+              管理费总计
+            </th>
+            <th>
+              管理费状态
+            </th>
+            <th>
+              操作
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @months.each do |month| %>
+            <tr>
+              <td>
+                <%= month.month %>
+              </td>
+              <td>
+                <%= month.count %>
+              </td>
+              <td>
+                <%= number_to_currency month.fee %>
+              </td>
+              <td>
+                <%= month.enum_name(:state) %>
+              </td>
+              <td>
+                <%= link_to admin_management_fees_path(month_id: month.id), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                  <i class="fa fa-edit"></i> 查看详情
+                <% end %>
+                <% if !month.accrued? && (Time.now.strftime('%Y-%m') > month.month) %>
+                  <%= link_to admin_management_fee_month_path(month), class: 'btn btn-xs red', method: :put, data: {confirm: '确定要提取管理费吗？'} do %>
+                    <i class="fa fa-percent"></i> 提取管理费
+                  <% end %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-5 col-sm-12">
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@months) %></div>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <%= paginate @months, theme: 'admin' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END EXAMPLE TABLE PORTLET-->

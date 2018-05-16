@@ -187,6 +187,10 @@ admin:
         admin_expenditure_record:
           actions:
             admin/expenditure_records: all
+        admin_management_fee:
+          actions:
+            admin/management_fee_months: all
+            admin/management_fees: all
 
     # 项目管理
     admin_project:
