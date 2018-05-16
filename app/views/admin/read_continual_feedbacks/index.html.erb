@@ -21,15 +21,15 @@
           <%= search_form_for @search, url: admin_read_continual_feedbacks_path, class: 'form-inline' do |f| %>
               <div class="form-group">
                 <%= f.label :user_teacher_school_name_cont, '搜索' %>
-                <%= f.text_field :user_teacher_school_name_cont, class: 'form-control', placeholder: '学校名称' %>
+                <%= f.text_field :user_teacher_school_name_cont, class: 'form-control gsh-input-share', placeholder: '学校名称' %>
               </div>
               <div class="form-group">
                 <%= f.label :check_eq, '是否查看' %>
-                <%= f.select :check_eq, Feedback.options_for_select(:checks, raw: true), {include_blank: '全部'}, class: 'form-control' %>
+                <%= f.select :check_eq, Feedback.options_for_select(:checks, raw: true), {include_blank: '全部'}, class: 'form-control gsh-input-share' %>
               </div>
               <!-- <div class="form-group">
                 <%= f.label :recommend_eq, '是否推荐' %>
-                <%= f.select :recommend_eq, Feedback.options_for_select(:recommends, raw: true), {include_blank: '全部'}, class: 'form-control' %>
+                <%= f.select :recommend_eq, Feedback.options_for_select(:recommends, raw: true), {include_blank: '全部'}, class: 'form-control gsh-input-share' %>
               </div> -->
               <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>

@@ -17,15 +17,15 @@
           <%= search_form_for @search, url: admin_camp_applies_path, class: 'form-inline' do |f| %>
               <div class="form-group">
                 <%= f.label :name_or_apply_no_cont, '搜索' %>
-                <%= f.text_field :name_or_apply_no_cont, class: 'form-control', placeholder: '名称、申请编号' %>
+                <%= f.text_field :name_or_apply_no_cont, class: 'form-control gsh-input-share', placeholder: '名称、申请编号' %>
               </div>
               <div class="form-group">
                 <%= f.label :audit_state_eq, '审核状态' %>
-                <%= f.select :audit_state_eq, ProjectSeasonApply.options_for_select(:audit_states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
+                <%= f.select :audit_state_eq, ProjectSeasonApply.options_for_select(:audit_states, raw: true), {include_blank: '全部'}, class: 'form-control gsh-input-share' %>
               </div>
               <div class="form-group">
                 <%= f.label :camp_id_eq, '探索营' %>
-                <%= f.select :camp_id_eq, Camp.sorted.collect {|p| [p.name, p.id]}, {include_blank: '全部'}, class: 'form-control' %>
+                <%= f.select :camp_id_eq, Camp.sorted.collect {|p| [p.name, p.id]}, {include_blank: '全部'}, class: 'form-control gsh-input-share' %>
               </div>
               <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>

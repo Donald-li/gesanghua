@@ -14,11 +14,11 @@
           <%= search_form_for @search, url: admin_read_project_bookshelves_path(@project), class: 'form-inline' do |f| %>
             <div class="form-group">
               <%= f.label :classname_cont, '班级名称' %>
-              <%= f.text_field :classname_cont, class: 'form-control', placeholder: '班级名称' %>
+              <%= f.text_field :classname_cont, class: 'form-control gsh-input-share', placeholder: '班级名称' %>
             </div>
             <div class="form-group">
               <%= f.label :state_eq, '全部状态' %>
-              <%= f.select :state_eq, ProjectSeasonApplyBookshelf.options_for_select(:states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
+              <%= f.select :state_eq, ProjectSeasonApplyBookshelf.options_for_select(:states, raw: true), {include_blank: '全部'}, class: 'form-control gsh-input-share' %>
             </div>
             <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>

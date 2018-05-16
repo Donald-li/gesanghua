@@ -19,8 +19,8 @@
           <%= search_form_for @search, url: admin_goods_project_goods_donate_records_path(@apply), class: 'form-inline' do |f| %>
           <div class="form-group">
             <%= f.label '捐助时间' %>
-            <%= f.text_field :created_at_gteq, class: 'form-control datepicker', placeholder: '开始时间' %>
-            <%= f.text_field :created_at_lteq, class: 'form-control datepicker', placeholder: '结束时间' %>
+            <%= f.text_field :created_at_gteq, class: 'form-control datepicker gsh-input-share-l', placeholder: '开始时间' %>
+            <%= f.text_field :created_at_lteq, class: 'form-control datepicker gsh-input-share-r', placeholder: '结束时间' %>
           </div>
           <button type="submit" class="btn btn-default grey">查询</button>
           <% end %>
