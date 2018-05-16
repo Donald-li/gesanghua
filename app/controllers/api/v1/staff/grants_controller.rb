@@ -30,7 +30,7 @@ class Api::V1::Staff::GrantsController < Api::V1::BaseController
       notice = Notification.create(
         kind: 'feedback_grant',
         owner: @grant,
-        user_id: @grant.donate_records.last.donor_id,
+        user_id: @grant.user_id,
         title: "#发放通知# 你的捐款发放啦",
         content: "你捐助的 #{@grant.apply_child.name} 助学款已经发放。发放时间: #{ l(@grant.granted_at) } 发放人: #{ params[:feedback][:grant_person] }"
       )

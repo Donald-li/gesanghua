@@ -67,7 +67,7 @@ class Project < ApplicationRecord
   default_value_for :accept_feedback_state, 1
 
   enum apply_kind: { platform_assign: 1, user_apply: 2}
-  default_value_for :apply_kind, 1
+  default_value_for :apply_kind, 2
 
   enum feedback_format: {simple: 1, complex: 2}
   default_value_for :feedback_format, 1

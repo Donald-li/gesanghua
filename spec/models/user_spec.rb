@@ -5,6 +5,7 @@
 #  id                    :integer          not null, primary key
 #  openid                :string                                       # 微信openid
 #  name                  :string                                       # 姓名
+#  login                 :string                                       # 登录账号
 #  password_digest       :string                                       # 密码
 #  state                 :integer          default("enable")           # 状态 1:启用 2:禁用
 #  team_id               :integer                                      # 团队ID
@@ -38,7 +39,6 @@
 #  camp_id               :integer                                      # 探索营id
 #  project_ids           :jsonb                                        # 可管理项目（项目管理员）
 #  notice_state          :boolean          default(FALSE)              # 用户是否有未查看的公告
-#  login                 :string
 #
 
 require 'rails_helper'

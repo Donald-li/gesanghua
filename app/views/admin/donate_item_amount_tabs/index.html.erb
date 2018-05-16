@@ -42,7 +42,7 @@
             <% @amount_tabs.each do |amount_tab| %>
             <tr>
               <td>
-                <%= amount_tab.amount %>
+                ￥<%= format_money(amount_tab.amount) %>
               </td>
               <td>
                 <%= amount_tab.alias %>
