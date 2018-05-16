@@ -46,32 +46,70 @@
     <p>专题资讯</p>
   </div>
   <div class="article1-read-swiper">
-    <div class="bd mt20" >
-      <div id="sca1" class="warp-pic-list" style="position: relative;">
-        <div id="wrapBox2" class="wrapBox">
-          <ul id="count2" class="count clearfix" style="margin-bottom: 80px;">
+    <!--<div class="bd mt20" >-->
+      <!--<div id="sca1" class="warp-pic-list" style="position: relative;">-->
+        <!--<div id="wrapBox2" class="wrapBox">-->
+          <!--<ul id="count2" class="count clearfix" style="margin-bottom: 80px;">-->
+            <!--<% @image_news.each do |image_new| %>-->
+                <!--<li  class="pull-left">-->
+                  <!--<%= link_to article_path(image_new) do %>-->
+                      <!--<div class="recommend-img">-->
+                        <!--<%= image_tag image_new.image.try(:file).try(:url, :medium).to_s %>-->
+                      <!--</div>-->
+                      <!--<p class="gsh-cont-1"><%= image_new.author %> | <%= image_new.published_at.strftime("%Y年%m月%d日")%></p>-->
+                      <!--<p class="gsh-cont-2"><%= image_new.title %></p>-->
+                  <!--<% end %>-->
+                <!--</li>-->
+            <!--<% end %>-->
+
+          <!--</ul>-->
+        <!--</div>-->
+        <!--<div class="scaase">-->
+          <!--<div id="right2" class="prev  butn">-->
+            <!--<span class="iconfont icon-arrow-left bul-icon-prev"></span>-->
+          <!--</div>-->
+          <!--<div id="left2" class="next  butn">-->
+            <!--<span class="iconfont icon-arrow-left bul-icon-next"></span>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+
+
+
+    <div id="swipertab article1-read-swiper">
+
+      <div class="row">
+        <div class="span12 border-b" style="position: relative;">
+
+          <div id="owl-demo" class="owl-carousel">
             <% @image_news.each do |image_new| %>
-                <li  class="pull-left">
-                  <%= link_to article_path(image_new) do %>
-                      <div class="recommend-img">
-                        <%= image_tag image_new.image.try(:file).try(:url, :medium).to_s %>
-                      </div>
-                      <p class="gsh-cont-1"><%= image_new.author %> | <%= image_new.published_at.strftime("%Y年%m月%d日")%></p>
-                      <p class="gsh-cont-2"><%= image_new.title %></p>
-                  <% end %>
-                </li>
+            <div class="item">
+                    <%= link_to article_path(image_new) do %>
+                        <div class="recommend-img">
+                          <%= image_tag image_new.image.try(:file).try(:url, :medium).to_s %>
+                        </div>
+                        <p class="gsh-cont-1"><%= image_new.author %> | <%= image_new.published_at.strftime("%Y年%m月%d日")%></p>
+                        <p class="gsh-cont-2"><%= image_new.title %></p>
+                    <% end %>
+
+
+            </div>
             <% end %>
 
-          </ul>
-        </div>
-        <div class="scaase">
-          <div id="right2" class="prev  butn">
-            <span class="iconfont icon-arrow-left bul-icon-prev"></span>
+
+
           </div>
-          <div id="left2" class="next  butn">
-            <span class="iconfont icon-arrow-left bul-icon-next"></span>
+          <div class="swiperNavigation ">
+            <a class=" prev pull-left butn" >
+              <span class="iconfont icon-arrow-left bul-icon-prev"></span>
+            </a>
+            <a class=" next pull-right butn">            <span class="iconfont icon-arrow-left bul-icon-next"></span>
+              </a>
           </div>
         </div>
+
+
       </div>
     </div>
   </div>
@@ -86,6 +124,7 @@
   </div>
 
 </div>
+
 <script>
     $('#share-2').share({
         sites: ['qzone', 'wechat', 'weibo', 'qq'],
@@ -93,23 +132,19 @@
         description: '<%= @special.name %>',
         image: 'http://<%= Settings.app_host%><%= @special.banner_url(nil) %>'
     });
-
-    $("#count2").dayuwscroll({
-        parent_ele: '#wrapBox2',
-        list_btn: '#tabT04',
-        pre_btn: '#left2',
-        next_btn: '#right2',
-        path: 'left',
-        auto: true,
-        time: 3000,
-        num: 3.6,
-        gd_num: 4,
-        waite_time: 1000
-
+    $("#owl-demo").owlCarousel({
+        items : 3
+    });
+    $(".next").click(function(){
+        $("#owl-demo").trigger('owl.next');
     })
-    if($('#coun2 li').length <=3){
-        $('#left2').css({'display': 'none'})
-        $('#right2').css({'display': 'none'})
+    $(".prev").click(function(){
+        $("#owl-demo").trigger('owl.prev');
+    })
+
+    if($('.owl-item').length <=3){
+        $('.next').css({'display': 'none'})
+        $('.prev').css({'display': 'none'})
 
     }
 </script>

@@ -264,10 +264,10 @@ ActiveRecord::Schema.define(version: 20180515092600) do
     t.string "city", comment: "市"
     t.string "district", comment: "区、县"
     t.integer "fund_id", comment: "资金id"
-    t.integer "manager_id", comment: "负责人id"
     t.integer "state", comment: "状态：1:启用 2:禁用）"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "manager", comment: "负责人"
   end
 
   create_table "ckeditor_assets", force: :cascade do |t|
@@ -292,6 +292,7 @@ ActiveRecord::Schema.define(version: 20180515092600) do
     t.text "remark", comment: "处理备注"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
   end
 
   create_table "county_users", force: :cascade do |t|

@@ -1,4 +1,4 @@
-<%= simple_form_for [:platform, @member], url: @member.new_record? ? platform_school_apply_camp_members_path(@apply_camp) : platform_school_apply_camp_member_path(@apply_camp), html: {'data-parsley-validate': true, class: 'user_form'} do |f| %>
+<%= simple_form_for [:platform, @member], url: @member.new_record? ? platform_school_apply_camp_members_path(@apply_camp, kind: params[:kind]) : platform_school_apply_camp_member_path(@apply_camp, kind: params[:kind]), html: {'data-parsley-validate': true, class: 'user_form'} do |f| %>
 <div class="addchild-list marginbottom">
   <p class="don-title">基本信息</p>
   <div class="addchild-list-cont">
@@ -29,6 +29,10 @@
       </div>
     </div>
     <div class="clearfix">
+      <span class="goodtext pull-left">班级名称</span>
+      <input  class="goodinput pull-left from-input " type="text" name="project_season_apply_camp_member[classname]" placeholder="班级名称" value="<%= @member.classname %>"  required/>
+    </div>
+    <div class="clearfix">
       <span class="goodtext pull-left">班主任</span>
       <input  class="goodinput pull-left from-input " type="text" name="project_season_apply_camp_member[teacher_name]" placeholder="班主任姓名" value="<%= @member.teacher_name %>"  required/>
     </div>
@@ -46,7 +50,7 @@
     </div>
         <div style="height: 172px;width: 777px;" class="clearfix">
           <span class="goodtext pull-left goodtextare">自我介绍</span>
-          <textarea class="pull-left" name="project_season_apply_camp_member[description]" required><%= @member.description %></textarea>
+          <textarea class="pull-left" name="project_season_apply_camp_member[description]"><%= @member.description %></textarea>
         </div>
     <% end %>
 

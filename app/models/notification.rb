@@ -102,7 +102,7 @@ class Notification < ApplicationRecord
             color: "#173177"
         },
         keyword2: {
-            value: self.created_at.to_s(:db),
+            value: self.created_at.localtime.to_s(:db),
             color: "#274177"
         },
         remark: {

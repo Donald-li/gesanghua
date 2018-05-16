@@ -92,6 +92,7 @@ zh:
     donate_protocol: '捐助协议'
     project_apply_protocol: '项目申请协议'
     volunteer_apply_protocol: '志愿者申请协议'
+    voucher_protocol: '捐赠收据申请说明'
   protocol_states:
     show: '显示'
     hidden: '隐藏'
@@ -305,11 +306,8 @@ zh:
     suspend: '暂缓发放'
     cancel: '取消发放'
   gsh_child_grant_cancel_reasons:
-    leave: '请假'
-    absence: '休学'
-    transfor: '转学'
-    vacate: '学校放假'
-    other: '其他'
+    drop_out: '辍学'
+    demand: '捐助人要求'
   gsh_child_grant_donate_states:
     pending: '未筹款'
     succeed: '已筹款'

@@ -40,11 +40,12 @@
       <!-- <%= image_tag 'detail-reduce.png' %> -->
     </div>
     <!--报告-->
+    <% if @project_reports.present? %>
     <div class="pull-left detail-body-left border-l contentab">
-      <% if @project_reports.present? %>
+
       <ul class="detail-body-ul">
           <% @project_reports.each do |report| %>
-            <li class="detail-body-cont" id="<%= report.id %>">
+            <li class="detail-body-cont" id="show<%= report.id %>">
               <span class="detail-body-hover iconfont icon-yuan"></span>
               <div class="clearfix detail-font-tit">
                 <p class="pull-left"><%= report.title %></p>
@@ -59,8 +60,8 @@
                 <span class="pull-left"><%= report.user.show_name %> ·</span>
                 <span class="pull-left"><%= report.published_at.strftime("%Y-%m-%d")%>由发布</span>
               </div>
-              <div class="de-left-con  clearfix">
-                <div class="read-more goods-1">
+              <div class="de-left-con  clearfix clampjs">
+                <div class=" goods-1">
                   <p>那么新旧版本是什么？</p>
                   <p>获取div中文本的长度，然后和通过和属性limit规定的长度进行对比，如果超出长度则使用截取指定的长度，后面用获取div中文本的长度，然后和通过和属性limit规定的长度进行对比，如果超出长度则使用截取指定的长度，后面用获取div中文本的长度，然后和通过和属性limit规定的长度进行对比，如果超出长度则使用截取指定的长度，后面用</p>
                 </div>
@@ -87,12 +88,11 @@
                 <div class="donation-co-no-c-img">
                   <%= image_tag 'not-available.png' %>
                 </div>
-                <p>暂无物品清单</p>
+                <p>暂无项目报告</p>
               </div>
             </div>
           </div>
       <% end %>
-
     <div class="pull-right detail-body-right">
       <p class="detail-b-r-t border-b"><span>捐助记录</span></p>
       <% if @donate_records.present? %>
@@ -121,12 +121,25 @@
         ],
         initMaximized: true
     });
+    $(document).ready(function () {
+        var navHeight = $("#navHeight").offset().top;
+        var navFix = $("#navHeight");
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > navHeight) {
+                navFix.addClass("navFix");
+            }
+            else {
+                navFix.removeClass("navFix");
+            }
+        })
+    })
     $('#dtails-cont').myTab()
     $('.circlechart').circlechart()
     function showHideCode(id) {
-        $("#" + id + " > .de-left-con").toggleClass('read-more')
-        $("#" + id + " > .detail-font-tit > span").css('display', 'none')
-        $("#" + id + " .details-img").css('display', 'block')
+        $("#show" + id + " .de-left-con").removeClass('read-more')
+        $("#show" + id + " .detail-font-tit > span").css('display', 'none')
+        $("#show" + id + " .details-img").css('display', 'block')
+        $('.de-left-con .de-left-con-fon').css({"white-space": "pre-wrap"})
     }
      $('#share-2').share({
        sites: ['qzone', 'wechat', 'weibo', 'qq'],

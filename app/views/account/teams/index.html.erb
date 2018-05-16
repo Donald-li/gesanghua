@@ -39,7 +39,7 @@
                 <% else %>
                     <li class="cur"><%= link_to '修改信息', edit_account_team_path(@team) %></li>
                     <li class="cur"><%= link_to '移交团队', account_team_transfers_path(@team) %></li>
-                    <li class="cur" id="dissolve"><a>解散团队</a></li>
+                    <li class="cur"  data-toggle="modal" data-target="#myModal"><a>解散团队</a></li>
                 <% end %>
               </ul>
             </div>
@@ -116,24 +116,26 @@
         </div>
       </div>
   <% end %>
-
-  <div class="overspread-3">
-    <div class="overspread-over"></div>
-    <div class="overspread-cont" style="height: 200px;">
-      <div class="clearfix">
-        <div class="pull-left mys-1"></div>
-        <div class="pull-right iconfont icon-icondelete cur overspread-but"></div>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom: none;">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" class="detail-icon">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel"></h4>
+        </div>
+        <div class="modal-body">
+          <div class="overspread-co">
+            <p class="over-fontns">团队解散后无法恢复<br>确认解散团队？</p>
+          </div>
+        </div>
+        <div class="modal-footer overspreads-but">
+          <button class="succeed" id="dismiss-team">确认</button>
+          <button class="defeated" data-dismiss="modal">取消</button>
+        </div>
       </div>
-      <div class="overspread-co">
-        <p class="over-fontns" style="width: 60%;margin: 27px auto 0 auto;">团队解散后无法恢复,确认解散团队？</p>
-      </div>
-      <div class="overspreads-but">
-        <button id="dismiss-team">确认</button>
-        <button>取消</button>
-      </div>
-      <!--<div class="overspread-but  over-but">确认</div>-->
     </div>
-
   </div>
 </div>
 <script>
@@ -147,7 +149,6 @@
         $('.project-nav-heide').css({'display': 'none'})
         $('.teams-s-cont-name .iconfont').removeClass("tranicon")
     })
-    $('.overspread-3').overs("#dissolve");
     $('#dismiss-team').click(function () {
         $.post("/ajaxes/dismiss_team",
             {

@@ -30,8 +30,7 @@
 
 class ProjectSeasonApplyCampMember < ApplicationRecord
 
-  after_create :count_age
-  after_create :distinguish_gender
+  after_save :distinguish_gender, :count_age
 
   belongs_to :apply_camp, class_name: 'ProjectSeasonApplyCamp', foreign_key: :project_season_apply_camp_id
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: :project_season_apply_id

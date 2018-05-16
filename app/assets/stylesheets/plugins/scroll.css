@@ -95,14 +95,14 @@
     top: 0;
 }
 
-.butn {
-    opacity: .5;
-    background: #000;
-    position: absolute;
-    top: 20%;
-    cursor: pointer;
+/*.butn {*/
+    /*opacity: .5;*/
+    /*background: #000;*/
+    /*position: absolute;*/
+    /*top: 20%;*/
+    /*cursor: pointer;*/
 
-}
+/*}*/
 
 #count2 li {
     width: 360px;

@@ -59,6 +59,7 @@ namespace :api do
       resources :vouchers do
         collection do
           post :apply_voucher
+          get :address
         end
       end
     end

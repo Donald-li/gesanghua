@@ -168,9 +168,10 @@
     $('.circlechart').circlechart();
     $('#dtails-cont').myTab();
     function showHideCode(id) {
-        $("#" + id + " > .de-left-con").toggleClass('read-more');
-        $("#" + id + " > .detail-font-tit > span").css('display', 'none');
-        $("#" + id + " .details-img").css('display', 'block');
+        $("#show" + id + " .de-left-con").removeClass('read-more')
+        $("#show" + id + " .detail-font-tit > span").css('display', 'none')
+        $("#show" + id + " .details-img").css('display', 'block')
+        $('.de-left-con .de-left-con-fon').css({"white-space": "pre-wrap"})
     }
 
   $('#donate-btn').click(function () {

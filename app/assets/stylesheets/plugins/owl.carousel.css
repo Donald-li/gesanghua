@@ -38,10 +38,18 @@
 .customNavigation .bul-icon-next {
     font-size: 20px;
     transform: rotate(270deg);
+    -ms-transform:rotate(270deg);
+    -moz-transform:rotate(270deg);
+    -webkit-transform:rotate(270deg);
+    -o-transform:rotate(270deg);
 }
 
 .customNavigation .bul-icon-prev {
     transform: rotate(90deg);
+    -ms-transform:rotate(90deg);
+    -moz-transform:rotate(90deg);
+    -webkit-transform:rotate(90deg);
+    -o-transform:rotate(90deg);
     font-size: 20px;
 
 }
