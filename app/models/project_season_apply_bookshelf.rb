@@ -26,6 +26,7 @@
 #  contact_name            :string                                 # 联系人
 #  contact_phone           :string                                 # 联系电话
 #  address                 :string                                 # 详细地址
+#  management_fee_state    :integer                                # 计提管理费状态
 #
 
 # 项目年度图书角申请
@@ -64,6 +65,10 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
 
   enum state: {raising: 1, to_delivery: 2, to_receive: 3, to_feedback: 4, feedbacked: 5, done: 6, cancelled: 7} # 筹款状态 1:筹款中 2:待发货 3:待收货 4:待反馈 5:反馈完成 6:完成 7:取消
   default_value_for :state, 1
+
+  # 是否计提管理费
+  enum management_fee_state: {unaccrue: 1, accrued: 2} # 状态：1:未计提 2:已计提
+  default_value_for :management_fee_state, 1
 
   enum grade: {juniorone: 1, juniortwo: 2, juniorthree: 3, seniorone: 4, seniortwo: 5, seniorthree: 6}
   default_value_for :grade, 1

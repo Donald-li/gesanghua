@@ -16,6 +16,7 @@
 #  audit_state                       :integer                                # 审核状态
 #  show_state                        :integer                                # 显示状态
 #  project_id                        :integer                                # 项目id
+#  management_fee_state              :integer                                # 计提管理费状态
 #
 
 # 图书角书架补书
@@ -41,6 +42,10 @@ class BookshelfSupplement < ApplicationRecord
 
   enum state: {raising: 1, to_delivery: 2, to_receive: 3, to_feedback: 4, feedbacked: 5, done: 6, cancelled: 7}
   default_value_for :state, 1
+
+  # 是否计提管理费
+  enum management_fee_state: {unaccrue: 1, accrued: 2} # 状态：1:未计提 2:已计提
+  default_value_for :management_fee_state, 1
 
   enum audit_state: {submit: 1, pass: 2, reject: 3}
   default_value_for :audit_state, 1

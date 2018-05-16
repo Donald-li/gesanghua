@@ -26,6 +26,7 @@
 #  contact_name            :string                                 # 联系人
 #  contact_phone           :string                                 # 联系电话
 #  address                 :string                                 # 详细地址
+#  management_fee_state    :integer                                # 计提管理费状态
 #
 
 require 'rails_helper'

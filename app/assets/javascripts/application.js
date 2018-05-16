@@ -106,7 +106,7 @@ $(function () {
         reIE.test(userAgent);
         var fIEVersion = parseFloat(RegExp["$1"]);
         if (fIEVersion < 9) {
-            window.open("http://192.168.31.73:3000/information");
+            window.location.href = '/information'
         }
 
     }

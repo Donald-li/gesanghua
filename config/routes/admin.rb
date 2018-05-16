@@ -81,6 +81,7 @@ namespace :admin do
     resources :supplement_donate_records
     resources :bookshelves, concerns: :switch do
       member do
+        get :accrue
         get :shipment
         post :create_shipment
         get :bookshelf_receive
@@ -96,6 +97,7 @@ namespace :admin do
       end
     end
   end
+  resources :management_fees, only: :create
   resources :read_reports, concerns: [:switch]
   resources :read_continual_feedbacks, concerns: [:recommend]
   resources :project_movie_seasons, concerns: [:switch]
@@ -265,6 +267,7 @@ namespace :admin do
   end
   resources :goods_projects, concerns: [:switch] do
     member do
+      get :accrue
       get :shipment
       post :create_shipment
       put :receive

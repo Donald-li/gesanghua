@@ -53,6 +53,7 @@
 #  expenditure_information :text                                   # 支出详情
 #  debt_information        :text                                   # 负债情况
 #  parent_information      :string                                 # 父母情况
+#  management_fee_state    :integer                                # 计提管理费状态
 #
 
 require 'custom_validators'
@@ -125,6 +126,10 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   enum semester: {last_term: 1, next_term: 2} # 学期： 1:上学期 2:下学期
   default_value_for :semester, 1
+
+  # 是否计提管理费
+  enum management_fee_state: {unaccrue: 1, accrued: 2} # 状态：1:未计提 2:已计提
+  default_value_for :management_fee_state, 1
 
   enum nation: {'default': 0, 'hanzu': 1, 'zhuangzu': 2, 'manzu': 3, 'huizu': 4, 'miaozu': 5, 'weizu': 6, 'tujiazu': 7, 'yizu': 8, 'mengguzu': 9, 'zangzu': 10, 'buyizu': 11, 'dongzu': 12, 'yaozu': 13, 'chaoxianzu': 14, 'baizu': 15, 'hanizu': 16, 'hasakezu': 17, 'lizu': 18, 'daizu': 19, 'shezu': 20, 'lisuzu': 21, 'gelaozu': 22, 'dongxiangzu': 23, 'gaoshanzu': 24, 'lahuzu': 25, 'shuizu': 26, 'wazu': 27, 'naxizu': 28, 'qiangzu': 29, 'tuzu': 30, 'mulaozu': 31, 'xibozu': 32, 'keerkezizu': 33, 'dawoerzu': 34, 'jingpozu': 35, 'maonanzu': 36, 'salazu': 37, 'bulangzu': 38, 'tajikezu': 39, 'achangzu': 40, 'pumizu': 41, 'ewenkezu': 42, 'nuzu': 43, 'jingzu': 44, 'jinuozu': 45, 'deangzu': 46, 'baoanzu': 47, 'eluosizu': 48, 'yuguzu': 49, 'wuzibiekezu': 50, 'menbazu': 51, 'elunchunzu': 52, 'dulongzu': 53, 'tataerzu': 54, 'hezhezu': 55, 'luobazu': 56}
   default_value_for :nation, 0

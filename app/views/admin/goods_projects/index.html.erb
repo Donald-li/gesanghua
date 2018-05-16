@@ -139,6 +139,14 @@
                     <% else %>
                       <span class="btn btn-xs default"><i class="fa fa-file"></i> 查看反馈</span>
                     <% end %>
+
+                    <% if !apply.accrued? %>
+                      <%= link_to accrue_admin_goods_project_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
+                      <i class="fa fa-yen"></i> 计提管理费
+                      <% end %>
+                    <% else %>
+                      <a href="javascript:;" class="btn btn-xs grey"><i class="fa fa-yen"></i> 已计提管理费</a>
+                    <% end %>
                   <% end %>
                   <% if apply.feedbacked? %>
                     <%= link_to done_admin_goods_project_path(apply), class: 'btn btn-xs blue', method: :put, data: {confirm: '确定已完成吗？'} do %>
