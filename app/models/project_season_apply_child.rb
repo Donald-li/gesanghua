@@ -53,10 +53,14 @@
 #  expenditure_information :text                                   # 支出详情
 #  debt_information        :text                                   # 负债情况
 #  parent_information      :string                                 # 父母情况
+#  information             :text                                   # 对外展示的孩子介绍
 #
 
 require 'custom_validators'
 class ProjectSeasonApplyChild < ApplicationRecord
+
+  include SanitizeContent
+  sanitize_content :information
 
   has_paper_trail only: [:project_id, :project_season_id, :project_season_apply_id, :gsh_child_id, :name, :province, :city, :district, :phone, :qq, :nation, :id_card, :parent_name, :description, :state,
      :approve_state, :age, :level, :grade, :gender, :school_id, :semester, :kind, :reson, :gsh_no, :teacher_name, :teacher_phone, :father, :father_job, :mother, :mother_job, :guardian, :guardian_relation, :guardian_phone, :address,

@@ -27,7 +27,7 @@
             </div>
           </div>
           <%= f.input :name, label: '真实姓名：', autofocus: true, placeholder: '姓名', required: true %>
-          <%= f.input :gender, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApplyChild.options_for_some_select(:genders, ['male', 'female']), label: '性别：'%>
+          <%= f.input :gender, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApplyChild.options_for_some_select(:genders, ['male', 'female']), label: '性别：' %>
           <%= f.input :id_card, label: '身份证号：', placeholder: '身份证号', required: true %>
           <%= f.input :nation, as: :select, label: '民族：', collection: ProjectSeasonApplyChild.options_for_enum_select(:nations), include_blank: false %>
           <%= f.input :level, as: :select, label: '学历：', collection: ProjectSeasonApplyChild.options_for_enum_select(:levels), include_blank: false %>
@@ -54,7 +54,7 @@
           <%= f.input :family_condition, as: :text, label: '家庭情况：', placeholder: '家庭情况', required: true %>
           <%#= f.input :brothers, as: :text, label: '兄弟姐妹：', placeholder: '兄弟姐妹', required: true %>
           <h3>推荐理由</h3>
-          <%= f.input :reason, label: '推荐理由：', placeholder: '推荐理由', input_html: { maxlength: 20 } %>
+          <%= f.input :reason, label: '推荐理由：', placeholder: '推荐理由', input_html: {maxlength: 20} %>
           <%= f.input :description, label: '描述：', placeholder: '描述' %>
           <div class="form-group">
             <label class="col-md-2 control-label">上传身份证：</label>
@@ -92,6 +92,12 @@
               <%= webuploader_tag :poverty_id, label: '上传图片', type: 'apply_child_poverty', asset: @apply_child.poverty, klass: 'single', id: 'single-upload7' %>
             </div>
           </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label">孩子介绍：</label>
+            <div class="col-sm-9">
+              <%= f.cktext_area :information %>
+            </div>
+          </div>
           <%= f.input :remark, label: '备注：', placeholder: '备注' %>
         </div>
         <div class="form-actions">
@@ -106,15 +112,15 @@
   </div>
 </div>
 <script>
-  $(function(){
+    $(function () {
 
-    initImageWebuploader($('#single-upload1'));
-    initImageWebuploader($('#single-upload2'));
-    initImageWebuploader($('#single-upload3'));
-    initImageWebuploader($('#single-upload4'));
-    initImageWebuploader($('#single-upload5'));
-    initImageWebuploader($('#single-upload6'));
-    initImageWebuploader($('#single-upload7'));
-  })
+        initImageWebuploader($('#single-upload1'));
+        initImageWebuploader($('#single-upload2'));
+        initImageWebuploader($('#single-upload3'));
+        initImageWebuploader($('#single-upload4'));
+        initImageWebuploader($('#single-upload5'));
+        initImageWebuploader($('#single-upload6'));
+        initImageWebuploader($('#single-upload7'));
+    })
 
 </script>

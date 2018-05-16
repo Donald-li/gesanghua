@@ -16,7 +16,6 @@ class Api::V1::Account::UsersController < Api::V1::BaseController
     city = params[:location][1]
     district = params[:location][2]
     address = params[:address]
-    phone = params[:phone]
     nickname = params[:nickname]
     name = params[:name]
     salutation = params[:salutation]
@@ -27,7 +26,7 @@ class Api::V1::Account::UsersController < Api::V1::BaseController
       gender = 'female'
     end
     use_nickname = params[:use_nickname][0] if params[:use_nickname].present?
-    if user.update(province: province, city: city, district: district, nickname: nickname, name: name, phone: phone, salutation: salutation, email: email, address: address, use_nickname: use_nickname, gender: gender)
+    if user.update(province: province, city: city, district: district, nickname: nickname, name: name, salutation: salutation, email: email, address: address, use_nickname: use_nickname, gender: gender)
       user.attach_avatar(params[:avatar][:id]) if params[:avatar].present?
       api_success(data: {result: true}, message: '修改用户信息成功。')
     else
