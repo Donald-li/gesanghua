@@ -5,6 +5,7 @@
 #  id                    :integer          not null, primary key
 #  openid                :string                                       # 微信openid
 #  name                  :string                                       # 姓名
+#  login                 :string                                       # 登录账号
 #  password_digest       :string                                       # 密码
 #  state                 :integer          default("enable")           # 状态 1:启用 2:禁用
 #  team_id               :integer                                      # 团队ID
@@ -38,7 +39,6 @@
 #  camp_id               :integer                                      # 探索营id
 #  project_ids           :jsonb                                        # 可管理项目（项目管理员）
 #  notice_state          :boolean          default(FALSE)              # 用户是否有未查看的公告
-#  login                 :string
 #
 
 # 用户
@@ -404,9 +404,6 @@ class User < ApplicationRecord
       CountyUser.where(user_id: wechat_user.id).each do |county_user|
         county_user.update!(user_id: phone_user.id)
       end
-      Camp.where(manager_id: wechat_user.id).each do |camp|
-        camp.update!(manager_id: phone_user.id)
-      end
       Team.where(creater_id: wechat_user.id).each do |team|
         team.update!(creater_id: phone_user.id)
       end
@@ -449,7 +446,7 @@ class User < ApplicationRecord
         record.update!(donor_id: self.id, agent_id: self.id)
       end
       AccountRecord.where(donor_id: old_user.id).each do |record|
-        record.update!(donor_id: self.id, user_id: self.id)
+        record.update!(donor_id: self.id)
       end
       #重算两个账号的缓存数据
       offline_income_resource = IncomeSource.offline
@@ -459,8 +456,9 @@ class User < ApplicationRecord
         self.update!(offline_amount: IncomeRecord.where(agent_id: self.id, income_source_id: offline_income_resource.ids).sum(:amount))
       elsif IncomeRecord.where(agent_id: self.id).where.not(income_source_id: offline_income_resource.ids).sum(:amount) != self.online_amount
         self.update!(online_amount: IncomeRecord.where(agent_id: self.id).where.not(income_source_id: offline_income_resource.ids).sum(:amount))
-      elsif AccountRecord.where(user_id: self.id).sum(:amount) != self.balance
-        self.update!(balance: AccountRecord.where(user_id: self.id).sum(:amount))
+      # elsif AccountRecord.where(user_id: self.id).sum(:amount) != self.balance
+      #   sum = AccountRecord.where(user_id: self.id).sum(:amount).to_f
+      #   self.update!(balance: sum)
       end
     end
   end

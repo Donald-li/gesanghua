@@ -53,7 +53,6 @@
 #  expenditure_information :text                                   # 支出详情
 #  debt_information        :text                                   # 负债情况
 #  parent_information      :string                                 # 父母情况
-#  management_fee_state    :integer                                # 计提管理费状态
 #
 
 require 'custom_validators'
