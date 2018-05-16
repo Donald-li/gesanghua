@@ -85,6 +85,11 @@ class Notification < ApplicationRecord
       template_id = Settings.wechat_template_notify
       keyword1 = self.content
       url = "#{Settings.m_root_url}/cooperation"
+    when 'child_granted'
+      title = self.title
+      template_id = Settings.wechat_template_notify
+      keyword1 = self.content
+      url = "#{Settings.m_root_url}/account/my-pairs"
     else
       title = '消息提醒'
       template_id = Settings.wechat_template_notify
