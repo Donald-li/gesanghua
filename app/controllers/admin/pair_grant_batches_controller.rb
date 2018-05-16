@@ -6,18 +6,24 @@ class Admin::PairGrantBatchesController < Admin::BaseController
     @batches = @search.result.sorted.page(params[:page])
   end
 
-  def excel_output
-    @batch = GrantBatch.find(params[:format])
-    path = ExcelOutput.grant_batch_output(@batch)
-    send_file(path, filename: "结对助学发放批次名单.xlsx")
-  end
+  # def excel_output
+  #   @batch = GrantBatch.find(params[:format])
+  #   path = ExcelOutput.grant_batch_output(@batch)
+  #   send_file(path, filename: "结对助学发放批次名单.xlsx")
+  # end
 
   def show
     @batch = GrantBatch.find(params[:id])
     @search = @batch.grants.search(params[:q])
-    @items = @search.result.includes(:gsh_child, :school).all
 
     @grants = GshChildGrant.where('1<>1').search(params[:q]).result.page(1)
+    respond_to do |format|
+      format.html { @items = @search.result.includes(:gsh_child, :school).all }
+      format.xlsx {
+        @items = @search.result.includes(:gsh_child, :school).all
+        response.headers['Content-Disposition'] = 'attachment; filename= "结对助学发放批次名单" ' + Date.today.to_s + '.xlsx'
+      }
+    end
   end
 
   def new
