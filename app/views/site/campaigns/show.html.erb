@@ -27,7 +27,7 @@
           <p><%= @campaign.price %>元/人</p>
         </div>
       </div>
-      <button class="activity-detail-but activity-color-but-1" id="<%= 'submit-campaign' if @campaign.can_apply?(current_user) %>"><%= @campaign.detail_state_name(current_user) %></button>
+      <button class="activity-detail-but activity-color-but-1" data-toggle="modal" data-target="<%= '#myModal' if @campaign.can_apply?(current_user) %>"><%= @campaign.detail_state_name(current_user) %></button>
     </div>
     <div class="camps-cont-detail">
       <%= @campaign.content.html_safe %>
@@ -59,15 +59,17 @@
       <% end %>
     </div>
   </div>
-  <div class="overspread-5 " id="cmapaigns-e">
-    <div class="overspread-over"></div>
-    <div class="overspread-cont">
-      <div class="clearfix">
-        <div class="pull-left mys-1">活动报名</div>
-        <div class="pull-right iconfont icon-icondelete cur overspread-but"></div>
-      </div>
-      <%= simple_form_for @campaign, url: submit_campaign_path, method: :post, html: {data: {'parsley-validate': true, class: 'campaign_form'}} do |f| %>
-          <div class="overspread-co" id="cmapaigns-but">
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="width:590px;">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" class="detail-icon">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">活动报名</h4>
+        </div>
+        <%= simple_form_for @campaign, url: submit_campaign_path, method: :post, html: {data: {'parsley-validate': true, class: 'campaign_form'}} do |f| %>
+        <div class="modal-body"  style="padding: 0 30px 15px 30px;">
+          <div id="cmapaigns-but">
             <p>活动费用：<span>￥<%= @campaign.price %>/人</span></p>
             <div>
               <p class="goodtext">联系人</p>
@@ -91,16 +93,55 @@
             </div>
 
           </div>
-          <div style="text-align: center;">
-            <button class="overspreadsc-but overspread-but  over-but">支付</button>
-          </div>
-      <% end %>
-
+        </div>
+        <div class="modal-footer overspreads-but">
+          <button class="overspreadsc-but overspread-but  over-but">支付</button>
+        </div>
+        <% end %>
+      </div>
     </div>
+  </div>
+  <!--<div class="overspread-5 " id="cmapaigns-e">-->
+    <!--<div class="overspread-over"></div>-->
+    <!--<div class="overspread-cont">-->
+      <!--<div class="clearfix">-->
+        <!--<div class="pull-left mys-1">活动报名</div>-->
+        <!--<div class="pull-right iconfont icon-icondelete cur overspread-but"></div>-->
+      <!--</div>-->
+      <!--<%= simple_form_for @campaign, url: submit_campaign_path, method: :post, html: {data: {'parsley-validate': true, class: 'campaign_form'}} do |f| %>-->
+          <!--<div class="overspread-co" id="cmapaigns-but">-->
+            <!--<p>活动费用：<span>￥<%= @campaign.price %>/人</span></p>-->
+            <!--<div>-->
+              <!--<p class="goodtext">联系人</p>-->
+              <!--<input type="text" name="contact_name" required/>-->
+            <!--</div>-->
+            <!--<div>-->
+              <!--<p class="goodtext">联系电话</p>-->
+              <!--<input type="text" name="contact_phone" required/>-->
+            <!--</div>-->
+            <!--<div>-->
+              <!--<span class="goodtext">参与人数</span>-->
+              <!--<div class="modified modified-1 goods-project-input">-->
+                <!--<span class="iconfont icon-ico-reduce oversmin"></span>-->
+                <!--<input type="text" name="number" value="1" class="oversinputs"/>-->
+                <!--<span class="iconfont icon-ico-add1 oversadd"></span>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div>-->
+              <!--<p class="goodtext">备注</p>-->
+              <!--<textarea placeholder="<%= @campaign.remark %>" name="remark"></textarea>-->
+            <!--</div>-->
+
+          <!--</div>-->
+          <!--<div style="text-align: center;">-->
+            <!--<button class="overspreadsc-but overspread-but  over-but">支付</button>-->
+          <!--</div>-->
+      <!--<% end %>-->
+
+    <!--</div>-->
   </div>
 </div>
 <script>
-    $('#cmapaigns-e').overs("#submit-campaign");
     $('#share-2').share({
         sites: ['qzone', 'wechat', 'weibo', 'qq'],
         url: '<%= @wechat_code_url %>'

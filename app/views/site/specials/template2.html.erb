@@ -113,7 +113,7 @@
       </div>
     </div>
   </div>
-  <div class="camps-share " >
+  <div class="camps-share " style="width: 1140px;" >
     <p style="margin: 30px auto 0 auto;">分享</p>
     <ol>
       <li  style="padding: 20px 268px 80px 268px;">
@@ -133,7 +133,11 @@
         image: 'http://<%= Settings.app_host%><%= @special.banner_url(nil) %>'
     });
     $("#owl-article").owlCarousel({
-        items : 3
+        items : 3,
+        itemsDesktop : [1199,3],
+        itemsDesktopSmall : [979,3],
+        itemsTablet : [768,3],
+        itemsMobile : [479,3]
     });
     $(".next").click(function(){
         $("#owl-demo").trigger('owl.next');

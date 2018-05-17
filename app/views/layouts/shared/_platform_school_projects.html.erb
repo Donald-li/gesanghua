@@ -134,7 +134,11 @@
 
 
 $("#owl-demo").owlCarousel({
-      items : 5
+      items : 5,
+    itemsDesktop : [1199,5],
+    itemsDesktopSmall : [979,5],
+    itemsTablet : [768,5],
+    itemsMobile : [479,5]
       });
 $(".next").click(function(){
     $("#owl-demo").trigger('owl.next');
