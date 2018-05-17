@@ -39,8 +39,11 @@ $(function(){
         var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
         reIE.test(userAgent);
         var fIEVersion = parseFloat(RegExp["$1"]);
-        if (fIEVersion < 9) {
-            window.location = '/information'
+        if (fIEVersion < 9 && window.location.pathname !== '/information') {
+
+            window.location.href = '/information'
+
+
         }
 
 
