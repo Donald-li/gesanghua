@@ -147,6 +147,26 @@ class Teacher < ApplicationRecord
     return result, notice
   end
 
+  def admin_create_teacher
+    result = false
+    notice = ''
+
+    self.transaction do
+      if self.user.present?
+        user = self.user
+        user.add_role(:teacher)
+        user.save!
+      end
+      unless self.save
+        result = false
+        notice = self.errors.values.flatten.join(',')
+        raise ActiveRecord::Rollback
+      end
+      result = true
+    end
+    return result, notice
+  end
+
   def create_notification(operator)
     if self.user.present?
       Notification.create(

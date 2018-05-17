@@ -14,6 +14,7 @@
 #  state        :integer                                # 状态
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  month_id     :integer                                # 月份
 #
 
 class ManagementFee < ApplicationRecord
