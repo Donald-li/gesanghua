@@ -13,7 +13,7 @@
           <%= search_form_for @search, url: admin_volunteer_applies_path, class: 'form-inline' do |f| %>
               <div class="form-group">
                 <%= f.label :name_cont, '搜索志愿者' %>
-                <%= f.text_field :name_or_phone_cont, class: 'form-control', placeholder: '姓名、手机号' %>
+                <%= f.text_field :name_or_phone_cont, class: 'form-control gsh-input-share', placeholder: '姓名、手机号' %>
               </div>
               <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>

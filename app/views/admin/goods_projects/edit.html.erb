@@ -22,7 +22,7 @@
             <label class="col-md-2 control-label">封面：</label>
             <div class="col-sm-9">
               <%= webuploader_tag :cover_image_id, label: '上传封面图片', type: 'project_season_apply_cover', asset: @project_apply.cover_image, klass: 'single' %>
-              <p class="help-block">请上传888X510px的图片</p>
+              <p class="help-block">支持上传png、jpg格式 ，图片尺寸960X552px</p>
             </div>
           </div>
           <%= render '/admin/shared/dynamic_form', apply: @project_apply, model: :project_season_apply %>

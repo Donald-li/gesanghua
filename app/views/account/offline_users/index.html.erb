@@ -56,7 +56,7 @@
                 <!--</div>-->
                 <% if offline_user.state == 'unactived' %>
                   <div class="clearfix don-con-pos">
-                    <div class="pull-right cur delete-offline-user" offlineUserId="<%= offline_user.id %>" id="delete">
+                    <div class="pull-right cur delete-offline-user" offlineUserId="<%= offline_user.id %>" id="delete" data-toggle="modal" data-target="#myModal">
                       <span class="iconfont icon-ico-delete1"></span>
                       <span>删除</span>
                     </div>
@@ -79,21 +79,26 @@
         </div>
 
       </div>
-
-
-  <div id="goodcover"></div>
-  <div id="remove">
-    <div class="remove-title clearfix">
-      <span id="remove-but" class="iconfont icon-icondelete cur pull-right "></span>
-    </div>
-    <div class="remove-body">
-      <p>确定删除此捐助人信息？</p>
-      <div class="clearfix">
-        <div class="pull-left" id="isDelete">确认</div>
-        <div class="pull-right" id="cancel">取消</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="detail-icon">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+        <div class="overspread-co">
+          <p class="over-fontns">确定删除此捐助人信息？</p>
+        </div>
+      </div>
+      <div class="modal-footer overspreads-but">
+        <button class="succeed" id="isDelete">确认</button>
+        <button class="defeated" data-dismiss="modal" id="cancel">取消</button>
       </div>
     </div>
   </div>
+</div>
 
 <script>
 
@@ -115,18 +120,10 @@
     $('.delete-offline-user').click(function() {
       var id = $(this).attr("offlineUserId");
       $('#isDelete').attr("offlineUserId", id);
-        $('#remove').center();
-        $('#goodcover').show();
-        $('#remove').fadeIn();
     });
-    $('#remove-but').click(function() {
-        $('#remove').hide();
-        $('#goodcover').hide();
-    });
+
     $('#cancel').click(function() {
       $('#isDelete').removeAttr("offlineUserId");
-        $('#remove').hide();
-        $('#goodcover').hide();
     });
     $('#isDelete').click(function() {
       var id = $(this).attr("offlineUserId");
@@ -150,8 +147,8 @@
        }
       })
       $('#isDelete').removeAttr("offlineUserId");
-        $('#remove').hide();
-        $('#goodcover').hide();
+        $('#myModal').on('hidden.bs.modal', function (e) {})
+
     });
 
 </script>

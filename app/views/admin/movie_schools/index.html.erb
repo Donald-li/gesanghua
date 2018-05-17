@@ -14,7 +14,7 @@
           <%= search_form_for @search, url: admin_movie_schools_path, class: 'form-inline' do |f| %>
               <div class="form-group">
                 <%= f.label :apply_no_or_school_name_cont, '搜索' %>
-                <%= f.text_field :apply_no_or_school_name_cont, class: 'form-control', placeholder: '编号或学校名称' %>
+                <%= f.text_field :apply_no_or_school_name_cont, class: 'form-control gsh-input-share', placeholder: '编号或学校名称' %>
               </div>
               <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>

@@ -44,6 +44,7 @@
 //= require 'plugin/changeImg.js'
 //= require 'plugin/scroll.1.3.js'
 //= require 'plugin/owl.carousel.js'
+//= require 'plugin/browser.js'
 
 $(function () {
     $("body").css("font-family", "'PingFang SC', '微软雅黑', 'Microsoft YaHei', Helvetica, 'Helvetica Neue', Tahoma, Arial, sans-serif")
@@ -82,34 +83,6 @@ $(function () {
         $('.bul-nav-heide').css({'display': 'none'})
     })
 
-    //判断浏览器
-    if (window.ActiveXObject || "ActiveXObject" in window) {
-        $('.read-more').css({"white-space": "nowrap"})
-        $('.redundance').css({"white-space": "nowrap"})
-        $('.project-cont-con').css({"white-space": "nowrap"})
-        $('.recommend-cont .gsh-cont-2').css({"white-space": "nowrap"})
-        $('.camps-body-conts .camps-cont-1').css({"white-space": "nowrap"})
-        $('.pairs-body-conts .pairs-body-c-p').css({"white-space": "nowrap"})
-        $('.gsh-cont-3').css({"white-space": "nowrap"})
-        $('.detail-con-font').css({"white-space": "nowrap"})
-        $('.speciais .speciais-con .speciais-con-con .gsh-cont-3').css({"white-space": "nowrap"})
-        $('.items-container .item .gsh-cont-2').css({"white-space": "nowrap"})
-        $('.speciais .speciais-right .speciais-con-con .gsh-cont-2').css({"white-space": "nowrap"})
-        $('.speciais .speciais-con .speciais-con-con .gsh-cont-2').css({"white-space": "nowrap"})
-        $('.speciais-right .speciais-right-pos .speciais-con-con > div').css({"height": "38px"})
-    }
-
-    var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
-    var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1; //判断是否IE<11浏览器
-    if (isIE) {
-        var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
-        reIE.test(userAgent);
-        var fIEVersion = parseFloat(RegExp["$1"]);
-        if (fIEVersion < 9) {
-            window.location.href = '/information'
-        }
-
-    }
     //二维码移入移除变化
     $('.bul-top-2').mousemove(function () {
         $('.bul-pos4').css({'display': 'block'})
@@ -148,37 +121,38 @@ $(function () {
     //         }
     //     })
     // })
+
     if ($('.school-apply-pair-tables').length > 8) {
         $('.posscroll').css('height', '800px')
     }
 //    遮罩
-    jQuery.fn.center = function (loaded) {
-        var obj = this;
-        body_width = parseInt($(window).width());
-        body_height = parseInt($(window).height());
-        block_width = parseInt(obj.width());
-        block_height = parseInt(obj.height());
-
-        left_position = parseInt((body_width / 2) - (block_width / 2) + $(window).scrollLeft());
-        if (body_width < block_width) {
-            left_position = 0 + $(window).scrollLeft();
-        }
-        ;
-
-        top_position = parseInt((body_height / 2) - (block_height / 2) + $(window).scrollTop());
-        if (body_height < block_height) {
-            top_position = 0 + $(window).scrollTop();
-        }
-        ;
-        if (!loaded) {
-            $(window).bind('resize', function () {
-                obj.center(!loaded);
-            });
-            $(window).bind('scroll', function () {
-                obj.center(!loaded);
-            });
-        }
-    }
+//     jQuery.fn.center = function (loaded) {
+//         var obj = this;
+//         body_width = parseInt($(window).width());
+//         body_height = parseInt($(window).height());
+//         block_width = parseInt(obj.width());
+//         block_height = parseInt(obj.height());
+//
+//         left_position = parseInt((body_width / 2) - (block_width / 2) + $(window).scrollLeft());
+//         if (body_width < block_width) {
+//             left_position = 0 + $(window).scrollLeft();
+//         }
+//         ;
+//
+//         top_position = parseInt((body_height / 2) - (block_height / 2) + $(window).scrollTop());
+//         if (body_height < block_height) {
+//             top_position = 0 + $(window).scrollTop();
+//         }
+//         ;
+//         if (!loaded) {
+//             $(window).bind('resize', function () {
+//                 obj.center(!loaded);
+//             });
+//             $(window).bind('scroll', function () {
+//                 obj.center(!loaded);
+//             });
+//         }
+//     }
 })
 
 

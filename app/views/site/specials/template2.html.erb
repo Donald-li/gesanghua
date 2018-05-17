@@ -82,7 +82,7 @@
       <div class="row">
         <div class="span12 border-b" style="position: relative;">
 
-          <div id="owl-demo" class="owl-carousel">
+          <div id="owl-article" class="owl-carousel">
             <% @image_news.each do |image_new| %>
             <div class="item">
                     <%= link_to article_path(image_new) do %>
@@ -132,7 +132,7 @@
         description: '<%= @special.name %>',
         image: 'http://<%= Settings.app_host%><%= @special.banner_url(nil) %>'
     });
-    $("#owl-demo").owlCarousel({
+    $("#owl-article").owlCarousel({
         items : 3
     });
     $(".next").click(function(){

@@ -17,17 +17,17 @@
           <%= search_form_for @search, url: admin_articles_path, class: 'form-inline' do |f| %>
           <div class="form-group">
             <%= f.label :title_cont, '标题' %>
-            <%= f.text_field :title_cont, class: 'form-control', placeholder: '' %>
+            <%= f.text_field :title_cont, class: 'form-control gsh-input-share', placeholder: '' %>
           </div>
-          <%= f.select :article_category_id_eq, ArticleCategory.all.map{|c| [c.name, c.id]}, {include_blank: '选择资讯分类'}, placeholder: '', class: 'form-control' %>
+          <%= f.select :article_category_id_eq, ArticleCategory.all.map{|c| [c.name, c.id]}, {include_blank: '选择资讯分类'}, placeholder: '', class: 'form-control gsh-input-share' %>
           <div class="form-group">
             <%= f.label :state_eq, '状态' %>
-            <%= f.select :state_eq, Article.options_for_select(:states, raw: true), {include_blank: '全部'}, placeholder: '', class: 'form-control' %>
+            <%= f.select :state_eq, Article.options_for_select(:states, raw: true), {include_blank: '全部'}, placeholder: '', class: 'form-control gsh-input-share' %>
           </div>
           <div class="form-group">
             <%= f.label '发布时间' %>
-            <%= f.text_field :published_at_gteq, class: 'form-control datepicker', placeholder: '开始时间' %>
-            <%= f.text_field :published_at_lteq, class: 'form-control datepicker', placeholder: '结束时间' %>
+            <%= f.text_field :published_at_gteq, class: 'form-control datepicker gsh-input-share-l', placeholder: '开始时间' %>
+            <%= f.text_field :published_at_lteq, class: 'form-control datepicker gsh-input-share-r', placeholder: '结束时间' %>
           </div>
           <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>

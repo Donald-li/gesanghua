@@ -607,3 +607,6 @@ zh:
   project_season_apply_camp_member_kinds:
     student: '学生'
     teacher: '老师'
+  management_fee_month_states:
+    unaccrue: '未提取'
+    accrued: '已提取'

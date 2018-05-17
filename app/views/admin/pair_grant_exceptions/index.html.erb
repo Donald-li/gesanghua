@@ -14,15 +14,15 @@
           <%= search_form_for @search, url: admin_pair_grants_path, class: 'form-inline' do |f| %>
               <div class="form-group">
                 <%= f.label :apply_child_gsh_no_or_gsh_child_name_or_gsh_child_id_card_cont, '搜索学生' %>
-                <%= f.text_field :apply_child_gsh_no_or_gsh_child_name_or_gsh_child_id_card_cont, class: 'form-control', placeholder: '编号、学生信息' %>
+                <%= f.text_field :apply_child_gsh_no_or_gsh_child_name_or_gsh_child_id_card_cont, class: 'form-control gsh-input-share', placeholder: '编号、学生信息' %>
               </div>
               <div class="form-group">
                 <%= f.label :school_name_cont, '搜索学校' %>
-                <%= f.text_field :school_name_cont, class: 'form-control', placeholder: '学校名称' %>
+                <%= f.text_field :school_name_cont, class: 'form-control gsh-input-share', placeholder: '学校名称' %>
               </div>
               <div class="form-group">
                 <%= f.label :state_eq, '处理状态' %>
-                <%= f.select :state_eq, GshChildGrant.options_for_select(:states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
+                <%= f.select :state_eq, GshChildGrant.options_for_select(:states, raw: true), {include_blank: '全部'}, class: 'form-control gsh-input-share' %>
               </div>
               <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>

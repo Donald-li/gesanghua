@@ -17,7 +17,7 @@
           <%= search_form_for @search, url: admin_projects_path, class: 'form-inline' do |f| %>
               <div class="form-group">
                 <%= f.label :name_cont, '项目名称' %>
-                <%= f.text_field :name_cont, class: 'form-control', placeholder: '项目名称' %>
+                <%= f.text_field :name_cont, class: 'form-control gsh-input-share', placeholder: '项目名称' %>
               </div>
               <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>
@@ -70,7 +70,7 @@
                   <%= image_tag project.icon_url(nil), width:30, height:30 %>
                 </td>
                 <td>
-                  <%= image_tag project.image_url(:tiny), width:92, height:30 %>
+                  <%= image_tag project.image_url(:tiny), width:100, height:53 %>
                 </td>
                 <td>
                   <%= "#{project.fund.try(:fund_category).try(:name)} - #{project.fund.try(:name)}" %>

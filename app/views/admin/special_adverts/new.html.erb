@@ -20,7 +20,8 @@
             <label class="col-md-2 control-label">图片：</label>
             <div class="col-sm-9">
               <%= webuploader_tag :image_id, label: '上传图片', type: 'advert_image', asset: @advert.image, klass: 'single' %>
-              <!--<p class="help-block">请上传1014X608px的图片</p>-->
+              <p class="help-block">支持上传png、jpg格式 ，图片尺寸1014X604px</p>
+
             </div>
           </div>
           <%= f.input :url, label: '链接：', placeholder: '以‘http://’或‘https://’开头' %>

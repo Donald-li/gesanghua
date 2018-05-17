@@ -41,6 +41,7 @@
         </ul>
       </div>
     </div>
+
     <div class="pairs-body">
         <% if @children.present? %>
       <div class="pairs-body-cont row clearfix">
@@ -54,7 +55,7 @@
                     </div>
                     <div class="pairs-body-conts ">
                       <p><%= child.secure_name %></p>
-                      <p><%= ChinaCity.get(child.province) %> <%= ChinaCity.get(child.city) %>  <%= ChinaCity.get(child.district) %></p>
+                      <p><%= ChinaCity.get(child.province) %><br> <%= ChinaCity.get(child.city) %>  <%= ChinaCity.get(child.district) %></p>
                       <p class="pairs-body-c-p"><%= child.reason %></p>
                       <button>去捐助</button>
                     </div>
@@ -82,9 +83,6 @@
 </div>
 
 <script>
-    $("#username").placeholder({
-        isSpan:true
-    });
 
     //导航标题
     $('#projectshow').mouseenter(function () {
@@ -93,6 +91,7 @@
     $('#projectshow').mouseleave(function () {
         $('.project-nav-heide').css({'display': 'none'})
     })
+
     // $('.project-nav-heide').mousedown(function(){
     //     $('.project-nav-heide').css({'display':'none'})
     // })

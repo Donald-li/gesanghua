@@ -24,19 +24,19 @@
           <%= search_form_for @search, url: admin_read_applies_path, class: 'form-inline' do |f| %>
               <div class="form-group">
                 <%= f.label :school_name_cont, '学校名称' %>
-                <%= f.text_field :school_name_cont, class: 'form-control', placeholder: '学校名称' %>
+                <%= f.text_field :school_name_cont, class: 'form-control gsh-input-share', placeholder: '学校名称' %>
               </div>
               <div class="form-group">
                 <%= f.label :audit_state_eq, '申请状态' %>
-                <%= f.select :audit_state_eq, ProjectSeasonApply.options_for_select(:audit_states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
+                <%= f.select :audit_state_eq, ProjectSeasonApply.options_for_select(:audit_states, raw: true), {include_blank: '全部'}, class: 'form-control gsh-input-share' %>
               </div>
               <div class="form-group">
                 <%= f.label :bookshelf_type_eq, '申请类型' %>
-                <%= f.select :bookshelf_type_eq, ProjectSeasonApply.options_for_select(:bookshelf_types, raw: true), {include_blank: '全部'}, class: 'form-control' %>
+                <%= f.select :bookshelf_type_eq, ProjectSeasonApply.options_for_select(:bookshelf_types, raw: true), {include_blank: '全部'}, class: 'form-control gsh-input-share' %>
               </div>
               <div class="form-group">
                 <%= f.label :project_season_id_eq, '批次' %>
-                <%= f.select :project_season_id_eq, ProjectSeason.where(project_id: 2).collect {|p| [p.name, p.id]}, {include_blank: '全部'}, class: 'form-control' %>
+                <%= f.select :project_season_id_eq, ProjectSeason.where(project_id: 2).collect {|p| [p.name, p.id]}, {include_blank: '全部'}, class: 'form-control gsh-input-share' %>
               </div>
               <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>
