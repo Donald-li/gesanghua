@@ -40,7 +40,8 @@ class Platform::School::Apply::ReadsController < Platform::School::BaseControlle
         render :new
       end
     else
-      redirect_to platform_school_apply_reads_path, notice: '您已经申请过本批次'
+      flash[:alert] = "您已经申请过本批次"
+      render :new
     end
   end
 
@@ -84,9 +85,9 @@ class Platform::School::Apply::ReadsController < Platform::School::BaseControlle
         flash[:alert] = "没有可补书班级"
         render :new
       end
-
     else
-      redirect_to platform_school_apply_reads_path, notice: '您已经申请过本批次'
+      flash[:alert] = "您已经申请过本批次"
+      render :new
     end
   end
 
