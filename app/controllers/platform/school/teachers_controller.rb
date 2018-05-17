@@ -23,7 +23,7 @@ class Platform::School::TeachersController < Platform::School::BaseController
       if result
         format.html {redirect_to platform_school_teachers_path, notice: '创建成功。'}
       else
-        flash[:notice] = notice || @teacher.errors.full_messages.join(',')
+        flash[:notice] = notice
         format.html { render :new }
       end
     end

@@ -112,7 +112,7 @@ class Teacher < ApplicationRecord
       end
       unless self.save
         result = false
-        notice = '手机号已占用'
+        notice = self.errors.values.flatten.join(',')
         raise ActiveRecord::Rollback
       end
       self.create_notification(operator)
