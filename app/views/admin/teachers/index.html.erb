@@ -59,9 +59,6 @@
                 学校
               </th>
               <th>
-                负责项目
-              </th>
-              <th>
                 操作
               </th>
             </tr>
@@ -86,17 +83,6 @@
               </td>
               <td>
                 <%= teacher.school.try(:name) %>
-              </td>
-              <td>
-                <% if teacher.headmaster? %>
-                  <% Project.all.each do |project| %>
-                    <span class="btn btn-xs red"><%= project.try(:name) %></span>
-                  <% end %>
-                <% else %>
-                  <% teacher.teacher_projects.each do |teacher_project| %>
-                    <span class="btn btn-xs red"><%= teacher_project.project.try(:name) %></span>
-                  <% end %>
-                <% end %>
               </td>
               <td>
                 <%= link_to edit_admin_teacher_path(teacher), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
