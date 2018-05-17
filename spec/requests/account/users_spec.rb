@@ -26,10 +26,9 @@ RSpec.describe "Api::V1::Account::Users", type: :request do
 
     it '修改用户资料' do
       post update_user_api_v1_account_users_path,
-           params: {name: '策士', phone: '17888888888', location: [110000, 110100, 110101], use_nickname: ['anonymous']},
+           params: {name: '策士', location: [110000, 110100, 110101], use_nickname: ['anonymous']},
            headers: api_v1_headers(login_user)
       api_v1_expect_success
-      expect(login_user.reload.phone).to eq '17888888888'
     end
 
     it '获取用户劝捐记录' do

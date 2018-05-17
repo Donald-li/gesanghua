@@ -25,7 +25,7 @@ RSpec.describe "Api::V1::CooperationPairStudents", type: :request do
                     father: FFaker::NameCN.name, father_job: FFaker::NameCN.name, mother: FFaker::NameCN.name, mother_job: FFaker::NameCN.name,
                     guardian: FFaker::NameCN.name, guardian_relation: FFaker::NameCN.name, guardian_phone: '17666667777', address: FFaker::NameCN.name,
                     family_income: '1760', family_expenditure: '1000', income_source: FFaker::NameCN.name, family_condition: '贫困', brothers: '无',
-                    id_image: [''], residence: [''], poverty: [''], family_image: ['']},
+                    id_image: [''], apply_one: [''], apply_two: [''], room_image: [''], yard_image: [''], poverty: ['']},
            headers: api_v1_headers(login_user)
       api_v1_expect_success
       expect(json_body[:data][:result]).to eq true
@@ -44,7 +44,7 @@ RSpec.describe "Api::V1::CooperationPairStudents", type: :request do
                     father: FFaker::NameCN.name, father_job: FFaker::NameCN.name, mother: FFaker::NameCN.name, mother_job: FFaker::NameCN.name,
                     guardian: FFaker::NameCN.name, guardian_relation: FFaker::NameCN.name, guardian_phone: '17666667777', address: FFaker::NameCN.name,
                     family_income: '1760', family_expenditure: '1000', income_source: FFaker::NameCN.name, family_condition: '贫困', brothers: '无',
-                    id_image: [''], residence: [''], poverty: [''], family_image: ['']},
+                    id_image: [''], apply_one: [''], apply_two: [''], room_image: [''], yard_image: [''], poverty: ['']},
            headers: api_v1_headers(login_user)
       api_v1_expect_success
       expect(json_body[:data][:result]).to eq true
