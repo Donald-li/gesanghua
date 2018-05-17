@@ -47,8 +47,8 @@
     <div class="detail-body clearfix" id="conttab">
       <!--申请详情-->
       <div class="details-left pull-left contentab" style="display: block;">
-        <p class="detail-l-title"></p>
-        <div class="detail-l-fon"><%= @child.description %></div>
+        <div class="detail-l-fon"><%= @child.formatted_information.html_safe %></div>
+
         <!-- <%= image_tag 'detail-reduce.png' %> -->
       </div>
       <!--反馈-->

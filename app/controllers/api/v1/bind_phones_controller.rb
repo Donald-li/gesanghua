@@ -1,7 +1,7 @@
 class Api::V1::BindPhonesController < Api::V1::BaseController
 
   def show
-    api_success(data: current_user.password_digest.present?)
+    api_success(data: current_user.password_digest?)
   end
 
   def create

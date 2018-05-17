@@ -257,6 +257,10 @@ class ProjectSeasonApplyChild < ApplicationRecord
     self.gen_grant_record
   end
 
+  def formatted_information
+    self.information.gsub(/\r\n/, '<br>').gsub(/(<br\/*>\s*){1,}/, '<br>')
+  end
+
   # 审核不通过
   def approve_reject
     self.approve_state = 'reject'
@@ -348,7 +352,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
       json.level self.enum_name(:level)
       json.gsh_no self.gsh_no
       json.tuition self.get_tuition.to_i
-      json.description self.description
+      json.information self.formatted_information
       json.donate_grants self.donate_record_builder
       json.grants do # 发放记录
         json.array! self.gsh_child_grants.granted.sorted do |grant|

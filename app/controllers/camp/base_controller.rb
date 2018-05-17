@@ -30,10 +30,14 @@ class Camp::BaseController < ManagementBaseController
   end
 
   def render_404(exception = nil)
+    logger.error exception.inspect
+
     render :file => "#{Rails.root}/public/camp-404.html", :status => 404, :layout => false
   end
 
   def render_500(exception = nil)
+    logger.error exception.inspect
+
     render :file => "#{Rails.root}/public/camp-500.html", :status => 404, :layout => false
   end
 end
