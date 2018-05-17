@@ -283,13 +283,13 @@ class DonateRecord < ApplicationRecord
     elsif self.owner_type == 'GshChildGrant'
       self.child.try(:name).to_s + ' · ' + self.owner.try(:title).to_s
     elsif self.owner_type == 'ProjectSeasonApplyChild'
-      self.owner.name
+      self.owner.try(:name)
     elsif self.owner_type == 'ProjectSeasonApplyBookshelf'
       self.owner.apply.try(:name)
     elsif self.owner_type == 'BookshelfSupplement'
       self.owner.apply.try(:name)
     elsif self.owner_type == 'CampaignEnlist'
-      self.owner.campaign.name
+      self.owner.try(:campaign).try(:name)
     end
     apply_name
   end
@@ -299,7 +299,7 @@ class DonateRecord < ApplicationRecord
     apply_surplus_money = if self.owner_type == 'ProjectSeasonApply'
       self.owner.surplus_money
     elsif  self.owner_type == 'ProjectSeasonApplyBookshelf' || self.owner_type == 'BookshelfSupplement'
-      self.owner.apply.surplus_money
+      self.owner.apply.try(:surplus_money)
     end
     apply_surplus_money
   end
@@ -308,9 +308,9 @@ class DonateRecord < ApplicationRecord
     show_apply_name = if self.owner_type == 'DonateItem' || self.owner_type == 'ProjectSeasonApply'
       self.owner.name
     elsif self.owner_type == 'GshChildGrant'
-      self.child.secure_name + ' · ' + self.owner.try(:title).to_s
+      self.child.try(:secure_name) + ' · ' + self.owner.try(:title).to_s
     elsif self.owner_type == 'ProjectSeasonApplyChild'
-      self.owner.secure_name
+      self.owner.try(:secure_name)
     elsif self.owner_type == 'ProjectSeasonApplyBookshelf'
       self.owner.apply.try(:name)
     elsif self.owner_type == 'BookshelfSupplement'
