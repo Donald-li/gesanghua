@@ -12,16 +12,18 @@ class Admin::CountyUsersController < Admin::BaseController
   end
 
   def new
-    @county_user=CountyUser.new
+    @county_user = CountyUser.new
   end
 
   def create
-    @county_user = CountyUser.new(county_user_params)
     respond_to do |format|
-      if @county_user.save
-        format.html { redirect_to referer_or(admin_county_users_url), notice: '用户已增加。' }
+      @county_user = CountyUser.new(county_user_params)
+      result, notice = @county_user.create_county_user
+      if result
+        format.html {redirect_to referer_or(admin_county_users_url), notice: '用户已增加。'}
       else
-        format.html { render :new }
+        flash[:notice] = notice
+        format.html {render :new}
       end
     end
   end
@@ -31,25 +33,31 @@ class Admin::CountyUsersController < Admin::BaseController
 
   def update
     respond_to do |format|
-      if @county_user.update(county_user_params)
-        format.html { redirect_to referer_or(admin_county_users_url), notice: '用户资料已修改。' }
+      result, notice = @county_user.update_county_user(county_user_params)
+      if result
+        format.html {redirect_to referer_or(admin_county_users_url), notice: '用户资料已修改。'}
       else
-        format.html { render :edit }
+        flash[:notice] = notice
+        format.html {render :edit}
       end
     end
   end
 
   def destroy
-    @county_user.destroy
+    result, notice = @county_user.destroy_county_user
     respond_to do |format|
-      format.html { redirect_to referer_or(admin_county_users_url), notice: '用户已删除。' }
+      if result
+        format.html {redirect_to referer_or(admin_county_users_url), notice: '用户已删除。'}
+      else
+        format.html {redirect_to referer_or(admin_county_users_url), notice: '用户删除失败。'}
+      end
     end
   end
 
   def switch
     @user = User.find(@county_user.user_id)
     @user.enable? ? @user.disable! : @user.enable!
-    redirect_to admin_county_users_url, notice:  @user.enable? ? '用户已启用' : '用户已禁用'
+    redirect_to admin_county_users_url, notice: @user.enable? ? '用户已启用' : '用户已禁用'
   end
 
   private

@@ -18,10 +18,12 @@
                 <input class="goodinput pull-left " type="text" name="code" placeholder="输入验证码" style="width: 550px;" required/>
                 <button id="btn" type="button" class="pull-right">获取验证码</button>
               </div>
+              <% unless current_user.password_digest? %>
               <input class="goodinput " type="text" name="new_password" placeholder="输入新密码" style="width: 100%;" required minlength="6"/>
               <div class="clearfix">
                 <input class="goodinput pull-left " name="confirm_password" type="text" placeholder="确认新密码" style="width: 100%;" required minlength="6"/>
               </div>
+              <% end %>
             </div>
         <% end %>
       </div>
@@ -75,10 +77,12 @@
                 url: "/api/v1/common/sms_codes",
                 data: {kind: 'signup', mobile: mobile},
                 success: function (data) {
-//                    layer.msg(data.message, {
-//                        icon: 0,
-//                        offset: 't c'
-//                    });
+                    if (date.date === 'user_combine') {
+                        layer.msg('您绑定的手机号已经被其他用户绑定，继续绑定将会合并账户信息', {
+                            icon: 0,
+                            offset: 't c'
+                        });
+                    }
                     time(_this);
                 },
                 error: function (data) {

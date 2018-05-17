@@ -82,4 +82,62 @@ class CountyUser < ApplicationRecord
     end.attributes!
   end
 
+  def create_county_user
+    result = false
+    notice = ''
+    self.transaction do
+      if self.user.present?
+        user = self.user
+        user.add_role(:county_user)
+        user.save!
+      end
+      unless self.save
+        result = false
+        notice = self.errors.values.flatten.join(',')
+        raise ActiveRecord::Rollback
+      end
+      result = true
+    end
+    return result, notice
+  end
+
+  def update_county_user(params)
+    result = false
+    notice = ''
+    self.transaction do
+      if self.user.present?
+        old_user = self.user
+        old_user.remove_role(:county_user)
+        old_user.save!
+      end
+      unless self.update(params)
+        result = false
+        notice = self.errors.values.flatten.join(',')
+        raise ActiveRecord::Rollback
+      end
+      if self.user.present?
+        user = self.user
+        user.add_role(:county_user)
+        user.save!
+      end
+      result = true
+    end
+    return result, notice
+  end
+
+  def destroy_county_user
+    result = false
+    notice = ''
+    self.transaction do
+      if self.user.present?
+        user = self.user
+        user.remove_role(:county_user)
+        user.save!
+      end
+      self.destroy
+      result = true
+    end
+    return result, notice
+  end
+
 end

@@ -47,6 +47,11 @@ class Support::SelectsController < Support::BaseController
     render json: {items: users.as_json(only: [:id, :name])}
   end
 
+  def county_user
+    users = User.enable.sorted.where.not(users: {id: 1}).left_joins(:county_user).where(county_users: {user_id: nil}).where("users.name like :q", q: "%#{params[:q]}%").page(params[:page])
+    render json: {items: users.as_json(only: [:id, :name])}
+  end
+
   def school_user
     users = User.enable.sorted.where.not(users: {id: 1}).left_joins(:school).where(schools: {user_id: nil}).where("users.name like :q", q: "%#{params[:q]}%").page(params[:page])
     render json: {items: users.as_json(only: [:id, :name])}

@@ -19,7 +19,8 @@ class Admin::SchoolTeachersController < Admin::BaseController
   def create
     @teacher = @school.teachers.new(teacher_params)
     respond_to do |format|
-      if @teacher.save
+      result, notice = @teacher.admin_create_teacher
+      if result
         if teacher_projects_params.present?
           teacher_projects_params.each do |teacher_project|
             TeacherProject.create(teacher: @teacher, project_id: teacher_project)
