@@ -38,7 +38,7 @@ class Support::SelectsController < Support::BaseController
   end
 
   def gsh_child_user
-    users = User.enable.sorted.where.not(users: {id: 1}).left_joins(:gsh_child).where(project_season_apply_children: {user_id: nil}).where("users.name like :q", q: "%#{params[:q]}%").page(params[:page])
+    users = User.enable.sorted.where.not(users: {id: 1}).left_joins(:gsh_child).where(gsh_children: {user_id: nil}).where("users.name like :q", q: "%#{params[:q]}%").page(params[:page])
     render json: {items: users.as_json(only: [:id, :name])}
   end
 
