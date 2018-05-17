@@ -9400,7 +9400,9 @@ color: #8d8d8d;
     margin-right: 10px;
     border-radius: 3px;
   }
-
+  .succeed:hover{
+    background-color: $hover-button;
+  }
   .defeated {
     width: 100px;
     height: 34px;
@@ -9410,6 +9412,9 @@ color: #8d8d8d;
     font-size: 15px;
     color: #3d3d40;
     border-radius: 3px;
+  }
+  .defeated:hover{
+    background-color: $hover-share-but;
   }
 }
 
