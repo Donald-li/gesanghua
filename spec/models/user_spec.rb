@@ -111,7 +111,6 @@ RSpec.describe User, type: :model do
     expect(teacher2.reload.user_id).to eq user2.id
     expect(volunteer1.reload.user_id).to eq user2.id
     expect(county_user1.reload.user_id).to eq user2.id
-    expect(camp1.reload.manager_id).to eq user2.id
     expect(user2.reload.balance).to eq 50
     expect(user2.reload.donate_amount).to eq 30
     expect(user2.reload.offline_amount).to eq 20
@@ -140,7 +139,6 @@ RSpec.describe User, type: :model do
     expect(teacher2.reload.user_id).to eq offline_user1.id
     expect(volunteer1.reload.user_id).to eq offline_user1.id
     expect(county_user1.reload.user_id).to eq offline_user1.id
-    expect(camp1.reload.manager_id).to eq offline_user1.id
     expect(offline_user1.reload.balance).to eq 50
     expect(offline_user1.reload.donate_amount).to eq 30
     expect(offline_user1.reload.offline_amount).to eq 20

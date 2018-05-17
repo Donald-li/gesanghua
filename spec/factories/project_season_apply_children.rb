@@ -68,6 +68,7 @@ FactoryBot.define do
     grade 1
     semester 1
     parent_name '李爹'
+    information '挂多小学地处偏远，道路崎岖，校舍修建于上世纪80年代，破损陈旧，已列为B级危房。窗户上玻璃破损，课桌破烂不堪。现有学生共计约135人，新建的主体教学楼3层，明亮宽敞，现已于2011年冬季正式投入使<br/>\r\n\r\n  <img src=\"http://photocdn.sohu.com/20140620/Img401121227.jpg\"> <br>\r\n             <img src=\"http://photocdn.sohu.com/20140620/Img401121228.jpg\"><br/>\r\n\r\n跟随爱的呼唤，6月13日上午，顶固“给孩子送双运动鞋”爱心希望之旅贵州站在贵州挂多顶固希望小学正式启动。爱心活动在孩子们的欢笑中，在义工为孩子们上课的快乐课堂上，在激动人心的足球比赛中落下帷幕。孩子们穿上崭新的运动鞋，快乐奔跑在成长路上！<br/>\r\n'
     sequence(:phone) { |n| "18888#{n.to_s.rjust(6,'0')}" }
   end
 end
