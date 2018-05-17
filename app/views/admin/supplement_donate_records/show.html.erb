@@ -44,7 +44,7 @@
             捐助金额
           </th>
           <th>
-            ￥<%= number_to_currency(@donate_record.amount) %>
+            ￥<%= format_money(@donate_record.amount) %>
           </th>
         </tr>
         <tr>

@@ -16,7 +16,7 @@
   </div>
   <div class="portlet-body">
     <div class="body-info">
-      预计花费合计： <%= number_to_currency @search.result.sum(:budge) %>
+      预计花费合计： <%= format_money @search.result.sum(:budge) %>
     </div>
     <div class="dataTables_wrapper no-footer">
       <div class="row">
@@ -50,7 +50,7 @@
                   <%= camp_document_budge.item %>
                 </td>
                 <td>
-                  <%= number_to_currency camp_document_budge.budge %>
+                  <%= format_money camp_document_budge.budge %>
                 </td>
                 <td>
                   <%= camp_document_budge.remark %>

@@ -16,7 +16,7 @@
   </div>
   <div class="portlet-body">
     <div class="body-info">
-      概算合计： <%= number_to_currency @search.result.sum(:amount) %>
+      概算合计： <%= format_money @search.result.sum(:amount) %>
     </div>
     <div class="dataTables_wrapper no-footer">
       <div class="row">
@@ -50,7 +50,7 @@
                   <%= camp_document_estimate.item %>
                 </td>
                 <td>
-                  <%= number_to_currency camp_document_estimate.amount %>
+                  <%= format_money camp_document_estimate.amount %>
                 </td>
                 <td>
                   <%= camp_document_estimate.remark %>

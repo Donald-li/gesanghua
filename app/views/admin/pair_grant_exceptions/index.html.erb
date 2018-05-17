@@ -77,7 +77,7 @@
                   <%= grant.enum_name(:cancel_reason) %>
                 </td>
                 <td>
-                  ¥<%= number_to_currency(grant.amount) %>
+                  ¥<%= format_money(grant.amount) %>
                 </td>
                 <td>
                   <%= grant.enum_name(:balance_manage) %>

@@ -15,14 +15,14 @@
       <div class="row" style="text-align:center">
         <% total = ManagementFee.sum(:fee) %>
         <div class="col-md-4 col-sm-4">
-          累计管理费 <strong><%= number_to_currency total %></strong>
+          累计管理费 <strong><%= format_money total %></strong>
         </div>
         <% deal = ManagementFee.joins(:month).where(management_fee_months: {state: 2}).sum(:fee) %>
         <div class="col-md-4 col-sm-4">
-          已提取 <strong><%= number_to_currency deal %></strong>
+          已提取 <strong><%= format_money deal %></strong>
         </div>
         <div class="col-md-4 col-sm-4">
-          剩余可提取 <strong><%= number_to_currency total - deal %></strong>
+          剩余可提取 <strong><%= format_money total - deal %></strong>
         </div>
       </div>
       <div class="table-scrollable">
@@ -56,7 +56,7 @@
                 <%= month.count %>
               </td>
               <td>
-                <%= number_to_currency month.fee %>
+                <%= format_money month.fee %>
               </td>
               <td>
                 <%= month.enum_name(:state) %>

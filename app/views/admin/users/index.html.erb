@@ -86,13 +86,13 @@
                 <%= user.phone %>
               </td>
               <td>
-                ￥<%= number_to_currency(user.balance) %>
+                ￥<%= format_money(user.balance) %>
               </td>
               <td>
-                ￥<%= number_to_currency(user.donations.paid.sum(:amount)) %>
+                ￥<%= format_money(user.donations.paid.sum(:amount)) %>
               </td>
               <td>
-                ￥<%= number_to_currency(user.income_records.open_ticket.sum(:amount)) %>
+                ￥<%= format_money(user.income_records.open_ticket.sum(:amount)) %>
               </td>
               <td>
                 <% if user.unactived? %>

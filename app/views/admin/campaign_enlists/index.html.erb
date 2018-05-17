@@ -98,7 +98,7 @@
               </td>
               <% if @campaign.price != 0%>
                 <td>
-                  <%= number_to_currency campaign_enlist.total_price %>
+                  <%= format_money campaign_enlist.total_price %>
                 </td>
                 <td>
                   <%= campaign_enlist.enum_name(:payment_state) %>

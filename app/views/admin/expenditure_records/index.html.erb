@@ -88,7 +88,7 @@
                 <%= l record.expended_at %>
               </td>
               <td>
-                ￥<%= number_to_currency(record.amount) %>
+                ￥<%= format_money(record.amount) %>
               </td>
               <td>
                 <%= record.fund.try(:fund_category).try(:name) %> - <%= record.fund.try(:name) %>
