@@ -62,15 +62,15 @@ body {
 
 .slide-pagination {
     position: absolute;
-    bottom: 20px;
+    bottom: 10px;
     width: 100%;
     text-align: center
 }
 
 .slide-pagination .slide-pagination-bullet {
     display: inline-block;
-    width: 12px;
-    height: 12px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background: #fff;
     margin: 0 5px;

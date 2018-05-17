@@ -794,6 +794,11 @@ select:disabled {
         color: $color-subtitle;
         margin-left: 5px;
       }
+      a{
+        display: inline-block;
+        width: 100px;
+        height: 64px;
+      }
     }
 
     .bul-nav-ul > li:hover {
@@ -1131,17 +1136,17 @@ select:disabled {
 
 .bul-tit {
   text-align: center;
-  padding: 60px 0 30px;
+  padding: 50px 0 30px;
 
   & > p:nth-child(1) {
     font-weight: 600;
     font-size: 26px;
     color: $color-theme;
-    margin-bottom: 14px;
+    margin-bottom: 8px;
   }
 
   & > p:nth-child(2) {
-    font-size: 18px;
+    font-size: 14px;
     color: $color-theme;
   }
 }
@@ -1296,8 +1301,8 @@ select:disabled {
 
 .gsh-cont-2 {
   text-align: left;
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 500;
   color: $color-subtitle;
   margin-bottom: 0;
   z-index: 2;
@@ -2504,6 +2509,7 @@ select:disabled {
 
         .project-tits {
           margin-bottom: 20px;
+          height: 40px;
         }
 
         .progress {
@@ -3834,10 +3840,10 @@ color: #8d8d8d;
     padding: 20px;
 
     .camps-cont-1 {
-      height: 56px;
-      font-size: 20px;
+      height: 50px;
+      font-size: 18px;
       color: #3d3d40;
-      font-weight: 600;
+      font-weight: 500;
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
@@ -3859,7 +3865,7 @@ color: #8d8d8d;
 
 .camps-title {
   width: 624px;
-  margin: 50px auto;
+  margin: 40px auto;
   position: relative;
   height: 40px;
 }
@@ -3886,7 +3892,7 @@ color: #8d8d8d;
 
 .camps-detail {
   width: 1140px;
-  margin: 51px auto 80px;
+  margin: 40px auto 80px;
 }
 
 .camps-body-detail {
@@ -4195,7 +4201,8 @@ color: #8d8d8d;
 
   .donations-1 {
     position: relative;
-    padding: 26px 0 14px;
+    padding: 10px 0 14px;
+    margin-bottom: 15px;
 
     .bottomline {
       position: absolute;
@@ -4252,7 +4259,7 @@ color: #8d8d8d;
       }
 
       .gsh-cont-3 {
-        margin-top: 18px;
+        margin-top: 24px;
       }
 
       .gsh-cont-1 {
@@ -5195,135 +5202,9 @@ color: #8d8d8d;
   }
 }
 //内容
-//图书捐助
 
-#overspread-1 {
-  .overspread-cont {
-    display: none;
-    height: 510px;
-    width: 490px;
-    background-color: #fff;
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    margin: 80px auto;
-    z-index: 1002;
-    border-radius: 4px;
-    overflow: hidden;
 
-    .overspread-co {
-      & > div {
-        height: 300px;
-        overflow: auto;
-      }
 
-      & > p {
-        font-size: 14px;
-        color: #8d8d8d;
-        margin-top: 20px;
-      }
-
-      .ui-choose {
-        margin-top: 10px;
-      }
-
-      .ui-choose > li {
-        box-sizing: border-box;
-        border: 1px solid $border;
-        float: left;
-        width: 205px;
-        height: 80px;
-        cursor: pointer;
-        position: relative;
-        z-index: 1;
-        text-align: center;
-        border-radius: 4px;
-        margin-left: 18px;
-        margin-bottom: 20px;
-        padding-top: 18px;
-
-        & > p:nth-child(1) {
-          font-size: 14px;
-          color: #2a2a2c;
-          font-weight: 600;
-        }
-
-        & > p:nth-child(2) {
-          font-size: 14px;
-          color: #8d8d8d;
-        }
-
-        & > div {
-          position: absolute;
-          right: -5px;
-          top: -9px;
-          z-index: 1;
-
-          & > img {
-            width: 56px;
-            height: 26px;
-            margin-top: 0;
-          }
-        }
-      }
-
-      .ui-choose > li:nth-child(2n-1) {
-        margin-left: 0;
-      }
-
-      ul.ui-choose > li.selected {
-        background: url(image-path("ico-right-mark.png")) no-repeat right bottom;
-        background-size: 17%;
-        border: 1px solid $color-info;
-      }
-    }
-
-    .overspread-co::-webkit-scrollbar {
-      width: 5px;
-      height: 10px;
-      border-radius: 50%;
-    }
-
-    .overspread-co::-webkit-scrollbar-thumb {
-      background-color: #dcdcdc;
-      background-clip: padding-box;
-      border: 1px solid #dcdcdc;
-      min-height: 38px;
-    }
-
-    & > div:nth-child(1) {
-      height: 40px;
-      padding: 0 30px;
-      line-height: 40px;
-      background-color: #f6f6f6;
-
-      .iconfont {
-        margin-right: 0;
-      }
-    }
-
-    .mys-1 {
-      font-size: 18px;
-      color: #4e4e4e;
-      font-weight: 600;
-    }
-  }
-
-  .over-but {
-    width: 310px;
-    height: 40px;
-    line-height: 38px;
-    text-align: center;
-    background: $color-button;
-    margin: 30px auto 0;
-    box-shadow: 0 2px 7px 2px #8a53e354;
-    border-radius: 20px;
-    color: #fff;
-    font-size: 16px;
-  }
-}
 //不知
 
 .live-visitor {
@@ -5453,6 +5334,19 @@ color: #8d8d8d;
 .gsh-plus-foot {
   font-size: 14px;
   color: #393d42;
+  .foot-icon{
+    font-size: 12px;
+    color: #393d42;
+    font-weight: 500;
+    margin-right: 8px;
+    margin-left: 0;
+    margin-top: 1px;
+    transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+  }
 }
 
 .gsh-plus-cont {
@@ -5465,21 +5359,34 @@ color: #8d8d8d;
   display: -webkit-flex;
 
   & > div {
-    flex: 1;
+    -ms-flex: 0 0 33.33%;
+    flex: 0 0 33.33%;
+    max-width: 33.33%;
+    width:33.33%;
+    float: left;
     position: relative;
 
     & > a > img {
       height: 160px;
+    }
+    .wechat-qrcode{
+      width: 200px;
+      height: 212px;
     }
   }
 
   & > div:hover {
     .wechat-qrcode {
       display: block;
-      top: 0;
+      top: -6px;
       left: 13px;
     }
   }
+}
+.gsh-plus-cont:after{
+  display: block;
+  content: "";
+  clear: both;
 }
 //孩子信箱
 
@@ -8390,7 +8297,6 @@ color: #8d8d8d;
 
 .checkbox_text {
   color: #dadada;
-  float: left;
   height: 16px;
   line-height: 16px;
 }
@@ -9381,7 +9287,7 @@ color: #8d8d8d;
 
 .disclosures {
   width: 700px;
-  margin: 20px auto 80px;
+  margin: 40px auto 80px;
 
   .disclosures-tit {
     font-size: 22px;
@@ -9528,7 +9434,13 @@ color: #8d8d8d;
       padding: 0 40px;
     }
   }
-
+  .modal-co-p{
+    font-size: 14px;
+    color: #8d8d8d;
+    margin-top: 20px;
+    text-align: left;
+    padding-left: 5px;
+  }
   .over-but {
     width: 180px;
     height: 34px;
@@ -9615,6 +9527,74 @@ color: #8d8d8d;
         text-indent: 1em;
       }
     }
+  }
+  #modalul{
+    height: 300px;
+    overflow: auto;
+    .ui-choose {
+      margin-top: 10px;
+      text-align: left;
+    }
+    .ui-choose > li {
+      box-sizing: border-box;
+      border: 1px solid $border;
+      float: left;
+      width: 205px;
+      height: 80px;
+      cursor: pointer;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      border-radius: 4px;
+      margin-left: 18px;
+      margin-bottom: 20px;
+      padding-top: 18px;
+
+      & > p:nth-child(1) {
+        font-size: 14px;
+        color: #2a2a2c;
+        font-weight: 600;
+      }
+
+      & > p:nth-child(2) {
+        font-size: 14px;
+        color: #8d8d8d;
+      }
+
+      & > div {
+        position: absolute;
+        right: -5px;
+        top: -9px;
+        z-index: 1;
+
+        & > img {
+          width: 56px;
+          height: 26px;
+          margin-top: 0;
+        }
+      }
+    }
+    .ui-choose > li:nth-child(2n-1) {
+      margin-left: 0;
+    }
+
+    ul.ui-choose > li.selected {
+      background: url(image-path("ico-right-mark.png")) no-repeat right bottom;
+      background-size: 17%;
+      border: 1px solid $color-info;
+    }
+  }
+  #modalul::-webkit-scrollbar {
+    width: 5px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  #modalul::-webkit-scrollbar-thumb {
+    background-color: #dcdcdc;
+    background-clip: padding-box;
+    border: 1px solid #dcdcdc;
+    min-height: 38px;
   }
 }
 
@@ -9723,7 +9703,7 @@ color: #8d8d8d;
 
 .disclosures-table {
   width: 1140px;
-  margin: 50px auto 80px;
+  margin: 40px auto 80px;
 
   .contentab {
     margin-top: 20px;

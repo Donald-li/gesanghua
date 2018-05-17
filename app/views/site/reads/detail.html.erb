@@ -18,7 +18,7 @@
           <p>当前筹款<span>￥<%= @apply.present_amount %></span></p>
           <p>参与人数<span><%= @apply.participant_number %>人</span></p>
           <a>
-            <button class="overspread-show cur">整捐冠名</button>
+            <button class=" cur" data-toggle="modal" data-target="#myModal">整捐冠名</button>
             <button id="donate-part-btn" class="cur" style="margin-top: 20px;">直接捐助</button>
           </a>
         </div>
@@ -167,53 +167,104 @@
       </div>
     </div>
   </div>
-  <div id="overspread-1">
-    <div class="overspread-over"></div>
-    <div class="overspread-cont">
-      <div class="clearfix">
-        <div class="pull-left mys-1">我要捐助</div>
-        <div class="pull-right iconfont icon-icondelete cur overspread-but"></div>
-      </div>
-      <div class="overspread-co">
-        <p>选择捐助的班级</p>
-        <div>
-          <ul class="ui-choose" id="uc_01">
-            <% if @apply.whole? %>
-              <% @apply.bookshelves.show.raising.each do |bookshelf| %>
-                  <li class="cur bookshelf" data-bookshelf-id="<%= bookshelf.id %>">
-                    <p><%= bookshelf.classname %></p>
-                    <p>还差<%= bookshelf.surplus_money %>元 </p>
-                    <% if bookshelf.present_amount == 0 %>
-                        <div>
-                          <%= image_tag 'integer-read.png' %>
-                        </div>
-                    <% end %>
-                  </li>
-              <% end %>
-            <% elsif @apply.supplement? %>
-              <% @apply.supplements.show.raising.each do |supplement| %>
-                  <li class="cur bookshelf" data-bookshelf-id="<%= supplement.id %>">
-                    <p><%= supplement.bookshelf.classname %></p>
-                    <p>还差<%= supplement.surplus_money %>元 </p>
-                  </li>
-              <% end %>
-            <% end %>
-          </ul>
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="width: 490px;">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" class="detail-icon">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">我要捐助</h4>
         </div>
-      </div>
-      <div class="over-but" style="margin: 30px auto 20px auto;" id="donate-bookshelf-btn">立即支付</div>
-      <div class="check-box">
-        <span class="checkbox_item clearfix">
-          <input type="checkbox"/>
-          <label class="check_label on pull-left">
-            <i class="checkbox_icon pull-left"></i>
-            <span class="checkbox_text">阅读并同意</span>
-          </label>
-          <span class="pull-left cur">《格桑花用户注册协议》</span>
-        </span>
+        <div class="modal-body" style="padding: 0 15px;">
+          <div class="overspread-co" style="text-align: left;">
+            <p class="modal-co-p">选择捐助的班级</p>
+            <div id="modalul">
+              <ul class="ui-choose" >
+                <% if @apply.whole? %>
+                    <% @apply.bookshelves.show.raising.each do |bookshelf| %>
+                        <li class="cur bookshelf" data-bookshelf-id="<%= bookshelf.id %>">
+                          <p><%= bookshelf.classname %></p>
+                          <p>还差<%= bookshelf.surplus_money %>元 </p>
+                          <% if bookshelf.present_amount == 0 %>
+                              <div>
+                                <%= image_tag 'integer-read.png' %>
+                              </div>
+                          <% end %>
+                        </li>
+                    <% end %>
+                <% elsif @apply.supplement? %>
+                    <% @apply.supplements.show.raising.each do |supplement| %>
+                        <li class="cur bookshelf" data-bookshelf-id="<%= supplement.id %>">
+                          <p><%= supplement.bookshelf.classname %></p>
+                          <p>还差<%= supplement.surplus_money %>元 </p>
+                        </li>
+                    <% end %>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer overspreads-but">
+          <button class="over-but" style="margin: 30px auto 20px auto;" id="donate-bookshelf-btn">立即支付</button>
+          <div class="check-box">
+            <div class="pretty o-danger" style="margin: 0 0px 5px 0;">
+              <input type="checkbox" checked/>
+              <label><i class="mdi mdi-check"></i></label>
+              <span class="checkbox_text">阅读并同意</span>
+            </div>
+            <span class=" cur">《格桑花用户注册协议》</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+  <!--<div id="overspread-1">-->
+    <!--<div class="overspread-over"></div>-->
+    <!--<div class="overspread-cont">-->
+      <!--<div class="clearfix">-->
+        <!--<div class="pull-left mys-1">我要捐助</div>-->
+        <!--<div class="pull-right iconfont icon-icondelete cur overspread-but"></div>-->
+      <!--</div>-->
+      <!--<div class="overspread-co">-->
+        <!--<p>选择捐助的班级</p>-->
+        <!--<div>-->
+          <!--<ul class="ui-choose" id="uc_01">-->
+            <!--<% if @apply.whole? %>-->
+              <!--<% @apply.bookshelves.show.raising.each do |bookshelf| %>-->
+                  <!--<li class="cur bookshelf" data-bookshelf-id="<%= bookshelf.id %>">-->
+                    <!--<p><%= bookshelf.classname %></p>-->
+                    <!--<p>还差<%= bookshelf.surplus_money %>元 </p>-->
+                    <!--<% if bookshelf.present_amount == 0 %>-->
+                        <!--<div>-->
+                          <!--<%= image_tag 'integer-read.png' %>-->
+                        <!--</div>-->
+                    <!--<% end %>-->
+                  <!--</li>-->
+              <!--<% end %>-->
+            <!--<% elsif @apply.supplement? %>-->
+              <!--<% @apply.supplements.show.raising.each do |supplement| %>-->
+                  <!--<li class="cur bookshelf" data-bookshelf-id="<%= supplement.id %>">-->
+                    <!--<p><%= supplement.bookshelf.classname %></p>-->
+                    <!--<p>还差<%= supplement.surplus_money %>元 </p>-->
+                  <!--</li>-->
+              <!--<% end %>-->
+            <!--<% end %>-->
+          <!--</ul>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="over-but" style="margin: 30px auto 20px auto;" id="donate-bookshelf-btn">立即支付</div>-->
+      <!--<div class="check-box">-->
+        <!--<span class="checkbox_item clearfix">-->
+          <!--<input type="checkbox"/>-->
+          <!--<label class="check_label on pull-left">-->
+            <!--<i class="checkbox_icon pull-left"></i>-->
+            <!--<span class="checkbox_text">阅读并同意</span>-->
+          <!--</label>-->
+          <!--<span class="pull-left cur">《格桑花用户注册协议》</span>-->
+        <!--</span>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
 </div>
 <script type="text/javascript">
     // //图片展示
@@ -248,12 +299,11 @@
 
     $(".check_label").checkbox();
     $('.ui-choose').ui_choose();
-    $('#overspread-1').overs(".overspread-show");
-    if ($('.ui-choose > li').length > 6) {
-        $('.overspread-co ').css({"padding": "0 0 0 30px", "overflow": "auto"});
+    if ($('#modalul .ui-choose > li').length > 6) {
+        $('#modalul ').css({"padding": "0 0 0 5px", "overflow": "auto"});
 
     } else {
-        $('.overspread-co ').css({"padding": "0 30px", "overflow": "visible"});
+        $('#modalul ').css({"padding": "0 5px", "overflow": "visible"});
     }
 
     // 散捐

@@ -30,11 +30,22 @@
       </div>
       <div class="school-apply-pair-table">
         <p>学生名单</p>
+        <% if @apply.children.check_list.present? %>
         <div class="school-apply-pair-table-cont">
           <% @apply.children.check_list.each do |child| %>
           <p><span><%= child.name %></span><%= child.age %>岁 | <%= child.enum_name(:gender) %> | <%= child.enum_name(:level) %> <%= child.enum_name(:grade) %></p>
           <% end %>
         </div>
+        <% else %>
+            <div class="not-project-body contentab " >
+              <div class="donation-cont-no" >
+                <div class="donation-co-no-c" style="margin: 40px auto;">
+                  <p>暂无名单</p>
+                </div>
+              </div>
+            </div>
+        <% end %>
+
       </div>
       <div class="don-co">
         <div class="don-co-but cur" >
