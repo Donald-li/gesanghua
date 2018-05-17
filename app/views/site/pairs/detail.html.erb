@@ -66,14 +66,17 @@
                 <span class="pull-left"><%= grant.grant_person %> ·</span>
                 <span class="pull-left"><%= grant.granted_at.strftime("%Y-%m-%d") %>由发布</span>
               </div>
-              <div class="de-left-con  clearfix" id="showdiv">
-                <p class="read-more"><%= grant.grant_remark %></p>
+              <div class="de-left-con read-more clearfix" id="showdiv">
+                <div class="de-left-con-fon"><%= grant.grant_remark %></div>
                 <div class="clearfix details-img">
                   <% if grant.images.present? %>
                     <% grant.images.each do |img| %>
-                      <%= image_tag img.try(:file).try(:url, :medium).to_s %>
+                          <a data-magnify="gallery"  href="<%=image_url img.try(:file).try(:url, nil).to_s%>">
+                            <%= image_tag img.try(:file).try(:url, :tiny).to_s ,:style => "width:211px" %>
+                          </a>
                     <% end %>
                   <% end %>
+
                 </div>
               </div>
             </li>
@@ -113,6 +116,13 @@
 
 </div>
 <script type="text/javascript">
+    // //图片展示
+    $('[data-magnify]').magnify({
+        headToolbar: [
+            'close'
+        ],
+        initMaximized: true
+    });
     // //内容信息导航吸顶
     $(document).ready(function () {
         var navHeight = $("#navHeight").offset().top;
@@ -166,7 +176,7 @@
         $("#show" + id + " .de-left-con").removeClass('read-more')
         $("#show" + id + " .detail-font-tit > span").css('display', 'none')
         $("#show" + id + " .details-img").css('display', 'block')
-        $('.de-left-con .de-left-con-fon').css({"white-space": "pre-wrap"})
+        $("#show" + id + " .de-left-con-fon").css({"white-space": "pre-wrap"})
     }
 
   $('#donate-btn').click(function () {
