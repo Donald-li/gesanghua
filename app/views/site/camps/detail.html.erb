@@ -121,7 +121,7 @@
                       <div class="clearfix details-img">
                         <% if feedback.images.present? %>
                             <% feedback.images.each do |img| %>
-                                <a data-magnify="gallery" href="<%= image_url img.try(:file).try(:url, :medium).to_s %>">
+                                <a data-magnify="gallery" href="<%= image_url img.try(:file).try(:url, nil).to_s %>">
                                   <%= image_tag img.try(:file).try(:url, :medium).to_s, :style => "width:211px" %>
                                 </a>
                             <% end %>
@@ -192,7 +192,8 @@
         $("#show" + id + " .de-left-con").removeClass('read-more')
         $("#show" + id + " .detail-font-tit > span").css('display', 'none')
         $("#show" + id + " .details-img").css('display', 'block')
-        $('.de-left-con .de-left-con-fon').css({"white-space": "pre-wrap"})
+        $("#show" + id + " .de-left-con-fon").css({"white-space": "pre-wrap"})
+
     }
 
     $(".check_label").checkbox();

@@ -85,8 +85,9 @@
                 <div class="form-group">
                   <label class="col-md-2 control-label">申请图片：</label>
                   <div class="col-sm-9">
-                    <%= webuploader_tag 'image_ids[]', label: '上传图片', type: 'project_season_apply_image', asset: @project_apply.images %>
-                    <span style="color: red">注意：左起第一张图片为展示第一张图片</span>
+                   <%= webuploader_tag 'image_ids[]', label: '上传图片', type: 'project_season_apply_image', asset: @project_apply.images %>
+                    <!--<span style="color: red">注意：左起第一张图片为展示第一张图片</span>-->
+                    <p class="help-block">支持上传png、jpg格式 ，图片尺寸888X510px</p>
                   </div>
                 </div>
 

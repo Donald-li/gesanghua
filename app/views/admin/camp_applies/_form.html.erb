@@ -20,6 +20,7 @@
                   <label class="col-md-2 control-label">封面：</label>
                   <div class="col-sm-9">
                     <%= webuploader_tag 'cover_image_id', label: '封面', type: 'project_season_apply_cover', asset: @project_apply.cover_image, klass: 'single' %>
+                    <p class="help-block">支持上传png、jpg格式 ，图片尺寸888X510px</p>
                   </div>
                 </div>
                 <%= f.input :camp_id, as: :select, collection: Camp.enable.sorted.collect{|c| [c.name, c.id]}, label: '探索营地点：', input_html: {class: 'camps-ajax'} %>
