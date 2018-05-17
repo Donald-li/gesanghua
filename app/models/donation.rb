@@ -236,11 +236,10 @@ class Donation < ApplicationRecord
   def get_wechat_prepay_id(remote_ip)
     notify_url = Settings.app_host + "/payment/wechat_payments/notify"
     params = {
-      body: '需要一个商品名称',
+      body: '捐助给格桑花',
       out_trade_no: self.order_no,
-      # total_fee: Settings.pay_1_mode ? 1 : (self.amount * 100).to_i,
-      total_fee: 1,
-      # (self.amount * 100).to_i,
+      total_fee: Settings.pay_1_mode ? 1 : (self.amount * 100).to_i,
+      # total_fee: 1,
       spbill_create_ip: remote_ip,
       notify_url: notify_url,
       trade_type: 'JSAPI', # could be "JSAPI" or "NATIVE",
@@ -255,11 +254,10 @@ class Donation < ApplicationRecord
   def get_wechat_prepay_mweb(remote_ip)
     notify_url = Settings.app_host + "/payment/wechat_payments/notify"
     params = {
-      body: '需要一个商品名称',
+      body: '捐助给格桑花',
       out_trade_no: self.order_no,
-      # total_fee: Settings.pay_1_mode ? 1 : (self.amount * 100).to_i,
-      total_fee: 1,
-      # (self.amount * 100).to_i,
+      total_fee: Settings.pay_1_mode ? 1 : (self.amount * 100).to_i,
+      # total_fee: 1,
       spbill_create_ip: remote_ip,
       notify_url: notify_url,
       trade_type: 'MWEB', # could be "JSAPI" or "NATIVE",
@@ -274,9 +272,8 @@ class Donation < ApplicationRecord
     params = {
       body: '捐助给格桑花',
       out_trade_no: self.order_no,
-      # total_fee: Settings.pay_1_mode ? 1 : (self.amount * 100).to_i,
-      total_fee: 1,
-      # (self.amount * 100).to_i,
+      total_fee: Settings.pay_1_mode ? 1 : (self.amount * 100).to_i,
+      # total_fee: 1,
       spbill_create_ip: remote_ip,
       notify_url: notify_url,
       trade_type: 'NATIVE', # could be "JSAPI" or "NATIVE",
@@ -321,8 +318,9 @@ class Donation < ApplicationRecord
       biz_content: {
        out_trade_no: self.order_no,
        product_code: product_code,
+       total_amount: Settings.pay_1_mode ? '0.01' : sprintf('%.2f', self.amount.to_f),
        total_amount: '0.01',
-       subject: 'Example: 456',
+       subject: '捐助给格桑花',
        quit_url: quit_url
       }.to_json
     )
