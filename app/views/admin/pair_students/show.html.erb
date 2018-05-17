@@ -243,10 +243,34 @@
         </tr>
         <tr>
           <th>
-            户口本
+            申请书1
           </th>
           <th>
-            <%= link_to image_tag(@apply_child.residence_url(:small)), @apply_child.residence_url(nil), target: '_blank' %>
+            <%= link_to image_tag(@apply_child.apply_one_url(:small)), @apply_child.apply_one_url(nil), target: '_blank' %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            申请书2
+          </th>
+          <th>
+            <%= link_to image_tag(@apply_child.apply_two_url(:small)), @apply_child.apply_two_url(nil), target: '_blank' %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            客厅照片
+          </th>
+          <th>
+            <%= link_to image_tag(@apply_child.room_image_url(:small)), @apply_child.room_image_url(nil), target: '_blank' %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            院子照片
+          </th>
+          <th>
+            <%= link_to image_tag(@apply_child.yard_image_url(:small)), @apply_child.yard_image_url(nil), target: '_blank' %>
           </th>
         </tr>
         <tr>
@@ -255,14 +279,6 @@
           </th>
           <th>
             <%= link_to image_tag(@apply_child.poverty_url(:small)), @apply_child.poverty_url(nil), target: '_blank' %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            家庭照
-          </th>
-          <th>
-            <%= link_to image_tag(@apply_child.family_image_url(:small)), @apply_child.family_image_url(nil), target: '_blank' %>
           </th>
         </tr>
         <tr>

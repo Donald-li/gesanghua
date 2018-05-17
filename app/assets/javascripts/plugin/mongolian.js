@@ -7,7 +7,6 @@ jQuery.fn.overs = function(obj) {
         var $objover = $(this).find(".overspread-over");//蒙层
         $objshow.on("click",function(){
             $objover.show()
-            $objcont.center()
             $objcont.fadeIn()
 
         })
@@ -24,7 +23,6 @@ jQuery.fn.overbooleans = function(Booleans) {
         var $objover = $(this).find(".overspread-over");//蒙层
         if(Booleans = true){
             $objover.show()
-            $objcont.center()
             $objcont.fadeIn()
         }else if( Booleans = false){
             $objover.hide()
