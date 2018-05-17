@@ -20,15 +20,38 @@ class Account::UserCenter::AccountsController < Account::BaseController
       redirect_to edit_phone_account_user_center_account_path, alert: '验证码错误。' and return
     end
     if User.find_by(phone: params[:phone])
-      redirect_to edit_phone_account_user_center_account_path, alert: '手机号已占用。' and return
+      user = User.find_by(phone: params[:phone])
+      if user.unactived? && user.manager_id.present?
+        if user.offline_user_activation(user.phone, current_user)
+          set_current_user(user)
+          if params[:new_password].present?
+            user.password = params[:new_password]
+            user.save
+          end
+          redirect_to account_user_center_account_path, notice: '手机号绑定成功。' and return
+        else
+          redirect_to edit_phone_account_user_center_account_path, notice: '手机号绑定失败。' and return
+        end
+      elsif !user.openid.present?
+        User.combine_user(params[:phone], current_user)
+        set_current_user(user)
+        user.phone = params[:phone]
+        if params[:new_password].present?
+          user.password = params[:new_password]
+        end
+        user.save
+        redirect_to account_user_center_account_path, notice: '手机号绑定成功。' and return
+      else
+        redirect_to edit_phone_account_user_center_account_path, alert: '手机号已占用。' and return
+      end
     else
       @user.phone = params[:phone]
-      @user.password = params[:new_password]
+      @user.password = params[:new_password] if params[:new_password].present?
       if @user.save
         @user.bind_user_roles
         redirect_to account_user_center_account_path, notice: '手机号绑定成功。' and return
       else
-        redirect_to edit_phone_account_user_center_account_path, alert: @user.errors.full_messages.join(',')
+        redirect_to edit_phone_account_user_center_account_path, alert: @user.errors.value.flatten.join(',')
       end
     end
   end

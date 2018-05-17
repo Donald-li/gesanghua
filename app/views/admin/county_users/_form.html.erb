@@ -2,15 +2,10 @@
     <%= f.error_notification %>
     <div class="form-body form-horizontal">
       <%= f.input :name, label: '姓名：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :user_id, collection: [@county_user.user].compact.map {|u| [u.name, u.id]}, label: '关联用户', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
       <%= f.input :phone, label: '联系方式：', input_html: { data: {'parsley-required': true}} %>
       <%= f.input :unit_name, label: '单位名称：', input_html: { data: {'parsley-required': true}} %>
       <%= f.input :duty, label: '职务：', input_html: { data: {'parsley-required': true}} %>
-      <div class="form-group">
-        <label class="col-md-2 control-label">单位简介：</label>
-        <div class="col-sm-9">
-          <%= f.cktext_area :unit_describe, input_html: { data: {'parsley-required': true}}  %>
-        </div>
-      </div>
       <div class="form-group">
         <label class="col-md-2 control-label">选择地区：</label>
         <div class="col-sm-6">
@@ -27,7 +22,6 @@
           </div>
         </div>
       </div>
-      <%= f.input :address, label: '详细地址：', input_html: { data: {'parsley-required': true}} %>
     </div>
     <div class="form-actions">
       <div class="row">
@@ -38,3 +32,39 @@
       </div>
     </div>
 <% end %>
+
+<script>
+    $(function () {
+        $("form .user_selector").select2({
+            language: "zh-CN",
+            placeholder: '请选择用户',
+            allowClear: true,
+            ajax: {
+                url: "/selects/county_user",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: $.map(data.items, function (item) {
+                            return {
+                                text: item.name,
+                                id: item.id
+                            }
+                        }),
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            }
+        });
+    })
+</script>

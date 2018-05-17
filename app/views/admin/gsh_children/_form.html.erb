@@ -3,21 +3,34 @@
     <%= f.error_notification %>
     <div class="form-body form-horizontal">
       <% if @gsh_child.gsh_no %>
-       <%= static_form_control '格桑花编号', @gsh_child.gsh_no %>
+          <%= static_form_control '格桑花编号', @gsh_child.gsh_no %>
       <% end %>
       <%= f.input :user_id, collection: [@gsh_child.user].compact.map {|u| [u.name, u.id]}, label: '关联用户', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
-      <%= f.input :id_card, label: '身份证：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
-      <%= f.input :name, label: '姓名：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :id_card, label: '身份证：', autofocus: true, input_html: {data: {'parsley-required': true}} %>
+      <%= f.input :name, label: '姓名：', autofocus: true, input_html: {data: {'parsley-required': true}} %>
       <%= f.input :phone, label: '联系方式：', autofocus: true %>
       <%= f.input :qq, label: 'QQ：', autofocus: true %>
       <div class="form-group">
         <label class="col-md-2 control-label">选择地区：</label>
         <div class="col-sm-9">
-          <div class="city-group">
-            <%= select_tag 'gsh_child[province]', options_for_select(ChinaCity.list, @gsh_child.province.presence), prompt: '省份', class: "city-select", data: {'parsley-required': true} %>
-            <%= select_tag 'gsh_child[city]', options_for_select(ChinaCity.list(@gsh_child.province.to_s), @gsh_child.city.presence), prompt: '城市', class: "city-select", data: {'parsley-required': true} %>
-            <%= select_tag 'gsh_child[district]', options_for_select(ChinaCity.list(@gsh_child.city.to_s), @gsh_child.district.presence), prompt: '地区', class: "city-select", data: {'parsley-required': true} %>
+          <div class="row city-group">
+            <div class="col-sm-3">
+              <%= select_tag 'gsh_child[province]', options_for_select(ChinaCity.list, @gsh_child.province.presence), prompt: '省份', class: "city-select form-control", data: {'parsley-required': true} %>
+            </div>
+            <div class="col-sm-3">
+              <%= select_tag 'gsh_child[city]', options_for_select(ChinaCity.list(@gsh_child.province.to_s), @gsh_child.city.presence), prompt: '城市', class: "city-select form-control", data: {'parsley-required': true} %>
+            </div>
+            <div class="col-sm-3">
+              <%= select_tag 'gsh_child[district]', options_for_select(ChinaCity.list(@gsh_child.city.to_s), @gsh_child.district.presence), prompt: '地区', class: "city-select form-control", data: {'parsley-required': true} %>
+            </div>
           </div>
+        </div>
+      </div>
+      <%= f.input :kind, as: :radio_buttons, wrapper: :inline_inputs, collection: GshChild.options_for_some_select(:kinds), label: '类型：', required: 'required', input_html: { class: 'child_kind'} %>
+      <div class="form-group">
+        <label class="col-md-2 control-label" id="title">学校：</label>
+        <div class="col-sm-9">
+          <%= f.input :workstation, label: false, input_html: {class: 'form-control', placeholder: ''}, required: true %>
         </div>
       </div>
     </div>
@@ -32,38 +45,53 @@
 <% end %>
 
 <script>
-$(function(){
-  $("form .user_selector").select2({
-    language: "zh-CN",
-    placeholder: '请选择用户',
-    allowClear: true,
-    ajax: {
-      url: "/selects/gsh_child_user",
-      dataType: 'json',
-      delay: 250,
-      data: function (params) {
-        return {
-          q: params.term, // search term
-          page: params.page
-        };
-      },
-      processResults: function (data, params) {
-        params.page = params.page || 1;
-        return {
-            results: $.map(data.items, function (item) {
-              return {
-                text: item.name,
-                id: item.id
-            }
-          }),
-          pagination: {
-            more: (params.page * 30) < data.total_count
-          }
-        };
-      },
-      cache: true
-    }
-  });
 
-})
+    function toggleTitle() {
+        if ($('.child_kind:checked').val() === 'student') {
+            $('#title').html('学校：');
+        } else {
+            $('#title').html('公司：');
+        }
+
+    }
+    $(function () {
+        $("form .user_selector").select2({
+            language: "zh-CN",
+            placeholder: '请选择用户',
+            allowClear: true,
+            ajax: {
+                url: "/selects/gsh_child_user",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: $.map(data.items, function (item) {
+                            return {
+                                text: item.name,
+                                id: item.id
+                            }
+                        }),
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            }
+        });
+        toggleTitle();
+    })
+    
+    $('.child_kind').change(function () {
+        toggleTitle()
+    })
+
+
 </script>

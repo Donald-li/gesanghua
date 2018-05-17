@@ -112,7 +112,7 @@ class Teacher < ApplicationRecord
       end
       unless self.save
         result = false
-        notice = '手机号已占用'
+        notice = self.errors.values.flatten.join(',')
         raise ActiveRecord::Rollback
       end
       self.create_notification(operator)
@@ -143,6 +143,26 @@ class Teacher < ApplicationRecord
       user = self.user
       result, notice = user.remove_teacher_role(operator) if user.present?
       self.destroy!
+    end
+    return result, notice
+  end
+
+  def admin_create_teacher
+    result = false
+    notice = ''
+
+    self.transaction do
+      if self.user.present?
+        user = self.user
+        user.add_role(:teacher)
+        user.save!
+      end
+      unless self.save
+        result = false
+        notice = self.errors.values.flatten.join(',')
+        raise ActiveRecord::Rollback
+      end
+      result = true
     end
     return result, notice
   end

@@ -79,7 +79,7 @@
                   <%= bookshelf.beneficial_children.present? ? bookshelf.beneficial_children.count : 0 %>
                 </td> -->
                 <td>
-                  <%= number_to_currency(bookshelf.target_amount) %> / <%= number_to_currency(bookshelf.present_amount) %>
+                  <%= format_money(bookshelf.target_amount) %> / <%= format_money(bookshelf.present_amount) %>
                 </td>
                 <!-- <td>
                   <%= bookshelf.book_number %>

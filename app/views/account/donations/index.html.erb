@@ -48,7 +48,7 @@
                 <span class="teams-s-moy"><%= @team.member_count %></span></p>
             </div>
             <div class="pull-left">
-              <p class="teams-s-moy-bag">￥<%= number_to_currency(@team.total_donate_amount) %></p>
+              <p class="teams-s-moy-bag">￥<%= format_money(@team.total_donate_amount) %></p>
               <p class="teams-s-c-tit">累计筹款</p>
             </div>
           </div>

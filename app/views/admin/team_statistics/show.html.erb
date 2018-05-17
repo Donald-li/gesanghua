@@ -47,8 +47,8 @@
                 <td><%= team.id %></td>
                 <td><%= team.name %></td>
                 <td><%= team.member_count %></td>
-                <td>￥<%= team.total_donate_amount %></td>
-                <td>￥<%= team.users.sum(:promoter_amount_count) %></td>
+                <td>￥<%= format_money team.total_donate_amount %></td>
+                <td>￥<%= format_money team.users.sum(:promoter_amount_count) %></td>
               </tr>
           <% end %>
           </tbody>

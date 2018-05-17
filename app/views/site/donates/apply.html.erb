@@ -20,10 +20,10 @@ apply = ProjectSeasonApply.find(params[:apply])
           <div class="donates-c-l-coss clearfix">
             <div class="pull-left">
               <p><%= apply.name %></p>
-              <p>目标 <%= number_to_currency apply.target_amount %> 元</p>
+              <p>目标 <%= format_money apply.target_amount %> 元</p>
             </div>
             <div class="pull-right">
-              还差 <span><%= number_to_currency apply.surplus_money %></span> 元
+              还差 <span><%= format_money apply.surplus_money %></span> 元
             </div>
           </div>
         </div>
@@ -37,7 +37,7 @@ apply = ProjectSeasonApply.find(params[:apply])
         <div class="pull-right">
           <ul class="ui-choose ui-choose-tab" id="amount-tab-default">
             <% @amount_tabs.each do |a| %>
-            <li class="cur amount_tab_cur" data-amount="<%= a %>"><%= number_to_currency a %> 元</li>
+            <li class="cur amount_tab_cur" data-amount="<%= a %>"><%= format_money a %> 元</li>
             <% end %>
           </ul>
         </div>
@@ -68,7 +68,7 @@ apply = ProjectSeasonApply.find(params[:apply])
           <% if current_user.balance > 0 %>
           <li class="donate_way" data-way="balance">
             <%= image_tag 'iconpic-buy-outline.svg' %>
-            <span><%= number_to_currency current_user.balance %> 元</span>
+            <span><%= format_money current_user.balance %> 元</span>
           </li>
           <% end %>
         </ul>

@@ -31,9 +31,6 @@
           <thead>
           <tr>
             <th>
-              编号
-            </th>
-            <th>
               姓名
             </th>
             <th>
@@ -59,9 +56,6 @@
           <tbody>
           <% @task_applies.each do |apply| %>
               <tr>
-                <td>
-                  <%= apply.id %>
-                </td>
                 <td>
                   <%= apply.volunteer.try(:name) %>
                 </td>

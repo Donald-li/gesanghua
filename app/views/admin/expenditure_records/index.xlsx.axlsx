@@ -6,7 +6,7 @@ wb.add_worksheet(name: "支出记录列表") do |sheet|
       g.id,
       g.name,
       (g.expended_at.strftime("%Y-%m-%d %H:%M") if g.expended_at),
-      number_to_currency(g.amount),
+      format_money(g.amount),
       "#{g.fund.try(:fund_category).try(:name)} - #{g.fund.try(:name)}",
       g.remark,
       g.operator ]

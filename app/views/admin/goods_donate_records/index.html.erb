@@ -78,7 +78,7 @@
                 <%= l record.created_at %>
               </td>
               <td>
-                <%= record.amount %>
+                <%= format_money record.amount %>
               </td>
               <td>
                 <%= record.income_record.income_source.try(:name) if record.income_record.present? %>

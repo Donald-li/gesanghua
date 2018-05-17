@@ -10,9 +10,9 @@ wb.add_worksheet(name: "管理费") do |sheet|
                       fee.month.try(:month),
                       fee.owner.try(:show_name),
                       fee.owner.try(:project).try(:name),
-                      number_to_currency(fee.amount),
+                      format_money(fee.amount),
                       "#{fee.rate.to_i}%",
-                      number_to_currency(fee.fee),
+                      format_money(fee.fee),
                       l(fee.created_at)
                   ]
   end

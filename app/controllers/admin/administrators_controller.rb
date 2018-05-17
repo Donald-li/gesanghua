@@ -21,27 +21,40 @@ class Admin::AdministratorsController < Admin::BaseController
   end
 
   def create
-    @administrator = User.new
     respond_to do |format|
-      if User.find_by_login(administrator_params[:login]).present?
-        flash[:alert] = '账号已被占用'
-        format.html {render :new}
-      else
-        administrator_params[:roles] = (administrator_params[:roles]).select(&:present?)
-        @user = User.new(administrator_params.merge(name: administrator_params[:nickname]))
-        if @user.save
-          format.html {redirect_to admin_administrators_url, notice: '管理员已增加。'}
+      @administrator = User.find_by(phone: administrator_params[:phone])
+      if @administrator.present?
+        roles = @administrator.roles
+        administrator_params[:roles] = (administrator_params[:roles] | (roles & User::USER_ROLES)).select(&:present?)
+        if @administrator.update(administrator_params)
+          format.html {redirect_to referer_or(admin_administrators_url), notice: '该手机号已绑定用户，已将该用户账号更新为管理员账号。'}
         else
-          flash[:alert] = @user.errors.full_messages.join(',')
           format.html {render :new}
+        end
+      else
+        @administrator = User.new
+
+        if User.find_by_login(administrator_params[:login]).present?
+          flash[:alert] = '账号已被占用'
+          format.html {render :new}
+        else
+          administrator_params[:roles] = (administrator_params[:roles]).select(&:present?)
+          @user = User.new(administrator_params.merge(name: administrator_params[:nickname]))
+          if @user.save
+            format.html {redirect_to admin_administrators_url, notice: '管理员已增加。'}
+          else
+            flash[:alert] = @user.errors.full_messages.join(',')
+            format.html {render :new}
+          end
         end
       end
     end
+
   end
 
   def update
     roles = @administrator.roles
-    administrator_params[:roles] = (administrator_params[:roles] | ( roles & User::USER_ROLES)).select(&:present?)
+    administrator_params[:roles] = (administrator_params[:roles] | (roles & User::USER_ROLES)).select(&:present?)
     respond_to do |format|
       if @administrator.update(administrator_params)
         format.html {redirect_to referer_or(admin_administrators_url), notice: '管理员资料已修改。'}
@@ -70,7 +83,7 @@ class Admin::AdministratorsController < Admin::BaseController
 
   def administrator_params
     ps = params.require(:user).permit!
-    ps[:project_ids] = ps[:project_ids].select{|i|i.present?}.map(&:to_i)
+    ps[:project_ids] = ps[:project_ids].select {|i| i.present?}.map(&:to_i)
     ps
   end
 

@@ -24,6 +24,7 @@ scope module: :support do
       get :camp_users
       get :child_grants
       get :team_manager
+      get :county_user
     end
   end
   resources :ajaxes, only: [] do

@@ -65,7 +65,7 @@
                 <%= record.enum_name(:kind) %>
               </td>
               <td>
-                <%= record.amount %>
+                <%= format_money record.amount %>
               </td>
               <td>
                 <%= l record.created_at %>

@@ -82,7 +82,7 @@
                   <%= supplement.bookshelf.beneficial_children.present? ? supplement.bookshelf.beneficial_children.count : 0 %>
                 </td> -->
                 <td>
-                  <%= number_to_currency(supplement.target_amount) %> / <%= number_to_currency(supplement.present_amount) %>
+                  <%= format_money(supplement.target_amount) %> / <%= format_money(supplement.present_amount) %>
                 </td>
                 <td>
                   <%= supplement.bookshelf.title %>

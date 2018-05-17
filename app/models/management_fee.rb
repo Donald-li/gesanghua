@@ -14,6 +14,7 @@
 #  state        :integer                                # 状态
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  month_id     :integer                                # 月份
 #
 
 class ManagementFee < ApplicationRecord
@@ -52,7 +53,7 @@ class ManagementFee < ApplicationRecord
   def calc_managemeng_rate
     return unless self.fund
     self.rate ||= self.fund.management_rate
-    self.fee = self.amount.to_f * self.rate / 100
+    self.fee = (self.amount.to_f - self.amount.to_f / ( 1 + self.rate.to_f / 100)).round(2)
   end
 
 end
