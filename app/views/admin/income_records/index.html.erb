@@ -96,7 +96,7 @@
                 <%= l record.income_time %>
               </td>
               <td>
-                ￥<%= record.amount %>
+                ￥<%= format_money record.amount %>
               </td>
               <td>
                 <%= record.income_source.try(:name) %>

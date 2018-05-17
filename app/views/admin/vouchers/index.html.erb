@@ -86,7 +86,7 @@
                   <%= voucher.full_address %>
                 </td>
                 <td>
-                  ￥<%= number_to_currency(voucher.amount) %>
+                  ￥<%= format_money(voucher.amount) %>
                 </td>
                 <td>
                   <%= voucher.enum_name(:kind) %>

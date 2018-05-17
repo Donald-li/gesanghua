@@ -74,7 +74,7 @@
                 <%= month_donate.donated_period %>/<%= month_donate.plan_period %>
               </td>
               <td>
-                <%= number_to_currency(month_donate.amount) %>元/月
+                <%= format_money(month_donate.amount) %>元/月
               </td>
               <td>
                 <%= month_donate.start_time.strftime('%Y-%m-%d') %>

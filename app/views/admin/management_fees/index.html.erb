@@ -63,13 +63,13 @@
                 <%= fee.owner.try(:project).try(:name) %>
               </td>
               <td>
-                <%= number_to_currency fee.amount %>
+                <%= format_money fee.amount %>
               </td>
               <td>
                 <%= fee.rate.to_i %>%
               </td>
               <td>
-                <%= number_to_currency fee.fee %>
+                <%= format_money fee.fee %>
               </td>
               <td>
                 <%= l fee.created_at %>

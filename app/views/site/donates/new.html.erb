@@ -37,12 +37,12 @@
                 <ul class="ui-choose ui-choose-tab clearfix" id="amount-tab-<%= d.id %>" style="display: <%= item_id.to_s == d.id.to_s ? 'block' : 'none' %>">
                   <% if d.amount_tabs.count > 0 %>
                     <% d.amount_tabs.each do |a| %>
-                      <li class="cur amount_tab_cur" data-amount="<%= a.amount %>"><%= number_to_currency a.amount %>
+                      <li class="cur amount_tab_cur" data-amount="<%= a.amount %>"><%= format_money a.amount %>
                         元 <%= "(#{a.alias})" if a.alias.present? %></li>
                     <% end %>
                   <% else %>
                     <% Settings.amount_tabs.each do |a| %>
-                      <li class="cur amount_tab_cur" data-amount="<%= a %>"><%= number_to_currency a %>
+                      <li class="cur amount_tab_cur" data-amount="<%= a %>"><%= format_money a %>
                         元</li>
                     <% end %>
                   <% end %>
@@ -78,7 +78,7 @@
               <% if current_user.balance > 0 %>
                 <li class="donate_way" data-way="balance">
                   <%= image_tag 'iconpic-buy-outline.svg' %>
-                  <span><%= number_to_currency current_user.balance %>
+                  <span><%= format_money current_user.balance %>
                     元</span>
                 </li>
               <% end %>

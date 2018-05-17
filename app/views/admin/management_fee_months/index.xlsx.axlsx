@@ -9,7 +9,7 @@ wb.add_worksheet(name: "管理费") do |sheet|
                       index + 1,
                       month.month,
                       month.count,
-                      number_to_currency(month.fee),
+                      format_money(month.fee),
                       month.enum_name(:state)
                   ]
   end

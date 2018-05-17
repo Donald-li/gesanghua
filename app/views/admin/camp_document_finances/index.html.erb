@@ -16,8 +16,8 @@
   </div>
   <div class="portlet-body">
     <div class="body-info">
-      预计花费合计： <%= number_to_currency @search.result.sum(:budge) %> &nbsp;&nbsp;&nbsp;&nbsp;
-      实际花费合计： <%= number_to_currency @search.result.sum(:amount) %>
+      预计花费合计： <%= format_money @search.result.sum(:budge) %> &nbsp;&nbsp;&nbsp;&nbsp;
+      实际花费合计： <%= format_money @search.result.sum(:amount) %>
     </div>
     <div class="dataTables_wrapper no-footer">
       <div class="row">
@@ -54,10 +54,10 @@
                   <%= camp_document_finance.item %>
                 </td>
                 <td>
-                  <%= number_to_currency camp_document_finance.budge %>
+                  <%= format_money camp_document_finance.budge %>
                 </td>
                 <td>
-                  <%= number_to_currency camp_document_finance.amount %>
+                  <%= format_money camp_document_finance.amount %>
                 </td>
                 <td>
                   <%= camp_document_finance.remark %>
