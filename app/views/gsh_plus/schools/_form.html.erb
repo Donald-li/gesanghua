@@ -3,50 +3,53 @@
   <div class="school-a-l-con">
     <p class="don-title">学校信息</p>
     <div class="addchild-list-cont">
-      <div>
-        <span class="goodtext">学校全称</span>
-        <input class="goodinput " type="text" name="school[name]" value="<%= @school.name %>" required />
+      <div class="clearfix">
+        <span class="goodtext pull-left">学校全称</span>
+        <input class="goodinput pull-left" type="text" name="school[name]" value="<%= @school.name %>" required />
       </div>
-      <div>
-        <span class="goodtext">选择地区</span>
-        <div class="city-group">
+      <div class="clearfix">
+        <span class="goodtext pull-left">选择地区</span>
+        <div class="city-group pull-left">
           <%= select_tag 'school[province]', options_for_select(ChinaCity.list, @school.province.presence), prompt: '省份', class: "city-select", id: 'province' %>
           <%= select_tag 'school[city]', options_for_select(ChinaCity.list(@school.province.to_s), @school.city.presence), prompt: '城市', class: "city-select", id: 'city' %>
           <%= select_tag 'school[district]', options_for_select(ChinaCity.list(@school.city.to_s), @school.district.presence), prompt: '地区', class: "city-select", id: 'district' %>
         </div>
       </div>
-      <div>
-        <span class="goodtext">通讯地址</span>
-        <input class="goodinput " type="text" name="school[address]" value="<%= @school.address %>" required/>
+      <div class="clearfix">
+        <span class="goodtext pull-left">通讯地址</span>
+        <input class="goodinput pull-left" type="text" name="school[address]" value="<%= @school.address %>" required/>
       </div>
-      <div>
-        <span class="goodtext">邮政编码</span>
-        <input class="goodinput " type="text" name="school[postcode]" value="<%= @school.postcode %>" required/>
+      <div class="clearfix">
+        <span class="goodtext pull-left">邮政编码</span>
+        <input class="goodinput pull-left" type="text" name="school[postcode]" value="<%= @school.postcode %>" required/>
       </div>
-      <div>
-        <span class="goodtext">学生人数</span>
-        <div>
-          <input class="goodinput" type="number" name="school[number]" value="<%= @school.number %>" required data-parsley-type="integer" min="0"/>
+      <div class="clearfix">
+        <span class="goodtext pull-left">学生人数</span>
+        <div class="pull-left">
+          <input class="goodinput " type="number" name="school[number]" value="<%= @school.number %>" required data-parsley-type="integer" min="0"  data-parsley-required="true" data-parsley-errors-container= "#studentnum"/>
           <span class="income-moy">人</span>
         </div>
+        <div id="studentnum" style="width: 100%;min-width: 100%;"></div>
       </div>
-      <div>
-        <span class="goodtext">教师人数</span>
-        <div>
-          <input class="goodinput" type="number" name="school[teacher_count]" value="<%= @school.teacher_count %>" required data-parsley-type="integer" min="0"/>
+      <div class="clearfix">
+        <span class="goodtext pull-left">教师人数</span>
+        <div class="pull-left">
+          <input class="goodinput " type="number" name="school[teacher_count]" value="<%= @school.teacher_count %>" required data-parsley-type="integer" min="0"  data-parsley-required="true" data-parsley-errors-container= "#teachernum"/>
           <span class="income-moy">人</span>
         </div>
+        <div id="teachernum" style="width: 100%;min-width: 100%;"></div>
       </div>
-      <div>
-        <span class="goodtext">后勤人数</span>
-        <div>
-          <input class="goodinput" type="number" name="school[logistic_count]" value="<%= @school.logistic_count %>" required data-parsley-type="integer" min="0"/>
+      <div class="clearfix">
+        <span class="goodtext pull-left">后勤人数</span>
+        <div class="pull-left">
+          <input class="goodinput " type="number" name="school[logistic_count]" value="<%= @school.logistic_count %>" required data-parsley-type="integer" min="0"  data-parsley-required="true" data-parsley-errors-container= "#logisticsnum"/>
           <span class="income-moy">人</span>
         </div>
+        <div id="logisticsnum" style="width: 100%;min-width: 100%;"></div>
       </div>
-      <div style="height: 100%;">
-        <span class="goodtext">学校简介</span>
-        <textarea name="school[describe]" required><%= @school.describe %></textarea>
+      <div style="height: 100%;" class="clearfix">
+        <span class="goodtext pull-left">学校简介</span>
+        <textarea class="pull-left" name="school[describe]" required ><%= @school.describe %></textarea>
       </div>
 
     </div>
@@ -56,25 +59,25 @@
   <div class="school-a-l-con">
     <p class="don-title">学校负责人信息</p>
     <div class="addchild-list-cont">
-      <div>
-        <span class="goodtext">姓名</span>
-        <input class="goodinput " type="text" name="school[contact_name]" value="<%= @school.contact_name %>" required/>
+      <div class="clearfix">
+        <span class="goodtext pull-left">姓名</span>
+        <input class="goodinput pull-left" type="text" name="school[contact_name]" value="<%= @school.contact_name %>" required/>
       </div>
-      <div>
-        <span class="goodtext">身份证号</span>
-        <input class="goodinput " type="text" name="school[contact_id_card]" value="<%= @school.contact_id_card %>" required data-parsley-shenfen/>
+      <div class="clearfix">
+        <span class="goodtext pull-left">身份证号</span>
+        <input class="goodinput pull-left" type="text" name="school[contact_id_card]" value="<%= @school.contact_id_card %>" required data-parsley-shenfen/>
       </div>
-      <div>
-        <span class="goodtext">手机号码</span>
-        <input class="goodinput " type="text" name="school[contact_phone]" value="<%= @school.contact_phone %>" required data-parsley-phone/>
+      <div class="clearfix">
+        <span class="goodtext pull-left">手机号码</span>
+        <input class="goodinput pull-left" type="text" name="school[contact_phone]" value="<%= @school.contact_phone %>" required data-parsley-phone/>
       </div>
-      <div>
-        <span class="goodtext">办公电话</span>
-        <input class="goodinput " type="text" name="school[contact_telephone]" value="<%= @school.contact_telephone %>" data-parsley-telephone/>
+      <div class="clearfix">
+        <span class="goodtext pull-left">办公电话</span>
+        <input class="goodinput pull-left" type="text" name="school[contact_telephone]" value="<%= @school.contact_telephone %>" data-parsley-telephone/>
       </div>
-      <div  class="school-list-picture">
-        <span class="goodtext">上传图片</span>
-        <div>
+      <div  class="school-list-picture clearfix">
+        <span class="goodtext pull-left">上传图片</span>
+        <div class="pull-left">
           <div class="addchild-list-up-picture pull-left">
             <p class="iconfont icon-ico-add"></p>
             <p></p>
@@ -91,22 +94,22 @@
   </div>
 </div>
 <div class="childern-submint">
-  <button type="submit">提交审核</button>
+  <button type="submit" class="submit-button">提交审核</button>
   <button>取消</button>
 </div>
 <% end %>
 </div>
 <script>
     $("#province").select2({
-        width: "141px",
+        width: "120px",
         minimumResultsForSearch: -1
     });
     $("#city").select2({
-        width: "150px",
+        width: "130px",
         minimumResultsForSearch: -1
     });
     $("#district").select2({
-        width: "150px",
+        width: "128px",
         minimumResultsForSearch: -1
     });
   initImageWebuploader($('#school-card'));
