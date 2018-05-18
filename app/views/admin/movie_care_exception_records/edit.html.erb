@@ -1,0 +1,21 @@
+<div class="portlet light bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-note"></i>
+      <span class="caption-subject">修改异常记录</span>
+      <span class="caption-helper"></span>
+    </div>
+    <div class="actions">
+      <div class="portlet-input input-inline input-small">
+        <div class="input-icon right">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body form">
+    <%= render '/admin/shared/exception_record_form',
+    url: admin_movie_care_apply_movie_care_exception_record_path(@apply),
+    back_url: admin_movie_care_applies_path,
+    exception_record: @exception_record %>
+  </div>
+</div>

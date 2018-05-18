@@ -80,6 +80,7 @@ namespace :admin do
     # resources :read_donate_records
     resources :bookshelf_donate_records
     resources :supplement_donate_records
+    resources :read_exception_records
     resources :bookshelves, concerns: :switch do
       member do
         get :accrue
@@ -118,6 +119,7 @@ namespace :admin do
         post :create_audit
       end
     end
+    resources :pair_exception_records
   end
   resources :pair_continual_feedbacks, concerns: [:recommend]
   resources :pair_thank_notes
@@ -174,6 +176,7 @@ namespace :admin do
       end
     end
     resources :camp_donate_records
+    resources :camp_exception_records
     resources :camp_execute_feedbacks, concerns: :recommend
   end
 
@@ -282,6 +285,7 @@ namespace :admin do
     resource :goods_receive
     resource :goods_install, concerns: [:recommend]
     resources :goods_donate_records
+    resources :goods_exception_records
   end
   resources :goods_reports ,concerns: [:switch]
   resources :goods_continual_feedbacks ,concerns: [:recommend]
@@ -299,13 +303,17 @@ namespace :admin do
   resources :radio_continual_feedbacks, concerns: [:recommend]
 
   resources :movie_continual_feedbacks, concerns: [:recommend]
-  resources :movie_applies, concerns: :check
+  resources :movie_applies, concerns: :check do
+    resources :movie_exception_records
+  end
   resources :movie_schools do
     resources :movie_feedbacks, concerns: [:recommend]
   end
 
   resources :movie_care_continual_feedbacks, concerns: [:recommend]
-  resources :movie_care_applies, concerns: :check
+  resources :movie_care_applies, concerns: :check do
+    resources :movie_care_exception_records
+  end
   resources :movie_care_schools do
     resources :movie_care_feedbacks, concerns: [:recommend]
   end

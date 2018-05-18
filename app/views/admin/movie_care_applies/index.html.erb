@@ -96,6 +96,15 @@
                   <%= link_to admin_movie_care_apply_path(apply), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                       <i class="fa fa-trash-o"></i> 删除
                   <% end %>
+                  <% if !apply.exception_record.present? %>
+                    <%= link_to new_admin_movie_care_apply_movie_care_exception_record_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
+                        <i class="fa fa-list"></i> 异常记录
+                    <% end %>
+                  <% else %>
+                    <%= link_to edit_admin_movie_care_apply_movie_care_exception_record_path(apply, apply.exception_record), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
+                        <i class="fa fa-list"></i> 修改异常记录
+                    <% end %>
+                  <% end %>
                 </td>
               </tr>
           <% end %>

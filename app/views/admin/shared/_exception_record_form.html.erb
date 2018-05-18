@@ -1,0 +1,19 @@
+<%= simple_form_for [:admin, exception_record.present? ? exception_record : ExceptionRecord.new], url: url, wrapper: :admin_form, html: {id: 'approve-form', 'data-parsley-validate': true} do |f| %>
+    <%= f.error_notification %>
+    <div class="form-body form-horizontal">
+      <%= f.hidden_field :user_id, value: current_user.id %>
+      <%= f.input :title, label: '标题：', placeholder: '', input_html: { data: {'parsley-required': true} } %>
+      <%= f.input :content, label: '内容：', placeholder: '', input_html: { data: {'parsley-required': true} } %>
+      <% if exception_record.present? %>
+        <%= f.input :schedule, label: '进度更新：', placeholder: '', input_html: {data: {} } %>
+      <% end %>
+    </div>
+      <div class="form-actions">
+        <div class="row">
+          <div class="col-md-offset-3 col-md-9">
+            <%= f.button :submit, '提交', class: 'btn green' %>
+            <%= link_to '取消', back_url, class: 'btn' %>
+          </div>
+        </div>
+      </div>
+<% end %>

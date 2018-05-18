@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180516102424) do
+ActiveRecord::Schema.define(version: 20180518070610) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -388,6 +388,17 @@ ActiveRecord::Schema.define(version: 20180516102424) do
     t.index ["project_id"], name: "index_donations_on_project_id"
     t.index ["project_season_apply_id"], name: "index_donations_on_project_season_apply_id"
     t.index ["team_id"], name: "index_donations_on_team_id"
+  end
+
+  create_table "exception_records", force: :cascade do |t|
+    t.string "title", comment: "标题"
+    t.string "content", comment: "内容"
+    t.string "schedule", comment: "进度更新"
+    t.string "owner_type"
+    t.integer "owner_id"
+    t.integer "user_id", comment: "提交人id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "expenditure_records", force: :cascade, comment: "支出记录表" do |t|

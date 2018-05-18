@@ -153,6 +153,15 @@
                       <i class="fa fa-check-square-o"></i> 标记完成
                     <% end %>
                   <% end %>
+                  <% if !apply.exception_record.present? %>
+                    <%= link_to new_admin_goods_project_goods_exception_record_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
+                        <i class="fa fa-list"></i> 异常记录
+                    <% end %>
+                  <% else %>
+                    <%= link_to edit_admin_goods_project_goods_exception_record_path(apply, apply.exception_record), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
+                        <i class="fa fa-list"></i> 修改异常记录
+                    <% end %>
+                  <% end %>
                   <!-- <% if apply.cancelled? && apply.donate_records.present? %>
                     <%= link_to refunded_admin_flwer_project_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                       <i class="fa fa-money"></i> 项目已退款

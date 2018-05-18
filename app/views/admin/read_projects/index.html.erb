@@ -140,6 +140,15 @@
                       <% end %>
                       <% end %>
                   <% end %>
+                  <% if !project.exception_record.present? %>
+                    <%= link_to new_admin_read_project_read_exception_record_path(project), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
+                        <i class="fa fa-list"></i> 异常记录
+                    <% end %>
+                  <% else %>
+                    <%= link_to edit_admin_read_project_read_exception_record_path(project, project.exception_record), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
+                        <i class="fa fa-list"></i> 修改异常记录
+                    <% end %>
+                  <% end %>
                 </td>
               </tr>
           <% end %>
