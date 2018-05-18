@@ -59,6 +59,7 @@ admin:
             admin_campaigns:
               actions:
                 admin/campaigns: all
+                admin/campaign_enlists: all
             admin_campaign_categories:
               actions:
                 admin/campaign_categories: all

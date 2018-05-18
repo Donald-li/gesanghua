@@ -10,6 +10,9 @@ class Site::CampaignsController < Site::BaseController
   def show
     @campaign = Campaign.find(params[:id])
     @recommends = Campaign.show.where.not(id: params[:id]).sorted.take(3)
+    unless current_user
+      flash[:notice] = "您还没有登录，无法报名活动"
+    end
   end
 
   def submit
@@ -32,7 +35,8 @@ class Site::CampaignsController < Site::BaseController
         redirect_to new_donate_path(campaign_enlist: @enlist.id)
       end
     else
-      redirect_to campaign_path, alert: '报名失败'
+      flash[:alert] = @enlist.errors.values.flatten.join(',')
+      render :show
     end
   end
 
