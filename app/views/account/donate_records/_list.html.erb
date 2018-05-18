@@ -8,10 +8,10 @@
       <div class="teams-don">捐助 <span><%= record.title %></span> <%= number_to_currency(record.amount) %>元</div>
     </div>
     <div class="pull-right">
-      <button data-toggle="modal" data-target="#myModal" class="donation-cont-but  cur" style="margin-top: 8px;">查看证书</button>
+      <button data-toggle="modal" data-target="#myModal-<%= record.id %>" class="donation-cont-but  cur" style="margin-top: 8px;">查看证书</button>
     </div>
     <%#= link_to "查看证书", '', class: "donation-cont-but pull-right cur" ,style:'margin:0;' %>
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="myModal-<%= record.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content" style="width:590px;">
           <div class="modal-header">
@@ -21,7 +21,7 @@
           </div>
 
               <div class="modal-body" style="padding: 20px 30px 15px 30px;text-align: center;">
-                <%= image_tag 'top-mian-con.png' ,style:'width:300px;height:440px;'%>
+                <%= image_tag record.donor_certificate_path,style:'width:300px;height:440px;'%>
               </div>
               <div class="modal-footer overspreads-but">
                 <button class="overspreadsc-but overspread-but  over-but" data-dismiss="modal" >关闭</button>
@@ -31,4 +31,3 @@
     </div>
   </li>
 <% end %>
-

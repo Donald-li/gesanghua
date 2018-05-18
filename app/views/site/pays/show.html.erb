@@ -19,7 +19,7 @@
         <p>付款时间：<span><%= l @donation.created_at %></span></p>
       </div>
       <div class="donates-con-img" data-toggle="modal" data-target="#myModal">
-        <%= image_tag 'donation-page-order.png' %>
+        <%= image_tag @donation.income_record.donor_certificate_path if @donation.income_record %>
       </div>
     </div>
 
@@ -37,7 +37,7 @@
         </div>
 
         <div class="modal-body" style="padding: 20px 30px 15px 30px;text-align: center;">
-          <%= image_tag 'top-mian-con.png' ,style:'width:300px;height:440px;'%>
+          <%= image_tag @donation.income_record.donor_certificate_path ,style:'width:300px;height:440px;' if @donation.income_record %>
         </div>
         <div class="modal-footer overspreads-but">
           <button class="overspreadsc-but overspread-but  over-but" data-dismiss="modal" >关闭</button>
