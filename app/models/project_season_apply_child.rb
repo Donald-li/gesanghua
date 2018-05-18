@@ -258,7 +258,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   end
 
   def formatted_information
-    self.information.gsub(/\r\n/, '<br>').gsub(/(<br\/*>\s*){1,}/, '<br>')
+    self.information.gsub(/\r\n/, '<br>').gsub(/(<br\/*>\s*){1,}/, '<br>') if self.information.present?
   end
 
   # 审核不通过
