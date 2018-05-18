@@ -25,7 +25,7 @@ class BadgeLevel < ApplicationRecord
 
   enum kind: {user_donate: 10, society_team: 20, college_team: 30, ordinary_task: 40, intensive_task: 50, urgency_task: 60, innovative_task: 70, difficult_task: 80, volunteer_age: 90}
 
-  validates :title, :value, presence: true
+  validates :title, :value, :rank, :description, presence: true
 
   def desc_of_kind
     current_value = self.current_value
