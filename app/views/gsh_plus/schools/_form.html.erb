@@ -29,7 +29,7 @@
           <input class="goodinput " type="number" name="school[number]" value="<%= @school.number %>" required data-parsley-type="integer" min="0"  data-parsley-required="true" data-parsley-errors-container= "#studentnum"/>
           <span class="income-moy">人</span>
         </div>
-        <div id="studentnum"></div>
+        <div id="studentnum" style="width: 100%;min-width: 100%;"></div>
       </div>
       <div class="clearfix">
         <span class="goodtext pull-left">教师人数</span>
@@ -37,7 +37,7 @@
           <input class="goodinput " type="number" name="school[teacher_count]" value="<%= @school.teacher_count %>" required data-parsley-type="integer" min="0"  data-parsley-required="true" data-parsley-errors-container= "#teachernum"/>
           <span class="income-moy">人</span>
         </div>
-        <div id="teachernum"></div>
+        <div id="teachernum" style="width: 100%;min-width: 100%;"></div>
       </div>
       <div class="clearfix">
         <span class="goodtext pull-left">后勤人数</span>
@@ -45,7 +45,7 @@
           <input class="goodinput " type="number" name="school[logistic_count]" value="<%= @school.logistic_count %>" required data-parsley-type="integer" min="0"  data-parsley-required="true" data-parsley-errors-container= "#logisticsnum"/>
           <span class="income-moy">人</span>
         </div>
-        <div id="logisticsnum"></div>
+        <div id="logisticsnum" style="width: 100%;min-width: 100%;"></div>
       </div>
       <div style="height: 100%;" class="clearfix">
         <span class="goodtext pull-left">学校简介</span>
@@ -94,7 +94,7 @@
   </div>
 </div>
 <div class="childern-submint">
-  <button type="submit">提交审核</button>
+  <button type="submit" class="submit-button">提交审核</button>
   <button>取消</button>
 </div>
 <% end %>
