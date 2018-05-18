@@ -1,7 +1,7 @@
 <%= simple_form_for [:admin, @project], wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'form-horizontal project_form'} do |f| %>
 <%= f.error_notification %>
 <div class="form-body">
-  <%= f.input :name, label: '项目分类名称：', autofocus: true, placeholder: '', required: true %>
+  <%= f.input :name, label: '项目名称：', autofocus: true, placeholder: '', required: true %>
   <div class="form-group">
     <label class="col-md-2 control-label">项目图标：</label>
     <div class="col-sm-9">
@@ -53,19 +53,18 @@
   </div>
   <%#= f.input :describe, label: '项目介绍：', required: true %>
 
-
   <div class="form-group">
     <label class="col-md-2 control-label"> 项目介绍：</label>
     <div class="col-sm-9">
       <%= f.input :describe, label: false %>
     </div>
   </div>
-  <div class="form-group">
-    <label class="col-md-2 control-label"> 协议内容：</label>
-    <div class="col-sm-9">
-      <%= f.cktext_area :protocol %>
-    </div>
-  </div>
+  <!--<div class="form-group">-->
+    <!--<label class="col-md-2 control-label"> 协议内容：</label>-->
+    <!--<div class="col-sm-9">-->
+      <!--<%#= f.cktext_area :protocol %>-->
+    <!--</div>-->
+  <!--</div>-->
   <%= f.input :donate_item_id, collection: DonateItem.show.sorted, label: '捐助项：', prompt: "请选择捐助项", hint: '可关联捐助项', input_html: {} %>
   <% if @project.goods? %>
   <div class="form-group">
