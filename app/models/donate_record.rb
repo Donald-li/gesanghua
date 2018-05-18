@@ -305,6 +305,7 @@ class DonateRecord < ApplicationRecord
   end
 
   def show_apply_name
+    return unless self.owner.present?
     show_apply_name = if self.owner_type == 'DonateItem' || self.owner_type == 'ProjectSeasonApply'
       self.owner.name
     elsif self.owner_type == 'GshChildGrant'
