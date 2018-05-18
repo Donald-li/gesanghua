@@ -158,6 +158,9 @@ class Donation < ApplicationRecord
       notice = Notification.create(
         kind: 'donate',
         owner: owner,
+        project_id: donation.project_id,
+        project_season_id: donation.project_season_id,
+        project_season_apply_id: donation.project_season_apply_id,
         user_id: agent.id,
         title: title,
         content: content
@@ -204,6 +207,9 @@ class Donation < ApplicationRecord
       content = "感谢你的支持 捐助款已经收到，后续动态我们会持续通知"
       notice = Notification.create(
         kind: 'donate',
+        project_id: donation.project_id,
+        project_season_id: donation.project_season_id,
+        project_season_apply_id: donation.project_season_apply_id,
         owner: owner,
         user_id: agent.id,
         title: title,
