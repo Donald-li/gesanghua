@@ -119,7 +119,7 @@ class Project < ApplicationRecord
     if limit_amount
       donate_items = donate_items.select{|i| i <= limit_amount}.push(limit_amount)
     end
-    donate_items.sort.uniq[-4..-1]
+    donate_items.sort.uniq.reverse[0,4].reverse
   end
 
   # 给form添加一行
