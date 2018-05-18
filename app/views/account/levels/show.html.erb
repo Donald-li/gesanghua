@@ -11,7 +11,11 @@
            <%= image_tag badge.icon_url(nil), width: 149, height: 176%>
             <div class="medal-cont">
               <p><%= badge.title %> <%= badge.rank  unless badge.default_level? %></p>
+            </div>
+            <div class="ovrly"></div>
+            <div class="buttons">
               <p><%= badge.description %></p>
+              <p>当前：<%= badge.current_value %></p>
             </div>
           </div>
         </div>
@@ -20,3 +24,33 @@
     </div>
   </div>
 </div>
+
+
+<div id="goodcover"></div>
+
+<script>
+    $('#ClickMe').click(function () {
+        $('#code').center();
+        $('#goodcover').show();
+        $('#code').fadeIn();
+    });
+    $('#closebt').click(function () {
+        $('#code').hide();
+        $('#goodcover').hide();
+    });
+    $('.goodbut').click(function () {
+        $('#code').hide();
+        $('#goodcover').hide();
+    });
+    $('#delete').click(function () {
+        $('#remove').center();
+        $('#goodcover').show();
+        $('#remove').fadeIn();
+    });
+    $('#remove-but').click(function () {
+        $('#remove').hide();
+        $('#goodcover').hide();
+    });
+
+
+</script>
