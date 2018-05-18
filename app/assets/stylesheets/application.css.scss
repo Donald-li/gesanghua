@@ -7769,6 +7769,7 @@ color: #8d8d8d;
 
   .donates-con-c {
     padding-top: 30px;
+    position: relative;
 
     & > p {
       font-size: 16px;
@@ -7793,6 +7794,17 @@ color: #8d8d8d;
         span {
           color: $color-info;
         }
+      }
+    }
+    .donates-con-img{
+      width: 110px;
+      height: auto;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      img{
+        width:100%;
+        height:100%;
       }
     }
   }
