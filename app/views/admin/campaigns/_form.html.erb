@@ -64,7 +64,7 @@
                   <%= text_field_tag "campaign[form_attributes][#{i}][placeholder]", form_item['placeholder'], placeholder: '提示'%>
                   <%= select_tag "campaign[form_attributes][#{i}][type]", options_for_select([['文本框', 'text'], ['多行文本框', 'textarea'], ['数字选择', 'number'], ['选项', 'select']], form_item['type']), placeholder: '代码'%>
                   <%= text_field_tag "campaign[form_attributes][#{i}][options]", form_item['options'].join('|'), placeholder: '选择项，用英文|隔开' %>
-                  <label><%= check_box_tag "campaign[form_attributes][#{i}][required]", 'y', form_item['required']%>必填</label>
+                  <label><%= select_tag "campaign[form_attributes][#{i}][required]", options_for_select([['必填', 'y'], ['选填', 'n']], form_item['required']) %></label>
                   <a href="#" class="destroy"><i class="fa fa-remove font-red-soft"></i></a>
                 </div>
             <% end %>
