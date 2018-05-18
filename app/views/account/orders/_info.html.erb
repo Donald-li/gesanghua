@@ -13,7 +13,7 @@
         <div class="clearfix donation-cont-c-con">
           <% if record.apply_surplus_money %>
             <div class="pull-left">
-              <p><span>￥<%= format_money((record.apply_surplus_money), 2) %></span></p>
+              <p><span>￥<%= number_to_currency((record.apply_surplus_money), 2) %></span></p>
               <p>还差</p>
             </div>
           <% end %>

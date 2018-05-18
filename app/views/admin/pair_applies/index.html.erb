@@ -104,6 +104,15 @@
                   <%= link_to admin_pair_apply_pair_students_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                       <i class="fa fa-list-ul"></i> 查看名单
                   <% end %>
+                  <% if !apply.exception_record.present? %>
+                    <%= link_to new_admin_pair_apply_pair_exception_record_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
+                        <i class="fa fa-list"></i> 异常记录
+                    <% end %>
+                  <% else %>
+                    <%= link_to edit_admin_pair_apply_pair_exception_record_path(apply, apply.exception_record), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
+                        <i class="fa fa-list"></i> 修改异常记录
+                    <% end %>
+                  <% end %>
                 </td>
               </tr>
           <% end %>

@@ -4,9 +4,11 @@
       <i class="icon-list"></i> <%= link_to @user.show_name, admin_users_path %> > 账户记录
     </div>
     <div class="actions">
+      <% if can? :manage_financial, current_user %>
       <%= link_to new_admin_user_account_record_path(@user), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
       <i class="icon-plus"></i>
       <span>新增记录</span>
+      <% end %>
       <% end %>
     </div>
   </div>

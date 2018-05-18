@@ -3,7 +3,7 @@
     <p class="disclosures-f-1 clearfix">
       <span class="disclosures-f-bg pull-left">财务公开</span>
       <span class="disclosures-f-min pull-left">累计收入:</span>
-      <span class="disclosures-f-moy pull-left"><%= format_money(IncomeRecord.total_amount) %>元</span>
+      <span class="disclosures-f-moy pull-left"><%= number_to_currency(IncomeRecord.total_amount) %>元</span>
     </p>
     <p class="disclosures-pos">
       <%= link_to disclosures_path do %>查看财务报告<% end %>  |  <%= link_to audit_reports_path do %>查看审计报告<% end %>
@@ -54,7 +54,7 @@
           <td><%= income_record.title %></td>
           <td><%= income_record.fund.try(:fund_category).try(:name) %> <%= income_record.fund.try(:name) %></td>
           <td><%= l income_record.income_time %></td>
-          <td><%= format_money(income_record.amount) %></th>
+          <td><%= number_to_currency(income_record.amount) %></th>
           <td><%= income_record.income_source.try(:name) %></td>
           <td><%= income_record.donor.try(:show_name) %></td>
           <td><%= income_record.agent_name %></td>

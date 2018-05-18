@@ -19,6 +19,11 @@ class Ability
       user.has_role?([:superadmin, :financial_staff])
     end
 
+    # 管理后台客服(用户管理)功能
+    can :manage_custom_service, User do |user|
+      user.has_role?([:superadmin, :admin, :financial_staff, :custom_service])
+    end
+
     # 管理后台项目功能
     can :manage_project, User, Project do |user, project|
       def check(user, project)

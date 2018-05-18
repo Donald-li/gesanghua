@@ -82,39 +82,7 @@
                   <%= camp.contact_phone %>
                 </td>
                 <td>
-                  <div class="btn-group">
-                    <a class="btn btn-xs blue dropdown-toggle" data-toggle="dropdown" href="javascript:;" aria-expanded="false">
-                      <i class="fa fa-circle-o-notch"></i>
-                      <%= camp.enum_name(:execute_state) %>
-                      <i class="fa fa-angle-down"></i>
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li>
-                        <%= link_to switch_admin_camp_project_project_season_apply_camp_path(@apply, camp, execute_state: 'to_submit'), method: :put, data: {confirm: '确定标记为待提交名单吗？'} do %>
-                            待提交名单
-                            <% if camp.to_submit? %>
-                                <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
-                            <% end %>
-                        <% end %>
-                      </li>
-                      <li>
-                        <%= link_to switch_admin_camp_project_project_season_apply_camp_path(@apply, camp, execute_state: 'to_approve'), method: :put, data: {confirm: '确定标记为待审核吗？'} do %>
-                            待审核
-                            <% if camp.to_approve? %>
-                                <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
-                            <% end %>
-                        <% end %>
-                      </li>
-                      <li>
-                        <%= link_to switch_admin_camp_project_project_season_apply_camp_path(@apply, camp, execute_state: 'approved'), method: :put, data: {confirm: '确定标记为审核完成吗？'} do %>
-                            审核完成
-                            <% if camp.approved? %>
-                                <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
-                            <% end %>
-                        <% end %>
-                      </li>
-                    </ul>
-                  </div>
+                  <%= camp.enum_name(:execute_state) %>
                 </td>
                 <td>
                   <% unless camp.approved? %>

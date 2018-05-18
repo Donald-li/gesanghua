@@ -41,6 +41,10 @@ class Admin::BaseController < ManagementBaseController
     authorize! :manage_operation, current_user
   end
 
+  def auth_custom_service
+    authorize! :manage_custom_service, current_user
+  end
+
   def auth_manage_finanical
     authorize! :manage_financial, current_user
   end
