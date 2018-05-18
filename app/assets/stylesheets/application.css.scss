@@ -3519,7 +3519,7 @@ select:disabled {
         margin-top: 10px;
 
         & > p:nth-child(1) {
-          font-size: 18px;
+          font-size: 14px;
           color: #2a2a2c;
           font-weight: 600;
           margin-bottom: 20px;
@@ -3570,27 +3570,10 @@ select:disabled {
       width: 78%;
     }
 
-    .buttons > p:nth-child(1) {
-      font-size: 18px;
-      font-weight: 600;
-    }
-
-    .buttons > p:nth-child(2) {
+    .buttons .levels-font{
+      font-size:14px;
+      font-weight: 500;
       text-align: left;
-      font-size: 14px;
-      margin-top: 10px;
-    }
-
-    .buttons > div {
-      text-align: center;
-      font-size: 16px;
-      color: #fff;
-      width: 100px;
-      height: 36px;
-      line-height: 34px;
-      border: 1px solid #fff;
-      border-radius: 4px;
-      margin: 50px auto 0;
     }
   }
 

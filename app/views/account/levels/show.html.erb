@@ -9,9 +9,14 @@
         <div class="item col-md-4 cur ">
           <div class="gsh-img">
            <%= image_tag badge.icon_url(nil), width: 149, height: 176%>
+
             <div class="medal-cont">
               <p><%= badge.title %> <%= badge.rank  unless badge.default_level? %></p>
               <p><%= badge.description %></p>
+            </div>
+            <div class="ovrly"></div>
+            <div class="buttons">
+              <p class="levels-font">本站致力于收集jQuery插件和提供各种jQuery特效的详细使用方法,在线预览,jQuery插件下载及教程</p>
             </div>
           </div>
         </div>
