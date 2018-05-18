@@ -102,7 +102,7 @@
                 <%= record.income_source.try(:name) %>
               </td>
               <td>
-                <%= record.donor.try(:name) %>
+                <%= record.donor.try(:show_name) %>
               </td>
               <td>
                 <%= record.agent_name %>

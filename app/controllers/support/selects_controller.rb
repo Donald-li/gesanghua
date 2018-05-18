@@ -58,10 +58,15 @@ class Support::SelectsController < Support::BaseController
   end
 
   def volunteers
-    scope = Volunteer.available.pass.enable.sorted.joins(:user).where("users.name like :q", q: "%#{params[:q]}%")
+    scope = Volunteer.available.pass.enable.sorted.joins(:user).where("volunteers.name like :q", q: "%#{params[:q]}%")
     scope = scope.where.not(id: params[:participator_ids]) if params[:participator_ids].present?
     volunteers = scope.page(params[:page])
     render json: {items: volunteers.as_json(only: [:id, :name])}
+  end
+
+  def volunteer_user
+    users = User.enable.sorted.where.not(users: {id: 1}).left_joins(:volunteer).where(volunteers: {user_id: nil}).where("users.name like :q", q: "%#{params[:q]}%").page(params[:page])
+    render json: {items: users.as_json(only: [:id, :name])}
   end
 
   def campaign_enlist_user

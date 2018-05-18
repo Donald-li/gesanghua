@@ -7,7 +7,7 @@
       <div class="col-sm-9">
         <select id="fund" class="form-control select optional" name="adjust[to_fund]" required>
           <% FundCategory.sorted.each do |fc| %>
-              <% fc.funds.each do |fund| %>
+              <% fc.funds.unrestricted.each do |fund| %>
                   <option value="<%= fund.id %>"><%= fc.name %> - <%= fund.name %></option>
               <% end %>
           <% end %>

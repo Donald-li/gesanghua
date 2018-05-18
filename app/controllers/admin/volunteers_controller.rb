@@ -1,7 +1,6 @@
 class Admin::VolunteersController < Admin::BaseController
   before_action :auth_manage_operation
   before_action :set_volunteer, only: [:show, :edit, :update, :destroy, :switch, :switch_job]
-  before_action :set_user, only: [:new, :create]
 
   def index
     @search = Volunteer.where(approve_state: [:pass, :reject]).sorted.ransack(params[:q])
@@ -20,7 +19,8 @@ class Admin::VolunteersController < Admin::BaseController
   end
 
   def create
-    @volunteer = Volunteer.new(volunteer_params.merge(approve_state: 2, user_id: @user.id))
+    user = User.find(volunteer_params[:user_id])
+    @volunteer = Volunteer.new(volunteer_params.merge(approve_state: 2, name: user.name, phone: user.phone, province: user.province, city: user.city, district: user.district))
     @volunteer.gen_volunteer_no
     respond_to do |format|
       if @volunteer.save
@@ -63,10 +63,6 @@ class Admin::VolunteersController < Admin::BaseController
     # Use callbacks to share common setup or constraints between actions.
     def set_volunteer
       @volunteer = Volunteer.find(params[:id])
-    end
-
-    def set_user
-      @user = User.find(params[:user_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

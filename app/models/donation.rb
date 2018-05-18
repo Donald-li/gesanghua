@@ -128,10 +128,24 @@ class Donation < ApplicationRecord
       amount = format('%.2f', (result['total_fee'].to_f / 100.to_f))
       amount = donation.amount if Settings.pay_1_mode # 测试模式入账金额等于捐助金额
 
+      # 获取收入分类
+      case donation.owner
+      when GshChildGrant
+        fund = donation.owner.try(:apply_child).try(:apply).try(:project).try(:fund)
+      when ProjectSeasonApplyChild, ProjectSeasonApplyBookshelf, BookshelfSupplement
+        fund = donation.owner.try(:apply).try(:project).try(:fund)
+      when ProjectSeasonApply
+        fund = donation.owner.try(:project).try(:fund)
+      when DonateItem
+        fund = donation.owner.try(:fund)
+      when CampaignEnlist
+        fund = donation.owner.try(:campaign).try(:appoint_fund)
+      end
+
       # 更新捐助状态
       donation.pay_state = 'paid'
       donation.pay_result = result.to_json
-      donation.build_income_record(agent: agent, donor: donor, amount: amount, promoter_id: donation.promoter_id, team_id: donation.team_id, balance: amount, voucher_state: 'to_bill', income_source_id: 1, income_time: Time.now, title: donation.title)
+      donation.build_income_record(fund: fund, agent: agent, donor: donor, amount: amount, promoter_id: donation.promoter_id, team_id: donation.team_id, balance: amount, voucher_state: 'to_bill', income_source_id: 1, income_time: Time.now, title: donation.title)
       donation.save
 
       # 执行捐助
@@ -161,10 +175,24 @@ class Donation < ApplicationRecord
       amount = result['invoice_amount']
       amount = donation.amount if Settings.pay_1_mode # 测试模式入账金额等于捐助金额
 
+      # 获取收入分类
+      case donation.owner
+      when GshChildGrant
+        fund = donation.owner.try(:apply_child).try(:apply).try(:project).try(:fund)
+      when ProjectSeasonApplyChild, ProjectSeasonApplyBookshelf, BookshelfSupplement
+        fund = donation.owner.try(:apply).try(:project).try(:fund)
+      when ProjectSeasonApply
+        fund = donation.owner.try(:project).try(:fund)
+      when DonateItem
+        fund = donation.owner.try(:fund)
+      when CampaignEnlist
+        fund = donation.owner.try(:campaign).try(:appoint_fund)
+      end
+
       # 更新捐助状态
       donation.pay_state = 'paid'
       donation.pay_result = result.to_json
-      donation.build_income_record(agent: agent, donor: donor, amount: amount, promoter_id: donation.promoter_id, team_id: donation.team_id, balance: amount, voucher_state: 'to_bill', income_source_id: 1, income_time: Time.now, title: donation.title)
+      donation.build_income_record(fund: fund, agent: agent, donor: donor, amount: amount, promoter_id: donation.promoter_id, team_id: donation.team_id, balance: amount, voucher_state: 'to_bill', income_source_id: 1, income_time: Time.now, title: donation.title)
       donation.save
 
       # 执行捐助
@@ -188,6 +216,9 @@ class Donation < ApplicationRecord
     Jbuilder.new do |json|
       json.(self, :id, :order_no, :amount, :pay_state)
       json.certificate_no self.income_record.try(:certificate_no)
+      if ['ProjectSeasonApplyBookshelf', 'BookshelfSupplement'].include?(self.owner_type)
+        json.bookshelf self.owner_id
+      end
     end.attributes!
   end
 
@@ -219,11 +250,11 @@ class Donation < ApplicationRecord
   def set_record_title(force: false)
     return if self.title.present? && !force
     if self.owner_type == 'DonateItem'
-      self.title = "#{self.try(:donor).try(:name)}捐助#{self.try(:owner).try(:name)}款项"
+      self.title = "#{self.try(:donor).try(:show_name)}捐助#{self.try(:owner).try(:name)}款项"
     elsif self.owner_type == 'CampaignEnlist'
-      self.title = "#{self.try(:donor).try(:name)}捐助#{self.owner.try(:campaign).try(:name)}活动款项"
+      self.title = "#{self.try(:donor).try(:show_name)}捐助#{self.owner.try(:campaign).try(:name)}活动款项"
     else
-      self.title = "#{self.try(:donor).try(:name)}捐助#{self.try(:apply).try(:apply_name)}#{self.try(:child).try(:name)}#{self.try(:bookshelf).try(:show_title)}款项"
+      self.title = "#{self.try(:donor).try(:show_name)}捐助#{self.try(:apply).try(:apply_name)}#{self.try(:child).try(:name)}#{self.try(:bookshelf).try(:show_title)}款项"
     end
   end
 

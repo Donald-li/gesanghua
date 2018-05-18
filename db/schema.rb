@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180516102424) do
+ActiveRecord::Schema.define(version: 20180518070623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,15 @@ ActiveRecord::Schema.define(version: 20180516102424) do
     t.datetime "updated_at", null: false
     t.string "title", comment: "标题"
     t.integer "state", comment: "类型"
+  end
+
+  create_table "adjust_records", force: :cascade, comment: "分类调整记录" do |t|
+    t.integer "from_fund_id", comment: "从哪个分类"
+    t.integer "to_fund_id", comment: "调到哪个分类"
+    t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "金额"
+    t.integer "user_id", comment: "操作人"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "administrator_logs", force: :cascade, comment: "管理员日志" do |t|

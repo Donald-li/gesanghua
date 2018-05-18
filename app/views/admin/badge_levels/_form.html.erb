@@ -4,7 +4,7 @@
       <div class="form-group">
         <label class="col-md-2 control-label">勋章图标：</label>
         <div class="col-sm-9">
-          <%= webuploader_tag :icon_id, label: '上传勋章图标', type: 'badgeIcon', asset: @level.icon, klass: 'single' %>
+          <%= webuploader_tag :icon_id, label: '勋章图标<br/>(149x176像素)', type: 'badgeIcon', asset: @level.icon, klass: 'single' %>
         </div>
       </div>
       <%= f.input :default_level, as: :boolean, label: '初始级别：' %>

@@ -87,6 +87,7 @@ class User < ApplicationRecord
   has_many :month_donates
 
   has_many :offline_users, class_name: "User", foreign_key: "manager_id"
+  has_many :administrator_logs, dependent: :destroy
 
   belongs_to :manager, class_name: "User", optional: true
 
@@ -165,6 +166,10 @@ class User < ApplicationRecord
   # 显示名称，有昵称显示昵称，没有显示真实姓名
   def show_name
     self.nickname.presence || self.name
+  end
+
+  def real_name
+    self.name.presence || self.nickname
   end
 
   # 用户对外显示的名字
