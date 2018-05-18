@@ -32,6 +32,9 @@
 # 志愿者任务
 class Task < ApplicationRecord
 
+  include SanitizeContent
+  sanitize_content :content
+
   before_create :gen_task_no
 
   # has :major, optional: true
@@ -67,6 +70,10 @@ class Task < ApplicationRecord
     self.task_no ||= Sequence.get_seq(kind: :task_no, prefix: time_string, length: 3)
   end
 
+  def formatted_content
+    self.content.gsub(/\r\n/, '<br>').gsub(/(<br\/*>\s*){1,}/, '<br>') if self.content.present?
+  end
+
   def summary_builder(user=nil)
     Jbuilder.new do |json|
       json.(self, :id, :name, :num, :duration, :ordinary_flag, :intensive_flag, :urgency_flag, :innovative_flag, :difficult_flag)
@@ -78,8 +85,9 @@ class Task < ApplicationRecord
 
   def detail_builder(user=nil)
     Jbuilder.new do |json|
-      json.(self, :id, :name, :num, :duration, :content, :ordinary_flag, :intensive_flag, :urgency_flag, :innovative_flag, :difficult_flag)
+      json.(self, :id, :name, :num, :duration, :ordinary_flag, :intensive_flag, :urgency_flag, :innovative_flag, :difficult_flag)
       json.location self.workplace.try(:title)
+      json.content self.formatted_content
       json.principal self.principal
       json.category self.task_category.try(:name)
       json.start_time self.start_time.strftime("%Y-%m-%d %H:%M")

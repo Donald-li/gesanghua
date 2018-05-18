@@ -59,12 +59,12 @@ class Fund < ApplicationRecord
   # 跨分类调整
   def self.platform_adjust(from_fund, to_fund, amount, user)
     amount = amount.to_f
-    return if amount < 1
+    return false if amount < 1
 
     from = Fund.find(from_fund)
     to = Fund.find(to_fund)
 
-    return if from.balance < amount
+    return false if from.balance < amount
 
     from.balance = from.balance - amount
     to.balance = to.balance + amount
