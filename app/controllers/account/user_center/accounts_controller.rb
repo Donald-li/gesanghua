@@ -13,8 +13,10 @@ class Account::UserCenter::AccountsController < Account::BaseController
     if params[:code].empty?
       redirect_to edit_phone_account_user_center_account_path, alert: '验证码不能为空。' and return
     end
-    unless params[:new_password] === params[:confirm_password] && params[:new_password].present?
-      redirect_to edit_phone_account_user_center_account_path, alert: '确认密码错误。' and return
+    if params[:new_password].present?
+      unless params[:new_password] === params[:confirm_password]
+        redirect_to edit_phone_account_user_center_account_path, alert: '确认密码错误。' and return
+      end
     end
     unless SmsCode.valid_code?(mobile: params[:phone], code: params[:code], kind: 'signup')
       redirect_to edit_phone_account_user_center_account_path, alert: '验证码错误。' and return
