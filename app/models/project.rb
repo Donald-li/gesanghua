@@ -142,9 +142,9 @@ class Project < ApplicationRecord
     end
   end
 
-  # def project_image
-  #   ActionController::Base.helpers.asset_path(self.image_url(:tiny))
-  # end
+  def project_image
+    self.image_url(:tiny)
+  end
 
   # 可捐助数量
   def to_donate_num
