@@ -1,5 +1,6 @@
 class Admin::AccountRecordsController < Admin::BaseController
-  before_action :auth_manage_operation
+  before_action :auth_custom_service, only: [:index, :show]
+  before_action :auth_manage_finanical, except: [:index, :show]
   before_action :set_user
   before_action :set_account_record, only: [:destroy]
 
