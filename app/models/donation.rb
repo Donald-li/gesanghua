@@ -188,6 +188,9 @@ class Donation < ApplicationRecord
     Jbuilder.new do |json|
       json.(self, :id, :order_no, :amount, :pay_state)
       json.certificate_no self.income_record.try(:certificate_no)
+      if ['ProjectSeasonApplyBookshelf', 'BookshelfSupplement'].include?(self.owner_type)
+        json.bookshelf self.owner_id
+      end
     end.attributes!
   end
 
