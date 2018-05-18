@@ -3,7 +3,7 @@
     <p class="disclosures-f-1 clearfix">
       <span class="disclosures-f-bg pull-left">财务公开</span>
       <span class="disclosures-f-min pull-left">累计收入:</span>
-      <span class="disclosures-f-moy pull-left"><%= format_money(IncomeRecord.total_amount) %>元</span>
+      <span class="disclosures-f-moy pull-left"><%= number_to_currency(IncomeRecord.total_amount) %>元</span>
     </p>
     <p class="disclosures-pos">
       <%= link_to disclosures_path do %>查看财务报告<% end %>  |  <%= link_to audit_reports_path do %>查看审计报告<% end %>
@@ -53,7 +53,7 @@
           <td><%= expenditure_record.name %></td>
           <td><%= expenditure_record.fund.try(:fund_category).try(:name) %>  <%= expenditure_record.fund.try(:name) %></td>
           <td><%= l expenditure_record.expended_at %></td>
-          <td><%= format_money(expenditure_record.amount) %></th>
+          <td><%= number_to_currency(expenditure_record.amount) %></th>
           <td ><%= link_to '查看凭证', expenditure_record_path(expenditure_record), style:'color: #5765f0;' %></td>
           <td><%= expenditure_record.secure_operator %></td>
           <td><%= expenditure_record.remark %></td>

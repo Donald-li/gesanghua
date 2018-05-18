@@ -30,7 +30,7 @@
 
 class ProjectSeasonApplyCampMember < ApplicationRecord
 
-  after_save :distinguish_gender, :count_age
+  after_save :distinguish_gender, :count_age, :update_apply_state
 
   belongs_to :apply_camp, class_name: 'ProjectSeasonApplyCamp', foreign_key: :project_season_apply_camp_id
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: :project_season_apply_id
@@ -115,6 +115,10 @@ class ProjectSeasonApplyCampMember < ApplicationRecord
   def secure_id_card
     card = self.id_card
     return card[0] + '*' * (card.length - 2) + card[-1]
+  end
+
+  def update_apply_state
+    self.apply_camp.approved! if self.apply_camp.camp_members.submit.count == 0
   end
 
 end

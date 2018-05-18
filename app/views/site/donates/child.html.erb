@@ -28,7 +28,7 @@ end
           <div class="donates-c-l-coss clearfix">
             <div class="pull-left">
               <p><%= child.name %></p>
-              <p>捐款金额 <%= format_money amount %> 元</p>
+              <p>捐款金额 <%= number_to_currency amount %> 元</p>
             </div>
             <div class="pull-right">
             </div>
@@ -41,7 +41,7 @@ end
         <span class="pull-left">捐款金额</span>
         <div class="pull-right">
           <ul class="ui-choose" id="uc_01">
-            <li class="selected"><%= format_money amount %> 元
+            <li class="selected"><%= number_to_currency amount %> 元
               <span>
                 <%#= image_tag 'integer-read.png' %>
               </span>
@@ -67,7 +67,7 @@ end
           <% if current_user.balance > 0 %>
           <li class="donate_way" data-way="balance">
             <%= image_tag 'iconpic-buy-outline.svg' %>
-            <span><%= format_money current_user.balance %> 元</span>
+            <span><%= number_to_currency current_user.balance %> 元</span>
           </li>
           <% end %>
         </ul>
