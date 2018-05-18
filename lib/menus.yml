@@ -145,6 +145,9 @@ admin:
             admin_administrators:
               actions:
                 'admin/administrators': all
+            admin_login_activities:
+              actions:
+                'admin/administrator_logs': all
             admin_audits:
               actions:
                 'admin/audits': all
