@@ -6634,7 +6634,9 @@ color: #8d8d8d;
     margin-right: 20px;
     border-radius: 3px;
   }
-
+  & > button:nth-child(1):hover{
+    background-color: $hover-button;
+  }
   & > button:nth-child(2) {
     width: 130px;
     height: 38px;
@@ -6645,6 +6647,9 @@ color: #8d8d8d;
     text-align: center;
     border: 1px solid #b3b3b3;
     border-radius: 3px;
+  }
+  & > button:nth-child(2):hover{
+    background-color: $hover-share;
   }
 }
 //探索营名单
@@ -7705,7 +7710,10 @@ color: #8d8d8d;
     display: -webkit-flex;
 
     & > div:nth-child(1) {
-      flex: 1;
+      -ms-flex: 0 0 50%;
+      flex: 0 0 50%;
+      max-width: 50%;
+      width:50%;
       padding-top: 40px;
 
       div {
@@ -7728,7 +7736,10 @@ color: #8d8d8d;
     }
 
     & > div:nth-child(2) {
-      flex: 1;
+      -ms-flex: 0 0 50%;
+      flex: 0 0 50%;
+      max-width: 50%;
+      width:50%;
 
       img {
         width: 242px;
@@ -8780,7 +8791,10 @@ color: #8d8d8d;
           }
 
           & > div {
-            flex: 7;
+            -ms-flex: 0 0 70%;
+            flex: 0 0 70%;
+            max-width: 70%;
+            width:70%;
             position: relative;
 
             input {
@@ -8789,18 +8803,27 @@ color: #8d8d8d;
           }
 
           & > span {
-            flex: 1;
+            -ms-flex: 0 0 14%;
+            flex: 0 0 14%;
+            max-width: 14%;
+            width:14%;
             margin: 0 40px 0 0;
             line-height: 40px;
             text-align: right;
           }
 
           & > input {
-            flex: 7;
+            -ms-flex: 0 0 70%;
+            flex: 0 0 70%;
+            max-width: 70%;
+            width:70%;
           }
 
           & > textarea {
-            flex: 6.3;
+            -ms-flex: 0 0 70%;
+            flex: 0 0 70%;
+            max-width: 70%;
+            width:70%;
             height: 172px;
             border: 1px solid $border;
             resize: none;
@@ -8870,7 +8893,9 @@ color: #8d8d8d;
       margin-right: 20px;
       border-radius: 3px;
     }
-
+    & > button:nth-child(1):hover{
+      background-color: $hover-button;
+    }
     & > button:nth-child(2) {
       width: 130px;
       height: 38px;
@@ -8881,6 +8906,9 @@ color: #8d8d8d;
       text-align: center;
       border: 1px solid #b3b3b3;
       border-radius: 3px;
+    }
+    & > button:nth-child(2):hover{
+      background-color: $hover-share;
     }
   }
 }
