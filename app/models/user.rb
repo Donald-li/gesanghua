@@ -49,7 +49,7 @@ class User < ApplicationRecord
 
   include HasBitEnum
   ROLES = %w[superadmin admin project_manager project_operator financial_staff volunteer county_user gsh_child custom_service headmaster teacher camp_manager]
-  ROLES_HASH = Hash[*ROLES.zip(%w[超级管理员 管理员 项目管理员 项目操作员 财务人员 志愿者 教育局用户 格桑花孩子 客服 学校负责人 老师 营管理员]).flatten]
+  ROLES_HASH = Hash[*ROLES.zip(%w[超级管理员 管理员 项目管理员 项目操作员 财务人员 志愿者 教育局用户 格桑花孩子 客服人员 学校负责人 老师 营管理员]).flatten]
   USER_ROLES = %w[volunteer county_user gsh_child headmaster teacher camp_manager]
   ADMIN_ROLES = %w[superadmin admin project_manager project_operator financial_staff custom_service]
   has_bit_enum :role, ROLES, ROLES_HASH
@@ -169,6 +169,10 @@ class User < ApplicationRecord
     self.nickname.presence || self.name
   end
 
+  def real_name
+    self.name.presence || self.nickname
+  end
+
   # 用户对外显示的名字
   def user_name
     self.show_name
@@ -280,7 +284,7 @@ class User < ApplicationRecord
     elsif self.has_role?(:volunteer)
       '志愿者'
     elsif self.has_role?(:custom_service)
-      '工作人员'
+      '客服人员'
     elsif self.donations.present?
       '爱心人士'
     end

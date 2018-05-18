@@ -103,7 +103,9 @@ IncomeSource.find_or_create_by(name: '线下汇款', description: '线下汇款'
 
 # 默认徽章
 BadgeLevel.options_for_select(:kinds).each do |kind|
-  BadgeLevel.create( kind: kind.second, title: "#{kind.first}默认徽章", rank: '', value: 0, default_level: true)
+  level = BadgeLevel.find_or_initialize_by(kind: kind.second)
+  level.attributes = {kind: kind.second, title: "#{kind.first}徽章", description: '如何升级到下级的介绍', rank: 'Lv0', value: 0, default_level: true}
+  level.save
 end
 
 #关于我们

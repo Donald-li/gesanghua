@@ -4,14 +4,15 @@
       <div class="form-group">
         <label class="col-md-2 control-label">勋章图标：</label>
         <div class="col-sm-9">
-          <%= webuploader_tag :icon_id, label: '勋章图标<br/>(149x176像素)', type: 'badgeIcon', asset: @level.icon, klass: 'single' %>
+          <%= webuploader_tag :icon_id, label: '勋章图标', type: 'badgeIcon', asset: @level.icon, klass: 'single' %>
+          <p class="help-block">支持上传png、jpg格式 ，图片尺寸149X176px</p>
         </div>
       </div>
       <%= f.input :default_level, as: :boolean, label: '初始级别：' %>
       <%= f.input :kind, as: :hidden, input_html: {value: params[:kind]} %>
       <%= f.input :title, label: '勋章名称：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
       <%= f.input :value, label: '达成条件：', input_html: { data: {'parsley-required': true}} %>
-      <%= f.input :rank, label: '级别显示：', hint: '如LV1、LV2等', input_html: {} %>
+      <%= f.input :rank, label: '级别显示：', hint: '如LV1、LV2等', input_html: {data: {'parsley-required': true}} %>
       <%= f.input :description, label: '达到下一级别描述', hint: '如捐款到到2000达到L2级', input_html: {'parsley-required': true} %>
     </div>
     <div class="form-actions">

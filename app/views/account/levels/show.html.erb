@@ -9,9 +9,14 @@
         <div class="item col-md-4 cur ">
           <div class="gsh-img">
            <%= image_tag badge.icon_url(nil), width: 149, height: 176%>
+
             <div class="medal-cont">
               <p><%= badge.title %> <%= badge.rank  unless badge.default_level? %></p>
-              <p><%= badge.description %></p>
+            </div>
+            <div class="ovrly"></div>
+            <div class="buttons">
+              <p class="levels-font"><%= badge.description %><br/>
+              当前：<%= badge.current_value %></p>
             </div>
           </div>
         </div>

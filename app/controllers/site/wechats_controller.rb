@@ -34,7 +34,11 @@ class Site::WechatsController < Site::BaseController
       redirect_to return_url and return
     elsif user.save
       set_current_user(user)
-      redirect_to return_url and return
+      if user.phone.present?
+        redirect_to return_url and return
+      else
+        redirect_to edit_phone_account_user_center_account_path and return
+      end
     else
       flash[:alert] = '登录失败'
       redirect_to return_url and return

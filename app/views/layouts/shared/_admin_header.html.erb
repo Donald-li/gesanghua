@@ -15,7 +15,7 @@
     <!-- END RESPONSIVE MENU TOGGLER -->
     <div class="module-nav page-actions">
       <ul class="nav nav-tabs nav-justified">
-        <% if can? :manage_operation, current_user %>
+        <% if can? :manage_custom_service, current_user %>
           <li class="<%= current_nav_class(:admin_operation) %>" data-toggle="tab">
               <a href="#" data-content="menus-operate"> <i class="fa fa-sitemap"></i>运营管理 </a>
           </li>

@@ -105,7 +105,7 @@
                           </div>
                           <%#= text_field_tag "[form][#{item['key']}]", item['key'], type: :number, min: item['options'].to_a[0].presence || -9999, max: item['options'].to_a[1].presence || 9999, placeholder: item['placeholder'], data: {'parsley-required': item['required'] == 'y'} %>
                       <% elsif item['type'] == 'select' %>
-                          <%= select_tag "[form][#{item['key']}]", options_for_select(item['options'], item['key']), include_blank: item['placeholder'].present? ? item['placeholder'] : '', data: {'parsley-required': item['required'] == 'y'}, class: item['key'] %>
+                          <%= select_tag "[form][#{item['key']}]", options_for_select(item['options'], item['key']), include_blank: item['placeholder'].presence || '', data: {'parsley-required': item['required'] == 'y'}, class: item['key'] %>
                       <% end %>
                     </div>
                 <% end %>

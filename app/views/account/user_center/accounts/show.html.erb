@@ -10,7 +10,7 @@
           <span class="goodtext pull-left">手机账号</span>
           <% unless current_user.phone.present? %>
               <p class="pull-left">未绑定手机，绑定后可使用该手机直接登录</p>
-              <%= link_to '修改', edit_phone_account_user_center_account_path, class: 'accounts-but pull-right cur' %>
+              <%= link_to '绑定', edit_phone_account_user_center_account_path, class: 'accounts-but pull-right cur' %>
           <% else %>
               <p class="pull-left">已绑定手机：<%= current_user.phone %></p>
               <%= link_to '修改', change_phone_account_user_center_account_path, class: 'accounts-but pull-right cur' %>

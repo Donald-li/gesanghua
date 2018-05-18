@@ -31,6 +31,8 @@ class Fund < ApplicationRecord
   acts_as_list column: :position
   scope :sorted, ->{ order(position: :asc) }
 
+  attr_accessor :amount
+
   enum state: {show: 1, hidden: 2} # 状态：1:显示 2:隐藏
 
   enum kind: {nondirectional: 1, directional: 2} # 类型 1:非定向 2:定向
@@ -55,21 +57,21 @@ class Fund < ApplicationRecord
   end
 
   # 跨分类调整
-  def self.platform_adjust(from_fund, to_fund, amount)
+  def self.platform_adjust(from_fund, to_fund, amount, user)
     amount = amount.to_f
-    return if amount < 1
+    return false if amount < 1
 
     from = Fund.find(from_fund)
     to = Fund.find(to_fund)
 
-    return if from.amount < amount
+    return false if from.balance < amount
 
-    from.amount = from.amount - amount
-    to.amount = to.amount + amount
+    from.balance = from.balance - amount
+    to.balance = to.balance + amount
 
-    # if from.save && to_save
-    #
-    # end
+    if from.save && to.save
+      AdjustRecord.create(from_fund: from, to_fund: to, amount: amount, user: user)
+    end
   end
 
 end

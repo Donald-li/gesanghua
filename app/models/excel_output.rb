@@ -123,7 +123,7 @@ class ExcelOutput
         sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, source.name]
       end
       FileUtils.mkdir_p(Rails.root.join("public/files"))
-      path = Rails.root.join("public/files/templates/收入导入模板" + DateTime.now.strftime("%Y-%m-%d-%s") + ".xlsx")
+      path = Rails.root.join("public/收入导入模板" + DateTime.now.strftime("%Y-%m-%d-%s") + ".xlsx")
       p.serialize path
       return path
     end
@@ -147,7 +147,7 @@ class ExcelOutput
         sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil, "#{fund.fund_category.name}-#{fund.name}"]
       end
       FileUtils.mkdir_p(Rails.root.join("public/files"))
-      path = Rails.root.join("public/files/templates/支出导入模板" + DateTime.now.strftime("%Y-%m-%d-%s") + ".xlsx")
+      path = Rails.root.join("public/支出导入模板" + DateTime.now.strftime("%Y-%m-%d-%s") + ".xlsx")
       p.serialize path
       return path
     end

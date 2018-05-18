@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180518070610) do
+ActiveRecord::Schema.define(version: 20180518070623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,15 @@ ActiveRecord::Schema.define(version: 20180518070610) do
     t.datetime "updated_at", null: false
     t.string "title", comment: "标题"
     t.integer "state", comment: "类型"
+  end
+
+  create_table "adjust_records", force: :cascade, comment: "分类调整记录" do |t|
+    t.integer "from_fund_id", comment: "从哪个分类"
+    t.integer "to_fund_id", comment: "调到哪个分类"
+    t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "金额"
+    t.integer "user_id", comment: "操作人"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "administrator_logs", force: :cascade, comment: "管理员日志" do |t|
@@ -388,17 +397,6 @@ ActiveRecord::Schema.define(version: 20180518070610) do
     t.index ["project_id"], name: "index_donations_on_project_id"
     t.index ["project_season_apply_id"], name: "index_donations_on_project_season_apply_id"
     t.index ["team_id"], name: "index_donations_on_team_id"
-  end
-
-  create_table "exception_records", force: :cascade do |t|
-    t.string "title", comment: "标题"
-    t.string "content", comment: "内容"
-    t.string "schedule", comment: "进度更新"
-    t.string "owner_type"
-    t.integer "owner_id"
-    t.integer "user_id", comment: "提交人id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "expenditure_records", force: :cascade, comment: "支出记录表" do |t|
@@ -1247,7 +1245,6 @@ ActiveRecord::Schema.define(version: 20180518070610) do
   create_table "users", force: :cascade, comment: "用户" do |t|
     t.string "openid", comment: "微信openid"
     t.string "name", comment: "姓名"
-    t.string "login", comment: "登录账号"
     t.string "password_digest", comment: "密码"
     t.integer "state", default: 1, comment: "状态 1:启用 2:禁用"
     t.integer "team_id", comment: "团队ID"
@@ -1281,8 +1278,8 @@ ActiveRecord::Schema.define(version: 20180518070610) do
     t.integer "camp_id", comment: "探索营id"
     t.jsonb "project_ids", default: [], comment: "可管理项目（项目管理员）"
     t.boolean "notice_state", default: false, comment: "用户是否有未查看的公告"
+    t.string "login"
     t.index ["email"], name: "index_users_on_email"
-    t.index ["login"], name: "index_users_on_login"
     t.index ["phone"], name: "index_users_on_phone"
   end
 
