@@ -222,6 +222,25 @@ function initAssetWebuploader(el, config) {
   initWebuploader($(el), config);
 }
 
+
+function initExcelWebuploader(el, config) {
+    var picker = $(el).find('.upload-pick');
+    if (!config) {
+        config = {}
+    }
+    config = $.extend({
+        uploadType: 'file',
+        uploaderConfig: {
+            pick: { id: picker, multiple: false },
+            accept: {
+                title: '请选择单个附件',
+                mimeTypes: 'application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            }
+        }
+    }, config)
+    initWebuploader($(el), config);
+}
+
 function initMultiAssetWebuploader(el, config, file_count) {
     var picker = $(el).find('.upload-pick');
     if (!config) {

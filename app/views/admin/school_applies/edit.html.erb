@@ -28,7 +28,7 @@
                 <%= simple_form_for [:admin, @school_apply], url: admin_school_apply_path, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'school_form'} do |f| %>
                   <%= f.error_notification %>
                   <%= f.input :name, label: '学校全称：', autofocus: true, placeholder: '学校全称', input_html: { data: {'parsley-required': true}} %>
-                  <%= static_form_control '学校申请人：', @school_apply.try(:creater).try(:name) %>
+                  <%= static_form_control '学校申请人：', @school_apply.try(:creater).try(:real_name) %>
                   <div style="margin-bottom: 20px;" class="form-group">
                     <label class="col-md-2 control-label select required" for="project_category_id">学校所在地：</label>
                     <div class="col-sm-6">

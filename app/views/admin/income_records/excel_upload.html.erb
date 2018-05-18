@@ -16,28 +16,31 @@
     <div class="form-body form-horizontal">
       <div class="form-body">
         <div class="form-group">
-          <label class="col-md-2 control-label" style="margin-left: 15px;">需要下载模板，按格式填写后上传</label>
-          <div class="btn btn-lg green">
-            <i class="fa fa-download"></i>
-            <%= link_to '下载模板', template_download_admin_income_records_path %>
-          </div>
+            <label class="col-md-2 control-label">下载模板:</label>
+            <div class="col-sm-9">
+              <%= link_to template_download_admin_income_records_path, class: 'btn btn-lg green' do %>
+                  <i class="fa fa-download"></i>
+                  下载模板
+              <% end %>
+              <p class="help-block">请根据模板格式认真填写</p>
+            </div>
         </div>
         <%= simple_form_for :file, url: excel_import_admin_income_records_path, method: :put, wrapper: :admin_form do |f| %>
-          <%= f.error_notification %>
-          <div class="form-group">
-            <label class="col-md-2 control-label">收入记录文件:</label>
-            <div class="col-sm-9">
-              <%= webuploader_file :income_record_excel_id, id: 'excel-upload', label: '上传文件', type: 'income_record_excel' %>
-            </div>
-          </div>
-          <div class="form-actions">
-            <div class="row">
-              <div class="col-md-offset-3 col-md-9">
-                <%= f.button :submit, '提交', class: 'btn green' %>
-                <%= link_to '取消', admin_income_records_path, class: 'btn' %>
+            <%= f.error_notification %>
+            <div class="form-group">
+              <label class="col-md-2 control-label">收入记录文件:</label>
+              <div class="col-sm-9">
+                <%= webuploader_file :income_record_excel_id, id: 'excel-upload', label: '上传文件', type: 'income_record_excel' %>
               </div>
             </div>
-          </div>
+            <div class="form-actions">
+              <div class="row">
+                <div class="col-md-offset-3 col-md-9">
+                  <%= f.button :submit, '提交', class: 'btn green' %>
+                  <%= link_to '取消', admin_income_records_path, class: 'btn' %>
+                </div>
+              </div>
+            </div>
         <% end %>
       </div>
     </div>
@@ -46,6 +49,6 @@
 
 <script>
     $(function () {
-        initAssetWebuploader('#excel-upload');
+        initExcelWebuploader('#excel-upload');
     })
 </script>

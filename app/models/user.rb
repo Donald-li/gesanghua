@@ -168,6 +168,10 @@ class User < ApplicationRecord
     self.nickname.presence || self.name
   end
 
+  def real_name
+    self.name.presence || self.nickname
+  end
+
   # 用户对外显示的名字
   def user_name
     self.show_name

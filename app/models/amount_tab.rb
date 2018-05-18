@@ -24,7 +24,8 @@ class AmountTab < ApplicationRecord
 
   def summary_builder
     Jbuilder.new do |json|
-      json.(self, :id, :amount, :alias)
+      json.(self, :id, :alias)
+      json.amount format_money(self.amount)
     end.attributes!
   end
 
