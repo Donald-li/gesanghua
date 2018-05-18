@@ -13,6 +13,10 @@
 
 # 项目捐款时，金额选项
 class AmountTab < ApplicationRecord
+
+  include ActionView::Helpers::NumberHelper
+  include ApplicationHelper
+
   belongs_to :donate_item, optional: true
 
   enum state: { show: 1, hidden: 2}# 状态 1:显示 2:隐藏

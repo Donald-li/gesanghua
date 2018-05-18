@@ -105,7 +105,7 @@ class Team < ApplicationRecord
 
   private
   def gen_team_no
-    self.team_no ||= Sequence.get_seq(kind: :team_no, prefix: 'T', length: 6)
+    self.team_no ||= Sequence.get_seq(kind: :team_no, prefix: self.society? ? 'S' : 'G', length: 6)
   end
 
 end

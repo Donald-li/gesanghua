@@ -12,7 +12,7 @@
       <%= f.input :kind, as: :hidden, input_html: {value: params[:kind]} %>
       <%= f.input :title, label: '勋章名称：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
       <%= f.input :value, label: '达成条件：', input_html: { data: {'parsley-required': true}} %>
-      <%= f.input :rank, label: '级别显示：', hint: '如LV1、LV2等', input_html: {} %>
+      <%= f.input :rank, label: '级别显示：', hint: '如LV1、LV2等', input_html: {data: {'parsley-required': true}} %>
       <%= f.input :description, label: '达到下一级别描述', hint: '如捐款到到2000达到L2级', input_html: {'parsley-required': true} %>
     </div>
     <div class="form-actions">

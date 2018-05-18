@@ -24,7 +24,8 @@ class Api::V1::Account::TeamsController < Api::V1::BaseController
   end
 
   def show
-    api_success(data: {team: @team.summary_builder, user_status: @team.user_status(current_user.id), })
+    @badge = BadgeLevel.level_of_user(@team, "#{@team.kind}_team")
+    api_success(data: {team: @team.summary_builder.merge(badge: @badge.summary_builder), user_status: @team.user_status(current_user.id), })
   end
 
   def edit
