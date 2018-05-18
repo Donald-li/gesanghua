@@ -87,6 +87,7 @@ class User < ApplicationRecord
   has_many :month_donates
 
   has_many :offline_users, class_name: "User", foreign_key: "manager_id"
+  has_many :administrator_logs, dependent: :destroy
 
   belongs_to :manager, class_name: "User", optional: true
 

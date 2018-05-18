@@ -24,6 +24,7 @@ namespace :admin do
   end
   resources :administrators, concerns: :switch
   resources :protocols, concerns: :switch
+  resources :administrator_logs, only: [:index]
   resources :audits, only: [:index, :show]
   resources :adverts, concerns: [:move, :switch]
   resources :articles, concerns: [:switch, :recommend]

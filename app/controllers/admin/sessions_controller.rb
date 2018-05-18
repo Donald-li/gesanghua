@@ -48,6 +48,7 @@ class Admin::SessionsController < Admin::BaseController
 
     # 因为后台现在只有一个登录入口，所以在这个方法里记登录日志
     # log = admin.administrator_logs.new(kind: 1, ip: request.remote_ip)
-    # log.save
+    log = AdministratorLog.new(administrator: admin, kind: 1, ip: request.remote_ip)
+    log.save
   end
 end

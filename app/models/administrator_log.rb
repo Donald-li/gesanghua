@@ -12,7 +12,7 @@
 
 # 管理员登录日志
 class AdministratorLog < ApplicationRecord
-  belongs_to :administrator
+  belongs_to :administrator, class_name: 'User', foreign_key: 'administrator_id'
 
   scope :sorted, -> { order(created_at: :desc) }
 end
