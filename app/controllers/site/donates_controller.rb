@@ -22,12 +22,13 @@ class Site::DonatesController < Site::BaseController
 
     @donors = current_user.offline_users.unactived.reverse_sorted
 
+    @donate_itmes = DonateItem.includes(:amount_tabs).sorted.show
+
     render 'child' if params[:child].present?
     render 'apply' if params[:apply].present?
     render 'bookshelf' if params[:bookshelf].present?
     render 'campaign_enlist' if params[:campaign_enlist].present?
 
-    @donate_itmes = DonateItem.includes(:amount_tabs).sorted.show
   end
 
   def create

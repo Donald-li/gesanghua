@@ -18,13 +18,33 @@
         <p>订单号：<span><%= @donation.order_no %></span></p>
         <p>付款时间：<span><%= l @donation.created_at %></span></p>
       </div>
+      <div class="donates-con-img" data-toggle="modal" data-target="#myModal">
+        <%= image_tag @donation.income_record.donor_certificate_path if @donation.income_record %>
+      </div>
     </div>
 
   </div>
-  <div class="donates-contents-but clearfix">
+  <div class="donates-contents-but clearfix" >
     <button class="class-button pull-right"><%= link_to '继续捐助', root_url, style: 'color: #fff'%></button>
   </div>
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="width:590px;">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" class="detail-icon">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">温馨提示</h4>
+        </div>
 
+        <div class="modal-body" style="padding: 20px 30px 15px 30px;text-align: center;">
+          <%= image_tag @donation.income_record.donor_certificate_path ,style:'width:300px;height:440px;' if @donation.income_record %>
+        </div>
+        <div class="modal-footer overspreads-but">
+          <button class="overspreadsc-but overspread-but  over-but" data-dismiss="modal" >关闭</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <script>
 

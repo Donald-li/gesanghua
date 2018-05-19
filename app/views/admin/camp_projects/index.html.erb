@@ -146,6 +146,15 @@
                       <a href="javascript:;" class="btn btn-xs grey"><i class="fa fa-yen"></i> 已计提管理费</a>
                     <% end %>
                   <% end %>
+                  <% if !apply.exception_record.present? %>
+                    <%= link_to new_admin_camp_project_camp_exception_record_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
+                        <i class="fa fa-list"></i> 异常记录
+                    <% end %>
+                  <% else %>
+                    <%= link_to edit_admin_camp_project_camp_exception_record_path(apply, apply.exception_record), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
+                        <i class="fa fa-list"></i> 修改异常记录
+                    <% end %>
+                  <% end %>
                 </td>
               </tr>
           <% end %>

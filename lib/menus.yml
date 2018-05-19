@@ -209,6 +209,7 @@ admin:
                 'admin/pair_applies': all
                 'admin/pair_students': all
                 'admin/home_visits': all
+                'admin/pair_exception_records': all
             admin_pair_lists:
               actions:
                 'admin/pair_student_lists': all
@@ -250,6 +251,7 @@ admin:
                 'admin/read_projects': all
                 'admin/bookshelves': all
                 'admin/bookshelf_donate_records': all
+                'admin/read_exception_records': all
             admin_read_reports:
               actions:
                 'admin/read_reports': all
@@ -273,6 +275,7 @@ admin:
                 'admin/project_season_apply_camp_teachers': all
                 'admin/camp_donate_records': all
                 'admin/camp_execute_feedbacks': all
+                'admin/camp_exception_records': all
             admin_camp_project_resources:
               actions:
                 'admin/camp_project_resources': all
@@ -308,6 +311,7 @@ admin:
             admin_movie_applies:
               actions:
                 'admin/movie_applies': all
+                'admin/movie_exception_records': all
             admin_movie_schools:
               actions:
                 'admin/movie_schools': all
@@ -323,6 +327,7 @@ admin:
             admin_movie_care_applies:
               actions:
                 'admin/movie_care_applies': all
+                'admin/movie_care_exception_records': all
             admin_movie_care_schools:
               actions:
                 'admin/movie_care_schools': all
@@ -342,6 +347,7 @@ admin:
               actions:
                 'admin/goods_projects': all
                 'admin/goods_donate_records': all
+                'admin/goods_exception_records': all
             admin_project_goods_reports:
               actions:
                 'admin/goods_reports': all
