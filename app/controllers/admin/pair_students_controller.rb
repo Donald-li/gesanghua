@@ -93,10 +93,6 @@ class Admin::PairStudentsController < Admin::BaseController
   def check
     respond_to do |format|
       approve_state = apply_child_params[:approve_state]
-      if approve_state == 'pass' && apply_child_params[:information].empty?
-        flash[:alert] = "请填写孩子介绍"
-        format.html {render :show and return }
-      end
       @apply_child.approve_state = approve_state
       if @apply_child.save
         @apply_child.audits.create(state: approve_state, user_id: current_user.id, comment: apply_child_params[:approve_remark])
