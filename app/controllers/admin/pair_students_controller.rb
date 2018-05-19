@@ -33,6 +33,10 @@ class Admin::PairStudentsController < Admin::BaseController
       @apply_child = @project_apply.children.build(apply_child_params.merge(province: @project_apply.province, city: @project_apply.city, district: @project_apply.district))
       if ProjectSeasonApplyChild.allow_apply?(@project_apply.school, apply_child_params[:id_card])
         @apply_child.audits.build
+        if apply_child_params[:information].empty?
+          flash[:alert] = '请填写孩子介绍'
+          format.html {render :new and return}
+        end
         if @apply_child.approve_pass
           @apply_child.attach_avatar(params[:avatar_id])
           @apply_child.attach_id_image(params[:id_image_id])
@@ -55,6 +59,10 @@ class Admin::PairStudentsController < Admin::BaseController
   def update
     respond_to do |format|
       if ProjectSeasonApplyChild.allow_apply?(@project_apply.school, apply_child_params[:id_card], @apply_child)
+        if apply_child_params[:information].empty?
+          flash[:alert] = '请填写孩子介绍'
+          format.html {render :edit and return}
+        end
         if @apply_child.update(apply_child_params)
           @apply_child.attach_avatar(params[:avatar_id])
           @apply_child.attach_id_image(params[:id_image_id])
@@ -85,6 +93,10 @@ class Admin::PairStudentsController < Admin::BaseController
   def check
     respond_to do |format|
       approve_state = apply_child_params[:approve_state]
+      if approve_state == 'pass' && apply_child_params[:information].empty?
+        flash[:alert] = "请填写孩子介绍"
+        format.html {render :show and return }
+      end
       @apply_child.approve_state = approve_state
       if @apply_child.save
         @apply_child.audits.create(state: approve_state, user_id: current_user.id, comment: apply_child_params[:approve_remark])
@@ -103,7 +115,7 @@ class Admin::PairStudentsController < Admin::BaseController
 
         format.html {redirect_to admin_pair_apply_pair_students_path(@project_apply), notice: '审核成功'}
       else
-        format.html {render :check}
+        format.html {render :show}
       end
     end
   end

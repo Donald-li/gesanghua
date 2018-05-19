@@ -22,7 +22,7 @@
             孩子头像
           </th>
           <th>
-            <%= link_to image_tag(@pair_student_list.avatar.try(:file).try(:url, :small)), @pair_student_list.avatar_url(nil), target: '_blank' %>
+            <%= link_to image_tag(@pair_student_list.avatar_url(:small)), @pair_student_list.avatar_url(nil), target: '_blank' %>
           </th>
         </tr>
         <tr>
