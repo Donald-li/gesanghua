@@ -5,9 +5,9 @@ class Admin::BaseController < ManagementBaseController
   helper_method :current_user
   layout 'admin'
 
-  rescue_from ActionController::RoutingError, :with => :render_404
-  rescue_from Exception, :with => :render_500
-
+  # rescue_from ActionController::RoutingError, :with => :render_404
+  # rescue_from Exception, :with => :render_500
+  rescue_from Exception, :with => :render_error
   protected
   def user_for_paper_trail
     "管理员：#{current_user.nickname}" if current_user
@@ -57,23 +57,35 @@ class Admin::BaseController < ManagementBaseController
     authorize! :operate_project, current_user, project
   end
 
-  def render_404(exception = nil)
+  def render_error(exception = nil)
+    case exception
+      when ActiveRecord::RecordNotFound, ::ActionController::RoutingError,
+          ::ActionController::UnknownAction
+        render :file => "#{Rails.root}/public/admin-404.html", :status => 404, :layout => false
+      else
+        render :file => "#{Rails.root}/public/admin-500.html", :status => 500, :layout => false
+    end
     logger.info exception.try(:inspect)
 
-    unless Rails.env == 'development'
-      render :file => "#{Rails.root}/public/admin-404.html", :status => 404, :layout => false
-    else
-      raise exception
-    end
   end
 
-  def render_500(exception = nil)
-    logger.info exception.try(:inspect)
-
-    unless Rails.env == 'development'
-      render :file => "#{Rails.root}/public/admin-500.html", :status => 500, :layout => false
-    else
-      raise exception
-    end
-  end
+  # def render_404(exception = nil)
+  #   logger.info exception.try(:inspect)
+  #
+  #   unless Rails.env == 'development'
+  #     render :file => "#{Rails.root}/public/admin-404.html", :status => 404, :layout => false
+  #   else
+  #     raise exception
+  #   end
+  # end
+  #
+  # def render_500(exception = nil)
+  #   logger.info exception.try(:inspect)
+  #
+  #   unless Rails.env == 'development'
+  #     render :file => "#{Rails.root}/public/admin-500.html", :status => 500, :layout => false
+  #   else
+  #     raise exception
+  #   end
+  # end
 end

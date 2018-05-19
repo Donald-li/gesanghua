@@ -1,6 +1,8 @@
 class Site::BaseController < ApplicationController
   before_action :check_mobile_url
 
+  rescue_from Exception, :with => :render_error
+
   private
   def check_mobile_url
     if request.env["HTTP_USER_AGENT"].to_s.downcase =~ /(mobile|android|iphone|micromessenger)/  #如果是移动端
@@ -25,6 +27,18 @@ class Site::BaseController < ApplicationController
       new_url << "?#{query_string}" if query_string.present?
       redirect_to new_url
     end
+  end
+
+  def render_error(exception = nil)
+    case exception
+      when ActiveRecord::RecordNotFound, ::ActionController::RoutingError,
+          ::ActionController::UnknownAction
+        render :file => "#{Rails.root}/public/404.html", :status => 404
+      else
+        render :file => "#{Rails.root}/public/500.html", :status => 500
+    end
+    logger.info exception.try(:inspect)
+
   end
 
 end
