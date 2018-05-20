@@ -272,7 +272,7 @@ class DonateRecord < ApplicationRecord
     when 'ProjectSeasonApplyBookshelf', 'BookshelfSupplement'
       self.owner.apply.try(:cover_image_url, :tiny)
     when 'CampaignEnlist'
-      self.owner.campaign.try(:image_url, :tiny)
+      self.owner.try(:campaign).try(:image_url, :tiny)
     end
     apply_image
   end
