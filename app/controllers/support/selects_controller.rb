@@ -1,7 +1,7 @@
 class Support::SelectsController < Support::BaseController
 
   def schools
-    scope = School.enable.sorted.where("name like :q", q: "%#{params[:q]}%")
+    scope = School.enable.pass.sorted.where("name like :q", q: "%#{params[:q]}%")
     schools = scope.page(params[:page])
     render json: {items: schools.as_json(only: [:id, :name])}
   end
