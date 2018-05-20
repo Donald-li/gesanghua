@@ -16,7 +16,7 @@ class Api::V1::WechatsController < Api::V1::BaseController
   def callback
     userinfo = get_userinfo
     user = User.where(openid: userinfo.result['unionid']).first || User.new
-    user.attributes = { openid: userinfo.result["unionid"], gender: userinfo.result["sex"], login: userinfo.result["nickname"], nickname: userinfo.result["nickname"], profile: userinfo.result }
+    user.attributes = {openid: userinfo.result["unionid"], gender: userinfo.result["sex"], login: userinfo.result["nickname"], nickname: userinfo.result["nickname"], profile: userinfo.result}
     logger.info(user.attributes.inspect)
     user.valid?
     logger.info(user.errors.full_messages)
@@ -29,7 +29,7 @@ class Api::V1::WechatsController < Api::V1::BaseController
     end
   end
 
-private
+  private
   def get_userinfo
     result = $client.get_oauth_access_token(params["code"]).result
     openid = result["openid"]

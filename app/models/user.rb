@@ -428,6 +428,7 @@ class User < ApplicationRecord
       phone_user.update!(openid: wechat_user.openid, profile: wechat_user.profile, auth_token: wechat_user.auth_token)
       wechat_user.generate_auth_token
       wechat_user.openid = nil
+      wechat_user.login = nil
       wechat_user.save!
       # 通知
       owner = wechat_user
