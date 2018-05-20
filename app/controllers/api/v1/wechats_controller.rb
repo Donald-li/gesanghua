@@ -21,7 +21,8 @@ class Api::V1::WechatsController < Api::V1::BaseController
     user.valid?
     logger.info(user.errors.full_messages)
     if user.disable?
-      raise ActionController::RoutingError.new('Not Found')
+      # raise ActionController::RoutingError.new('Not Found')
+      return api_error(message: '账号已禁用')
     elsif user.save
       set_current_user(user)
       return api_success(message: 'login', data: user.session_builder)

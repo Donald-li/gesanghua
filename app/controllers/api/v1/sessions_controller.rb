@@ -2,6 +2,9 @@ class Api::V1::SessionsController < Api::V1::BaseController
   skip_before_action :login?
 
   def create
+    unless session_params[:login].present?
+      return api_error(message: '请输入账号')
+    end
     user = User.where('phone = ? or email = ?', session_params[:login], session_params[:login]).first
     unless user.presence
       return api_error(message: '该帐号不存在')

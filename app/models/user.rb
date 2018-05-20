@@ -427,6 +427,7 @@ class User < ApplicationRecord
       # 合并账号openid、手机和wechat_profile
       phone_user.update!(openid: wechat_user.openid, profile: wechat_user.profile, auth_token: wechat_user.auth_token)
       wechat_user.generate_auth_token
+      wechat_user.openid = nil
       wechat_user.save!
       # 通知
       owner = wechat_user
@@ -434,6 +435,7 @@ class User < ApplicationRecord
       content = "您的账户已与其他账户合并，相关数据已迁移"
       notice = Notification.create!(owner: owner, user_id: wechat_user.id, title: title, content: content, kind: 'combine_user')
       #旧用户禁用
+
       wechat_user.disable!
       phone_user.enable!
     end
