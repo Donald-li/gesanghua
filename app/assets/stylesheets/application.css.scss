@@ -2161,6 +2161,10 @@ select:disabled {
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-box-orient: vertical;
+  img{
+    width: 100%;
+    height:auto;
+  }
 }
 
 .detail-font-tit {

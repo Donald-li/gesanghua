@@ -51,7 +51,7 @@
     <div class="pull-left detail-body-left border-l contentab">
       <ul class="detail-body-ul">
           <% @project_reports.each do |report| %>
-            <li class="detail-body-cont" id="<%= report.id %>">
+            <li class="detail-body-cont" id="show<%= report.id %>">
               <span class="detail-body-hover iconfont icon-yuan"></span>
               <div class="clearfix detail-font-tit">
                 <p class="pull-left"><%= report.title %></p>
@@ -67,16 +67,16 @@
                 <span class="pull-left"><%= report.published_at.strftime("%Y-%m-%d")%>由发布</span>
               </div>
               <div class="de-left-con read-more clearfix">
-                <div class="de-left-con-fon"><%= report.content %></div>
-                <div class="clearfix details-img">
-                  <% if report.images.present? %>
-                    <% report.images.each do |img|%>
-                          <a data-magnify="gallery"  href="<%=image_url img.try(:file).try(:url, :medium).to_s%>">
-                            <%= image_tag img.try(:file).try(:url, :tiny).to_s ,:style => "width:211px" %>
-                          </a>
-                    <% end %>
-                  <% end %>
-                </div>
+                <div class="de-left-con-fon"><%= report.content.html_safe %></div>
+                <!--<div class="clearfix details-img">-->
+                  <!--<%# if report.images.present? %>-->
+                    <!--<%# report.images.each do |img|%>-->
+                          <!--<a data-magnify="gallery"  href="<%#=image_url img.try(:file).try(:url, :medium).to_s%>">-->
+                            <!--<%#= image_tag img.try(:file).try(:url, :tiny).to_s ,:style => "width:211px" %>-->
+                          <!--</a>-->
+                    <!--<%# end %>-->
+                  <!--<%# end %>-->
+                <!--</div>-->
               </div>
             </li>
           <% end %>
@@ -114,16 +114,7 @@
                 <span class="pull-left"><%= report.published_at.strftime("%Y-%m-%d")%>由发布</span>
               </div>
               <div class="de-left-con read-more clearfix">
-                <div class="de-left-con-fon"><%= report.content %></div>
-                <div class="clearfix details-img">
-                  <% if report.images.present? %>
-                    <% report.images.each do |img|%>
-                          <a data-magnify="gallery"  href="<%=image_url img.try(:file).try(:url, :medium).to_s%>">
-                            <%= image_tag img.try(:file).try(:url, :tiny).to_s ,:style => "width:211px" %>
-                          </a>
-                    <% end %>
-                  <% end %>
-                </div>
+                <div class="de-left-con-fon"><%= report.content.html_safe %></div>
               </div>
             </li>
           <% end %>
@@ -161,16 +152,7 @@
                 <span class="pull-left"><%= report.published_at.strftime("%Y-%m-%d")%>由发布</span>
               </div>
               <div class="de-left-con read-more clearfix">
-                <div class="de-left-con-fon"><%= report.content %></div>
-                <div class="clearfix details-img">
-                  <% if report.images.present? %>
-                    <% report.images.each do |img|%>
-                          <a data-magnify="gallery"  href="<%=image_url img.try(:file).try(:url, nil).to_s%>">
-                            <%= image_tag img.try(:file).try(:url, :tiny).to_s ,:style => "width:211px" %>
-                          </a>
-                    <% end %>
-                  <% end %>
-                </div>
+                <div class="de-left-con-fon"><%= report.content.html_safe %></div>
               </div>
             </li>
           <% end %>

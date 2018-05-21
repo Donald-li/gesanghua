@@ -60,16 +60,7 @@
                 <span class="pull-left"><%= report.published_at.strftime("%Y-%m-%d")%>由发布</span>
               </div>
               <div class="de-left-con read-more clearfix">
-                <div class="de-left-con-fon"><%= report.content %></div>
-                <div class="clearfix details-img">
-                  <% if report.images.present? %>
-                    <% report.images.each do |img|%>
-                          <a data-magnify="gallery"  href="<%=image_url img.try(:file).try(:url, nil).to_s%>">
-                      <%= image_tag img.try(:file).try(:url, :tiny).to_s ,:style => "width:211px" %>
-                          </a>
-                    <% end %>
-                  <% end %>
-                </div>
+                <div class="de-left-con-fon"><%= report.content.html_safe %></div>
               </div>
             </li>
           <% end %>
