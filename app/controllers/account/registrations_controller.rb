@@ -15,6 +15,8 @@ class Account::RegistrationsController < Account::BaseController
         format.html {redirect_to new_account_registration_url(kind: params[:kind]), alert: params[:kind] == 'by_phone' ? '请填写手机号' : '请填写邮箱'}
       elsif !user_params[:password].present?
         format.html {redirect_to new_account_registration_url(kind: params[:kind]), alert: '请填写密码'}
+      elsif !user_params[:nickname].present?
+        format.html {redirect_to new_account_registration_url(kind: params[:kind]), alert: '请填写昵称'}
       else
         user = User.find_by_login(user_params[:login])
         if user.present?
