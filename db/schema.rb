@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180518070623) do
+ActiveRecord::Schema.define(version: 20180521042324) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -891,6 +891,7 @@ ActiveRecord::Schema.define(version: 20180518070623) do
     t.text "debt_information", comment: "负债情况"
     t.string "parent_information", comment: "父母情况"
     t.text "information", comment: "对外展示的孩子介绍"
+    t.string "classname", comment: "班级名称"
   end
 
   create_table "project_season_apply_gooods", force: :cascade, comment: "项目执行年度申请的物品表" do |t|
@@ -1217,6 +1218,7 @@ ActiveRecord::Schema.define(version: 20180518070623) do
   create_table "users", force: :cascade, comment: "用户" do |t|
     t.string "openid", comment: "微信openid"
     t.string "name", comment: "姓名"
+    t.string "login", comment: "登录账号"
     t.string "password_digest", comment: "密码"
     t.integer "state", default: 1, comment: "状态 1:启用 2:禁用"
     t.integer "team_id", comment: "团队ID"
@@ -1250,8 +1252,8 @@ ActiveRecord::Schema.define(version: 20180518070623) do
     t.integer "camp_id", comment: "探索营id"
     t.jsonb "project_ids", default: [], comment: "可管理项目（项目管理员）"
     t.boolean "notice_state", default: false, comment: "用户是否有未查看的公告"
-    t.string "login"
     t.index ["email"], name: "index_users_on_email"
+    t.index ["login"], name: "index_users_on_login"
     t.index ["phone"], name: "index_users_on_phone"
   end
 

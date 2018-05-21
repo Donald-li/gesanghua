@@ -36,8 +36,10 @@
           <%= f.input :semester, as: :select, collection: ProjectSeasonApplyChild.options_for_enum_select(:semesters), include_blank: false, label: false, input_html: {id: 'semester'} %>
         </div>
       </div>
-
-
+    </div>
+    <div class="clearfix">
+      <span class="goodtext pull-left">班级</span>
+      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[classname]" value="<%= @child.classname %>" placeholder="班级" required/>
     </div>
     <div class="clearfix">
       <span class="goodtext pull-left">班主任</span>
