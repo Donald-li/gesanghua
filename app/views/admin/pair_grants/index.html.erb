@@ -5,8 +5,8 @@
     </div>
     <div class="actions">
       <%= link_to url_for(params.permit!.merge(format: :xlsx)), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
-        <i class="fa fa-download"></i>
-      <span>导出</span>
+          <i class="fa fa-download"></i>
+          <span>导出</span>
       <% end %>
     </div>
   </div>
@@ -20,7 +20,7 @@
                 <%= f.text_field :grant_no_or_gsh_child_name_or_gsh_child_id_card_cont, class: 'form-control gsh-input-share', placeholder: '发放编号、学生信息' %>
               </div>
               <div class="form-group" style="margin: 0 10px">
-                <%= f.label :school_id_ep, '搜索学校',class:'gsh-input-share-r' %>
+                <%= f.label :school_id_ep, '搜索学校', class: 'gsh-input-share-r' %>
                 <%= f.select :school_id_eq, School.all_to_hash, {include_blank: '全部'}, class: 'form-control schools-ajax ' %>
               </div>
               <div class="form-group">
@@ -120,43 +120,46 @@
                   <%= grant.enum_name(:state) %>
                 </td>
                 <td>
-                  <% count =  grant.thank_notes.count %>
+                  <% count = grant.thank_notes.count %>
                   <% if count > 0 %>
-                  <%= link_to "#{count}次", admin_pair_thank_notes_path(q: {child_id_eq: grant.apply_child.try(:id)}), class: 'btn btn-xs blue'  %>
+                      <%= link_to "#{count}次", admin_pair_thank_notes_path(q: {child_id_eq: grant.apply_child.try(:id)}), class: 'btn btn-xs blue' %>
                   <% end %>
                 </td>
                 <td>
                   <% if grant.pending? %>
-                    <%= link_to '###', 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
-                        <i class="fa fa-eye"></i> 去TA的分享
-                    <% end %>
+                      <%= link_to '###', 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                          <i class="fa fa-eye"></i> 去TA的分享
+                      <% end %>
                   <% else %>
-                    <% if grant.waiting? %>
-                      <%= link_to edit_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                          <i class="fa fa-play"></i> 发放操作
+                      <% if grant.waiting? %>
+                          <%= link_to edit_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                              <i class="fa fa-play"></i> 发放操作
+                          <% end %>
+                          <%= link_to edit_delay_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
+                              <i class="fa fa-pause"></i> 暂缓发放
+                          <% end %>
+                          <%= link_to edit_cancel_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
+                              <i class="fa fa-stop"></i> 取消捐助
+                          <% end %>
+                      <% elsif grant.granted? %>
+                          <%= link_to edit_feedback_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
+                              <i class="fa fa-edit"></i> 修改发放反馈
+                          <% end %>
+                          <% if !grant.accrued? %>
+                              <%= link_to accrue_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
+                                  <i class="fa fa-yen"></i> 计提管理费
+                              <% end %>
+                          <% else %>
+                              <a href="javascript:;" class="btn btn-xs grey"><i class="fa fa-yen"></i> 已计提管理费</a>
+                          <% end %>
+                      <% elsif grant.suspend? %>
+                          <%= link_to cancel_delay_admin_pair_grant_path(grant), method: :put, 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
+                              <i class="fa fa-pause"></i> 取消暂缓
+                          <% end %>
+                          <%= link_to edit_cancel_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
+                              <i class="fa fa-stop"></i> 取消捐助
+                          <% end %>
                       <% end %>
-                      <%= link_to edit_delay_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
-                          <i class="fa fa-pause"></i> 暂缓发放
-                      <% end %>
-                      <%= link_to edit_cancel_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
-                          <i class="fa fa-stop"></i> 取消捐助
-                      <% end %>
-                    <% elsif grant.granted? %>
-                        <%= link_to edit_feedback_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
-                            <i class="fa fa-edit"></i> 修改发放反馈
-                        <% end %>
-                      <% if !grant.accrued? %>
-                        <%= link_to accrue_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
-                        <i class="fa fa-yen"></i> 计提管理费
-                        <% end %>
-                      <% else %>
-                        <a href="javascript:;" class="btn btn-xs grey"><i class="fa fa-yen"></i> 已计提管理费</a>
-                      <% end %>
-                    <% elsif grant.suspend? %>
-                      <%= link_to edit_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                          <i class="fa fa-play"></i> 继续发放
-                      <% end %>
-                    <% end %>
                   <% end %>
 
                 </td>
@@ -177,7 +180,7 @@
   </div>
 </div>
 <script type="text/javascript">
-    $(function(){
+    $(function () {
         // 异步加载学校列表
         $('.schools-ajax').select2({
             language: "zh-CN",

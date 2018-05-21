@@ -76,6 +76,16 @@ class Admin::PairGrantsController < Admin::BaseController
     end
   end
 
+  def cancel_delay
+    respond_to do |format|
+      if @grant.waiting!
+        format.html {redirect_to admin_pair_grants_path, notice: '操作成功。'}
+      else
+        format.html {redirect_to admin_pair_grants_path, notice: '操作失败。'}
+      end
+    end
+  end
+
   def update_cancel
     respond_to do |format|
       if @grant.update(grant_params.merge(operator_id: current_user.id))

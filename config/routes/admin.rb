@@ -146,6 +146,7 @@ namespace :admin do
     member do
       get :accrue
       get :edit_delay
+      put :cancel_delay
       get :edit_cancel
       get :new_feedback
       get :edit_feedback
