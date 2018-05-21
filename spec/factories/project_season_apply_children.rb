@@ -55,6 +55,7 @@
 #  parent_information      :string                                 # 父母情况
 #  information             :text                                   # 对外展示的孩子介绍
 #  classname               :string                                 # 班级名称
+#  priority_id             :integer                                # 优先捐助人id
 #
 
 FactoryBot.define do

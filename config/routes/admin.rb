@@ -125,6 +125,10 @@ namespace :admin do
   resources :pair_thank_notes
   resources :home_visits, only: [:index, :show]
   resources :pair_student_lists, concerns: [:switch, :share, :qrcode_download] do
+    member do
+      get :appoint
+      post :appoint_donor
+    end
     resources :student_grants do
       collection do
         get :match

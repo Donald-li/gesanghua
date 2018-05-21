@@ -117,14 +117,19 @@
                   <% end %>
                 </td>
                 <td>
+                  <% if child.inside? %>
+                      <%= link_to appoint_admin_pair_student_list_path(child), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
+                          <i class="fa fa-gg"></i> 指定捐助人
+                      <% end %>
+                  <% end %>
                   <%= link_to admin_pair_student_list_path(child), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                       <i class="fa fa-file"></i> 申请详情
                   <% end %>
                   <%= link_to admin_pair_student_list_student_grants_path(child), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                      <i class="fa fa-file"></i> 资助学年
+                      <i class="fa fa-list"></i> 资助学年
                   <% end %>
                   <%= link_to share_admin_pair_student_list_path(child), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                      <i class="fa fa-file"></i> 分享链接
+                      <i class="fa fa-share-alt"></i> 分享链接
                   <% end %>
                 </td>
               </tr>

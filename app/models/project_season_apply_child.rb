@@ -54,6 +54,8 @@
 #  debt_information        :text                                   # 负债情况
 #  parent_information      :string                                 # 父母情况
 #  information             :text                                   # 对外展示的孩子介绍
+#  classname               :string                                 # 班级名称
+#  priority_id             :integer                                # 优先捐助人id
 #
 
 require 'custom_validators'
@@ -173,6 +175,10 @@ class ProjectSeasonApplyChild < ApplicationRecord
     self.done_semester_count = self.semesters.succeed.count
   end
 
+  def priority_user
+    User.find(self.priority_id) if self.priority_id.present?
+  end
+
   def gsh_no
     self.gsh_child.try(:gsh_no)
   end
@@ -201,6 +207,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   def update_state
     # self.done_semester_count = self.semesters.succeed.count
     self.state = 'hidden'
+    self.priority_id = self.semesters.sorted.succeed.last.try(:user_id)
     self.save!
   end
 

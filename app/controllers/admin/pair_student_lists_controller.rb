@@ -1,6 +1,6 @@
 class Admin::PairStudentListsController < Admin::BaseController
   before_action :check_auth
-  before_action :set_pair_student_list, only: [:show, :edit, :update, :destroy, :switch, :remarks, :turn_over, :share, :qrcode_download]
+  before_action :set_pair_student_list, only: [:show, :edit, :update, :destroy, :switch, :remarks, :turn_over, :share, :qrcode_download, :appoint, :appoint_donor]
 
   def index
     @search = ProjectSeasonApplyChild.pass.sorted.ransack(params[:q])
@@ -81,6 +81,25 @@ class Admin::PairStudentListsController < Admin::BaseController
 
   def qrcode_download
     send_file(File.join(Rails.root, 'public', @pair_student_list.qrcode_url), filename: "#{@pair_student_list.gsh_child.gsh_no}-分享二维码")
+  end
+
+  def appoint
+  end
+
+  def appoint_donor
+    @pair_student_list.priority_id = params[:project_season_apply_child][:priority_id]
+    if @pair_student_list.save
+      notice = Notification.create(
+          kind: 'appoint_donor',
+          owner: @pair_student_list,
+          user_id: @pair_student_list.priority_id,
+          title: "#结对通知# 系统为您结对啦",
+          content: "系统将您指定为孩子#{@pair_student_list.name}的捐助人，快去捐助吧"
+      )
+      redirect_to referer_or(admin_pair_student_lists_path), notice:  '指定捐助人成功，并发送微信通知'
+    else
+      redirect_to referer_or(admin_pair_student_lists_path), notice:  '指定捐助人失败'
+    end
   end
 
   private

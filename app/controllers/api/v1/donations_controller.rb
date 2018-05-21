@@ -30,7 +30,7 @@ class Api::V1::DonationsController < Api::V1::BaseController
       if result
         api_success(data: {pay_state: 'paid', bookshelf: params[:bookshelf], amount: params[:amount]}.camelize_keys!, message: message)
       else
-        api_error
+        api_error(message: message)
       end
     end
 
