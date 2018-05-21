@@ -80,6 +80,11 @@
                   <% end %>
                   <span class="input input--hoshi ">
                 <!-- <input class="input__field input__field--hoshi" type="password" id="password" placeholder="密码"/> -->
+                    <%= f.text_field :nickname, class: 'input__field input__field--hoshi login-put', id: 'nickname', placeholder: '昵称' %>
+                    <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="password"></label>
+              </span>
+                  <span class="input input--hoshi ">
+                <!-- <input class="input__field input__field--hoshi" type="password" id="password" placeholder="密码"/> -->
                     <%= f.password_field :password, class: 'input__field input__field--hoshi login-put', id: 'password', placeholder: '密码' %>
                     <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="password"></label>
 				      </span>
