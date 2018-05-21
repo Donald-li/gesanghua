@@ -13,6 +13,21 @@
   padding-left: 0;
   font-size: 14px;
 }
+.portlet{
+  .pagination{
+    float: right;
+    .prev, .next{
+      width: auto;
+      font-size: 14px;
+    }
+    .paginate_button{
+      a{
+        margin-left: 10px;
+      }
+    }
+  }
+}
+
 .control-label, .form-group{
   .form-control{
     padding-left: 6px;
