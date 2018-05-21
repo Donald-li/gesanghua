@@ -22,7 +22,6 @@ class Admin::SupportsController < Admin::BaseController
     @support = Support.new(support_params)
     respond_to do |format|
       if @support.save
-        @support.attach_image(params[:image_id])
         format.html { redirect_to admin_supports_url, notice: '新增成功' }
       else
         format.html { render :new }

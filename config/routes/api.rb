@@ -401,6 +401,12 @@ namespace :api do
     # 捐助、项目申请协议
     resource :protocols, only: [:show]
 
+    resources :supports, only: [:show] do
+      collection do
+        get :support_list
+      end
+    end
+
     namespace :staff do
       resources :grant_batches, only: [:index, :show] do
         resources :grants, only: [:index, :show, :update]

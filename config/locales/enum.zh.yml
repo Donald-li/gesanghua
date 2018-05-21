@@ -45,6 +45,9 @@ zh:
   support_states:
     show: '显示'
     hidden: '隐藏'
+  support_display_positions:
+    pc_support: 'PC端帮助'
+    wechat_support: '微信端帮助'
   page_states:
     show: '显示'
     hidden: '隐藏'

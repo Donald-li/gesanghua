@@ -35,7 +35,7 @@
               帮助标题
             </th>
             <th>
-              帮助别名
+              显示位置
             </th>
             <th>
               状态
@@ -55,7 +55,7 @@
                   <%= support.title %>
                 </td>
                 <td>
-                  <%= support.alias %>
+                  <%= support.enum_name(:display_position) %>
                 </td>
                 <td>
                   <%= link_to switch_admin_support_path(support), data: {confirm: "确定#{support.state === 'show' ? '隐藏' : '显示'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{support.state === 'show' ? 'green' : 'default'}" do %>
