@@ -51,7 +51,7 @@ alipay_app_private_key: "-----BEGIN RSA PRIVATE KEY-----\nMIIEowIBAAKCAQEA1/L/H7
 alipay_public_key: "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApknNHN7lLvKb8pJ7IVxv\nmKiK1hudv/VryFpOTfdcyArCF+FUpqtI5K2v2K/Fo8EQFsdKJpXUTj10uD9k/6oA\nwFuB9VEDxu2ZxUY5VhDeSh5xizfmzNqeqQdRX76MsjQo3qvC0sRLL+3DMY7GfTjl\nGeVtr3mBybHGECXSNob9Qh2jTpr9BgyFGvJhnfvPuLJcf/myWsNN6RdC1hj2rUHs\nq1fkKG3j0tnOeYh+KKFX0x8CAkElGWY62oKWPZ9iEOdoM4cXvFv9MQ4lo/8y0FEi\nXlgiVaG7gvFV5RQG+ZL3C8qDf5xq3PGmPBPTljNaXWPY/6xYI4YdX/RWFaZuz5EJ\nVwIDAQAB\n-----END PUBLIC KEY-----\n"
 
 
-# 微信结对反馈链接
+# 微信学生中心链接
 pair_feedback_url: 'http://gesanghua.wikiflyer.cn/m/cooperation/pair-feedback'
 
 # 微信模板消息
