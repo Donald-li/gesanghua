@@ -18,6 +18,7 @@ scope module: :site do
   resources :disclosures, only: [:index, :show], concerns: [:file_download]
   resources :audit_reports, only: [:index, :show], concerns: [:file_download]
   get '/p/:alias', to: 'pages#show'
+  resources :supports, only: [:show]
   resource :contribution, only: :show
   resources :pairs, only: [:index, :show], concerns: [:detail]
   resources :reads, only: [:index, :show], concerns: [:detail]
