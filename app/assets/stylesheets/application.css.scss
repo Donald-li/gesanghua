@@ -1433,6 +1433,9 @@ select:disabled {
     font-weight: 600;
     font-size: 15px;
     color: #d7d7d7;
+    & > a {
+      color: #d7d7d7;
+    }
   }
 
   .footer-2 {
@@ -10224,4 +10227,3 @@ color: #8d8d8d;
     margin-left: 10px;
   }
 }
-
