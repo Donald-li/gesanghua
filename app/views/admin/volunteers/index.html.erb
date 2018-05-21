@@ -4,6 +4,10 @@
       <i class="icon-list"></i>志愿者管理
     </div>
     <div class="actions">
+      <%= link_to url_for(params.permit!.merge(format: :xlsx)), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+          <i class="fa fa-download"></i>
+          <span>导出</span>
+      <% end %>
       <%= link_to new_admin_volunteer_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
           <i class="icon-plus"></i>
           <span>新增</span>
@@ -25,6 +29,10 @@
                   <%= select_tag 'q[user_city_eq]', options_for_select(params[:q].present? ? ChinaCity.list(params[:q][:user_province_eq]) : [], params[:q].present? ? params[:q][:user_city_eq] : []), prompt: '城市', class: "city-select form-control " %>
                   <%= select_tag 'q[user_district_eq]', options_for_select(params[:q].present? ? ChinaCity.list(params[:q][:user_city_eq]) : [], params[:q].present? ? params[:q][:user_district_eq] : []), prompt: '地区', class: "city-select form-control gsh-input-share-r" %>
                 </div>
+              </div>
+              <div class="form-group">
+                <%= f.label :volunteer_major_ships_major_id_eq, '专业' %>
+                <%= f.select :volunteer_major_ships_major_id_eq, Major.sorted.collect{|m| [m.name, m.id]}, {include_blank: '全部'}, class: 'form-control gsh-input-share' %>
               </div>
               <div class="form-group">
                 <%= f.label :job_state_eq, '工作状态' %>
