@@ -59,21 +59,8 @@
                 <span class="pull-left"><%= report.user.show_name %> ·</span>
                 <span class="pull-left"><%= report.published_at.strftime("%Y-%m-%d")%>由发布</span>
               </div>
-              <div class="de-left-con  clearfix clampjs">
-                <div class=" goods-1">
-                  <p>那么新旧版本是什么？</p>
-                  <p>获取div中文本的长度，然后和通过和属性limit规定的长度进行对比，如果超出长度则使用截取指定的长度，后面用获取div中文本的长度，然后和通过和属性limit规定的长度进行对比，如果超出长度则使用截取指定的长度，后面用获取div中文本的长度，然后和通过和属性limit规定的长度进行对比，如果超出长度则使用截取指定的长度，后面用</p>
-                </div>
-                <!--<div class="read-more"><%#= report.content %></div>-->
-                <div class="clearfix details-img">
-                  <% if report.images.present? %>
-                    <% report.images.each do |img|%>
-                          <a data-magnify="gallery"  href="<%=image_url img.try(:file).try(:url, nil).to_s%>">
-                            <%= image_tag img.try(:file).try(:url, :tiny).to_s ,:style => "width:211px" %>
-                          </a>
-                    <% end %>
-                  <% end %>
-                </div>
+              <div class="de-left-con read-more clearfix">
+                <div class="de-left-con-fon"><%= report.content.html_safe %></div>
               </div>
             </li>
           <% end %>

@@ -17,6 +17,8 @@
 
 # 项目报告
 class ProjectReport < ApplicationRecord
+  include SanitizeContent
+  sanitize_content :content
 
   validates :title, :content, :published_at, presence: true
 
@@ -41,7 +43,7 @@ class ProjectReport < ApplicationRecord
       json.title self.title
       json.published_at self.published_at.strftime('%Y-%m-%d')
       json.publisher self.try(:user).try(:show_name)
-      json.content self.content
+      json.content self.formatted_content
       json.report_images do
         json.array! self.images do |img|
           json.id img.id
@@ -52,6 +54,10 @@ class ProjectReport < ApplicationRecord
         end
       end
     end.attributes!
+  end
+
+  def formatted_content
+    self.content.present? ? self.content.gsub(/\r\n/, '<br>').gsub(/(<br\/*>\s*){1,}/, '<br>') : ''
   end
 
 end

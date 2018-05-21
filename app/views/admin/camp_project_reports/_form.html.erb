@@ -9,11 +9,11 @@
           <%= f.text_field :published_at, class: 'datetime-picker', required: true, placeholder: '发布时间' %>
         </div>
       </div>
-      <%= f.input :content, label: '报告详情：', placeholder: '请填写报告详情' %>
       <div class="form-group">
-        <label class="col-md-2 control-label">报告图片(最多9张)：</label>
+        <label class="col-md-2 control-label">报告详情：</label>
         <div class="col-sm-9">
-          <%= webuploader_tag 'image_ids[]', label: '上传报告图片', type: 'project_report_image', asset: @report.images %>
+          <!--<p class="help-block">格桑花管理人员负责填写，用于前台展示（必须填写）</p>-->
+          <%= f.cktext_area :content %>
         </div>
       </div>
       <%= f.hidden_field :kind, value: 'project_report' %>
