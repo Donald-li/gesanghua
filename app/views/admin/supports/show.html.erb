@@ -33,18 +33,10 @@
         </tr>
         <tr>
           <th>
-            帮助别名
+            显示位置
           </th>
           <th>
-            <%= @support.alias %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            封面
-          </th>
-          <th>
-            <%= image_tag @support.image_url(:tiny) %>
+            <%= @support.enum_name(:display_position) %>
           </th>
         </tr>
         <tr>

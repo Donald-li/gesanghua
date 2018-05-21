@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180521042324) do
+ActiveRecord::Schema.define(version: 20180521061935) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1109,13 +1109,13 @@ ActiveRecord::Schema.define(version: 20180521042324) do
 
   create_table "supports", force: :cascade, comment: "帮助中心主题" do |t|
     t.string "title", comment: "标题"
-    t.string "alias", comment: "别名"
     t.text "content", comment: "内容"
     t.integer "position", comment: "排序"
     t.integer "state", comment: "状态"
     t.integer "support_category_id", comment: "帮助中心分类id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "display_position", comment: "显示位置"
   end
 
   create_table "task_categories", force: :cascade, comment: "任务分类" do |t|

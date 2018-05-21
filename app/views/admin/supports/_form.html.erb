@@ -2,13 +2,13 @@
     <%= f.error_notification %>
     <div class="form-body form-horizontal">
       <%= f.input :title, label: '帮助标题：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
-      <%= f.input :alias, label: '帮助别名：', input_html: { data: {'parsley-required': true}} %>
       <div class="form-group">
         <label class="col-md-2 control-label">帮助详情：</label>
         <div class="col-sm-9">
           <%= f.cktext_area :content, input_html: { data: {'parsley-required': true}}  %>
         </div>
       </div>
+      <%= f.input :display_position, as: :radio_buttons, wrapper: :inline_inputs, collection: Support.options_for_select(:display_positions), label: '显示位置：' %>
       <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Support.options_for_select(:states), label: '状态：' %>
     </div>
     <div class="form-actions">
