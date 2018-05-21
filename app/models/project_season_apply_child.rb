@@ -54,6 +54,7 @@
 #  debt_information        :text                                   # 负债情况
 #  parent_information      :string                                 # 父母情况
 #  information             :text                                   # 对外展示的孩子介绍
+#  classname               :string                                 # 班级名称
 #
 
 require 'custom_validators'
@@ -131,7 +132,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   default_value_for :semester, 1
   default_value_for :information, ''
 
-  enum nation: {'default': 0, 'hanzu': 1, 'zhuangzu': 2, 'manzu': 3, 'huizu': 4, 'miaozu': 5, 'weizu': 6, 'tujiazu': 7, 'yizu': 8, 'mengguzu': 9, 'zangzu': 10, 'buyizu': 11, 'dongzu': 12, 'yaozu': 13, 'chaoxianzu': 14, 'baizu': 15, 'hanizu': 16, 'hasakezu': 17, 'lizu': 18, 'daizu': 19, 'shezu': 20, 'lisuzu': 21, 'gelaozu': 22, 'dongxiangzu': 23, 'gaoshanzu': 24, 'lahuzu': 25, 'shuizu': 26, 'wazu': 27, 'naxizu': 28, 'qiangzu': 29, 'tuzu': 30, 'mulaozu': 31, 'xibozu': 32, 'keerkezizu': 33, 'dawoerzu': 34, 'jingpozu': 35, 'maonanzu': 36, 'salazu': 37, 'bulangzu': 38, 'tajikezu': 39, 'achangzu': 40, 'pumizu': 41, 'ewenkezu': 42, 'nuzu': 43, 'jingzu': 44, 'jinuozu': 45, 'deangzu': 46, 'baoanzu': 47, 'eluosizu': 48, 'yuguzu': 49, 'wuzibiekezu': 50, 'menbazu': 51, 'elunchunzu': 52, 'dulongzu': 53, 'tataerzu': 54, 'hezhezu': 55, 'luobazu': 56}
+  enum nation: {'default': 0, 'hanzu': 1, 'zangzu': 10, 'huizu': 4, 'tuzu': 30, 'mengguzu': 9, 'salazu': 37, 'zhuangzu': 2, 'manzu': 3, 'miaozu': 5, 'weizu': 6, 'tujiazu': 7, 'yizu': 8, 'buyizu': 11, 'dongzu': 12, 'yaozu': 13, 'chaoxianzu': 14, 'baizu': 15, 'hanizu': 16, 'hasakezu': 17, 'lizu': 18, 'daizu': 19, 'shezu': 20, 'lisuzu': 21, 'gelaozu': 22, 'dongxiangzu': 23, 'gaoshanzu': 24, 'lahuzu': 25, 'shuizu': 26, 'wazu': 27, 'naxizu': 28, 'qiangzu': 29, 'mulaozu': 31, 'xibozu': 32, 'keerkezizu': 33, 'dawoerzu': 34, 'jingpozu': 35, 'maonanzu': 36, 'bulangzu': 38, 'tajikezu': 39, 'achangzu': 40, 'pumizu': 41, 'ewenkezu': 42, 'nuzu': 43, 'jingzu': 44, 'jinuozu': 45, 'deangzu': 46, 'baoanzu': 47, 'eluosizu': 48, 'yuguzu': 49, 'wuzibiekezu': 50, 'menbazu': 51, 'elunchunzu': 52, 'dulongzu': 53, 'tataerzu': 54, 'hezhezu': 55, 'luobazu': 56}
   default_value_for :nation, 0
 
   scope :sorted, -> {order(created_at: :desc)}
@@ -471,7 +472,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   def whole_builder
     Jbuilder.new do |json|
-      json.(self, :id, :name, :id_card, :teacher_name, :teacher_phone, :description, :parent_information, :debt_information, :expenditure_information, :father, :father_job, :mother, :mother_job, :guardian, :guardian_relation, :guardian_phone, :address, :family_income, :family_expenditure, :income_source, :family_condition, :brothers)
+      json.(self, :id, :name, :id_card, :teacher_name, :classname, :teacher_phone, :description, :parent_information, :debt_information, :expenditure_information, :father, :father_job, :mother, :mother_job, :guardian, :guardian_relation, :guardian_phone, :address, :family_income, :family_expenditure, :income_source, :family_condition, :brothers)
       json.level self.level
       json.nation self.nation
       json.grade self.grade
