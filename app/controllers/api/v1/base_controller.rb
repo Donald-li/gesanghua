@@ -33,7 +33,7 @@ class Api::V1::BaseController < ApplicationController
   end
 
   def current_user
-    @current_user ||= User.second if Settings.development_mode
+    @current_user ||= User.third if Settings.development_mode
     # @current_user ||= User.find Settings.api_defautl_user if Rails.env.development? || Settings.api_defautl_user
     if session[:user_id].present?
       @current_user ||= User.find_by(id: session[:user_id])
