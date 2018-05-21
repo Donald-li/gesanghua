@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180518070623) do
+ActiveRecord::Schema.define(version: 20180521061935) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -820,6 +820,45 @@ ActiveRecord::Schema.define(version: 20180518070623) do
     t.string "classname", comment: "年级"
   end
 
+  create_table "project_season_apply_camp_students", force: :cascade, comment: "探索营学生" do |t|
+    t.string "name", comment: "姓名"
+    t.string "id_card", comment: "身份证号"
+    t.integer "nation", comment: "民族"
+    t.integer "gender", comment: "性别"
+    t.integer "school_id", comment: "学校id"
+    t.integer "project_season_apply_camp_id", comment: "探索营配额id"
+    t.integer "camp_id", comment: "探索营id"
+    t.integer "project_season_apply_id", comment: "营立项id"
+    t.integer "grade", comment: "年级"
+    t.integer "level", comment: "初高中"
+    t.string "teacher_name", comment: "老师姓名"
+    t.string "teacher_phone", comment: "老师联系方式"
+    t.string "guardian_name", comment: "监护人姓名"
+    t.string "guardian_phone", comment: "监护人联系方式"
+    t.text "description", comment: "自我介绍"
+    t.string "reason", comment: "推荐理由"
+    t.integer "state", comment: "状态"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "age", comment: "年龄"
+  end
+
+  create_table "project_season_apply_camp_teachers", force: :cascade, comment: "探索营老师名单" do |t|
+    t.string "name", comment: "姓名"
+    t.string "id_card", comment: "身份证号"
+    t.integer "nation", comment: "民族"
+    t.integer "gender", comment: "性别"
+    t.string "phone", comment: "联系方式"
+    t.integer "state", comment: "状态"
+    t.integer "school_id", comment: "学校id"
+    t.integer "project_season_apply_camp_id", comment: "探索营配额id"
+    t.integer "camp_id", comment: "探索营id"
+    t.integer "project_season_apply_id", comment: "营立项id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "age", comment: "年龄"
+  end
+
   create_table "project_season_apply_camps", force: :cascade, comment: "探索营配额" do |t|
     t.integer "project_season_apply_id", comment: "营立项id"
     t.integer "camp_id", comment: "探索营id"
@@ -1108,13 +1147,13 @@ ActiveRecord::Schema.define(version: 20180518070623) do
 
   create_table "supports", force: :cascade, comment: "帮助中心主题" do |t|
     t.string "title", comment: "标题"
-    t.string "alias", comment: "别名"
     t.text "content", comment: "内容"
     t.integer "position", comment: "排序"
     t.integer "state", comment: "状态"
     t.integer "support_category_id", comment: "帮助中心分类id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "display_position", comment: "显示位置"
   end
 
   create_table "task_categories", force: :cascade, comment: "任务分类" do |t|
@@ -1217,6 +1256,7 @@ ActiveRecord::Schema.define(version: 20180518070623) do
   create_table "users", force: :cascade, comment: "用户" do |t|
     t.string "openid", comment: "微信openid"
     t.string "name", comment: "姓名"
+    t.string "login", comment: "登录账号"
     t.string "password_digest", comment: "密码"
     t.integer "state", default: 1, comment: "状态 1:启用 2:禁用"
     t.integer "team_id", comment: "团队ID"
@@ -1250,8 +1290,8 @@ ActiveRecord::Schema.define(version: 20180518070623) do
     t.integer "camp_id", comment: "探索营id"
     t.jsonb "project_ids", default: [], comment: "可管理项目（项目管理员）"
     t.boolean "notice_state", default: false, comment: "用户是否有未查看的公告"
-    t.string "login"
     t.index ["email"], name: "index_users_on_email"
+    t.index ["login"], name: "index_users_on_login"
     t.index ["phone"], name: "index_users_on_phone"
   end
 
