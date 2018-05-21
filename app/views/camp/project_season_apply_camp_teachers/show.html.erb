@@ -58,7 +58,7 @@
       <%= simple_form_for [:admin, @camp_teacher], url: check_camp_project_season_apply_camp_teacher_path(apply_camp_id: @apply_camp.id), method: :patch, wrapper: :admin_form, html: {id: 'approve-form', 'data-parsley-validate': true} do |f| %>
           <%= f.error_notification %>
           <div class="form-body form-horizontal">
-            <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApplyCampMember.options_for_some_select(:states, ['pass', 'reject']), label: '审核状态：', required: true, input_html: {class: 'approve_state', onclick: 'toggleState();'} %>
+            <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApplyCampMember.options_for_some_select(:states, ['pass', 'reject']), checked: 'pass', label: '审核状态：', required: true, input_html: {class: 'approve_state', onclick: 'toggleState();'} %>
             <div class="approve_reject">
               <%= f.input :approve_remark, label: '审核备注：', input_html: {class: 'form-control', placeholder: '', value: @camp_teacher.audits.try(:last).try(:comment)}, required: true %>
             </div>

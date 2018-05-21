@@ -70,7 +70,7 @@ RSpec.describe "Api::V1::CooperationPairStudents", type: :request do
 
 
     # 这个代码删掉了
-    it '结对反馈管理-获取孩子结对助学捐助信息' do
+    it '学生中心管理-获取孩子结对助学捐助信息' do
       child1.approve_pass
       get child_grants_api_v1_cooperation_pair_students_path,
            params: {
