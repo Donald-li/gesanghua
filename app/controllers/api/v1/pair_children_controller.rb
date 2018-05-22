@@ -53,6 +53,17 @@ class Api::V1::PairChildrenController < Api::V1::BaseController
     end
   end
 
+  def get_child_priority
+    message = '被捐助学生已被指定优先捐助人，请联系管理员处理'
+    @child = ProjectSeasonApplyChild.find(params[:child_id])
+    donor = current_user
+    if @child.priority_id.present? and donor.id != @child.priority_id and @child.hidden?
+      api_error(message: message)
+    else
+      api_success(message: '可资助', data: true)
+    end
+  end
+
   private
 
   def set_pair

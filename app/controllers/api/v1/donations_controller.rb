@@ -19,18 +19,6 @@ class Api::V1::DonationsController < Api::V1::BaseController
     owner = ProjectSeasonApplyBookshelf.find(params[:bookshelf]) if params[:bookshelf].present?
     owner = CampaignEnlist.find(params[:campaign_enlist]) if params[:campaign_enlist].present? # 活动报名
 
-    # 如果捐助给孩子，先判断优先捐助人逻辑 TODO 待处理
-    message = '被捐助学生已被指定优先捐助人，请联系管理员处理'
-    if owner.class.name == 'GshChildGrant'
-      if owner.apply_child.priority_id.present? and donor.id != owner.apply_child.priority_id and owner.apply_child.hidden?
-        api_error(message: message) and return
-      end
-    elsif owner.class.name == 'ProjectSeasonApplyChild'
-      if owner.priority_id.present? and donor.id != owner.priority_id and owner.hidden?
-        api_error(message: message) and return
-      end
-    end
-
     if params[:donate_way] == 'wechat'
       donation = Donation.new(amount: amount, owner: owner, donor_id: donor_id, agent_id: agent.id, team_id: team_id, promoter_id: promoter_id)
       if donation.save
