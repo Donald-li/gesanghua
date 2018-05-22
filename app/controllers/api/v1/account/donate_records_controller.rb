@@ -22,7 +22,7 @@ class Api::V1::Account::DonateRecordsController < Api::V1::BaseController
   end
 
   def voucher_records
-    records = current_user.income_records.to_bill.includes({donation: :owner}, :donor, :agent).sorted
+    records = current_user.income_records.to_bill.includes({donation: :owner}, :donor, :agent).where('created_at > ? AND created_at < ?', Time.now.beginning_of_year, Time.now.end_of_year).sorted
     api_success(data: {records: records.map { |r| r.summary_builder }, donate_amount: current_user.donate_amount})
   end
 

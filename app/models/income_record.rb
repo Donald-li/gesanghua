@@ -54,17 +54,16 @@ class IncomeRecord < ApplicationRecord
   has_one_asset :income_record_excel, class_name: 'Asset::IncomeRecordExcel'
 
   scope :sorted, -> {order(created_at: :desc)}
-  scope :has_balance, -> {where('income_records.balance > 0')}
+  scope :has_balance, ->{where('income_records.balance > 0')}
 
   # 可开票记录
-  scope :open_ticket, -> {to_bill.where(created_at: (Time.now.beginning_of_year)..(Time.now.end_of_year))}
+  scope :open_ticket, -> { to_bill.where(created_at: (Time.now.beginning_of_year)..(Time.now.end_of_year)) }
 
   counter_culture :agent, column_name: proc {|model| model.income_source.present? && !model.income_source.offline? ? 'online_amount' : nil}, delta_magnitude: proc {|model| model.amount}
   counter_culture :agent, column_name: proc {|model| model.income_source.present? && model.income_source.offline? ? 'offline_amount' : nil}, delta_magnitude: proc {|model| model.amount}
-  counter_culture :agent, column_name: 'donate_amount', delta_magnitude: proc {|model| model.amount}
-  counter_culture :fund, column_name: 'balance', delta_magnitude: proc {|model| model.amount}
-  counter_culture :fund, column_name: 'total', delta_magnitude: proc {|model| model.amount}
-  counter_culture :income_source, column_name: 'amount', delta_magnitude: proc {|model| model.amount}
+  counter_culture :agent, column_name: 'donate_amount', delta_magnitude: proc {|model| model.amount }
+  counter_culture :fund, column_name: proc{|model| model.fund.present? ? 'total' : nil}, delta_magnitude: proc {|model| model.amount}
+  counter_culture :fund, column_name: proc{|model| model.fund.present? ? 'balance' : nil}, delta_magnitude: proc {|model| model.amount}
 
   before_create :gen_certificate_no
 
@@ -173,38 +172,38 @@ class IncomeRecord < ApplicationRecord
     return false unless self.donation.present?
     donation = self.donation
     case donation.owner_type
-      when 'DonateItem'
-        if donation.owner.project.present?
-          if donation.owner.project == Project.read_project
-            {name: 'project-description', query: {name: 'read'}}
-          elsif donation.owner.project == Project.camp_project
-            {name: 'project-description', query: {name: 'camp'}}
-          elsif donation.owner.project == Project.pair_project
-            {name: 'project-description', query: {name: 'pair'}}
-          elsif donation.owner.project.goods?
-            {name: 'project-description', query: {name: donation.owner.project.id}}
-          end
-        else
-          ''
-        end
-      when 'ProjectSeasonApply'
+    when 'DonateItem'
+      if donation.owner.project.present?
         if donation.owner.project == Project.read_project
-          if donation.owner.whole?
-            {name: 'read', params: {id: donation.owner_id.to_s}}
-          else
-            {name: 'read-supplement', params: {id: donation.owner_id.to_s}}
-          end
+          {name: 'project-description', query: {name: 'read'}}
         elsif donation.owner.project == Project.camp_project
-          {name: 'camp', params: {id: donation.owner_id.to_s}}
+          {name: 'project-description', query: {name: 'camp'}}
+        elsif donation.owner.project == Project.pair_project
+          {name: 'project-description', query: {name: 'pair'}}
         elsif donation.owner.project.goods?
-          {name: 'goods', params: {id: donation.owner_id.to_s}}
+          {name: 'project-description', query: {name: donation.owner.project.id}}
         end
-      when 'ProjectSeasonApplyBookshelf'
-        {name: 'read', params: {id: donation.owner_id.to_s}}
-      when 'ProjectSeasonApplyChild'
-        {name: 'pair', params: {id: donation.owner_id.to_s}}
-      when 'CampaignEnlist'
-        {name: 'campaign', params: {id: donation.owner.campaign.id.to_s}}
+      else
+        ''
+      end
+    when 'ProjectSeasonApply'
+      if donation.owner.project == Project.read_project
+        if donation.owner.whole?
+          {name: 'read', params: {id: donation.owner_id.to_s }}
+        else
+          {name: 'read-supplement', params: {id: donation.owner_id.to_s }}
+        end
+      elsif donation.owner.project == Project.camp_project
+        {name: 'camp', params: {id: donation.owner_id.to_s }}
+      elsif donation.owner.project.goods?
+        {name: 'goods', params: {id: donation.owner_id.to_s }}
+      end
+    when 'ProjectSeasonApplyBookshelf'
+      {name: 'read', params: {id: donation.owner_id.to_s }}
+    when 'ProjectSeasonApplyChild'
+      {name: 'pair', params: {id: donation.owner_id.to_s }}
+    when 'CampaignEnlist'
+      {name: 'campaign', params: {id: donation.owner.try(:campaign).try(:id).to_s }}
     end
   end
 
