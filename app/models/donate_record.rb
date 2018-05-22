@@ -139,15 +139,6 @@ class DonateRecord < ApplicationRecord
         school = nil
       end
 
-      # 如果捐助给孩子，先判断优先捐助人逻辑 TODO 待处理
-      if owner.class.name == 'GshChildGrant'
-        user = params[:donor]
-        return false, '被捐助学生已被指定优先捐助人，请联系管理员处理' unless user.id == owner.apply_child.priority_id.presence
-      elsif owner.class.name == 'ProjectSeasonApplyChild'
-        user = params[:donor]
-        return false, '被捐助学生已被指定优先捐助人，请联系管理员处理' unless user.id == owner.priority_id.presence
-      end
-
       # 如果捐到申请子项 （书架，孩子，指定）和具体的捐助项
       if owner.class.name.in?(['DonateItem', 'CampaignEnlist', 'GshChildGrant', 'ProjectSeasonApplyBookshelf'])
         donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, income_record_id: income_record_id, donation_id: donation_id, agent: params[:agent], donor: params[:donor], team_id: params[:team_id], promoter_id: params[:promoter_id], school: school)

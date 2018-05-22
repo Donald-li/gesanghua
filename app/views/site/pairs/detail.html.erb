@@ -14,11 +14,11 @@
           <p>资助学费<span>￥<%= @child.get_tuition %>/年</span></p>
           <div class="child-checked">
             <span>选择学期</span>
-          <ul class="ui-choose  choose-type-right" multiple="multiple" id="uc_03">
-            <% @gsh_child_grants.each do |grant| %>
-              <li class="semester"><%= grant.title %></li>
-            <% end %>
-          </ul>
+            <ul class="ui-choose  choose-type-right" multiple="multiple" id="uc_03">
+              <% @gsh_child_grants.each do |grant| %>
+                  <li class="semester"><%= grant.title %></li>
+              <% end %>
+            </ul>
           </div>
           <button id="donate-btn" class="child-but" data-semester="0">我要捐助</button>
         </div>
@@ -53,62 +53,62 @@
       </div>
       <!--反馈-->
       <% if @grants.present? %>
-      <div class="pull-left detail-body-left border-l contentab">
-        <ul class="detail-body-ul">
-          <% @grants.each do |grant| %>
-            <li class="detail-body-cont" id="show<%= grant.id %>">
-              <span class="detail-body-hover iconfont icon-yuan"></span>
-              <div class="clearfix detail-font-tit">
-                <p class="pull-left"></p>
-                <span class="pull-right cur" onclick="showHideCode(<%= grant.id %>)"><span class="iconfont icon-arrowdown"></span>查看详情</span>
-              </div>
-              <div class="detail-body-title clearfix">
-                <span class="pull-left"><%= grant.grant_person %> ·</span>
-                <span class="pull-left"><%= grant.granted_at.strftime("%Y-%m-%d") %>由发布</span>
-              </div>
-              <div class="de-left-con read-more clearfix" id="showdiv">
-                <div class="de-left-con-fon"><%= grant.grant_remark %></div>
-                <div class="clearfix details-img">
-                  <% if grant.images.present? %>
-                    <% grant.images.each do |img| %>
-                          <a data-magnify="gallery"  href="<%=image_url img.try(:file).try(:url, nil).to_s%>">
-                            <%= image_tag img.try(:file).try(:url, :tiny).to_s ,:style => "width:211px" %>
-                          </a>
-                    <% end %>
-                  <% end %>
+          <div class="pull-left detail-body-left border-l contentab">
+            <ul class="detail-body-ul">
+              <% @grants.each do |grant| %>
+                  <li class="detail-body-cont" id="show<%= grant.id %>">
+                    <span class="detail-body-hover iconfont icon-yuan"></span>
+                    <div class="clearfix detail-font-tit">
+                      <p class="pull-left"></p>
+                      <span class="pull-right cur" onclick="showHideCode(<%= grant.id %>)"><span class="iconfont icon-arrowdown"></span>查看详情</span>
+                    </div>
+                    <div class="detail-body-title clearfix">
+                      <span class="pull-left"><%= grant.grant_person %> ·</span>
+                      <span class="pull-left"><%= grant.granted_at.strftime("%Y-%m-%d") %>由发布</span>
+                    </div>
+                    <div class="de-left-con read-more clearfix" id="showdiv">
+                      <div class="de-left-con-fon"><%= grant.grant_remark %></div>
+                      <div class="clearfix details-img">
+                        <% if grant.images.present? %>
+                            <% grant.images.each do |img| %>
+                                <a data-magnify="gallery" href="<%= image_url img.try(:file).try(:url, nil).to_s %>">
+                                  <%= image_tag img.try(:file).try(:url, :tiny).to_s, :style => "width:211px" %>
+                                </a>
+                            <% end %>
+                        <% end %>
 
-                </div>
-              </div>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-      <% else %>
-      <div class="not-available contentab pull-left">
-        <div class="donation-cont-no">
-          <div class="donation-co-no-c">
-            <div class="donation-co-no-c-img">
-              <%= image_tag 'not-available.png' %>
-            </div>
-            <p>暂无执行反馈</p>
+                      </div>
+                    </div>
+                  </li>
+              <% end %>
+            </ul>
           </div>
-        </div>
-      </div>
+      <% else %>
+          <div class="not-available contentab pull-left">
+            <div class="donation-cont-no">
+              <div class="donation-co-no-c">
+                <div class="donation-co-no-c-img">
+                  <%= image_tag 'not-available.png' %>
+                </div>
+                <p>暂无执行反馈</p>
+              </div>
+            </div>
+          </div>
       <% end %>
       <div class="pull-right detail-body-right">
         <p class="detail-b-r-t border-b"><span>捐助记录</span></p>
         <% if @donate_records.present? %>
-          <ul class="detail-b-r-name" id="donate-records">
-            <%= render '/site/donate_records/list', records: @donate_records, owner: @child, child: @child %>
-          </ul>
+            <ul class="detail-b-r-name" id="donate-records">
+              <%= render '/site/donate_records/list', records: @donate_records, owner: @child, child: @child %>
+            </ul>
         <% else %>
-          <div class="not-available ">
-            <div class="donation-cont-no">
-              <div class="donation-co-no-c">
-                <p>暂无捐助记录</p>
+            <div class="not-available ">
+              <div class="donation-cont-no">
+                <div class="donation-co-no-c">
+                  <p>暂无捐助记录</p>
+                </div>
               </div>
             </div>
-          </div>
         <% end %>
       </div>
     </div>
@@ -149,29 +149,30 @@
     //   }
     // });
 
-    $('.ui-choose li').on('click', function(el){
-      var li = $(el.target)
-      // 如果自己没选中，将自己和之前的所有选中
-      // 如果自己选中了，取消自己和之后的选中
-      if (!li.hasClass('selected')) {
-        li.addClass('selected')
-         li.prevAll('li').addClass('selected')
-      } else {
-        li.removeClass('selected')
-         li.nextAll('li').removeClass('selected')
-      }
-      // 处理学期选择
-      var count = 0;
-      $('.semester').each(function () {
-        if($(this).hasClass('selected')) {
-          count++ ;
+    $('.ui-choose li').on('click', function (el) {
+        var li = $(el.target)
+        // 如果自己没选中，将自己和之前的所有选中
+        // 如果自己选中了，取消自己和之后的选中
+        if (!li.hasClass('selected')) {
+            li.addClass('selected')
+            li.prevAll('li').addClass('selected')
+        } else {
+            li.removeClass('selected')
+            li.nextAll('li').removeClass('selected')
         }
-        $('#donate-btn').data('semester', count);
-      })
+        // 处理学期选择
+        var count = 0;
+        $('.semester').each(function () {
+            if ($(this).hasClass('selected')) {
+                count++;
+            }
+            $('#donate-btn').data('semester', count);
+        })
     });
 
     $('.circlechart').circlechart();
     $('#dtails-cont').myTab();
+
     function showHideCode(id) {
         $("#show" + id + " .de-left-con").removeClass('read-more')
         $("#show" + id + " .detail-font-tit > span").css('display', 'none')
@@ -179,18 +180,32 @@
         $("#show" + id + " .de-left-con-fon").css({"white-space": "pre-wrap"})
     }
 
-  $('#donate-btn').click(function () {
-    var semesterCount = $(this).data('semester');
-    if (!semesterCount) {
-      layer.msg('请勾选您要提交的学期', { icon: 2, offset: 't c' });
-      return false
-    }
-    window.location.href='<%= new_donate_path(child: @child.id) %>&semester_count=' + semesterCount;
-  })
-  $('#share-2').share({
-    sites: ['qzone', 'wechat', 'weibo', 'qq'],
-    title: '<%= @child.secure_name %>',
-    description: '<%= @child.secure_name %>',
-    image: '<%= image_url 'project-reducepage-child.png' %>'
-  });
+    $('#donate-btn').click(function () {
+        var semesterCount = $(this).data('semester');
+        if (!semesterCount) {
+            layer.msg('请勾选您要提交的学期', {icon: 2, offset: 't c'});
+            return false
+        }
+        $.get("/ajaxes/get_child_priority",
+            {
+                child_id: <%= @child.id %>,
+                donor_id: <%= current_user.id %>
+            },
+            function (data) {
+                if (data.status) {
+                    window.location.href = '<%= new_donate_path(child: @child.id) %>&semester_count=' + semesterCount;
+                } else {
+                    layer.msg(data.message, {
+                        icon: 2,
+                        offset: 't c'
+                    });
+                }
+            });
+    })
+    $('#share-2').share({
+        sites: ['qzone', 'wechat', 'weibo', 'qq'],
+        title: '<%= @child.secure_name %>',
+        description: '<%= @child.secure_name %>',
+        image: '<%= image_url 'project-reducepage-child.png' %>'
+    });
 </script>

@@ -1,6 +1,7 @@
 class Api::V1::DonationsController < Api::V1::BaseController
 
   def create
+
     donate_way = params[:donate_way]
 
     donor_id = params[:donor]
@@ -18,19 +19,31 @@ class Api::V1::DonationsController < Api::V1::BaseController
     owner = ProjectSeasonApplyBookshelf.find(params[:bookshelf]) if params[:bookshelf].present?
     owner = CampaignEnlist.find(params[:campaign_enlist]) if params[:campaign_enlist].present? # 活动报名
 
-    if params[:donate_way] == 'wechat'
-      donation = Donation.new(amount: amount, owner: owner, donor_id: donor_id, agent_id: agent.id, team_id: team_id, promoter_id: promoter_id)
-      if donation.save
-        api_success(data: {order_no: donation.order_no, pay_state: donation.pay_state}.camelize_keys!, message: '成功')
-      else
-        api_error
-      end
-    elsif params[:donate_way] == 'balance'
-      result, message = DonateRecord.do_donate('user_donate', agent, owner, amount, {agent: agent, donor: donor, team_id: team_id, promoter_id: promoter_id})
-      if result
-        api_success(data: {pay_state: 'paid', bookshelf: params[:bookshelf], amount: params[:amount]}.camelize_keys!, message: message)
-      else
+    # 如果捐助给孩子，先判断优先捐助人逻辑 TODO 待处理
+    message = '被捐助学生已被指定优先捐助人，请联系管理员处理'
+    if owner.class.name == 'GshChildGrant'
+      if donor.id != owner.apply_child.priority_id.presence && owner.apply_child.hidden?
         api_error(message: message)
+      end
+    elsif owner.class.name == 'ProjectSeasonApplyChild'
+      if donor.id != owner.priority_id.presence && owner.hidden?
+        api_error(message: message)
+      end
+    else
+      if params[:donate_way] == 'wechat'
+        donation = Donation.new(amount: amount, owner: owner, donor_id: donor_id, agent_id: agent.id, team_id: team_id, promoter_id: promoter_id)
+        if donation.save
+          api_success(data: {order_no: donation.order_no, pay_state: donation.pay_state}.camelize_keys!, message: '成功')
+        else
+          api_error
+        end
+      elsif params[:donate_way] == 'balance'
+        result, message = DonateRecord.do_donate('user_donate', agent, owner, amount, {agent: agent, donor: donor, team_id: team_id, promoter_id: promoter_id})
+        if result
+          api_success(data: {pay_state: 'paid', bookshelf: params[:bookshelf], amount: params[:amount]}.camelize_keys!, message: message)
+        else
+          api_success(data: {pay_state: 'error'}.camelize_keys!, message: message)
+        end
       end
     end
 

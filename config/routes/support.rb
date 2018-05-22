@@ -49,6 +49,7 @@ scope module: :support do
       post :delete_read_supplement
       post :dismiss_team
       post :turn_team
+      get :get_child_priority
     end
   end
 end
