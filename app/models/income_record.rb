@@ -203,7 +203,7 @@ class IncomeRecord < ApplicationRecord
     when 'ProjectSeasonApplyChild'
       {name: 'pair', params: {id: donation.owner_id.to_s }}
     when 'CampaignEnlist'
-      {name: 'campaign', params: {id: donation.owner.campaign.id.to_s }}
+      {name: 'campaign', params: {id: donation.owner.try(:campaign).try(:id).to_s }}
     end
   end
 
