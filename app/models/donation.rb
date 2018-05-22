@@ -25,6 +25,9 @@
 
 # 捐助
 class Donation < ApplicationRecord
+
+  before_create :set_assoc_attrs, :set_record_title, :generate_order_no
+
   include ActionView::Helpers::NumberHelper
 
   has_one :income_record, dependent: :nullify
@@ -38,9 +41,6 @@ class Donation < ApplicationRecord
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: :project_season_apply_id, optional: true
   belongs_to :owner, polymorphic: true
   belongs_to :donate_item, optional: true
-
-  before_create :set_assoc_attrs, :set_record_title
-  before_create :generate_order_no
 
   enum pay_way: { wechat: 1, alipay: 2}
   # default_value_for :pay_way, 1
@@ -256,11 +256,11 @@ class Donation < ApplicationRecord
   def set_record_title(force: false)
     return if self.title.present? && !force
     if self.owner_type == 'DonateItem'
-      self.title = "#{self.try(:donor).try(:show_name)}捐助#{self.try(:owner).try(:name)}款项"
+      self.title = "捐助#{self.try(:owner).try(:name)}款项"
     elsif self.owner_type == 'CampaignEnlist'
-      self.title = "#{self.try(:donor).try(:show_name)}捐助#{self.owner.try(:campaign).try(:name)}活动款项"
+      self.title = "捐助#{self.owner.try(:campaign).try(:name)}活动款项"
     else
-      self.title = "#{self.try(:donor).try(:show_name)}捐助#{self.try(:apply).try(:apply_name)}#{self.try(:child).try(:name)}#{self.try(:bookshelf).try(:show_title)}款项"
+      self.title = "捐助#{self.try(:apply).try(:apply_name)}#{self.try(:child).try(:name)}#{self.try(:bookshelf).try(:show_title)}款项"
     end
   end
 
