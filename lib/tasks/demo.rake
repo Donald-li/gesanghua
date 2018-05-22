@@ -158,4 +158,9 @@ namespace :demo do
 
   end
 
+  task income_source: :environment do
+    IncomeSource.where(kind: [1, 2, 3]).update(kind: 1)
+    IncomeSource.where(kind: 4).update(kind: 2)
+  end
+
 end

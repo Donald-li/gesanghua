@@ -35,6 +35,7 @@ class ExpenditureRecord < ApplicationRecord
   # enum deliver_state: {to_deliver: 1, deliver: 2} # 发放状态，1:待发放 2:已发放
   # default_value_for :deliver_state, 1
   # enum kind: {}
+  # counter_culture :fund, column_name: 'balance', delta_magnitude: proc {|model| 0 - model.amount }
 
   before_create :gen_expend_no
 

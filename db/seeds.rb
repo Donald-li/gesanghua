@@ -98,9 +98,9 @@ p.update(name: '护花', alias: 'care', protocol: content, describe: '项目介�
 )
 
 # 入账渠道
-IncomeSource.find_or_create_by(name: '微信支付', description: '微信支付')
-IncomeSource.find_or_create_by(name: '线下汇款', description: '线下汇款')
-IncomeSource.find_or_create_by(name: '支付宝支付', description: '支付宝支付')
+IncomeSource.find_or_create_by(name: '微信支付', description: '微信支付', kind: 'online')
+IncomeSource.find_or_create_by(name: '线下汇款', description: '线下汇款', kind: 'offline')
+IncomeSource.find_or_create_by(name: '支付宝支付', description: '支付宝支付', kind: 'online')
 
 # 默认徽章
 BadgeLevel.options_for_select(:kinds).each do |kind|
