@@ -21,7 +21,6 @@
       <div class="pull-left">
         <%= f.input :nation, as: :select, collection: ProjectSeasonApplyChild.options_for_enum_select(:nations), include_blank: false, label: false, input_html: {id: 'allcamps', class: ''} %>
       </div>
-
     </div>
     <div class="clearfix">
       <span class="goodtext pull-left">选择年级</span>
@@ -60,19 +59,19 @@
   <div class="addchild-list-cont">
     <div class="clearfix">
       <span class="goodtext pull-left">父亲姓名</span>
-      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[father]" value="<%= @child.father %>"/>
+      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[father]" value="<%= @child.father %>" required/>
     </div>
     <div class="clearfix">
       <span class="goodtext pull-left">职业</span>
-      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[father_job]" value="<%= @child.father_job %>"/>
+      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[father_job]" value="<%= @child.father_job %>" required/>
     </div>
     <div class="clearfix">
       <span class="goodtext pull-left">母亲姓名</span>
-      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[mother]" value="<%= @child.mother %>"/>
+      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[mother]" value="<%= @child.mother %>" required/>
     </div>
     <div class="clearfix">
       <span class="goodtext pull-left">职业</span>
-      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[mother_job]" value="<%= @child.mother_job %>"/>
+      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[mother_job]" value="<%= @child.mother_job %>" required/>
     </div>
     <div class="clearfix">
       <span class="goodtext pull-left">父母情况</span>
@@ -136,12 +135,12 @@
     </div>
     <div class="addchild-list-up-picture pull-left">
       <p class="iconfont icon-ico-add"></p>
-      <%= webuploader_image :apply_one_id, label: '上传申请1', type: 'apply_child_apply_image', asset: @child.apply_one, klass: 'single', id: 'child-image2' %>
+      <%= webuploader_image :apply_one_id, label: '上传申请书1', type: 'apply_child_apply_image', asset: @child.apply_one, klass: 'single', id: 'child-image2' %>
     </div>
     <div class="addchild-list-up-picture pull-left">
       <p class="iconfont icon-ico-add"></p>
       <p></p>
-      <%= webuploader_image :apply_two_id, label: '上传申请2', type: 'apply_child_apply_another_image', asset: @child.apply_two, klass: 'single', id: 'child-image3' %>
+      <%= webuploader_image :apply_two_id, label: '上传申请书2', type: 'apply_child_apply_another_image', asset: @child.apply_two, klass: 'single', id: 'child-image3' %>
     </div>
     <div class="addchild-list-up-picture pull-left">
       <p class="iconfont icon-ico-add"></p>

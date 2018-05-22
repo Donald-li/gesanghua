@@ -123,9 +123,6 @@ admin:
         admin_support_category:
           actions:
             'admin/support_categories': all
-        admin_income_source:
-          actions:
-            'admin/income_sources': all
         admin_volunteer_major:
           actions:
             'admin/majors': all
@@ -195,6 +192,9 @@ admin:
           actions:
             admin/management_fee_months: all
             admin/management_fees: all
+        admin_income_source:
+          actions:
+            'admin/income_sources': all
 
     # 项目管理
     admin_project:
