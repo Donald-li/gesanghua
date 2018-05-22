@@ -77,7 +77,7 @@ class Notification < ApplicationRecord
       url = "#{Settings.m_root_url}/account/my-donate"
     when /approve_/
       title = '审核通知'
-      template_id = Settings.wechat_template_project
+      template_id = Settings.wechat_template_approve
       keyword1 = self.project.try(:name)
       url = "#{Settings.m_root_url}/gesanghua+"
     when 'exception_record'
@@ -87,12 +87,12 @@ class Notification < ApplicationRecord
       url = "#{Settings.m_root_url}/cooperation"
     when 'child_granted'
       title = self.title
-      template_id = Settings.wechat_template_notify
+      template_id = Settings.wechat_template_project
       keyword1 = self.content
       url = "#{Settings.m_root_url}/account/my-pairs"
     when 'appoint_donor'
       title = self.title
-      template_id = Settings.wechat_template_notify
+      template_id = Settings.wechat_template_project
       keyword1 = self.content
       url = "#{Settings.m_root_url}/pair/#{self.owner_id}"
     else

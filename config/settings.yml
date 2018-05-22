@@ -59,3 +59,5 @@ pair_feedback_url: 'http://gesanghua.wikiflyer.cn/m/cooperation/pair-feedback'
 wechat_template_project: 'gs83bIVFUBUBVwjG7lBh9BwXkJsgRnoPtlHlkzsTz2E'
 # 消息通知 first 提醒内容keyword1 时间keyword2 remark
 wechat_template_notify: 'k9sRVPi2_ibSYVFHo5oE1CBfBu3cWKnA-Le_ecO4HTo'
+# 审核结果通知
+wechat_template_approve: 'MLXlUkDB3oCMbnM5Ol5P9bVpppsAXAlqMokLxVml1LU'
