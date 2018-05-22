@@ -27,6 +27,9 @@
 # 收入记录
 # 我的捐款，开具发票，款均使用收入记录
 class IncomeRecord < ApplicationRecord
+
+  before_create :gen_income_no, :gen_certificate_no
+
   belongs_to :donation, optional: true
 
   belongs_to :donor, class_name: 'User', foreign_key: 'donor_id', optional: true
@@ -48,7 +51,6 @@ class IncomeRecord < ApplicationRecord
   enum voucher_state: {to_bill: 1, billed: 2} #收据状态，1:未开票 2:已开票
   default_value_for :voucher_state, 1
 
-  before_create :gen_income_no
 
   include HasAsset
   has_one_asset :income_record_excel, class_name: 'Asset::IncomeRecordExcel'
@@ -64,8 +66,6 @@ class IncomeRecord < ApplicationRecord
   counter_culture :agent, column_name: 'donate_amount', delta_magnitude: proc {|model| model.amount }
   counter_culture :fund, column_name: proc{|model| model.fund.present? ? 'total' : nil}, delta_magnitude: proc {|model| model.amount}
   counter_culture :fund, column_name: proc{|model| model.fund.present? ? 'balance' : nil}, delta_magnitude: proc {|model| model.amount}
-
-  before_create :gen_certificate_no
 
   def has_balance?
     self.balance > 0
