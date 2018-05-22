@@ -127,7 +127,7 @@
 <script>
     $('#share-2').share({
         sites: ['qzone', 'wechat', 'weibo', 'qq'],
-        url: '<%= @wechat_code_url %>'
+        url: 'http://<%= Settings.root_url %>/campaigns/<%= @campaign.id %>'
     });
     $('.modified-1').calculate()
 
