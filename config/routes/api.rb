@@ -188,6 +188,7 @@ namespace :api do
         post :complaint
         get :contribute
         post :settlement
+        get :get_child_priority
       end
     end
 

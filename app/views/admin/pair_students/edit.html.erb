@@ -53,7 +53,7 @@
                   <%= f.input :description, label: '自我介绍：', placeholder: '自我介绍', required: true %>
                   <h3>家庭信息</h3>
                   <%= f.input :father, label: '父亲：', placeholder: '父亲', required: true %>
-                  <%= f.input :father_job, label: '父亲职业：', placeholder: '父亲职业' %>
+                  <%= f.input :father_job, label: '父亲职业：', placeholder: '父亲职业', required: true %>
                   <%= f.input :mother, label: '母亲：', placeholder: '母亲', required: true %>
                   <%= f.input :mother_job, label: '母亲职业：', placeholder: '母亲职业', required: true %>
                   <%= f.input :parent_information, as: :select, collection: ['父母健在且共同生活', '父母离异', '父亲去世', '母亲去世', '父母均去世', '父亲下落不明', '母亲下落不明', '父母下落不明'], label: '父母情况：', include_blank: false %>
