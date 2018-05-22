@@ -48,6 +48,12 @@ RSpec.describe "Api::V1::Donations", type: :request do
       api_v1_expect_success
     end
 
+    it "捐已制定优先捐助人的孩子" do
+      @child.update(priority_id: @user.id)
+      post api_v1_donations_path(donate_way: 'wechat', donor: @donor.id, amount: 100, child: @child.id), headers: api_v1_headers(@user)
+      api_v1_expect_error
+    end
+
     it "捐书架" do
       post api_v1_donations_path(donate_way: 'wechat', donor: @donor.id, amount: 100, bookshelf: @bookshelf1.id), headers: api_v1_headers(@user)
       api_v1_expect_success

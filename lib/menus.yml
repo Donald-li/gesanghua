@@ -178,10 +178,6 @@ admin:
         admin_vouchers:
           actions:
             admin/vouchers: all
-        admin_fund_categories:
-          actions:
-            'admin/fund_categories': all
-            'admin/funds': all
         admin_income_record:
           actions:
             admin/income_records: all
@@ -192,9 +188,18 @@ admin:
           actions:
             admin/management_fee_months: all
             admin/management_fees: all
-        admin_income_source:
-          actions:
-            'admin/income_sources': all
+        admin_finance_category:
+          menus:
+            admin_fund_categories:
+              actions:
+                'admin/fund_categories': all
+                'admin/funds': all
+            admin_income_source:
+              actions:
+                'admin/income_sources': all
+            admin_expenditure_ledger:
+              actions:
+                admin/expenditure_ledgers: all
 
     # 项目管理
     admin_project:

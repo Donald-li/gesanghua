@@ -19,5 +19,6 @@ FactoryBot.define do
     title "MyString"
     value 1
     rank "lv1"
+    description '徽章'
   end
 end

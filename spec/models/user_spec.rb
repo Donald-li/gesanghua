@@ -69,7 +69,7 @@ RSpec.describe User, type: :model do
   let!(:account_record1) { create(:account_record, user: user2, amount: 20)}
   let!(:account_record2) { create(:account_record, user: user2, amount: 30)}
   let!(:income_source1) { create(:income_source, kind: 1)}
-  let!(:income_source2) { create(:income_source, kind: 4)}
+  let!(:income_source2) { create(:income_source, kind: 2)}
   let!(:income_record1) { create(:income_record, agent_id: user2.id, donor_id: user_with_no_phone.id, income_source_id: income_source1.id, amount: 10)}
   let!(:income_record2) { create(:income_record, agent_id: user2.id, donor_id: user_with_no_phone.id, income_source_id: income_source2.id, amount: 20)}
 

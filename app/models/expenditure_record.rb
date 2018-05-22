@@ -2,22 +2,23 @@
 #
 # Table name: expenditure_records # 支出记录表
 #
-#  id               :integer          not null, primary key
-#  fund_id          :integer                                # 基金ID
-#  appoint_type     :string                                 # 指定类型
-#  appoint_id       :integer                                # 指定类型id
-#  administrator_id :integer                                # 管理员id
-#  income_record_id :integer                                # 入账记录id
-#  deliver_state    :integer                                # 发放状态
-#  kind             :integer                                # 类别
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  name             :string                                 # 支出名称
-#  expend_no        :string                                 # 支出编号
-#  expended_at      :datetime                               # 支出时间
-#  operator         :string                                 # 支出经办人
-#  remark           :text                                   # 备注
-#  amount           :decimal(14, 2)   default(0.0)          # 支出金额
+#  id                    :integer          not null, primary key
+#  fund_id               :integer                                # 基金ID
+#  appoint_type          :string                                 # 指定类型
+#  appoint_id            :integer                                # 指定类型id
+#  administrator_id      :integer                                # 管理员id
+#  income_record_id      :integer                                # 入账记录id
+#  deliver_state         :integer                                # 发放状态
+#  kind                  :integer                                # 类别
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  name                  :string                                 # 支出名称
+#  expend_no             :string                                 # 支出编号
+#  expended_at           :datetime                               # 支出时间
+#  operator              :string                                 # 支出经办人
+#  remark                :text                                   # 备注
+#  amount                :decimal(14, 2)   default(0.0)          # 支出金额
+#  expenditure_ledger_id :integer
 #
 
 # 支出记录
@@ -26,7 +27,8 @@ class ExpenditureRecord < ApplicationRecord
   has_many_assets :images, class_name: 'Asset::ExpenditureRecordImage'
   has_one_asset :expenditure_record_excel, class_name: 'Asset::ExpenditureRecordExcel'
 
-  belongs_to :fund
+  # belongs_to :fund
+  belongs_to :expenditure_ledger
   belongs_to :administrator, optional: true
   belongs_to :income_record, optional: true
   # appoint_type 多态关联
@@ -35,7 +37,7 @@ class ExpenditureRecord < ApplicationRecord
   # enum deliver_state: {to_deliver: 1, deliver: 2} # 发放状态，1:待发放 2:已发放
   # default_value_for :deliver_state, 1
   # enum kind: {}
-  # counter_culture :fund, column_name: 'balance', delta_magnitude: proc {|model| 0 - model.amount }
+  counter_culture :expenditure_ledger, column_name: 'amount', delta_magnitude: proc {|model| model.amount }
 
   before_create :gen_expend_no
 

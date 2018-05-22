@@ -1,10 +1,10 @@
 <div class="portlet light">
   <div class="portlet-title">
     <div class="caption">
-      <i class="icon-list"></i>入账渠道
+      <i class="icon-list"></i>支出分类
     </div>
     <div class="actions">
-      <%= link_to new_admin_income_source_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+      <%= link_to new_admin_expenditure_ledger_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
       <i class="icon-plus"></i>
       <span>新增来源</span>
       <% end %>
@@ -22,16 +22,13 @@
           <thead>
             <tr>
               <th>
-                收入渠道
+                支出分类
               </th>
               <th>
                 描述
               </th>
-              <!--<th>-->
-                <!--类型-->
-              <!--</th>-->
               <th>
-                累计收入（元）
+                累计支出（元）
               </th>
               <th>
                 排序
@@ -42,33 +39,27 @@
             </tr>
           </thead>
           <tbody>
-            <% @income_sources.each do |source| %>
+            <% @ledgers.each do |ledger| %>
             <tr>
               <td>
-                <%= source.name %>
+                <%= ledger.name %>
               </td>
               <td>
-                <%= source.description %>
-              </td>
-              <!--<td>-->
-                <!--<%#= source.enum_name(:kind) %>-->
-              <!--</td>-->
-              <td>
-                <%= source.amount %>
+                <%= ledger.describe %>
               </td>
               <td>
-                <%= link_to '顶部', move_admin_income_source_path(source, to: :to_top), method: :put %>
-                <%= link_to '上', move_admin_income_source_path(source, to: :higher), method: :put %>
-                <%= link_to '下', move_admin_income_source_path(source, to: :lower), method: :put %>
-                <%= link_to '底部', move_admin_income_source_path(source, to: :to_bottom), method: :put %>
+                <%= ledger.amount %>
               </td>
               <td>
-                <%= link_to edit_admin_income_source_path(source), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                <%= link_to '顶部', move_admin_expenditure_ledger_path(ledger, to: :to_top), method: :put %>
+                <%= link_to '上', move_admin_expenditure_ledger_path(ledger, to: :higher), method: :put %>
+                <%= link_to '下', move_admin_expenditure_ledger_path(ledger, to: :lower), method: :put %>
+                <%= link_to '底部', move_admin_expenditure_ledger_path(ledger, to: :to_bottom), method: :put %>
+              </td>
+              <td>
+                <%= link_to edit_admin_expenditure_ledger_path(ledger), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                   <i class="fa fa-edit"></i> 修改
                 <% end %>
-                <%#= link_to admin_income_source_path(source), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
-                  <!--<i class="fa fa-trash-o"></i> 删除-->
-                <%# end %>
               </td>
             </tr>
             <% end %>

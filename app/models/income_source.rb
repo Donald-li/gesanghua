@@ -9,6 +9,7 @@
 #  description :string                                 # 描述
 #  position    :integer                                # 位置
 #  kind        :integer                                # 类型： 1:线上（online） 2:线下（offline）
+#  amount      :decimal(14, 2)   default(0.0)          # 累计收入
 #
 
 # 收入来源
@@ -25,7 +26,4 @@ class IncomeSource < ApplicationRecord
   acts_as_list column: :position
   scope :sorted, ->{ order(position: :asc) }
 
-  def online?
-    !self.offline?
-  end
 end

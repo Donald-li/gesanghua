@@ -27,7 +27,7 @@
           <%= search_form_for @search, url: admin_expenditure_records_path, class: 'form-inline' do |f| %>
             <div class="form-group">
               <%= f.label :name_or_fund_name_cont, '搜索' %>
-              <%= f.text_field :name_or_fund_name_cont, class: 'form-control gsh-input-share', placeholder: '支出名称或支出分类搜索',style:'width:200px;' %>
+              <%= f.text_field :name_or_expenditure_ledger_name_cont, class: 'form-control gsh-input-share', placeholder: '支出名称或支出分类搜索',style:'width:200px;' %>
             </div>
             <div class="form-group">
               <%= f.label '支出时间' %>
@@ -91,7 +91,7 @@
                 ￥<%= format_money(record.amount) %>
               </td>
               <td>
-                <%= record.fund.try(:fund_category).try(:name) %> - <%= record.fund.try(:name) %>
+                <%= record.expenditure_ledger.try(:name) %>
               </td>
               <td>
                 <%= record.remark %>

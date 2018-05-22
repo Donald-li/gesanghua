@@ -249,6 +249,8 @@ namespace :admin do
       get :template_download
     end
   end
+
+  resources :expenditure_ledgers, concerns: [:move]
   resources :expenditure_records, concerns: [:excel_upload, :excel_import] do
     collection do
       get :template_download

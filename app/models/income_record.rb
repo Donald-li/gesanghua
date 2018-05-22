@@ -64,6 +64,7 @@ class IncomeRecord < ApplicationRecord
   counter_culture :agent, column_name: 'donate_amount', delta_magnitude: proc {|model| model.amount}
   counter_culture :fund, column_name: 'balance', delta_magnitude: proc {|model| model.amount}
   counter_culture :fund, column_name: 'total', delta_magnitude: proc {|model| model.amount}
+  counter_culture :income_source, column_name: 'amount', delta_magnitude: proc {|model| model.amount}
 
   before_create :gen_certificate_no
 

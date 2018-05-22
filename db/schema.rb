@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180521093309) do
+ActiveRecord::Schema.define(version: 20180522061853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -410,6 +410,16 @@ ActiveRecord::Schema.define(version: 20180521093309) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "expenditure_ledgers", force: :cascade, comment: "支出分类" do |t|
+    t.string "name", comment: "名称"
+    t.integer "position", comment: "排序"
+    t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "合计支出金额"
+    t.text "describe", comment: "描述"
+    t.integer "state", comment: "状态"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "expenditure_records", force: :cascade, comment: "支出记录表" do |t|
     t.integer "fund_id", comment: "基金ID"
     t.string "appoint_type", comment: "指定类型"
@@ -426,6 +436,7 @@ ActiveRecord::Schema.define(version: 20180521093309) do
     t.string "operator", comment: "支出经办人"
     t.text "remark", comment: "备注"
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "支出金额"
+    t.integer "expenditure_ledger_id"
   end
 
   create_table "family_members", force: :cascade, comment: "家庭成员表" do |t|
@@ -598,6 +609,7 @@ ActiveRecord::Schema.define(version: 20180521093309) do
     t.string "description", comment: "描述"
     t.integer "position", comment: "位置"
     t.integer "kind", comment: "类型： 1:线上（online） 2:线下（offline）"
+    t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "累计收入"
   end
 
   create_table "logistics", force: :cascade, comment: "物流表" do |t|

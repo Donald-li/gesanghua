@@ -52,16 +52,16 @@ class FileUtil
 
         name = s.formatted_value(line, 'A')
         expended_at = s.cell(line, 'B')
-        fund_title = s.formatted_value(line, 'C')
+        ledger_name = s.formatted_value(line, 'C')
         amount = s.formatted_value(line, 'D')
         remark = s.formatted_value(line, 'E')
         operator = s.formatted_value(line, 'F')
 
-        fund = fund_title.present? ? FundCategory.find_by(name: fund_title.split('-').first).funds.find_by(name: fund_title.split('-').second) : nil
+        ledger = ledger_name.present? ? ExpenditureLedger.find_by(name: ledger_name) : nil
 
-        if fund.present?
+        if ledger.present?
           expended_at = expended_at.class.to_s == 'DateTime' || expended_at.class.to_s == 'Date' ? expended_at : Time.parse(expended_at)
-          ExpenditureRecord.create(fund: fund, expended_at: expended_at, amount: amount, operator: operator, name: name, remark: remark)
+          ExpenditureRecord.create(expenditure_ledger: ledger, expended_at: expended_at, amount: amount, operator: operator, name: name, remark: remark)
           s_count += 1
         else
           f_count += 1
