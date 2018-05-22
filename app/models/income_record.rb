@@ -62,6 +62,8 @@ class IncomeRecord < ApplicationRecord
   counter_culture :agent, column_name: proc {|model| model.income_source.present? && !model.income_source.offline? ? 'online_amount' : nil}, delta_magnitude: proc {|model| model.amount}
   counter_culture :agent, column_name: proc {|model| model.income_source.present? && model.income_source.offline? ? 'offline_amount' : nil}, delta_magnitude: proc {|model| model.amount}
   counter_culture :agent, column_name: 'donate_amount', delta_magnitude: proc {|model| model.amount }
+  counter_culture :fund, column_name: proc{|model| model.fund.present? ? 'total' : nil}, delta_magnitude: proc {|model| model.amount}
+  counter_culture :fund, column_name: proc{|model| model.fund.present? ? 'balance' : nil}, delta_magnitude: proc {|model| model.amount}
 
   before_create :gen_certificate_no
 
