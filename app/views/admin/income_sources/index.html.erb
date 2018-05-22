@@ -27,9 +27,9 @@
               <th>
                 描述
               </th>
-              <th>
-                类型
-              </th>
+              <!--<th>-->
+                <!--类型-->
+              <!--</th>-->
               <th>
                 累计收入（元）
               </th>
@@ -50,9 +50,9 @@
               <td>
                 <%= source.description %>
               </td>
-              <td>
-                <%= source.enum_name(:kind) %>
-              </td>
+              <!--<td>-->
+                <!--<%#= source.enum_name(:kind) %>-->
+              <!--</td>-->
               <td>
                 <%= source.income_records.sum(:amount) %>
               </td>
@@ -66,9 +66,9 @@
                 <%= link_to edit_admin_income_source_path(source), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                   <i class="fa fa-edit"></i> 修改
                 <% end %>
-                <%= link_to admin_income_source_path(source), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
-                  <i class="fa fa-trash-o"></i> 删除
-                <% end %>
+                <%#= link_to admin_income_source_path(source), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                  <!--<i class="fa fa-trash-o"></i> 删除-->
+                <%# end %>
               </td>
             </tr>
             <% end %>
