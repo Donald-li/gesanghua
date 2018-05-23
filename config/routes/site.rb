@@ -20,6 +20,7 @@ scope module: :site do
   get '/p/:alias', to: 'pages#show'
   resources :supports, only: [:show]
   resource :contribution, only: :show
+  resources :volunteers, only: :index
   resources :pairs, only: [:index, :show], concerns: [:detail]
   resources :reads, only: [:index, :show], concerns: [:detail]
   resources :camps, only: [:index, :show], concerns: [:detail]
