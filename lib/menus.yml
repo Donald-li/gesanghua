@@ -199,7 +199,7 @@ admin:
                 'admin/income_sources': all
             admin_expenditure_ledger:
               actions:
-                admin/expenditure_ledgers: all
+                'admin/expenditure_ledgers': all
 
     # 项目管理
     admin_project:
