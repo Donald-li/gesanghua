@@ -1,34 +1,47 @@
 <div class="share-vol-a">
   <div>
-    <input type="text"/>
-    <span class="iconfont icon-ico-search"></span>
+    <%= search_form_for @search, url: volunteers_path do |f| %>
+    <%= f.text_field :name_or_phone_cont, placeholder: '搜索姓名、手机号',class:'share-vol-input' %>
+    <!-- <input type="text"/> -->
+    <button type="submit" class="iconfont icon-ico-search"></button>
+    <% end %>
   </div>
 </div>
 <div class="share-vol-b">
-  <div class="vol-a row clearfix" >
-    <div class="col-md-4 cur ">
-    <div class="clearfix">
-      <div class="vol-body-img ">
-        <%= image_tag 'project-reducepage-child.png' %>
+  <% if @volunteers.count > 0 %>
+    <div class="vol-a row clearfix" >
+      <% @volunteers.each do |volunteer| %>
+        <div class="col-md-4 cur ">
+          <div class="clearfix">
+            <div class="vol-body-img ">
+              <% if volunteer.try(:user).try(:user_avatar).present? %>
+                <%= image_tag volunteer.try(:user).try(:user_avatar) %>
+              <% else %>
+                <%= image_tag 'project-reducepage-child.png' %>
+              <% end %>
+            </div>
+            <div class="vol-body-conts ">
+              <p class="vol-body-c-name"><%= volunteer.name %> <br><strong><%= volunteer.volunteer_state %></strong></p>
+              <p class="vol-body-c-p">志愿者编号：<%= volunteer.volunteer_no %></p>
+              <p class="vol-body-c-p">所在地区：<%= ChinaCity.get(volunteer.try(:user).try(:city)).to_s %></p>
+              <p class="vol-body-c-p">服务时长：<%= volunteer.duration %> 小时</p>
+              <p class="vol-body-c-p">加入时间：<%= volunteer.approve_time.strftime("%Y-%m-%d") %></p>
+            </div>
+          </div>
       </div>
-      <div class="vol-body-conts ">
-        <p class="vol-body-c-name">Sissi花 <strong>| 服务中</strong></p>
-        <p class="vol-body-c-p">志愿者编号：ZYZ180023</p>
-        <p class="vol-body-c-p">所在地区：苏州</p>
-        <p class="vol-body-c-p">服务时长：293 小时</p>
-        <p class="vol-body-c-p">加入时间：2008-09-23</p>
+    <% end %>
+    </div>
+    <div class="project-foot">
+      <%= paginate @volunteers, theme: :tiny %>
+    </div>
+  <% else %>
+    <!--没有内容/没有结果-->
+    <div class="not-project-body contentab ">
+      <div class="donation-cont-no">
+        <div class="donation-co-no-c">
+          <p>暂无相关内容</p>
+        </div>
       </div>
     </div>
-  </div>
-
-
-  </div>
-  <!--没有内容/没有结果-->
-  <div class="not-project-body contentab ">
-    <div class="donation-cont-no">
-      <div class="donation-co-no-c">
-        <p>暂无相关内容</p>
-      </div>
-    </div>
-  </div>
+  <% end %>
 </div>
