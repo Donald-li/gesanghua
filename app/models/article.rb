@@ -28,6 +28,7 @@ class Article < ApplicationRecord
   validates :title, presence: true
   validates :content, presence: true
 
+  scope :admin_visible, -> {where(kind: [1])}
   scope :visible, -> {where(kind: [1, 4])}
   scope :sorted, ->{ order(published_at: :desc) }
   scope :reverse_sorted, ->{ sorted.reverse_order }
