@@ -25,6 +25,8 @@ class Special < ApplicationRecord
 
   validates :name, presence: true
 
+  attr_accessor :article_category_id
+
   enum template: {single: 1, double: 2}
   default_value_for :template, 1
 
