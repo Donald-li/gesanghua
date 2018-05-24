@@ -22,6 +22,7 @@
 class Article < ApplicationRecord
   belongs_to :article_category, optional: true
 
+  has_one :special
   has_many :special_articles, dependent: :destroy
 
   validates :title, presence: true
@@ -31,7 +32,7 @@ class Article < ApplicationRecord
   scope :sorted, ->{ order(published_at: :desc) }
   scope :reverse_sorted, ->{ sorted.reverse_order }
 
-  enum kind: {simple: 1, special: 2, announcement: 3}# 类型： 1:普通资讯 2: 专题资讯 3: 公告
+  enum kind: {simple: 1, special: 2, announcement: 3, list: 4}# 类型： 1:普通资讯 2: 专题资讯 3: 公告 4:给专题用于列表展示的资讯
   default_value_for :kind, 1
 
   enum special_kind: {text_news: 1, image_news: 2}
