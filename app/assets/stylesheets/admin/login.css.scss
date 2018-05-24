@@ -45,7 +45,16 @@ body {
   color: #8d8d8d;
 }
 //登录页面
-
+.logo-download{
+  text-align: center;
+  margin-top: 64px;
+  font-size: 15px;
+  color: #2a2a2c;
+  a{
+    color:#8b54e3;
+    text-decoration: underline;
+  }
+}
 #new-main {
   .logo-img {
     width: 100%;
