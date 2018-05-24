@@ -1,17 +1,46 @@
 <div class="speciais clearfix">
   <div class="speciais-left pull-left ">
     <div class="speciais-con">
-      <div class="donations-1 border-b" >
-        <ul class="donations1 clearfix">
-          <li class="cur selectedDo"><%= link_to articles_path do %>资讯
-            <div class="bottomline"></div><% end %></li>
-          <li class="cur  "><%= link_to specials_path do %>专题
-            <div class=""></div><% end %></li>
-        </ul>
+      <!--<div class="donations-1 border-b" >-->
+        <!--<ul class="donations1 clearfix">-->
+          <!--<li class="cur selectedDo"><%= link_to articles_path do %>资讯-->
+            <!--<div class="bottomline"></div><% end %></li>-->
+          <!--<li class="cur  "><%= link_to specials_path do %>专题-->
+            <!--<div class=""></div><% end %></li>-->
+        <!--</ul>-->
+      <!--</div>-->
+      <div class="row">
+        <div class="span12 border-b" style="height: 48px;position: relative;  margin-bottom: 15px;">
+
+          <div id="owl-demo" class="owl-carousel">
+
+            <div class="item">
+              <div class=" cur  selectedDo" >
+                <%= link_to '全部项目' %>
+
+                <div class="bottomline"></div>
+
+              </div>
+            </div>
+
+          </div>
+          <div class="customNavigation">
+            <a class=" prev">
+              <span class="iconfont icon-arrowdown bul-icon-prev"></span>
+            </a>
+            <a class=" next"><span class="iconfont icon-arrowdown bul-icon-next"></span></a>
+          </div>
+        </div>
+
+
       </div>
       <%= render '/site/articles/list', articles: @articles %>
     </div>
-  </div>
+
+
+
+    </div>
+
   <div class="speciais-right pull-right ">
     <div class="donations-1" style="margin-bottom: 0px;">
       <ul class="donations1 clearfix">
@@ -26,6 +55,7 @@
           <% end %>
           <%= image_tag recommend_article.image.try(:file).try(:url, :tiny).to_s %>
           <% if recommend_article != @recommend_articles.first %>
+
             </div>
           <% end %>
           <div class="speciais-con-con <%= recommend_article == @recommend_articles.first ? '' : 'pull-left' %>">
@@ -43,3 +73,24 @@
   </div>
 
 </div>
+<script>
+    $("#owl-demo").owlCarousel({
+        items : 6,
+        itemsDesktop : [1199,6],
+        itemsDesktopSmall : [979,6],
+        itemsTablet : [768,6],
+        itemsMobile : [479,6]
+    });
+    $(".next").click(function(){
+        $("#owl-demo").trigger('owl.next');
+    })
+    $(".prev").click(function(){
+        $("#owl-demo").trigger('owl.prev');
+    })
+    if($('#owl-demo .item').length <= 6){
+        $('.customNavigation').css({'display':'none'})
+    }else{
+        $('.customNavigation').css({'display':'block'})
+    }
+
+</script>
