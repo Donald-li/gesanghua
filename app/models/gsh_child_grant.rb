@@ -101,6 +101,7 @@ class GshChildGrant < ApplicationRecord
 
   # 使用捐助
   def accept_donate(donate_records)
+    # TODO: 得防止重复捐助
     donate_record = donate_records.last
     amount = [surplus_money, donate_record.amount].min
     donate_record.update!(amount: amount)

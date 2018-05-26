@@ -102,7 +102,7 @@
                 ￥<%= format_money(user.balance) %>
               </td>
               <td>
-                ￥<%= format_money(user.donations.paid.sum(:amount)) %>
+                ￥<%= format_money(user.income_records.sum(:amount)) %>
               </td>
               <td>
                 ￥<%= format_money(user.income_records.open_ticket.sum(:amount)) %>

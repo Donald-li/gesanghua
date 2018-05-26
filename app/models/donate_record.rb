@@ -64,6 +64,8 @@ class DonateRecord < ApplicationRecord
 
   enum kind: {user_donate: 1, platform_donate: 2} # 记录类型: 1:用户捐款 2:平台配捐
   default_value_for :kind, 1
+  
+  default_value_for :archive_data, {}
 
   scope :sorted, -> {order(created_at: :desc)}
   scope :visible, -> { normal }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180524062226) do
+ActiveRecord::Schema.define(version: 20180524101307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -362,6 +362,7 @@ ActiveRecord::Schema.define(version: 20180524062226) do
     t.integer "project_season_apply_child_id", comment: "一对一孩子"
     t.integer "state", comment: "状态"
     t.integer "school_id", comment: "学校id"
+    t.jsonb "archive_data", comment: "归档旧数据"
     t.index ["donation_id"], name: "index_donate_records_on_donation_id"
     t.index ["donor_id"], name: "index_donate_records_on_donor_id"
     t.index ["gsh_child_id"], name: "index_donate_records_on_gsh_child_id"
@@ -595,6 +596,7 @@ ActiveRecord::Schema.define(version: 20180524062226) do
     t.integer "voucher_id", comment: "捐赠收据ID"
     t.string "certificate_no", comment: "捐赠证书编号"
     t.string "income_no", comment: "收入编号"
+    t.jsonb "archive_data", comment: "归档旧数据"
     t.index ["agent_id"], name: "index_income_records_on_agent_id"
     t.index ["donation_id"], name: "index_income_records_on_donation_id"
     t.index ["donor_id"], name: "index_income_records_on_donor_id"
@@ -905,6 +907,7 @@ ActiveRecord::Schema.define(version: 20180524062226) do
     t.text "information", comment: "对外展示的孩子介绍"
     t.string "classname", comment: "班级名称"
     t.integer "priority_id", comment: "优先捐助人id"
+    t.jsonb "archive_data", comment: "归档旧数据"
   end
 
   create_table "project_season_apply_gooods", force: :cascade, comment: "项目执行年度申请的物品表" do |t|
@@ -1054,6 +1057,7 @@ ActiveRecord::Schema.define(version: 20180524062226) do
     t.string "contact_telephone", comment: "联系人座机号码"
     t.integer "creater_id", comment: "申请人ID"
     t.integer "total_amount", comment: "累计获捐"
+    t.jsonb "archive_data", comment: "归档旧数据"
   end
 
   create_table "sequences", force: :cascade do |t|
@@ -1208,6 +1212,7 @@ ActiveRecord::Schema.define(version: 20180524062226) do
     t.string "qq", comment: "QQ"
     t.string "openid", comment: "微信openid"
     t.string "wechat", comment: "微信"
+    t.jsonb "archive_data", comment: "归档旧数据"
   end
 
   create_table "teams", force: :cascade, comment: "小组" do |t|
@@ -1267,6 +1272,7 @@ ActiveRecord::Schema.define(version: 20180524062226) do
     t.jsonb "project_ids", default: [], comment: "可管理项目（项目管理员）"
     t.boolean "notice_state", default: false, comment: "用户是否有未查看的公告"
     t.string "login"
+    t.jsonb "archive_data", comment: "归档旧数据"
     t.index ["email"], name: "index_users_on_email"
     t.index ["phone"], name: "index_users_on_phone"
   end
@@ -1352,6 +1358,7 @@ ActiveRecord::Schema.define(version: 20180524062226) do
     t.string "source", comment: "获知渠道"
     t.text "experience", comment: "志愿者经历"
     t.integer "volunteer_age", comment: "服务年限"
+    t.jsonb "archive_data", comment: "归档旧数据"
   end
 
   create_table "voucher_donate_records", force: :cascade, comment: "捐赠收据捐助记录表" do |t|
