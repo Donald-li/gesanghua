@@ -1,0 +1,57 @@
+<%= content_for :page_style do %>
+    <%= stylesheet_link_tag 'blank', media: 'all', 'data-turbolinks-track': 'reload' %>
+<% end %>
+
+<div class="first-screen classbody"  >
+  <div style="min-height: 605px;">
+  <div class="canforget">
+    <%= image_tag 'binding-top-bg.jpg' %>
+  </div>
+  <div class="forget-password-font">
+    <p>WELCOME,欢迎回来</p>
+    <p>账号绑定还差一步哦~</p>
+  </div>
+  <div class="canforget-cont">
+
+    <p class="longin-tit clearfix">
+      <span class="pull-left cur longin-1">已有账号请绑定</span>
+      <span class="pull-right longin-4 iconfont icon-arrow-right"></span>
+      <span class="pull-right cur longin-3 longin-hover">没有账号，请注册</span>
+
+    </p>
+    <div class="input-in">
+    <span class="input input--hoshi">
+    <input class="input__field input__field--hoshi" type="text" id="phonenumber" placeholder="手机/邮箱"/>
+    <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="phonenumber"></label>
+    </span>
+      <span class="input input--hoshi">
+    <input class="input__field input__field--hoshi" type="text" id="security" placeholder="密码"/>
+    <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="security"></label>
+    </span>
+    </div>
+
+    <button class="register">
+      绑定
+    </button>
+
+  </div>
+  </div>
+  <footer class="flexdfoot" style="margin-top: 40px;">
+    Copyright(c) 2005-2015 青海格桑花教育救助会 版权所有 All Rights Reserved 青ICP
+  </footer>
+</div>
+
+
+<script type="text/javascript" charset="utf-8">
+    $("canvas.flare").let_it_snow({
+        windPower: 0,
+        speed: 0,
+        size: 110,
+        count: 15,
+        opacity: 0.1,
+        interaction: false,
+        image: '<%= image_path('circle.png')%>'
+    });
+
+
+</script>
