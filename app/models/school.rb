@@ -66,7 +66,7 @@ class School < ApplicationRecord
   enum state: {enable: 1, disable: 2} # 状态：1:启用 2:禁用
   default_value_for :state, 1
 
-  enum level: {primary: 0, junior: 1, senior: 2, abbreviation: 4} # 学校等级：1:初中 2:高中
+  enum level: {primary: 0, junior: 1, senior: 2, abbreviation: 4} # 学校等级：0小学 1:初中 2:高中 4职高
   default_value_for :level, 1
 
   enum kind: {village_center_school: 1, small_village_village: 2, cheng_guan_primary_school: 3, other: 4} # 学校类型：1:乡村中心校 2:乡村村小 3:城关小学 4:其他

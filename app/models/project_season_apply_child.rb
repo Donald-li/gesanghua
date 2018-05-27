@@ -120,7 +120,8 @@ class ProjectSeasonApplyChild < ApplicationRecord
   enum gender: {unknow: 0, male: 1, female: 2} #性别 1:男 2:女
   default_value_for :gender, 0
 
-  enum level: {junior: 1, senior: 2} # 状态：1:初中 2:高中
+  # enum level: {junior: 1, senior: 2} # 状态：1:初中 2:高中
+  enum level: {primary: 0, junior: 1, senior: 2, abbreviation: 4} # 学校等级：0小学 1:初中 2:高中 4职高
   default_value_for :level, 1
 
   enum kind: {outside: 1, inside: 2} # 捐助形式：1:对外捐助 2:内部认捐

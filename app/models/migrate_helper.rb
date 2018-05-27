@@ -39,7 +39,8 @@ class MigrateHelper
     end
   end
 
-  LIMIT = 1000
+  LIMIT = nil
+  # LIMIT = 1000
 
   def self.do_all_migrate!
     ApplicationRecord.transaction do
@@ -185,7 +186,6 @@ class MigrateHelper
     # 建项目和批次
     project = Project.pair_project
     project_season = ProjectSeason.create(name: '历史数据导入', state: :disable, project: project,
-      number: 0,
       junior_term_amount: Settings.junior_term_amount, junior_year_amount: Settings.junior_year_amount,
       senior_term_amount: Settings.senio_term_amount, senior_year_amount: Settings.senior_year_amount
     )
@@ -200,6 +200,7 @@ class MigrateHelper
       apply = project_season.applies.find_or_initialize_by(school_id: school.id)
       apply.project = project
       apply.season = project_season
+      apply.number = 0
       apply.province = school.province
       apply.city = school.city
       apply.district = school.district
@@ -211,7 +212,8 @@ class MigrateHelper
       child.project = project
       child.season = project_season
       child.school = school
-      child.level = school.level unless school.primary? # TODO: 有小学的
+      child.level = school.level# unless school.primary? || school.abbreviation? # TODO: 有小学的
+      # pp school if school.primary? || school.abbreviation?
       child.grade = estudent.Grade.to_i if estudent.Grade.present? && (estudent.Grade.to_i >= 1 && estudent.Grade.to_i <= 3)
       child.grade ||= 1
       teacher = Teacher.where("archive_data->>'TeacherId' = ?", estudent.TeacherId.to_s).first if estudent.TeacherId.present?
@@ -255,8 +257,12 @@ class MigrateHelper
       # 照片
       file_path = Rails.root.join('tmp', 'cache', 'photo', "#{estudent.StudentId}.jpg")
       if File.exist?(file_path)
-        asset = Asset::ApplyChildAvatar.create(file: File.open(file_path))
-        child.attach_avatar asset.id
+        begin
+          asset = Asset::ApplyChildAvatar.create(file: File.open(file_path))
+          child.attach_avatar asset.id
+        rescue => e
+          puts "处理照片时发生了错误" + file_path
+        end
       end
       i = i + 1
     end
@@ -324,7 +330,7 @@ class MigrateHelper
       puts "整理账户余额 #{i} / #{count}"
       balance = user.income_records.sum(:amount) - user.donate_records.sum(:amount)
       if balance > 0
-        user.account_records.create!(kind: :adjust, donor: user, amount: balance, remark: '历史数据账户余额', title: '历史数据账户余额')
+        # user.account_records.create!(kind: :adjust, donor: user, amount: balance, remark: '历史数据账户余额', title: '历史数据账户余额')
       end
     end
   end
