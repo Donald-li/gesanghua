@@ -32,8 +32,8 @@ class MigrateHelper
   # 照片
   class EPhoto < ApplicationRecord; establish_connection :old_data; self.table_name = 'e_Photo'; self.primary_key = 'PhotoId'
     def tmp_file # 保存临时文件
-      FileUtils.mkdir_p Rails.root.join('tmp', 'cache', 'photo')
-      path = Rails.root.join('tmp', 'cache', 'photo', "#{self.StudentId}.jpg")
+      FileUtils.mkdir_p Rails.root.join('log', 'cache', 'photo')
+      path = Rails.root.join('log', 'cache', 'photo', "#{self.StudentId}.jpg")
       File.open(path, 'wb'){|file| file.write self.Data} unless File.exist?(path)
       path
     end
@@ -255,7 +255,7 @@ class MigrateHelper
       child.save!(validate: false)
 
       # 照片
-      file_path = Rails.root.join('tmp', 'cache', 'photo', "#{estudent.StudentId}.jpg")
+      file_path = Rails.root.join('log', 'cache', 'photo', "#{estudent.StudentId}.jpg")
       if File.exist?(file_path)
         begin
           asset = Asset::ApplyChildAvatar.create(file: File.open(file_path))
