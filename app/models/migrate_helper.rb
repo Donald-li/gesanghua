@@ -261,7 +261,7 @@ class MigrateHelper
           asset = Asset::ApplyChildAvatar.create(file: File.open(file_path))
           child.attach_avatar asset.id
         rescue => e
-          puts "处理照片时发生了错误" + file_path
+          puts "处理照片时发生了错误" + e.inspect
         end
       end
       i = i + 1
