@@ -105,6 +105,8 @@ class User < ApplicationRecord
 
   default_value_for :profile, {}
 
+  default_value_for :archive_data, {}
+
   enum state: {unactived: 0, enable: 1, disable: 2} #状态 0: 未激活（代捐人） 1:启用 2:禁用
   default_value_for :state, 1
 

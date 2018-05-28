@@ -2,6 +2,7 @@ class Site::ArticlesController < Site::BaseController
 
   def index
     scope = Article.visible.show.sorted
+    scope = scope.where(article_category_id: params[:category_id]) if params[:category_id].present?
     @articles = scope.page(params[:page]).per(8)
     @recommend_articles = Article.visible.show.recommend.sorted
   end

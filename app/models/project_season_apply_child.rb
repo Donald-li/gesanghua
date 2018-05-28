@@ -107,8 +107,8 @@ class ProjectSeasonApplyChild < ApplicationRecord
   attr_accessor :approve_remark
 
   validates :id_card, shenfenzheng_no: true
-  validates :id_card, :name, presence: true
-  validates :province, :city, :district, presence: true
+  validates :id_card, :name, presence: true, if: ->(c){c.archive_data.blank?}
+  validates :province, :city, :district, presence: true, if: ->(c){c.archive_data.blank?}
   validates :reason, length: {maximum: 20}
 
   enum state: {show: 1, hidden: 2} # 状态：1:展示 2:隐藏
@@ -120,7 +120,8 @@ class ProjectSeasonApplyChild < ApplicationRecord
   enum gender: {unknow: 0, male: 1, female: 2} #性别 1:男 2:女
   default_value_for :gender, 0
 
-  enum level: {junior: 1, senior: 2} # 状态：1:初中 2:高中
+  # enum level: {junior: 1, senior: 2} # 状态：1:初中 2:高中
+  enum level: {primary: 0, junior: 1, senior: 2, abbreviation: 4} # 学校等级：0小学 1:初中 2:高中 4职高
   default_value_for :level, 1
 
   enum kind: {outside: 1, inside: 2} # 捐助形式：1:对外捐助 2:内部认捐
@@ -132,6 +133,8 @@ class ProjectSeasonApplyChild < ApplicationRecord
   enum semester: {last_term: 1, next_term: 2} # 学期： 1:上学期 2:下学期
   default_value_for :semester, 1
   default_value_for :information, ''
+
+  default_value_for :archive_data, {}
 
   enum nation: {'default': 0, 'hanzu': 1, 'zangzu': 10, 'huizu': 4, 'tuzu': 30, 'mengguzu': 9, 'salazu': 37, 'zhuangzu': 2, 'manzu': 3, 'miaozu': 5, 'weizu': 6, 'tujiazu': 7, 'yizu': 8, 'buyizu': 11, 'dongzu': 12, 'yaozu': 13, 'chaoxianzu': 14, 'baizu': 15, 'hanizu': 16, 'hasakezu': 17, 'lizu': 18, 'daizu': 19, 'shezu': 20, 'lisuzu': 21, 'gelaozu': 22, 'dongxiangzu': 23, 'gaoshanzu': 24, 'lahuzu': 25, 'shuizu': 26, 'wazu': 27, 'naxizu': 28, 'qiangzu': 29, 'mulaozu': 31, 'xibozu': 32, 'keerkezizu': 33, 'dawoerzu': 34, 'jingpozu': 35, 'maonanzu': 36, 'bulangzu': 38, 'tajikezu': 39, 'achangzu': 40, 'pumizu': 41, 'ewenkezu': 42, 'nuzu': 43, 'jingzu': 44, 'jinuozu': 45, 'deangzu': 46, 'baoanzu': 47, 'eluosizu': 48, 'yuguzu': 49, 'wuzibiekezu': 50, 'menbazu': 51, 'elunchunzu': 52, 'dulongzu': 53, 'tataerzu': 54, 'hezhezu': 55, 'luobazu': 56}
   default_value_for :nation, 0
@@ -184,6 +187,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   end
 
   def count_age
+    return unless self.id_card.present?
     birthday = ChinesePid.new("#{self.id_card}").birthday
     today = Date.today
     child_age = (today - birthday).to_i/365
@@ -213,7 +217,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   # 筹款进度
   def gift_progress
-    "#{self.done_semester_count} / #{self.semester_count}"
+    "#{self.done_semester_count} / #{self.semester_count.to_i}"
   end
 
   def raise_condition
@@ -540,7 +544,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
     gsh_child.phone = self.phone
     gsh_child.qq = self.qq
     gsh_child.id_card = self.id_card
-    gsh_child.save
+    gsh_child.save(validate: false)
     return gsh_child
   end
 

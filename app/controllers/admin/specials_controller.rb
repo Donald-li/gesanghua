@@ -20,9 +20,10 @@ class Admin::SpecialsController < Admin::BaseController
   end
 
   def create
-    @special = Special.new(special_params)
+    @article = Article.new(title: special_params[:name], describe: special_params[:describe], article_category_id: special_params[:article_category_id], author: special_params[:author], content: special_params[:describe], kind: 'list')
+    @special = Special.new(special_params.merge(list_article: @article))
     respond_to do |format|
-      if @special.save
+      if @special.save && @article.save
         @special.attach_banner(params[:banner_id])
         format.html { redirect_to edit_admin_special_path(@special), notice: '专题已增加。' }
       else
@@ -34,6 +35,7 @@ class Admin::SpecialsController < Admin::BaseController
   def update
     respond_to do |format|
       if @special.update(special_params)
+        @special.list_article.update(title: special_params[:name], describe: special_params[:describe])
         @special.attach_banner(params[:banner_id])
         format.html { redirect_to edit_admin_special_path(@special), notice: '专题已修改。' }
       else
@@ -43,21 +45,22 @@ class Admin::SpecialsController < Admin::BaseController
   end
 
   def destroy
-    @special.destroy
+    @special.destroy && @special.list_article.destroy
     respond_to do |format|
       format.html { redirect_to admin_specials_path, notice: '专题已删除。' }
     end
   end
 
   def switch
-    @special.show? ? @special.hidden! : @special.show!
-    redirect_to admin_specials_url, notice:  @special.show? ? '专题已展示' : '专题已隐藏'
+    @article = @special.list_article
+    @article.show? ? @article.hidden! : @article.show!
+    redirect_to admin_specials_url, notice:  @article.show? ? '专题已展示' : '专题已隐藏'
   end
 
-  def recommend
-    @special.recommend? ? @special.normal! : @special.recommend!
-    redirect_to admin_specials_url, notice:  @special.recommend? ? '已推荐专题' : '已取消推荐专题'
-  end
+  # def recommend
+  #   @special.recommend? ? @special.normal! : @special.recommend!
+  #   redirect_to admin_specials_url, notice:  @special.recommend? ? '已推荐专题' : '已取消推荐专题'
+  # end
 
   private
     def set_special

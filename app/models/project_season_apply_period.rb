@@ -17,7 +17,7 @@
 #  semester          :integer                                # 一对一对应学期
 #
 
-# 一对一项目申请期间学期
+# TODO:废弃：一对一项目申请期间学期
 class ProjectSeasonApplyPeriod < ApplicationRecord
 
   acts_as_list column: :position
@@ -28,7 +28,7 @@ class ProjectSeasonApplyPeriod < ApplicationRecord
 
   validates :name, presence: true
 
-  enum kind: {junior: 1, senior: 2}
+  enum level: {primary: 0, junior: 1, senior: 2, abbreviation: 4} # 学校等级：0小学 1:初中 2:高中 4职高
   default_value_for :kind, 1
 
   enum grade: {one: 1, two: 2, three: 3}

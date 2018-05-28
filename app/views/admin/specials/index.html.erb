@@ -54,9 +54,10 @@
                 <%= special.enum_name(:template) %>
               </td>
               <td>
-                <%= link_to switch_admin_special_path(special), data: {confirm: "确定#{special.state === 'show' ? '隐藏该专题' : '展示该专题'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{special.state === 'show' ? 'green' : 'default'}" do %>
-                <%= special.state === 'show' ? '展示' : '隐藏' %>
-                <i class="fa <%= special.state === 'show' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                <% article = special.list_article %>
+                <%= link_to switch_admin_special_path(special), data: {confirm: "确定#{article.state === 'show' ? '隐藏该专题' : '展示该专题'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{article.state === 'show' ? 'green' : 'default'}" do %>
+                <%= article.state === 'show' ? '展示' : '隐藏' %>
+                <i class="fa <%= article.state === 'show' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
                 <% end %>
               </td>
               <td>

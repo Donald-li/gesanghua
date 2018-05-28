@@ -51,6 +51,7 @@ class IncomeRecord < ApplicationRecord
   enum voucher_state: {to_bill: 1, billed: 2} #收据状态，1:未开票 2:已开票
   default_value_for :voucher_state, 1
 
+  default_value_for :archive_data, {}
 
   include HasAsset
   has_one_asset :income_record_excel, class_name: 'Asset::IncomeRecordExcel'

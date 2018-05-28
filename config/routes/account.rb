@@ -10,6 +10,7 @@ namespace :account do
       post :email_get_code
     end
   end
+  resource :regression, only: [:new, :create]
   resources :registrations, only: [:new, :create] do
     collection do
       get :bind

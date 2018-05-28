@@ -1,22 +1,30 @@
 <% articles.each do |article| %>
-  <div class="clearfix speciais-t">
-    <%= link_to article_path(article) do %>
-      <div class="speciais-con-img pull-left">
-        <%= image_tag article.image.try(:file).try(:url, :medium).to_s %>
-        <span class="camps-mark">专题</span>
-      </div>
-      <div class="speciais-con-con pull-left">
-        <p class="gsh-cont-2"><%= article.title %></p>
-        <p class="gsh-cont-1"><%= article.author %> |  <%= article.published_at.strftime("%Y年%m月%d日") %></p>
-        <p class="gsh-cont-3"><%= strip_tags article.content %></p>
-      </div>
-    <% end %>
-  </div>
+    <div class="clearfix speciais-t">
+      <%= link_to article.simple? ? article_path(article) : special_path(article.special) do %>
+          <div class="speciais-con-img pull-left">
+            <% if article.simple? %>
+                <%= image_tag article.image_url(:medium).to_s %>
+            <% else %>
+                <%= image_tag article.special.banner_url(:medium).to_s %>
+            <% end %>
+            <% if article.list? %>
+                <span class="camps-mark">专题</span>
+            <% end %>
+          </div>
+          <div class="speciais-con-con pull-left">
+            <p class="gsh-cont-2"><%= article.title %></p>
+            <p class="gsh-cont-1"><%= article.author %> |  <%= article.published_at.strftime("%Y年%m月%d日") %></p>
+            <p class="gsh-cont-3"><%= strip_tags article.describe %></p>
+          </div>
+      <% end %>
+    </div>
 <% end %>
 <% if articles.current_page < articles.total_pages %>
-  <div class="speciais-cont-but border-t">
-    <%= link_to articles_path(page: articles.current_page+1), remote: true do %><button>加载更多</button><% end %>
-  </div>
+    <div class="speciais-cont-but border-t">
+      <%= link_to articles_path(page: articles.current_page+1), remote: true do %>
+          <button>加载更多</button>
+      <% end %>
+    </div>
 <% end %>
 <script>
 

@@ -2,12 +2,14 @@
   <div class="speciais-left pull-left ">
     <div class="speciais-con">
       <!--<div class="donations-1 border-b" >-->
-        <!--<ul class="donations1 clearfix">-->
-          <!--<li class="cur selectedDo"><%= link_to articles_path do %>资讯-->
-            <!--<div class="bottomline"></div><% end %></li>-->
-          <!--<li class="cur  "><%= link_to specials_path do %>专题-->
-            <!--<div class=""></div><% end %></li>-->
-        <!--</ul>-->
+      <!--<ul class="donations1 clearfix">-->
+      <!--<li class="cur selectedDo"><%= link_to articles_path do %>资讯-->
+          <!--<div class="bottomline"></div>
+      <% end %></li>-->
+      <!--<li class="cur  "><%= link_to specials_path do %>专题-->
+          <!--<div class=""></div>
+      <% end %></li>-->
+      <!--</ul>-->
       <!--</div>-->
       <div class="row">
         <div class="span12 border-b" style="height: 48px;position: relative;  margin-bottom: 15px;">
@@ -15,13 +17,25 @@
           <div id="owl-demo" class="owl-carousel">
 
             <div class="item">
-              <div class=" cur  selectedDo" >
-                <%= link_to '全部项目' %>
-
-                <div class="bottomline"></div>
-
+              <div class="cur <%= 'selectedDo' if params[:category_id].nil? %>">
+                <%= link_to '最新资讯' %>
+                <% if params[:category_id].nil? %>
+                    <div class="bottomline"></div>
+                <% end %>
               </div>
             </div>
+
+            <% ArticleCategory.sorted.each do |cate| %>
+                <div class="item">
+                  <div class="cur <%= 'selectedDo' if params[:category_id].to_i == cate.id %>">
+                    <%= link_to cate.name, articles_path(category_id: cate.id) %>
+                    <% if params[:category_id].to_i == cate.id %>
+                        <div class="bottomline"></div>
+                    <% end %>
+                  </div>
+                </div>
+            <% end %>
+
 
           </div>
           <div class="customNavigation">
@@ -38,8 +52,7 @@
     </div>
 
 
-
-    </div>
+  </div>
 
   <div class="speciais-right pull-right ">
     <div class="donations-1" style="margin-bottom: 0px;">
@@ -48,49 +61,51 @@
       </ul>
     </div>
     <% @recommend_articles.limit(5).each do |recommend_article| %>
-      <%= link_to article_path(recommend_article) do %>
-        <div class="<%= recommend_article == @recommend_articles.first ? 'speciais-right-pos' : 'clearfix speciais-right-cont' %>">
-          <% if recommend_article != @recommend_articles.first %>
-            <div class="speciais-con-img pull-left">
-          <% end %>
-          <%= image_tag recommend_article.image.try(:file).try(:url, :tiny).to_s %>
-          <% if recommend_article != @recommend_articles.first %>
+        <%= link_to article_path(recommend_article) do %>
+            <div class="<%= recommend_article == @recommend_articles.first ? 'speciais-right-pos' : 'clearfix speciais-right-cont' %>">
+              <% if recommend_article != @recommend_articles.first %>
+                  <div class="speciais-con-img pull-left">
+              <% end %>
 
+              <%= image_tag recommend_article.image.try(:file).try(:url, :tiny).to_s %>
+              <% if recommend_article != @recommend_articles.first %>
+
+                  </div>
+              <% end %>
+              <div class="speciais-con-con <%= recommend_article == @recommend_articles.first ? '' : 'pull-left' %>">
+                <% if recommend_article == @recommend_articles.first %>
+                    <div></div>
+                <% end %>
+                <p class="gsh-cont-2"><%= recommend_article.title %></p>
+                <% if recommend_article != @recommend_articles.first %>
+                    <p class="gsh-cont-1"><%= recommend_article.author %>
+                      |  <%= recommend_article.published_at.strftime("%Y年%m月%d日") %></p>
+                <% end %>
+              </div>
             </div>
-          <% end %>
-          <div class="speciais-con-con <%= recommend_article == @recommend_articles.first ? '' : 'pull-left' %>">
-            <% if recommend_article == @recommend_articles.first %>
-              <div></div>
-            <% end %>
-            <p class="gsh-cont-2"><%= recommend_article.title %></p>
-            <% if recommend_article != @recommend_articles.first %>
-              <p class="gsh-cont-1"><%= recommend_article.author %> |  <%= recommend_article.published_at.strftime("%Y年%m月%d日") %></p>
-            <% end %>
-          </div>
-        </div>
-      <% end %>
+        <% end %>
     <% end %>
   </div>
 
 </div>
 <script>
     $("#owl-demo").owlCarousel({
-        items : 6,
-        itemsDesktop : [1199,6],
-        itemsDesktopSmall : [979,6],
-        itemsTablet : [768,6],
-        itemsMobile : [479,6]
+        items: 6,
+        itemsDesktop: [1199, 6],
+        itemsDesktopSmall: [979, 6],
+        itemsTablet: [768, 6],
+        itemsMobile: [479, 6]
     });
-    $(".next").click(function(){
+    $(".next").click(function () {
         $("#owl-demo").trigger('owl.next');
     })
-    $(".prev").click(function(){
+    $(".prev").click(function () {
         $("#owl-demo").trigger('owl.prev');
     })
-    if($('#owl-demo .item').length <= 6){
-        $('.customNavigation').css({'display':'none'})
-    }else{
-        $('.customNavigation').css({'display':'block'})
+    if ($('#owl-demo .item').length <= 6) {
+        $('.customNavigation').css({'display': 'none'})
+    } else {
+        $('.customNavigation').css({'display': 'block'})
     }
 
 </script>

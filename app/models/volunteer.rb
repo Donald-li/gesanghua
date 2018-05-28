@@ -69,6 +69,8 @@ class Volunteer < ApplicationRecord
 
   default_value_for :approve_time, Time.now
 
+  default_value_for :archive_data, {}
+
   default_value_for :level, 0
   default_value_for :duration, 0
   default_value_for :leave_reason, {type: '', content: ''}

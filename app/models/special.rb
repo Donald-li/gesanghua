@@ -10,16 +10,22 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  state        :integer          default("show")       # 状态, 1:展示 2:隐藏
+#  author       :string                                 # 编辑人
+#  article_id   :integer                                # 资讯id
 #
 
 # 专题
 class Special < ApplicationRecord
+
+  belongs_to :list_article, class_name: 'Article', foreign_key: :article_id
   has_many :special_articles, dependent: :destroy
   has_many :articles, through: :special_articles
   has_many :special_adverts, dependent: :destroy
   has_many :adverts, through: :special_adverts
 
   validates :name, presence: true
+
+  attr_accessor :article_category_id
 
   enum template: {single: 1, double: 2}
   default_value_for :template, 1

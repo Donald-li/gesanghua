@@ -10,6 +10,8 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  state        :integer          default("show")       # 状态, 1:展示 2:隐藏
+#  author       :string                                 # 编辑人
+#  article_id   :integer                                # 资讯id
 #
 
 require 'rails_helper'

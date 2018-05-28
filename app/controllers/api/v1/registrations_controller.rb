@@ -38,13 +38,63 @@ class Api::V1::RegistrationsController < Api::V1::BaseController
     end
   end
 
+  def regression
+    user = match_user(2)
+    if user.present?
+      set_current_user(user)
+      user.enable!
+      return api_success(data: user.session_builder)
+    else
+      return api_error(message: '找回失败')
+    end
+  end
+
+  def set_password
+    user = current_user
+    user.password = params[:password]
+    if user.save
+      return api_success(data: user.session_builder)
+    else
+      return api_error(message: '设置失败，请重试')
+    end
+  end
+
   private
 
   def user_params
-    params.permit(:login, :password, :code)
+    params.permit(:login, :password, :code, :nickname, :name, :phone, :email)
   end
 
   def set_current_user(user)
     session[:user_id] = user.id
   end
+
+  def match_user(condition)
+    user_library = User.unactived.where(manager_id: nil)
+    # 匹配任意两条
+    users = {}
+    if condition == 2
+      users = user_library.where(nickname: user_params[:nickname], name: user_params[:name]) if user_params[:nickname].present? and user_params[:name].present?
+      users = user_library.where(nickname: user_params[:nickname], phone: user_params[:phone]) if user_params[:nickname].present? and user_params[:phone].present? && users.empty?
+      users = user_library.where(nickname: user_params[:nickname], email: user_params[:email]) if user_params[:nickname].present? and user_params[:email].present? && users.empty?
+      users = user_library.where(name: user_params[:name], phone: user_params[:phone]) if user_params[:name].present? and user_params[:phone].present? && users.empty?
+      users = user_library.where(name: user_params[:name], email: user_params[:email]) if user_params[:name].present? and user_params[:email].present? && users.empty?
+      users = user_library.where(phone: user_params[:phone], email: user_params[:email]) if user_params[:phone].present? and user_params[:email].present? && users.empty?
+    end
+
+    # 匹配任意三条
+    if users.count > 1
+      users = user_library.where(name: user_params[:name], phone: user_params[:phone], email: user_params[:email]) if user_params[:name].present? and user_params[:phone].present? and user_params[:email].present?
+      users = user_library.where(nickname: user_params[:nickname], name: user_params[:name], phone: user_params[:phone]) if user_params[:nickname].present? and user_params[:name].present? and user_params[:phone].present? && users.empty?
+      users = user_library.where(nickname: user_params[:nickname], name: user_params[:name], email: user_params[:email]) if user_params[:nickname].present? and user_params[:name].present? and user_params[:email].present? && users.empty?
+      users = user_library.where(nickname: user_params[:nickname], phone: user_params[:phone], email: user_params[:email]) if user_params[:nickname].present? and user_params[:phone].present? and user_params[:email].present? && users.empty?
+    end
+
+    # 匹配全部
+    if users.count > 1
+      users = user_library.where(nickname: user_params[:nickname], name: user_params[:name], phone: user_params[:phone], email: user_params[:email]) if user_params[:nickname].present? and user_params[:name].present? and user_params[:phone].present? and user_params[:email].present?
+    end
+    return users.first
+  end
+
 end
