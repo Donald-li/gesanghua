@@ -11,14 +11,19 @@ class Account::RegressionsController < Account::BaseController
     user = match_user(2)
     if user.present?
       set_current_user(user)
-      user.enable!
-      redirect_to edit_password_account_user_center_account_path
+      user.state = 'enable'
+      if user.save
+        redirect_to edit_password_account_user_center_account_path
+      else
+        flash[:alert] = "找回失败"
+        @user = User.new
+        render :new
+      end
     else
       flash[:alert] = "找回失败"
       @user = User.new
       render :new
     end
-
   end
 
   private
