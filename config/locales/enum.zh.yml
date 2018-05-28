@@ -80,8 +80,10 @@ zh:
     entirety: '整捐'
     scattered: '零捐'
   school_levels:
+    primary: '小学'
     junior: '初中'
     senior: '高中'
+    abbreviation: '职高'
   school_kinds:
     village_center_school: '乡村中心校'
     small_village_village: '乡村村小'
@@ -194,8 +196,10 @@ zh:
     two: '二年级'
     three: '三年级'
   project_season_apply_child_levels:
+    primary: '小学'
     junior: '初中'
     senior: '高中'
+    abbreviation: '职高'
   project_season_apply_child_semesters:
     last_term: '上学期'
     next_term: '下学期'

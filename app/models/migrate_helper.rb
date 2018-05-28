@@ -58,7 +58,7 @@ class MigrateHelper
   def self.migrate_donors
     count = EDonor.count
     i = 1
-    EDonor.limit(LIMIT).find_each(batch_size: 10000) do |donor|
+    EDonor.limit(LIMIT).find_each(batch_size: 1000) do |donor|
       puts "迁移捐款人 #{i} / #{count}"
       user = User.new
       # user.login = donor.DvUserName
@@ -86,7 +86,7 @@ class MigrateHelper
   def self.migrate_profiles
     count = EMyProfile.count
     i = 1
-    EMyProfile.limit(LIMIT).find_each(batch_size: 10000) do |profile|
+    EMyProfile.limit(LIMIT).find_each(batch_size: 1000) do |profile|
       puts "迁移用户账号 #{i} / #{count}"
       if profile.DonorId.to_i > 0
         user = User.where("archive_data ->> 'DonorId' = ?", profile.DonorId.to_s).first if profile.DonorId.present?
@@ -121,7 +121,7 @@ class MigrateHelper
   def self.migrate_schools
     count = ESchool.count
     i = 1
-    ESchool.limit(LIMIT).find_each(batch_size: 10000) do |eschool|
+    ESchool.limit(LIMIT).find_each(batch_size: 1000) do |eschool|
       puts "迁移学校 #{i} / #{count}"
       school = School.new
       school.name = eschool.Name
@@ -149,7 +149,7 @@ class MigrateHelper
   def self.migrate_teachers
     count = ETeacher.count
     i = 1
-    ETeacher.limit(LIMIT).find_each(batch_size: 10000) do |eteacher|
+    ETeacher.limit(LIMIT).find_each(batch_size: 1000) do |eteacher|
       puts "迁移教师 #{i} / #{count}"
 
       teacher = Teacher.new
@@ -177,7 +177,7 @@ class MigrateHelper
   def self.migrate_children
     count = EPhoto.count
     i = 1
-    EPhoto.limit(LIMIT).find_each(batch_size: 10000) do |ephoto|
+    EPhoto.limit(LIMIT).find_each(batch_size: 1000) do |ephoto|
       puts "迁移孩子照片 #{i} / #{count}"
       ephoto.tmp_file
       i = i + 1
@@ -192,7 +192,7 @@ class MigrateHelper
 
     count = EStudent.count
     i = 1
-    EStudent.limit(LIMIT).find_each(batch_size: 10000) do |estudent|
+    EStudent.limit(LIMIT).find_each(batch_size: 1000) do |estudent|
       puts "迁移孩子 #{i} / #{count}"
       # 每个学校建申请
       school = School.where("archive_data->>'SchoolId' = ?", estudent.SchoolId.to_s).first
@@ -273,7 +273,7 @@ class MigrateHelper
     count = EEndowLog.count
     i = 1
     fund = Fund.find_by(fund_category_id: 3, name: '指定')
-    EEndowLog.limit(LIMIT).find_each(batch_size: 10000) do |log|
+    EEndowLog.limit(LIMIT).find_each(batch_size: 1000) do |log|
       puts "迁移捐款记录 #{i} / #{count}"
       user = User.where("archive_data->>'DonorId' = ?", log.DonorId.to_s).first if log.DonorId.present?
       user ||= User.find_by(nickname: '-1') # 固定的一个配捐用户
@@ -326,7 +326,7 @@ class MigrateHelper
   def self.clean_data
     count = User.unactived.count
     i = 1
-    User.unactived.limit(LIMIT).find_each(batch_size: 10000) do |user|
+    User.unactived.limit(LIMIT).find_each(batch_size: 1000) do |user|
       puts "整理账户余额 #{i} / #{count}"
       balance = user.income_records.sum(:amount) - user.donate_records.sum(:amount)
       if balance > 0
