@@ -146,7 +146,7 @@ namespace :admin do
     resources :items, controller: :pair_grant_batch_items, only: [:index, :create, :destroy]
   end
 
-  resources :pair_grants, concerns: [:excel_output] do
+  resources :pair_grants, concerns: [:excel_output, :switch] do
     member do
       get :accrue
       get :edit_delay

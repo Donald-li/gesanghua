@@ -8,7 +8,7 @@
     <p class="article-con read-more"><%= @special.describe.html_safe %></p>
   </div>
   <div class="article-read border-b">
-    <p>专题新闻</p>
+    <p>专题导读</p>
     <div class="article-reads clearfix">
       <div class="pull-left">
         <% if @text_news.first.present? %>
@@ -50,7 +50,7 @@
   </div>
   <div class="article-new">
     <div class="recommend">
-      <p>专题资讯</p>
+      <p>最新资讯</p>
       <div class="row recommend-cont clearfix">
         <% @image_news.each do |image_new| %>
           <div class="col-md-4">
