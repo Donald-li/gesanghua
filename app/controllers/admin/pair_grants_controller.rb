@@ -108,6 +108,15 @@ class Admin::PairGrantsController < Admin::BaseController
     end
   end
 
+  def switch
+    @grant.state = params[:state]
+    if @grant.save
+      redirect_to admin_pair_grants_path, notice: '标记成功。'
+    else
+      redirect_to admin_pair_grants_path, notice: '标记失败。'
+    end
+  end
+
   private
   def set_grant
     @grant = GshChildGrant.find(params[:id])
