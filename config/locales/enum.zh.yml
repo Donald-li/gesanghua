@@ -9,8 +9,8 @@ zh:
     financial_staff: '财务人员'
     operator: '运营人员'
   advert_kinds:
-    banner: '微信Banner轮播图'
-    pc_banner: 'PC端Banner轮播图'
+    banner: '微信Banner轮播图（1014X604px）'
+    pc_banner: 'PC端Banner轮播图（1710X906px）'
   advert_states:
     show: '显示'
     hidden: '隐藏'
