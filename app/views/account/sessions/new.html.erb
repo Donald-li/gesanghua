@@ -21,6 +21,7 @@
           <div class="longin-left">
             <p class="longin-tit clearfix">
               <span class="pull-left cur longin-1">账号登录</span>
+              <%= link_to new_account_regression_path do %><span class="pull-right cur longin-3 longin-hover">账号找回</span><% end %>
             </p>
             <div class="input-in">
               <span class="input input--hoshi">
@@ -44,8 +45,8 @@
           <div class="longin-right">
             <p class="longin-margin">还没有账号？<strong class="cur"><%= link_to new_account_registration_path(kind: 'by_phone'),class:'longin-hover' do %>立即注册<% end %></strong></p>
             <p class="longin-margin">or</p>
-            <p class="longin-margin"><strong class="cur"><%= link_to new_account_regression_path,class:'longin-hover' do %>账号找回<% end %></strong></p>
-            <p class="longin-margin">or</p>
+            <!--<p class="longin-margin"><strong class="cur"><%= link_to new_account_regression_path,class:'longin-hover' do %>账号找回<% end %></strong></p>-->
+            <!--<p class="longin-margin">or</p>-->
             <p class="longin-icon cur">
               <%= link_to @wechat_url, style: 'color: #fff' do %>
               <span class="iconfont icon-wechat pull-left"></span><span class="pull-left">微信登录</span>
