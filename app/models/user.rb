@@ -97,8 +97,8 @@ class User < ApplicationRecord
   validates :password, confirmation: true, allow_blank: true, unless: Proc.new { |u| u.password.present? }
   validates :password, length: { minimum: 6 }, allow_blank: true, unless: Proc.new { |u| u.password.present? }
   # default_value_for :password, '111111'
-  validates :email, email: true
-  validates :phone, mobile: true, uniqueness: { allow_blank: true }
+  validates :email, email: true, unless: Proc.new { |u| u.archive_data.present? }
+  validates :phone, mobile: true, uniqueness: { allow_blank: true }, unless: Proc.new { |u| u.archive_data.present? }
   # validates :name, presence: true
   validates :login, uniqueness: true, if: Proc.new {|u| u.login.present?}
   validates :balance, numericality: { greater_than_or_equal_to: 0 }
