@@ -11,6 +11,7 @@ zh:
   advert_kinds:
     banner: '微信Banner轮播图（1014X604px）'
     pc_banner: 'PC端Banner轮播图（1710X906px）'
+    pc_donate_banner: 'pc首页项目捐款广告位（372X686px）'
   advert_states:
     show: '显示'
     hidden: '隐藏'

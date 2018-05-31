@@ -982,19 +982,37 @@ select:disabled {
   }
 .bul-img-q{
   height:343px;
-  & > div{
-    width: 186px;
-    height: 100%;
-    position: relative;
-    margin-left: 6px;
-    img{
-      width:100%;
-      height:100%;
+  //& > div{
+  //  width: 186px;
+  //  height: 100%;
+  //  position: relative;
+  //  margin-left: 6px;
+  //  img{
+  //    width:100%;
+  //    height:100%;
+  //  }
+  //}
+  a{
+    display: block;
+    float: left;
+    height:100%;
+    & > div{
+      width: 186px;
+      height: 100%;
+      position: relative;
+      margin-left: 6px;
+      img{
+        width:100%;
+        height:100%;
+      }
+    }
+    & > div:first-child{
+      margin-left: 0;
     }
   }
-  & > div:first-child{
-    margin-left: 0;
-  }
+  //& > div:first-child{
+  //  margin-left: 0;
+  //}
   .bul-img-q-pos{
     position: absolute;
     left:0;
