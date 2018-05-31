@@ -87,7 +87,7 @@ class GshChild < ApplicationRecord
 
   private
   def gen_gsh_no
-    self.gsh_no ||= Sequence.get_seq(kind: :gsh_no, prefix: 'GSH', length: 10)
+    self.gsh_no = self.gsh_no.presence || Sequence.get_seq(kind: :gsh_no, prefix: 'GSH', length: 9)
   end
 
 end

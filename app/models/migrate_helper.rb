@@ -17,15 +17,15 @@ class MigrateHelper
   class EGrantLog < ApplicationRecord; establish_connection :old_data; self.table_name = 'E_GrantLog'; self.primary_key = 'GrantLogId'; end
   # 地区
   class EDistrict < ApplicationRecord; establish_connection :old_data; self.table_name = 'e_District'; self.primary_key = 'DistrictId'
-    def codes
-      province = ChinaCity.list.detect{|c|c[0][0,2] == self.Province.to_s[0,2]}.try(:second)
-      province ||= ChinaCity.list.first.try(:second)
-      city = ChinaCity.list(province).detect{|c|c[0][0,2] == self.City.to_s[0,2]}.try(:second)
-      city ||= ChinaCity.list(province).first.try(:second) if self.Province == self.City
-      city ||= ChinaCity.list(province).first.try(:second)
-      district = ChinaCity.list(city).detect{|c|c[0][0,2] == self.County.to_s[0,2]}.try(:second)
-      district ||= ChinaCity.list(city).first.try(:second) if self.County == self.City
-      district ||= ChinaCity.list(city).first.try(:second) # 再不行用第一个
+    def self.codes(province, city, county, auto_match = true)
+      province = ChinaCity.list.detect{|c|c[0][0,2] == province.to_s[0,2]}.try(:second)
+      province ||= ChinaCity.list.first.try(:second) if auto_match
+      city = ChinaCity.list(province).detect{|c|c[0][0,2] == city.to_s[0,2]}.try(:second)
+      city ||= ChinaCity.list(province).first.try(:second) if province == city
+      city ||= ChinaCity.list(province).first.try(:second) if auto_match
+      district = ChinaCity.list(city).detect{|c|c[0][0,2] == county.to_s[0,2]}.try(:second)
+      district ||= ChinaCity.list(city).first.try(:second) if county == city
+      district ||= ChinaCity.list(city).first.try(:second) if auto_match # 再不行用第一个
       return province, city, district
     end
   end
@@ -39,13 +39,15 @@ class MigrateHelper
     end
   end
 
-  LIMIT = nil
-  # LIMIT = 1000
+  # LIMIT = nil
+  LIMIT = 1000
+  SORT = 'ASC'
 
   def self.do_all_migrate!
     ApplicationRecord.transaction do
       MigrateHelper.migrate_donors
-      MigrateHelper.migrate_profiles
+      MigrateHelper.set_agent_users
+      # MigrateHelper.migrate_profiles
       MigrateHelper.migrate_schools
       MigrateHelper.migrate_teachers
       MigrateHelper.migrate_children
@@ -58,7 +60,7 @@ class MigrateHelper
   def self.migrate_donors
     count = EDonor.count
     i = 1
-    EDonor.limit(LIMIT).find_each(batch_size: 1000) do |donor|
+    EDonor.order("DonorId #{SORT}").limit(LIMIT).find_each(batch_size: 1000) do |donor|
       puts "迁移捐款人 #{i} / #{count}"
       user = User.new
       # user.login = donor.DvUserName
@@ -72,56 +74,93 @@ class MigrateHelper
       user.phone = donor.Mobile
       user.created_at = donor.AppendDate
       user.state = :unactived
-      district = EDistrict.find_by(DistrictId: donor.DistrictId)
-      if district
-        user.province, user.city, user.district = district.codes
+      districts = donor.Address2.to_s.split(',')
+      if districts.present?
+        user.province, user.city, user.district = EDistrict.codes(districts[0], districts[1], districts[2])
       end
       user.archive_data = donor.attributes
       user.save!(validate: false)
       i = i + 1
     end
+
   end
 
-  # 迁移用户、捐助人
-  def self.migrate_profiles
-    count = EMyProfile.count
+  # 处理捐助人和代捐人
+  def self.set_agent_users
+    xlsx = Roo::Spreadsheet.open(Rails.root.join('lib','assets','donors.xlsx').to_s)
+    sheet = xlsx.sheet(0).to_a # DonorId, Mobile, '是/否'
+    count = sheet.count
     i = 1
-    EMyProfile.limit(LIMIT).find_each(batch_size: 1000) do |profile|
-      puts "迁移用户账号 #{i} / #{count}"
-      if profile.DonorId.to_i > 0
-        user = User.where("archive_data ->> 'DonorId' = ?", profile.DonorId.to_s).first if profile.DonorId.present?
-        if user
-          user.nickname ||= profile.DvUserName.downcase.strip
-          user.gender ||= :male if profile.Sex == '男'
-          user.gender ||= :female if profile.Sex == '女'
-          user.address ||= profile.Address
-          user.qq ||= profile.QQ
-          user.email ||= profile.Email
-          user.phone ||= profile.Mobile
-          user.save!(validate: false)
-        end
-      else
-        user = User.new
-        user.nickname ||= profile.DvUserName.downcase.strip
-        user.gender = :male if profile.Sex == '男'
-        user.gender = :female if profile.Sex == '女'
-        user.address = profile.Address
-        user.qq = profile.QQ
-        user.email = profile.Email
-        user.phone = profile.Mobile
-        user.archive_data = profile.attributes
-        user.state = :unactived
-        user.save!(validate: false)
+    sheet.each do |line|
+      puts "处理代捐人 #{i} / #{count}"
+      next if line.second.blank?
+      if line.third == '是'
+        user = User.where("archive_data ->> 'DonorId' = ?", line.first.to_s).first
+        next unless user
+        # 其余这个电话号码的都设置为代捐人
+        User.where(phone: line.second.to_s).where.not(id: user.id).update_all(phone: nil, manager_id: user.id)
       end
       i = i + 1
     end
+
+    # 检查邮箱是否合法
+    User.find_each(batch_size:1000) do |user|
+      unless user.valid?
+        if user.errors.has_key?(:email)
+          pp user.email.to_s
+          user.email = nil
+          user.save(validate: false)
+        elsif user.errors.has_key?(:phone)
+          pp user.phone.to_s
+          user.phone = nil
+          user.save(validate: false)
+        else
+          pp user.errors.full_messages.join(', ')
+        end
+      end
+    end
   end
+
+  # 迁移用户、捐助人, 不用处理用户Profile了
+  # def self.migrate_profiles
+  #   count = EMyProfile.count
+  #   i = 1
+  #   EMyProfile.limit(LIMIT).find_each(batch_size: 1000) do |profile|
+  #     puts "迁移用户账号 #{i} / #{count}"
+  #     if profile.DonorId.to_i > 0
+  #       user = User.where("archive_data ->> 'DonorId' = ?", profile.DonorId.to_s).first if profile.DonorId.present?
+  #       if user
+  #         user.nickname ||= profile.DvUserName.downcase.strip
+  #         user.gender ||= :male if profile.Sex == '男'
+  #         user.gender ||= :female if profile.Sex == '女'
+  #         user.address ||= profile.Address
+  #         user.qq ||= profile.QQ
+  #         user.email ||= profile.Email
+  #         user.phone ||= profile.Mobile
+  #         user.save!(validate: false)
+  #       end
+  #     else
+  #       user = User.new
+  #       user.nickname ||= profile.DvUserName.downcase.strip
+  #       user.gender = :male if profile.Sex == '男'
+  #       user.gender = :female if profile.Sex == '女'
+  #       user.address = profile.Address
+  #       user.qq = profile.QQ
+  #       user.email = profile.Email
+  #       user.phone = profile.Mobile
+  #       user.archive_data = profile.attributes
+  #       user.state = :unactived
+  #       user.save!(validate: false)
+  #     end
+  #     i = i + 1
+  #   end
+  # end
 
   # 迁移学校
   def self.migrate_schools
     count = ESchool.count
     i = 1
-    ESchool.limit(LIMIT).find_each(batch_size: 1000) do |eschool|
+    ESchool.order("SchoolId #{SORT}").limit(LIMIT).find_each(batch_size: 1000) do |eschool|
       puts "迁移学校 #{i} / #{count}"
       school = School.new
       school.name = eschool.Name
@@ -137,7 +176,7 @@ class MigrateHelper
       school.approve_state = :pass
       district = EDistrict.find_by(DistrictId: eschool.DistrictId)
       if district
-        school.province, school.city, school.district = district.codes
+        school.province, school.city, school.district = EDistrict.codes(district.Province, district.City, district.County)
       end
       school.archive_data = eschool.attributes
       school.save!(validate: false)
@@ -149,7 +188,7 @@ class MigrateHelper
   def self.migrate_teachers
     count = ETeacher.count
     i = 1
-    ETeacher.limit(LIMIT).find_each(batch_size: 1000) do |eteacher|
+    ETeacher.order("TeacherId #{SORT}").limit(LIMIT).find_each(batch_size: 1000) do |eteacher|
       puts "迁移教师 #{i} / #{count}"
 
       teacher = Teacher.new
@@ -192,7 +231,7 @@ class MigrateHelper
 
     count = EStudent.count
     i = 1
-    EStudent.limit(LIMIT).find_each(batch_size: 1000) do |estudent|
+    EStudent.limit(LIMIT).order("StudentId #{SORT}").find_each(batch_size: 1000) do |estudent|
       puts "迁移孩子 #{i} / #{count}"
       # 每个学校建申请
       school = School.where("archive_data->>'SchoolId' = ?", estudent.SchoolId.to_s).first
@@ -234,11 +273,12 @@ class MigrateHelper
       child.phone = estudent.Tellphone
       child.brothers = estudent.Brothers
       child.address = estudent.Address
-      child.family_condition = estudent.FamilySituation
+      child.family_condition = [estudent.Brothers.presence, estudent.FamilySituation.presence].compact.join("\n")
       child.family_income = estudent.Revenue
       child.income_source = estudent.RevenueFrom
       child.created_at = estudent.AppendDate
       child.remark = estudent.Remarks
+      child.information = [estudent.StudySituation.presence, estudent.Brothers.presence, estudent.FamilySituation.presence].compact.join("\n")
       child.kind = :inside # 内部
       child.approve_state = :pass
       user = User.where("archive_data->>'DonorId' = ?", estudent.DonorId.to_s).first if estudent.DonorId.present?
@@ -260,6 +300,8 @@ class MigrateHelper
         begin
           asset = Asset::ApplyChildAvatar.create(file: File.open(file_path))
           child.attach_avatar asset.id
+          asset = Asset::GshChildAvatar.create(file: File.open(file_path))
+          gsh_child.attach_avatar asset.id
         rescue => e
           puts "处理照片时发生了错误" + e.inspect
         end
@@ -273,7 +315,7 @@ class MigrateHelper
     count = EEndowLog.count
     i = 1
     fund = Fund.find_by(fund_category_id: 3, name: '指定')
-    EEndowLog.limit(LIMIT).find_each(batch_size: 1000) do |log|
+    EEndowLog.order("EndowId #{SORT}").limit(LIMIT).find_each(batch_size: 1000) do |log|
       puts "迁移捐款记录 #{i} / #{count}"
       user = User.where("archive_data->>'DonorId' = ?", log.DonorId.to_s).first if log.DonorId.present?
       user ||= User.find_by(nickname: '-1') # 固定的一个配捐用户
@@ -281,7 +323,7 @@ class MigrateHelper
       # 捐款记录
       income = IncomeRecord.new
       income.donor = user
-      income.agent = user
+      income.agent_id = user.manager_id.presence || user.id
       income.fund = fund
       income.balance = log.DonateAmount
       income.amount = log.DonateAmount
@@ -305,18 +347,44 @@ class MigrateHelper
       grant.school_id = child.school_id
       grant.management_fee_state = :accrued
       grant.donate_state = :succeed
-      grant.amount = log.DonateAmount
+      grant.amount = log.GrantedMoney || log.DonateAmount
       grant.state = :granted if log.GrantDate.present?
       grant.granted_at = log.GrantDate
       grant.grant_remark = log.Remarks
       grant.user = user
-      date = log.IssueDate
-      grant.title = date.strftime('%Y-%m')
+      # date = log.IssueDate
+      grant.title = "#{log.BeginDate.strftime('%Y.%-m')} - #{log.EndDate.strftime('%Y.%-m')} 学年"
 
       grant.save!(validate: false)
 
       # 捐赠记录
-      DonateRecord.do_donate(:user_donate, income, grant, log.DonateAmount, agent: user, donor: user)
+      DonateRecord.do_donate(:user_donate, income, grant, log.DonateAmount, agent_id: user.manager_id.presence || user.id, donor: user)
+
+      # 对于当年年级<3年级的，正常发放状态的（不是-1），EndDate是2018年的，补发放记录
+      if log.Status != -1 && log.EndDate.strftime('%Y-%m') == '2018-07' && log.Grade.to_i < 3
+        year_amount = if child.junior?
+          1570
+        elsif child.senior?
+          2100
+        end
+        next unless year_amount > 0
+
+        (3 - log.Grade.to_i).times do |i|
+          year = Time.now.year + i
+          grant = GshChildGrant.new
+          grant.gsh_child = child.gsh_child
+          grant.project_season_id = child.project_season_id
+          grant.project_season_apply_id = child.project_season_apply_id
+          grant.project_season_apply_child_id = child.id
+          grant.school_id = child.school_id
+          grant.amount = year_amount
+          grant.user = user
+          # date = log.IssueDate
+          grant.title = "#{year}.9 - #{year+1}.7 学期"
+
+          grant.save!(validate: false)
+        end
+      end
 
       i = i + 1
     end
