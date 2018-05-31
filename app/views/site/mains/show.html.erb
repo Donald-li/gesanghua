@@ -55,7 +55,31 @@
         </div>
       </div>
     </div>
-      <%= image_tag 'homepage.jpg', class:' bul-img-right' %>
+      <div class=" bul-img-q pull-left">
+
+        <div class="pull-left">
+          <%= image_tag 'homepage.jpg'%>
+          <div class="bul-img-q-pos">
+            <p>探索营</p>
+            <%= image_tag 'bul-img-pro.png'%>
+          </div>
+        </div>
+        <div class="pull-left">
+          <%= image_tag 'homepage.jpg'%>
+          <div class="bul-img-q-pos">
+            <p>探索营</p>
+            <%= image_tag 'bul-img-pro.png'%>
+          </div>
+        </div>
+        <div class="pull-left">
+          <%= image_tag 'homepage.jpg'%>
+          <div class="bul-img-q-pos">
+            <p>探索营</p>
+            <%= image_tag 'bul-img-pro.png'%>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 </div>
@@ -126,19 +150,20 @@
       <% end %>
   <% end %>
 </div>
-<!-- <div class="collaboration">
+ <div class="collaboration">
   <p>合作伙伴</p>
-  <div>
+  <div class="clearfix">
     <% if @partners.present? %>
         <% @partners.limit(6).each do |partner| %>
             <div class="cur">
-              <%= link_to partner.url do %><%= image_tag partner.image.try(:file).try(:url, :tiny).to_s %>
+              <%= link_to partner.url do %>
+                  <%= image_tag 'application.jpg' %>
               <% end %>
             </div>
         <% end %>
     <% end %>
   </div>
-</div> -->
+</div>
 <div class="bul-fo">
   <div>
     <p>“让受助者、参与者在格桑花获得温暖、信任、希望、互助、友爱等美好情感，感受生命的意义与价值，共建格桑花精神家园。”</p>

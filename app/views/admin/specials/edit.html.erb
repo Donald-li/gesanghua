@@ -57,7 +57,7 @@
       <div class="portlet-title">
         <div class="caption">
           <i class="icon-share font-red-sunglo"></i>
-          <span class="caption-subject font-red-sunglo bold uppercase">专题新闻</span>
+          <span class="caption-subject font-red-sunglo bold uppercase">专题导读</span>
         </div>
         <div class="actions">
           <% if @special.articles.text_news.count < 3 %>
@@ -96,7 +96,7 @@
       <div class="portlet-title">
         <div class="caption">
           <i class="icon-share font-red-sunglo"></i>
-          <span class="caption-subject font-red-sunglo bold uppercase">专题资讯</span>
+          <span class="caption-subject font-red-sunglo bold uppercase">最新资讯</span>
         </div>
         <div class="actions">
           <%= link_to new_admin_special_special_article_path(@special, kind: 'image_news'), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>

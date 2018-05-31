@@ -38,7 +38,7 @@
           <div class="dataTables_filter pull-right"></div>
         </div>
       </div>
-      <div class="table-scrollable">
+      <div class="table-scrollable dropdown-select">
         <table class="table table-striped table-bordered table-hover" id="sample_2">
           <thead>
           <tr>
@@ -117,7 +117,47 @@
                   <%= grant.enum_name(:donate_state) %>
                 </td>
                 <td>
-                  <%= grant.enum_name(:state) %>
+                  <div class="btn-group">
+                    <a class="btn btn-xs green dropdown-toggle" data-toggle="dropdown" href="javascript:;" aria-expanded="false" >
+                      <i class="fa fa-cog"></i>
+                      <%= grant.enum_name(:state) %>
+                      <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <%= link_to switch_admin_pair_grant_path(grant, state: 'waiting'), method: :put, data: {confirm: '确定标记为待发放吗？'} do %>
+                          标记为待发放
+                          <% if grant.waiting? %>
+                              <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
+                          <% end %>
+                        <% end %>
+                      </li>
+                      <li>
+                        <%= link_to switch_admin_pair_grant_path(grant, state: 'granted'), method: :put, data: {confirm: '确定标记为已发放吗？'} do %>
+                            标记为已发放
+                            <% if grant.granted? %>
+                                <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
+                            <% end %>
+                        <% end %>
+                      </li>
+                      <li>
+                        <%= link_to switch_admin_pair_grant_path(grant, state: 'suspend'), method: :put, data: {confirm: '确定标记为暂缓吗？'} do %>
+                            标记为暂缓
+                            <% if grant.suspend? %>
+                                <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
+                            <% end %>
+                        <% end %>
+                      </li>
+                      <li>
+                        <%= link_to switch_admin_pair_grant_path(grant, state: 'cancel'), method: :put, data: {confirm: '确定标记为已取消吗？'} do %>
+                            标记为已取消
+                            <% if grant.cancel? %>
+                                <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
+                            <% end %>
+                        <% end %>
+                      </li>
+                    </ul>
+                  </div>
                 </td>
                 <td>
                   <% count = grant.thank_notes.count %>
@@ -173,7 +213,7 @@
           <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@grants) %></div>
         </div>
         <div class="col-md-7 col-sm-12">
-          <%= paginate @grants, theme: '' %>
+          <%= paginate @grants, theme: 'admin' %>
         </div>
       </div>
     </div>
