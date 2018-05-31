@@ -1,19 +1,20 @@
 <div class="bul-swiper">
   <div class="slide-box-demo">
-    <div class="slide-box" >
+    <div class="slide-box">
       <div class="slide-con">
         <div class="slide-out clearfix">
           <% @adverts.each do |advert| %>
-              <div class="slide-li pull-left" >
+              <div class="slide-li pull-left">
                 <%= link_to advert.url do %>
-                    <%= image_tag advert.image.try(:file).try(:url, :big).to_s ,style:'width:1140px;'%>
+                    <%= image_tag advert.image.try(:file).try(:url, :big).to_s, style: 'width:1140px;' %>
                 <% end %>
               </div>
           <% end %>
         </div>
       </div>
       <div class="slide-page">
-        <div class="slide-button-prev" id="slide-button-prev"><span class="iconfont icon-arrow-left bul-icon-prev"></span></div>
+        <div class="slide-button-prev" id="slide-button-prev">
+          <span class="iconfont icon-arrow-left bul-icon-prev"></span></div>
         <div class="slide-button-next" id="slide-button-next">
           <span class="iconfont icon-arrow-left bul-icon-next"></span>
         </div>
@@ -29,55 +30,46 @@
   <div class=" bul-ai-cont ">
     <div style="width: 1140px; margin: 0 auto;position: relative;" class="clearfix">
 
-    <div class=" bul-img-n pull-left" >
-      <div class="clearfix  bul-img-m">
-        <div class="clearfix  bul-img-p">
-          <p class="pull-left">累计捐助:<span><%= number_to_currency(IncomeRecord.total_amount) %></span>元</p>
-          <p class="pull-right cur"><%= link_to income_records_path,class:'clearfix',style:'display:block;' do %><span class="iconfont icon-arrowdown pull-left"></span><span class="pull-left">财务公开</span><% end %></p>
-        </div>
-        <div class="bul-img-co">
-          <p>捐助动态</p>
-          <div style="overflow: hidden; position: relative; height: 156px;" id="news-container">
-            <div class="bul-xian"></div>
-            <ul style="position: absolute; margin: 0pt; padding: 0pt; top: 0px;">
-              <% @donate_records.each do |record| %>
-                  <li>
-                    <div class="clearfix">
-                      <span class="iconfont icon-yuan bul-yuan "></span>
-                      <span class="bul-time pull-left"><%= record.created_at.strftime("%m月%d日 %H:%M") %></span>
-                      <span class="bul-name pull-left"><%= truncate(record.donor.try(:show_name).to_s + '捐助' + record.show_apply_name.to_s, length: 18) %></span>
-                      <span class="bul-moy pull-right"><%= record.amount %>元</span>
-                    </div>
-                  </li>
-              <% end %>
-            </ul>
+      <div class=" bul-img-n pull-left">
+        <div class="clearfix  bul-img-m">
+          <div class="clearfix  bul-img-p">
+            <p class="pull-left">累计捐助:<span><%= number_to_currency(IncomeRecord.total_amount) %></span>元</p>
+            <p class="pull-right cur"><%= link_to income_records_path, class: 'clearfix', style: 'display:block;' do %>
+                  <span class="iconfont icon-arrowdown pull-left"></span><span class="pull-left">财务公开</span>
+              <% end %></p>
+          </div>
+          <div class="bul-img-co">
+            <p>捐助动态</p>
+            <div style="overflow: hidden; position: relative; height: 156px;" id="news-container">
+              <div class="bul-xian"></div>
+              <ul style="position: absolute; margin: 0pt; padding: 0pt; top: 0px;">
+                <% @donate_records.each do |record| %>
+                    <li>
+                      <div class="clearfix">
+                        <span class="iconfont icon-yuan bul-yuan "></span>
+                        <span class="bul-time pull-left"><%= record.created_at.strftime("%m月%d日 %H:%M") %></span>
+                        <span class="bul-name pull-left"><%= truncate(record.donor.try(:show_name).to_s + '捐助' + record.show_apply_name.to_s, length: 18) %></span>
+                        <span class="bul-moy pull-right"><%= record.amount %>元</span>
+                      </div>
+                    </li>
+                <% end %>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-    </div>
       <div class=" bul-img-q pull-left">
-
-        <div class="pull-left">
-          <%= image_tag 'homepage.jpg'%>
-          <div class="bul-img-q-pos">
-            <p>探索营</p>
-            <%= image_tag 'bul-img-pro.png'%>
-          </div>
-        </div>
-        <div class="pull-left">
-          <%= image_tag 'homepage.jpg'%>
-          <div class="bul-img-q-pos">
-            <p>探索营</p>
-            <%= image_tag 'bul-img-pro.png'%>
-          </div>
-        </div>
-        <div class="pull-left">
-          <%= image_tag 'homepage.jpg'%>
-          <div class="bul-img-q-pos">
-            <p>探索营</p>
-            <%= image_tag 'bul-img-pro.png'%>
-          </div>
-        </div>
+        <% @donate_adverts.each do |donate| %>
+            <%= link_to donate.url do %>
+                <div class="pull-left">
+                  <%= image_tag donate.image_url(:small) %>
+                  <div class="bul-img-q-pos">
+                    <p><%= donate.title %></p>
+                    <%= image_tag 'bul-img-pro.png' %>
+                  </div>
+                </div>
+            <% end %>
+        <% end %>
 
       </div>
     </div>
@@ -126,8 +118,8 @@
   </div>
   <div class="items-container row clearfix">
     <% @articles.each do |article| %>
-        <div class="item col-md-4 cur " >
-          <%= link_to article_path(article) do %>
+        <div class="item col-md-4 cur ">
+          <%= link_to article.simple? ? article_path(article) : special_path(article.special) do %>
               <div class="gsh-img">
                 <%= image_tag article.image.try(:file).try(:url, :medium).to_s %>
                 <div class="ovrly"></div>
@@ -144,20 +136,20 @@
   </div>
   <% if @articles.present? %>
       <%= link_to articles_path do %>
-          <button class="button button--ujarak button--border-thin button--text-thick bul-buton cur " >
-          </span>更多资讯</span>
-        </button>
+          <button class="button button--ujarak button--border-thin button--text-thick bul-buton cur ">
+            </span>更多资讯</span>
+          </button>
       <% end %>
   <% end %>
 </div>
- <div class="collaboration">
+<div class="collaboration">
   <p>合作伙伴</p>
   <div class="clearfix">
     <% if @partners.present? %>
         <% @partners.limit(6).each do |partner| %>
             <div class="cur">
               <%= link_to partner.url do %>
-                  <%= image_tag 'application.jpg' %>
+                  <%= image_tag partner.image_url(:tiny) %>
               <% end %>
             </div>
         <% end %>
@@ -204,13 +196,13 @@
         showItems: 3
     })
     $('.slide-box-demo').setSlide({
-        pagination:true,
-        pagingTrigger:'hover',
-        autoPlay:true,
+        pagination: true,
+        pagingTrigger: 'hover',
+        autoPlay: true,
         slideTime: 3000,
-        switchingSpeed:400,
-        slideLiw:1140,
-	      slideLih:420,
+        switchingSpeed: 400,
+        slideLiw: 1140,
+        slideLih: 420,
     })
 
 
