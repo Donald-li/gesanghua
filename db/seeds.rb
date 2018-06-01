@@ -125,3 +125,9 @@ Protocol.find_or_create_by(title: '《格桑花用户捐助协议》', version: 
 Protocol.find_or_create_by(title: '《格桑花志愿者申请协议》', version: '2018年版', content: '志愿者申请协议', kind: 'volunteer_apply_protocol', state: 'show')
 Protocol.find_or_create_by(title: '《格桑花用户注册协议》', version: '2018年版', content: '用户注册协议', kind: 'register_protocol', state: 'show')
 Protocol.find_or_create_by(title: '《捐赠收据申请说明》', version: '2018年版', content: '捐赠收据申请说明', kind: 'voucher_protocol', state: 'show')
+
+
+# pc捐助广告位
+Advert.find_or_create_by(kind: 'pc_donate_banner', title: '结对助学', url: "#{Settings.root_url}donates/new?item=2", state: 'show')
+Advert.find_or_create_by(kind: 'pc_donate_banner', title: '探索营', url: "#{Settings.root_url}donates/new?item=4", state: 'show')
+Advert.find_or_create_by(kind: 'pc_donate_banner', title: '悦读项目', url: "#{Settings.root_url}donates/new?item=3", state: 'show')
