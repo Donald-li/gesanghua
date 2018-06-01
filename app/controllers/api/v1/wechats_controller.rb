@@ -33,8 +33,9 @@ class Api::V1::WechatsController < Api::V1::BaseController
 
   private
   def get_userinfo
-    result = $client.get_oauth_access_token(params["code"]).result
-    logger.info(result.inspect)
+    token = $client.get_oauth_access_token(params["code"])
+    logger.info(token.inspect)
+    result = token.result
     openid = result["openid"]
     access_token = result["access_token"]
     $client.get_oauth_userinfo(openid, access_token, lang="zh_CN")
