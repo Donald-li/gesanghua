@@ -39,8 +39,8 @@ class MigrateHelper
     end
   end
 
-  # LIMIT = nil
-  LIMIT = 1000
+  LIMIT = nil
+  # LIMIT = 1000
   SORT = 'ASC'
 
   def self.do_all_migrate!
