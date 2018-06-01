@@ -39,10 +39,10 @@ class Api::V1::BaseController < ApplicationController
     return nil if token.blank?
     @current_user ||= User.find_by(auth_token: token)
 
-    if session[:user_id].present?
-      @current_user ||= User.find_by(id: session[:user_id])
-      session[:user_id] = nil unless @current_user
-    end
+    # if session[:user_id].present?
+    #   @current_user ||= User.find_by(id: session[:user_id])
+    #   session[:user_id] = nil unless @current_user
+    # end
     @current_user
   end
 

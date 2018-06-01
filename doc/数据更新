@@ -1,0 +1,23 @@
+1、后台用户管理，收货地址和user表的地址不统一
+2、个人中心，修改代捐人，显示的是昵称不是姓名
+3、密码找回，至少需要邮箱和电话的其中一个
+4、格桑花编号
+5、[图片]这个详情，是否可以1、各信息有个回车，分段，最好是在前面能加上摘录的标题，比如第一段自我介绍，第二段兄妹情况，第三段家庭情况，这样。要不然都在一起，人称会变化，看起来很不舒服。2、在后台，能将显示框放高一点吗，我这里只显示一行，拉好远好远
+
+
+
+# 更新格桑花编号等
+ProjectSeasonApplyChild.find_each do |c|
+  school = c.school
+  c.province ||= school.try(:province)
+  c.city ||= school.try(:city)
+  c.district ||= school.try(:district)
+  c.save(validate: false)
+  child = c.gsh_child
+  next unless child
+  child.province ||= school.try(:province)
+  child.city ||= school.try(:city)
+  child.district ||= school.try(:district)
+  child.gsh_no = child.gsh_no.presence || "GSH#{c.archive_data['StudentId'].to_s.rjust(9, '0')}"
+  child.save(validate: false)
+end
