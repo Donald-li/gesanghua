@@ -37,6 +37,7 @@
                 <label class="col-md-2 control-label">专题Banner：</label>
                 <div class="col-sm-9">
                   <%= webuploader_tag :banner_id, label: '上传Banner', type: 'special_banner', asset: @special.banner, klass: 'single' %>
+                  <p class="help-block">支持上传png、jpg格式 ，图片尺寸1400X370px</p>
                 </div>
               </div>
               <%= f.input :describe, label: '专题导读：', input_html: {data: {'parsley-required': true}} %>
