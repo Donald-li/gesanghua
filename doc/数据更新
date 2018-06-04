@@ -21,3 +21,48 @@ ProjectSeasonApplyChild.find_each do |c|
   child.gsh_no = child.gsh_no.presence || "GSH#{c.archive_data['StudentId'].to_s.rjust(9, '0')}"
   child.save(validate: false)
 end
+
+# ProjectSeasonApplyChild.find_each do |c|
+#   c.semester_count = c.gsh_child_grants.count
+#   c.done_semester_count = c.gsh_child_grants.granted.count
+#   c.save(validate: false)
+# end
+
+
+ApplicationRecord.transaction do
+  count = ProjectSeasonApplyChild.where(semester_count: nil).count
+  i = 0
+  ProjectSeasonApplyChild.where(semester_count: nil).each do |apply|
+    i = i + 1
+    puts "补签捐赠学期 #{i} / #{count}"
+    log = MigrateHelper::EEndowLog.where(StudentId: apply.archive_data['StudentId']).last
+    next unless log
+    child = apply
+    user = User.where("archive_data->>'DonorId' = ?", log.DonorId.to_s).first if log.DonorId.present?
+
+    if log.Status != -1 && log.EndDate.strftime('%Y-%m') == '2018-07' && log.Grade.to_i < 3
+      year_amount = if child.junior?
+        1570
+      elsif child.senior?
+        2100
+      end
+      next unless year_amount.to_f > 0
+
+      (3 - log.Grade.to_i).times do |i|
+        year = Time.now.year + i
+        grant = GshChildGrant.new
+        grant.gsh_child = child.gsh_child
+        grant.project_season_id = child.project_season_id
+        grant.project_season_apply_id = child.project_season_apply_id
+        grant.project_season_apply_child_id = child.id
+        grant.school_id = child.school_id
+        grant.amount = year_amount
+        grant.user = user
+        # date = log.IssueDate
+        grant.title = "#{year}.9 - #{year+1}.7 学期"
+
+        grant.save!(validate: false)
+      end
+    end
+  end
+end
