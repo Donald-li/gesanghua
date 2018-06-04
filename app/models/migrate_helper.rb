@@ -316,7 +316,7 @@ class MigrateHelper
     IncomeRecord.delete_all
     DonateRecord.delete_all
     PaperTrail::Version.delete_all
-    Fund.update_all(balace: 0)
+    Fund.update_all(balance: 0)
     ProjectSeasonApplyChild.update_all(semester_count: 0, done_semester_count: 0)
   end
 
@@ -376,7 +376,7 @@ class MigrateHelper
         owner: grant,
         amount: log.DonateAmount,
         income_record_id: income.id,
-        agent: agent, donor: donor,
+        agent: agent, donor: user,
         school_id: child.school_id,
         created_at: income.created_at
       }
