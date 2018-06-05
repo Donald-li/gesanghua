@@ -51,7 +51,7 @@
     <div class="pull-left detail-body-left border-l contentab">
       <ul class="detail-body-ul">
           <% @grant_reports.each do |report| %>
-            <li class="detail-body-cont" id="<%= report.id %>">
+            <li class="detail-body-cont" id="show<%= report.id %>">
               <span class="detail-body-hover iconfont icon-yuan"></span>
               <div class="clearfix detail-font-tit">
                 <p class="pull-left"><%= report.title %></p>
@@ -89,7 +89,7 @@
     <div class="pull-left detail-body-left border-l contentab">
       <ul class="detail-body-ul">
           <% @visit_reports.each do |report| %>
-            <li class="detail-body-cont" id="<%= report.id %>">
+            <li class="detail-body-cont" id="show<%= report.id %>">
               <span class="detail-body-hover iconfont icon-yuan"></span>
               <div class="clearfix detail-font-tit">
                 <p class="pull-left"><%= report.title %></p>
