@@ -32,10 +32,14 @@ class MigrateHelper
   # 照片
   class EPhoto < ApplicationRecord; establish_connection :old_data; self.table_name = 'e_Photo'; self.primary_key = 'PhotoId'
     def tmp_file # 保存临时文件
-      FileUtils.mkdir_p Rails.root.join('log', 'cache', 'photo')
-      path = Rails.root.join('log', 'cache', 'photo', "#{self.StudentId}.jpg")
-      File.open(path, 'wb'){|file| file.write self.Data} unless File.exist?(path)
-      path
+      if self.FileName
+        path = File.join('/data', 'www', 'bak', self.FileName)
+      else
+        FileUtils.mkdir_p Rails.root.join('log', 'cache', 'photo')
+        path = Rails.root.join('log', 'cache', 'photo', "#{self.StudentId}.jpg")
+        File.open(path, 'wb'){|file| file.write self.Data} unless File.exist?(path)
+        path
+      end
     end
   end
 
@@ -409,6 +413,56 @@ class MigrateHelper
       end
 
       i = i + 1
+    end
+  end
+
+
+  # 重新导入孩子头像和发放照片
+  def migrate_photos
+    # MigrateHelper::EStudent.where.not(PhotoId:nil).find_each do |student|
+    #   next unless student.PhotoId.to_i == 0
+    #   child = ProjectSeasonApplyChild.where("archive_data->>'StudentId' = ?", student.StudentId.to_s).first
+    #   gsh_child = child.gsh_child
+    #   photo = MigrateHelper::EPhoto.find_by(PhotoId: student.PhotoId)
+    #   file_path = photo.tmp_file
+    #
+    #   if File.exist?(file_path)
+    #     begin
+    #       asset = Asset::ApplyChildAvatar.create(file: File.open(file_path))
+    #       child.attach_avatar asset.id
+    #       asset = Asset::GshChildAvatar.create(file: File.open(file_path))
+    #       gsh_child.attach_avatar asset.id
+    #     rescue => e
+    #       puts "处理照片时发生了错误" + e.inspect
+    #     end
+    #   end
+    #
+    # end
+    count = MigrateHelper::EEndowLog.where.not(PhotoId:nil).count
+    i = 0
+    MigrateHelper::EEndowLog.where.not(PhotoId:nil).find_each do |log|
+      i = i + 1
+      puts "处理发放照片#{i} / #{count}"
+      next unless log.PhotoId
+      child = ProjectSeasonApplyChild.where("archive_data->>'StudentId' = ?", log.StudentId.to_s).first
+      title = "#{log.BeginDate.strftime('%Y.%-m')} - #{log.EndDate.strftime('%Y.%-m')} 学年"
+      grant = child.gsh_child_grants.where(title: title).first
+      if grant.blank?
+        puts "没找到#{log.StudentId}:#{title}"
+        next
+      end
+
+      photo = MigrateHelper::EPhoto.find_by(PhotoId: log.PhotoId)
+      file_path = photo.tmp_file
+
+      if File.exist?(file_path)
+        begin
+          asset = Asset::GshChildGrantImage.create(file: File.open(file_path))
+          grant.attach_images [asset.id]
+        rescue => e
+          puts "处理照片时发生了错误" + e.inspect
+        end
+      end
     end
   end
 
