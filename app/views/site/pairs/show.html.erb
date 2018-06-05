@@ -23,13 +23,13 @@
             <span>项目介绍</span>
           </li>
           <li>
-            <span>项目报告</span>
+            <span>发放报告</span>
           </li>
           <li>
             <span>回访报告</span>
           </li>
           <li>
-            <span>发放报告</span>
+            <span>项目报告</span>
           </li>
         </ul>
         <span class="pull-right share" id="share-2"></span>
@@ -47,6 +47,82 @@
       <!-- <%= image_tag 'detail-reduce.png' %> -->
     </div>
     <!--报告-->
+    <% if @grant_reports.present? %>
+    <div class="pull-left detail-body-left border-l contentab">
+      <ul class="detail-body-ul">
+          <% @grant_reports.each do |report| %>
+            <li class="detail-body-cont" id="show<%= report.id %>">
+              <span class="detail-body-hover iconfont icon-yuan"></span>
+              <div class="clearfix detail-font-tit">
+                <p class="pull-left"><%= report.title %></p>
+                <span class="pull-right cur" onclick="showHideCode(<%= report.id %>)"><span class="iconfont icon-arrowdown"></span>查看详情</span>
+              </div>
+              <div class="detail-body-title clearfix">
+                <% if report.user.avatar.present? %>
+                  <%= image_tag report.user.avatar.try(:file).try(:url, :tiny).to_s %>
+                <% else %>
+                  <%= image_tag '' %>
+                <% end %>
+                <span class="pull-left"><%= report.user.show_name %> ·</span>
+                <span class="pull-left"><%= report.published_at.strftime("%Y-%m-%d")%>由发布</span>
+              </div>
+              <div class="de-left-con read-more clearfix">
+                <div class="de-left-con-fon"><%= report.content.html_safe %></div>
+              </div>
+            </li>
+          <% end %>
+      </ul>
+    </div>
+    <% else %>
+        <div class="not-available contentab pull-left">
+          <div class="donation-cont-no">
+            <div class="donation-co-no-c">
+              <div class="donation-co-no-c-img">
+                <%= image_tag 'not-available.png' %>
+              </div>
+              <p>暂无发放报告</p>
+            </div>
+          </div>
+        </div>
+    <% end %>
+    <% if @visit_reports.present? %>
+    <div class="pull-left detail-body-left border-l contentab">
+      <ul class="detail-body-ul">
+          <% @visit_reports.each do |report| %>
+            <li class="detail-body-cont" id="show<%= report.id %>">
+              <span class="detail-body-hover iconfont icon-yuan"></span>
+              <div class="clearfix detail-font-tit">
+                <p class="pull-left"><%= report.title %></p>
+                <span class="pull-right cur" onclick="showHideCode(<%= report.id %>)"><span class="iconfont icon-arrowdown"></span>查看详情</span>
+              </div>
+              <div class="detail-body-title clearfix">
+                <% if report.user.avatar.present? %>
+                  <%= image_tag report.user.avatar.try(:file).try(:url, :tiny).to_s %>
+                <% else %>
+                  <%= image_tag '' %>
+                <% end %>
+                <span class="pull-left"><%= report.user.show_name %> ·</span>
+                <span class="pull-left"><%= report.published_at.strftime("%Y-%m-%d")%>由发布</span>
+              </div>
+              <div class="de-left-con read-more clearfix">
+                <div class="de-left-con-fon"><%= report.content.html_safe %></div>
+              </div>
+            </li>
+          <% end %>
+      </ul>
+    </div>
+    <% else %>
+        <div class="not-available contentab pull-left">
+          <div class="donation-cont-no">
+            <div class="donation-co-no-c">
+              <div class="donation-co-no-c-img">
+                <%= image_tag 'not-available.png' %>
+              </div>
+              <p>暂无回访报告</p>
+            </div>
+          </div>
+        </div>
+    <% end %>
     <% if @project_reports.present? %>
     <div class="pull-left detail-body-left border-l contentab">
       <ul class="detail-body-ul">
@@ -90,82 +166,6 @@
                 <%= image_tag 'not-available.png' %>
               </div>
               <p>暂无项目报告</p>
-            </div>
-          </div>
-        </div>
-    <% end %>
-    <% if @visit_reports.present? %>
-    <div class="pull-left detail-body-left border-l contentab">
-      <ul class="detail-body-ul">
-          <% @visit_reports.each do |report| %>
-            <li class="detail-body-cont" id="<%= report.id %>">
-              <span class="detail-body-hover iconfont icon-yuan"></span>
-              <div class="clearfix detail-font-tit">
-                <p class="pull-left"><%= report.title %></p>
-                <span class="pull-right cur" onclick="showHideCode(<%= report.id %>)"><span class="iconfont icon-arrowdown"></span>查看详情</span>
-              </div>
-              <div class="detail-body-title clearfix">
-                <% if report.user.avatar.present? %>
-                  <%= image_tag report.user.avatar.try(:file).try(:url, :tiny).to_s %>
-                <% else %>
-                  <%= image_tag '' %>
-                <% end %>
-                <span class="pull-left"><%= report.user.show_name %> ·</span>
-                <span class="pull-left"><%= report.published_at.strftime("%Y-%m-%d")%>由发布</span>
-              </div>
-              <div class="de-left-con read-more clearfix">
-                <div class="de-left-con-fon"><%= report.content.html_safe %></div>
-              </div>
-            </li>
-          <% end %>
-      </ul>
-    </div>
-    <% else %>
-        <div class="not-available contentab pull-left">
-          <div class="donation-cont-no">
-            <div class="donation-co-no-c">
-              <div class="donation-co-no-c-img">
-                <%= image_tag 'not-available.png' %>
-              </div>
-              <p>暂无回访报告</p>
-            </div>
-          </div>
-        </div>
-    <% end %>
-    <% if @grant_reports.present? %>
-    <div class="pull-left detail-body-left border-l contentab">
-      <ul class="detail-body-ul">
-          <% @grant_reports.each do |report| %>
-            <li class="detail-body-cont" id="<%= report.id %>">
-              <span class="detail-body-hover iconfont icon-yuan"></span>
-              <div class="clearfix detail-font-tit">
-                <p class="pull-left"><%= report.title %></p>
-                <span class="pull-right cur" onclick="showHideCode(<%= report.id %>)"><span class="iconfont icon-arrowdown"></span>查看详情</span>
-              </div>
-              <div class="detail-body-title clearfix">
-                <% if report.user.avatar.present? %>
-                  <%= image_tag report.user.avatar.try(:file).try(:url, :tiny).to_s %>
-                <% else %>
-                  <%= image_tag '' %>
-                <% end %>
-                <span class="pull-left"><%= report.user.show_name %> ·</span>
-                <span class="pull-left"><%= report.published_at.strftime("%Y-%m-%d")%>由发布</span>
-              </div>
-              <div class="de-left-con read-more clearfix">
-                <div class="de-left-con-fon"><%= report.content.html_safe %></div>
-              </div>
-            </li>
-          <% end %>
-      </ul>
-    </div>
-    <% else %>
-        <div class="not-available contentab pull-left">
-          <div class="donation-cont-no">
-            <div class="donation-co-no-c">
-              <div class="donation-co-no-c-img">
-                <%= image_tag 'not-available.png' %>
-              </div>
-              <p>暂无发放报告</p>
             </div>
           </div>
         </div>
