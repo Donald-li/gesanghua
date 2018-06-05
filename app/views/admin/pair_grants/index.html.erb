@@ -17,7 +17,7 @@
           <%= search_form_for @search, url: admin_pair_grants_path, class: 'form-inline' do |f| %>
               <div class="form-group">
                 <%= f.label :grant_no_or_gsh_child_name_or_gsh_child_id_card_cont, '搜索学生' %>
-                <%= f.text_field :grant_no_or_gsh_child_name_or_gsh_child_id_card_cont, class: 'form-control gsh-input-share', placeholder: '发放编号、学生信息' %>
+                <%= f.text_field :grant_no_or_gsh_child_name_or_gsh_child_id_card_or_gsh_child_gsh_no_cont, class: 'form-control gsh-input-share', placeholder: '发放编号、学生信息、格桑花编码' %>
               </div>
               <div class="form-group" style="margin: 0 10px">
                 <%= f.label :school_id_ep, '搜索学校', class: 'gsh-input-share-r' %>
@@ -55,7 +55,7 @@
               姓名
             </th>
             <th>
-              年龄
+              格桑花编号
             </th>
             <th>
               发放日期
@@ -99,7 +99,7 @@
                   <%= grant.try(:apply_child).try(:name) %>
                 </td>
                 <td>
-                  <%= grant.try(:apply_child).try(:age) %>
+                  <%= grant.try(:apply_child).try(:gsh_no) %>
                 </td>
                 <td>
                   <%= grant.granted_at.strftime("%Y-%m-%d") if grant.granted_at %>
