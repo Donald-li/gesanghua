@@ -418,7 +418,7 @@ class MigrateHelper
 
 
   # 重新导入孩子头像和发放照片
-  def migrate_photos
+  def self.migrate_photos
     # MigrateHelper::EStudent.where.not(PhotoId:nil).find_each do |student|
     #   next unless student.PhotoId.to_i == 0
     #   child = ProjectSeasonApplyChild.where("archive_data->>'StudentId' = ?", student.StudentId.to_s).first
@@ -448,11 +448,16 @@ class MigrateHelper
       title = "#{log.BeginDate.strftime('%Y.%-m')} - #{log.EndDate.strftime('%Y.%-m')} 学年"
       grant = child.gsh_child_grants.where(title: title).first
       if grant.blank?
-        puts "没找到#{log.StudentId}:#{title}"
+        puts "没找到孩子#{log.StudentId}:#{title}"
         next
       end
 
       photo = MigrateHelper::EPhoto.find_by(PhotoId: log.PhotoId)
+      if photo.blank?
+        puts "没找到照片#{log.PhotoId}"
+        next
+      end
+
       file_path = photo.tmp_file
 
       if File.exist?(file_path)
