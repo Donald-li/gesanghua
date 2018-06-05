@@ -45,6 +45,8 @@
 //= require 'plugin/scroll.1.3.js'
 //= require 'plugin/owl.carousel.js'
 //= require 'plugin/browser.js'
+//= require 'plugin/select2.min.js'
+//= require 'plugin/select2.zh-CN.js'
 
 $(function () {
     $("body").css("font-family", "'PingFang SC', '微软雅黑', 'Microsoft YaHei', Helvetica, 'Helvetica Neue', Tahoma, Arial, sans-serif")
