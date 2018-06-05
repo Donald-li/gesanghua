@@ -4,10 +4,14 @@ class Account::RegressionsController < Account::BaseController
   layout 'blank'
 
   def new
-    @user = User.new
   end
 
   def create
+    if user_params[:phone].empty? && user_params[:email].empty?
+      flash[:alert] = "邮箱、手机号必须有一项"
+      render :new and return
+    end
+
     user = match_user(2)
     if user.present?
       set_current_user(user)
@@ -16,12 +20,10 @@ class Account::RegressionsController < Account::BaseController
         redirect_to edit_password_account_user_center_account_path
       else
         flash[:alert] = "找回失败"
-        @user = User.new
         render :new
       end
     else
       flash[:alert] = "找回失败"
-      @user = User.new
       render :new
     end
   end
@@ -40,7 +42,7 @@ class Account::RegressionsController < Account::BaseController
     # 匹配任意两条
     users = {}
     if condition == 2
-      users = user_library.where(nickname: user_params[:nickname], name: user_params[:name]) if user_params[:nickname].present? and user_params[:name].present?
+      # users = user_library.where(nickname: user_params[:nickname], name: user_params[:name]) if user_params[:nickname].present? and user_params[:name].present?
       users = user_library.where(nickname: user_params[:nickname], phone: user_params[:phone]) if user_params[:nickname].present? and user_params[:phone].present? && users.empty?
       users = user_library.where(nickname: user_params[:nickname], email: user_params[:email]) if user_params[:nickname].present? and user_params[:email].present? && users.empty?
       users = user_library.where(name: user_params[:name], phone: user_params[:phone]) if user_params[:name].present? and user_params[:phone].present? && users.empty?

@@ -3,6 +3,7 @@ class Admin::PairStudentListsController < Admin::BaseController
   before_action :set_pair_student_list, only: [:show, :edit, :update, :destroy, :switch, :remarks, :turn_over, :share, :qrcode_download, :appoint, :appoint_donor]
 
   def index
+    params[:q] ||= {}
     @search = ProjectSeasonApplyChild.pass.sorted.ransack(params[:q])
     scope = @search.result
     if donor_state = params[:donor_state_eq]

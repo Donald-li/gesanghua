@@ -1,5 +1,3 @@
-# -*- encoding : utf-8 -*-
-#encoding=UTF-8
 require 'mini_magick'
 require 'fileutils'
 include MiniMagick

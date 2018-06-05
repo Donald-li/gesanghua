@@ -1,0 +1,68 @@
+1、后台用户管理，收货地址和user表的地址不统一
+2、个人中心，修改代捐人，显示的是昵称不是姓名
+3、密码找回，至少需要邮箱和电话的其中一个
+4、格桑花编号
+5、[图片]这个详情，是否可以1、各信息有个回车，分段，最好是在前面能加上摘录的标题，比如第一段自我介绍，第二段兄妹情况，第三段家庭情况，这样。要不然都在一起，人称会变化，看起来很不舒服。2、在后台，能将显示框放高一点吗，我这里只显示一行，拉好远好远
+
+
+
+# 更新格桑花编号等
+ProjectSeasonApplyChild.find_each do |c|
+  school = c.school
+  c.province ||= school.try(:province)
+  c.city ||= school.try(:city)
+  c.district ||= school.try(:district)
+  c.save(validate: false)
+  child = c.gsh_child
+  next unless child
+  child.province ||= school.try(:province)
+  child.city ||= school.try(:city)
+  child.district ||= school.try(:district)
+  child.gsh_no = child.gsh_no.presence || "GSH#{c.archive_data['StudentId'].to_s.rjust(9, '0')}"
+  child.save(validate: false)
+end
+
+# ProjectSeasonApplyChild.find_each do |c|
+#   c.semester_count = c.gsh_child_grants.count
+#   c.done_semester_count = c.gsh_child_grants.granted.count
+#   c.save(validate: false)
+# end
+
+
+ApplicationRecord.transaction do
+  count = ProjectSeasonApplyChild.where(semester_count: nil).count
+  i = 0
+  ProjectSeasonApplyChild.where(semester_count: nil).each do |apply|
+    i = i + 1
+    puts "补签捐赠学期 #{i} / #{count}"
+    log = MigrateHelper::EEndowLog.where(StudentId: apply.archive_data['StudentId']).last
+    next unless log
+    child = apply
+    user = User.where("archive_data->>'DonorId' = ?", log.DonorId.to_s).first if log.DonorId.present?
+
+    if log.Status != -1 && log.EndDate.strftime('%Y-%m') == '2018-07' && log.Grade.to_i < 3
+      year_amount = if child.junior?
+        1570
+      elsif child.senior?
+        2100
+      end
+      next unless year_amount.to_f > 0
+
+      (3 - log.Grade.to_i).times do |i|
+        year = Time.now.year + i
+        grant = GshChildGrant.new
+        grant.gsh_child = child.gsh_child
+        grant.project_season_id = child.project_season_id
+        grant.project_season_apply_id = child.project_season_apply_id
+        grant.project_season_apply_child_id = child.id
+        grant.school_id = child.school_id
+        grant.amount = year_amount
+        grant.user = user
+        # date = log.IssueDate
+        grant.title = "#{year}.9 - #{year+1}.7 学期"
+
+        grant.save!(validate: false)
+      end
+    end
+  end
+end

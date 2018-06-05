@@ -2,7 +2,7 @@
     <%= stylesheet_link_tag 'blank', media: 'all', 'data-turbolinks-track': 'reload' %>
 <% end %>
 
-<%= simple_form_for @user, url: account_regression_path, method: :post, html: {'data-parsley-validate': true, class: ''} do |f| %>
+<%= simple_form_for User.new, url: account_regression_path, method: :post, html: {'data-parsley-validate': true, class: ''} do |f| %>
     <div class="first-screen classbody">
       <div class="screen-body" style="min-height: 300px;">
         <div class="screen-body-cell">
@@ -23,7 +23,7 @@
                   <% end %>
                 </p>
                 <div class="tow-item">
-                  <span class=" cur">有两项信息匹配即可找回</span>
+                  <span class=" cur">有两项信息匹配即可找回（邮箱、手机号必须有一项）</span>
                 </div>
                 <div class="input-in" style="margin: 0px auto;">
                   <span class="input input--hoshi ">

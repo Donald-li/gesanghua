@@ -61,7 +61,7 @@
                 手机号
               </th>
               <th>
-                地区
+                地区/地址
               </th>
               <th>
                 余额
@@ -96,7 +96,8 @@
                 <%= user.phone %>
               </td>
               <td>
-                <%= user.simple_address %>
+                <%= user.simple_address %> /
+                <%= user.address %>
               </td>
               <td>
                 ￥<%= format_money(user.balance) %>

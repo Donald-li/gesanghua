@@ -39,6 +39,10 @@ class Api::V1::RegistrationsController < Api::V1::BaseController
   end
 
   def regression
+    if user_params[:phone].empty? && user_params[:email].empty?
+      return api_error(message: '邮箱、手机号必须有一项')
+    end
+
     user = match_user(2)
     if user.present?
       set_current_user(user)

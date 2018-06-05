@@ -310,6 +310,16 @@ class MigrateHelper
     end
   end
 
+  #  清除捐款和结对记录
+  def self.clean_donations
+    GshChildGrant.delete_all
+    IncomeRecord.delete_all
+    DonateRecord.delete_all
+    PaperTrail::Version.delete_all
+    Fund.update_all(balance: 0)
+    ProjectSeasonApplyChild.update_all(semester_count: 0, done_semester_count: 0)
+  end
+
   # 迁移捐款和结对记录
   def self.migrate_donations
     count = EEndowLog.count
@@ -358,7 +368,19 @@ class MigrateHelper
       grant.save!(validate: false)
 
       # 捐赠记录
-      DonateRecord.do_donate(:user_donate, income, grant, log.DonateAmount, agent_id: user.manager_id.presence || user.id, donor: user)
+      agent = User.find(user.manager_id.presence || user.id)
+      donate_record = DonateRecord.new
+      donate_record.attributes = {
+        source: income,
+        kind: :user_donate,
+        owner: grant,
+        amount: log.DonateAmount,
+        income_record_id: income.id,
+        agent: agent, donor: user,
+        school_id: child.school_id,
+        created_at: income.created_at
+      }
+      donate_record.save!(validate: false)
 
       # 对于当年年级<3年级的，正常发放状态的（不是-1），EndDate是2018年的，补发放记录
       if log.Status != -1 && log.EndDate.strftime('%Y-%m') == '2018-07' && log.Grade.to_i < 3
@@ -367,7 +389,7 @@ class MigrateHelper
         elsif child.senior?
           2100
         end
-        next unless year_amount > 0
+        next unless year_amount.to_f > 0
 
         (3 - log.Grade.to_i).times do |i|
           year = Time.now.year + i

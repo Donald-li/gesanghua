@@ -15,6 +15,8 @@ class Api::V1::WechatsController < Api::V1::BaseController
   #回调
   def callback
     userinfo = get_userinfo
+    logger.info(userinfo.inspect)
+    api_error(message: '登录时发生了错误') and return if userinfo.result['unionid'].blank?
     user = User.where(openid: userinfo.result['unionid']).first || User.new
     user.attributes = {openid: userinfo.result["unionid"], gender: userinfo.result["sex"], login: userinfo.result["nickname"], nickname: userinfo.result["nickname"], profile: userinfo.result}
     logger.info(user.attributes.inspect)
@@ -31,7 +33,9 @@ class Api::V1::WechatsController < Api::V1::BaseController
 
   private
   def get_userinfo
-    result = $client.get_oauth_access_token(params["code"]).result
+    token = $client.get_oauth_access_token(params["code"])
+    logger.info(token.inspect)
+    result = token.result
     openid = result["openid"]
     access_token = result["access_token"]
     $client.get_oauth_userinfo(openid, access_token, lang="zh_CN")
