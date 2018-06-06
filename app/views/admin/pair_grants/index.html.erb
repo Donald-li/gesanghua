@@ -43,9 +43,6 @@
           <thead>
           <tr>
             <th>
-              发放编号
-            </th>
-            <th>
               申请批次
             </th>
             <th>
@@ -62,9 +59,6 @@
             </th>
             <th>
               学校
-            </th>
-            <th>
-              发放说明
             </th>
             <th>
               发放金额
@@ -87,9 +81,6 @@
           <% @grants.each do |grant| %>
               <tr>
                 <td>
-                  <%= grant.grant_no %>
-                </td>
-                <td>
                   <%= grant.try(:apply).try(:season).try(:name) %>
                 </td>
                 <td>
@@ -106,9 +97,6 @@
                 </td>
                 <td>
                   <%= grant.try(:school).try(:name) %>
-                </td>
-                <td>
-                  <%= grant.grant_remark %>
                 </td>
                 <td>
                   <%= format_money grant.amount %>

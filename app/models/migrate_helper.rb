@@ -362,7 +362,7 @@ class MigrateHelper
       grant.management_fee_state = :accrued
       grant.donate_state = :succeed
       grant.amount = log.GrantedMoney || log.DonateAmount
-      grant.state = :granted if log.GrantDate.present?
+      grant.state = :granted if log.GrantDate.present? #TODO: 不能按照发放时间判断
       grant.granted_at = log.GrantDate
       grant.grant_remark = log.Remarks
       grant.user = user
@@ -468,6 +468,24 @@ class MigrateHelper
           puts "处理照片时发生了错误" + e.inspect
         end
       end
+    end
+  end
+
+  # 更新发放状态
+  def self.upate_gsh_child_grant_state
+    count = MigrateHelper::EEndowLog.where.count
+    i = 0
+    MigrateHelper::EEndowLog.where.find_each do |log|
+      i = i + 1
+      child = ProjectSeasonApplyChild.where("archive_data->>'StudentId' = ?", log.StudentId.to_s).first
+      title = "#{log.BeginDate.strftime('%Y.%-m')} - #{log.EndDate.strftime('%Y.%-m')} 学年"
+      grant = child.gsh_child_grants.where(title: title).first
+      if grant.blank?
+        puts "没找到孩子#{log.StudentId}:#{title}"
+        next
+      end
+
+
     end
   end
 
