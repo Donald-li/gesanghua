@@ -195,7 +195,10 @@ class ProjectSeasonApplyChild < ApplicationRecord
   end
 
   def distinguish_gender
-    gender = ChinesePid.new("#{self.id_card}").gender == 1 ? 'male' : 'female'
+    return if self.gender.present?
+    pid_gender = ChinesePid.new("#{self.id_card}").gender
+    gender = :male if pid_gender == 1
+    gender = :female if pid_gender == 0
     self.update_columns(gender: gender)
   end
 

@@ -1,6 +1,7 @@
 class Admin::BaseController < ManagementBaseController
   before_action :login_require
   before_action :set_paper_trail_whodunnit
+  # before_action :store_referer, only: [:new, :edit, :destroy]
 
   helper_method :current_user
   layout 'admin'
@@ -71,6 +72,16 @@ class Admin::BaseController < ManagementBaseController
     end
     logger.info exception.try(:inspect)
 
+  end
+
+  def referer_or(url)
+    session.delete(:admin_referer).presence || url
+  end
+
+  private
+  def store_referer
+    session[:admin_referer] = request.referer if request.referer.present? && session[:skip_referer].blank?
+    session.delete(:skip_referer) if session[:skip_referer]
   end
 
   # def render_404(exception = nil)

@@ -64,7 +64,7 @@ class DonateRecord < ApplicationRecord
 
   enum kind: {user_donate: 1, platform_donate: 2} # 记录类型: 1:用户捐款 2:平台配捐
   default_value_for :kind, 1
-  
+
   default_value_for :archive_data, {}
 
   scope :sorted, -> {order(created_at: :desc)}
@@ -267,8 +267,8 @@ class DonateRecord < ApplicationRecord
       self.owner.project.try(:image_url, :tiny)
     when 'ProjectSeasonApply'
       self.owner.cover_image_url(:tiny)
-    when 'GshChildGrant'
-      self.child.try(:avatar_url, :tiny)
+    when 'GshChildGrant' # 优先展示发放照片
+      self.owner.images.first.try(:file).try(:url, :tiny) || self.child.try(:avatar_url, :tiny)
     when 'ProjectSeasonApplyChild'
       self.owner.project.try(:image_url, :tiny)
     when 'ProjectSeasonApplyBookshelf', 'BookshelfSupplement'

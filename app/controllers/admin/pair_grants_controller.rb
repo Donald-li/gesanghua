@@ -63,6 +63,7 @@ class Admin::PairGrantsController < Admin::BaseController
   end
 
   def edit_feedback
+    store_referer
   end
 
   def update_delay
@@ -101,7 +102,7 @@ class Admin::PairGrantsController < Admin::BaseController
     respond_to do |format|
       if @grant.update(grant_params)
         @grant.attach_images(params[:image_ids])
-        format.html {redirect_to admin_pair_grants_path, notice: '发放反馈已修改。'}
+        format.html {redirect_to referer_or(admin_pair_grants_path), notice: '发放反馈已修改。'}
       else
         format.html {render :edit_feedback}
       end

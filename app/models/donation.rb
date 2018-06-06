@@ -52,7 +52,13 @@ class Donation < ApplicationRecord
 
   # 生成收入
   def gen_income_record
-    IncomeRecord.create(donation: self, agent: self.agent, fund: self.project.try(:fund), amount: self.amount, balance: self.amount, donor: self.donor, promoter_id: self.promoter_id, income_time: Time.now, title: self.title)
+    income = IncomeRecord.new(donation: self, agent: self.agent, amount: self.amount, balance: self.amount, donor: self.donor, promoter_id: self.promoter_id, income_time: Time.now, title: self.title)
+    if self.apply
+      income.fund = self.project.try(:appoint_fund)
+    else
+      income.fund = self.project.try(:fund)
+    end
+    income.save
   end
 
   # 代捐人名称
