@@ -484,8 +484,14 @@ class MigrateHelper
         puts "没找到孩子#{log.StudentId}:#{title}"
         next
       end
-
-
+      if log.Status.to_i == -1 #异常
+        grant.state = :suspend
+      elsif log.Status.to_i == 16 # 未发放
+        grant.state = :waiting
+      else
+        grant.state = :granted
+      end
+      grant.save(validate: false)
     end
   end
 

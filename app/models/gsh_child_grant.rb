@@ -186,7 +186,8 @@ class GshChildGrant < ApplicationRecord
 
   def gen_grant_no
     if self.state == 'granted'
-      self.grant_no ||= Sequence.get_seq(kind: :grant_no, prefix: self.gsh_child.try(:gsh_no) + Time.now.strftime('%y%m%d'), length: 3)
+      # 不需要发放编号了
+      # self.grant_no ||= Sequence.get_seq(kind: :grant_no, prefix: self.gsh_child.try(:gsh_no) + Time.now.strftime('%y%m%d'), length: 3)
     end
   end
 
