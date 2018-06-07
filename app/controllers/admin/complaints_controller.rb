@@ -21,7 +21,7 @@ class Admin::ComplaintsController < Admin::BaseController
             title: '举报已处理',
             content: "#{current_user.name}已处理并备注：#{@complaint.remark}"
         )
-        format.html { redirect_to admin_complaints_path, notice: '举报已处理' }
+        format.html { redirect_to referer_or(admin_complaints_path), notice: '举报已处理' }
       else
         format.html { render :edit }
       end

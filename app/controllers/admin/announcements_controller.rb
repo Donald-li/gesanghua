@@ -54,7 +54,7 @@ class Admin::AnnouncementsController < Admin::BaseController
 
   def switch
     @announcement.show? ? @announcement.hidden! : @announcement.show!
-    redirect_to admin_announcements_url, notice:  @announcement.show? ? '公告已展示' : '公告已隐藏'
+    redirect_to referer_or(admin_announcements_url), notice:  @announcement.show? ? '公告已展示' : '公告已隐藏'
   end
 
   private

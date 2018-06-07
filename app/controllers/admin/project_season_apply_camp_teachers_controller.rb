@@ -14,6 +14,7 @@ class Admin::ProjectSeasonApplyCampTeachersController < Admin::BaseController
   end
 
   def show
+    store_referer
   end
 
   def create
@@ -22,7 +23,7 @@ class Admin::ProjectSeasonApplyCampTeachersController < Admin::BaseController
       if ProjectSeasonApplyCampMember.allow_apply?(@apply_camp, camp_teacher_params[:id_card])
       if @camp_teacher.save
         @camp_teacher.attach_image(params[:image_id])
-        format.html { redirect_to admin_project_season_apply_camp_teachers_path(apply_camp_id: @apply_camp.id), notice: '新增成功。' }
+        format.html { redirect_to referer_or(admin_project_season_apply_camp_teachers_path(apply_camp_id: @apply_camp.id)), notice: '新增成功。' }
       else
         format.html { render :new }
       end
@@ -41,7 +42,7 @@ class Admin::ProjectSeasonApplyCampTeachersController < Admin::BaseController
       if ProjectSeasonApplyCampMember.allow_apply?(@apply_camp, camp_teacher_params[:id_card], @camp_teacher)
       if @camp_teacher.update(camp_teacher_params)
         @camp_teacher.attach_image(params[:image_id])
-        format.html { redirect_to admin_project_season_apply_camp_teachers_path(apply_camp_id: @apply_camp.id), notice: '修改成功。' }
+        format.html { redirect_to referer_or(admin_project_season_apply_camp_teachers_path(apply_camp_id: @apply_camp.id)), notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -55,7 +56,7 @@ class Admin::ProjectSeasonApplyCampTeachersController < Admin::BaseController
   def destroy
     @camp_teacher.destroy
     respond_to do |format|
-      format.html { redirect_to admin_project_season_apply_camp_teachers_path(apply_camp_id: @apply_camp.id), notice: '删除成功。' }
+      format.html { redirect_to referer_or(admin_project_season_apply_camp_teachers_path(apply_camp_id: @apply_camp.id)), notice: '删除成功。' }
     end
   end
 
@@ -65,7 +66,7 @@ class Admin::ProjectSeasonApplyCampTeachersController < Admin::BaseController
       @camp_teacher.state = state
       if @camp_teacher.save
         @camp_teacher.audits.create(state: state, user_id: current_user.id, comment: camp_teacher_params[:approve_remark])
-        format.html { redirect_to admin_project_season_apply_camp_teachers_path(apply_camp_id: @apply_camp.id), notice: '审核成功' }
+        format.html { redirect_to referer_or(admin_project_season_apply_camp_teachers_path(apply_camp_id: @apply_camp.id)), notice: '审核成功' }
       else
         format.html { render :show }
       end

@@ -44,7 +44,7 @@ class Admin::VolunteerAppliesController < Admin::BaseController
           content: content
         )
 
-        format.html { redirect_to admin_volunteer_applies_path, notice: '操作成功' }
+        format.html { redirect_to referer_or(admin_volunteer_applies_path), notice: '操作成功' }
       else
         format.html { render :edit }
       end

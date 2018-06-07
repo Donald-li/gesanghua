@@ -26,7 +26,7 @@ class Admin::PairThankNotesController < Admin::BaseController
     @feedback = ContinualFeedback.new(content: note_params[:content], owner: @child, project: Project.pair_project, user: @user, gsh_child_grant: @grant, season: @grant.season, apply: @grant.apply, child: @grant.apply_child)
     if @feedback.save
       @feedback.attach_images(params[:image_ids])
-      redirect_to admin_pair_thank_notes_path, notice: '新增成功。'
+      redirect_to referer_or(admin_pair_thank_notes_path), notice: '新增成功。'
     else
       render :new
     end
@@ -39,7 +39,7 @@ class Admin::PairThankNotesController < Admin::BaseController
     respond_to do |format|
       if @note.update(note_params)
         @note.attach_images(params[:image_ids])
-        format.html { redirect_to admin_pair_thank_notes_path, notice: '修改成功。' }
+        format.html { redirect_to referer_or(admin_pair_thank_notes_path), notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -49,7 +49,7 @@ class Admin::PairThankNotesController < Admin::BaseController
   def destroy
     @note.destroy
     respond_to do |format|
-      format.html { redirect_to admin_pair_thank_notes_path, notice: '删除成功。' }
+      format.html { redirect_to referer_or(admin_pair_thank_notes_path), notice: '删除成功。' }
     end
   end
 

@@ -33,7 +33,7 @@ class Admin::PairGrantBatchesController < Admin::BaseController
   def create
     @batch = GrantBatch.new(grant_params)
     if @batch.save
-      redirect_to admin_pair_grant_batches_url, notice: '发放批次已创建。'
+      redirect_to referer_or(admin_pair_grant_batches_url), notice: '发放批次已创建。'
     else
       render :new
     end
@@ -48,7 +48,7 @@ class Admin::PairGrantBatchesController < Admin::BaseController
 
     respond_to do |format|
       if @batch.update(grant_params)
-        format.html { redirect_to admin_pair_grant_batches_url, notice: '发放批次已更新。' }
+        format.html { redirect_to referer_or(admin_pair_grant_batches_url), notice: '发放批次已更新。' }
       else
         format.html { render :edit }
       end
@@ -60,7 +60,7 @@ class Admin::PairGrantBatchesController < Admin::BaseController
 
     @batch.destroy
     respond_to do |format|
-      format.html { redirect_to admin_pair_grant_batches_url, notice: '发放批次已删除。' }
+      format.html { redirect_to referer_or(admin_pair_grant_batches_url), notice: '发放批次已删除。' }
     end
   end
 

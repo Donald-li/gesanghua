@@ -30,7 +30,7 @@ class Admin::AppointTasksController < Admin::BaseController
           @task.task_volunteers.create(volunteer_id: appoint_id, state: 'pass', approve_time: Time.now, kind: 'appoint')
         end
         @task.attach_cover(params[:cover_id])
-        format.html { redirect_to admin_appoint_tasks_path, notice: '新建成功。' }
+        format.html { redirect_to referer_or(admin_appoint_tasks_path), notice: '新建成功。' }
       else
         format.html { render :new }
       end
@@ -41,7 +41,7 @@ class Admin::AppointTasksController < Admin::BaseController
     respond_to do |format|
       if @task.update(task_params)
         @task.attach_cover(params[:cover_id])
-        format.html { redirect_to admin_appoint_tasks_path, notice: '修改成功。' }
+        format.html { redirect_to referer_or(admin_appoint_tasks_path), notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -51,7 +51,7 @@ class Admin::AppointTasksController < Admin::BaseController
   def destroy
     @task.destroy
     respond_to do |format|
-      format.html { redirect_to admin_appoint_tasks_path, notice: '删除成功。' }
+      format.html { redirect_to referer_or(admin_appoint_tasks_path), notice: '删除成功。' }
     end
   end
 

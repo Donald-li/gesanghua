@@ -23,7 +23,7 @@ class Admin::SupportCategoriesController < Admin::BaseController
 
     respond_to do |format|
       if @support_category.save
-        format.html { redirect_to admin_support_categories_path, notice: '添加成功。' }
+        format.html { redirect_to referer_or(admin_support_categories_path), notice: '添加成功。' }
       else
         format.html { render :new }
       end
@@ -33,7 +33,7 @@ class Admin::SupportCategoriesController < Admin::BaseController
   def update
     respond_to do |format|
       if @support_category.update(support_category_params)
-        format.html { redirect_to admin_support_categories_path, notice: '修改成功。' }
+        format.html { redirect_to referer_or(admin_support_categories_path), notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -43,13 +43,13 @@ class Admin::SupportCategoriesController < Admin::BaseController
   def destroy
     @support_category.destroy
     respond_to do |format|
-      format.html { redirect_to admin_support_categories_path, notice: '删除成功。' }
+      format.html { redirect_to referer_or(admin_support_categories_path), notice: '删除成功。' }
     end
   end
 
   def switch
     @support_category.show? ? @support_category.hidden! : @support_category.show!
-    redirect_to admin_support_categories_path, notice:  @support_category.show? ? '已显示' : '已隐藏'
+    redirect_to referer_or(admin_support_categories_path), notice:  @support_category.show? ? '已显示' : '已隐藏'
   end
 
   def move

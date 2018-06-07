@@ -13,7 +13,7 @@ class Admin::TeamsController < Admin::BaseController
 
   def update
     if @team.update(team_params)
-      redirect_to admin_teams_path, notice: '修改成功'
+      redirect_to referer_or(admin_teams_path), notice: '修改成功'
     else
       flash[:notice] = '修改成功'
       render :edit
@@ -21,8 +21,9 @@ class Admin::TeamsController < Admin::BaseController
   end
 
   def dismiss
+    store_referer
     @team.dismiss! && @team.users.update(team_id: nil)
-    redirect_to admin_teams_path, notice: '解散成功'
+    redirect_to referer_or(admin_teams_path), notice: '解散成功'
   end
 
   def donate_records

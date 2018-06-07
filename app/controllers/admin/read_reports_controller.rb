@@ -48,7 +48,7 @@ class Admin::ReadReportsController < Admin::BaseController
 
   def switch
     @report.show? ? @report.hidden! : @report.show!
-    redirect_to admin_read_reports_url, notice:  @report.show? ? '报告已展示' : '报告已隐藏'
+    redirect_to referer_or(admin_read_reports_url), notice:  @report.show? ? '报告已展示' : '报告已隐藏'
   end
 
   private

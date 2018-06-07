@@ -17,6 +17,7 @@ class Admin::PairStudentsController < Admin::BaseController
   end
 
   def show
+    store_referer
   end
 
   def new
@@ -45,7 +46,7 @@ class Admin::PairStudentsController < Admin::BaseController
           @apply_child.attach_yard_image(params[:yard_image_id])
           @apply_child.attach_apply_one(params[:apply_one_id])
           @apply_child.attach_apply_two(params[:apply_two_id])
-          format.html {redirect_to admin_pair_apply_pair_students_path(@project_apply), notice: '新增成功。'}
+          format.html {redirect_to referer_or(admin_pair_apply_pair_students_path(@project_apply)), notice: '新增成功。'}
         else
           format.html {render :new}
         end
@@ -71,7 +72,7 @@ class Admin::PairStudentsController < Admin::BaseController
           @apply_child.attach_yard_image(params[:yard_image_id])
           @apply_child.attach_apply_one(params[:apply_one_id])
           @apply_child.attach_apply_two(params[:apply_two_id])
-          format.html {redirect_to admin_pair_apply_pair_students_path(@project_apply), notice: '修改成功。'}
+          format.html {redirect_to referer_or(admin_pair_apply_pair_students_path(@project_apply)), notice: '修改成功。'}
         else
           format.html {render :edit}
         end
@@ -86,7 +87,7 @@ class Admin::PairStudentsController < Admin::BaseController
   def destroy
     @apply_child.destroy
     respond_to do |format|
-      format.html {redirect_to admin_pair_apply_pair_students_path(@project_apply), notice: '删除成功。'}
+      format.html {redirect_to referer_or(admin_pair_apply_pair_students_path(@project_apply)), notice: '删除成功。'}
     end
   end
 
@@ -109,7 +110,7 @@ class Admin::PairStudentsController < Admin::BaseController
             content: @apply_child.pass? ? "#{@apply_child.name}同学审核通过" : "#{@apply_child.name}同学审核未通过"
         )
 
-        format.html {redirect_to admin_pair_apply_pair_students_path(@project_apply), notice: '审核成功'}
+        format.html {redirect_to referer_or(admin_pair_apply_pair_students_path(@project_apply)), notice: '审核成功'}
       else
         format.html {render :show}
       end

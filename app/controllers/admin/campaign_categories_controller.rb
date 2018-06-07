@@ -19,7 +19,7 @@ class Admin::CampaignCategoriesController < Admin::BaseController
     @campaign_category = CampaignCategory.new(campaign_category_params)
     respond_to do |format|
       if @campaign_category.save
-        format.html { redirect_to admin_campaign_categories_path, notice: '活动分类创建成功。' }
+        format.html { redirect_to referer_or(admin_campaign_categories_path), notice: '活动分类创建成功。' }
       else
         format.html { render :new  }
       end
@@ -29,7 +29,7 @@ class Admin::CampaignCategoriesController < Admin::BaseController
   def update
     respond_to do |format|
       if @campaign_category.update(campaign_category_params)
-        format.html { redirect_to admin_campaign_categories_path, notice: '活动分类已修改。' }
+        format.html { redirect_to referer_or(admin_campaign_categories_path), notice: '活动分类已修改。' }
       else
         format.html { render :edit }
       end

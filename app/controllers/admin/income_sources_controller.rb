@@ -15,7 +15,7 @@ class Admin::IncomeSourcesController < Admin::BaseController
 
     respond_to do |format|
       if @income_source.save
-        format.html { redirect_to admin_income_sources_path, notice: '添加成功' }
+        format.html { redirect_to referer_or(admin_income_sources_path), notice: '添加成功' }
       else
         format.html { render :new }
       end
@@ -29,7 +29,7 @@ class Admin::IncomeSourcesController < Admin::BaseController
   def update
     respond_to do |format|
       if @income_source.update(income_source_params)
-        format.html { redirect_to admin_income_sources_path, notice: '修改成功' }
+        format.html { redirect_to referer_or(admin_income_sources_path), notice: '修改成功' }
       else
         format.html { render :edit }
       end
@@ -39,7 +39,7 @@ class Admin::IncomeSourcesController < Admin::BaseController
   def destroy
     @income_source.delete
     respond_to do |format|
-      format.html { redirect_to admin_income_sources_path, notice: '删除成功' }
+      format.html { redirect_to referer_or(admin_income_sources_path), notice: '删除成功' }
     end
   end
 

@@ -16,7 +16,7 @@ class Admin::BadgeLevelsController < Admin::BaseController
     respond_to do |format|
       if @level.save
         @level.attach_icon(params[:icon_id])
-        format.html { redirect_to admin_badge_levels_url(kind: @kind), notice: '新增成功' }
+        format.html { redirect_to referer_or(admin_badge_levels_url(kind: @kind)), notice: '新增成功' }
       else
         format.html { render :new }
       end
@@ -32,7 +32,7 @@ class Admin::BadgeLevelsController < Admin::BaseController
     respond_to do |format|
       if @level.update(level_params)
         @level.attach_icon(params[:icon_id])
-        format.html { redirect_to admin_badge_levels_url(kind: @kind), notice: '修改成功' }
+        format.html { redirect_to referer_or(admin_badge_levels_url(kind: @kind)), notice: '修改成功' }
       else
         format.html { render :edit }
       end
@@ -50,7 +50,7 @@ class Admin::BadgeLevelsController < Admin::BaseController
   def destroy
     @level = @scope.find(params[:id])
     @level.destroy
-    redirect_to admin_badge_levels_url(kind: @kind), notice: '删除成功'
+    redirect_to referer_or(admin_badge_levels_url(kind: @kind)), notice: '删除成功'
   end
 
   private

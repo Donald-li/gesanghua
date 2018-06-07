@@ -50,7 +50,7 @@ class Admin::DonateItemAmountTabsController < Admin::BaseController
 
   def switch
     @amount_tab.show? ? @amount_tab.hidden! : @amount_tab.show!
-    redirect_to admin_donate_item_donate_item_amount_tabs_url(@donate_item), notice:  @amount_tab.show? ? '金额选项卡已显示' : '金额选项卡已隐藏'
+    redirect_to referer_or(admin_donate_item_donate_item_amount_tabs_url(@donate_item)), notice:  @amount_tab.show? ? '金额选项卡已显示' : '金额选项卡已隐藏'
   end
 
   private

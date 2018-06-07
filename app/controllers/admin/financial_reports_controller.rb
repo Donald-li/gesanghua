@@ -24,7 +24,7 @@ class Admin::FinancialReportsController < Admin::BaseController
     respond_to do |format|
       if @financial_report.save
         @financial_report.attach_report_files(params[:file_ids])
-        format.html { redirect_to admin_financial_reports_path, notice: '新增成功。' }
+        format.html { redirect_to referer_or(admin_financial_reports_path), notice: '新增成功。' }
       else
         format.html { render :new }
       end
@@ -35,7 +35,7 @@ class Admin::FinancialReportsController < Admin::BaseController
     respond_to do |format|
       @financial_report.attach_report_files(params[:file_ids])
       if @financial_report.update(financial_report_params)
-        format.html { redirect_to admin_financial_reports_path, notice: '修改成功。' }
+        format.html { redirect_to referer_or(admin_financial_reports_path), notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -45,13 +45,13 @@ class Admin::FinancialReportsController < Admin::BaseController
   def destroy
     @financial_report.destroy
     respond_to do |format|
-      format.html { redirect_to admin_financial_reports_path, notice: '删除成功。' }
+      format.html { redirect_to referer_or(admin_financial_reports_path), notice: '删除成功。' }
     end
   end
 
   def switch
     @financial_report.show? ? @financial_report.hidden! : @financial_report.show!
-    redirect_to admin_financial_reports_path, notice:  @financial_report.show? ? '报告已显示' : '报告已隐藏'
+    redirect_to referer_or(admin_financial_reports_path), notice:  @financial_report.show? ? '报告已显示' : '报告已隐藏'
   end
 
   def file_download

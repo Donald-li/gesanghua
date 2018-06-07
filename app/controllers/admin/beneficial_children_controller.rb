@@ -47,13 +47,13 @@ class Admin::BeneficialChildrenController < Admin::BaseController
     respond_to do |format|
       if BeneficialChild.read_excel(params[:children_excel_id], @project_apply.id, params[:project_season_apply_bookshelf_id])
         if @project_apply.project_id == Project.radio_project.id
-          format.html {redirect_to edit_admin_radio_apply_path(@project_apply, anchor: 'tab_1'), notice: '操作成功'}
+          format.html {redirect_to referer_or(edit_admin_radio_apply_path(@project_apply, anchor: 'tab_1')), notice: '操作成功'}
         elsif @project_apply.project_id == Project.movie_project.id
-          format.html {redirect_to edit_admin_movie_apply_path(@project_apply, anchor: 'tab_1'), notice: '操作成功'}
+          format.html {redirect_to referer_or(edit_admin_movie_apply_path(@project_apply, anchor: 'tab_1')), notice: '操作成功'}
         elsif @project_apply.project_id == Project.read_project.id && params[:project_season_apply_bookshelf_id].present?
-          format.html {redirect_to students_admin_read_apply_path(@project_apply, q: {project_season_apply_bookshelf_id_eq: params[:project_season_apply_bookshelf_id]}), notice: '操作成功'}
+          format.html {redirect_to referer_or(students_admin_read_apply_path(@project_apply, q: {project_season_apply_bookshelf_id_eq: params[:project_season_apply_bookshelf_id]})), notice: '操作成功'}
         elsif @project_apply.present?
-          format.html {redirect_to edit_admin_radio_apply_path(@project_apply, anchor: 'tab_1'), notice: '操作成功'}
+          format.html {redirect_to referer_or(edit_admin_radio_apply_path(@project_apply, anchor: 'tab_1')), notice: '操作成功'}
         end
         # format.html {redirect_to referer_or(request.referer), notice: '操作成功'}
       else

@@ -32,7 +32,7 @@ class Admin::GoodsProjectsController < Admin::GoodsBaseController
       if @project_apply.save
         @project_apply.update(apply_no: @project_apply.apply_no)
         @project_apply.attach_cover_image(params[:cover_image_id])
-        format.html { redirect_to admin_goods_projects_path, notice: '创建成功。' }
+        format.html { redirect_to referer_or(admin_goods_projects_path), notice: '创建成功。' }
       else
         format.html { render :new }
       end
@@ -43,7 +43,7 @@ class Admin::GoodsProjectsController < Admin::GoodsBaseController
     respond_to do |format|
       if @project_apply.update(project_apply_params.merge(project_type: 2))
         @project_apply.attach_cover_image(params[:cover_image_id])
-        format.html { redirect_to admin_goods_projects_path, notice: '修改成功。' }
+        format.html { redirect_to referer_or(admin_goods_projects_path), notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -53,12 +53,13 @@ class Admin::GoodsProjectsController < Admin::GoodsBaseController
   def destroy
     @project_apply.destroy
     respond_to do |format|
-      format.html { redirect_to admin_goods_projects_path, notice: '删除成功。' }
+      format.html { redirect_to referer_or(admin_goods_projects_path), notice: '删除成功。' }
     end
   end
 
   def shipment
     @logistic = Logistic.new
+    store_referer
   end
 
   def create_shipment
@@ -66,7 +67,7 @@ class Admin::GoodsProjectsController < Admin::GoodsBaseController
     respond_to do |format|
       if @logistic.save
         @project_apply.to_receive!
-        format.html { redirect_to admin_goods_projects_path, notice: '发货成功。' }
+        format.html { redirect_to referer_or(admin_goods_projects_path), notice: '发货成功。' }
       else
         format.html { render :shipment }
       end
@@ -74,29 +75,32 @@ class Admin::GoodsProjectsController < Admin::GoodsBaseController
   end
 
   def done
+    store_referer
     @project_apply.done!
     respond_to do |format|
-      format.html { redirect_to admin_goods_projects_path, notice: '已完成成功。' }
+      format.html { redirect_to referer_or(admin_goods_projects_path), notice: '已完成成功。' }
     end
   end
 
   def cancelled
+    store_referer
     @project_apply.cancelled!
     respond_to do |format|
-      format.html { redirect_to admin_goods_projects_path, notice: '已取消成功。' }
+      format.html { redirect_to referer_or(admin_goods_projects_path), notice: '已取消成功。' }
     end
   end
 
   def refunded
+    store_referer
     @project_apply.refunded!
     respond_to do |format|
-      format.html { redirect_to admin_goods_projects_path, notice: '已退款成功。' }
+      format.html { redirect_to referer_or(admin_goods_projects_path), notice: '已退款成功。' }
     end
   end
 
   def switch
     @project_apply.show? ? @project_apply.hidden! : @project_apply.show!
-    redirect_to admin_goods_projects_url, notice: @project_apply.show? ? '项目已显示' : '项目已隐藏'
+    redirect_to referer_or(admin_goods_projects_url), notice: @project_apply.show? ? '项目已显示' : '项目已隐藏'
   end
 
   private

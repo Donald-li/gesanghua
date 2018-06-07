@@ -24,7 +24,7 @@ class Admin::SessionsController < Admin::BaseController
     end
     if admin.authenticate(session_params[:password])
       set_current_user(admin)
-      redirect_to admin_main_path
+      redirect_to referer_or(admin_main_path)
     else
       flash[:alert] = '用户密码错误'
       render(action: :new) && return
@@ -33,7 +33,7 @@ class Admin::SessionsController < Admin::BaseController
 
   def destroy
     reset_session
-    redirect_to admin_login_path
+    redirect_to referer_or(admin_login_path)
   end
 
   private

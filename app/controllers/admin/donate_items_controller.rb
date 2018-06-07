@@ -22,7 +22,7 @@ class Admin::DonateItemsController < Admin::BaseController
     @donate_item = DonateItem.new(donate_item_params)
     respond_to do |format|
       if @donate_item.save
-        format.html { redirect_to admin_donate_items_path, notice: '新增成功。' }
+        format.html { redirect_to referer_or(admin_donate_items_path), notice: '新增成功。' }
       else
         format.html { render :new }
       end
@@ -32,7 +32,7 @@ class Admin::DonateItemsController < Admin::BaseController
   def update
     respond_to do |format|
       if @donate_item.update(donate_item_params)
-        format.html { redirect_to admin_donate_items_path, notice: '修改成功。' }
+        format.html { redirect_to referer_or(admin_donate_items_path), notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -42,13 +42,13 @@ class Admin::DonateItemsController < Admin::BaseController
   def destroy
     @donate_item.destroy
     respond_to do |format|
-      format.html { redirect_to admin_donate_items_path, notice: '删除成功。' }
+      format.html { redirect_to referer_or(admin_donate_items_path), notice: '删除成功。' }
     end
   end
 
   def switch
     @donate_item.show? ? @donate_item.hidden! : @donate_item.show!
-    redirect_to admin_donate_items_url, notice:  @donate_item.show? ? '捐助已展示' : '捐助已隐藏'
+    redirect_to referer_or(admin_donate_items_url), notice:  @donate_item.show? ? '捐助已展示' : '捐助已隐藏'
   end
 
   def move

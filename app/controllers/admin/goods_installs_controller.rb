@@ -18,7 +18,7 @@ class Admin::GoodsInstallsController < Admin::GoodsBaseController
     @install = @apply.install.new(install_params.merge(owner_type: 'ProjectSeasonApply', project_id: Project.care_project.id, project_season_apply_id: install_params[:owner_id], project_season_id: ProjectSeasonApply.find(install_params[:owner_id]).season.id))
     respond_to do |format|
       if @install.save
-        format.html { redirect_to admin_goods_project_goods_install_path(@apply), notice: '新增成功。' }
+        format.html { redirect_to referer_or(admin_goods_project_goods_install_path(@apply)), notice: '新增成功。' }
       else
         format.html { render :new }
       end
@@ -29,7 +29,7 @@ class Admin::GoodsInstallsController < Admin::GoodsBaseController
     @install = @apply.install
     respond_to do |format|
       if @install.update(install_params.merge(owner_type: 'ProjectSeasonApply', project_id: Project.care_project.id, project_season_apply_id: install_params[:owner_id], project_season_id: ProjectSeasonApply.find(install_params[:owner_id]).season.id))
-        format.html { redirect_to admin_goods_project_goods_install_path(@apply), notice: '修改成功。' }
+        format.html { redirect_to referer_or(admin_goods_project_goods_install_path(@apply)), notice: '修改成功。' }
       else
         format.html { render :new }
       end
@@ -40,7 +40,7 @@ class Admin::GoodsInstallsController < Admin::GoodsBaseController
     @install = @apply.install
     @install.destroy
     respond_to do |format|
-      format.html { redirect_to admin_goods_projects_path, notice: '删除成功。' }
+      format.html { redirect_to referer_or(admin_goods_projects_path), notice: '删除成功。' }
     end
   end
 

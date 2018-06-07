@@ -22,7 +22,7 @@ class Admin::PagesController < Admin::BaseController
     @page = Page.new(page_params)
     respond_to do |format|
       if @page.save
-        format.html { redirect_to admin_pages_url, notice: '新增成功' }
+        format.html { redirect_to referer_or(admin_pages_url), notice: '新增成功' }
       else
         format.html { render :new }
       end
@@ -32,7 +32,7 @@ class Admin::PagesController < Admin::BaseController
   def update
     respond_to do |format|
       if @page.update(page_params)
-        format.html { redirect_to admin_pages_url, notice: '修改成功' }
+        format.html { redirect_to referer_or(admin_pages_url), notice: '修改成功' }
       else
         format.html { render :edit }
       end
@@ -48,13 +48,13 @@ class Admin::PagesController < Admin::BaseController
 
   def switch
     @page.show? ? @page.hidden! : @page.show!
-    redirect_to admin_pages_url, notice:  @page.show? ? '帮助已显示' : '帮助已隐藏'
+    redirect_to referer_or(admin_pages_url), notice:  @page.show? ? '帮助已显示' : '帮助已隐藏'
   end
 
   def destroy
     @page.destroy
     respond_to do |format|
-      format.html { redirect_to admin_pages_url, notice: '删除成功' }
+      format.html { redirect_to referer_or(admin_pages_url), notice: '删除成功' }
     end
   end
 

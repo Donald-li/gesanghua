@@ -12,7 +12,7 @@ class Admin::CampDocumentBaseController < Admin::BaseController
 
   def switch_apply
     unless @current_apply
-      redirect_to admin_camp_applies_url(return_apply: controller_path), notice: '请选择探索营'
+      redirect_to referer_or(admin_camp_applies_url(return_apply: controller_path)), notice: '请选择探索营'
     else
       auth_operate_project(@current_apply.project)
     end

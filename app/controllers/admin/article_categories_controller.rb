@@ -24,7 +24,7 @@ class Admin::ArticleCategoriesController < Admin::BaseController
 
     respond_to do |format|
       if @article_category.save
-        format.html { redirect_to admin_article_categories_path, notice: '添加成功。' }
+        format.html { redirect_to referer_or(admin_article_categories_path), notice: '添加成功。' }
       else
         format.html { render :new }
       end
@@ -34,7 +34,7 @@ class Admin::ArticleCategoriesController < Admin::BaseController
   def update
     respond_to do |format|
       if @article_category.update(article_category_params)
-        format.html { redirect_to admin_article_categories_path, notice: '修改成功。' }
+        format.html { redirect_to referer_or(admin_article_categories_path), notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -44,13 +44,13 @@ class Admin::ArticleCategoriesController < Admin::BaseController
   def destroy
     @article_category.destroy
     respond_to do |format|
-      format.html { redirect_to admin_article_categories_path, notice: '删除成功。' }
+      format.html { redirect_to referer_or(admin_article_categories_path), notice: '删除成功。' }
     end
   end
 
   def switch
     @article_category.show? ? @article_category.hidden! : @article_category.show!
-    redirect_to admin_article_categories_path, notice:  @article_category.show? ? '已显示' : '已隐藏'
+    redirect_to referer_or(admin_article_categories_path), notice:  @article_category.show? ? '已显示' : '已隐藏'
   end
 
   def move

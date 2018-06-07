@@ -25,7 +25,7 @@ class Admin::SpecialsController < Admin::BaseController
     respond_to do |format|
       if @special.save && @article.save
         @special.attach_banner(params[:banner_id])
-        format.html { redirect_to edit_admin_special_path(@special), notice: '专题已增加。' }
+        format.html { redirect_to referer_or(edit_admin_special_path(@special)), notice: '专题已增加。' }
       else
         format.html { render :new }
       end
@@ -37,7 +37,7 @@ class Admin::SpecialsController < Admin::BaseController
       if @special.update(special_params)
         @special.list_article.update(title: special_params[:name], describe: special_params[:describe])
         @special.attach_banner(params[:banner_id])
-        format.html { redirect_to edit_admin_special_path(@special), notice: '专题已修改。' }
+        format.html { redirect_to referer_or(edit_admin_special_path(@special)), notice: '专题已修改。' }
       else
         format.html { render :edit }
       end
@@ -47,14 +47,14 @@ class Admin::SpecialsController < Admin::BaseController
   def destroy
     @special.destroy && @special.list_article.destroy
     respond_to do |format|
-      format.html { redirect_to admin_specials_path, notice: '专题已删除。' }
+      format.html { redirect_to referer_or(admin_specials_path), notice: '专题已删除。' }
     end
   end
 
   def switch
     @article = @special.list_article
     @article.show? ? @article.hidden! : @article.show!
-    redirect_to admin_specials_url, notice:  @article.show? ? '专题已展示' : '专题已隐藏'
+    redirect_to referer_or(admin_specials_url), notice:  @article.show? ? '专题已展示' : '专题已隐藏'
   end
 
   # def recommend

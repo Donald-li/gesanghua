@@ -17,7 +17,7 @@ class Admin::SpecialArticlesController < Admin::BaseController
         @article.attach_image(params[:image_id])
         @article.attach_carousel_images(params[:carousel_image_ids])
         @special.special_articles.create(article_id: @article.id)
-        format.html { redirect_to edit_admin_special_path(@special, anchor: "special-articles"), notice: '新增成功。' }
+        format.html { redirect_to referer_or(edit_admin_special_path(@special, anchor: "special-articles")), notice: '新增成功。' }
       else
         format.html { render :new }
       end
@@ -29,7 +29,7 @@ class Admin::SpecialArticlesController < Admin::BaseController
       if @article.update(special_article_params)
         @article.attach_image(params[:image_id])
         @article.attach_carousel_images(params[:carousel_image_ids])
-        format.html { redirect_to edit_admin_special_path(@special, anchor: "special-articles"), notice: '修改成功。' }
+        format.html { redirect_to referer_or(edit_admin_special_path(@special, anchor: "special-articles")), notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -39,7 +39,7 @@ class Admin::SpecialArticlesController < Admin::BaseController
   def destroy
     @article.destroy
     respond_to do |format|
-      format.html { redirect_to edit_admin_special_path(@special, anchor: "special-articles"), notice: '删除成功。' }
+      format.html { redirect_to referer_or(edit_admin_special_path(@special, anchor: "special-articles")), notice: '删除成功。' }
     end
   end
 

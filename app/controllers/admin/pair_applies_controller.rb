@@ -27,7 +27,7 @@ class Admin::PairAppliesController < Admin::BaseController
         flash[:notice] = '此学校在本批次还有未完成的申请'
         format.html { render :new }
       elsif @project_apply.save
-        format.html { redirect_to admin_pair_applies_path, notice: '创建成功。' }
+        format.html { redirect_to referer_or(admin_pair_applies_path), notice: '创建成功。' }
       else
         format.html { render :new }
       end
@@ -37,7 +37,7 @@ class Admin::PairAppliesController < Admin::BaseController
   def update
     respond_to do |format|
       if @project_apply.update(project_apply_params)
-        format.html { redirect_to admin_pair_applies_path, notice: '修改成功。' }
+        format.html { redirect_to referer_or(admin_pair_applies_path), notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -47,9 +47,9 @@ class Admin::PairAppliesController < Admin::BaseController
   def destroy
     respond_to do |format|
       if @project_apply.destroy
-        format.html { redirect_to admin_pair_applies_path, notice: '删除成功。' }
+        format.html { redirect_to referer_or(admin_pair_applies_path), notice: '删除成功。' }
       else
-        format.html { redirect_to admin_pair_applies_path, notice: '请先删除该配额下的学生。' }
+        format.html { redirect_to referer_or(admin_pair_applies_path), notice: '请先删除该配额下的学生。' }
       end
     end
   end

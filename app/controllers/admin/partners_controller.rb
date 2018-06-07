@@ -54,7 +54,7 @@ class Admin::PartnersController < Admin::BaseController
 
   def switch
     @partner.show? ? @partner.hidden! : @partner.show!
-    redirect_to admin_partners_url, notice:  @partner.show? ? '合作伙伴已显示' : '合作伙伴已隐藏'
+    redirect_to referer_or(admin_partners_url), notice:  @partner.show? ? '合作伙伴已显示' : '合作伙伴已隐藏'
   end
 
   private

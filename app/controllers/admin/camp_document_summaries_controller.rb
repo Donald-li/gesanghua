@@ -22,7 +22,7 @@ class Admin::CampDocumentSummariesController < Admin::CampDocumentBaseController
     respond_to do |format|
       if @camp_document_summary.save
         @camp_document_summary.attach_report(params[:report_id])
-        format.html { redirect_to admin_camp_document_summaries_url, notice: '新增成功' }
+        format.html { redirect_to referer_or(admin_camp_document_summaries_url), notice: '新增成功' }
       else
         format.html { render :new }
       end
@@ -33,7 +33,7 @@ class Admin::CampDocumentSummariesController < Admin::CampDocumentBaseController
     respond_to do |format|
       if @camp_document_summary.update(camp_document_summary_params)
         @camp_document_summary.attach_report(params[:report_id])
-        format.html { redirect_to admin_camp_document_summaries_url, notice: '修改成功' }
+        format.html { redirect_to referer_or(admin_camp_document_summaries_url), notice: '修改成功' }
       else
         format.html { render :edit }
       end
@@ -43,7 +43,7 @@ class Admin::CampDocumentSummariesController < Admin::CampDocumentBaseController
   def destroy
     @camp_document_summary.destroy
     respond_to do |format|
-      format.html { redirect_to admin_camp_document_summaries_url, notice: '删除成功' }
+      format.html { redirect_to referer_or(admin_camp_document_summaries_url), notice: '删除成功' }
     end
   end
 

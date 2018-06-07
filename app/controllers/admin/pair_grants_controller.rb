@@ -49,7 +49,7 @@ class Admin::PairGrantsController < Admin::BaseController
             title: "#发放通知# 你的捐款发放啦",
             content: "你捐助的 #{@grant.apply_child.name} 助学款已经发放。发放时间: #{ @grant.granted_at.strftime('%Y-%m-%d') } 发放人: #{ grant_params[:grant_person] }"
         )
-        format.html {redirect_to admin_pair_grants_path, notice: '操作成功。'}
+        format.html {redirect_to referer_or(admin_pair_grants_path), notice: '操作成功。'}
       else
         format.html {render :edit}
       end
@@ -57,9 +57,11 @@ class Admin::PairGrantsController < Admin::BaseController
   end
 
   def edit_delay
+    store_referer
   end
 
   def edit_cancel
+    store_referer
   end
 
   def edit_feedback
@@ -70,7 +72,7 @@ class Admin::PairGrantsController < Admin::BaseController
     respond_to do |format|
       if @grant.update(grant_params)
         @grant.suspend!
-        format.html {redirect_to admin_pair_grants_path, notice: '操作成功。'}
+        format.html {redirect_to referer_or(admin_pair_grants_path), notice: '操作成功。'}
       else
         format.html {render :edit_delay}
       end
@@ -80,9 +82,9 @@ class Admin::PairGrantsController < Admin::BaseController
   def cancel_delay
     respond_to do |format|
       if @grant.waiting!
-        format.html {redirect_to admin_pair_grants_path, notice: '操作成功。'}
+        format.html {redirect_to referer_or(admin_pair_grants_path), notice: '操作成功。'}
       else
-        format.html {redirect_to admin_pair_grants_path, notice: '操作失败。'}
+        format.html {redirect_to referer_or(admin_pair_grants_path), notice: '操作失败。'}
       end
     end
   end
@@ -91,7 +93,7 @@ class Admin::PairGrantsController < Admin::BaseController
     respond_to do |format|
       if @grant.update(grant_params.merge(operator_id: current_user.id))
         @grant.do_refund!
-        format.html {redirect_to admin_pair_grants_path, notice: '操作成功。'}
+        format.html {redirect_to referer_or(admin_pair_grants_path), notice: '操作成功。'}
       else
         format.html {render :edit_cancel}
       end
@@ -110,11 +112,12 @@ class Admin::PairGrantsController < Admin::BaseController
   end
 
   def switch
+    store_referer
     @grant.state = params[:state]
     if @grant.save
-      redirect_to admin_pair_grants_path, notice: '标记成功。'
+      redirect_to referer_or(admin_pair_grants_path), notice: '标记成功。'
     else
-      redirect_to admin_pair_grants_path, notice: '标记失败。'
+      redirect_to referer_or(admin_pair_grants_path), notice: '标记失败。'
     end
   end
 

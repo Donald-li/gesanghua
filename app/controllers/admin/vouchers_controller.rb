@@ -27,7 +27,7 @@ class Admin::VouchersController < Admin::BaseController
 
   def switch
     @voucher.pending? ? @voucher.deal! : @voucher.pending!
-    redirect_to admin_vouchers_url, notice:  @voucher.pending? ? '收据状态变为未处理' : '收据状态变为已处理'
+    redirect_to referer_or(admin_vouchers_url), notice:  @voucher.pending? ? '收据状态变为未处理' : '收据状态变为已处理'
   end
 
   private

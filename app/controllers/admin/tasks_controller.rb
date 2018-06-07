@@ -24,7 +24,7 @@ class Admin::TasksController < Admin::BaseController
     respond_to do |format|
       if @task.save
         @task.attach_cover(params[:cover_id])
-        format.html { redirect_to admin_tasks_path, notice: '发布成功。' }
+        format.html { redirect_to referer_or(admin_tasks_path), notice: '发布成功。' }
       else
         format.html { render :new }
       end
@@ -35,7 +35,7 @@ class Admin::TasksController < Admin::BaseController
     respond_to do |format|
       if @task.update(task_params)
         @task.attach_cover(params[:cover_id])
-        format.html { redirect_to admin_tasks_path, notice: '修改成功。' }
+        format.html { redirect_to referer_or(admin_tasks_path), notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -45,7 +45,7 @@ class Admin::TasksController < Admin::BaseController
   def destroy
     @task.destroy
     respond_to do |format|
-      format.html { redirect_to admin_tasks_path, notice: '删除成功。' }
+      format.html { redirect_to referer_or(admin_tasks_path), notice: '删除成功。' }
     end
   end
 
@@ -53,9 +53,9 @@ class Admin::TasksController < Admin::BaseController
     @task.state = params[:state]
     respond_to do |format|
       if @task.save
-        format.html { redirect_to admin_tasks_path, notice: '标记成功。' }
+        format.html { redirect_to referer_or(admin_tasks_path), notice: '标记成功。' }
       else
-        format.html { redirect_to admin_tasks_path, notice: '标记失败。' }
+        format.html { redirect_to referer_or(admin_tasks_path), notice: '标记失败。' }
       end
     end
   end

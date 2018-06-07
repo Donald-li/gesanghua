@@ -33,7 +33,7 @@ class Admin::MonthDonatesController < Admin::BaseController
         #   @donate_record = @month_donate.donate_records.find_by(period: @donated_period)
         #   @donate_record.update(amount: month_donate_params[:amount])
         # end
-        format.html { redirect_to admin_month_donates_url, notice: '月捐信息已修改。' }
+        format.html { redirect_to referer_or(admin_month_donates_url), notice: '月捐信息已修改。' }
       else
         format.html { render :edit }
       end

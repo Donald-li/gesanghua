@@ -22,7 +22,7 @@ class Admin::SupportsController < Admin::BaseController
     @support = Support.new(support_params)
     respond_to do |format|
       if @support.save
-        format.html { redirect_to admin_supports_url, notice: '新增成功' }
+        format.html { redirect_to referer_or(admin_supports_url), notice: '新增成功' }
       else
         format.html { render :new }
       end
@@ -32,7 +32,7 @@ class Admin::SupportsController < Admin::BaseController
   def update
     respond_to do |format|
       if @support.update(support_params)
-        format.html { redirect_to admin_supports_url, notice: '修改成功' }
+        format.html { redirect_to referer_or(admin_supports_url), notice: '修改成功' }
       else
         format.html { render :edit }
       end
@@ -48,13 +48,13 @@ class Admin::SupportsController < Admin::BaseController
 
   def switch
     @support.show? ? @support.hidden! : @support.show!
-    redirect_to admin_supports_url, notice:  @support.show? ? '帮助已显示' : '帮助已隐藏'
+    redirect_to referer_or(admin_supports_url), notice:  @support.show? ? '帮助已显示' : '帮助已隐藏'
   end
 
   def destroy
     @support.destroy
     respond_to do |format|
-      format.html { redirect_to admin_supports_url, notice: '删除成功' }
+      format.html { redirect_to referer_or(admin_supports_url), notice: '删除成功' }
     end
   end
 

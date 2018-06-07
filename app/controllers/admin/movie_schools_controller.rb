@@ -29,7 +29,7 @@ class Admin::MovieSchoolsController < Admin::BaseController
     respond_to do |format|
       if @project_apply.save
         @project_apply.attach_images(params[:image_ids])
-        format.html { redirect_to admin_movie_schools_path, notice: '新增成功。' }
+        format.html { redirect_to referer_or(admin_movie_schools_path), notice: '新增成功。' }
       else
         format.html { render :new }
       end
@@ -40,7 +40,7 @@ class Admin::MovieSchoolsController < Admin::BaseController
     respond_to do |format|
       if @project_apply.update(project_apply_params)
         @project_apply.attach_images(params[:image_ids])
-        format.html { redirect_to admin_movie_schools_path, notice: '修改成功。' }
+        format.html { redirect_to referer_or(admin_movie_schools_path), notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -50,7 +50,7 @@ class Admin::MovieSchoolsController < Admin::BaseController
   def destroy
     @project_apply.destroy
     respond_to do |format|
-      format.html { redirect_to admin_movie_schools_path, notice: '删除成功。' }
+      format.html { redirect_to referer_or(admin_movie_schools_path), notice: '删除成功。' }
     end
   end
 

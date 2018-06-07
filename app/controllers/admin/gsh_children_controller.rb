@@ -24,7 +24,7 @@ class Admin::GshChildrenController < Admin::BaseController
     @gsh_child = GshChild.new(gsh_child_params)
     respond_to do |format|
       if @gsh_child.save
-        format.html { redirect_to admin_gsh_children_url, notice: '格桑花孩子已增加。' }
+        format.html { redirect_to referer_or(admin_gsh_children_url), notice: '格桑花孩子已增加。' }
       else
         format.html { render :new }
       end
@@ -37,7 +37,7 @@ class Admin::GshChildrenController < Admin::BaseController
   def update
     respond_to do |format|
       if @gsh_child.update(gsh_child_params)
-        format.html { redirect_to admin_gsh_children_url, notice: '格桑花孩子资料已修改。' }
+        format.html { redirect_to referer_or(admin_gsh_children_url), notice: '格桑花孩子资料已修改。' }
       else
         format.html { render :edit }
       end
@@ -47,7 +47,7 @@ class Admin::GshChildrenController < Admin::BaseController
   def destroy
     @gsh_child.destroy
     respond_to do |format|
-      format.html { redirect_to admin_gsh_children_url, notice: '格桑花孩子已删除。' }
+      format.html { redirect_to referer_or(admin_gsh_children_url), notice: '格桑花孩子已删除。' }
     end
   end
 
