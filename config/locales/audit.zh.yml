@@ -316,7 +316,7 @@ zh:
       remark: '备注'
       form: '自定义表单'
       execute_state: '活动状态'
-      appoint_fund_id: '关联收入分类'
+      appoint_fund_id: '关联财务分类'
     campaign_enlist:
       campaign_id: '关联活动'
       user_id: '关联报名用户'

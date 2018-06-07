@@ -1,6 +1,6 @@
 class Admin::FundAdjustAmountsController < Admin::BaseController
   before_action :auth_manage_finanical
-  before_action :set_fund, only: [:new, :create]
+  before_action :set_fund
 
   def new
   end
@@ -14,6 +14,12 @@ class Admin::FundAdjustAmountsController < Admin::BaseController
         format.html { render :new }
       end
     end
+  end
+
+  def show
+    @search = AdjustRecord.where(from_item: @fund).ransack(params[:q])
+    scope = @search.result
+    @adjust_records = scope.sorted.page(params[:page])
   end
 
   private

@@ -1,13 +1,13 @@
 wb = xlsx_package.workbook
 wb.add_worksheet(name: "支出记录列表") do |sheet|
-  sheet.add_row ["支出单号", "支出名称", "支出时间", "支出金额", "支出分类", "备注", "经办人"]
+  sheet.add_row ["支出单号", "支出名称", "支出时间", "支出金额", "财务分类", "备注", "经办人"]
   @expenditure_records.each do |g|
     sheet.add_row [
       g.id,
       g.name,
       (g.expended_at.strftime("%Y-%m-%d %H:%M") if g.expended_at),
       format_money(g.amount),
-      g.expenditure_ledger.try(:name),
+      "#{g.fund.try(:fund_category).try(:name)} - #{g.fund.try(:name)}",
       g.remark,
       g.operator ]
     end
