@@ -194,9 +194,11 @@ admin:
               actions:
                 'admin/fund_categories': all
                 'admin/funds': all
+                'admin/fund_adjust_amounts': all
             admin_income_source:
               actions:
                 'admin/income_sources': all
+                'admin/source_adjust_amounts': all
             admin_expenditure_ledger:
               actions:
                 'admin/expenditure_ledgers': all

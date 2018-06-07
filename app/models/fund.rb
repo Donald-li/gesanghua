@@ -25,6 +25,8 @@ class Fund < ApplicationRecord
   has_many :expenditure_records, dependent: :restrict_with_error
   has_many :projects, dependent: :restrict_with_error
   has_many :month_donates, dependent: :restrict_with_error
+  has_many :adjust_records, as: :form_item, foreign_key: :from_item_id
+  has_many :adjust_records, as: :to_item, foreign_key: :to_item_id
 
   validates :name, :describe, presence: true
 
@@ -70,7 +72,7 @@ class Fund < ApplicationRecord
     to.balance = to.balance + amount
 
     if from.save && to.save
-      AdjustRecord.create(from_fund: from, to_fund: to, amount: amount, user: user)
+      AdjustRecord.create(from_item: from, to_item: to, amount: amount, user: user)
     end
   end
 

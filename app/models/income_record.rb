@@ -67,6 +67,7 @@ class IncomeRecord < ApplicationRecord
   counter_culture :agent, column_name: 'donate_amount', delta_magnitude: proc {|model| model.amount }
   counter_culture :fund, column_name: proc{|model| model.fund.present? ? 'total' : nil}, delta_magnitude: proc {|model| model.amount}
   counter_culture :fund, column_name: proc{|model| model.fund.present? ? 'balance' : nil}, delta_magnitude: proc {|model| model.amount}
+  counter_culture :income_source, column_name: 'amount', delta_magnitude: proc {|model| model.amount}
 
   def has_balance?
     self.balance > 0

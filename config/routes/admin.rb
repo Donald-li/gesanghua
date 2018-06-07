@@ -42,7 +42,7 @@ namespace :admin do
   resources :audit_reports, concerns: [:switch, :file_download]
   resources :financial_reports, concerns: [:switch, :file_download]
   resources :funds, concerns: [:switch, :move] do
-    resource :fund_adjust_amount, only: [:new, :create]
+    resource :fund_adjust_amount, only: [:new, :create, :show]
   end
   resources :fund_categories, concerns: [:switch, :move]
   resources :specials, concerns: [:switch] do
@@ -205,7 +205,9 @@ namespace :admin do
   resources :remarks
   resources :support_categories, concerns: [:move, :switch]
   resources :county_users, concerns: [:switch]
-  resources :income_sources, concerns: :move
+  resources :income_sources, concerns: :move do
+    resource :source_adjust_amount, only: [:new, :create, :show]
+  end
   resources :volunteer_applies, only: [:index, :edit, :update]
   resources :volunteers, concerns: [:switch] do
     resources :task_volunteers

@@ -18,6 +18,9 @@ class IncomeSource < ApplicationRecord
 
   has_many :campaign_enlists
 
+  has_many :adjust_records, as: :form_item, foreign_key: :from_item_id
+  has_many :adjust_records, as: :to_item, foreign_key: :to_item_id
+
   validates :name, presence: true
 
   enum kind: {online: 1, offline: 2} # 类型：  1:线上（online） 2:线下（offline）
@@ -25,5 +28,31 @@ class IncomeSource < ApplicationRecord
 
   acts_as_list column: :position
   scope :sorted, ->{ order(position: :asc) }
+
+  def self.wechat_id
+    1
+  end
+
+  def self.alipay_id
+    3
+  end
+
+  # 跨分类调整
+  def self.platform_adjust(from_source, to_source, amount, user)
+    amount = amount.to_f
+    return false if amount < 1
+
+    from = self.find(from_source)
+    to = self.find(to_source)
+
+    return false if from.amount < amount
+
+    from.amount = from.amount - amount
+    to.amount = to.amount + amount
+
+    if from.save && to.save
+      AdjustRecord.create(from_item: from, to_item: to, amount: amount, user: user)
+    end
+  end
 
 end

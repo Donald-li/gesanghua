@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180607060849) do
+ActiveRecord::Schema.define(version: 20180607073915) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,12 +30,14 @@ ActiveRecord::Schema.define(version: 20180607060849) do
   end
 
   create_table "adjust_records", force: :cascade, comment: "分类调整记录" do |t|
-    t.integer "from_fund_id", comment: "从哪个分类"
-    t.integer "to_fund_id", comment: "调到哪个分类"
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "金额"
     t.integer "user_id", comment: "操作人"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "from_item_id"
+    t.string "from_item_type"
+    t.string "to_item_type"
+    t.integer "to_item_id"
   end
 
   create_table "administrator_logs", force: :cascade, comment: "管理员日志" do |t|
@@ -411,7 +413,7 @@ ActiveRecord::Schema.define(version: 20180607060849) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "expenditure_ledgers", force: :cascade, comment: "财务分类" do |t|
+  create_table "expenditure_ledgers", force: :cascade, comment: "支出分类" do |t|
     t.string "name", comment: "名称"
     t.integer "position", comment: "排序"
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "合计支出金额"
@@ -644,7 +646,7 @@ ActiveRecord::Schema.define(version: 20180607060849) do
     t.integer "owner_id", comment: "所属项目ID"
     t.decimal "total_amount", precision: 14, scale: 2, default: "0.0", comment: "项目金额"
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "提取管理费金额"
-    t.integer "fund_id", comment: "财务分类"
+    t.integer "fund_id", comment: "收入分类"
     t.float "rate", comment: "费率"
     t.decimal "fee", precision: 14, scale: 2, default: "0.0", comment: "管理费金额"
     t.integer "user_id", comment: "用户"

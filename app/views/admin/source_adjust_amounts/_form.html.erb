@@ -1,0 +1,34 @@
+<%= simple_form_for [:admin, @income_source], as: :adjust, url: admin_income_source_source_adjust_amount_path(@income_source), method: :post, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'category_form'} do |f| %>
+  <%= f.error_notification %>
+  <div class="form-body form-horizontal">
+    <%= static_form_control '出账户：', "#{@income_source.name}" %>
+    <div class="form-group select optional">
+      <label class="col-md-2 control-label">入账户：</label>
+      <div class="col-sm-9">
+        <select id="fund" class="form-control select optional" name="adjust[to_source]" required>
+          <% IncomeSource.where.not(id: @income_source.id).sorted.each do |source| %>
+              <option value="<%= source.id %>"><%= source.name %></option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+    <%= f.input :amount, label: '跨账户调整：', autofocus: true, placeholder: '请输入金额', required: true %>
+  </div>
+  <div class="form-actions">
+    <div class="row">
+      <div class="col-md-offset-2 col-md-9">
+        <%= f.button :submit, '提交', class: 'btn blue' %>
+        <%= link_to '取消', admin_fund_categories_path, class: 'btn' %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script>
+    $(function(){
+
+        $("#fund").select2({
+            language: "zh-CN"
+        });
+    })
+</script>

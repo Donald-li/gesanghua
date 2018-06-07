@@ -2,14 +2,14 @@
   <div class="portlet-title">
     <div class="caption">
       <i class="icon-icon"></i>
-      <span class="caption-subject"><%= link_to @fund.name, admin_fund_categories_path %> > 跨分类调整</span>
+      <span class="caption-subject"><%= link_to @income_source.name, admin_income_sources_path %> > 跨账户调整</span>
     </div>
     <div class="actions">
-      <%= link_to admin_fund_fund_adjust_amount_path(@fund), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+      <%= link_to admin_income_source_source_adjust_amount_path(@income_source), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
           <i class="fa fa-list"></i>
           <span>调整记录</span>
       <% end %>
-      <%= link_to admin_fund_categories_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+      <%= link_to admin_income_sources_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
           <i class="fa fa-reply"></i>
           <span>返回</span>
       <% end %>
