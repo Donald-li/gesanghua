@@ -48,6 +48,9 @@ class Voucher < ApplicationRecord
     return false if ids.empty?
     self.transaction do
       begin
+        records = user.income_records.to_bill.where(id: ids)
+        self.amount = records.sum(:amount)
+        return false if self.amount < 100
         self.save!
         records = user.income_records.to_bill.where(id: ids)
         records.update_all(voucher_state: :billed, voucher_id: self.id)

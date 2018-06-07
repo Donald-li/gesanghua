@@ -54,7 +54,7 @@ class User < ApplicationRecord
   ADMIN_ROLES = %w[superadmin admin project_manager project_operator financial_staff custom_service]
   has_bit_enum :role, ROLES, ROLES_HASH
 
-  scope :admin_user, ->{where("(users.roles_mask::bit(12) & B'100000011111')::integer > 0")}
+  scope :admin_user, ->{where("(users.roles_mask::bit(12) & B'100100011111')::integer > 0")}
 
   attr_accessor :avatar_id
 
