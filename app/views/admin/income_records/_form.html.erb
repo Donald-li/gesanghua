@@ -3,13 +3,15 @@
   <div class="form-body form-horizontal">
     <%= f.input :title, label: '收入名称：', placeholder: '' %>
     <div class="form-group">
-      <label class="col-md-2 control-label">收入分类：</label>
+      <label class="col-md-2 control-label">财务分类：</label>
       <div class="col-sm-9">
         <select id="fund" class="form-control select optional" name="income_record[fund_id]" required>
           <% FundCategory.reverse_sorted.each do |fc| %>
-              <% fc.funds.each do |fund| %>
-                <option value="<%= fund.id %>" <%= 'selected' if @income_record.fund_id == fund.id %>><%= fc.name %> - <%= fund.name %></option>
-              <% end %>
+              <optgroup label="<%= fc.name %>">
+                <% fc.funds.each do |fund| %>
+                    <option value="<%= fund.id %>" <%= 'selected' if @income_record.fund_id == fund.id %>><%= fc.name %> - <%= fund.name %></option>
+                <% end %>
+              </optgroup>
           <% end %>
         </select>
       </div>

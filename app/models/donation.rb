@@ -134,7 +134,7 @@ class Donation < ApplicationRecord
       amount = format('%.2f', (result['total_fee'].to_f / 100.to_f))
       amount = donation.amount if Settings.pay_1_mode # 测试模式入账金额等于捐助金额
 
-      # 获取收入分类
+      # 获取财务分类
       case donation.owner
       when GshChildGrant
         fund = donation.owner.try(:apply_child).try(:apply).try(:project).try(:fund)
@@ -184,7 +184,7 @@ class Donation < ApplicationRecord
       amount = result['invoice_amount']
       amount = donation.amount if Settings.pay_1_mode # 测试模式入账金额等于捐助金额
 
-      # 获取收入分类
+      # 获取财务分类
       case donation.owner
       when GshChildGrant
         fund = donation.owner.try(:apply_child).try(:apply).try(:project).try(:fund)

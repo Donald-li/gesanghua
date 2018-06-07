@@ -27,8 +27,8 @@ class ExpenditureRecord < ApplicationRecord
   has_many_assets :images, class_name: 'Asset::ExpenditureRecordImage'
   has_one_asset :expenditure_record_excel, class_name: 'Asset::ExpenditureRecordExcel'
 
-  # belongs_to :fund
-  belongs_to :expenditure_ledger
+  belongs_to :fund
+  # belongs_to :expenditure_ledger
   belongs_to :administrator, optional: true
   belongs_to :income_record, optional: true
   # appoint_type 多态关联
@@ -37,7 +37,8 @@ class ExpenditureRecord < ApplicationRecord
   # enum deliver_state: {to_deliver: 1, deliver: 2} # 发放状态，1:待发放 2:已发放
   # default_value_for :deliver_state, 1
   # enum kind: {}
-  counter_culture :expenditure_ledger, column_name: 'amount', delta_magnitude: proc {|model| model.amount }
+  # counter_culture :expenditure_ledger, column_name: 'amount', delta_magnitude: proc {|model| model.amount }
+  counter_culture :fund, column_name: 'out_total', delta_magnitude: proc {|model| model.amount }
 
   before_create :gen_expend_no
 
