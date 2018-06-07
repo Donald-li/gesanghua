@@ -103,6 +103,61 @@ class Admin::PairStudentListsController < Admin::BaseController
     end
   end
 
+  def grade_manage
+  end
+
+  def grade_add_one
+    @pair_student_lists = ProjectSeasonApplyChild.pass.where('done_semester_count between 1 and semester_count - 1').where.not(grade: 'three').sorted
+    num = 0
+    @pair_student_lists.transaction do
+      @pair_student_lists.each do |student|
+        if student.one?
+          if student.update(grade: 'two')
+            num += 1
+          end
+        elsif student.two?
+          if student.update(grade: 'three')
+            num +=1
+          end
+        end
+      end
+    end
+    respond_to do |format|
+      if num == @pair_student_lists.size
+        format.html {redirect_to grade_manage_admin_pair_student_list_path(1), notice: '新增成功。'}
+      else
+        flash[:alert] = '新增失败'
+        format.html {render :grade_manage}
+      end
+    end
+  end
+
+  def grade_minus_one
+    @pair_student_lists = ProjectSeasonApplyChild.pass.where('done_semester_count between 1 and semester_count - 1').where.not(grade: 'one').sorted
+    num = 0
+    @pair_student_lists.transaction do
+      @pair_student_lists.each do |student|
+        if student.two?
+          if student.update(grade: 'one')
+            num += 1
+          end
+        elsif student.three?
+          if student.update(grade: 'two')
+            num +=1
+          end
+        end
+      end
+    end
+    respond_to do |format|
+      if num == @pair_student_lists.size
+        format.html {redirect_to grade_manage_admin_pair_student_list_path(1), notice: '修改成功。'}
+      else
+        flash[:alert] = '修改失败'
+        format.html {render :grade_manage}
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_pair_student_list

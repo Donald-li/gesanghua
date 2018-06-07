@@ -4,6 +4,10 @@
       <i class="icon-list"></i> 捐助管理
     </div>
     <div class="actions">
+      <%= link_to grade_manage_admin_pair_student_list_path(1), class: 'btn btn-xs yellow', 'data-no-turbolink' => true do %>
+          <i class="fa fa-list"></i>
+          <span>年级批量管理</span>
+      <% end %>
       <%= link_to url_for(params.permit!.merge(format: :xlsx)), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
           <i class="fa fa-download"></i>
           <span>导出</span>
@@ -101,7 +105,7 @@
                   <%= child.apply.try(:school).try(:name) %> / <%= child.enum_name(:level) %> <%= child.enum_name(:grade) %>
                 </td>
                 <td>
-                  <% child.gsh_child_grants.includes(:gsh_child).sorted.reverse.each do |grant| %>
+                  <% child.gsh_child_grants.sorted.reverse.each do |grant| %>
                     <span class="btn btn-xs <%= grant.button_color %>" title="<%= grant.enum_name(:donate_state) %>"><%= grant.title %></span>
                   <% end %>
                 </td>
