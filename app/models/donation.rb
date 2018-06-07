@@ -50,17 +50,6 @@ class Donation < ApplicationRecord
 
   scope :sorted, -> {order(id: :desc)}
 
-  # 生成收入
-  def gen_income_record
-    income = IncomeRecord.new(donation: self, agent: self.agent, amount: self.amount, balance: self.amount, donor: self.donor, promoter_id: self.promoter_id, income_time: Time.now, title: self.title)
-    if self.apply
-      income.fund = self.project.try(:appoint_fund)
-    else
-      income.fund = self.project.try(:fund)
-    end
-    income.save
-  end
-
   # 代捐人名称
   def agent_name
     return '无' if self.agent.blank?
@@ -124,6 +113,32 @@ class Donation < ApplicationRecord
     end
   end
 
+
+  # 生成收入
+  def gen_income_record
+    income = IncomeRecord.new(donation: self, agent: self.agent, amount: self.amount, balance: self.amount, donor: self.donor, promoter_id: self.promoter_id, income_time: Time.now, title: self.title)
+    if self.apply
+      income.fund = self.project.try(:appoint_fund)
+    else
+      income.fund = self.project.try(:fund)
+    end
+    income.save
+  end
+
+
+  # 对应的财务分类
+  def income_fund
+    if self.owner_type == 'CampaignEnlist'
+      return self.owner.try(:campaign).try(:appoint_fund)
+    end
+
+    if self.apply
+      self.project.try(:appoint_fund)
+    else
+      self.project.try(:fund)
+    end
+  end
+
   # 微信-支付成功
   def self.wechat_payment_success(result)
     # TODO: 这里也应该加到事务里
@@ -134,24 +149,10 @@ class Donation < ApplicationRecord
       amount = format('%.2f', (result['total_fee'].to_f / 100.to_f))
       amount = donation.amount if Settings.pay_1_mode # 测试模式入账金额等于捐助金额
 
-      # 获取财务分类
-      case donation.owner
-      when GshChildGrant
-        fund = donation.owner.try(:apply_child).try(:apply).try(:project).try(:fund)
-      when ProjectSeasonApplyChild, ProjectSeasonApplyBookshelf, BookshelfSupplement
-        fund = donation.owner.try(:apply).try(:project).try(:fund)
-      when ProjectSeasonApply
-        fund = donation.owner.try(:project).try(:fund)
-      when DonateItem
-        fund = donation.owner.try(:fund)
-      when CampaignEnlist
-        fund = donation.owner.try(:campaign).try(:appoint_fund)
-      end
-
       # 更新捐助状态
       donation.pay_state = 'paid'
       donation.pay_result = result.to_json
-      donation.build_income_record(fund: fund, agent: agent, donor: donor, amount: amount, promoter_id: donation.promoter_id, team_id: donation.team_id, balance: amount, voucher_state: 'to_bill', income_source_id: IncomeSource.wechat_id, income_time: Time.now, title: donation.title)
+      donation.build_income_record(fund: donation.income_fund, agent: agent, donor: donor, amount: amount, promoter_id: donation.promoter_id, team_id: donation.team_id, balance: amount, voucher_state: 'to_bill', income_source_id: IncomeSource.wechat_id, income_time: Time.now, title: donation.title)
       donation.save
 
       # 执行捐助
@@ -184,24 +185,10 @@ class Donation < ApplicationRecord
       amount = result['invoice_amount']
       amount = donation.amount if Settings.pay_1_mode # 测试模式入账金额等于捐助金额
 
-      # 获取财务分类
-      case donation.owner
-      when GshChildGrant
-        fund = donation.owner.try(:apply_child).try(:apply).try(:project).try(:fund)
-      when ProjectSeasonApplyChild, ProjectSeasonApplyBookshelf, BookshelfSupplement
-        fund = donation.owner.try(:apply).try(:project).try(:fund)
-      when ProjectSeasonApply
-        fund = donation.owner.try(:project).try(:fund)
-      when DonateItem
-        fund = donation.owner.try(:fund)
-      when CampaignEnlist
-        fund = donation.owner.try(:campaign).try(:appoint_fund)
-      end
-
       # 更新捐助状态
       donation.pay_state = 'paid'
       donation.pay_result = result.to_json
-      donation.build_income_record(fund: fund, agent: agent, donor: donor, amount: amount, promoter_id: donation.promoter_id, team_id: donation.team_id, balance: amount, voucher_state: 'to_bill', income_source_id: IncomeSource.alipay_id, income_time: Time.now, title: donation.title)
+      donation.build_income_record(fund: donation.income_fund, agent: agent, donor: donor, amount: amount, promoter_id: donation.promoter_id, team_id: donation.team_id, balance: amount, voucher_state: 'to_bill', income_source_id: IncomeSource.alipay_id, income_time: Time.now, title: donation.title)
       donation.save
 
       # 执行捐助
