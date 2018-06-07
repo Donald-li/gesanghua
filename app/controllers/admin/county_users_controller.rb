@@ -57,7 +57,7 @@ class Admin::CountyUsersController < Admin::BaseController
   def switch
     @user = User.find(@county_user.user_id)
     @user.enable? ? @user.disable! : @user.enable!
-    redirect_to admin_county_users_url, notice: @user.enable? ? '用户已启用' : '用户已禁用'
+    redirect_to referer_or(admin_county_users_url), notice: @user.enable? ? '用户已启用' : '用户已禁用'
   end
 
   private

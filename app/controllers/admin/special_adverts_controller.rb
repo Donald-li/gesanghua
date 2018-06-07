@@ -17,7 +17,7 @@ class Admin::SpecialAdvertsController < Admin::BaseController
       if @advert.save
         @advert.attach_image(params[:image_id])
         @special.special_adverts.create(advert_id: @advert.id, kind: session[:item_kind])
-        format.html { redirect_to edit_admin_special_path(@special, anchor: "#{session[:item_kind]}-adverts"), notice: '新增成功。' }
+        format.html { redirect_to referer_or(edit_admin_special_path(@special, anchor: "#{session[:item_kind]}-adverts")), notice: '新增成功。' }
       else
         format.html { render :new }
       end
@@ -28,7 +28,7 @@ class Admin::SpecialAdvertsController < Admin::BaseController
     respond_to do |format|
       if @advert.update(special_advert_params)
         @advert.attach_image(params[:image_id])
-        format.html { redirect_to edit_admin_special_path(@special, anchor: "#{session[:item_kind]}-adverts"), notice: '修改成功。' }
+        format.html { redirect_to referer_or(edit_admin_special_path(@special, anchor: "#{session[:item_kind]}-adverts")), notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -38,7 +38,7 @@ class Admin::SpecialAdvertsController < Admin::BaseController
   def destroy
     @advert.destroy
     respond_to do |format|
-      format.html { redirect_to edit_admin_special_path(@special, anchor: "#{session[:item_kind]}-adverts"), notice: '删除成功。' }
+      format.html { redirect_to referer_or(edit_admin_special_path(@special, anchor: "#{session[:item_kind]}-adverts")), notice: '删除成功。' }
     end
   end
 

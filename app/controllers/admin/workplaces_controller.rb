@@ -23,7 +23,7 @@ class Admin::WorkplacesController < Admin::BaseController
 
     respond_to do |format|
       if @workplace.save
-        format.html { redirect_to admin_workplaces_path, notice: '添加成功。' }
+        format.html { redirect_to referer_or(admin_workplaces_path), notice: '添加成功。' }
       else
         format.html { render :new }
       end
@@ -34,7 +34,7 @@ class Admin::WorkplacesController < Admin::BaseController
     respond_to do |format|
       if @workplace.update(workplace_params)
         @workplace.save
-        format.html { redirect_to admin_workplaces_path, notice: '修改成功。' }
+        format.html { redirect_to referer_or(admin_workplaces_path), notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -44,16 +44,16 @@ class Admin::WorkplacesController < Admin::BaseController
   def destroy
     respond_to do |format|
       if @workplace.destroy
-        format.html { redirect_to admin_workplaces_path, notice: '删除成功。' }
+        format.html { redirect_to referer_or(admin_workplaces_path), notice: '删除成功。' }
       else
-        format.html { redirect_to admin_workplaces_path, notice: '请先删除该工作地点下的任务。' }
+        format.html { redirect_to referer_or(admin_workplaces_path), notice: '请先删除该工作地点下的任务。' }
       end
     end
   end
 
   def switch
     @workplace.show? ? @workplace.hidden! : @workplace.show!
-    redirect_to admin_workplaces_path, notice:  @workplace.show? ? '已显示' : '已隐藏'
+    redirect_to referer_or(admin_workplaces_path), notice:  @workplace.show? ? '已显示' : '已隐藏'
   end
 
   private

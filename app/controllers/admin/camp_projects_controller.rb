@@ -30,7 +30,7 @@ class Admin::CampProjectsController < Admin::BaseController
     respond_to do |format|
       if @project.save
         @project.attach_cover_image(params[:cover_image_id])
-        format.html {redirect_to admin_camp_projects_path, notice: '新增成功。'}
+        format.html {redirect_to referer_or(admin_camp_projects_path), notice: '新增成功。'}
       else
         format.html {render :new}
       end
@@ -41,7 +41,7 @@ class Admin::CampProjectsController < Admin::BaseController
     respond_to do |format|
       if @project.update(project_params.merge(project_type: 'raise_project'))
         @project.attach_cover_image(params[:cover_image_id])
-        format.html {redirect_to admin_camp_projects_path, notice: '设置成功。'}
+        format.html {redirect_to referer_or(admin_camp_projects_path), notice: '设置成功。'}
       else
         format.html {render :edit}
       end
@@ -51,19 +51,19 @@ class Admin::CampProjectsController < Admin::BaseController
   def destroy
     @project.destroy
     respond_to do |format|
-      format.html {redirect_to admin_camp_projects_path, notice: '删除成功。'}
+      format.html {redirect_to referer_or(admin_camp_projects_path), notice: '删除成功。'}
     end
   end
 
   def switch
     @project.show? ? @project.hidden! : @project.show!
-    redirect_to admin_camp_projects_url, notice: @project.show? ? '项目已显示' : '项目已隐藏'
+    redirect_to referer_or(admin_camp_projects_url), notice: @project.show? ? '项目已显示' : '项目已隐藏'
   end
 
   def change_state
     respond_to do |format|
       if @project.update(camp_state: params[:camp_state])
-        format.html {redirect_to admin_camp_projects_path, notice: '标记成功。'}
+        format.html {redirect_to referer_or(admin_camp_projects_path), notice: '标记成功。'}
       else
         format.html {render :edit}
       end

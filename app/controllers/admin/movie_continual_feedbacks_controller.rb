@@ -25,7 +25,7 @@ class Admin::MovieContinualFeedbacksController < Admin::BaseController
   def update
     respond_to do |format|
       if @continual.update(continual_params)
-        format.html { redirect_to admin_movie_continual_feedbacks_path(@project), notice: '修改成功。' }
+        format.html { redirect_to referer_or(admin_movie_continual_feedbacks_path(@project)), notice: '修改成功。' }
       else
         format.html { render :new }
       end
@@ -35,13 +35,13 @@ class Admin::MovieContinualFeedbacksController < Admin::BaseController
   def destroy
     @continual.destroy
     respond_to do |format|
-      format.html { redirect_to admin_movie_continual_feedbacks_path(@project), notice: '删除成功。' }
+      format.html { redirect_to referer_or(admin_movie_continual_feedbacks_path(@project)), notice: '删除成功。' }
     end
   end
 
   def recommend
     @continual.recommend? ? @continual.normal! : @continual.recommend!
-    redirect_to admin_movie_continual_feedbacks_path(@project), notice:  @continual.recommend? ? '已推荐反馈' : '已取消推荐反馈'
+    redirect_to referer_or(admin_movie_continual_feedbacks_path(@project)), notice:  @continual.recommend? ? '已推荐反馈' : '已取消推荐反馈'
   end
 
   private

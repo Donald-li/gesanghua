@@ -12,7 +12,7 @@ class Admin::GoodsApproveLogsController < Admin::GoodsBaseController
   def destroy
     @audit.destroy
     respond_to do |format|
-      format.html { redirect_to admin_goods_apply_goods_approve_logs_path, notice: '删除成功。' }
+      format.html { redirect_to referer_or(admin_goods_apply_goods_approve_logs_path), notice: '删除成功。' }
     end
   end
 

@@ -41,7 +41,7 @@ class Admin::AdministratorsController < Admin::BaseController
           administrator_params[:roles] = (administrator_params[:roles]).select(&:present?)
           @user = User.new(administrator_params.merge(name: administrator_params[:nickname]))
           if @user.save
-            format.html {redirect_to admin_administrators_url, notice: '管理员已增加。'}
+            format.html {redirect_to referer_or(admin_administrators_url), notice: '管理员已增加。'}
           else
             flash[:alert] = @user.errors.full_messages.join(',')
             format.html {render :new}
@@ -73,7 +73,7 @@ class Admin::AdministratorsController < Admin::BaseController
 
   def switch
     @administrator.enable? ? @administrator.disable! : @administrator.enable!
-    redirect_to admin_administrators_url, notice: @administrator.enable? ? '管理员已启用' : '管理员已禁用'
+    redirect_to referer_or(admin_administrators_url), notice: @administrator.enable? ? '管理员已启用' : '管理员已禁用'
   end
 
   private

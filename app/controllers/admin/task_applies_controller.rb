@@ -34,7 +34,7 @@ class Admin::TaskAppliesController < Admin::BaseController
             content: content
         )
 
-        format.html { redirect_to admin_task_task_applies_path(@task), notice: '审核成功。' }
+        format.html { redirect_to referer_or(admin_task_task_applies_path(@task)), notice: '审核成功。' }
       else
         format.html { render :edit }
       end

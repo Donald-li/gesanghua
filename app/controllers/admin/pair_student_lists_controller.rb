@@ -69,6 +69,7 @@ class Admin::PairStudentListsController < Admin::BaseController
     @search = @apply_child.remarks.sorted.ransack(params[:q])
     scope = @search.result
     @remarks = scope.page(params[:page])
+    store_referer
   end
 
   def turn_over
@@ -78,6 +79,7 @@ class Admin::PairStudentListsController < Admin::BaseController
 
   def share
     @pair_student_list.generate_qrcode
+    store_referer
   end
 
   def qrcode_download
@@ -85,6 +87,7 @@ class Admin::PairStudentListsController < Admin::BaseController
   end
 
   def appoint
+    store_referer
   end
 
   def appoint_donor
@@ -104,6 +107,7 @@ class Admin::PairStudentListsController < Admin::BaseController
   end
 
   def grade_manage
+    store_referer
   end
 
   def grade_add_one
@@ -124,7 +128,7 @@ class Admin::PairStudentListsController < Admin::BaseController
     end
     respond_to do |format|
       if num == @pair_student_lists.size
-        format.html {redirect_to grade_manage_admin_pair_student_list_path(1), notice: '新增成功。'}
+        format.html {redirect_to referer_or(grade_manage_admin_pair_student_list_path(1)), notice: '新增成功。'}
       else
         flash[:alert] = '新增失败'
         format.html {render :grade_manage}
@@ -150,7 +154,7 @@ class Admin::PairStudentListsController < Admin::BaseController
     end
     respond_to do |format|
       if num == @pair_student_lists.size
-        format.html {redirect_to grade_manage_admin_pair_student_list_path(1), notice: '修改成功。'}
+        format.html {redirect_to referer_or(grade_manage_admin_pair_student_list_path(1)), notice: '修改成功。'}
       else
         flash[:alert] = '修改失败'
         format.html {render :grade_manage}

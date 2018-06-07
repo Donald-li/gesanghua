@@ -34,7 +34,7 @@ class Admin::VolunteersController < Admin::BaseController
     respond_to do |format|
       if @volunteer.save
         @volunteer.set_user_volunteer
-        format.html {redirect_to admin_volunteers_path, notice: '新增成功'}
+        format.html {redirect_to referer_or(admin_volunteers_path), notice: '新增成功'}
       else
         format.html {render :new}
       end
@@ -44,7 +44,7 @@ class Admin::VolunteersController < Admin::BaseController
   def update
     respond_to do |format|
       if @volunteer.update(volunteer_params)
-        format.html {redirect_to admin_volunteers_path, notice: '修改成功'}
+        format.html {redirect_to referer_or(admin_volunteers_path), notice: '修改成功'}
       else
         format.html {render :edit}
       end
@@ -54,18 +54,19 @@ class Admin::VolunteersController < Admin::BaseController
   def destroy
     @volunteer.destroy
     respond_to do |format|
-      format.html {redirect_to admin_volunteers_path, notice: '删除成功'}
+      format.html {redirect_to referer_or(admin_volunteers_path), notice: '删除成功'}
     end
   end
 
   def switch
     @volunteer.enable? ? @volunteer.disable! : @volunteer.enable!
-    redirect_to admin_volunteers_path, notice: @volunteer.enable? ? '已启用' : '已禁用'
+    redirect_to referer_or(admin_volunteers_path), notice: @volunteer.enable? ? '已启用' : '已禁用'
   end
 
   def switch_job
+    store_referer
     @volunteer.available? ? @volunteer.leave! : @volunteer.available!
-    redirect_to admin_volunteers_path, notice: @volunteer.available? ? '已标记为可接受任务' : '已标记为请假'
+    redirect_to referer_or(admin_volunteers_path), notice: @volunteer.available? ? '已标记为可接受任务' : '已标记为请假'
   end
 
   private

@@ -27,7 +27,7 @@ class Admin::TaskVolunteersController < Admin::BaseController
 
     respond_to do |format|
       if @task_volunteer.save
-        format.html { redirect_to admin_volunteer_task_volunteers_path(@volunteer), notice: '操作成功。' }
+        format.html { redirect_to referer_or(admin_volunteer_task_volunteers_path(@volunteer)), notice: '操作成功。' }
       else
         format.html { render :new }
       end

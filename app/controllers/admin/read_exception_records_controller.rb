@@ -36,7 +36,7 @@ class Admin::ReadExceptionRecordsController < Admin::BaseController
             )
           end
         end
-        format.html {redirect_to admin_read_projects_path, notice: '新增成功。'}
+        format.html {redirect_to referer_or(admin_read_projects_path), notice: '新增成功。'}
       else
         flash[:notice] = '新增失败，请检查表单'
         format.html {render :new}
@@ -50,7 +50,7 @@ class Admin::ReadExceptionRecordsController < Admin::BaseController
   def update
     respond_to do |format|
       if @exception_record.update(exception_record_params.merge(owner: @apply))
-        format.html {redirect_to admin_read_projects_path, notice: '修改成功。'}
+        format.html {redirect_to referer_or(admin_read_projects_path), notice: '修改成功。'}
       else
         flash[:notice] = '修改失败，请检查表单'
         format.html {render :new}

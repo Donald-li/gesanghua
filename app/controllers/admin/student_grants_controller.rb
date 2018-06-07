@@ -10,6 +10,7 @@ class Admin::StudentGrantsController < Admin::BaseController
   end
 
   def show
+    store_referer
   end
 
   def new
@@ -21,7 +22,7 @@ class Admin::StudentGrantsController < Admin::BaseController
 
     respond_to do |format|
       if @grant.save
-        format.html {redirect_to admin_pair_student_list_student_grants_path(@child_apply), notice: '新增成功。'}
+        format.html {redirect_to referer_or(admin_pair_student_list_student_grants_path(@child_apply)), notice: '新增成功。'}
       else
         format.html {render :new}
       end
@@ -34,7 +35,7 @@ class Admin::StudentGrantsController < Admin::BaseController
   def update
     respond_to do |format|
       if @grant.update(grant_params)
-        format.html {redirect_to admin_pair_student_list_student_grants_path(@child_apply), notice: '修改成功。'}
+        format.html {redirect_to referer_or(admin_pair_student_list_student_grants_path(@child_apply)), notice: '修改成功。'}
       else
         format.html {render :edit}
       end
@@ -44,21 +45,22 @@ class Admin::StudentGrantsController < Admin::BaseController
   def close
     respond_to do |format|
       if @grant.close!
-        format.html {redirect_to admin_pair_student_list_student_grants_path(@child_apply), notice: '关闭成功。'}
+        format.html {redirect_to referer_or(admin_pair_student_list_student_grants_path(@child_apply)), notice: '关闭成功。'}
       else
-        format.html {redirect_to admin_pair_student_list_student_grants_path(@child_apply), notice: '关闭失败。'}
+        format.html {redirect_to referer_or(admin_pair_student_list_student_grants_path(@child_apply)), notice: '关闭失败。'}
       end
     end
   end
 
   def match
+    store_referer
   end
 
   def match_donate
     amount = @child_apply.count_donate_amount_by_grant_number(params[:grant_number].to_i)
     respond_to do |format|
       if DonateRecord.platform_donate(@child_apply, amount, params.permit!.merge(current_user: current_user))
-        format.html {redirect_to admin_pair_student_list_student_grants_path(@child_apply), notice: '配捐成功。'}
+        format.html {redirect_to referer_or(admin_pair_student_list_student_grants_path(@child_apply)), notice: '配捐成功。'}
       else
         flash[:notice] = '配捐失败，请检查余额或表单'
         format.html {render :match}

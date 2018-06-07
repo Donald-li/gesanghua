@@ -21,7 +21,7 @@ class Admin::CampDocumentEstimatesController < Admin::CampDocumentBaseController
     @camp_document_estimate = CampDocumentEstimate.new(camp_document_estimate_params.merge(user: current_user, apply: @current_apply, camp: @current_apply.camp))
     respond_to do |format|
       if @camp_document_estimate.save
-        format.html { redirect_to admin_camp_document_estimates_url, notice: '新增成功' }
+        format.html { redirect_to referer_or(admin_camp_document_estimates_url), notice: '新增成功' }
       else
         format.html { render :new }
       end
@@ -31,7 +31,7 @@ class Admin::CampDocumentEstimatesController < Admin::CampDocumentBaseController
   def update
     respond_to do |format|
       if @camp_document_estimate.update(camp_document_estimate_params)
-        format.html { redirect_to admin_camp_document_estimates_url, notice: '修改成功' }
+        format.html { redirect_to referer_or(admin_camp_document_estimates_url), notice: '修改成功' }
       else
         format.html { render :edit }
       end
@@ -41,7 +41,7 @@ class Admin::CampDocumentEstimatesController < Admin::CampDocumentBaseController
   def destroy
     @camp_document_estimate.destroy
     respond_to do |format|
-      format.html { redirect_to admin_camp_document_estimates_url, notice: '删除成功' }
+      format.html { redirect_to referer_or(admin_camp_document_estimates_url), notice: '删除成功' }
     end
   end
 

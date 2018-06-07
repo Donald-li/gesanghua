@@ -9,6 +9,6 @@ class Admin::ExpenditureUploadsController < Admin::BaseController
     @count = return_value[0]
     @hint = return_value[1]
     flash[:notice] = "共更新了#{@count.to_i}条信息。"
-    redirect_to admin_expenditure_records_path
+    redirect_to referer_or(admin_expenditure_records_path)
   end
 end

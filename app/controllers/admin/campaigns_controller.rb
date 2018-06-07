@@ -52,16 +52,17 @@ class Admin::CampaignsController < Admin::BaseController
 
   def switch
     @campaign.show? ? @campaign.hidden! : @campaign.show!
-    redirect_to admin_campaigns_url, notice:  @campaign.show? ? '活动已展示' : '活动已隐藏'
+    redirect_to referer_or(admin_campaigns_url), notice:  @campaign.show? ? '活动已展示' : '活动已隐藏'
   end
 
   def switch_state
+    store_referer
     @campaign.execute_state = params[:execute_state]
     respond_to do |format|
       if @campaign.save
-        format.html { redirect_to admin_campaigns_url, notice: '标记成功。' }
+        format.html { redirect_to referer_or(admin_campaigns_url), notice: '标记成功。' }
       else
-        format.html { redirect_to admin_campaigns_url, notice: '标记失败。' }
+        format.html { redirect_to referer_or(admin_campaigns_url), notice: '标记失败。' }
       end
     end
   end

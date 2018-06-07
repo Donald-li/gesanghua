@@ -8,6 +8,7 @@ class Admin::GoodsAppliesController < Admin::GoodsBaseController
   end
 
   def show
+    store_referer
   end
 
   def new
@@ -34,7 +35,7 @@ class Admin::GoodsAppliesController < Admin::GoodsBaseController
         @project_apply.update(apply_no: @project_apply.apply_no)
         @project_apply.attach_images(params[:apply_image_ids])
         @project_apply.audits.build
-        format.html { redirect_to admin_goods_applies_path, notice: '创建成功。' }
+        format.html { redirect_to referer_or(admin_goods_applies_path), notice: '创建成功。' }
       else
         format.html { render :new }
       end
@@ -45,7 +46,7 @@ class Admin::GoodsAppliesController < Admin::GoodsBaseController
     respond_to do |format|
       if @project_apply.update(project_apply_params)
         @project_apply.attach_images(params[:apply_image_ids])
-        format.html { redirect_to admin_goods_applies_path, notice: '修改成功。' }
+        format.html { redirect_to referer_or(admin_goods_applies_path), notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -55,13 +56,13 @@ class Admin::GoodsAppliesController < Admin::GoodsBaseController
   def destroy
     @project_apply.destroy
     respond_to do |format|
-      format.html { redirect_to admin_goods_applies_path, notice: '删除成功。' }
+      format.html { redirect_to referer_or(admin_goods_applies_path), notice: '删除成功。' }
     end
   end
 
   def switch_to_raise
     # @project_apply.update(project_type: 2)
-    redirect_to edit_admin_goods_project_path(@project_apply), notice: '请填写筹款项目信息！'
+    redirect_to referer_or(edit_admin_goods_project_path(@project_apply)), notice: '请填写筹款项目信息！'
   end
 
   def audit
@@ -111,7 +112,7 @@ class Admin::GoodsAppliesController < Admin::GoodsBaseController
       @project_apply.audit_state = audit_state
       if @project_apply.save
         @project_apply.audits.create(state: audit_state, user_id: current_user.id, comment: project_apply_params[:approve_remark])
-        format.html { redirect_to admin_goods_applies_path, notice: '审核成功' }
+        format.html { redirect_to referer_or(admin_goods_applies_path), notice: '审核成功' }
       else
         format.html { render :check }
       end

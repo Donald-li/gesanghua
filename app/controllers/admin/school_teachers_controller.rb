@@ -26,7 +26,7 @@ class Admin::SchoolTeachersController < Admin::BaseController
             TeacherProject.create(teacher: @teacher, project_id: teacher_project)
           end
         end
-        format.html { redirect_to admin_school_school_teachers_path(@school), notice: '教师创建成功。' }
+        format.html { redirect_to referer_or(admin_school_school_teachers_path(@school)), notice: '教师创建成功。' }
       else
         flash[:notice] = notice
         format.html { render :new }

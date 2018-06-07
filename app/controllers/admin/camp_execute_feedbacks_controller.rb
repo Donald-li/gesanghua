@@ -22,7 +22,7 @@ class Admin::CampExecuteFeedbacksController < Admin::BaseController
     respond_to do |format|
       if @feedback.save
         @feedback.attach_images(params[:image_ids])
-        format.html { redirect_to admin_camp_project_camp_execute_feedbacks_path(@project), notice: '修改成功。' }
+        format.html { redirect_to referer_or(admin_camp_project_camp_execute_feedbacks_path(@project)), notice: '修改成功。' }
       else
         format.html { render :new }
       end
@@ -36,7 +36,7 @@ class Admin::CampExecuteFeedbacksController < Admin::BaseController
     respond_to do |format|
       if @feedback.update(execute_params)
         @feedback.attach_images(params[:image_ids])
-        format.html { redirect_to admin_camp_project_camp_execute_feedbacks_path(@project), notice: '修改成功。' }
+        format.html { redirect_to referer_or(admin_camp_project_camp_execute_feedbacks_path(@project)), notice: '修改成功。' }
       else
         format.html { render :new }
       end
@@ -46,13 +46,13 @@ class Admin::CampExecuteFeedbacksController < Admin::BaseController
   def destroy
     @feedback.destroy
     respond_to do |format|
-      format.html { redirect_to admin_camp_project_camp_execute_feedbacks_path(@project), notice: '删除成功。' }
+      format.html { redirect_to referer_or(admin_camp_project_camp_execute_feedbacks_path(@project)), notice: '删除成功。' }
     end
   end
 
   def recommend
     @feedback.recommend? ? @feedback.normal! : @feedback.recommend!
-    redirect_to admin_camp_project_camp_execute_feedbacks_path(@project), notice:  @feedback.recommend? ? '已推荐反馈' : '已取消推荐反馈'
+    redirect_to referer_or(admin_camp_project_camp_execute_feedbacks_path(@project)), notice:  @feedback.recommend? ? '已推荐反馈' : '已取消推荐反馈'
   end
 
   private

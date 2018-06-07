@@ -54,12 +54,12 @@ class Admin::ArticlesController < Admin::BaseController
 
   def switch
     @article.show? ? @article.hidden! : @article.show!
-    redirect_to admin_articles_url, notice:  @article.show? ? '资讯已展示' : '资讯已隐藏'
+    redirect_to referer_or(admin_articles_url), notice:  @article.show? ? '资讯已展示' : '资讯已隐藏'
   end
 
   def recommend
     @article.recommend? ? @article.normal! : @article.recommend!
-    redirect_to admin_articles_url, notice:  @article.recommend? ? '已推荐资讯' : '已取消推荐资讯'
+    redirect_to referer_or(admin_articles_url), notice:  @article.recommend? ? '已推荐资讯' : '已取消推荐资讯'
   end
 
   private

@@ -67,7 +67,7 @@
               姓名
             </th>
             <th>
-              学校/年级
+              学校/年级/班级
             </th>
             <th>
               申请捐助学年
@@ -102,7 +102,7 @@
                   <%= child.try(:name) %>
                 </td>
                 <td>
-                  <%= child.apply.try(:school).try(:name) %> / <%= child.enum_name(:level) %> <%= child.enum_name(:grade) %>
+                  <%= child.apply.try(:school).try(:name) %> / <%= child.enum_name(:level) %> <%= child.enum_name(:grade) %> / <%= child.classname %>
                 </td>
                 <td>
                   <% child.gsh_child_grants.sorted.reverse.each do |grant| %>

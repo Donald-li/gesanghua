@@ -9,6 +9,7 @@ class Admin::ReadAppliesController < Admin::BaseController
   end
 
   def show
+    store_referer
   end
 
   def new
@@ -31,7 +32,7 @@ class Admin::ReadAppliesController < Admin::BaseController
         # bookshelf_univalence = @project_apply.season.bookshelf_univalence
       @project_apply.bookshelves.update_all(school_id: @school.id, project_season_id: @project_apply.project_season_id, project_id: Project.read_project.id, province: @school.province, city: @school.city, district: @school.district)
       @project_apply.target_amount = @project_apply.bookshelves.pass.sum(:target_amount).to_f
-        format.html { redirect_to admin_read_applies_path, notice: '创建成功。' }
+        format.html { redirect_to referer_or(admin_read_applies_path), notice: '创建成功。' }
       else
         format.html { render :new }
       end
@@ -51,7 +52,7 @@ class Admin::ReadAppliesController < Admin::BaseController
           @project_apply.target_amount = @project_apply.supplements.pass.sum(:target_amount).to_f
           @project_apply.save
         end
-        format.html { redirect_to admin_read_applies_path, notice: '修改成功。' }
+        format.html { redirect_to referer_or(admin_read_applies_path), notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -73,7 +74,7 @@ class Admin::ReadAppliesController < Admin::BaseController
           @bookshelves.update_all(audit_state: 'reject')
           @supplements.update_all(audit_state: 'reject')
         end
-        format.html { redirect_to admin_read_applies_path, notice: '审核成功' }
+        format.html { redirect_to referer_or(admin_read_applies_path), notice: '审核成功' }
       else
         format.html { render :check }
       end
@@ -83,6 +84,7 @@ class Admin::ReadAppliesController < Admin::BaseController
   def audit
     @audit = @project_apply.audits.last
     @new_audit = @project_apply.audits.build
+    store_referer
   end
 
   def create_audit
@@ -101,9 +103,9 @@ class Admin::ReadAppliesController < Admin::BaseController
   def destroy
     respond_to do |format|
       if @project_apply.destroy
-        format.html { redirect_to admin_read_applies_path, notice: '删除成功。' }
+        format.html { redirect_to referer_or(admin_read_applies_path), notice: '删除成功。' }
       else
-        format.html { redirect_to admin_read_applies_path, notice: '请先删除该申请下的图书角。' }
+        format.html { redirect_to referer_or(admin_read_applies_path), notice: '请先删除该申请下的图书角。' }
       end
     end
   end
@@ -112,9 +114,9 @@ class Admin::ReadAppliesController < Admin::BaseController
     # @project_apply.raise_project!
     # @project_apply.gen_bookshelves_no
     if @project_apply.whole?
-      redirect_to edit_admin_read_project_path(@project_apply), notice: '请填写筹款项目信息！'
+      redirect_to referer_or(edit_admin_read_project_path(@project_apply)), notice: '请填写筹款项目信息！'
     else
-      redirect_to supply_edit_admin_read_project_path(@project_apply), notice: '请填写筹款项目信息！'
+      redirect_to referer_or(supply_edit_admin_read_project_path(@project_apply)), notice: '请填写筹款项目信息！'
     end
   end
 
@@ -126,6 +128,7 @@ class Admin::ReadAppliesController < Admin::BaseController
 
   def supply_new
     @project_apply = ProjectSeasonApply.new
+    store_referer
   end
 
   def supply_create
@@ -141,7 +144,7 @@ class Admin::ReadAppliesController < Admin::BaseController
         # @project_apply.bookshelves.update_all(school_id: @project_apply.school_id, project_season_id: @project_apply.project_season_id)
         @project_apply.target_amount = @project_apply.supplements.pass.sum(:target_amount).to_f
         @project_apply.save
-        format.html { redirect_to admin_read_applies_path, notice: '创建成功。' }
+        format.html { redirect_to referer_or(admin_read_applies_path), notice: '创建成功。' }
       else
         format.html { render :supply_new }
       end

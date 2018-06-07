@@ -28,7 +28,7 @@ class Admin::PairSeasonsController < Admin::BaseController
 
     respond_to do |format|
       if @season.save
-        format.html { redirect_to admin_pair_seasons_path, notice: '新增成功。' }
+        format.html { redirect_to referer_or(admin_pair_seasons_path), notice: '新增成功。' }
       else
         format.html { render :new }
       end
@@ -38,7 +38,7 @@ class Admin::PairSeasonsController < Admin::BaseController
   def update
     respond_to do |format|
       if @season.update(pair_params)
-        format.html { redirect_to admin_pair_seasons_path, notice: '修改成功。' }
+        format.html { redirect_to referer_or(admin_pair_seasons_path), notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -48,9 +48,9 @@ class Admin::PairSeasonsController < Admin::BaseController
   def destroy
     respond_to do |format|
       if @season.destroy
-        format.html { redirect_to admin_pair_seasons_path, notice: '删除成功。' }
+        format.html { redirect_to referer_or(admin_pair_seasons_path), notice: '删除成功。' }
       else
-        format.html { redirect_to admin_pair_seasons_path, notice: '请先删除该批次下的申请/项目。' }
+        format.html { redirect_to referer_or(admin_pair_seasons_path), notice: '请先删除该批次下的申请/项目。' }
       end
     end
   end

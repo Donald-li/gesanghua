@@ -26,7 +26,7 @@ class Admin::CampaignEnlistsController < Admin::BaseController
     @campaign_enlist = @campaign.campaign_enlists.new(campaign_enlist_params)
     respond_to do |format|
       if @campaign_enlist.save
-        format.html { redirect_to admin_campaign_campaign_enlists_path(@campaign), notice: '报名创建成功。' }
+        format.html { redirect_to referer_or(admin_campaign_campaign_enlists_path(@campaign)), notice: '报名创建成功。' }
       else
         format.html { render :new  }
       end
@@ -36,7 +36,7 @@ class Admin::CampaignEnlistsController < Admin::BaseController
   def update
     respond_to do |format|
       if @campaign_enlist.update(campaign_enlist_params)
-        format.html { redirect_to admin_campaign_campaign_enlists_path(@campaign), notice: '报名信息已修改。' }
+        format.html { redirect_to referer_or(admin_campaign_campaign_enlists_path(@campaign)), notice: '报名信息已修改。' }
       else
         format.html { render :edit }
       end
@@ -44,8 +44,9 @@ class Admin::CampaignEnlistsController < Admin::BaseController
   end
 
   def cancel
+    store_referer
     @campaign_enlist.update(payment_state: 2)
-    redirect_to admin_campaign_campaign_enlists_path(@campaign), notice: '报名已取消'
+    redirect_to referer_or(admin_campaign_campaign_enlists_path(@campaign)), notice: '报名已取消'
   end
 
   def calculate_total_price

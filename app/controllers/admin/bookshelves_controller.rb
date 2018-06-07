@@ -29,7 +29,7 @@ class Admin::BookshelvesController < Admin::BaseController
     @bookshelf.attach_image(params[:image_id])
     respond_to do |format|
       if @bookshelf.update(bookshelf_params)
-        format.html { redirect_to admin_read_project_bookshelves_path(@project), notice: '修改成功。' }
+        format.html { redirect_to referer_or(admin_read_project_bookshelves_path(@project)), notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -39,10 +39,11 @@ class Admin::BookshelvesController < Admin::BaseController
   def switch
     @bookshelf = ProjectSeasonApplyBookshelf.find(params[:id])
     @bookshelf.show? ? @bookshelf.hidden! : @bookshelf.show!
-    redirect_to admin_read_project_bookshelves_path(@project), notice:  @bookshelf.show? ? '已显示' : '已隐藏'
+    redirect_to referer_or(admin_read_project_bookshelves_path(@project)), notice:  @bookshelf.show? ? '已显示' : '已隐藏'
   end
 
   def shipment
+    store_referer
     @bookshelf = ProjectSeasonApplyBookshelf.find(params[:id])
     @logistic = Logistic.new
   end
@@ -53,7 +54,7 @@ class Admin::BookshelvesController < Admin::BaseController
     respond_to do |format|
       if @logistic.save
         @bookshelf.to_receive!
-        format.html { redirect_to admin_read_project_bookshelves_path(@project), notice: '发货成功。' }
+        format.html { redirect_to referer_or(admin_read_project_bookshelves_path(@project)), notice: '发货成功。' }
       else
         format.html { render :shipment }
       end
@@ -61,11 +62,13 @@ class Admin::BookshelvesController < Admin::BaseController
   end
 
   def bookshelf_receive
+    store_referer
     @bookshelf = ProjectSeasonApplyBookshelf.find(params[:id])
     @receive = @bookshelf.receive_feedback
   end
 
   def bookshelf_install
+    store_referer
     @bookshelf = ProjectSeasonApplyBookshelf.find(params[:id])
     @install = @bookshelf.install_feedback
   end

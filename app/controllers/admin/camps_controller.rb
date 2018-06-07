@@ -19,7 +19,7 @@ class Admin::CampsController < Admin::BaseController
     @camp = Camp.new(camp_params)
     respond_to do |format|
       if @camp.save
-        format.html { redirect_to admin_camps_path, notice: '新增成功。' }
+        format.html { redirect_to referer_or(admin_camps_path), notice: '新增成功。' }
       else
         format.html { render :new }
       end
@@ -29,7 +29,7 @@ class Admin::CampsController < Admin::BaseController
   def update
     respond_to do |format|
       if @camp.update(camp_params)
-        format.html { redirect_to admin_camps_path, notice: '修改成功。' }
+        format.html { redirect_to referer_or(admin_camps_path), notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -43,9 +43,9 @@ class Admin::CampsController < Admin::BaseController
         user.save
       end
       if @camp.destroy
-        format.html { redirect_to admin_camps_path, notice: '删除成功。' }
+        format.html { redirect_to referer_or(admin_camps_path), notice: '删除成功。' }
       else
-        format.html { redirect_to admin_camps_path, notice: '请先删除该营下的项目记录。' }
+        format.html { redirect_to referer_or(admin_camps_path), notice: '请先删除该营下的项目记录。' }
       end
     end
   end

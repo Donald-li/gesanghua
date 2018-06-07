@@ -86,7 +86,7 @@ class Admin::SchoolsController < Admin::BaseController
 
   def switch
     @school.enable? ? @school.disable! : @school.enable!
-    redirect_to admin_schools_url, notice: @school.enable? ? '学校已启用' : '学校已禁用'
+    redirect_to referer_or(admin_schools_url), notice: @school.enable? ? '学校已启用' : '学校已禁用'
   end
 
   private

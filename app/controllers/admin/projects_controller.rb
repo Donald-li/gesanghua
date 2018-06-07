@@ -28,7 +28,7 @@ class Admin::ProjectsController < Admin::BaseController
         @project.attach_image(params[:image_id])
         @project.attach_head_image(params[:head_image_id])
         @project.attach_icon(params[:icon_id])
-        format.html { redirect_to admin_projects_path, notice: '新增自定义项目成功。' }
+        format.html { redirect_to referer_or(admin_projects_path), notice: '新增自定义项目成功。' }
       else
         format.html { render :new }
       end
@@ -41,7 +41,7 @@ class Admin::ProjectsController < Admin::BaseController
         @project.attach_image(params[:image_id])
         @project.attach_head_image(params[:head_image_id])
         @project.attach_icon(params[:icon_id])
-        format.html { redirect_to admin_projects_path, notice: '修改成功。' }
+        format.html { redirect_to referer_or(admin_projects_path), notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -51,7 +51,7 @@ class Admin::ProjectsController < Admin::BaseController
   def destroy
     @project.destroy
     respond_to do |format|
-      format.html { redirect_to admin_projects_path, notice: '删除成功。' }
+      format.html { redirect_to referer_or(admin_projects_path), notice: '删除成功。' }
     end
   end
 

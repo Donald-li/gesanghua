@@ -22,7 +22,7 @@ class Admin::CampUsersController < Admin::BaseController
     respond_to do |format|
       if @camp_user.save
         @camp_user.attach_avatar(params[:avatar_id])
-        format.html { redirect_to admin_camp_camp_users_path, notice: '新增成功。' }
+        format.html { redirect_to referer_or(admin_camp_camp_users_path), notice: '新增成功。' }
       else
         format.html { render :new }
       end
@@ -33,7 +33,7 @@ class Admin::CampUsersController < Admin::BaseController
     respond_to do |format|
       if @camp_user.update(camp_user_params)
         @camp_user.attach_avatar(params[:avatar_id])
-        format.html { redirect_to admin_camp_camp_users_path, notice: '修改成功。' }
+        format.html { redirect_to referer_or(admin_camp_camp_users_path), notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -43,7 +43,7 @@ class Admin::CampUsersController < Admin::BaseController
   def destroy
     @camp_user.destroy
     respond_to do |format|
-      format.html { redirect_to admin_camp_camp_users_path, notice: '删除成功。' }
+      format.html { redirect_to referer_or(admin_camp_camp_users_path), notice: '删除成功。' }
     end
   end
 

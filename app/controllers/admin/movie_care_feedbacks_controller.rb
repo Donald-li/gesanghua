@@ -18,7 +18,7 @@ class Admin::MovieCareFeedbacksController < Admin::BaseController
     @install = @apply.install_feedbacks.new(install_params.merge(owner_type: 'ProjectSeasonApply', project_id: Project.movie_care_project.id, project_season_apply_id: install_params[:owner_id]))
     respond_to do |format|
       if @install.save
-        format.html { redirect_to admin_movie_care_school_movie_care_feedbacks_path(@apply), notice: '新增成功。' }
+        format.html { redirect_to referer_or(admin_movie_care_school_movie_care_feedbacks_path(@apply)), notice: '新增成功。' }
       else
         format.html { render :new }
       end
@@ -28,7 +28,7 @@ class Admin::MovieCareFeedbacksController < Admin::BaseController
   def update
     respond_to do |format|
       if @install.update(install_params.merge(owner_type: 'ProjectSeasonApply', project_id: Project.movie_care_project.id, project_season_apply_id: install_params[:owner_id]))
-        format.html { redirect_to admin_movie_care_school_movie_care_feedbacks_path(@apply), notice: '修改成功。' }
+        format.html { redirect_to referer_or(admin_movie_care_school_movie_care_feedbacks_path(@apply)), notice: '修改成功。' }
       else
         format.html { render :new }
       end
@@ -38,13 +38,13 @@ class Admin::MovieCareFeedbacksController < Admin::BaseController
   def destroy
     @install.destroy
     respond_to do |format|
-      format.html { redirect_to admin_movie_care_school_movie_care_feedbacks_path(@apply), notice: '删除成功。' }
+      format.html { redirect_to referer_or(admin_movie_care_school_movie_care_feedbacks_path(@apply)), notice: '删除成功。' }
     end
   end
 
   def recommend
     @install.recommend? ? @install.normal! : @install.recommend!
-    redirect_to admin_movie_care_school_movie_care_feedbacks_path(@apply), notice:  @install.recommend? ? '已推荐反馈' : '已取消推荐反馈'
+    redirect_to referer_or(admin_movie_care_school_movie_care_feedbacks_path(@apply)), notice:  @install.recommend? ? '已推荐反馈' : '已取消推荐反馈'
   end
 
   private

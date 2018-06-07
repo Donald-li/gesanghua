@@ -20,7 +20,7 @@ class Admin::GoodsDonateRecordsController < Admin::GoodsBaseController
   def create
     respond_to do |format|
       if DonateRecord.platform_donate(@apply, params[:amount], params.permit!.merge(current_user: current_user))
-        format.html {redirect_to admin_goods_project_goods_donate_records_path(@apply), notice: '新增成功。'}
+        format.html {redirect_to referer_or(admin_goods_project_goods_donate_records_path(@apply)), notice: '新增成功。'}
       else
         flash[:notice] = '检查余额或表单'
         format.html {render :new}
@@ -31,7 +31,7 @@ class Admin::GoodsDonateRecordsController < Admin::GoodsBaseController
   def destroy
     @donate_record.destroy
     respond_to do |format|
-      format.html { redirect_to admin_goods_project_goods_donate_records_path(@apply), notice: '删除成功。' }
+      format.html { redirect_to referer_or(admin_goods_project_goods_donate_records_path(@apply)), notice: '删除成功。' }
     end
   end
 

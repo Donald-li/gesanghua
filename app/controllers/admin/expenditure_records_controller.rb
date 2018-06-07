@@ -33,7 +33,7 @@ class Admin::ExpenditureRecordsController < Admin::BaseController
     # @expenditure_record.administrator_id = current_user.id
     respond_to do |format|
       if @expenditure_record.save
-        format.html { redirect_to admin_expenditure_records_path, notice: '新增成功。' }
+        format.html { redirect_to referer_or(admin_expenditure_records_path), notice: '新增成功。' }
       else
         format.html { render :new }
       end
@@ -44,7 +44,7 @@ class Admin::ExpenditureRecordsController < Admin::BaseController
     @expenditure_record.attach_images(params[:image_ids])
     respond_to do |format|
       if @expenditure_record.update(expenditure_record_params)
-        format.html { redirect_to admin_expenditure_records_path, notice: '修改成功。' }
+        format.html { redirect_to referer_or(admin_expenditure_records_path), notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -59,7 +59,7 @@ class Admin::ExpenditureRecordsController < Admin::BaseController
   def excel_import
     respond_to do |format|
       if notice =  ExpenditureRecord.read_excel(params[:expenditure_record_excel_id])
-        format.html {redirect_to admin_expenditure_records_path, notice: notice}
+        format.html {redirect_to referer_or(admin_expenditure_records_path), notice: notice}
       else
         format.html {render :excel_upload}
       end
@@ -69,7 +69,7 @@ class Admin::ExpenditureRecordsController < Admin::BaseController
   def destroy
     @expenditure_record.destroy
     respond_to do |format|
-      format.html { redirect_to admin_expenditure_records_path, notice: '删除成功。' }
+      format.html { redirect_to referer_or(admin_expenditure_records_path), notice: '删除成功。' }
     end
   end
 

@@ -17,7 +17,7 @@ class Admin::ProjectSeasonApplyCampsController < Admin::BaseController
     @apply_camp = ProjectSeasonApplyCamp.new(apply_camp_params.merge(camp: @apply.camp, apply: @apply))
     respond_to do |format|
       if @apply_camp.save
-        format.html { redirect_to admin_camp_project_project_season_apply_camps_path, notice: '新增成功。' }
+        format.html { redirect_to referer_or(admin_camp_project_project_season_apply_camps_path), notice: '新增成功。' }
       else
         format.html { render :new }
       end
@@ -30,7 +30,7 @@ class Admin::ProjectSeasonApplyCampsController < Admin::BaseController
   def update
     respond_to do |format|
       if @apply_camp.update(apply_camp_params)
-        format.html { redirect_to admin_camp_project_project_season_apply_camps_path, notice: '修改成功。' }
+        format.html { redirect_to referer_or(admin_camp_project_project_season_apply_camps_path), notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -40,7 +40,7 @@ class Admin::ProjectSeasonApplyCampsController < Admin::BaseController
   def destroy
     @apply_camp.destroy
     respond_to do |format|
-      format.html { redirect_to admin_camp_project_project_season_apply_camps_path, notice: '删除成功。' }
+      format.html { redirect_to referer_or(admin_camp_project_project_season_apply_camps_path), notice: '删除成功。' }
     end
   end
 
@@ -48,9 +48,9 @@ class Admin::ProjectSeasonApplyCampsController < Admin::BaseController
     @apply_camp.execute_state = params[:execute_state]
     respond_to do |format|
       if @apply_camp.save
-        format.html { redirect_to admin_camp_project_project_season_apply_camps_path, notice: '标记成功。' }
+        format.html { redirect_to referer_or(admin_camp_project_project_season_apply_camps_path), notice: '标记成功。' }
       else
-        format.html { redirect_to admin_camp_project_project_season_apply_camps_path, notice: '标记失败。' }
+        format.html { redirect_to referer_or(admin_camp_project_project_season_apply_camps_path), notice: '标记失败。' }
       end
     end
   end

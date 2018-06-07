@@ -11,6 +11,7 @@ class Admin::SupplementsController < Admin::BaseController
   def show
     @supplement = BookshelfSupplement.find(params[:id])
     @note = @supplement.receive
+    store_referer
   end
 
   def edit
@@ -22,7 +23,7 @@ class Admin::SupplementsController < Admin::BaseController
     # @supplement.attach_images(params[:image_ids])
     respond_to do |format|
       if @supplement.update(supplement_params)
-        format.html { redirect_to admin_read_project_supplements_path(@project), notice: '修改成功。' }
+        format.html { redirect_to referer_or(admin_read_project_supplements_path(@project)), notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -32,12 +33,13 @@ class Admin::SupplementsController < Admin::BaseController
   def switch
     @supplement = BookshelfSupplement.find(params[:id])
     @supplement.show? ? @supplement.hidden! : @supplement.show!
-    redirect_to admin_read_project_supplements_path(@project), notice:  @supplement.show? ? '已显示' : '已隐藏'
+    redirect_to referer_or(admin_read_project_supplements_path(@project)), notice:  @supplement.show? ? '已显示' : '已隐藏'
   end
 
   def shipment
     @supplement = BookshelfSupplement.find(params[:id])
     @logistic = Logistic.new
+    store_referer
   end
 
   def create_shipment
@@ -46,7 +48,7 @@ class Admin::SupplementsController < Admin::BaseController
     respond_to do |format|
       if @logistic.save
         @supplement.to_receive!
-        format.html { redirect_to admin_read_project_supplements_path(@project), notice: '发货成功。' }
+        format.html { redirect_to referer_or(admin_read_project_supplements_path(@project)), notice: '发货成功。' }
       else
         format.html { render :shipment }
       end
@@ -56,11 +58,13 @@ class Admin::SupplementsController < Admin::BaseController
   def supplement_receive
     @supplement = BookshelfSupplement.find(params[:id])
     @receive = @supplement.receive_feedback
+    store_referer
   end
 
   def supplement_install
     @supplement = BookshelfSupplement.find(params[:id])
     @install = @supplement.install_feedback
+    store_referer
   end
 
   private

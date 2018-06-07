@@ -12,13 +12,14 @@ class Admin::SchoolAppliesController < Admin::BaseController
   end
 
   def show
+    store_referer
   end
 
   def update
     respond_to do |format|
       if @school_apply.update(school_apply_params)
         @school_apply.attach_images(params[:image_ids])
-        format.html { redirect_to admin_school_applies_path, notice: '修改成功。' }
+        format.html { redirect_to referer_or(admin_school_applies_path), notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -28,7 +29,7 @@ class Admin::SchoolAppliesController < Admin::BaseController
   def destroy
     @school_apply.destroy
     respond_to do |format|
-      format.html { redirect_to admin_school_applies_path, notice: '删除成功。' }
+      format.html { redirect_to referer_or(admin_school_applies_path), notice: '删除成功。' }
     end
   end
 
@@ -63,7 +64,7 @@ class Admin::SchoolAppliesController < Admin::BaseController
           content: content
         )
 
-        format.html { redirect_to admin_school_applies_path, notice: '操作成功' }
+        format.html { redirect_to referer_or(admin_school_applies_path), notice: '操作成功' }
       else
         format.html { render :show }
       end

@@ -35,7 +35,7 @@ class Admin::IncomeRecordsController < Admin::BaseController
     @income_record.balance = income_record_params[:amount]
     respond_to do |format|
       if @income_record.save
-        format.html { redirect_to admin_income_records_path, notice: '新增成功。' }
+        format.html { redirect_to referer_or(admin_income_records_path), notice: '新增成功。' }
       else
         format.html { render :new }
       end
@@ -45,7 +45,7 @@ class Admin::IncomeRecordsController < Admin::BaseController
   def update
     respond_to do |format|
       if @income_record.update(income_record_params)
-        format.html { redirect_to admin_income_records_path, notice: '修改成功。' }
+        format.html { redirect_to referer_or(admin_income_records_path), notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -55,7 +55,7 @@ class Admin::IncomeRecordsController < Admin::BaseController
   def destroy
     @income_record.destroy
     respond_to do |format|
-      format.html { redirect_to admin_income_records_path, notice: '删除成功。' }
+      format.html { redirect_to referer_or(admin_income_records_path), notice: '删除成功。' }
     end
   end
 
@@ -70,7 +70,7 @@ class Admin::IncomeRecordsController < Admin::BaseController
   def excel_import
     respond_to do |format|
       if IncomeRecord.read_excel(params[:income_record_excel_id])
-        format.html {redirect_to admin_income_records_path, notice: '操作成功'}
+        format.html {redirect_to referer_or(admin_income_records_path), notice: '操作成功'}
       else
         format.html {render :excel_upload}
       end

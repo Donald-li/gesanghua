@@ -49,7 +49,7 @@ class Admin::ProtocolsController < Admin::BaseController
 
   def switch
     @protocol.show? ? @protocol.hidden! : @protocol.show!
-    redirect_to admin_protocols_url, notice:  @protocol.show? ? '协议已展示' : '协议已隐藏'
+    redirect_to referer_or(admin_protocols_url), notice:  @protocol.show? ? '协议已展示' : '协议已隐藏'
   end
 
   private

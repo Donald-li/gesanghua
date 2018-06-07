@@ -32,7 +32,7 @@ class Admin::UsersController < Admin::BaseController
     @user.attach_avatar(params[:avatar_id])
     respond_to do |format|
       if @user.save
-        format.html { redirect_to admin_users_path, notice: '创建成功。' }
+        format.html { redirect_to referer_or(admin_users_path), notice: '创建成功。' }
       else
         format.html { render :new }
       end
@@ -57,7 +57,7 @@ class Admin::UsersController < Admin::BaseController
 
   def switch
     @user.enable? ? @user.disable! : @user.enable!
-    redirect_to admin_users_url, notice:  @user.enable? ? '用户账号已启用' : '用户账号已禁用'
+    redirect_to referer_or(admin_users_url), notice:  @user.enable? ? '用户账号已启用' : '用户账号已禁用'
   end
 
   def invoices
@@ -74,9 +74,9 @@ class Admin::UsersController < Admin::BaseController
     ids = Array(params[:ids])
     respond_to do |format|
       if @voucher.save_voucher(@user, ids)
-        format.html { redirect_to invoices_admin_user_path(@user), notice: '开票申请提交成功。' }
+        format.html { redirect_to referer_or(invoices_admin_user_path(@user)), notice: '开票申请提交成功。' }
       else
-        format.html { redirect_to invoices_admin_user_path(@user), alert: '开票申请提交失败。' }
+        format.html { redirect_to referer_or(invoices_admin_user_path(@user)), alert: '开票申请提交失败。' }
       end
     end
 

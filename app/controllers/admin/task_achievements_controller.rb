@@ -24,15 +24,16 @@ class Admin::TaskAchievementsController < Admin::BaseController
     @task_achievement.user = current_user
     respond_to do |format|
       if @task_achievement.save
-        format.html { redirect_to admin_task_achievements_path, notice: '审核成功。' }
+        format.html { redirect_to referer_or(admin_task_achievements_path), notice: '审核成功。' }
       else
-        format.html { redirect_to admin_task_achievements_path, notice: '审核失败。' }
+        format.html { redirect_to referer_or(admin_task_achievements_path), notice: '审核失败。' }
       end
     end
   end
 
   def switch_edit
     @task_volunteer = TaskVolunteer.find(params[:id])
+    store_referer
   end
 
   def switch_update
@@ -40,9 +41,9 @@ class Admin::TaskAchievementsController < Admin::BaseController
     tv = TaskVolunteer.new(task: @task_volunteer.task, volunteer_id: params[:appoint_id], state: 'pass', kind: 'appoint')
     respond_to do |format|
       if @task_volunteer.update(state: 'turn_over') && tv.save
-        format.html { redirect_to admin_task_achievements_path, notice: '移交成功。' }
+        format.html { redirect_to referer_or(admin_task_achievements_path), notice: '移交成功。' }
       else
-        format.html { redirect_to admin_task_achievements_path, notice: '移交失败。' }
+        format.html { redirect_to referer_or(admin_task_achievements_path), notice: '移交失败。' }
       end
     end
   end
@@ -51,9 +52,9 @@ class Admin::TaskAchievementsController < Admin::BaseController
     @task_volunteer = TaskVolunteer.find(params[:id])
     respond_to do |format|
       if @task_volunteer.cancel!
-        format.html { redirect_to admin_task_achievements_path, notice: '取消成功。' }
+        format.html { redirect_to referer_or(admin_task_achievements_path), notice: '取消成功。' }
       else
-        format.html { redirect_to admin_task_achievements_path, notice: '取消失败。' }
+        format.html { redirect_to referer_or(admin_task_achievements_path), notice: '取消失败。' }
       end
     end
   end

@@ -16,10 +16,10 @@ class Admin::ManagementFeeMonthsController < Admin::BaseController
     @month = ManagementFeeMonth.find(params[:id])
     if @month.month == Time.now.strftime('%Y-%m')
       flash[:alert] = '不能提取本月的管理费'
-      redirect_to admin_management_fee_months_url
+      redirect_to referer_or(admin_management_fee_months_url)
     else
       @month.accrued!
-      redirect_to admin_management_fee_months_url
+      redirect_to referer_or(admin_management_fee_months_url)
     end
   end
 end

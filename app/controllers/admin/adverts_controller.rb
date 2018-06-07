@@ -59,7 +59,7 @@ class Admin::AdvertsController < Admin::BaseController
 
   def switch
     @advert.show? ? @advert.hidden! : @advert.show!
-    redirect_to admin_adverts_url, notice:  @advert.show? ? '广告已显示' : '广告已隐藏'
+    redirect_to referer_or(admin_adverts_url), notice:  @advert.show? ? '广告已显示' : '广告已隐藏'
   end
 
   private

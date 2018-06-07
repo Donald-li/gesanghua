@@ -12,6 +12,7 @@ class Admin::ReadProjectsController < Admin::BaseController
   end
 
   def supply_edit
+    store_referer
   end
 
   def update
@@ -26,7 +27,7 @@ class Admin::ReadProjectsController < Admin::BaseController
           @project.target_amount = @project.supplements.pass.sum(:target_amount).to_f
           @project.save
         end
-        format.html { redirect_to admin_read_projects_path, notice: '修改成功。' }
+        format.html { redirect_to referer_or(admin_read_projects_path), notice: '修改成功。' }
       else
         format.html { render :edit }
       end
@@ -35,12 +36,12 @@ class Admin::ReadProjectsController < Admin::BaseController
 
   def switch
     @project.show? ? @project.hidden! : @project.show!
-    redirect_to admin_read_projects_url, notice: @project.show? ? '项目已启用' : '项目已暂停'
+    redirect_to referer_or(admin_read_projects_url), notice: @project.show? ? '项目已启用' : '项目已暂停'
   end
 
   def finish_project
     @project.read_done! && @project.done!
-    redirect_to admin_read_projects_path, notice: '操作成功。'
+    redirect_to referer_or(admin_read_projects_path), notice: '操作成功。'
   end
 
   private

@@ -10,17 +10,17 @@ class Admin::TeamMembersController < Admin::BaseController
 
   def update
     if @team.update(manage_id: @member.id)
-      redirect_to admin_team_team_members_path(@team), notice: '操作成功'
+      redirect_to referer_or(admin_team_team_members_path(@team)), notice: '操作成功'
     else
-      redirect_to admin_team_team_members_path(@team), notice: '操作失败'
+      redirect_to referer_or(admin_team_team_members_path(@team)), notice: '操作失败'
     end
   end
 
   def destroy
     if @member.update(team_id: nil)
-      redirect_to admin_team_team_members_path(@team), notice: '操作成功'
+      redirect_to referer_or(admin_team_team_members_path(@team)), notice: '操作成功'
     else
-      redirect_to admin_team_team_members_path(@team), notice: '操作失败'
+      redirect_to referer_or(admin_team_team_members_path(@team)), notice: '操作失败'
     end
   end
 
