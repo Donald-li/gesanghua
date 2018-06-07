@@ -16,9 +16,9 @@ class Admin::PairGrantBatchesController < Admin::BaseController
     @batch = GrantBatch.find(params[:id])
     @search = @batch.grants.search(params[:q])
 
-    @grants = GshChildGrant.where('1<>1').search(params[:q]).result.includes(:gsh_child).sorted.page(1)
+    @grants = GshChildGrant.where('1<>1').search(params[:q]).result.includes(:gsh_child).order("gsh_children.gsh_no asc").page(1)
     respond_to do |format|
-      format.html { @items = @search.result.includes(:gsh_child, :school).all.sorted }
+      format.html { @items = @search.result.includes(:gsh_child, :school).all.order("gsh_children.gsh_no asc") }
       format.xlsx {
         @items = @search.result.includes(:gsh_child, :school).all
         response.headers['Content-Disposition'] = 'attachment; filename= "结对助学发放批次名单" ' + Date.today.to_s + '.xlsx'

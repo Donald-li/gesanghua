@@ -69,7 +69,7 @@ class GshChildGrant < ApplicationRecord
   enum balance_manage: {transfer: 1, send_back: 2} # TODO: 废弃 捐助状态 1:转捐 2:退回
   # default_value_for :balance_manage, 2
 
-  scope :sorted, ->(){ order("gsh_children.gsh_no asc") }
+  scope :sorted, ->(){ order(id: :asc) }
   scope :reverse_sorted, ->{ sorted.reverse_order }
   scope :visible, -> { where(donate_state: [:pending, :succeed]) }
 
