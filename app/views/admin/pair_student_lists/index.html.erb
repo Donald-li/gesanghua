@@ -101,7 +101,7 @@
                   <%= child.apply.try(:school).try(:name) %> / <%= child.enum_name(:level) %> <%= child.enum_name(:grade) %>
                 </td>
                 <td>
-                  <% child.gsh_child_grants.sorted.reverse.each do |grant| %>
+                  <% child.gsh_child_grants.includes(:gsh_child).sorted.reverse.each do |grant| %>
                     <span class="btn btn-xs <%= grant.button_color %>" title="<%= grant.enum_name(:donate_state) %>"><%= grant.title %></span>
                   <% end %>
                 </td>
