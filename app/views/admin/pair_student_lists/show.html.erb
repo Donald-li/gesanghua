@@ -167,7 +167,7 @@
             孩子介绍
           </th>
           <th>
-            <%= @pair_student_list.information.html_safe %>
+            <%= @pair_student_list.information.try(:html_safe) %>
           </th>
         </tr>
         <tr>
