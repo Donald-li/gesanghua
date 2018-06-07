@@ -72,6 +72,14 @@ RSpec.describe User, type: :model do
   let!(:income_source2) { create(:income_source, kind: 2)}
   let!(:income_record1) { create(:income_record, agent_id: user2.id, donor_id: user_with_no_phone.id, income_source_id: income_source1.id, amount: 10)}
   let!(:income_record2) { create(:income_record, agent_id: user2.id, donor_id: user_with_no_phone.id, income_source_id: income_source2.id, amount: 20)}
+  let!(:offline_user_with_no_manager){ create(:user, manager_id: nil, state: 0) }
+  let!(:manager1){ create(:user, state: 1, offline_amount: 0, online_amount: 0, donate_amount: 0) }
+  let!(:no_manager_user_donate_record1) { create(:donate_record, amount: 100, donor_id: offline_user_with_no_manager.id) }
+  let!(:no_manager_user_donate_record2) { create(:donate_record, amount: 200, donor_id: offline_user_with_no_manager.id) }
+  let!(:no_manager_user_donation1) { create(:donation, amount: 10, donor_id: offline_user_with_no_manager.id) }
+  let!(:no_manager_user_donation2) { create(:donation, amount: 20, donor_id: offline_user_with_no_manager.id) }
+  let!(:no_manager_user_income_record1) { create(:income_record, kind: 1, income_source_id: income_source1.id, amount: 1000, donor_id: offline_user_with_no_manager.id) }
+  let!(:no_manager_user_income_record2) { create(:income_record, kind: 2, income_source_id: income_source2.id, amount: 2000, donor_id: offline_user_with_no_manager.id) }
 
   it '测试每日注册用户统计功能' do
 
@@ -145,6 +153,20 @@ RSpec.describe User, type: :model do
     expect(offline_user1.reload.online_amount).to eq 10
     expect(offline_user1.reload.openid).to eq('openid')
     expect(offline_user1.reload.profile).to eq('profile')
+  end
+
+  it "测试设置线下用户管理人" do
+    offline_user_with_no_manager.set_offline_user_manager(manager1)
+    expect(offline_user_with_no_manager.reload.manager_id).to eq manager1.id
+    expect(no_manager_user_donate_record1.reload.agent_id).to eq manager1.id
+    expect(no_manager_user_donate_record2.reload.agent_id).to eq manager1.id
+    expect(no_manager_user_donation1.reload.agent_id).to eq manager1.id
+    expect(no_manager_user_donation2.reload.agent_id).to eq manager1.id
+    expect(no_manager_user_income_record1.reload.agent_id).to eq manager1.id
+    expect(no_manager_user_income_record2.reload.agent_id).to eq manager1.id
+    expect(manager1.reload.donate_amount).to eq 3000
+    expect(manager1.reload.online_amount).to eq 1000
+    expect(manager1.reload.offline_amount).to eq 2000
   end
 
 end
