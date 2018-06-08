@@ -2226,6 +2226,7 @@ p{
   img{
     width: 100%;
     height:auto;
+    margin: 10px 0;
   }
 }
 
@@ -9498,6 +9499,10 @@ color: #8d8d8d;
 .disclosures-show {
   font-size: 16px;
   color: #3d3d40;
+  img{
+    max-width: 100%;
+    height: auto;
+  }
 }
 //模态窗
 
