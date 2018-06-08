@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180607073915) do
+ActiveRecord::Schema.define(version: 20180608080915) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -440,6 +440,7 @@ ActiveRecord::Schema.define(version: 20180607073915) do
     t.text "remark", comment: "备注"
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "支出金额"
     t.integer "expenditure_ledger_id"
+    t.integer "income_source_id"
   end
 
   create_table "family_members", force: :cascade, comment: "家庭成员表" do |t|
