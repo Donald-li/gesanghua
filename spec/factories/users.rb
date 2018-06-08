@@ -39,6 +39,7 @@
 #  camp_id               :integer                                      # 探索营id
 #  project_ids           :jsonb                                        # 可管理项目（项目管理员）
 #  notice_state          :boolean          default(FALSE)              # 用户是否有未查看的公告
+#  archive_data          :jsonb                                        # 归档旧数据
 #
 
 FactoryBot.define do

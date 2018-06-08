@@ -21,6 +21,7 @@
 #  feedback_period       :integer                                     # 建议定期反馈次数/年
 #  apply_kind            :integer          default("platform_assign") # 申请类型 1:平台分配 2:用户申请
 #  feedback_format       :integer                                     # 反馈形式
+#  management_rate       :integer
 #
 
 # 项目父表
@@ -58,6 +59,7 @@ class Project < ApplicationRecord
   validates :name, :protocol, presence: true
 
   default_value_for :form, []
+  default_value_for :management_rate, 0
   before_save :set_form_from_attributes
 
   enum kind: { fixed: 1, apply: 2, goods: 3 } # 项目类型 1:固定类 2:申请类 2:物资类

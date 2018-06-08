@@ -32,7 +32,7 @@ class Admin::PairGrantsController < Admin::BaseController
   # 计提管理费
   def accrue
     @item = @grant
-    @fund = Project.pair_project.fund
+    @project = Project.pair_project
     @management_fee = ManagementFee.new
     render template: '/admin/management_fees/accrue'
   end

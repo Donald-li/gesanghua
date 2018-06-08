@@ -22,6 +22,7 @@
 #  voucher_id       :integer                                # 捐赠收据ID
 #  certificate_no   :string                                 # 捐赠证书编号
 #  income_no        :string                                 # 收入编号
+#  archive_data     :jsonb                                  # 归档旧数据
 #
 
 # 收入记录

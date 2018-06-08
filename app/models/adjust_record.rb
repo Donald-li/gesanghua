@@ -2,15 +2,15 @@
 #
 # Table name: adjust_records # 分类调整记录
 #
-#  id           :integer          not null, primary key
-#  from_item_id    :integer                                # 从哪个分类
-#  from_item_type    :string                                # 从哪个分类
-#  to_item_type    :string                                # 从哪个分类
-#  to_item_id      :integer                                # 调到哪个分类
-#  amount       :decimal(14, 2)   default(0.0)          # 金额
-#  user_id      :integer                                # 操作人
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id             :integer          not null, primary key
+#  amount         :decimal(14, 2)   default(0.0)          # 金额
+#  user_id        :integer                                # 操作人
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  from_item_id   :integer
+#  from_item_type :string
+#  to_item_type   :string
+#  to_item_id     :integer
 #
 
 class AdjustRecord < ApplicationRecord

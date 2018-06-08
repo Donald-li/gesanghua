@@ -15,6 +15,7 @@
 #  updated_at       :datetime         not null
 #  kind             :integer          default("nondirectional") # 类型 1:非定向 2:定向
 #  use_kind         :integer          default("unrestricted")   # 指定类型 1:非指定 2:指定
+#  out_total        :decimal(14, 2)   default(0.0)              # 历史支出
 #
 
 # 二级财务分类

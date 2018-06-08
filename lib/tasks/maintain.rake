@@ -15,5 +15,7 @@ namespace :maintain do
     IncomeSource.sorted.each do |source|
       source.update(in_total: IncomeRecord.can_count.where(income_source: source).sum(:amount),out_total: ExpenditureRecord.can_count.where(income_source: source).sum(:amount))
     end
+
+    Project.update_all(management_rate: 10)
   end
 end

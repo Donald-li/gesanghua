@@ -56,6 +56,7 @@
 #  information             :text                                   # 对外展示的孩子介绍
 #  classname               :string                                 # 班级名称
 #  priority_id             :integer                                # 优先捐助人id
+#  archive_data            :jsonb                                  # 归档旧数据
 #
 
 FactoryBot.define do

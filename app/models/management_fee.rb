@@ -7,7 +7,7 @@
 #  owner_id     :integer                                # 所属项目ID
 #  total_amount :decimal(14, 2)   default(0.0)          # 项目金额
 #  amount       :decimal(14, 2)   default(0.0)          # 提取管理费金额
-#  fund_id      :integer                                # 财务分类
+#  fund_id      :integer                                # 收入分类
 #  rate         :float                                  # 费率
 #  fee          :decimal(14, 2)   default(0.0)          # 管理费金额
 #  user_id      :integer                                # 用户

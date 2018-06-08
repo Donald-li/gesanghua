@@ -29,6 +29,7 @@
 #  contact_telephone :string                                 # 联系人座机号码
 #  creater_id        :integer                                # 申请人ID
 #  total_amount      :integer                                # 累计获捐
+#  archive_data      :jsonb                                  # 归档旧数据
 #
 
 # 学校

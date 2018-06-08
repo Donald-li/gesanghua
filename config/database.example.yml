@@ -17,3 +17,9 @@ production:
   <<: *default
   database: gesanghua_production
   pool: 20
+
+old_data:
+   <<: *default
+    database: gesanghua_production
+    pool: 20
+
