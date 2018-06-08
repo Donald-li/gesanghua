@@ -322,7 +322,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
     end
   end
 
-
+  # 批量推送续捐消息
   def self.batch_push_notice
     ProjectSeasonApplyChild.hidden.sorted.each do |child|
       user_id = child.priority_id
