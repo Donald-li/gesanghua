@@ -13,6 +13,7 @@
       <label class="col-md-2 control-label">财务分类：</label>
       <div class="col-sm-9">
         <select id="fund" class="form-control select optional" name="expenditure_record[fund_id]" required>
+          <option value="">请选择财务分类</option>
           <% FundCategory.sorted.each do |fc| %>
               <optgroup label="<%= fc.name %>">
                 <% fc.funds.sorted.each do |fund| %>
@@ -50,11 +51,11 @@
         });
 
         $(".category_form").parsley().on('form:submit', function () {
-            var ima_length = document.getElementById("webuploader").getElementsByTagName("li").length;
-            if (ima_length <= 1) {
-                alert("请上传凭证");
-                return false;
-            }
+//            var ima_length = document.getElementById("webuploader").getElementsByTagName("li").length;
+//            if (ima_length <= 1) {
+//                alert("请上传凭证");
+//                return false;
+//            }
             return true;
         })
 

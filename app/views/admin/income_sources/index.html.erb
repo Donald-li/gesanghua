@@ -28,13 +28,13 @@
                 描述
               </th>
               <th>
-                余额
-              </th>
-              <th>
                 历史收入
               </th>
               <th>
                 历史支出
+              </th>
+              <th>
+                余额
               </th>
               <th>
                 排序
@@ -54,13 +54,13 @@
                 <%= source.description %>
               </td>
               <td>
-                ￥<%= format_money source.amount %>
-              </td>
-              <td>
                 ￥<%= format_money source.in_total %>
               </td>
               <td>
                 ￥<%= format_money source.out_total %>
+              </td>
+              <td>
+                ￥<%= format_money(source.in_total - source.out_total) %>
               </td>
               <td>
                 <%= link_to '顶部', move_admin_income_source_path(source, to: :to_top), method: :put %>
@@ -72,7 +72,7 @@
                 <%= link_to edit_admin_income_source_path(source), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                   <i class="fa fa-edit"></i> 修改
                 <% end %>
-                <%= link_to '跨账户调整', new_admin_income_source_source_adjust_amount_path(source), class: 'btn btn-xs yellow' %>
+                <%#= link_to '跨账户调整', new_admin_income_source_source_adjust_amount_path(source), class: 'btn btn-xs yellow' %>
                 <%#= link_to admin_income_source_path(source), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                   <!--<i class="fa fa-trash-o"></i> 删除-->
                 <%# end %>

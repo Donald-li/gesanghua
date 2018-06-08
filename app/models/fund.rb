@@ -28,7 +28,7 @@ class Fund < ApplicationRecord
   has_many :adjust_records, as: :form_item, foreign_key: :from_item_id
   has_many :adjust_records, as: :to_item, foreign_key: :to_item_id
 
-  validates :name, :describe, presence: true
+  validates :name, presence: true
 
   acts_as_list column: :position
   scope :sorted, ->{ order(position: :asc) }

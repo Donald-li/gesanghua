@@ -92,7 +92,7 @@
                   ￥<%= format_money(fund.out_total) %>
                 </td>
                 <td>
-                  <%= "￥#{format_money(fund.balance)}" %>
+                  <%= "￥#{format_money(fund.total - fund.out_total)}" %><%#= "￥#{format_money(fund.balance)}" %>
                 </td>
                 <td>
                   <%= "#{fund.management_rate}%" %>

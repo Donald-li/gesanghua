@@ -39,6 +39,7 @@
         <th scope="col">支出单号</th>
         <th scope="col">支出名称</th>
         <th scope="col">财务分类</th>
+        <th scope="col">出账账户</th>
         <th scope="col">支出时间</th>
         <th scope="col">支出金额</th>
         <th scope="col">支出凭证</th>
@@ -51,7 +52,8 @@
         <tr>
           <td><%= expenditure_record.expend_no %></th>
           <td><%= expenditure_record.name %></td>
-          <td><%= expenditure_record.expenditure_ledger.try(:name) %></td>
+          <td><%= expenditure_record.fund.try(:fund_category).try(:name) %> <%= expenditure_record.fund.try(:name) %></td>
+          <td><%= expenditure_record.income_source.try(:name) %></td>
           <td><%= l expenditure_record.expended_at %></td>
           <td><%= number_to_currency(expenditure_record.amount) %></th>
           <td ><%= link_to '查看凭证', expenditure_record_path(expenditure_record), style:'color: #5765f0;' %></td>
