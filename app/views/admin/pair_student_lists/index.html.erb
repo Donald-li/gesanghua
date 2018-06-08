@@ -131,10 +131,8 @@
                   <% end %>
                 </td>
                 <td>
-                  <% if child.hidden? %>
-                      <%= link_to appoint_admin_pair_student_list_path(child), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
-                          <i class="fa fa-gg"></i> 指定捐助人
-                      <% end %>
+                  <%= link_to appoint_admin_pair_student_list_path(child), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
+                      <i class="fa fa-gg"></i> 指定捐助人
                   <% end %>
                   <%= link_to admin_pair_student_list_path(child), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                       <i class="fa fa-file"></i> 申请详情
