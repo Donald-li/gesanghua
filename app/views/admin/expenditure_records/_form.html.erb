@@ -15,7 +15,7 @@
         <select id="fund" class="form-control select optional" name="expenditure_record[fund_id]" required>
           <% FundCategory.sorted.each do |fc| %>
               <optgroup label="<%= fc.name %>">
-                <% fc.funds.each do |fund| %>
+                <% fc.funds.sorted.each do |fund| %>
                     <option value="<%= fund.id %>" <%= 'selected' if @expenditure_record.fund_id == fund.id %>><%= fc.name %> - <%= fund.name %></option>
                 <% end %>
               </optgroup>
@@ -23,7 +23,7 @@
         </select>
       </div>
     </div>
-    <%#= f.input :expenditure_ledger_id, as: :select, collection: ExpenditureLedger.sorted.map{|led| [led.name, led.id]}, label: '财务分类', required: true, include_blank: '请选择财务分类', input_html: {id: 'ledger'}  %>
+    <%= f.input :income_source_id, as: :select, collection: IncomeSource.sorted, label: '出账账户：', include_blank: '选择账户', required: true%>
     <div class="form-group">
       <label class="col-md-2 control-label">支出凭证图片：</label>
       <div class="col-sm-9">

@@ -19,7 +19,7 @@
           <%= static_form_control '学生姓名：', @pair_student_list.name %>
           <%= static_form_control '待捐助学年：', @pair_student_list.semesters.pending.pluck(:title).join('，') %>
 
-          <%= f.input :priority_id, as: :select, collection: [@pair_student_list.priority_user].compact.map{|u| [u.name, u.id]}, label: '选择用户：', input_html: { class: 'user-select' }, hint: '只有指定的捐助人能捐助学生的待捐助学年，系统将会推送微信通知给指定的捐助人' %>
+          <%= f.input :priority_id, as: :select, collection: [@pair_student_list.priority_user].compact.map{|u| [u.name, u.id]}, label: '选择优先捐助人：', input_html: { class: 'user-select' }, hint: '只有指定的捐助人能捐助学生的待捐助学年，系统将会推送微信通知给指定的捐助人，优先捐助人默认为最近捐助过孩子的用户' %>
         </div>
         <div class="form-actions">
           <div class="row">

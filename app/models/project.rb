@@ -25,7 +25,7 @@
 
 # 项目父表
 class Project < ApplicationRecord
-  has_paper_trail only: [:kind, :name, :describe, :protocol, :fund_id, :alias, :appoint_fund_id, :form, :donate_item_id, :accept_feedback_state, :apply_kind, :feedback_format, :feedback_period]
+  has_paper_trail only: [:kind, :name, :describe, :protocol, :fund_id, :alias, :form, :donate_item_id, :accept_feedback_state, :apply_kind, :feedback_format, :feedback_period]
 
   include ActionView::Helpers::NumberHelper
 
@@ -53,7 +53,7 @@ class Project < ApplicationRecord
   belongs_to :donate_item, optional: true
 
   belongs_to :fund, optional: true # 定项非指定
-  belongs_to :appoint_fund, class_name: 'Fund', optional: true # 定项指定
+  # belongs_to :appoint_fund, class_name: 'Fund', optional: true # 定项指定
 
   validates :name, :protocol, presence: true
 

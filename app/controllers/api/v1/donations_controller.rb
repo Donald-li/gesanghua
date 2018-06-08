@@ -2,8 +2,6 @@ class Api::V1::DonationsController < Api::V1::BaseController
 
   def create
 
-    donate_way = params[:donate_way]
-
     donor_id = params[:donor]
     agent = current_user
     team_id = current_user.team_id

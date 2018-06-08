@@ -15,6 +15,7 @@
 # 收入来源
 class IncomeSource < ApplicationRecord
   has_many :income_records
+  has_many :expenditure_records
 
   has_many :campaign_enlists
 

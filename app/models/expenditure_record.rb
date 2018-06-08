@@ -28,7 +28,7 @@ class ExpenditureRecord < ApplicationRecord
   has_one_asset :expenditure_record_excel, class_name: 'Asset::ExpenditureRecordExcel'
 
   belongs_to :fund
-  # belongs_to :expenditure_ledger
+  belongs_to :income_source
   belongs_to :administrator, optional: true
   belongs_to :income_record, optional: true
   # appoint_type 多态关联

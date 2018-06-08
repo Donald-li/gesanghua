@@ -8,7 +8,7 @@
         <select id="fund" class="form-control select optional" name="income_record[fund_id]" required>
           <% FundCategory.sorted.each do |fc| %>
               <optgroup label="<%= fc.name %>">
-                <% fc.funds.each do |fund| %>
+                <% fc.funds.sorted.each do |fund| %>
                     <option value="<%= fund.id %>" <%= 'selected' if @income_record.fund_id == fund.id %>><%= fc.name %> - <%= fund.name %></option>
                 <% end %>
               </optgroup>

@@ -128,9 +128,12 @@ namespace :admin do
     member do
       get :appoint
       post :appoint_donor
-      get :grade_manage
+    end
+    collection do
+      get :batch_manage
       post :grade_add_one
       post :grade_minus_one
+      post :push_notice
     end
     resources :student_grants do
       collection do

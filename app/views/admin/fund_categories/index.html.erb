@@ -41,7 +41,6 @@
               </th>
               <th>二级分类名称</th>
               <th>定向类型</th>
-              <th>指定类型</th>
               <th>历史收入</th>
               <th>历史支出</th>
               <th>余额</th>
@@ -60,7 +59,6 @@
               <td>
                 <%= cate.name %>
               </td>
-              <td></td>
               <td></td>
               <td></td>
               <td></td>
@@ -93,9 +91,6 @@
                   <%= fund.enum_name(:kind) %>
                 </td>
                 <td>
-                  <%= fund.enum_name(:use_kind) %>
-                </td>
-                <td>
                   ￥<%= format_money(fund.total) %>
                 </td>
                 <td>
@@ -105,7 +100,7 @@
                   <%= "￥#{format_money(fund.balance)}" %>
                 </td>
                 <td>
-                  <%= fund.restricted? ? "#{fund.management_rate}%" : '-' %>
+                  <%= "#{fund.management_rate}%" %>
                 </td>
                 <td>
                   <%= link_to '顶部', move_admin_fund_path(fund, to: :to_top), method: :put %>

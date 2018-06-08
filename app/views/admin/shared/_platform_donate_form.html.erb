@@ -47,8 +47,12 @@
           <label class="col-md-2 control-label">财务分类：</label>
           <div class="col-sm-9">
             <select class="form-control select optional select-two" style="width:400px;" name="fund_id" required>
-              <% Fund.unrestricted.sorted.each do |fc| %>
-                  <option value="<%= fc.id %>"><%= "#{fc.fund_category.name}#{fc.name}(余额：#{fc.balance})" %></option>
+              <% FundCategory.sorted.each do |fc| %>
+                  <optgroup label="<%= fc.name %>">
+                    <% fc.funds.sorted.each do |f| %>
+                        <option value="<%= f.id %>"><%= "#{fc.name}#{f.name}(余额：#{f.balance})" %></option>
+                    <% end %>
+                  </optgroup>
               <% end %>
             </select>
           </div>

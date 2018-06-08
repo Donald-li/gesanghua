@@ -44,10 +44,7 @@
               封面
             </th>
             <th>
-              财务分类-定项非指定
-            </th>
-            <th>
-              财务分类-定项指定
+              财务分类
             </th>
             <th>
               申请类型
@@ -74,9 +71,6 @@
                 </td>
                 <td>
                   <%= "#{project.fund.try(:fund_category).try(:name)} - #{project.fund.try(:name)}" %>
-                </td>
-                <td>
-                  <%= "#{project.appoint_fund.try(:fund_category).try(:name)} - #{project.appoint_fund.try(:name)}" %>
                 </td>
                 <td>
                   <%=  project.enum_name(:apply_kind) %>

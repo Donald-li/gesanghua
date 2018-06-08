@@ -74,7 +74,7 @@ class Admin::PairStudentListsController < Admin::BaseController
 
   def turn_over
     @pair_student_list.inside? ? @pair_student_list.outside! : @pair_student_list.inside!
-    redirect_to referer_or(admin_pair_student_lists_path), notice:  @pair_student_list.inside? ? '标记内部认捐成功' : '标记平台可见成功'
+    redirect_to admin_pair_student_lists_path, notice:  @pair_student_list.inside? ? '标记内部认捐成功' : '标记平台可见成功'
   end
 
   def share
@@ -106,7 +106,7 @@ class Admin::PairStudentListsController < Admin::BaseController
     end
   end
 
-  def grade_manage
+  def batch_manage
     store_referer
   end
 
@@ -128,10 +128,10 @@ class Admin::PairStudentListsController < Admin::BaseController
     end
     respond_to do |format|
       if num == @pair_student_lists.size
-        format.html {redirect_to referer_or(grade_manage_admin_pair_student_list_path(1)), notice: '新增成功。'}
+        format.html {redirect_to batch_manage_admin_pair_student_lists_path, notice: '操作成功。'}
       else
         flash[:alert] = '新增失败'
-        format.html {render :grade_manage}
+        format.html {render :batch_manage}
       end
     end
   end
@@ -154,12 +154,17 @@ class Admin::PairStudentListsController < Admin::BaseController
     end
     respond_to do |format|
       if num == @pair_student_lists.size
-        format.html {redirect_to referer_or(grade_manage_admin_pair_student_list_path(1)), notice: '修改成功。'}
+        format.html {redirect_to batch_manage_admin_pair_student_lists_path, notice: '操作成功。'}
       else
         flash[:alert] = '修改失败'
-        format.html {render :grade_manage}
+        format.html {render :batch_manage}
       end
     end
+  end
+
+  def push_notice
+    ProjectSeasonApplyChild.batch_push_notice
+    redirect_to batch_manage_admin_pair_student_lists_path, notice: '推送成功。'
   end
 
   private
