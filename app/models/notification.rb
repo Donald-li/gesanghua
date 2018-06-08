@@ -95,13 +95,18 @@ class Notification < ApplicationRecord
       template_id = Settings.wechat_template_project
       keyword1 = self.content
       url = "#{Settings.m_root_url}/pair/#{self.owner_id}"
+    when 'continue_donate'
+      title = self.title
+      template_id = Settings.wechat_template_project
+      keyword1 = self.content
+      url = "#{Settings.m_root_url}/pair/#{self.owner_id}"
     else
       title = '消息提醒'
       template_id = Settings.wechat_template_notify
       keyword1 = self.content
       url = "#{Settings.m_root_url}/account"
     end
-    user = self.user
+
     data = {
         first: {
             value: title,

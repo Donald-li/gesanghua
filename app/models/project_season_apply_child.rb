@@ -322,6 +322,22 @@ class ProjectSeasonApplyChild < ApplicationRecord
     end
   end
 
+
+  def self.batch_push_notice
+    ProjectSeasonApplyChild.hidden.sorted.each do |child|
+      user_id = child.priority_id
+      if child.semesters.pending.count > 0 && user_id.present?
+        Notification.create(
+            kind: 'continue_donate',
+            owner: child,
+            user_id: user_id,
+            title: "#续捐通知# 您有一个孩子待续捐",
+            content: "您捐助过的#{child.name}新的学年助学款可以续捐了，请及时续捐"
+        )
+      end
+    end
+  end
+
   # 受助学生的全部捐助记录
   def donate_all_records
     self.gsh_child_grants.sorted

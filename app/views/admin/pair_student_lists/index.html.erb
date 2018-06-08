@@ -4,9 +4,9 @@
       <i class="icon-list"></i> 捐助管理
     </div>
     <div class="actions">
-      <%= link_to grade_manage_admin_pair_student_list_path(1), class: 'btn btn-xs yellow', 'data-no-turbolink' => true do %>
-          <i class="fa fa-list"></i>
-          <span>年级批量管理</span>
+      <%= link_to batch_manage_admin_pair_student_lists_path, class: 'btn btn-xs yellow', 'data-no-turbolink' => true do %>
+          <i class="fa fa-cogs"></i>
+          <span>批量操作</span>
       <% end %>
       <%= link_to url_for(params.permit!.merge(format: :xlsx)), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
           <i class="fa fa-download"></i>

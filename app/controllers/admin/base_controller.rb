@@ -61,8 +61,7 @@ class Admin::BaseController < ManagementBaseController
   def render_error(exception = nil)
     unless Rails.env == 'development'
     case exception
-      when ActiveRecord::RecordNotFound, ActionController::RoutingError,
-          ::ActionController::UnknownAction
+      when ActiveRecord::RecordNotFound, ActionController::RoutingError
         render :file => "#{Rails.root}/public/admin-404.html", :status => 404, :layout => false
       else
         render :file => "#{Rails.root}/public/admin-500.html", :status => 500, :layout => false
