@@ -9,7 +9,7 @@
   </div>
   <div style="text-align: left; margin-top: 20px;">
     <% @financial_report.report_files.each do |file| %>
-        <i class="fa fa-download" style="  padding-right: 10px;"></i><%= link_to file.file_name, file_download_disclosure_path(file_id: file.id) %><br/>
+        <i class="fa fa-download" style="  padding-right: 10px;"></i><%= link_to file.file_name, file_download_disclosure_path(file_id: file.id) ,class:'text-decoration: underline;' %><br/>
     <% end %>
   </div>
 
