@@ -107,7 +107,7 @@ class ExcelOutput
 
     header = wb.styles.add_style :sz => 16, :b => true, :alignment => {:horizontal => :center}
     wb.add_worksheet(:name => "表") do |sheet|
-      sheet.add_row ["收入名称", "财务分类", "捐助时间", "捐助金额", "捐助渠道", "捐助人", "手机号码", "代捐人", "代捐人手机号", "备注"], :style => header
+      sheet.add_row ["收入名称", "财务分类", "捐助时间", "捐助金额", "入账账户", "捐助人", "手机号码", "代捐人", "代捐人手机号", "备注"], :style => header
       sheet.add_row ["爱心人士捐助结对助学非指定款项", "结对助学-非指定", "2018/1/17 12:30", "2000", "微信支付", "爱心人士", "13800888888", "爱心人士", "18399998888", "好好学习", "请按照模板格式填写"], types: [:string] * 9
       3.times do
         sheet.add_row []
@@ -118,7 +118,7 @@ class ExcelOutput
         sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, "#{fund.fund_category.name}-#{fund.name}"]
       end
       sheet.add_row []
-      sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, "捐助渠道名称模板", "请按照捐助渠道名称模板填写捐助渠道"], :style => header
+      sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, "入账账户名称模板", "请按照入账账户名称模板填写入账账户"], :style => header
       income_sources.each do |source|
         sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, source.name]
       end
@@ -133,11 +133,12 @@ class ExcelOutput
     p = Axlsx::Package.new
     wb = p.workbook
     funds = Fund.sorted
+    income_sources = IncomeSource.sorted
 
     header = wb.styles.add_style :sz => 16, :b => true, :alignment => {:horizontal => :center}
     wb.add_worksheet(:name => "表") do |sheet|
-      sheet.add_row ["支出名称", "支出时间", "财务分类", "支出金额", "备注", "经办人"], :style => header
-      sheet.add_row ["结对助学孩子支出", "2018/1/17 12:30", "结对助学-非指定", "2000", "好好学习", "李阿姨", "请按照模板格式填写"], types: [:string] * 6
+      sheet.add_row ["支出名称", "支出时间", "财务分类", "出账账户", "支出金额", "备注", "经办人"], :style => header
+      sheet.add_row ["结对助学孩子支出", "2018/1/17 12:30", "结对助学-非指定", "微信支付", "2100", "好好学习", "李阿姨", "请按照模板格式填写"], types: [:string] * 6
       3.times do
         sheet.add_row []
       end
@@ -145,6 +146,11 @@ class ExcelOutput
       sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil, "财务分类名称模板", "请按照财务分类名称模板填写财务分类"], :style => header
       funds.each do |fund|
         sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil, "#{fund.fund_category.name}-#{fund.name}"]
+      end
+      sheet.add_row []
+      sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, "出账账户名称模板", "请按照出账账户名称模板填写出账账户"], :style => header
+      income_sources.each do |source|
+        sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, source.name]
       end
       FileUtils.mkdir_p(Rails.root.join("public/files"))
       path = Rails.root.join("public/支出导入模板" + DateTime.now.strftime("%Y-%m-%d-%s") + ".xlsx")

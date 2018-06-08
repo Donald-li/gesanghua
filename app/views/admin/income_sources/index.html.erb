@@ -27,11 +27,14 @@
               <th>
                 描述
               </th>
-              <!--<th>-->
-                <!--类型-->
-              <!--</th>-->
               <th>
-                累计收入（元）
+                余额
+              </th>
+              <th>
+                历史收入
+              </th>
+              <th>
+                历史支出
               </th>
               <th>
                 排序
@@ -50,11 +53,14 @@
               <td>
                 <%= source.description %>
               </td>
-              <!--<td>-->
-                <!--<%#= source.enum_name(:kind) %>-->
-              <!--</td>-->
               <td>
-                <%= source.amount %>
+                ￥<%= format_money source.amount %>
+              </td>
+              <td>
+                ￥<%= format_money source.in_total %>
+              </td>
+              <td>
+                ￥<%= format_money source.out_total %>
               </td>
               <td>
                 <%= link_to '顶部', move_admin_income_source_path(source, to: :to_top), method: :put %>

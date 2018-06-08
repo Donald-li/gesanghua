@@ -39,6 +39,7 @@ class ExpenditureRecord < ApplicationRecord
   # enum kind: {}
   # counter_culture :expenditure_ledger, column_name: 'amount', delta_magnitude: proc {|model| model.amount }
   counter_culture :fund, column_name: 'out_total', delta_magnitude: proc {|model| model.amount }
+  counter_culture :income_source, column_name: 'out_total', delta_magnitude: proc {|model| model.amount}
 
   before_create :gen_expend_no
 

@@ -40,7 +40,6 @@
                 一级分类名称
               </th>
               <th>二级分类名称</th>
-              <th>定向类型</th>
               <th>历史收入</th>
               <th>历史支出</th>
               <th>余额</th>
@@ -59,7 +58,6 @@
               <td>
                 <%= cate.name %>
               </td>
-              <td></td>
               <td></td>
               <td></td>
               <td></td>
@@ -88,9 +86,6 @@
                   <%= fund.name %>
                 </td>
                 <td>
-                  <%= fund.enum_name(:kind) %>
-                </td>
-                <td>
                   ￥<%= format_money(fund.total) %>
                 </td>
                 <td>
@@ -115,7 +110,7 @@
                   <%= link_to admin_fund_path(fund), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                      <i class="fa fa-trash-o"></i> 删除
                  <% end %>
-                 <%= link_to '跨分类调整', new_admin_fund_fund_adjust_amount_path(fund), class: 'btn btn-xs yellow' %>
+                 <%#= link_to '跨分类调整', new_admin_fund_fund_adjust_amount_path(fund), class: 'btn btn-xs yellow' %>
                 </td>
               </tr>
               <% end %>

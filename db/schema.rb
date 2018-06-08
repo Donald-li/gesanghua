@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180608080915) do
+ActiveRecord::Schema.define(version: 20180608083250) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -616,6 +616,8 @@ ActiveRecord::Schema.define(version: 20180608080915) do
     t.integer "position", comment: "位置"
     t.integer "kind", comment: "类型： 1:线上（online） 2:线下（offline）"
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "累计收入"
+    t.decimal "in_total", precision: 14, scale: 2, default: "0.0", comment: "历史收入"
+    t.decimal "out_total", precision: 14, scale: 2, default: "0.0", comment: "历史支出"
   end
 
   create_table "logistics", force: :cascade, comment: "物流表" do |t|
