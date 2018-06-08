@@ -493,6 +493,32 @@ class User < ApplicationRecord
     end
   end
 
+  #设置线下用户管理人
+  def set_offline_user_manager(manager)
+    return unless (self.unactived? && self.manager_id.blank?)
+    self.transaction do
+      self.update!(manager_id: manager.id)
+      DonateRecord.where(donor_id: self.id).each do |record|
+        record.update!(agent_id: manager.id)
+      end
+      Donation.where(donor_id: self.id).each do |donation|
+        donation.update!(agent_id: manager.id)
+      end
+      IncomeRecord.where(donor_id: self.id).each do |record|
+        record.update!(agent_id: manager.id)
+      end
+      #重算的缓存数据
+      offline_income_resource = IncomeSource.offline
+      if IncomeRecord.where(agent_id: manager.id).sum(:amount) != manager.donate_amount
+        manager.update!(donate_amount: IncomeRecord.where(agent_id: manager.id).sum(:amount))
+      elsif IncomeRecord.where(agent_id: manager.id, income_source_id: offline_income_resource.ids).sum(:amount) != manager.offline_amount
+        manager.update!(offline_amount: IncomeRecord.where(agent_id: manager.id, income_source_id: offline_income_resource.ids).sum(:amount))
+      elsif IncomeRecord.where(agent_id: manager.id).where.not(income_source_id: offline_income_resource.ids).sum(:amount) != manager.online_amount
+        manager.update!(online_amount: IncomeRecord.where(agent_id: manager.id).where.not(income_source_id: offline_income_resource.ids).sum(:amount))
+      end
+    end
+  end
+
   def bind_user_roles
     volunteer = Volunteer.find_by(phone: self.phone)
     teacher = Teacher.find_by(phone: self.phone)
