@@ -74,7 +74,7 @@ class Admin::PairStudentListsController < Admin::BaseController
 
   def turn_over
     @pair_student_list.inside? ? @pair_student_list.outside! : @pair_student_list.inside!
-    redirect_to referer_or(admin_pair_student_lists_path), notice:  @pair_student_list.inside? ? '标记内部认捐成功' : '标记平台可见成功'
+    redirect_to admin_pair_student_lists_path, notice:  @pair_student_list.inside? ? '标记内部认捐成功' : '标记平台可见成功'
   end
 
   def share
