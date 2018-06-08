@@ -48,16 +48,6 @@ class Fund < ApplicationRecord
     self.find 1
   end
 
-  # 一对一指定分类
-  def self.pari_restricted
-    self.find 5
-  end
-
-  # 一对一非指定分类
-  def self.pari_unrestricted
-    self.find 4
-  end
-
   # 跨分类调整
   def self.platform_adjust(from_fund, to_fund, amount, user)
     amount = amount.to_f

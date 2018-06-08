@@ -41,7 +41,7 @@ class ManagementFee < ApplicationRecord
     return false unless item
     return false unless !item.accrued?
     fund = Fund.find(fund_id) if fund_id
-    fund ||= item.project.try(:appoint_fund)
+    fund ||= item.project.try(:fund)
     return false unless fund
     result = self.create(month: month, owner: item, total_amount: total_amount, amount: amount, fund_id: fund.id, rate: fund.management_rate, user: user)
     return unless result

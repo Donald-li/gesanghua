@@ -25,7 +25,7 @@
 # 活动
 class Campaign < ApplicationRecord
   has_paper_trail only: [:name, :price, :content, :start_time, :end_time, :sign_up_end_time, :sign_up_start_time, :state, :project_id, :campaign_category_id, :number,
-     :remark, :form, :execute_state, :appoint_fund_id]
+     :remark, :form, :execute_state]
 
   attr_accessor :form_attributes
 

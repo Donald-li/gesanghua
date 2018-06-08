@@ -20,7 +20,7 @@ class Admin::CampProjectsController < Admin::BaseController
   # 计提管理费
   def accrue
     @item = @project
-    @fund = Project.camp_project.appoint_fund
+    @fund = Project.camp_project.fund
     @management_fee = ManagementFee.new
     render template: '/admin/management_fees/accrue'
   end

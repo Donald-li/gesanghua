@@ -49,9 +49,12 @@ RSpec.describe "Api::V1::Donations", type: :request do
     end
 
     it "捐已制定优先捐助人的孩子" do
+      get get_child_priority_ajaxes_path(donor_id: @donor.id, child_id: @child.id), headers: api_v1_headers(@user)
+      expect(json_body[:status]) == true
+
       @child.update(priority_id: @user.id)
-      post api_v1_donations_path(donate_way: 'wechat', donor: @donor.id, amount: 100, child: @child.id), headers: api_v1_headers(@user)
-      api_v1_expect_error
+      get get_child_priority_ajaxes_path(donor_id: @donor.id, child_id: @child.id), headers: api_v1_headers(@user)
+      expect(json_body[:status]) == false
     end
 
     it "捐书架" do

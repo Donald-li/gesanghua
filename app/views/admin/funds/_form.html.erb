@@ -5,7 +5,6 @@
     <%= f.input :fund_category_id, collection: FundCategory.show, label: '一级分类：', prompt: "请选一级分类", input_html: {data: {'parsley-required': true}} %>
     <%= f.input :describe, label: '描述：', autofocus: true, placeholder: '描述', required: true %>
     <%= f.input :kind, as: :radio_buttons, wrapper: :inline_inputs, collection: Fund.options_for_enum_select(:kinds), label: '定向类型：' %>
-    <%= f.input :use_kind, as: :radio_buttons, wrapper: :inline_inputs, collection: Fund.options_for_enum_select(:use_kinds), label: '指定类型：' %>
     <%= f.input :management_rate, label: '管理费：', autofocus: true, placeholder: '' %>
   </div>
   <div class="form-actions">

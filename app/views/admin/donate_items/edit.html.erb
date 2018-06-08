@@ -23,9 +23,11 @@
             <div class="col-sm-9">
               <select id="fund" class="form-control select optional" name="donate_item[fund_id]" required>
                 <% FundCategory.sorted.each do |fc| %>
-                    <% fc.funds.unrestricted.each do |fund| %>
+                    <optgroup label="<%= fc.name %>">
+                    <% fc.funds.sorted.each do |fund| %>
                         <option value="<%= fund.id %>" <%= 'selected' if @donate_item.fund_id == fund.id %>><%= fc.name %> - <%= fund.name %></option>
                     <% end %>
+                    </optgroup>
                 <% end %>
               </select>
             </div>
