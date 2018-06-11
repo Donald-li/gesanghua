@@ -8,6 +8,8 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  record_time :datetime                               # 统计时间
+#  owner_type  :string
+#  owner_id    :integer
 #
 
 require 'rails_helper'

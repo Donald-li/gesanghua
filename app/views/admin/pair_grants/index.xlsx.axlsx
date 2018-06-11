@@ -1,6 +1,6 @@
 wb = xlsx_package.workbook
 wb.add_worksheet(name: "结对助学捐助列表") do |sheet|
-  sheet.add_row ["姓名", "年龄", "发放日期", "学校", "发放金额", "筹款状态", "发放状态"]
+  sheet.add_row ["姓名", "年龄", "发放日期", "学校", "发放金额", "筹款状态", "发放状态", "捐助人", "捐助人手机号", "捐助人邮箱"]
   @grants.each do |g|
     child = g.apply_child
     school = g.school
@@ -11,7 +11,10 @@ wb.add_worksheet(name: "结对助学捐助列表") do |sheet|
       school.name,
       g.amount,
       g.enum_name(:donate_state),
-      g.enum_name(:state)]
+      g.enum_name(:state),
+      g.user.try(:name),
+      g.user.try(:phone),
+      g.user.try(:email)]
     end
     sheet.column_widths 20,30,20,30,30,40,20,20,20
   end

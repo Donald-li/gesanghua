@@ -12,6 +12,7 @@
 #  state        :integer          default("show")       # 状态, 1:展示 2:隐藏
 #  author       :string                                 # 编辑人
 #  article_id   :integer                                # 资讯id
+#  published_at :datetime                               # 发布时间
 #
 
 require 'rails_helper'

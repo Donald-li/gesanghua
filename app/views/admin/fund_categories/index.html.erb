@@ -4,6 +4,10 @@
       <i class="icon-list"></i>财务分类管理
     </div>
     <div class="actions">
+      <%= link_to '', class: 'btn btn-xs yellow', 'data-no-turbolink' => true do %>
+        <i class="icon-bar-chart"></i>
+        <span>统计汇总</span>
+      <% end %>
       <%= link_to new_admin_fund_category_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
       <i class="icon-plus"></i>
       <span>新增一级分类</span>

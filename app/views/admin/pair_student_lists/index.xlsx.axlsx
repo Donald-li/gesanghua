@@ -11,12 +11,12 @@ wb.add_worksheet(name: "学生名单") do |sheet|
                       child.name,
                       child.school.try(:name),
                       child.enum_name(:level).to_s + child.enum_name(:grade).to_s,
-                      child.semesters.map {|grant| grant.title + "(#{grant.amount}元)" + (grant.user.try(:name).present? ? "捐助人：#{grant.user.try(:name)}" : '')}.join(','),
+                      child.semesters.map {|grant| grant.title + "(#{grant.amount}元)" + (grant.user.try(:name).present? ? "捐助人：#{grant.user.try(:name)}（#{grant.user.try(:phone)}）" : '')}.join(';'),
                       child.gift_progress,
                       child.remark]
   end
 
-  sheet.column_widths 10, 20, 10, 10, 10, 30, 10, 10
+  sheet.column_widths 10, 20, 10, 10, 10, 150, 10, 10
 
 end
 
