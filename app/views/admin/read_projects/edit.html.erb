@@ -114,7 +114,7 @@
             <div class="form-group">
               <label class="col-md-2 control-label">项目介绍：</label>
               <div class="col-sm-9">
-                <%= f.cktext_area :project_describe, html: {toolbar: 'toolbar_simple'} %>
+                <%= f.cktext_area :project_describe, ckeditor: {toolbar: 'simple'} %>
               </div>
             </div>
             <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApply.options_for_some_select(:states), label: '显示状态：'%>
