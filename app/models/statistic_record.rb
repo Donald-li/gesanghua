@@ -16,7 +16,7 @@
 class StatisticRecord < ApplicationRecord
 
   default_value_for :amount, 0
-  enum kind: {user_register: 1, income_statistic: 2, expend_statistic: 3}
+  enum kind: {user_register: 1, income_statistic: 2, finance_income_statistic: 3, finance_expend_statistic: 4}
 
   belongs_to :owner, polymorphic: true, optional: true
 

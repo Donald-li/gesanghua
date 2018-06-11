@@ -70,6 +70,52 @@ class ExpenditureRecord < ApplicationRecord
     end
   end
 
+  def self.update_expenditure_statistic_record
+    group_records = self.where("created_at >= ? and created_at <= ?", Time.now.beginning_of_day, Time.now.end_of_day)
+    if group_records.count > 0
+      self.gen_expenditure_finance_statistic_record(group_records)
+    # else
+    #   StatisticRecord.find_or_create_by(kind: 4, record_time: Time.now.strftime("%Y-%m-%d"), amount: 0)
+    end
+
+  end
+
+  def self.update_expenditure_history_records
+    group_records = self.all
+    if group_records.count > 0
+      self.gen_expenditure_finance_statistic_record(group_records)
+    else
+      StatisticRecord.find_or_create_by(kind: 4, record_time: Time.now.strftime("%Y-%m-%d"), amount: 0)
+    end
+  end
+
+  def self.gen_expenditure_finance_statistic_record(finance_records)
+    group_records = finance_records.where("expended_at > ?", Time.mktime(2018,6,1)).group_by {|record| record.expended_at.strftime("%Y-%m-%d")}
+    group_records.each do |record_time, records|
+      # 按照财务分类统计
+      records.group_by(&:fund_id).each do |fund_id, fund_records|
+        amount = 0
+        if fund_id.present?
+          fund = Fund.find(fund_id)
+          fund_records.each {|fund_record| amount += fund_record.amount}
+          f_record = StatisticRecord.find_or_create_by(kind: 4, record_time: record_time, owner: fund)
+          f_record.update(amount: amount)
+        end
+      end
+
+      # 按照账户统计
+      records.group_by(&:income_source_id).each do |source_id, source_records|
+        amount = 0
+        if source_id.present?
+          source = IncomeSource.find(source_id)
+          source_records.each {|source_record| amount += source_record.amount}
+          f_record = StatisticRecord.find_or_create_by(kind: 4, record_time: record_time, owner: source)
+          f_record.update(amount: amount)
+        end
+      end
+    end
+  end
+
   private
   def gen_expend_no
     time_string = Time.now.strftime("%y%m%d")
