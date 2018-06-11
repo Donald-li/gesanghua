@@ -7,6 +7,7 @@ class Admin::UsersController < Admin::BaseController
       set_search_end_of_day(:created_at_lteq)
       @search = User.ransack(params[:q])
       scope = @search.result
+      scope = scope.where(id: params[:user_id]) if params[:user_id].present?
       format.html do # HTML页面
         @users = scope.includes(:volunteer).sorted.page(params[:page])
       end

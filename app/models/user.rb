@@ -176,6 +176,10 @@ class User < ApplicationRecord
     self.name.presence || self.nickname
   end
 
+  def name_for_select
+    "#{self.name}（#{self.phone}）"
+  end
+
   # 用户对外显示的名字
   def user_name
     self.show_name

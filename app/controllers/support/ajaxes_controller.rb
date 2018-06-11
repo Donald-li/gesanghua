@@ -12,7 +12,7 @@ class Support::AjaxesController < Support::BaseController
 
   def school_users
     users = User.enable.where.not(users: {id: 1}).where("users.name like :q", q: "%#{params[:q]}%").page(params[:page])
-    render json: {items: users.as_json(only: [:id, :name])}
+    render json: {items: users.as_json(only: [:id], methods: :name_for_select)}
   end
 
   def user_statistics
