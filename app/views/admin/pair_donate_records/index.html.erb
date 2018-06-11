@@ -74,7 +74,7 @@
                 <%= record.child.try(:name) %> <%= record.owner.try(:title) %>
               </td>
               <td>
-                <%= record.donor.show_name %> ( <%= record.donor.phone %> )
+                <%= record.donor.show_name if record.donor.present? %> ( <%= record.donor.phone if record.donor.present? %> )
               </td>
               <td>
                 <%= record.agent_name %>
