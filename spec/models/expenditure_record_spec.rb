@@ -19,6 +19,7 @@
 #  remark                :text                                   # 备注
 #  amount                :decimal(14, 2)   default(0.0)          # 支出金额
 #  expenditure_ledger_id :integer
+#  income_source_id      :integer
 #
 
 require 'rails_helper'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180607073915) do
+ActiveRecord::Schema.define(version: 20180608104244) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -440,6 +440,7 @@ ActiveRecord::Schema.define(version: 20180607073915) do
     t.text "remark", comment: "备注"
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "支出金额"
     t.integer "expenditure_ledger_id"
+    t.integer "income_source_id"
   end
 
   create_table "family_members", force: :cascade, comment: "家庭成员表" do |t|
@@ -615,6 +616,8 @@ ActiveRecord::Schema.define(version: 20180607073915) do
     t.integer "position", comment: "位置"
     t.integer "kind", comment: "类型： 1:线上（online） 2:线下（offline）"
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "累计收入"
+    t.decimal "in_total", precision: 14, scale: 2, default: "0.0", comment: "历史收入"
+    t.decimal "out_total", precision: 14, scale: 2, default: "0.0", comment: "历史支出"
   end
 
   create_table "logistics", force: :cascade, comment: "物流表" do |t|
@@ -997,6 +1000,7 @@ ActiveRecord::Schema.define(version: 20180607073915) do
     t.integer "feedback_period", comment: "建议定期反馈次数/年"
     t.integer "apply_kind", default: 1, comment: "申请类型 1:平台分配 2:用户申请"
     t.integer "feedback_format", comment: "反馈形式"
+    t.integer "management_rate"
   end
 
   create_table "protocols", force: :cascade, comment: "协议" do |t|

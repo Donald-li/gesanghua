@@ -47,6 +47,9 @@
               财务分类
             </th>
             <th>
+              管理费率
+            </th>
+            <th>
               申请类型
             </th>
             <th>
@@ -71,6 +74,9 @@
                 </td>
                 <td>
                   <%= "#{project.fund.try(:fund_category).try(:name)} - #{project.fund.try(:name)}" %>
+                </td>
+                <td>
+                  <%= project.management_rate %>%
                 </td>
                 <td>
                   <%=  project.enum_name(:apply_kind) %>

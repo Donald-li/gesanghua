@@ -22,6 +22,7 @@
 #  voucher_id       :integer                                # 捐赠收据ID
 #  certificate_no   :string                                 # 捐赠证书编号
 #  income_no        :string                                 # 收入编号
+#  archive_data     :jsonb                                  # 归档旧数据
 #
 
 require 'rails_helper'
@@ -29,7 +30,7 @@ require 'rails_helper'
 RSpec.describe IncomeRecord, type: :model do
   it '测试每日筹款金额统计功能' do
     user = create(:user)
-    fc = FundCategory.find_or_create_by(name: '结对助学', describe: '结对助学', kind: 'directional')
+    fc = FundCategory.find_or_create_by(name: '结对助学', describe: '结对助学')
     fund = fc.funds.find_or_create_by(name: "非指定", management_rate: 0, describe: '定向非指定', fund_category_id: fc.id, kind: fc.kind)
     income_source1 =  IncomeSource.find_or_create_by(name: '微信支付', description: '微信转账', kind: 1)
     income_source2 =  IncomeSource.find_or_create_by(name: '现金捐助', description: '行走吧格桑花线下募捐', kind: 2)

@@ -26,6 +26,7 @@
 #  project_season_apply_child_id :integer                                # 一对一孩子
 #  state                         :integer                                # 状态
 #  school_id                     :integer                                # 学校id
+#  archive_data                  :jsonb                                  # 归档旧数据
 #
 
 # 捐助记录

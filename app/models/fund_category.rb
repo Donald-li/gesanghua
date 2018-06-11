@@ -18,7 +18,7 @@
 class FundCategory < ApplicationRecord
   has_many :funds, dependent: :restrict_with_error
 
-  validates :name, :describe, presence: true
+  validates :name, presence: true
 
   acts_as_list column: :position
   scope :sorted, ->{ order(position: :asc) }

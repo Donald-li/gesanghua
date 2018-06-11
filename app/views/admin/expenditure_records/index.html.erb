@@ -65,6 +65,9 @@
               财务分类
             </th>
             <th>
+              出账账户
+            </th>
+            <th>
               备注
             </th>
             <th>
@@ -92,6 +95,9 @@
               </td>
               <td>
                 <%= record.fund.try(:fund_category).try(:name) %> - <%= record.fund.try(:name) %>
+              </td>
+              <td>
+                <%= record.income_source.try(:name) %>
               </td>
               <td>
                 <%= record.remark %>

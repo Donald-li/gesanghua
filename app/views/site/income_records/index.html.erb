@@ -40,9 +40,9 @@
         <th scope="col">收入单号</th>
         <th scope="col">收入名称</th>
         <th scope="col">财务分类</th>
+        <th scope="col">入账账户</th>
         <th scope="col">捐助时间</th>
         <th scope="col">捐助金额</th>
-        <th scope="col">捐助平台</th>
         <th scope="col">捐助人</th>
         <th scope="col">代捐人/汇款人</th>
         <th scope="col">备注</th>
@@ -54,9 +54,9 @@
           <td><%= income_record.income_no %></th>
           <td><%= income_record.title %></td>
           <td><%= income_record.fund.try(:fund_category).try(:name) %> <%= income_record.fund.try(:name) %></td>
+          <td><%= income_record.income_source.try(:name) %></td>
           <td><%= l income_record.income_time %></td>
           <td><%= number_to_currency(income_record.amount) %></th>
-          <td><%= income_record.income_source.try(:name) %></td>
           <td><%= income_record.donor.try(:show_name) %></td>
           <td><%= income_record.agent_name %></td>
           <td><%= income_record.remark %></td>

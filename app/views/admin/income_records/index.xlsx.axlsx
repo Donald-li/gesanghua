@@ -1,6 +1,6 @@
 wb = xlsx_package.workbook
 wb.add_worksheet(name: "收入记录") do |sheet|
-  sheet.add_row ["收入单号", "收入名称", "财务分类", "捐助时间", "捐助金额", "捐助渠道", "捐助人", "手机号码", "代捐人", "备注"]
+  sheet.add_row ["收入单号", "收入名称", "财务分类", "捐助时间", "捐助金额", "入账账户", "捐助人", "手机号码", "代捐人", "备注"]
   @income_records.each do |record|
     sheet.add_row [
       record.income_no,

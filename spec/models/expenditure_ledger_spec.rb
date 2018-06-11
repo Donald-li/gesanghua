@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: expenditure_ledgers # 财务分类
+# Table name: expenditure_ledgers # 支出分类
 #
 #  id         :integer          not null, primary key
 #  name       :string                                 # 名称

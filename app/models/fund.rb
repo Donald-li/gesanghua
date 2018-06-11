@@ -15,6 +15,7 @@
 #  updated_at       :datetime         not null
 #  kind             :integer          default("nondirectional") # 类型 1:非定向 2:定向
 #  use_kind         :integer          default("unrestricted")   # 指定类型 1:非指定 2:指定
+#  out_total        :decimal(14, 2)   default(0.0)              # 历史支出
 #
 
 # 二级财务分类
@@ -28,7 +29,7 @@ class Fund < ApplicationRecord
   has_many :adjust_records, as: :form_item, foreign_key: :from_item_id
   has_many :adjust_records, as: :to_item, foreign_key: :to_item_id
 
-  validates :name, :describe, presence: true
+  validates :name, presence: true
 
   acts_as_list column: :position
   scope :sorted, ->{ order(position: :asc) }

@@ -22,6 +22,7 @@
 #  voucher_id       :integer                                # 捐赠收据ID
 #  certificate_no   :string                                 # 捐赠证书编号
 #  income_no        :string                                 # 收入编号
+#  archive_data     :jsonb                                  # 归档旧数据
 #
 
 # 收入记录
@@ -58,16 +59,17 @@ class IncomeRecord < ApplicationRecord
 
   scope :sorted, -> {order(created_at: :desc)}
   scope :has_balance, ->{where('income_records.balance > 0')}
-
+  scope :can_count, ->{where("income_time > ?", Time.mktime(2018,6,1))}
   # 可开票记录
   scope :open_ticket, -> { to_bill.where(created_at: (Time.now.beginning_of_year)..(Time.now.end_of_year)) }
 
   counter_culture :agent, column_name: proc {|model| model.income_source.present? && !model.income_source.offline? ? 'online_amount' : nil}, delta_magnitude: proc {|model| model.amount}
   counter_culture :agent, column_name: proc {|model| model.income_source.present? && model.income_source.offline? ? 'offline_amount' : nil}, delta_magnitude: proc {|model| model.amount}
   counter_culture :agent, column_name: 'donate_amount', delta_magnitude: proc {|model| model.amount }
-  counter_culture :fund, column_name: proc{|model| model.fund.present? ? 'total' : nil}, delta_magnitude: proc {|model| model.amount}
-  counter_culture :fund, column_name: proc{|model| model.fund.present? ? 'balance' : nil}, delta_magnitude: proc {|model| model.amount}
-  counter_culture :income_source, column_name: 'amount', delta_magnitude: proc {|model| model.amount}
+  counter_culture :fund, column_name: proc{|model| model.fund.present? ? 'total' : nil}, delta_magnitude: proc {|model| model.amount if model.income_time > Time.mktime(2018,6,1)}
+  counter_culture :fund, column_name: proc{|model| model.fund.present? ? 'balance' : nil}, delta_magnitude: proc {|model| model.amount if model.income_time > Time.mktime(2018,6,1)}
+  counter_culture :income_source, column_name: 'amount', delta_magnitude: proc {|model| model.amount if model.income_time > Time.mktime(2018,6,1)}
+  counter_culture :income_source, column_name: 'in_total', delta_magnitude: proc {|model| model.amount if model.income_time > Time.mktime(2018,6,1)}
 
   def has_balance?
     self.balance > 0
@@ -99,7 +101,7 @@ class IncomeRecord < ApplicationRecord
 
   # 总计捐助金额
   def self.total_amount
-    self.sum(:amount).to_f
+    self.can_count.sum(:amount).to_f
   end
 
   # 生成捐赠编号

@@ -11,30 +11,30 @@ u = User.find_or_initialize_by(login: 'admin')
 u.update(login: 'admin', password: 'admin!', name: 'Administrator', phone: '13300000000', roles: :superadmin, nickname: '超级管理员', kind: :platform_user, phone_verify: :phone_verified)
 
 # 一级财务分类
-fc_gesanghua = FundCategory.find_or_create_by(name: '格桑花', describe: '捐助给格桑花', kind: 'nondirectional')
-fc_expense = FundCategory.find_or_create_by(name: '办公经费', describe: '办公经费', kind: 'nondirectional')
-fc1 = FundCategory.find_or_create_by(name: '结对助学', describe: '结对助学', kind: 'directional')
-fc2 = FundCategory.find_or_create_by(name: '悦读', describe: '悦读', kind: 'directional')
-fc3 = FundCategory.find_or_create_by(name: '观影', describe: '观影', kind: 'directional')
-fc4 = FundCategory.find_or_create_by(name: '探索营', describe: '探索营', kind: 'directional')
-fc5 = FundCategory.find_or_create_by(name: '广播', describe: '广播', kind: 'directional')
-fc6 = FundCategory.find_or_create_by(name: '护花', describe: '护花', kind: 'directional')
-fc7 = FundCategory.find_or_create_by(name: '活动', describe: '活动', kind: 'directional')
+fc_gesanghua = FundCategory.find_or_create_by(name: '格桑花', describe: '捐助给格桑花')
+fc_expense = FundCategory.find_or_create_by(name: '办公经费', describe: '办公经费')
+fc1 = FundCategory.find_or_create_by(name: '结对助学', describe: '结对助学')
+fc2 = FundCategory.find_or_create_by(name: '悦读', describe: '悦读')
+fc3 = FundCategory.find_or_create_by(name: '观影', describe: '观影')
+fc4 = FundCategory.find_or_create_by(name: '探索营', describe: '探索营')
+fc5 = FundCategory.find_or_create_by(name: '广播', describe: '广播')
+fc6 = FundCategory.find_or_create_by(name: '护花', describe: '护花')
+fc7 = FundCategory.find_or_create_by(name: '活动', describe: '活动')
 
 # 二级财务分类
-fc_gesanghua.funds.find_or_create_by(name: "格桑花", management_rate: 0, describe: '格桑花非定向基金池', kind: fc_gesanghua.kind)
-fc_expense.funds.find_or_create_by(name: "行政费用", management_rate: 0, describe: '办公室租用、办公用品', kind: fc_gesanghua.kind)
-fc_expense.funds.find_or_create_by(name: "人员工资", management_rate: 0, describe: '仅用于人员工资、社保费用', kind: fc_gesanghua.kind)
+fc_gesanghua.funds.find_or_create_by(name: "格桑花", management_rate: 0, describe: '格桑花非定向基金池')
+fc_expense.funds.find_or_create_by(name: "行政费用", management_rate: 0, describe: '办公室租用、办公用品')
+fc_expense.funds.find_or_create_by(name: "人员工资", management_rate: 0, describe: '仅用于人员工资、社保费用')
 
-FundCategory.directional.each do |fc|
-  Fund.find_or_create_by(name: "非指定", management_rate: 0, describe: '定向非指定', fund_category_id: fc.id, kind: fc.kind)
-  Fund.find_or_create_by(name: "指定", management_rate: 5, describe: '定向指定', fund_category_id: fc.id, kind: fc.kind)
+FundCategory.each do |fc|
+  Fund.find_or_create_by(name: "非指定", management_rate: 0, describe: '定向非指定', fund_category_id: fc.id)
+  Fund.find_or_create_by(name: "指定", management_rate: 5, describe: '定向指定', fund_category_id: fc.id)
 end
 
 # 探索营 - 二级财务分类
-fc4.funds.find_or_create_by(name: "苏州营", management_rate: 10, describe: '格桑花苏州营', kind: fc4.kind)
-fc4.funds.find_or_create_by(name: "常州营", management_rate: 10, describe: '格桑花常州营', kind: fc4.kind)
-fc4.funds.find_or_create_by(name: "合肥营", management_rate: 10, describe: '格桑花合肥营', kind: fc4.kind)
+fc4.funds.find_or_create_by(name: "苏州营", management_rate: 10, describe: '格桑花苏州营')
+fc4.funds.find_or_create_by(name: "常州营", management_rate: 10, describe: '格桑花常州营')
+fc4.funds.find_or_create_by(name: "合肥营", management_rate: 10, describe: '格桑花合肥营')
 
 # 捐助项
 di_gsh = DonateItem.find_or_create_by(name: '格桑花', describe: '不限制使用途径', fund: Fund.gsh, state: :show)
