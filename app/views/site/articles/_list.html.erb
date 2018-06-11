@@ -1,6 +1,6 @@
 <% articles.each do |article| %>
     <div class="clearfix speciais-t">
-      <%= link_to article.simple? ? article_path(article) : special_path(article.special) do %>
+      <%= link_to article.simple? ? article_path(article) : special_path(article.special), target: 'new' do %>
           <div class="speciais-con-img pull-left">
             <% if article.simple? %>
                 <%= image_tag article.image_url(:medium).to_s %>

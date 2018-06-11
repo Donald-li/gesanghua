@@ -61,7 +61,7 @@
       </ul>
     </div>
     <% @recommend_articles.limit(5).each do |recommend_article| %>
-        <%= link_to article_path(recommend_article) do %>
+        <%= link_to article_path(recommend_article), target: 'new' do %>
             <div class="<%= recommend_article == @recommend_articles.first ? 'speciais-right-pos' : 'clearfix speciais-right-cont' %>">
               <% if recommend_article != @recommend_articles.first %>
                   <div class="speciais-con-img pull-left">

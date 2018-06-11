@@ -119,7 +119,7 @@
   <div class="items-container row clearfix">
     <% @articles.each do |article| %>
         <div class="item col-md-4 cur ">
-          <%= link_to article.simple? ? article_path(article) : special_path(article.special) do %>
+          <%= link_to article.simple? ? article_path(article) : special_path(article.special), target: 'new' do %>
               <div class="gsh-img">
                 <%= image_tag article.image.try(:file).try(:url, :medium).to_s %>
                 <div class="ovrly"></div>
