@@ -37,7 +37,7 @@
     <!--申请详情-->
     <div class="details-left pull-left contentab" style="display: block;">
       <!-- <p class="detail-l-title">护花申请详情</p> -->
-      <div class="detail-l-fon"><%= @project.describe.html_safe %></div>
+      <div class="detail-l-fon"><%= @project.describe.gsub(/\n/, "<br/>").html_safe %></div>
       <!-- <%= image_tag 'detail-reduce.png' %> -->
     </div>
     <!--报告-->
