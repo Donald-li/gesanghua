@@ -6,6 +6,8 @@
     </div>
   </div>
   <div class="portlet-body">
+    <%= simple_form_for [:admin, @apply_child], url: check_admin_pair_apply_pair_student_path(@project_apply), method: :patch, wrapper: :admin_form, html: {id: 'approve-form', 'data-parsley-validate': true} do |f| %>
+      <%= f.error_notification %>
     <div class="table-scrollable">
       <table class="table table-bordered table-hover">
         <tbody>
@@ -54,7 +56,8 @@
             年级
           </th>
           <th>
-            <%= @apply_child.enum_name(:grade) %>
+            <%#= @apply_child.enum_name(:grade) %>
+            <%= f.input :grade, as: :select, label: false, collection: ProjectSeasonApplyChild.options_for_enum_select(:grades), include_blank: false, input_html: {id: 'input-grade', onchange: 'calculateDonateYear()'} %>
           </th>
         </tr>
         <tr>
@@ -62,7 +65,10 @@
             学期
           </th>
           <th>
-            <%= @apply_child.enum_name(:semester) %>
+            <%#= @apply_child.enum_name(:semester) %>
+            <%= f.input :semester, as: :select, label: false, collection: ProjectSeasonApplyChild.options_for_enum_select(:semesters), include_blank: false, input_html: {id: 'input-semester', onchange: 'calculateDonateYear()'} %>
+            <br/>
+            <span style="color: red">审核通过后生成捐助学年：<span id="donate_year"></span></span>
           </th>
         </tr>
         <tr>
@@ -285,8 +291,7 @@
       </table>
     </div>
     <div class="portlet-body form">
-      <%= simple_form_for [:admin, @apply_child], url: check_admin_pair_apply_pair_student_path(@project_apply), method: :patch, wrapper: :admin_form, html: {id: 'approve-form', 'data-parsley-validate': true} do |f| %>
-        <%= f.error_notification %>
+
         <div class="form-body form-horizontal">
           <%= f.input :approve_state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApply.options_for_some_select(:audit_states, ['pass', 'reject']), checked: 'pass', label: '审核状态：', required: 'required', input_html: { class: 'approve_state', onclick: 'toggleState();'} %>
           <div class="approve_reject">
@@ -312,4 +317,34 @@
         })
     }
     toggleState();
+    calculateDonateYear();
+    function calculateDonateYear () {
+      var grade = null;
+      if ($('#input-grade').val() == 'one') {
+        grade = 1
+      } else if ($('#input-grade').val() == 'two') {
+        grade = 2
+      } else if ($('#input-grade').val() == 'three') {
+        grade = 3
+      }
+      var semester = $('#input-semester').val();
+      var year = <%= Time.now.year %>;
+      var apply_donate_year = [];
+
+      apply_num = 4 - grade
+      if (semester == 'next_term' && apply_num > 0) {
+        apply_donate_year.push(year + '.3 - ' + year + '.7 春季');
+        apply_num -= 1;
+      }
+      for(i = 1; i <= apply_num; i++)
+      {
+        apply_donate_year.push(year + '.9 - ' + year + '.7 学年');
+        year += 1;
+      }
+      var show_text = ''
+      for(i=0; i < apply_donate_year.length; i++){
+        show_text += apply_donate_year[i] + '  '
+      }
+      $('#donate_year').text(show_text);
+    }
 </script>
