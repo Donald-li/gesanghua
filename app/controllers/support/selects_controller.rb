@@ -21,7 +21,7 @@ class Support::SelectsController < Support::BaseController
   def users
     scope = User.enable.sorted.where("name like :q", q: "%#{params[:q]}%")
     users = scope.page(params[:page])
-    render json: {items: users.as_json(only: [:id, :name])}
+    render json: {items: users.as_json(only: [:id], methods: :name_for_select)}
   end
 
   # 线下捐款
@@ -39,39 +39,39 @@ class Support::SelectsController < Support::BaseController
 
   def gsh_child_user
     users = User.enable.sorted.where.not(users: {id: 1}).left_joins(:gsh_child).where(gsh_children: {user_id: nil}).where("users.name like :q", q: "%#{params[:q]}%").page(params[:page])
-    render json: {items: users.as_json(only: [:id, :name])}
+    render json: {items: users.as_json(only: [:id], methods: :name_for_select)}
   end
 
   def teacher_user
     users = User.enable.sorted.where.not(users: {id: 1}).left_joins(:teacher).where(teachers: {user_id: nil}).where("users.name like :q", q: "%#{params[:q]}%").page(params[:page])
-    render json: {items: users.as_json(only: [:id, :name])}
+    render json: {items: users.as_json(only: [:id], methods: :name_for_select)}
   end
 
   def county_user
     users = User.enable.sorted.where.not(users: {id: 1}).left_joins(:county_user).where(county_users: {user_id: nil}).where("users.name like :q", q: "%#{params[:q]}%").page(params[:page])
-    render json: {items: users.as_json(only: [:id, :name])}
+    render json: {items: users.as_json(only: [:id], methods: :name_for_select)}
   end
 
   def school_user
     users = User.enable.sorted.where.not(users: {id: 1}).left_joins(:school).where(schools: {user_id: nil}).where("users.name like :q", q: "%#{params[:q]}%").page(params[:page])
-    render json: {items: users.as_json(only: [:id, :name])}
+    render json: {items: users.as_json(only: [:id], methods: :name_for_select)}
   end
 
   def volunteers
     scope = Volunteer.available.pass.enable.sorted.joins(:user).where("volunteers.name like :q", q: "%#{params[:q]}%")
     scope = scope.where.not(id: params[:participator_ids]) if params[:participator_ids].present?
     volunteers = scope.page(params[:page])
-    render json: {items: volunteers.as_json(only: [:id, :name])}
+    render json: {items: volunteers.as_json(only: [:id], methods: :name_for_select)}
   end
 
   def volunteer_user
     users = User.enable.sorted.where.not(users: {id: 1}).left_joins(:volunteer).where(volunteers: {user_id: nil}).where("users.name like :q", q: "%#{params[:q]}%").page(params[:page])
-    render json: {items: users.as_json(only: [:id, :name])}
+    render json: {items: users.as_json(only: [:id], methods: :name_for_select)}
   end
 
   def campaign_enlist_user
     users = User.enable.sorted.where.not(users: {id: 1}).where("users.name like :q", q: "%#{params[:q]}%").page(params[:page])
-    render json: {items: users.as_json(only: [:id, :name])}
+    render json: {items: users.as_json(only: [:id], methods: :name_for_select)}
   end
 
   def seasons
@@ -104,7 +104,7 @@ class Support::SelectsController < Support::BaseController
 
   def camp_users
     camp_users = Camp.find(params[:camp_id]).users.sorted
-    render json: {items: camp_users.as_json(only: [:id, :name])}
+    render json: {items: camp_users.as_json(only: [:id], methods: :name_for_select)}
   end
 
   def child_grants
@@ -118,7 +118,7 @@ class Support::SelectsController < Support::BaseController
     else
       users = User.where(team_id: params[:team_id]) if params[:team_id].present?
     end
-    render json: {items: users.as_json(only: [:id, :name])}
+    render json: {items: users.as_json(only: [:id], methods: :name_for_select)}
   end
 
   # def income_records

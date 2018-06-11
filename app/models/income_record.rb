@@ -58,18 +58,18 @@ class IncomeRecord < ApplicationRecord
   has_one_asset :income_record_excel, class_name: 'Asset::IncomeRecordExcel'
 
   scope :sorted, -> {order(created_at: :desc)}
-  scope :has_balance, ->{where('income_records.balance > 0')}
-  scope :can_count, ->{where("income_time > ?", Time.mktime(2018,6,1))}
+  scope :has_balance, -> {where('income_records.balance > 0')}
+  scope :can_count, -> {where("income_time > ?", Time.mktime(2018, 6, 1))}
   # 可开票记录
-  scope :open_ticket, -> { to_bill.where(created_at: (Time.now.beginning_of_year)..(Time.now.end_of_year)) }
+  scope :open_ticket, -> {to_bill.where(created_at: (Time.now.beginning_of_year)..(Time.now.end_of_year))}
 
   counter_culture :agent, column_name: proc {|model| model.income_source.present? && !model.income_source.offline? ? 'online_amount' : nil}, delta_magnitude: proc {|model| model.amount}
   counter_culture :agent, column_name: proc {|model| model.income_source.present? && model.income_source.offline? ? 'offline_amount' : nil}, delta_magnitude: proc {|model| model.amount}
-  counter_culture :agent, column_name: 'donate_amount', delta_magnitude: proc {|model| model.amount }
-  counter_culture :fund, column_name: proc{|model| model.fund.present? ? 'total' : nil}, delta_magnitude: proc {|model| model.amount if model.income_time > Time.mktime(2018,6,1)}
-  counter_culture :fund, column_name: proc{|model| model.fund.present? ? 'balance' : nil}, delta_magnitude: proc {|model| model.amount if model.income_time > Time.mktime(2018,6,1)}
-  counter_culture :income_source, column_name: 'amount', delta_magnitude: proc {|model| model.amount if model.income_time > Time.mktime(2018,6,1)}
-  counter_culture :income_source, column_name: 'in_total', delta_magnitude: proc {|model| model.amount if model.income_time > Time.mktime(2018,6,1)}
+  counter_culture :agent, column_name: 'donate_amount', delta_magnitude: proc {|model| model.amount}
+  counter_culture :fund, column_name: proc {|model| model.fund.present? ? 'total' : 0}, delta_magnitude: proc {|model| model.income_time > Time.mktime(2018, 6, 1) ? model.amount : 0}
+  counter_culture :fund, column_name: proc {|model| model.fund.present? ? 'balance' : 0}, delta_magnitude: proc {|model| model.income_time > Time.mktime(2018, 6, 1) ? model.amount : 0}
+  counter_culture :income_source, column_name: 'amount', delta_magnitude: proc {|model| model.income_time > Time.mktime(2018, 6, 1) ? model.amount : 0}
+  counter_culture :income_source, column_name: 'in_total', delta_magnitude: proc {|model| model.income_time > Time.mktime(2018, 6, 1) ? model.amount : 0}
 
   def has_balance?
     self.balance > 0
@@ -86,16 +86,72 @@ class IncomeRecord < ApplicationRecord
   end
 
   def self.update_income_statistic_record
-    record_times = self.where("created_at >= ? and created_at <= ?", Time.now.beginning_of_day, Time.now.end_of_day).group_by {|record| record.income_time.strftime("%Y-%m-%d")}.keys
-    if record_times.size > 0
-      record_times.each do |record_time|
-        record_time = Time.parse(record_time)
-        amount = self.where("income_time >= ? and income_time <= ?", record_time.beginning_of_day, record_time.end_of_day).sum(:amount)
-        record = StatisticRecord.find_or_create_by(kind: 2, record_time: record_time)
-        record.update(amount: amount)
-      end
+    group_records = self.where("created_at >= ? and created_at <= ?", Time.now.beginning_of_day, Time.now.end_of_day)
+    if group_records.count > 0
+      self.gen_income_statistic_record(group_records)
+      self.gen_income_finance_statistic_record(group_records)
     else
-      StatisticRecord.create(kind: 2, record_time: Time.now.strftime("%Y-%m-%d"), amount: 0)
+      StatisticRecord.find_or_create_by(kind: 2, record_time: Time.now.strftime("%Y-%m-%d"), amount: 0)
+    end
+
+  end
+
+  def self.update_income_history_records
+    group_records = self.all
+    if group_records.count > 0
+      self.gen_income_statistic_record(group_records)
+      self.gen_income_finance_statistic_record(group_records)
+    else
+      StatisticRecord.find_or_create_by(kind: 2, record_time: Time.now.strftime("%Y-%m-%d"), amount: 0)
+    end
+  end
+
+  def self.gen_income_statistic_record(records)
+    group_records = records.group_by {|record| record.income_time.strftime("%Y-%m-%d")}
+    group_records.each do |record_time, s_records|
+      # 收入统计
+      record_time = Time.parse(record_time)
+      amount = 0
+      s_records.each {|record| amount += record.amount}
+      record = StatisticRecord.find_or_create_by(kind: 2, record_time: record_time)
+      record.update(amount: amount)
+    end
+  end
+
+  def self.gen_income_finance_statistic_record(finance_records)
+    group_records = finance_records.where("income_time > ?", Time.mktime(2018,6,1)).group_by {|record| record.income_time.strftime("%Y-%m-%d")}
+    group_records.each do |record_time, records|
+      # 按照团队统计
+      records.group_by(&:team_id).each do |team_id, team_records|
+        amount = 0
+        if team_id.present?
+          team = Team.find(team_id)
+          team_records.each {|team_record| amount += team_record.amount}
+          f_record = StatisticRecord.find_or_create_by(kind: 3, record_time: record_time, owner: team)
+          f_record.update(amount: amount)
+        end
+      end
+      # 按照财务分类统计
+      records.group_by(&:fund_id).each do |fund_id, fund_records|
+        amount = 0
+        if fund_id.present?
+          fund = Fund.find(fund_id)
+          fund_records.each {|fund_record| amount += fund_record.amount}
+          f_record = StatisticRecord.find_or_create_by(kind: 3, record_time: record_time, owner: fund)
+          f_record.update(amount: amount)
+        end
+      end
+
+      # 按照账户统计
+      records.group_by(&:income_source_id).each do |source_id, source_records|
+        amount = 0
+        if source_id.present?
+          source = IncomeSource.find(source_id)
+          source_records.each {|source_record| amount += source_record.amount}
+          f_record = StatisticRecord.find_or_create_by(kind: 3, record_time: record_time, owner: source)
+          f_record.update(amount: amount)
+        end
+      end
     end
   end
 
@@ -139,14 +195,14 @@ class IncomeRecord < ApplicationRecord
     end
   end
 
-  # 入账记录的描述
-  def title
-    if self.offline?
-      self.attributes['title']
-    else
-      self.donation.try(:title)
-    end
-  end
+  # # 入账记录的描述
+  # def title
+  #   if self.offline?
+  #     self.attributes['title']
+  #   else
+  #     self.donation.try(:title)
+  #   end
+  # end
 
   # 代捐人名称
   def agent_name
@@ -176,38 +232,38 @@ class IncomeRecord < ApplicationRecord
     return false unless self.donation.present?
     donation = self.donation
     case donation.owner_type
-    when 'DonateItem'
-      if donation.owner.project.present?
-        if donation.owner.project == Project.read_project
-          {name: 'project-description', query: {name: 'read'}}
-        elsif donation.owner.project == Project.camp_project
-          {name: 'project-description', query: {name: 'camp'}}
-        elsif donation.owner.project == Project.pair_project
-          {name: 'project-description', query: {name: 'pair'}}
-        elsif donation.owner.project.goods?
-          {name: 'project-description', query: {name: donation.owner.project.id}}
-        end
-      else
-        ''
-      end
-    when 'ProjectSeasonApply'
-      if donation.owner.project == Project.read_project
-        if donation.owner.whole?
-          {name: 'read', params: {id: donation.owner_id.to_s }}
+      when 'DonateItem'
+        if donation.owner.project.present?
+          if donation.owner.project == Project.read_project
+            {name: 'project-description', query: {name: 'read'}}
+          elsif donation.owner.project == Project.camp_project
+            {name: 'project-description', query: {name: 'camp'}}
+          elsif donation.owner.project == Project.pair_project
+            {name: 'project-description', query: {name: 'pair'}}
+          elsif donation.owner.project.goods?
+            {name: 'project-description', query: {name: donation.owner.project.id}}
+          end
         else
-          {name: 'read-supplement', params: {id: donation.owner_id.to_s }}
+          ''
         end
-      elsif donation.owner.project == Project.camp_project
-        {name: 'camp', params: {id: donation.owner_id.to_s }}
-      elsif donation.owner.project.goods?
-        {name: 'goods', params: {id: donation.owner_id.to_s }}
-      end
-    when 'ProjectSeasonApplyBookshelf'
-      {name: 'read', params: {id: donation.owner_id.to_s }}
-    when 'ProjectSeasonApplyChild'
-      {name: 'pair', params: {id: donation.owner_id.to_s }}
-    when 'CampaignEnlist'
-      {name: 'campaign', params: {id: donation.owner.try(:campaign).try(:id).to_s }}
+      when 'ProjectSeasonApply'
+        if donation.owner.project == Project.read_project
+          if donation.owner.whole?
+            {name: 'read', params: {id: donation.owner_id.to_s}}
+          else
+            {name: 'read-supplement', params: {id: donation.owner_id.to_s}}
+          end
+        elsif donation.owner.project == Project.camp_project
+          {name: 'camp', params: {id: donation.owner_id.to_s}}
+        elsif donation.owner.project.goods?
+          {name: 'goods', params: {id: donation.owner_id.to_s}}
+        end
+      when 'ProjectSeasonApplyBookshelf'
+        {name: 'read', params: {id: donation.owner_id.to_s}}
+      when 'ProjectSeasonApplyChild'
+        {name: 'pair', params: {id: donation.owner_id.to_s}}
+      when 'CampaignEnlist'
+        {name: 'campaign', params: {id: donation.owner.try(:campaign).try(:id).to_s}}
     end
   end
 

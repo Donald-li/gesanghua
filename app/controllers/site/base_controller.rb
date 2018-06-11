@@ -32,8 +32,7 @@ class Site::BaseController < ApplicationController
   def render_error(exception = nil)
     unless Rails.env == 'development'
     case exception
-      when ActiveRecord::RecordNotFound, ::ActionController::RoutingError,
-          ::ActionController::UnknownAction
+      when ActiveRecord::RecordNotFound, ::ActionController::RoutingError
         render :file => "#{Rails.root}/public/404.html", :status => 404
       else
         render :file => "#{Rails.root}/public/500.html", :status => 500

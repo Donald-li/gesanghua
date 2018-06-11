@@ -64,7 +64,7 @@
                 <%= grant.remark %>
               </td>
               <td>
-                <%= grant.user.try(:name) %>
+                <%= link_to grant.user.try(:name), admin_users_path(user_id: grant.user_id) if grant.user_id %>
               </td>
               <td>
                 <%= grant.enum_name(:donate_state) %>

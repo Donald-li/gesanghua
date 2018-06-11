@@ -8,12 +8,17 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  record_time :datetime                               # 统计时间
+#  owner_type  :string
+#  owner_id    :integer
 #
 
 # 统计记录
 class StatisticRecord < ApplicationRecord
+
   default_value_for :amount, 0
-  enum kind: {user_register: 1, income_statistic: 2}
+  enum kind: {user_register: 1, income_statistic: 2, finance_income_statistic: 3, finance_expend_statistic: 4}
+
+  belongs_to :owner, polymorphic: true, optional: true
 
   scope :record_sorted, -> { order(record_time: :asc) }
 

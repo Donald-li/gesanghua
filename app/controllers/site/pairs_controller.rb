@@ -1,4 +1,5 @@
 class Site::PairsController < Site::BaseController
+  before_action :login_require, only: :detail
 
   def index
     @project = Project.pair_project

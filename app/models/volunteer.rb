@@ -110,6 +110,10 @@ class Volunteer < ApplicationRecord
     self.volunteer_no ||= Sequence.get_seq(kind: :volunteer_no, prefix: 'ZYZ' + time_string, length: 4)
   end
 
+  def name_for_select
+    "#{self.name}（#{self.phone}）"
+  end
+
   def volunteer_state
     if self.enable?
       if self.available?

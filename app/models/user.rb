@@ -176,6 +176,10 @@ class User < ApplicationRecord
     self.name.presence || self.nickname
   end
 
+  def name_for_select
+    "#{self.name}（#{self.phone}）"
+  end
+
   # 用户对外显示的名字
   def user_name
     self.show_name
@@ -272,9 +276,19 @@ class User < ApplicationRecord
 
   def self.update_user_statistic_record
     time = Time.now
-    amount = self.where("created_at >= ? and created_at <= ?", time.beginning_of_day, time.end_of_day).count
-    record = StatisticRecord.where("record_time >= ? and record_time <= ?", time.beginning_of_day, time.end_of_day).user_register.first || StatisticRecord.new(kind: 1, record_time: time)
-    record.update(amount: amount)
+    count = self.where("created_at >= ? and created_at <= ?", time.beginning_of_day, time.end_of_day).count
+    record = StatisticRecord.find_or_create_by(kind: 1, record_time: time.beginning_of_day)
+    record.update(amount: count)
+  end
+
+  # 更新全部用户注册统计记录
+  def self.update_user_history_record
+    user_records = self.all.group_by {|user| user.created_at.strftime("%Y-%m-%d")}
+    user_records.each do |time, users|
+      created_time = Time.parse(time)
+      record = StatisticRecord.find_or_create_by(kind: 1, record_time: created_time)
+      record.update(amount: users.count)
+    end
   end
 
   def role_tag

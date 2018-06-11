@@ -39,8 +39,8 @@ class ExpenditureRecord < ApplicationRecord
   # default_value_for :deliver_state, 1
   # enum kind: {}
   # counter_culture :expenditure_ledger, column_name: 'amount', delta_magnitude: proc {|model| model.amount }
-  counter_culture :fund, column_name: 'out_total', delta_magnitude: proc {|model| model.amount if model.expended_at > Time.mktime(2018,6,1) }
-  counter_culture :income_source, column_name: 'out_total', delta_magnitude: proc {|model| model.amount if model.expended_at > Time.mktime(2018,6,1)}
+  counter_culture :fund, column_name: 'out_total', delta_magnitude: proc {|model|model.expended_at > Time.mktime(2018,6,1) ? model.amount : 0  }
+  counter_culture :income_source, column_name: 'out_total', delta_magnitude: proc {|model| model.expended_at > Time.mktime(2018,6,1) ? model.amount : 0}
 
   before_create :gen_expend_no
 
@@ -67,6 +67,52 @@ class ExpenditureRecord < ApplicationRecord
       self.operator
     else
       self.operator.sub(self.operator[1,1], '*')
+    end
+  end
+
+  def self.update_expenditure_statistic_record
+    group_records = self.where("created_at >= ? and created_at <= ?", Time.now.beginning_of_day, Time.now.end_of_day)
+    if group_records.count > 0
+      self.gen_expenditure_finance_statistic_record(group_records)
+    # else
+    #   StatisticRecord.find_or_create_by(kind: 4, record_time: Time.now.strftime("%Y-%m-%d"), amount: 0)
+    end
+
+  end
+
+  def self.update_expenditure_history_records
+    group_records = self.all
+    if group_records.count > 0
+      self.gen_expenditure_finance_statistic_record(group_records)
+    else
+      StatisticRecord.find_or_create_by(kind: 4, record_time: Time.now.strftime("%Y-%m-%d"), amount: 0)
+    end
+  end
+
+  def self.gen_expenditure_finance_statistic_record(finance_records)
+    group_records = finance_records.where("expended_at > ?", Time.mktime(2018,6,1)).group_by {|record| record.expended_at.strftime("%Y-%m-%d")}
+    group_records.each do |record_time, records|
+      # 按照财务分类统计
+      records.group_by(&:fund_id).each do |fund_id, fund_records|
+        amount = 0
+        if fund_id.present?
+          fund = Fund.find(fund_id)
+          fund_records.each {|fund_record| amount += fund_record.amount}
+          f_record = StatisticRecord.find_or_create_by(kind: 4, record_time: record_time, owner: fund)
+          f_record.update(amount: amount)
+        end
+      end
+
+      # 按照账户统计
+      records.group_by(&:income_source_id).each do |source_id, source_records|
+        amount = 0
+        if source_id.present?
+          source = IncomeSource.find(source_id)
+          source_records.each {|source_record| amount += source_record.amount}
+          f_record = StatisticRecord.find_or_create_by(kind: 4, record_time: record_time, owner: source)
+          f_record.update(amount: amount)
+        end
+      end
     end
   end
 
