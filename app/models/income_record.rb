@@ -58,18 +58,18 @@ class IncomeRecord < ApplicationRecord
   has_one_asset :income_record_excel, class_name: 'Asset::IncomeRecordExcel'
 
   scope :sorted, -> {order(created_at: :desc)}
-  scope :has_balance, ->{where('income_records.balance > 0')}
-  scope :can_count, ->{where("income_time > ?", Time.mktime(2018,6,1))}
+  scope :has_balance, -> {where('income_records.balance > 0')}
+  scope :can_count, -> {where("income_time > ?", Time.mktime(2018, 6, 1))}
   # 可开票记录
-  scope :open_ticket, -> { to_bill.where(created_at: (Time.now.beginning_of_year)..(Time.now.end_of_year)) }
+  scope :open_ticket, -> {to_bill.where(created_at: (Time.now.beginning_of_year)..(Time.now.end_of_year))}
 
   counter_culture :agent, column_name: proc {|model| model.income_source.present? && !model.income_source.offline? ? 'online_amount' : nil}, delta_magnitude: proc {|model| model.amount}
   counter_culture :agent, column_name: proc {|model| model.income_source.present? && model.income_source.offline? ? 'offline_amount' : nil}, delta_magnitude: proc {|model| model.amount}
-  counter_culture :agent, column_name: 'donate_amount', delta_magnitude: proc {|model| model.amount }
-  counter_culture :fund, column_name: proc{|model| model.fund.present? ? 'total' : nil}, delta_magnitude: proc {|model| model.amount if model.income_time > Time.mktime(2018,6,1)}
-  counter_culture :fund, column_name: proc{|model| model.fund.present? ? 'balance' : nil}, delta_magnitude: proc {|model| model.amount if model.income_time > Time.mktime(2018,6,1)}
-  counter_culture :income_source, column_name: 'amount', delta_magnitude: proc {|model| model.amount if model.income_time > Time.mktime(2018,6,1)}
-  counter_culture :income_source, column_name: 'in_total', delta_magnitude: proc {|model| model.amount if model.income_time > Time.mktime(2018,6,1)}
+  counter_culture :agent, column_name: 'donate_amount', delta_magnitude: proc {|model| model.amount}
+  counter_culture :fund, column_name: proc {|model| model.fund.present? ? 'total' : 0}, delta_magnitude: proc {|model| model.income_time > Time.mktime(2018, 6, 1) ? model.amount : 0}
+  counter_culture :fund, column_name: proc {|model| model.fund.present? ? 'balance' : 0}, delta_magnitude: proc {|model| model.income_time > Time.mktime(2018, 6, 1) ? model.amount : 0 }
+  counter_culture :income_source, column_name: 'amount', delta_magnitude: proc {|model| model.income_time > Time.mktime(2018, 6, 1) ? model.amount : 0}
+  counter_culture :income_source, column_name: 'in_total', delta_magnitude: proc {|model| model.income_time > Time.mktime(2018, 6, 1) ? model.amount : 0}
 
   def has_balance?
     self.balance > 0
@@ -146,14 +146,14 @@ class IncomeRecord < ApplicationRecord
     end
   end
 
-  # 入账记录的描述
-  def title
-    if self.offline?
-      self.attributes['title']
-    else
-      self.donation.try(:title)
-    end
-  end
+  # # 入账记录的描述
+  # def title
+  #   if self.offline?
+  #     self.attributes['title']
+  #   else
+  #     self.donation.try(:title)
+  #   end
+  # end
 
   # 代捐人名称
   def agent_name
@@ -183,38 +183,38 @@ class IncomeRecord < ApplicationRecord
     return false unless self.donation.present?
     donation = self.donation
     case donation.owner_type
-    when 'DonateItem'
-      if donation.owner.project.present?
-        if donation.owner.project == Project.read_project
-          {name: 'project-description', query: {name: 'read'}}
-        elsif donation.owner.project == Project.camp_project
-          {name: 'project-description', query: {name: 'camp'}}
-        elsif donation.owner.project == Project.pair_project
-          {name: 'project-description', query: {name: 'pair'}}
-        elsif donation.owner.project.goods?
-          {name: 'project-description', query: {name: donation.owner.project.id}}
-        end
-      else
-        ''
-      end
-    when 'ProjectSeasonApply'
-      if donation.owner.project == Project.read_project
-        if donation.owner.whole?
-          {name: 'read', params: {id: donation.owner_id.to_s }}
+      when 'DonateItem'
+        if donation.owner.project.present?
+          if donation.owner.project == Project.read_project
+            {name: 'project-description', query: {name: 'read'}}
+          elsif donation.owner.project == Project.camp_project
+            {name: 'project-description', query: {name: 'camp'}}
+          elsif donation.owner.project == Project.pair_project
+            {name: 'project-description', query: {name: 'pair'}}
+          elsif donation.owner.project.goods?
+            {name: 'project-description', query: {name: donation.owner.project.id}}
+          end
         else
-          {name: 'read-supplement', params: {id: donation.owner_id.to_s }}
+          ''
         end
-      elsif donation.owner.project == Project.camp_project
-        {name: 'camp', params: {id: donation.owner_id.to_s }}
-      elsif donation.owner.project.goods?
-        {name: 'goods', params: {id: donation.owner_id.to_s }}
-      end
-    when 'ProjectSeasonApplyBookshelf'
-      {name: 'read', params: {id: donation.owner_id.to_s }}
-    when 'ProjectSeasonApplyChild'
-      {name: 'pair', params: {id: donation.owner_id.to_s }}
-    when 'CampaignEnlist'
-      {name: 'campaign', params: {id: donation.owner.try(:campaign).try(:id).to_s }}
+      when 'ProjectSeasonApply'
+        if donation.owner.project == Project.read_project
+          if donation.owner.whole?
+            {name: 'read', params: {id: donation.owner_id.to_s}}
+          else
+            {name: 'read-supplement', params: {id: donation.owner_id.to_s}}
+          end
+        elsif donation.owner.project == Project.camp_project
+          {name: 'camp', params: {id: donation.owner_id.to_s}}
+        elsif donation.owner.project.goods?
+          {name: 'goods', params: {id: donation.owner_id.to_s}}
+        end
+      when 'ProjectSeasonApplyBookshelf'
+        {name: 'read', params: {id: donation.owner_id.to_s}}
+      when 'ProjectSeasonApplyChild'
+        {name: 'pair', params: {id: donation.owner_id.to_s}}
+      when 'CampaignEnlist'
+        {name: 'campaign', params: {id: donation.owner.try(:campaign).try(:id).to_s}}
     end
   end
 
