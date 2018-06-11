@@ -26,34 +26,65 @@
               <%= webuploader_tag :avatar_id, label: '上传图片', type: 'apply_child_avatar', asset: @apply_child.avatar, klass: 'single', id: 'single-upload1' %>
             </div>
           </div>
-          <%= f.input :name, label: '真实姓名：', autofocus: true, placeholder: '姓名', required: true %>
-          <%= f.input :gender, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApplyChild.options_for_some_select(:genders, ['male', 'female']), label: '性别：' %>
-          <%= f.input :id_card, label: '身份证号：', placeholder: '身份证号', required: true %>
-          <%= f.input :nation, as: :select, label: '民族：', collection: ProjectSeasonApplyChild.options_for_enum_select(:nations), include_blank: false %>
-          <%= f.input :level, as: :select, label: '学历：', collection: ProjectSeasonApplyChild.options_for_some_select(:levels, ['junior', 'senior']), include_blank: false %>
-          <%= f.input :grade, as: :select, label: '年级：', collection: ProjectSeasonApplyChild.options_for_enum_select(:grades), include_blank: false %>
-          <%= f.input :classname, label: '班级：', required: true %>
-          <%= f.input :semester, as: :select, label: '学期：', collection: ProjectSeasonApplyChild.options_for_enum_select(:semesters), include_blank: false %>
-          <%= f.input :teacher_name, label: '班主任：', placeholder: '填写班主任姓名', required: true %>
-          <%= f.input :teacher_phone, label: '联系方式：', placeholder: '填写班主任联系方式', required: true %>
-          <%= f.input :description, label: '自我介绍：', placeholder: '自我介绍', required: true %>
-          <h3>家庭信息</h3>
-          <%= f.input :father, label: '父亲：', placeholder: '父亲', required: true %>
-          <%= f.input :father_job, label: '父亲职业：', placeholder: '父亲职业', required: true %>
-          <%= f.input :mother, label: '母亲：', placeholder: '母亲', required: true %>
-          <%= f.input :mother_job, label: '母亲职业：', placeholder: '母亲职业', required: true %>
-          <%= f.input :parent_information, as: :select, collection: ['父母健在且共同生活', '父母离异', '父亲去世', '母亲去世', '父母均去世', '父亲下落不明', '母亲下落不明', '父母下落不明'], label: '父母情况：', include_blank: false %>
-          <%= f.input :guardian, label: '监护人：', placeholder: '监护人', required: true %>
-          <%= f.input :guardian_relation, as: :select, collection: ['父子', '母子', '父女', '母女', '祖孙', '舅甥', '其他'], label: '与其关系：', include_blank: false %>
-          <%= f.input :guardian_phone, label: '联系方式：', placeholder: '联系方式', required: true %>
-          <%= f.input :address, label: '家庭住址：', placeholder: '家庭住址', required: true %>
-          <%= f.input :family_income, label: '家庭年收入：', placeholder: '家庭年收入', required: true %>
-          <%= f.input :income_source, label: '收入来源：', placeholder: '收入来源', required: true %>
-          <%= f.input :family_expenditure, label: '家庭年支出：', placeholder: '家庭年支出', required: true %>
-          <%= f.input :expenditure_information, label: '支出情况：', placeholder: '支出情况', required: true %>
-          <%= f.input :debt_information, label: '负债情况：', placeholder: '负债情况', required: true %>
-          <%= f.input :family_condition, as: :text, label: '家庭情况：', placeholder: '家庭情况', required: true %>
-          <%#= f.input :brothers, as: :text, label: '兄弟姐妹：', placeholder: '兄弟姐妹', required: true %>
+          <% if @apply_child.archive_data.blank? %>
+            <%= f.input :name, label: '真实姓名：', autofocus: true, placeholder: '姓名', required: true %>
+            <%= f.input :gender, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApplyChild.options_for_some_select(:genders, ['male', 'female']), label: '性别：' %>
+            <%= f.input :id_card, label: '身份证号：', placeholder: '身份证号', required: true %>
+            <%= f.input :nation, as: :select, label: '民族：', collection: ProjectSeasonApplyChild.options_for_enum_select(:nations), include_blank: false %>
+            <%= f.input :level, as: :select, label: '学历：', collection: ProjectSeasonApplyChild.options_for_some_select(:levels, ['junior', 'senior']), include_blank: false %>
+            <%= f.input :grade, as: :select, label: '年级：', collection: ProjectSeasonApplyChild.options_for_enum_select(:grades), include_blank: false %>
+            <%= f.input :classname, label: '班级：', required: true %>
+            <%= f.input :semester, as: :select, label: '学期：', collection: ProjectSeasonApplyChild.options_for_enum_select(:semesters), include_blank: false %>
+            <%= f.input :teacher_name, label: '班主任：', placeholder: '填写班主任姓名', required: true %>
+            <%= f.input :teacher_phone, label: '联系方式：', placeholder: '填写班主任联系方式', required: true %>
+            <%= f.input :description, label: '自我介绍：', placeholder: '自我介绍', required: true %>
+            <h3>家庭信息</h3>
+            <%= f.input :father, label: '父亲：', placeholder: '父亲', required: true %>
+            <%= f.input :father_job, label: '父亲职业：', placeholder: '父亲职业', required: true %>
+            <%= f.input :mother, label: '母亲：', placeholder: '母亲', required: true %>
+            <%= f.input :mother_job, label: '母亲职业：', placeholder: '母亲职业', required: true %>
+            <%= f.input :parent_information, as: :select, collection: ['父母健在且共同生活', '父母离异', '父亲去世', '母亲去世', '父母均去世', '父亲下落不明', '母亲下落不明', '父母下落不明'], label: '父母情况：', include_blank: false %>
+            <%= f.input :guardian, label: '监护人：', placeholder: '监护人', required: true %>
+            <%= f.input :guardian_relation, as: :select, collection: ['父子', '母子', '父女', '母女', '祖孙', '舅甥', '其他'], label: '与其关系：', include_blank: false %>
+            <%= f.input :guardian_phone, label: '联系方式：', placeholder: '联系方式', required: true %>
+            <%= f.input :address, label: '家庭住址：', placeholder: '家庭住址', required: true %>
+            <%= f.input :family_income, label: '家庭年收入：', placeholder: '家庭年收入', required: true %>
+            <%= f.input :income_source, label: '收入来源：', placeholder: '收入来源', required: true %>
+            <%= f.input :family_expenditure, label: '家庭年支出：', placeholder: '家庭年支出', required: true %>
+            <%= f.input :expenditure_information, label: '支出情况：', placeholder: '支出情况', required: true %>
+            <%= f.input :debt_information, label: '负债情况：', placeholder: '负债情况', required: true %>
+            <%= f.input :family_condition, as: :text, label: '家庭情况：', placeholder: '家庭情况', required: true %>
+            <%#= f.input :brothers, as: :text, label: '兄弟姐妹：', placeholder: '兄弟姐妹', required: true %>
+          <% else %>
+            <%= f.input :name, label: '真实姓名：', autofocus: true, placeholder: '姓名' %>
+            <%= f.input :gender, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApplyChild.options_for_some_select(:genders, ['male', 'female']), label: '性别：' %>
+            <%= f.input :id_card, label: '身份证号：', placeholder: '身份证号' %>
+            <%= f.input :nation, as: :select, label: '民族：', collection: ProjectSeasonApplyChild.options_for_enum_select(:nations), include_blank: false %>
+            <%= f.input :level, as: :select, label: '学历：', collection: ProjectSeasonApplyChild.options_for_some_select(:levels, ['junior', 'senior']), include_blank: false %>
+            <%= f.input :grade, as: :select, label: '年级：', collection: ProjectSeasonApplyChild.options_for_enum_select(:grades), include_blank: false %>
+            <%= f.input :classname, label: '班级：' %>
+            <%= f.input :semester, as: :select, label: '学期：', collection: ProjectSeasonApplyChild.options_for_enum_select(:semesters), include_blank: false %>
+            <%= f.input :teacher_name, label: '班主任：', placeholder: '填写班主任姓名' %>
+            <%= f.input :teacher_phone, label: '联系方式：', placeholder: '填写班主任联系方式' %>
+            <%= f.input :description, label: '自我介绍：', placeholder: '自我介绍' %>
+            <h3>家庭信息</h3>
+            <%= f.input :father, label: '父亲：', placeholder: '父亲' %>
+            <%= f.input :father_job, label: '父亲职业：', placeholder: '父亲职业' %>
+            <%= f.input :mother, label: '母亲：', placeholder: '母亲' %>
+            <%= f.input :mother_job, label: '母亲职业：', placeholder: '母亲职业' %>
+            <%= f.input :parent_information, as: :select, collection: ['父母健在且共同生活', '父母离异', '父亲去世', '母亲去世', '父母均去世', '父亲下落不明', '母亲下落不明', '父母下落不明'], label: '父母情况：', include_blank: false %>
+            <%= f.input :guardian, label: '监护人：', placeholder: '监护人', required: true %>
+            <%= f.input :guardian_relation, as: :select, collection: ['父子', '母子', '父女', '母女', '祖孙', '舅甥', '其他'], label: '与其关系：', include_blank: false %>
+            <%= f.input :guardian_phone, label: '联系方式：', placeholder: '联系方式' %>
+            <%= f.input :address, label: '家庭住址：', placeholder: '家庭住址' %>
+            <%= f.input :family_income, label: '家庭年收入：', placeholder: '家庭年收入' %>
+            <%= f.input :income_source, label: '收入来源：', placeholder: '收入来源' %>
+            <%= f.input :family_expenditure, label: '家庭年支出：', placeholder: '家庭年支出' %>
+            <%= f.input :expenditure_information, label: '支出情况：', placeholder: '支出情况' %>
+            <%= f.input :debt_information, label: '负债情况：', placeholder: '负债情况' %>
+            <%= f.input :family_condition, as: :text, label: '家庭情况：', placeholder: '家庭情况' %>
+            <%#= f.input :brothers, as: :text, label: '兄弟姐妹：', placeholder: '兄弟姐妹' %>
+          <% end %>
           <h3>推荐理由</h3>
           <%= f.input :reason, label: '推荐理由：', placeholder: '推荐理由', input_html: {maxlength: 20} %>
           <div class="form-group">
