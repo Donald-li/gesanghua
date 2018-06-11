@@ -181,7 +181,7 @@ class ProjectSeasonApply < ApplicationRecord
   end
 
   def apply_name
-    self.name || self.season.try(:name).to_s + '-' + self.school.try(:name).to_s
+    self.name || self.school.try(:name).to_s
   end
 
   def pass_bookshelf?
