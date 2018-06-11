@@ -20,7 +20,7 @@ class Admin::SpecialsController < Admin::BaseController
   end
 
   def create
-    @article = Article.new(title: special_params[:name], describe: special_params[:describe], article_category_id: special_params[:article_category_id], author: special_params[:author], content: special_params[:describe], kind: 'list')
+    @article = Article.new(title: special_params[:name], describe: special_params[:describe], article_category_id: special_params[:article_category_id], author: special_params[:author], content: special_params[:describe], published_at: special_params[:published_at], kind: 'list')
     @special = Special.new(special_params.merge(list_article: @article))
     respond_to do |format|
       if @special.save && @article.save

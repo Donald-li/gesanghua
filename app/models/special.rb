@@ -36,5 +36,5 @@ class Special < ApplicationRecord
   include HasAsset
   has_one_asset :banner, class_name: 'Asset::SpecialBanner'
 
-  scope :sorted, ->{ order(created_at: :desc) }
+  scope :sorted, ->{ order(published_at: :desc) }
 end

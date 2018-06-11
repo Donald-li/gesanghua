@@ -41,6 +41,12 @@
                 </div>
               </div>
               <%= f.input :describe, label: '专题导读：', input_html: {data: {'parsley-required': true}} %>
+              <div class="form-group">
+                <label class="col-md-2 control-label">发布时间：</label>
+                <div class="col-sm-9">
+                  <%= f.text_field :published_at, class: 'datepicker', placeholder: '发布时间' %>
+                </div>
+              </div>
             </div>
             <div class="form-actions">
               <div class="row">
