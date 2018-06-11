@@ -114,9 +114,9 @@ class Admin::ReadAppliesController < Admin::BaseController
     # @project_apply.raise_project!
     # @project_apply.gen_bookshelves_no
     if @project_apply.whole?
-      redirect_to referer_or(edit_admin_read_project_path(@project_apply)), notice: '请填写筹款项目信息！'
+      redirect_to edit_admin_read_project_path(@project_apply), notice: '请填写筹款项目信息！'
     else
-      redirect_to referer_or(supply_edit_admin_read_project_path(@project_apply)), notice: '请填写筹款项目信息！'
+      redirect_to supply_edit_admin_read_project_path(@project_apply), notice: '请填写筹款项目信息！'
     end
   end
 

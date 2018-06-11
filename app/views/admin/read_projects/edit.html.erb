@@ -28,7 +28,6 @@
               <div class="col-sm-9">
                 <%= webuploader_tag :cover_image_id, label: '上传封面', type: 'project_season_apply_cover', asset: @project.cover_image, klass: 'single' %>
                 <p class="help-block">支持上传png、jpg格式 ，图片尺寸888X510px</p>
-
               </div>
             </div>
 
@@ -112,13 +111,12 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="form-group">
+            <div class="form-group">
               <label class="col-md-2 control-label">项目介绍：</label>
               <div class="col-sm-9">
-                <%#= f.cktext_area :project_describe %>
+                <%= f.cktext_area :project_describe, html: {toolbar: 'toolbar_simple'} %>
               </div>
-            </div> -->
-            <%= f.input :project_describe, label: '项目介绍：', placeholder: '请填写项目介绍', input_html: { data: {'parsley-required': true} } %>
+            </div>
             <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApply.options_for_some_select(:states), label: '显示状态：'%>
           </div>
           <div class="form-actions">

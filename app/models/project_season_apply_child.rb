@@ -308,11 +308,11 @@ class ProjectSeasonApplyChild < ApplicationRecord
   end
 
   def self.city_group
-    self.show.group_by {|child| child.city}.keys.map {|key| {value: key, name: ChinaCity.get(key), district: self.district_group(key)}}
+    self.outside.show.group_by {|child| child.city}.keys.map {|key| {value: key, name: ChinaCity.get(key), district: self.district_group(key)}}
   end
 
   def self.district_group(city)
-    self.show.where(city: city).group_by {|child| child.district}.keys.map {|key| {value: key, name: ChinaCity.get(key)}}
+    self.outside.show.where(city: city).group_by {|child| child.district}.keys.map {|key| {value: key, name: ChinaCity.get(key)}}
   end
 
   def get_tuition

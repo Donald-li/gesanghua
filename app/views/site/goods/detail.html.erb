@@ -6,7 +6,7 @@
       <div class="detail-cont pull-right">
         <div>
           <p class="detail-con-t"><%= @apply.name %></p>
-          <p class="detail-con-font"><%= @apply.project_describe%></p>
+          <!--<p class="detail-con-font"><%#= @apply.project_describe.html_safe %></p>-->
         </div>
         <div class="detail-con-number clearfix">
           <div class="circlechart pull-left" data-percentage="<%= (@apply.present_amount / @apply.target_amount * 100.00).round(2) %>"></div>
@@ -53,7 +53,7 @@
     <!--申请详情-->
     <div class="details-left pull-left contentab" style="display: block;">
       <p class="detail-l-title"></p>
-      <div class="detail-l-fon"><%= @apply.project_describe %></div>
+      <div class="detail-l-fon"><%= @apply.project_describe.html_safe %></div>
       <%#= image_tag 'detail-reduce.png' %>
     </div>
     <!--物品-->

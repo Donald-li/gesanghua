@@ -66,4 +66,9 @@ CKEDITOR.editorConfig = function( config )
   ];
 
   config.toolbar = "image";
+
+  config.toolbar_simple = [
+      { name: 'styles', items: ['FontSize' ] },
+      { name: 'insert', items: [ 'Image'] }
+  ]
 };
