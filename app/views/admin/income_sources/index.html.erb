@@ -4,6 +4,10 @@
       <i class="icon-list"></i>账户管理
     </div>
     <div class="actions">
+      <%= link_to statistic_admin_income_sources_path, class: 'btn btn-xs yellow', 'data-no-turbolink' => true do %>
+          <i class="icon-bar-chart"></i>
+          <span>统计汇总</span>
+      <% end %>
       <%= link_to new_admin_income_source_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
       <i class="icon-plus"></i>
       <span>新增账户</span>

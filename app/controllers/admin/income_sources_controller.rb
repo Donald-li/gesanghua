@@ -50,6 +50,10 @@ class Admin::IncomeSourcesController < Admin::BaseController
     redirect_to request.referer
   end
 
+  def statistic
+    @income_sources = IncomeSource.sorted
+  end
+
   private
 
   def set_income_source

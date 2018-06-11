@@ -44,7 +44,11 @@ namespace :admin do
   resources :funds, concerns: [:switch, :move] do
     resource :fund_adjust_amount, only: [:new, :create, :show]
   end
-  resources :fund_categories, concerns: [:switch, :move]
+  resources :fund_categories, concerns: [:switch, :move] do
+    collection do
+      get :statistic
+    end
+  end
   resources :specials, concerns: [:switch] do
     resources :special_adverts
     resources :special_articles
@@ -209,6 +213,9 @@ namespace :admin do
   resources :support_categories, concerns: [:move, :switch]
   resources :county_users, concerns: [:switch]
   resources :income_sources, concerns: :move do
+    collection do
+      get :statistic
+    end
     resource :source_adjust_amount, only: [:new, :create, :show]
   end
   resources :volunteer_applies, only: [:index, :edit, :update]

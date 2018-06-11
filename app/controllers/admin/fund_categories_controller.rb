@@ -62,6 +62,12 @@ class Admin::FundCategoriesController < Admin::BaseController
     redirect_to request.referer
   end
 
+  def statistic
+    @search = FundCategory.sorted.ransack(params[:q])
+    scope = @search.result
+    @fund_categories = scope
+  end
+
   private
     def set_fund_category
       @fund_category = FundCategory.find(params[:id])
