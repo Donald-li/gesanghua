@@ -63,9 +63,24 @@ class Admin::FundCategoriesController < Admin::BaseController
   end
 
   def statistic
-    @search = FundCategory.sorted.ransack(params[:q])
-    scope = @search.result
-    @fund_categories = scope
+    @fund_categories = FundCategory.sorted
+    @income_statistics = IncomeRecord.all
+    @income_statistics = @income_statistics.where("income_time > ?", params[:time_start]) if params[:time_start].present?
+    @income_statistics = @income_statistics.where("income_time < ?", params[:time_end].end_of_day) if params[:time_end].present?
+    @income_statistics = @income_statistics.where("income_time > ?", Time.now.beginning_of_day) if params[:fix_time] == 'day'
+    @income_statistics = @income_statistics.where("income_time > ?", Time.now.beginning_of_day - 7.day) if params[:fix_time] == 'week'
+    @income_statistics = @income_statistics.where("income_time > ?", Time.now.beginning_of_day - 1.month) if params[:fix_time] == 'month'
+    @income_statistics = @income_statistics.where("income_time > ?", Time.now.beginning_of_day - 1.year) if params[:fix_time] == 'year'
+    @income_statistics = @income_statistics.select("fund_id, sum(amount) as amount").group(:fund_id)
+
+    @expend_statistics = ExpenditureRecord.all
+    @expend_statistics = @expend_statistics.where("expended_at > ?", params[:time_start]) if params[:time_start].present?
+    @expend_statistics = @expend_statistics.where("expended_at < ?", params[:time_end].end_of_day) if params[:time_end].present?
+    @expend_statistics = @expend_statistics.where("expended_at > ?", Time.now.beginning_of_day) if params[:fix_time] == 'day'
+    @expend_statistics = @expend_statistics.where("expended_at > ?", Time.now.beginning_of_day - 7.day) if params[:fix_time] == 'week'
+    @expend_statistics = @expend_statistics.where("expended_at > ?", Time.now.beginning_of_day - 1.month) if params[:fix_time] == 'month'
+    @expend_statistics = @expend_statistics.where("expended_at > ?", Time.now.beginning_of_day - 1.year) if params[:fix_time] == 'year'
+    @expend_statistics = @expend_statistics.select("fund_id, sum(amount) as amount").group(:fund_id)
   end
 
   private

@@ -118,7 +118,7 @@ class ExpenditureRecord < ApplicationRecord
 
   private
   def gen_expend_no
-    time_string = Time.now.strftime("%y%m%d")
-    self.expend_no ||= Sequence.get_seq(kind: :expend_no, prefix: time_string, length: 7)
+    time_string = Time.now.strftime("%y%m%d%H")
+    self.expend_no ||= Sequence.get_seq(kind: :expend_no, prefix: "Z#{time_string}", length: 7)
   end
 end

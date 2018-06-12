@@ -274,6 +274,7 @@ namespace :admin do
   resources :expenditure_uploads, only: [:new, :create]
   resource :data_statistic, only: [:show]
   resource :donate_statistic, only: [:show], concerns: [:excel_output]
+  resource :finance_statistic, only: [:show]
   resources :vouchers, concerns: :switch
   resources :month_donates do
     resources :month_donate_records

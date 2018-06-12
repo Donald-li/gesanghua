@@ -184,6 +184,9 @@ admin:
         admin_expenditure_record:
           actions:
             admin/expenditure_records: all
+        admin_finance_statistic:
+          actions:
+            admin/finance_statistics: all
         admin_management_fee:
           actions:
             admin/management_fee_months: all

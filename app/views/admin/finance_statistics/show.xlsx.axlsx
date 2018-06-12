@@ -1,0 +1,18 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "收支明细表") do |sheet|
+  sheet.add_row ["单号", "名称", "财务分类", "账户", "收入金额", "支出金额", "捐助人/经办人", "时间", "备注"]
+  @finance_records.each do |record|
+    fund = Fund.find(record['fund_id'])
+    sheet.add_row [
+      record['finance_no'] + ' ',
+      record['title'],
+      "#{fund.try(:fund_category).try(:name)} - #{fund.try(:name)}",
+      IncomeSource.find(record['income_source_id']).try(:name),
+      format_money(record['income_amount']),
+      format_money(record['expend_amount']),
+      record['operator'],
+      record['finance_time'],
+      record['remark']]
+    end
+    sheet.column_widths 20,30,30,20,20,20,20,30,20
+  end

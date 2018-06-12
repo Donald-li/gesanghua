@@ -291,6 +291,6 @@ class IncomeRecord < ApplicationRecord
   private
   def gen_income_no
     time_string = Time.now.strftime("%y%m%d%H")
-    self.income_no ||= Sequence.get_seq(kind: :income_no, prefix: time_string, length: 7)
+    self.income_no ||= Sequence.get_seq(kind: :income_no, prefix: "S#{time_string}", length: 7)
   end
 end

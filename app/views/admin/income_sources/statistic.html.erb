@@ -68,18 +68,37 @@
                 <%= source.description %>
               </td>
               <td>
-                <% in_total = source.total_income_money(params[:time_start], params[:time_end], params[:fix_time]) %>
-                ￥<%= format_money(in_total) %>
+                <% record = @income_statistics.detect{|record| record.income_source_id == source.id} %>
+                <% in_count = record.present? ? record.amount : 0 %>
+                ￥<%= format_money(in_count) %>
               </td>
               <td>
-                <% out_total = source.total_expenditure_money(params[:time_start], params[:time_end], params[:fix_time]) %>
-                ￥<%= format_money(out_total) %>
+                <% record = @expend_statistics.detect{|record| record.income_source_id == source.id} %>
+                <% out_count = record.present? ? record.amount : 0 %>
+                ￥<%= format_money(out_count) %>
               </td>
               <td>
-                <%= "￥#{format_money(in_total - out_total)}" %>
+                <%= "￥#{format_money(in_count - out_count)}" %>
               </td>
             </tr>
             <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover">
+          <tbody>
+          <tr>
+            <td>总计</td>
+            <td>收入总计</td>
+            <% in_total = @income_statistics.sum(&:amount) %>
+            <td>￥<%= format_money in_total %></td>
+            <td>支出总计</td>
+            <% out_total = @expend_statistics.sum(&:amount) %>
+            <td>￥<%= format_money out_total %></td>
+            <td>余额</td>
+            <td>￥<%= format_money(in_total - out_total) %></td>
+          </tr>
           </tbody>
         </table>
       </div>

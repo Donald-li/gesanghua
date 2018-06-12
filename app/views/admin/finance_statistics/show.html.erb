@@ -1,0 +1,151 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i>收支明细
+    </div>
+    <div class="actions">
+      <%= link_to url_for(params.permit!.merge(format: :xlsx)), class: 'btn btn-xs green', 'data-no-turbolink' => true do %>
+          <i class="fa fa-download"></i>
+          <span>导出表单</span>
+      <% end %>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="dataTables_wrapper no-footer">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <form class="form-inline" id="user_search" action="/admin/finance_statistic" accept-charset="UTF-8" method="get">
+            <div class="form-group">
+              <label for="q_注册时间">时间范围</label>
+              <input class="form-control datepicker gsh-input-share-l" placeholder="开始时间" type="text" name="time_start" value="<%= params[:time_start] %>">
+              <input class="form-control datepicker gsh-input-share-r" placeholder="结束时间" type="text" name="time_end" value="<%= params[:time_end] %>">
+            </div>
+            <div class="form-group">
+              <label>财务分类</label>
+              <select placeholder="" class="form-control gsh-input-share" id="fund_selector" name="fund_id">
+                <option value="">请选择财务分类</option>
+                <% FundCategory.sorted.each do |fc| %>
+                    <optgroup label="<%= fc.name %>">
+                      <% fc.funds.sorted.each do |fund| %>
+                          <option value="<%= fund.id %>" <%= 'selected' if params[:fund_id] == fund.id.to_s %>><%= fc.name %> - <%= fund.name %></option>
+                      <% end %>
+                    </optgroup>
+                <% end %>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>账户</label>
+              <select placeholder="" class="form-control gsh-input-share" id="fund_selector" name="income_source_id">
+                <option value="">请选择账户</option>
+                <% IncomeSource.sorted.each do |source| %>
+                  <option value="<%= source.id %>" <%= 'selected' if params[:income_source_id] == source.id.to_s %>><%= source.name %></option>
+                <% end %>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-default grey">搜索</button>
+          </form>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="dataTables_filter pull-right"></div>
+        </div>
+      </div>
+      <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover" id="sample_2">
+          <thead>
+          <tr>
+            <th>
+              单号
+            </th>
+            <th>
+              名称
+            </th>
+            <th>
+              财务分类
+            </th>
+            <th>
+              账户
+            </th>
+            <th>
+              收入金额
+            </th>
+            <th>
+              支出金额
+            </th>
+            <th>
+              捐助人/经办人
+            </th>
+            <th>
+              时间
+            </th>
+            <th>
+              备注
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @finance_records.each do |record| %>
+            <tr>
+              <td>
+                <%= record['finance_no'] %>
+              </td>
+              <td>
+                <%= record['title'] %>
+              </td>
+              <td>
+                <% fund = Fund.find(record['fund_id']) %>
+                <%= fund.try(:fund_category).try(:name) %> - <%= fund.try(:name) %>
+              </td>
+              <td>
+                <%= IncomeSource.find(record['income_source_id']).try(:name) %>
+              </td>
+              <td>
+                ￥<%= format_money record['income_amount'] %>
+              </td>
+              <td>
+                ￥<%= format_money record['expend_amount'] %>
+              </td>
+              <td>
+                <%= record['operator'] %>
+              </td>
+              <td>
+                <%= l Time.parse(record['finance_time']) %>
+              </td>
+              <td>
+                <%= record['remark'] %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover">
+          <tbody>
+          <tr>
+            <td>总计</td>
+            <td>收入总计</td>
+            <td>￥<%= format_money @income_count %></td>
+            <td>支出总计</td>
+            <td>￥<%= format_money @expend_count %></td>
+            <td>余额</td>
+            <td>￥<%= format_money @balance_count %></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-5 col-sm-12">
+          <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@finance_records) %></div>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <%= paginate @finance_records, theme: 'admin' %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+$('#fund_selector').select2()
+</script>

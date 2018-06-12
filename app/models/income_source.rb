@@ -59,26 +59,4 @@ class IncomeSource < ApplicationRecord
     end
   end
 
-  def total_income_money(_start, _end, _fix)
-    scope = self.statistic_records.finance_income_statistic
-    scope = scope.where("record_time > ?", _start.beginning_of_day) if _start.present?
-    scope = scope.where("record_time < ?", _end.beginning_of_day) if _end.present?
-    scope = scope.where("record_time > ?", Time.now.beginning_of_day) if _fix == 'day'
-    scope = scope.where("record_time > ?", Time.now.beginning_of_day - 7.day) if _fix == 'week'
-    scope = scope.where("record_time > ?", Time.now.beginning_of_day - 1.month) if _fix == 'month'
-    scope = scope.where("record_time > ?", Time.now.beginning_of_day - 1.year) if _fix == 'year'
-    scope.sum(:amount)
-  end
-
-  def total_expenditure_money(_start, _end, _fix)
-    scope = self.statistic_records.finance_expend_statistic
-    scope = scope.where("record_time > ?", _start.beginning_of_day) if _start.present?
-    scope = scope.where("record_time < ?", _end.beginning_of_day) if _end.present?
-    scope = scope.where("record_time > ?", Time.now.beginning_of_day) if _fix == 'day'
-    scope = scope.where("record_time > ?", Time.now.beginning_of_day - 7.day) if _fix == 'week'
-    scope = scope.where("record_time > ?", Time.now.beginning_of_day - 1.month) if _fix == 'month'
-    scope = scope.where("record_time > ?", Time.now.beginning_of_day - 1.year) if _fix == 'year'
-    scope.sum(:amount)
-  end
-
 end
