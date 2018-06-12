@@ -207,7 +207,7 @@ class Support::AjaxesController < Support::BaseController
   def get_child_priority
     @child = ProjectSeasonApplyChild.find(params[:child_id])
     donor = User.find(params[:donor_id])
-    if @child.priority_id.present? and donor.id != @child.priority_id and @child.hidden?
+    if @child.priority_id.present? and donor.id != @child.priority_id and !donor.offline_users.pluck(:id).include?(@child.priority_id) and @child.hidden?
       render json: {message: '被捐助学生已被指定优先捐助人，请联系管理员处理', status: false}
     else
       render json: {message: '可捐助', status: true}

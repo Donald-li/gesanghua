@@ -153,7 +153,7 @@ class GshChildGrant < ApplicationRecord
 
     year = Time.now.year
 
-    GshChildGrant.find_or_create_by(title: "#{year}.3 - #{year}.7 春季", gsh_child: gsh_child, apply_child: child, apply: apply, amount: term_amount, school_id: child.school_id) && apply_num -= 1 if child.next_term? && apply_num > 0
+    GshChildGrant.find_or_create_by(title: "#{year}.3 - #{year}.7 学期", gsh_child: gsh_child, apply_child: child, apply: apply, amount: term_amount, school_id: child.school_id) && apply_num -= 1 if child.next_term? && apply_num > 0
 
     if (apply_num > 0)
       apply_num.times do
