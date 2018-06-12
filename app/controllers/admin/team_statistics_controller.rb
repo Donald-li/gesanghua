@@ -2,6 +2,7 @@ class Admin::TeamStatisticsController < Admin::BaseController
   before_action :auth_manage_operation
 
   def show
+    params[:time_start] ||= Time.now.beginning_of_month
     @teams = Team.sorted.page(params[:page])
     @income_statistics = IncomeRecord.all
     @income_statistics = @income_statistics.where("income_time > ?", params[:time_start]) if params[:time_start].present?

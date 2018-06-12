@@ -63,6 +63,7 @@ class Admin::FundCategoriesController < Admin::BaseController
   end
 
   def statistic
+    params[:time_start] ||= Time.now.beginning_of_month
     @fund_categories = FundCategory.sorted
     @income_statistics = IncomeRecord.all
     @income_statistics = @income_statistics.where("income_time > ?", params[:time_start]) if params[:time_start].present?
