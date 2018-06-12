@@ -66,6 +66,7 @@ class IncomeRecord < ApplicationRecord
   counter_culture :agent, column_name: proc {|model| model.income_source.present? && !model.income_source.offline? ? 'online_amount' : nil}, delta_magnitude: proc {|model| model.amount}
   counter_culture :agent, column_name: proc {|model| model.income_source.present? && model.income_source.offline? ? 'offline_amount' : nil}, delta_magnitude: proc {|model| model.amount}
   counter_culture :agent, column_name: 'donate_amount', delta_magnitude: proc {|model| model.amount}
+  counter_culture :promoter, column_name: 'promoter_amount_count', delta_magnitude: proc {|model| model.amount}
   counter_culture :fund, column_name: proc {|model| model.fund.present? ? 'total' : 0}, delta_magnitude: proc {|model| model.income_time > Time.mktime(2018, 6, 1) ? model.amount : 0}
   counter_culture :fund, column_name: proc {|model| model.fund.present? ? 'balance' : 0}, delta_magnitude: proc {|model| model.income_time > Time.mktime(2018, 6, 1) ? model.amount : 0}
   counter_culture :income_source, column_name: 'amount', delta_magnitude: proc {|model| model.income_time > Time.mktime(2018, 6, 1) ? model.amount : 0}
@@ -150,6 +151,19 @@ class IncomeRecord < ApplicationRecord
           source_records.each {|source_record| amount += source_record.amount}
           f_record = StatisticRecord.find_or_create_by(kind: 3, record_time: record_time, owner: source)
           f_record.update(amount: amount)
+        end
+      end
+
+      # 统计团队成员劝捐
+      records.group_by(&:promoter_id).each do |promoter_id, promote_records|
+        amount = 0
+        if promoter_id.present?
+          team = User.find(promoter_id).team
+          if team.present?
+            promote_records.each {|promote_record| amount += promote_record}
+            p_record = StatisticRecord.find_or_create_by(kind: 5, record_time: record_time, owner: team)
+            p_record.update(amount: amount)
+          end
         end
       end
     end

@@ -29,6 +29,7 @@ class Team < ApplicationRecord
 
   has_many :users, dependent: :nullify
   has_many :donate_records, dependent: :nullify
+  has_many :statistic_records, as: :owner
 
   include HasAsset
   has_one_asset :logo, class_name: 'Asset::TeamLogo'
@@ -43,6 +44,28 @@ class Team < ApplicationRecord
   default_value_for :member_count, 0
 
   before_create :gen_team_no
+
+  def total_income_money(_start, _end, _fix)
+    scope = self.statistic_records.finance_income_statistic
+    scope = scope.where("record_time > ?", _start.beginning_of_day) if _start.present?
+    scope = scope.where("record_time < ?", _end.beginning_of_day) if _end.present?
+    scope = scope.where("record_time > ?", Time.now.beginning_of_day) if _fix == 'day'
+    scope = scope.where("record_time > ?", Time.now.beginning_of_day - 7.day) if _fix == 'week'
+    scope = scope.where("record_time > ?", Time.now.beginning_of_day - 1.month) if _fix == 'month'
+    scope = scope.where("record_time > ?", Time.now.beginning_of_day - 1.year) if _fix == 'year'
+    scope.sum(:amount)
+  end
+
+  def total_promote_money(_start, _end, _fix)
+    scope = self.statistic_records.team_promote_statistic
+    scope = scope.where("record_time > ?", _start.beginning_of_day) if _start.present?
+    scope = scope.where("record_time < ?", _end.beginning_of_day) if _end.present?
+    scope = scope.where("record_time > ?", Time.now.beginning_of_day) if _fix == 'day'
+    scope = scope.where("record_time > ?", Time.now.beginning_of_day - 7.day) if _fix == 'week'
+    scope = scope.where("record_time > ?", Time.now.beginning_of_day - 1.month) if _fix == 'month'
+    scope = scope.where("record_time > ?", Time.now.beginning_of_day - 1.year) if _fix == 'year'
+    scope.sum(:amount)
+  end
 
   def full_address
     ChinaCity.get(self.province).to_s + ChinaCity.get(self.city).to_s + ChinaCity.get(self.district).to_s + self.address.to_s

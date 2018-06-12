@@ -14,6 +14,23 @@
     <div class="dataTables_wrapper no-footer">
       <div class="row">
         <div class="col-md-12 col-sm-12">
+          <form class="form-inline" id="user_search" action="/admin/teams" accept-charset="UTF-8" method="get">
+            <div class="form-group">
+              <label for="q_注册时间">时间范围</label>
+              <input class="form-control datepicker gsh-input-share-l" placeholder="开始时间" type="text" name="time_start">
+              <input class="form-control datepicker gsh-input-share-r" placeholder="结束时间" type="text" name="time_end">
+            </div>
+            <div class="form-group">
+              <select placeholder="" class="form-control gsh-input-share" name="fix_time">
+                <option value="" <%='selected' if  !params[:fix_time].present? %>>全部</option>
+                <option value="day" <%= 'selected' if params[:fix_time] == 'day' %>>今天</option>
+                <option value="week" <%= 'selected' if params[:fix_time] == 'week' %>>本周</option>
+                <option value="month" <%= 'selected' if params[:fix_time] == 'month' %>>本月</option>
+                <option value="year" <%= 'selected' if params[:fix_time] == 'year' %>>本年</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-default grey">搜索</button>
+          </form>
         </div>
         <div class="col-md-6 col-sm-12">
           <div class="dataTables_filter pull-right">
@@ -47,8 +64,14 @@
                 <td><%= team.id %></td>
                 <td><%= team.name %></td>
                 <td><%= team.member_count %></td>
-                <td>￥<%= format_money team.total_donate_amount %></td>
-                <td>￥<%= format_money team.users.sum(:promoter_amount_count) %></td>
+                <td>
+                  <% total_amount = team.total_income_money(params[:time_start], params[:time_end], params[:fix_time]) %>
+                  ￥<%= format_money total_amount %>
+                </td>
+                <td>
+                  <% promote_amount = team.total_promote_money(params[:time_start], params[:time_end], params[:fix_time]) %>
+                  ￥<%= format_money promote_amount %>
+                </td>
               </tr>
           <% end %>
           </tbody>
