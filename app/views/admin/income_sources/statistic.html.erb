@@ -17,8 +17,8 @@
           <form class="form-inline" id="user_search" action="/admin/income_sources/statistic" accept-charset="UTF-8" method="get">
             <div class="form-group">
               <label for="q_注册时间">时间范围</label>
-              <input class="form-control datepicker gsh-input-share-l" placeholder="开始时间" type="text" name="time_start">
-              <input class="form-control datepicker gsh-input-share-r" placeholder="结束时间" type="text" name="time_end">
+              <input class="form-control datepicker gsh-input-share-l" placeholder="开始时间" type="text" name="time_start" value="<%= params[:time_start].strftime("%Y-%m-%d") %>">
+              <input class="form-control datepicker gsh-input-share-r" placeholder="结束时间" type="text" name="time_end" value="<%= params[:time_end].strftime("%Y-%m-%d") %>">
             </div>
             <div class="form-group">
               <select placeholder="" class="form-control gsh-input-share" name="fix_time">
