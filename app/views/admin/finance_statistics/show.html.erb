@@ -92,11 +92,11 @@
                 <%= record['title'] %>
               </td>
               <td>
-                <% fund = Fund.find(record['fund_id']) %>
+                <% fund = @funds.detect{|fund| fund.id == record['fund_id']} %>
                 <%= fund.try(:fund_category).try(:name) %> - <%= fund.try(:name) %>
               </td>
               <td>
-                <%= IncomeSource.find(record['income_source_id']).try(:name) %>
+                <%= @income_sources.detect{|source| source.id == record['income_source_id']}.try(:name) %>
               </td>
               <td>
                 ￥<%= format_money record['income_amount'] %>

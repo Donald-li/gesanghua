@@ -38,7 +38,7 @@ class Site::DonatesController < Site::BaseController
     donor_id = params[:donor].presence || agent.id
     team_id = current_user.team_id
     amount = params[:amount]
-    promoter_id = params[:promoter]
+    promoter_id = params[:promoter] || session[:promoter_id]
     promoter_id = nil if promoter_id.to_i == agent.id
 
     donor = User.find donor_id if donor_id

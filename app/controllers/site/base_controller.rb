@@ -1,5 +1,5 @@
 class Site::BaseController < ApplicationController
-  before_action :check_mobile_url
+  before_action :check_mobile_url, :set_promoter_id
 
   rescue_from Exception, :with => :render_error
 
@@ -41,7 +41,11 @@ class Site::BaseController < ApplicationController
       raise exception
     end
     logger.info exception.try(:inspect)
+  end
 
+  def set_promoter_id
+    promoter_id = request.query_parameters[:m]
+    session[:promoter_id] = promoter_id if promoter_id.present?
   end
 
 end

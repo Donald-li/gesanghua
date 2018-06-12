@@ -202,6 +202,7 @@
     $('#share-2').share({
       sites: ['qzone', 'wechat', 'weibo', 'qq'],
       title: '<%= @apply.name %>',
+      url: 'http://<%= Settings.root_url %>/camps/<%= @apply.id %>/detail?m=<%= current_user.id %>',
       description: '<%= @apply.name %>',
       image: 'http://<%= Settings.app_host%><%= @apply.cover_image_url(:tiny) %>'
     });

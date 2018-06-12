@@ -26,6 +26,9 @@ class Admin::FinanceStatisticsController < Admin::BaseController
     @finance_records = ApplicationRecord.connection.execute("select * from (#{expend_records.to_sql} UNION #{income_records.to_sql}) as finance_records order by finance_records.finance_time")
     @finance_records = @finance_records.to_a
 
+    @funds = Fund.all.sorted
+    @income_sources = IncomeSource.all.sorted
+
     respond_to do |format|
       format.html {
         @finance_records = Kaminari.paginate_array(@finance_records, total_count: @finance_records.size).page(params[:page]).per(3)
