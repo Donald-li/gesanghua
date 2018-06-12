@@ -11,10 +11,10 @@
   <%= link_to_unless current_page.last?, t('views.pagination.last').html_safe, url, :remote => remote %>
 </li>
 <% end %>
-<li>
+<li class="pull-right">
   <%= form_tag url_for(request.query_parameters.except(:page)), method: :get, remote: remote do %>
       <%= hash_to_hidden_fields(request.query_parameters.except(:page)) %>
-      <%= text_field_tag :page, current_page %>
-      <%= submit_tag 'go'%>
+      <%= text_field_tag :page, current_page, class: 'jump-page-number' %>
+      <%= submit_tag '跳转', class: 'btn btn-xs jump-page-button'%>
   <% end %>
 </li>
