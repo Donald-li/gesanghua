@@ -10,11 +10,18 @@ namespace :maintain do
   # 统计6月之后的收入支出到财务分类和账户
   task migrate_money: [:environment] do
     Fund.sorted.each do |fund|
-      fund.update(total: IncomeRecord.can_count.where(fund: fund).sum(:amount),out_total: ExpenditureRecord.can_count.where(fund: fund).sum(:amount))
+      fund.update(total: IncomeRecord.can_count.where(fund: fund).sum(:amount), out_total: ExpenditureRecord.can_count.where(fund: fund).sum(:amount))
     end
     IncomeSource.sorted.each do |source|
-      source.update(in_total: IncomeRecord.can_count.where(income_source: source).sum(:amount),out_total: ExpenditureRecord.can_count.where(income_source: source).sum(:amount))
+      source.update(in_total: IncomeRecord.can_count.where(income_source: source).sum(:amount), out_total: ExpenditureRecord.can_count.where(income_source: source).sum(:amount))
     end
+
+    # Fund.sorted.each do |fund|
+    #   fund.update(total: IncomeRecord.where(donor_id: 1).where(fund: fund).sum(:amount), out_total: ExpenditureRecord.can_count.where(fund: fund).sum(:amount))
+    # end
+    # IncomeSource.sorted.each do |source|
+    #   source.update(in_total: IncomeRecord.where(donor_id: 1).where(income_source: source).sum(:amount), out_total: ExpenditureRecord.can_count.where(income_source: source).sum(:amount))
+    # end
 
     Project.update_all(management_rate: 10)
   end

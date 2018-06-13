@@ -32,7 +32,7 @@ class FileUtil
 
         if fund.present?
           income_time = income_time.class.to_s == 'DateTime' || income_time.class.to_s == 'Date' ? income_time : Time.parse(income_time)
-          IncomeRecord.create(title: title, fund: fund, income_time: income_time, amount: amount, income_source: income_source, agent: agent, donor: donor, remark: remark)
+          IncomeRecord.create(kind: 'offline', title: title, fund: fund, income_time: income_time, amount: amount, income_source: income_source, agent: agent, donor: donor, remark: remark)
         end
 
       end
