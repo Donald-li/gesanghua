@@ -377,7 +377,9 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   def summary_builder(user=nil)
     Jbuilder.new do |json|
-      json.(self, :id)
+      json.(self, :id, :father, :father_job, :mother, :mother_job, :guardian, :guardian_relation, :guardian_phone, :income_source, :family_income, :family_condition)
+      json.room_image self.room_image_url(:medium)
+      json.yard_image self.yard_image_url(:medium)
       json.name donate_by_user?(user) ? self.name : self.secure_name
       json.avatar donate_by_user?(user) ? self.avatar_url(:tiny) : nil
       json.donate_by_user donate_by_user?(user)
