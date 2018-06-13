@@ -60,13 +60,13 @@ class Admin::IncomeSourcesController < Admin::BaseController
       params[:time_start] = Time.now.beginning_of_month if params[:fix_time] == 'month'
       params[:time_start] = Time.now.beginning_of_year if params[:fix_time] == 'year'
     end
-    @income_statistics = @income_statistics.where("income_time > ?", params[:time_start]) if params[:time_start].present?
-    @income_statistics = @income_statistics.where("income_time < ?", params[:time_end].end_of_day) if params[:time_end].present?
+    @income_statistics = @income_statistics.where("income_time >= ?", params[:time_start]) if params[:time_start].present?
+    @income_statistics = @income_statistics.where("income_time <= ?", params[:time_end].end_of_day) if params[:time_end].present?
     @income_statistics = @income_statistics.select("income_source_id, sum(amount) as amount").group(:income_source_id)
 
     @expend_statistics = ExpenditureRecord.all
-    @expend_statistics = @expend_statistics.where("expended_at > ?", params[:time_start]) if params[:time_start].present?
-    @expend_statistics = @expend_statistics.where("expended_at < ?", params[:time_end].end_of_day) if params[:time_end].present?
+    @expend_statistics = @expend_statistics.where("expended_at >= ?", params[:time_start]) if params[:time_start].present?
+    @expend_statistics = @expend_statistics.where("expended_at <= ?", params[:time_end].end_of_day) if params[:time_end].present?
     @expend_statistics = @expend_statistics.select("income_source_id, sum(amount) as amount").group(:income_source_id)
   end
 
