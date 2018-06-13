@@ -24,28 +24,61 @@
     </div>
 
   </div>
-  <div class="donates-contents-but clearfix" >
+  <div class="donates-contents-but clearfix person-body" >
     <button class="class-button pull-right"><%= link_to '继续捐助', root_url, style: 'color: #fff'%></button>
+    <button class="class-button-2 pull-right " data-toggle="modal" data-target="#namingModal"><%#= link_to '整捐冠名', root_url%><a>整捐冠名</a></button>
   </div>
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content" style="width:590px;">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true" class="detail-icon">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">温馨提示</h4>
-        </div>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width:590px;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="detail-icon">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">温馨提示</h4>
+      </div>
 
-        <div class="modal-body" style="padding: 20px 30px 15px 30px;text-align: center;">
-          <%= image_tag @donation.income_record.donor_certificate_path ,style:'width:300px;height:440px;' if @donation.income_record %>
-        </div>
-        <div class="modal-footer overspreads-but">
-          <button class="overspreadsc-but overspread-but  over-but" data-dismiss="modal" >关闭</button>
-        </div>
+      <div class="modal-body" style="padding: 20px 30px 15px 30px;text-align: center;">
+        <%= image_tag @donation.income_record.donor_certificate_path ,style:'width:300px;height:440px;' if @donation.income_record %>
+      </div>
+      <div class="modal-footer overspreads-but">
+        <button class="overspreadsc-but overspread-but  over-but" data-dismiss="modal" >关闭</button>
       </div>
     </div>
   </div>
 </div>
+  <!--署名-->
+  <div class="modal fade" id="namingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="width: auto;">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" class="detail-icon">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">图书角署名</h4>
+        </div>
+        <div class="modal-body" style="padding: 0 15px 15px 15px;">
+
+          <div class="overspread-constend" >
+            <div class="overspread-const clearfix" style="margin-top: 20px;">
+              <div class=" overclass pull-left" style="width: 20%;">
+                <p class="goodtext" style="margin: 10px 0 0 0;line-height: 40px;">冠名图书角</p>
+              </div>
+              <div class=" overclass pull-left" style="margin-top: 10px;width: 80%;">
+                <input type="text" placeholder="限8个字以内，如爱心小格子'" />
+                <p class="goodtext" style="margin: 10px 0;font-size: 12px;">我们会对名字进行审核，如有问题会与您联系</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer overspreads-but">
+          <button class="overspread-but over-but">确认</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
 <script>
 
 </script>
