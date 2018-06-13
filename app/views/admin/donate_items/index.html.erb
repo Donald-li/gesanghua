@@ -54,7 +54,7 @@
                   <%= donate_item.describe %>
                 </td>
                 <td>
-                  <%= donate_item.fund.fund_category.try(:name) %> -
+                  <%= donate_item.fund.try(:fund_category).try(:name) %> -
                   <%= donate_item.fund.try(:name) %>
                 </td>
                 <td>

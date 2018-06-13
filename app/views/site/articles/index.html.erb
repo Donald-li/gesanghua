@@ -3,7 +3,7 @@
     <div class="speciais-con">
       <!--<div class="donations-1 border-b" >-->
       <!--<ul class="donations1 clearfix">-->
-      <!--<li class="cur selectedDo"><%= link_to articles_path do %>资讯-->
+      <!--<li class="cur selectedDo"><%= link_to articles_path(category_id: ArticleCategory.first.id) do %>资讯-->
           <!--<div class="bottomline"></div>
       <% end %></li>-->
       <!--<li class="cur  "><%= link_to specials_path do %>专题-->
@@ -15,16 +15,6 @@
         <div class="span12 border-b" style="height: 48px;position: relative;  margin-bottom: 15px;">
 
           <div id="owl-demo" class="owl-carousel">
-
-            <div class="item">
-              <div class="cur <%= 'selectedDo' if params[:category_id].nil? %>">
-                <%= link_to '最新资讯' %>
-                <% if params[:category_id].nil? %>
-                    <div class="bottomline"></div>
-                <% end %>
-              </div>
-            </div>
-
             <% ArticleCategory.sorted.each do |cate| %>
                 <div class="item">
                   <div class="cur <%= 'selectedDo' if params[:category_id].to_i == cate.id %>">
