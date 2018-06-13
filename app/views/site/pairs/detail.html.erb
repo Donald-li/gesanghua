@@ -54,8 +54,6 @@
       <!--申请详情-->
       <div class="details-left pull-left contentab" style="display: block;">
         <div class="detail-l-fon"><%= @child.formatted_information.html_safe %></div>
-
-        <!-- <%= image_tag 'detail-reduce.png' %> -->
       </div>
       <!--自我介绍-->
       <% if @child.donate_by_user?(current_user) %>
