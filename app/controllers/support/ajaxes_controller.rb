@@ -218,4 +218,13 @@ class Support::AjaxesController < Support::BaseController
     end
   end
 
+  def set_shelf_name
+    bookshelf = ProjectSeasonApplyBookshelf.find_by(id: params[:bookshelf_id])
+    if bookshelf.update(title: params[:name])
+      render json: {message: '署名成功', status: true}
+    else
+      render json: {message: '署名失败，请重试', status: false}
+    end
+  end
+
 end

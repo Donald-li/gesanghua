@@ -211,7 +211,7 @@
     $('#share-2').share({
         sites: ['qzone', 'wechat', 'weibo', 'qq'],
         title: '<%= @child.secure_name %>',
-        url: 'http://<%= Settings.root_url %>/pairs/<%= @child.id %>/detail?m=<%= current_user.id %>',
+        url: 'http://<%= Settings.root_url %>/pairs/<%= @child.id %>/detail?m=<%= current_user.try(:id) %>',
         description: '<%= @child.secure_name %>',
         image: '<%= image_url 'project-reducepage-child.png' %>'
     });

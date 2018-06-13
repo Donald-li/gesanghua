@@ -127,7 +127,7 @@
      $('#share-2').share({
        sites: ['qzone', 'wechat', 'weibo', 'qq'],
        title: '<%= @project.name %>',
-       url: 'http://<%= Settings.root_url %>/reads/<%= @apply.id %>/detail?m=<%= current_user.id %>',
+       url: 'http://<%= Settings.root_url %>/reads/<%= @apply.id %>/detail?m=<%= current_user.try(:id) %>',
        description: '<%= @project.name %>',
        image: 'http://<%= Settings.app_host%><%= @project.image_url(:tiny) %>'
      });
