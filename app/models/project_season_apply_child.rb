@@ -357,7 +357,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   # 是否被用户认捐？
   def donate_by_user?(user)
     return false unless user
-    donate_grants_by_user(user).exists?
+    self.priority_user == user || user.offline_users.pluck(:id).include?(self.priority_id) || donate_grants_by_user(user).exists?
   end
 
   # 用户捐助的学期
@@ -380,8 +380,14 @@ class ProjectSeasonApplyChild < ApplicationRecord
       json.(self, :id)
       json.name donate_by_user?(user) ? self.name : self.secure_name
       json.avatar donate_by_user?(user) ? self.avatar_url(:tiny) : nil
+      json.donate_by_user donate_by_user?(user)
+      json.description self.description
       json.age self.age
+      json.gender self.school.try(:gender)
+      json.school self.school.try(:name)
+      json.nation self.enum_name(:nation)
       json.level self.enum_name(:level)
+      json.grade self.enum_name(:grade)
       json.gsh_no self.gsh_no
       json.tuition self.get_tuition.to_i
       json.information self.formatted_information

@@ -51,6 +51,7 @@ scope module: :support do
       post :dismiss_team
       post :turn_team
       get :get_child_priority
+      post :set_shelf_name
     end
   end
 end
