@@ -94,7 +94,7 @@ class Notification < ApplicationRecord
       title = self.title
       template_id = Settings.wechat_template_project
       keyword1 = self.content
-      url = "#{Settings.m_root_url}/pair/#{self.owner_id}"
+      url = "#{Settings.m_root_url}/account/my-pairs"
     when 'continue_donate'
       title = self.title
       template_id = Settings.wechat_template_project
