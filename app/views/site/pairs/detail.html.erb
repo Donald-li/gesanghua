@@ -35,11 +35,9 @@
             <li class="selectedNav">
               <span>申请详情</span>
             </li>
-            <% if @child.donate_by_user?(current_user) %>
             <li>
               <span>自我介绍</span>
             </li>
-            <% end %>
             <li>
               <span>执行反馈</span>
               <span class="navmark"><%= @grants.count %></span>
@@ -54,15 +52,14 @@
       <!--申请详情-->
       <div class="details-left pull-left contentab" style="display: block;">
         <div class="detail-l-fon"><%= @child.formatted_information.html_safe %></div>
-
-        <!-- <%= image_tag 'detail-reduce.png' %> -->
       </div>
       <!--自我介绍-->
-      <% if @child.donate_by_user?(current_user) %>
+      <%# if @child.donate_by_user?(current_user) %>
       <div class="details-left pull-left contentab" >
         <div class="detail-l-fon"><%= @child.description %></div>
+        <!--<%= image_tag 'detail-reduce.png' %>-->
       </div>
-      <% end %>
+      <%# end %>
       <!--反馈-->
       <% if @grants.present? %>
           <div class="pull-left detail-body-left border-l contentab">
