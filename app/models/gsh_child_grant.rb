@@ -96,7 +96,7 @@ class GshChildGrant < ApplicationRecord
   end
 
   def search_title
-    self.show_name
+    "#{self.apply_child.try(:name)}（#{self.apply_child.try(:gsh_no)}；#{self.apply_child.try(:id_card)}）#{self.title}"
   end
 
   # 使用捐助

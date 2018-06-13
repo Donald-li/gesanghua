@@ -22,7 +22,6 @@
         <%= image_tag @donation.income_record.donor_certificate_path if @donation.income_record %>
       </div>
     </div>
-
   </div>
   <div class="donates-contents-but clearfix" >
     <button class="class-button pull-right"><%= link_to '继续捐助', root_url, style: 'color: #fff'%></button>
@@ -35,7 +34,6 @@
             <span aria-hidden="true" class="detail-icon">&times;</span></button>
           <h4 class="modal-title" id="myModalLabel">温馨提示</h4>
         </div>
-
         <div class="modal-body" style="padding: 20px 30px 15px 30px;text-align: center;">
           <%= image_tag @donation.income_record.donor_certificate_path ,style:'width:300px;height:440px;' if @donation.income_record %>
         </div>
