@@ -5,9 +5,10 @@
       <div class="detail-cont pull-left">
         <div>
           <p class="detail-con-t"><%= @child.donate_by_user?(current_user) ? @child.name : @child.secure_name %>
-            <span><%= @child.age %>岁 | <%= @child.enum_name(:gender) %></span>
+            <span>藏族 | <%= @child.enum_name(:gender) %></span>
           </p>
-          <p class="detail-con-serial"><%= @child.gsh_no %></p>
+          <p class="detail-con-serial"><%= @child.gsh_no %> | <span style="margin-left: 0;">杂多县新区第二民族中学 | 初中 一年级</span></p>
+            <!-- <p class="detail-con-serial"> 杂多县新区第二民族中学 | 初中 一年级</p> -->
           <p class="detail-con-font"><%= @child.reason %></p>
         </div>
         <div class="detail-cont-foot border-t ">
