@@ -26,7 +26,7 @@ scope module: :support do
       get :team_manager
       get :county_user
       get :volunteer_user
-      get :priority_users
+      get :all_users
     end
   end
   resources :ajaxes, only: [] do

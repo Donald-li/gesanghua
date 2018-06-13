@@ -24,7 +24,7 @@ class Support::SelectsController < Support::BaseController
     render json: {items: users.as_json(only: [:id], methods: :name_for_select)}
   end
 
-  def priority_users
+  def all_users
     scope = User.sorted.where("name like :q", q: "%#{params[:q]}%")
     users = scope.page(params[:page])
     render json: {items: users.as_json(only: [:id], methods: :name_for_select)}
