@@ -35,6 +35,9 @@
               <span>申请详情</span>
             </li>
             <li>
+              <span>自我介绍</span>
+            </li>
+            <li>
               <span>执行反馈</span>
               <span class="navmark"><%= @grants.count %></span>
             </li>
@@ -50,6 +53,10 @@
         <div class="detail-l-fon"><%= @child.formatted_information.html_safe %></div>
 
         <!-- <%= image_tag 'detail-reduce.png' %> -->
+      </div>
+      <!--自我介绍-->
+      <div class="details-left pull-left contentab" >
+        <div class="detail-l-fon">123</div>
       </div>
       <!--反馈-->
       <% if @grants.present? %>
