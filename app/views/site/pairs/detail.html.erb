@@ -35,9 +35,11 @@
             <li class="selectedNav">
               <span>申请详情</span>
             </li>
+            <% if @child.donate_by_user?(current_user) %>
             <li>
               <span>自我介绍</span>
             </li>
+            <% end %>
             <li>
               <span>执行反馈</span>
               <span class="navmark"><%= @grants.count %></span>
@@ -54,12 +56,27 @@
         <div class="detail-l-fon"><%= @child.formatted_information.html_safe %></div>
       </div>
       <!--自我介绍-->
-      <%# if @child.donate_by_user?(current_user) %>
+      <% if @child.donate_by_user?(current_user) %>
       <div class="details-left pull-left contentab" >
-        <div class="detail-l-fon"><%= @child.description %></div>
-        <!--<%= image_tag 'detail-reduce.png' %>-->
+        <div class="detail-l-fon">
+          <p>自我介绍：</p>
+          <p>家庭情况：</p>
+          <p>父亲：监护人姓名与其关系监护人姓名与其关系 &nbsp;&nbsp;&nbsp;职业：监护人姓名与其关系监护人姓名与其关系</p>
+          <p>母亲：监护人姓名与其关系监护人姓名与其关系 &nbsp;&nbsp;&nbsp;职业：监护人姓名与其关系监护人姓名与其关系</p>
+          <p>监护人姓名：</p>
+          <p>与其关系：</p>
+          <p>联系电话：</p>
+          <p>收入来源：</p>
+          <p>家庭年收入：</p>
+          <p>家庭成员情况：</p>
+          <p>家庭照：</p>
+          <%= image_tag 'detail-reduce.png' %>
+        </div>
+
+        <!--<div class="detail-l-fon"><%= @child.description %></div>-->
+
       </div>
-      <%# end %>
+      <% end %>
       <!--反馈-->
       <% if @grants.present? %>
           <div class="pull-left detail-body-left border-l contentab">
