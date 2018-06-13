@@ -31,7 +31,7 @@ class Admin::FinanceStatisticsController < Admin::BaseController
 
     respond_to do |format|
       format.html {
-        @finance_records = Kaminari.paginate_array(@finance_records, total_count: @finance_records.size).page(params[:page]).per(3)
+        @finance_records = Kaminari.paginate_array(@finance_records, total_count: @finance_records.size).page(params[:page]).per(50)
       }
       format.xlsx {
         @finance_records
