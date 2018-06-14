@@ -18,14 +18,6 @@ class Admin::PairGrantsController < Admin::BaseController
 
   end
 
-  #
-  # def excel_output
-  #   ExcelOutput.pair_grants_output
-  #   file_path = Rails.root.join("public/files/一对一发放" + DateTime.now.strftime("%Y-%m-%d-%s") + ".xlsx")
-  #   file_name = "一对一捐助发放.xlsx"
-  #   send_file(file_path, filename: file_name)
-  # end
-
   def edit
   end
 
@@ -109,6 +101,13 @@ class Admin::PairGrantsController < Admin::BaseController
         format.html {render :edit_feedback}
       end
     end
+  end
+
+  def share
+  end
+
+  def qrcode_download
+    send_file(File.join(Rails.root, 'public', @grant.apply_child.try(:qrcode_url)), filename: "#{@grant.apply_child.try(:gsh_child).try(:gsh_no)}-分享二维码")
   end
 
   def switch

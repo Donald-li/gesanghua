@@ -127,7 +127,11 @@ namespace :admin do
     resources :pair_exception_records
   end
   resources :pair_continual_feedbacks, concerns: [:recommend]
-  resources :pair_thank_notes
+  resources :pair_thank_notes do
+    collection do
+      get :qrcode_download
+    end
+  end
   resources :home_visits, only: [:index, :show]
   resources :pair_student_lists, concerns: [:switch, :share, :qrcode_download] do
     member do
@@ -168,6 +172,8 @@ namespace :admin do
       patch :update_delay
       patch :update_cancel
       patch :update_feedback
+      get :share
+      get :qrcode_download
     end
     collection do
       post :create_feedback

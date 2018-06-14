@@ -24,40 +24,49 @@
             </div>
           </div>
         </div>
-        <div class="form-actions">
-          <div class="row">
-            <div class="col-md-offset-2 col-md-9">
-              <%= f.button :submit, '提交', class: 'btn blue' %>
-              <%= link_to '取消', admin_pair_thank_notes_path, class: 'btn' %>
-            </div>
-          </div>
-        </div>
-        <div class="form-actions">
-          <div class="row">
-            <div class="form-group">
-              <label class="col-md-2 control-label">微信反馈链接：</label>
-              <div class="col-md-9">
-                <div class="input-group">
-                  <input id="share_url" class="form-control" style="max-width: 100%;" value="<%= Settings.pair_feedback_url %>">
-                  <span class="input-group-addon" onclick="copyShareUrl()" style="cursor: pointer"><i class="fa fa-cut"></i> 点击复制链接</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="form-actions">
-        <div class="row">
-          <div class="form-group">
-            <label class="col-md-2 control-label">微信反馈二维码：</label>
-            <div class="col-md-9">
-              <div class="input-group">
-                <%= image_tag ContinualFeedback.qrcode_url %>
-              </div>
-            </div>
-          </div>
-        </div>
-        </div>
     <% end %>
+  </div>
+  <div class="portlet light bordered" id="basic-info">
+    <div class="portlet-title">
+      <div class="caption">
+        <i class="icon-share font-red-sunglo"></i>
+        <span class="caption-subject font-red-sunglo bold uppercase">分享链接</span>
+      </div>
+      <div class="actions">
+      </div>
+    </div>
+    <div class="portlet-body">
+      <div class="portlet-body form" id="special-form">
+        <div class="form-group">
+          <div class="input-group">
+            <input id="share_url" class="form-control" style="max-width: 100%;" value="<%= Settings.pair_feedback_url %>">
+            <span class="input-group-addon" onclick="copyShareUrl()" style="cursor: pointer">
+              <i class="fa fa-cut"></i> 点击复制链接
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="portlet-title">
+      <div class="caption">
+        <i class="icon-share font-red-sunglo"></i>
+        <span class="caption-subject font-red-sunglo bold uppercase">二维码</span>
+      </div>
+      <div class="actions">
+        <%= link_to qrcode_download_admin_pair_thank_notes_path, class: 'btn btn-default' do %>
+            <i class="fa fa-download"></i> 点击下载二维码
+        <% end %>
+      </div>
+    </div>
+    <div class="portlet-body">
+      <div class="portlet-body form" id="special-form">
+        <div class="form-group">
+          <div class="input-group">
+            <%= image_tag ContinualFeedback.qrcode_url %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <script type="text/javascript">
