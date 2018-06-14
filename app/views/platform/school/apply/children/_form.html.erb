@@ -29,7 +29,7 @@
           <%= f.input :level, as: :select, collection: ProjectSeasonApplyChild.options_for_some_select(:levels, ['junior', 'senior']), include_blank: false, label: false, input_html: {id: 'level'} %>
         </div>
         <div class="pull-left">
-          <%= f.input :grade, as: :select, collection: ProjectSeasonApplyChild.options_for_enum_select(:grades), include_blank: false, label: false, input_html: {id: 'grade'} %>
+          <%= f.input :grade, as: :select, collection: ProjectSeasonApplyChild.options_for_enum_select(:grades, ['one', 'two', 'three']), include_blank: false, label: false, input_html: {id: 'grade'} %>
         </div>
         <div class="pull-left">
           <%= f.input :semester, as: :select, collection: ProjectSeasonApplyChild.options_for_enum_select(:semesters), include_blank: false, label: false, input_html: {id: 'semester'} %>

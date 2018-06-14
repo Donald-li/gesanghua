@@ -129,7 +129,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   enum kind: {outside: 1, inside: 2} # 捐助形式：1:对外捐助 2:内部认捐
   default_value_for :kind, 1
 
-  enum grade: {one: 1, two: 2, three: 3} # 年级：1:一年级 2:二年级, 3:三年级
+  enum grade: {one: 1, two: 2, three: 3, four: 4, five: 5, six: 6} # 年级：1:一年级 2:二年级, 3:三年级
   default_value_for :grade, 1
 
   enum semester: {last_term: 1, next_term: 2} # 学期： 1:上学期 2:下学期
