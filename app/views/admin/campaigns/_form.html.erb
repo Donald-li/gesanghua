@@ -37,7 +37,7 @@
         <div class="col-sm-9">
           <select id="fund-restricted" class="form-control select optional" name="campaign[appoint_fund_id]" required>
             <option value="">请选择财务分类</option>
-            <% FundCategory.reverse_sorted.each do |fc| %>
+            <% FundCategory.sorted.each do |fc| %>
                 <optgroup label="<%= fc.name %>">
                 <% fc.funds.sorted.each do |fund| %>
                     <option value="<%= fund.id %>" <%= 'selected' if @campaign.appoint_fund_id == fund.id %>><%= fc.name %> - <%= fund.name %></option>

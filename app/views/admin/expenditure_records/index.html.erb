@@ -5,18 +5,18 @@
     </div>
     <div class="actions">
       <%= link_to excel_upload_admin_expenditure_records_path, class: 'btn btn-xs yellow', 'data-no-turbolink' => true do %>
-        <i class="fa fa-upload"></i>
-        <span>批量导入</span>
+          <i class="fa fa-upload"></i>
+          <span>批量导入</span>
       <% end %>
 
       <%= link_to url_for(params.permit!.merge(format: :xlsx)), class: 'btn btn-xs green', 'data-no-turbolink' => true do %>
-        <i class="fa fa-download"></i>
-      <span>导出表单</span>
+          <i class="fa fa-download"></i>
+          <span>导出表单</span>
       <% end %>
 
       <%= link_to new_admin_expenditure_record_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
-        <i class="icon-plus"></i>
-        <span>新增支出</span>
+          <i class="icon-plus"></i>
+          <span>新增支出</span>
       <% end %>
     </div>
   </div>
@@ -25,20 +25,33 @@
       <div class="row">
         <div class="col-md-12 col-sm-12">
           <%= search_form_for @search, url: admin_expenditure_records_path, class: 'form-inline' do |f| %>
-            <div class="form-group">
-              <%= f.label :name_or_fund_name_cont, '搜索' %>
-              <%= f.text_field :name_or_fund_name_cont, class: 'form-control gsh-input-share', placeholder: '支出名称或财务分类搜索',style:'width:200px;' %>
-            </div>
-            <div class="form-group">
-              <%= f.label '支出时间' %>
-              <%= f.text_field :expended_at_gteq, class: 'form-control datepicker gsh-input-share-l', placeholder: '开始时间' %>
-              <%= f.text_field :expended_at_lteq, class: 'form-control datepicker gsh-input-share-r', placeholder: '结束时间' %>
-            </div>
-            <!-- <div class="form-group">
-              <%#= f.label :deliver_state_eq, '支出状态' %>
-              <%#= f.select :deliver_state_eq, ExpenditureRecord.options_for_select(:deliver_states, raw: true), {include_blank: '全部'}, class: 'form-control' %>
-            </div> -->
-            <button type="submit" class="btn btn-default grey">搜索</button>
+              <div class="form-group">
+                <%= f.label :name_or_fund_name_cont, '搜索' %>
+                <%= f.text_field :name_or_fund_name_cont, class: 'form-control gsh-input-share', placeholder: '支出名称或财务分类搜索', style: 'width:200px;' %>
+              </div>
+              <div class="form-group">
+                <%= f.label :amount_eq, '金额' %>
+                <%= f.text_field :amount_eq, class: 'form-control gsh-input-share', placeholder: '金额' %>
+              </div>
+              <div class="form-group">
+                <%= f.label :fund_id_eq, '财务分类' %>
+                <select id="fund-unrestricted" class="form-control select optional" name="q[fund_id_eq]">
+                  <option value="">请选择财务分类</option>
+                  <% FundCategory.sorted.each do |fc| %>
+                      <optgroup label="<%= fc.name %>">
+                        <% fc.funds.sorted.each do |fund| %>
+                            <option value="<%= fund.id %>" <%= 'selected' if params[:q].present? && params[:q][:fund_id_eq].to_i == fund.id %>><%= fc.name %> - <%= fund.name %></option>
+                        <% end %>
+                      </optgroup>
+                  <% end %>
+                </select>
+              </div>
+              <div class="form-group">
+                <%= f.label '支出时间' %>
+                <%= f.text_field :expended_at_gteq, class: 'form-control datepicker gsh-input-share-l', placeholder: '开始时间' %>
+                <%= f.text_field :expended_at_lteq, class: 'form-control datepicker gsh-input-share-r', placeholder: '结束时间' %>
+              </div>
+              <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>
         </div>
         <div class="col-md-6 col-sm-12">
@@ -80,40 +93,40 @@
           </thead>
           <tbody>
           <% @expenditure_records.each do |record| %>
-            <tr>
-              <td>
-                <%= record.expend_no %>
-              </td>
-              <td>
-                <%= record.name %>
-              </td>
-              <td>
-                <%= l record.expended_at %>
-              </td>
-              <td>
-                ￥<%= format_money(record.amount) %>
-              </td>
-              <td>
-                <%= record.fund.try(:fund_category).try(:name) %> - <%= record.fund.try(:name) %>
-              </td>
-              <td>
-                <%= record.income_source.try(:name) %>
-              </td>
-              <td>
-                <%= record.remark %>
-              </td>
-              <td>
-                <%= record.operator %>
-              </td>
-              <td>
-                <%= link_to edit_admin_expenditure_record_path(record), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                  <i class="fa fa-edit"></i> 修改
-                <% end %>
-                <%= link_to admin_expenditure_record_path(record), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
-                  <i class="fa fa-trash-o"></i> 删除
-                <% end %>
-              </td>
-            </tr>
+              <tr>
+                <td>
+                  <%= record.expend_no %>
+                </td>
+                <td>
+                  <%= record.name %>
+                </td>
+                <td>
+                  <%= l record.expended_at %>
+                </td>
+                <td>
+                  ￥<%= format_money(record.amount) %>
+                </td>
+                <td>
+                  <%= record.fund.try(:fund_category).try(:name) %> - <%= record.fund.try(:name) %>
+                </td>
+                <td>
+                  <%= record.income_source.try(:name) %>
+                </td>
+                <td>
+                  <%= record.remark %>
+                </td>
+                <td>
+                  <%= record.operator %>
+                </td>
+                <td>
+                  <%= link_to edit_admin_expenditure_record_path(record), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                      <i class="fa fa-edit"></i> 修改
+                  <% end %>
+                  <%= link_to admin_expenditure_record_path(record), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                      <i class="fa fa-trash-o"></i> 删除
+                  <% end %>
+                </td>
+              </tr>
           <% end %>
           </tbody>
         </table>
@@ -130,3 +143,8 @@
   </div>
 </div>
 <!-- END EXAMPLE TABLE PORTLET-->
+<script type="text/javascript" charset="utf-8">
+    $("#fund-unrestricted").select2({
+        language: "zh-CN"
+    });
+</script>

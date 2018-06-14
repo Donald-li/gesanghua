@@ -20,7 +20,7 @@ namespace :maintain do
       project.update(total_amount: DonateRecord.where(project: project).sum(:amount))
     end
 
-    IncomeRecord.update_expenditure_history_records
+    IncomeRecord.update_income_history_records
     ExpenditureRecord.update_expenditure_history_records
     User.update_user_history_record
 
