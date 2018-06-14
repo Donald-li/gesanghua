@@ -408,54 +408,56 @@ class User < ApplicationRecord
   # 微信绑定手机号之后，根据手机号合并user记录，绑定volunteer,teacher(headmaster),county_user角色（gsh_child有单独绑定途径）
   # 合并账号
   def self.combine_user(phone, wechat_user)
-    phone_user = User.find_by(phone: phone)
+    phone_users= User.where(phone: phone)
     return unless phone_user
     self.transaction do
-      #所有业务表改为手机用户
-      School.where(creater_id: wechat_user.id).each do |school|
-        school.update!(creater_id: phone_user.id)
-      end
-      School.where(user_id: wechat_user.id).each do |school|
-        school.update!(user_id: phone_user.id)
-      end
-      Teacher.where(user_id: wechat_user.id).each do |teacher|
-        teacher.update!(user_id: phone_user.id)
-      end
-      Volunteer.where(user_id: wechat_user.id).each do |volunteer|
-        volunteer.update!(user_id: phone_user.id)
-      end
-      CountyUser.where(user_id: wechat_user.id).each do |county_user|
-        county_user.update!(user_id: phone_user.id)
-      end
-      Team.where(creater_id: wechat_user.id).each do |team|
-        team.update!(creater_id: phone_user.id)
-      end
-      Team.where(manage_id: wechat_user.id).each do |team|
-        team.update!(manage_id: phone_user.id)
-      end
-      phone_user.update!(team_id: wechat_user.team_id)
-      #角色绑定
-      wechat_user.roles.each do |role|
-        phone_user.add_role(role)
-      end
-      phone_user.save!
-      #数据迁移： 捐款记录等
-      phone_user.migrate_donate_record(wechat_user)
-      # 合并账号openid、手机和wechat_profile
-      phone_user.update!(openid: wechat_user.openid, profile: wechat_user.profile, auth_token: wechat_user.auth_token)
-      wechat_user.generate_auth_token
-      wechat_user.openid = nil
-      wechat_user.login = nil
-      wechat_user.save!
-      # 通知
-      owner = wechat_user
-      title = '#账户合并# 账户已合并'
-      content = "您的账户已与其他账户合并，相关数据已迁移"
-      notice = Notification.create!(owner: owner, user_id: wechat_user.id, title: title, content: content, kind: 'combine_user')
-      #旧用户禁用
+      phone_users.each do |phone_user|
+        #所有业务表改为手机用户
+        School.where(creater_id: wechat_user.id).each do |school|
+          school.update!(creater_id: phone_user.id)
+        end
+        School.where(user_id: wechat_user.id).each do |school|
+          school.update!(user_id: phone_user.id)
+        end
+        Teacher.where(user_id: wechat_user.id).each do |teacher|
+          teacher.update!(user_id: phone_user.id)
+        end
+        Volunteer.where(user_id: wechat_user.id).each do |volunteer|
+          volunteer.update!(user_id: phone_user.id)
+        end
+        CountyUser.where(user_id: wechat_user.id).each do |county_user|
+          county_user.update!(user_id: phone_user.id)
+        end
+        Team.where(creater_id: wechat_user.id).each do |team|
+          team.update!(creater_id: phone_user.id)
+        end
+        Team.where(manage_id: wechat_user.id).each do |team|
+          team.update!(manage_id: phone_user.id)
+        end
+        phone_user.update!(team_id: wechat_user.team_id)
+        #角色绑定
+        wechat_user.roles.each do |role|
+          phone_user.add_role(role)
+        end
+        phone_user.save!
+        #数据迁移： 捐款记录等
+        phone_user.migrate_donate_record(wechat_user)
+        # 合并账号openid、手机和wechat_profile
+        phone_user.update!(openid: wechat_user.openid, profile: wechat_user.profile, auth_token: wechat_user.auth_token)
+        wechat_user.generate_auth_token
+        wechat_user.openid = nil
+        wechat_user.login = nil
+        wechat_user.save!
+        # 通知
+        owner = wechat_user
+        title = '#账户合并# 账户已合并'
+        content = "您的账户已与其他账户合并，相关数据已迁移"
+        notice = Notification.create!(owner: owner, user_id: wechat_user.id, title: title, content: content, kind: 'combine_user')
+        #旧用户禁用
 
-      wechat_user.disable!
-      phone_user.enable!
+        wechat_user.disable!
+        phone_user.enable!
+      end
     end
   end
 
