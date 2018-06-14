@@ -152,8 +152,12 @@ class FileUtil
 
       child = ProjectSeasonApplyChild.new(project: Project.pair_project, season: project_apply.season, apply: project_apply, school: project_apply.school, name: name, id_card: id_card, nation: _nation, level: _level, grade: _grade, semester: _semester, teacher_name: teacher_name, teacher_phone: teacher_phone, description: description, father: father, father_job: father_job, mother: mother, mother_job: mother_job, parent_information: parent_information, guardian: guardian, guardian_relation: guardian_relation, guardian_phone: guardian_phone, address: address, family_income: family_income, income_source: income_source, family_expenditure: family_expenditure, expenditure_information: expenditure_information, debt_information: debt_information, family_condition: family_condition, reason: reason, province: project_apply.province, city: project_apply.city, district: project_apply.district)
       if ProjectSeasonApplyChild.allow_apply?(project_apply.school, child.id_card)
-        child.approve_pass
-        child_ids.push(child.id)
+        if child.approve_pass
+          child_ids.push(child.id)
+        else
+          ProjectSeasonApplyChild.where(id: child_ids).destroy_all
+          return {status: false, message: "导入失败：名单第#{line}行数据有误#{child.errors.full_messages.join(',')}"}
+        end
       else
         ProjectSeasonApplyChild.where(id: child_ids).destroy_all
         return {status: false, message: "导入失败：名单第#{line}行，本批次身份证号已占用"}
@@ -194,11 +198,46 @@ class FileUtil
       member = ProjectSeasonApplyCampMember.new(kind: kind, camp: apply_camp.camp, apply: apply_camp.apply, school: apply_camp.school, apply_camp: apply_camp, name: name, id_card: id_card, nation: _nation, teacher_name: teacher_name, teacher_phone: teacher_phone, description: description, guardian_name: guardian, guardian_phone: guardian_phone, reason: reason, phone: phone)
 
       if ProjectSeasonApplyCampMember.allow_apply?(apply_camp, member.id_card, member)
-        member.save
-        member_ids.push(member.id)
+        if member.save
+          member_ids.push(member.id)
+        else
+          ProjectSeasonApplyCampMember.where(id: member_ids).destroy_all
+          return {status: false, message: "导入失败：名单第#{line}行数据有误#{member.errors.full_messages.join(',')}"}
+        end
       else
-        ProjectSeasonApplyChild.where(id: member_ids).destroy_all
+        ProjectSeasonApplyCampMember.where(id: member_ids).destroy_all
         return {status: false, message: "导入失败：名单第#{line}行，本批次身份证号已占用"}
+      end
+
+    end
+
+    return {status: true, message: "导入成功"}
+  end
+
+  def self.import_camp_volunteers(original_filename: nil, path: nil, apply: nil, user: user)
+    s = nil
+    if File.extname(original_filename) == '.xlsx' || File.extname(original_filename) == '.xls'
+      s = Roo::Excelx.new path
+    else
+      return
+    end
+    volunteer_ids = []
+    2.upto(s.last_row) do |line|
+
+      index = s.formatted_value(line, 'A')
+      name = s.formatted_value(line, 'B')
+      volunteer_no = s.cell(line, 'C')
+      id_card = s.cell(line, 'D')
+      phone = s.formatted_value(line, 'E')
+      content = s.formatted_value(line, 'F')
+      remark = s.formatted_value(line, 'G')
+
+      volunteer = CampDocumentVolunteer.new(user: user, camp: apply.camp, apply: apply, name: name, volunteer_no: volunteer_no, id_card: id_card, phone: phone, content: content, remark: remark)
+      if volunteer.save
+        volunteer_ids.push(volunteer.id)
+      else
+        CampDocumentVolunteer.where(id: volunteer_ids).destroy_all
+        return {status: false, message: "导入失败：名单第#{line}行数据有误#{volunteer.errors.full_messages.join(',')}"}
       end
 
     end

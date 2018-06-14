@@ -8,6 +8,10 @@
           <i class="icon-plus"></i>
           <span>切换探索营</span>
       <% end %>
+      <%= link_to excel_upload_admin_camp_document_volunteers_path, class: 'btn btn-xs yellow', 'data-no-turbolink' => true do %>
+          <i class="fa fa-upload"></i>
+          <span>导入</span>
+      <% end %>
       <%= link_to new_admin_camp_document_volunteer_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
           <i class="icon-plus"></i>
           <span>新增</span>
@@ -27,13 +31,16 @@
           <thead>
           <tr>
             <th>
-              用户ID
-            </th>
-            <th>
               志愿者姓名
             </th>
             <th>
+              志愿者编号
+            </th>
+            <th>
               联系电话
+            </th>
+            <th>
+              工作内容
             </th>
             <th>
               任务备注
@@ -47,13 +54,16 @@
           <% @camp_document_volunteers.each do |camp_document_volunteer| %>
               <tr>
                 <td>
-                  <%= camp_document_volunteer.volunteer.try(:volunteer_no) %>
+                  <%= camp_document_volunteer.name %>
                 </td>
                 <td>
-                  <%= camp_document_volunteer.volunteer.try(:name) %>
+                  <%= camp_document_volunteer.volunteer_no %>
                 </td>
                 <td>
-                  <%= camp_document_volunteer.volunteer.try(:phone) %>
+                  <%= camp_document_volunteer.phone %>
+                </td>
+                <td>
+                  <%= camp_document_volunteer.content %>
                 </td>
                 <td>
                   <%= camp_document_volunteer.remark %>
