@@ -20,6 +20,10 @@ namespace :maintain do
       project.update(total_amount: DonateRecord.where(project: project).sum(:amount))
     end
 
+    IncomeRecord.update_expenditure_history_records
+    ExpenditureRecord.update_expenditure_history_records
+    User.update_user_history_record
+
     # Fund.sorted.each do |fund|
     #   fund.update(total: IncomeRecord.where(donor_id: 1).where(fund: fund).sum(:amount), out_total: ExpenditureRecord.can_count.where(fund: fund).sum(:amount))
     # end

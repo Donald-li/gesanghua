@@ -120,7 +120,7 @@ class IncomeRecord < ApplicationRecord
   end
 
   def self.gen_income_finance_statistic_record(finance_records)
-    group_records = finance_records.where("income_time > ?", Time.mktime(2018,6,1)).group_by {|record| record.income_time.strftime("%Y-%m-%d")}
+    group_records = finance_records.where("income_time >= ?", Time.mktime(2018,6,1)).group_by {|record| record.income_time.strftime("%Y-%m-%d")}
     group_records.each do |record_time, records|
       # 按照团队统计
       records.group_by(&:team_id).each do |team_id, team_records|

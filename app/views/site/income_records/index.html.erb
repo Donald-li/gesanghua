@@ -6,7 +6,7 @@
       <span class="disclosures-f-moy pull-left"><%= number_to_currency(IncomeRecord.total_amount) %>元</span>
     </p>
     <p class="disclosures-pos">
-      <%= link_to disclosures_path do %>查看财务报告<% end %>  |  <%= link_to audit_reports_path do %>查看审计报告<% end %>
+      <%= link_to '财务报告', disclosures_path %>  |  <%= link_to '审计报告', audit_reports_path%>  |  <%= link_to '银行对账单', bank_reports_path%>
     </p>
   </div>
   <div class="speciais-con">
