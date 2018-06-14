@@ -16,13 +16,13 @@ class Site::CampsController < Site::BaseController
     @applies = ProjectSeasonApply.where(project: @project).raise_project.show.camp_raising.sorted
     @total = @applies.count
     @project_reports = @project.project_reports.project_report.show.sorted
-    @donate_records = DonateRecord.where(project: @project).sorted.page(1).per(6)
+    @donate_records = DonateRecord.normal.where(project: @project).sorted.page(1).per(6)
   end
 
   def detail
     @apply = ProjectSeasonApply.find(params[:id])
     @feedbacks = @apply.continual_feedbacks.recommend.sorted
-    @donate_records = DonateRecord.where(project_season_apply_id: @apply.id).sorted.page(1).per(6)
+    @donate_records = DonateRecord.normal.where(project_season_apply_id: @apply.id).sorted.page(1).per(6)
   end
 
 end

@@ -1,7 +1,7 @@
 class Site::DonateRecordsController < Site::BaseController
 
   def index
-      scope = DonateRecord
+      scope = DonateRecord.normal
       if params[:project].present?
         @owner = Project.find(params[:project])
         scope = scope.where(project_id: params[:project]) if params[:project].present?
