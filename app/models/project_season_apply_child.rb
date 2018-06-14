@@ -337,7 +337,8 @@ class ProjectSeasonApplyChild < ApplicationRecord
   def self.batch_push_notice
     ProjectSeasonApplyChild.hidden.sorted.each do |child|
       user_id = child.priority_id
-      if child.semesters.pending.count > 0 && user_id.present?
+      pending_grants =  child.semesters.pending
+      if pending_grants.count > 0 && pending_grants.first.start_with?(Time.now.year) && user_id.present?
         Notification.create(
             kind: 'continue_donate',
             owner: child,
