@@ -55,7 +55,7 @@ class User < ApplicationRecord
   ADMIN_ROLES = %w[superadmin admin project_manager project_operator financial_staff custom_service]
   has_bit_enum :role, ROLES, ROLES_HASH
 
-  scope :admin_user, ->{where("(users.roles_mask::bit(12) & B'100100011111')::integer > 0")}
+  scope :admin_user, -> {where("(users.roles_mask::bit(12) & B'100100011111')::integer > 0")}
 
   attr_accessor :avatar_id
 
@@ -95,14 +95,14 @@ class User < ApplicationRecord
 
   has_secure_password validations: false
 
-  validates :password, confirmation: true, allow_blank: true, unless: Proc.new { |u| u.password.present? }
-  validates :password, length: { minimum: 6 }, allow_blank: true, unless: Proc.new { |u| u.password.present? }
+  validates :password, confirmation: true, allow_blank: true, unless: Proc.new {|u| u.password.present?}
+  validates :password, length: {minimum: 6}, allow_blank: true, unless: Proc.new {|u| u.password.present?}
   # default_value_for :password, '111111'
-  validates :email, email: true, unless: Proc.new { |u| u.archive_data.present? }
-  validates :phone, mobile: true, uniqueness: { allow_blank: true }, unless: Proc.new { |u| u.archive_data.present? }
+  validates :email, email: true, unless: Proc.new {|u| u.archive_data.present?}
+  validates :phone, mobile: true, uniqueness: {allow_blank: true}, unless: Proc.new {|u| u.archive_data.present?}
   # validates :name, presence: true
   validates :login, uniqueness: true, if: Proc.new {|u| u.login.present?}
-  validates :balance, numericality: { greater_than_or_equal_to: 0 }
+  validates :balance, numericality: {greater_than_or_equal_to: 0}
 
   default_value_for :profile, {}
 
@@ -117,12 +117,12 @@ class User < ApplicationRecord
   enum use_nickname: {anonymous: 1, autonym: 2} #使用昵称 1:匿名（使用昵称） 2:实名使用姓名
   default_value_for :use_nickname, 2
 
-  scope :sorted, ->{ order(created_at: :desc) }
-  scope :reverse_sorted, ->{ sorted.reverse_order }
+  scope :sorted, -> {order(created_at: :desc)}
+  scope :reverse_sorted, -> {sorted.reverse_order}
 
   enum kind: {platform_user: 1, online_user: 2, offline_user: 3} # 用户类型 1:平台用户 2:线上用户 3:线下用户
 
-  enum phone_verify: { phone_unverified: 1, phone_verified: 2} # 手机认证 1:未认证 2:已认证
+  enum phone_verify: {phone_unverified: 1, phone_verified: 2} # 手机认证 1:未认证 2:已认证
 
   before_create :generate_auth_token
 
@@ -132,12 +132,12 @@ class User < ApplicationRecord
   def self.find_by_login(login)
     return nil if login.blank?
     case login
-    when /\S+@\S+\.\S+/
-      self.find_by(email: login)
-    when /1\d{10}/
-      self.find_by(phone: login)
-    else
-      self.find_by(openid: login)
+      when /\S+@\S+\.\S+/
+        self.find_by(email: login)
+      when /1\d{10}/
+        self.find_by(phone: login)
+      else
+        self.find_by(openid: login)
     end
   end
 
@@ -259,7 +259,7 @@ class User < ApplicationRecord
 
   # 可开票金额
   def to_bill_amount
-    self.donations.where({ created_at: (Time.now.beginning_of_year)..(Time.now.end_of_year), voucher_state: 1, pay_state: 2 }).sum(:amount)
+    self.donations.where({created_at: (Time.now.beginning_of_year)..(Time.now.end_of_year), voucher_state: 1, pay_state: 2}).sum(:amount)
   end
 
   def full_address
@@ -312,7 +312,7 @@ class User < ApplicationRecord
     if self.name.length < 2
       self.name
     else
-      self.name.sub(self.name[1,1], '*')
+      self.name.sub(self.name[1, 1], '*')
     end
   end
 
@@ -351,7 +351,7 @@ class User < ApplicationRecord
       json.avatar self.user_avatar
       json.name self.name
       json.salutation [self.salutation]
-      json.gender self.gender == 'male'? ['男'] : ['女']
+      json.gender self.gender == 'male' ? ['男'] : ['女']
       json.use_nickname [self.use_nickname]
       json.email self.email
       json.location [self.province, self.city, self.district]
@@ -360,7 +360,7 @@ class User < ApplicationRecord
       json.has_team self.team.present?
       json.team_id self.team_id
       json.team_name self.team.try(:name)
-      json.avatar_image  do
+      json.avatar_image do
         json.id self.try(:avatar).try(:id)
         json.url self.try(:user_avatar)
         json.protect_token ''
@@ -380,7 +380,7 @@ class User < ApplicationRecord
     Jbuilder.new do |json|
       json.(self, :id, :phone, :name, :nickname)
       json.school_name self.try(:teacher).try(:school).try(:name)
-      json.kind self.try(:teacher).kind == 'headmaster'? '学校负责人' : '教师'
+      json.kind self.try(:teacher).kind == 'headmaster' ? '学校负责人' : '教师'
       json.show_name self.show_name
       json.user_avatar do
         json.id self.try(:avatar).try(:id)
@@ -395,13 +395,13 @@ class User < ApplicationRecord
     self.remove_role(:teacher) if self.has_role?(:teacher)
     self.remove_role(:headmaster) if self.has_role?(:headmaster)
     self.save!
-      Notification.create(
-          kind: 'remove_teacher_role',
-          owner: self,
-          user_id: self.id,
-          title: '教师角色移除通知',
-          content: "#{operator.name}将您的#{self.school}老师角色移除"
-      )
+    Notification.create(
+        kind: 'remove_teacher_role',
+        owner: self,
+        user_id: self.id,
+        title: '教师角色移除通知',
+        content: "#{operator.name}将您的#{self.school}老师角色移除"
+    )
     return true, '操作成功'
   end
 
@@ -484,9 +484,9 @@ class User < ApplicationRecord
         self.update!(offline_amount: IncomeRecord.where(agent_id: self.id, income_source_id: offline_income_resource.ids).sum(:amount))
       elsif IncomeRecord.where(agent_id: self.id).where.not(income_source_id: offline_income_resource.ids).sum(:amount) != self.online_amount
         self.update!(online_amount: IncomeRecord.where(agent_id: self.id).where.not(income_source_id: offline_income_resource.ids).sum(:amount))
-      # elsif AccountRecord.where(user_id: self.id).sum(:amount) != self.balance
-      #   sum = AccountRecord.where(user_id: self.id).sum(:amount).to_f
-      #   self.update!(balance: sum)
+        # elsif AccountRecord.where(user_id: self.id).sum(:amount) != self.balance
+        #   sum = AccountRecord.where(user_id: self.id).sum(:amount).to_f
+        #   self.update!(balance: sum)
       end
     end
   end
@@ -511,8 +511,8 @@ class User < ApplicationRecord
   end
 
   #设置线下用户管理人
-  def set_offline_user_manager(manager)
-    return unless (self.unactived? && self.manager_id.blank?)
+  def set_offline_user_manager(manager, old_manager)
+    return unless self.unactived?
     self.transaction do
       self.update!(manager_id: manager.id)
       DonateRecord.where(donor_id: self.id).each do |record|
@@ -524,7 +524,20 @@ class User < ApplicationRecord
       IncomeRecord.where(donor_id: self.id).each do |record|
         record.update!(agent_id: manager.id)
       end
+
+
       #重算的缓存数据
+      if old_manager.present?
+        offline_income_resource = IncomeSource.offline
+        if IncomeRecord.where(agent_id: old_manager.id).sum(:amount) != old_manager.donate_amount
+          old_manager.update!(donate_amount: IncomeRecord.where(agent_id: old_manager.id).sum(:amount))
+        elsif IncomeRecord.where(agent_id: old_manager.id, income_source_id: offline_income_resource.ids).sum(:amount) != old_manager.offline_amount
+          old_manager.update!(offline_amount: IncomeRecord.where(agent_id: old_manager.id, income_source_id: offline_income_resource.ids).sum(:amount))
+        elsif IncomeRecord.where(agent_id: old_manager.id).where.not(income_source_id: offline_income_resource.ids).sum(:amount) != old_manager.online_amount
+          old_manager.update!(online_amount: IncomeRecord.where(agent_id: old_manager.id).where.not(income_source_id: offline_income_resource.ids).sum(:amount))
+        end
+      end
+
       offline_income_resource = IncomeSource.offline
       if IncomeRecord.where(agent_id: manager.id).sum(:amount) != manager.donate_amount
         manager.update!(donate_amount: IncomeRecord.where(agent_id: manager.id).sum(:amount))

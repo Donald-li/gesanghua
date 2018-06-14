@@ -45,14 +45,15 @@ class Admin::UsersController < Admin::BaseController
 
   def update
     roles = @user.roles
+    old_manager = User.find_by(id: @user.manager_id)
     user_params[:roles] = (user_params[:roles] | ( roles & User::ADMIN_ROLES)).select(&:present?) if user_params[:roles].present?
     respond_to do |format|
       if @user.update(user_params)
         @user.attach_avatar(params[:avatar_id])
         #如果设置管理人manager，迁移捐助记录等数据
         if user_params[:manager_id].present?
-          manager = User.find(user_params[:manager_id])
-          @user.set_offline_user_manager(manager)
+          manager = User.find_by(id: user_params[:manager_id])
+          @user.set_offline_user_manager(manager, old_manager)
         end
         format.html { redirect_to referer_or(admin_users_url), notice: '用户已修改。' }
       else
