@@ -4,6 +4,10 @@
       <i class="icon-list"></i> <%= link_to "#{@apply_camp.apply.name}", admin_camp_projects_path %> > <%= link_to @apply_camp.school.name, admin_camp_project_project_season_apply_camps_path(@apply_camp.apply) %> > 教师名单
     </div>
     <div class="actions">
+      <%= link_to excel_upload_admin_project_season_apply_camp_teachers_path(apply_camp_id: @apply_camp), class: 'btn btn-xs yellow', 'data-no-turbolink' => true do %>
+          <i class="fa fa-upload"></i>
+          <span>导入</span>
+      <% end %>
       <%= link_to new_admin_project_season_apply_camp_teacher_path(apply_camp_id: @apply_camp.id), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
           <i class="icon-plus"></i>
           <span>新增</span>

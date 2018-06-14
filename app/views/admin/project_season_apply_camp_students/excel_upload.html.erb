@@ -18,26 +18,26 @@
         <div class="form-group">
             <label class="col-md-2 control-label">下载模板:</label>
             <div class="col-sm-9">
-              <%= link_to ProjectSeasonApplyChild.excel_template, class: 'btn btn-lg green' do %>
+              <%= link_to ProjectSeasonApplyCampMember.excel_template, class: 'btn btn-lg green' do %>
                   <i class="fa fa-download"></i>
                   下载模板
               <% end %>
               <p class="help-block">请根据模板格式认真填写</p>
             </div>
         </div>
-        <%= simple_form_for :file, url: excel_import_admin_pair_apply_pair_students_path(@project_apply), method: :put, wrapper: :admin_form do |f| %>
+        <%= simple_form_for :file, url: excel_import_admin_project_season_apply_camp_students_path(apply_camp_id: @apply_camp), method: :put, wrapper: :admin_form do |f| %>
             <%= f.error_notification %>
             <div class="form-group">
               <label class="col-md-2 control-label">收入记录文件:</label>
               <div class="col-sm-9">
-                <%= webuploader_file :apply_child_excel_id, id: 'excel-upload', label: '上传文件', type: 'apply_child_excel' %>
+                <%= webuploader_file :apply_camp_excel_id, id: 'excel-upload', label: '上传文件', type: 'apply_camp_excel' %>
               </div>
             </div>
             <div class="form-actions">
               <div class="row">
                 <div class="col-md-offset-3 col-md-9">
                   <%= f.button :submit, '提交', class: 'btn green' %>
-                  <%= link_to '取消', admin_pair_apply_pair_students_path(@project_apply), class: 'btn' %>
+                  <%= link_to '取消', admin_project_season_apply_camp_students_path(apply_camp_id: @apply_camp), class: 'btn' %>
                 </div>
               </div>
             </div>

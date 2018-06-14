@@ -175,7 +175,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
     FileUtil.import_pair_students(original_filename: file.original_filename, path: file.path, project_apply: project_apply) if file.present?
   end
 
-  def self.apply_child_template
+  def self.excel_template
     '/excel/templates/孩子名单导入模板.xlsx'
   end
 
