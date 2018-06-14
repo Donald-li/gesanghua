@@ -175,6 +175,9 @@ admin:
         admin_financial_reports:
           actions:
             admin/financial_reports: all
+        admin_bank_reports:
+          actions:
+            admin/bank_reports: all
         admin_vouchers:
           actions:
             admin/vouchers: all

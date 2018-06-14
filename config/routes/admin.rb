@@ -41,6 +41,7 @@ namespace :admin do
   resources :school_applies, concerns: :check
   resources :audit_reports, concerns: [:switch, :file_download]
   resources :financial_reports, concerns: [:switch, :file_download]
+  resources :bank_reports, concerns: [:switch, :file_download]
   resources :funds, concerns: [:switch, :move] do
     resource :fund_adjust_amount, only: [:new, :create, :show]
   end

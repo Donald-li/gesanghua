@@ -18,6 +18,7 @@
 #  content                 :text                                   # 工作内容
 #
 
+require 'custom_validators'
 class CampDocumentVolunteer < ApplicationRecord
   has_paper_trail only: [:volunteer_id, :remark, :project_season_apply_id, :camp_id]
 
@@ -32,7 +33,8 @@ class CampDocumentVolunteer < ApplicationRecord
   has_one_asset :camp_volunteer_excel, class_name: 'Asset::CampVolunteerExcel'
 
   validates :name, :phone, :id_card, presence: true
-  validates :id_card, shenfenzheng_no: true, uniqueness: true
+  validates :id_card, shenfenzheng_no: true
+  validates :id_card, uniqueness: true
 
   enum gender: {unknow: 0, male: 1, female: 2} #性别 1:男 2:女
   default_value_for :gender, 0
