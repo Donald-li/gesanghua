@@ -4,9 +4,9 @@ class Admin::PairGrantsController < Admin::BaseController
 
   def index
     set_search_end_of_day(:published_at_lteq)
-    @search = GshChildGrant.joins(:gsh_child).where.not(donate_state: 'close').sorted.ransack(params[:q])
+    @search = GshChildGrant.where.not(donate_state: 'close').sorted.ransack(params[:q])
     scope = @search.result
-    scope = scope.includes(:school, :gsh_child)
+    scope = scope.includes(:school, :gsh_child, :apply)
 
     respond_to do |format|
       format.html {@grants = scope.page(params[:page])}
