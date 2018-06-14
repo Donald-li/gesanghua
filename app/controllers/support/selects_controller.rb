@@ -99,7 +99,7 @@ class Support::SelectsController < Support::BaseController
   end
 
   def camp_funds
-    funds = Project.camp_project.fund.fund_category.funds.offset(1).sorted.where("name like :q", q: "%#{params[:q]}%")
+    funds = Project.camp_project.fund.fund_category.funds.sorted.where("name like :q", q: "%#{params[:q]}%")
     render json: {items: funds.as_json(only: [:id, :name])}
   end
 
