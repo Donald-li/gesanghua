@@ -19,7 +19,21 @@
       </div>
     </div>
     <%= f.input :manager, label: '负责人：', prompt: "请选择用户", required: true %>
-    <%= f.input :fund_id, collection: [@camp.fund].compact.map {|u| [u.name, u.id]}, label: '财务分类：', prompt: "请选择财务分类", input_html: {class: 'fund_selector'}, required: true %>
+    <div class="form-group">
+      <label class="col-md-2 control-label">财务分类：</label>
+      <div class="col-sm-9">
+        <select id="fund_selector" class="form-control select optional" name="camp[fund_id]" required>
+          <option value="">请选择财务分类</option>
+          <% FundCategory.reverse_sorted.each do |fc| %>
+              <optgroup label="<%= fc.name %>">
+                <% fc.funds.sorted.each do |fund| %>
+                    <option value="<%= fund.id %>" <%= 'selected' if @camp.fund_id == fund.id %>><%= fc.name %> - <%= fund.name %></option>
+                <% end %>
+              </optgroup>
+          <% end %>
+        </select>
+      </div>
+    </div>
     <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Camp.options_for_select(:states), label: '状态：'%>
 
   </div>
@@ -35,36 +49,10 @@
 
 <script type="text/javascript" charset="utf-8">
   $(function () {
-      $(".fund_selector").select2({
+      $("#fund_selector").select2({
           language: "zh-CN",
           placeholder: '请选择财务分类',
-          allowClear: true,
-          ajax: {
-              url: "/selects/camp_funds",
-              dataType: 'json',
-              delay: 250,
-              data: function (params) {
-                  return {
-                      q: params.term, // search term
-                      page: params.page
-                  };
-              },
-              processResults: function (data, params) {
-                  params.page = params.page || 1;
-                  return {
-                      results: $.map(data.items, function (item) {
-                          return {
-                              text: item.name,
-                              id: item.id
-                          }
-                      }),
-                      pagination: {
-                          more: (params.page * 30) < data.total_count
-                      }
-                  };
-              },
-              cache: true
-          }
+          allowClear: true
       });
   })
 

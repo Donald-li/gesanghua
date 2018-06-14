@@ -19,7 +19,6 @@ scope module: :support do
       get :flower_seasons
       get :applies
       get :majors
-      get :camp_funds
       get :camps
       get :camp_users
       get :child_grants

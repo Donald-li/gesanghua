@@ -98,11 +98,6 @@ class Support::SelectsController < Support::BaseController
     render json: {items: applies.as_json(only: [:id, :name])}
   end
 
-  def camp_funds
-    funds = Project.camp_project.fund.fund_category.funds.sorted.where("name like :q", q: "%#{params[:q]}%")
-    render json: {items: funds.as_json(only: [:id, :name])}
-  end
-
   def camps
     camps = Camp.sorted.enable.where("name like :q", q: "%#{params[:q]}%")
     render json: {items: camps.as_json(only: [:id, :name])}
