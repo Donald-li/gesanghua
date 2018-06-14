@@ -1,7 +1,11 @@
 <%= simple_form_for [:camp, @camp_document_volunteer], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
     <%= f.error_notification %>
     <div class="form-body form-horizontal">
-      <%= f.input :volunteer_id, collection: [@camp_document_volunteer.volunteer].compact.map {|u| [u.name, u.id]}, label: '志愿者', prompt: "请选择志愿者", input_html: {class: 'volunteer_selector'} %>
+      <%= f.input :name, label: '姓名：', required: true, autofocus: true %>
+      <%= f.input :volunteer_no, label: '志愿者编号：', hint: '格桑花志愿者编号' %>
+      <%= f.input :id_card, label: '身份证号：', required: true %>
+      <%= f.input :phone, label: '手机号：', required: true %>
+      <%= f.input :content, label: '工作内容：' %>
       <%= f.input :remark, as: :text, label: '任务备注：' %>
     </div>
     <div class="form-actions">

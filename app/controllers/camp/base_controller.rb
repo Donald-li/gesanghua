@@ -5,8 +5,7 @@ class Camp::BaseController < ManagementBaseController
   helper_method :current_user
   layout 'camp'
 
-  rescue_from ActionController::RoutingError, :with => :render_404
-  rescue_from Exception, :with => :render_500
+  rescue_from Exception, :with => :render_error
 
   protected
   def user_for_paper_trail
@@ -29,15 +28,18 @@ class Camp::BaseController < ManagementBaseController
     @current_user ||= User.find_by id: session[:camp_user_id]
   end
 
-  def render_404(exception = nil)
-    logger.error exception.inspect
+  def render_error(exception = nil)
+    unless Rails.env == 'development'
+      case exception
+        when ActiveRecord::RecordNotFound, ActionController::RoutingError
+          render :file => "#{Rails.root}/public/admin-404.html", :status => 404, :layout => false
+        else
+          render :file => "#{Rails.root}/public/admin-500.html", :status => 500, :layout => false
+      end
+    else
+      raise exception
+    end
+    logger.info exception.try(:inspect)
 
-    render :file => "#{Rails.root}/public/camp-404.html", :status => 404, :layout => false
-  end
-
-  def render_500(exception = nil)
-    logger.error exception.inspect
-
-    render :file => "#{Rails.root}/public/camp-500.html", :status => 404, :layout => false
   end
 end
