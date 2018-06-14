@@ -82,6 +82,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   has_one_asset :yard_image, class_name: 'Asset::ApplyChildYardImage'
   has_one_asset :apply_one, class_name: 'Asset::ApplyChildApplyImage'
   has_one_asset :apply_two, class_name: 'Asset::ApplyChildApplyAnotherImage'
+  has_one_asset :apply_child_excel, class_name: 'Asset::ApplyChildExcel'
 
   belongs_to :project
   belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id'
@@ -167,6 +168,15 @@ class ProjectSeasonApplyChild < ApplicationRecord
       end
     end
     return count
+  end
+
+  def self.read_excel(excel_id, project_apply)
+    file = Asset.find(excel_id).try(:file).try(:file)
+    FileUtil.import_pair_students(original_filename: file.original_filename, path: file.path, project_apply: project_apply) if file.present?
+  end
+
+  def self.apply_child_template
+    '/excel/templates/孩子名单导入模板.xlsx'
   end
 
   # 得到可捐助子项

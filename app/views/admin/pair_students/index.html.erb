@@ -4,6 +4,11 @@
       <i class="icon-list"></i><%= link_to @project_apply.school.try(:name), admin_pair_applies_path %> > 孩子名单
     </div>
     <div class="actions">
+      <%= link_to excel_upload_admin_pair_apply_pair_students_path(@project_apply), class: 'btn btn-xs yellow', 'data-no-turbolink' => true do %>
+          <i class="fa fa-upload"></i>
+          <span>导入</span>
+      <% end %>
+
       <%= link_to url_for(params.permit!.merge(format: :xlsx)), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
           <i class="fa fa-download"></i>
           <span>导出</span>

@@ -157,6 +157,21 @@ class Admin::PairStudentsController < Admin::BaseController
     end
   end
 
+  def excel_upload
+  end
+
+  def excel_import
+    respond_to do |format|
+      result = ProjectSeasonApplyChild.read_excel(params[:apply_child_excel_id], @project_apply)
+      if result[:status]
+        format.html {redirect_to referer_or(admin_pair_apply_pair_students_path(@project_apply)), notice: '导入成功'}
+      else
+        flash.now[:alert] = result[:message]
+        format.html {render :excel_upload}
+      end
+    end
+  end
+
   private
   def set_project_apply
     @project_apply = ProjectSeasonApply.find(params[:pair_apply_id])

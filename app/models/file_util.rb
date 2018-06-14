@@ -107,4 +107,61 @@ class FileUtil
       end
     end
 
+
+    def self.import_pair_students(original_filename: nil, path: nil, project_apply: nil)
+      s = nil
+      if File.extname(original_filename) == '.xlsx' || File.extname(original_filename) == '.xls'
+        s = Roo::Excelx.new path
+      else
+        return
+      end
+      child_ids = []
+      2.upto(s.last_row) do |line|
+
+        index = s.formatted_value(line, 'A')
+        name = s.formatted_value(line, 'B')
+        id_card = s.cell(line, 'C')
+        nation = s.formatted_value(line, 'D')
+        level = s.formatted_value(line, 'E')
+        grade = s.formatted_value(line, 'F')
+        semester = s.formatted_value(line, 'G')
+        teacher_name = s.formatted_value(line, 'H')
+        teacher_phone = s.formatted_value(line, 'I')
+        description = s.formatted_value(line, 'J')
+        father = s.formatted_value(line, 'K')
+        father_job = s.formatted_value(line, 'L')
+        mother = s.formatted_value(line, 'M')
+        mother_job = s.formatted_value(line, 'N')
+        parent_information = s.formatted_value(line, 'O')
+        guardian = s.formatted_value(line, 'P')
+        guardian_relation = s.formatted_value(line, 'Q')
+        guardian_phone = s.formatted_value(line, 'R')
+        address = s.formatted_value(line, 'S')
+        family_income = s.formatted_value(line, 'T')
+        income_source = s.formatted_value(line, 'U')
+        family_expenditure = s.formatted_value(line, 'V')
+        expenditure_information = s.formatted_value(line, 'W')
+        debt_information = s.formatted_value(line, 'X')
+        family_condition = s.formatted_value(line, 'Y')
+        reason = s.formatted_value(line, 'Z')
+
+        _nation = nation.split('-').second.to_i
+        _level = level.split('-').second.to_i
+        _grade = grade.split('-').second.to_i
+        _semester = semester.split('-').second.to_i
+
+        child = ProjectSeasonApplyChild.new(project: Project.pair_project, season: project_apply.season, apply: project_apply, school: project_apply.school,name: name, id_card: id_card, nation: _nation, level: _level, grade: _grade, semester: _semester, teacher_name: teacher_name, teacher_phone: teacher_phone, description: description, father: father, father_job: father_job, mother: mother, mother_job: mother_job, parent_information: parent_information, guardian: guardian, guardian_relation: guardian_relation, guardian_phone: guardian_phone, address: address, family_income: family_income, income_source: income_source, family_expenditure: family_expenditure, expenditure_information: expenditure_information, debt_information: debt_information, family_condition: family_condition, reason: reason, province: project_apply.province, city: project_apply.city, district: project_apply.district)
+        if ProjectSeasonApplyChild.allow_apply?(project_apply.school, child.id_card)
+          child.approve_pass
+          child_ids.push(child.id)
+        else
+          ProjectSeasonApplyChild.where(id: child_ids).destroy_all
+          return {status: false, message: "导入失败：名单第#{line}行，该学生已申请过本批次"}
+        end
+
+      end
+
+      return {status: true, message: "导入成功"}
+    end
+
 end

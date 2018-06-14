@@ -16,6 +16,10 @@ namespace :maintain do
       source.update(in_total: IncomeRecord.can_count.where(income_source: source).sum(:amount), out_total: ExpenditureRecord.can_count.where(income_source: source).sum(:amount))
     end
 
+    Project.sorted.each do |project|
+      project.update(total_amount: DonateRecord.where(project: project).sum(:amount))
+    end
+
     # Fund.sorted.each do |fund|
     #   fund.update(total: IncomeRecord.where(donor_id: 1).where(fund: fund).sum(:amount), out_total: ExpenditureRecord.can_count.where(fund: fund).sum(:amount))
     # end
