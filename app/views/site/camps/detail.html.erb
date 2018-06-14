@@ -79,6 +79,9 @@
               <% end %>
               </tbody>
             </table>
+            <% if @apply.abstract.present? %>
+            <p>备注：<%= @apply.abstract %></p>
+            <% end %>
           </div>
       <% else %>
           <div class="not-available contentab pull-left">

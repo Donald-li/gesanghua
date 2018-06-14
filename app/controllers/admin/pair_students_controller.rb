@@ -4,7 +4,7 @@ class Admin::PairStudentsController < Admin::BaseController
   before_action :set_apply_child, only: [:show, :edit, :update, :destroy, :check]
 
   def index
-    @search = @project_apply.children.where(school: @project_apply.school).check_list.sorted.ransack(params[:q])
+    @search = @project_apply.children.where(school: @project_apply.school).check_list.includes(:gsh_child_grants).sorted.ransack(params[:q])
     scope = @search.result
     @children = scope.page(params[:page])
     respond_to do |format|
