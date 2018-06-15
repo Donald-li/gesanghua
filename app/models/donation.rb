@@ -345,6 +345,7 @@ class Donation < ApplicationRecord
        product_code: product_code,
        total_amount: Settings.pay_1_mode ? '0.01' : sprintf('%.2f', self.amount.to_f),
        subject: '捐助给格桑花',
+       payment_type: 4,
        quit_url: quit_url
       }.to_json
     )
