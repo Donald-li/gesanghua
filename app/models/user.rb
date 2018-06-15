@@ -409,7 +409,7 @@ class User < ApplicationRecord
   # 合并账号
   def self.combine_user(phone, wechat_user)
     phone_users= User.where(phone: phone)
-    return unless phone_user
+    return if phone_users.count == 0
     self.transaction do
       phone_users.each do |phone_user|
         #所有业务表改为手机用户
