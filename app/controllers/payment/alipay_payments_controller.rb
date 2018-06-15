@@ -23,11 +23,14 @@ class Payment::AlipayPaymentsController < Payment::BaseController
     logger.info resp.inspect
     result_status = JSON.parse(resp)["alipay_trade_query_response"]["trade_status"]
 
-    if result_status == 'TRADE_SUCCESS'
+    # PC and 手机版
+    if result_status == 'TRADE_SUCCESS' || result_status == 'TRADE_FINISHED'
       succ, message = Donation.alipay_payment_success(params)
+      render :plain => 'success'
+    else
+      render :plain => ''
     end
 
-    render :plain => 'success'
   end
 
   def success
