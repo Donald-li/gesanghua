@@ -1,0 +1,50 @@
+
+<div class="portlet light portlet-fit bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="fa fa-sliders font-dark"></i>
+      <span class="caption-subject font-dark bold uppercase">报告详情</span>
+    </div>
+    <div class="actions">
+      <div class="btn-group">
+        <a href="<%= admin_bank_reports_path %>" class="btn btn-xs blue">
+          <i class="fa fa-reply"></i>返回
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="table-scrollable">
+      <table class="table table-bordered table-hover">
+        <tbody>
+        <tr>
+          <th>
+            报告名称
+          </th>
+          <th>
+            <%= @bank_report.title %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            内容
+          </th>
+          <th>
+            <%= @bank_report.content.html_safe %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            附件
+          </th>
+          <th>
+            <% @bank_report.report_files.each do |file| %>
+              <i class="fa fa-download"></i><%= link_to file.file_name, file_download_admin_bank_report_path(file_id: file.id) %><br/>
+            <% end %>
+          </th>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

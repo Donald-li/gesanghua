@@ -161,7 +161,7 @@
                 </td>
                 <td>
                   <% if grant.pending? %>
-                      <%= link_to '###', 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                      <%= link_to share_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                           <i class="fa fa-eye"></i> 去TA的分享
                       <% end %>
                   <% else %>

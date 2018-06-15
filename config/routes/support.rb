@@ -19,14 +19,13 @@ scope module: :support do
       get :flower_seasons
       get :applies
       get :majors
-      get :camp_funds
       get :camps
       get :camp_users
       get :child_grants
       get :team_manager
       get :county_user
       get :volunteer_user
-      get :priority_users
+      get :all_users
     end
   end
   resources :ajaxes, only: [] do
@@ -51,6 +50,7 @@ scope module: :support do
       post :dismiss_team
       post :turn_team
       get :get_child_priority
+      post :set_shelf_name
     end
   end
 end

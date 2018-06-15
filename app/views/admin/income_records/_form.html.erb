@@ -18,7 +18,7 @@
       </div>
     </div>
     <%= f.input :income_source_id, as: :select, collection: IncomeSource.sorted, label: '入账账户：', include_blank: '选择账户', required: true%>
-    <%= f.input :amount, label: '收入金额：', require: true, type: 'number', input_html: {'data-parsley-min': 0.01} %>
+    <%= f.input :amount, label: '收入金额：', require: true, type: 'number', input_html: {}, disabled: !@income_record.new_record? %>
     <%= f.input :agent_id, as: :select, collection: User.sorted, label: '捐助人：', input_html: {class: 'users-ajax'}, required: true %>
     <div class="form-group">
       <label class="col-md-2 control-label">捐助时间：</label>
@@ -52,7 +52,7 @@
             placeholder: '',
             allowClear: true,
             ajax: {
-                url: "/selects/users",
+                url: "/selects/all_users",
                 dataType: 'json',
                 delay: 250,
                 data: function (params) {

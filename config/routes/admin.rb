@@ -41,6 +41,7 @@ namespace :admin do
   resources :school_applies, concerns: :check
   resources :audit_reports, concerns: [:switch, :file_download]
   resources :financial_reports, concerns: [:switch, :file_download]
+  resources :bank_reports, concerns: [:switch, :file_download]
   resources :funds, concerns: [:switch, :move] do
     resource :fund_adjust_amount, only: [:new, :create, :show]
   end
@@ -115,7 +116,7 @@ namespace :admin do
   resources :pair_seasons, concerns: [:switch]
   resources :pair_donate_records, only: [:index, :show]
   resources :pair_applies do
-    resources :pair_students, concerns: [:check] do
+    resources :pair_students, concerns: [:check, :excel_upload, :excel_import] do
       member do
         patch :update_audit
       end
@@ -126,7 +127,11 @@ namespace :admin do
     resources :pair_exception_records
   end
   resources :pair_continual_feedbacks, concerns: [:recommend]
-  resources :pair_thank_notes
+  resources :pair_thank_notes do
+    collection do
+      get :qrcode_download
+    end
+  end
   resources :home_visits, only: [:index, :show]
   resources :pair_student_lists, concerns: [:switch, :share, :qrcode_download] do
     member do
@@ -167,6 +172,8 @@ namespace :admin do
       patch :update_delay
       patch :update_cancel
       patch :update_feedback
+      get :share
+      get :qrcode_download
     end
     collection do
       post :create_feedback
@@ -198,13 +205,13 @@ namespace :admin do
   resources :camp_continual_feedbacks, concerns: [:recommend]
   resources :camp_project_reports, concerns: [:switch]
 
-  resources :project_season_apply_camp_students, concerns: [:check]
-  resources :project_season_apply_camp_teachers, concerns: [:check]
+  resources :project_season_apply_camp_students, concerns: [:check, :excel_upload, :excel_import]
+  resources :project_season_apply_camp_teachers, concerns: [:check, :excel_upload, :excel_import]
 
   resources :camp_document_estimates # 拓展营概算
   resources :camp_document_budges # 拓展营预算
   resources :camp_document_finances # 拓展营决算
-  resources :camp_document_volunteers # 拓展营志愿者
+  resources :camp_document_volunteers, concerns: [:excel_upload, :excel_import] # 拓展营志愿者
   resources :camp_document_summaries # 拓展营总结
 
   resources :camp_project_resources # 拓展营资源
@@ -259,18 +266,10 @@ namespace :admin do
       end
     end
   end
-  resources :income_records, concerns: [:excel_upload, :excel_import] do
-    collection do
-      get :template_download
-    end
-  end
+  resources :income_records, concerns: [:excel_upload, :excel_import, :template_download]
 
   resources :expenditure_ledgers, concerns: [:move]
-  resources :expenditure_records, concerns: [:excel_upload, :excel_import] do
-    collection do
-      get :template_download
-    end
-  end
+  resources :expenditure_records, concerns: [:excel_upload, :excel_import, :template_download]
   resources :expenditure_uploads, only: [:new, :create]
   resource :data_statistic, only: [:show]
   resource :donate_statistic, only: [:show], concerns: [:excel_output]

@@ -135,7 +135,7 @@
 
   </div>
   <% if @articles.present? %>
-      <%= link_to articles_path do %>
+      <%= link_to articles_path(category_id: ArticleCategory.first.id) do %>
           <button class="button button--ujarak button--border-thin button--text-thick bul-buton cur ">
             </span>更多资讯</span>
           </button>

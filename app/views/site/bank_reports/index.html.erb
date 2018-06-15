@@ -1,0 +1,34 @@
+<div class="disclosures">
+  <p class="disclosures-tit">财务公开</p>
+  <div class="donations-1 ">
+    <ul class="donations1 clearfix">
+      <li class="cur "><%= link_to '财务报告', disclosures_path %>
+        <div class=""></div>
+      </li>
+      <li class="cur">
+        <%= link_to '审计报告', audit_reports_path %>
+      </li>
+      <li class="cur selectedDo">
+        银行对账单
+        <div class="bottomline"></div>
+      </li>
+    </ul>
+  </div>
+  <p class="disclosures-t">财务公开系统仅为流水账，其统计功能尚不健全，如有偏差以原始凭证为准</p>
+  <div>
+    <ul class="disclosures-cont">
+      <%= render '/site/bank_reports/list', reports: @bank_reports %>
+    </ul>
+  </div>
+</div>
+<style scoped>
+  .disclosures .donations1 > li{
+    width: 33.33%;
+  }
+  .disclosures .bottomline{
+    left:41px;
+  }
+</style>
+<script>
+    $('.disclosures-cont li').eq(0).removeClass('border-t')
+</script>

@@ -11,7 +11,7 @@ wb.add_worksheet(name: "学生名单") do |sheet|
                       child.name,
                       child.school.try(:name),
                       child.enum_name(:level).to_s + child.enum_name(:grade).to_s,
-                      child.semesters.map {|grant| grant.title + "(#{grant.amount}元)" + (grant.user.try(:name).present? ? "捐助人：#{grant.user.try(:name)}（#{grant.user.try(:phone)}）" : '')}.join(';'),
+                      child.semesters.map {|grant| grant.title + "(#{grant.amount}元)" + (grant.user.try(:name).present? ? "捐助人：#{grant.user.try(:name)}（#{grant.user.try(:phone)；#{grant.user.try(:email)；#{grant.user.try(:full_address)}）" : '')}.join(';'),
                       child.gift_progress,
                       child.remark]
   end

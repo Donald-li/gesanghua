@@ -39,13 +39,13 @@ class ExpenditureRecord < ApplicationRecord
   # default_value_for :deliver_state, 1
   # enum kind: {}
   # counter_culture :expenditure_ledger, column_name: 'amount', delta_magnitude: proc {|model| model.amount }
-  counter_culture :fund, column_name: 'out_total', delta_magnitude: proc {|model|model.expended_at > Time.mktime(2018,6,1) ? model.amount : 0  }
-  counter_culture :income_source, column_name: 'out_total', delta_magnitude: proc {|model| model.expended_at > Time.mktime(2018,6,1) ? model.amount : 0}
+  counter_culture :fund, column_name: 'out_total', delta_magnitude: proc {|model|model.expended_at >= Time.mktime(2018,6,1) ? model.amount : 0  }
+  counter_culture :income_source, column_name: 'out_total', delta_magnitude: proc {|model| model.expended_at >= Time.mktime(2018,6,1) ? model.amount : 0}
 
   before_create :gen_expend_no
 
   scope :sorted, ->{ order(created_at: :desc) }
-  scope :can_count, ->{where("expended_at > ?", Time.mktime(2018,6,1))}
+  scope :can_count, ->{where("expended_at >= ?", Time.mktime(2018,6,1))}
 
   def self.download_path
     "/excel/expenditure/支出记录导入模板文件.xlsx"
@@ -90,7 +90,7 @@ class ExpenditureRecord < ApplicationRecord
   end
 
   def self.gen_expenditure_finance_statistic_record(finance_records)
-    group_records = finance_records.where("expended_at > ?", Time.mktime(2018,6,1)).group_by {|record| record.expended_at.strftime("%Y-%m-%d")}
+    group_records = finance_records.where("expended_at >= ?", Time.mktime(2018,6,1)).group_by {|record| record.expended_at.strftime("%Y-%m-%d")}
     group_records.each do |record_time, records|
       # 按照财务分类统计
       records.group_by(&:fund_id).each do |fund_id, fund_records|

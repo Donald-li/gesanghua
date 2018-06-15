@@ -24,7 +24,7 @@ class Support::SelectsController < Support::BaseController
     render json: {items: users.as_json(only: [:id], methods: :name_for_select)}
   end
 
-  def priority_users
+  def all_users
     scope = User.sorted.where("name like :q", q: "%#{params[:q]}%")
     users = scope.page(params[:page])
     render json: {items: users.as_json(only: [:id], methods: :name_for_select)}
@@ -96,11 +96,6 @@ class Support::SelectsController < Support::BaseController
     scope = Major.sorted.where("name like :q", q: "%#{params[:q]}%")
     applies = scope.page(params[:page])
     render json: {items: applies.as_json(only: [:id, :name])}
-  end
-
-  def camp_funds
-    funds = Project.camp_project.fund.fund_category.funds.offset(1).sorted.where("name like :q", q: "%#{params[:q]}%")
-    render json: {items: funds.as_json(only: [:id, :name])}
   end
 
   def camps

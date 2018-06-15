@@ -103,10 +103,11 @@
                   <%= link_to '', 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-edit"></i> 审核操作
                   <% end %> -->
+                  <%= link_to edit_admin_goods_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                      <i class="fa fa-edit"></i> 修改
+                  <% end %>
                   <% if apply.apply? %>
-                    <%= link_to edit_admin_goods_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                        <i class="fa fa-edit"></i> 修改
-                    <% end %>
+
                     <%= link_to admin_goods_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                       <i class="fa fa-gavel"></i> 审核
                     <% end %>

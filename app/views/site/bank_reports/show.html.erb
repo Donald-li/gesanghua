@@ -1,0 +1,16 @@
+<div class="disclosures">
+  <p class="disclosures-tit" style="margin: 0"><%= @bank_report.title %></p>
+
+    <div class="disclosures-s">
+      <p class="disclosures-n" style="text-align: center;"><%= @bank_report.user.show_name %> |  <%= @bank_report.created_at.strftime("%Y年%m月%d日")%></p>
+    </div>
+  <div class="disclosures-show">
+    <%= @bank_report.content.html_safe %>
+  </div>
+  <div style="text-align: center">
+    <% @bank_report.report_files.each do |file| %>
+        <i class="fa fa-download"></i><%= link_to file.file_name, file_download_bank_report_path(file_id: file.id) %><br/>
+    <% end %>
+  </div>
+
+</div>

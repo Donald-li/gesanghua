@@ -68,7 +68,6 @@
               </tr>
               </thead>
               <tbody>
-
               <% @apply.inventories.sorted.each do |invent| %>
                   <tr>
                     <th><%= invent.name %></th>
@@ -79,6 +78,9 @@
               <% end %>
               </tbody>
             </table>
+            <% if @apply.abstract.present? %>
+            <p>备注：<%= @apply.abstract %></p>
+            <% end %>
           </div>
       <% else %>
           <div class="not-available contentab pull-left">
@@ -202,7 +204,7 @@
     $('#share-2').share({
       sites: ['qzone', 'wechat', 'weibo', 'qq'],
       title: '<%= @apply.name %>',
-      url: 'http://<%= Settings.root_url %>/camps/<%= @apply.id %>/detail?m=<%= current_user.id %>',
+      url: 'http://<%= Settings.root_url %>/camps/<%= @apply.id %>/detail?m=<%= current_user.try(:id) %>',
       description: '<%= @apply.name %>',
       image: 'http://<%= Settings.app_host%><%= @apply.cover_image_url(:tiny) %>'
     });

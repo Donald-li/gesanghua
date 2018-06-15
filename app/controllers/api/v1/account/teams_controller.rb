@@ -85,7 +85,7 @@ class Api::V1::Account::TeamsController < Api::V1::BaseController
   end
 
   def donate_records
-    records = DonateRecord.where(user_id: @team.users.pluck(:id)).sorted.page(params[:page]).per(params[:per])
+    records = DonateRecord.normal.where(user_id: @team.users.pluck(:id)).sorted.page(params[:page]).per(params[:per])
     api_success(data: {records: records.map{|record| record.detail_builder}, pagination: json_pagination(records)})
   end
 

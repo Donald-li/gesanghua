@@ -56,6 +56,10 @@ class Donation < ApplicationRecord
     self.agent_id == self.donor_id ? '无' : self.agent.try(:show_name)
   end
 
+  def can_name_shelf?
+    self.owner_type == 'ProjectSeasonApplyBookshelf' && self.owner.target_amount == self.amount && self.owner.title.nil?
+  end
+
   # 返回微信支付js
   def wechat_prepay_js(remote_ip)
     prepay_id = get_wechat_prepay_id(remote_ip)

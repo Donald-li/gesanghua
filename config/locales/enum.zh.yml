@@ -196,6 +196,9 @@ zh:
     one: '一年级'
     two: '二年级'
     three: '三年级'
+    four: '四年级'
+    five: '五年级'
+    six: '六年级'
   project_season_apply_child_levels:
     primary: '小学'
     junior: '初中'

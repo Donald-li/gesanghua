@@ -52,3 +52,7 @@ end
 concern :detail do
   member { get :detail }
 end
+
+concern :template_download do
+  collection { get :template_download }
+end

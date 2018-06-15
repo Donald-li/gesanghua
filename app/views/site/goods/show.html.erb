@@ -51,11 +51,6 @@
                 <span class="pull-right cur" onclick="showHideCode(<%= report.id %>)"><span class="iconfont icon-arrowdown"></span>查看详情</span>
               </div>
               <div class="detail-body-title clearfix">
-                <% if report.user.avatar.present? %>
-                  <%= image_tag report.user.avatar_url(:tiny) %>
-                <% else %>
-                  <%= image_tag '' %>
-                <% end %>
                 <span class="pull-left"><%= report.user.show_name %> ·</span>
                 <span class="pull-left"><%= report.published_at.strftime("%Y-%m-%d")%>由发布</span>
               </div>
@@ -130,7 +125,7 @@
      $('#share-2').share({
        sites: ['qzone', 'wechat', 'weibo', 'qq'],
        title: '<%= @project.name %>',
-       url: 'http://<%= Settings.root_url %>/goods/<%= @apply.id %>/detail?m=<%= current_user.id %>',
+       url: 'http://<%= Settings.root_url %>/goods/<%= @project.id %>?m=<%= current_user.try(:id) %>',
        description: '<%= @project.name %>',
        image: 'http://<%= Settings.app_host%><%= @project.image_url(:tiny) %>'
      });

@@ -378,6 +378,27 @@ select:disabled {
   font-size: 16px;
 }
 
+.class-button-2 {
+  width: 180px;
+  height: 40px;
+  text-align: center;
+  border-radius: 20px;
+  background-color: #f5f5f5;
+  color: #3d3d40;
+  font-size: 16px;
+  border: 1px solid $border;
+  margin-right: 20px;
+  a{
+    color: #3d3d40;
+  }
+}
+
+.class-button-2:hover {
+  background-color: $hover-deta-sub;
+}
+
+
+
 .class-button:hover {
   background: $hover-button;
 }

@@ -377,7 +377,7 @@ class ProjectSeasonApply < ApplicationRecord
   def detail_builder
     Jbuilder.new do |json|
       json.merge! summary_builder
-      json.(self, :number, :describe, :target_amount, :present_amount, :class_number, :student_number, :inventory_state)
+      json.(self, :number, :describe, :target_amount, :present_amount, :class_number, :student_number, :inventory_state, :abstract)
       json.name self.apply_name
       json.school_name self.school.try(:name)
       json.season_name self.season.try(:name)

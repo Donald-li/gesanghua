@@ -4,7 +4,7 @@ class Admin::PairStudentsController < Admin::BaseController
   before_action :set_apply_child, only: [:show, :edit, :update, :destroy, :check]
 
   def index
-    @search = @project_apply.children.where(school: @project_apply.school).check_list.sorted.ransack(params[:q])
+    @search = @project_apply.children.where(school: @project_apply.school).check_list.includes(:gsh_child_grants).sorted.ransack(params[:q])
     scope = @search.result
     @children = scope.page(params[:page])
     respond_to do |format|
@@ -153,6 +153,21 @@ class Admin::PairStudentsController < Admin::BaseController
         format.js
       else
         format.html {render :edit}
+      end
+    end
+  end
+
+  def excel_upload
+  end
+
+  def excel_import
+    respond_to do |format|
+      result = ProjectSeasonApplyChild.read_excel(params[:apply_child_excel_id], @project_apply)
+      if result[:status]
+        format.html {redirect_to referer_or(admin_pair_apply_pair_students_path(@project_apply)), notice: '导入成功'}
+      else
+        flash.now[:alert] = result[:message]
+        format.html {render :excel_upload}
       end
     end
   end

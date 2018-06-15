@@ -82,6 +82,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   has_one_asset :yard_image, class_name: 'Asset::ApplyChildYardImage'
   has_one_asset :apply_one, class_name: 'Asset::ApplyChildApplyImage'
   has_one_asset :apply_two, class_name: 'Asset::ApplyChildApplyAnotherImage'
+  has_one_asset :apply_child_excel, class_name: 'Asset::ApplyChildExcel'
 
   belongs_to :project
   belongs_to :season, class_name: 'ProjectSeason', foreign_key: 'project_season_id'
@@ -128,7 +129,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   enum kind: {outside: 1, inside: 2} # 捐助形式：1:对外捐助 2:内部认捐
   default_value_for :kind, 1
 
-  enum grade: {one: 1, two: 2, three: 3} # 年级：1:一年级 2:二年级, 3:三年级
+  enum grade: {one: 1, two: 2, three: 3, four: 4, five: 5, six: 6} # 年级：1:一年级 2:二年级, 3:三年级
   default_value_for :grade, 1
 
   enum semester: {last_term: 1, next_term: 2} # 学期： 1:上学期 2:下学期
@@ -167,6 +168,15 @@ class ProjectSeasonApplyChild < ApplicationRecord
       end
     end
     return count
+  end
+
+  def self.read_excel(excel_id, project_apply)
+    file = Asset.find(excel_id).try(:file).try(:file)
+    FileUtil.import_pair_students(original_filename: file.original_filename, path: file.path, project_apply: project_apply) if file.present?
+  end
+
+  def self.excel_template
+    '/excel/templates/孩子名单导入模板.xlsx'
   end
 
   # 得到可捐助子项
@@ -327,7 +337,8 @@ class ProjectSeasonApplyChild < ApplicationRecord
   def self.batch_push_notice
     ProjectSeasonApplyChild.hidden.sorted.each do |child|
       user_id = child.priority_id
-      if child.semesters.pending.count > 0 && user_id.present?
+      pending_grants =  child.semesters.pending
+      if pending_grants.count > 0 && pending_grants.first.start_with?(Time.now.year) && user_id.present?
         Notification.create(
             kind: 'continue_donate',
             owner: child,
@@ -357,7 +368,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   # 是否被用户认捐？
   def donate_by_user?(user)
     return false unless user
-    donate_grants_by_user(user).exists?
+    self.priority_user == user || user.offline_users.pluck(:id).include?(self.priority_id) || donate_grants_by_user(user).exists?
   end
 
   # 用户捐助的学期
@@ -377,11 +388,19 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   def summary_builder(user=nil)
     Jbuilder.new do |json|
-      json.(self, :id)
+      json.(self, :id, :father, :father_job, :mother, :mother_job, :guardian, :guardian_relation, :guardian_phone, :income_source, :family_income, :family_condition)
+      json.room_image self.room_image_url(:medium)
+      json.yard_image self.yard_image_url(:medium)
       json.name donate_by_user?(user) ? self.name : self.secure_name
       json.avatar donate_by_user?(user) ? self.avatar_url(:tiny) : nil
+      json.donate_by_user donate_by_user?(user)
+      json.description self.description
       json.age self.age
+      json.gender self.school.try(:gender)
+      json.school self.school.try(:name)
+      json.nation self.enum_name(:nation)
       json.level self.enum_name(:level)
+      json.grade self.enum_name(:grade)
       json.gsh_no self.gsh_no
       json.tuition self.get_tuition.to_i
       json.information self.formatted_information

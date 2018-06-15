@@ -4,7 +4,7 @@ class Admin::PairStudentListsController < Admin::BaseController
 
   def index
     params[:q] ||= {}
-    @search = ProjectSeasonApplyChild.pass.sorted.ransack(params[:q])
+    @search = ProjectSeasonApplyChild.includes(:project, :gsh_child_grants).pass.sorted.ransack(params[:q])
     scope = @search.result
     if donor_state = params[:donor_state_eq]
       scope = scope.where('done_semester_count = 0') if donor_state == 'raising'

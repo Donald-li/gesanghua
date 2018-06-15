@@ -22,10 +22,9 @@
             </div>
             <div class="form-group">
               <select placeholder="" class="form-control gsh-input-share" name="fix_time">
-                <option value="" <%='selected' if  !params[:fix_time].present? %>>全部</option>
                 <option value="day" <%= 'selected' if params[:fix_time] == 'day' %>>今天</option>
                 <option value="week" <%= 'selected' if params[:fix_time] == 'week' %>>本周</option>
-                <option value="month" <%= 'selected' if params[:fix_time] == 'month' %>>本月</option>
+                <option value="month" <%= 'selected' if params[:fix_time] == 'month' || !params[:fix_time].present? %>>本月</option>
                 <option value="year" <%= 'selected' if params[:fix_time] == 'year' %>>本年</option>
               </select>
             </div>

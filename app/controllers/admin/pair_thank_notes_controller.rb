@@ -54,7 +54,10 @@ class Admin::PairThankNotesController < Admin::BaseController
   end
 
   def recommend
+  end
 
+  def qrcode_download
+    send_file(File.join(Rails.root, 'public/uploads/qrcode/pair_feedback.png'), filename: "结对反馈-分享二维码")
   end
 
   private

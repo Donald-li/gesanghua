@@ -43,6 +43,7 @@ class ProjectSeasonApplyCampMember < ApplicationRecord
 
   include HasAsset
   has_one_asset :image, class_name: 'Asset::CampProtocolImage'
+  has_one_asset :apply_camp_excel, class_name: 'Asset::ApplyCampExcel'
 
   enum gender: {unknow: 0, male: 1, female: 2} #性别 1:男 2:女
   default_value_for :gender, 0
@@ -76,6 +77,19 @@ class ProjectSeasonApplyCampMember < ApplicationRecord
       return false if self.where.not(id: member.id).where(apply_camp: apply_camp, id_card: id_card).present?
       return true
     end
+  end
+
+  def self.read_excel(excel_id, apply_camp, kind)
+    file = Asset.find(excel_id).try(:file).try(:file)
+    FileUtil.import_camp_members(original_filename: file.original_filename, path: file.path, apply_camp: apply_camp, kind: kind) if file.present?
+  end
+
+  def self.excel_template
+    '/excel/templates/探索营名单导入模板.xlsx'
+  end
+
+  def self.teacher_excel_template
+    '/excel/templates/探索营老师导入模板.xlsx'
   end
 
   def count_age

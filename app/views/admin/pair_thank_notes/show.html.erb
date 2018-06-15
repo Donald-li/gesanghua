@@ -1,4 +1,3 @@
-
 <div class="portlet light portlet-fit bordered">
   <div class="portlet-title">
     <div class="caption">
@@ -25,22 +24,22 @@
             <%= @note.child.gsh_no %>
           </th>
         </tr>
-          <tr>
-            <th>
-              反馈学生
-            </th>
-            <th>
-              <%= @note.child.try(:name) %>
-            </th>
-          </tr>
-          <tr>
-            <th>
-              捐助人
-            </th>
-            <th>
-              <%= @note.grant.try(:donator).try(:name) %>
-            </th>
-          </tr>
+        <tr>
+          <th>
+            反馈学生
+          </th>
+          <th>
+            <%= @note.child.try(:name) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            捐助人
+          </th>
+          <th>
+            <%= @note.grant.try(:donator).try(:name) %>
+          </th>
+        </tr>
         <tr>
           <th>
             捐助学年
@@ -64,13 +63,76 @@
           <th>
             <%= @note.content.html_safe %> <br>
             <% @note.images.each do |image| %>
-              <%= image_tag image.try(:file).try(:url, :tiny) %>
+                <a data-magnify="gallery" href="<%= image_url image.try(:file).try(:url, nil).to_s %>">
+                  <%= image_tag image.try(:file).try(:url, :tiny) %>
+                </a>
             <% end %>
           </th>
         </tr>
         </tbody>
 
       </table>
+
+    </div>
+    <div class="portlet light bordered" id="basic-info">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="icon-share font-red-sunglo"></i>
+          <span class="caption-subject font-red-sunglo bold uppercase">分享链接</span>
+        </div>
+        <div class="actions">
+        </div>
+      </div>
+      <div class="portlet-body">
+        <div class="portlet-body form" id="special-form">
+          <div class="form-group">
+            <div class="input-group">
+              <input id="share_url" class="form-control" style="max-width: 100%;" value="<%= Settings.pair_feedback_url %>">
+              <span class="input-group-addon" onclick="copyShareUrl()" style="cursor: pointer">
+              <i class="fa fa-cut"></i> 点击复制链接
+            </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="icon-share font-red-sunglo"></i>
+          <span class="caption-subject font-red-sunglo bold uppercase">二维码</span>
+        </div>
+        <div class="actions">
+          <%= link_to qrcode_download_admin_pair_thank_notes_path, class: 'btn btn-default' do %>
+              <i class="fa fa-download"></i> 点击下载二维码
+          <% end %>
+        </div>
+      </div>
+      <div class="portlet-body">
+        <div class="portlet-body form" id="special-form">
+          <div class="form-group">
+            <div class="input-group">
+              <%= image_tag ContinualFeedback.qrcode_url %>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+
 </div>
+
+
+<script type="text/javascript" charset="utf-8">
+    $('[data-magnify]').magnify({
+        headToolbar: [
+            'close'
+        ],
+        initMaximized: true
+    });
+
+    function copyShareUrl() {
+        var url = document.getElementById("share_url");
+        url.select(); // 选择对象
+        document.execCommand("Copy"); // 执行浏览器复制命令
+        toastr.info('复制成功。', '', {"positionClass": "toast-top-center"})
+    }
+</script>
