@@ -20,7 +20,7 @@ class Account::UserCenter::BindsController < Account::BaseController
       User.combine_user(current_user.phone, user)
       set_current_user(user)
       flash[:notice] = '绑定成功'
-      redirect_to edit_account_user_center_bind_path
+      redirect_to edit_account_user_center_bind_path and return
     end
     current_user.attributes = { openid: unionid, gender: userinfo.result["sex"] }
     # 如果已经存在，不能更新，微信端支付使用的是openid
