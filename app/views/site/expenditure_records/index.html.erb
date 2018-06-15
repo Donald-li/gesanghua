@@ -52,7 +52,7 @@
         <tr>
           <td><%= expenditure_record.expend_no %></th>
           <td><%= expenditure_record.name %></td>
-          <td><%= expenditure_record.fund.try(:fund_category).try(:name) %> <%= expenditure_record.fund.try(:name) %></td>
+          <td><%= expenditure_record.fund.try(:fund_category).try(:name) %> - <%= expenditure_record.fund.try(:name) %></td>
           <td><%= expenditure_record.income_source.try(:name) %></td>
           <td><%= l expenditure_record.expended_at %></td>
           <td><%= number_to_currency(expenditure_record.amount) %></th>

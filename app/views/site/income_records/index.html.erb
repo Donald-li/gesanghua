@@ -53,7 +53,7 @@
         <tr>
           <td><%= income_record.income_no %></th>
           <td><%= income_record.title %></td>
-          <td><%= income_record.fund.try(:fund_category).try(:name) %> <%= income_record.fund.try(:name) %></td>
+          <td><%= income_record.fund.try(:fund_category).try(:name) %> - <%= income_record.fund.try(:name) %></td>
           <td><%= income_record.income_source.try(:name) %></td>
           <td><%= l income_record.income_time %></td>
           <td><%= number_to_currency(income_record.amount) %></th>
