@@ -13,12 +13,20 @@ class Site::BaseController < ApplicationController
       case path
       when /\/pairs\/(\d+)\/detail/
         new_url = "/m/pair/#{$1}"
+      when /\/pairs\/(\d+)/
+        new_url = "/m/project-description?name=pair"
       when /\/camps\/(\d+)\/detail/
         new_url = "/m/camps/#{$1}"
+      when /\/camps\/(\d+)/
+        new_url = "/m/project-description?name=camp"
       when /\/reads\/(\d+)\/detail/
         new_url = "/m/reads/apply/#{$1}"
+      when /\/reads\/(\d+)/
+        new_url = "/m/project-description?name=read"
       when /\/goods\/(\d+)\/detail/
         new_url = "/m/goods/#{$1}"
+      when /\/goods\/(\d+)/
+          new_url = "/m/project-description?name=#{$1}"
       when /\/campaigns\/(\d+)/
         new_url = "/m/campaign/#{$1}"
       else

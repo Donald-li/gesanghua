@@ -73,8 +73,10 @@
                 <%= link_to '底部', move_admin_income_source_path(source, to: :to_bottom), method: :put %>
               </td>
               <td>
+                <% if ![2, 3].include?(source.id) %>
                 <%= link_to edit_admin_income_source_path(source), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                   <i class="fa fa-edit"></i> 修改
+                <% end %>
                 <% end %>
                 <%#= link_to '跨账户调整', new_admin_income_source_source_adjust_amount_path(source), class: 'btn btn-xs yellow' %>
                 <%#= link_to admin_income_source_path(source), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>

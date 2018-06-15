@@ -34,7 +34,7 @@ class IncomeSource < ApplicationRecord
   scope :sorted, ->{ order(position: :asc) }
 
   def self.wechat_id
-    1
+    2
   end
 
   def self.alipay_id
