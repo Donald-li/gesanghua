@@ -40,6 +40,7 @@
 #  project_ids           :jsonb                                        # 可管理项目（项目管理员）
 #  notice_state          :boolean          default(FALSE)              # 用户是否有未查看的公告
 #  archive_data          :jsonb                                        # 归档旧数据
+#  actived_at            :datetime                                     # 激活时间
 #
 
 FactoryBot.define do

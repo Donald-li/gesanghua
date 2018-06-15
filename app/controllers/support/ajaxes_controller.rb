@@ -23,9 +23,9 @@ class Support::AjaxesController < Support::BaseController
       params[:start_time] = Time.now.beginning_of_year if params[:time_span] == 'year'
     end
     params[:start_time] = Time.now.beginning_of_month unless params[:start_time].present?
-    user_statistics = user_statistics.where("created_at >= ?", params[:start_time])
-    user_statistics = user_statistics.where("created_at <= ?", params[:end_time]) if params[:end_time].present?
-    user_statistics = user_statistics.select("count (*), date_trunc('day', created_at) as day").group("day").order("day asc")
+    user_statistics = user_statistics.where("actived_at >= ?", params[:start_time])
+    user_statistics = user_statistics.where("actived_at <= ?", params[:end_time]) if params[:end_time].present?
+    user_statistics = user_statistics.select("count (*), date_trunc('day', actived_at) as day").group("day").order("day asc")
 
     hash = user_statistics.map {|item| [item['day'].strftime("%Y-%m-%d"), item['count']]}.to_h
     render json: {keys: hash.keys, values: hash.values}

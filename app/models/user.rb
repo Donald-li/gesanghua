@@ -40,6 +40,7 @@
 #  project_ids           :jsonb                                        # 可管理项目（项目管理员）
 #  notice_state          :boolean          default(FALSE)              # 用户是否有未查看的公告
 #  archive_data          :jsonb                                        # 归档旧数据
+#  actived_at            :datetime                                     # 激活时间
 #
 
 # 用户
@@ -124,8 +125,7 @@ class User < ApplicationRecord
 
   enum phone_verify: {phone_unverified: 1, phone_verified: 2} # 手机认证 1:未认证 2:已认证
 
-  before_create :generate_auth_token
-
+  before_create :generate_auth_token, :set_actived_time
 
   counter_culture :team, column_name: proc {|model| model.team.present? ? 'member_count' : nil}
 
@@ -158,6 +158,12 @@ class User < ApplicationRecord
     loop do
       self.auth_token = SecureRandom.base64(64)
       break if !User.find_by(auth_token: auth_token)
+    end
+  end
+
+  def set_actived_time
+    if self.enable?
+      self.actived_at = Time.now
     end
   end
 
@@ -276,14 +282,14 @@ class User < ApplicationRecord
 
   def self.update_user_statistic_record
     time = Time.now
-    count = self.where("created_at >= ? and created_at <= ?", time.beginning_of_day, time.end_of_day).count
+    count = self.where("actived_at >= ? and actived_at <= ?", time.beginning_of_day, time.end_of_day).count
     record = StatisticRecord.find_or_create_by(kind: 1, record_time: time.beginning_of_day)
     record.update(amount: count)
   end
 
   # 更新全部用户注册统计记录
   def self.update_user_history_record
-    user_records = self.all.group_by {|user| user.created_at.strftime("%Y-%m-%d")}
+    user_records = self.all.group_by {|user| user.actived_at.strftime("%Y-%m-%d")}
     user_records.each do |time, users|
       created_time = Time.parse(time)
       record = StatisticRecord.find_or_create_by(kind: 1, record_time: created_time)
@@ -500,6 +506,7 @@ class User < ApplicationRecord
         User.combine_user(phone, wechat_user)
       else
         self.migrate_donate_record(self)
+        self.set_actived_time
         self.enable!
       end
       #通知代理人
