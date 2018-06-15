@@ -11,13 +11,16 @@ class Payment::AlipayPaymentsController < Payment::BaseController
       alipay_public_key: Settings.alipay_public_key
     )
 
+    logger.info request.request_parameters.inspect
     # client.verify?(request.request_parameters) 不好用，再去查一次订单状态
-    resp = @client.execute(
+    resp = client.execute(
       method: 'alipay.trade.query',
       biz_content: {
-        out_trade_no: params['outtrade_no']
+        out_trade_no: params['out_trade_no']
       }.to_json(ascii_only: true)
     )
+
+    logger.info resp.inspect
     result_status = JSON.parse(resp)["alipay_trade_query_response"]["trade_status"]
 
     if result_status == 'TRADE_SUCCESS'
