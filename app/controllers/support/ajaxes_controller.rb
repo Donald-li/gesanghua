@@ -16,14 +16,14 @@ class Support::AjaxesController < Support::BaseController
   end
 
   def user_statistics
-    params[:start_time] ||= Time.now.beginning_of_month
     user_statistics = User.all
     if params[:time_span].present?
       params[:start_time] = Time.now.beginning_of_week if params[:time_span] == 'week'
       params[:start_time] = Time.now.beginning_of_month if params[:time_span] == 'month'
       params[:start_time] = Time.now.beginning_of_year if params[:time_span] == 'year'
     end
-    user_statistics = user_statistics.where("created_at >= ?", params[:start_time]) if params[:start_time].present?
+    params[:start_time] = Time.now.beginning_of_month unless params[:start_time].present?
+    user_statistics = user_statistics.where("created_at >= ?", params[:start_time])
     user_statistics = user_statistics.where("created_at <= ?", params[:end_time]) if params[:end_time].present?
     user_statistics = user_statistics.select("count (*), date_trunc('day', created_at) as day").group("day").order("day asc")
 
@@ -32,14 +32,14 @@ class Support::AjaxesController < Support::BaseController
   end
 
   def income_statistics
-    params[:start_time] ||= Time.now.beginning_of_month
     income_statistics = IncomeRecord.all
     if params[:time_span].present?
       params[:start_time] = Time.now.beginning_of_week if params[:time_span] == 'week'
       params[:start_time] = Time.now.beginning_of_month if params[:time_span] == 'month'
       params[:start_time] = Time.now.beginning_of_year if params[:time_span] == 'year'
     end
-    income_statistics = income_statistics.where("income_time >= ?", params[:start_time]) if params[:start_time].present?
+    params[:start_time] = Time.now.beginning_of_month unless params[:start_time].present?
+    income_statistics = income_statistics.where("income_time >= ?", params[:start_time])
     income_statistics = income_statistics.where("income_time <= ?", params[:end_time]) if params[:end_time].present?
     income_statistics = income_statistics.select("sum (amount) as total, date_trunc('day', income_time) as day").group("day").order("day asc")
 
