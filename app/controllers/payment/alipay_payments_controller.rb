@@ -26,9 +26,11 @@ class Payment::AlipayPaymentsController < Payment::BaseController
     # PC and 手机版
     if result_status == 'TRADE_SUCCESS' || result_status == 'TRADE_FINISHED'
       succ, message = Donation.alipay_payment_success(params)
+      render :plain => 'success'
+    else
+      render :plain => ''
     end
 
-    render :plain => 'success'
   end
 
   def success
