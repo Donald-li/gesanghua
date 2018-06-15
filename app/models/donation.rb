@@ -312,7 +312,7 @@ class Donation < ApplicationRecord
   # 返回一个支付宝对象
   def get_alipay_client
     client = Alipay::Client.new(
-      url: 'https://openapi.alipaydev.com/gateway.do',
+      url: Settings.alipay_api,
       app_id: Settings.alipay_app_id,
       app_private_key: Settings.alipay_app_private_key,
       alipay_public_key: Settings.alipay_public_key
