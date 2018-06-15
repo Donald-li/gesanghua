@@ -17,6 +17,7 @@ class Account::UserCenter::BindsController < Account::BaseController
       # flash[:alert] = '该微信已经绑定其他账号'
       # redirect_to edit_account_user_center_bind_path and return
       user = User.find_by(openid: unionid)
+      phone = current_user.phone || user.phone
       User.combine_user(current_user.phone, user)
       set_current_user(user)
       flash[:notice] = '绑定成功'
