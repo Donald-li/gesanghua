@@ -198,7 +198,7 @@
       sites: ['qzone', 'wechat', 'weibo', 'qq'],
       title: '<%= @apply.name %>',
       description: '<%= @apply.name %>',
-      url: 'http://<%= Settings.root_url %>/goods/<%= @apply.id %>/detail?m=<%= current_user.try(:id) %>',
+      url: '<%= Settings.root_url %>goods/<%= @apply.id %>/detail?m=<%= current_user.try(:id) %>',
       image: 'http://<%= Settings.app_host%><%= @apply.cover_image_url(:tiny) %>'
     });
 </script>
