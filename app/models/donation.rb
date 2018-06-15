@@ -192,7 +192,7 @@ class Donation < ApplicationRecord
 
       owner = income_record
       title = '#支付成功# 感谢您的支持'
-      content = "感谢你的支持 捐助款已经收到，后续动态我们会持续通知"
+      content = "感谢你的支持！捐助款已经收到，后续动态我们会持续通知"
       notice = Notification.create(
         kind: 'donate',
         project_id: donation.project_id,
