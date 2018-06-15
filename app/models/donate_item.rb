@@ -15,7 +15,7 @@
 # 直接捐款到财务分类的可捐款项
 class DonateItem < ApplicationRecord
 
-  belongs_to :fund, optional: true
+  belongs_to :fund
   has_many :donate_records, dependent: :restrict_with_error
   has_many :amount_tabs, dependent: :destroy
   has_one :project

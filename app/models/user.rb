@@ -408,8 +408,9 @@ class User < ApplicationRecord
   # 微信绑定手机号之后，根据手机号合并user记录，绑定volunteer,teacher(headmaster),county_user角色（gsh_child有单独绑定途径）
   # 合并账号
   def self.combine_user(phone, wechat_user)
+    return unless phone.present?
     phone_users= User.where(phone: phone)
-    return unless phone_user
+    return if phone_users.count == 0
     self.transaction do
       phone_users.each do |phone_user|
         #所有业务表改为手机用户

@@ -22,7 +22,7 @@
           <div class="input-group pull-left">
             <span class="iconfont icon-ico-search pull-left"></span>
             <!-- <input type="text" class="form-input pull-left" placeholder="搜索单号、名称、汇款人、经办人、备注" /> -->
-            <%= f.text_field :expend_no_or_name_or_operator_or_remark_cont, class: 'form-input', placeholder: '搜索单号、名称、汇款人、经办人、备注' %>
+            <%= f.text_field :expend_no_or_name_or_operator_or_remark_or_income_source_name_or_fund_name_or_fund_fund_category_name_cont, class: 'form-input', placeholder: '搜索关键字' %>
           </div>
           <button type="submit" class="school-apply-share-share pull-left">搜索</button>
         <% end %>
@@ -52,7 +52,7 @@
         <tr>
           <td><%= expenditure_record.expend_no %></th>
           <td><%= expenditure_record.name %></td>
-          <td><%= expenditure_record.fund.try(:fund_category).try(:name) %> <%= expenditure_record.fund.try(:name) %></td>
+          <td><%= expenditure_record.fund.try(:fund_category).try(:name) %> - <%= expenditure_record.fund.try(:name) %></td>
           <td><%= expenditure_record.income_source.try(:name) %></td>
           <td><%= l expenditure_record.expended_at %></td>
           <td><%= number_to_currency(expenditure_record.amount) %></th>
