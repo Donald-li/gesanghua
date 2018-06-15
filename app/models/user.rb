@@ -296,7 +296,7 @@ class User < ApplicationRecord
 
   # 更新全部用户注册统计记录
   def self.update_user_history_record
-    user_records = self.all.group_by {|user| user.actived_at.strftime("%Y-%m-%d")}
+    user_records = self.where.not(actived_at: nil).group_by {|user| user.actived_at.strftime("%Y-%m-%d")}
     user_records.each do |time, users|
       created_time = Time.parse(time)
       record = StatisticRecord.find_or_create_by(kind: 1, record_time: created_time)
