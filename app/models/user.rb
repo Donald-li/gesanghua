@@ -125,7 +125,8 @@ class User < ApplicationRecord
 
   enum phone_verify: {phone_unverified: 1, phone_verified: 2} # 手机认证 1:未认证 2:已认证
 
-  before_create :generate_auth_token, :set_actived_time
+  before_create :generate_auth_token, :gen_actived_time
+  before_save :set_actived_time
 
   counter_culture :team, column_name: proc {|model| model.team.present? ? 'member_count' : nil}
 
@@ -162,6 +163,12 @@ class User < ApplicationRecord
   end
 
   def set_actived_time
+    if self.state_changed?(from: 'unactived', to: 'enable')
+      self.actived_at = Time.now
+    end
+  end
+
+  def gen_actived_time
     if self.enable?
       self.actived_at = Time.now
     end
@@ -506,7 +513,6 @@ class User < ApplicationRecord
         User.combine_user(phone, wechat_user)
       else
         self.migrate_donate_record(self)
-        self.set_actived_time
         self.enable!
       end
       #通知代理人
