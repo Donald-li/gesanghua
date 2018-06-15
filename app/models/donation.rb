@@ -130,6 +130,8 @@ class Donation < ApplicationRecord
   def income_fund
     if self.owner_type == 'CampaignEnlist'
       return self.owner.try(:campaign).try(:appoint_fund)
+    elsif self.owner_type == 'DonateItem'
+      return self.owner.try(:fund)
     end
     self.project.try(:fund)
   end
