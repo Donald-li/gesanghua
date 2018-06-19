@@ -120,6 +120,7 @@ class Feedback < ApplicationRecord
   end
 
   def self.qrcode_url
+    self.generate_qrcode unless File.exists?("public/uploads/qrcode/pair_feedback.png")
     "/uploads/qrcode/pair_feedback.png"
   end
 

@@ -99,17 +99,19 @@ class Support::SelectsController < Support::BaseController
   end
 
   def camps
-    camps = Camp.sorted.enable.where("name like :q", q: "%#{params[:q]}%")
+    camps = Camp.sorted.enable.where("name like :q", q: "%#{params[:q]}%").page(params[:page])
     render json: {items: camps.as_json(only: [:id, :name])}
   end
 
   def camp_users
-    camp_users = Camp.find(params[:camp_id]).users.sorted
+    scope = Camp.find(params[:camp_id]).users.sorted
+    camp_users = scope.page(params[:page])
     render json: {items: camp_users.as_json(only: [:id], methods: :name_for_select)}
   end
 
   def child_grants
-    child_grants = GshChildGrant.granted.joins(:apply_child).where("title like :q or project_season_apply_children.name like :q", q: "%#{params[:q]}%").sorted
+    scope = GshChildGrant.granted.joins(:apply_child).where("title like :q or project_season_apply_children.name like :q", q: "%#{params[:q]}%").sorted
+    child_grants = scope.page(params[:page])
     render json: {items: child_grants.as_json(only: [:id], methods: :search_title)}
   end
 
@@ -119,6 +121,7 @@ class Support::SelectsController < Support::BaseController
     else
       users = User.where(team_id: params[:team_id]) if params[:team_id].present?
     end
+    users = users.page(params[:page])
     render json: {items: users.as_json(only: [:id], methods: :name_for_select)}
   end
 
