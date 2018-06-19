@@ -119,7 +119,7 @@ class Project < ApplicationRecord
     donate_items = self.donate_item.amount_tabs.sorted.show if self.donate_item
     donate_items = donate_items.presence || Settings.amount_tabs
     if limit_amount
-      donate_items = donate_items.select{|i| i <= limit_amount}.push(limit_amount)
+      donate_items = donate_items.select{|i| i.amount <= limit_amount}.map(&:amount).push(limit_amount)
     end
     donate_items.sort.uniq.reverse[0,4].reverse
   end
