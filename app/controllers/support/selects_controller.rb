@@ -110,7 +110,7 @@ class Support::SelectsController < Support::BaseController
   end
 
   def child_grants
-    scope = GshChildGrant.granted.joins(:apply_child).where("title like :q or project_season_apply_children.name like :q", q: "%#{params[:q]}%").sorted
+    scope = GshChildGrant.granted.joins(:apply_child, :gsh_child).where("title like :q or project_season_apply_children.name like :q or gsh_children.gsh_no like :q or project_season_apply_children.id_card like :q", q: "%#{params[:q]}%").sorted
     child_grants = scope.page(params[:page])
     render json: {items: child_grants.as_json(only: [:id], methods: :search_title)}
   end
