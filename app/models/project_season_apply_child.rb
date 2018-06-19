@@ -264,6 +264,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   end
 
   def qrcode_url
+    self.generate_qrcode unless File.exists?("public/uploads/qrcode/#{self.gsh_no}.png")
     "/uploads/qrcode/#{self.gsh_no}.png"
   end
 
