@@ -47,6 +47,10 @@
                 </select>
               </div>
               <div class="form-group">
+                <%= f.label :income_source_id_eq, '账户' %>
+                <%= f.select :income_source_id_eq, IncomeSource.sorted.map{|source| [source.name, source.id]}, {include_blank: '全部'}, class: 'form-control gsh-input-share' %>
+              </div>
+              <div class="form-group">
                 <%= f.label '捐助时间' %>
                 <%= f.text_field :income_time_gteq, class: 'form-control datepicker gsh-input-share-l', placeholder: '开始时间' %>
                 <%= f.text_field :income_time_lteq, class: 'form-control datepicker gsh-input-share-r', placeholder: '结束时间' %>
