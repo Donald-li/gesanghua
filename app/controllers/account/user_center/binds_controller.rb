@@ -18,12 +18,9 @@ class Account::UserCenter::BindsController < Account::BaseController
       # redirect_to edit_account_user_center_bind_path and return
       user = User.find_by(openid: unionid)
       User.combine_user(current_user.phone, user)
-      set_current_user(user)
-      flash[:notice] = '绑定成功并与其他用户合并，请重新扫码登录'
-      callback_url = callback_wechats_url(host: Settings.app_host, port: 80)
-      @wechat_url = $wechat_open_client.qrcode_authorize_url(callback_url, "snsapi_login", "wechat")
-      reset_session
-      redirect_to @wechat_url and return
+      # set_current_user(user)
+      flash[:notice] = '绑定成功'
+      redirect_to account_login_path and return
     end
     current_user.attributes = { openid: unionid, gender: userinfo.result["sex"] }
     # 如果已经存在，不能更新，微信端支付使用的是openid
