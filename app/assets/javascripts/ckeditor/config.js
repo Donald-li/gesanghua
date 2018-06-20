@@ -65,9 +65,7 @@ CKEDITOR.editorConfig = function( config )
     { name: 'insert', items: [ 'Image'] }
   ];
 
-  config.toolbar = "image";
-
-  config.toolbar_simple = [
+  config.toolbar = [
       { name: 'styles', items: ['FontSize' ] },
       { name: 'insert', items: [ 'Image'] },
       { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike'] }
