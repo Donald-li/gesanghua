@@ -47,6 +47,9 @@
               发放状态
             </th>
             <th>
+              反馈次数
+            </th>
+            <th>
               操作
             </th>
           </tr>
@@ -71,6 +74,12 @@
               </td>
               <td>
                 <%= grant.enum_name(:state) %>
+              </td>
+              <td>
+                <% count = grant.thank_notes.count %>
+                <% if count > 0 %>
+                    <%= link_to "#{count}次", admin_pair_thank_notes_path(q: {child_id_eq: grant.apply_child.try(:id)}), class: 'btn btn-xs blue' %>
+                <% end %>
               </td>
               <td>
                 <% if grant.apply_child.hidden? && grant.pending? %>

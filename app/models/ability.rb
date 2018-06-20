@@ -14,6 +14,11 @@ class Ability
       user.has_role?([:superadmin, :admin])
     end
 
+    # 导出功能
+    can :manage_excel, User do |user|
+      user.has_role?([:superadmin, :admin, :project_manager])
+    end
+
     # 管理后台财务功能
     can :manage_financial, User do |user|
       user.has_role?([:superadmin, :financial_staff])

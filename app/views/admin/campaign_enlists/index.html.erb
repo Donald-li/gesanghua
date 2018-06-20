@@ -4,9 +4,11 @@
       <i class="icon-list"></i><%= link_to @campaign.name, admin_campaigns_path %> > 活动报名表
     </div>
     <div class="actions">
+      <% if can? :manage_excel, current_user  %>
       <%= link_to excel_output_admin_campaign_campaign_enlists_path(@campaign), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
         <i class="fa fa-download"></i>
       <span>导出</span>
+      <% end %>
       <% end %>
       <%= link_to new_admin_campaign_campaign_enlist_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
       <i class="icon-plus"></i>

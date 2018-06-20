@@ -8,9 +8,11 @@
           <i class="fa fa-cogs"></i>
           <span>批量操作</span>
       <% end %>
+      <% if can? :manage_excel, current_user  %>
       <%= link_to url_for(params.permit!.merge(format: :xlsx)), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
           <i class="fa fa-download"></i>
           <span>导出</span>
+      <% end %>
       <% end %>
     </div>
   </div>

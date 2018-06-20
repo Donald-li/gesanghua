@@ -4,9 +4,11 @@
       <i class="icon-list"></i>用户管理
     </div>
     <div class="actions">
+      <% if can? :manage_excel, current_user  %>
       <%= link_to url_for(params.permit!.merge(format: :xlsx)), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
           <i class="fa fa-download"></i>
           <span>导出</span>
+      <% end %>
       <% end %>
       <%= link_to new_admin_user_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
         <i class="icon-plus"></i>
