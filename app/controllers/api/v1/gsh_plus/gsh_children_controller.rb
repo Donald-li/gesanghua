@@ -1,18 +1,23 @@
 class Api::V1::GshPlus::GshChildrenController < Api::V1::BaseController
 
   def match_identity
-    gsh_child = GshChild.find_by(id_card: params[:child][:id_card])
+    gsh_child = nil
+    if params[:child][:id_card].present?
+      gsh_child =  GshChild.find_by(id_card: params[:child][:id_card])
+    elsif params[:child][:gsh_no].present? && params[:child][:name].present?
+      gsh_child = GshChild.find_by(gsh_no: params[:child][:gsh_no], name: params[:child][:name])
+    end
     if gsh_child.present?
-      api_success(message: '匹配成功', data: true)
+      api_success(message: '匹配成功', data: {result: true, child: gsh_child})
     else
-      api_success(message: '匹配失败，请检查提交信息', data: false)
+      api_success(message: '匹配失败，请检查提交信息', data: {result: false})
     end
   end
 
   def confirm_identity
-    gsh_child = GshChild.find_by(id_card: params[:id_card])
-    pair_records = gsh_child.project_season_apply_children.where(id_card: params[:id_card], project: Project.pair_project)
-    camp_records = ProjectSeasonApplyCampMember.pass.where(id_card: params[:id_card])
+    gsh_child = GshChild.find_by(id: params[:child_id])
+    pair_records = gsh_child.project_season_apply_children.where(id_card: gsh_child.id_card, project: Project.pair_project)
+    camp_records = ProjectSeasonApplyCampMember.pass.where(id_card: gsh_child.id_card)
     api_success(data: {pair_records: pair_records.map{|record| record.pair_record_builder}, camp_records: camp_records.map{|record| record.apply.try(:name)}, child_info: gsh_child.child_info_builder})
   end
 
