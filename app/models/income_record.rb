@@ -76,6 +76,10 @@ class IncomeRecord < ApplicationRecord
     self.balance > 0
   end
 
+  def can_not_edit?
+    self.online? #|| !self.new_record?
+  end
+
   # 微信入账记录
   def self.wechat_record(agent, amount)
     IncomeRecord.new(agent: agent, amount: amount, balance: amount, voucher_state: 'to_bill', income_source_id: 1, income_time: Time.now)

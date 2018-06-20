@@ -138,8 +138,10 @@
                   <%= link_to edit_admin_income_record_path(record), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-edit"></i> 修改
                   <% end %>
+                  <% if record.offline? %>
                   <%= link_to admin_income_record_path(record), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                       <i class="fa fa-trash-o"></i> 删除
+                  <% end %>
                   <% end %>
                 </td>
               </tr>
