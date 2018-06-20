@@ -33,6 +33,7 @@
 #  experience         :text                                   # 志愿者经历
 #  volunteer_age      :integer                                # 服务年限
 #  archive_data       :jsonb                                  # 归档旧数据
+#  remark             :text
 #
 
 # 志愿者

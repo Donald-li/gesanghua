@@ -22,6 +22,7 @@
           <%= f.input :major_ids, collection: Major.sorted.map{|c| [c.name,c.id]}, label: '专业：', input_html:{ multiple: 'multiple', id: "major_ids", data: {'parsley-required': true} }%>
           <%= f.input :job_state, as: :radio_buttons, wrapper: :inline_inputs, collection: Volunteer.options_for_select(:job_states), label: '工作状态：', include_blank: false, input_html: { data: {'parsley-required': true} } %>
           <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Volunteer.options_for_select(:states), label: '用户状态：', include_blank: false, input_html: { data: {'parsley-required': true} } %>
+          <%= f.input :remark, label: '备注：', input_html: { } %>
         </div>
         <div class="form-actions">
           <div class="row">

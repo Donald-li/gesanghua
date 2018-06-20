@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180615112316) do
+ActiveRecord::Schema.define(version: 20180620092203) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1391,6 +1391,7 @@ ActiveRecord::Schema.define(version: 20180615112316) do
     t.text "experience", comment: "志愿者经历"
     t.integer "volunteer_age", comment: "服务年限"
     t.jsonb "archive_data", comment: "归档旧数据"
+    t.text "remark"
   end
 
   create_table "voucher_donate_records", force: :cascade, comment: "捐赠收据捐助记录表" do |t|
