@@ -78,7 +78,7 @@ class DonateRecord < ApplicationRecord
   end
 
   def donor_name
-    self.donor || self.user.user_name
+    self.donor.try(:name) || self.user.try(:user_name)
   end
 
   def donate_no
@@ -89,6 +89,22 @@ class DonateRecord < ApplicationRecord
   def agent_name
     return '无' if self.agent.blank?
     self.agent_id == self.donor_id ? '无' : self.agent.try(:show_name)
+  end
+
+  def link_url
+    if self.owner_type == 'DonateItem'
+      "#{Settings.root_url}donates/new"
+    elsif self.owner_type == 'ProjectSeasonApply'
+      "#{Settings.root_url}goods/#{self.owner_id}/detail"
+    elsif self.owner_type == 'ProjectSeasonApplyChild'
+      "#{Settings.root_url}pairs/#{self.owner_id}/detail"
+    elsif self.owner_type == 'ProjectSeasonApplyBookshelf'
+      "#{Settings.root_url}reads/#{self.owner.try(:apply).try(:id)}/detail"
+    elsif self.owner_type == 'GshChildGrant'
+      "#{Settings.root_url}pairs/#{self.owner.try(:apply_child).try(:id)}/detail"
+    elsif self.owner_type == 'CampaignEnlist'
+      "#{Settings.root_url}campaigns/#{self.owner.campaign_id}"
+    end
   end
 
   # 平台配捐

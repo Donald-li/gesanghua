@@ -74,7 +74,7 @@
                 <%= record.id %>
               </td>
               <td>
-                <%= record.apply_name %>
+                <%= link_to record.apply_name, record.link_url, target: '_blank' %>
               </td>
               <td>
                 <%= record.donor.show_name if record.donor.present? %> ( <%= record.donor.phone if record.donor.present? %> )
