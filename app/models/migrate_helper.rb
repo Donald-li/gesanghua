@@ -36,7 +36,7 @@ class MigrateHelper
         path = File.join('/data', 'www', 'bak', self.FileName)
       else
         FileUtils.mkdir_p Rails.root.join('log', 'cache', 'photo')
-        path = Rails.root.join('log', 'cache', 'photo', "#{self.StudentId}.jpg")
+        path = Rails.root.join('log', 'cache', 'photo', "p_#{self.PhotoId}.jpg")
         File.open(path, 'wb'){|file| file.write self.Data} unless File.exist?(path)
         path
       end
@@ -458,6 +458,7 @@ class MigrateHelper
         next
       end
 
+      next if photo.FileName # 如果有FileName不用重新导入了
       file_path = photo.tmp_file
 
       if File.exist?(file_path)
