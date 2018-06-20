@@ -77,7 +77,7 @@ class IncomeRecord < ApplicationRecord
   end
 
   def can_not_edit?
-    self.online? #|| !self.new_record?
+    self.online? || !self.new_record?
   end
 
   # 微信入账记录

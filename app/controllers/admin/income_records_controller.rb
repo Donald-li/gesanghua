@@ -44,8 +44,6 @@ class Admin::IncomeRecordsController < Admin::BaseController
 
   def update
     respond_to do |format|
-      # TODO 暂时可以修改收入记录
-      @income_record.balance = income_record_params[:amount]
       if @income_record.update(income_record_params)
         format.html { redirect_to referer_or(admin_income_records_path), notice: '修改成功。' }
       else
