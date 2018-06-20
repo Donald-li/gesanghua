@@ -7,6 +7,22 @@ namespace :maintain do
     end
   end
 
+  task migrate_apply_child: [:environment] do
+    ProjectSeasonApplyChild.where.not(priority_id: nil).sorted.each do |child|
+      user_id = child.priority_id
+      pending_grants = child.semesters.pending
+      if pending_grants.count > 0
+        grant = pending_grants.order(id: :asc).first
+        if grant.title.start_with?('2018') && user_id.present?
+          new_user_id = grant.user_id
+          if user_id != new_user_id
+            child.update(priority_id: new_user_id)
+          end
+        end
+      end
+    end
+  end
+
   # 统计6月之后的收入支出到财务分类和账户
   task migrate_money: [:environment] do
     Fund.sorted.each do |fund|
