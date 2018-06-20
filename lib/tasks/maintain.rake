@@ -15,7 +15,7 @@ namespace :maintain do
         grant = pending_grants.order(id: :asc).first
         if grant.title.start_with?('2018') && user_id.present?
           new_user_id = grant.user_id
-          if user_id != new_user_id
+          if user_id != new_user_id && new_user_id.present?
             child.update(priority_id: new_user_id)
           end
         end
