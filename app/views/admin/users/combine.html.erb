@@ -1,0 +1,68 @@
+<div class="portlet light bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-note"></i>
+      <span class="caption-subject">合并用户</span>
+      <span class="caption-helper"></span>
+    </div>
+    <div class="actions">
+      <div class="portlet-input input-inline input-small">
+        <div class="input-icon right">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body form">
+    <%= simple_form_for [:admin, @user], url: set_combine_admin_user_path, method: :post, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'volunteer_form'} do |f| %>
+        <div class="form-body form-horizontal">
+          <%= static_form_control '当前用户昵称：', @user.nickname %>
+          <%= static_form_control '当前用户真实姓名：', @user.name %>
+          <%= f.input :new_user_id, as: :select, label: '合并到用户：', input_html: { class: 'user-select', data: {'parsley-required': true} }, hint: '合并后，当前用户会被禁用，相关数据将合并到目标用户' %>
+        </div>
+        <div class="form-actions">
+          <div class="row">
+            <div class="col-md-offset-2 col-md-9">
+              <%= f.button :submit, '提交', data: {confirm: '确认合并到目标用户吗？该操作不可恢复！！！'}, class: 'btn red' %>
+              <%= link_to '取消', admin_user_path(@user), class: 'btn' %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+
+    <script>
+        $(function(){
+            $(".user-select").select2({
+                language: "zh-CN",
+                placeholder: '请选择用户',
+                allowClear: true,
+                ajax: {
+                    url: "/selects/all_users",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            q: params.term, // search term
+                            page: params.page
+                        };
+                    },
+                    processResults: function (data, params) {
+                        params.page = params.page || 1;
+                        return {
+                            results: $.map(data.items, function (item) {
+                                return {
+                                    text: item.name_for_select,
+                                    id: item.id
+                                }
+                            }),
+                            pagination: {
+                                more: (params.page * 30) < data.total_count
+                            }
+                        };
+                    },
+                    cache: true
+                }
+            });
+        })
+    </script>
+  </div>
+</div>

@@ -14,6 +14,8 @@ namespace :admin do
     member do
       get :invoices
       post :bill
+      get :combine
+      post :set_combine
     end
     resources :donate_records, only: [:index, :destroy] do
       member do
@@ -339,4 +341,5 @@ namespace :admin do
   resources :movie_care_schools do
     resources :movie_care_feedbacks, concerns: [:recommend]
   end
+
 end

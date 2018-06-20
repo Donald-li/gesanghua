@@ -1,6 +1,6 @@
 class Admin::UsersController < Admin::BaseController
   before_action :auth_custom_service
-  before_action :set_user, only: [:edit, :update, :switch, :invoices, :bill]
+  before_action :set_user, only: [:edit, :update, :switch, :invoices, :bill, :combine, :set_combine]
 
   def index
     respond_to do |format|
@@ -87,6 +87,18 @@ class Admin::UsersController < Admin::BaseController
       end
     end
 
+  end
+
+  def combine
+  end
+
+  def set_combine
+    @new_user = User.find_by(id: user_params[:new_user_id])
+    if User.admin_combine_user(@user, @new_user)
+      redirect_to referer_or(admin_user_path(@user)), notice: '操作成功。'
+    else
+      redirect_to referer_or(admin_user_path(@user)), alert: '操作失败。'
+    end
   end
 
   private
