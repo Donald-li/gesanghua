@@ -16,8 +16,8 @@
     <%= simple_form_for [:admin, @amount_tab], url: admin_donate_item_donate_item_amount_tab_path(@donate_item), wrapper: :admin_form, html: {data: {'parsley-validate': true, class: 'amount_tab_form'}} do |f| %>
         <%= f.error_notification %>
         <div class="form-body form-horizontal">
-          <%= f.input :amount, label: '金额：', autofocus: true, id: 'amount', input_html: { data: {'parsley-min': 0, 'parsley-type': 'number'}} %>
-          <%= f.input :alias, label: '显示名：', autofocus: true, placeholder: '最多5个字', input_html: { data: {'parsley-maxlength': 5}} %>
+          <%= f.input :amount, label: '金额：', autofocus: true, id: 'amount', input_html: { data: {'parsley-min': 0.01, 'parsley-type': 'number'}} %>
+          <%= f.input :alias, label: '显示名：', autofocus: true, placeholder: '最多5个字', required: true, input_html: { data: {'parsley-maxlength': 5}} %>
           <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: AmountTab.options_for_select(:states), label: '状态：' %>
         </div>
         <div class="form-actions">
