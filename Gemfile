@@ -50,7 +50,7 @@ gem 'counter_culture', '~> 1.0'
 gem 'kaminari'
 
 # 四级地域级联
-gem 'china_city', git: 'https://github.com/caryl/china_city'
+gem 'china_city', github: 'caryl/china_city'
 
 gem 'simple_form'
 gem 'acts_as_list'
