@@ -25,6 +25,11 @@ class Api::V1::MainsController < Api::V1::BaseController
     api_success(data: @campaigns.map {|cam| cam.summary_builder})
   end
 
+  def camps
+    @camps = ProjectSeasonApply.show.raise_project.read_executing.pass.where(project: Project.camp_project).sorted.take(3)
+    api_success(data: @camps.map {|item| item.summary_builder})
+  end
+
   def reads
     @reads = ProjectSeasonApply.show.raise_project.read_executing.pass.where(project: Project.read_project).sorted.take(3)
     api_success(data: @reads.map {|item| item.summary_builder})

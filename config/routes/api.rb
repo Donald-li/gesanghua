@@ -163,6 +163,7 @@ namespace :api do
       post :month_contribute
       get :banners
       get :campaigns
+      get :camps
       get :reads
       get :radios
       get :flowers
