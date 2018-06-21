@@ -1,7 +1,6 @@
 <%= simple_form_for [:admin, @income_record], wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'category_form'} do |f| %>
   <%= f.error_notification %>
   <div class="form-body form-horizontal">
-    <p class="help-block">温馨提示：在线捐助不允许修改（财付通、支付宝）</p>
 
     <%= f.input :title, label: '收入名称：', placeholder: '' %>
     <div class="form-group">

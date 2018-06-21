@@ -7,7 +7,7 @@ class Admin::IncomeRecordsController < Admin::BaseController
     @search = IncomeRecord.sorted.ransack(params[:q])
     scope = @search.result
     respond_to do |format|
-      format.html { @income_records = scope.page(params[:page]) }
+      format.html {@income_records = scope.page(params[:page])}
       format.xlsx {
         @income_records = scope.sorted.all
         response.headers['Content-Disposition'] = 'attachment; filename= "收入记录" ' + Date.today.to_s + '.xlsx'
@@ -29,15 +29,16 @@ class Admin::IncomeRecordsController < Admin::BaseController
     @income_record = IncomeRecord.new(income_record_params)
     user = User.find(income_record_params[:agent_id])
     @income_record.donor = user
+    @income_record.agent = user
     @income_record.kind = :offline
     # @income_record.remitter_name = user.name
     # @income_record.remitter_id = user.id
     @income_record.balance = income_record_params[:amount]
     respond_to do |format|
       if @income_record.save
-        format.html { redirect_to referer_or(admin_income_records_path), notice: '新增成功。' }
+        format.html {redirect_to referer_or(admin_income_records_path), notice: '新增成功。'}
       else
-        format.html { render :new }
+        format.html {render :new}
       end
     end
   end
@@ -45,17 +46,21 @@ class Admin::IncomeRecordsController < Admin::BaseController
   def update
     respond_to do |format|
       if @income_record.update(income_record_params)
-        format.html { redirect_to referer_or(admin_income_records_path), notice: '修改成功。' }
+        format.html {redirect_to referer_or(admin_income_records_path), notice: '修改成功。'}
       else
-        format.html { render :edit }
+        format.html {render :edit}
       end
     end
   end
 
   def destroy
-    @income_record.destroy
     respond_to do |format|
-      format.html { redirect_to referer_or(admin_income_records_path), notice: '删除成功。' }
+      if @income_record.amount == @income_record.balance
+        @income_record.destroy
+        format.html {redirect_to referer_or(admin_income_records_path), notice: '删除成功。'}
+      else
+        format.html {redirect_to referer_or(admin_income_records_path), alert: '该收入记录已配捐，无法删除。'}
+      end
     end
   end
 
@@ -78,14 +83,14 @@ class Admin::IncomeRecordsController < Admin::BaseController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_income_record
-      @income_record = IncomeRecord.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_income_record
+    @income_record = IncomeRecord.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def income_record_params
-      params.require(:income_record).permit!
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def income_record_params
+    params.require(:income_record).permit!
+  end
 
 end
