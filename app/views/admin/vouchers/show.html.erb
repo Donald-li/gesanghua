@@ -163,7 +163,7 @@
                 <%= record.income_source.try(:name) %>
               </td>
               <td>
-                <%= link_to record.donor.try(:show_name), admin_users_path(user_id: record.donor_id) if record.donor_id %>
+                <%= link_to record.donor.try(:admin_show_name), admin_users_path(user_id: record.donor_id) if record.donor_id %>
               </td>
               <td>
                 <%= link_to record.agent_name, (admin_users_path(user_id: record.agent_id) if record.agent_id && record.agent_id!= record.donor_id) %>

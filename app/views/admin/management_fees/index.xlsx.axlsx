@@ -8,7 +8,7 @@ wb.add_worksheet(name: "管理费") do |sheet|
     sheet.add_row [
                       index + 1,
                       fee.month.try(:month),
-                      fee.owner.try(:show_name),
+                      fee.owner.try(:admin_show_name),
                       fee.owner.try(:project).try(:name),
                       format_money(fee.amount),
                       "#{fee.rate.to_i}%",

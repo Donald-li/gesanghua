@@ -59,7 +59,7 @@
                 <%= fee.month.try(:month) %>
               </td>
               <td>
-                <%= fee.owner.try(:show_name) %>
+                <%= fee.owner.try(:admin_show_name) %>
               </td>
               <td>
                 <%= fee.owner.try(:project).try(:name) %>

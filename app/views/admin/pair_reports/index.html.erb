@@ -78,7 +78,7 @@
                 <%= l report.published_at %>
               </td>
               <td>
-                <%= report.try(:user).try(:show_name) %>
+                <%= report.try(:user).try(:admin_show_name) %>
               </td>
               <td>
                 <%= link_to switch_admin_pair_report_path(report), data: {confirm: "确定#{report.state === 'show' ? '隐藏该报告' : '展示该报告'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{report.state === 'show' ? 'green' : 'default'}" do %>

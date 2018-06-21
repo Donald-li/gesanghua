@@ -76,7 +76,7 @@
                 <%= record.child.try(:name) %> <%= record.owner.try(:title) %>
               </td>
               <td>
-                <%= link_to "#{record.donor.show_name}（#{record.donor.phone}）", admin_users_path(user_id: record.donor_id) if record.donor.present? %>
+                <%= link_to "#{record.donor.admin_show_name}（#{record.donor.phone}）", admin_users_path(user_id: record.donor_id) if record.donor.present? %>
               </td>
               <td>
                 <%= link_to record.agent_name, admin_users_path(user_id: record.agent_id) %>

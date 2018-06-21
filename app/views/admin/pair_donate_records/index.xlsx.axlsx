@@ -9,7 +9,7 @@ wb.add_worksheet(name: "捐助记录") do |sheet|
                       index + 1,
                       record.enum_name(:kind),
                       record.child.try(:name) + '-' + record.owner.try(:title),
-                      record.donor.show_name + '(' + record.donor.phone + ')',
+                      record.donor.admin_show_name + '(' + record.donor.phone + ')',
                       record.agent_name,
                       (l record.created_at),
                       record.amount]

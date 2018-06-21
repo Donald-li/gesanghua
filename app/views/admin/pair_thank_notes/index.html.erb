@@ -65,7 +65,7 @@
                   <%= note.child.try(:name) %>
                 </td>
                 <td>
-                  <%= note.grant.try(:donator).try(:show_name) %>
+                  <%= note.grant.try(:donator).try(:admin_show_name) %>
                 </td>
                 <td>
                   <%= note.grant.try(:title) %>

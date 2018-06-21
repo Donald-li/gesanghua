@@ -9,7 +9,7 @@ wb.add_worksheet(name: "收入记录") do |sheet|
       (record.income_time.strftime("%Y-%m-%d %H:%M") if record.income_time),
       record.amount,
       record.income_source.try(:name),
-      record.donor.try(:show_name),
+      record.donor.try(:admin_show_name),
       record.donor.try(:phone),
       record.agent_name,
       record.remark]

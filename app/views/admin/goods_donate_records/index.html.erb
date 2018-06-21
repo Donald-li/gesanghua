@@ -69,7 +69,7 @@
                 <%= record.season.name %>
               </td>
               <td>
-                <%= record.donor.try(:show_name) %> ( <%= record.donor.try(:phone) %> )
+                <%= record.donor.try(:admin_show_name) %> ( <%= record.donor.try(:phone) %> )
               </td>
               <td>
                 <%= record.agent_name %>

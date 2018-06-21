@@ -2,7 +2,7 @@ voucher
 <div class="portlet light">
   <div class="portlet-title">
     <div class="caption">
-      <i class="icon-list"></i> <%= link_to @user.show_name, admin_users_path %> > 发票申请
+      <i class="icon-list"></i> <%= link_to @user.admin_show_name, admin_users_path %> > 发票申请
     </div>
     <div class="actions">
       <%#= link_to new_admin_article_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
@@ -71,7 +71,7 @@ voucher
                 <%= record.id %>
               </td>
               <td>
-                <%= record.donor.show_name %> ( <%= record.donor.phone %> )
+                <%= record.donor.admin_show_name %> ( <%= record.donor.phone %> )
               </td>
               <td>
                 <%= record.agent_name %>

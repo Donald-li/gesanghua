@@ -60,7 +60,7 @@
             捐助人
           </th>
           <th>
-            <%= @donate_record.donor.try(:show_name) %> ( <%= @donate_record.donor.try(:phone) %> )
+            <%= @donate_record.donor.try(:admin_show_name) %> ( <%= @donate_record.donor.try(:phone) %> )
           </th>
         </tr>
         <tr>

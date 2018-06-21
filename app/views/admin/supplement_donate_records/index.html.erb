@@ -75,10 +75,10 @@
               </td> -->
               <td>
                 <% if record.user_donate? %>
-                  <%= record.donor.show_name %> ( <%= record.donor.try(:phone) %> )
+                  <%= record.donor.admin_show_name %> ( <%= record.donor.try(:phone) %> )
                 <% elsif record.platform_donate? %>
                   <% if record.donor.present? %>
-                    <%= record.donor.show_name %> ( <%= record.donor.try(:phone) %> )
+                    <%= record.donor.admin_show_name %> ( <%= record.donor.try(:phone) %> )
                   <% else %>
                       平台配捐
                   <% end %>
