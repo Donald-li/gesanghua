@@ -1,6 +1,6 @@
 class Admin::VouchersController < Admin::BaseController
   before_action :auth_manage_operation
-  before_action :set_voucher, only: [:edit, :update, :switch]
+  before_action :set_voucher, only: [:edit, :update, :switch, :show]
 
   def index
     set_search_end_of_day(:created_at_lteq)
@@ -28,6 +28,10 @@ class Admin::VouchersController < Admin::BaseController
   def switch
     @voucher.pending? ? @voucher.deal! : @voucher.pending!
     redirect_to referer_or(admin_vouchers_url), notice:  @voucher.pending? ? '收据状态变为未处理' : '收据状态变为已处理'
+  end
+
+  def show
+    @income_records = @voucher.income_records.sorted
   end
 
   private

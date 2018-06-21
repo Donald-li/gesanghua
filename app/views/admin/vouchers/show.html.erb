@@ -1,0 +1,180 @@
+<div class="portlet light portlet-fit bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="fa fa-sliders font-dark"></i>
+      <span class="caption-subject font-dark bold uppercase">申请详情</span>
+    </div>
+    <div class="actions">
+      <div class="btn-group">
+        <a href="<%= admin_vouchers_path %>" class="btn btn-xs blue">
+          <i class="fa fa-reply"></i>返回
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="table-scrollable">
+      <table class="table table-bordered table-hover">
+        <tbody>
+        <tr>
+          <th width="72px">
+            收据号
+          </th>
+          <th>
+            <%= @voucher.voucher_no %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            发票类型
+          </th>
+          <th>
+            <%= @voucher.enum_name(:kind) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            开票金额
+          </th>
+          <th>
+            <%= format_money @voucher.amount %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            开票税号
+          </th>
+          <th>
+            <%= @voucher.tax_no %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            开票单位
+          </th>
+          <th>
+            <%= @voucher.tax_company %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            收件人
+          </th>
+          <th>
+            <%= @voucher.contact_name %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            联系电话
+          </th>
+          <th>
+            <%= @voucher.contact_phone %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            收件地址
+          </th>
+          <th>
+            <%= @voucher.full_address %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            收件地址
+          </th>
+          <th>
+            <%= @voucher.full_address %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            状态
+          </th>
+          <th>
+            <%= @voucher.enum_name(:state) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            物流信息
+          </th>
+          <th>
+            <%= "#{@voucher.logistic.try(:enum_name, :name)}#{@voucher.logistic.try(:number)}" %>
+          </th>
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
+    <div class="table-scrollable">
+      <table class="table table-striped table-bordered table-hover" id="sample_2">
+        <thead>
+        <tr>
+          <th>
+            收入单号
+          </th>
+          <th>
+            收入名称
+          </th>
+          <th>
+            财务分类
+          </th>
+          <th>
+            捐助时间
+          </th>
+          <th>
+            捐助金额
+          </th>
+          <th>
+            账户
+          </th>
+          <th>
+            捐助人
+          </th>
+          <th>
+            代捐人/汇款人
+          </th>
+          <th>
+            备注
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @income_records.each do |record| %>
+            <tr>
+              <td>
+                <%= record.income_no %>
+              </td>
+              <td>
+                <%= record.title %>
+              </td>
+              <td>
+                <%= record.fund.try(:fund_category).try(:name) %> - <%= record.fund.try(:name) %>
+              </td>
+              <td>
+                <%= l record.income_time %>
+              </td>
+              <td>
+                ￥<%= format_money record.amount %>
+              </td>
+              <td>
+                <%= record.income_source.try(:name) %>
+              </td>
+              <td>
+                <%= link_to record.donor.try(:show_name), admin_users_path(user_id: record.donor_id) if record.donor_id %>
+              </td>
+              <td>
+                <%= link_to record.agent_name, (admin_users_path(user_id: record.agent_id) if record.agent_id && record.agent_id!= record.donor_id) %>
+              </td>
+              <td>
+                <%= record.remark %>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
