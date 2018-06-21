@@ -37,11 +37,6 @@
             <li class="selectedNav">
               <span>申请详情</span>
             </li>
-            <% if @child.donate_by_user?(current_user) %>
-                <li>
-                  <span>自我介绍</span>
-                </li>
-            <% end %>
             <li>
               <span>执行反馈</span>
               <span class="navmark"><%= @grants.count %></span>
@@ -57,27 +52,8 @@
       <div class="details-left pull-left contentab" style="display: block;">
         <div class="detail-l-fon">
           <p class="detail-l-f-s-l">自我介绍：</p>
-          <div>kshdjgasjhd</div>
+          <div><%= @child.description %></div>
 
-              <p>父亲：12 &nbsp;&nbsp;&nbsp;职业：123></p>
-              <p>母亲：123 &nbsp;&nbsp;&nbsp;职业：213</p>
-          <p>监护人姓名：123</p>
-              <p>与其关系：sjdsd</p>
-              <p>联系电话：sjdsd</p>
-              <p>收入来源：sjdsd</p>
-              <p>家庭年收入：sjdsd</p>
-
-          <p class="detail-l-f-s-l">家庭情况：</p>
-          <div>kshdjgasjhd</div>
-          <p class="detail-l-f-s-l">家庭照：</p>
-          <%= image_tag 'not-available.png' %>
-        </div>
-        <div class="detail-l-fon"><%= @child.formatted_information.html_safe %></div>
-      </div>
-      <!--自我介绍-->
-      <div class="details-left pull-left contentab">
-        <div class="detail-l-fon">
-          <p>自我介绍：<%= @child.description %></p>
           <% if @child.donate_by_user?(current_user) %>
               <p>父亲：<%= @child.father %> &nbsp;&nbsp;&nbsp;职业：<%= @child.father_job %></p>
               <p>母亲：<%= @child.mother %> &nbsp;&nbsp;&nbsp;职业：<%= @child.mother_job %></p>
@@ -87,14 +63,13 @@
               <p>收入来源：<%= @child.income_source %></p>
               <p>家庭年收入：<%= @child.family_income %></p>
           <% end %>
-          <p>家庭情况：<%= @child.family_condition %></p>
-          <p>家庭照：</p>
+          <p class="detail-l-f-s-l">家庭情况：</p>
+          <div><%= @child.family_condition %></div>
+          <p class="detail-l-f-s-l">家庭照：</p>
           <%= image_tag @child.room_image_url(:medium) %>
           <%= image_tag @child.yard_image_url(:medium) %>
         </div>
-
-        <!--<div class="detail-l-fon"><%= @child.description %></div>-->
-
+        <div class="detail-l-fon"><%= @child.formatted_information.html_safe %></div>
       </div>
       <!--反馈-->
       <% if @grants.present? %>
