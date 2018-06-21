@@ -187,7 +187,7 @@ class User < ApplicationRecord
   end
 
   def admin_show_name
-    "#{self.name}（#{self.nickname}|#{self.phone}）"
+    "#{self.name}（#{self.nickname}）"
   end
 
   def real_name

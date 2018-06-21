@@ -37,8 +37,9 @@
                 <ul class="ui-choose ui-choose-tab clearfix" id="amount-tab-<%= d.id %>" style="display: <%= item_id.to_s == d.id.to_s ? 'block' : 'none' %>">
                   <% if d.amount_tabs.count > 0 %>
                     <% d.amount_tabs.each do |a| %>
-                      <li class="cur amount_tab_cur" data-amount="<%= a.amount %>"><%= number_to_currency a.amount %>
-                        元 <%= "(#{a.alias})" if a.alias.present? %></li>
+                      <li class="cur amount_tab_cur" data-amount="<%= a.amount %>"><%= number_to_currency a.amount %> 元
+                        <p><%= "#{a.alias}" if a.alias.present? %></p>
+                      </li>
                     <% end %>
                   <% else %>
                     <% Settings.amount_tabs.each do |a| %>
