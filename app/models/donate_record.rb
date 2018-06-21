@@ -34,7 +34,7 @@ class DonateRecord < ApplicationRecord
   include ActionView::Helpers::NumberHelper
 
   belongs_to :donor, class_name: 'User', foreign_key: 'donor_id', optional: true
-  belongs_to :agent, class_name: 'User', foreign_key: 'agent_id', optional:true
+  belongs_to :agent, class_name: 'User', foreign_key: 'agent_id', optional: true
   belongs_to :promoter, class_name: 'User', foreign_key: 'promoter_id', optional: true
   belongs_to :fund, optional: true
   belongs_to :project, optional: true
@@ -50,10 +50,10 @@ class DonateRecord < ApplicationRecord
 
   has_one :account_records
 
-  counter_culture :project, column_name: :total_amount, delta_magnitude: proc {|model| model.amount }
-  counter_culture :team, column_name: :total_donate_amount, delta_magnitude: proc {|model| model.amount }
-  counter_culture :promoter, column_name: :promoter_amount_count, delta_magnitude: proc {|model| model.amount }
-  counter_culture :school, column_name: :total_amount, delta_magnitude: proc {|model| model.amount }
+  counter_culture :project, column_name: :total_amount, delta_magnitude: proc {|model| model.amount}
+  counter_culture :team, column_name: :total_donate_amount, delta_magnitude: proc {|model| model.amount}
+  counter_culture :promoter, column_name: :promoter_amount_count, delta_magnitude: proc {|model| model.amount}
+  counter_culture :school, column_name: :total_amount, delta_magnitude: proc {|model| model.amount}
 
   belongs_to :source, polymorphic: true
   belongs_to :owner, polymorphic: true
@@ -69,7 +69,7 @@ class DonateRecord < ApplicationRecord
   default_value_for :archive_data, {}
 
   scope :sorted, -> {order(created_at: :desc)}
-  scope :visible, -> { normal }
+  scope :visible, -> {normal}
 
   before_create :set_assoc_attrs
 
@@ -112,16 +112,20 @@ class DonateRecord < ApplicationRecord
   def self.platform_donate(owner, amount, params)
     source = nil
     case params[:donate_way]
-    when 'income_record'
-      source = IncomeRecord.offline.find(params[:offline_record_id])
-    when 'fund'
-      source = Fund.find(params[:fund_id])
-    when 'user_balance'
-      source = User.find(params[:user_id])
+      when 'income_record'
+        source = IncomeRecord.offline.find(params[:offline_record_id])
+        donor = source.donor
+        agent = source.agent
+      when 'fund'
+        source = Fund.find(params[:fund_id])
+      when 'user_balance'
+        source = User.find(params[:user_id])
+        donor = source
     end
 
-    donor = source.is_a?(User) ? source : params[:current_user]
-    agent = donor
+    # donor = source.is_a?(User) ? source : params[:current_user]
+    donor ||= params[:current_user]
+    agent ||= donor
 
     result, message = self.do_donate(:platform_donate, source, owner, amount, donor: donor, agent: agent)
     return result
@@ -163,7 +167,7 @@ class DonateRecord < ApplicationRecord
         donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, income_record_id: income_record_id, donation_id: donation_id, agent: params[:agent], donor: params[:donor], team_id: params[:team_id], promoter_id: params[:promoter_id], school: school)
         owner.accept_donate(donate_records)
 
-      # 如果是捐到申请（物资类项目，子项）
+        # 如果是捐到申请（物资类项目，子项）
       elsif owner.class.name.in?(['ProjectSeasonApply', 'ProjectSeasonApplyChild'])
         # 物资或拓展营
         if owner.project.goods? || owner.project == Project.camp_project
@@ -175,7 +179,7 @@ class DonateRecord < ApplicationRecord
 
           if owner.is_a?(ProjectSeasonApplyChild)
             owner.get_donate_items.each do |item|
-              remain_amount = amount - donate_records.sum{|r| r.amount}
+              remain_amount = amount - donate_records.sum {|r| r.amount}
               if remain_amount >= item.surplus_money
                 donate_records << self.create!(source: source, kind: kind, owner: item, amount: item.surplus_money, income_record_id: income_record_id, donation_id: donation_id, agent: params[:agent], donor: params[:donor], team_id: params[:team_id], promoter_id: params[:promoter_id], school: school)
                 item.accept_donate(donate_records)
@@ -183,7 +187,7 @@ class DonateRecord < ApplicationRecord
             end
           else
             owner.get_donate_items.each do |item|
-              remain_amount = amount - donate_records.sum{|r| r.amount}
+              remain_amount = amount - donate_records.sum {|r| r.amount}
               if remain_amount > 0
                 donate_amount = [item.surplus_money, remain_amount].min
                 donate_records << self.create!(source: source, kind: kind, owner: item, amount: donate_amount, income_record_id: income_record_id, donation_id: donation_id, agent: params[:agent], donor: params[:donor], team_id: params[:team_id], promoter_id: params[:promoter_id], school: school)
@@ -195,7 +199,7 @@ class DonateRecord < ApplicationRecord
         end
       end
 
-      donate_amount =  donate_records.sum{|r| r.amount}
+      donate_amount = donate_records.sum {|r| r.amount}
 
       reback = amount.to_f - donate_amount
       if reback > 0
@@ -280,64 +284,64 @@ class DonateRecord < ApplicationRecord
 
   def apply_image
     apply_image = case self.owner_type
-    when 'DonateItem'
-      self.owner.project.try(:image_url, :tiny)
-    when 'ProjectSeasonApply'
-      self.owner.cover_image_url(:tiny)
-    when 'GshChildGrant' # 优先展示发放照片
-      self.owner.images.first.try(:file).try(:url, :tiny) || self.child.try(:avatar_url, :tiny)
-    when 'ProjectSeasonApplyChild'
-      self.owner.project.try(:image_url, :tiny)
-    when 'ProjectSeasonApplyBookshelf', 'BookshelfSupplement'
-      self.owner.apply.try(:cover_image_url, :tiny)
-    when 'CampaignEnlist'
-      self.owner.try(:campaign).try(:image_url, :tiny)
-    end
+                    when 'DonateItem'
+                      self.owner.project.try(:image_url, :tiny)
+                    when 'ProjectSeasonApply'
+                      self.owner.cover_image_url(:tiny)
+                    when 'GshChildGrant' # 优先展示发放照片
+                      self.owner.images.first.try(:file).try(:url, :tiny) || self.child.try(:avatar_url, :tiny)
+                    when 'ProjectSeasonApplyChild'
+                      self.owner.project.try(:image_url, :tiny)
+                    when 'ProjectSeasonApplyBookshelf', 'BookshelfSupplement'
+                      self.owner.apply.try(:cover_image_url, :tiny)
+                    when 'CampaignEnlist'
+                      self.owner.try(:campaign).try(:image_url, :tiny)
+                  end
     apply_image
   end
 
   def apply_name
     apply_name = if self.owner_type == 'DonateItem' || self.owner_type == 'ProjectSeasonApply'
-      self.owner.name
-    elsif self.owner_type == 'GshChildGrant'
-      self.child.try(:name).to_s + ' · ' + self.owner.try(:title).to_s
-    elsif self.owner_type == 'ProjectSeasonApplyChild'
-      self.owner.try(:name)
-    elsif self.owner_type == 'ProjectSeasonApplyBookshelf'
-      self.owner.apply.try(:name)
-    elsif self.owner_type == 'BookshelfSupplement'
-      self.owner.apply.try(:name)
-    elsif self.owner_type == 'CampaignEnlist'
-      self.owner.try(:campaign).try(:name)
-    end
+                   self.owner.name
+                 elsif self.owner_type == 'GshChildGrant'
+                   self.child.try(:name).to_s + ' · ' + self.owner.try(:title).to_s
+                 elsif self.owner_type == 'ProjectSeasonApplyChild'
+                   self.owner.try(:name)
+                 elsif self.owner_type == 'ProjectSeasonApplyBookshelf'
+                   self.owner.apply.try(:name)
+                 elsif self.owner_type == 'BookshelfSupplement'
+                   self.owner.apply.try(:name)
+                 elsif self.owner_type == 'CampaignEnlist'
+                   self.owner.try(:campaign).try(:name)
+                 end
     apply_name
   end
 
   def apply_surplus_money
     return false if self.owner_type == 'DonateItem' || self.owner_type == 'GshChildGrant' || self.owner_type == 'ProjectSeasonApplyChild' || self.owner_type == 'CampaignEnlist'
     apply_surplus_money = if self.owner_type == 'ProjectSeasonApply'
-      self.owner.surplus_money
-    elsif  self.owner_type == 'ProjectSeasonApplyBookshelf' || self.owner_type == 'BookshelfSupplement'
-      self.owner.apply.try(:surplus_money)
-    end
+                            self.owner.surplus_money
+                          elsif self.owner_type == 'ProjectSeasonApplyBookshelf' || self.owner_type == 'BookshelfSupplement'
+                            self.owner.apply.try(:surplus_money)
+                          end
     apply_surplus_money
   end
 
   def show_apply_name
     return unless self.owner.present?
     show_apply_name = if self.owner_type == 'DonateItem' || self.owner_type == 'ProjectSeasonApply'
-      self.owner.name
-    elsif self.owner_type == 'GshChildGrant'
-      self.child.try(:secure_name) + ' · ' + self.owner.try(:title).to_s
-    elsif self.owner_type == 'ProjectSeasonApplyChild'
-      self.owner.try(:secure_name)
-    elsif self.owner_type == 'ProjectSeasonApplyBookshelf'
-      self.owner.apply.try(:name)
-    elsif self.owner_type == 'BookshelfSupplement'
-      self.owner.apply.try(:name)
-    elsif self.owner_type == 'CampaignEnlist'
-      self.owner.campaign.try(:name)
-    end
+                        self.owner.name
+                      elsif self.owner_type == 'GshChildGrant'
+                        self.child.try(:secure_name) + ' · ' + self.owner.try(:title).to_s
+                      elsif self.owner_type == 'ProjectSeasonApplyChild'
+                        self.owner.try(:secure_name)
+                      elsif self.owner_type == 'ProjectSeasonApplyBookshelf'
+                        self.owner.apply.try(:name)
+                      elsif self.owner_type == 'BookshelfSupplement'
+                        self.owner.apply.try(:name)
+                      elsif self.owner_type == 'CampaignEnlist'
+                        self.owner.campaign.try(:name)
+                      end
     show_apply_name
   end
 
@@ -411,24 +415,24 @@ class DonateRecord < ApplicationRecord
     self.promoter_id ||= income_record.try(:promoter_id)
 
     case self.owner
-    when GshChildGrant
-      self.project_season_apply_child_id = self.owner.project_season_apply_child_id
-      self.project_season_apply_id = self.owner.project_season_apply_id
-      self.project_season_id = self.apply.try(:project_season_id)
-      self.project_id = Project.pair_project.id
-    when ProjectSeasonApplyChild, ProjectSeasonApplyBookshelf
-      self.project_id = self.owner.project_id
-      self.project_season_id = self.owner.project_season_id
-      self.project_season_apply_id = self.owner.project_season_apply_id
-    when ProjectSeasonApply
-      self.project_id = self.owner.project_id
-      self.project_season_id = self.owner.project_season_id
-      self.project_season_apply_id = self.owner_id
-    when BookshelfSupplement
-      self.project_id = self.owner.project_id
-      self.project_season_apply_id = self.owner.try(:project_season_apply_id)
-    when DonateItem
-      self.project_id = self.owner.project.try(:id)
+      when GshChildGrant
+        self.project_season_apply_child_id = self.owner.project_season_apply_child_id
+        self.project_season_apply_id = self.owner.project_season_apply_id
+        self.project_season_id = self.apply.try(:project_season_id)
+        self.project_id = Project.pair_project.id
+      when ProjectSeasonApplyChild, ProjectSeasonApplyBookshelf
+        self.project_id = self.owner.project_id
+        self.project_season_id = self.owner.project_season_id
+        self.project_season_apply_id = self.owner.project_season_apply_id
+      when ProjectSeasonApply
+        self.project_id = self.owner.project_id
+        self.project_season_id = self.owner.project_season_id
+        self.project_season_apply_id = self.owner_id
+      when BookshelfSupplement
+        self.project_id = self.owner.project_id
+        self.project_season_apply_id = self.owner.try(:project_season_apply_id)
+      when DonateItem
+        self.project_id = self.owner.project.try(:id)
     end
   end
 

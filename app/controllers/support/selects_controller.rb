@@ -34,7 +34,7 @@ class Support::SelectsController < Support::BaseController
   def income_records
     scope = IncomeRecord.has_balance.sorted.where("title like :q", q: "%#{params[:q]}%")
     records = scope.page(params[:page])
-    render json: {items: records.map{|r| {id: r.id, name: "#{r.title}(余额: #{r.balance.round(2)})"}}.as_json}
+    render json: {items: records.map{|r| {id: r.id, name: "#{r.title}(捐助人：#{r.donor.try(:name)}|汇款人：#{r.agent_name}|余额: #{r.balance.round(2)})"}}.as_json}
   end
 
   def users_balance
