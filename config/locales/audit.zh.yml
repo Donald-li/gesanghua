@@ -20,6 +20,7 @@ zh:
       kind: '用户类型'
       phone_verify: '手机认证'
       use_nickname: '使用昵称'
+      manager_id: '代捐管理人'
     school:
       name: '学校名称'
       approve_state: '审核状态'

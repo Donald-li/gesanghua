@@ -47,7 +47,7 @@
 require 'custom_validators'
 class User < ApplicationRecord
 
-  has_paper_trail only: [:nickname, :name, :password_digest, :state, :gender, :balance, :phone, :email, :address, :salutation, :consignee, :province, :city, :district, :id_card, :qq, :kind, :phone_verify, :use_nickname]
+  has_paper_trail only: [:nickname, :name, :password_digest, :state, :gender, :balance, :phone, :email, :address, :salutation, :consignee, :province, :city, :district, :id_card, :qq, :kind, :phone_verify, :use_nickname, :manager_id]
 
   include HasBitEnum
   ROLES = %w[superadmin admin project_manager project_operator financial_staff volunteer county_user gsh_child custom_service headmaster teacher camp_manager]
