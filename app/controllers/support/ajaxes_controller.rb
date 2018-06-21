@@ -16,7 +16,7 @@ class Support::AjaxesController < Support::BaseController
   end
 
   def user_statistics
-    user_statistics = User.all
+    user_statistics = User.enable
     if params[:time_span].present?
       params[:start_time] = Time.now.beginning_of_week if params[:time_span] == 'week'
       params[:start_time] = Time.now.beginning_of_month if params[:time_span] == 'month'
