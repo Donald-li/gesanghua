@@ -108,7 +108,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   attr_accessor :approve_remark
 
-  validates :id_card, shenfenzheng_no: true
+  validates :id_card, shenfenzheng_no: true, if: ->(c){c.archive_data.blank?}
   validates :id_card, :name, presence: true, if: ->(c){c.archive_data.blank?}
   validates :province, :city, :district, presence: true, if: ->(c){c.archive_data.blank?}
   validates :reason, length: {maximum: 20}
@@ -145,6 +145,8 @@ class ProjectSeasonApplyChild < ApplicationRecord
   scope :check_list, -> {where(approve_state: [1, 2, 3])}
 
   def self.allow_apply?(school, id_card, child=nil)
+    return true if child.archive_data.present?
+    return false unless id_card.present?
     if child.nil?
       return false if self.where(school: school, id_card: id_card).present?
       return true
