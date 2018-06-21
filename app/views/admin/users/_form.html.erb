@@ -17,7 +17,7 @@
     <%= f.input :salutation, as: :select, collection: ['哥哥', '姐姐', '弟弟', '妹妹', '叔叔', '阿姨', '爷爷', '奶奶'], include_blank: false, label: '如何称呼', input_html: {data: {}, class: 'goodinput',id:'nickname'} %>
     <%= f.input :gender, as: :radio_buttons, wrapper: :inline_inputs, collection: User.options_for_some_select(:genders, ['male', 'female']), label: '性别：'%>
     <% if @user.unactived? %>
-      <%= f.input :manager_id, collection: [@user.manager].compact.map {|u| [u.name, u.id]}, label: '用户管理人：', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
+      <%= f.input :manager_id, collection: [@user.manager].compact.map {|u| [u.name, u.id]}, label: '指定代捐管理人：', prompt: "请选择用户", input_html: {class: 'user_selector'}, hint: '指定代捐管理人，当前用户的捐助记录、相关项目、孩子等信息会迁移到指定用户' %>
     <% end %>
     <h4>收货地址</h4>
     <%= f.input :consignee, label: '收件人：', placeholder: '请填写正确的收件人' %>

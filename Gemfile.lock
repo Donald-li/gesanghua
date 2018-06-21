@@ -11,7 +11,7 @@ GIT
 
 GIT
   remote: https://github.com/caryl/china_city.git
-  revision: 1ea0308fc6ee0bd9766f660655685afbf3e73655
+  revision: 0f5ce0156cc24746ae33158712066e9a7ed55615
   specs:
     china_city (0.0.6)
       jquery-rails (>= 3)
