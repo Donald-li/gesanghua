@@ -254,7 +254,7 @@ class User < ApplicationRecord
   end
 
   def user_balance
-    "#{self.name}(可用余额:#{self.balance.to_s})"
+    "#{self.name}(id: #{self.id} |可用余额:#{self.balance.to_s})"
   end
 
   def school_approve_state
