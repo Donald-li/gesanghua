@@ -100,9 +100,9 @@
                 </td>
                 <td>
                   <% if child.present? %>
-                    <% child.gsh_child_grants.sorted.reverse.each do |grant| %>
-                      <span class="btn btn-xs green"><%= grant.title %></span>
-                    <% end %>
+                      <% child.gsh_child_grants.sorted.reverse.each do |grant| %>
+                          <span class="btn btn-xs <%= grant.button_color %>" title="<%= grant.enum_name(:donate_state) %>"><%= grant.title %></span>
+                      <% end %>
                   <% end %>
                 </td>
                 <td>
