@@ -30,6 +30,12 @@ class Account::SessionsController < Account::BaseController
       flash[:alert] = '该帐号已被停用'
       render(action: :new) && return
     end
+
+    if user.state === 'unactived'
+      flash[:alert] = '该帐号未激活，请注册激活您的账号'
+      render(action: :new) && return
+    end
+
     if user.password_digest.blank?
       flash[:alert] = '该账号还没设置密码，请用微信扫码登录。'
       render(action: :new) && return

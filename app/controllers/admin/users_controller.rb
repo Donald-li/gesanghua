@@ -53,7 +53,7 @@ class Admin::UsersController < Admin::BaseController
         #如果设置管理人manager，迁移捐助记录等数据
         if user_params[:manager_id].present?
           manager = User.find_by(id: user_params[:manager_id])
-          @user.set_offline_user_manager(manager, old_manager)
+          @user.set_offline_user_manager(manager, old_manager, current_user)
         end
         format.html { redirect_to referer_or(admin_users_url), notice: '用户已修改。' }
       else
@@ -94,7 +94,7 @@ class Admin::UsersController < Admin::BaseController
 
   def set_combine
     @new_user = User.find_by(id: user_params[:new_user_id])
-    if User.admin_combine_user(@user, @new_user)
+    if User.admin_combine_user(@user, @new_user, current_user)
       redirect_to referer_or(admin_user_path(@user)), notice: '操作成功。'
     else
       redirect_to referer_or(admin_user_path(@user)), alert: '操作失败。'

@@ -41,6 +41,7 @@
 #  notice_state          :boolean          default(FALSE)              # 用户是否有未查看的公告
 #  archive_data          :jsonb                                        # 归档旧数据
 #  actived_at            :datetime                                     # 激活时间
+#  operate_log           :jsonb                                        # 危险操作记录：用户合并、指定代捐管理人、代捐人激活
 #
 
 # 用户
@@ -424,7 +425,7 @@ class User < ApplicationRecord
   end
 
   # 后台手动合并用户
-  def self.admin_combine_user(old_user, new_user)
+  def self.admin_combine_user(old_user, new_user, operator)
     return false unless new_user.present?
     self.transaction do
         #所有业务表改为手机用户
@@ -458,7 +459,7 @@ class User < ApplicationRecord
         #数据迁移： 捐款记录等
         new_user.migrate_donate_record(old_user)
         # 合并账号openid、手机和wechat_profile
-        new_user.update!(openid: old_user.openid, profile: old_user.profile, auth_token: old_user.auth_token)
+        new_user.update!(openid: old_user.openid, profile: old_user.profile, auth_token: old_user.auth_token, phone: new_user.phone || old_user.phone)
         old_user.generate_auth_token
         old_user.openid = nil
         old_user.login = nil
@@ -469,6 +470,8 @@ class User < ApplicationRecord
         content = "您的账户已与其他账户合并，相关数据已迁移"
         notice = Notification.create!(owner: owner, user_id: old_user.id, title: title, content: content, kind: 'combine_user')
         #旧用户禁用
+
+        old_user.operate_log = {from_user: old_user.id, to_user: new_user.id, kind: 'admin_combine_user', operator: operator.id, operate_at: Time.now}
 
         old_user.disable!
         new_user.enable!
@@ -525,6 +528,9 @@ class User < ApplicationRecord
         notice = Notification.create!(owner: owner, user_id: wechat_user.id, title: title, content: content, kind: 'combine_user')
         #旧用户禁用
 
+        # 记录操作
+        wechat_user.operate_log = {from_user: wechat_user.id, to_user: phone_user.id, kind: 'combine_user', operator: phone_user.id, operate_at: Time.now}
+
         wechat_user.disable!
         phone_user.enable!
       end
@@ -533,6 +539,8 @@ class User < ApplicationRecord
   # 迁移捐款记录；用户注册绑定手机号和注册
   def migrate_donate_record(old_user)
     self.transaction do
+
+      # 处理捐助记录
       DonateRecord.where(donor_id: old_user.id).each do |record|
         record.update!(donor_id: self.id, agent_id: self.id)
       end
@@ -542,10 +550,26 @@ class User < ApplicationRecord
       IncomeRecord.where(donor_id: old_user.id).each do |record|
         record.update!(donor_id: self.id, agent_id: self.id)
       end
+
+      # 处理代捐记录
+      if old_user != self
+        DonateRecord.where(agent_id: old_user.id).each do |record|
+          record.update!(agent_id: self.id)
+        end
+        Donation.where(agent_id: old_user.id).each do |donation|
+          donation.update!(agent_id: self.id)
+        end
+        IncomeRecord.where(agent_id: old_user.id).each do |record|
+          record.update!(agent_id: self.id)
+        end
+      end
+
+      # 账户记录
       AccountRecord.where(donor_id: old_user.id).each do |record|
         record.update!(donor_id: self.id)
       end
 
+      # 捐助的孩子
       ProjectSeasonApplyChild.where(priority_id: old_user.id).each do |child|
         child.update!(priority_id: self.id)
       end
@@ -574,8 +598,11 @@ class User < ApplicationRecord
     self.transaction do
       if wechat_user.present?
         User.combine_user(phone, wechat_user)
+        self.operate_log = {user: self.id, kind: 'offline_user_activation_and_combine_user', operator: self.id, operate_at: Time.now}
+        self.save
       else
         self.migrate_donate_record(self)
+        self.operate_log = {user: self.id, kind: 'offline_user_activation', operator: self.id, operate_at: Time.now}
         self.enable!
       end
       #通知代理人
@@ -588,7 +615,7 @@ class User < ApplicationRecord
   end
 
   #设置线下用户管理人
-  def set_offline_user_manager(manager, old_manager)
+  def set_offline_user_manager(manager, old_manager, operator)
     return unless self.unactived?
     self.transaction do
       self.update!(manager_id: manager.id)
@@ -637,6 +664,9 @@ class User < ApplicationRecord
       elsif IncomeRecord.where(agent_id: manager.id).where.not(income_source_id: offline_income_resource.ids).sum(:amount) != manager.online_amount
         manager.update!(online_amount: IncomeRecord.where(agent_id: manager.id).where.not(income_source_id: offline_income_resource.ids).sum(:amount))
       end
+
+      self.operate_log = {old_manager: old_manager.try(:id), manager: manager.id, kind: 'set_offline_user_manager', operator: operator.id, operate_at: Time.now}
+      self.save
     end
   end
 
