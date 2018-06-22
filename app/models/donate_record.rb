@@ -55,7 +55,7 @@ class DonateRecord < ApplicationRecord
   counter_culture :promoter, column_name: :promoter_amount_count, delta_magnitude: proc {|model| model.amount}
   counter_culture :school, column_name: :total_amount, delta_magnitude: proc {|model| model.amount}
 
-  belongs_to :source, polymorphic: true, optional: true
+  belongs_to :source, polymorphic: true
   belongs_to :owner, polymorphic: true
 
   validates :amount, presence: true
@@ -121,6 +121,7 @@ class DonateRecord < ApplicationRecord
       when 'user_balance'
         source = User.find(params[:user_id])
         donor = source
+        agent = donor.enabled? ? donor : (donor.manager || donor)
     end
 
     # donor = source.is_a?(User) ? source : params[:current_user]
@@ -245,7 +246,7 @@ class DonateRecord < ApplicationRecord
 
   # 只有格桑花孩子可以退款
   def can_refund?
-    self.user_donate? && self.agent.present? && self.owner_type == 'GshChildGrant' && (self.owner.waiting? || self.owner.suspend?)
+    (self.user_donate? || ['IncomeRecord', 'User'].include?(self.source_type)) && self.agent.present? && self.owner_type == 'GshChildGrant' && (self.owner.waiting? || self.owner.suspend?)
   end
 
   # 退款, 捐助记录退款状态，退回账户余额，孩子标记取消

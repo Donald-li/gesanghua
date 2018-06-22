@@ -17,7 +17,7 @@
         <div class="form-body form-horizontal">
           <%= static_form_control '当前用户昵称：', @user.nickname %>
           <%= static_form_control '当前用户真实姓名：', @user.name %>
-          <%= f.input :new_user_id, as: :select, label: '合并到用户：', input_html: { class: 'user-select', data: {'parsley-required': true} }, hint: '合并后，当前用户会被禁用，相关数据将合并到目标用户' %>
+          <%= f.input :new_user_id, as: :select, label: '合并到用户：', input_html: { class: 'user-select', data: {'parsley-required': true} }, hint: '合并后，当前用户会被禁用，相关数据将合并到目标用户（目标用户为已激活用户）' %>
         </div>
         <div class="form-actions">
           <div class="row">
@@ -36,7 +36,7 @@
                 placeholder: '请选择用户',
                 allowClear: true,
                 ajax: {
-                    url: "/selects/all_users",
+                    url: "/selects/users",
                     dataType: 'json',
                     delay: 250,
                     data: function (params) {
