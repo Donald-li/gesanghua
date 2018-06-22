@@ -458,6 +458,7 @@ class User < ApplicationRecord
         new_user.save!
         #数据迁移： 捐款记录等
         new_user.migrate_donate_record(old_user)
+        new_user.migrate_children(old_user)
         # 合并账号openid、手机和wechat_profile
         new_user.update!(openid: old_user.openid, profile: old_user.profile, auth_token: old_user.auth_token)
         old_user.generate_auth_token
@@ -515,6 +516,7 @@ class User < ApplicationRecord
         phone_user.save!
         #数据迁移： 捐款记录等
         phone_user.migrate_donate_record(wechat_user)
+        phone_user.migrate_children(wechat_user)
         # 合并账号openid、手机和wechat_profile
         phone_user.update!(openid: wechat_user.openid, profile: wechat_user.profile, auth_token: wechat_user.auth_token)
         wechat_user.generate_auth_token
@@ -569,21 +571,6 @@ class User < ApplicationRecord
         record.update!(donor_id: self.id)
       end
 
-      # 捐助的孩子
-      ProjectSeasonApplyChild.where(priority_id: old_user.id).each do |child|
-        child.update!(priority_id: self.id)
-      end
-
-      # if self.manager_id.present?
-      #   ProjectSeasonApplyChild.where(priority_id: self.manager_id).each do |child|
-      #     child.update!(priority_id: self.id)
-      #   end
-      # end
-
-      GshChildGrant.where(user_id: old_user.id).each do |grant|
-        grant.update!(user_id: self.id)
-      end
-
       #重算两个账号的缓存数据
       offline_income_resource = IncomeSource.offline
       if IncomeRecord.where(agent_id: self.id).sum(:amount) != self.donate_amount
@@ -596,6 +583,23 @@ class User < ApplicationRecord
         #   sum = AccountRecord.where(user_id: self.id).sum(:amount).to_f
         #   self.update!(balance: sum)
       end
+    end
+  end
+
+  def migrate_children(old_user)
+    # 捐助的孩子
+    ProjectSeasonApplyChild.where(priority_id: old_user.id).each do |child|
+      child.update!(priority_id: self.id)
+    end
+
+    # if self.manager_id.present?
+    #   ProjectSeasonApplyChild.where(priority_id: self.manager_id).each do |child|
+    #     child.update!(priority_id: self.id)
+    #   end
+    # end
+
+    GshChildGrant.where(user_id: old_user.id).each do |grant|
+      grant.update!(user_id: self.id)
     end
   end
 
