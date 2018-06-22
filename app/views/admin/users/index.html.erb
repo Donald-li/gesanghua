@@ -54,6 +54,9 @@
           <thead>
             <tr>
               <th>
+                ID
+              </th>
+              <th>
                 昵称
               </th>
               <th>
@@ -88,6 +91,9 @@
           <tbody>
             <% @users.each do |user| %>
             <tr>
+              <td>
+                <%= user.id %>
+              </td>
               <td>
                 <%= user.nickname %>
               </td>

@@ -196,7 +196,7 @@ class User < ApplicationRecord
   end
 
   def name_for_select
-    "#{self.name}（#{self.phone}）"
+    "#{self.name}（id: #{self.id} |手机号：#{self.phone}）"
   end
 
   # 用户对外显示的名字
