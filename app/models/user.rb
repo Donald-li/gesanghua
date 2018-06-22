@@ -573,11 +573,13 @@ class User < ApplicationRecord
       ProjectSeasonApplyChild.where(priority_id: old_user.id).each do |child|
         child.update!(priority_id: self.id)
       end
-      # if self.manager.present?
+
+      # if self.manager_id.present?
       #   ProjectSeasonApplyChild.where(priority_id: self.manager_id).each do |child|
       #     child.update!(priority_id: self.id)
       #   end
       # end
+
       GshChildGrant.where(user_id: old_user.id).each do |grant|
         grant.update!(user_id: self.id)
       end
