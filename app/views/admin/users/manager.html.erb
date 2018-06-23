@@ -13,16 +13,18 @@
     </div>
   </div>
   <div class="portlet-body form">
-    <%= simple_form_for [:admin, @user], url: set_combine_admin_user_path, method: :post, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'volunteer_form'} do |f| %>
+    <%= simple_form_for [:admin, @user], url: set_manager_admin_user_path, method: :post, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'volunteer_form'} do |f| %>
         <div class="form-body form-horizontal">
           <%= static_form_control '当前用户昵称：', @user.nickname %>
           <%= static_form_control '当前用户真实姓名：', @user.name %>
-          <%= f.input :new_user_id, as: :select, label: '合并到用户：', input_html: { class: 'user-select', data: {'parsley-required': true} }, hint: '合并后，当前用户会被禁用，相关数据将合并到目标用户（目标用户为已激活用户）' %>
+          <% if @user.unactived? %>
+              <%= f.input :manager_id, collection: [@user.manager].compact.map {|u| [u.name, u.id]}, label: '指定代捐管理人：', prompt: "请选择用户", input_html: {class: 'user_selector'}, hint: '指定代捐管理人，当前用户的捐助记录、相关项目、孩子等信息会迁移到指定用户（指定用户为已激活用户）' %>
+          <% end %>
         </div>
         <div class="form-actions">
           <div class="row">
             <div class="col-md-offset-2 col-md-9">
-              <%= f.button :submit, '提交', data: {confirm: '确认合并到目标用户吗？该操作不可恢复！！！'}, class: 'btn red' %>
+              <%= f.button :submit, '提交', data: {confirm: '确认指定目标用户为代捐人吗？'}, class: 'btn red' %>
               <%= link_to '取消', admin_user_path(@user), class: 'btn' %>
             </div>
           </div>
@@ -31,7 +33,7 @@
 
     <script>
         $(function(){
-            $(".user-select").select2({
+            $(".user-selector").select2({
                 language: "zh-CN",
                 placeholder: '请选择用户',
                 allowClear: true,

@@ -16,6 +16,8 @@ namespace :admin do
       post :bill
       get :combine
       post :set_combine
+      get :manager
+      post :set_manager
     end
     resources :donate_records, only: [:index, :destroy] do
       member do

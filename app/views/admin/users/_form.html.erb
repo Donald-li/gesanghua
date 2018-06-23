@@ -16,9 +16,6 @@
     <%= f.input :name, label: '真实姓名：', placeholder: '请填写真实姓名', required: true %>
     <%= f.input :salutation, as: :select, collection: ['哥哥', '姐姐', '弟弟', '妹妹', '叔叔', '阿姨', '爷爷', '奶奶'], include_blank: false, label: '如何称呼', input_html: {data: {}, class: 'goodinput',id:'nickname'} %>
     <%= f.input :gender, as: :radio_buttons, wrapper: :inline_inputs, collection: User.options_for_some_select(:genders, ['male', 'female']), label: '性别：'%>
-    <% if @user.unactived? %>
-      <%= f.input :manager_id, collection: [@user.manager].compact.map {|u| [u.name, u.id]}, label: '指定代捐管理人：', prompt: "请选择用户", input_html: {class: 'user_selector'}, hint: '指定代捐管理人，当前用户的捐助记录、相关项目、孩子等信息会迁移到指定用户（指定用户为已激活用户）' %>
-    <% end %>
     <h4>收货地址</h4>
     <%= f.input :consignee, label: '收件人：', placeholder: '请填写正确的收件人' %>
     <div style="margin-bottom: 20px;" class="form-group">
@@ -107,36 +104,6 @@
     )
   })
   $(function () {
-      $("form .user_selector").select2({
-          language: "zh-CN",
-          placeholder: '请选择用户',
-          ajax: {
-              url: "/selects/users",
-              dataType: 'json',
-              delay: 250,
-              data: function (params) {
-                  return {
-                      q: params.term, // search term
-                      page: params.page
-                  };
-              },
-              processResults: function (data, params) {
-                  params.page = params.page || 1;
-                  return {
-                      results: $.map(data.items, function (item) {
-                          return {
-                              text: item.name_for_select,
-                              id: item.id
-                          }
-                      }),
-                      pagination: {
-                          more: (params.page * 30) < data.total_count
-                      }
-                  };
-              },
-              cache: true
-          }
-      });
       toggleProjects();
   })
 </script>

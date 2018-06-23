@@ -1,0 +1,70 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i> 用户数据操作
+    </div>
+    <div class="actions">
+      <%= link_to edit_admin_user_path(@user), class: 'btn btn-xs blue' do %>
+          <i class="fa fa-reply"></i>
+          <span>返回</span>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="portlet light bordered">
+    <% if can? :manage_operation, current_user %>
+        <div class="portlet light bordered">
+          <div class="portlet-title">
+            <div class="caption">
+              <i class="fa fa-code-fork font-red-sunglo"></i>
+              <span class="caption-subject font-red-sunglo bold uppercase">合并用户</span>
+            </div>
+            <div class="actions">
+            </div>
+          </div>
+          <div class="portlet-body">
+            <div class="form-body form-inline">
+              <div class="form-body">
+                <div class="form-group">
+                  <div class="col-sm-9">
+                    <%= link_to combine_admin_user_path(@user), class: 'btn red', 'data-no-turbolink' => true do %>
+                        <i class="fa fa-code-fork"></i>
+                        <span>合并用户</span>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    <% end %>
+    <div class="portlet light bordered">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="fa fa-cog font-red-sunglo"></i>
+          <span class="caption-subject font-red-sunglo bold uppercase">指定代捐管理人</span>
+        </div>
+        <div class="actions">
+        </div>
+      </div>
+      <div class="portlet-body">
+        <div class="form-body form-inline">
+          <div class="form-body">
+            <div class="form-group">
+              <div class="col-sm-9">
+                <% if @user.unactived? %>
+                    <%= link_to manager_admin_user_path(@user), class: 'btn red', 'data-no-turbolink' => true do %>
+                        <i class="fa fa-cog"></i>
+                        <span>指定代捐管理人</span>
+                    <% end %>
+                <% else %>
+                    <a href="###" class="btn red">用户已激活，无法指定代捐管理人</a>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

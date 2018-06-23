@@ -1,6 +1,6 @@
 class Admin::UsersController < Admin::BaseController
   before_action :auth_custom_service
-  before_action :set_user, only: [:edit, :update, :switch, :invoices, :bill, :combine, :set_combine]
+  before_action :set_user, only: [:show, :edit, :update, :switch, :invoices, :bill, :combine, :set_combine, :manager, :set_manager]
 
   def index
     respond_to do |format|
@@ -21,6 +21,9 @@ class Admin::UsersController < Admin::BaseController
       #end
     end
 
+  end
+
+  def show
   end
 
   def new
@@ -45,16 +48,10 @@ class Admin::UsersController < Admin::BaseController
 
   def update
     roles = @user.roles
-    old_manager = User.find_by(id: @user.manager_id)
     user_params[:roles] = (user_params[:roles] | ( roles & User::ADMIN_ROLES)).select(&:present?) if user_params[:roles].present?
     respond_to do |format|
       if @user.update(user_params)
         @user.attach_avatar(params[:avatar_id])
-        #如果设置管理人manager，迁移捐助记录等数据
-        if user_params[:manager_id].present?
-          manager = User.find_by(id: user_params[:manager_id])
-          @user.set_offline_user_manager(manager, old_manager, current_user)
-        end
         format.html { redirect_to referer_or(admin_users_url), notice: '用户已修改。' }
       else
         format.html { render :edit }
@@ -98,6 +95,19 @@ class Admin::UsersController < Admin::BaseController
       redirect_to referer_or(admin_user_path(@user)), notice: '操作成功。'
     else
       redirect_to referer_or(admin_user_path(@user)), alert: '操作失败。'
+    end
+  end
+
+  def manager
+  end
+
+  def set_manager
+    old_manager = User.find_by(id: @user.manager_id)
+    manager = User.find_by(id: user_params[:manager_id])
+    if @user.set_offline_user_manager(manager, old_manager, current_user) && @user.update(manager: manager)
+      redirect_to admin_user_path(@user), notice: '操作成功。'
+    else
+      redirect_to admin_user_path(@user), alert: '操作失败。'
     end
   end
 
