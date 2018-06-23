@@ -640,21 +640,6 @@ class User < ApplicationRecord
         record.update!(agent_id: manager.id)
       end
 
-      if old_manager.present?
-        ProjectSeasonApplyChild.where(priority_id: old_manager.id).each do |child|
-          child.update!(priority_id: manager.id)
-        end
-        GshChildGrant.where(user_id: old_manager.id).each do |grant|
-          grant.update!(user_id: manager.id)
-        end
-      end
-      ProjectSeasonApplyChild.where(priority_id: self.id).each do |child|
-        child.update!(priority_id: manager.id)
-      end
-      GshChildGrant.where(user_id: self.id).each do |grant|
-        grant.update!(user_id: manager.id)
-      end
-
       #重算的缓存数据
       if old_manager.present?
         offline_income_resource = IncomeSource.offline
