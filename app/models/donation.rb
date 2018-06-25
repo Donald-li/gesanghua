@@ -197,7 +197,7 @@ class Donation < ApplicationRecord
     if donation.unpaid?
       donor = donation.donor
       agent = donation.agent
-      amount = result['invoice_amount']
+      amount = result['receipt_amount']
       amount = donation.amount if Settings.pay_1_mode # 测试模式入账金额等于捐助金额
 
       # 更新捐助状态
