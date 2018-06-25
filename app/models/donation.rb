@@ -108,7 +108,7 @@ class Donation < ApplicationRecord
       out_trade_no: self.order_no,
       subject: '捐助给格桑花',
       total_fee: Settings.pay_1_mode ? '0.01' : sprintf('%.2f', self.amount.to_f),
-      return_url: 'http://' + Settings.app_host + '/pay?order_no=' + self.order_no
+      return_url: 'http://' + Settings.app_host + '/pay?order_no=' + self.order_no,
       notify_url: "http://" + Settings.app_host + "/payment/alipay_payments/notify"
     )
   end
@@ -197,8 +197,9 @@ class Donation < ApplicationRecord
     if donation.unpaid?
       donor = donation.donor
       agent = donation.agent
-      amount = result['receipt_amount']
-      amount = donation.amount if Settings.pay_1_mode # 测试模式入账金额等于捐助金额
+      amount = donation.amount
+      # amount = result['receipt_amount']
+      # amount = donation.amount if Settings.pay_1_mode # 测试模式入账金额等于捐助金额
 
       # 更新捐助状态
       donation.pay_state = 'paid'
