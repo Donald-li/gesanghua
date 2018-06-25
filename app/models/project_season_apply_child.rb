@@ -145,7 +145,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   scope :check_list, -> {where(approve_state: [1, 2, 3])}
 
   def self.allow_apply?(school, id_card, child=nil)
-    return true if child.archive_data.present?
+    return true if child.try(:archive_data).present?
     return false unless id_card.present?
     if child.nil?
       return false if self.where(school: school, id_card: id_card).present?
