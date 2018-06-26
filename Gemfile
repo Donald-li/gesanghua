@@ -119,7 +119,7 @@ gem 'weixin_authorize'
 gem 'wx_pay'
 
 # 支付宝
-gem 'alipay', '~> 0.15.0'
+gem 'alipay', '~> 0.14.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -167,6 +167,3 @@ gem 'toastr-rails'
 
 gem 'pry-rails'                   # Open pry instead of IRB when use rails console
 gem 'pry-byebug'
-
-
-
