@@ -25,7 +25,7 @@ class AccountRecord < ApplicationRecord
   enum kind: {adjust: 1, donate: 2, refund: 3, charge: 4} # 1:调整 2:捐助 3:退款 4:充值
   default_value_for :kind, 1
 
-  counter_culture :user, column_name: 'balance', delta_magnitude: proc {|model| model.amount }
+  counter_culture :user, column_name: 'balance', delta_column: 'amount'
 
   scope :sorted, -> { order(created_at: :desc) }
 

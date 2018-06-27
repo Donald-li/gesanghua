@@ -63,14 +63,14 @@ class IncomeRecord < ApplicationRecord
   # 可开票记录
   scope :open_ticket, -> {to_bill.where(created_at: (Time.now.beginning_of_year)..(Time.now.end_of_year))}
 
-  counter_culture :agent, column_name: proc {|model| model.income_source.present? && !model.income_source.offline? ? 'online_amount' : nil}, delta_magnitude: proc {|model| model.amount}
-  counter_culture :agent, column_name: proc {|model| model.income_source.present? && model.income_source.offline? ? 'offline_amount' : nil}, delta_magnitude: proc {|model| model.amount}
+  counter_culture :agent, column_name: proc {|model| model.income_source.present? && !model.income_source.offline? ? 'online_amount' : nil}, delta_column: 'amount'
+  counter_culture :agent, column_name: proc {|model| model.income_source.present? && model.income_source.offline? ? 'offline_amount' : nil}, delta_column: 'amount'
   counter_culture :agent, column_name: 'donate_amount', delta_magnitude: proc {|model| model.amount}
-  counter_culture :promoter, column_name: 'promoter_amount_count', delta_magnitude: proc {|model| model.amount}
-  counter_culture :fund, column_name: proc {|model| model.fund.present? ? 'total' : 0}, delta_magnitude: proc {|model| model.income_time >= Time.mktime(2018, 6, 1) ? model.amount : 0}
-  counter_culture :fund, column_name: proc {|model| model.fund.present? ? 'balance' : 0}, delta_magnitude: proc {|model| model.income_time >= Time.mktime(2018, 6, 1) ? model.amount : 0}
-  counter_culture :income_source, column_name: 'amount', delta_magnitude: proc {|model| model.income_time >= Time.mktime(2018, 6, 1) ? model.amount : 0}
-  counter_culture :income_source, column_name: 'in_total', delta_magnitude: proc {|model| model.income_time >= Time.mktime(2018, 6, 1) ? model.amount : 0}
+  counter_culture :promoter, column_name: 'promoter_amount_count', , delta_column: 'amount'
+  counter_culture :fund, column_name: proc {|model| model.fund.present? && model.income_time >= Time.mktime(2018, 6, 1) ? 'total' : nil}, delta_column: 'amount'
+  counter_culture :fund, column_name: proc {|model| model.fund.present? && model.income_time >= Time.mktime(2018, 6, 1) ? 'balance' : nil}, delta_column: 'amount'
+  counter_culture :income_source, column_name: proc {|model| model.income_time >= Time.mktime(2018, 6, 1) ? 'amount' : nil}, delta_column: 'amount'
+  counter_culture :income_source, column_name: proc {|model| model.income_time >= Time.mktime(2018, 6, 1) ? 'in_total' : nil}, delta_column: 'amount'
 
   def has_balance?
     self.balance > 0

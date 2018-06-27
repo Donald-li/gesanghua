@@ -39,8 +39,8 @@ class ExpenditureRecord < ApplicationRecord
   # default_value_for :deliver_state, 1
   # enum kind: {}
   # counter_culture :expenditure_ledger, column_name: 'amount', delta_magnitude: proc {|model| model.amount }
-  counter_culture :fund, column_name: 'out_total', delta_magnitude: proc {|model|model.expended_at >= Time.mktime(2018,6,1) ? model.amount : 0  }
-  counter_culture :income_source, column_name: 'out_total', delta_magnitude: proc {|model| model.expended_at >= Time.mktime(2018,6,1) ? model.amount : 0}
+  counter_culture :fund, column_name: proc {|model|model.expended_at >= Time.mktime(2018,6,1) ? 'out_total' : 0  }, delta_column: 'amount'
+  counter_culture :income_source, column_name: proc {|model| model.expended_at >= Time.mktime(2018,6,1) ? 'out_total' : nil} , delta_column: 'amount'
 
   before_create :gen_expend_no
 

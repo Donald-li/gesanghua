@@ -42,7 +42,7 @@ class TaskVolunteer < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
-  counter_culture :volunteer, column_name: proc {|model| model.done? ? 'duration' : nil }, delta_magnitude: proc {|model| model.duration}
+  counter_culture :volunteer, column_name: proc {|model| model.done? ? 'duration' : nil }, delta_column: 'duration'
 
   def can_turn_over?
     self.pass?
