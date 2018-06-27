@@ -69,12 +69,10 @@ class Account::SessionsController < Account::BaseController
 
         @user = User.find_by_login(session_params[:login])
         if @user.blank?
-          flash[:alert] = '该帐号不存在'
-          render(action: :new) && return
+          redirect_to account_login_path, alert: '该帐号不存在，请注册'
         else
           if @user.state === 'disable'
-            flash[:alert] = '该帐号已被停用'
-            render(action: :new) && return
+            redirect_to account_login_path, alert: '该帐号已被停用'
           end
         end
         set_reset_user(@user)
