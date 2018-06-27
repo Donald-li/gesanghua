@@ -88,7 +88,7 @@ RSpec.describe User, type: :model do
 
     User.update_user_statistic_record
 
-    expect(StatisticRecord.user_register.where(record_time: Time.now.beginning_of_day..Time.now.end_of_day).first.amount).to eq User.count
+    expect(StatisticRecord.user_register.where(record_time: Time.now.beginning_of_day..Time.now.end_of_day).first.amount).to eq User.where(actived_at: Time.now.beginning_of_day..Time.now.end_of_day).count
 
   end
 
