@@ -222,7 +222,7 @@ class DonateRecord < ApplicationRecord
       # 记录余额消耗记录
       if source.is_a?(User)
         AccountRecord.create!(title: '使用余额捐助', kind: 'donate', amount: 0 - amount, user: source, donor: params[:donor])
-      elsif source.is_a?(IncomeRecord)
+      else
         source.balance -= donate_amount
       end
       source.save! # 解锁
