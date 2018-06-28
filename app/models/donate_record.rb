@@ -121,7 +121,7 @@ class DonateRecord < ApplicationRecord
       when 'user_balance'
         source = User.find(params[:user_id])
         donor = source
-        agent = donor.enabled? ? donor : (donor.manager || donor)
+        agent = donor.enable? ? donor : (donor.manager || donor)
     end
 
     # donor = source.is_a?(User) ? source : params[:current_user]
