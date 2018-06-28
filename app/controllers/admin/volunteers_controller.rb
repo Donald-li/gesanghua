@@ -1,5 +1,5 @@
 class Admin::VolunteersController < Admin::BaseController
-  before_action :auth_manage_operation
+  before_action :auth_manage_manpower
   before_action :set_volunteer, only: [:show, :edit, :update, :destroy, :switch, :switch_job]
 
   def index

@@ -57,6 +57,8 @@
           </li>
         </ul>
       </li>
+          <% end %>
+          <% if can? :manage_operation, current_user  %>
       <li class="nav-item <%= current_nav_class(:admin_user_main) %> <%= current_nav_class(:admin_user_county_users) %> <%= current_nav_class(:admin_user_gsh_children) %> <%= current_nav_class(:admin_user_teachers) %>">
         <%= link_to '', class: 'nav-link' do %>
             <i class="fa fa-user"></i>
@@ -84,7 +86,8 @@
           </li>
         </ul>
       </li>
-
+      <% end %>
+      <% if can? :manage_operation, current_user  %>
       <li class="nav-item <%= current_nav_class(:admin_manage_teams) %> ">
         <a href="javascript:;" class="nav-link nav-toggle">
           <i class="fa fa-users"></i>
@@ -104,7 +107,8 @@
           </li>
         </ul>
       </li>
-
+      <% end %>
+          <% if can? :manage_manpower, current_user %>
       <li class="nav-item <%= current_nav_class(:admin_volunteers) %> ">
         <a href="javascript:;" class="nav-link nav-toggle">
           <% to_check_task = TaskVolunteer.to_check.count %>
@@ -147,7 +151,8 @@
           </li>
         </ul>
       </li>
-
+    <% end %>
+    <% if can? :manage_operation, current_user  %>
       <% to_prove_apply = 0 %>
       <% submited = 0 %>
 
@@ -186,7 +191,8 @@
           </li>
         </ul>
       </li>
-
+      <% end %>
+      <% if can? :manage_operation, current_user  %>
       <li class="nav-item <%= current_nav_class(:admin_complaint) %>">
         <%= link_to admin_complaints_path, class: 'nav-link' do %>
             <% new = Complaint.submit.count %>
@@ -197,7 +203,8 @@
             <% end %>
         <% end %>
       </li>
-
+      <% end %>
+      <% if can? :manage_operation, current_user  %>
       <li class="nav-item <%= current_nav_class(:admin_platform_content) %>">
         <a href="javascript:;" class="nav-link nav-toggle">
           <i class="fa fa-tasks"></i>

@@ -1,6 +1,6 @@
 # 志愿者指派任务管理
 class Admin::AppointTasksController < Admin::BaseController
-  before_action :auth_manage_operation
+  before_action :auth_manage_manpower
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
