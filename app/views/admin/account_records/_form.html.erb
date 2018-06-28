@@ -2,7 +2,7 @@
     <div class="form-body form-horizontal">
       <%= f.input :title, label: '标题：', autofocus: true, placeholder: '', input_html: { data: {'parsley-required': true}} %>
       <%= f.input :kind, collection: AccountRecord.options_for_enum_select(:kinds), label: '操作类型：', include_blank: false, input_html: { data: {'parsley-required': true}} %>
-      <%= f.input :amount, label: '金额：', placeholder: '', hint: '扣除用负数', input_html: { data: {'parsley-required': true, 'parsley-min': 0.01}} %>
+      <%= f.input :amount, label: '金额：', placeholder: '', hint: '扣除用负数', input_html: { data: {'parsley-required': true}} %>
       <%= f.input :remark, label: '备注：', placeholder: '' %>
     </div>
     <div class="form-actions">
