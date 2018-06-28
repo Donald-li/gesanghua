@@ -20,6 +20,9 @@
     </div>
     <%= f.input :income_source_id, as: :select, collection: IncomeSource.sorted, label: '入账账户：', include_blank: '选择账户', required: true, disabled: @income_record.can_not_edit? %>
     <%= f.input :amount, label: '收入金额：', require: true, type: 'number', input_html: {}, disabled: @income_record.can_not_edit? %>
+    <% unless @income_record.new_record? %>
+    <%= f.input :balance, label: '记录余额：', require: true, type: 'number', input_html: {}, disabled: @income_record.can_not_edit? %>
+    <% end %>
     <%= f.input :agent_id, as: :select, collection: User.sorted, label: '捐助人：', input_html: {class: 'users-ajax'}, required: true, disabled: @income_record.can_not_edit? %>
     <div class="form-group">
       <label class="col-md-2 control-label">捐助时间：</label>

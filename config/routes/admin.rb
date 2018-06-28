@@ -270,7 +270,11 @@ namespace :admin do
       end
     end
   end
-  resources :income_records, concerns: [:excel_upload, :excel_import, :template_download]
+  resources :income_records, concerns: [:excel_upload, :excel_import, :template_download] do
+    member do
+      get :return_back
+    end
+  end
 
   resources :expenditure_ledgers, concerns: [:move]
   resources :expenditure_records, concerns: [:excel_upload, :excel_import, :template_download]
