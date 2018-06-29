@@ -22,6 +22,10 @@ class Admin::SpecialsController < Admin::BaseController
   def create
     @article = Article.new(title: special_params[:name], describe: special_params[:describe], article_category_id: special_params[:article_category_id], author: special_params[:author], content: special_params[:describe], published_at: special_params[:published_at], kind: 'list')
     @special = Special.new(special_params.merge(list_article: @article))
+    if !@special.published_at.present?
+      flash[:notice] = '请填写发布时间'
+      render :new and return
+    end
     respond_to do |format|
       if @special.save && @article.save
         @special.attach_banner(params[:banner_id])
@@ -33,6 +37,10 @@ class Admin::SpecialsController < Admin::BaseController
   end
 
   def update
+    if !special_params[:published_at].present?
+      flash[:notice] = '请填写发布时间'
+      render :edit and return
+    end
     respond_to do |format|
       if @special.update(special_params)
         @special.list_article.update(title: special_params[:name], describe: special_params[:describe])
