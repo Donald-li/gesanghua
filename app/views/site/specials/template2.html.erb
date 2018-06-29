@@ -14,7 +14,7 @@
         <div class="border-r">
           <%= link_to article_path(@text_news.first) do %>
               <div class="ovrly"></div>
-              <p class="gsh-cont-1"><%= @text_news.first.author %> | <%= @text_news.first.published_at.strftime("%Y年%m月%d日") %></p>
+              <p class="gsh-cont-1"><%= @text_news.first.author %> | <%= @text_news.first.published_at.strftime("%Y年%m月%d日") if @text_news.first.published_at.present? %></p>
               <p class="gsh-cont-2"><%= @text_news.first.title %></p>
               <p class="gsh-cont-3"><%= @text_news.first.describe %></p>
           <% end %>
@@ -24,7 +24,7 @@
         <div class="border-r">
           <%= link_to article_path(@text_news.second) do %>
             <div class="ovrly" style="background: #bd47ee;"></div>
-            <p class="gsh-cont-1"><%= @text_news.second.author %> | <%= @text_news.second.published_at.strftime("%Y年%m月%d日") %></p>
+            <p class="gsh-cont-1"><%= @text_news.second.author %> | <%= @text_news.second.published_at.strftime("%Y年%m月%d日") if @text_news.second.published_at.present? %></p>
             <p class="gsh-cont-2"><%= @text_news.second.title %></p>
             <p class="gsh-cont-3"><%= @text_news.second.describe %></p>
           <% end %>
@@ -34,7 +34,7 @@
         <div>
           <%= link_to article_path(@text_news.third) do %>
             <div class="ovrly" style="background: #8b54e3;"></div>
-            <p class="gsh-cont-1"><%= @text_news.third.author %> | <%= @text_news.third.published_at.strftime("%Y年%m月%d日") %></p>
+            <p class="gsh-cont-1"><%= @text_news.third.author %> | <%= @text_news.third.published_at.strftime("%Y年%m月%d日") if @text_news.third.published_at.present? %></p>
             <p class="gsh-cont-2"><%= @text_news.third.title %></p>
             <p class="gsh-cont-3"><%= @text_news.third.describe %></p>
           <% end %>
@@ -89,7 +89,7 @@
                         <div class="recommend-img">
                           <%= image_tag image_new.image.try(:file).try(:url, :medium).to_s %>
                         </div>
-                        <p class="gsh-cont-1"><%= image_new.author %> | <%= image_new.published_at.strftime("%Y年%m月%d日")%></p>
+                        <p class="gsh-cont-1"><%= image_new.author %> | <%= image_new.published_at.strftime("%Y年%m月%d日") if image_new.published_at.present? %></p>
                         <p class="gsh-cont-2"><%= image_new.title %></p>
                     <% end %>
 

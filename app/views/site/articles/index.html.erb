@@ -69,7 +69,7 @@
                 <p class="gsh-cont-2"><%= recommend_article.title %></p>
                 <% if recommend_article != @recommend_articles.first %>
                     <p class="gsh-cont-1"><%= recommend_article.author %>
-                      |  <%= recommend_article.published_at.strftime("%Y年%m月%d日") %></p>
+                      |  <%= recommend_article.published_at.strftime("%Y年%m月%d日") if recommend_article.published_at.present? %></p>
                 <% end %>
               </div>
             </div>
