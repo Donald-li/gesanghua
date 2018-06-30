@@ -140,6 +140,7 @@ class DonateRecord < ApplicationRecord
     result = false
     income_record_id = source.instance_of?(IncomeRecord) ? source.id : nil
     donation_id = source.instance_of?(IncomeRecord) ? source.donation_id : nil
+    operator = params[:operator]
 
     amount = amount.to_f.round(2)
 
@@ -210,7 +211,7 @@ class DonateRecord < ApplicationRecord
           source.balance -= reback
           user = source.donor
           user.lock!
-          AccountRecord.create!(title: self.apply_name + '超捐退款', kind: 'refund', amount: reback, income_record: source, user: source.agent, donor: source.donor, operator: operator.present? ? operator.try(:id) : self.agent_id)
+          AccountRecord.create!(title: donate_records.last.try(:apply_name).to_s + '超捐退款', kind: 'refund', amount: reback, income_record: source, user: source.agent, donor: source.donor, operator: operator.present? ? operator : donate_records.last.try(:agent))
           user.save!
           message = "捐助成功，但捐助过程中，项目收到新捐款造成超捐，其中#{reback}元已退回您的账户余额。"
         else
@@ -222,7 +223,7 @@ class DonateRecord < ApplicationRecord
 
       # 记录余额消耗记录
       if source.is_a?(User)
-        AccountRecord.create!(title: '使用余额捐助' + self.apply_name, kind: 'donate', amount: 0 - amount, user: source, donor: params[:donor], operator: operator.present? ? operator.try(:id) : self.agent_id)
+        AccountRecord.create!(title: '使用余额捐助' + donate_records.last.try(:apply_name).to_s, kind: 'donate', amount: 0 - amount, user: source, donor: params[:donor], operator: operator.present? ? operator : source)
       elsif source.is_a?(IncomeRecord)
         source.balance -= donate_amount
       end
@@ -256,7 +257,7 @@ class DonateRecord < ApplicationRecord
     self.transaction do
       # 退余额
       self.agent.lock!
-      AccountRecord.create!(title: self.apply_name + '退款', kind: 'refund', amount: self.amount, donate_record: self, user: self.agent, donor: self.donor, operator_id: operator.try(:id))
+      AccountRecord.create!(title: self.apply_name + '退款', kind: 'refund', amount: self.amount, donate_record: self, user: self.agent, donor: self.donor, operator: operator)
       self.agent.save!
 
       self.refund!

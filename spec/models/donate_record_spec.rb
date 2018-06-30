@@ -197,7 +197,7 @@ RSpec.describe DonateRecord, type: :model do
       DonateRecord.do_donate(:platform_donate, @fund, @radio_apply, 4000)
       expect(@radio_apply.reload.present_amount).to eq(4000)
       expect(DonateRecord.last.amount).to eq(4000)
-      expect(@fund.reload.balance).to eq(40000 - 4000)
+      expect(@fund.reload.balance).to eq(40000)
     end
   end
 
@@ -234,7 +234,7 @@ RSpec.describe DonateRecord, type: :model do
       expect(grant.donate_state).to eq('succeed')
       expect(grant.state).to eq('waiting')
       donate_record = grant.donate_records.last
-      result = donate_record.do_refund!(user)
+      result = donate_record.do_refund!(@user)
       expect(result).to be(true)
       expect(donate_record.reload.state).to eq('refund')
       expect(grant.reload.state).to eq('cancel')
