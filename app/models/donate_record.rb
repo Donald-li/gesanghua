@@ -118,6 +118,7 @@ class DonateRecord < ApplicationRecord
         agent = source.agent
       when 'fund'
         source = Fund.find(params[:fund_id])
+        donor = User.find(params[:donor_id])
       when 'user_balance'
         source = User.find(params[:user_id])
         donor = source

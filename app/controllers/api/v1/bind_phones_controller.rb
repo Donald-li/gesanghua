@@ -27,7 +27,6 @@ class Api::V1::BindPhonesController < Api::V1::BaseController
             user.password = params[:password]
           end
           user.save
-
           api_success(message: '绑定成功', data: {state: true})
         else
           api_success(message: '绑定失败，手机号已占用', data: {state: false})

@@ -84,9 +84,6 @@
               捐助金额
             </th>
             <th>
-              记录余额
-            </th>
-            <th>
               入账账户
             </th>
             <th>
@@ -123,9 +120,6 @@
                 </td>
                 <td>
                   ￥<%= format_money record.amount %>
-                </td>
-                <td>
-                  ￥<%= format_money record.balance %>
                 </td>
                 <td>
                   <%= record.income_source.try(:name) %>
