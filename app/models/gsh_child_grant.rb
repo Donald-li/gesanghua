@@ -114,9 +114,9 @@ class GshChildGrant < ApplicationRecord
   end
 
   # 退款, 捐助记录退款状态，退回账户余额，孩子标记取消
-  def do_refund!
+  def do_refund!(operator)
     record = self.donate_records.last
-    record.do_refund!
+    record.do_refund!(operator)
   end
 
   def button_color

@@ -234,7 +234,7 @@ RSpec.describe DonateRecord, type: :model do
       expect(grant.donate_state).to eq('succeed')
       expect(grant.state).to eq('waiting')
       donate_record = grant.donate_records.last
-      result = donate_record.do_refund!
+      result = donate_record.do_refund!(user)
       expect(result).to be(true)
       expect(donate_record.reload.state).to eq('refund')
       expect(grant.reload.state).to eq('cancel')

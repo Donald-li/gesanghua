@@ -15,7 +15,7 @@ class Admin::DonateRecordsController < Admin::BaseController
   def refund
     @donate_record = DonateRecord.find(params[:id])
     if @donate_record.can_refund? # && @donate_record.try(:apply).try(:can_refund?)
-      @donate_record.do_refund!
+      @donate_record.do_refund!(current_user)
       redirect_back fallback_location: admin_user_donate_records_url(@donate_record.donor_id), notice: '退款成功'
     else
       redirect_back fallback_location: admin_user_donate_records_url(@donate_record.donor_id), alert: '退款失败'

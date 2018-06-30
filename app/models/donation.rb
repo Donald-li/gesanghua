@@ -119,7 +119,7 @@ class Donation < ApplicationRecord
   end
 
   # 退款
-  def do_refund!
+  def do_refund!(operator)
     user = self.user
     return unless user
     self.transaction do

@@ -84,7 +84,7 @@ class Admin::PairGrantsController < Admin::BaseController
   def update_cancel
     respond_to do |format|
       if @grant.update(grant_params.merge(operator_id: current_user.id))
-        if @grant.do_refund!
+        if @grant.do_refund!(current_user)
           format.html {redirect_to referer_or(admin_pair_grants_path), notice: '操作成功。'}
         else
           format.html {redirect_to referer_or(admin_pair_grants_path), alert: '操作失败。'}

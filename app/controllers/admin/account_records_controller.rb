@@ -17,7 +17,7 @@ class Admin::AccountRecordsController < Admin::BaseController
   end
 
   def create
-    @account_record = AccountRecord.new(account_params.merge(user: @user, state: 'user_operate'))
+    @account_record = AccountRecord.new(account_params.merge(user: @user, operator: current_user, state: 'user_operate'))
     respond_to do |format|
       if @account_record.save
         format.html { redirect_to referer_or(admin_user_account_records_path(@user)), notice: '记录已增加。' }

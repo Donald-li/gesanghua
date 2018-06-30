@@ -14,11 +14,13 @@
 #  updated_at       :datetime         not null
 #  title            :string                                 # 标题
 #  state            :integer                                # 类型
+#  operator_id      :integer                                # 操作人id
 #
 
 class AccountRecord < ApplicationRecord
   belongs_to :user
   belongs_to :donor, class_name: 'User', foreign_key: :donor_id, optional: true
+  belongs_to :operator, class_name: 'User', foreign_key: :operator_id, optional: true
   belongs_to :income_record, optional: true
   belongs_to :donate_record, optional: true
 
