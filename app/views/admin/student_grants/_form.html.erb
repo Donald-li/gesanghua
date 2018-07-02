@@ -2,6 +2,7 @@
     <%= f.error_notification %>
     <div class="form-body form-horizontal">
       <%= f.input :title, label: '申请学年：', autofocus: true, placeholder: '学年', required: true %>
+      <%= f.input :grade_name, label: '年级名称：', autofocus: true, placeholder: '', required: true %>
       <%= f.input :amount, label: '资助金额：', placeholder: '金额', required: true, type: 'number' %>
       <%= f.input :remark, label: '备注：', placeholder: '' %>
     </div>
