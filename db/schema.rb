@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180702092412) do
+ActiveRecord::Schema.define(version: 20180703114753) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1307,6 +1307,7 @@ ActiveRecord::Schema.define(version: 20180702092412) do
     t.jsonb "archive_data", comment: "归档旧数据"
     t.datetime "actived_at", comment: "激活时间"
     t.jsonb "operate_log", comment: "危险操作记录：用户合并、指定代捐管理人、代捐人激活"
+    t.text "remark"
     t.index ["email"], name: "index_users_on_email"
     t.index ["login"], name: "index_users_on_login"
     t.index ["phone"], name: "index_users_on_phone"

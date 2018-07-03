@@ -42,6 +42,7 @@
 #  archive_data          :jsonb                                        # 归档旧数据
 #  actived_at            :datetime                                     # 激活时间
 #  operate_log           :jsonb                                        # 危险操作记录：用户合并、指定代捐管理人、代捐人激活
+#  remark                :text
 #
 
 require 'rails_helper'

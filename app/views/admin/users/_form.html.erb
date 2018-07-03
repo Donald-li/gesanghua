@@ -39,6 +39,7 @@
     <%= f.input :password, label: '设置密码：', hint: '设置登录密码', placeholder: '如果不修改密码，请留空', input_html: {id: 'password'} %>
     <%= f.input :phone, label: '绑定手机：', placeholder: '填写正确的手机号码' %>
     <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: User.options_for_select(:states), label: '账号状态：'%>
+    <%= f.input :remark, label: '备注：', placeholder: '' %>
     <% if @user.archive_data.present? %>
     <h4>历史数据</h4>
     <%= static_form_control '昵称：', @user.archive_data["DvUserName"] if @user.archive_data["DvUserName"].present? %>
