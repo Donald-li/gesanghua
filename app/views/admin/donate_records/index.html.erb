@@ -83,7 +83,7 @@
                 <%= record.agent_name %>
               </td>
               <td>
-                <%= l record.created_at %>
+                <%= l record.created_at if record.created_at.present? %>
               </td>
               <td>
                 <%= format_money record.amount %>
