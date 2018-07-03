@@ -151,18 +151,21 @@ class GshChildGrant < ApplicationRecord
     apply_num = 4 - child.child_grade_integer
 
     year = Time.now.year
+    grade = ProjectSeasonApplyChild.grades[child.grade]
 
     if child.next_term? && apply_num > 0
-      GshChildGrant.find_or_create_by(title: "#{year}.3 - #{year}.7 学期", gsh_child: gsh_child, apply_child: child, apply: apply, amount: term_amount, school_id: child.school_id, grade_name: "#{level}#{child.enum_name(:grade)}")
+      grant = GshChildGrant.find_or_create_by(title: "#{year}.3 - #{year}.7 学期", gsh_child: gsh_child, apply_child: child, apply: apply, amount: term_amount, school_id: child.school_id)
+      grant.update(grade_name: "#{level}.#{grade}")
       apply_num -= 1
-      child.grade = ProjectSeasonApplyChild.grades[child.grade] + 1
+      grade += 1
     end
 
     if (apply_num > 0)
       apply_num.times do
-        GshChildGrant.find_or_create_by(title: "#{year}.9 - #{year + 1}.7 学年", gsh_child: gsh_child, apply_child: child, apply: apply, amount: year_amount, school_id: child.school_id, grade_name: "#{level}#{child.enum_name(:grade)}")
+        grant = GshChildGrant.find_or_create_by(title: "#{year}.9 - #{year + 1}.7 学年", gsh_child: gsh_child, apply_child: child, apply: apply, amount: year_amount, school_id: child.school_id)
+        grant.update(grade_name: "#{level}.#{grade}")
         year += 1
-        child.grade = ProjectSeasonApplyChild.grades[child.grade] + 1
+        grade += 1
       end
     end
 

@@ -22,37 +22,12 @@ namespace :maintain do
     #   end
     # end
 
-    ProjectSeasonApplyChild.all.each do |child|
-      gsh_child = child.gsh_child
-      apply = child.apply
-      season = apply.season
-      level = child.enum_name(:level)
-
-      if child.junior?
-        term_amount = season.junior_term_amount
-        year_amount = season.junior_year_amount
-      elsif child.senior?
-        term_amount = season.senior_term_amount
-        year_amount = season.senior_year_amount
-      end
-
-      apply_num = 4 - child.child_grade_integer
-
-      year = Time.now.year
-
-      if child.next_term? && apply_num > 0
-        grant = GshChildGrant.find_by(title: "#{year}.3 - #{year}.7 学期", gsh_child: gsh_child, apply_child: child, apply: apply, amount: term_amount, school_id: child.school_id)
-        grant.update(grade_name: "#{level}#{child.enum_name(:grade)}")
-        apply_num -= 1
-        child.grade = ProjectSeasonApplyChild.grades[child.grade] + 1
-      end
-
-      if (apply_num > 0)
-        apply_num.times do
-          grant = GshChildGrant.find_or_create_by(title: "#{year}.9 - #{year + 1}.7 学年", gsh_child: gsh_child, apply_child: child, apply: apply, amount: year_amount, school_id: child.school_id)
-          grant.update(grade_name: "#{level}#{child.enum_name(:grade)}")
-          year += 1
-          child.grade = ProjectSeasonApplyChild.grades[child.grade] + 1
+    ProjectSeasonApplyChild.sorted.map do |child|
+      DonateRecord.where(project_season_apply_child_id: child.id).map do |record|
+        grant = record.owner
+        if record.income_record.present?
+          grant.grade_name = child.enum_name(:level).to_s +  '.' + record.income_record.archive_data['Grade'].to_s
+          grant.save
         end
       end
     end
