@@ -27,8 +27,8 @@
         <div class="col-md-12 col-sm-12">
           <%= search_form_for @search, url: admin_pair_apply_pair_students_path, class: 'form-inline' do |f| %>
               <div class="form-group">
-                <%= f.label :name_cont, '姓名' %>
-                <%= f.text_field :name_cont, class: 'form-control gsh-input-share', placeholder: '姓名' %>
+                <%= f.label :name_or_gsh_no_or_id_card_cont, '搜索' %>
+                <%= f.text_field :name_or_gsh_no_or_id_card_cont, class: 'form-control gsh-input-share', placeholder: '姓名、格桑花编号、身份证号' %>
               </div>
               <div class="form-group">
                 <%= f.label :approve_state_eq, '审核状态' %>
@@ -46,13 +46,16 @@
           <thead>
           <tr>
             <th>
-              序号
+              格桑花编号
             </th>
             <th>
               姓名
             </th>
             <th>
               年龄
+            </th>
+            <th>
+              身份证
             </th>
             <th>
               性别
@@ -81,13 +84,16 @@
           <% @children.each do |child| %>
               <tr>
                 <td>
-                  <%= child.id %>
+                  <%= child.gsh_no %>
                 </td>
                 <td>
                   <%= child.try(:name) %>
                 </td>
                 <td>
                   <%= child.age %>
+                </td>
+                <td>
+                  <%= child.id_card %>
                 </td>
                 <td>
                   <%= child.enum_name(:gender) %>
