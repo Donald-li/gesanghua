@@ -40,7 +40,9 @@
         </div>
 
         <div class="modal-body" style="padding: 20px 30px 15px 30px;text-align: center;">
+          <%= link_to record.donor_certificate_path, target: '_blank' do %>
           <%= image_tag @donation.income_record.donor_certificate_path, style: 'width:300px;height:440px;' if @donation.income_record %>
+              <% end %>
         </div>
         <div class="modal-footer overspreads-but">
           <button class="overspreadsc-but overspread-but  over-but" data-dismiss="modal">关闭</button>

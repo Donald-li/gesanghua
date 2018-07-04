@@ -23,7 +23,7 @@ class Site::PairsController < Site::BaseController
   def detail
     @child = ProjectSeasonApplyChild.find(params[:id])
     @gsh_child_grants = @child.donate_pending_records.reverse
-    @grants = @child.gsh_child_grants.granted.sorted
+    @grants = @child.gsh_child_grants.granted.reverse_sorted
     @donate_records = DonateRecord.normal.where(project_season_apply_child_id: @child.id).sorted.page(1).per(6)
   end
 

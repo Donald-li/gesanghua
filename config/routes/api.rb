@@ -42,6 +42,7 @@ namespace :api do
           get :balance
           get :account_records
           post :set_password
+          get :logout
         end
       end
 

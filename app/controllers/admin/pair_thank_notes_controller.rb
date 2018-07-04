@@ -11,7 +11,6 @@ class Admin::PairThankNotesController < Admin::BaseController
   end
 
   def show
-    @note.update(check: 2)
   end
 
   def new

@@ -12,7 +12,7 @@ class GenDonateCertificate
       # name |= '用户'
 
       render_text(source, 60, 260, "亲爱的") {|c| c.pointsize '24'}
-      render_text(source, 132, 260, "#{name}，") do |c|
+      render_text(source, 132, 260, "#{name}：") do |c|
         c.pointsize '24'
         # c.weight 600
       end

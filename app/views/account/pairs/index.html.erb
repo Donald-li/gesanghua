@@ -37,7 +37,7 @@
                         </button>
                       <% end %>
                       <%= link_to account_pair_children_mailboxs_path(pair_id: child.id), class: 'donation-cont-but cur' do %>
-                        孩子信箱 <%= ContinualFeedback.where(gsh_child_grant_id: child.gsh_child_grants.where(user_id: current_user.id).pluck(:id)).count %>
+                        孩子信箱 <%= child.continual_feedbacks.visible.count %>
                       <% end %>
                     </div>
                   </div>

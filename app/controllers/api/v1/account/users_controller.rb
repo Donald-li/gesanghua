@@ -66,4 +66,9 @@ class Api::V1::Account::UsersController < Api::V1::BaseController
     end
   end
 
+  def logout
+    reset_session
+    api_success(data: true, message: '退出成功')
+  end
+
 end
