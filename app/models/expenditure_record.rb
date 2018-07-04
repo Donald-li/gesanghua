@@ -24,6 +24,9 @@
 
 # 支出记录
 class ExpenditureRecord < ApplicationRecord
+
+  has_paper_trail only: [:fund_id, :administrator_id, :income_record_id, :kind, :name, :expend_no, :expended_at, :operator, :remark, :amount, :income_source_id]
+
   include HasAsset
   has_many_assets :images, class_name: 'Asset::ExpenditureRecordImage'
   has_one_asset :expenditure_record_excel, class_name: 'Asset::ExpenditureRecordExcel'

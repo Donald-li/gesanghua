@@ -1,5 +1,29 @@
 zh:
   audit:
+    expenditure_record:
+      fund_id: '财务分类'
+      administrator_id: '管理员'
+      income_record_id: '关联入账记录'
+      kind: '类别'
+      name: '支出名称'
+      expend_no: '支出编号'
+      expended_at: '支出时间'
+      operator: '经办人'
+      remark: '备注'
+      amount: '支出金额'
+      income_source_id: '出帐账户'
+    income_record:
+      fund_id: '财务分类'
+      income_source_id: '入帐账户'
+      amount: '收入金额'
+      agent_id: '捐助人'
+      income_time: '捐助时间'
+      voucher_state: '开票状态'
+      title: '收入名称'
+      donation_id: '关联捐助'
+      kind: '收入来源'
+      team_id: '团队'
+      voucher_id: '捐赠收据'
     user:
       nickname: '昵称'
       name: '姓名'
