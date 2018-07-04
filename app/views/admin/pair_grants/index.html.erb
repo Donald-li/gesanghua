@@ -18,8 +18,11 @@
         <div class="col-md-12 col-sm-12">
           <%= search_form_for @search, url: admin_pair_grants_path, class: 'form-inline' do |f| %>
               <div class="form-group">
-                <%= f.label :title_or_gsh_child_name_or_gsh_child_id_card_or_gsh_child_gsh_no_cont, '搜索学生' %>
-                <%= f.text_field :title_or_gsh_child_name_or_gsh_child_id_card_or_gsh_child_gsh_no_cont, class: 'form-control gsh-input-share', placeholder: '学年名称、孩子姓名、格桑花编码' %>
+                <%= f.label :apply_child_name_or_gsh_child_id_card_or_gsh_child_gsh_no_cont, '搜索学生' %>
+                <%= f.text_field :apply_child_name_or_gsh_child_id_card_or_gsh_child_gsh_no_cont, class: 'form-control gsh-input-share', placeholder: '孩子姓名、格桑花编码' %>
+              </div>
+              <div class="form-group">
+                <%= f.text_field :title_cont, class: 'form-control gsh-input-share', placeholder: '学年名称' %>
               </div>
               <div class="form-group" style="margin: 0 10px">
                 <%= f.label :school_id_ep, '搜索学校', class: 'gsh-input-share-r' %>
