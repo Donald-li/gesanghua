@@ -18,6 +18,10 @@
         <div class="col-md-12 col-sm-12">
           <form class="form-inline" id="user_search" action="/admin/finance_statistic" accept-charset="UTF-8" method="get">
             <div class="form-group">
+              <label for="">搜索</label>
+              <input class="form-control gsh-input-share-r" placeholder="名称、备注" type="text" name="keyword" value="<%= params[:keyword] %>">
+            </div>
+            <div class="form-group">
               <label for="q_注册时间">时间范围</label>
               <input class="form-control datepicker gsh-input-share-l" placeholder="开始时间" type="text" name="time_start" value="<%= params[:time_start] %>">
               <input class="form-control datepicker gsh-input-share-r" placeholder="结束时间" type="text" name="time_end" value="<%= params[:time_end] %>">

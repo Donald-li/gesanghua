@@ -9,6 +9,7 @@ class Admin::FinanceStatisticsController < Admin::BaseController
     income_records = income_records.where("income_time <= ?", Time.parse(params[:time_end]).end_of_day) if params[:time_end].present?
     income_records = income_records.where(fund_id: params[:fund_id]) if params[:fund_id].present?
     income_records = income_records.where(income_source_id: params[:income_source_id]) if params[:income_source_id].present?
+    income_records = income_records.where("title like '%#{params[:keyword]}%' or income_records.remark like '%#{params[:keyword]}%'") if params[:keyword].present?
 
 
     expend_records = ExpenditureRecord.select("expend_no as finance_no, name as title, fund_id, expended_at as finance_time, 0 as income_amount, amount as expend_amount, income_source_id, operator, expenditure_records.remark")
@@ -16,6 +17,7 @@ class Admin::FinanceStatisticsController < Admin::BaseController
     expend_records = expend_records.where("expended_at <= ?", Time.parse(params[:time_end]).end_of_day) if params[:time_end].present?
     expend_records = expend_records.where(fund_id: params[:fund_id]) if params[:fund_id].present?
     expend_records = expend_records.where(income_source_id: params[:income_source_id]) if params[:income_source_id].present?
+    expend_records = expend_records.where("name like '%#{params[:keyword]}%' or expenditure_records.remark like '%#{params[:keyword]}%'") if params[:keyword].present?
 
 
     @income_count = income_records.sum(:amount)
