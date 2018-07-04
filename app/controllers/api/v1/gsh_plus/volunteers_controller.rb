@@ -28,7 +28,14 @@ class Api::V1::GshPlus::VolunteersController < Api::V1::BaseController
       volunteer.submit!
       volunteer.attach_image(params[:image_ids][0]) if params[:image_ids].present?
       volunteer.major_ids = params[:volunteer][:major_ids]
-      api_success(data: true)
+      Notification.create(
+          kind: 'approve_submit',
+          owner: user,
+          user_id: user.id,
+          title: '志愿者申请',
+          content: '申请成功，你可以加入格桑花志愿者申请群，群号 231850711，了解更多信息'
+      )
+      api_success(data: true, message: '申请成功')
     else
       api_error(message: '申请失败，请重试')
     end
