@@ -10,6 +10,14 @@ class AuditHelper
     end
   end
 
+  def self.event_types
+    [
+      ['添加', 'create'],
+      ['修改', 'update'],
+      ['删除', 'destroy']
+    ]
+  end
+
   def self.item_types
     [
       ['用户', 'User'],
