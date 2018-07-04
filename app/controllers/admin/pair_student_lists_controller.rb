@@ -21,6 +21,7 @@ class Admin::PairStudentListsController < Admin::BaseController
   end
 
   def show
+    @feedbacks = @pair_student_list.continual_feedbacks.score.sorted
   end
 
   def new

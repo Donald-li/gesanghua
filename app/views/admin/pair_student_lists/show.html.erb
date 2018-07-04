@@ -14,173 +14,222 @@
     </div>
   </div>
   <div class="portlet-body">
-    <div class="table-scrollable">
-      <table class="table table-bordered table-hover">
-        <tbody>
-        <tr>
-          <th width="72px">
-            孩子头像
-          </th>
-          <th>
-            <%= link_to image_tag(@pair_student_list.avatar_url(:small)), @pair_student_list.avatar_url(nil), target: '_blank' %>
-          </th>
-        </tr>
-        <tr>
-          <th width="72px">
-            姓名
-          </th>
-          <th>
-            <%= @pair_student_list.name %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            学校
-          </th>
-          <th>
-            <%= @pair_student_list.school.try(:name) %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            年级
-          </th>
-          <th>
-            <%= @pair_student_list.enum_name(:level) %> <%= @pair_student_list.enum_name(:grade) %> <%= @pair_student_list.classname %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            学期
-          </th>
-          <th>
-            <%= @pair_student_list.enum_name(:semester) %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            身份证号
-          </th>
-          <th>
-            <%= @pair_student_list.id_card %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            民族
-          </th>
-          <th>
-            <%= @pair_student_list.enum_name(:nation) %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            性别
-          </th>
-          <th>
-            <%= @pair_student_list.enum_name(:gender) %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            描述
-          </th>
-          <th>
-            <%= @pair_student_list.description %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            联系电话
-          </th>
-          <th>
-            <%= @pair_student_list.phone %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            家长姓名
-          </th>
-          <th>
-            父亲：<%= @pair_student_list.father %> 母亲：<%= @pair_student_list.mother %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            监护人
-          </th>
-          <th>
-            <%= @pair_student_list.guardian %>
-          </th>
-        </tr>
+    <div class="tabbable-custom nav-justified">
+      <ul class="nav nav-tabs nav-justified">
+        <li class="active">
+          <a href="#tab_1_1_1" data-toggle="tab"> 孩子详情 </a>
+        </li>
+        <li>
+          <a href="#tab_1_1_2" data-toggle="tab"> 成绩反馈 </a>
+        </li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="tab_1_1_1">
+          <div class="table-scrollable">
+            <table class="table table-bordered table-hover">
+              <tbody>
+              <tr>
+                <th width="72px">
+                  孩子头像
+                </th>
+                <th>
+                  <%= link_to image_tag(@pair_student_list.avatar_url(:small)), @pair_student_list.avatar_url(nil), target: '_blank' %>
+                </th>
+              </tr>
+              <tr>
+                <th width="72px">
+                  姓名
+                </th>
+                <th>
+                  <%= @pair_student_list.name %>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  学校
+                </th>
+                <th>
+                  <%= @pair_student_list.school.try(:name) %>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  年级
+                </th>
+                <th>
+                  <%= @pair_student_list.enum_name(:level) %> <%= @pair_student_list.enum_name(:grade) %> <%= @pair_student_list.classname %>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  学期
+                </th>
+                <th>
+                  <%= @pair_student_list.enum_name(:semester) %>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  身份证号
+                </th>
+                <th>
+                  <%= @pair_student_list.id_card %>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  民族
+                </th>
+                <th>
+                  <%= @pair_student_list.enum_name(:nation) %>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  性别
+                </th>
+                <th>
+                  <%= @pair_student_list.enum_name(:gender) %>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  描述
+                </th>
+                <th>
+                  <%= @pair_student_list.description %>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  联系电话
+                </th>
+                <th>
+                  <%= @pair_student_list.phone %>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  家长姓名
+                </th>
+                <th>
+                  父亲：<%= @pair_student_list.father %> 母亲：<%= @pair_student_list.mother %>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  监护人
+                </th>
+                <th>
+                  <%= @pair_student_list.guardian %>
+                </th>
+              </tr>
 
-        <tr>
-          <th>
-            身份证
-          </th>
-          <th>
-            <%= link_to image_tag(@pair_student_list.id_image_url(:small)), @pair_student_list.id_image_url(nil), target: '_blank' %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-           申请1
-          </th>
-          <th>
-            <%= link_to image_tag(@pair_student_list.apply_one_url(:small)), @pair_student_list.apply_one_url(nil), target: '_blank' %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            申请2
-          </th>
-          <th>
-            <%= link_to image_tag(@pair_student_list.apply_two_url(:small)), @pair_student_list.apply_two_url(nil), target: '_blank' %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            客厅照片
-          </th>
-          <th>
-            <%= link_to image_tag(@pair_student_list.room_image_url(:small)), @pair_student_list.room_image_url(nil), target: '_blank' %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            院子照片
-          </th>
-          <th>
-            <%= link_to image_tag(@pair_student_list.yard_image_url(:small)), @pair_student_list.yard_image_url(nil), target: '_blank' %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            扶贫卡
-          </th>
-          <th>
-            <%= link_to image_tag(@pair_student_list.poverty_url(:small)), @pair_student_list.poverty_url(nil), target: '_blank' %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            孩子介绍
-          </th>
-          <th>
-            <%= @pair_student_list.information.try(:html_safe) %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            备注
-          </th>
-          <th>
-            <%= @pair_student_list.remark %>
-          </th>
-        </tr>
+              <tr>
+                <th>
+                  身份证
+                </th>
+                <th>
+                  <%= link_to image_tag(@pair_student_list.id_image_url(:small)), @pair_student_list.id_image_url(nil), target: '_blank' %>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  申请1
+                </th>
+                <th>
+                  <%= link_to image_tag(@pair_student_list.apply_one_url(:small)), @pair_student_list.apply_one_url(nil), target: '_blank' %>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  申请2
+                </th>
+                <th>
+                  <%= link_to image_tag(@pair_student_list.apply_two_url(:small)), @pair_student_list.apply_two_url(nil), target: '_blank' %>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  客厅照片
+                </th>
+                <th>
+                  <%= link_to image_tag(@pair_student_list.room_image_url(:small)), @pair_student_list.room_image_url(nil), target: '_blank' %>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  院子照片
+                </th>
+                <th>
+                  <%= link_to image_tag(@pair_student_list.yard_image_url(:small)), @pair_student_list.yard_image_url(nil), target: '_blank' %>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  扶贫卡
+                </th>
+                <th>
+                  <%= link_to image_tag(@pair_student_list.poverty_url(:small)), @pair_student_list.poverty_url(nil), target: '_blank' %>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  孩子介绍
+                </th>
+                <th>
+                  <%= @pair_student_list.information.try(:html_safe) %>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  备注
+                </th>
+                <th>
+                  <%= @pair_student_list.remark %>
+                </th>
+              </tr>
 
-        </tbody>
-      </table>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="tab-pane" id="tab_1_1_2">
+          <div class="portlet light portlet-fit bg-inverse">
+            <div class="portlet-body">
+              <div class="timeline  white-bg">
+                <% @feedbacks.each do |feedback| %>
+                    <div class="timeline-item">
+                      <div class="timeline-badge">
+                      </div>
+                      <div class="timeline-body">
+                        <div class="timeline-body-arrow"> </div>
+                        <div class="timeline-body-head">
+                          <div class="timeline-body-head-caption">
+                            <a href="javascript:;" class="timeline-body-title font-blue-madison"><%= feedback.user.try(:name) %></a>
+                            <span class="timeline-body-time font-grey-cascade"><%= l feedback.created_at %></span>
+                          </div>
+                        </div>
+                        <div class="timeline-body-content">
+                          <span class="font-grey-cascade"><%= feedback.content %> </span> <br>
+                          <span class="font-grey-cascade">
+
+                    <% feedback.images.each do |img| %>
+                    <a data-magnify="gallery" href="<%= image_url img.try(:file).try(:url, nil).to_s %>">
+                                  <%= image_tag img.try(:file).try(:url, :tiny).to_s, :style => "width:211px" %>
+                                </a>
+                    <% end %>
+                  </span>
+                        </div>
+                      </div>
+                    </div>
+                <% end %>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
