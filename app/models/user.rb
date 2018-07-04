@@ -344,13 +344,14 @@ class User < ApplicationRecord
 
   def summary_builder
     Jbuilder.new do |json|
-      json.(self, :id, :nickname, :name, :balance, :donate_amount, :role_tag, :team_id, :phone)
+      json.(self, :id, :nickname, :name, :balance, :donate_amount, :team_id, :phone)
       # json.logi_name self.login
       json.user_avatar self.user_avatar
       json.promoter_count self.promoter_amount_count
       json.team_name self.team.present? ? self.team.name : ''
       json.join_team_time self.join_team_time.strftime("%Y-%m-%d") if self.join_team_time.present?
       json.roles self.roles
+      json.role_tag self.role_tag
       json.project_ids self.manage_projects.ids if self.headmaster? || self.teacher?
     end.attributes!
   end
