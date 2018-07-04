@@ -1,7 +1,7 @@
 <div class="portlet light">
   <div class="portlet-title">
     <div class="caption">
-      <i class="icon-list"></i><%= link_to @child_apply.name, admin_pair_student_lists_path %> > 资助学年
+      <i class="icon-list"></i><%= link_to @child_apply.name, admin_pair_student_lists_path('q[id_eq]': @child_apply.id), target: '_blank' %> > 资助学年
     </div>
     <div class="actions">
       <% if @child_apply.semesters.pending.count > 0 %>
