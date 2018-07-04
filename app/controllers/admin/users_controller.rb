@@ -104,10 +104,11 @@ class Admin::UsersController < Admin::BaseController
   def set_manager
     old_manager = User.find_by(id: @user.manager_id)
     manager = User.find_by(id: user_params[:manager_id])
-    if @user.set_offline_user_manager(manager, old_manager, current_user) && @user.update(manager: manager)
+    result, message = @user.set_offline_user_manager(manager, old_manager, current_user)
+    if result && @user.update(manager: manager)
       redirect_to admin_user_path(@user), notice: '操作成功。'
     else
-      redirect_to admin_user_path(@user), alert: '操作失败。'
+      redirect_to admin_user_path(@user), alert: message
     end
   end
 

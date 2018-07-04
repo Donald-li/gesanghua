@@ -631,6 +631,7 @@ class User < ApplicationRecord
   def set_offline_user_manager(manager, old_manager, operator)
     return unless self.unactived?
     self.transaction do
+      begin
       self.update!(manager_id: manager.id)
       DonateRecord.where(donor_id: self.id).each do |record|
         record.update!(agent_id: manager.id)
@@ -665,6 +666,10 @@ class User < ApplicationRecord
 
       self.operate_log = {old_manager: old_manager.try(:id), manager: manager.id, kind: 'set_offline_user_manager', operator: operator.id, operate_at: Time.now}
       self.save
+        return true
+      rescue => e
+        return false, old_manager.errors.full_message.join(',') + manager.errors.full_message.join(',')
+      end
     end
   end
 

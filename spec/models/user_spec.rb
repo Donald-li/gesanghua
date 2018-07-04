@@ -160,7 +160,8 @@ RSpec.describe User, type: :model do
   end
 
   it "测试设置线下用户管理人" do
-    offline_user_with_no_manager.set_offline_user_manager(manager1, user, user)
+    result, message = offline_user_with_no_manager.set_offline_user_manager(manager1, user, user)
+    expect(result).to eq true
     expect(offline_user_with_no_manager.reload.manager_id).to eq manager1.id
     expect(no_manager_user_donate_record1.reload.agent_id).to eq manager1.id
     expect(no_manager_user_donate_record2.reload.agent_id).to eq manager1.id
