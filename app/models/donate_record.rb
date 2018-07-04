@@ -85,6 +85,16 @@ class DonateRecord < ApplicationRecord
     self.income_record.try(:donation).try(:order_no)
   end
 
+  def fund_name
+    if self.source_type == 'User'
+      '使用用户余额捐助'
+    elsif self.source_type == 'Fund'
+      self.try(:source).try(:fund_category).try(:name).to_s + ' - ' + self.try(:source).try(:name).to_s
+    else
+      self.try(:source).try(:fund).try(:fund_category).try(:name).to_s + ' - ' + self.try(:source).try(:fund).try(:name).to_s
+    end
+  end
+
   # 代捐人名称
   def agent_name
     return '无' if self.agent.blank?

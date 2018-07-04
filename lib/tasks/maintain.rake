@@ -31,6 +31,8 @@ namespace :maintain do
         end
       end
     end
+
+    ProjectSeasonApplyChild.where(id: GshChildGrant.where(grade_name: nil).pluck(:project_season_apply_child_id).uniq).each {|child| GshChildGrant.gen_grant_record(child)}
   end
 
   # 统计6月之后的收入支出到财务分类和账户

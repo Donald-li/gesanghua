@@ -26,6 +26,10 @@
             <%= f.text_field :nickname_or_name_or_phone_cont, class: 'form-control gsh-input-share', placeholder: '使用姓名、昵称或手机号搜索',style:'width:150px;' %>
           </div>
           <div class="form-group">
+            <%= f.label :id_eq, 'ID' %>
+            <%= f.text_field :id_eq, class: 'form-control gsh-input-share', placeholder: 'ID搜索',style:'width:150px;' %>
+          </div>
+          <div class="form-group">
             <div class="city-group">
               <%= select_tag 'q[province_eq]', options_for_select(ChinaCity.list, params[:q].present? ? params[:q][:province_eq] : []), prompt: '省份', class: "city-select form-control gsh-input-share-l " %>
               <%= select_tag 'q[city_eq]', options_for_select(params[:q].present? ? ChinaCity.list(params[:q][:province_eq]) : [], params[:q].present? ? params[:q][:city_eq] : []), prompt: '城市', class: "city-select form-control " %>
@@ -78,10 +82,19 @@
                 可开票金额
               </th>
               <th>
+                微信绑定
+              </th>
+              <th>
                 账号状态
               </th>
               <th>
                 其他身份
+              </th>
+              <th>
+                代捐管理人
+              </th>
+              <th>
+                备注
               </th>
               <th>
                 操作
@@ -117,6 +130,13 @@
                 ￥<%= format_money(user.income_records.open_ticket.sum(:amount)) %>
               </td>
               <td>
+                <% if user.profile.blank? %>
+                    <%= image_tag 'wechat_default.png', style: 'width: 25px;height: 25px;' %>
+                <% else %>
+                    <%= image_tag 'wechat.png', style: 'width: 25px;height: 25px;' %>
+                <% end %>
+              </td>
+              <td>
                 <% if user.unactived? %>
                   <span class="btn btn-xs default"><%= user.enum_name(:state) %></span>
                 <% else %>
@@ -130,6 +150,12 @@
                 <% user.roles_name.each do |t| %>
                   <span class="btn btn-xs yellow"><%= t %></span>
                 <% end %>
+              </td>
+              <td>
+                <%= link_to user.manager.try(:name), admin_users_path(user_id: user.manager_id) if user.manager.present? %>
+              </td>
+              <td>
+                <%= user.remark %>
               </td>
               <td>
                 <%= link_to edit_admin_user_path(user), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>

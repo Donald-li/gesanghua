@@ -2,7 +2,7 @@
   <%= javascript_include_tag '/assets/webuploader/webuploader.js' %>
   <%= stylesheet_link_tag '/assets/webuploader/webuploader.css' %>
 <% end %>
-<%= simple_form_for [:admin, @user], wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'user_form'} do |f| %>
+<%= simple_form_for [:admin, @user], wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'user_form', autocomplete: 'off'} do |f| %>
   <%= f.error_notification %>
   <div class="form-body form-horizontal">
     <h4>用户资料</h4>
