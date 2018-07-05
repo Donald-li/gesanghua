@@ -34,6 +34,9 @@
 #  volunteer_age      :integer                                # 服务年限
 #  archive_data       :jsonb                                  # 归档旧数据
 #  remark             :text
+#  wechat             :string
+#  qq                 :string
+#  email              :string
 #
 
 # 志愿者

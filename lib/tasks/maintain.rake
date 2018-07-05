@@ -32,7 +32,16 @@ namespace :maintain do
       end
     end
 
-    ProjectSeasonApplyChild.where(id: GshChildGrant.where(grade_name: nil).pluck(:project_season_apply_child_id).uniq).each {|child| GshChildGrant.gen_grant_record(child)}
+    ProjectSeasonApplyChild.where(id: GshChildGrant.where(grade_name: nil).pluck(:project_season_apply_child_id).uniq).each do |child|
+      ok_grants = child.semesters.sorted.where.not(grade_name: nil)
+      grants = child.semesters.sorted.where(grade_name: nil)
+      grade = ok_grants.try(:last).try(:grade_name).try(:to_i) || 1
+      grants.each do |grant|
+        grant.grade_name = child.enum_name(:level).to_s +  '.' + grade.to_s
+        grant.save
+        grade += 1
+      end
+    end
   end
 
   # 统计6月之后的收入支出到财务分类和账户
