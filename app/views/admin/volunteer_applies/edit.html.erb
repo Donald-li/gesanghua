@@ -8,113 +8,118 @@
   <div class="portlet-body">
     <div class="table-scrollable">
       <table class="table table-bordered table-hover">
+        <thead>
+        <colgroup>
+          <col width="100">
+          <col >
+        </colgroup>
+        </thead>
         <tbody>
         <tr>
-          <th>
+          <td>
             姓名
-          </th>
-          <th>
+          </td>
+          <td  >
             <%= @apply.name %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             性别
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply.enum_name(:gender) %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             联系方式
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply.phone %>
-          </th>
+          </td>
         </tr>
+
         <tr>
-        <tr>
-          <th>
+          <td>
             微信
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply.wechat %>
-          </th>
+          </td>
         </tr>
         <tr>
         <tr>
-          <th>
+          <td>
             QQ
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply.qq %>
-          </th>
+          </td>
         </tr>
         <tr>
-        <tr>
-          <th>
+          <td>
             邮箱
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply.email %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             联系地址
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply.simple_address %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             身份证
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply.id_card %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             个人简介
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply.describe %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             证件照片
-          </th>
-          <th>
+          </td>
+          <td>
             <%= image_tag @apply.image_url(:tiny) %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             技能特长
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply.majors.map(&:name).join(', ') %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             获知渠道
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply.source %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             志愿者经历
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply.experience %>
-          </th>
+          </td>
         </tr>
         </tbody>
       </table>
@@ -140,6 +145,11 @@
       <% end %>
       </div>
 </div>
+<style scoped>
+  .table-bordered, .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{
+    font-weight: 600;
+  }
+</style>
 <script type="text/javascript">
     function toggleState(){
         toggleRadioInput('.approve_state', {
