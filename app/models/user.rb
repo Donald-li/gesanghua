@@ -387,6 +387,7 @@ class User < ApplicationRecord
         json.protect_token ''
       end
       json.show_name self.show_name
+      json.donor_name self.offline_users.present? ? '' : self.show_name
     end.attributes!
   end
 
