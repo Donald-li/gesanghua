@@ -44,7 +44,8 @@ namespace :maintain do
       puts "#{i} / #{count}" if i % 500 == 0
       ok_grants = child.semesters.sorted.where.not(grade_name: nil)
       grants = child.semesters.sorted.where(grade_name: nil)
-      grade = ok_grants.try(:last).try(:grade_name).try(:to_i) || 1
+      grade_s = ok_grants.try(:last).try(:grade_name).present? ? ok_grants.try(:last).try(:grade_name).split('.')[1].to_i : nil
+      grade = grade_s || 1
       grants.each do |grant|
         grant.grade_name = child.enum_name(:level).to_s +  '.' + grade.to_s
         grant.save
