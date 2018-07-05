@@ -31,10 +31,16 @@
                       </div>
                     </div>
                     <div class="pull-right">
-                      <%= link_to detail_pair_path(child) do %>
-                        <button class="donation-cont-but cur">
-                          查看孩子详情
-                        </button>
+                      <% if child.semesters.pending.size > 0 %>
+                          <%= link_to account_pair_children_mailboxs_path(pair_id: child.id), class: 'donation-cont-but cur' do %>
+                              去续捐
+                          <% end %>
+                      <% else %>
+                          <%= link_to detail_pair_path(child) do %>
+                              <button class="donation-cont-but cur">
+                                查看孩子详情
+                              </button>
+                          <% end %>
                       <% end %>
                       <%= link_to account_pair_children_mailboxs_path(pair_id: child.id), class: 'donation-cont-but cur' do %>
                         孩子信箱 <%= child.continual_feedbacks.visible.count %>
