@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180620092203) do
+ActiveRecord::Schema.define(version: 20180705062148) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20180620092203) do
     t.datetime "updated_at", null: false
     t.string "title", comment: "标题"
     t.integer "state", comment: "类型"
+    t.integer "operator_id", comment: "操作人id"
   end
 
   create_table "adjust_records", force: :cascade, comment: "分类调整记录" do |t|
@@ -574,6 +575,7 @@ ActiveRecord::Schema.define(version: 20180620092203) do
     t.integer "project_season_apply_child_id", comment: "一对一助学孩子id"
     t.integer "cancel_reason", comment: "取消原因"
     t.integer "management_fee_state", comment: "计提管理费状态"
+    t.string "grade_name", comment: "年级名称"
     t.index ["donate_state"], name: "index_gsh_child_grants_on_donate_state"
     t.index ["grant_batch_id"], name: "index_gsh_child_grants_on_grant_batch_id"
     t.index ["gsh_child_id"], name: "index_gsh_child_grants_on_gsh_child_id"
@@ -954,6 +956,7 @@ ActiveRecord::Schema.define(version: 20180620092203) do
     t.integer "state", comment: "状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "project_season_apply_child_id"
   end
 
   create_table "project_season_apply_periods", force: :cascade, comment: "项目申请时长" do |t|
@@ -1304,6 +1307,8 @@ ActiveRecord::Schema.define(version: 20180620092203) do
     t.boolean "notice_state", default: false, comment: "用户是否有未查看的公告"
     t.jsonb "archive_data", comment: "归档旧数据"
     t.datetime "actived_at", comment: "激活时间"
+    t.jsonb "operate_log", comment: "危险操作记录：用户合并、指定代捐管理人、代捐人激活"
+    t.text "remark"
     t.index ["email"], name: "index_users_on_email"
     t.index ["login"], name: "index_users_on_login"
     t.index ["phone"], name: "index_users_on_phone"
@@ -1392,6 +1397,9 @@ ActiveRecord::Schema.define(version: 20180620092203) do
     t.integer "volunteer_age", comment: "服务年限"
     t.jsonb "archive_data", comment: "归档旧数据"
     t.text "remark"
+    t.string "wechat"
+    t.string "qq"
+    t.string "email"
   end
 
   create_table "voucher_donate_records", force: :cascade, comment: "捐赠收据捐助记录表" do |t|

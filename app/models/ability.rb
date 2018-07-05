@@ -26,7 +26,12 @@ class Ability
 
     # 管理后台客服(用户管理)功能
     can :manage_custom_service, User do |user|
-      user.has_role?([:superadmin, :admin, :financial_staff, :custom_service])
+      user.has_role?([:superadmin, :admin, :financial_staff, :custom_service, :manpower_operator])
+    end
+
+    # 人力管理员
+    can :manage_manpower, User do |user|
+      user.has_role?([:superadmin, :admin, :manpower_operator])
     end
 
     # 管理后台项目功能

@@ -19,6 +19,18 @@
       </div>
       <% if @child_apply %>
           <div class="form-group">
+            <label class="col-md-2 control-label">孩子姓名：</label>
+            <div class="col-sm-9">
+              <%= @child_apply.name %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label">gsh编号：</label>
+            <div class="col-sm-9">
+              <%= @child_apply.gsh_no %>
+            </div>
+          </div>
+          <div class="form-group">
             <label class="col-md-2 control-label">可配捐学年：</label>
             <div class="col-sm-9">
               <% @child_apply.gsh_child_grants.pending.sorted.each do |grant| %>
@@ -58,12 +70,25 @@
             </select>
           </div>
         </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">捐助人：</label>
+          <div class="col-sm-9">
+            <select class="form-control select optional select-two" id="select-donor-ajax" style="width:400px;" name="donor_id" required></select>
+          </div>
+        </div>
       </div>
       <div class="user_balance">
         <div class="form-group">
           <label class="col-md-2 control-label">使用余额：</label>
           <div class="col-sm-9">
             <select class="form-control select optional users-balance-ajax" style="width:400px;" name="user_id" required></select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">捐助人：</label>
+          <div class="col-sm-9">
+            <select class="form-control select optional select-two" id="balance-donor-ajax" style="width:400px;" name="donor_id"></select>
+            <p class="help-block">不指定捐助人，则被使用用户余额的用户作为捐助人和汇款人；指定捐助人后，被使用用户余额的用户将作为汇款人保存记录</p>
           </div>
         </div>
       </div>
@@ -119,9 +144,71 @@
                 cache: true
             }
         })
-    })
 
-    $(function () {
+        $('#select-donor-ajax').select2({
+            language: "zh-CN",
+            placeholder: '选择捐助人',
+            allowClear: true,
+            ajax: {
+                url: "/selects/all_users",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: $.map(data.items, function (item) {
+                            return {
+                                text: item.name_for_select,
+                                id: item.id
+                            }
+                        }),
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            }
+        })
+
+        $('#balance-donor-ajax').select2({
+            language: "zh-CN",
+            placeholder: '选择捐助人',
+            allowClear: true,
+            ajax: {
+                url: "/selects/all_users",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: $.map(data.items, function (item) {
+                            return {
+                                text: item.name_for_select,
+                                id: item.id
+                            }
+                        }),
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            }
+        })
+
         $('.users-balance-ajax').select2({
             language: "zh-CN",
             placeholder: '选择用户余额',
@@ -153,7 +240,6 @@
                 cache: true
             }
         })
-        $(".select-two").select2();
     })
 
     toggleState();

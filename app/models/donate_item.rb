@@ -30,7 +30,6 @@ class DonateItem < ApplicationRecord
   # 使用捐助
   def accept_donate(donate_records)
     donate_records.each do |donate_record|
-      self.fund.balance += donate_record.amount
     end
     self.save!
   end

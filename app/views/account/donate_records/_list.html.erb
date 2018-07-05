@@ -1,33 +1,44 @@
 <% @donate_records.each do |record| %>
-  <li class="clearfix border-t clearfix">
-    <div class="team-donations-cont pull-left" style="width: 70%;">
-      <div class="clearfix">
-        <span class="teams-don-name pull-left"><%= record.donor.try(:show_name).to_s %></span>
-        <span class="teams-don-tiam pull-right" data-timeago="<%= record.created_at.to_s %>"></span>
+    <li class="clearfix border-t clearfix">
+      <div class="team-donations-cont pull-left" style="width: 70%;">
+        <div class="clearfix">
+          <span class="teams-don-name pull-left"><%= record.donor.try(:show_name).to_s %></span>
+          <span class="teams-don-tiam pull-right" data-timeago="<%= record.created_at.to_s %>"></span>
+        </div>
+        <div class="teams-don">捐助 <span><%= record.title %></span> <%= number_to_currency(record.amount) %>元</div>
       </div>
-      <div class="teams-don">捐助 <span><%= record.title %></span> <%= number_to_currency(record.amount) %>元</div>
-    </div>
-    <div class="pull-right">
-      <button data-toggle="modal" data-target="#myModal-<%= record.id %>" class="donation-cont-but  cur" style="margin-top: 8px;">查看证书</button>
-    </div>
-    <%#= link_to "查看证书", '', class: "donation-cont-but pull-right cur" ,style:'margin:0;' %>
-    <div class="modal fade" id="myModal-<%= record.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content" style="width:590px;">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true" class="detail-icon">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">温馨提示</h4>
+      <% if record.amount > 0 %>
+          <div class="pull-right">
+            <button data-toggle="modal" data-target="#myModal-<%= record.id %>" class="donation-cont-but  cur" style="margin-top: 8px;">查看证书</button>
           </div>
+      <% end %>
 
-              <div class="modal-body" style="padding: 20px 30px 15px 30px;text-align: center;">
-                <%= image_tag record.donor_certificate_path,style:'width:300px;height:440px;'%>
-              </div>
-              <div class="modal-footer overspreads-but">
-                <button class="overspreadsc-but overspread-but  over-but" data-dismiss="modal" >关闭</button>
-              </div>
+      <%#= link_to "查看证书", '', class: "donation-cont-but pull-right cur" ,style:'margin:0;' %>
+      <div class="modal fade" id="myModal-<%= record.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content" style="width:590px;">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" class="detail-icon">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">温馨提示</h4>
+            </div>
+
+            <div class="modal-body" style="padding: 20px 30px 15px 30px;text-align: center;">
+              <%= link_to record.donor_certificate_path, target: '_blank' do %>
+                 <%= image_tag record.donor_certificate_path, style: 'width:300px;height:440px;' %>
+              <% end %>
+            </div>
+            <div class="modal-footer overspreads-but">
+              <button class="overspreadsc-but overspread-but  over-but" data-dismiss="modal">关闭</button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </li>
+    </li>
 <% end %>
+
+<script type="text/javascript" charset="utf-8">
+    function openCertificate() {
+
+    }
+</script>

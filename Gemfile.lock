@@ -92,7 +92,7 @@ GEM
       rack-test (~> 0.6, >= 0.6.2)
       rest-client (>= 1.7.3, < 3.0)
       rspec (~> 3.1)
-    alipay (0.15.0)
+    alipay (0.14.0)
     ancestry (3.0.1)
       activerecord (>= 3.2.0)
     annotate (2.7.2)
@@ -490,7 +490,7 @@ PLATFORMS
 DEPENDENCIES
   acts_as_list
   airborne
-  alipay (~> 0.15.0)
+  alipay (~> 0.14.0)
   aliyun-sms!
   ancestry
   annotate

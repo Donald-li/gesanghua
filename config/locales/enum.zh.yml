@@ -334,6 +334,11 @@ zh:
   feedback_checks:
     checked: '已查看'
     uncheck: '未查看'
+  continual_feedback_kinds:
+    default: '普通反馈'
+    grant: '发放反馈'
+    continue: '持续反馈'
+    score: '成绩反馈'
   continual_feedback_checks:
     checked: '已查看'
     uncheck: '未查看'
@@ -371,6 +376,9 @@ zh:
   income_record_voucher_states:
     to_bill: '待开票'
     billed: '已开票'
+  income_record_kinds:
+    online: '线上'
+    offline: '线下'
   voucher_kinds:
     individual: '个人'
     company: '企业'

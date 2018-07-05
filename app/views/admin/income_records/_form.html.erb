@@ -4,7 +4,7 @@
 
     <%= f.input :title, label: '收入名称：', placeholder: '' %>
     <div class="form-group">
-      <label class="col-md-2 control-label">财务分类<%= @income_record.can_not_edit? %>：</label>
+      <label class="col-md-2 control-label">财务分类：</label>
       <div class="col-sm-9">
         <select id="fund" class="form-control select optional" name="income_record[fund_id]" required <%= @income_record.can_not_edit? ? 'disabled' : '' %>>
           <option value="">请选择财务分类</option>
@@ -47,7 +47,6 @@
             language: "zh-CN"
         });
 
-        // 异步加载学校列表
         $('.users-ajax').select2({
             language: "zh-CN",
             placeholder: '',

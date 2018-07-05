@@ -21,6 +21,7 @@ class Admin::PairStudentListsController < Admin::BaseController
   end
 
   def show
+    @feedbacks = @pair_student_list.continual_feedbacks.score.sorted
   end
 
   def new
@@ -30,24 +31,29 @@ class Admin::PairStudentListsController < Admin::BaseController
   def edit
   end
 
-  def create
-    @pair_student_list = ProjectSeasonApplyChild.new(pair_student_list_params)
-
-    respond_to do |format|
-      if @pair_student_list.save
-        format.html { redirect_to referer_or(admin_pair_student_lists_path), notice: '新增成功。' }
-      else
-        format.html { render :new }
-      end
-    end
-  end
-
   def update
+    @project_apply = @pair_student_list.apply
     respond_to do |format|
-      if @pair_student_list.update(pair_student_list_params)
-        format.html { redirect_to referer_or(admin_pair_student_lists_path), notice: '修改成功。' }
+      if ProjectSeasonApplyChild.allow_apply?(@project_apply.school, pair_student_list_params[:id_card], @pair_student_list)
+        if pair_student_list_params[:information].empty?
+          flash[:alert] = '请填写孩子介绍'
+          format.html {render :edit and return}
+        end
+        if @pair_student_list.update(pair_student_list_params)
+          @pair_student_list.attach_avatar(params[:avatar_id])
+          @pair_student_list.attach_id_image(params[:id_image_id])
+          @pair_student_list.attach_poverty(params[:poverty_id])
+          @pair_student_list.attach_room_image(params[:room_image_id])
+          @pair_student_list.attach_yard_image(params[:yard_image_id])
+          @pair_student_list.attach_apply_one(params[:apply_one_id])
+          @pair_student_list.attach_apply_two(params[:apply_two_id])
+          format.html {redirect_to referer_or(admin_pair_student_lists_path), notice: '修改成功。'}
+        else
+          format.html {render :edit}
+        end
       else
-        format.html { render :edit }
+        flash[:alert] = '身份证号已占用'
+        format.html {render :edit}
       end
     end
   end
@@ -175,7 +181,7 @@ class Admin::PairStudentListsController < Admin::BaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pair_student_list_params
-      params.require(:pair_season_apply_child).permit!
+      params.require(:project_season_apply_child).permit!
     end
 
     def check_auth

@@ -41,6 +41,8 @@
 #  notice_state          :boolean          default(FALSE)              # 用户是否有未查看的公告
 #  archive_data          :jsonb                                        # 归档旧数据
 #  actived_at            :datetime                                     # 激活时间
+#  operate_log           :jsonb                                        # 危险操作记录：用户合并、指定代捐管理人、代捐人激活
+#  remark                :text
 #
 
 # 用户
@@ -50,13 +52,13 @@ class User < ApplicationRecord
   has_paper_trail only: [:nickname, :name, :password_digest, :state, :gender, :balance, :phone, :email, :address, :salutation, :consignee, :province, :city, :district, :id_card, :qq, :kind, :phone_verify, :use_nickname, :manager_id]
 
   include HasBitEnum
-  ROLES = %w[superadmin admin project_manager project_operator financial_staff volunteer county_user gsh_child custom_service headmaster teacher camp_manager]
-  ROLES_HASH = Hash[*ROLES.zip(%w[超级管理员 管理员 项目管理员 项目操作员 财务人员 志愿者 教育局用户 格桑花孩子 客服人员 学校负责人 老师 营管理员]).flatten]
+  ROLES = %w[superadmin admin project_manager project_operator financial_staff volunteer county_user gsh_child custom_service headmaster teacher camp_manager manpower_operator]
+  ROLES_HASH = Hash[*ROLES.zip(%w[超级管理员 管理员 项目管理员 项目操作员 财务人员 志愿者 教育局用户 格桑花孩子 客服人员 学校负责人 老师 营管理员 人力管理员]).flatten]
   USER_ROLES = %w[volunteer county_user gsh_child headmaster teacher camp_manager]
-  ADMIN_ROLES = %w[superadmin admin project_manager project_operator financial_staff custom_service]
+  ADMIN_ROLES = %w[superadmin admin project_manager project_operator financial_staff custom_service manpower_operator]
   has_bit_enum :role, ROLES, ROLES_HASH
 
-  scope :admin_user, -> {where("(users.roles_mask::bit(12) & B'100100011111')::integer > 0")}
+  scope :admin_user, -> {where("(users.roles_mask::bit(13) & B'1100100011111')::integer > 0")}
 
   attr_accessor :avatar_id
   attr_accessor :new_user_id
@@ -76,7 +78,7 @@ class User < ApplicationRecord
   has_one :county_user
   has_one :gsh_child
   has_many :gsh_child_grants
-  has_many :children, class_name: 'ProjectSeasonApplyChild', foreign_key: 'donate_user_id', dependent: :nullify # 我捐助的孩子们
+  has_many :children, class_name: 'ProjectSeasonApplyChild', foreign_key: 'priority_id', dependent: :nullify # 我捐助的孩子们
   has_many :vouchers
   has_many :campaign_enlists
   has_many :campaigns, through: :campaign_enlists
@@ -195,7 +197,7 @@ class User < ApplicationRecord
   end
 
   def name_for_select
-    "#{self.name}（#{self.phone}）"
+    "#{self.name}（id: #{self.id} |手机号：#{self.phone}）"
   end
 
   # 用户对外显示的名字
@@ -253,7 +255,7 @@ class User < ApplicationRecord
   end
 
   def user_balance
-    "#{self.name}(可用余额:#{self.balance.to_s})"
+    "#{self.name}(id: #{self.id} |可用余额:#{self.balance.to_s})"
   end
 
   def school_approve_state
@@ -342,13 +344,14 @@ class User < ApplicationRecord
 
   def summary_builder
     Jbuilder.new do |json|
-      json.(self, :id, :nickname, :name, :balance, :donate_amount, :role_tag, :team_id, :phone)
+      json.(self, :id, :nickname, :name, :balance, :donate_amount, :team_id, :phone)
       # json.logi_name self.login
       json.user_avatar self.user_avatar
       json.promoter_count self.promoter_amount_count
       json.team_name self.team.present? ? self.team.name : ''
       json.join_team_time self.join_team_time.strftime("%Y-%m-%d") if self.join_team_time.present?
       json.roles self.roles
+      json.role_tag self.role_tag
       json.project_ids self.manage_projects.ids if self.headmaster? || self.teacher?
     end.attributes!
   end
@@ -384,6 +387,7 @@ class User < ApplicationRecord
         json.protect_token ''
       end
       json.show_name self.show_name
+      json.donor_name self.offline_users.present? ? '' : self.show_name
     end.attributes!
   end
 
@@ -424,7 +428,7 @@ class User < ApplicationRecord
   end
 
   # 后台手动合并用户
-  def self.admin_combine_user(old_user, new_user)
+  def self.admin_combine_user(old_user, new_user, operator)
     return false unless new_user.present?
     self.transaction do
         #所有业务表改为手机用户
@@ -457,6 +461,7 @@ class User < ApplicationRecord
         new_user.save!
         #数据迁移： 捐款记录等
         new_user.migrate_donate_record(old_user)
+        new_user.migrate_children(old_user)
         # 合并账号openid、手机和wechat_profile
         new_user.update!(openid: old_user.openid, profile: old_user.profile, auth_token: old_user.auth_token)
         old_user.generate_auth_token
@@ -469,6 +474,8 @@ class User < ApplicationRecord
         content = "您的账户已与其他账户合并，相关数据已迁移"
         notice = Notification.create!(owner: owner, user_id: old_user.id, title: title, content: content, kind: 'combine_user')
         #旧用户禁用
+
+        old_user.operate_log = {from_user: old_user.id, to_user: new_user.id, kind: 'admin_combine_user', operator: operator.id, operate_at: Time.now}
 
         old_user.disable!
         new_user.enable!
@@ -512,6 +519,7 @@ class User < ApplicationRecord
         phone_user.save!
         #数据迁移： 捐款记录等
         phone_user.migrate_donate_record(wechat_user)
+        phone_user.migrate_children(wechat_user)
         # 合并账号openid、手机和wechat_profile
         phone_user.update!(openid: wechat_user.openid, profile: wechat_user.profile, auth_token: wechat_user.auth_token)
         wechat_user.generate_auth_token
@@ -525,6 +533,9 @@ class User < ApplicationRecord
         notice = Notification.create!(owner: owner, user_id: wechat_user.id, title: title, content: content, kind: 'combine_user')
         #旧用户禁用
 
+        # 记录操作
+        wechat_user.operate_log = {from_user: wechat_user.id, to_user: phone_user.id, kind: 'combine_user', operator: phone_user.id, operate_at: Time.now}
+
         wechat_user.disable!
         phone_user.enable!
       end
@@ -533,6 +544,8 @@ class User < ApplicationRecord
   # 迁移捐款记录；用户注册绑定手机号和注册
   def migrate_donate_record(old_user)
     self.transaction do
+
+      # 处理捐助记录
       DonateRecord.where(donor_id: old_user.id).each do |record|
         record.update!(donor_id: self.id, agent_id: self.id)
       end
@@ -542,15 +555,23 @@ class User < ApplicationRecord
       IncomeRecord.where(donor_id: old_user.id).each do |record|
         record.update!(donor_id: self.id, agent_id: self.id)
       end
-      AccountRecord.where(donor_id: old_user.id).each do |record|
-        record.update!(donor_id: self.id)
+
+      # 处理代捐记录
+      if old_user != self
+        DonateRecord.where(agent_id: old_user.id).each do |record|
+          record.update!(agent_id: self.id)
+        end
+        Donation.where(agent_id: old_user.id).each do |donation|
+          donation.update!(agent_id: self.id)
+        end
+        IncomeRecord.where(agent_id: old_user.id).each do |record|
+          record.update!(agent_id: self.id)
+        end
       end
 
-      ProjectSeasonApplyChild.where(priority_id: old_user.id).each do |child|
-        child.update!(priority_id: self.id)
-      end
-      GshChildGrant.where(user_id: old_user.id).each do |grant|
-        grant.update!(user_id: self.id)
+      # 账户记录
+      AccountRecord.where(donor_id: old_user.id).each do |record|
+        record.update!(donor_id: self.id)
       end
 
       #重算两个账号的缓存数据
@@ -568,14 +589,34 @@ class User < ApplicationRecord
     end
   end
 
+  def migrate_children(old_user)
+    # 捐助的孩子
+    ProjectSeasonApplyChild.where(priority_id: old_user.id).each do |child|
+      child.update!(priority_id: self.id)
+    end
+
+    # if self.manager_id.present?
+    #   ProjectSeasonApplyChild.where(priority_id: self.manager_id).each do |child|
+    #     child.update!(priority_id: self.id)
+    #   end
+    # end
+
+    GshChildGrant.where(user_id: old_user.id).each do |grant|
+      grant.update!(user_id: self.id)
+    end
+  end
+
   # 代捐人激活
   def offline_user_activation(phone, wechat_user)
     return unless self.unactived? && self.manager_id.present?
     self.transaction do
       if wechat_user.present?
         User.combine_user(phone, wechat_user)
+        self.operate_log = {user: self.id, kind: 'offline_user_activation_and_combine_user', operator: self.id, operate_at: Time.now}
+        self.save
       else
         self.migrate_donate_record(self)
+        self.operate_log = {user: self.id, kind: 'offline_user_activation', operator: self.id, operate_at: Time.now}
         self.enable!
       end
       #通知代理人
@@ -588,9 +629,10 @@ class User < ApplicationRecord
   end
 
   #设置线下用户管理人
-  def set_offline_user_manager(manager, old_manager)
+  def set_offline_user_manager(manager, old_manager, operator)
     return unless self.unactived?
     self.transaction do
+      begin
       self.update!(manager_id: manager.id)
       DonateRecord.where(donor_id: self.id).each do |record|
         record.update!(agent_id: manager.id)
@@ -600,21 +642,6 @@ class User < ApplicationRecord
       end
       IncomeRecord.where(donor_id: self.id).each do |record|
         record.update!(agent_id: manager.id)
-      end
-
-      if old_manager.present?
-        ProjectSeasonApplyChild.where(priority_id: old_manager.id).each do |child|
-          child.update!(priority_id: manager.id)
-        end
-        GshChildGrant.where(user_id: old_manager.id).each do |grant|
-          grant.update!(user_id: manager.id)
-        end
-      end
-      ProjectSeasonApplyChild.where(priority_id: self.id).each do |child|
-        child.update!(priority_id: manager.id)
-      end
-      GshChildGrant.where(user_id: self.id).each do |grant|
-        grant.update!(user_id: manager.id)
       end
 
       #重算的缓存数据
@@ -636,6 +663,13 @@ class User < ApplicationRecord
         manager.update!(offline_amount: IncomeRecord.where(agent_id: manager.id, income_source_id: offline_income_resource.ids).sum(:amount))
       elsif IncomeRecord.where(agent_id: manager.id).where.not(income_source_id: offline_income_resource.ids).sum(:amount) != manager.online_amount
         manager.update!(online_amount: IncomeRecord.where(agent_id: manager.id).where.not(income_source_id: offline_income_resource.ids).sum(:amount))
+      end
+
+      self.operate_log = {old_manager: old_manager.try(:id), manager: manager.id, kind: 'set_offline_user_manager', operator: operator.id, operate_at: Time.now}
+      self.save
+        return true
+      rescue => e
+        return false, old_manager.errors.full_message.join(',') + manager.errors.full_message.join(',')
       end
     end
   end

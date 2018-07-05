@@ -7,7 +7,13 @@ class Admin::DonateRecordsController < Admin::BaseController
     set_search_end_of_day(:created_at_lteq)
     @search = @donate_records.ransack(params[:q])
     scope = @search.result
-    @donate_records = scope.sorted.page(params[:page])
+    respond_to do |format|
+      format.html {@donate_records = scope.sorted.page(params[:page])}
+      format.xlsx {
+        @donate_records = scope.sorted.all
+        response.headers['Content-Disposition'] = 'attachment; filename= "' + @user.name + '捐助记录" ' + Date.today.to_s + '.xlsx'
+      }
+    end
     # @donante_amount = @donate_records.sum(:amount)
   end
 
@@ -15,7 +21,7 @@ class Admin::DonateRecordsController < Admin::BaseController
   def refund
     @donate_record = DonateRecord.find(params[:id])
     if @donate_record.can_refund? # && @donate_record.try(:apply).try(:can_refund?)
-      @donate_record.do_refund!
+      @donate_record.do_refund!(current_user)
       redirect_back fallback_location: admin_user_donate_records_url(@donate_record.donor_id), notice: '退款成功'
     else
       redirect_back fallback_location: admin_user_donate_records_url(@donate_record.donor_id), alert: '退款失败'

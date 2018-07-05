@@ -50,10 +50,10 @@ class DonateRecord < ApplicationRecord
 
   has_one :account_records
 
-  counter_culture :project, column_name: :total_amount, delta_magnitude: proc {|model| model.amount}
-  counter_culture :team, column_name: :total_donate_amount, delta_magnitude: proc {|model| model.amount}
-  counter_culture :promoter, column_name: :promoter_amount_count, delta_magnitude: proc {|model| model.amount}
-  counter_culture :school, column_name: :total_amount, delta_magnitude: proc {|model| model.amount}
+  counter_culture :project, column_name: :total_amount, delta_column: 'amount'
+  counter_culture :team, column_name: :total_donate_amount, delta_column: 'amount'
+  counter_culture :promoter, column_name: :promoter_amount_count, delta_column: 'amount'
+  counter_culture :school, column_name: :total_amount, delta_column: 'amount'
 
   belongs_to :source, polymorphic: true
   belongs_to :owner, polymorphic: true
@@ -83,6 +83,16 @@ class DonateRecord < ApplicationRecord
 
   def donate_no
     self.income_record.try(:donation).try(:order_no)
+  end
+
+  def fund_name
+    if self.source_type == 'User'
+      '使用用户余额捐助'
+    elsif self.source_type == 'Fund'
+      self.try(:source).try(:fund_category).try(:name).to_s + ' - ' + self.try(:source).try(:name).to_s
+    else
+      self.try(:source).try(:fund).try(:fund_category).try(:name).to_s + ' - ' + self.try(:source).try(:fund).try(:name).to_s
+    end
   end
 
   # 代捐人名称
@@ -118,16 +128,18 @@ class DonateRecord < ApplicationRecord
         agent = source.agent
       when 'fund'
         source = Fund.find(params[:fund_id])
+        donor = User.find(params[:donor_id])
       when 'user_balance'
         source = User.find(params[:user_id])
-        donor = source
+        donor = User.find(params[:donor_id]) || source
+        agent = source
     end
 
     # donor = source.is_a?(User) ? source : params[:current_user]
     donor ||= params[:current_user]
     agent ||= donor
 
-    result, message = self.do_donate(:platform_donate, source, owner, amount, donor: donor, agent: agent)
+    result, message = self.do_donate(:platform_donate, source, owner, amount, donor: donor, agent: agent, operator: params[:current_user])
     return result
   end
 
@@ -138,12 +150,13 @@ class DonateRecord < ApplicationRecord
     result = false
     income_record_id = source.instance_of?(IncomeRecord) ? source.id : nil
     donation_id = source.instance_of?(IncomeRecord) ? source.donation_id : nil
+    operator = params[:operator]
 
     amount = amount.to_f.round(2)
 
     self.transaction do # 事务
       # 来源金额是否充足？
-      if source.balance < amount
+      if source.balance.to_f < amount
         return false, '余额不足'
       else
         source.lock! # 加锁
@@ -208,7 +221,7 @@ class DonateRecord < ApplicationRecord
           source.balance -= reback
           user = source.donor
           user.lock!
-          AccountRecord.create!(title: '超捐退款', kind: 'refund', amount: reback, income_record: source, user: source.agent, donor: source.donor)
+          AccountRecord.create!(title: donate_records.last.try(:apply_name).to_s + '超捐退款', kind: 'refund', amount: reback, income_record: source, user: source.agent, donor: source.donor, operator: operator.present? ? operator : donate_records.last.try(:agent))
           user.save!
           message = "捐助成功，但捐助过程中，项目收到新捐款造成超捐，其中#{reback}元已退回您的账户余额。"
         else
@@ -220,8 +233,8 @@ class DonateRecord < ApplicationRecord
 
       # 记录余额消耗记录
       if source.is_a?(User)
-        AccountRecord.create!(title: '使用余额捐助', kind: 'donate', amount: 0 - amount, user: source, donor: params[:donor])
-      else
+        AccountRecord.create!(title: '使用余额捐助' + donate_records.last.try(:apply_name).to_s, kind: 'donate', amount: 0 - amount, user: source, donor: params[:donor], operator: operator.present? ? operator : source)
+      elsif source.is_a?(IncomeRecord)
         source.balance -= donate_amount
       end
       source.save! # 解锁
@@ -245,16 +258,16 @@ class DonateRecord < ApplicationRecord
 
   # 只有格桑花孩子可以退款
   def can_refund?
-    self.user_donate? && self.agent.present? && self.owner_type == 'GshChildGrant' && (self.owner.waiting? || self.owner.suspend?)
+    (self.user_donate? || ['IncomeRecord', 'User'].include?(self.source_type)) && self.agent.present? && self.owner_type == 'GshChildGrant' && (self.owner.waiting? || self.owner.suspend?)
   end
 
   # 退款, 捐助记录退款状态，退回账户余额，孩子标记取消
-  def do_refund!
+  def do_refund!(operator)
     return false unless self.can_refund?
     self.transaction do
       # 退余额
       self.agent.lock!
-      AccountRecord.create!(title: self.apply_name + '退款', kind: 'refund', amount: self.amount, donate_record: self, user: self.agent, donor: self.donor)
+      AccountRecord.create!(title: self.apply_name + '退款', kind: 'refund', amount: self.amount, donate_record: self, user: self.agent, donor: self.donor, operator: operator)
       self.agent.save!
 
       self.refund!
@@ -304,7 +317,7 @@ class DonateRecord < ApplicationRecord
     apply_name = if self.owner_type == 'DonateItem' || self.owner_type == 'ProjectSeasonApply'
                    self.owner.name
                  elsif self.owner_type == 'GshChildGrant'
-                   self.child.try(:name).to_s + ' · ' + self.owner.try(:title).to_s
+                   self.child.try(:name).to_s + ' · ' + self.owner.try(:title).to_s + ' · ' + self.owner.try(:grade_name).to_s
                  elsif self.owner_type == 'ProjectSeasonApplyChild'
                    self.owner.try(:name)
                  elsif self.owner_type == 'ProjectSeasonApplyBookshelf'

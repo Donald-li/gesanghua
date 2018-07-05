@@ -10,6 +10,14 @@ class AuditHelper
     end
   end
 
+  def self.event_types
+    [
+      ['添加', 'create'],
+      ['修改', 'update'],
+      ['删除', 'destroy']
+    ]
+  end
+
   def self.item_types
     [
       ['用户', 'User'],
@@ -32,7 +40,9 @@ class AuditHelper
       ['探索营资源', 'CampProjectResource'],
       ['志愿者', 'Volunteer'],
       ['活动', 'Campaign'],
-      ['活动报名表', 'CampaignEnlist']
+      ['活动报名表', 'CampaignEnlist'],
+      ['收入记录', 'IncomeRecord'],
+      ['支出记录', 'ExpenditureRecord']
   ]
   end
 
@@ -56,7 +66,7 @@ class AuditHelper
     case attr
     when 'state', 'approve_state', 'apply_type', 'code_type', 'show_state', 'execute_state', 'read_state', 'pair_state', 'gender', 'nation',
        'level', 'grade', 'semester', 'kind', 'audit_state', 'inventory_state', 'accept_feedback_state', 'feedback_format', 'apply_kind', 'job_state',
-        'internship_state', 'phone_verify', 'use_nickname'
+        'internship_state', 'phone_verify', 'use_nickname', 'voucher_state'
       klass = audit.item_type.constantize
       klass.enum_name(attr.pluralize, value)
     when 'province', 'city', 'district'
@@ -78,9 +88,9 @@ class AuditHelper
       asso && (asso.attributes['name'] || asso.attributes['nickname'] || asso.attributes['classname'] || asso.try(:apply_name))
     when /_at$/
       I18n.localize(value)
-    when  'camp_start_time', 'start_time', 'end_time', 'sign_up_end_time', 'sign_up_start_time'
+    when  'camp_start_time', 'start_time', 'end_time', 'sign_up_end_time', 'sign_up_start_time', 'income_time', 'expended_at'
       I18n.localize(value)
-    when 'content', 'protocol', 'describe', 'experience'
+    when 'content', 'protocol', 'describe', 'experience', 'remark'
       value.html_safe
     else
       value

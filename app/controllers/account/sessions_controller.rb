@@ -30,6 +30,12 @@ class Account::SessionsController < Account::BaseController
       flash[:alert] = '该帐号已被停用'
       render(action: :new) && return
     end
+
+    if user.state === 'unactived'
+      flash[:alert] = '该帐号未激活，请注册激活您的账号'
+      render(action: :new) && return
+    end
+
     if user.password_digest.blank?
       flash[:alert] = '该账号还没设置密码，请用微信扫码登录。'
       render(action: :new) && return
@@ -49,6 +55,7 @@ class Account::SessionsController < Account::BaseController
   end
 
   def find_back
+    @user = User.new
     respond_to do |format|
       if session_params[:login].blank?
         format.html {redirect_to forget_account_session_url(kind: 'by_phone'), alert: '请输入手机号'}
@@ -63,12 +70,10 @@ class Account::SessionsController < Account::BaseController
 
         @user = User.find_by_login(session_params[:login])
         if @user.blank?
-          flash[:alert] = '该帐号不存在'
-          render(action: :new) && return
+          redirect_to account_login_path, alert: '该帐号不存在，请注册' and return
         else
           if @user.state === 'disable'
-            flash[:alert] = '该帐号已被停用'
-            render(action: :new) && return
+            redirect_to account_login_path, alert: '该帐号已被停用' and return
           end
         end
         set_reset_user(@user)
@@ -84,10 +89,10 @@ class Account::SessionsController < Account::BaseController
       else
         @user = User.find_by_login(session_params[:login])
         if @user.blank?
-          format.html {redirect_to forget_account_session_url(kind: 'by_email'), alert: '该账号不存在'}
+          format.html {redirect_to account_login_path, alert: '该账号不存在'}
         else
           if @user.state === 'disable'
-            format.html {redirect_to forget_account_session_url(kind: 'by_email'), alert: '该账号已被停用'}
+            format.html {redirect_to account_login_path, alert: '该账号已被停用'}
           end
         end
         #TODO:这里给所填邮箱发送验证码
@@ -111,12 +116,10 @@ class Account::SessionsController < Account::BaseController
 
         @user = User.find_by_login(session_params[:login])
         if @user.blank?
-          flash[:alert] = '该帐号不存在'
-          render(action: :new) && return
+          redirect_to account_login_path, alert: '该账号不存在' and return
         else
           if @user.state === 'disable'
-            flash[:alert] = '该帐号已被停用'
-            render(action: :new) && return
+            redirect_to account_login_path, alert: '该帐号已被停用' and return
           end
         end
         set_reset_user(@user)

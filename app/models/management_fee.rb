@@ -26,7 +26,7 @@ class ManagementFee < ApplicationRecord
   enum state: {normal: 1}
   default_value_for :state, 1
 
-  counter_culture :month, column_name: :fee, delta_magnitude: proc {|model| model.fee}
+  counter_culture :month, column_name: :fee, delta_column: 'fee'
   counter_culture :month, column_name: :count
 
   before_create :calc_managemeng_rate

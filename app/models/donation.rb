@@ -87,12 +87,30 @@ class Donation < ApplicationRecord
 
   # 返回支付宝支付按钮
   def alipay_prepay_h5
-    return get_alipay_prepay_url(type='wap')
+    # return get_alipay_prepay_url(type='wap')
+    Alipay::Service.create_direct_pay_by_user_wap_url(
+      # service: 'create_donate_trade_p',
+      payment_type: 4,
+      out_trade_no: self.order_no,
+      subject: '捐助给格桑花',
+      total_fee: Settings.pay_1_mode ? '0.01' : sprintf('%.2f', self.amount.to_f),
+      return_url: 'http://' + Settings.app_host + '/m/donate-result?order_no=' + self.order_no,
+      notify_url: "http://" + Settings.app_host + "/payment/alipay_payments/notify"
+    )
   end
 
   # 返回PC端支付宝支付按钮
   def alipay_prepay_page
-    return get_alipay_prepay_url(type='page')
+    # return get_alipay_prepay_url(type='page')
+    Alipay::Service.create_direct_pay_by_user_url(
+      service: 'create_donate_trade_p',
+      payment_type: 4,
+      out_trade_no: self.order_no,
+      subject: '捐助给格桑花',
+      total_fee: Settings.pay_1_mode ? '0.01' : sprintf('%.2f', self.amount.to_f),
+      return_url: 'http://' + Settings.app_host + '/pay?order_no=' + self.order_no,
+      notify_url: "http://" + Settings.app_host + "/payment/alipay_payments/notify"
+    )
   end
 
   # 项目是否可以退款
@@ -101,7 +119,7 @@ class Donation < ApplicationRecord
   end
 
   # 退款
-  def do_refund!
+  def do_refund!(operator)
     user = self.user
     return unless user
     self.transaction do
@@ -179,8 +197,9 @@ class Donation < ApplicationRecord
     if donation.unpaid?
       donor = donation.donor
       agent = donation.agent
-      amount = result['invoice_amount']
-      amount = donation.amount if Settings.pay_1_mode # 测试模式入账金额等于捐助金额
+      amount = donation.amount
+      # amount = result['receipt_amount']
+      # amount = donation.amount if Settings.pay_1_mode # 测试模式入账金额等于捐助金额
 
       # 更新捐助状态
       donation.pay_state = 'paid'
@@ -323,6 +342,7 @@ class Donation < ApplicationRecord
   end
 
   # 得到一个支付宝链接 type: {wap|page}
+  # 新接口，暂时不支持公益，没使用
   def get_alipay_prepay_url(type='wap')
     require 'alipay'
     notify_url = "http://" + Settings.app_host + "/payment/alipay_payments/notify"
@@ -333,6 +353,7 @@ class Donation < ApplicationRecord
       quit_url = 'http://' + Settings.app_host + '/m/donate-result?order_no=' + self.order_no
     else
       method = "alipay.trade.page.pay"
+      # method = "create_donate_trade_p"
       product_code = 'FAST_INSTANT_TRADE_PAY'
       quit_url = 'http://' + Settings.app_host + '/pay?order_no=' + self.order_no
     end

@@ -22,6 +22,10 @@ class Admin::ArticlesController < Admin::BaseController
 
   def create
     @article = Article.new(article_params)
+    if !@article.published_at.present?
+      flash[:notice] = '请填写发布时间'
+      render :new and return
+    end
     respond_to do |format|
       if @article.save
         @article.attach_image(params[:image_id])
@@ -34,6 +38,10 @@ class Admin::ArticlesController < Admin::BaseController
   end
 
   def update
+    if !article_params[:published_at].present?
+      flash[:notice] = '请填写发布时间'
+      render :edit and return
+    end
     respond_to do |format|
       if @article.update(article_params)
         @article.attach_image(params[:image_id])

@@ -1,6 +1,6 @@
 class Admin::IncomeRecordsController < Admin::BaseController
   before_action :auth_manage_finanical
-  before_action :set_income_record, only: [:show, :edit, :update, :destroy]
+  before_action :set_income_record, only: [:show, :edit, :update, :destroy, :return_back]
 
   def index
     set_search_end_of_day(:created_at_lteq)
@@ -79,6 +79,15 @@ class Admin::IncomeRecordsController < Admin::BaseController
       else
         format.html {render :excel_upload}
       end
+    end
+  end
+
+  def return_back
+    donor = @income_record.donor
+    if AccountRecord.create(title: '财务收入记录退款', kind: 'refund', amount: @income_record.balance, user: donor, donor: donor, operator_id: current_user.id) && @income_record.update(balance: 0)
+      redirect_to referer_or(edit_admin_income_record_path), notice: '操作成功'
+    else
+      redirect_to referer_or(edit_admin_income_record_path), notice: '操作失败'
     end
   end
 

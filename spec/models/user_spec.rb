@@ -41,6 +41,8 @@
 #  notice_state          :boolean          default(FALSE)              # 用户是否有未查看的公告
 #  archive_data          :jsonb                                        # 归档旧数据
 #  actived_at            :datetime                                     # 激活时间
+#  operate_log           :jsonb                                        # 危险操作记录：用户合并、指定代捐管理人、代捐人激活
+#  remark                :text
 #
 
 require 'rails_helper'
@@ -87,7 +89,7 @@ RSpec.describe User, type: :model do
 
     User.update_user_statistic_record
 
-    expect(StatisticRecord.user_register.where(record_time: Time.now.beginning_of_day..Time.now.end_of_day).first.amount).to eq User.count
+    expect(StatisticRecord.user_register.where(record_time: Time.now.beginning_of_day..Time.now.end_of_day).first.amount).to eq User.where(actived_at: Time.now.beginning_of_day..Time.now.end_of_day).count
 
   end
 
@@ -158,7 +160,8 @@ RSpec.describe User, type: :model do
   end
 
   it "测试设置线下用户管理人" do
-    offline_user_with_no_manager.set_offline_user_manager(manager1)
+    result, message = offline_user_with_no_manager.set_offline_user_manager(manager1, user, user)
+    expect(result).to eq true
     expect(offline_user_with_no_manager.reload.manager_id).to eq manager1.id
     expect(no_manager_user_donate_record1.reload.agent_id).to eq manager1.id
     expect(no_manager_user_donate_record2.reload.agent_id).to eq manager1.id

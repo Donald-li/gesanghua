@@ -25,7 +25,7 @@
               <a href="#" data-content="menus-project"> <i class="fa fa-inbox"></i>项目管理 </a>
           </li>
         <% end %>
-        <% if can? :manage_operation, current_user %>
+        <% if can? :manage_manpower, current_user %>
           <li class="<%= current_nav_class(:admin_system) %>" data-toggle="tab" style="width: auto">
               <a href="#" data-content="menus-system"> <i class="fa fa-gear"></i>系统管理 </a>
           </li>

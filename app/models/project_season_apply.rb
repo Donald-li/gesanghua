@@ -159,7 +159,6 @@ class ProjectSeasonApply < ApplicationRecord
     donate_record.update!(amount: amount)
 
     self.present_amount += amount
-    self.project.fund.balance += amount
     self.check_apply_state
     self.save!
   end

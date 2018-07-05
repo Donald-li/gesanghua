@@ -23,12 +23,19 @@ class Api::V1::GshPlus::VolunteersController < Api::V1::BaseController
     end
     volunteer = user.volunteer || user.build_volunteer
     location = params[:volunteer][:location] || []
-    volunteer.attributes = {describe: params[:volunteer][:describe], phone: params[:volunteer][:phone], name: params[:volunteer][:name], id_card: params[:volunteer][:id_card], province: location[0], city: location[1], district: location[2], address: params[:volunteer][:address], source: params[:volunteer][:source].try(:first), experience: params[:volunteer][:experience]}
+    volunteer.attributes = {describe: params[:volunteer][:describe], phone: params[:volunteer][:phone], name: params[:volunteer][:name], id_card: params[:volunteer][:id_card], province: location[0], city: location[1], district: location[2], address: params[:volunteer][:address], source: params[:volunteer][:source].try(:first), experience: params[:volunteer][:experience], wechat: params[:volunteer][:wechat], qq: params[:volunteer][:qq], email: params[:volunteer][:email]}
     if volunteer.save
       volunteer.submit!
       volunteer.attach_image(params[:image_ids][0]) if params[:image_ids].present?
       volunteer.major_ids = params[:volunteer][:major_ids]
-      api_success(data: true)
+      Notification.create(
+          kind: 'approve_submit',
+          owner: user,
+          user_id: user.id,
+          title: '志愿者申请',
+          content: '申请提交成功，请加入格桑花志愿者申请群，群号 231850711，了解更多信息'
+      )
+      api_success(data: true, message: '申请成功')
     else
       api_error(message: '申请失败，请重试')
     end
@@ -42,7 +49,7 @@ class Api::V1::GshPlus::VolunteersController < Api::V1::BaseController
     volunteer = current_user.volunteer
     user = current_user
     location = params[:volunteer][:location] || []
-    volunteer.attributes = {name: params[:volunteer][:user_name], workstation: params[:volunteer][:workstation], describe: params[:volunteer][:describe], phone: params[:volunteer][:phone], province: location[0], city: location[1], district: location[2], address: params[:volunteer][:address]}
+    volunteer.attributes = {name: params[:volunteer][:user_name], workstation: params[:volunteer][:workstation], describe: params[:volunteer][:describe], phone: params[:volunteer][:phone], province: location[0], city: location[1], district: location[2], address: params[:volunteer][:address], wechat: params[:volunteer][:wechat], qq: params[:volunteer][:qq], email: params[:volunteer][:email]}
     user.attributes = {email: params[:volunteer][:user_email], qq: params[:volunteer][:user_qq]}
     if user.save && volunteer.save
       user.attach_avatar(params[:image_id])

@@ -14,18 +14,20 @@
 #  updated_at       :datetime         not null
 #  title            :string                                 # 标题
 #  state            :integer                                # 类型
+#  operator_id      :integer                                # 操作人id
 #
 
 class AccountRecord < ApplicationRecord
   belongs_to :user
   belongs_to :donor, class_name: 'User', foreign_key: :donor_id, optional: true
+  belongs_to :operator, class_name: 'User', foreign_key: :operator_id, optional: true
   belongs_to :income_record, optional: true
   belongs_to :donate_record, optional: true
 
   enum kind: {adjust: 1, donate: 2, refund: 3, charge: 4} # 1:调整 2:捐助 3:退款 4:充值
   default_value_for :kind, 1
 
-  counter_culture :user, column_name: 'balance', delta_magnitude: proc {|model| model.amount }
+  counter_culture :user, column_name: 'balance', delta_column: 'amount'
 
   scope :sorted, -> { order(created_at: :desc) }
 

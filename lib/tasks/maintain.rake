@@ -8,17 +8,38 @@ namespace :maintain do
   end
 
   task migrate_apply_child: [:environment] do
-    ProjectSeasonApplyChild.where.not(priority_id: nil).sorted.each do |child|
-      user_id = child.priority_id
-      pending_grants = child.semesters.pending
-      if pending_grants.count > 0
-        grant = pending_grants.order(id: :asc).first
-        if grant.title.start_with?('2018') && user_id.present?
-          new_user_id = grant.user_id
-          if user_id != new_user_id && new_user_id.present?
-            child.update(priority_id: new_user_id)
-          end
+    # ProjectSeasonApplyChild.where.not(priority_id: nil).sorted.each do |child|
+    #   user_id = child.priority_id
+    #   pending_grants = child.semesters.pending
+    #   if pending_grants.count > 0
+    #     grant = pending_grants.order(id: :asc).first
+    #     if grant.title.start_with?('2018') && user_id.present?
+    #       new_user_id = grant.user_id
+    #       if user_id != new_user_id && new_user_id.present?
+    #         child.update(priority_id: new_user_id)
+    #       end
+    #     end
+    #   end
+    # end
+
+    ProjectSeasonApplyChild.sorted.map do |child|
+      DonateRecord.where(project_season_apply_child_id: child.id).map do |record|
+        grant = record.owner
+        if record.income_record.present?
+          grant.grade_name = child.enum_name(:level).to_s +  '.' + record.income_record.archive_data['Grade'].to_s
+          grant.save
         end
+      end
+    end
+
+    ProjectSeasonApplyChild.where(id: GshChildGrant.where(grade_name: nil).pluck(:project_season_apply_child_id).uniq).each do |child|
+      ok_grants = child.semesters.sorted.where.not(grade_name: nil)
+      grants = child.semesters.sorted.where(grade_name: nil)
+      grade = ok_grants.try(:last).try(:grade_name).try(:to_i) || 1
+      grants.each do |grant|
+        grant.grade_name = child.enum_name(:level).to_s +  '.' + grade.to_s
+        grant.save
+        grade += 1
       end
     end
   end

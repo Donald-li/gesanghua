@@ -187,7 +187,9 @@
           type:  "post",
           url: "/api/v1/common/sms_codes",
           data: {kind: 'find_password', mobile: mobile},
-          success: function(data){alert(data.message)},
+          success: function(data){
+//              alert(data.message)
+          },
           error: function(){}
         })
     }

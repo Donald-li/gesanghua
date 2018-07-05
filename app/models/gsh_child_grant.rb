@@ -28,6 +28,7 @@
 #  project_season_apply_child_id :integer                                # 一对一助学孩子id
 #  cancel_reason                 :integer                                # 取消原因
 #  management_fee_state          :integer                                # 计提管理费状态
+#  grade_name                    :string                                 # 年级名称
 #
 
 # 一对一孩子发放表
@@ -107,9 +108,6 @@ class GshChildGrant < ApplicationRecord
     donate_record.update!(amount: amount)
 
     self.apply.present_amount += amount
-    fund = Project.pair_project.fund
-    fund.balance += amount
-    fund.save!
     self.donate_state = 'succeed'
     self.user_id = donate_record.donor_id
     self.save!
@@ -117,9 +115,9 @@ class GshChildGrant < ApplicationRecord
   end
 
   # 退款, 捐助记录退款状态，退回账户余额，孩子标记取消
-  def do_refund!
+  def do_refund!(operator)
     record = self.donate_records.last
-    record.do_refund!
+    record.do_refund!(operator)
   end
 
   def button_color
@@ -140,6 +138,7 @@ class GshChildGrant < ApplicationRecord
     gsh_child = child.gsh_child
     apply = child.apply
     season = apply.season
+    level = child.enum_name(:level)
 
     if child.junior?
       term_amount = season.junior_term_amount
@@ -152,17 +151,23 @@ class GshChildGrant < ApplicationRecord
     apply_num = 4 - child.child_grade_integer
 
     year = Time.now.year
+    grade = ProjectSeasonApplyChild.grades[child.grade]
 
-    GshChildGrant.find_or_create_by(title: "#{year}.3 - #{year}.7 学期", gsh_child: gsh_child, apply_child: child, apply: apply, amount: term_amount, school_id: child.school_id) && apply_num -= 1 if child.next_term? && apply_num > 0
+    if child.next_term? && apply_num > 0
+      grant = GshChildGrant.find_or_create_by(title: "#{year}.3 - #{year}.7 学期", gsh_child: gsh_child, apply_child: child, apply: apply, amount: term_amount, school_id: child.school_id)
+      grant.update(grade_name: "#{level}.#{grade}")
+      apply_num -= 1
+      grade += 1
+    end
 
     if (apply_num > 0)
       apply_num.times do
-        GshChildGrant.find_or_create_by(title: "#{year}.9 - #{year + 1}.7 学年", gsh_child: gsh_child, apply_child: child, apply: apply, amount: year_amount, school_id: child.school_id)
+        grant = GshChildGrant.find_or_create_by(title: "#{year}.9 - #{year + 1}.7 学年", gsh_child: gsh_child, apply_child: child, apply: apply, amount: year_amount, school_id: child.school_id)
+        grant.update(grade_name: "#{level}.#{grade}")
         year += 1
+        grade += 1
       end
     end
-
-    # child.semester
 
   end
 

@@ -8,7 +8,12 @@
         <i class="fa fa-cny"></i>
         <span>捐助统计：<%= @user.donate_amount %></span>
       </div> |
-
+      <% if can? :manage_excel, current_user  %>
+          <%= link_to url_for(params.permit!.merge(format: :xlsx)), class: 'btn btn-xs green', 'data-no-turbolink' => true do %>
+              <i class="fa fa-download"></i>
+              <span>导出表单</span>
+          <% end %>
+      <% end %>
       <%= link_to invoices_admin_user_path(@user), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
       <i class="icon-plus"></i>
       <span>申请发票</span>
@@ -42,10 +47,10 @@
           <thead>
             <tr>
               <th>
-                ID
+                标题
               </th>
               <th>
-                标题
+                财务分类
               </th>
               <th>
                 捐款人
@@ -71,10 +76,10 @@
             <% @donate_records.each do |record| %>
             <tr>
               <td>
-                <%= record.id %>
+                <%= link_to record.apply_name, record.link_url, target: '_blank' %>
               </td>
               <td>
-                <%= link_to record.apply_name, record.link_url, target: '_blank' %>
+                <%= record.fund_name %>
               </td>
               <td>
                 <%= record.donor.admin_show_name if record.donor.present? %> ( <%= record.donor.phone if record.donor.present? %> )
@@ -83,7 +88,7 @@
                 <%= record.agent_name %>
               </td>
               <td>
-                <%= l record.created_at %>
+                <%= l record.created_at if record.created_at.present? %>
               </td>
               <td>
                 <%= format_money record.amount %>

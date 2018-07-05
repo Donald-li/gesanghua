@@ -1,5 +1,5 @@
 class Admin::TaskCategoriesController < Admin::BaseController
-  before_action :auth_manage_operation
+  before_action :auth_manage_manpower
   before_action :set_task_category, only: [:show, :edit, :update, :destroy]
 
   def index

@@ -14,6 +14,7 @@
 #  updated_at       :datetime         not null
 #  title            :string                                 # 标题
 #  state            :integer                                # 类型
+#  operator_id      :integer                                # 操作人id
 #
 
 FactoryBot.define do

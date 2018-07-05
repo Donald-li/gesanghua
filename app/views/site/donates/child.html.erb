@@ -52,6 +52,9 @@ end
       <div class="benefactors clearfix">
         <span class="pull-left">选捐助人</span>
         <select name="donor" id="benefactor" class="pull-left">
+          <% if @donors.count > 0 %>
+              <option value="">请选择捐助人</option>
+          <% end %>
           <option value="<%= current_user.id %>"><%= current_user.show_name %></option>
           <% @donors.each do |d| %>
           <option value="<%= d.id %>"><%= d.show_name %></option>

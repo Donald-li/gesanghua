@@ -118,9 +118,15 @@ class Project < ApplicationRecord
   def amount_tabs(limit_amount=nil)
     donate_items = self.donate_item.amount_tabs.sorted.show if self.donate_item
     donate_items = donate_items.presence || Settings.amount_tabs
+
     if limit_amount
-      donate_items = donate_items.select{|i| i.amount <= limit_amount}.map(&:amount).push(limit_amount)
+      if self.donate_item.try(:amount_tabs).present?
+        donate_items = donate_items.select{|i| i.amount <= limit_amount}.map(&:amount).push(limit_amount)
+      else
+        donate_items = donate_items.push(limit_amount)
+      end
     end
+
     donate_items.sort.uniq.reverse[0,4].reverse
   end
 

@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
 
   def login_require
     unless logged_in?
-      session[:return_path] ||= request.path if request.get?
+      session[:return_path] ||= request.url if request.get?
       redirect_to account_login_path
     end
   end

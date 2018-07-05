@@ -49,7 +49,7 @@ class Feedback < ApplicationRecord
   include HasAsset
   has_many_assets :images, class_name: "Asset::FeedbackImage"
 
-  enum kind: {default: 0, grant: 1, continue: 2}
+  enum kind: {default: 0, grant: 1, continue: 2, score: 3}
   default_value_for :kind, 0
 
   enum state: {show: 1, hidden: 2}

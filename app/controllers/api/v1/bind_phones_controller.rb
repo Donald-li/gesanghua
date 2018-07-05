@@ -17,7 +17,7 @@ class Api::V1::BindPhonesController < Api::V1::BaseController
             end
             api_success(message: '绑定成功', data: {state: true})
           else
-            api_success(message: '绑定失败', data: {state: false})
+            api_success(message: '绑定失败，请联系微信号gshkf001', data: {state: false})
           end
         elsif !user.openid.present?
           User.combine_user(params[:mobile], current_user)
@@ -27,10 +27,9 @@ class Api::V1::BindPhonesController < Api::V1::BaseController
             user.password = params[:password]
           end
           user.save
-
           api_success(message: '绑定成功', data: {state: true})
         else
-          api_success(message: '绑定失败，手机号已占用', data: {state: false})
+          api_success(message: '绑定失败，手机号已占用，请联系微信号gshkf001', data: {state: false})
         end
       else
         current_user.phone = params[:mobile]
@@ -41,7 +40,7 @@ class Api::V1::BindPhonesController < Api::V1::BaseController
           current_user.bind_user_roles
           api_success(message: '绑定成功', data: {state: true})
         else
-          api_success(message: '绑定失败，手机号已占用', data: {state: false})
+          api_success(message: '绑定失败，手机号已占用，请联系微信号gshkf001', data: {state: false})
         end
       end
     else

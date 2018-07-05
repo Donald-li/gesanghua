@@ -11,7 +11,6 @@ class Admin::PairThankNotesController < Admin::BaseController
   end
 
   def show
-    @note.update(check: 2)
   end
 
   def new
@@ -23,9 +22,16 @@ class Admin::PairThankNotesController < Admin::BaseController
     @user = current_user
     @grant = GshChildGrant.find(note_params[:gsh_child_grant_id])
     @child = @grant.gsh_child
-    @feedback = ContinualFeedback.new(content: note_params[:content], owner: @child, project: Project.pair_project, user: @user, gsh_child_grant: @grant, season: @grant.season, apply: @grant.apply, child: @grant.apply_child)
+    @feedback = ContinualFeedback.new(content: note_params[:content], owner: @child, project: Project.pair_project, user: @user, gsh_child_grant: @grant, season: @grant.season, apply: @grant.apply, child: @grant.apply_child, kind: note_params[:kind])
     if @feedback.save
       @feedback.attach_images(params[:image_ids])
+      Notification.create(
+          kind: 'feedback_score',
+          owner: @grant,
+          user_id: @grant.user_id,
+          title: "#反馈通知# 有新的孩子邮件",
+          content: "你捐助的 #{@grant.apply_child.try(:name)} 提交了新反馈，点击查看详情"
+      )
       redirect_to referer_or(admin_pair_thank_notes_path), notice: '新增成功。'
     else
       render :new

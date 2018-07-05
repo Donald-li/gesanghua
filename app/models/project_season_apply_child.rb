@@ -145,7 +145,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   scope :check_list, -> {where(approve_state: [1, 2, 3])}
 
   def self.allow_apply?(school, id_card, child=nil)
-    return true if child.archive_data.present?
+    return true if child.try(:archive_data).present?
     return false unless id_card.present?
     if child.nil?
       return false if self.where(school: school, id_card: id_card).present?
@@ -371,7 +371,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   # 是否被用户认捐？
   def donate_by_user?(user)
     return false unless user
-    self.priority_user == user || user.offline_users.pluck(:id).include?(self.priority_id) || donate_grants_by_user(user).exists?
+    self.priority_user == user || self.priority_user == user.manager || user.offline_users.pluck(:id).include?(self.priority_id) || donate_grants_by_user(user).exists?
   end
 
   # 用户捐助的学期

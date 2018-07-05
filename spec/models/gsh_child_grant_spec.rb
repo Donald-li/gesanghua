@@ -28,6 +28,7 @@
 #  project_season_apply_child_id :integer                                # 一对一助学孩子id
 #  cancel_reason                 :integer                                # 取消原因
 #  management_fee_state          :integer                                # 计提管理费状态
+#  grade_name                    :string                                 # 年级名称
 #
 
 require 'rails_helper'

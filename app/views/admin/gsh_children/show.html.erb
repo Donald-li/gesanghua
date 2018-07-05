@@ -1,0 +1,180 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i>相关项目
+    </div>
+    <div class="actions">
+      <%= link_to admin_gsh_children_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+          <i class="fa fa-reply"></i>
+          <span>返回</span>
+      <% end %>
+    </div>
+  </div>
+  <div class="portlet light bordered">
+    <div class="portlet light bordered" id="basic-info">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="icon-share font-red-sunglo"></i>
+          <span class="caption-subject font-red-sunglo bold uppercase">结对项目记录</span>
+        </div>
+      </div>
+      <% @pair_records.each do |record| %>
+          <% grants = record.semesters.sorted %>
+          <div class="table-scrollable">
+            <table class="table table-striped table-bordered table-hover" id="sample_2">
+              <thead>
+              <tr>
+                <th>
+                  批次
+                </th>
+                <th>
+                  学校
+                </th>
+                <th>
+                  申请学年
+                </th>
+                <th>
+                  申请金额
+                </th>
+                <th>
+                  备注
+                </th>
+                <th>
+                  捐助人
+                </th>
+                <th>
+                  筹款状态
+                </th>
+                <th>
+                  发放状态
+                </th>
+                <th>
+                  反馈次数
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+              <% grants.each do |grant| %>
+                  <tr>
+                    <td>
+                      <%= record.season.try(:name) %>
+                    </td>
+                    <td>
+                      <%= record.apply.try(:school).try(:name) %> / <%= record.enum_name(:level) %> <%= record.enum_name(:grade) %> / <%= record.classname %>
+                    </td>
+                    <td>
+                      <%= grant.title %>
+                    </td>
+                    <td>
+                      ￥<%= format_money grant.amount %>
+                    </td>
+                    <td>
+                      <%= grant.remark %>
+                    </td>
+                    <td>
+                      <%= link_to grant.user.try(:name), admin_users_path(user_id: grant.user_id) if grant.user_id %>
+                    </td>
+                    <td>
+                      <%= grant.enum_name(:donate_state) %>
+                    </td>
+                    <td>
+                      <%= grant.enum_name(:state) %>
+                    </td>
+                    <td>
+                      <% count = grant.thank_notes.count %>
+                      <% if count > 0 %>
+                          <%= link_to "#{count}次", admin_pair_thank_notes_path(q: {child_id_eq: grant.apply_child.try(:id)}), class: 'btn btn-xs blue' %>
+                      <% end %>
+                    </td>
+                  </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+          </div>
+      <% end %>
+      </div>
+
+  <div class="portlet light bordered">
+    <div class="portlet light bordered" id="basic-info">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="icon-share font-red-sunglo"></i>
+          <span class="caption-subject font-red-sunglo bold uppercase">探索营项目记录</span>
+        </div>
+      </div>
+      <div class="portlet-body">
+            <div class="table-scrollable">
+              <table class="table table-striped table-bordered table-hover" id="sample_2">
+                <thead>
+                <tr>
+                  <th>
+                    探索营编号
+                  </th>
+                  <th>
+                    项目名称
+                  </th>
+                  <th>
+                    探索营地点
+                  </th>
+                  <th>
+                    营负责人
+                  </th>
+                  <th>
+                    开营时间
+                  </th>
+                  <th>
+                    行程天数
+                  </th>
+                  <th>
+                    监护人
+                  </th>
+                  <th>
+                    监护人联系方式
+                  </th>
+                  <th>
+                    推荐理由
+                  </th>
+                </tr>
+                </thead>
+                <tbody>
+                <% @camp_records.each do |record| %>
+                    <tr>
+                      <td>
+                        <%= record.apply.try(:apply_no) %>
+                      </td>
+                      <td>
+                        <%= record.apply.try(:name) %>
+                      </td>
+                      <td>
+                        <%= record.camp.try(:name) %>
+                      </td>
+                      <td>
+                        <%= record.camp.try(:manager) %>
+                      </td>
+                      <td>
+                        <%= record.apply.camp_start_time.strftime("%Y-%m-%d") %>
+                      </td>
+                      <td>
+                        <%= record.apply.camp_period %>
+                      </td>
+                      <td>
+                        <%= record.guardian_name %>
+                      </td>
+                      <td>
+                        <%= record.guardian_phone %>
+                      </td>
+                      <td>
+                        <%= record.reason %>
+                      </td>
+                    </tr>
+                <% end %>
+                </tbody>
+              </table>
+            </div>
+            </div>
+        </div>
+  </div>
+</div>
+
+<!-- END EXAMPLE TABLE PORTLET-->

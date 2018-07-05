@@ -26,7 +26,7 @@ fc_gesanghua.funds.find_or_create_by(name: "格桑花", management_rate: 0, desc
 fc_expense.funds.find_or_create_by(name: "行政费用", management_rate: 0, describe: '办公室租用、办公用品')
 fc_expense.funds.find_or_create_by(name: "人员工资", management_rate: 0, describe: '仅用于人员工资、社保费用')
 
-FundCategory.each do |fc|
+FundCategory.all.each do |fc|
   Fund.find_or_create_by(name: "非指定", management_rate: 0, describe: '定向非指定', fund_category_id: fc.id)
   Fund.find_or_create_by(name: "指定", management_rate: 5, describe: '定向指定', fund_category_id: fc.id)
 end

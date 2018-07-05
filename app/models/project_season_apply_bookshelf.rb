@@ -95,7 +95,6 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
 
     self.present_amount += amount
     self.apply.present_amount += amount
-    self.project.fund.balance += amount
 
     self.state = 'to_delivery' if self.present_amount >= self.target_amount
     self.save!

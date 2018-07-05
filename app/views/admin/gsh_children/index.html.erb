@@ -84,6 +84,9 @@
                 <%= ChinaCity.get(gsh_child.province) %><%= ChinaCity.get(gsh_child.city) %><%= ChinaCity.get(gsh_child.district) %>
               </td>
               <td>
+                <%= link_to admin_gsh_child_path(gsh_child), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                    <i class="fa fa-list"></i> 相关项目
+                <% end %>
                 <%= link_to edit_admin_gsh_child_path(gsh_child), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                   <i class="fa fa-edit"></i> 修改信息
                 <% end %>

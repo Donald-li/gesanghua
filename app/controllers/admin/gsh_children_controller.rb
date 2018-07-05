@@ -14,6 +14,8 @@ class Admin::GshChildrenController < Admin::BaseController
   end
 
   def show
+    @pair_records = @gsh_child.project_season_apply_children
+    @camp_records = ProjectSeasonApplyCampMember.pass.where(id_card: @gsh_child.id_card)
   end
 
   def new
