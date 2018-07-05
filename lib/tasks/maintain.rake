@@ -21,9 +21,13 @@ namespace :maintain do
     #     end
     #   end
     # end
+    count = ProjectSeasonApplyChild.count
+    i = 0
+    ProjectSeasonApplyChild.sorted.each do |child|
+      i = i + 1
+      puts "#{i} / #{count}" if i % 1000 == 0
 
-    ProjectSeasonApplyChild.sorted.map do |child|
-      DonateRecord.where(project_season_apply_child_id: child.id).map do |record|
+      DonateRecord.where(project_season_apply_child_id: child.id).each do |record|
         grant = record.owner
         if record.income_record.present?
           grant.grade_name = child.enum_name(:level).to_s +  '.' + record.income_record.archive_data['Grade'].to_s
@@ -32,14 +36,19 @@ namespace :maintain do
       end
     end
 
-    ProjectSeasonApplyChild.where(id: GshChildGrant.where(grade_name: nil).pluck(:project_season_apply_child_id).uniq).each do |child|
+    children = ProjectSeasonApplyChild.where(id: GshChildGrant.where(grade_name: nil).pluck(:project_season_apply_child_id).uniq)
+    count = children.count
+    i = 0
+    children.each do |child|
+      i = i + 1
+      puts "#{i} / #{count}" if i % 500 == 0
       ok_grants = child.semesters.sorted.where.not(grade_name: nil)
       grants = child.semesters.sorted.where(grade_name: nil)
       grade = ok_grants.try(:last).try(:grade_name).try(:to_i) || 1
       grants.each do |grant|
         grant.grade_name = child.enum_name(:level).to_s +  '.' + grade.to_s
         grant.save
-        grade += 1
+        grade += 1 unless grant.refund? || grant.close?
       end
     end
   end
