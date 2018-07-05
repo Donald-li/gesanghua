@@ -43,7 +43,10 @@ namespace :maintain do
       i = i + 1
       puts "#{i} / #{count}" if i % 500 == 0
       grade = 1
-      child.semesters.sorted.each do |grant|
+      semesters = child.semesters.sorted
+      record = DonateRecord.find_by(owner: semesters.first).try(:income_record)
+      grade = record.archive_data['Grade'].to_i if record.present? && record.archive_data['Grade'].to_i > 0
+      semesters.each do |grant|
         grant.grade_name = child.enum_name(:level).to_s +  '.' + grade.to_s
         grant.save
         grade += 1 unless grant.refund? || grant.close?
