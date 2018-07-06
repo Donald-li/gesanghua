@@ -99,6 +99,8 @@ zh:
     project_apply_protocol: '项目申请协议'
     volunteer_apply_protocol: '志愿者申请协议'
     voucher_protocol: '捐赠收据申请说明'
+    volunteer_introduction: '志愿者申请须知'
+    volunteer_rules: '志愿者管理制度'
   protocol_states:
     show: '显示'
     hidden: '隐藏'

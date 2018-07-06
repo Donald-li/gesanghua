@@ -224,6 +224,7 @@ class School < ApplicationRecord
       json.student_count self.number
       json.teacher_count self.teacher_count
       json.logistic_count self.logistic_count
+      json.level self.level
       json.describe self.describe
       json.logo_src self.try(:logo).try(:file_url)
       json.logo_mode self.try(:logo).present?
