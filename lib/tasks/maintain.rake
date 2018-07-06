@@ -45,8 +45,22 @@ namespace :maintain do
       grade = 1
       semesters = child.semesters.sorted
       record = DonateRecord.find_by(owner: semesters.first).try(:income_record)
-      grade = record.archive_data['Grade'].to_i if record.present? && record.archive_data['Grade'].to_i > 0
+      grade = record.archive_data['Grade'].to_i if record.present? && record.archive_data.present? && record.archive_data['Grade'].to_i > 0
+      level = ProjectSeasonApplyChild.levels[child.level]
+      o_level = level
+      o_grade = grade
       semesters.each do |grant|
+        record = DonateRecord.find_by(owner: grant).try(:income_record)
+        if record.present? && record.archive_data.present?
+          _level = School.levels[School.find_by("archive_data ->> 'SchoolId' = ?", record.archive_data['SchoolId'].to_s).try(:level)]
+          if _level.present? && level.to_i != _level.to_i
+            child.level = _level.to_i
+            grade = record.archive_data['Grade'].to_i > 0 ? record.archive_data['Grade'].to_i : 1
+          end
+        else
+          child.level = o_level
+          grade = o_grade
+        end
         grant.grade_name = child.enum_name(:level).to_s +  '.' + grade.to_s
         grant.save
         grade += 1 unless grant.refund? || grant.close?

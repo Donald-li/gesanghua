@@ -5,6 +5,10 @@
     </div>
     <div class="actions">
       <div class="btn btn-xs yellow">
+        <i class="fa fa-street-view"></i>
+        <span>可续捐：<%= @user.children.each {|child| child.can_continue?}.count %></span>
+      </div> |
+      <div class="btn btn-xs yellow">
         <i class="fa fa-cny"></i>
         <span>捐助统计：<%= @user.donate_amount %></span>
       </div> |
@@ -74,7 +78,7 @@
           </thead>
           <tbody>
             <% @donate_records.each do |record| %>
-            <tr>
+            <tr class="<%= 'success' if record.owner_type == 'GshChildGrant' && record.child.can_continue? %>">
               <td>
                 <%= link_to record.apply_name, record.link_url, target: '_blank' %>
               </td>

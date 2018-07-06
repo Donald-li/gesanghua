@@ -66,8 +66,8 @@ class ProjectSeasonApplyChild < ApplicationRecord
   sanitize_content :information
 
   has_paper_trail only: [:project_id, :project_season_id, :project_season_apply_id, :gsh_child_id, :name, :province, :city, :district, :phone, :qq, :nation, :id_card, :parent_name, :description, :state,
-     :approve_state, :age, :level, :grade, :gender, :school_id, :semester, :kind, :reson, :gsh_no, :teacher_name, :teacher_phone, :father, :father_job, :mother, :mother_job, :guardian, :guardian_relation, :guardian_phone, :address,
-   :family_income, :family_expenditure, :income_source, :family_condition, :brothers, :remark]
+                         :approve_state, :age, :level, :grade, :gender, :school_id, :semester, :kind, :reson, :gsh_no, :teacher_name, :teacher_phone, :father, :father_job, :mother, :mother_job, :guardian, :guardian_relation, :guardian_phone, :address,
+                         :family_income, :family_expenditure, :income_source, :family_condition, :brothers, :remark]
 
   after_save :distinguish_gender, :count_age
   before_update :update_pair_state, if: :can_update_pair_state?
@@ -108,9 +108,9 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   attr_accessor :approve_remark
 
-  validates :id_card, shenfenzheng_no: true, if: ->(c){c.archive_data.blank?}
-  validates :id_card, :name, presence: true, if: ->(c){c.archive_data.blank?}
-  validates :province, :city, :district, presence: true, if: ->(c){c.archive_data.blank?}
+  validates :id_card, shenfenzheng_no: true, if: ->(c) {c.archive_data.blank?}
+  validates :id_card, :name, presence: true, if: ->(c) {c.archive_data.blank?}
+  validates :province, :city, :district, presence: true, if: ->(c) {c.archive_data.blank?}
   validates :reason, length: {maximum: 20}
 
   enum state: {show: 1, hidden: 2} # 状态：1:展示 2:隐藏
@@ -220,7 +220,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
     if self.name.length < 2
       self.name
     else
-      self.name.sub(self.name[1,1], '*')
+      self.name.sub(self.name[1, 1], '*')
     end
   end
 
@@ -247,6 +247,11 @@ class ProjectSeasonApplyChild < ApplicationRecord
       '可续捐'
     end
   end
+
+  def can_continue?
+    self.semesters.pending.count > 0
+  end
+
 
   def generate_qrcode
     qrcode = RQRCode::QRCode.new(self.share_url)
@@ -340,7 +345,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   def self.batch_push_notice
     ProjectSeasonApplyChild.hidden.sorted.each do |child|
       user_id = child.priority_id
-      pending_grants =  child.semesters.pending
+      pending_grants = child.semesters.pending
       if pending_grants.count > 0 && pending_grants.first.title.start_with?(Time.now.year) && user_id.present?
         Notification.create(
             kind: 'continue_donate',
