@@ -484,7 +484,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
       json.donate_state self.semesters.pending.size > 0
       json.avatar self.avatar_url(:tiny).to_s
       json.grants self.donate_grants_by_user(user).pluck(:title)
-      json.feedbacks_count self.continual_feedbacks.visible.count
+      json.feedbacks_count self.continual_feedbacks.uncheck.count
     end.attributes!
   end
 
