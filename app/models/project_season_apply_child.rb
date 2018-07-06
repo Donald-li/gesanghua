@@ -199,6 +199,15 @@ class ProjectSeasonApplyChild < ApplicationRecord
     self.gsh_child.try(:gsh_no)
   end
 
+  def child_birthday
+    if self.id_card.present?
+      year = self.id_card.slice(6, 4)
+      month = self.id_card.slice(10, 2)
+      day = self.id_card.slice(12, 2)
+      return "#{month}.#{day}"
+    end
+  end
+
   def count_age
     return unless self.id_card.present?
     birthday = ChinesePid.new("#{self.id_card}").birthday
@@ -396,7 +405,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   def summary_builder(user=nil)
     Jbuilder.new do |json|
-      json.(self, :id, :father, :father_job, :mother, :mother_job, :guardian, :guardian_relation, :guardian_phone, :income_source, :family_income, :family_condition)
+      json.(self, :id, :father, :father_job, :mother, :mother_job, :guardian, :guardian_relation, :guardian_phone, :income_source, :family_income, :family_condition, :address)
       json.room_image self.room_image_url(:medium)
       json.yard_image self.yard_image_url(:medium)
       json.name donate_by_user?(user) ? self.name : self.secure_name
@@ -404,12 +413,13 @@ class ProjectSeasonApplyChild < ApplicationRecord
       json.donate_by_user donate_by_user?(user)
       json.description self.description
       json.age self.age
-      json.gender self.school.try(:gender)
+      json.gender self.enum_name(:gender)
       json.school self.school.try(:name)
       json.nation self.enum_name(:nation)
       json.level self.enum_name(:level)
       json.grade self.enum_name(:grade)
       json.gsh_no self.gsh_no
+      json.birthday donate_by_user?(user) ? '| ' + self.child_birthday : ''
       json.tuition self.get_tuition.to_i
       json.information self.formatted_information
       json.donate_grants self.donate_record_builder

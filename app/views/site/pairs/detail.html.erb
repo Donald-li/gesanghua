@@ -5,7 +5,7 @@
       <div class="detail-cont pull-left">
         <div>
           <p class="detail-con-t"><%= @child.donate_by_user?(current_user) ? @child.name : @child.secure_name %>
-            <span><%= @child.enum_name(:nation) %> | <%= @child.enum_name(:gender) %></span>
+            <span><%= @child.enum_name(:nation) %> | <%= @child.enum_name(:gender) %> <%= "| #{@child.child_birthday}" if @child.donate_by_user?(current_user) %></span>
           </p>
           <p class="detail-con-serial"><%= @child.gsh_no %> |
             <span style="margin-left: 0;"><%= @child.school.try(:name) %>
@@ -62,6 +62,7 @@
               <p>联系电话：<%= @child.guardian_phone %></p>
               <p>收入来源：<%= @child.income_source %></p>
               <p>家庭年收入：<%= @child.family_income %></p>
+              <p>家庭住址：<%= @child.address %></p>
           <% end %>
           <p class="detail-l-f-s-l">家庭情况：</p>
           <div><%= @child.family_condition %></div>
