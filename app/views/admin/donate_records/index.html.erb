@@ -6,7 +6,7 @@
     <div class="actions">
       <div class="btn btn-xs yellow">
         <i class="fa fa-street-view"></i>
-        <span>可续捐：<%= @user.children.each {|child| child.can_continue?}.count %></span>
+        <span>可续捐：<%= @user.children.select {|child| child.can_continue?}.count %></span>
       </div> |
       <div class="btn btn-xs yellow">
         <i class="fa fa-cny"></i>
