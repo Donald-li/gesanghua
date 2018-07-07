@@ -419,7 +419,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
       json.level self.enum_name(:level)
       json.grade self.enum_name(:grade)
       json.gsh_no self.gsh_no
-      json.birthday donate_by_user?(user) ? '| ' + self.child_birthday : ''
+      json.birthday donate_by_user?(user) ? '| ' + self.child_birthday.to_s : ''
       json.tuition self.get_tuition.to_i
       json.information self.formatted_information
       json.donate_grants self.donate_record_builder
