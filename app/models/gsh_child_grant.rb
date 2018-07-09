@@ -111,7 +111,7 @@ class GshChildGrant < ApplicationRecord
     self.donate_state = 'succeed'
     self.user_id = donate_record.donor_id
     self.save!
-    self.apply_child.update_state
+    self.apply_child.update_state(self.user_id)
   end
 
   # 退款, 捐助记录退款状态，退回账户余额，孩子标记取消

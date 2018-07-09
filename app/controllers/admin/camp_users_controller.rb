@@ -17,33 +17,56 @@ class Admin::CampUsersController < Admin::BaseController
   end
 
   def create
-    @camp_user = User.new(camp_user_params.merge(camp: @camp))
-    @camp_user.add_role(:camp_manager)
+    @camp_user = User.new
     respond_to do |format|
-      if @camp_user.save
-        @camp_user.attach_avatar(params[:avatar_id])
-        format.html { redirect_to referer_or(admin_camp_camp_users_path), notice: '新增成功。' }
+      @camp_user = User.find_by(phone: camp_user_params[:phone])
+      if @camp_user.present?
+        @camp_user.add_role(:camp_manager)
+        if @camp_user.update(camp_user_params.merge(camp: @camp))
+          format.html {redirect_to referer_or(admin_camp_camp_users_path), notice: '该手机号已绑定用户，已将该用户账号更新为营管理员账号。'}
+        else
+          format.html {render :new}
+        end
       else
-        format.html { render :new }
+        @camp_user = User.new(camp_user_params.merge(camp: @camp))
+        @camp_user.add_role(:camp_manager)
+        if @camp_user.save
+          @camp_user.attach_avatar(params[:avatar_id])
+          format.html {redirect_to referer_or(admin_camp_camp_users_path), notice: '新增成功。'}
+        else
+          format.html {render :new}
+        end
       end
     end
   end
 
   def update
     respond_to do |format|
-      if @camp_user.update(camp_user_params)
-        @camp_user.attach_avatar(params[:avatar_id])
-        format.html { redirect_to referer_or(admin_camp_camp_users_path), notice: '修改成功。' }
+
+      @camp_user = User.find_by(phone: camp_user_params[:phone])
+      if @camp_user.present?
+        @camp_user.add_role(:camp_manager)
+        if @camp_user.update(camp_user_params.merge(camp: @camp))
+          format.html {redirect_to referer_or(admin_camp_camp_users_path), notice: '该手机号已绑定用户，已将该用户账号更新为营管理员账号。'}
+        else
+          format.html {render :edit}
+        end
       else
-        format.html { render :edit }
+        if @camp_user.update(camp_user_params)
+          @camp_user.attach_avatar(params[:avatar_id])
+          format.html {redirect_to referer_or(admin_camp_camp_users_path), notice: '修改成功。'}
+        else
+          format.html {render :edit}
+        end
       end
     end
+
   end
 
   def destroy
     @camp_user.destroy
     respond_to do |format|
-      format.html { redirect_to referer_or(admin_camp_camp_users_path), notice: '删除成功。' }
+      format.html {redirect_to referer_or(admin_camp_camp_users_path), notice: '删除成功。'}
     end
   end
 

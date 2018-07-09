@@ -233,10 +233,10 @@ class ProjectSeasonApplyChild < ApplicationRecord
     end
   end
 
-  def update_state
+  def update_state(u_id)
     # self.done_semester_count = self.semesters.succeed.count
     self.state = 'hidden'
-    self.priority_id = self.semesters.sorted.succeed.last.try(:user_id)
+    self.priority_id = u_id
     self.save!
   end
 
@@ -257,8 +257,8 @@ class ProjectSeasonApplyChild < ApplicationRecord
     end
   end
 
-  def can_continue?
-    self.semesters.pending.count > 0
+  def can_continue?(user)
+    self.semesters.pending.count > 0 && self.priority_id == user.id
   end
 
 
@@ -385,7 +385,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   # 是否被用户认捐？
   def donate_by_user?(user)
     return false unless user
-    self.priority_user == user || self.priority_user == user.manager || user.offline_users.pluck(:id).include?(self.priority_id) || donate_grants_by_user(user).exists?
+    self.priority_user == user || self.priority_user == user.manager || user.offline_users.unactived.pluck(:id).include?(self.priority_id) || donate_grants_by_user(user).exists?
   end
 
   # 用户捐助的学期
@@ -491,7 +491,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
       json.(self, :id, :name)
       json.gsh_no self.gsh_no
       json.child_id self.id
-      json.donate_state self.semesters.pending.size > 0
+      json.donate_state self.can_continue?(user)
       json.avatar self.avatar_url(:tiny).to_s
       json.grants self.donate_grants_by_user(user).pluck(:title)
       json.feedbacks_count self.continual_feedbacks.uncheck.count

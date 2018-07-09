@@ -8017,8 +8017,24 @@ color: #8d8d8d;
   .donation-cont-c-con {
     margin-top: 3px !important;
   }
+  .wf_but_2{
+    background-color: #fff;
+    color: #8b54e3;
+    border: 1px solid #8b54e3;
+    line-height: 32px;
+  }
 
-  .donation-cont .donation-cont-but {
+  .donation-cont .donation-cont-but:first-child {
+    margin-top: 0;
+  }
+
+  .wf_but_1{
+    background-color: #f5f5f5;
+    color: #3d3d40;
+    border: none;
+    line-height: 32px;
+  }
+  .wf_pair_but{
     width: 116px;
     height: 34px;
     border-radius: 4px;
@@ -8026,22 +8042,16 @@ color: #8d8d8d;
     text-align: center;
     font-size: 13px;
     margin-top: 8px;
-    background-color: #f5f5f5;
-    color: #3d3d40;
     display: block;
   }
-
-  .donation-cont-but:nth-child(2) {
-    background-color: #fff;
-    color: $color-border;
-    border: 1px solid $color-border;
-    line-height: 32px;
+  .wf_but_1:hover{
+    background-color: $hover-share;
   }
-
-  .donation-cont .donation-cont-but:first-child {
-    margin-top: 0;
+  .wf_but_2:hover{
+    background-color: $hover-share;
   }
 }
+
 
 .my-pairs {
   img {
