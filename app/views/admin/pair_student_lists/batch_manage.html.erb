@@ -68,5 +68,30 @@
         </div>
       </div>
     </div>
+    <div class="portlet light bordered">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="fa fa-cog font-red-sunglo"></i>
+          <span class="caption-subject font-red-sunglo bold uppercase">统一更新优先捐助人</span>
+        </div>
+        <div class="actions">
+        </div>
+      </div>
+      <div class="portlet-body">
+        <div class="form-body form-inline">
+          <div class="form-body">
+            <div class="form-group">
+              <div class="col-sm-9">
+                <%= link_to update_priority_admin_pair_student_lists_path, method: :post, data: {confirm: '确认统一更新优先捐助人吗？'}, class: 'btn btn-lg green' do %>
+                    <i class="fa fa-gg"></i>
+                    点击更新
+                <% end %>
+                <p class="help-block">将所有孩子的优先捐助人更新为最新已筹款资助年度的捐助人</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

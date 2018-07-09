@@ -147,6 +147,7 @@ namespace :admin do
       post :grade_add_one
       post :grade_minus_one
       post :push_notice
+      post :update_priority
     end
     resources :student_grants do
       collection do

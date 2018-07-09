@@ -173,6 +173,11 @@ class Admin::PairStudentListsController < Admin::BaseController
     redirect_to batch_manage_admin_pair_student_lists_path, notice: '推送成功。'
   end
 
+  def update_priority
+    ProjectSeasonApplyChild.update_priority_users
+    redirect_to batch_manage_admin_pair_student_lists_path, notice: '更新成功。'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_pair_student_list

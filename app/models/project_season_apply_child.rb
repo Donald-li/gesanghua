@@ -352,7 +352,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   # 批量推送续捐消息
   def self.batch_push_notice
-    ProjectSeasonApplyChild.hidden.sorted.each do |child|
+    ProjectSeasonApplyChild.pass.hidden.sorted.each do |child|
       user_id = child.priority_id
       pending_grants = child.semesters.pending
       if pending_grants.count > 0 && pending_grants.first.title.start_with?(Time.now.year) && user_id.present?
@@ -364,6 +364,12 @@ class ProjectSeasonApplyChild < ApplicationRecord
             content: "您捐助过的#{child.name}新的学年助学款可以续捐了，请及时续捐"
         )
       end
+    end
+  end
+
+  def self.update_priority_users
+    ProjectSeasonApplyChild.pass.hidden.sorted.each do |child|
+      child.update(priority_id: child.semesters.sorted.succeed.last.try(:user_id))
     end
   end
 
