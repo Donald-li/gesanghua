@@ -1,17 +1,21 @@
 wb = xlsx_package.workbook
 styles = wb.styles
 header = styles.add_style :sz => 16, :b => true, :alignment => {:horizontal => :center}
+center = styles.add_style :alignment => {:horizontal => :center}
+left = styles.add_style :alignment => {:horizontal => :left}
 wb.add_worksheet(name: "领款表") do |sheet|
-  sheet.add_row ["格桑花教育救助会 学生领款登记表"], :style => [header]
+  sheet.add_row ["青海格桑花教育基金会 学生领款登记表"], :style => [header]
   sheet.add_row
+  sheet.add_row ["学校名称："]
   sheet.add_row ["应到学生：#{@items.count}名 金额：￥#{@items.sum(:amount)}元 实到学生_____名，金额______元，日期______"]
 
-  sheet.add_row ["序号", "编号", "班级", "学生姓名", "捐助人", "捐助金额", "学生签字", "监护人关系", "监护人签字", "备注"]
+  sheet.add_row ["序号", "编号", "年级", "班级", "学生姓名", "捐助人", "捐助金额", "学生签字", "监护人关系", "监护人签字", "备注"], :style => [center, nil, nil, nil, nil, nil, left, nil, nil, nil, nil]
   @items.each_with_index do |grant, index|
     sheet.add_row [
                       index + 1,
                       grant.gsh_child.try(:gsh_no),
-                      grant.apply_child.enum_name(:level).to_s + grant.apply_child.enum_name(:grade).to_s,
+                      grant.apply_child.enum_name(:level).to_s,
+                      grant.apply_child.enum_name(:grade).to_s,
                       grant.apply_child.try(:name),
                       grant.user.try(:name),
                       grant.amount,
@@ -28,7 +32,7 @@ wb.add_worksheet(name: "领款表") do |sheet|
   sheet.add_row ["1. 助学金必须按指定金额发到每个受助学生的监护人，学校负责监督助学金用于孩子学习相关费用。"]
   sheet.add_row ["2. 学生不在校，则暂不发放助学金；监护人因故不能到校的，可由班主任老师或助学联系人代签。"]
   sheet.add_row ["3. 高中生助学金可由学生直接领取，监护人有困难的可不必到场，监护人签名栏划去即可。"]
-  sheet.add_row ["4. 本表填写完毕后由青海格桑花教育救助会保留原件，学校及教育局保留复印件。"]
+  sheet.add_row ["4. 本表填写完毕后由青海格桑花教育基金会保留原件，学校及教育局保留复印件。"]
   sheet.add_row ["5. 请学校按领款金额开收据交格桑花发放人员。"]
   sheet.add_row ["6. 本表格内容经有效盖章、签字方可生效。"]
   sheet.merge_cells "A1:H1"
@@ -37,14 +41,16 @@ wb.add_worksheet(name: "领款表") do |sheet|
   sheet.column_widths 10, 20, 20, 20, 20, 20, 10, 20, 30
 
   wb.add_worksheet(name: "核对表") do |sheet|
-    sheet.add_row ["格桑花教育救助会 学生信息核对表（发放现场用）"], :style => [header]
+    sheet.add_row ["青海格桑花教育基金会 学生信息核对表（发放现场用）"], :style => [header]
     sheet.add_row
-    sheet.add_row ["序号", "编号", "班级", "班级核实", "学生姓名", "性别", "父亲", "父亲最新情况", "母亲", "母亲最新情况", "学生其他信息"]
+    sheet.add_row ["学校名称："]
+    sheet.add_row ["序号", "编号", "年级", "班级", "班级核实", "学生姓名", "性别", "父亲", "父亲最新情况", "母亲", "母亲最新情况", "学生其他信息"], :style => [center, nil, nil, nil, nil, nil, left, nil, nil, nil, nil]
     @items.each_with_index do |grant, index|
       sheet.add_row [
                         index + 1,
                         grant.gsh_child.try(:gsh_no),
-                        grant.apply_child.enum_name(:level).to_s + grant.apply_child.enum_name(:grade).to_s,
+                        grant.apply_child.enum_name(:level).to_s,
+                        grant.apply_child.enum_name(:grade).to_s,
                         '',
                         grant.apply_child.try(:name),
                         grant.apply_child.try(:enum_name, :gender),
@@ -65,18 +71,21 @@ wb.add_worksheet(name: "领款表") do |sheet|
     sheet.column_widths 10, 10, 20, 20, 20, 10, 20, 30, 20, 30, 30
 
     wb.add_worksheet(name: "捐助人表") do |sheet|
-      sheet.add_row ["格桑花教育救助会 捐助人表"], :style => [header]
+      sheet.add_row ["青海格桑花教育基金会 捐助人表"], :style => [header]
       sheet.add_row
-      sheet.add_row ["序号", "编号", "班级", "学生姓名", "捐助人", "称呼", "性别", "电子邮箱"]
+      sheet.add_row ["学校名称："]
+      sheet.add_row ["序号", "编号", "年级", "班级", "学生姓名", "捐助人", "称呼", "性别", "地址", "电子邮箱"], :style => [center, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil]
       @items.each_with_index do |grant, index|
         sheet.add_row [
                           index + 1,
                           grant.gsh_child.try(:gsh_no),
-                          grant.apply_child.enum_name(:level).to_s + grant.apply_child.enum_name(:grade).to_s,
+                          grant.apply_child.enum_name(:level).to_s,
+                          grant.apply_child.enum_name(:grade).to_s,
                           grant.apply_child.try(:name),
                           grant.user.try(:name),
                           grant.user.try(:salutation),
                           grant.user.try(:enum_name, :gender),
+                          grant.user.try(:full_address),
                           grant.user.try(:email)]
       end
       sheet.add_row
