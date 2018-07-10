@@ -318,6 +318,9 @@ zh:
     granted: '已发放'
     suspend: '暂缓发放'
     cancel: '取消发放'
+  gsh_child_grant_management_fee_states:
+    unaccrue: '未计提'
+    accrued: '已计提'
   gsh_child_grant_cancel_reasons:
     drop_out: '辍学'
     demand: '捐助人要求'
