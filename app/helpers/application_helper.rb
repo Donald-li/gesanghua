@@ -181,6 +181,7 @@ module ApplicationHelper
 
   ##金钱格式化显示为 123,456,789.00
   def format_money(money, precision=0, delimiter = nil)
+    return '0.00' if money.nil?
     precision = money % 1 == 0 ? 0 : 2
     number_to_currency(money, precision: precision, unit: "", separator:".", delimiter: delimiter || ",")
   end
