@@ -135,23 +135,17 @@ class Donation < ApplicationRecord
     end
   end
 
-
-  # 生成收入
-  def gen_income_record
-    income = IncomeRecord.new(donation: self, agent: self.agent, amount: self.amount, balance: self.amount, donor: self.donor, promoter_id: self.promoter_id, income_time: Time.now, title: self.title)
-    income.fund = self.project.try(:fund)
-    income.save
-  end
-
-
   # 对应的财务分类
   def income_fund
     if self.owner_type == 'CampaignEnlist'
       return self.owner.try(:campaign).try(:appoint_fund)
     elsif self.owner_type == 'DonateItem'
       return self.owner.try(:fund)
+    elsif self.owner.try(:camp).present?
+      return self.owner.camp.fund
+    else
+      self.project.try(:fund)
     end
-    self.project.try(:fund)
   end
 
   # 微信-支付成功
