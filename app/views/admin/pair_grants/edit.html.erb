@@ -24,7 +24,7 @@
               <%= f.text_field :granted_at, label: '发放日期', placeholder: '请选择发放日期', class: 'datepicker', required: true, value: Time.now %>
             </div>
           </div>
-          <%= f.input :grant_person, label: '发放人：', placeholder: '请填写发放人', required: true, value: current_user.name %>
+          <%= f.input :grant_person, label: '发放人：', placeholder: '请填写发放人', required: true, input_html: {value: current_user.real_name}  %>
           <%= f.input :grant_remark, label: '发放说明：', placeholder: '请填写发放说明' %>
           <div class="form-group">
             <label class="col-md-2 control-label">发放证明(最多9张)：</label>

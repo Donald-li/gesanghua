@@ -15,59 +15,65 @@
   <div class="portlet-body">
     <div class="table-scrollable">
       <table class="table table-bordered table-hover">
+        <thead>
+        <colgroup>
+          <col width="100">
+          <col >
+        </colgroup>
+        </thead>
         <tbody>
         <tr>
-          <th>
+          <td>
             格桑花编号
-          </th>
-          <th>
+          </td>
+          <td >
             <%= @note.child.gsh_no %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             反馈学生
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @note.child.try(:name) %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             捐助人
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @note.grant.try(:donator).try(:name) %>
-          </th>
+          </td>
         </tr>
         <tr>
           <th>
             捐助学年
           </th>
-          <th>
+          <td>
             <%= @note.grant.try(:title) %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             反馈时间
-          </th>
-          <th>
+          </td>
+          <td>
             <%= l @note.created_at %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             反馈内容
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @note.content.html_safe %> <br>
             <% @note.images.each do |image| %>
                 <a data-magnify="gallery" href="<%= image_url image.try(:file).try(:url, nil).to_s %>">
                   <%= image_tag image.try(:file).try(:url, :tiny) %>
                 </a>
             <% end %>
-          </th>
+          </td>
         </tr>
         </tbody>
 
