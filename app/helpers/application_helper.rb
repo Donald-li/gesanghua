@@ -197,4 +197,8 @@ module ApplicationHelper
     tags.join("\n").html_safe
   end
 
+  def management_amount(amount, rate)
+    format('%.2f', amount * rate / (100 + rate))
+  end
+
 end
