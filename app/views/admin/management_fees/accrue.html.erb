@@ -24,7 +24,7 @@
             <%= f.input :owner_id, as: :hidden, input_html: {value: @item.id}  %>
             <%= f.input :fund_id, as: :hidden, input_html: {value: @project.fund_id}  %>
             <%= f.input :total_amount, as: :hidden, min: 0, input_html: {value: @item.target_amount}  %>
-            <%= f.input :amount, label: '计提金额：', input_html: {value: @item.target_amount}  %>
+            <%= f.input :amount, label: '计提金额：', input_html: {value: @item.target_amount} %>
             <%= static_form_control '管理费率：', "#{@project.try(:management_rate).to_i}%"%>
           </div>
           <div class="form-actions">

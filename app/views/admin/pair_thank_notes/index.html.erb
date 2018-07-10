@@ -24,6 +24,10 @@
                 <%= f.text_field :created_at_gteq, class: 'form-control datepicker gsh-input-share-l', placeholder: '开始时间' %>
                 <%= f.text_field :created_at_lteq, class: 'form-control datepicker gsh-input-share-r', placeholder: '结束时间' %>
               </div>
+              <div class="form-group">
+                <%= f.label :kind_eq, '反馈类型' %>
+                <%= f.select :kind_eq, ContinualFeedback.options_for_some_select(:kinds, ['default', 'score']), {include_blank: '全部'}, class: 'form-control gsh-input-share' %>
+              </div>
               <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>
         </div>
@@ -51,6 +55,9 @@
               反馈时间
             </th>
             <th>
+              反馈类型
+            </th>
+            <th>
               操作
             </th>
           </tr>
@@ -72,6 +79,9 @@
                 </td>
                 <td>
                   <%= l note.created_at %>
+                </td>
+                <td>
+                  <%= note.enum_name(:kind) %>
                 </td>
                 <td>
                   <%= link_to admin_pair_thank_note_path(note), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
