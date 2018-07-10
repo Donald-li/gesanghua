@@ -16,5 +16,5 @@ wb.add_worksheet(name: "结对助学捐助列表") do |sheet|
       g.user.try(:phone),
       g.user.try(:email)]
     end
-    sheet.column_widths 20,30,20,30,30,40,20,20,20
+    sheet.column_widths 10,10,10,20,10,10,10,10,15,15
   end

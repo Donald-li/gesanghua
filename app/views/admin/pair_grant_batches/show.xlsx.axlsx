@@ -15,7 +15,7 @@ wb.add_worksheet(name: "领款表") do |sheet|
                       index + 1,
                       grant.gsh_child.try(:gsh_no),
                       grant.apply_child.enum_name(:level).to_s,
-                      grant.apply_child.enum_name(:grade).to_s,
+                      grant.apply_child.enum_name(:grade).to_s + grant.apply_child.try(:classname).to_s,
                       grant.apply_child.try(:name),
                       grant.user.try(:name),
                       (grant.amount / 1.05).to_i,
@@ -38,7 +38,7 @@ wb.add_worksheet(name: "领款表") do |sheet|
   sheet.merge_cells "A1:H1"
   sheet.merge_cells "A#{@items.count + 6}:H#{@items.count + 6}"
 
-  sheet.column_widths 10, 20, 20, 20, 20, 20, 10, 20, 30
+  sheet.column_widths 10
 
   wb.add_worksheet(name: "核对表") do |sheet|
     sheet.add_row ["青海格桑花教育基金会 学生信息核对表（发放现场用）"], :style => [header]
@@ -50,7 +50,7 @@ wb.add_worksheet(name: "领款表") do |sheet|
                         index + 1,
                         grant.gsh_child.try(:gsh_no),
                         grant.apply_child.enum_name(:level).to_s,
-                        grant.apply_child.enum_name(:grade).to_s,
+                        grant.apply_child.enum_name(:grade).to_s + grant.apply_child.try(:classname).to_s,
                         '',
                         grant.apply_child.try(:name),
                         grant.apply_child.try(:enum_name, :gender),
@@ -68,7 +68,7 @@ wb.add_worksheet(name: "领款表") do |sheet|
     sheet.add_row ["3.如无变化的信息项，请划横线或打勾，以示已核对无变化。"]
     sheet.merge_cells "A1:H1"
 
-    sheet.column_widths 10, 10, 20, 20, 20, 10, 20, 30, 20, 30, 30
+    sheet.column_widths 10
 
     wb.add_worksheet(name: "捐助人表") do |sheet|
       sheet.add_row ["青海格桑花教育基金会 捐助人表"], :style => [header]
@@ -80,7 +80,7 @@ wb.add_worksheet(name: "领款表") do |sheet|
                           index + 1,
                           grant.gsh_child.try(:gsh_no),
                           grant.apply_child.enum_name(:level).to_s,
-                          grant.apply_child.enum_name(:grade).to_s,
+                          grant.apply_child.enum_name(:grade).to_s + grant.apply_child.try(:classname).to_s,
                           grant.apply_child.try(:name),
                           grant.user.try(:name),
                           grant.user.try(:salutation),
@@ -96,7 +96,7 @@ wb.add_worksheet(name: "领款表") do |sheet|
       sheet.add_row ["3. 如捐助人联系方式不详或退信的，请助学联系人老师将学生信件拍照发到捐助人邮箱，并抄送格桑花负责人员邮箱。"]
       sheet.merge_cells "A1:H1"
 
-      sheet.column_widths 10, 10, 20, 20, 20, 10, 10, 30
+      sheet.column_widths 10
     end
   end
 end
