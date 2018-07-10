@@ -18,13 +18,13 @@
       <%= simple_form_for [:admin, @management_fee], wrapper: :admin_form, html: {class: 'form-horizontal project_form', 'data-parsley-validate': true} do |f| %>
           <%= f.error_notification %>
           <div class="form-body">
-            <%= static_form_control '项目：', @item.admin_show_name %>
+            <%= static_form_control '项目：', @item.project.try(:name) %>
             <%= hidden_field_tag :url, request.referer %>
             <%= f.input :owner_type, as: :hidden, input_html: {value: @item.class.name}  %>
             <%= f.input :owner_id, as: :hidden, input_html: {value: @item.id}  %>
             <%= f.input :fund_id, as: :hidden, input_html: {value: @project.fund_id}  %>
             <%= f.input :total_amount, as: :hidden, min: 0, input_html: {value: @item.target_amount}  %>
-            <%= f.input :amount, label: '计提金额', input_html: {value: @item.target_amount}  %>
+            <%= f.input :amount, label: '计提金额：', input_html: {value: @item.target_amount}  %>
             <%= static_form_control '管理费率：', "#{@project.try(:management_rate).to_i}%"%>
           </div>
           <div class="form-actions">

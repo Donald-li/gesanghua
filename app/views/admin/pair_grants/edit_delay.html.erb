@@ -16,6 +16,8 @@
     <%= simple_form_for [:admin, @grant], url: update_delay_admin_pair_grant_path, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'form-horizontal grant_form'} do |f| %>
         <%= f.error_notification %>
         <div class="form-body">
+          <%= static_form_control '格桑花编号：', @grant.try(:gsh_child).try(:gsh_no) %>
+          <%= static_form_control '学生姓名：', @grant.try(:gsh_child).try(:name) %>
           <%= f.input :delay_reason, as: :select, collection: ['请假', '休学', '转学', '学校放假', '其他'], label: '暂缓原因：', include_blank: '请选择原因', required: true %>
           <%= f.input :delay_remark, label: '暂缓说明：', placeholder: '请填写详细说明', required: true %>
         </div>
