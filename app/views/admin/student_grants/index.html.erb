@@ -50,6 +50,12 @@
               反馈次数
             </th>
             <th>
+              关联捐助记录
+            </th>
+            <th>
+              关联收入记录
+            </th>
+            <th>
               操作
             </th>
           </tr>
@@ -80,6 +86,17 @@
                 <% count = grant.thank_notes.count %>
                 <% if count > 0 %>
                     <%= link_to "#{count}次", admin_pair_thank_notes_path(q: {child_id_eq: grant.apply_child.try(:id)}), class: 'btn btn-xs blue' %>
+                <% end %>
+              </td>
+              <td>
+                <% donate_record = grant.donate_records.first %>
+                <%= "#{donate_record.try(:apply_name)}" %>
+              </td>
+              <td>
+                <% income_record = donate_record.income_record %>
+                <%= link_to admin_income_records_path('q[id_eq]': income_record.try(:id)), target: '_blank' do %>
+                <%= "#{income_record.try(:income_no)}" %> <br>
+                <%= "#{income_record.try(:title)}" %>
                 <% end %>
               </td>
               <td>

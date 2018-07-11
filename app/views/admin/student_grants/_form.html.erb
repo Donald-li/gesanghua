@@ -4,6 +4,7 @@
       <%= f.input :title, label: '申请学年：', autofocus: true, placeholder: '学年', required: true %>
       <%= f.input :grade_name, label: '年级名称：', autofocus: true, placeholder: '', required: true %>
       <%= f.input :amount, label: '资助金额：', placeholder: '金额', required: true, type: 'number' %>
+      <%= f.input :user_id, as: :select, collection: User.sorted, label: '捐助人：', input_html: {class: 'users-ajax'}, required: !@grant.pending? %>
       <%= f.input :remark, label: '备注：', placeholder: '' %>
     </div>
     <div class="form-actions">
@@ -15,3 +16,37 @@
       </div>
     </div>
 <% end %>
+
+<script type="text/javascript" charset="utf-8">
+    $('.users-ajax').select2({
+        language: "zh-CN",
+        placeholder: '',
+        allowClear: true,
+        ajax: {
+            url: "/selects/all_users",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    q: params.term, // search term
+                    page: params.page
+                };
+            },
+            processResults: function (data, params) {
+                params.page = params.page || 1;
+                return {
+                    results: $.map(data.items, function (item) {
+                        return {
+                            text: item.name_for_select,
+                            id: item.id
+                        }
+                    }),
+                    pagination: {
+                        more: (params.page * 30) < data.total_count
+                    }
+                };
+            },
+            cache: true
+        }
+    });
+</script>
