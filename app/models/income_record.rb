@@ -29,7 +29,7 @@
 # 我的捐款，开具发票，款均使用收入记录
 class IncomeRecord < ApplicationRecord
 
-  has_paper_trail only: [:fund_id, :income_source_id, :amount, :agent_id, :income_time, :voucher_state, :title, :donation_id, :kind, :team_id, :voucher_id]
+  has_paper_trail only: [:fund_id, :income_source_id, :amount, :donor_id, :agent_id, :income_time, :voucher_state, :title, :donation_id, :kind, :team_id, :voucher_id, :remark]
 
   before_create :gen_income_no, :gen_certificate_no
 
