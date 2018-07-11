@@ -27,9 +27,7 @@ class Admin::IncomeRecordsController < Admin::BaseController
 
   def create
     @income_record = IncomeRecord.new(income_record_params)
-    user = User.find(income_record_params[:agent_id])
-    @income_record.donor = user
-    @income_record.agent = user
+    @income_record.agent = user if income_record_params[:agent_id].nil?
     @income_record.kind = :offline
     # @income_record.remitter_name = user.name
     # @income_record.remitter_id = user.id
