@@ -240,6 +240,10 @@ namespace :admin do
   end
   resources :majors
   resources :tasks, concerns: [:switch] do
+    collection do
+      get :batch_manage
+      put :send_message
+    end
     resources :task_applies, only: [:index, :edit, :update]
   end
   resources :task_categories

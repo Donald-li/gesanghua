@@ -1,0 +1,109 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i> 批量操作
+    </div>
+    <div class="actions">
+      <div class="btn-group">
+        <a href="<%= admin_tasks_path %>" class="btn btn-xs blue">
+          <i class="fa fa-reply"></i>返回
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="portlet light bordered">
+    <div class="portlet light bordered">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="fa fa-paper-plane font-red-sunglo"></i>
+          <span class="caption-subject font-red-sunglo bold uppercase">批量推送微信通知</span>
+        </div>
+        <div class="actions">
+        </div>
+      </div>
+      <div class="portlet-body form">
+        <%= simple_form_for [:admin, Task.new], url: send_message_admin_tasks_path, method: :put, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'category_form'} do |f| %>
+            <%= f.error_notification %>
+            <div class="form-body form-horizontal">
+
+              <div class="form-group radio_buttons required donate_record_donate_way">
+                <label class="col-md-2 control-label">推送方式：</label>
+                <div class="col-md-9 form-inline">
+                  <label><input type="radio" class="form-control radio_buttons send_way" name="send_way" value="total" checked onclick="toggleState()">所有志愿者</label>
+                  <label><input type="radio" class="form-control radio_buttons send_way" name="send_way" value="part" onclick="toggleState()">选定志愿者</label>
+                </div>
+              </div>
+              <div class="part">
+                <div class="form-group approve_reject ">
+                  <label class="col-md-2 control-label">选择志愿者：</label>
+                  <div class="col-sm-9">
+                    <select class="form-control select optional" name="volunteer_ids[]" id="volunteer-ajax" required></select>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+            <div class="form-actions">
+              <div class="row">
+                <div class="col-md-offset-2 col-md-9">
+                  <%= f.button :submit, '发送', class: 'btn blue' %>
+                </div>
+              </div>
+            </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+    $(function () {
+        initImageWebuploader($('#webuploader'));
+        // 异步加载志愿者列表
+        $('#volunteer-ajax').select2({
+            language: "zh-CN",
+            placeholder: '请选择志愿者',
+            allowClear: true,
+            multiple: true,
+            noneSelectedText : "--请选择--", //当没有内容选中时候显示的文本
+            checkAllText : "全选", //全选按钮显示的文本
+            uncheckAllText : "全不选", //全不选按钮显示的文本
+            ajax: {
+                url: "/selects/volunteers",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: $.map(data.items, function (item) {
+                            return {
+                                text: item.name_for_select,
+                                id: item.id
+                            }
+                        }),
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            }
+        });
+        toggleState();
+
+    })
+
+    function toggleState() {
+        toggleRadioInput('.send_way', {
+            part: '.part'
+        })
+    }
+</script>

@@ -49,13 +49,13 @@ class Task < ApplicationRecord
   include HasAsset
   has_one_asset :cover, class_name: 'Asset::TaskCover'
 
-  enum state: { open: 1, close: 2} # 状态 1:开启报名 2:关闭报名
+  enum state: {open: 1, close: 2} # 状态 1:开启报名 2:关闭报名
   default_value_for :state, 1
 
   enum kind: {normal: 1, appoint: 2} # 任务类型： 1:公开任务 2:指定任务
   default_value_for :kind, 1
 
-  scope :sorted, ->{ order(created_at: :desc) }
+  scope :sorted, -> {order(created_at: :desc)}
 
   def simple_address
     ChinaCity.get(self.province).to_s + " " + ChinaCity.get(self.city).to_s + " " + ChinaCity.get(self.district).to_s
@@ -96,6 +96,19 @@ class Task < ApplicationRecord
       json.cover_url self.cover_url(:medium)
       json.can_apply !self.task_volunteers.where(volunteer: user.volunteer).present?
     end.attributes!
+  end
+
+  def self.send_messages(user_ids)
+    user_ids.each do |id|
+      user = User.find(id)
+      Notification.create(
+          kind: 'new_task',
+          owner: user,
+          user_id: id,
+          title: "#新任务通知# 系统发布了新任务哦",
+          content: "系统发布了新一批任务，快去报名参与吧~~"
+      )
+    end
   end
 
 end

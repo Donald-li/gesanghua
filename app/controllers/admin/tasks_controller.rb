@@ -60,6 +60,22 @@ class Admin::TasksController < Admin::BaseController
     end
   end
 
+  def batch_manage
+  end
+
+  def send_message
+    if params[:send_way] == 'total'
+      user_ids = Volunteer.all.pluck(:user_id)
+    else
+      user_ids = Volunteer.where(id: params[:volunteer_ids]).pluck(:user_id)
+    end
+    if Task.send_messages(user_ids)
+      redirect_to batch_manage_admin_tasks_path, notice: '发送成功。'
+    else
+      redirect_to batch_manage_admin_tasks_path, notice: '发送失败。'
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_task
