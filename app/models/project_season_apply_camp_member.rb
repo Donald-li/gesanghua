@@ -129,7 +129,7 @@ class ProjectSeasonApplyCampMember < ApplicationRecord
 
   def detail_builder
     Jbuilder.new do |json|
-      json.(self, :id, :name, :age, :level, :grade, :nation, :gender, :reason, :id_card, :teacher_name, :teacher_phone, :guardian_name, :guardian_phone, :description, :phone, :classname)
+      json.(self, :id, :name, :age, :level, :grade, :nation, :gender, :reason, :id_card, :teacher_name, :teacher_phone, :guardian_name, :guardian_phone, :description, :phone, :classname, :height, :weight, :guardian_id_card, :guardian_relation, :cloth_size, :course_type, :course_grade, :period, :position, :train_experience, :project_experience, :honor_experience)
       json.image  do
         json.id self.try(:image).try(:id)
         json.url self.try(:image).try(:file).try(:url)
