@@ -29,6 +29,7 @@
 #  cancel_reason                 :integer                                # 取消原因
 #  management_fee_state          :integer                                # 计提管理费状态
 #  grade_name                    :string                                 # 年级名称
+#  feedback_count                :integer
 #
 
 require 'rails_helper'

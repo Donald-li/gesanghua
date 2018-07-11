@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180705062148) do
+ActiveRecord::Schema.define(version: 20180711084523) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -576,6 +576,7 @@ ActiveRecord::Schema.define(version: 20180705062148) do
     t.integer "cancel_reason", comment: "取消原因"
     t.integer "management_fee_state", comment: "计提管理费状态"
     t.string "grade_name", comment: "年级名称"
+    t.integer "feedback_count"
     t.index ["donate_state"], name: "index_gsh_child_grants_on_donate_state"
     t.index ["grant_batch_id"], name: "index_gsh_child_grants_on_grant_batch_id"
     t.index ["gsh_child_id"], name: "index_gsh_child_grants_on_gsh_child_id"

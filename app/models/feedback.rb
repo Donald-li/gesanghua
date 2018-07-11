@@ -66,6 +66,8 @@ class Feedback < ApplicationRecord
 
   scope :sorted, ->{ order(created_at: :desc) }
 
+  counter_culture :gsh_child_grant, column_name: "feedback_count"
+
   def avatar_url
     if self.child.try(:avatar).present?
       self.child.avatar_url(:tiny)
