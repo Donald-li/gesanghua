@@ -75,7 +75,7 @@ class ProjectSeasonApplyCampMember < ApplicationRecord
   enum nation: {'default': 0, 'hanzu': 1, 'zangzu': 10, 'huizu': 4, 'tuzu': 30, 'mengguzu': 9, 'salazu': 37, 'zhuangzu': 2, 'manzu': 3, 'miaozu': 5, 'weizu': 6, 'tujiazu': 7, 'yizu': 8, 'buyizu': 11, 'dongzu': 12, 'yaozu': 13, 'chaoxianzu': 14, 'baizu': 15, 'hanizu': 16, 'hasakezu': 17, 'lizu': 18, 'daizu': 19, 'shezu': 20, 'lisuzu': 21, 'gelaozu': 22, 'dongxiangzu': 23, 'gaoshanzu': 24, 'lahuzu': 25, 'shuizu': 26, 'wazu': 27, 'naxizu': 28, 'qiangzu': 29, 'mulaozu': 31, 'xibozu': 32, 'keerkezizu': 33, 'dawoerzu': 34, 'jingpozu': 35, 'maonanzu': 36, 'bulangzu': 38, 'tajikezu': 39, 'achangzu': 40, 'pumizu': 41, 'ewenkezu': 42, 'nuzu': 43, 'jingzu': 44, 'jinuozu': 45, 'deangzu': 46, 'baoanzu': 47, 'eluosizu': 48, 'yuguzu': 49, 'wuzibiekezu': 50, 'menbazu': 51, 'elunchunzu': 52, 'dulongzu': 53, 'tataerzu': 54, 'hezhezu': 55, 'luobazu': 56}
   default_value_for :nation, 0
 
-  validates :name, :id_card, :guardian_id_card, presence: true
+  validates :name, :id_card, presence: true
   validates :id_card, :guardian_id_card, shenfenzheng_no: true
   validates :teacher_phone, :guardian_phone, mobile: true
 
