@@ -132,19 +132,21 @@ class Admin::PairStudentListsController < Admin::BaseController
       #   end
       # end
       @one_list = @pair_student_lists.one
+      one_count = @one_list.count
       @two_list = @pair_student_lists.two
-      if @one_list.update_all(grade: 'two')
-        num += @one_list.count
-      end
+      two_count = @two_list.count
       if @two_list.update_all(grade: 'three')
-        num += @two_list.count
+        num += two_count
+      end
+      if @one_list.update_all(grade: 'two')
+        num += one_count
       end
     end
     respond_to do |format|
       if num == @pair_student_lists.size
         format.html {redirect_to batch_manage_admin_pair_student_lists_path, notice: '操作成功。'}
       else
-        flash[:alert] = '新增失败'
+        flash[:alert] = '操作失败'
         format.html {render :batch_manage}
       end
     end
@@ -166,19 +168,21 @@ class Admin::PairStudentListsController < Admin::BaseController
       #   end
       # end
       @two_list = @pair_student_lists.two
+      two_count = @two_list.count
       @three_list = @pair_student_lists.three
+      three_count = @three_list.count
       if @two_list.update_all(grade: 'one')
-        num += @two_list.count
+        num += two_count
       end
       if @three_list.update_all(grade: 'two')
-        num += @three_list.count
+        num += three_count
       end
     end
     respond_to do |format|
       if num == @pair_student_lists.size
         format.html {redirect_to batch_manage_admin_pair_student_lists_path, notice: '操作成功。'}
       else
-        flash[:alert] = '修改失败'
+        flash[:alert] = '操作失败'
         format.html {render :batch_manage}
       end
     end
