@@ -19,7 +19,6 @@ class Admin::PairGrantsController < Admin::BaseController
         response.headers['Content-Disposition'] = 'attachment; filename= "结对发放列表" ' + Date.today.to_s + '.xlsx'
       }
     end
-
   end
 
   def edit

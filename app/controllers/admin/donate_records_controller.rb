@@ -7,11 +7,12 @@ class Admin::DonateRecordsController < Admin::BaseController
     set_search_end_of_day(:created_at_lteq)
     @search = @donate_records.ransack(params[:q])
     scope = @search.result
+    scope = scope.where(project: nil) if params[:project_id_eq] == 'gsh'
     respond_to do |format|
       format.html {@donate_records = scope.sorted.page(params[:page])}
       format.xlsx {
         @donate_records = scope.sorted.all
-        response.headers['Content-Disposition'] = 'attachment; filename= "' + @user.name + '捐助记录" ' + Date.today.to_s + '.xlsx'
+        response.headers['Content-Disposition'] = 'attachment; filename= "捐助记录" ' + Date.today.to_s + '.xlsx'
       }
     end
     # @donante_amount = @donate_records.sum(:amount)

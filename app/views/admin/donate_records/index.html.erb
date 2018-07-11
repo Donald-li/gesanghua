@@ -38,6 +38,10 @@
             <%= f.text_field :created_at_gteq, class: 'form-control datepicker', placeholder: '开始时间' %>
             <%= f.text_field :created_at_lteq, class: 'form-control datepicker', placeholder: '结束时间' %>
           </div>
+              <div class="form-group">
+                <%= f.label :project_id_eq, '项目' %>
+                <%= f.select :project_id_eq, Project.sorted.map{|source| [source.name, source.id]}.unshift(['格桑花', 'gsh']), {include_blank: '全部'}, class: 'form-control gsh-input-share' %>
+              </div>
           <button type="submit" class="btn btn-default grey">查询</button>
           <% end %>
         </div>
@@ -50,6 +54,9 @@
         <table class="table table-striped table-bordered table-hover" id="sample_2">
           <thead>
             <tr>
+              <th>
+                所属项目
+              </th>
               <th>
                 标题
               </th>
@@ -79,6 +86,9 @@
           <tbody>
             <% @donate_records.each do |record| %>
             <tr class="<%= 'success' if record.owner_type == 'GshChildGrant' && record.child.can_continue?(@user) %>">
+              <td>
+                <%= record.project_name %>
+              </td>
               <td>
                 <%= link_to record.apply_name, record.link_url, target: '_blank' %>
               </td>

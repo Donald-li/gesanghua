@@ -330,6 +330,23 @@ class DonateRecord < ApplicationRecord
     apply_name
   end
 
+  def excel_apply_name
+    apply_name = if self.owner_type == 'DonateItem' || self.owner_type == 'ProjectSeasonApply'
+                   self.owner.name
+                 elsif self.owner_type == 'GshChildGrant'
+                   self.child.try(:gsh_no).to_s + ' · ' + self.child.try(:name).to_s + ' · ' + self.child.try(:grade_name).to_s + ' · ' + self.owner.try(:title).to_s
+                 elsif self.owner_type == 'ProjectSeasonApplyChild'
+                   self.owner.try(:name)
+                 elsif self.owner_type == 'ProjectSeasonApplyBookshelf'
+                   self.owner.apply.try(:name)
+                 elsif self.owner_type == 'BookshelfSupplement'
+                   self.owner.apply.try(:name)
+                 elsif self.owner_type == 'CampaignEnlist'
+                   self.owner.try(:campaign).try(:name)
+                 end
+    apply_name
+  end
+
   def apply_surplus_money
     return false if self.owner_type == 'DonateItem' || self.owner_type == 'GshChildGrant' || self.owner_type == 'ProjectSeasonApplyChild' || self.owner_type == 'CampaignEnlist'
     apply_surplus_money = if self.owner_type == 'ProjectSeasonApply'

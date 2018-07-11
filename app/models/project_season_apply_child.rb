@@ -160,6 +160,10 @@ class ProjectSeasonApplyChild < ApplicationRecord
     self.avatar.try(:file_url, :tiny)
   end
 
+  def grade_name
+    self.enum_name(:level).to_s + self.enum_name(:grade).to_s
+  end
+
   def count_donate_amount_by_grant_number(number)
     count = 0
     self.get_donate_items.each_with_index do |item, index|
