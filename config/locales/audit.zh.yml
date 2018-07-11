@@ -16,7 +16,8 @@ zh:
       fund_id: '财务分类'
       income_source_id: '入帐账户'
       amount: '收入金额'
-      agent_id: '捐助人'
+      donor_id: '捐助人'
+      agent_id: '代捐人/汇款人'
       income_time: '捐助时间'
       voucher_state: '开票状态'
       title: '收入名称'
@@ -24,6 +25,7 @@ zh:
       kind: '收入来源'
       team_id: '团队'
       voucher_id: '捐赠收据'
+      remark: '备注'
     user:
       nickname: '昵称'
       name: '姓名'
