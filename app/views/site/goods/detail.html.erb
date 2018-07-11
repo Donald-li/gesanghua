@@ -188,11 +188,13 @@
      })
     $('.circlechart').circlechart()
     $('#dtails-cont').myTab()
-    function showHideCode(id) {
+    $('.de-left-con-fon').hide()
+    function showHideCode (id) {
         $("#show" + id + " .de-left-con").removeClass('read-more')
         $("#show" + id + " .detail-font-tit > span").css('display', 'none')
         $("#show" + id + " .details-img").css('display', 'block')
         $("#show" + id + " .de-left-con-fon").css({"white-space": "pre-wrap"})
+        $("#show" + id + " .de-left-con-fon").show()
     }
     $('#share-2').share({
       sites: ['qzone', 'wechat', 'weibo', 'qq'],
