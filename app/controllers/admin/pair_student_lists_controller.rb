@@ -119,6 +119,7 @@ class Admin::PairStudentListsController < Admin::BaseController
   def grade_add_one
     @pair_student_lists = ProjectSeasonApplyChild.pass.where('done_semester_count between 1 and semester_count - 1').where.not(grade: 'three').sorted
     num = 0
+    @total = @pair_student_lists.count
     @pair_student_lists.transaction do
       # @pair_student_lists.each do |student|
       #   if student.one?
@@ -132,18 +133,20 @@ class Admin::PairStudentListsController < Admin::BaseController
       #   end
       # end
       @one_list = @pair_student_lists.one
-      one_count = @one_list.count
+      @one_count = @one_list.count
       @two_list = @pair_student_lists.two
-      two_count = @two_list.count
+      @two_count = @two_list.count
       if @two_list.update_all(grade: 'three')
-        num += two_count
+        num += @two_count
       end
       if @one_list.update_all(grade: 'two')
-        num += one_count
+        num += @one_count
       end
     end
     respond_to do |format|
-      if num == @pair_student_lists.size
+      logger.info "========++++++++==待操作人数：#{@total}========+++++++++"
+      logger.info "========++++++++==实际操作人数：#{num}一年级：#{@one_count}二年级：#{@two_count}========+++++++++"
+      if num == @total
         format.html {redirect_to batch_manage_admin_pair_student_lists_path, notice: '操作成功。'}
       else
         flash[:alert] = '操作失败'
@@ -155,6 +158,7 @@ class Admin::PairStudentListsController < Admin::BaseController
   def grade_minus_one
     @pair_student_lists = ProjectSeasonApplyChild.pass.where('done_semester_count between 1 and semester_count - 1').where.not(grade: 'one').sorted
     num = 0
+    @total = @pair_student_lists.count
     @pair_student_lists.transaction do
       # @pair_student_lists.each do |student|
       #   if student.two?
@@ -168,18 +172,20 @@ class Admin::PairStudentListsController < Admin::BaseController
       #   end
       # end
       @two_list = @pair_student_lists.two
-      two_count = @two_list.count
+      @two_count = @two_list.count
       @three_list = @pair_student_lists.three
-      three_count = @three_list.count
+      @three_count = @three_list.count
       if @two_list.update_all(grade: 'one')
-        num += two_count
+        num += @two_count
       end
       if @three_list.update_all(grade: 'two')
-        num += three_count
+        num += @three_count
       end
     end
     respond_to do |format|
-      if num == @pair_student_lists.size
+      logger.info "========++++++++==待操作人数：#{@total}========+++++++++"
+      logger.info "========++++++++==实际操作人数：#{num}二年级：#{@two_count}三年级：#{@three_count}========+++++++++"
+      if num == @total
         format.html {redirect_to batch_manage_admin_pair_student_lists_path, notice: '操作成功。'}
       else
         flash[:alert] = '操作失败'
