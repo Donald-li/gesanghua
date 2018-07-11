@@ -120,16 +120,24 @@ class Admin::PairStudentListsController < Admin::BaseController
     @pair_student_lists = ProjectSeasonApplyChild.pass.where('done_semester_count between 1 and semester_count - 1').where.not(grade: 'three').sorted
     num = 0
     @pair_student_lists.transaction do
-      @pair_student_lists.each do |student|
-        if student.one?
-          if student.update(grade: 'two')
-            num += 1
-          end
-        elsif student.two?
-          if student.update(grade: 'three')
-            num +=1
-          end
-        end
+      # @pair_student_lists.each do |student|
+      #   if student.one?
+      #     if student.update(grade: 'two')
+      #       num += 1
+      #     end
+      #   elsif student.two?
+      #     if student.update(grade: 'three')
+      #       num +=1
+      #     end
+      #   end
+      # end
+      @one_list = @pair_student_lists.one
+      @two_list = @pair_student_lists.two
+      if @one_list.update_all(grade: 'two')
+        num += @one_list.count
+      end
+      if @two_list.update_all(grade: 'three')
+        num += @two_list.count
       end
     end
     respond_to do |format|
@@ -146,16 +154,24 @@ class Admin::PairStudentListsController < Admin::BaseController
     @pair_student_lists = ProjectSeasonApplyChild.pass.where('done_semester_count between 1 and semester_count - 1').where.not(grade: 'one').sorted
     num = 0
     @pair_student_lists.transaction do
-      @pair_student_lists.each do |student|
-        if student.two?
-          if student.update(grade: 'one')
-            num += 1
-          end
-        elsif student.three?
-          if student.update(grade: 'two')
-            num +=1
-          end
-        end
+      # @pair_student_lists.each do |student|
+      #   if student.two?
+      #     if student.update(grade: 'one')
+      #       num += 1
+      #     end
+      #   elsif student.three?
+      #     if student.update(grade: 'two')
+      #       num +=1
+      #     end
+      #   end
+      # end
+      @two_list = @pair_student_lists.two
+      @three_list = @pair_student_lists.three
+      if @two_list.update_all(grade: 'one')
+        num += @two_list.count
+      end
+      if @three_list.update_all(grade: 'two')
+        num += @three_list.count
       end
     end
     respond_to do |format|
