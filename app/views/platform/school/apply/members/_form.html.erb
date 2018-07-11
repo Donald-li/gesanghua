@@ -1,77 +1,132 @@
 <%= simple_form_for [:platform, @member], url: @member.new_record? ? platform_school_apply_camp_members_path(@apply_camp, kind: params[:kind]) : platform_school_apply_camp_member_path(@apply_camp, kind: params[:kind]), html: {'data-parsley-validate': true, class: 'user_form'} do |f| %>
-<div class="addchild-list marginbottom">
-  <p class="don-title">基本信息</p>
-  <div class="addchild-list-cont">
-    <input type="text" hidden name="project_season_apply_camp_member[kind]" value="<%= params[:kind] %>">
-    <div class="clearfix">
-      <span class="goodtext pull-left">真实姓名</span>
-      <input  class="goodinput pull-left " type="text" name="project_season_apply_camp_member[name]" value="<%= @member.name %>" required />
-    </div>
-    <div class="clearfix">
-      <span class="goodtext pull-left">身份证号</span>
-      <input  class="goodinput pull-left" type="text" value="<%= @member.id_card %>" name="project_season_apply_camp_member[id_card]" required data-parsley-shenfen/>
-    </div>
-    <div class="clearfix">
-      <span class="goodtext pull-left">民族</span>
-        <%= f.input :nation, as: :select, collection: ProjectSeasonApplyCampMember.options_for_enum_select(:nations), include_blank: false, label: false, input_html: {id: 'allcamps', class: 'pull-left'} %>
-    </div>
-
-    <% if params[:kind] == 'student' %>
-    <div  class="clearfix">
-      <span class="goodtext pull-left">选择年级</span>
-      <div class="sclectedgrade clearfix pull-left">
-        <div class="pull-left">
-          <%= f.input :level, as: :select, collection: ProjectSeasonApplyCampMember.options_for_enum_select(:levels), include_blank: false, label: false, input_html: {id: 'level'} %>
+    <div class="addchild-list marginbottom">
+      <p class="don-title">基本信息</p>
+      <div class="addchild-list-cont">
+        <input type="text" hidden name="project_season_apply_camp_member[kind]" value="<%= params[:kind] %>">
+        <div class="clearfix">
+          <span class="goodtext pull-left">真实姓名</span>
+          <input class="goodinput pull-left " type="text" name="project_season_apply_camp_member[name]" value="<%= @member.name %>" required/>
         </div>
-        <div class="pull-left">
-          <%= f.input :grade, as: :select, collection: ProjectSeasonApplyCampMember.options_for_enum_select(:grades), include_blank: false, label: false, input_html: {id: 'grade'} %>
+        <div class="clearfix">
+          <span class="goodtext pull-left">身份证号</span>
+          <input class="goodinput pull-left" type="text" value="<%= @member.id_card %>" name="project_season_apply_camp_member[id_card]" required data-parsley-shenfen/>
+        </div>
+        <div class="clearfix">
+          <span class="goodtext pull-left">民族</span>
+          <%= f.input :nation, as: :select, collection: ProjectSeasonApplyCampMember.options_for_enum_select(:nations), include_blank: false, label: false, input_html: {id: 'allcamps', class: 'pull-left'} %>
+        </div>
+
+        <% if params[:kind] == 'student' %>
+            <div class="clearfix">
+              <span class="goodtext pull-left">选择年级</span>
+              <div class="sclectedgrade clearfix pull-left">
+                <div class="pull-left">
+                  <%= f.input :level, as: :select, collection: ProjectSeasonApplyCampMember.options_for_enum_select(:levels), include_blank: false, label: false, input_html: {id: 'level'} %>
+                </div>
+                <div class="pull-left">
+                  <%= f.input :grade, as: :select, collection: ProjectSeasonApplyCampMember.options_for_enum_select(:grades), include_blank: false, label: false, input_html: {id: 'grade'} %>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix">
+              <span class="goodtext pull-left">身高体重</span>
+              <div class="sclectedgrade clearfix pull-left">
+                <div class="pull-left">
+                  <input class="goodinput pull-left from-input " type="text" name="project_season_apply_camp_member[height]" placeholder="身高" value="<%= @member.height %>"/>
+                </div>
+                <div class="pull-left">
+                  <input class="goodinput pull-left from-input " type="text" name="project_season_apply_camp_member[weight]" placeholder="体重" value="<%= @member.weight %>"/>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix">
+              <span class="goodtext pull-left">班级名称</span>
+              <input class="goodinput pull-left from-input " type="text" name="project_season_apply_camp_member[classname]" placeholder="班级名称" value="<%= @member.classname %>" required/>
+            </div>
+            <div class="clearfix">
+              <span class="goodtext pull-left">班主任</span>
+              <input class="goodinput pull-left from-input " type="text" name="project_season_apply_camp_member[teacher_name]" placeholder="班主任姓名" value="<%= @member.teacher_name %>" required/>
+            </div>
+            <div class="clearfix">
+              <span class="goodtext pull-left">联系方式</span>
+              <input class="goodinput pull-left from-input" type="text" name="project_season_apply_camp_member[teacher_phone]" placeholder="填写班主任联系方式" value="<%= @member.teacher_phone %>" required data-parsley-phone/>
+            </div>
+            <div class="clearfix">
+              <span class="goodtext pull-left">监护人</span>
+              <input class="goodinput pull-left from-input" type="text" name="project_season_apply_camp_member[guardian_name]" placeholder="监护人姓名" value="<%= @member.guardian_name %>" required/>
+            </div>
+            <div class="clearfix">
+              <span class="goodtext pull-left">身份证号</span>
+              <input class="goodinput pull-left from-input" type="text" name="project_season_apply_camp_member[guardian_id_card]" placeholder="监护人身份证号" value="<%= @member.guardian_id_card %>" required data-parsley-shenfen/>
+            </div>
+            <div class="clearfix">
+              <span class="goodtext pull-left">联系方式</span>
+              <input class="goodinput pull-left from-input" type="text" name="project_season_apply_camp_member[guardian_phone]" placeholder="联系方式" value="<%= @member.guardian_phone %>" required data-parsley-phone/>
+            </div>
+            <div class="clearfix">
+              <span class="goodtext pull-left">与其关系</span>
+              <%= f.input :guardian_relation, as: :select, collection: ['父子', '母子', '父女', '母女', '祖孙', '舅甥', '其他'], include_blank: false, label: false, input_html: {id: 'allcamps', class: 'pull-left'} %>
+            </div>
+            <div style="height: 172px;width: 777px;" class="clearfix">
+              <span class="goodtext pull-left goodtextare">自我介绍</span>
+              <textarea class="pull-left" name="project_season_apply_camp_member[description]"><%= @member.description %></textarea>
+            </div>
+        <% else %>
+            <div class="clearfix">
+              <span class="goodtext pull-left">衣服型号</span>
+              <input class="goodinput pull-left from-input " type="text" name="project_season_apply_camp_member[cloth_size]" placeholder="衣服型号" value="<%= @member.cloth_size %>" required/>
+            </div>
+            <div class="clearfix">
+              <span class="goodtext pull-left">教授课程</span>
+              <div class="sclectedgrade clearfix pull-left">
+                <div class="pull-left">
+                  <input class="goodinput pull-left from-input " type="text" name="project_season_apply_camp_member[course_type]" placeholder="课程名称" value="<%= @member.course_type %>"/>
+                </div>
+                <div class="pull-left">
+                  <input class="goodinput pull-left from-input " type="text" name="project_season_apply_camp_member[course_grade]" placeholder="年级" value="<%= @member.course_grade %>"/>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix">
+              <span class="goodtext pull-left">任职时间</span>
+              <input class="goodinput pull-left from-input " type="number" name="project_season_apply_camp_member[period]" placeholder="任职时间" value="<%= @member.period %>" required/>
+            </div>
+            <div class="clearfix">
+              <span class="goodtext pull-left">职务</span>
+              <input class="goodinput pull-left from-input " type="text" name="project_season_apply_camp_member[position]" placeholder="职务" value="<%= @member.position %>" required/>
+            </div>
+            <div style="height: 172px;width: 777px;" class="clearfix">
+              <span class="goodtext pull-left goodtextare">培训经历</span>
+              <textarea class="pull-left" name="project_season_apply_camp_member[train_experience]" placeholder="参与过哪些培训"><%= @member.train_experience %></textarea>
+            </div>
+            <div style="height: 172px;width: 777px;" class="clearfix">
+              <span class="goodtext pull-left goodtextare">项目经历</span>
+              <textarea class="pull-left" name="project_season_apply_camp_member[project_experience]" placeholder="格桑花项目经历"><%= @member.project_experience %></textarea>
+            </div>
+            <div style="height: 172px;width: 777px;" class="clearfix">
+              <span class="goodtext pull-left goodtextare">荣誉奖励</span>
+              <textarea class="pull-left" name="project_season_apply_camp_member[honor_experience]" placeholder="获得过哪些荣誉"><%= @member.honor_experience %></textarea>
+            </div>
+        <% end %>
+
+      </div>
+    </div>
+    <div class="addchild-list addchild-list-up">
+      <p class="don-title">上传图片</p>
+      <div class="clearfix ">
+        <div class="addchild-list-up-picture pull-left">
+          <p class="iconfont icon-ico-add"></p>
+          <p></p>
+          <%= webuploader_image :image_id, label: '上传安全协议图片', type: 'camp_protocol_image', asset: @member.image, klass: 'single', id: 'child-image1' %>
         </div>
       </div>
     </div>
-    <div class="clearfix">
-      <span class="goodtext pull-left">班级名称</span>
-      <input  class="goodinput pull-left from-input " type="text" name="project_season_apply_camp_member[classname]" placeholder="班级名称" value="<%= @member.classname %>"  required/>
+    <div class="childern-submint">
+      <button class="cur" type="submit">保存</button>
+      <button>
+        <%= link_to '取消', member_list_platform_school_apply_camp_members_path(@apply_camp) %>
+      </button>
     </div>
-    <div class="clearfix">
-      <span class="goodtext pull-left">班主任</span>
-      <input  class="goodinput pull-left from-input " type="text" name="project_season_apply_camp_member[teacher_name]" placeholder="班主任姓名" value="<%= @member.teacher_name %>"  required/>
-    </div>
-    <div class="clearfix">
-      <span class="goodtext pull-left">联系方式</span>
-      <input  class="goodinput pull-left from-input" type="text" name="project_season_apply_camp_member[teacher_phone]"  placeholder="填写班主任联系方式" value="<%= @member.teacher_phone %>"  required data-parsley-phone/>
-    </div>
-    <div class="clearfix">
-      <span class="goodtext pull-left">监护人</span>
-      <input  class="goodinput pull-left from-input" type="text" name="project_season_apply_camp_member[guardian_name]" placeholder="监护人姓名" value="<%= @member.guardian_name %>"  required/>
-    </div>
-    <div class="clearfix">
-      <span class="goodtext pull-left">联系方式</span>
-      <input  class="goodinput pull-left from-input" type="text" name="project_season_apply_camp_member[guardian_phone]" placeholder="联系方式" value="<%= @member.guardian_phone %>"  required data-parsley-phone/>
-    </div>
-        <div style="height: 172px;width: 777px;" class="clearfix">
-          <span class="goodtext pull-left goodtextare">自我介绍</span>
-          <textarea class="pull-left" name="project_season_apply_camp_member[description]"><%= @member.description %></textarea>
-        </div>
-    <% end %>
-
-  </div>
-</div>
-<div class="addchild-list addchild-list-up">
-  <p class="don-title">上传图片</p>
-  <div class="clearfix ">
-    <div class="addchild-list-up-picture pull-left">
-      <p class="iconfont icon-ico-add"></p>
-      <p></p>
-      <%= webuploader_image :image_id, label: '上传安全协议图片', type: 'camp_protocol_image', asset: @member.image, klass: 'single', id: 'child-image1' %>
-    </div>
-  </div>
-</div>
-<div class="childern-submint">
-  <button class="cur" type="submit">保存</button>
-  <button>
-  <%= link_to '取消', member_list_platform_school_apply_camp_members_path(@apply_camp) %>
-  </button>
-</div>
 <% end %>
 <script>
     $("#allcamps").select2({
@@ -86,7 +141,7 @@
         width: "190px",
         minimumResultsForSearch: -1
     });
-    $(function(){
+    $(function () {
         initAvatarWebuploader($('#child-avatar'));
         initImageWebuploader($('#child-image1'));
     })

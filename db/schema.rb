@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180711084523) do
+ActiveRecord::Schema.define(version: 20180711103820) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -861,6 +861,18 @@ ActiveRecord::Schema.define(version: 20180711084523) do
     t.datetime "updated_at", null: false
     t.string "phone", comment: "联系方式（老师角色）"
     t.string "classname", comment: "年级"
+    t.float "height", comment: "身高"
+    t.float "weight", comment: "体重"
+    t.string "guardian_id_card", comment: "监护人身份证号"
+    t.string "guardian_relation", comment: "监护人关系"
+    t.string "cloth_size", comment: "服装型号"
+    t.string "course_type", comment: "教授课程"
+    t.string "course_grade", comment: "教授年级"
+    t.float "period", comment: "工作时间"
+    t.string "position", comment: "职位"
+    t.text "train_experience", comment: "训练经历"
+    t.text "project_experience", comment: "格桑花项目经验"
+    t.text "honor_experience", comment: "荣誉"
   end
 
   create_table "project_season_apply_camps", force: :cascade, comment: "探索营配额" do |t|

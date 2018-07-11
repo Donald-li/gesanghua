@@ -214,7 +214,7 @@ class FileUtil
     return {status: true, message: "导入成功"}
   end
 
-  def self.import_camp_volunteers(original_filename: nil, path: nil, apply: nil, user: user)
+  def self.import_camp_volunteers(original_filename: nil, path: nil, apply: nil, user: nil)
     s = nil
     if File.extname(original_filename) == '.xlsx' || File.extname(original_filename) == '.xls'
       s = Roo::Excelx.new path
