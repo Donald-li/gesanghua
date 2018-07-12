@@ -93,7 +93,7 @@
                 <%= "#{donate_record.try(:apply_name)}" %>
               </td>
               <td>
-                <% income_record = donate_record.income_record %>
+                <% income_record = donate_record.try(:income_record) %>
                 <%= link_to admin_income_records_path('q[id_eq]': income_record.try(:id)), target: '_blank' do %>
                 <%= "#{income_record.try(:income_no)}" %> <br>
                 <%= "#{income_record.try(:title)}" %>
