@@ -4,8 +4,11 @@
       <%= f.input :title, label: '申请学年：', autofocus: true, placeholder: '学年', required: true %>
       <%= f.input :grade_name, label: '年级名称：', autofocus: true, placeholder: '', required: true %>
       <%= f.input :amount, label: '资助金额：', placeholder: '金额', required: true, type: 'number' %>
-      <% unless @grant.pending? %>
+      <% if can? :manage_excel, current_user  %>
+      <% income_record = @grant.donate_records.first.try(:income_record) %>
+      <% unless @grant.pending? || income_record.present? && income_record.online? %>
           <%= f.input :user_id, as: :select, collection: User.sorted, label: '捐助人：', input_html: {class: 'users-ajax'}, required: !@grant.pending? %>
+      <% end %>
       <% end %>
       <%= f.input :remark, label: '备注：', placeholder: '' %>
     </div>
