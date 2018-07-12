@@ -334,7 +334,7 @@ class DonateRecord < ApplicationRecord
     apply_name = if self.owner_type == 'DonateItem' || self.owner_type == 'ProjectSeasonApply'
                    self.owner.name
                  elsif self.owner_type == 'GshChildGrant'
-                   self.child.try(:gsh_no).to_s + ' · ' + self.child.try(:name).to_s + ' · ' + self.child.try(:grade_name).to_s + ' · ' + self.owner.try(:title).to_s
+                   self.child.try(:school).try(:name).to_s + ' · ' + self.child.try(:gsh_no).to_s + ' · ' + self.child.try(:name).to_s + ' · ' + self.child.try(:grade_name).to_s + self.child.try(:classname).to_s + ' · ' + self.owner.try(:title).to_s
                  elsif self.owner_type == 'ProjectSeasonApplyChild'
                    self.owner.try(:name)
                  elsif self.owner_type == 'ProjectSeasonApplyBookshelf'
