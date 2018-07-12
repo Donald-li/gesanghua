@@ -382,8 +382,8 @@ zh:
     to_bill: '待开票'
     billed: '已开票'
   income_record_kinds:
-    online: '线上'
-    offline: '线下'
+    online: '线上捐助'
+    offline: '线下捐助'
   voucher_kinds:
     individual: '个人'
     company: '企业'
