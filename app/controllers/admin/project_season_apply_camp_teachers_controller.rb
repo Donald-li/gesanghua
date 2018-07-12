@@ -88,7 +88,6 @@ class Admin::ProjectSeasonApplyCampTeachersController < Admin::BaseController
     end
   end
 
-
   private
   def set_apply_camp
     @apply_camp = ProjectSeasonApplyCamp.find(params[:apply_camp_id])
