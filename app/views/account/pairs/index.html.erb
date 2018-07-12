@@ -27,7 +27,7 @@
                       </div>
                       <div class="clearfix donation-cont-c-con">
                         <p >孩子编号：<%= child.gsh_no %></p>
-                        <p>捐助年度：<%= child.semesters.where(user_id: current_user.id).pluck(:title).join('/').gsub(/\s/, '').strip.to_s %></p>
+                        <!--<p>捐助年度：<%#= child.semesters.where(user_id: current_user.id).pluck(:title).join('/').gsub(/\s/, '').strip.to_s %></p>-->
                       </div>
                     </div>
                     <div class="pull-right">
