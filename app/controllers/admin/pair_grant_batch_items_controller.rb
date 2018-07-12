@@ -3,7 +3,7 @@ class Admin::PairGrantBatchItemsController < Admin::BaseController
   before_action :find_batch
 
   def index
-    @search = GshChildGrant.waiting.succeed.where(grant_batch_id: nil).search(params[:q])
+    @search = GshChildGrant.waiting.succeed.where(grant_batch_id: nil).includes(:gsh_child).order("title asc").order("gsh_children.gsh_no asc").search(params[:q])
     @grants = @search.result.sorted.page(params[:page])
   end
 
