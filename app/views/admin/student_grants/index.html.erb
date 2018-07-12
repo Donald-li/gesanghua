@@ -90,7 +90,11 @@
               </td>
               <td>
                 <% donate_record = grant.donate_records.first %>
+                <% if donate_record.present? %>
+                <%= link_to admin_user_donate_records_path(user_id: donate_record.try(:agent_id), 'q[id_eq]': donate_record.try(:id)), target: '_blank' do %>
                 <%= "#{donate_record.try(:apply_name)}" %>
+                <% end %>
+                <% end %>
               </td>
               <td>
                 <% income_record = donate_record.try(:income_record) %>
