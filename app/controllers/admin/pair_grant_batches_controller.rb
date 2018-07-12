@@ -21,6 +21,7 @@ class Admin::PairGrantBatchesController < Admin::BaseController
       format.html { @items = @search.result.includes(:gsh_child, :school).all.order("gsh_children.gsh_no asc") }
       format.xlsx {
         @items = @search.result.includes(:gsh_child, :school).all
+        OperateLog.create_export_excel(current_user, '结对助学发放批次名单')
         response.headers['Content-Disposition'] = 'attachment; filename= "结对助学发放批次名单" ' + Date.today.to_s + '.xlsx'
       }
     end

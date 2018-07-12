@@ -13,6 +13,7 @@ class Admin::UsersController < Admin::BaseController
       end
       format.xlsx {
         @users = scope.sorted
+        OperateLog.create_export_excel(current_user,  '用户名单')
         response.headers['Content-Disposition'] = 'attachment; filename="用户名单"' + Date.today.to_s + '.xlsx'
       }
       #format.json do # Select2 异步选择用户搜索

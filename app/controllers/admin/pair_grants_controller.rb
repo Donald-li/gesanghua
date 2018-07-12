@@ -16,6 +16,7 @@ class Admin::PairGrantsController < Admin::BaseController
       format.html {@grants = scope.reverse_sorted.page(params[:page])}
       format.xlsx {
         @grants = scope.sorted.all
+        OperateLog.create_export_excel(current_user, '结对发放列表')
         response.headers['Content-Disposition'] = 'attachment; filename= "结对发放列表" ' + Date.today.to_s + '.xlsx'
       }
     end

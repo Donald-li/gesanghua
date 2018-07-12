@@ -148,6 +148,9 @@ admin:
             admin_audits:
               actions:
                 'admin/audits': all
+            admin_operate_logs:
+              actions:
+                 admin/operate_logs: all
             admin_platform_content:
               menus:
 

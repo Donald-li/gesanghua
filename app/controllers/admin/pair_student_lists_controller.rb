@@ -15,6 +15,7 @@ class Admin::PairStudentListsController < Admin::BaseController
       format.html { @pair_student_lists = scope.page(params[:page]) }
       format.xlsx {
         @pair_student_lists = scope.all
+        OperateLog.create_export_excel(current_user, '捐助管理学生名单')
         response.headers['Content-Disposition'] = 'attachment; filename="捐助管理学生名单"' + Date.today.to_s + '.xlsx'
       }
     end

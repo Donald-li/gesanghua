@@ -12,6 +12,7 @@ class Admin::ExpenditureRecordsController < Admin::BaseController
       format.html { @expenditure_records = scope.page(params[:page]) }
       format.xlsx {
         @expenditure_records = scope.sorted.all
+        OperateLog.create_export_excel(current_user, '支出记录列表')
         response.headers['Content-Disposition'] = 'attachment; filename= "支出记录列表" ' + Date.today.to_s + '.xlsx'
       }
     end

@@ -694,9 +694,15 @@
         <li class="nav-item <%= current_nav_class(:admin_audits) %>">
           <%= link_to admin_audits_path, class: 'nav-link' do %>
           <i class="fa fa-wpforms "></i>
-          <span class="title">操作日志</span>
+          <span class="title">修改记录</span>
           <% end %>
         </li>
+          <li class="nav-item <%= current_nav_class(:admin_operate_logs) %>">
+            <%= link_to admin_operate_logs_path, class: 'nav-link' do %>
+                <i class="fa fa-tachometer "></i>
+                <span class="title">操作日志</span>
+            <% end %>
+          </li>
       <% end %>
     </ul>
     <% end %>

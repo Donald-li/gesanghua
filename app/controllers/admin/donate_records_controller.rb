@@ -12,6 +12,7 @@ class Admin::DonateRecordsController < Admin::BaseController
       format.html {@donate_records = scope.sorted.page(params[:page])}
       format.xlsx {
         @donate_records = scope.sorted.all
+        OperateLog.create_export_excel(current_user, '捐助记录')
         response.headers['Content-Disposition'] = 'attachment; filename= "捐助记录" ' + Date.today.to_s + '.xlsx'
       }
     end

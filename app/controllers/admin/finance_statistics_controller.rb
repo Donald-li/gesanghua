@@ -37,7 +37,8 @@ class Admin::FinanceStatisticsController < Admin::BaseController
       }
       format.xlsx {
         @finance_records
-        response.headers['Content-Disposition'] = 'attachment; filename= "支出记录列表" ' + Date.today.to_s + '.xlsx'
+        OperateLog.create_export_excel(current_user, '收支记录列表')
+        response.headers['Content-Disposition'] = 'attachment; filename= "收支记录列表" ' + Date.today.to_s + '.xlsx'
       }
     end
   end

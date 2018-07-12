@@ -10,6 +10,7 @@ class Admin::IncomeRecordsController < Admin::BaseController
       format.html {@income_records = scope.page(params[:page])}
       format.xlsx {
         @income_records = scope.sorted.all
+        OperateLog.create_export_excel(current_user, '收入记录')
         response.headers['Content-Disposition'] = 'attachment; filename= "收入记录" ' + Date.today.to_s + '.xlsx'
       }
     end
