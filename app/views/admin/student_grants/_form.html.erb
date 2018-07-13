@@ -9,10 +9,10 @@
           <% if !@grant.pending? %>
               <% if income_record.present? && income_record.online? %>
                   <% if can? :manage_superadmin, current_user %>
-                    <%= f.input :user_id, as: :select, collection: User.sorted, label: '捐助人：', input_html: {class: 'users-ajax'}, required: !@grant.pending? %>
+                    <%= f.input :user_id, as: :select, collection: [[@grant.user.try(:name_for_select), @grant.user_id]], label: '捐助人：', input_html: {class: 'users-ajax'}, required: !@grant.pending? %>
                   <% end %>
               <% else %>
-                  <%= f.input :user_id, as: :select, collection: User.sorted, label: '捐助人：', input_html: {class: 'users-ajax'}, required: !@grant.pending? %>
+                  <%= f.input :user_id, as: :select, collection: [[@grant.user.try(:name_for_select), @grant.user_id]], label: '捐助人：', input_html: {class: 'users-ajax'}, required: !@grant.pending? %>
               <% end %>
           <% end %>
       <% end %>
