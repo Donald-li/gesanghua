@@ -9,7 +9,7 @@
         财务分类：
       </label>
       <div class="col-sm-9">
-        <select id="fund" class="form-control select optional" name="income_record[fund_id]" required <%= !(can? :manage_superadmin, current_user) ? 'disabled' : '' %>>
+        <select id="fund" class="form-control select optional" name="income_record[fund_id]" required <%= !(can? :manage_superadmin, current_user) && @income_record.online? ? 'disabled' : '' %>>
           <option value="">请选择财务分类</option>
           <% FundCategory.sorted.each do |fc| %>
               <optgroup label="<%= fc.name %>">
@@ -21,14 +21,14 @@
         </select>
       </div>
     </div>
-    <%= f.input :income_source_id, as: :select, collection: IncomeSource.sorted, label: '入账账户：', include_blank: '选择账户', required: true, disabled: !(can? :manage_superadmin, current_user) %>
-    <%= f.input :amount, label: '收入金额：', require: true, type: 'number', input_html: {}, disabled: !(can? :manage_superadmin, current_user) %>
-    <%= f.input :donor_id, as: :select, collection: [[@income_record.donor.try(:name_for_select), @income_record.donor_id]], label: '捐助人：', input_html: {class: 'donor-users-ajax'}, required: true, disabled: !(can? :manage_superadmin, current_user) %>
-    <%= f.input :agent_id, as: :select, collection: [[@income_record.agent.try(:name_for_select), @income_record.agent_id]], label: '代捐人/汇款人：', input_html: {class: 'agent-users-ajax'}, disabled: !(can? :manage_superadmin, current_user), hint: '没有可不选，默认为捐助人' %>
+    <%= f.input :income_source_id, as: :select, collection: IncomeSource.sorted, label: '入账账户：', include_blank: '选择账户', required: true, disabled: !(can? :manage_superadmin, current_user) && @income_record.online? %>
+    <%= f.input :amount, label: '收入金额：', require: true, type: 'number', input_html: {}, disabled: !(can? :manage_superadmin, current_user) && @income_record.online? %>
+    <%= f.input :donor_id, as: :select, collection: [[@income_record.donor.try(:name_for_select), @income_record.donor_id]], label: '捐助人：', input_html: {class: 'donor-users-ajax'}, required: true, disabled: !(can? :manage_superadmin, current_user) && @income_record.online? %>
+    <%= f.input :agent_id, as: :select, collection: [[@income_record.agent.try(:name_for_select), @income_record.agent_id]], label: '代捐人/汇款人：', input_html: {class: 'agent-users-ajax'}, disabled: !(can? :manage_superadmin, current_user) && @income_record.online?, hint: '没有可不选，默认为捐助人' %>
     <div class="form-group">
       <label class="col-md-2 control-label">捐助时间：</label>
       <div class="col-sm-9">
-        <%= f.text_field :income_time, class: 'datetime-picker', placeholder: '捐助时间', required: true, disabled: !(can? :manage_superadmin, current_user) %>
+        <%= f.text_field :income_time, class: 'datetime-picker', placeholder: '捐助时间', required: true, disabled: !(can? :manage_superadmin, current_user) && @income_record.online? %>
       </div>
     </div>
     <%= f.input :remark, label: '备注：', placeholder: '备注' %>
