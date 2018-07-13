@@ -50,10 +50,10 @@ class DonateRecord < ApplicationRecord
 
   has_one :account_records
 
-  counter_culture :project, column_name: :total_amount, delta_column: 'amount'
-  counter_culture :team, column_name: :total_donate_amount, delta_column: 'amount'
-  counter_culture :promoter, column_name: :promoter_amount_count, delta_column: 'amount'
-  counter_culture :school, column_name: :total_amount, delta_column: 'amount'
+  counter_culture :project, column_name: proc {|model| model.normal? ? 'total_amount' : nil}, delta_column: 'amount'
+  counter_culture :team, column_name: proc {|model| model.normal? ? 'total_donate_amount' : nil}, delta_column: 'amount'
+  counter_culture :promoter, column_name: proc {|model| model.normal? ? 'promoter_amount_count' : nil}, delta_column: 'amount'
+  counter_culture :school, column_name: proc {|model| model.normal? ? 'total_amount' : nil}, delta_column: 'amount'
 
   belongs_to :source, polymorphic: true
   belongs_to :owner, polymorphic: true
