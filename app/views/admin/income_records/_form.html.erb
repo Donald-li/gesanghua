@@ -24,7 +24,7 @@
     <%= f.input :income_source_id, as: :select, collection: IncomeSource.sorted, label: '入账账户：', include_blank: '选择账户', required: true, disabled: !(can? :manage_superadmin, current_user) && @income_record.online? %>
     <%= f.input :amount, label: '收入金额：', require: true, type: 'number', input_html: {}, disabled: !(can? :manage_superadmin, current_user) && @income_record.online? %>
     <%= f.input :donor_id, as: :select, collection: [[@income_record.donor.try(:name_for_select), @income_record.donor_id]], label: '捐助人：', input_html: {class: 'donor-users-ajax'}, required: true, disabled: !(can? :manage_superadmin, current_user) && @income_record.online? %>
-    <%= f.input :agent_id, as: :select, collection: [[@income_record.agent.try(:name_for_select), @income_record.agent_id]], label: '代捐人/汇款人：', input_html: {class: 'agent-users-ajax'}, disabled: !(can? :manage_superadmin, current_user) && @income_record.online?, hint: '没有可不选，默认为捐助人' %>
+    <%= f.input :remitter, label: '汇款人：', placeholder: '' %>
     <div class="form-group">
       <label class="col-md-2 control-label">捐助时间：</label>
       <div class="col-sm-9">
@@ -52,38 +52,6 @@
         });
 
         $('.donor-users-ajax').select2({
-            language: "zh-CN",
-            placeholder: '',
-            allowClear: true,
-            ajax: {
-                url: "/selects/all_users",
-                dataType: 'json',
-                delay: 250,
-                data: function (params) {
-                    return {
-                        q: params.term, // search term
-                        page: params.page
-                    };
-                },
-                processResults: function (data, params) {
-                    params.page = params.page || 1;
-                    return {
-                        results: $.map(data.items, function (item) {
-                            return {
-                                text: item.name_for_select,
-                                id: item.id
-                            }
-                        }),
-                        pagination: {
-                            more: (params.page * 30) < data.total_count
-                        }
-                    };
-                },
-                cache: true
-            }
-        });
-
-        $('.agent-users-ajax').select2({
             language: "zh-CN",
             placeholder: '',
             allowClear: true,

@@ -94,7 +94,10 @@
               捐助人
             </th>
             <th>
-              代捐人/汇款人
+              代捐人
+            </th>
+            <th>
+              汇款人
             </th>
             <th>
               是否开具发票
@@ -133,6 +136,9 @@
                 </td>
                 <td>
                   <%= link_to record.agent_name, (admin_users_path(user_id: record.agent_id) if record.agent_id && record.agent_id!= record.donor_id) %>
+                </td>
+                <td>
+                  <%= record.remitter || '-' %>
                 </td>
                 <td>
                   <%= record.enum_name(:voucher_state) %>

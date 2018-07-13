@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180712040825) do
+ActiveRecord::Schema.define(version: 20180713092357) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -624,6 +624,7 @@ ActiveRecord::Schema.define(version: 20180712040825) do
     t.string "certificate_no", comment: "捐赠证书编号"
     t.string "income_no", comment: "收入编号"
     t.jsonb "archive_data", comment: "归档旧数据"
+    t.string "remitter", comment: "汇款人（用于线下记录）"
     t.index ["agent_id"], name: "index_income_records_on_agent_id"
     t.index ["donation_id"], name: "index_income_records_on_donation_id"
     t.index ["donor_id"], name: "index_income_records_on_donor_id"
