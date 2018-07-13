@@ -5,7 +5,7 @@ semesters = child.donate_pending_records.reorder(:id)
 amount = 0.0
 i = 0
 semesters.each do |s|
-  amount = amount + s.amount if i < semester_count
+  amount = amount + s.amount.to_f if i < semester_count
   i = i + 1
 end
 %>
