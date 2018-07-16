@@ -234,7 +234,7 @@ function initExcelWebuploader(el, config) {
             pick: { id: picker, multiple: false },
             accept: {
                 title: '请选择单个附件',
-                mimeTypes: 'application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                mimeTypes: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
             }
         }
     }, config)
