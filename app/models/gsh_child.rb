@@ -46,6 +46,7 @@ class GshChild < ApplicationRecord
   scope :visible, ->{ where('semester_count > done_semester_count') } # 前端列表可见
 
   before_create :gen_gsh_no
+  before_save :formatted_name
 
   def summary_builder
     apply_child = self.project_season_apply_children.first
@@ -88,6 +89,10 @@ class GshChild < ApplicationRecord
   private
   def gen_gsh_no
     self.gsh_no = self.gsh_no.presence || Sequence.get_seq(kind: :gsh_no, prefix: 'GSH', length: 9)
+  end
+
+  def formatted_name
+    self.name = self.name.strip
   end
 
 end

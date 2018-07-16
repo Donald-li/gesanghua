@@ -129,7 +129,7 @@ class User < ApplicationRecord
   enum phone_verify: {phone_unverified: 1, phone_verified: 2} # 手机认证 1:未认证 2:已认证
 
   before_create :generate_auth_token, :gen_actived_time
-  before_save :set_actived_time
+  before_save :set_actived_time, :formatted_name
 
   counter_culture :team, column_name: proc {|model| model.team.present? ? 'member_count' : nil}
 
@@ -717,6 +717,10 @@ class User < ApplicationRecord
     county_user.user = self
     county_user.save
     self.save
+  end
+
+  def formatted_name
+    self.name = self.name.strip
   end
 
 end
