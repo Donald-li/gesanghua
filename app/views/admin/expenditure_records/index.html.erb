@@ -36,8 +36,17 @@
                 <%= f.text_field :amount_eq, class: 'form-control gsh-input-share', placeholder: '金额' %>
               </div>
               <div class="form-group">
+                <%= f.label :fund_fund_category_id_eq, '财务一级分类' %>
+                <select id="fund-unrestricted1" class="form-control select optional" name="q[fund_fund_category_id_eq]">
+                  <option value="">请选择财务分类</option>
+                  <% FundCategory.sorted.each do |fc| %>
+                      <option value="<%= fc.id %>" <%= 'selected' if params[:q].present? && params[:q][:fund_fund_category_id_eq].to_i == fc.id %>><%= fc.name %></option>
+                  <% end %>
+                </select>
+              </div>
+              <div class="form-group">
                 <%= f.label :fund_id_eq, '财务分类' %>
-                <select id="fund-unrestricted" class="form-control select optional" name="q[fund_id_eq]">
+                <select id="fund-unrestricted2" class="form-control select optional" name="q[fund_id_eq]">
                   <option value="">请选择财务分类</option>
                   <% FundCategory.sorted.each do |fc| %>
                       <optgroup label="<%= fc.name %>">
@@ -150,7 +159,10 @@
 </div>
 <!-- END EXAMPLE TABLE PORTLET-->
 <script type="text/javascript" charset="utf-8">
-    $("#fund-unrestricted").select2({
+    $("#fund-unrestricted1").select2({
+        language: "zh-CN"
+    });
+    $("#fund-unrestricted2").select2({
         language: "zh-CN"
     });
 </script>

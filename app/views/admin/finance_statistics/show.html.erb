@@ -27,8 +27,17 @@
               <input class="form-control datepicker gsh-input-share-r" placeholder="结束时间" type="text" name="time_end" value="<%= params[:time_end] %>">
             </div>
             <div class="form-group">
-              <label>财务分类</label>
-              <select placeholder="" class="form-control gsh-input-share" id="fund_selector" name="fund_id">
+              <label>财务一级分类</label>
+              <select placeholder="" class="form-control gsh-input-share" id="fund1_selector" name="fund_category_id">
+                <option value="">请选择财务分类</option>
+                <% FundCategory.sorted.each do |fc| %>
+                    <option value="<%= fc.id %>" <%= 'selected' if params[:fund_category_id] == fc.id.to_s %>><%= fc.name %></option>
+                <% end %>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>财务二级分类</label>
+              <select placeholder="" class="form-control gsh-input-share" id="fund2_selector" name="fund_id">
                 <option value="">请选择财务分类</option>
                 <% FundCategory.sorted.each do |fc| %>
                     <optgroup label="<%= fc.name %>">
@@ -41,7 +50,7 @@
             </div>
             <div class="form-group">
               <label>账户</label>
-              <select placeholder="" class="form-control gsh-input-share" id="fund_selector" name="income_source_id">
+              <select placeholder="" class="form-control gsh-input-share" id="fund3_selector" name="income_source_id">
                 <option value="">请选择账户</option>
                 <% IncomeSource.sorted.each do |source| %>
                   <option value="<%= source.id %>" <%= 'selected' if params[:income_source_id] == source.id.to_s %>><%= source.name %></option>
@@ -153,5 +162,7 @@
 </div>
 
 <script type="text/javascript" charset="utf-8">
-$('#fund_selector').select2()
+$('#fund1_selector').select2()
+$('#fund2_selector').select2()
+$('#fund3_selector').select2()
 </script>
