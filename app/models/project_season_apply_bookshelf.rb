@@ -86,6 +86,15 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
     "#{self.apply.try(:show_name)} #{self.classname}"
   end
 
+  def state_name
+    if self.pass?
+      self.enum_name(:state)
+    else
+      self.enum_name(:audit_state)
+    end
+
+  end
+
   # 使用捐助
   def accept_donate(donate_records)
     donate_record = donate_records.last
@@ -200,19 +209,20 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
   def summary_builder
     Jbuilder.new do |json|
       json.(self, :id, :classname, :title, :bookshelf_no, :student_number, :book_number, :target_amount, :present_amount, :state)
-      json.state_name self.enum_name(:state)
       json.surplus_money self.surplus_money
       json.apply_name self.apply.name
       json.title self.show_title
       json.image self.bookshelf_image
       json.apply_id self.project_season_apply_id
       json.grade self.enum_name(:grade)
+      json.state_name self.state_name
     end.attributes!
   end
 
   def class_summary_builder
       Jbuilder.new do |json|
         json.(self, :id, :classname, :student_number)
+        json.state_name self.state_name
       end.attributes!
   end
 

@@ -49,12 +49,12 @@ class Admin::PairGrantBatchesController < Admin::BaseController
 
   def update
     @batch = GrantBatch.find(params[:id])
-
     respond_to do |format|
       if @batch.update(grant_params)
         if @batch.grant_at.present?
           @batch.grants.update(granted_at: @batch.grant_at)
         end
+
         format.html { redirect_to referer_or(admin_pair_grant_batches_url), notice: '发放批次已更新。' }
       else
         format.html { render :edit }

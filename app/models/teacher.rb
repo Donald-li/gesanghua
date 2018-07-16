@@ -84,12 +84,13 @@ class Teacher < ApplicationRecord
       json.qq self.try(:qq)
       json.wechat self.try(:wechat)
       json.teacher_projects do
-        json.array! self.teacher_projects do |teacher_project|
-          json.id teacher_project.project_id
-          json.tit teacher_project.project.name
+        json.array! self.projects do |project|
+          json.id project.id
+          json.tit project.name
           json.checked true
         end
       end
+      json.project_names self.projects.pluck(:name)
     end.attributes!
   end
 

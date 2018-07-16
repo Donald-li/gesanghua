@@ -211,6 +211,7 @@ class School < ApplicationRecord
       end
       json.avatar_src self.try(:user).try(:user_avatar)
       json.avatar_mode self.try(:user).try(:avatar).present?
+      json.full_address self.full_address
     end.attributes!
   end
 
