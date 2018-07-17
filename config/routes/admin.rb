@@ -19,6 +19,10 @@ namespace :admin do
       get :manager
       post :set_manager
     end
+    collection do
+      get :batch_manage
+      put :send_message
+    end
     resources :donate_records, only: [:index, :destroy] do
       member do
         post :refund # 退款

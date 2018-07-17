@@ -723,4 +723,17 @@ class User < ApplicationRecord
     self.name = self.name.to_s.strip
   end
 
+  def self.send_messages(ids, title, content)
+    ids.each do |id|
+      user = User.find(id)
+      Notification.create(
+          kind: 'new_notice',
+          owner: user,
+          user_id: id,
+          title: title,
+          content: content
+      )
+    end
+  end
+
 end

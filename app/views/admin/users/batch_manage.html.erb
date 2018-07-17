@@ -5,7 +5,7 @@
     </div>
     <div class="actions">
       <div class="btn-group">
-        <a href="<%= admin_tasks_path %>" class="btn btn-xs blue">
+        <a href="<%= admin_users_path %>" class="btn btn-xs blue">
           <i class="fa fa-reply"></i>返回
         </a>
       </div>
@@ -23,23 +23,37 @@
         </div>
       </div>
       <div class="portlet-body form">
-        <%= simple_form_for [:admin, Task.new], url: send_message_admin_tasks_path, method: :put, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'category_form'} do |f| %>
+        <%= simple_form_for [:admin, User.new], url: send_message_admin_users_path, method: :put, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'category_form'} do |f| %>
             <%= f.error_notification %>
             <div class="form-body form-horizontal">
 
               <div class="form-group radio_buttons required donate_record_donate_way">
                 <label class="col-md-2 control-label">推送方式：</label>
                 <div class="col-md-9 form-inline">
-                  <label><input type="radio" class="form-control radio_buttons send_way" name="send_way" value="total" checked onclick="toggleState()">所有志愿者</label>
-                  <label><input type="radio" class="form-control radio_buttons send_way" name="send_way" value="part" onclick="toggleState()">选定志愿者</label>
+                  <label><input type="radio" class="form-control radio_buttons send_way" name="send_way" value="total" checked onclick="toggleState()">所有用户</label>
+                  <label><input type="radio" class="form-control radio_buttons send_way" name="send_way" value="part" onclick="toggleState()">选定用户</label>
+                  <p class="help-block">推送微信消息给绑定微信的用户</p>
                 </div>
               </div>
+
               <div class="part">
                 <div class="form-group approve_reject ">
-                  <label class="col-md-2 control-label">选择志愿者：</label>
+                  <label class="col-md-2 control-label">选择用户：</label>
                   <div class="col-sm-9">
-                    <select class="form-control select optional" name="volunteer_ids[]" id="volunteer-ajax" required></select>
+                    <select class="form-control select optional" name="user_ids[]" id="user-ajax" required></select>
                   </div>
+                </div>
+              </div>
+              <div class="form-group approve_reject ">
+                <label class="col-md-2 control-label">消息标题：</label>
+                <div class="col-sm-9">
+                  <input type="text" name="title" style="width:300px" required>
+                </div>
+              </div>
+              <div class="form-group approve_reject ">
+                <label class="col-md-2 control-label">消息内容：</label>
+                <div class="col-sm-9">
+                  <textarea name="content"cols="100" rows="10" required></textarea>
                 </div>
               </div>
             </div>
@@ -60,7 +74,7 @@
     $(function () {
         initImageWebuploader($('#webuploader'));
         // 异步加载志愿者列表
-        $('#volunteer-ajax').select2({
+        $('#user-ajax').select2({
             language: "zh-CN",
             placeholder: '请选择志愿者',
             allowClear: true,
@@ -69,7 +83,7 @@
             checkAllText : "全选", //全选按钮显示的文本
             uncheckAllText : "全不选", //全不选按钮显示的文本
             ajax: {
-                url: "/selects/volunteers",
+                url: "/selects/wechat_users",
                 dataType: 'json',
                 delay: 250,
                 data: function (params) {

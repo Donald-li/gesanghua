@@ -30,6 +30,13 @@ class Support::SelectsController < Support::BaseController
     render json: {items: users.as_json(only: [:id], methods: :name_for_select)}
   end
 
+  def wechat_users
+    scope = User.where.not(profile: {})
+    scope = scope.sorted.where("name like :q", q: "%#{params[:q]}%")
+    users = scope.page(params[:page])
+    render json: {items: users.as_json(only: [:id], methods: :name_for_select)}
+  end
+
   # 线下捐款
   def income_records
     scope = IncomeRecord.offline.has_balance.sorted.joins(:donor).where("title like :q or users.name like :q", q: "%#{params[:q]}%")

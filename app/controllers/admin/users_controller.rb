@@ -113,6 +113,22 @@ class Admin::UsersController < Admin::BaseController
     end
   end
 
+  def batch_manage
+  end
+
+  def send_message
+    if params[:send_way] == 'total'
+      user_ids = User.where.not(profile: {}).pluck(:id)
+    else
+      user_ids = params[:user_ids]
+    end
+    if User.send_messages(user_ids, params[:title], params[:content])
+      redirect_to batch_manage_admin_users_path, notice: "发送成功 #{user_ids.count} 条"
+    else
+      redirect_to batch_manage_admin_users_path, notice: '发送失败。'
+    end
+  end
+
   private
     def set_user
       @user = User.find(params[:id])
