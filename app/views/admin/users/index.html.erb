@@ -26,8 +26,8 @@
         <div class="col-md-12 col-sm-12">
           <%= search_form_for @search, url: admin_users_path, class: 'form-inline' do |f| %>
           <div class="form-group">
-            <%= f.label :nickname_or_name_or_phone_cont, '搜索' %>
-            <%= f.text_field :nickname_or_name_or_phone_cont, class: 'form-control gsh-input-share', placeholder: '使用姓名、昵称或手机号搜索',style:'width:150px;' %>
+            <%= f.label :nickname_or_name_or_phone_or_email_or_remark_cont, '搜索' %>
+            <%= f.text_field :nickname_or_name_or_phone_or_email_or_remark_cont, class: 'form-control gsh-input-share', placeholder: '关键字',style:'width:150px;' %>
           </div>
           <div class="form-group">
             <%= f.label :id_eq, 'ID' %>
@@ -71,7 +71,7 @@
                 姓名
               </th>
               <th>
-                手机号
+                手机/邮箱
               </th>
               <th>
                 地区/地址
@@ -118,7 +118,8 @@
                 <%= user.name %>
               </td>
               <td>
-                <%= user.phone %>
+                <%= user.phone %> <br>
+                <%= user.email %>
               </td>
               <td>
                 <%= user.simple_address %> /
