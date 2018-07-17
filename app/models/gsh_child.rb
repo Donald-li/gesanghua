@@ -92,7 +92,7 @@ class GshChild < ApplicationRecord
   end
 
   def formatted_name
-    self.name = self.name.strip
+    self.name = self.name.to_s.strip
   end
 
 end
