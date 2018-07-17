@@ -5,10 +5,10 @@ class FileUtil
 
   def self.import_income_records(original_filename: nil, path: nil)
     s = nil
-    if File.extname(original_filename) == '.xlsx' || File.extname(original_filename) == '.xls'
+    if File.extname(original_filename) == '.xlsx'
       s = Roo::Excelx.new path
     else
-      return
+      return {status: false, message: "格式不支持"}
     end
 
     2.upto(s.last_row) do |line|
@@ -42,10 +42,10 @@ class FileUtil
     s = nil
     s_count = 0
     f_count = 0
-    if File.extname(original_filename) == '.xlsx' || File.extname(original_filename) == '.xls'
+    if File.extname(original_filename) == '.xlsx'
       s = Roo::Excelx.new path
     else
-      return
+      return {status: false, message: "格式不支持"}
     end
     #  name：学校名称  contact_name：联系人姓名 contact_title：联系人职位 contact_phone：联系方式 province：省 city：市 district：区 street：街 address：详细地址
     2.upto(s.last_row) do |line|
@@ -78,10 +78,10 @@ class FileUtil
 
   def self.import_beneficial_children_records(original_filename: nil, path: nil, apply_id: nil, project_season_apply_bookshelf_id: nil)
     s = nil
-    if File.extname(original_filename) == '.xlsx' || File.extname(original_filename) == '.xls'
+    if File.extname(original_filename) == '.xlsx'
       s = Roo::Excelx.new path
     else
-      return
+      return {status: false, message: "格式不支持"}
     end
 
     @apply = ProjectSeasonApply.find(apply_id)
@@ -110,10 +110,10 @@ class FileUtil
 
   def self.import_pair_students(original_filename: nil, path: nil, project_apply: nil)
     s = nil
-    if File.extname(original_filename) == '.xlsx' || File.extname(original_filename) == '.xls'
+    if File.extname(original_filename) == '.xlsx'
       s = Roo::Excelx.new path
     else
-      return
+      return {status: false, message: "格式不支持"}
     end
     child_ids = []
     2.upto(s.last_row) do |line|
@@ -170,17 +170,17 @@ class FileUtil
 
   def self.import_camp_members(original_filename: nil, path: nil, apply_camp: nil, kind: nil)
     s = nil
-    if File.extname(original_filename) == '.xlsx' || File.extname(original_filename) == '.xls'
+    if File.extname(original_filename) == '.xlsx'
       s = Roo::Excelx.new path
     else
-      return
+      return {status: false, message: "格式不支持"}
     end
     member_ids = []
     2.upto(s.last_row) do |line|
 
       index = s.formatted_value(line, 'A')
       name = s.formatted_value(line, 'B')
-      id_card = s.formatted_value(line, 'C')
+      id_card = s.cell(line, 'C')
       nation = s.formatted_value(line, 'D')
       if kind == 'student'
         level = s.formatted_value(line, 'E')
@@ -188,10 +188,13 @@ class FileUtil
         classname = s.formatted_value(line, 'G')
         height = s.formatted_value(line, 'H')
         weight = s.formatted_value(line, 'I')
-        guardian = s.formatted_value(line, 'J')
-        guardian_id_card = s.formatted_value(line, 'K')
-        guardian_relation = s.formatted_value(line, 'L')
-        guardian_phone = s.formatted_value(line, 'M')
+        description = s.formatted_value(line, 'J')
+        teacher_name = s.formatted_value(line, 'K')
+        teacher_phone = s.formatted_value(line, 'L')
+        guardian = s.formatted_value(line, 'M')
+        guardian_id_card = s.formatted_value(line, 'N')
+        guardian_relation = s.formatted_value(line, 'O')
+        guardian_phone = s.formatted_value(line, 'P')
 
         if level == '初中'
           _level = 'junior'
@@ -220,14 +223,14 @@ class FileUtil
 
       _nation = nation.split('-').second.to_i
 
-      member = ProjectSeasonApplyCampMember.new(kind: kind, camp: apply_camp.camp, apply: apply_camp.apply, school: apply_camp.school, apply_camp: apply_camp, name: name, id_card: id_card, nation: _nation, level: _level, grade: _grade, classname: classname, guardian_name: guardian, guardian_phone: guardian_phone, phone: phone, height: height, weight: weight, guardian_id_card: guardian_id_card, guardian_relation: guardian_relation, cloth_size: cloth_size, course_type: course_type, course_grade: course_grade, period: period, position: position, train_experience: train_experience, project_experience: project_experience, honor_experience: honor_experience)
+      member = ProjectSeasonApplyCampMember.new(kind: kind, camp: apply_camp.camp, apply: apply_camp.apply, school: apply_camp.school, apply_camp: apply_camp, name: name, id_card: id_card, nation: _nation, level: _level, grade: _grade, classname: classname, teacher_name: teacher_name, teacher_phone: teacher_phone, description: description, guardian_name: guardian, guardian_phone: guardian_phone, phone: phone, height: height, weight: weight, guardian_id_card: guardian_id_card, guardian_relation: guardian_relation, cloth_size: cloth_size, course_type: course_type, course_grade: course_grade, period: period, position: position, train_experience: train_experience, project_experience: project_experience, honor_experience: honor_experience)
 
       if ProjectSeasonApplyCampMember.allow_apply?(apply_camp, member.id_card, member)
         if member.save
           member_ids.push(member.id)
         else
           ProjectSeasonApplyCampMember.where(id: member_ids).destroy_all
-          return {status: false, message: "导入失败：名单第#{line}行数据有误#{member.errors.messages.values.join(',')}"}
+          return {status: false, message: "导入失败：名单第#{line}行数据有误#{member.errors.full_messages.join(',')}"}
         end
       else
         ProjectSeasonApplyCampMember.where(id: member_ids).destroy_all
@@ -241,18 +244,18 @@ class FileUtil
 
   def self.import_camp_volunteers(original_filename: nil, path: nil, apply: nil, user: nil)
     s = nil
-    if File.extname(original_filename) == '.xlsx' || File.extname(original_filename) == '.xls'
+    if File.extname(original_filename) == '.xlsx'
       s = Roo::Excelx.new path
     else
-      return
+      return {status: false, message: "格式不支持"}
     end
     volunteer_ids = []
     2.upto(s.last_row) do |line|
 
       index = s.formatted_value(line, 'A')
       name = s.formatted_value(line, 'B')
-      volunteer_no = s.formatted_value(line, 'C')
-      id_card = s.formatted_value(line, 'D')
+      volunteer_no = s.cell(line, 'C')
+      id_card = s.cell(line, 'D')
       phone = s.formatted_value(line, 'E')
       content = s.formatted_value(line, 'F')
       remark = s.formatted_value(line, 'G')

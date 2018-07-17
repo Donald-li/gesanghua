@@ -45,6 +45,7 @@ gem 'axlsx', '~>2.1.0.pre'
 gem 'axlsx_rails'
 # 读取excel
 gem 'roo', "~> 2.3.1"
+gem 'roo-xls'
 
 gem 'counter_culture', '~> 1.0'
 gem 'kaminari'

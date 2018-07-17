@@ -28,9 +28,10 @@
         <%= simple_form_for :file, url: excel_import_admin_project_season_apply_camp_students_path(apply_camp_id: @apply_camp), method: :put, wrapper: :admin_form do |f| %>
             <%= f.error_notification %>
             <div class="form-group">
-              <label class="col-md-2 control-label">收入记录文件:</label>
+              <label class="col-md-2 control-label">文件:</label>
               <div class="col-sm-9">
                 <%= webuploader_file :apply_camp_excel_id, id: 'excel-upload', label: '上传文件', type: 'apply_camp_excel' %>
+                <p class="help-block">温馨提示：请上传xlsx文件读取数据</p>
               </div>
             </div>
             <div class="form-actions">
