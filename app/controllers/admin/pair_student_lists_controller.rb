@@ -7,9 +7,9 @@ class Admin::PairStudentListsController < Admin::BaseController
     @search = ProjectSeasonApplyChild.includes(:project, :gsh_child_grants).pass.sorted.ransack(params[:q])
     scope = @search.result
     if donor_state = params[:donor_state_eq]
-      scope = scope.where('done_semester_count = 0') if donor_state == 'raising'
-      scope = scope.where('done_semester_count = semester_count') if donor_state == 'done'
-      scope = scope.where('done_semester_count between 1 and semester_count - 1') if donor_state == 'part_done'
+      scope = scope.where('project_season_apply_children.done_semester_count = 0') if donor_state == 'raising'
+      scope = scope.where('project_season_apply_children.done_semester_count = project_season_apply_children.semester_count') if donor_state == 'done'
+      scope = scope.where('project_season_apply_children.done_semester_count between 1 and project_season_apply_children.semester_count - 1') if donor_state == 'part_done'
     end
     respond_to do |format|
       format.html { @pair_student_lists = scope.page(params[:page]) }
