@@ -19,7 +19,7 @@ class Admin::FinanceStatisticsController < Admin::BaseController
     expend_records = expend_records.where("funds.fund_category_id = ?", params[:fund_category_id]) if params[:fund_category_id].present?
     expend_records = expend_records.where(fund_id: params[:fund_id]) if params[:fund_id].present?
     expend_records = expend_records.where(income_source_id: params[:income_source_id]) if params[:income_source_id].present?
-    expend_records = expend_records.where("name like '%#{params[:keyword]}%' or expenditure_records.remark like '%#{params[:keyword]}%'") if params[:keyword].present?
+    expend_records = expend_records.where("expenditure_records.name like '%#{params[:keyword]}%' or expenditure_records.remark like '%#{params[:keyword]}%'") if params[:keyword].present?
 
 
     @income_count = income_records.sum(:amount)

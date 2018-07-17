@@ -36,6 +36,7 @@ class Api::V1::BindPhonesController < Api::V1::BaseController
         if params[:password].present?
           current_user.password = params[:password]
         end
+        current_user.phone_verify = 'phone_verified'
         if current_user.save
           current_user.bind_user_roles
           api_success(message: '绑定成功', data: {state: true})

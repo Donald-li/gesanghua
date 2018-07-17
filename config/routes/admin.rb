@@ -201,6 +201,7 @@ namespace :admin do
     resources :project_season_apply_camps, concerns: [:switch] do
       member do
         get :camp_member
+        put :change_state
       end
     end
     resources :camp_donate_records
