@@ -11,6 +11,7 @@ class Admin::ReadContinualFeedbacksController < Admin::BaseController
       format.html { @continual_feedbacks = scope.page(params[:page]) }
       format.xlsx {
         @continual_feedbacks = scope.sorted.all
+        OperateLog.create_export_excel(current_user,  "#{@project.name}反馈记录")
         response.headers['Content-Disposition'] = 'attachment; filename= "反馈记录" ' + Date.today.to_s + '.xlsx'
       }
     end

@@ -9,7 +9,7 @@
           </p>
           <p class="detail-con-serial"><%= @child.gsh_no %> |
             <span style="margin-left: 0;"><%= @child.school.try(:name) %>
-              | <%= @child.enum_name(:level) %> <%= @child.enum_name(:grade) %></span></p>
+              | <%= @child.enum_name(:level) %> <%= @child.enum_name(:grade) %> <%= @child.classname %></span></p>
           <!-- <p class="detail-con-serial"> 杂多县新区第二民族中学 | 初中 一年级</p> -->
           <p class="detail-con-font"><%= @child.reason %></p>
         </div>

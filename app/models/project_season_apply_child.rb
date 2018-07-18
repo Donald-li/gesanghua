@@ -160,6 +160,10 @@ class ProjectSeasonApplyChild < ApplicationRecord
     self.avatar.try(:file_url, :tiny)
   end
 
+  def grade_name
+    self.enum_name(:level).to_s + self.enum_name(:grade).to_s
+  end
+
   def count_donate_amount_by_grant_number(number)
     count = 0
     self.get_donate_items.each_with_index do |item, index|
@@ -411,7 +415,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   def summary_builder(user=nil)
     Jbuilder.new do |json|
-      json.(self, :id, :father, :father_job, :mother, :mother_job, :guardian, :guardian_relation, :guardian_phone, :income_source, :family_income, :family_condition, :address)
+      json.(self, :id, :father, :father_job, :mother, :mother_job, :classname, :guardian, :guardian_relation, :guardian_phone, :income_source, :family_income, :family_condition, :address)
       json.room_image self.room_image_url(:medium)
       json.yard_image self.yard_image_url(:medium)
       json.name donate_by_user?(user) ? self.name : self.secure_name

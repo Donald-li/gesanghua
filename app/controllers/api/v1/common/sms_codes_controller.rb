@@ -3,7 +3,7 @@ class Api::V1::Common::SmsCodesController < Api::V1::BaseController
 
   def create
     user = User.find_by(phone: params[:mobile])
-    if user.present?
+    if user.present? && current_user != user
       type = user.unactived? ? 'offline_active' : 'user_combine'
     end
     code = SmsCode.send_code(params[:mobile], params[:kind])

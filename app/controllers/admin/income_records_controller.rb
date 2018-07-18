@@ -10,6 +10,7 @@ class Admin::IncomeRecordsController < Admin::BaseController
       format.html {@income_records = scope.page(params[:page])}
       format.xlsx {
         @income_records = scope.sorted.all
+        OperateLog.create_export_excel(current_user, '收入记录')
         response.headers['Content-Disposition'] = 'attachment; filename= "收入记录" ' + Date.today.to_s + '.xlsx'
       }
     end
@@ -26,8 +27,7 @@ class Admin::IncomeRecordsController < Admin::BaseController
   end
 
   def create
-    @income_record = IncomeRecord.new(income_record_params)
-    @income_record.agent = user if income_record_params[:agent_id].nil?
+    @income_record = IncomeRecord.new(income_record_params.merge(agent_id: income_record_params[:donor_id]))
     @income_record.kind = :offline
     # @income_record.remitter_name = user.name
     # @income_record.remitter_id = user.id
@@ -43,7 +43,7 @@ class Admin::IncomeRecordsController < Admin::BaseController
 
   def update
     respond_to do |format|
-      if @income_record.update(income_record_params)
+      if @income_record.update(income_record_params.merge(agent_id: income_record_params[:donor_id]))
         format.html {redirect_to referer_or(admin_income_records_path), notice: '修改成功。'}
       else
         format.html {render :edit}

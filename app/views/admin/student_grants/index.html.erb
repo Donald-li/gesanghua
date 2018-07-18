@@ -50,6 +50,12 @@
               反馈次数
             </th>
             <th>
+              关联捐助记录
+            </th>
+            <th>
+              关联收入记录
+            </th>
+            <th>
               操作
             </th>
           </tr>
@@ -67,7 +73,8 @@
                 <%= grant.remark %>
               </td>
               <td>
-                <%= link_to grant.user.try(:name), admin_users_path(user_id: grant.user_id) if grant.user_id %>
+                <% @user = grant.pending? ? grant.apply_child.try(:priority_user) : grant.user %>
+                <%= link_to grant.pending? ? '优先捐助人：' + @user.name : @user.name , admin_users_path(user_id: @user.id) if @user %>
               </td>
               <td>
                 <%= grant.enum_name(:donate_state) %>
@@ -82,10 +89,27 @@
                 <% end %>
               </td>
               <td>
+                <% donate_record = grant.donate_records.first %>
+                <% if donate_record.present? %>
+                <%= link_to admin_user_donate_records_path(user_id: donate_record.try(:agent_id), 'q[id_eq]': donate_record.try(:id)), target: '_blank' do %>
+                <%= "#{donate_record.try(:apply_name)}" %>
+                <% end %>
+                <% end %>
+              </td>
+              <td>
+                <% income_record = donate_record.try(:income_record) %>
+                <%= link_to admin_income_records_path('q[id_eq]': income_record.try(:id)), target: '_blank' do %>
+                <%= "#{income_record.try(:income_no)}" %> <br>
+                <%= "#{income_record.try(:title)}" %>
+                <% end %>
+              </td>
+              <td>
+                <% if grant.apply_child.hidden?%>
+                <%= link_to edit_admin_pair_student_list_student_grant_path(@child_apply, grant), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                    <i class="fa fa-edit"></i> 修改
+                <% end %>
+                <% end %>
                 <% if grant.apply_child.hidden? && grant.pending? %>
-                    <%= link_to edit_admin_pair_student_list_student_grant_path(@child_apply, grant), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                        <i class="fa fa-edit"></i> 修改
-                    <% end %>
                     <%= link_to close_admin_pair_student_list_student_grant_path(@child_apply, grant), 'data-no-turbolink' => true, class: 'btn btn-xs red', method: :post, data: {confirm: '确定要关闭吗？'} do %>
                         <i class="fa fa-eye-slash"></i> 关闭
                     <% end %>

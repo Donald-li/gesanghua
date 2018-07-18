@@ -23,6 +23,7 @@
 #  certificate_no   :string                                 # 捐赠证书编号
 #  income_no        :string                                 # 收入编号
 #  archive_data     :jsonb                                  # 归档旧数据
+#  remitter         :string                                 # 汇款人（用于线下记录）
 #
 
 FactoryBot.define do

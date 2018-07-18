@@ -26,6 +26,18 @@
 #  updated_at                   :datetime         not null
 #  phone                        :string                                 # 联系方式（老师角色）
 #  classname                    :string                                 # 年级
+#  height                       :float                                  # 身高
+#  weight                       :float                                  # 体重
+#  guardian_id_card             :string                                 # 监护人身份证号
+#  guardian_relation            :string                                 # 监护人关系
+#  cloth_size                   :string                                 # 服装型号
+#  course_type                  :string                                 # 教授课程
+#  course_grade                 :string                                 # 教授年级
+#  period                       :float                                  # 工作时间
+#  position                     :string                                 # 职位
+#  train_experience             :text                                   # 训练经历
+#  project_experience           :text                                   # 格桑花项目经验
+#  honor_experience             :text                                   # 荣誉
 #
 
 class ProjectSeasonApplyCampMember < ApplicationRecord
@@ -51,10 +63,10 @@ class ProjectSeasonApplyCampMember < ApplicationRecord
   enum kind: {student: 1, teacher: 2} # 类型：1:学生 2:老师
   default_value_for :kind, 1
 
-  enum level: {junior: 1, senior: 2} # 状态：1:初中 2:高中
+  enum level: {primary: 0, junior: 1, senior: 2} # 状态：1:初中 2:高中
   default_value_for :level, 1
 
-  enum grade: {one: 1, two: 2, three: 3} # 年级：1:一年级 2:二年级, 3:三年级
+  enum grade: {one: 1, two: 2, three: 3, four: 4, five: 5, six: 6} # 年级：1:一年级 2:二年级, 3:三年级
   default_value_for :grade, 1
 
   enum state: {draft: 0, submit: 1, pass: 2, reject: 3}
@@ -64,8 +76,8 @@ class ProjectSeasonApplyCampMember < ApplicationRecord
   default_value_for :nation, 0
 
   validates :name, :id_card, presence: true
-  validates :id_card, shenfenzheng_no: true
-  validates :teacher_phone, :guardian_phone, mobile: true
+  validates :id_card, :guardian_id_card, shenfenzheng_no: {allow_blank: true}
+  validates :guardian_phone, mobile: {allow_blank: true}
 
   scope :sorted, -> {order(created_at: :desc)}
 
@@ -117,7 +129,7 @@ class ProjectSeasonApplyCampMember < ApplicationRecord
 
   def detail_builder
     Jbuilder.new do |json|
-      json.(self, :id, :name, :age, :level, :grade, :nation, :gender, :reason, :id_card, :teacher_name, :teacher_phone, :guardian_name, :guardian_phone, :description, :phone, :classname)
+      json.(self, :id, :name, :age, :level, :grade, :nation, :gender, :reason, :id_card, :guardian_name, :guardian_phone, :phone, :classname, :height, :weight, :guardian_id_card, :guardian_relation, :cloth_size, :course_type, :course_grade, :period, :position, :train_experience, :project_experience, :honor_experience)
       json.image  do
         json.id self.try(:image).try(:id)
         json.url self.try(:image).try(:file).try(:url)

@@ -4,6 +4,10 @@
       <i class="icon-list"></i> 任务管理
     </div>
     <div class="actions">
+      <%= link_to batch_manage_admin_tasks_path, class: 'btn btn-xs yellow', 'data-no-turbolink' => true do %>
+          <i class="fa fa-cogs"></i>
+          <span>批量操作</span>
+      <% end %>
       <%= link_to new_admin_task_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
           <i class="icon-plus"></i>
           <span>发布公开任务</span>

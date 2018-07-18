@@ -29,6 +29,7 @@
 #  cancel_reason                 :integer                                # 取消原因
 #  management_fee_state          :integer                                # 计提管理费状态
 #  grade_name                    :string                                 # 年级名称
+#  feedback_count                :integer
 #
 
 # 一对一孩子发放表
@@ -63,6 +64,7 @@ class GshChildGrant < ApplicationRecord
 
   enum donate_state: {pending: 1, succeed: 2, refund: 3, close: 4} # 捐助状态：1:未筹款 2:已筹款 4:关闭
   default_value_for :donate_state, 1
+  default_value_for :feedback_count, 0
 
   enum management_fee_state: {unaccrue: 0, accrued: 2} # 状态：1:未计提 2:已计提
   default_value_for :management_fee_state, 0

@@ -1,0 +1,11 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "登录记录") do |sheet|
+  sheet.add_row ["管理员昵称", "IP", "登录时间"]
+  @administrator_logs.each do |log|
+    sheet.add_row [
+      log.administrator.nickname,
+      log.ip,
+      (l log.created_at)]
+    end
+    sheet.column_widths 10,30,30
+  end

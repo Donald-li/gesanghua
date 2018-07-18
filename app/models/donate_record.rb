@@ -50,10 +50,10 @@ class DonateRecord < ApplicationRecord
 
   has_one :account_records
 
-  counter_culture :project, column_name: :total_amount, delta_column: 'amount'
-  counter_culture :team, column_name: :total_donate_amount, delta_column: 'amount'
-  counter_culture :promoter, column_name: :promoter_amount_count, delta_column: 'amount'
-  counter_culture :school, column_name: :total_amount, delta_column: 'amount'
+  counter_culture :project, column_name: proc {|model| model.normal? ? 'total_amount' : nil}, delta_column: 'amount'
+  counter_culture :team, column_name: proc {|model| model.normal? ? 'total_donate_amount' : nil}, delta_column: 'amount'
+  counter_culture :promoter, column_name: proc {|model| model.normal? ? 'promoter_amount_count' : nil}, delta_column: 'amount'
+  counter_culture :school, column_name: proc {|model| model.normal? ? 'total_amount' : nil}, delta_column: 'amount'
 
   belongs_to :source, polymorphic: true
   belongs_to :owner, polymorphic: true
@@ -221,7 +221,7 @@ class DonateRecord < ApplicationRecord
           source.balance -= reback
           user = source.donor
           user.lock!
-          AccountRecord.create!(title: donate_records.last.try(:apply_name).to_s + '超捐退款', kind: 'refund', amount: reback, income_record: source, user: source.agent, donor: source.donor, operator: operator.present? ? operator : donate_records.last.try(:agent))
+          AccountRecord.create!(title: donate_records.last.try(:apply_name).to_s + '超捐退款', kind: 'refund', amount: reback, income_record: source, user: source.agent || source.donor, donor: source.donor, operator: operator.present? ? operator : donate_records.last.try(:agent))
           user.save!
           message = "捐助成功，但捐助过程中，项目收到新捐款造成超捐，其中#{reback}元已退回您的账户余额。"
         else
@@ -318,6 +318,23 @@ class DonateRecord < ApplicationRecord
                    self.owner.name
                  elsif self.owner_type == 'GshChildGrant'
                    self.child.try(:name).to_s + ' · ' + self.owner.try(:title).to_s
+                 elsif self.owner_type == 'ProjectSeasonApplyChild'
+                   self.owner.try(:name)
+                 elsif self.owner_type == 'ProjectSeasonApplyBookshelf'
+                   self.owner.apply.try(:name)
+                 elsif self.owner_type == 'BookshelfSupplement'
+                   self.owner.apply.try(:name)
+                 elsif self.owner_type == 'CampaignEnlist'
+                   self.owner.try(:campaign).try(:name)
+                 end
+    apply_name
+  end
+
+  def excel_apply_name
+    apply_name = if self.owner_type == 'DonateItem' || self.owner_type == 'ProjectSeasonApply'
+                   self.owner.name
+                 elsif self.owner_type == 'GshChildGrant'
+                   self.child.try(:school).try(:name).to_s + ' · ' + self.child.try(:gsh_no).to_s + ' · ' + self.child.try(:name).to_s + ' · ' + self.child.try(:grade_name).to_s + self.child.try(:classname).to_s + ' · ' + self.owner.try(:title).to_s
                  elsif self.owner_type == 'ProjectSeasonApplyChild'
                    self.owner.try(:name)
                  elsif self.owner_type == 'ProjectSeasonApplyBookshelf'

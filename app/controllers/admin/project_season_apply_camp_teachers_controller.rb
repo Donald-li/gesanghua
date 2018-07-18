@@ -80,14 +80,13 @@ class Admin::ProjectSeasonApplyCampTeachersController < Admin::BaseController
     respond_to do |format|
       result = ProjectSeasonApplyCampMember.read_excel(params[:apply_camp_excel_id], @apply_camp, 'teacher')
       if result[:status]
-        format.html {redirect_to referer_or(admin_project_season_apply_camp_students_path(apply_camp_id: @apply_camp)), notice: '导入成功'}
+        format.html {redirect_to referer_or(admin_project_season_apply_camp_teachers_path(apply_camp_id: @apply_camp)), notice: '导入成功'}
       else
         flash.now[:alert] = result[:message]
         format.html {render :excel_upload}
       end
     end
   end
-
 
   private
   def set_apply_camp

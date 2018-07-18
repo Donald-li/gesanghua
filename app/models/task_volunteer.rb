@@ -112,6 +112,16 @@ class TaskVolunteer < ApplicationRecord
 
   def notice_volunteer
     self.volunteer.update(task_state: true)
+    user = self.volunteer.try(:user)
+    if self.appoint? && user.present?
+      Notification.create(
+          kind: 'new_task',
+          owner: user,
+          user_id: user.id,
+          title: "#新任务通知# 系统发布了新任务哦",
+          content: "系统为您指定了任务，快去查看执行吧~~"
+      )
+    end
   end
 
 end

@@ -66,8 +66,8 @@ class Support::AjaxesController < Support::BaseController
 
   def submit_camp_members
     @camp = ProjectSeasonApplyCamp.find(params[:id])
-    @members = ProjectSeasonApplyCampMember.where(id: params[:child_ids])
-    if @members.map(&:submit!) && @camp.to_approve!
+    @members = ProjectSeasonApplyCampMember.where(id: params[:member_ids])
+    if @members.update_all(state: 'submit') && @camp.to_approve!
       render json: {message: '提交成功，请耐心等待审核', status: true}
     else
       render json: {message: '提交失败，请重试', status: false}

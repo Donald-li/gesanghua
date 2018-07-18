@@ -8,6 +8,7 @@ class Admin::ManagementFeesController < Admin::BaseController
       format.html { @fees = scope.page(params[:page]) }
       format.xlsx {
         @fees = scope.all
+        OperateLog.create_export_excel(current_user, '管理费明细表')
         response.headers['Content-Disposition'] = 'attachment; filename= "管理费明细表" ' + Date.today.to_s + '.xlsx'
       }
     end

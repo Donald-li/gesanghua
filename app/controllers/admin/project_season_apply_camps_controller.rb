@@ -1,6 +1,6 @@
 class Admin::ProjectSeasonApplyCampsController < Admin::BaseController
   before_action :check_auth
-  before_action :set_apply_camp, only: [:edit, :update, :destroy, :camp_member, :switch]
+  before_action :set_apply_camp, only: [:edit, :update, :destroy, :camp_member, :switch, :change_state]
   before_action :set_apply
 
   def index
@@ -49,6 +49,16 @@ class Admin::ProjectSeasonApplyCampsController < Admin::BaseController
     respond_to do |format|
       if @apply_camp.save
         format.html { redirect_to referer_or(admin_camp_project_project_season_apply_camps_path), notice: '标记成功。' }
+      else
+        format.html { redirect_to referer_or(admin_camp_project_project_season_apply_camps_path), notice: '标记失败。' }
+      end
+    end
+  end
+
+  def change_state
+    respond_to do |format|
+      if @apply_camp.update(execute_state: params[:execute_state])
+        format.html {redirect_to referer_or(admin_camp_project_project_season_apply_camps_path), notice: '标记成功。'}
       else
         format.html { redirect_to referer_or(admin_camp_project_project_season_apply_camps_path), notice: '标记失败。' }
       end

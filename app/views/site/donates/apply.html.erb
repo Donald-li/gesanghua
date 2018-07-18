@@ -32,7 +32,7 @@ apply = ProjectSeasonApply.find(params[:apply])
       <!--散捐-->
       <div class="benefactors-moy clearfix">
         <span class="pull-left">捐款金额</span>
-        <input type="text" placeholder="其他金额" class="pull-left" name="amount" id="donate-amount" value="100" data-parsley-required="true" data-parsley-min="0.01" style="padding-right: 42px;"/>
+        <input type="text" placeholder="其他金额" class="pull-left" name="amount" id="donate-amount" value="100" data-parsley-required="true" data-parsley-min="0.01" style="padding-right: 42px;" data-parsley-max="1000000"/>
         <span class="wf_unc">元</span>
         <div class="pull-right">
           <ul class="ui-choose ui-choose-tab" id="amount-tab-default">

@@ -28,16 +28,25 @@
         <div class="col-md-12 col-sm-12">
           <%= search_form_for @search, url: admin_income_records_path, class: 'form-inline' do |f| %>
               <div class="form-group">
-                <%= f.label :income_no_or_donor_name_or_agent_name_or_remark_cont, '搜索' %>
-                <%= f.text_field :income_no_or_donor_name_or_agent_name_or_remark_cont, class: 'form-control gsh-input-share', placeholder: '关键字' %>
+                <%= f.label :title_or_income_no_or_donor_name_or_agent_name_or_remark_cont, '搜索' %>
+                <%= f.text_field :title_or_income_no_or_donor_name_or_agent_name_or_remark_cont, class: 'form-control gsh-input-share', placeholder: '关键字' %>
               </div>
               <div class="form-group">
                 <%= f.label :amount_eq, '金额' %>
                 <%= f.text_field :amount_eq, class: 'form-control gsh-input-share', placeholder: '金额' %>
               </div>
               <div class="form-group">
-                <%= f.label :fund_id_eq, '财务分类' %>
-                <select id="fund-unrestricted" class="form-control select optional" name="q[fund_id_eq]">
+                <%= f.label :fund_fund_category_id_eq, '财务一级分类' %>
+                <select id="fund-unrestricted1" class="form-control select optional" name="q[fund_fund_category_id_eq]">
+                  <option value="">请选择财务分类</option>
+                  <% FundCategory.sorted.each do |fc| %>
+                      <option value="<%= fc.id %>" <%= 'selected' if params[:q].present? && params[:q][:fund_fund_category_id_eq].to_i == fc.id %>><%= fc.name %></option>
+                  <% end %>
+                </select>
+              </div>
+              <div class="form-group">
+                <%= f.label :fund_id_eq, '财务二级分类' %>
+                <select id="fund-unrestricted2" class="form-control select optional" name="q[fund_id_eq]">
                   <option value="">请选择财务分类</option>
                   <% FundCategory.sorted.each do |fc| %>
                       <optgroup label="<%= fc.name %>">
@@ -59,7 +68,7 @@
               </div>
               <div class="form-group">
                 <%= f.label :kind_eq, '类型' %>
-                <%= f.select :kind_eq, IncomeSource.options_for_enum_select(:kinds), {include_blank: '全部'}, class: 'form-control gsh-input-share' %>
+                <%= f.select :kind_eq, IncomeRecord.options_for_enum_select(:kinds, raw: true), {include_blank: '全部'}, class: 'form-control gsh-input-share' %>
               </div>
               <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>
@@ -94,7 +103,10 @@
               捐助人
             </th>
             <th>
-              代捐人/汇款人
+              代捐人
+            </th>
+            <th>
+              线下汇款人
             </th>
             <th>
               是否开具发票
@@ -135,6 +147,9 @@
                   <%= link_to record.agent_name, (admin_users_path(user_id: record.agent_id) if record.agent_id && record.agent_id!= record.donor_id) %>
                 </td>
                 <td>
+                  <%= record.remitter || '-' %>
+                </td>
+                <td>
                   <%= record.enum_name(:voucher_state) %>
                 </td>
                 <td>
@@ -168,7 +183,10 @@
 </div>
 <!-- END EXAMPLE TABLE PORTLET-->
 <script type="text/javascript" charset="utf-8">
-    $("#fund-unrestricted").select2({
+    $("#fund-unrestricted1").select2({
+        language: "zh-CN"
+    });
+    $("#fund-unrestricted2").select2({
         language: "zh-CN"
     });
 </script>

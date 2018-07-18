@@ -7,14 +7,15 @@ class Admin::PairStudentListsController < Admin::BaseController
     @search = ProjectSeasonApplyChild.includes(:project, :gsh_child_grants).pass.sorted.ransack(params[:q])
     scope = @search.result
     if donor_state = params[:donor_state_eq]
-      scope = scope.where('done_semester_count = 0') if donor_state == 'raising'
-      scope = scope.where('done_semester_count = semester_count') if donor_state == 'done'
-      scope = scope.where('done_semester_count between 1 and semester_count - 1') if donor_state == 'part_done'
+      scope = scope.where('project_season_apply_children.done_semester_count = 0') if donor_state == 'raising'
+      scope = scope.where('project_season_apply_children.done_semester_count = project_season_apply_children.semester_count') if donor_state == 'done'
+      scope = scope.where('project_season_apply_children.done_semester_count between 1 and project_season_apply_children.semester_count - 1') if donor_state == 'part_done'
     end
     respond_to do |format|
       format.html { @pair_student_lists = scope.page(params[:page]) }
       format.xlsx {
         @pair_student_lists = scope.all
+        OperateLog.create_export_excel(current_user, '捐助管理学生名单')
         response.headers['Content-Disposition'] = 'attachment; filename="捐助管理学生名单"' + Date.today.to_s + '.xlsx'
       }
     end
@@ -117,7 +118,7 @@ class Admin::PairStudentListsController < Admin::BaseController
   end
 
   def grade_add_one
-    @pair_student_lists = ProjectSeasonApplyChild.pass.where('done_semester_count between 1 and semester_count - 1').where.not(grade: 'three').sorted
+    @pair_student_lists = ProjectSeasonApplyChild.pass.where('done_semester_count between 1 and semester_count - 1').where.not(grade: ['three', 'four', 'five', 'six']).sorted
     num = 0
     @total = @pair_student_lists.count
     @pair_student_lists.transaction do
@@ -156,7 +157,7 @@ class Admin::PairStudentListsController < Admin::BaseController
   end
 
   def grade_minus_one
-    @pair_student_lists = ProjectSeasonApplyChild.pass.where('done_semester_count between 1 and semester_count - 1').where.not(grade: 'one').sorted
+    @pair_student_lists = ProjectSeasonApplyChild.pass.where('done_semester_count between 1 and semester_count - 1').where.not(grade: ['one', 'four', 'five', 'six']).sorted
     num = 0
     @total = @pair_student_lists.count
     @pair_student_lists.transaction do

@@ -65,7 +65,7 @@ class Admin::CampProjectsController < Admin::BaseController
       if @project.update(camp_state: params[:camp_state])
         format.html {redirect_to referer_or(admin_camp_projects_path), notice: '标记成功。'}
       else
-        format.html {render :edit}
+        format.html { redirect_to referer_or(admin_camp_projects_path), notice: '标记失败。' }
       end
     end
   end

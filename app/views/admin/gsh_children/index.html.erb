@@ -16,8 +16,8 @@
         <div class="col-md-12 col-sm-12">
           <%= search_form_for @search, url: admin_gsh_children_path, class: 'form-inline' do |f| %>
               <div class="form-group">
-                <%= f.label :name_or_user_phone_or_id_card_or_gsh_no_cont, '搜索用户' %>
-                <%= f.text_field :name_or_user_phone_or_id_card_or_gsh_no_cont, class: 'form-control gsh-input-share', placeholder: '姓名、编号、身份证、手机号' %>
+                <%= f.label :name_or_phone_or_id_card_or_gsh_no_cont, '搜索用户' %>
+                <%= f.text_field :name_or_phone_or_id_card_or_gsh_no_cont, class: 'form-control gsh-input-share', placeholder: '姓名、编号、身份证、手机号' %>
               </div>
               <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>

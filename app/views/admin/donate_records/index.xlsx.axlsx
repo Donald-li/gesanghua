@@ -1,9 +1,10 @@
 wb = xlsx_package.workbook
 wb.add_worksheet(name: "收入记录") do |sheet|
-  sheet.add_row ["标题", "财务分类", "捐助时间", "捐助金额", "捐助人", "手机号码", "代捐人"]
+  sheet.add_row ["标题", "项目", "财务分类", "捐助时间", "捐助金额", "捐助人", "手机号码", "代捐人"]
   @donate_records.each do |record|
     sheet.add_row [
-      record.apply_name,
+      record.excel_apply_name,
+      record.project_name,
       record.fund_name,
       record.created_at.strftime("%Y-%m-%d %H:%M"),
       record.amount,
@@ -11,5 +12,5 @@ wb.add_worksheet(name: "收入记录") do |sheet|
       record.donor.try(:phone),
       record.agent_name]
     end
-    sheet.column_widths 30,20,30,10,20,20,20
+    sheet.column_widths 40,10,20,30,10,20,20,20
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180705062148) do
+ActiveRecord::Schema.define(version: 20180713092357) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -576,6 +576,7 @@ ActiveRecord::Schema.define(version: 20180705062148) do
     t.integer "cancel_reason", comment: "取消原因"
     t.integer "management_fee_state", comment: "计提管理费状态"
     t.string "grade_name", comment: "年级名称"
+    t.integer "feedback_count"
     t.index ["donate_state"], name: "index_gsh_child_grants_on_donate_state"
     t.index ["grant_batch_id"], name: "index_gsh_child_grants_on_grant_batch_id"
     t.index ["gsh_child_id"], name: "index_gsh_child_grants_on_gsh_child_id"
@@ -623,6 +624,7 @@ ActiveRecord::Schema.define(version: 20180705062148) do
     t.string "certificate_no", comment: "捐赠证书编号"
     t.string "income_no", comment: "收入编号"
     t.jsonb "archive_data", comment: "归档旧数据"
+    t.string "remitter", comment: "汇款人（用于线下记录）"
     t.index ["agent_id"], name: "index_income_records_on_agent_id"
     t.index ["donation_id"], name: "index_income_records_on_donation_id"
     t.index ["donor_id"], name: "index_income_records_on_donor_id"
@@ -710,6 +712,13 @@ ActiveRecord::Schema.define(version: 20180705062148) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "title", comment: "消息标题"
+  end
+
+  create_table "operate_logs", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "pages", force: :cascade, comment: "单页面" do |t|
@@ -860,6 +869,18 @@ ActiveRecord::Schema.define(version: 20180705062148) do
     t.datetime "updated_at", null: false
     t.string "phone", comment: "联系方式（老师角色）"
     t.string "classname", comment: "年级"
+    t.float "height", comment: "身高"
+    t.float "weight", comment: "体重"
+    t.string "guardian_id_card", comment: "监护人身份证号"
+    t.string "guardian_relation", comment: "监护人关系"
+    t.string "cloth_size", comment: "服装型号"
+    t.string "course_type", comment: "教授课程"
+    t.string "course_grade", comment: "教授年级"
+    t.float "period", comment: "工作时间"
+    t.string "position", comment: "职位"
+    t.text "train_experience", comment: "训练经历"
+    t.text "project_experience", comment: "格桑花项目经验"
+    t.text "honor_experience", comment: "荣誉"
   end
 
   create_table "project_season_apply_camps", force: :cascade, comment: "探索营配额" do |t|

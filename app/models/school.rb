@@ -61,7 +61,7 @@ class School < ApplicationRecord
   has_many :apply_camps, class_name: 'ProjectSeasonApplyCamp', dependent: :restrict_with_error
 
   validates :name, :province, :city, :district, presence: true
-  validates :contact_phone, mobile: true
+  # validates :contact_phone, mobile: true
   validates :contact_id_card, shenfenzheng_no: true
 
   enum state: {enable: 1, disable: 2} # 状态：1:启用 2:禁用
@@ -211,6 +211,7 @@ class School < ApplicationRecord
       end
       json.avatar_src self.try(:user).try(:user_avatar)
       json.avatar_mode self.try(:user).try(:avatar).present?
+      json.full_address self.full_address
     end.attributes!
   end
 

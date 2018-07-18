@@ -13,6 +13,7 @@ class Admin::UsersController < Admin::BaseController
       end
       format.xlsx {
         @users = scope.sorted
+        OperateLog.create_export_excel(current_user,  '用户名单')
         response.headers['Content-Disposition'] = 'attachment; filename="用户名单"' + Date.today.to_s + '.xlsx'
       }
       #format.json do # Select2 异步选择用户搜索
@@ -109,6 +110,22 @@ class Admin::UsersController < Admin::BaseController
       redirect_to admin_user_path(@user), notice: '操作成功。'
     else
       redirect_to admin_user_path(@user), alert: message
+    end
+  end
+
+  def batch_manage
+  end
+
+  def send_message
+    if params[:send_way] == 'total'
+      user_ids = User.where.not(profile: {}).pluck(:id)
+    else
+      user_ids = params[:user_ids]
+    end
+    if User.send_messages(user_ids, params[:content])
+      redirect_to batch_manage_admin_users_path, notice: "发送成功 #{user_ids.count} 条"
+    else
+      redirect_to batch_manage_admin_users_path, notice: '发送失败。'
     end
   end
 

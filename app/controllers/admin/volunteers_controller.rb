@@ -12,6 +12,7 @@ class Admin::VolunteersController < Admin::BaseController
       end
       format.xlsx {
         @volunteers = scope.all
+        OperateLog.create_export_excel(current_user,  '志愿者名单')
         response.headers['Content-Disposition'] = 'attachment; filename="志愿者名单"' + Date.today.to_s + '.xlsx'
       }
     end

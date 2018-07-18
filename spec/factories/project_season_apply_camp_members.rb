@@ -26,6 +26,18 @@
 #  updated_at                   :datetime         not null
 #  phone                        :string                                 # 联系方式（老师角色）
 #  classname                    :string                                 # 年级
+#  height                       :float                                  # 身高
+#  weight                       :float                                  # 体重
+#  guardian_id_card             :string                                 # 监护人身份证号
+#  guardian_relation            :string                                 # 监护人关系
+#  cloth_size                   :string                                 # 服装型号
+#  course_type                  :string                                 # 教授课程
+#  course_grade                 :string                                 # 教授年级
+#  period                       :float                                  # 工作时间
+#  position                     :string                                 # 职位
+#  train_experience             :text                                   # 训练经历
+#  project_experience           :text                                   # 格桑花项目经验
+#  honor_experience             :text                                   # 荣誉
 #
 
 FactoryBot.define do

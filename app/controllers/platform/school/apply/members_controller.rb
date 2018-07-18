@@ -19,7 +19,7 @@ class Platform::School::Apply::MembersController < Platform::School::BaseControl
   end
 
   def create
-    @member = ProjectSeasonApplyCampMember.new(member_params.merge(apply_camp: @apply_camp, apply: @apply_camp.apply, school: @apply_camp.school, camp: @apply_camp.camp))
+    @member = ProjectSeasonApplyCampMember.new(member_params.merge(apply_camp: @apply_camp, apply: @apply_camp.apply, school: @apply_camp.school, camp: @apply_camp.camp, state: 'draft'))
     respond_to do |format|
       if params[:image_id]
         if ProjectSeasonApplyCampMember.allow_apply?(@apply_camp, member_params[:id_card])

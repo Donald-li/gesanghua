@@ -7,65 +7,23 @@ namespace :maintain do
     end
   end
 
-  task migrate_apply_child: [:environment] do
-    # ProjectSeasonApplyChild.where.not(priority_id: nil).sorted.each do |child|
-    #   user_id = child.priority_id
-    #   pending_grants = child.semesters.pending
-    #   if pending_grants.count > 0
-    #     grant = pending_grants.order(id: :asc).first
-    #     if grant.title.start_with?('2018') && user_id.present?
-    #       new_user_id = grant.user_id
-    #       if user_id != new_user_id && new_user_id.present?
-    #         child.update(priority_id: new_user_id)
-    #       end
-    #     end
-    #   end
-    # end
-    # count = ProjectSeasonApplyChild.count
-    # i = 0
-    # ProjectSeasonApplyChild.sorted.each do |child|
-    #   i = i + 1
-    #   puts "#{i} / #{count}" if i % 1000 == 0
-    #
-    #   DonateRecord.where(project_season_apply_child_id: child.id).each do |record|
-    #     grant = record.owner
-    #     if record.income_record.present?
-    #       grant.grade_name = child.enum_name(:level).to_s +  '.' + record.income_record.archive_data['Grade'].to_s
-    #       grant.save
-    #     end
-    #   end
-    # end
-
-    children = ProjectSeasonApplyChild.sorted
-    count = children.count
-    i = 0
-    children.each do |child|
-      i = i + 1
-      puts "#{i} / #{count}" if i % 500 == 0
-      grade = 1
-      semesters = child.semesters.sorted
-      record = DonateRecord.find_by(owner: semesters.first).try(:income_record)
-      grade = record.archive_data['Grade'].to_i if record.present? && record.archive_data.present? && record.archive_data['Grade'].to_i > 0
-      level = ProjectSeasonApplyChild.levels[child.level]
-      o_level = level
-      o_grade = grade
-      semesters.each do |grant|
-        record = DonateRecord.find_by(owner: grant).try(:income_record)
-        if record.present? && record.archive_data.present?
-          _level = School.levels[School.find_by("archive_data ->> 'SchoolId' = ?", record.archive_data['SchoolId'].to_s).try(:level)]
-          if _level.present? && level.to_i != _level.to_i
-            child.level = _level.to_i
-            grade = record.archive_data['Grade'].to_i > 0 ? record.archive_data['Grade'].to_i : 1
-          end
-        else
-          child.level = o_level
-          grade = o_grade
-        end
-        grant.grade_name = child.enum_name(:level).to_s +  '.' + grade.to_s
-        grant.save
-        grade += 1 unless grant.refund? || grant.close?
-      end
+  task update_donate_record_counter: [:environment] do
+    Project.sorted.each do |project|
+      project.update(total_amount: DonateRecord.where(project: project).sum(:amount))
     end
+    Team.sorted.each do |team|
+      team.update(total_donate_amount: DonateRecord.where(team: team).sum(:amount))
+    end
+
+    User.sorted.each do |user|
+      user.update(promoter_amount_count: DonateRecord.where(promoter: user).sum(:amount))
+    end
+
+    School.sorted.map do |school|
+      school.total_amount = DonateRecord.where(school: school).sum(:amount)
+      school.save(validate: false)
+    end
+
   end
 
   # 统计6月之后的收入支出到财务分类和账户

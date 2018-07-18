@@ -423,6 +423,8 @@ namespace :api do
       resources :staffs, only: [:index] do
         collection do
           get :volunteer_list
+          get :school_list
+          get :teacher_list
         end
       end
     end

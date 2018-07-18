@@ -6,16 +6,20 @@ class Admin::PairGrantsController < Admin::BaseController
     set_search_end_of_day(:published_at_lteq)
     @search = GshChildGrant.where.not(donate_state: 'close').ransack(params[:q])
     scope = @search.result
+    if feedback_state = params[:feedback_state_eq]
+      scope = scope.where('feedback_count = 0') if feedback_state == 'to_feedback'
+      scope = scope.where('feedback_count > 0') if feedback_state == 'feedbacked'
+    end
     scope = scope.includes(:school, :gsh_child, :apply)
 
     respond_to do |format|
       format.html {@grants = scope.reverse_sorted.page(params[:page])}
       format.xlsx {
         @grants = scope.sorted.all
+        OperateLog.create_export_excel(current_user, '结对发放列表')
         response.headers['Content-Disposition'] = 'attachment; filename= "结对发放列表" ' + Date.today.to_s + '.xlsx'
       }
     end
-
   end
 
   def edit

@@ -6,25 +6,28 @@
       <span class="disclosures-f-moy pull-left"><%= number_to_currency(IncomeRecord.total_amount) %>元</span>
     </p>
     <p class="disclosures-pos">
-      <%= link_to '财务报告', disclosures_path %>  |  <%= link_to '审计报告', audit_reports_path%>  |  <%= link_to '银行对账单', bank_reports_path%>
+      <%= link_to '财务报告', disclosures_path %>  |  <%= link_to '审计报告', audit_reports_path %>
+      |  <%= link_to '银行对账单', bank_reports_path %>
     </p>
   </div>
   <div class="speciais-con">
-    <div class="donations-1 border-b clearfix" >
+    <div class="donations-1 border-b clearfix">
       <ul class="donations1 clearfix pull-left">
         <li class="cur  "><%= link_to income_records_path do %>收入明细
-              <div class=""></div><% end %></li>
+              <div class=""></div>
+          <% end %></li>
         <li class="cur  selectedDo"><%= link_to expenditure_records_path do %>支出明细
-              <div class="bottomline"></div><% end %></li>
+              <div class="bottomline"></div>
+          <% end %></li>
       </ul>
       <div class=" searchinput  clearfix">
         <%= search_form_for @search, url: expenditure_records_path do |f| %>
-          <div class="input-group pull-left">
-            <span class="iconfont icon-ico-search pull-left"></span>
-            <!-- <input type="text" class="form-input pull-left" placeholder="搜索单号、名称、汇款人、经办人、备注" /> -->
-            <%= f.text_field :expend_no_or_name_or_operator_or_remark_or_income_source_name_or_fund_name_or_fund_fund_category_name_cont, class: 'form-input', placeholder: '搜索关键字' %>
-          </div>
-          <button type="submit" class="school-apply-share-share pull-left">搜索</button>
+            <div class="input-group pull-left">
+              <span class="iconfont icon-ico-search pull-left"></span>
+              <!-- <input type="text" class="form-input pull-left" placeholder="搜索单号、名称、汇款人、经办人、备注" /> -->
+              <%= f.text_field :expend_no_or_name_or_operator_or_remark_or_income_source_name_or_fund_name_or_fund_fund_category_name_cont, class: 'form-input', placeholder: '搜索关键字' %>
+            </div>
+            <button type="submit" class="school-apply-share-share pull-left">搜索</button>
         <% end %>
       </div>
     </div>
@@ -33,39 +36,46 @@
 
   <div class="contentab">
     <% if @expenditure_records.present? %>
-    <table class="table table-bordered">
-      <thead>
-      <tr>
-        <th scope="col">支出单号</th>
-        <th scope="col">支出名称</th>
-        <th scope="col">财务分类</th>
-        <th scope="col">出账账户</th>
-        <th scope="col">支出时间</th>
-        <th scope="col">支出金额</th>
-        <th scope="col">支出凭证</th>
-        <th scope="col">经办人</th>
-        <th scope="col">备注</th>
-      </tr>
-      </thead>
-      <tbody>
-      <% @expenditure_records.each do |expenditure_record| %>
-        <tr>
-          <td><%= expenditure_record.expend_no %></th>
-          <td><%= expenditure_record.name %></td>
-          <td><%= expenditure_record.fund.try(:fund_category).try(:name) %> - <%= expenditure_record.fund.try(:name) %></td>
-          <td><%= expenditure_record.income_source.try(:name) %></td>
-          <td><%= l expenditure_record.expended_at %></td>
-          <td><%= number_to_currency(expenditure_record.amount) %></th>
-          <td ><%= link_to '查看凭证', expenditure_record_path(expenditure_record), style:'color: #5765f0;' %></td>
-          <td><%= expenditure_record.secure_operator %></td>
-          <td><%= expenditure_record.remark %></td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-    <div class="project-foot">
-      <%= paginate @expenditure_records, theme: 'tiny' %>
-    </div>
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th scope="col">支出单号</th>
+            <th scope="col">支出名称</th>
+            <th scope="col">财务分类</th>
+            <th scope="col">出账账户</th>
+            <th scope="col">支出时间</th>
+            <th scope="col">支出金额</th>
+            <th scope="col">支出凭证</th>
+            <th scope="col">经办人</th>
+            <th scope="col">备注</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @expenditure_records.each do |expenditure_record| %>
+              <tr>
+                <td><%= expenditure_record.expend_no %></th>
+                <td><%= expenditure_record.name %></td>
+                <td><%= expenditure_record.fund.try(:fund_category).try(:name) %>
+                  - <%= expenditure_record.fund.try(:name) %></td>
+                <td><%= expenditure_record.income_source.try(:name) %></td>
+                <td><%= l expenditure_record.expended_at %></td>
+                <td><%= number_to_currency(expenditure_record.amount) %></th>
+                <td>
+                  <% if expenditure_record.images.present? %>
+                      <%= link_to '查看凭证', expenditure_record_path(expenditure_record), style: 'color: #5765f0;' %>
+                  <% else %>
+                      暂无凭证
+                  <% end %>
+                </td>
+                <td><%= expenditure_record.secure_operator %></td>
+                <td><%= expenditure_record.remark %></td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+        <div class="project-foot">
+          <%= paginate @expenditure_records, theme: 'tiny' %>
+        </div>
     <% else %>
         <div class="not-project-body contentab ">
           <div class="donation-cont-no">

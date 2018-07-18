@@ -62,34 +62,10 @@
         </tr>
         <tr>
           <th>
-            推荐理由
+            身高体重
           </th>
           <th>
-            <%= @camp_student.reason %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            自我介绍
-          </th>
-          <th>
-            <%= @camp_student.description %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            班主任
-          </th>
-          <th>
-            <%= @camp_student.teacher_name %>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            联系方式
-          </th>
-          <th>
-            <%= @camp_student.teacher_phone %>
+            身高：<%= @camp_student.height %> 体重：<%= @camp_student.weight %>
           </th>
         </tr>
         <tr>
@@ -102,10 +78,26 @@
         </tr>
         <tr>
           <th>
+            监护人身份证号
+          </th>
+          <th>
+            <%= @camp_student.guardian_id_card %>
+          </th>
+        </tr>
+        <tr>
+          <th>
             联系方式
           </th>
           <th>
             <%= @camp_student.guardian_phone %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            与其关系
+          </th>
+          <th>
+            <%= @camp_student.guardian_relation %>
           </th>
         </tr>
         <tr>

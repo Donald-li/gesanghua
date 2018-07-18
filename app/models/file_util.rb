@@ -5,10 +5,10 @@ class FileUtil
 
   def self.import_income_records(original_filename: nil, path: nil)
     s = nil
-    if File.extname(original_filename) == '.xlsx' || File.extname(original_filename) == '.xls'
+    if File.extname(original_filename) == '.xlsx'
       s = Roo::Excelx.new path
     else
-      return
+      return {status: false, message: "格式不支持"}
     end
 
     2.upto(s.last_row) do |line|
@@ -42,10 +42,10 @@ class FileUtil
     s = nil
     s_count = 0
     f_count = 0
-    if File.extname(original_filename) == '.xlsx' || File.extname(original_filename) == '.xls'
+    if File.extname(original_filename) == '.xlsx'
       s = Roo::Excelx.new path
     else
-      return
+      return {status: false, message: "格式不支持"}
     end
     #  name：学校名称  contact_name：联系人姓名 contact_title：联系人职位 contact_phone：联系方式 province：省 city：市 district：区 street：街 address：详细地址
     2.upto(s.last_row) do |line|
@@ -78,10 +78,10 @@ class FileUtil
 
   def self.import_beneficial_children_records(original_filename: nil, path: nil, apply_id: nil, project_season_apply_bookshelf_id: nil)
     s = nil
-    if File.extname(original_filename) == '.xlsx' || File.extname(original_filename) == '.xls'
+    if File.extname(original_filename) == '.xlsx'
       s = Roo::Excelx.new path
     else
-      return
+      return {status: false, message: "格式不支持"}
     end
 
     @apply = ProjectSeasonApply.find(apply_id)
@@ -110,10 +110,10 @@ class FileUtil
 
   def self.import_pair_students(original_filename: nil, path: nil, project_apply: nil)
     s = nil
-    if File.extname(original_filename) == '.xlsx' || File.extname(original_filename) == '.xls'
+    if File.extname(original_filename) == '.xlsx'
       s = Roo::Excelx.new path
     else
-      return
+      return {status: false, message: "格式不支持"}
     end
     child_ids = []
     2.upto(s.last_row) do |line|
@@ -170,10 +170,10 @@ class FileUtil
 
   def self.import_camp_members(original_filename: nil, path: nil, apply_camp: nil, kind: nil)
     s = nil
-    if File.extname(original_filename) == '.xlsx' || File.extname(original_filename) == '.xls'
+    if File.extname(original_filename) == '.xlsx'
       s = Roo::Excelx.new path
     else
-      return
+      return {status: false, message: "格式不支持"}
     end
     member_ids = []
     2.upto(s.last_row) do |line|
@@ -183,19 +183,52 @@ class FileUtil
       id_card = s.cell(line, 'C')
       nation = s.formatted_value(line, 'D')
       if kind == 'student'
-        reason = s.formatted_value(line, 'E')
-        description = s.formatted_value(line, 'F')
-        teacher_name = s.formatted_value(line, 'G')
-        teacher_phone = s.formatted_value(line, 'H')
-        guardian = s.formatted_value(line, 'I')
-        guardian_phone = s.formatted_value(line, 'J')
+        level = s.formatted_value(line, 'E')
+        grade = s.formatted_value(line, 'F')
+        classname = s.formatted_value(line, 'G')
+        height = s.formatted_value(line, 'H')
+        weight = s.formatted_value(line, 'I')
+        guardian = s.formatted_value(line, 'J')
+        guardian_id_card = s.formatted_value(line, 'K')
+        guardian_relation = s.formatted_value(line, 'L')
+        guardian_phone = s.formatted_value(line, 'M')
+
+        if level == '初中'
+          _level = 'junior'
+        elsif level == "高中"
+          _level = 'senior'
+        elsif level == '小学'
+          _level = 'primary'
+        end
+
+        if grade == '一年级'
+          _grade = 'one'
+        elsif grade == '二年级'
+          _grade = 'two'
+        elsif grade == '三年级'
+          _grade = 'three'
+        elsif grade == '四年级'
+          _grade = 'four'
+        elsif grade == '五年级'
+          _grade = 'five'
+        elsif grade == '六年级'
+          _grade = 'six'
+        end
       else
         phone = s.formatted_value(line, 'E')
+        cloth_size = s.formatted_value(line, 'F')
+        course_type = s.formatted_value(line, 'G')
+        course_grade = s.formatted_value(line, 'H')
+        period = s.formatted_value(line, 'I')
+        position = s.formatted_value(line, 'J')
+        train_experience = s.formatted_value(line, 'K')
+        project_experience = s.formatted_value(line, 'L')
+        honor_experience = s.formatted_value(line, 'M')
       end
 
       _nation = nation.split('-').second.to_i
 
-      member = ProjectSeasonApplyCampMember.new(kind: kind, camp: apply_camp.camp, apply: apply_camp.apply, school: apply_camp.school, apply_camp: apply_camp, name: name, id_card: id_card, nation: _nation, teacher_name: teacher_name, teacher_phone: teacher_phone, description: description, guardian_name: guardian, guardian_phone: guardian_phone, reason: reason, phone: phone)
+      member = ProjectSeasonApplyCampMember.new(kind: kind, camp: apply_camp.camp, apply: apply_camp.apply, school: apply_camp.school, apply_camp: apply_camp, name: name, id_card: id_card, nation: _nation, level: _level, grade: _grade, classname: classname, guardian_name: guardian, guardian_phone: guardian_phone, phone: phone, height: height, weight: weight, guardian_id_card: guardian_id_card, guardian_relation: guardian_relation, cloth_size: cloth_size, course_type: course_type, course_grade: course_grade, period: period, position: position, train_experience: train_experience, project_experience: project_experience, honor_experience: honor_experience)
 
       if ProjectSeasonApplyCampMember.allow_apply?(apply_camp, member.id_card, member)
         if member.save
@@ -214,12 +247,12 @@ class FileUtil
     return {status: true, message: "导入成功"}
   end
 
-  def self.import_camp_volunteers(original_filename: nil, path: nil, apply: nil, user: user)
+  def self.import_camp_volunteers(original_filename: nil, path: nil, apply: nil, user: nil)
     s = nil
-    if File.extname(original_filename) == '.xlsx' || File.extname(original_filename) == '.xls'
+    if File.extname(original_filename) == '.xlsx'
       s = Roo::Excelx.new path
     else
-      return
+      return {status: false, message: "格式不支持"}
     end
     volunteer_ids = []
     2.upto(s.last_row) do |line|

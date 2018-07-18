@@ -3,7 +3,7 @@ styles = wb.styles
 header = styles.add_style :sz => 16, :b => true, :alignment => {:horizontal => :center}
 wb.add_worksheet(name: "捐助记录") do |sheet|
 
-  sheet.add_row ["序号", "捐助类型", "受捐人/学年", "捐助人", "代捐人/汇款人", "捐助时间", "捐助金额"]
+  sheet.add_row ["序号", "捐助类型", "受捐人/学年", "捐助人", "代捐人", "捐助时间", "捐助金额"]
   @donate_records.each_with_index do |record, index|
     sheet.add_row [
                       index + 1,

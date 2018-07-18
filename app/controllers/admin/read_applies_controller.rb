@@ -67,10 +67,11 @@ class Admin::ReadAppliesController < Admin::BaseController
       @supplements = @project_apply.supplements
       if @project_apply.update(project_apply_params)
         @project_apply.audits.create(state: audit_state, user_id: current_user.id, comment: project_apply_params[:approve_remark])
-        if @project_apply.pass?
-          @bookshelves.where(audit_state: 'submit').update_all(audit_state: 'pass')
-          @supplements.where(audit_state: 'submit').update_all(audit_state: 'pass')
-        elsif @project_apply.reject?
+        # if @project_apply.pass?
+        #   @bookshelves.where(audit_state: 'submit').update_all(audit_state: 'pass')
+        #   @supplements.where(audit_state: 'submit').update_all(audit_state: 'pass')
+        #   els
+        if @project_apply.reject?
           @bookshelves.update_all(audit_state: 'reject')
           @supplements.update_all(audit_state: 'reject')
         end

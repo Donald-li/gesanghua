@@ -19,6 +19,10 @@ namespace :admin do
       get :manager
       post :set_manager
     end
+    collection do
+      get :batch_manage
+      put :send_message
+    end
     resources :donate_records, only: [:index, :destroy] do
       member do
         post :refund # 退款
@@ -29,6 +33,7 @@ namespace :admin do
   resources :administrators, concerns: :switch
   resources :protocols, concerns: :switch
   resources :administrator_logs, only: [:index]
+  resources :operate_logs, only: :index
   resources :audits, only: [:index, :show]
   resources :adverts, concerns: [:move, :switch]
   resources :articles, concerns: [:switch, :recommend]
@@ -200,6 +205,7 @@ namespace :admin do
     resources :project_season_apply_camps, concerns: [:switch] do
       member do
         get :camp_member
+        put :change_state
       end
     end
     resources :camp_donate_records
@@ -240,6 +246,10 @@ namespace :admin do
   end
   resources :majors
   resources :tasks, concerns: [:switch] do
+    collection do
+      get :batch_manage
+      put :send_message
+    end
     resources :task_applies, only: [:index, :edit, :update]
   end
   resources :task_categories

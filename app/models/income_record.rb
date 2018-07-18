@@ -23,6 +23,7 @@
 #  certificate_no   :string                                 # 捐赠证书编号
 #  income_no        :string                                 # 收入编号
 #  archive_data     :jsonb                                  # 归档旧数据
+#  remitter         :string                                 # 汇款人（用于线下记录）
 #
 
 # 收入记录
@@ -32,6 +33,7 @@ class IncomeRecord < ApplicationRecord
   has_paper_trail only: [:fund_id, :income_source_id, :amount, :donor_id, :agent_id, :income_time, :voucher_state, :title, :donation_id, :kind, :team_id, :voucher_id, :remark]
 
   before_create :gen_income_no, :gen_certificate_no
+  after_save :check_donor_or_agent
 
   belongs_to :donation, optional: true
 
@@ -79,7 +81,7 @@ class IncomeRecord < ApplicationRecord
   end
 
   def can_not_edit?
-    self.online? || !self.new_record?
+    self.online?
   end
 
   # 微信入账记录
@@ -299,4 +301,11 @@ class IncomeRecord < ApplicationRecord
     time_string = Time.now.strftime("%y%m%d%H")
     self.income_no ||= Sequence.get_seq(kind: :income_no, prefix: "S#{time_string}", length: 7)
   end
+
+  def check_donor_or_agent
+    if self.saved_change_to_donor_id || self.saved_change_to_agent_id
+      self.donate_records.update_all(donor_id: self.donor_id, agent_id: self.agent_id)
+    end
+  end
+
 end

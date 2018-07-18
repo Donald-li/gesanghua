@@ -1,3 +1,6 @@
+include ActionView::Helpers::NumberHelper
+include ApplicationHelper
+
 class Api::V1::BaseController < ApplicationController
   before_action :login?
   before_action :set_paper_trail_whodunnit

@@ -67,7 +67,7 @@
                 <p class="goodtext" style="margin: 10px 0 0 0;line-height: 40px;">冠名图书角</p>
               </div>
               <div class=" overclass pull-left" style="margin-top: 10px;width: 80%;">
-                <input type="text" id="shelf-name" placeholder="限8个字以内，如爱心小格子'"/>
+                <input type="text" id="shelf-name" placeholder="限15个字以内，如爱心小格子'"/>
                 <p class="goodtext" style="margin: 10px 0;font-size: 12px;">我们会对名字进行审核，如有问题会与您联系</p>
               </div>
             </div>
@@ -90,6 +90,13 @@
 
     function submitShelfName() {
         var name = $('#shelf-name').val();
+        if (name.length > 15) {
+            layer.msg('限15个字以内', {
+                icon: 2,
+                offset: 't c'
+            });
+            return
+        }
         $.post('ajaxes/set_shelf_name', {
             name: name,
             bookshelf_id: '<%= @donation.owner_id %>'
