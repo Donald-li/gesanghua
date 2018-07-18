@@ -148,6 +148,11 @@ campaign_enlist = CampaignEnlist.find(params[:campaign_enlist])
     </div>
   </div>
 </div>
+<style scoped>
+  .parsley-errors-list{
+    width: 802px;
+  }
+</style>
 <script>
     //     模态窗
 //    $('#myModal').on('shown.bs.modal', function (e) {}).modal();
@@ -188,3 +193,4 @@ campaign_enlist = CampaignEnlist.find(params[:campaign_enlist])
       $('#donate_way').val($(this).data('way'))
     })
 </script>
+
