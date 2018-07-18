@@ -15,7 +15,7 @@ Parsley.addMessages('zh-cn', {
   required:       '<i class="fa fa-close"></i>' + " 必填项",
   pattern:        '<i class="fa fa-close"></i>' + " 格式不正确",
   min:            '<i class="fa fa-close"></i>' + " 输入值请大于或等于 %s",
-  max:            '<i class="fa fa-close"></i>' + " 输入值请小于或等于 %s",
+  max:            '<i class="fa fa-close"></i>' + " 输入值请小于或等于 %s",u
   range:          '<i class="fa fa-close"></i>' + " 输入值应该在 %s 到 %s 之间",
   minlength:      '<i class="fa fa-close"></i>' + " 请输入至少 %s 个字符",
   maxlength:      '<i class="fa fa-close"></i>' + " 请输入至多 %s 个字符",

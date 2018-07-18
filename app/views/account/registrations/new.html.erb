@@ -108,7 +108,7 @@
                     <label><i class="mdi mdi-check"></i></label>
                     <span class="checkbox_text">阅读并同意</span>
                   </div>
-                  <span class=" cur" data-toggle="modal" data-target="#protocol">《格桑花用户注册协议》</span>
+                  <span class=" cur" data-toggle="modal" data-target="#protocol"><%= @protocol.title %></span>
                 </div>
               </div>
               <div class="longin-right">
@@ -135,13 +135,11 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true" class="detail-icon">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel" style="font-weight: 600;">格桑花用户注册协议</h4>
+        <h4 class="modal-title" id="myModalLabel" style="font-weight: 600;"><%= @protocol.title %></h4>
       </div>
 
       <div class="modal-body" style="padding: 20px 30px 15px 30px;text-align: left;    max-height: 440px;overflow: auto;">
-        开户行：中国农业银行西宁市七一路支行开户行：中国农业银行西宁市七一路支行开户行：中国农业银行西宁市七一路支行开户行：中国农业银行西宁市七一路支行开户行：中国农业银行西宁市七一路支行开户行：中国农业银行西宁市七一路支行
-        开户行：中国农业银行西宁市七一路支行开户行：中国农业银行西宁市七一路支行开户行：中国农业银行西宁市七一路支行开户行：中国农业银行西宁市七一路支行开户行：中国农业银行西宁市七一路支行开户行：中国农业银行西宁市七一路支行
-        开户行：中国农业银行西宁市七一路支行开户行：中国农业银行西宁市七一路支行开户行：中国农业银行西宁市一路支行开户行：中国农业银行西宁市七一路支行开户行：中国农业银行西宁市七一路支行开户行：中国农业银行西宁市七一路支行
+        <%= @protocol.content %>
       </div>
       <div class="modal-footer overspreads-but">
         <button class="overspreadsc-but overspread-but  over-but" data-dismiss="modal">同意</button>

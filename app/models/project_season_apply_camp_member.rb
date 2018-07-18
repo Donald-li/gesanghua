@@ -77,7 +77,6 @@ class ProjectSeasonApplyCampMember < ApplicationRecord
 
   validates :name, :id_card, presence: true
   validates :id_card, :guardian_id_card, shenfenzheng_no: {allow_blank: true}
-  validates :guardian_phone, mobile: {allow_blank: true}
 
   scope :sorted, -> {order(created_at: :desc)}
 

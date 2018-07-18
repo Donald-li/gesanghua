@@ -431,55 +431,55 @@ class User < ApplicationRecord
   def self.admin_combine_user(old_user, new_user, operator)
     return false unless new_user.present?
     self.transaction do
-        #所有业务表改为手机用户
-        School.where(creater_id: old_user.id).each do |school|
-          school.update!(creater_id: new_user.id)
-        end
-        School.where(user_id: old_user.id).each do |school|
-          school.update!(user_id: new_user.id)
-        end
-        Teacher.where(user_id: old_user.id).each do |teacher|
-          teacher.update!(user_id: new_user.id)
-        end
-        Volunteer.where(user_id: old_user.id).each do |volunteer|
-          volunteer.update!(user_id: new_user.id)
-        end
-        CountyUser.where(user_id: old_user.id).each do |county_user|
-          county_user.update!(user_id: new_user.id)
-        end
-        Team.where(creater_id: old_user.id).each do |team|
-          team.update!(creater_id: new_user.id)
-        end
-        Team.where(manage_id: old_user.id).each do |team|
-          team.update!(manage_id: new_user.id)
-        end
-        new_user.update!(team_id: old_user.team_id)
-        #角色绑定
-        old_user.roles.each do |role|
-          new_user.add_role(role)
-        end
-        new_user.save!
-        #数据迁移： 捐款记录等
-        new_user.migrate_donate_record(old_user)
-        new_user.migrate_children(old_user)
-        # 合并账号openid、手机和wechat_profile
-        new_user.update!(openid: old_user.openid, profile: old_user.profile, auth_token: old_user.auth_token)
-        old_user.generate_auth_token
-        old_user.openid = nil
-        old_user.login = nil
-        old_user.save!
-        # 通知
-        owner = old_user
-        title = '#账户合并# 账户已合并'
-        content = "您的账户已与其他账户合并，相关数据已迁移"
-        notice = Notification.create!(owner: owner, user_id: old_user.id, title: title, content: content, kind: 'combine_user')
-        #旧用户禁用
-
-        old_user.operate_log = {from_user: old_user.id, to_user: new_user.id, kind: 'admin_combine_user', operator: operator.id, operate_at: Time.now}
-
-        old_user.disable!
-        new_user.enable!
+      #所有业务表改为手机用户
+      School.where(creater_id: old_user.id).each do |school|
+        school.update!(creater_id: new_user.id)
       end
+      School.where(user_id: old_user.id).each do |school|
+        school.update!(user_id: new_user.id)
+      end
+      Teacher.where(user_id: old_user.id).each do |teacher|
+        teacher.update!(user_id: new_user.id)
+      end
+      Volunteer.where(user_id: old_user.id).each do |volunteer|
+        volunteer.update!(user_id: new_user.id)
+      end
+      CountyUser.where(user_id: old_user.id).each do |county_user|
+        county_user.update!(user_id: new_user.id)
+      end
+      Team.where(creater_id: old_user.id).each do |team|
+        team.update!(creater_id: new_user.id)
+      end
+      Team.where(manage_id: old_user.id).each do |team|
+        team.update!(manage_id: new_user.id)
+      end
+      new_user.update!(team_id: old_user.team_id)
+      #角色绑定
+      old_user.roles.each do |role|
+        new_user.add_role(role)
+      end
+      new_user.save!
+      #数据迁移： 捐款记录等
+      new_user.migrate_donate_record(old_user)
+      new_user.migrate_children(old_user)
+      # 合并账号openid、手机和wechat_profile
+      new_user.update!(openid: old_user.openid, profile: old_user.profile, auth_token: old_user.auth_token)
+      old_user.generate_auth_token
+      old_user.openid = nil
+      old_user.login = nil
+      old_user.save!
+      # 通知
+      owner = old_user
+      title = '#账户合并# 账户已合并'
+      content = "您的账户已与其他账户合并，相关数据已迁移"
+      notice = Notification.create!(owner: owner, user_id: old_user.id, title: title, content: content, kind: 'combine_user')
+      #旧用户禁用
+
+      old_user.operate_log = {from_user: old_user.id, to_user: new_user.id, kind: 'admin_combine_user', operator: operator.id, operate_at: Time.now}
+
+      old_user.disable!
+      new_user.enable!
+    end
   end
 
   # 微信绑定手机号之后，根据手机号合并user记录，绑定volunteer,teacher(headmaster),county_user角色（gsh_child有单独绑定途径）
@@ -489,56 +489,57 @@ class User < ApplicationRecord
     phone_user= User.find_by(phone: phone)
     return unless phone_user.present?
     self.transaction do
-        #所有业务表改为手机用户
-        School.where(creater_id: wechat_user.id).each do |school|
-          school.update!(creater_id: phone_user.id)
-        end
-        School.where(user_id: wechat_user.id).each do |school|
-          school.update!(user_id: phone_user.id)
-        end
-        Teacher.where(user_id: wechat_user.id).each do |teacher|
-          teacher.update!(user_id: phone_user.id)
-        end
-        Volunteer.where(user_id: wechat_user.id).each do |volunteer|
-          volunteer.update!(user_id: phone_user.id)
-        end
-        CountyUser.where(user_id: wechat_user.id).each do |county_user|
-          county_user.update!(user_id: phone_user.id)
-        end
-        Team.where(creater_id: wechat_user.id).each do |team|
-          team.update!(creater_id: phone_user.id)
-        end
-        Team.where(manage_id: wechat_user.id).each do |team|
-          team.update!(manage_id: phone_user.id)
-        end
-        phone_user.update!(team_id: wechat_user.team_id)
-        #角色绑定
-        wechat_user.roles.each do |role|
-          phone_user.add_role(role)
-        end
-        phone_user.save!
-        #数据迁移： 捐款记录等
-        phone_user.migrate_donate_record(wechat_user)
-        phone_user.migrate_children(wechat_user)
-        # 合并账号openid、手机和wechat_profile
-        phone_user.update!(openid: wechat_user.openid, profile: wechat_user.profile, auth_token: wechat_user.auth_token)
-        wechat_user.generate_auth_token
-        wechat_user.openid = nil
-        wechat_user.login = nil
-        wechat_user.save!
-        # 通知
-        owner = wechat_user
-        title = '#账户合并# 账户已合并'
-        content = "您的账户已与其他账户合并，相关数据已迁移"
-        notice = Notification.create!(owner: owner, user_id: wechat_user.id, title: title, content: content, kind: 'combine_user')
-        #旧用户禁用
-
-        # 记录操作
-        wechat_user.operate_log = {from_user: wechat_user.id, to_user: phone_user.id, kind: 'combine_user', operator: phone_user.id, operate_at: Time.now}
-
-        wechat_user.disable!
-        phone_user.enable!
+      #所有业务表改为手机用户
+      School.where(creater_id: wechat_user.id).each do |school|
+        school.update!(creater_id: phone_user.id)
       end
+      School.where(user_id: wechat_user.id).each do |school|
+        school.update!(user_id: phone_user.id)
+      end
+      Teacher.where(user_id: wechat_user.id).each do |teacher|
+        teacher.update!(user_id: phone_user.id)
+      end
+      Volunteer.where(user_id: wechat_user.id).each do |volunteer|
+        volunteer.update!(user_id: phone_user.id)
+      end
+      CountyUser.where(user_id: wechat_user.id).each do |county_user|
+        county_user.update!(user_id: phone_user.id)
+      end
+      Team.where(creater_id: wechat_user.id).each do |team|
+        team.update!(creater_id: phone_user.id)
+      end
+      Team.where(manage_id: wechat_user.id).each do |team|
+        team.update!(manage_id: phone_user.id)
+      end
+      phone_user.update!(team_id: wechat_user.team_id)
+      #角色绑定
+      wechat_user.roles.each do |role|
+        phone_user.add_role(role)
+      end
+      phone_user.save!
+      #数据迁移： 捐款记录等
+      phone_user.migrate_donate_record(wechat_user)
+      phone_user.migrate_children(wechat_user)
+      phone_user.migrate_account_record(wechat_user)
+      # 合并账号openid、手机和wechat_profile
+      phone_user.update!(openid: wechat_user.openid, profile: wechat_user.profile, auth_token: wechat_user.auth_token)
+      wechat_user.generate_auth_token
+      wechat_user.openid = nil
+      wechat_user.login = nil
+      wechat_user.save!
+      # 通知
+      owner = wechat_user
+      title = '#账户合并# 账户已合并'
+      content = "您的账户已与其他账户合并，相关数据已迁移"
+      notice = Notification.create!(owner: owner, user_id: wechat_user.id, title: title, content: content, kind: 'combine_user')
+      #旧用户禁用
+
+      # 记录操作
+      wechat_user.operate_log = {from_user: wechat_user.id, to_user: phone_user.id, kind: 'combine_user', operator: phone_user.id, operate_at: Time.now}
+
+      wechat_user.disable!
+      phone_user.enable!
+    end
   end
 
   # 迁移捐款记录；用户注册绑定手机号和注册
@@ -571,7 +572,7 @@ class User < ApplicationRecord
 
       # 账户记录
       AccountRecord.where(donor_id: old_user.id).each do |record|
-        record.update!(donor_id: self.id)
+        record.update!(donor_id: self.id, user_id: self.id)
       end
 
       #重算两个账号的缓存数据
@@ -582,9 +583,11 @@ class User < ApplicationRecord
         self.update!(offline_amount: IncomeRecord.where(agent_id: self.id, income_source_id: offline_income_resource.ids).sum(:amount))
       elsif IncomeRecord.where(agent_id: self.id).where.not(income_source_id: offline_income_resource.ids).sum(:amount) != self.online_amount
         self.update!(online_amount: IncomeRecord.where(agent_id: self.id).where.not(income_source_id: offline_income_resource.ids).sum(:amount))
-        # elsif AccountRecord.where(user_id: self.id).sum(:amount) != self.balance
-        #   sum = AccountRecord.where(user_id: self.id).sum(:amount).to_f
-        #   self.update!(balance: sum)
+      elsif AccountRecord.where(user_id: self.id).sum(:amount) != self.balance
+        sum = AccountRecord.where(user_id: self.id).sum(:amount).to_f
+        self.update!(balance: sum)
+        old_sum = AccountRecord.where(user_id: old_user.id).sum(:amount).to_f
+        old_user.update!(balance: old_sum)
       end
     end
   end
@@ -633,40 +636,40 @@ class User < ApplicationRecord
     return unless self.unactived?
     self.transaction do
       begin
-      self.update!(manager_id: manager.id)
-      DonateRecord.where(donor_id: self.id).each do |record|
-        record.update!(agent_id: manager.id)
-      end
-      Donation.where(donor_id: self.id).each do |donation|
-        donation.update!(agent_id: manager.id)
-      end
-      IncomeRecord.where(donor_id: self.id).each do |record|
-        record.update!(agent_id: manager.id)
-      end
-
-      #重算的缓存数据
-      if old_manager.present?
-        offline_income_resource = IncomeSource.offline
-        if IncomeRecord.where(agent_id: old_manager.id).sum(:amount) != old_manager.donate_amount
-          old_manager.update!(donate_amount: IncomeRecord.where(agent_id: old_manager.id).sum(:amount))
-        elsif IncomeRecord.where(agent_id: old_manager.id, income_source_id: offline_income_resource.ids).sum(:amount) != old_manager.offline_amount
-          old_manager.update!(offline_amount: IncomeRecord.where(agent_id: old_manager.id, income_source_id: offline_income_resource.ids).sum(:amount))
-        elsif IncomeRecord.where(agent_id: old_manager.id).where.not(income_source_id: offline_income_resource.ids).sum(:amount) != old_manager.online_amount
-          old_manager.update!(online_amount: IncomeRecord.where(agent_id: old_manager.id).where.not(income_source_id: offline_income_resource.ids).sum(:amount))
+        self.update!(manager_id: manager.id)
+        DonateRecord.where(donor_id: self.id).each do |record|
+          record.update!(agent_id: manager.id)
         end
-      end
+        Donation.where(donor_id: self.id).each do |donation|
+          donation.update!(agent_id: manager.id)
+        end
+        IncomeRecord.where(donor_id: self.id).each do |record|
+          record.update!(agent_id: manager.id)
+        end
 
-      offline_income_resource = IncomeSource.offline
-      if IncomeRecord.where(agent_id: manager.id).sum(:amount) != manager.donate_amount
-        manager.update!(donate_amount: IncomeRecord.where(agent_id: manager.id).sum(:amount))
-      elsif IncomeRecord.where(agent_id: manager.id, income_source_id: offline_income_resource.ids).sum(:amount) != manager.offline_amount
-        manager.update!(offline_amount: IncomeRecord.where(agent_id: manager.id, income_source_id: offline_income_resource.ids).sum(:amount))
-      elsif IncomeRecord.where(agent_id: manager.id).where.not(income_source_id: offline_income_resource.ids).sum(:amount) != manager.online_amount
-        manager.update!(online_amount: IncomeRecord.where(agent_id: manager.id).where.not(income_source_id: offline_income_resource.ids).sum(:amount))
-      end
+        #重算的缓存数据
+        if old_manager.present?
+          offline_income_resource = IncomeSource.offline
+          if IncomeRecord.where(agent_id: old_manager.id).sum(:amount) != old_manager.donate_amount
+            old_manager.update!(donate_amount: IncomeRecord.where(agent_id: old_manager.id).sum(:amount))
+          elsif IncomeRecord.where(agent_id: old_manager.id, income_source_id: offline_income_resource.ids).sum(:amount) != old_manager.offline_amount
+            old_manager.update!(offline_amount: IncomeRecord.where(agent_id: old_manager.id, income_source_id: offline_income_resource.ids).sum(:amount))
+          elsif IncomeRecord.where(agent_id: old_manager.id).where.not(income_source_id: offline_income_resource.ids).sum(:amount) != old_manager.online_amount
+            old_manager.update!(online_amount: IncomeRecord.where(agent_id: old_manager.id).where.not(income_source_id: offline_income_resource.ids).sum(:amount))
+          end
+        end
 
-      self.operate_log = {old_manager: old_manager.try(:id), manager: manager.id, kind: 'set_offline_user_manager', operator: operator.id, operate_at: Time.now}
-      self.save
+        offline_income_resource = IncomeSource.offline
+        if IncomeRecord.where(agent_id: manager.id).sum(:amount) != manager.donate_amount
+          manager.update!(donate_amount: IncomeRecord.where(agent_id: manager.id).sum(:amount))
+        elsif IncomeRecord.where(agent_id: manager.id, income_source_id: offline_income_resource.ids).sum(:amount) != manager.offline_amount
+          manager.update!(offline_amount: IncomeRecord.where(agent_id: manager.id, income_source_id: offline_income_resource.ids).sum(:amount))
+        elsif IncomeRecord.where(agent_id: manager.id).where.not(income_source_id: offline_income_resource.ids).sum(:amount) != manager.online_amount
+          manager.update!(online_amount: IncomeRecord.where(agent_id: manager.id).where.not(income_source_id: offline_income_resource.ids).sum(:amount))
+        end
+
+        self.operate_log = {old_manager: old_manager.try(:id), manager: manager.id, kind: 'set_offline_user_manager', operator: operator.id, operate_at: Time.now}
+        self.save
         return true
       rescue => e
         return false, old_manager.errors.full_message.join(',') + manager.errors.full_message.join(',')
