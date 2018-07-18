@@ -23,13 +23,12 @@
                   </li>
                 <% end %>
               </ul>
-
             </div>
             <p class="donates-c-l-t" id="donate-item-describe"><%= @donate_itmes.detect{|i| i.id.to_s == item_id.to_s}.try(:describe) %></p>
           </div>
           <div class="benefactors-moy clearfix">
             <span class="pull-left">捐款金额</span>
-            <input type="text" class="pull-left" value="100" name="amount" id="donate-amount" data-parsley-required="true" data-parsley-min="1"/>
+            <input type="text" class="pull-left" value="100" name="amount" id="donate-amount" data-parsley-required="true" data-parsley-min="1" data-parsley-max="1000000"/>
             <!--placeholder="其他金额" -->
             <span >元</span>
             <div class="pull-right">

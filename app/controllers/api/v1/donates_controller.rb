@@ -85,7 +85,7 @@ class Api::V1::DonatesController < Api::V1::BaseController
     amount = @apply.target_amount - @apply.present_amount
     @project = @apply.project
     item = @project.donate_item
-    api_success(data: {tabs: item.amount_tabs.show.sorted.map{|tab| tab.summary_builder}, amount: amount})
+    api_success(data: {tabs: item.amount_tabs.show.sorted.map{|tab| tab.summary_builder}, amount: format_money(amount)})
   end
 
 end

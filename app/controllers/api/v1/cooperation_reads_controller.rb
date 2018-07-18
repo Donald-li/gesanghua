@@ -113,12 +113,12 @@ class Api::V1::CooperationReadsController < Api::V1::BaseController
       shelf = @apply.bookshelves.raising.first
       amount = shelf.target_amount - shelf.present_amount
       item = Project.read_project.donate_item
-      api_success(data: {tabs: item.amount_tabs.show.sorted.map{|tab| tab.summary_builder}, amount: amount})
+      api_success(data: {tabs: item.amount_tabs.show.sorted.map{|tab| tab.summary_builder}, amount: format_money(amount)})
     else
       supplement = @apply.supplements.raising.first
       amount = supplement.target_amount - supplement.present_amount
       item = Project.book_supply_project.donate_item
-      api_success(data: {tabs: item.amount_tabs.show.sorted.map{|tab| tab.summary_builder}, amount: amount})
+      api_success(data: {tabs: item.amount_tabs.show.sorted.map{|tab| tab.summary_builder}, amount: format_money(amount)})
     end
   end
 
