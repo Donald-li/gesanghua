@@ -135,11 +135,11 @@
                 ￥<%= format_money(user.income_records.open_ticket.sum(:amount)) %>
               </td>
               <td>
-                <% if user.profile.blank? %>
-                    <%= image_tag 'wechat_default.png', style: 'width: 25px;height: 25px;' %>
-                <% else %>
+                <% if user.openid.present? %>
                     <%= image_tag 'wechat.png', style: 'width: 25px;height: 25px;' %>
-                <% end %>
+                <% else %>
+                    <%= image_tag 'wechat_default.png', style: 'width: 25px;height: 25px;' %>
+              <% end %>
               </td>
               <td>
                 <% if user.unactived? %>
