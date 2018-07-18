@@ -188,26 +188,31 @@ class FileUtil
         classname = s.formatted_value(line, 'G')
         height = s.formatted_value(line, 'H')
         weight = s.formatted_value(line, 'I')
-        description = s.formatted_value(line, 'J')
-        teacher_name = s.formatted_value(line, 'K')
-        teacher_phone = s.formatted_value(line, 'L')
-        guardian = s.formatted_value(line, 'M')
-        guardian_id_card = s.formatted_value(line, 'N')
-        guardian_relation = s.formatted_value(line, 'O')
-        guardian_phone = s.formatted_value(line, 'P')
+        guardian = s.formatted_value(line, 'J')
+        guardian_id_card = s.formatted_value(line, 'K')
+        guardian_relation = s.formatted_value(line, 'L')
+        guardian_phone = s.formatted_value(line, 'M')
 
         if level == '初中'
           _level = 'junior'
-        else
+        elsif level == "高中"
           _level = 'senior'
+        elsif level == '小学'
+          _level = 'primary'
         end
 
         if grade == '一年级'
           _grade = 'one'
         elsif grade == '二年级'
           _grade = 'two'
-        else
+        elsif grade == '三年级'
           _grade = 'three'
+        elsif grade == '四年级'
+          _grade = 'four'
+        elsif grade == '五年级'
+          _grade = 'five'
+        elsif grade == '六年级'
+          _grade = 'six'
         end
       else
         phone = s.formatted_value(line, 'E')
@@ -223,7 +228,7 @@ class FileUtil
 
       _nation = nation.split('-').second.to_i
 
-      member = ProjectSeasonApplyCampMember.new(kind: kind, camp: apply_camp.camp, apply: apply_camp.apply, school: apply_camp.school, apply_camp: apply_camp, name: name, id_card: id_card, nation: _nation, level: _level, grade: _grade, classname: classname, teacher_name: teacher_name, teacher_phone: teacher_phone, description: description, guardian_name: guardian, guardian_phone: guardian_phone, phone: phone, height: height, weight: weight, guardian_id_card: guardian_id_card, guardian_relation: guardian_relation, cloth_size: cloth_size, course_type: course_type, course_grade: course_grade, period: period, position: position, train_experience: train_experience, project_experience: project_experience, honor_experience: honor_experience)
+      member = ProjectSeasonApplyCampMember.new(kind: kind, camp: apply_camp.camp, apply: apply_camp.apply, school: apply_camp.school, apply_camp: apply_camp, name: name, id_card: id_card, nation: _nation, level: _level, grade: _grade, classname: classname, guardian_name: guardian, guardian_phone: guardian_phone, phone: phone, height: height, weight: weight, guardian_id_card: guardian_id_card, guardian_relation: guardian_relation, cloth_size: cloth_size, course_type: course_type, course_grade: course_grade, period: period, position: position, train_experience: train_experience, project_experience: project_experience, honor_experience: honor_experience)
 
       if ProjectSeasonApplyCampMember.allow_apply?(apply_camp, member.id_card, member)
         if member.save

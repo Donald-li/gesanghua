@@ -558,12 +558,16 @@ zh:
     female: '女'
     male: '男'
   project_season_apply_camp_member_levels:
+    primary: '小学'
     junior: '初中'
     senior: '高中'
   project_season_apply_camp_member_grades:
     one: '一年级'
     two: '二年级'
     three: '三年级'
+    four: '四年级'
+    five: '五年级'
+    six: '六年级'
   project_season_apply_camp_member_states:
     submit: '待审核'
     pass: '通过'

@@ -63,10 +63,10 @@ class ProjectSeasonApplyCampMember < ApplicationRecord
   enum kind: {student: 1, teacher: 2} # 类型：1:学生 2:老师
   default_value_for :kind, 1
 
-  enum level: {junior: 1, senior: 2} # 状态：1:初中 2:高中
+  enum level: {primary: 0, junior: 1, senior: 2} # 状态：1:初中 2:高中
   default_value_for :level, 1
 
-  enum grade: {one: 1, two: 2, three: 3} # 年级：1:一年级 2:二年级, 3:三年级
+  enum grade: {one: 1, two: 2, three: 3, four: 4, five: 5, six: 6} # 年级：1:一年级 2:二年级, 3:三年级
   default_value_for :grade, 1
 
   enum state: {draft: 0, submit: 1, pass: 2, reject: 3}
