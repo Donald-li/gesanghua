@@ -7,7 +7,7 @@
         <% @pages.each do |page| %>
           <li class="<%= page == @page ? 'selectedli' : '' %>">
             <!-- <a>关于我们</a> -->
-            <%= link_to "/p/" + page.alias do %><%= page.title %><% end %>
+            <%= link_to "/p/" + page.alias , class:'ui-nowrap'  do %><%= page.title %><% end %>
               <!-- <ul class="page-left-li"> -->
                 <!-- <li>组织架构</li> -->
                 <!-- <li>组织架构</li> -->

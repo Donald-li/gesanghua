@@ -1506,7 +1506,7 @@ p{
   }
 
   .footer-1 {
-    margin-bottom: 30px;
+    margin-bottom: 12px;
     font-weight: 600;
     font-size: 15px;
     color: #d7d7d7;
@@ -5082,7 +5082,7 @@ color: #8d8d8d;
     font-size: 14px;
   }
 
-  & > span:nth-child(3) {
+  .wf_unc  {
     position: absolute;
     right: 0;
     top: 0;
@@ -10440,4 +10440,10 @@ color: #8d8d8d;
     width: 880px;
     margin: 0 auto;
   }
+}
+.ui-nowrap{
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

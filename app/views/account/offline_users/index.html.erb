@@ -22,7 +22,7 @@
                 <span>自己</span>
               </div>
               <div class="don-con-co">
-                <span>联系电话：</span><p><%= current_user.phone %></p>
+                <span>手机号码：</span><p><%= current_user.phone %></p>
               </div>
               <div class="don-con-co">
                 <span>收件地区：</span><p><%= ChinaCity.get(current_user.province) %><%= ChinaCity.get(current_user.city) %><%= ChinaCity.get(current_user.district) %></p>
@@ -43,7 +43,7 @@
                   <% end %>
                 </div>
                 <div class="don-con-co">
-                  <span>联系电话：</span><p><%= offline_user.phone %></p>
+                  <span>手机号码：</span><p><%= offline_user.phone %></p>
                 </div>
                 <div class="don-con-co">
                   <span>收件地区：</span><p><%= ChinaCity.get(offline_user.province) %><%= ChinaCity.get(offline_user.city) %><%= ChinaCity.get(offline_user.district) %></p>

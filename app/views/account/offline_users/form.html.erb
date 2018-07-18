@@ -37,7 +37,7 @@
         <%= f.input :salutation, as: :select, collection: ['哥哥', '姐姐', '弟弟', '妹妹', '叔叔', '阿姨', '爷爷', '奶奶'], include_blank: false, label: false, input_html: {data: {parsley_required: true}, class: 'goodinput',id:'nickname'} %>
         </div>
       <div class="pull-right">
-        <p class="goodtext">联系电话</p>
+        <p class="goodtext">手机号码</p>
         <%= f.text_field :phone, required: true, class: 'goodinput', placeholder: '', data: {parsley_required: true, parsley_phone: true} %>
       </div>
     </div>
