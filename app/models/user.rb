@@ -129,7 +129,7 @@ class User < ApplicationRecord
   enum phone_verify: {phone_unverified: 1, phone_verified: 2} # 手机认证 1:未认证 2:已认证
 
   before_create :generate_auth_token, :gen_actived_time
-  before_save :set_actived_time, :formatted_name
+  before_save :set_actived_time, :formatted_values
 
   counter_culture :team, column_name: proc {|model| model.team.present? ? 'member_count' : nil}
 
@@ -613,7 +613,7 @@ class User < ApplicationRecord
   def offline_user_activation(phone, wechat_user)
     return unless self.unactived? && self.manager_id.present?
     self.transaction do
-      if wechat_user.present?
+      if wechat_user.present? && phone.present?
         User.combine_user(phone, wechat_user)
         self.operate_log = {user: self.id, kind: 'offline_user_activation_and_combine_user', operator: self.id, operate_at: Time.now}
         self.save
@@ -722,8 +722,9 @@ class User < ApplicationRecord
     self.save
   end
 
-  def formatted_name
+  def formatted_values
     self.name = self.name.to_s.strip
+    self.phone = self.phone.to_s.strip
   end
 
   def self.send_messages(ids, content)
