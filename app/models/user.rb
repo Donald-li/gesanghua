@@ -520,7 +520,6 @@ class User < ApplicationRecord
       #数据迁移： 捐款记录等
       phone_user.migrate_donate_record(wechat_user)
       phone_user.migrate_children(wechat_user)
-      phone_user.migrate_account_record(wechat_user)
       # 合并账号openid、手机和wechat_profile
       phone_user.update!(openid: wechat_user.openid, profile: wechat_user.profile, auth_token: wechat_user.auth_token)
       wechat_user.generate_auth_token
