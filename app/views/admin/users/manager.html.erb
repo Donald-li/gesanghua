@@ -17,6 +17,7 @@
         <div class="form-body form-horizontal">
           <%= static_form_control '当前用户昵称：', @user.nickname %>
           <%= static_form_control '当前用户真实姓名：', @user.name %>
+          <%= f.hidden_field :name, value: @user.name  %>
           <% if @user.unactived? %>
               <%= f.input :manager_id, collection: [@user.manager].compact.map {|u| [u.name, u.id]}, label: '指定代捐管理人：', prompt: "请选择用户", input_html: {class: 'user_selector'}, hint: '指定代捐管理人，当前用户的捐助记录、相关项目、孩子等信息会迁移到指定用户（指定用户为已激活用户）' %>
           <% end %>

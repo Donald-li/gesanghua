@@ -634,6 +634,7 @@ class User < ApplicationRecord
   #设置线下用户管理人
   def set_offline_user_manager(manager, old_manager, operator)
     return unless self.unactived?
+    manager = self if manager.nil?
     self.transaction do
       begin
         self.update!(manager_id: manager.id)
