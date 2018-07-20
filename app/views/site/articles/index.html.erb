@@ -67,8 +67,8 @@
                   </div>
                   <div class="speciais-con-con pull-left">
                     <p class="gsh-cont-2"><%= recommend_article.title %></p>
-                    <p class="gsh-cont-1"><%= recommend_article.author %>
-                      |  <%= recommend_article.published_at.strftime("%Y年%m月%d日") if recommend_article.published_at.present? %></p>
+                    <p class="gsh-cont-1 clearfix"><span class="ui-nowrap pull-left" style=" max-width: 85px;padding-right: 5px;"><%= recommend_article.author %></span> <span class="pull-left">| <%= recommend_article.published_at.strftime("%Y年%m月%d日") if recommend_article.published_at.present? %></span></p>
+
                   </div>
                 </div>
             <% end %>
