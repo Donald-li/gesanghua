@@ -13,7 +13,8 @@
           </div>
           <div class="speciais-con-con pull-left">
             <p class="gsh-cont-2"><%= article.title %></p>
-            <p class="gsh-cont-1"><%= article.author %> |  <%= article.published_at.strftime("%Y年%m月%d日") if article.published_at.present?  %></p>
+            <p class="gsh-cont-1 clearfix"><span class="ui-nowrap pull-left" style=" max-width: 390px;padding-right: 5px;"><%= article.author %></span> <span class="pull-left">| <%= article.published_at.strftime("%Y年%m月%d日") if article.published_at.present?  %></span></p>
+
             <p class="gsh-cont-3"><%= strip_tags article.describe %></p>
           </div>
       <% end %>
