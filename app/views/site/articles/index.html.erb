@@ -50,29 +50,28 @@
         <li class="cur selectedDo">热门资讯</li>
       </ul>
     </div>
-    <% @recommend_articles.limit(5).each do |recommend_article| %>
+    <% @recommend_articles.limit(5).each_with_index do |recommend_article, index| %>
         <%= link_to article_path(recommend_article), target: 'new' do %>
-            <div class="<%= recommend_article == @recommend_articles.first ? 'speciais-right-pos' : 'clearfix speciais-right-cont' %>">
-              <% if recommend_article != @recommend_articles.first %>
-                  <div class="speciais-con-img pull-left">
-              <% end %>
-
-              <%= image_tag recommend_article.image.try(:file).try(:url, :tiny).to_s %>
-              <% if recommend_article != @recommend_articles.first %>
-
-                  </div>
-              <% end %>
-              <div class="speciais-con-con <%= recommend_article == @recommend_articles.first ? '' : 'pull-left' %>">
-                <% if recommend_article == @recommend_articles.first %>
+            <% if index == 0 %>
+                <div class="speciais-right-pos">
+                  <%= image_tag recommend_article.image.try(:file).try(:url, :tiny).to_s %>
+                  <div class="speciais-con-con">
                     <div></div>
-                <% end %>
-                <p class="gsh-cont-2"><%= recommend_article.title %></p>
-                <% if recommend_article != @recommend_articles.first %>
+                    <p class="gsh-cont-2"><%= recommend_article.title %></p>
+                  </div>
+                </div>
+            <% else %>
+                <div class="clearfix speciais-right-cont">
+                  <div class="speciais-con-img pull-left">
+                    <%= image_tag recommend_article.image.try(:file).try(:url, :tiny).to_s %>
+                  </div>
+                  <div class="speciais-con-con pull-left">
+                    <p class="gsh-cont-2"><%= recommend_article.title %></p>
                     <p class="gsh-cont-1"><%= recommend_article.author %>
                       |  <%= recommend_article.published_at.strftime("%Y年%m月%d日") if recommend_article.published_at.present? %></p>
-                <% end %>
-              </div>
-            </div>
+                  </div>
+                </div>
+            <% end %>
         <% end %>
     <% end %>
   </div>
