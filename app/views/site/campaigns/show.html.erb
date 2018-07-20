@@ -117,7 +117,7 @@
               </div>
             </div>
             <div class="modal-footer overspreads-but">
-              <button class="overspreadsc-but overspread-but  over-but">支付</button>
+              <button class="overspreadsc-but overspread-but  over-but"><%= @campaign.price == 0 ? '报名' : '支付' %></button>
             </div>
         <% end %>
       </div>

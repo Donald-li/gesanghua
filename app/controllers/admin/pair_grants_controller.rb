@@ -91,7 +91,7 @@ class Admin::PairGrantsController < Admin::BaseController
         if @grant.do_refund!(current_user)
           format.html {redirect_to referer_or(admin_pair_grants_path), notice: '操作成功。'}
         else
-          format.html {redirect_to referer_or(admin_pair_grants_path), alert: '操作失败。'}
+          format.html {redirect_to referer_or(admin_pair_grants_path), alert: '无法退款。'}
         end
       else
         format.html {render :edit_cancel}

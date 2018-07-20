@@ -41,7 +41,7 @@
             </div>
               <div class="form-group " style="margin: 0 10px">
                 <%= f.label :school_id_eq, '学校',class:'gsh-input-share-r' %>
-                <%= f.select :school_id_eq, School.all_to_hash, {include_blank: '全部'}, class: 'form-control schools-ajax', style: 'width:200px;' %>
+                <%= f.select :school_id_eq, [], {include_blank: '全部'}, class: 'form-control schools-ajax', style: 'width:200px;' %>
               </div>
               <div class="form-group">
                 <%= f.label :project_season_id_eq, '批次' %>

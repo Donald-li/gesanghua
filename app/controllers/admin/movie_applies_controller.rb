@@ -63,6 +63,15 @@ class Admin::MovieAppliesController < Admin::BaseController
       audit_state = project_apply_params[:audit_state] == 'pass' ? 'pass' : 'reject'
       @project_apply.audit_state = audit_state
       if @project_apply.save
+        if audit_state == 'reject'
+          notice = Notification.create(
+              kind: 'approve_reject',
+              owner: @project_apply,
+              user_id: @project_apply.school.try(:user_id),
+              title: '审核通知',
+              content: "您的观影项目申请审核未通过，原因：#{project_apply_params[:approve_remark]}"
+          )
+        end
         @project_apply.audits.create(state: audit_state, user_id: current_user.id, comment: project_apply_params[:approve_remark])
         format.html { redirect_to referer_or(admin_movie_applies_path), notice: '审核成功' }
       else

@@ -8,8 +8,8 @@ wb.add_worksheet(name: "捐助记录") do |sheet|
     sheet.add_row [
                       index + 1,
                       record.enum_name(:kind),
-                      record.child.try(:name) + '-' + record.owner.try(:title),
-                      record.donor.admin_show_name + '(' + record.donor.phone + ')',
+                      record.child.try(:name).to_s + '-' + record.owner.try(:title).to_s,
+                      record.donor.try(:admin_show_name).to_s + '(' + record.donor.try(:phone).to_s + ')',
                       record.agent_name,
                       (l record.created_at),
                       record.amount]

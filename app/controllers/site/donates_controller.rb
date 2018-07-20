@@ -23,6 +23,7 @@ class Site::DonatesController < Site::BaseController
     @donors = current_user.offline_users.unactived.reverse_sorted
 
     @donate_itmes = DonateItem.includes(:amount_tabs).sorted.show
+    @protocol = Protocol.donate_protocol.first
 
     render 'child' if params[:child].present?
     render 'apply' if params[:apply].present?

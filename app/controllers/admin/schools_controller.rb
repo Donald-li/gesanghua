@@ -3,11 +3,16 @@ class Admin::SchoolsController < Admin::BaseController
   before_action :set_school, only: [:show, :edit, :update, :destroy, :switch]
 
   def index
+    @search = School.sorted.pass.ransack(params[:q])
+    scope = @search.result
     respond_to do |format|
       format.html do # HTML页面
-        @search = School.sorted.pass.ransack(params[:q])
-        scope = @search.result
         @schools = scope.page(params[:page])
+      end
+      format.xlsx do # HTML页面
+        @schools = scope.all
+        OperateLog.create_export_excel(current_user, "学校列表")
+        response.headers['Content-Disposition'] = 'attachment; filename= "学校列表" ' + Date.today.to_s + '.xlsx'
       end
     end
   end

@@ -66,7 +66,7 @@ class AuditHelper
     case attr
     when 'state', 'approve_state', 'apply_type', 'code_type', 'show_state', 'execute_state', 'read_state', 'pair_state', 'gender', 'nation',
        'level', 'grade', 'semester', 'kind', 'audit_state', 'inventory_state', 'accept_feedback_state', 'feedback_format', 'apply_kind', 'job_state',
-        'internship_state', 'phone_verify', 'use_nickname', 'voucher_state'
+        'internship_state', 'phone_verify', 'use_nickname', 'voucher_state', 'camp_state'
       klass = audit.item_type.constantize
       klass.enum_name(attr.pluralize, value)
     when 'province', 'city', 'district'

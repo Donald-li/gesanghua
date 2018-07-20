@@ -119,7 +119,14 @@ class GshChildGrant < ApplicationRecord
   # 退款, 捐助记录退款状态，退回账户余额，孩子标记取消
   def do_refund!(operator)
     record = self.donate_records.last
+    return false unless record.present?
     record.do_refund!(operator)
+  end
+
+  def can_refund?
+    record = self.donate_records.last
+    return false unless record.present?
+    (record.user_donate? || ['IncomeRecord', 'User'].include?(record.source_type)) && record.agent.present? && record.owner_type == 'GshChildGrant' && (record.owner.waiting? || record.owner.suspend?)
   end
 
   def button_color

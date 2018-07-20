@@ -80,7 +80,7 @@ window.Parsley.addValidator('phone', {
     return /^(\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$/i.test(value);
   },
   messages: {
-    'zh-cn': '请输入正确的电话号码(手机或座机)'
+    'zh-cn': '请输入正确的手机号码'
   },
   priority: 32
 });
