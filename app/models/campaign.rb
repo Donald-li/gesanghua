@@ -86,7 +86,7 @@ class Campaign < ApplicationRecord
       '已报名'
     elsif self.done?
       '活动已结束'
-    elsif self.to_do?
+    elsif self.to_do? || self.doing?
       '报名结束'
     elsif self.number.to_i > 0 && self.campaign_enlists.paid.sum(:number) >= self.number
       '名额已满'

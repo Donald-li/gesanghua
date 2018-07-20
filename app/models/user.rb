@@ -80,7 +80,7 @@ class User < ApplicationRecord
   has_many :gsh_child_grants
   has_many :children, class_name: 'ProjectSeasonApplyChild', foreign_key: 'priority_id', dependent: :nullify # 我捐助的孩子们
   has_many :vouchers
-  has_many :campaign_enlists
+  has_many :campaign_enlists, -> { paid }
   has_many :campaigns, through: :campaign_enlists
   has_many :donate_records, foreign_key: :agent_id, dependent: :nullify
   has_many :donations, dependent: :nullify, foreign_key: 'agent_id'

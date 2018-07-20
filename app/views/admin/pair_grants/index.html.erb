@@ -185,8 +185,10 @@
                           <%= link_to edit_delay_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
                               <i class="fa fa-pause"></i> 暂缓发放
                           <% end %>
+                          <% if grant.can_refund? %>
                           <%= link_to edit_cancel_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
                               <i class="fa fa-stop"></i> 取消捐助
+                          <% end %>
                           <% end %>
                       <% elsif grant.granted? %>
                           <%= link_to edit_feedback_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
@@ -203,8 +205,10 @@
                           <%= link_to cancel_delay_admin_pair_grant_path(grant), method: :put, 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
                               <i class="fa fa-pause"></i> 取消暂缓
                           <% end %>
+                          <% if grant.can_refund? %>
                           <%= link_to edit_cancel_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
                               <i class="fa fa-stop"></i> 取消捐助
+                          <% end %>
                           <% end %>
                       <% end %>
                   <% end %>
