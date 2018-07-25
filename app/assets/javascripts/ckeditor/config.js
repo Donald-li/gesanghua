@@ -66,13 +66,15 @@ CKEDITOR.editorConfig = function( config )
   ];
 
   config.toolbar_simple = [
-      { name: 'styles', items: ['FontSize' ] },
+      { name: 'styles', items: ['FontSize', 'Format' ] },
+      { name: 'paragraph', items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
       { name: 'insert', items: [ 'Image'] },
       { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike'] }
   ]
 
     config.toolbar = [
-        { name: 'styles', items: ['FontSize' ] },
+        { name: 'styles', items: ['FontSize', 'Format' ] },
+        { name: 'paragraph', items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
         { name: 'insert', items: [ 'Image'] },
         { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike'] }
     ]
