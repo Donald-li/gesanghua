@@ -68,6 +68,7 @@ class Feedback < ApplicationRecord
 
   counter_culture :gsh_child_grant, column_name: "feedback_count"
 
+  # TODO 直接使用user的头像即可
   def avatar_url
     if self.child.try(:avatar).present?
       self.child.avatar_url(:tiny)

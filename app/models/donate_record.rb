@@ -258,17 +258,19 @@ class DonateRecord < ApplicationRecord
 
   # 只有格桑花孩子可以退款
   def can_refund?
-    (self.user_donate? || ['IncomeRecord', 'User'].include?(self.source_type)) && self.agent.present? && self.owner_type == 'GshChildGrant' && (self.owner.waiting? || self.owner.suspend?)
+     self.owner_type == 'GshChildGrant' && (self.owner.waiting? || self.owner.suspend?)
   end
 
   # 退款, 捐助记录退款状态，退回账户余额，孩子标记取消
   def do_refund!(operator)
     return false unless self.can_refund?
     self.transaction do
-      # 退余额
-      self.agent.lock!
-      AccountRecord.create!(title: self.apply_name + '退款', kind: 'refund', amount: self.amount, donate_record: self, user: self.agent, donor: self.donor, operator: operator)
-      self.agent.save!
+      unless self.source_type == 'Fund'
+        # 退余额
+        self.agent.lock!
+        AccountRecord.create!(title: self.apply_name + '退款', kind: 'refund', amount: self.amount, donate_record: self, user: self.agent, donor: self.donor, operator: operator)
+        self.agent.save!
+      end
 
       self.refund!
       self.owner.cancel!
