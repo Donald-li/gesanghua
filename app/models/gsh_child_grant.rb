@@ -126,7 +126,7 @@ class GshChildGrant < ApplicationRecord
   def can_refund?
     record = self.donate_records.last
     return false unless record.present?
-    (record.user_donate? || ['IncomeRecord', 'User'].include?(record.source_type)) && record.agent.present? && record.owner_type == 'GshChildGrant' && (record.owner.waiting? || record.owner.suspend?)
+    record.can_refund?
   end
 
   def button_color
