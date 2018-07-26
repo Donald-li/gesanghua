@@ -132,6 +132,7 @@
                       <%= f.cktext_area :information  %>
                     </div>
                   </div>
+                  <%= f.input :student_state, as: :radio_buttons, wrapper: :inline_inputs, label: '学生状态：', collection: ProjectSeasonApplyChild.options_for_enum_select(:student_states), include_blank: false %>
                   <%= f.input :remark, label: '备注：', placeholder: '备注' %>
                   </div>
                   <div class="form-actions">

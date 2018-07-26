@@ -116,6 +116,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   enum state: {show: 1, hidden: 2} # 状态：1:展示 2:隐藏
   default_value_for :state, 2
+  enum student_state: {abnormal: -1, normal: 0, finish: 1} # 状态：-1:异常 0:正常 1:结束
 
   enum approve_state: {draft: 0, submit: 1, pass: 2, reject: 3} # 状态：1:待审核 2:通过 3:不通过
   default_value_for :approve_state, 0
@@ -143,6 +144,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   default_value_for :nation, 0
 
   scope :sorted, -> {order(created_at: :desc)}
+  scope :can_batch_update, -> { pass.where(student_state: ['normal', 'finish'])}
   scope :check_list, -> {where(approve_state: [1, 2, 3])}
 
   def self.allow_apply?(school, id_card, child=nil)

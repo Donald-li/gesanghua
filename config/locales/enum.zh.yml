@@ -152,6 +152,10 @@ zh:
   project_season_apply_child_states:
     show: '显示'
     hidden: '隐藏'
+  project_season_apply_child_student_states:
+    abnormal: '异常'
+    normal: '正常'
+    finish: '已结束'
   volunteer_states:
     enable: '启用'
     disable: '禁用'

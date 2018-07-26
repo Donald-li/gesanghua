@@ -7,6 +7,16 @@ namespace :maintain do
     end
   end
 
+  task migrate_student_profile: [:environment] do
+    ProjectSeasonApplyChild.sorted.each do |child|
+      if child.semester_count == child.done_semester_count
+        child.finish!
+      else
+        child.normal!
+      end
+    end
+  end
+
   task update_donate_record_counter: [:environment] do
     Project.sorted.each do |project|
       project.update(total_amount: DonateRecord.where(project: project).sum(:amount))

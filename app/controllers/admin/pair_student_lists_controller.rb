@@ -118,7 +118,7 @@ class Admin::PairStudentListsController < Admin::BaseController
   end
 
   def grade_add_one
-    @pair_student_lists = ProjectSeasonApplyChild.pass.where('done_semester_count between 1 and semester_count - 1').where.not(grade: ['three', 'four', 'five', 'six']).sorted
+    @pair_student_lists = ProjectSeasonApplyChild.can_batch_update.where.not(grade: ['three', 'four', 'five', 'six']).sorted
     num = 0
     @total = @pair_student_lists.count
     @pair_student_lists.transaction do
@@ -157,7 +157,7 @@ class Admin::PairStudentListsController < Admin::BaseController
   end
 
   def grade_minus_one
-    @pair_student_lists = ProjectSeasonApplyChild.pass.where('done_semester_count between 1 and semester_count - 1').where.not(grade: ['one', 'four', 'five', 'six']).sorted
+    @pair_student_lists = ProjectSeasonApplyChild.can_batch_update.where.not(grade: ['one', 'four', 'five', 'six']).sorted
     num = 0
     @total = @pair_student_lists.count
     @pair_student_lists.transaction do
