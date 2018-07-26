@@ -2,7 +2,7 @@
 #
 # Table name: specials # 专题表
 #
-#  id           :integer          not null, primary key
+#  id           :bigint(8)        not null, primary key
 #  name         :string                                 # 专题名
 #  template     :integer                                # 模板
 #  describe     :text                                   # 简介

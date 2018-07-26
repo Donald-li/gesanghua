@@ -2,7 +2,7 @@
 #
 # Table name: project_season_applies # 项目执行年度申请表
 #
-#  id                   :integer          not null, primary key
+#  id                   :bigint(8)        not null, primary key
 #  project_id           :integer                                # 关联项目id
 #  project_season_id    :integer                                # 关联项目执行年度的id
 #  school_id            :integer                                # 关联学校id

@@ -2,7 +2,7 @@
 #
 # Table name: project_reports # 项目报告表
 #
-#  id           :integer          not null, primary key
+#  id           :bigint(8)        not null, primary key
 #  title        :string                                 # 标题
 #  content      :text                                   # 内容
 #  state        :integer                                # 状态：1显示 2隐藏

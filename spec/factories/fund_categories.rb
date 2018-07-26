@@ -2,7 +2,7 @@
 #
 # Table name: fund_categories
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  name       :string                                     # 分类名
 #  position   :integer                                    # 排序
 #  amount     :decimal(14, 2)   default(0.0)              # 金额

@@ -2,7 +2,7 @@
 #
 # Table name: adjust_records # 分类调整记录
 #
-#  id             :integer          not null, primary key
+#  id             :bigint(8)        not null, primary key
 #  amount         :decimal(14, 2)   default(0.0)          # 金额
 #  user_id        :integer                                # 操作人
 #  created_at     :datetime         not null

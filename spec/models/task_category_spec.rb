@@ -2,7 +2,7 @@
 #
 # Table name: task_categories # 任务分类
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  name       :string                                 # 分类名称
 #  describe   :text                                   # 分类描述
 #  created_at :datetime         not null

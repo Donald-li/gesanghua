@@ -2,7 +2,7 @@
 #
 # Table name: special_adverts
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  special_id :integer                                # 专题id
 #  advert_id  :integer                                # 广告id
 #  position   :integer                                # 排序

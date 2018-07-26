@@ -2,7 +2,7 @@
 #
 # Table name: donate_items # 可捐助项目表
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  name       :string                                 # 名称
 #  describe   :string                                 # 说明
 #  state      :integer                                # 状态： 1：显示 2：隐藏

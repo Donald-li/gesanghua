@@ -2,7 +2,7 @@
 #
 # Table name: campaign_enlists # 活动报名表
 #
-#  id               :integer          not null, primary key
+#  id               :bigint(8)        not null, primary key
 #  campaign_id      :integer                                # 活动ID
 #  user_id          :integer                                # 用户ID
 #  number           :integer                                # 报名人数

@@ -2,7 +2,7 @@
 #
 # Table name: project_season_apply_bookshelves # 项目执行年度申请书架表
 #
-#  id                      :integer          not null, primary key
+#  id                      :bigint(8)        not null, primary key
 #  project_id              :integer                                # 关联项目id
 #  project_season_id       :integer                                # 关联项目执行年度id
 #  project_season_apply_id :integer                                # 关联项目执行年度申请id

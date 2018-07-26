@@ -2,10 +2,10 @@
 #
 # Table name: donations # 捐助表
 #
-#  id                      :integer          not null, primary key
+#  id                      :bigint(8)        not null, primary key
 #  donor_id                :integer                                # 捐助人id
 #  owner_type              :string
-#  owner_id                :integer                                # 捐助所属模型
+#  owner_id                :bigint(8)                              # 捐助所属模型
 #  pay_state               :integer                                # 支付状态
 #  project_id              :integer                                # 项目id
 #  project_season_id       :integer                                # 批次/年度id

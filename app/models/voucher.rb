@@ -2,7 +2,7 @@
 #
 # Table name: vouchers # 捐助收据表
 #
-#  id            :integer          not null, primary key
+#  id            :bigint(8)        not null, primary key
 #  user_id       :integer                                # 用户ID
 #  amount        :decimal(14, 2)   default(0.0)          # 金额
 #  state         :integer                                # 状态

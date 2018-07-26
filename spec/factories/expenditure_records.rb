@@ -2,7 +2,7 @@
 #
 # Table name: expenditure_records # 支出记录表
 #
-#  id                    :integer          not null, primary key
+#  id                    :bigint(8)        not null, primary key
 #  fund_id               :integer                                # 基金ID
 #  appoint_type          :string                                 # 指定类型
 #  appoint_id            :integer                                # 指定类型id

@@ -2,7 +2,7 @@
 #
 # Table name: income_records # 入帐记录表
 #
-#  id               :integer          not null, primary key
+#  id               :bigint(8)        not null, primary key
 #  donor_id         :integer                                # 用户id
 #  fund_id          :integer                                # 基金ID
 #  income_source_id :integer                                # 来源id

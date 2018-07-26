@@ -2,7 +2,7 @@
 #
 # Table name: notifications
 #
-#  id                      :integer          not null, primary key
+#  id                      :bigint(8)        not null, primary key
 #  push_type               :integer                                # bit_enum，邮件、短信、微信
 #  kind                    :string                                 # 类型，通知类型
 #  from_user_id            :integer                                # 发起用户

@@ -2,7 +2,7 @@
 #
 # Table name: schools # 学校表
 #
-#  id                :integer          not null, primary key
+#  id                :bigint(8)        not null, primary key
 #  name              :string                                 # 学校名称
 #  address           :string                                 # 地址
 #  approve_state     :integer          default("submit")     # 审核状态：1:待审核 2:通过 3:不通过

@@ -2,7 +2,7 @@
 #
 # Table name: users # 用户
 #
-#  id                    :integer          not null, primary key
+#  id                    :bigint(8)        not null, primary key
 #  openid                :string                                       # 微信openid
 #  name                  :string                                       # 姓名
 #  login                 :string                                       # 登录账号

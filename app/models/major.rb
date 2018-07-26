@@ -2,7 +2,7 @@
 #
 # Table name: majors # 专业表
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  name       :string                                 # 专业名称
 #  created_at :datetime         not null
 #  updated_at :datetime         not null

@@ -2,7 +2,7 @@
 #
 # Table name: project_season_apply_camp_members
 #
-#  id                           :integer          not null, primary key
+#  id                           :bigint(8)        not null, primary key
 #  name                         :string                                 # 姓名
 #  id_card                      :string                                 # 身份证号
 #  nation                       :integer                                # 民族

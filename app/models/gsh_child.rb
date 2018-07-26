@@ -2,7 +2,7 @@
 #
 # Table name: gsh_children # 格桑花孩子表
 #
-#  id                  :integer          not null, primary key
+#  id                  :bigint(8)        not null, primary key
 #  name                :string                                 # 孩子姓名
 #  kind                :integer                                # 类型
 #  workstation         :string                                 # 工作地点

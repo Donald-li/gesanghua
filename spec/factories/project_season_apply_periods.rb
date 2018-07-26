@@ -2,7 +2,7 @@
 #
 # Table name: project_season_apply_periods # 项目申请时长
 #
-#  id                :integer          not null, primary key
+#  id                :bigint(8)        not null, primary key
 #  name              :string                                 # 名称
 #  kind              :integer                                # 类型
 #  state             :integer                                # 状态

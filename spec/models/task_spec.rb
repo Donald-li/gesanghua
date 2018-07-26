@@ -2,7 +2,7 @@
 #
 # Table name: tasks # 任务表
 #
-#  id               :integer          not null, primary key
+#  id               :bigint(8)        not null, primary key
 #  name             :string                                 # 任务名
 #  duration         :integer                                # 时长
 #  content          :text                                   # 内容

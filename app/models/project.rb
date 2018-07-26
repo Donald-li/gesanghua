@@ -2,7 +2,7 @@
 #
 # Table name: projects
 #
-#  id                    :integer          not null, primary key
+#  id                    :bigint(8)        not null, primary key
 #  type                  :string                                      # 单表继承字段
 #  kind                  :integer                                     # 项目类型 1:固定项目 2:物资类项目
 #  name                  :string                                      # 项目名称

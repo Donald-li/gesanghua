@@ -2,7 +2,7 @@
 #
 # Table name: assets # 资源表
 #
-#  id            :integer          not null, primary key
+#  id            :bigint(8)        not null, primary key
 #  type          :string
 #  owner_type    :string
 #  owner_id      :integer

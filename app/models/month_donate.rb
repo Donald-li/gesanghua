@@ -2,7 +2,7 @@
 #
 # Table name: month_donates # 月捐表
 #
-#  id             :integer          not null, primary key
+#  id             :bigint(8)        not null, primary key
 #  user_id        :integer                                # 用户id
 #  fund_id        :integer                                # 基金id
 #  plan_period    :integer                                # 计划期数

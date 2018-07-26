@@ -2,7 +2,7 @@
 #
 # Table name: camp_document_finances # 拓展营预决算表
 #
-#  id                      :integer          not null, primary key
+#  id                      :bigint(8)        not null, primary key
 #  user_id                 :integer                                # 用户
 #  item                    :string                                 # 项
 #  budge                   :decimal(14, 2)   default(0.0)          # 预算

@@ -2,10 +2,10 @@
 #
 # Table name: sequences
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  kind       :string
 #  prefix     :string
-#  value      :integer
+#  value      :bigint(8)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #

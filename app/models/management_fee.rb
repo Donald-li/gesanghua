@@ -2,7 +2,7 @@
 #
 # Table name: management_fees # 管理费
 #
-#  id           :integer          not null, primary key
+#  id           :bigint(8)        not null, primary key
 #  owner_type   :string                                 # 所属项目
 #  owner_id     :integer                                # 所属项目ID
 #  total_amount :decimal(14, 2)   default(0.0)          # 项目金额

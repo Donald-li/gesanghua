@@ -2,7 +2,7 @@
 #
 # Table name: support_categories # 帮助主题分类
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  name       :string                                 # 名称
 #  describe   :string                                 # 描述
 #  position   :integer                                # 排序

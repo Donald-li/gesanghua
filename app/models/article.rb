@@ -2,7 +2,7 @@
 #
 # Table name: articles # 资讯表
 #
-#  id                  :integer          not null, primary key
+#  id                  :bigint(8)        not null, primary key
 #  title               :string                                 # 标题
 #  content             :text                                   # 内容
 #  state               :integer          default("show")       # 状态, 1:展示 2:隐藏

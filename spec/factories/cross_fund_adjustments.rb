@@ -2,7 +2,7 @@
 #
 # Table name: cross_fund_adjustments
 #
-#  id           :integer          not null, primary key
+#  id           :bigint(8)        not null, primary key
 #  kind         :integer                                # 类型：1:平台 2:配捐 3:退款
 #  from_fund_id :integer                                # 被调整分类
 #  to_fund_id   :integer                                # 调整到分类

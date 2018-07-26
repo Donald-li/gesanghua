@@ -2,7 +2,7 @@
 #
 # Table name: reports # 报告表
 #
-#  id           :integer          not null, primary key
+#  id           :bigint(8)        not null, primary key
 #  title        :string                                 # 标题
 #  content      :text                                   # 内容
 #  type         :string                                 # 单表：audit_report、financial_report、project_report

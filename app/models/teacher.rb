@@ -2,7 +2,7 @@
 #
 # Table name: teachers # 老师表
 #
-#  id           :integer          not null, primary key
+#  id           :bigint(8)        not null, primary key
 #  name         :string                                 # 老师姓名
 #  nickname     :string                                 # 老师昵称
 #  user_id      :integer                                # 用户ID

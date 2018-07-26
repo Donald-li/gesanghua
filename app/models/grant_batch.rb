@@ -2,7 +2,7 @@
 #
 # Table name: grant_batches # 发放批次
 #
-#  id          :integer          not null, primary key
+#  id          :bigint(8)        not null, primary key
 #  project_id  :integer                                # 所属项目
 #  batch_no    :string                                 # 批次号
 #  name        :string                                 # 名称

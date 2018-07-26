@@ -2,7 +2,7 @@
 #
 # Table name: adverts # 广告表
 #
-#  id            :integer          not null, primary key
+#  id            :bigint(8)        not null, primary key
 #  kind          :integer                                # 分类
 #  title         :string                                 # 标题
 #  description   :string                                 # 描述

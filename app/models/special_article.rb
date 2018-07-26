@@ -2,7 +2,7 @@
 #
 # Table name: special_articles # 专题资讯表
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  special_id :integer                                # 专题id
 #  article_id :integer                                # 资讯id
 #  position   :integer                                # 排序

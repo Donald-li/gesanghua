@@ -2,7 +2,7 @@
 #
 # Table name: partners # 合作伙伴
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  name       :string                                 # 名称
 #  url        :string                                 # 链接
 #  position   :integer                                # 排序

@@ -2,7 +2,7 @@
 #
 # Table name: workplaces # 任务地点
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  title      :string                                 # 名称
 #  province   :string                                 # 省
 #  city       :string                                 # 市

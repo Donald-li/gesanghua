@@ -2,7 +2,7 @@
 #
 # Table name: camp_document_estimates # 拓展营概算表
 #
-#  id                      :integer          not null, primary key
+#  id                      :bigint(8)        not null, primary key
 #  user_id                 :integer                                # 用户
 #  item                    :string                                 # 项
 #  amount                  :decimal(14, 2)   default(0.0)          # 金额

@@ -2,7 +2,7 @@
 #
 # Table name: administrator_logs # 管理员日志
 #
-#  id               :integer          not null, primary key
+#  id               :bigint(8)        not null, primary key
 #  administrator_id :integer                                # 管理员id
 #  kind             :integer                                # 日志动作类型，1:登录 2:登出
 #  ip               :string                                 # ip地址

@@ -2,7 +2,7 @@
 #
 # Table name: camp_document_volunteers # 拓展营志愿者表
 #
-#  id                      :integer          not null, primary key
+#  id                      :bigint(8)        not null, primary key
 #  user_id                 :integer                                # 用户
 #  volunteer_id            :integer                                # 志愿者
 #  remark                  :string                                 # 营备注

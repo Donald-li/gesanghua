@@ -2,7 +2,7 @@
 #
 # Table name: family_members # 家庭成员表
 #
-#  id               :integer          not null, primary key
+#  id               :bigint(8)        not null, primary key
 #  visit_id         :integer                                # 家访表ID
 #  name             :string                                 # 成员姓名
 #  age              :integer                                # 年龄

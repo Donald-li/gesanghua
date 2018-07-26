@@ -2,7 +2,7 @@
 #
 # Table name: exception_records
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  title      :string                                 # 标题
 #  content    :string                                 # 内容
 #  schedule   :string                                 # 进度更新

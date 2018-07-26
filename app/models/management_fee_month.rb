@@ -2,7 +2,7 @@
 #
 # Table name: management_fee_months # 管理费提取
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  month      :string                                 # 月份
 #  count      :integer          default(0)            # 项目数
 #  fee        :decimal(14, 2)   default(0.0)          # 管理费

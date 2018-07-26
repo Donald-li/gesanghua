@@ -2,7 +2,7 @@
 #
 # Table name: protocols # 协议
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  kind       :integer                                # 类型
 #  title      :string                                 # 标题
 #  content    :text                                   # 内容

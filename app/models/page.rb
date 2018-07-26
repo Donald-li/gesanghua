@@ -2,7 +2,7 @@
 #
 # Table name: pages # 单页面
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  title      :string                                 # 标题
 #  alias      :string                                 # 别名
 #  content    :text                                   # 内容

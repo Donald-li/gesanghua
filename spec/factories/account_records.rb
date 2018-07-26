@@ -2,7 +2,7 @@
 #
 # Table name: account_records # 账户记录
 #
-#  id               :integer          not null, primary key
+#  id               :bigint(8)        not null, primary key
 #  user_id          :integer                                # 用户ID
 #  kind             :integer                                # 操作类型
 #  income_record_id :integer

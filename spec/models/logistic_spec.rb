@@ -2,7 +2,7 @@
 #
 # Table name: logistics # 物流表
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  name       :integer                                # 物流公司 1:顺丰
 #  number     :string                                 # 物流单号
 #  owner_type :string

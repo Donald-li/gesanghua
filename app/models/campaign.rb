@@ -2,7 +2,7 @@
 #
 # Table name: campaigns # 活动表
 #
-#  id                   :integer          not null, primary key
+#  id                   :bigint(8)        not null, primary key
 #  name                 :string                                 # 名称
 #  price                :decimal(14, 2)   default(0.0)          # 报名费
 #  content              :text                                   # 内容

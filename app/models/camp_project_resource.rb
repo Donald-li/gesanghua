@@ -2,7 +2,7 @@
 #
 # Table name: camp_project_resources # 拓展营资源表
 #
-#  id                :integer          not null, primary key
+#  id                :bigint(8)        not null, primary key
 #  user_id           :integer                                # 用户
 #  company           :string                                 # 单位名称
 #  resource          :string                                 # 资源名称

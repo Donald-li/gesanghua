@@ -2,7 +2,7 @@
 #
 # Table name: task_volunteers # 任务的志愿者表
 #
-#  id                  :integer          not null, primary key
+#  id                  :bigint(8)        not null, primary key
 #  task_id             :integer                                # 任务id
 #  volunteer_id        :integer                                # 志愿者id
 #  comment             :string                                 # 管理员评论

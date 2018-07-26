@@ -2,7 +2,7 @@
 #
 # Table name: visits # 家访记录表
 #
-#  id                      :integer          not null, primary key
+#  id                      :bigint(8)        not null, primary key
 #  owner_id                :integer
 #  owner_type              :string
 #  content                 :text                                   # 内容

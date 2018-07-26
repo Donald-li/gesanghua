@@ -2,7 +2,7 @@
 #
 # Table name: volunteers # 志愿者表
 #
-#  id                 :integer          not null, primary key
+#  id                 :bigint(8)        not null, primary key
 #  level              :integer                                # 等级
 #  duration           :integer                                # 服务时长
 #  user_id            :integer                                # 用户

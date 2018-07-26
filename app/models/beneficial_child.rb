@@ -2,7 +2,7 @@
 #
 # Table name: beneficial_children
 #
-#  id                                :integer          not null, primary key
+#  id                                :bigint(8)        not null, primary key
 #  id_no                             :string                                 # 身份证号
 #  name                              :string                                 # 姓名
 #  gender                            :integer                                # 性别

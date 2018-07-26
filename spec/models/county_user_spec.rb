@@ -2,7 +2,7 @@
 #
 # Table name: county_users
 #
-#  id            :integer          not null, primary key
+#  id            :bigint(8)        not null, primary key
 #  name          :string                                 # 姓名
 #  phone         :string                                 # 联系方式
 #  unit_name     :string                                 # 单位名称

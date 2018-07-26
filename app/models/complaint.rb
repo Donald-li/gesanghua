@@ -2,7 +2,7 @@
 #
 # Table name: complaints # 举报表
 #
-#  id            :integer          not null, primary key
+#  id            :bigint(8)        not null, primary key
 #  contact_name  :string                                 # 联系人姓名
 #  contact_phone :string                                 # 联系人手机
 #  content       :text                                   # 举报详情

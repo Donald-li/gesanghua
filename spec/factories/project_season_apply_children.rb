@@ -2,7 +2,7 @@
 #
 # Table name: project_season_apply_children # 项目执行年度申请的孩子表
 #
-#  id                      :integer          not null, primary key
+#  id                      :bigint(8)        not null, primary key
 #  project_id              :integer                                # 关联项目id
 #  project_season_id       :integer                                # 关联项目执行年度id
 #  project_season_apply_id :integer                                # 关联项目执行年度申请id
@@ -57,6 +57,7 @@
 #  classname               :string                                 # 班级名称
 #  priority_id             :integer                                # 优先捐助人id
 #  archive_data            :jsonb                                  # 归档旧数据
+#  student_state           :integer          default(0)            # 学生状态
 #
 
 FactoryBot.define do

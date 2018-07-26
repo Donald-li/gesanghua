@@ -2,7 +2,7 @@
 #
 # Table name: supports # 帮助中心主题
 #
-#  id                  :integer          not null, primary key
+#  id                  :bigint(8)        not null, primary key
 #  title               :string                                 # 标题
 #  content             :text                                   # 内容
 #  position            :integer                                # 排序

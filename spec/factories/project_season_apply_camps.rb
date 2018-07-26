@@ -2,7 +2,7 @@
 #
 # Table name: project_season_apply_camps # 探索营配额
 #
-#  id                      :integer          not null, primary key
+#  id                      :bigint(8)        not null, primary key
 #  project_season_apply_id :integer                                # 营立项id
 #  camp_id                 :integer                                # 探索营id
 #  school_id               :integer                                # 学校id
