@@ -27,7 +27,8 @@ class Api::V1::ReceiveFeedbacksController < Api::V1::BaseController
             owner: @bookshelf,
             user_id: d.donor_id,
             title: "#收货通知# 图书角补书已经收货",
-            content: "你捐助的图书角补书已经收货。"
+            content: "你捐助的图书角补书已经收货。",
+            url: "#{Settings.m_root_url}/reads/apply/#{@apply.id}"
           )
           donor_ids << d.donor_id
         end
@@ -53,7 +54,8 @@ class Api::V1::ReceiveFeedbacksController < Api::V1::BaseController
             owner: @bookshelf,
             user_id: d.donor_id,
             title: "#收货通知# 图书角已经收货",
-            content: "你捐助的 #{@bookshelf.name} 图书角已经收货。"
+            content: "你捐助的 #{@bookshelf.name} 图书角已经收货。",
+            url: "#{Settings.m_root_url}/reads/apply/#{@apply.id}"
           )
           donor_ids << d.donor_id
         end

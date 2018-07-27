@@ -8,13 +8,7 @@ namespace :maintain do
   end
 
   task migrate_student_profile: [:environment] do
-    count = 0
-    total = ProjectSeasonApplyChild.sorted
     ProjectSeasonApplyChild.sorted.each do |child|
-      count ++
-      if count % 1000 == 0
-        puts "#{count}/#{total}"
-      end
       if child.semester_count == child.done_semester_count
         child.student_state = 'finish'
         child.save(validate: false)

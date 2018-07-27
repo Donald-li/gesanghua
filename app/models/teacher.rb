@@ -178,7 +178,8 @@ class Teacher < ApplicationRecord
           owner: self,
           user_id: self.user.id,
           title: '教师角色关联通知',
-          content: "#{operator.name}将您添加为#{self.school}的老师"
+          content: "#{operator.name}将您添加为#{self.school}的老师",
+          url: "#{Settings.m_root_url}/cooperation"
       )
     end
   end

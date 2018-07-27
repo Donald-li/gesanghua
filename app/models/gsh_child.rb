@@ -60,6 +60,10 @@ class GshChild < ApplicationRecord
     end.attributes!
   end
 
+  def simple_address
+    ChinaCity.get(self.province).to_s + ChinaCity.get(self.city).to_s + ChinaCity.get(self.district).to_s # + self.address.to_s
+  end
+
   def child_info_builder
     Jbuilder.new do |json|
       json.(self, :id, :id_card, :workstation)

@@ -30,7 +30,8 @@ class Admin::PairThankNotesController < Admin::BaseController
           owner: @grant,
           user_id: @grant.user_id,
           title: "#反馈通知# 有新的孩子邮件",
-          content: "你捐助的 #{@grant.apply_child.try(:name)} 提交了新反馈，点击查看详情"
+          content: "你捐助的 #{@grant.apply_child.try(:name)} 提交了新反馈，点击查看详情",
+          url: "#{Settings.m_root_url}/account/child-mailbox?id=#{@grant.apply_child.try(:id)}"
       )
       redirect_to referer_or(admin_pair_thank_notes_path), notice: '新增成功。'
     else

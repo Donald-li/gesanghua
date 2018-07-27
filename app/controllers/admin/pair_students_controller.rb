@@ -108,7 +108,8 @@ class Admin::PairStudentsController < Admin::BaseController
             owner: @apply_child,
             user_id: @apply_child.apply.applicant_id,
             title: @apply_child.pass? ? '#审核通过# 结对助学学生审核结果' : '#审核未通过# 结对助学学生审核结果',
-            content: @apply_child.pass? ? "#{@apply_child.name}同学审核通过" : "#{@apply_child.name}同学审核未通过"
+            content: @apply_child.pass? ? "#{@apply_child.name}同学审核通过" : "#{@apply_child.name}同学审核未通过",
+            url: "#{Settings.m_root_url}/cooperation/school/main"
         )
 
         format.html {redirect_to referer_or(admin_pair_apply_pair_students_path(@project_apply)), notice: '审核成功'}

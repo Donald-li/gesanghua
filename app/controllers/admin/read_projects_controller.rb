@@ -3,7 +3,7 @@ class Admin::ReadProjectsController < Admin::BaseController
   before_action :set_project, only: [:edit, :update, :switch, :supply_edit, :finish_project]
 
   def index
-    @search = ProjectSeasonApply.where(project_id: [2, Project.book_supply_project.id]).raise_project.sorted.ransack(params[:q])
+    @search = ProjectSeasonApply.where(project_id: [2, Project.book_supply_project.id]).raise_project.order(execute_state: :asc).sorted.ransack(params[:q])
     scope = @search.result.joins(:school)
     @projects = scope.page(params[:page])
   end

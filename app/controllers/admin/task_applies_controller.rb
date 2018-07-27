@@ -31,7 +31,8 @@ class Admin::TaskAppliesController < Admin::BaseController
             owner: owner,
             user_id: owner.volunteer.user_id,
             title: title,
-            content: content
+            content: content,
+            url: "#{Settings.m_root_url}/cooperation/volunteer/my-tasks"
         )
 
         format.html { redirect_to referer_or(admin_task_task_applies_path(@task)), notice: '审核成功。' }

@@ -60,7 +60,7 @@
             <% @gsh_children.each do |gsh_child| %>
             <tr>
               <td>
-                <%= gsh_child.gsh_no %>
+                <%= link_to gsh_child.gsh_no, admin_pair_student_lists_path('q[gsh_child_gsh_no_eq]': gsh_child.gsh_no), target: '_blank' %>
               </td>
               <td>
                 <%= gsh_child.id_card %>
@@ -81,7 +81,7 @@
                 <%= gsh_child.qq %>
               </td>
               <td>
-                <%= ChinaCity.get(gsh_child.province) %><%= ChinaCity.get(gsh_child.city) %><%= ChinaCity.get(gsh_child.district) %>
+                <%= gsh_child.simple_address %>
               </td>
               <td>
                 <%= link_to admin_gsh_child_path(gsh_child), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>

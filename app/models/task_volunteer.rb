@@ -119,7 +119,8 @@ class TaskVolunteer < ApplicationRecord
           owner: user,
           user_id: user.id,
           title: "#新任务通知# 系统发布了新任务哦",
-          content: "系统为您指定了任务，快去查看执行吧~~"
+          content: "系统为您指定了任务，快去查看执行吧~~",
+          url: "#{Settings.m_root_url}/cooperation/volunteer/my-tasks"
       )
     end
   end

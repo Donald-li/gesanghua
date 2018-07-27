@@ -19,7 +19,8 @@ class Admin::ComplaintsController < Admin::BaseController
             owner: @complaint,
             user_id: @complaint.user.id,
             title: '举报已处理',
-            content: "#{current_user.name}已处理并备注：#{@complaint.remark}"
+            content: "#{current_user.name}已处理并备注：#{@complaint.remark}",
+            url: "#{Settings.m_root_url}/account"
         )
         format.html { redirect_to referer_or(admin_complaints_path), notice: '举报已处理' }
       else

@@ -57,7 +57,7 @@
 #  classname               :string                                 # 班级名称
 #  priority_id             :integer                                # 优先捐助人id
 #  archive_data            :jsonb                                  # 归档旧数据
-#  student_state           :integer          default(0)            # 学生状态
+#  student_state           :integer          default("normal")     # 学生状态
 #
 
 require 'custom_validators'
@@ -368,7 +368,8 @@ class ProjectSeasonApplyChild < ApplicationRecord
             owner: child,
             user_id: user_id,
             title: "#续捐通知# 您有一个孩子待续捐",
-            content: "您捐助过的#{child.name}新的学年助学款可以续捐了，请及时续捐"
+            content: "您捐助过的#{child.name}新的学年助学款可以续捐了，请及时续捐",
+            url: "#{Settings.m_root_url}/pair/#{child.id}"
         )
       end
     end
@@ -419,8 +420,8 @@ class ProjectSeasonApplyChild < ApplicationRecord
   def summary_builder(user=nil)
     Jbuilder.new do |json|
       json.(self, :id, :father, :father_job, :mother, :mother_job, :classname, :guardian, :guardian_relation, :guardian_phone, :income_source, :family_income, :family_condition, :address)
-      json.room_image self.room_image_url(:medium)
-      json.yard_image self.yard_image_url(:medium)
+      json.room_image self.room_image_url(:medium) if self.room_image
+      json.yard_image self.yard_image_url(:medium) if self.yard_image
       json.name donate_by_user?(user) ? self.name : self.secure_name
       json.avatar donate_by_user?(user) ? self.avatar_url(:tiny) : nil
       json.donate_by_user donate_by_user?(user)
@@ -435,6 +436,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
       json.birthday donate_by_user?(user) ? '| ' + self.child_birthday.to_s : ''
       json.tuition self.get_tuition.to_i
       json.information self.formatted_information
+      json.create_time self.created_at.strftime("%Y-%m-%d %H:%M:%S")
       json.donate_grants self.donate_record_builder
       json.grants do # 发放记录
         json.array! self.gsh_child_grants.granted.sorted do |grant|

@@ -69,7 +69,8 @@ class Admin::MovieCareAppliesController < Admin::BaseController
               owner: @project_apply,
               user_id: @project_apply.school.try(:user_id),
               title: '审核通知',
-              content: "您的护花项目申请审核未通过，原因：#{project_apply_params[:approve_remark]}"
+              content: "您的护花项目申请审核未通过，原因：#{project_apply_params[:approve_remark]}",
+              url: "#{Settings.m_root_url}/cooperation/school/main"
           )
         end
         @project_apply.audits.create(state: audit_state, user_id: current_user.id, comment: project_apply_params[:approve_remark])

@@ -57,7 +57,7 @@
 #  classname               :string                                 # 班级名称
 #  priority_id             :integer                                # 优先捐助人id
 #  archive_data            :jsonb                                  # 归档旧数据
-#  student_state           :integer          default(0)            # 学生状态
+#  student_state           :integer          default("normal")     # 学生状态
 #
 
 FactoryBot.define do

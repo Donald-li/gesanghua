@@ -43,7 +43,8 @@ class Admin::PairGrantsController < Admin::BaseController
             owner: @grant,
             user_id: @grant.user_id,
             title: "#发放通知# 你的捐款发放啦",
-            content: "你捐助的 #{@grant.apply_child.name} 助学款已经发放。发放时间: #{ @grant.granted_at.strftime('%Y-%m-%d') } 发放人: #{ grant_params[:grant_person] }"
+            content: "你捐助的 #{@grant.apply_child.name} 助学款已经发放。发放时间: #{ @grant.granted_at.strftime('%Y-%m-%d') } 发放人: #{ grant_params[:grant_person] }",
+            url: "#{Settings.m_root_url}/pair/#{@grant.apply_child.try(:id)}"
         )
         format.html {redirect_to referer_or(admin_pair_grants_path), notice: '操作成功。'}
       else

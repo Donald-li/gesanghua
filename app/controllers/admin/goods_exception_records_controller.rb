@@ -33,7 +33,8 @@ class Admin::GoodsExceptionRecordsController < Admin::BaseController
               owner: owner,
               user_id: user.id,
               title: title,
-              content: content
+              content: content,
+              url: "#{Settings.m_root_url}/county/exception"
             )
           end
         end

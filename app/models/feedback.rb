@@ -83,6 +83,10 @@ class Feedback < ApplicationRecord
     self.content.gsub(/\n/, '<br>')
   end
 
+  def user_show_name
+    self.grant.present? ? "尊敬的：#{self.grant.try(:donator).try(:name)}" : self.user.show_name
+  end
+
   def detail_builder
     Jbuilder.new do |json|
       json.(self, :id, :arise_class, :number)
@@ -90,7 +94,7 @@ class Feedback < ApplicationRecord
       json.arise_at self.arise_at.present? ? self.arise_at.strftime('%Y-%m-%d %H:%M') : ''
       json.name self.owner.name
       json.content self.formatted_content
-      json.user_name self.user.show_name
+      json.user_name self.user_show_name
       # json.avatar self.child.avatar.present? ? self.child.avatar_url(:tiny).to_s : ''
       json.avatar self.avatar_url
       json.images do

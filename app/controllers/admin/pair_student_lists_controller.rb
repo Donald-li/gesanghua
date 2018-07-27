@@ -105,7 +105,8 @@ class Admin::PairStudentListsController < Admin::BaseController
           owner: @pair_student_list,
           user_id: @pair_student_list.priority_id,
           title: "#结对通知# 系统为您结对啦",
-          content: "系统将您指定为孩子#{@pair_student_list.name}的捐助人，快去捐助吧"
+          content: "系统将您指定为孩子#{@pair_student_list.name}的捐助人，快去捐助吧",
+          url: "#{Settings.m_root_url}/pair/#{@pair_student_list.id}"
       )
       redirect_to referer_or(admin_pair_student_lists_path), notice: @pair_student_list.priority_id.present? ? '指定捐助人成功，并发送微信通知' : '未设置捐助人'
     else

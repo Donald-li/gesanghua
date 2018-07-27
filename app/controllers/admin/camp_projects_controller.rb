@@ -2,7 +2,7 @@ class Admin::CampProjectsController < Admin::BaseController
   before_action :set_project, only: [:show, :edit, :accrue, :update, :destroy, :switch, :change_state, :camp_member]
 
   def index
-    @search = ProjectSeasonApply.where(project_id: Project.camp_project.id).pass.raise_project.sorted.ransack(params[:q])
+    @search = ProjectSeasonApply.where(project_id: Project.camp_project.id).pass.raise_project.order(camp_state: :asc).sorted.ransack(params[:q])
     scope = @search.result
     @projects = scope.page(params[:page])
   end

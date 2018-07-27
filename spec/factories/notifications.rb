@@ -17,6 +17,7 @@
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  title                   :string                                 # 消息标题
+#  url                     :string
 #
 
 FactoryBot.define do

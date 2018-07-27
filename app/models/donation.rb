@@ -179,7 +179,8 @@ class Donation < ApplicationRecord
         project_season_apply_id: donation.project_season_apply_id,
         user_id: agent.id,
         title: title,
-        content: content
+        content: content,
+        url: "#{Settings.m_root_url}/account/"
       )
     end
   end
@@ -216,7 +217,8 @@ class Donation < ApplicationRecord
         owner: owner,
         user_id: agent.id,
         title: title,
-        content: content
+        content: content,
+        url: "#{Settings.m_root_url}/account/"
       )
     end
   end

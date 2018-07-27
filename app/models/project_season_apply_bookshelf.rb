@@ -123,7 +123,8 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
         owner: owner,
         user_id: owner.apply.applicant_id,
         title: title,
-        content: content
+        content: content,
+        url: "#{Settings.m_root_url}/reads/apply/#{owner.apply.id}"
       )
       # 给捐款人发通知
       donor_ids = []
@@ -137,7 +138,8 @@ class ProjectSeasonApplyBookshelf < ApplicationRecord
             owner: owner,
             user_id: d.donor_id,
             title: title,
-            content: content
+            content: content,
+            url: "#{Settings.m_root_url}/reads/apply/#{owner.apply.id}"
           )
           donor_ids << d.donor_id
         end

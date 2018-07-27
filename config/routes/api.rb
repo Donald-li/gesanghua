@@ -299,6 +299,7 @@ namespace :api do
         post :delete_donor
         post :create_donor
         post :update_donor
+        get :current_donor
       end
     end
 

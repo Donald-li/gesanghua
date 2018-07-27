@@ -41,7 +41,8 @@ class Admin::VolunteerAppliesController < Admin::BaseController
           owner: owner,
           user_id: owner.user.id,
           title: title,
-          content: content
+          content: content,
+          url: "#{Settings.m_root_url}/gesanghua+"
         )
 
         format.html { redirect_to referer_or(admin_volunteer_applies_path), notice: '操作成功' }

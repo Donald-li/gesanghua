@@ -57,7 +57,7 @@ end
           <% end %>
           <option value="<%= current_user.id %>"><%= current_user.show_name %></option>
           <% @donors.each do |d| %>
-          <option value="<%= d.id %>"><%= d.show_name %></option>
+          <option value="<%= d.id %>" <%= 'selected' if child.priority_id == d.id %>><%= d.show_name %></option>
           <% end %>
         </select>
       </div>

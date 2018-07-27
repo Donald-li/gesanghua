@@ -15,6 +15,11 @@ class Api::V1::OfflineDonorsController < Api::V1::BaseController
     api_success(data: @user.offline_donor_summary_builder)
   end
 
+  def current_donor
+    @child = ProjectSeasonApplyChild.find(params[:child_id])
+    api_success(data: @child.priority_user.try(:offline_donor_summary_builder))
+  end
+
   def delete_donor
     @user = current_user
     @offline_donor = @user.offline_users.find(params[:id])

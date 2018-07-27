@@ -55,22 +55,23 @@
           <div><%= @child.description %></div>
 
           <% if @child.donate_by_user?(current_user) %>
+              <p class="detail-l-f-s-l">家庭信息：</p>
               <p>父亲：<%= @child.father %> &nbsp;&nbsp;&nbsp;职业：<%= @child.father_job %></p>
               <p>母亲：<%= @child.mother %> &nbsp;&nbsp;&nbsp;职业：<%= @child.mother_job %></p>
               <p>监护人姓名：<%= @child.guardian %></p>
               <p>与其关系：<%= @child.guardian_relation %></p>
-              <p>联系电话：<%= @child.guardian_phone %></p>
-              <p>收入来源：<%= @child.income_source %></p>
               <p>家庭年收入：<%= @child.family_income %></p>
+              <p>收入来源：<%= @child.income_source %></p>
               <p>家庭住址：<%= @child.address %></p>
           <% end %>
-          <p class="detail-l-f-s-l">家庭情况：</p>
+          <p class="detail-l-f-s-l">详细情况：</p>
           <div><%= @child.family_condition %></div>
-          <p class="detail-l-f-s-l">家庭照：</p>
-          <%= image_tag @child.room_image_url(:medium) %>
-          <%= image_tag @child.yard_image_url(:medium) %>
+          <p class="detail-l-f-s-l">证明材料：</p>
+          <%= image_tag @child.room_image_url(:medium) if @child.room_image %>
+          <%= image_tag @child.yard_image_url(:medium) if @child.yard_image %>
         </div>
         <div class="detail-l-fon"><%= @child.formatted_information.html_safe %></div>
+        <p>建档时间：<%= l @child.created_at %></p>
       </div>
       <!--反馈-->
       <% if @grants.present? %>

@@ -27,7 +27,8 @@ class Api::V1::InstallFeedbacksController < Api::V1::BaseController
             owner: @bookshelf,
             user_id: d.donor_id,
             title: "#安装反馈# 图书角补书已经安装",
-            content: "你捐助的图书角补书已经安装。"
+            content: "你捐助的图书角补书已经安装。",
+            url: "#{Settings.m_root_url}/reads/apply/#{@apply.id}"
           )
           donor_ids << d.donor_id
         end
@@ -54,7 +55,8 @@ class Api::V1::InstallFeedbacksController < Api::V1::BaseController
             owner: @bookshelf,
             user_id: d.donor_id,
             title: "#安装反馈# 图书角已经安装",
-            content: "你捐助的 #{@bookshelf.name} 图书角已经安装。"
+            content: "你捐助的 #{@bookshelf.name} 图书角已经安装。",
+            url: "#{Settings.m_root_url}/reads/apply/#{@apply.id}"
           )
           donor_ids << d.donor_id
         end

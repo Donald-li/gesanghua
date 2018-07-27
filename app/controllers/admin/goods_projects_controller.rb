@@ -2,7 +2,7 @@ class Admin::GoodsProjectsController < Admin::GoodsBaseController
   before_action :set_project_apply, only: [:show, :edit, :accrue, :update, :destroy,:shipment, :create_shipment, :switch, :receive, :done, :cancelled, :refunded]
 
   def index
-    @search = @current_project.applies.raise_project.sorted.ransack(params[:q])
+    @search = @current_project.applies.raise_project.order(execute_state: :asc).sorted.ransack(params[:q])
     scope = @search.result.includes(:school, :season)
     @project_applies = scope.page(params[:page])
   end

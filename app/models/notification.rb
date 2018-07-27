@@ -17,6 +17,7 @@
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  title                   :string                                 # 消息标题
+#  url                     :string
 #
 
 class Notification < ApplicationRecord
@@ -64,47 +65,47 @@ class Notification < ApplicationRecord
       title = '项目反馈'
       template_id = Settings.wechat_template_project
       keyword1 = self.project.try(:name)
-      url = "#{Settings.m_root_url}/account/my-donate"
+      url = self.url || "#{Settings.m_root_url}/account/my-donate"
     when 'donate'
       title = '捐助结果'
       template_id = Settings.wechat_template_project
       keyword1 = self.project.try(:name)
-      url = "#{Settings.m_root_url}/donate-records"
+      url = self.url || "#{Settings.m_root_url}/donate-records"
     when /project_/
       title = '项目进度'
       template_id = Settings.wechat_template_project
       keyword1 = self.project.try(:name)
-      url = "#{Settings.m_root_url}/account/my-donate"
+      url = self.url || "#{Settings.m_root_url}/account/my-donate"
     when /approve_/
       title = '审核通知'
       template_id = Settings.wechat_template_approve
       keyword1 = self.project.try(:name)
-      url = "#{Settings.m_root_url}/gesanghua+"
+      url = self.url || "#{Settings.m_root_url}/gesanghua+"
     when 'exception_record'
       title = '异常提醒'
       template_id = Settings.wechat_template_notify
       keyword1 = self.content
-      url = "#{Settings.m_root_url}/cooperation"
+      url = self.url || "#{Settings.m_root_url}/cooperation"
     when 'child_granted'
       title = self.title
       template_id = Settings.wechat_template_project
       keyword1 = self.content
-      url = "#{Settings.m_root_url}/account/my-pairs"
+      url = self.url || "#{Settings.m_root_url}/account/my-pairs"
     when 'appoint_donor'
       title = self.title
       template_id = Settings.wechat_template_project
       keyword1 = self.content
-      url = "#{Settings.m_root_url}/account/my-pairs"
+      url = self.url || "#{Settings.m_root_url}/account/my-pairs"
     when 'continue_donate'
       title = self.title
       template_id = Settings.wechat_template_project
       keyword1 = self.content
-      url = "#{Settings.m_root_url}/pair/#{self.owner_id}"
+      url = self.url || "#{Settings.m_root_url}/pair/#{self.owner_id}"
     else
       title = '消息提醒'
       template_id = Settings.wechat_template_notify
       keyword1 = self.content
-      url = "#{Settings.m_root_url}/account"
+      url = self.url || "#{Settings.m_root_url}/account"
     end
 
     data = {

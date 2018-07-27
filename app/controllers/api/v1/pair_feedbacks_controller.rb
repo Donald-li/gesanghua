@@ -24,7 +24,8 @@ class Api::V1::PairFeedbacksController < Api::V1::BaseController
           owner: @grant,
           user_id: @grant.user_id,
           title: "#反馈通知# 有新的孩子邮件",
-          content: "你捐助的 #{@grant.apply_child.try(:name)} 提交了新反馈，点击查看详情"
+          content: "你捐助的 #{@grant.apply_child.try(:name)} 提交了新反馈，点击查看详情",
+          url: "#{Settings.m_root_url}/account/child-mailbox?id=#{@grant.apply_child.try(:id)}"
       )
       api_success(message: '您的反馈已提交')
     else

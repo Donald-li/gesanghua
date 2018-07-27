@@ -106,7 +106,8 @@ class Task < ApplicationRecord
           owner: user,
           user_id: id,
           title: "#新任务通知# 系统发布了新任务哦",
-          content: "系统发布了新一批任务，快去报名参与吧~~"
+          content: "系统发布了新一批任务，快去报名参与吧~~",
+          url: "#{Settings.m_root_url}/cooperation/volunteer/tasks"
       )
     end
   end
