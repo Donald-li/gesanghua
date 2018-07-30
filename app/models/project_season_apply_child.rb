@@ -620,7 +620,6 @@ class ProjectSeasonApplyChild < ApplicationRecord
     return gsh_child
   end
 
-
   def gen_grant_record
     GshChildGrant.gen_grant_record(self)
   end

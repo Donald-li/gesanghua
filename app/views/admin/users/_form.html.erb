@@ -1,111 +1,116 @@
 <%= content_for :page_level_scripts do %>
-  <%= javascript_include_tag '/assets/webuploader/webuploader.js' %>
-  <%= stylesheet_link_tag '/assets/webuploader/webuploader.css' %>
+    <%= javascript_include_tag '/assets/webuploader/webuploader.js' %>
+    <%= stylesheet_link_tag '/assets/webuploader/webuploader.css' %>
 <% end %>
 <%= simple_form_for [:admin, @user], wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'user_form', autocomplete: 'off'} do |f| %>
-  <%= f.error_notification %>
-  <div class="form-body form-horizontal">
-    <h4>用户资料</h4>
-    <div class="form-group">
-      <label class="col-md-2 control-label">用户头像：</label>
-      <div class="col-sm-9">
-        <%= webuploader_tag :avatar_id, label: '上传Logo', type: 'user_avatar', asset: @user.avatar, klass: 'single' %>
+    <%= f.error_notification %>
+    <div class="form-body form-horizontal">
+      <h4>用户资料</h4>
+      <div class="form-group">
+        <label class="col-md-2 control-label">用户头像：</label>
+        <div class="col-sm-9">
+          <%= webuploader_tag :avatar_id, label: '上传Logo', type: 'user_avatar', asset: @user.avatar, klass: 'single' %>
+        </div>
       </div>
-    </div>
-    <%= f.input :nickname, label: '昵称：', autofocus: true, placeholder: '请填写用户昵称', required: true %>
-    <%= f.input :name, label: '真实姓名：', placeholder: '请填写真实姓名', required: true %>
-    <%= f.input :salutation, as: :select, collection: ['哥哥', '姐姐', '弟弟', '妹妹', '叔叔', '阿姨', '爷爷', '奶奶'], include_blank: '请选择称呼', label: '如何称呼', input_html: {data: {}, class: 'goodinput',id:'nickname'} %>
-    <%= f.input :gender, as: :radio_buttons, wrapper: :inline_inputs, collection: User.options_for_some_select(:genders, ['male', 'female']), label: '性别：'%>
-    <h4>收货地址</h4>
-    <%= f.input :consignee, label: '收件人：', placeholder: '请填写正确的收件人' %>
-    <div style="margin-bottom: 20px;" class="form-group">
-      <label class="col-md-2 control-label select required" for="project_category_id">用户所在地：</label>
-      <div class="col-sm-6">
-        <div class="row city-group">
-          <div class="col-sm-3">
-            <%= select_tag 'user[province]', options_for_select(ChinaCity.list, @user.province.presence), prompt: '省份', class: "form-control city-select" %>
-          </div>
-          <div class="col-sm-3">
-            <%= select_tag 'user[city]', options_for_select(ChinaCity.list(@user.province.to_s), @user.city.presence), prompt: '城市', class: "form-control city-select" %>
-          </div>
-          <div class="col-sm-3">
-            <%= select_tag 'user[district]', options_for_select(ChinaCity.list(@user.city.to_s), @user.district.presence), prompt: '地区', class: "form-control city-select" %>
+      <%= f.input :nickname, label: '昵称：', autofocus: true, placeholder: '请填写用户昵称', required: true %>
+      <% if can? :manage_operation, current_user %>
+          <%= f.input :name, label: '真实姓名：', placeholder: '请填写真实姓名', required: true %>
+      <% else %>
+          <%= f.input :name, label: '真实姓名：', placeholder: '请填写真实姓名', required: true, disabled: !@user.new_record? %>
+      <% end %>
+      <%= f.input :salutation, as: :select, collection: ['哥哥', '姐姐', '弟弟', '妹妹', '叔叔', '阿姨', '爷爷', '奶奶'], include_blank: '请选择称呼', label: '如何称呼', input_html: {data: {}, class: 'goodinput', id: 'nickname'} %>
+      <%= f.input :gender, as: :radio_buttons, wrapper: :inline_inputs, collection: User.options_for_some_select(:genders, ['male', 'female']), label: '性别：' %>
+      <h4>收货地址</h4>
+      <%= f.input :consignee, label: '收件人：', placeholder: '请填写正确的收件人' %>
+      <div style="margin-bottom: 20px;" class="form-group">
+        <label class="col-md-2 control-label select required" for="project_category_id">用户所在地：</label>
+        <div class="col-sm-6">
+          <div class="row city-group">
+            <div class="col-sm-3">
+              <%= select_tag 'user[province]', options_for_select(ChinaCity.list, @user.province.presence), prompt: '省份', class: "form-control city-select" %>
+            </div>
+            <div class="col-sm-3">
+              <%= select_tag 'user[city]', options_for_select(ChinaCity.list(@user.province.to_s), @user.city.presence), prompt: '城市', class: "form-control city-select" %>
+            </div>
+            <div class="col-sm-3">
+              <%= select_tag 'user[district]', options_for_select(ChinaCity.list(@user.city.to_s), @user.district.presence), prompt: '地区', class: "form-control city-select" %>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <%= f.input :address, label: '详细地址：', placeholder: '请填写正确的收件地址' %>
-    <h4>账号信息</h4>
-    <%= f.input :password, label: '设置密码：', hint: '设置登录密码', placeholder: '如果不修改密码，请留空', input_html: {id: 'password'} %>
-    <%= f.input :phone, label: '绑定手机：', placeholder: '填写正确的手机号码' %>
-    <%= f.input :email, label: '邮箱：', placeholder: '填写正确的邮箱' %>
-    <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: User.options_for_select(:states), label: '账号状态：'%>
-    <%= f.input :remark, label: '备注：', placeholder: '' %>
-    <% if @user.archive_data.present? %>
-    <h4>历史数据</h4>
-    <%= static_form_control '昵称：', @user.archive_data["DvUserName"] if @user.archive_data["DvUserName"].present? %>
-    <%= static_form_control '姓名：', @user.archive_data["Name"] if @user.archive_data["Name"].present? %>
-    <%= static_form_control '邮编：', @user.archive_data["PostCode"] if @user.archive_data["PostCode"].present? %>
-    <%= static_form_control 'QQ：', @user.archive_data["QQ"] if @user.archive_data["QQ"].present? %>
-    <%= static_form_control 'MSN：', @user.archive_data["Msn"] if @user.archive_data["Msn"].present? %>
-    <%= static_form_control '邮箱：', @user.archive_data["Email"] if @user.archive_data["Email"].present? %>
-    <%= static_form_control '手机：', @user.archive_data["Mobile"] if @user.archive_data["Mobile"].present? %>
-    <%= static_form_control '办公电话：', @user.archive_data["OfficePhone"] if @user.archive_data["OfficePhone"].present? %>
-    <%= static_form_control '工作：', @user.archive_data["Job"] if @user.archive_data["Job"].present? %>
-    <%= static_form_control '地址：', @user.archive_data["Address"] if @user.archive_data["Address"].present? %>
-    <%= static_form_control '收件地址：', @user.archive_data["Address2"] if @user.archive_data["Address2"].present? %>
-    <%= static_form_control '用户备注：', @user.archive_data["Remarks"] if @user.archive_data["Remarks"].present? %>
-    <%= static_form_control '备注信息：', @user.archive_data["Memo"] if @user.archive_data["Memo"].present? %>
-    <% end %>
-    <!--<div class="form-group string required">-->
+      <%= f.input :address, label: '详细地址：', placeholder: '请填写正确的收件地址' %>
+      <h4>账号信息</h4>
+      <%= f.input :password, label: '设置密码：', hint: '设置登录密码', placeholder: '如果不修改密码，请留空', input_html: {id: 'password'} %>
+      <%= f.input :phone, label: '绑定手机：', placeholder: '填写正确的手机号码' %>
+      <%= f.input :email, label: '邮箱：', placeholder: '填写正确的邮箱' %>
+      <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: User.options_for_select(:states), label: '账号状态：' %>
+      <%= f.input :remark, label: '备注：', placeholder: '' %>
+      <% if @user.archive_data.present? %>
+          <h4>历史数据</h4>
+          <%= static_form_control '昵称：', @user.archive_data["DvUserName"] if @user.archive_data["DvUserName"].present? %>
+          <%= static_form_control '姓名：', @user.archive_data["Name"] if @user.archive_data["Name"].present? %>
+          <%= static_form_control '邮编：', @user.archive_data["PostCode"] if @user.archive_data["PostCode"].present? %>
+          <%= static_form_control 'QQ：', @user.archive_data["QQ"] if @user.archive_data["QQ"].present? %>
+          <%= static_form_control 'MSN：', @user.archive_data["Msn"] if @user.archive_data["Msn"].present? %>
+          <%= static_form_control '邮箱：', @user.archive_data["Email"] if @user.archive_data["Email"].present? %>
+          <%= static_form_control '手机：', @user.archive_data["Mobile"] if @user.archive_data["Mobile"].present? %>
+          <%= static_form_control '办公电话：', @user.archive_data["OfficePhone"] if @user.archive_data["OfficePhone"].present? %>
+          <%= static_form_control '工作：', @user.archive_data["Job"] if @user.archive_data["Job"].present? %>
+          <%= static_form_control '地址：', @user.archive_data["Address"] if @user.archive_data["Address"].present? %>
+          <%= static_form_control '收件地址：', @user.archive_data["Address2"] if @user.archive_data["Address2"].present? %>
+          <%= static_form_control '用户备注：', @user.archive_data["Remarks"] if @user.archive_data["Remarks"].present? %>
+          <%= static_form_control '备注信息：', @user.archive_data["Memo"] if @user.archive_data["Memo"].present? %>
+      <% end %>
+      <!--<div class="form-group string required">-->
       <!--<label class="col-md-2 control-label string required" for="user_login">-->
-        <!--<abbr title="必填项">*</abbr>用户角色-->
+      <!--<abbr title="必填项">*</abbr>用户角色-->
       <!--</label>-->
       <!--<div class="col-md-9 user-roles">-->
-          <!--<%= f.collection_check_boxes :roles, User::ROLES_HASH.slice(*User::USER_ROLES), :first, :last %>-->
+      <!--<%= f.collection_check_boxes :roles, User::ROLES_HASH.slice(*User::USER_ROLES), :first, :last %>-->
       <!--</div>-->
-    <!--</div>-->
-    <div class="form-group string required project-lists">
-      <label class="col-md-2 control-label string required" for="user_login">
-        <abbr title="必填项">*</abbr> 管理的项目：
-      </label>
-      <div class="col-md-9">
-        <%= f.collection_check_boxes :project_ids, Project.visible.map{|p| [p.id, p.name]}, :first, :last, input_html: {id: 'user-roles'} %>
+      <!--</div>-->
+      <div class="form-group string required project-lists">
+        <label class="col-md-2 control-label string required" for="user_login">
+          <abbr title="必填项">*</abbr> 管理的项目：
+        </label>
+        <div class="col-md-9">
+          <%= f.collection_check_boxes :project_ids, Project.visible.map {|p| [p.id, p.name]}, :first, :last, input_html: {id: 'user-roles'} %>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="form-actions">
-    <div class="row">
-      <div class="col-md-offset-2 col-md-9">
-        <%= f.button :submit, '提交', class: 'btn blue' %>
-        <%= link_to '取消', admin_users_path, class: 'btn' %>
+    <div class="form-actions">
+      <div class="row">
+        <div class="col-md-offset-2 col-md-9">
+          <%= f.button :submit, '提交', class: 'btn blue' %>
+          <%= link_to '取消', admin_users_path, class: 'btn' %>
+        </div>
       </div>
     </div>
-  </div>
 <% end %>
 
 <script>
-  function toggleProjects(){
-    var checks = $('.user-roles .checked input[type="checkbox"]')
-    var checked = checks.filter(function(i, el){
-      return $(el).val().startsWith('project_')
-    })
-    if(checked.length > 0){
-      $('.project-lists').show()
-    } else {
-      $('.project-lists').hide()
+    function toggleProjects() {
+        var checks = $('.user-roles .checked input[type="checkbox"]')
+        var checked = checks.filter(function (i, el) {
+            return $(el).val().startsWith('project_')
+        })
+        if (checked.length > 0) {
+            $('.project-lists').show()
+        } else {
+            $('.project-lists').hide()
+        }
     }
-  }
-  $(function(){
-    initImageWebuploader($('#webuploader'));
-    $('.user-roles input[type="checkbox"]').on('change', function(el){
-      toggleProjects()
+
+    $(function () {
+        initImageWebuploader($('#webuploader'));
+        $('.user-roles input[type="checkbox"]').on('change', function (el) {
+            toggleProjects()
+        })
+        setTimeout(
+            toggleProjects, 500
+        )
     })
-    setTimeout(
-      toggleProjects, 500
-    )
-  })
-  $(function () {
-      toggleProjects();
-  })
+    $(function () {
+        toggleProjects();
+    })
 </script>
