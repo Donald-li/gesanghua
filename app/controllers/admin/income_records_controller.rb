@@ -3,7 +3,7 @@ class Admin::IncomeRecordsController < Admin::BaseController
   before_action :set_income_record, only: [:show, :edit, :update, :destroy, :return_back]
 
   def index
-    set_search_end_of_day(:created_at_lteq)
+    set_search_end_of_day(:income_time_lteq)
     @search = IncomeRecord.sorted.ransack(params[:q])
     scope = @search.result
     respond_to do |format|

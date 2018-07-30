@@ -6,6 +6,7 @@
       <th>学校</th>
       <th>捐助学年</th>
       <th>发放状态</th>
+      <th>捐助人留言</th>
       <th>操作</th>
     </tr>
   </thead>
@@ -17,6 +18,7 @@
         <td><%= grant.school.try(:name) %></td>
         <td><%= grant.title %></td>
         <td><%= grant.enum_name(:state) %></td>
+        <td><%= grant.message %></td>
         <td id="item-td-<%=grant.id%>">
           <%= link_to '移出批次',
             admin_pair_grant_batch_item_path(grant.grant_batch_id, grant.id),

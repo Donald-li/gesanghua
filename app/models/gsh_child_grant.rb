@@ -30,6 +30,7 @@
 #  management_fee_state          :integer                                # 计提管理费状态
 #  grade_name                    :string                                 # 年级名称
 #  feedback_count                :integer
+#  message                       :text                                   # 留言
 #
 
 # 一对一孩子发放表
@@ -112,6 +113,7 @@ class GshChildGrant < ApplicationRecord
     self.apply.present_amount += amount
     self.donate_state = 'succeed'
     self.user_id = donate_record.donor_id
+    self.message = donate_record.message
     self.save!
     self.apply_child.update_state(self.user_id)
   end

@@ -30,6 +30,7 @@
 #  management_fee_state          :integer                                # 计提管理费状态
 #  grade_name                    :string                                 # 年级名称
 #  feedback_count                :integer
+#  message                       :text                                   # 留言
 #
 
 require 'rails_helper'

@@ -27,6 +27,7 @@
 #  state                         :integer                                # 状态
 #  school_id                     :integer                                # 学校id
 #  archive_data                  :jsonb                                  # 归档旧数据
+#  message                       :text                                   # 留言
 #
 
 # 捐助记录
@@ -177,14 +178,14 @@ class DonateRecord < ApplicationRecord
 
       # 如果捐到申请子项 （书架，孩子，指定）和具体的捐助项
       if owner.class.name.in?(['DonateItem', 'CampaignEnlist', 'GshChildGrant', 'ProjectSeasonApplyBookshelf'])
-        donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, income_record_id: income_record_id, donation_id: donation_id, agent: params[:agent], donor: params[:donor], team_id: params[:team_id], promoter_id: params[:promoter_id], school: school)
+        donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, income_record_id: income_record_id, donation_id: donation_id, agent: params[:agent], donor: params[:donor], team_id: params[:team_id], promoter_id: params[:promoter_id], school: school, message: params[:message])
         owner.accept_donate(donate_records)
 
         # 如果是捐到申请（物资类项目，子项）
       elsif owner.class.name.in?(['ProjectSeasonApply', 'ProjectSeasonApplyChild'])
         # 物资或拓展营
         if owner.project.goods? || owner.project == Project.camp_project
-          donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, income_record_id: income_record_id, donation_id: donation_id, agent: params[:agent], donor: params[:donor], team_id: params[:team_id], promoter_id: params[:promoter_id], school: school)
+          donate_records << self.create!(source: source, kind: kind, owner: owner, amount: amount, income_record_id: income_record_id, donation_id: donation_id, agent: params[:agent], donor: params[:donor], team_id: params[:team_id], promoter_id: params[:promoter_id], school: school, message: params[:message])
           owner.accept_donate(donate_records)
         else
           # 如果是捐到申请（书架孩子，没选择子项）
@@ -194,7 +195,7 @@ class DonateRecord < ApplicationRecord
             owner.get_donate_items.each do |item|
               remain_amount = amount - donate_records.sum {|r| r.amount}
               if remain_amount >= item.surplus_money
-                donate_records << self.create!(source: source, kind: kind, owner: item, amount: item.surplus_money, income_record_id: income_record_id, donation_id: donation_id, agent: params[:agent], donor: params[:donor], team_id: params[:team_id], promoter_id: params[:promoter_id], school: school)
+                donate_records << self.create!(source: source, kind: kind, owner: item, amount: item.surplus_money, income_record_id: income_record_id, donation_id: donation_id, agent: params[:agent], donor: params[:donor], team_id: params[:team_id], promoter_id: params[:promoter_id], school: school, message: params[:message])
                 item.accept_donate(donate_records)
               end
             end
@@ -203,7 +204,7 @@ class DonateRecord < ApplicationRecord
               remain_amount = amount - donate_records.sum {|r| r.amount}
               if remain_amount > 0
                 donate_amount = [item.surplus_money, remain_amount].min
-                donate_records << self.create!(source: source, kind: kind, owner: item, amount: donate_amount, income_record_id: income_record_id, donation_id: donation_id, agent: params[:agent], donor: params[:donor], team_id: params[:team_id], promoter_id: params[:promoter_id], school: school)
+                donate_records << self.create!(source: source, kind: kind, owner: item, amount: donate_amount, income_record_id: income_record_id, donation_id: donation_id, agent: params[:agent], donor: params[:donor], team_id: params[:team_id], promoter_id: params[:promoter_id], school: school, message: params[:message])
                 item.accept_donate(donate_records)
               end
             end

@@ -51,17 +51,17 @@ class Site::DonatesController < Site::BaseController
     owner = CampaignEnlist.find(params[:campaign_enlist]) if params[:campaign_enlist].present? # 活动报名
 
     if params[:donate_way] == 'wechat'
-      donation = Donation.new(pay_way: :wechat, amount: amount, owner: owner, donor_id: donor_id, agent_id: agent.id, team_id: team_id, promoter_id: promoter_id)
+      donation = Donation.new(pay_way: :wechat, amount: amount, owner: owner, donor_id: donor_id, agent_id: agent.id, team_id: team_id, promoter_id: promoter_id, message: params[:message])
       if donation.save
         redirect_to new_pay_path(order_no: donation.order_no)
       end
     elsif params[:donate_way] == 'alipay'
-      donation = Donation.new(pay_way: :alipay, amount: amount, owner: owner, donor_id: donor_id, agent_id: agent.id, team_id: team_id, promoter_id: promoter_id)
+      donation = Donation.new(pay_way: :alipay, amount: amount, owner: owner, donor_id: donor_id, agent_id: agent.id, team_id: team_id, promoter_id: promoter_id, message: params[:message])
       if donation.save
         redirect_to donation.alipay_prepay_page
       end
     elsif params[:donate_way] == 'balance'
-      result, message = DonateRecord.do_donate('user_donate', agent, owner, amount, {agent: agent, donor: donor})
+      result, message = DonateRecord.do_donate('user_donate', agent, owner, amount, {agent: agent, donor: donor, message: params[:message]})
       if result
         redirect_to account_orders_path
       end

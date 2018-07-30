@@ -27,6 +27,7 @@
 #  state                         :integer                                # 状态
 #  school_id                     :integer                                # 学校id
 #  archive_data                  :jsonb                                  # 归档旧数据
+#  message                       :text                                   # 留言
 #
 
 FactoryBot.define do

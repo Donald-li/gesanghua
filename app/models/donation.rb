@@ -21,6 +21,7 @@
 #  amount                  :decimal(14, 2)   default(0.0)          # 捐助金额
 #  agent_id                :integer                                # 代理人id
 #  pay_way                 :integer                                # 支付方式
+#  message                 :text                                   # 留言
 #
 
 # 捐助
@@ -166,7 +167,7 @@ class Donation < ApplicationRecord
 
       # 执行捐助
       income_record = donation.income_record
-      DonateRecord.do_donate('user_donate', income_record, donation.owner, amount, {agent: agent, donor: donor, promoter_id: donation.promoter_id, team_id: donation.team_id})
+      DonateRecord.do_donate('user_donate', income_record, donation.owner, amount, {agent: agent, donor: donor, promoter_id: donation.promoter_id, team_id: donation.team_id, message: donation.message})
 
       owner = income_record
       title = '#支付成功# 感谢您的支持'
@@ -204,7 +205,7 @@ class Donation < ApplicationRecord
 
       # 执行捐助
       income_record = donation.income_record
-      DonateRecord.do_donate('user_donate', income_record, donation.owner, amount, {agent: agent, donor: donor, promoter_id: donation.promoter_id, team_id: donation.team_id})
+      DonateRecord.do_donate('user_donate', income_record, donation.owner, amount, {agent: agent, donor: donor, promoter_id: donation.promoter_id, team_id: donation.team_id, message: donation.message})
 
       owner = income_record
       title = '#支付成功# 感谢您的支持'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180727091029) do
+ActiveRecord::Schema.define(version: 20180730023944) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -386,6 +386,7 @@ ActiveRecord::Schema.define(version: 20180727091029) do
     t.integer "state", comment: "状态"
     t.integer "school_id", comment: "学校id"
     t.jsonb "archive_data", comment: "归档旧数据"
+    t.text "message", comment: "留言"
     t.index ["donation_id"], name: "index_donate_records_on_donation_id"
     t.index ["donor_id"], name: "index_donate_records_on_donor_id"
     t.index ["gsh_child_id"], name: "index_donate_records_on_gsh_child_id"
@@ -415,6 +416,7 @@ ActiveRecord::Schema.define(version: 20180727091029) do
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "捐助金额"
     t.integer "agent_id", comment: "代理人id"
     t.integer "pay_way", comment: "支付方式"
+    t.text "message", comment: "留言"
     t.index ["donor_id"], name: "index_donations_on_donor_id"
     t.index ["owner_type", "owner_id"], name: "index_donations_on_owner_type_and_owner_id"
     t.index ["pay_state"], name: "index_donations_on_pay_state"
@@ -577,6 +579,7 @@ ActiveRecord::Schema.define(version: 20180727091029) do
     t.integer "management_fee_state", comment: "计提管理费状态"
     t.string "grade_name", comment: "年级名称"
     t.integer "feedback_count"
+    t.text "message", comment: "留言"
     t.index ["donate_state"], name: "index_gsh_child_grants_on_donate_state"
     t.index ["grant_batch_id"], name: "index_gsh_child_grants_on_grant_batch_id"
     t.index ["gsh_child_id"], name: "index_gsh_child_grants_on_gsh_child_id"

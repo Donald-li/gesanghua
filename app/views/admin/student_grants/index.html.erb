@@ -41,6 +41,9 @@
               捐助人
             </th>
             <th>
+              捐助人留言
+            </th>
+            <th>
               筹款状态
             </th>
             <th>
@@ -75,6 +78,9 @@
               <td>
                 <% @user = grant.pending? ? grant.apply_child.try(:priority_user) : grant.user %>
                 <%= link_to grant.pending? ? '优先捐助人：' + @user.name : @user.name , admin_users_path(user_id: @user.id) if @user %>
+              </td>
+              <td>
+                <%= grant.message %>
               </td>
               <td>
                 <%= grant.enum_name(:donate_state) %>
