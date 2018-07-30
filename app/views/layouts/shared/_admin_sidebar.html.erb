@@ -605,6 +605,28 @@
       </li>
       <% end %>
       <% end %>
+
+    <li class="heading">
+      <h3 class="uppercase">捐助类项目</h3>
+    </li>
+    <% Project.donate.each do |p| %>
+        <% if can? :operate_project, current_user, p %>
+            <li class="nav-item <%= current_nav_class(:admin_project_donates, if: ->{session[:goods_project_id].to_s == p.id.to_s}) %>">
+              <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="fa fa-cube"></i>
+                <span class="title"><%= p.name %></span>
+                <span class="arrow <%= current_nav_class(:admin_project_donates, if: ->{session[:goods_project_id].to_s == p.id.to_s}, current: :open) %>"></span>
+              </a>
+              <ul class="sub-menu">
+                <li class="nav-item <%= current_nav_class(:admin_project_donate_reports, if: ->{session[:goods_project_id].to_s == p.id.to_s}) %> ">
+                  <%= link_to admin_donate_project_reports_path(pid: p.id), class: 'nav-link' do %>
+                      <span class="title">报告管理</span>
+                  <% end %>
+                </li>
+              </ul>
+            </li>
+        <% end %>
+    <% end %>
     </ul>
     <% end %>
 

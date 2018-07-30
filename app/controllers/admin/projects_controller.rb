@@ -12,7 +12,10 @@ class Admin::ProjectsController < Admin::BaseController
   end
 
   def new
-    @project = Project.new(kind: :goods)
+    apply_kind = params[:type] == 'good' ? 'user_apply' : 'direct_donate'
+    kind = params[:type] == 'good' ? 'goods' : 'donate'
+    alias_type = params[:type] == 'good' ? 'goods' : 'donate'
+    @project = Project.new(kind: kind, apply_kind: apply_kind, alias: alias_type)
   end
 
   def edit
@@ -20,8 +23,6 @@ class Admin::ProjectsController < Admin::BaseController
 
   def create
     @project = Project.new(project_params)
-    @project.kind = :goods #只能增加物资类项目
-    @project.apply_kind = :user_apply #用户申请
 
     respond_to do |format|
       if @project.save

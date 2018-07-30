@@ -83,7 +83,7 @@ class GshChildGrant < ApplicationRecord
   counter_culture :apply_child, column_name: proc {|model| model.succeed? ? 'done_semester_count' : nil }
 
   before_create :set_assoc_attrs
-  after_save :gen_grant_no
+  after_save :gen_grant_no, :check_student_state
 
   # TODO: 现在没有project_id, 以后可以增加这个字段
   def project
@@ -198,6 +198,16 @@ class GshChildGrant < ApplicationRecord
     if self.state == 'granted'
       # 不需要发放编号了
       # self.grant_no ||= Sequence.get_seq(kind: :grant_no, prefix: self.gsh_child.try(:gsh_no) + Time.now.strftime('%y%m%d'), length: 3)
+    end
+  end
+
+  def check_student_state
+    if self.state == 'granted'
+      child = self.apply_child
+      if child.semester_count == child.done_semester_count
+        child.student_state = 'finish'
+        child.save(validate: false)
+      end
     end
   end
 

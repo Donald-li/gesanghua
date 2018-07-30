@@ -370,6 +370,11 @@ admin:
             admin_project_goods_feedbacks:
               actions:
                 'admin/goods_continual_feedbacks': all
+        admin_project_donates:
+          menus:
+            admin_project_donate_reports:
+              actions:
+                admin/donate_project_reports: all
 # 探索营后台
 camp:
   menus:

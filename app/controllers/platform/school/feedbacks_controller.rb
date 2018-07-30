@@ -3,7 +3,7 @@ class Platform::School::FeedbacksController < Platform::School::BaseController
   before_action :set_school
 
   def index
-    scope = Project.open_feedback.sorted
+    scope = Project.visible.open_feedback.sorted
     @projects = scope.page(params[:page]).per(8)
     respond_to do |format|
       format.html

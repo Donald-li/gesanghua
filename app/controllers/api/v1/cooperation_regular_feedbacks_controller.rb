@@ -2,7 +2,7 @@ class Api::V1::CooperationRegularFeedbacksController < Api::V1::BaseController
   before_action :set_project, only: [:create, :feedback_list, :qrcode, :get_info]
 
   def index
-    projects = Project.open_feedback.sorted
+    projects = Project.visible.open_feedback.sorted
     api_success(data: {projects: projects.map{|p| p.summary_builder}})
   end
 

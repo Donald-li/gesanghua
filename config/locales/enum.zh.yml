@@ -108,6 +108,7 @@ zh:
     fixed: '固定类'
     apply: '申请类'
     goods: '物资类'
+    donate: '捐助类'
   project_season_states:
     enable: '开放申请'
     disable: '关闭申请'
@@ -117,6 +118,7 @@ zh:
   project_apply_kinds:
     platform_assign: '平台分配'
     user_apply: '用户申请'
+    direct_donate: '直接捐助'
   project_accept_feedback_states:
     close_feedback: '关闭'
     open_feedback: '开启'

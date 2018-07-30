@@ -1,6 +1,9 @@
 <%= simple_form_for [:admin, @project], wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'form-horizontal project_form'} do |f| %>
 <%= f.error_notification %>
 <div class="form-body">
+  <%= f.hidden_field :kind, value: @project.kind %>
+  <%= f.hidden_field :apply_kind, value: @project.apply_kind %>
+  <%= f.hidden_field :alias, value: @project.alias %>
   <%= f.input :name, label: '项目名称：', autofocus: true, placeholder: '', required: true %>
   <div class="form-group">
     <label class="col-md-2 control-label">项目图标：</label>
@@ -58,7 +61,7 @@
     <!--</div>-->
   <!--</div>-->
   <%= f.input :donate_item_id, collection: DonateItem.show.sorted, label: '捐助项：', prompt: "请选择捐助项", hint: '可关联捐助项', input_html: {} %>
-  <% if @project.goods? %>
+  <% if @project.goods? && @project.user_apply? %>
   <div class="form-group">
     <label class="col-md-2 control-label"> 自定义表单：</label>
     <div class="col-sm-9">

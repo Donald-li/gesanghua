@@ -12,6 +12,8 @@ class Site::DonatesController < Site::BaseController
       @project = Project.read_project
       @apply = ProjectSeasonApplyBookshelf.find(params[:bookshelf]).apply
       @surplus_money = @apply.surplus_money
+    elsif params[:project].present?
+
     end
 
     if @project
@@ -61,7 +63,7 @@ class Site::DonatesController < Site::BaseController
         redirect_to donation.alipay_prepay_page
       end
     elsif params[:donate_way] == 'balance'
-      result, message = DonateRecord.do_donate('user_donate', agent, owner, amount, {agent: agent, donor: donor, message: params[:message]})
+      result, message = DonateRecord.do_donate('user_donate', agent, owner, amount, {agent: agent, donor: donor, promoter_id: promoter_id, message: params[:message]})
       if result
         redirect_to account_orders_path
       end

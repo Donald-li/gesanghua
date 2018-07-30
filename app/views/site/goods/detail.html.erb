@@ -57,7 +57,7 @@
       <%#= image_tag 'detail-reduce.png' %>
     </div>
     <!--物品-->
-    <% if @apply.present? %>
+    <% if @apply.use_inventory? %>
       <div class="pull-left detail-table-left contentab">
         <table class="table table-bordered">
           <thead>

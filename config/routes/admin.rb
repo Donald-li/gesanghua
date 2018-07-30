@@ -331,6 +331,9 @@ namespace :admin do
   resources :goods_reports ,concerns: [:switch]
   resources :goods_continual_feedbacks ,concerns: [:recommend]
 
+  resources :donate_project_reports ,concerns: [:switch]
+  resources :donate_project_continual_feedbacks ,concerns: [:recommend]
+
   resources :project_radio_seasons, concerns: [:switch]
   resources :radio_applies, concerns: :check
   resources :radio_projects, concerns: :switch do

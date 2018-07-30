@@ -1,72 +1,84 @@
 <% @donate_records.each do |record| %>
-  <div class="donation-cont border-b">
-    <div class="clearfix">
-      <div class="donation-cont-img pull-left">
-        <%= image_tag record.apply_image.to_s %>
-      </div>
-      <div class="pull-left donation-cont-cco">
-        <div class="donation-cont-c-tit clearfix">
-          <p class="pull-left"><%= record.apply_name %>
-            <span class="order-tag"><%= record.project.try(:name) %></span>
-          </p>
+    <div class="donation-cont border-b">
+      <div class="clearfix">
+        <div class="donation-cont-img pull-left">
+          <%= image_tag record.apply_image.to_s %>
         </div>
-        <div class="clearfix donation-cont-c-con">
-          <% if record.apply_surplus_money %>
-            <div class="pull-left">
-              <p><span>￥<%= number_to_currency(record.apply_surplus_money) %></span></p>
-              <p>还差</p>
-            </div>
-          <% end %>
-          <!--只有悦读才有进度-->
-          <% if record.project_id == Project.read_project.id && record.owner_type == 'ProjectSeasonApply' || record.owner_type == 'ProjectSeasonApplyBookshelf' || record.owner_type == 'BookshelfSupplement' %>
-            <div class="pull-left">
-              <% if record.owner_type == 'ProjectSeasonApply' %>
-                <% if record.whole? %>
-                  <p><span><%= record.owner.bookshelves_raise_complete_count %></span>/<%= record.bookshelves_count %></p>
+        <div class="pull-left donation-cont-cco">
+          <div class="donation-cont-c-tit clearfix">
+            <p class="pull-left"><%= record.apply_name %>
+              <span class="order-tag"><%= record.project.try(:name) %></span>
+            </p>
+          </div>
+          <div class="clearfix donation-cont-c-con">
+            <% if record.apply_surplus_money %>
+                <div class="pull-left">
+                  <p><span>￥<%= number_to_currency(record.apply_surplus_money) %></span></p>
+                  <p>还差</p>
+                </div>
+            <% end %>
+            <!--只有悦读才有进度-->
+            <% if record.project_id == Project.read_project.id && record.owner_type == 'ProjectSeasonApply' || record.owner_type == 'ProjectSeasonApplyBookshelf' || record.owner_type == 'BookshelfSupplement' %>
+                <div class="pull-left">
+                  <% if record.owner_type == 'ProjectSeasonApply' %>
+                      <% if record.whole? %>
+                          <p>
+                            <span><%= record.owner.bookshelves_raise_complete_count %></span>/<%= record.bookshelves_count %>
+                          </p>
+                      <% else %>
+                          <p>
+                            <span><%= record.owner.supplements_raise_complete_count %></span>/<%= record.supplements_count %>
+                          </p>
+                      <% end %>
+                  <% elsif record.owner_type == 'ProjectSeasonApplyBookshelf' %>
+                      <p>
+                        <span><%= record.owner.apply.bookshelves_raise_complete_count %></span>/<%= record.owner.apply.bookshelves_count %>
+                      </p>
+                  <% elsif record.owner_type == 'BookshelfSupplement' %>
+                      <p>
+                        <span><%= record.owner.apply.supplements_raise_complete_count %></span>/<%= record.owner.apply.supplements_count %>
+                      </p>
+                  <% end %>
+                  <p>进度</p>
+                </div>
+            <% end %>
+          </div>
+        </div>
+        <% case record.project_id %>
+        <% when Project.pair_project.id %>
+            <% if record.owner_type == 'GshChildGrant' %>
+                <% url = detail_pair_path(record.owner.apply_child) %>
+            <% elsif record.owner_type == 'ProjectSeasonApplyChild' %>
+                <% url = detail_pair_path(record.owner) %>
+            <% elsif record.owner_type == 'DonateItem' %>
+                <% url = pair_path(Project.pair_project) %>
+            <% end %>
+        <% when Project.read_project.id %>
+            <% if record.owner_type == 'ProjectSeasonApply' %>
+                <% url = detail_read_path(record.owner) %>
+            <% elsif record.owner_type == 'ProjectSeasonApplyBookshelf' || record.owner_type == 'BookshelfSupplement' %>
+                <% url = detail_read_path(record.owner.apply) %>
+            <% elsif record.owner_type == 'DonateItem' %>
+                <% url = read_path(record.project_id) %>
+            <% end %>
+        <% when Project.camp_project.id %>
+            <% if record.apply %>
+                <% url = detail_camp_path(record.apply) %>
+            <% else %>
+                <% url = camp_path(record.project_id) %>
+            <% end %>
+        <% else %>
+            <% if Project.goods.pluck(:id).include?(record.project_id) %>
+                <% if record.owner_type == 'DonateItem' %>
+                    <% url = good_path(id: record.project_id) %>
                 <% else %>
-                  <p><span><%= record.owner.supplements_raise_complete_count %></span>/<%= record.supplements_count %></p>
+                    <% url = detail_good_path(record.apply) %>
                 <% end %>
-              <% elsif record.owner_type == 'ProjectSeasonApplyBookshelf' %>
-                <p><span><%= record.owner.apply.bookshelves_raise_complete_count %></span>/<%= record.owner.apply.bookshelves_count %></p>
-              <% elsif record.owner_type == 'BookshelfSupplement' %>
-                <p><span><%= record.owner.apply.supplements_raise_complete_count %></span>/<%= record.owner.apply.supplements_count %></p>
-              <% end %>
-              <p>进度</p>
-            </div>
-          <% end %>
-        </div>
+            <% else %>
+                <% url = donate_project_path(record.project_id) %>
+            <% end %>
+        <% end %>
+        <%= link_to "查看项目详情", url, class: "donation-cont-but pull-right cur" %>
       </div>
-      <% case record.project_id %>
-      <% when Project.pair_project.id %>
-        <% if record.owner_type == 'GshChildGrant' %>
-          <% url = detail_pair_path(record.owner.apply_child) %>
-        <% elsif record.owner_type == 'ProjectSeasonApplyChild'%>
-          <% url = detail_pair_path(record.owner) %>
-        <% elsif record.owner_type == 'DonateItem'%>
-          <% url = pair_path(Project.pair_project) %>
-        <% end %>
-      <% when Project.read_project.id %>
-        <% if record.owner_type == 'ProjectSeasonApply'%>
-          <% url = detail_read_path(record.owner) %>
-        <% elsif record.owner_type == 'ProjectSeasonApplyBookshelf' || record.owner_type == 'BookshelfSupplement' %>
-          <% url = detail_read_path(record.owner.apply) %>
-        <% elsif record.owner_type == 'DonateItem'%>
-          <% url = read_path(record.project_id) %>
-        <% end %>
-      <% when Project.camp_project.id %>
-        <% if record.apply %>
-          <% url = detail_camp_path(record.apply) %>
-        <% else %>
-          <% url = camp_path(record.project_id) %>
-        <% end %>
-      <% else %>
-        <% if record.owner_type == 'DonateItem' %>
-          <% url = good_path(id: record.project_id) %>
-        <% else %>
-          <% url = detail_good_path(record.apply) %>
-        <% end %>
-      <% end %>
-      <%= link_to "查看项目详情", url, class: "donation-cont-but pull-right cur" %>
     </div>
-  </div>
 <% end %>

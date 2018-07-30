@@ -30,8 +30,11 @@
             <li onclick="javascript:document.getElementById(<%= Project.pair_project.id %>).click();"><%= link_to '结对助学', pairs_path, id: Project.pair_project.id %></li>
             <li onclick="javascript:document.getElementById(<%= Project.camp_project.id %>).click();"><%= link_to '探索营', camps_path, id: Project.camp_project.id %></li>
             <li onclick="javascript:document.getElementById(<%= Project.read_project.id %>).click();"><%= link_to '悦读项目', reads_path, id: Project.read_project.id %></li>
-            <% Project.goods.visible.sorted.all.each do |project| %>
+            <% Project.goods.visible.sorted.each do |project| %>
               <li onclick="javascript:document.getElementById(<%= project.id %>).click();"><%= link_to project.name, goods_path(id: project.id), id: project.id %></li>
+            <% end %>
+            <% Project.donate.sorted.each do |project| %>
+                <li onclick="javascript:document.getElementById(<%= project.id %>).click();"><%= link_to project.name, donate_project_path(id: project.id), id: project.id %></li>
             <% end %>
           </ul>
         </li>

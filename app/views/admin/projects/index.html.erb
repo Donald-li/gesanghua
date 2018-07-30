@@ -4,9 +4,13 @@
       <i class="icon-list"></i>项目管理
     </div>
     <div class="actions">
-      <%= link_to new_admin_project_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
-      <i class="icon-plus"></i>
-      <span>新增物资类项目</span>
+      <%= link_to new_admin_project_path(type: 'donate'), class: 'btn btn-xs yellow', 'data-no-turbolink' => true do %>
+          <i class="icon-plus"></i>
+          <span>新增捐助类项目</span>
+      <% end %>
+      <%= link_to new_admin_project_path(type: 'good'), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+          <i class="icon-plus"></i>
+          <span>新增物资类项目</span>
       <% end %>
     </div>
   </div>
@@ -67,10 +71,10 @@
                   <%= project.enum_name(:kind) %>
                 </td>
                 <td>
-                  <%= image_tag project.icon_url(nil), width:30, height:30 %>
+                  <%= image_tag project.icon_url(nil), width: 30, height: 30 %>
                 </td>
                 <td>
-                  <%= image_tag project.image_url(:tiny), width:100, height:53 %>
+                  <%= image_tag project.image_url(:tiny), width: 100, height: 53 %>
                 </td>
                 <td>
                   <%= "#{project.fund.try(:fund_category).try(:name)} - #{project.fund.try(:name)}" %>
@@ -79,14 +83,14 @@
                   <%= project.management_rate %>%
                 </td>
                 <td>
-                  <%=  project.enum_name(:apply_kind) %>
+                  <%= project.enum_name(:apply_kind) %>
                 </td>
                 <td>
                   <%= link_to edit_admin_project_path(project), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                    <i class="fa fa-edit"></i> 修改
+                      <i class="fa fa-edit"></i> 修改
                   <% end %>
                   <%= link_to admin_project_path(project), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
-                    <i class="fa fa-file"></i> 查看
+                      <i class="fa fa-file"></i> 查看
                   <% end %>
 
                 </td>

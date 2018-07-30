@@ -56,26 +56,26 @@ class Project < ApplicationRecord
   belongs_to :fund, optional: true # 定项非指定
   # belongs_to :appoint_fund, class_name: 'Fund', optional: true # 定项指定
 
-  validates :name, :protocol, presence: true
+  validates :name, presence: true
 
   default_value_for :form, []
   default_value_for :management_rate, 0
   before_save :set_form_from_attributes
 
-  enum kind: { fixed: 1, apply: 2, goods: 3 } # 项目类型 1:固定类 2:申请类 2:物资类
+  enum kind: { fixed: 1, apply: 2, goods: 3, donate: 4} # 项目类型 1:固定类 2:申请类 2:物资类
   default_value_for :kind, 2
 
   enum accept_feedback_state: {close_feedback: 1, open_feedback: 2} # 是否开启定期反馈 1:关闭 2:开启
   default_value_for :accept_feedback_state, 1
 
-  enum apply_kind: { platform_assign: 1, user_apply: 2}
+  enum apply_kind: { platform_assign: 1, user_apply: 2, direct_donate: 3}
   default_value_for :apply_kind, 2
 
   enum feedback_format: {simple: 1, complex: 2}
   default_value_for :feedback_format, 1
 
   scope :sorted, ->{ order(id: :asc) }
-  scope :visible, ->{}
+  scope :visible, ->{ where(apply_kind: ['platform_assign', 'user_apply']) }
   scope :donate_project, -> {where("fund_id is not NULL or fund_id != 0")}
 
   def self.pair_project

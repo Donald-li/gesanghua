@@ -203,6 +203,9 @@ namespace :api do
       collection do
         get 'description/:name', to: 'projects#description', as: 'description'
       end
+      member do
+        get :donate_project
+      end
     end
 
     resources :applies, only: [:index, :show] do
