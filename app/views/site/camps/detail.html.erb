@@ -73,7 +73,7 @@
                     <th><%= invent.name %></th>
                     <td><%= invent.unit %></td>
                     <td><%= invent.number %></td>
-                    <td><%= invent.number * invent.unit %></td>
+                    <td><%= invent.number.to_f * invent.unit.to_i %></td>
                   </tr>
               <% end %>
               </tbody>
