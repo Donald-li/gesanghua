@@ -179,8 +179,11 @@ class User < ApplicationRecord
 
   # 生成捐赠证书的名称
   def card_name
-    return self.nickname.presence || self.name if self.anonymous?
-    return self.name.presence || self.nickname if self.autonym?
+    if self.anonymous?
+      return self.nickname.presence || self.name
+    else
+      return self.name.presence || self.nickname
+    end
   end
 
   # 显示名称，有昵称显示昵称，没有显示真实姓名
