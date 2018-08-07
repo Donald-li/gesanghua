@@ -5,7 +5,7 @@ class Api::V1::DonationsController < Api::V1::BaseController
     donor_id = params[:donor]
     agent = current_user
     team_id = current_user.team_id
-    amount = params[:amount]
+    amount = params[:amount].to_s.gsub(',', '') # 有的有格式
     promoter_id = params[:promoter]
     promoter_id = nil if promoter_id.to_i == agent.id
 
