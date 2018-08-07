@@ -26,11 +26,12 @@ class GshChild < ApplicationRecord
 
   belongs_to :user, optional: true
 
-  has_many :project_season_apply_children, dependent: :destroy
-  has_many :continual_feedbacks, as: :owner, dependent: :destroy
+  has_many :project_season_apply_children, dependent: :nullify
+  has_many :project_season_apply_camp_members, dependent: :nullify
+  has_many :continual_feedbacks, as: :owner, dependent: :nullify
 
   validates :name, presence: true
-  validates :province, :city, :district, presence: true
+  # validates :province, :city, :district, presence: true
   validates :phone, mobile: true
   validates :qq, qq: true
   validates :id_card, shenfenzheng_no: true
@@ -72,7 +73,7 @@ class GshChild < ApplicationRecord
       json.kind_name self.enum_name(:kind)
       json.gsh_no self.gsh_no
       json.location [self.province, self.city, self.district]
-      json.avatar self.project_season_apply_children.last.avatar_url(:tiny).to_s
+      json.avatar self.try(:avatar_url, :tiny).to_s
     end.attributes!
   end
 

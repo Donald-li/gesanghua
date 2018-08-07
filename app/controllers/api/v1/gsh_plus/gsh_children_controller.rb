@@ -16,8 +16,8 @@ class Api::V1::GshPlus::GshChildrenController < Api::V1::BaseController
 
   def confirm_identity
     gsh_child = GshChild.find_by(id: params[:child_id])
-    pair_records = gsh_child.project_season_apply_children.where(id_card: gsh_child.id_card, project: Project.pair_project)
-    camp_records = ProjectSeasonApplyCampMember.pass.where(id_card: gsh_child.id_card)
+    pair_records = gsh_child.project_season_apply_children.where(project: Project.pair_project).reverse_sorted
+    camp_records = gsh_child.project_season_apply_camp_members.reverse_sorted
     api_success(data: {pair_records: pair_records.map{|record| record.pair_record_builder}, camp_records: camp_records.map{|record| record.apply.try(:name)}, child_info: gsh_child.child_info_builder})
   end
 

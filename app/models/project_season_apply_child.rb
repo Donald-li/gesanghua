@@ -70,8 +70,9 @@ class ProjectSeasonApplyChild < ApplicationRecord
                          :approve_state, :age, :level, :grade, :gender, :school_id, :semester, :kind, :reson, :gsh_no, :teacher_name, :teacher_phone, :father, :father_job, :mother, :mother_job, :guardian, :guardian_relation, :guardian_phone, :address,
                          :family_income, :family_expenditure, :income_source, :family_condition, :brothers, :remark]
 
-  after_save :distinguish_gender, :count_age
+  after_save :distinguish_gender, :count_age, :update_gsh_child
   before_update :update_pair_state, if: :can_update_pair_state?
+  before_save :save_change_to_gsh_child
 
   attr_accessor :avatar_id
   include HasAsset
@@ -144,6 +145,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   default_value_for :nation, 0
 
   scope :sorted, -> {order(created_at: :desc)}
+  scope :reverse_sorted, -> {order(created_at: :asc)}
   scope :can_batch_update, -> { pass.where(student_state: ['normal', 'finish'])}
   scope :check_list, -> {where(approve_state: [1, 2, 3])}
 
@@ -299,10 +301,6 @@ class ProjectSeasonApplyChild < ApplicationRecord
   # 通过审核
   def approve_pass
     self.approve_state = 'pass'
-    if self.gsh_child_id.nil?
-      self.gsh_child = GshChild.find_by(id_card: self.id_card) || self.create_gsh_child
-      # self.apply.gsh_child = self.gsh_child
-    end
     self.save
     self.gen_grant_record
   end
@@ -607,6 +605,15 @@ class ProjectSeasonApplyChild < ApplicationRecord
   end
 
   protected
+  def save_change_to_gsh_child
+    return unless self.pass?
+    if self.gsh_child.present?
+      update_gsh_child
+    else
+      self.gsh_child = GshChild.find_by(id_card: self.id_card) || create_gsh_child
+    end
+  end
+
   def create_gsh_child
     gsh_child = GshChild.new
     gsh_child.province = self.province
@@ -618,6 +625,22 @@ class ProjectSeasonApplyChild < ApplicationRecord
     gsh_child.id_card = self.id_card
     gsh_child.save(validate: false)
     return gsh_child
+  end
+
+  def update_gsh_child
+    if self.pass?
+      return unless self.gsh_child.present?
+      gsh_child = self.gsh_child
+      gsh_child.province = self.province
+      gsh_child.city = self.city
+      gsh_child.district = self.district
+      gsh_child.name = self.name
+      gsh_child.phone = self.phone
+      gsh_child.qq = self.qq
+      gsh_child.id_card = self.id_card
+      gsh_child.save(validate: false)
+
+    end
   end
 
   def gen_grant_record

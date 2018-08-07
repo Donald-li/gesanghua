@@ -38,16 +38,19 @@
 #  train_experience             :text                                   # 训练经历
 #  project_experience           :text                                   # 格桑花项目经验
 #  honor_experience             :text                                   # 荣誉
+#  gsh_child_id                 :integer
 #
 
 class ProjectSeasonApplyCampMember < ApplicationRecord
 
+  before_save :save_change_to_gsh_child
   after_save :distinguish_gender, :count_age, :update_apply_state
 
   belongs_to :apply_camp, class_name: 'ProjectSeasonApplyCamp', foreign_key: :project_season_apply_camp_id
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: :project_season_apply_id
   belongs_to :school
   belongs_to :camp
+  belongs_to :gsh_child, optional: true
 
   has_many :audits, as: :owner, dependent: :destroy
 
@@ -79,6 +82,7 @@ class ProjectSeasonApplyCampMember < ApplicationRecord
   validates :id_card, :guardian_id_card, shenfenzheng_no: {allow_blank: true}
 
   scope :sorted, -> {order(created_at: :desc)}
+  scope :reverse_sorted, -> {order(created_at: :asc)}
 
   def self.allow_apply?(apply_camp, id_card, member=nil)
     if member.nil?
@@ -129,7 +133,7 @@ class ProjectSeasonApplyCampMember < ApplicationRecord
   def detail_builder
     Jbuilder.new do |json|
       json.(self, :id, :name, :age, :level, :grade, :nation, :gender, :reason, :id_card, :guardian_name, :guardian_phone, :phone, :classname, :height, :weight, :guardian_id_card, :guardian_relation, :cloth_size, :course_type, :course_grade, :period, :position, :train_experience, :project_experience, :honor_experience)
-      json.image  do
+      json.image do
         json.id self.try(:image).try(:id)
         json.url self.try(:image).try(:file).try(:url)
         json.protect_token ''
@@ -144,6 +148,32 @@ class ProjectSeasonApplyCampMember < ApplicationRecord
 
   def update_apply_state
     self.apply_camp.approved! if self.apply_camp.camp_members.submit.count == 0
+  end
+
+  private
+  def save_change_to_gsh_child
+    return unless self.student?
+    return unless self.pass?
+    if self.gsh_child.present?
+      update_gsh_child
+    else
+      self.gsh_child = GshChild.find_by(id_card: self.id_card) || create_gsh_child
+    end
+  end
+
+  def create_gsh_child
+    gsh_child = GshChild.new
+    gsh_child.name = self.name
+    gsh_child.id_card = self.id_card
+    gsh_child.save(validate: false)
+    return gsh_child
+  end
+
+  def update_gsh_child
+    gsh_child = self.gsh_child
+    gsh_child.name = self.name
+    gsh_child.id_card = self.id_card
+    gsh_child.save(validate: false)
   end
 
 end

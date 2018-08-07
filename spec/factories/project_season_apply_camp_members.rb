@@ -38,6 +38,7 @@
 #  train_experience             :text                                   # 训练经历
 #  project_experience           :text                                   # 格桑花项目经验
 #  honor_experience             :text                                   # 荣誉
+#  gsh_child_id                 :integer
 #
 
 FactoryBot.define do
