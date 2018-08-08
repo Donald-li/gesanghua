@@ -17,11 +17,16 @@ class Api::V1::OfflineDonorsController < Api::V1::BaseController
 
   def current_donor
     @child = ProjectSeasonApplyChild.find(params[:child_id])
-    api_success(data: @child.priority_user.try(:offline_donor_summary_builder))
+    donor = @child.priority_user
+    if donor.present? && current_user.offline_users.unactived.include?(donor)
+      api_success(data: donor.try(:offline_donor_summary_builder))
+    else
+      api_success(data: nil)
+    end
   end
 
   def delete_donor
-    @user = current_user
+    @user = current_user.offline_users
     @offline_donor = @user.offline_users.find(params[:id])
     if @offline_donor.present?
       if @offline_donor.update(manager_id: nil)

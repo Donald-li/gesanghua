@@ -146,7 +146,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   scope :sorted, -> {order(created_at: :desc)}
   scope :reverse_sorted, -> {order(created_at: :asc)}
-  scope :can_batch_update, -> { pass.where(student_state: ['normal', 'finish'])}
+  scope :can_batch_update, -> { pass.where(student_state: ['normal'])}
   scope :check_list, -> {where(approve_state: [1, 2, 3])}
 
   def self.allow_apply?(school, id_card, child=nil)
