@@ -21,15 +21,15 @@
       <div class="row">
         <div class="col-md-12 col-sm-12">
           <%= search_form_for @search, url: admin_pair_student_lists_path, class: 'form-inline' do |f| %>
-              <div class="form-group">
+              <div class="form-group" style="margin-bottom: 10px;">
                 <%= f.label :name_or_gsh_child_gsh_no_cont, '姓名或编号' %>
-                <%= f.text_field :name_or_gsh_child_gsh_no_cont, class: 'form-control gsh-input-share', placeholder: '姓名或格桑花编号' %>
+                <%= f.text_field :name_or_gsh_child_gsh_no_cont, class: 'form-control gsh-input-share', placeholder: '姓名或格桑花编号',style:'width:132px;' %>
               </div>
-              <div class="form-group">
+              <div class="form-group" style="margin-bottom: 10px;">
                 <%= f.label :gsh_child_grants_title_cont, '申请学年' %>
-                <%= f.text_field :gsh_child_grants_title_cont, class: 'form-control gsh-input-share', placeholder: '搜索' %>
+                <%= f.text_field :gsh_child_grants_title_cont, class: 'form-control gsh-input-share', placeholder: '搜索',style:'width:124px;' %>
               </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-bottom: 10px;">
               <%= f.label '地区' %>
               <div class="form-group">
                 <div class="city-group">
@@ -39,27 +39,28 @@
                 </div>
               </div>
             </div>
-              <div class="form-group " style="margin: 0 10px">
+              <div class="form-group " style="margin: 0  10px 10px ">
                 <%= f.label :school_id_eq, '学校',class:'gsh-input-share-r' %>
                 <%= f.select :school_id_eq, [], {include_blank: '全部'}, class: 'form-control schools-ajax', style: 'width:200px;' %>
               </div>
-              <div class="form-group">
+              <div class="form-group" style="margin-bottom: 10px;">
                 <%= f.label :project_season_id_eq, '批次' %>
                 <%= f.select :project_season_id_eq, ProjectSeason.where(project_id: Project.pair_project.id).all_to_hash, {include_blank: '全部'}, class: 'form-control gsh-input-share' %>
               </div>
-              <div class="form-group">
+              <div class="form-group" style="margin-bottom: 10px;">
                 <%= f.label :student_state_eq, '学生状态' %>
                 <%= f.select :student_state_eq, ProjectSeasonApplyChild.options_for_enum_select(:student_states, raw: true), {include_blank: '全部'}, class: 'form-control gsh-input-share' %>
               </div>
-              <div class="form-group">
+              <br>
+              <div class="form-group"  >
                 <%= label_tag :donor_state_eq, '学生捐助状态' %>
                 <%= select_tag :donor_state_eq, options_for_select([['筹款中', 'raising'], ['可续捐', 'part_done'], ['筹款完成', 'done']], params[:donor_state_eq]), include_blank: '全部', class: 'form-control gsh-input-share' %>
               </div>
-              <div class="form-group">
+              <div class="form-group" >
                 <%= f.label :gsh_child_grants_donate_state_eq, '学年捐助状态' %>
                 <%= f.select :gsh_child_grants_donate_state_eq, GshChildGrant.options_for_enum_select(:donate_states, raw: true), {include_blank: '全部'}, class: 'form-control gsh-input-share' %>
               </div>
-              <button type="submit" class="btn btn-default grey">搜索</button>
+              <button type="submit" class="btn btn-default grey" >搜索</button>
           <% end %>
         </div>
         <div class="col-md-6 col-sm-12">
