@@ -4,7 +4,7 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
     @user = current_user
     @school = current_user.teacher.try(:school)
     if @school.present?
-        api_success(data: {is_school_user: true, seach_result: @user.school_user_summary_builder})
+        api_success(data: {is_school_user: true, seach_result: @user.teacher.school_user_summary_builder})
     else
       api_success(data: {is_school_user: false}, message: '您不是学校用户')
     end
@@ -121,18 +121,19 @@ class Api::V1::SchoolUsersController < Api::V1::BaseController
     @user = current_user
     @school = current_user.teacher.try(:school)
     if @school.present?
-      api_success(data: {is_school_user: true, seach_result: @user.school_user_summary_builder})
+      api_success(data: {is_school_user: true, seach_result: @user.teacher.summary_builder})
     else
       api_success(data: {is_school_user: false}, message: '您不是学校用户')
     end
   end
 
   def update_school_user
+    @teacher = current_user.teacher
     @school = current_user.teacher.try(:school)
     if @school.present?
-      if current_user.update(name: params[:user_name], nickname: params[:user_nickname])
+      if @teacher.update(name: params[:name], phone: params[:phone])
         current_user.attach_avatar(params[:avatar][:id]) if params[:avatar].present?
-        @school.update(contact_telephone: params[:contact_telephone]) if params[:contact_telephone].present?
+        @school.update(contact_telephone: params[:phone]) if params[:phone].present?
         api_success(data: {is_school_user: true, result: true}, message: '用户信息修改成功')
       else
         api_success(data: {is_school_user: true, result: false}, message: @school.errors.full_messages.first)

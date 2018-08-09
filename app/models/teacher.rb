@@ -58,8 +58,29 @@ class Teacher < ApplicationRecord
   end
 
   def summary_builder
+    user = self.user
     Jbuilder.new do |json|
       json.(self, :id, :name, :phone)
+      json.user_avatar do
+        json.id user.try(:avatar).try(:id)
+        json.url user.try(:user_avatar)
+        json.protect_token ''
+      end
+    end.attributes!
+  end
+
+  def school_user_summary_builder
+    user = self.user
+    Jbuilder.new do |json|
+      json.(self, :id, :phone, :name)
+      json.school_name self.try(:school).try(:name)
+      json.kind self.kind == 'headmaster' ? '学校负责人' : '教师'
+      json.user_avatar do
+        json.id user.try(:avatar).try(:id)
+        json.url user.try(:user_avatar)
+        json.protect_token ''
+      end
+      json.avatar_src user.user_avatar
     end.attributes!
   end
 

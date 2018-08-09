@@ -180,6 +180,8 @@ class School < ApplicationRecord
       ProjectSeasonApply.where(school: self, project: project, execute_state: ['raising', 'to_delivery', 'to_receive', 'to_feedback', 'feedbacked'])
     elsif project == Project.camp_project
       ProjectSeasonApplyCamp.where(school: self, execute_state: ['to_submit', 'to_approve'])
+    else
+      []
     end
   end
 
@@ -194,6 +196,8 @@ class School < ApplicationRecord
       ProjectSeasonApply.where(school: self, project: project, execute_state: 'done')
     elsif project == Project.camp_project
       ProjectSeasonApplyCamp.where(school: self, execute_state: 'approved')
+    else
+      []
     end
   end
 

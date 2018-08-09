@@ -402,21 +402,6 @@ class User < ApplicationRecord
     end.attributes!
   end
 
-  def school_user_summary_builder
-    Jbuilder.new do |json|
-      json.(self, :id, :phone, :name, :nickname)
-      json.school_name self.try(:teacher).try(:school).try(:name)
-      json.kind self.try(:teacher).kind == 'headmaster' ? '学校负责人' : '教师'
-      json.show_name self.show_name
-      json.user_avatar do
-        json.id self.try(:avatar).try(:id)
-        json.url self.try(:user_avatar)
-        json.protect_token ''
-      end
-      json.avatar_src self.user_avatar
-    end.attributes!
-  end
-
   def remove_teacher_role(operator)
     self.remove_role(:teacher) if self.has_role?(:teacher)
     self.remove_role(:headmaster) if self.has_role?(:headmaster)
