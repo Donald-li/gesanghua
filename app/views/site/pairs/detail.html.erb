@@ -15,8 +15,8 @@
         </div>
         <div class="detail-cont-foot border-t ">
           <p>助学金额<span>￥<%= @child.get_tuition %>/年</span></p>
-          <div class="child-checked">
-            <span>资助学年</span>
+          <div class="child-checked clearfix">
+            <span style="float: left;width: 56px;line-height: 41px;">资助学年</span>
             <ul class="ui-choose  choose-type-right" multiple="multiple" id="uc_03">
               <% @gsh_child_grants.each do |grant| %>
                   <li class="semester"><%= grant.title %></li>
