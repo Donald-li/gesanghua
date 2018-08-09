@@ -111,7 +111,7 @@ class School < ApplicationRecord
     # 将新用户设置为校长
     if user.present?
       if user.teacher.present?
-        user.teacher.update(kind: 'headmaster', school_id: self.id)
+        user.teacher.update(kind: 'headmaster', school_id: self.id, name: user.teacher.name || user.name, phone: user.teacher.phone || user.phone)
       else
         Teacher.create(name: self.contact_name, phone: self.contact_phone, id_card: self.contact_id_card, school: self, user: user, kind: 'headmaster')
       end
