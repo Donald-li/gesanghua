@@ -4242,10 +4242,13 @@ color: #8d8d8d;
       }
     }
   }
-
+  ul.ui-choose{
+    width: 670px;
+    float: left;
+  }
   ul.ui-choose > li.selected {
     background: url(image-path("ico-right-mark.png"))no-repeat right bottom;
-    background-size: 17%;
+    background-size: 12%;
     border: 1px solid $color-info;
   }
 
@@ -4253,7 +4256,7 @@ color: #8d8d8d;
     box-sizing: border-box;
     border: 1px solid $border;
     float: left;
-    width: 190px;
+    width: 210px;
     height: 40px;
     line-height: 38px;
     cursor: pointer;
@@ -4262,6 +4265,16 @@ color: #8d8d8d;
     text-align: center;
     border-radius: 4px;
     margin-left: 10px;
+    margin-top: 10px;
+  }
+  ul.ui-choose > li:nth-child(1){
+    margin-top: 0;
+  }
+  ul.ui-choose > li:nth-child(2){
+    margin-top: 0;
+  }
+  ul.ui-choose > li:nth-child(3){
+    margin-top: 0;
   }
 }
 //资讯详情页
