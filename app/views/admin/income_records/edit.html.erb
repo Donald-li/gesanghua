@@ -8,7 +8,7 @@
       <div class="portlet-input input-inline">
         <div class="input-icon right">
           <% if @income_record.balance > 0 %>
-          <%= link_to return_back_admin_income_record_path(@income_record), class: 'btn red', 'data-no-turbolink' => true, data: {confirm: '确认退还到用户余额？'} do %>
+          <%= link_to return_back_admin_income_record_path(@income_record), class: 'btn red', 'data-no-turbolink' => true, data: {confirm: '确认退还到用户余额，请仔细查看记录备注内容，确认能否操作？'} do %>
               <i class="fa fa-cogs"></i>
               <span>记录余额退还到用户余额</span>
           <% end %>
