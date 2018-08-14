@@ -23,13 +23,20 @@
         </div>
         <button type="submit" class="school-apply-share-share pull-left">搜索</button>
         <% end %>
-        <%= link_to new_platform_school_apply_pair_child_path(@apply) do %>
-        <button class="pull-right school-apply-share-sub">
-          <span class="iconfont icon-ico-add1"></span>
-          <span>新增学生</span>
-        </button>
-        <% end %>
-
+        <div class="add-reads" style="padding-right: 34px;">
+          <a onclick="exportExcel()">
+            <button class="school-teach-sub cur">
+              <span class="fa fa-download"></span>
+              <span>导出选中</span>
+            </button>
+          </a>
+          <%= link_to new_platform_school_apply_pair_child_path(@apply) do %>
+              <button class="pull-right school-apply-share-sub">
+                <span class="iconfont icon-ico-add1"></span>
+                <span>新增学生</span>
+              </button>
+          <% end %>
+        </div>
       </div>
       <div class="paddchild">
         <div class="school-apply-pair-table clearfix">
@@ -117,7 +124,34 @@
     </div>
   </div>
 </div>
+<style scope>
+  .school-teach-sub {
+    background-color: #fff;
+    border: 1px solid #8b54e3;
+    color: #8b54e3;
+    line-height: 31px;
+    outline: none !important;
+    width: 100px;
+    height: 34px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: none;
+    border-radius: 3px;
+  }
+  .school-teach-sub span {
+    font-size: 13px;
+    margin-top: 1px;
+    margin-right: 6px;
+  }
+  .add-reads > a:nth-child(1) button:hover {
+    background-color: #9750f5;
+    color: #fff;
+    border: none;
+  }
 
+
+</style>
 <script type="text/javascript">
 //    $('.overspread-4').overs(".recommend-but");
     $(function () {
@@ -209,6 +243,22 @@
     function setChildReason(id, reason) {
         $('#child-id').val(id)
         $('#reason').val(reason)
+    }
+
+    function exportExcel() {
+        var child_ids = []
+        $("#checked input:checked").each(function(){
+            child_ids.push($(this).val());
+        });
+        if (child_ids.length > 0) {
+//            $.get("<%= excel_output_platform_school_apply_pair_children_path(@apply) %>", {child_ids: child_ids})
+            window.location.href = '/platform/school/apply/pairs/1/children/excel_output?child_ids=' + child_ids
+        } else {
+            layer.msg('请勾选您要导出的学生', {
+                icon: 2,
+                offset: 't c'
+            });
+        }
     }
 
 </script>

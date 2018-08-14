@@ -27,6 +27,9 @@ namespace :admin do
       member do
         post :refund # 退款
       end
+      collection do
+        get :student_list
+      end
     end
     resources :account_records
   end
@@ -125,6 +128,9 @@ namespace :admin do
   resources :pair_seasons, concerns: [:switch]
   resources :pair_donate_records, only: [:index, :show]
   resources :pair_applies do
+    member do
+      put :change_state
+    end
     resources :pair_students, concerns: [:check, :excel_upload, :excel_import] do
       member do
         patch :update_audit

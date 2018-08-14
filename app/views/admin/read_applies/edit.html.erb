@@ -228,7 +228,7 @@
                                 }
                             }),
                             pagination: {
-                                more: (params.page * 30) < data.total_count
+                                more: params.page < data.pagination.total_pages
                             }
                         };
                     },
@@ -261,7 +261,7 @@
                                 }
                             }),
                             pagination: {
-                                more: (params.page * 30) < data.total_count
+                                more: params.page < data.pagination.total_pages
                             }
                         };
                     },

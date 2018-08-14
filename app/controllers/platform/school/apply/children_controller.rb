@@ -44,6 +44,14 @@ class Platform::School::Apply::ChildrenController < Platform::School::BaseContro
   def edit
   end
 
+  def excel_output
+    send_data(ExcelOutput.export_pair_students(params[:child_ids].split(','), @apply.school),
+              filename: "#{@apply.school.try(:name)}结对学生名单#{Date.today.to_s}.xlsx".encode('GBK'),
+              type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+              disposition: 'attachment'
+    )
+  end
+
   def update
     respond_to do |format|
       if ProjectSeasonApplyChild.allow_apply?(@apply.school, child_params[:id_card], @child)

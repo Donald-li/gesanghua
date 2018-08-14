@@ -185,4 +185,51 @@ class ExcelOutput
   #   return path
   # end
 
+  def self.export_pair_students(child_ids, school)
+    @children = ProjectSeasonApplyChild.where(id: child_ids).sorted
+    p = Axlsx::Package.new
+    wb = p.workbook
+    wb.add_worksheet(name: "#{school.try(:name)}结对学生") do |sheet|
+      sheet.add_row ["序号", "姓名", "年龄", "性别", "身份证号", "民族", "教育阶段", "年级", "学期", "班级", "申请学年", "班主任", "联系方式", "自我介绍", "父亲", "父亲职业", "母亲", "母亲职业", "父母情况", "监护人", "与其关系", "联系方式", "家庭住址", "家庭年收入", "收入来源", "家庭年支出", "支出情况", "负债情况", "家庭", "推荐理由", "备注"]
+      @children.each_with_index do |child, index|
+        sheet.add_row [
+                          index + 1,
+                          child.name,
+                          child.age,
+                          child.enum_name(:gender),
+                          child.id_card + ' ',
+                          child.enum_name(:nation),
+                          child.enum_name(:level),
+                          child.enum_name(:grade),
+                          child.enum_name(:semester),
+                          child.classname,
+                          child.semesters.pluck(:title).join(','),
+                          child.teacher_name,
+                          child.teacher_phone,
+                          child.description,
+                          child.father,
+                          child.father_job,
+                          child.mother,
+                          child.mother_job,
+                          child.parent_information,
+                          child.guardian,
+                          child.guardian_relation,
+                          child.guardian_phone,
+                          child.address,
+                          child.family_income,
+                          child.income_source,
+                          child.family_expenditure,
+                          child.expenditure_information,
+                          child.debt_information,
+                          child.family_condition,
+                          child.reason,
+                          child.remark]
+      end
+
+      sheet.column_widths 10, 20, 10, 10, 40, 10, 10, 10, 10, 60, 20, 20, 30, 20, 10, 20, 10, 20, 20, 10, 20, 20, 10, 20, 10, 20, 20, 20, 20, 20
+
+    end
+    p.to_stream.read
+  end
+
 end

@@ -11,8 +11,8 @@ class Admin::PairStudentsController < Admin::BaseController
       format.html { @children = scope.page(params[:page]) }
       format.xlsx {
         @children = scope.all
-        OperateLog.create_export_excel(current_user,  @project_apply.school.try(:name) + '孩子名单')
-        response.headers['Content-Disposition'] = 'attachment; filename=' + @project_apply.school.try(:name) + '孩子名单' + Date.today.to_s + '.xlsx'
+        OperateLog.create_export_excel(current_user,  @project_apply.school.try(:name) + '结对学生名单')
+        response.headers['Content-Disposition'] = 'attachment; filename=' + @project_apply.school.try(:name) + '结对学生名单' + Date.today.to_s + '.xlsx'
       }
     end
   end

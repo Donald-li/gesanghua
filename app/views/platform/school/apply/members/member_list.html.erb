@@ -25,20 +25,20 @@
         <button type="submit" class="school-apply-share-share pull-left">搜索</button>
         <% end %>
 
-            <div class="add-reads">
-              <%= link_to new_platform_school_apply_camp_member_path(@apply_camp, kind: 'teacher') do %>
-              <button class=" school-teach-sub cur">
-                <span class="iconfont icon-ico-add1"></span>
-                <span>新增老师</span>
-              </button>
-              <% end %>
-              <%= link_to new_platform_school_apply_camp_member_path(@apply_camp, kind: 'student') do %>
-              <button class=" school-apply-share-sub cur">
-                <span class="iconfont icon-ico-add1"></span>
-                <span>新增学生</span>
-              </button>
-              <% end %>
-            </div>
+        <div class="add-reads">
+          <%= link_to new_platform_school_apply_camp_member_path(@apply_camp, kind: 'teacher') do %>
+          <button class=" school-teach-sub cur">
+            <span class="iconfont icon-ico-add1"></span>
+            <span>新增老师</span>
+          </button>
+          <% end %>
+          <%= link_to new_platform_school_apply_camp_member_path(@apply_camp, kind: 'student') do %>
+          <button class=" school-apply-share-sub cur">
+            <span class="iconfont icon-ico-add1"></span>
+            <span>新增学生</span>
+          </button>
+          <% end %>
+        </div>
       </div>
       <div class="paddchild">
         <div class="school-apply-pair-table clearfix">

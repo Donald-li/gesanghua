@@ -187,7 +187,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   end
 
   def self.excel_template
-    '/excel/templates/孩子名单导入模板.xlsx'
+    '/excel/templates/结对学生导入模板.xlsx'
   end
 
   # 得到可捐助子项
@@ -226,7 +226,6 @@ class ProjectSeasonApplyChild < ApplicationRecord
   end
 
   def distinguish_gender
-    return if self.gender.present?
     pid_gender = ChinesePid.new("#{self.id_card}").gender
     gender = :male if pid_gender == 1
     gender = :female if pid_gender == 0
@@ -513,6 +512,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   def secure_id_card
     card = self.id_card
+    return unless card.present?
     return card[0] + '*' * (card.length - 2) + card[-1]
   end
 
@@ -635,8 +635,8 @@ class ProjectSeasonApplyChild < ApplicationRecord
       gsh_child.city = self.city
       gsh_child.district = self.district
       gsh_child.name = self.name
-      gsh_child.phone = self.phone
-      gsh_child.qq = self.qq
+      # gsh_child.phone = self.phone
+      # gsh_child.qq = self.qq
       gsh_child.id_card = self.id_card
       gsh_child.save(validate: false)
 

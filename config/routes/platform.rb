@@ -6,7 +6,7 @@ namespace :platform do
     resource :teacher_profile, only: [:edit, :update]
     namespace :apply do
       resources :pairs do
-        resources :children do
+        resources :children, concerns: :excel_output do
           collection do
             get :child_list
           end

@@ -1,7 +1,7 @@
 <div class="portlet light">
   <div class="portlet-title">
     <div class="caption">
-      <i class="icon-list"></i><%= link_to @project_apply.school.try(:name), admin_pair_applies_path %> > 孩子名单
+      <i class="icon-list"></i><%= link_to @project_apply.school.try(:name), admin_pair_applies_path %> > 结对学生
     </div>
     <div class="actions">
       <%= link_to excel_upload_admin_pair_apply_pair_students_path(@project_apply), class: 'btn btn-xs yellow', 'data-no-turbolink' => true do %>

@@ -98,13 +98,17 @@
       <input  class="goodinput pull-left" type="text" name="project_season_apply_child[address]" value="<%= @child.address %>" required placeholder="家庭住址"/>
     </div>
     <div class="clearfix">
-      <span class="goodtext pull-left">收入来源</span>
-      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[income_source]" value="<%= @child.income_source %>" required/>
-    </div>
-    <div class="clearfix">
       <span class="goodtext pull-left">年收入</span>
       <input  class="goodinput pull-left" type="number" name="project_season_apply_child[family_income]" value="<%= @child.family_income %>" required min="0"/>
       <span class="income-moy">元/年</span>
+    </div>
+    <div style="height: 172px;width: 777px;" class="clearfix">
+      <span class="goodtext pull-left"  style="flex: 0 0 10%;max-width: 10%;width: 10%;">收入来源</span>
+      <textarea class="pull-left" placeholder="分别列明以下各项：
+      放牧/种植：指每年将家里多余的农牧产品卖出后的收入。
+      挖虫草：指挖出的虫草卖出后得到的收入。打工:指外出打工实际能带回家的收入。
+      国家救济：指国家发放的各类补助。
+      其他：注明家庭中其他收入的途径和数额。" name="project_season_apply_child[income_source]" required><%= @child.income_source %></textarea>
     </div>
     <div class="clearfix">
       <span class="goodtext pull-left">年支出</span>
@@ -113,7 +117,12 @@
     </div>
     <div style="height: 172px;width: 777px;" class="clearfix">
       <span class="goodtext pull-left"  style="flex: 0 0 10%;max-width: 10%;width: 10%;">支出情况</span>
-      <textarea class="pull-left" placeholder="请写明支出情况" name="project_season_apply_child[expenditure_information]" required><%= @child.expenditure_information %></textarea>
+      <textarea class="pull-left" placeholder="
+      生活费：包括花钱购买的粮食、蔬菜、衣服、交通、租房费用等各项生活必须支出总和。
+      医疗：指全家用于购买药品、打针、住院等支出。
+      上学费用：指家庭里所有用于学校的费用，包括学费、书本费及生活费等各项支出总和。
+      农牧业投入成本：指购买工具、农药、牛/羊、饲料、牧草、租用草场或者田地等支出。
+      其他指不在以上各项的支出，写明名称和数额。" name="project_season_apply_child[expenditure_information]" required><%= @child.expenditure_information %></textarea>
     </div>
     <div style="height: 172px;width: 777px;" class="clearfix">
       <span class="goodtext pull-left"  style="flex: 0 0 10%;max-width: 10%;width: 10%;">家庭负债</span>

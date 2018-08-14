@@ -1,6 +1,6 @@
 class Admin::DonateRecordsController < Admin::BaseController
   before_action :auth_custom_service
-  before_action :set_user, only: [:index, :destroy]
+  before_action :set_user, only: [:index, :destroy, :student_list]
 
   def index
     @donate_records = @user.donate_records
@@ -28,6 +28,12 @@ class Admin::DonateRecordsController < Admin::BaseController
     else
       redirect_back fallback_location: admin_user_donate_records_url(@donate_record.donor_id), alert: '退款失败'
     end
+  end
+
+  def student_list
+    @search = ProjectSeasonApplyChild.where(priority_id: @user.id).sorted.ransack(params[:q])
+    scope = @search.result
+    @students = scope.page(params[:page])
   end
 
   def destroy

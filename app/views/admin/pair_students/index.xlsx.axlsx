@@ -1,9 +1,9 @@
 wb = xlsx_package.workbook
 styles = wb.styles
 header = styles.add_style :sz => 16, :b => true, :alignment => {:horizontal => :center}
-wb.add_worksheet(name: "#{@project_apply.school.try(:name)}孩子名单") do |sheet|
+wb.add_worksheet(name: "#{@project_apply.school.try(:name)}结对学生") do |sheet|
 
-  sheet.add_row ["序号", "姓名", "年龄", "性别", "身份证号", "民族", "学历", "年级", "学期", "申请学年", "班主任", "联系方式", "自我介绍", "父亲", "父亲职业", "母亲", "母亲职业", "父母情况", "监护人", "与其关系", "联系方式", "家庭住址", "家庭年收入", "收入来源", "家庭年支出", "支出情况", "负债情况", "家庭情况", "推荐理由", "备注"]
+  sheet.add_row ["序号", "姓名", "年龄", "性别", "身份证号", "民族", "教育阶段", "年级", "学期", "班级", "申请学年", "班主任", "联系方式", "自我介绍", "父亲", "父亲职业", "母亲", "母亲职业", "父母情况", "监护人", "与其关系", "联系方式", "家庭住址", "家庭年收入", "收入来源", "家庭年支出", "支出情况", "负债情况", "家庭", "推荐理由", "备注"]
   @children.each_with_index do |child, index|
     sheet.add_row [
                       index + 1,
@@ -15,6 +15,7 @@ wb.add_worksheet(name: "#{@project_apply.school.try(:name)}孩子名单") do |sh
                       child.enum_name(:level),
                       child.enum_name(:grade),
                       child.enum_name(:semester),
+                      child.classname,
                       child.semesters.pluck(:title).join(','),
                       child.teacher_name,
                       child.teacher_phone,
