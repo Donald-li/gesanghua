@@ -19,20 +19,20 @@ class Support::SelectsController < Support::BaseController
   end
 
   def users
-    scope = User.enable.sorted.where("name like :q", q: "%#{params[:q]}%")
+    scope = User.enable.sorted.where("name like :q or phone like :q", q: "%#{params[:q]}%")
     users = scope.page(params[:page])
     render json: {items: users.as_json(only: [:id], methods: :name_for_select), pagination: json_pagination(users)}
   end
 
   def all_users
-    scope = User.sorted.where("name like :q", q: "%#{params[:q]}%")
+    scope = User.sorted.where("name like :q or phone like :q", q: "%#{params[:q]}%")
     users = scope.page(params[:page])
     render json: {items: users.as_json(only: [:id], methods: :name_for_select), pagination: json_pagination(users) }
   end
 
   def wechat_users
     scope = User.where.not(profile: {})
-    scope = scope.sorted.where("name like :q", q: "%#{params[:q]}%")
+    scope = scope.sorted.where("name like :q or phone like :q", q: "%#{params[:q]}%")
     users = scope.page(params[:page])
     render json: {items: users.as_json(only: [:id], methods: :name_for_select), pagination: json_pagination(users)}
   end
@@ -45,28 +45,28 @@ class Support::SelectsController < Support::BaseController
   end
 
   def users_balance
-    scope = User.sorted.where("name like :q", q: "%#{params[:q]}%")
+    scope = User.sorted.where("name like :q or phone like :q", q: "%#{params[:q]}%")
     users = scope.page(params[:page])
     render json: {items: users.as_json(only: [:id], methods: :user_balance), pagination: json_pagination(users)}
   end
 
   def gsh_child_user
-    users = User.sorted.where.not(users: {id: 1}).left_joins(:gsh_child).where(gsh_children: {user_id: nil}).where("users.name like :q", q: "%#{params[:q]}%").page(params[:page])
+    users = User.sorted.where.not(users: {id: 1}).left_joins(:gsh_child).where(gsh_children: {user_id: nil}).where("users.name like :q or users.phone like :q", q: "%#{params[:q]}%").page(params[:page])
     render json: {items: users.as_json(only: [:id], methods: :name_for_select), pagination: json_pagination(users)}
   end
 
   def teacher_user
-    users = User.enable.sorted.where.not(users: {id: 1}).left_joins(:teacher).where(teachers: {user_id: nil}).where("users.name like :q", q: "%#{params[:q]}%").page(params[:page])
+    users = User.enable.sorted.where.not(users: {id: 1}).left_joins(:teacher).where(teachers: {user_id: nil}).where("users.name like :q or users.phone like :q", q: "%#{params[:q]}%").page(params[:page])
     render json: {items: users.as_json(only: [:id], methods: :name_for_select), pagination: json_pagination(users)}
   end
 
   def county_user
-    users = User.enable.sorted.where.not(users: {id: 1}).left_joins(:county_user).where(county_users: {user_id: nil}).where("users.name like :q", q: "%#{params[:q]}%").page(params[:page])
+    users = User.enable.sorted.where.not(users: {id: 1}).left_joins(:county_user).where(county_users: {user_id: nil}).where("users.name like :q or users.phone like :q", q: "%#{params[:q]}%").page(params[:page])
     render json: {items: users.as_json(only: [:id], methods: :name_for_select), pagination: json_pagination(users)}
   end
 
   def school_user
-    users = User.enable.sorted.where.not(users: {id: 1}).left_joins(:school).where(schools: {user_id: nil}).where("users.name like :q", q: "%#{params[:q]}%").page(params[:page])
+    users = User.enable.sorted.where.not(users: {id: 1}).left_joins(:school).where(schools: {user_id: nil}).where("users.name like :q or users.phone like :q", q: "%#{params[:q]}%").page(params[:page])
     render json: {items: users.as_json(only: [:id], methods: :name_for_select), pagination: json_pagination(users)}
   end
 
@@ -78,12 +78,12 @@ class Support::SelectsController < Support::BaseController
   end
 
   def volunteer_user
-    users = User.enable.sorted.where.not(users: {id: 1}).left_joins(:volunteer).where(volunteers: {user_id: nil}).where("users.name like :q", q: "%#{params[:q]}%").page(params[:page])
+    users = User.enable.sorted.where.not(users: {id: 1}).left_joins(:volunteer).where(volunteers: {user_id: nil}).where("users.name like :q or users.phone like :q", q: "%#{params[:q]}%").page(params[:page])
     render json: {items: users.as_json(only: [:id], methods: :name_for_select), pagination: json_pagination(users)}
   end
 
   def campaign_enlist_user
-    users = User.enable.sorted.where.not(users: {id: 1}).where("users.name like :q", q: "%#{params[:q]}%").page(params[:page])
+    users = User.enable.sorted.where.not(users: {id: 1}).where("users.name like :q or users.phone like :q", q: "%#{params[:q]}%").page(params[:page])
     render json: {items: users.as_json(only: [:id], methods: :name_for_select), pagination: json_pagination(users)}
   end
 
