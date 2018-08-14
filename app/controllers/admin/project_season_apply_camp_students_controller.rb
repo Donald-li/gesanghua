@@ -18,7 +18,7 @@ class Admin::ProjectSeasonApplyCampStudentsController < Admin::BaseController
   end
 
   def create
-    @camp_student = ProjectSeasonApplyCampMember.new(camp_student_params.merge(camp: @apply_camp.camp, apply: @apply_camp.apply, school: @apply_camp.school, apply_camp: @apply_camp, kind: 'student', state: 'submit'))
+    @camp_student = ProjectSeasonApplyCampMember.new(camp_student_params.merge(camp: @apply_camp.camp, apply: @apply_camp.apply, school: @apply_camp.school, apply_camp: @apply_camp, kind: 'student', state: 'pass'))
     respond_to do |format|
       if ProjectSeasonApplyCampMember.allow_apply?(@apply_camp, camp_student_params[:id_card])
       if @camp_student.save

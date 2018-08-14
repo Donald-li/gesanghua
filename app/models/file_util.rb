@@ -229,7 +229,7 @@ class FileUtil
 
       _nation = nation.split('-').second.to_i
 
-      member = ProjectSeasonApplyCampMember.new(kind: kind, camp: apply_camp.camp, apply: apply_camp.apply, school: apply_camp.school, apply_camp: apply_camp, name: name, id_card: id_card, nation: _nation, level: _level, grade: _grade, classname: classname, guardian_name: guardian, guardian_phone: guardian_phone, phone: phone, height: height, weight: weight, guardian_id_card: guardian_id_card, guardian_relation: guardian_relation, cloth_size: cloth_size, course_type: course_type, course_grade: course_grade, period: period, position: position, train_experience: train_experience, project_experience: project_experience, honor_experience: honor_experience)
+      member = ProjectSeasonApplyCampMember.new(state: 'pass', kind: kind, camp: apply_camp.camp, apply: apply_camp.apply, school: apply_camp.school, apply_camp: apply_camp, name: name, id_card: id_card, nation: _nation, level: _level, grade: _grade, classname: classname, guardian_name: guardian, guardian_phone: guardian_phone, phone: phone, height: height, weight: weight, guardian_id_card: guardian_id_card, guardian_relation: guardian_relation, cloth_size: cloth_size, course_type: course_type, course_grade: course_grade, period: period, position: position, train_experience: train_experience, project_experience: project_experience, honor_experience: honor_experience)
 
       if ProjectSeasonApplyCampMember.allow_apply?(apply_camp, member.id_card, member)
         if member.save
