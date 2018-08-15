@@ -93,7 +93,7 @@ class Notification < ApplicationRecord
       url = self.url || "#{Settings.m_root_url}/account/my-pairs"
     when 'appoint_donor'
       title = self.title
-      template_id = Settings.wechat_template_project
+      template_id = Settings.wechat_template_notify
       keyword1 = self.content
       url = self.url || "#{Settings.m_root_url}/account/my-pairs"
     when 'continue_donate'
