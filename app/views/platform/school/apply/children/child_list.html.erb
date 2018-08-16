@@ -252,7 +252,7 @@
         });
         if (child_ids.length > 0) {
 //            $.get("<%= excel_output_platform_school_apply_pair_children_path(@apply) %>", {child_ids: child_ids})
-            window.location.href = '/platform/school/apply/pairs/1/children/excel_output?child_ids=' + child_ids + '&pair_id=' + '<%= @apply.id %>'
+            window.location.href = '/platform/school/apply/pairs/' + <%= @apply.id %> + '/children/excel_output?child_ids=' + child_ids
         } else {
             layer.msg('请勾选您要导出的学生', {
                 icon: 2,
