@@ -9,7 +9,7 @@ class Platform::School::Apply::ChildrenController < Platform::School::BaseContro
   end
 
   def child_list
-    @search = @apply.children.ransack(params[:q])
+    @search = @apply.children.draft.ransack(params[:q])
     scope = @search.result
     @children = scope.sorted
   end
