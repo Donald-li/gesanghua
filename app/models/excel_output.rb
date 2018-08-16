@@ -185,11 +185,11 @@ class ExcelOutput
   #   return path
   # end
 
-  def self.export_pair_students(child_ids, school)
+  def self.export_pair_students(child_ids)
     @children = ProjectSeasonApplyChild.where(id: child_ids).sorted
     p = Axlsx::Package.new
     wb = p.workbook
-    wb.add_worksheet(name: "#{school.try(:name)}结对学生") do |sheet|
+    wb.add_worksheet(name: "结对学生") do |sheet|
       sheet.add_row ["序号", "姓名", "年龄", "性别", "身份证号", "民族", "教育阶段", "年级", "学期", "班级", "申请学年", "班主任", "联系方式", "自我介绍", "父亲", "父亲职业", "母亲", "母亲职业", "父母情况", "监护人", "与其关系", "联系方式", "家庭住址", "家庭年收入", "收入来源", "家庭年支出", "支出情况", "负债情况", "家庭", "推荐理由", "备注"]
       @children.each_with_index do |child, index|
         sheet.add_row [

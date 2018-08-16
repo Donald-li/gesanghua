@@ -45,7 +45,9 @@ class Platform::School::Apply::ChildrenController < Platform::School::BaseContro
   end
 
   def excel_output
-    send_data(ExcelOutput.export_pair_students(params[:child_ids].split(','), @apply.school),
+    logger.info @apply.inspect
+    logger.info @apply.school.inspect
+    send_data(ExcelOutput.export_pair_students(params[:child_ids].split(',')),
               filename: "#{@apply.school.try(:name)}结对学生名单#{Date.today.to_s}.xlsx".encode('GBK'),
               type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
               disposition: 'attachment'
