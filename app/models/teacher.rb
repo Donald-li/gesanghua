@@ -154,6 +154,7 @@ class Teacher < ApplicationRecord
         old_user = self.user
         self.update!(params)
         result, notice = old_user.remove_teacher_role(operator) if old_user.present?
+        result, notice = self.admin_create_teacher
       rescue => e
         raise ActiveRecord::Rollback
       end
