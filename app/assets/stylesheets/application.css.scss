@@ -10580,3 +10580,29 @@ select:disabled {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+.w_pos_tit{
+  padding: 24px;
+  background-color: #fff;
+  position: absolute;
+  right: 253px;
+  top: 68px;
+  width: 320px;
+  box-shadow: 0px 3px 1px 2px #eee;
+  font-size: 13px;
+  border-radius:3px ;
+  .iconfont{
+    font-size: 12px;
+    position: absolute;
+    right: -4px;
+    top: 5px;
+    cursor: pointer;
+  }
+  a{
+    color: #8b54e3;
+    text-decoration: underline;
+  }
+  a:hover{
+    color: #8b54e3;
+    text-decoration: underline;
+  }
+}
