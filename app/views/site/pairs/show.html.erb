@@ -55,7 +55,7 @@
               <span class="detail-body-hover iconfont icon-yuan"></span>
               <div class="clearfix detail-font-tit">
                 <p class="pull-left"><%= report.title %></p>
-                <span class="pull-right cur" onclick="showHideCode(<%= report.id %>)"><span class="iconfont icon-arrowdown"></span>查看详情</span>
+                <span class="pull-right cur" ><%= link_to report_path(report) ,style:'color: #8b54e3;' do %><span class="iconfont icon-arrowdown"></span>查看详情<% end %></span>
               </div>
               <div class="detail-body-title clearfix">
                 <span class="pull-left"><%= report.user.show_name %> ·</span>
@@ -67,6 +67,11 @@
             </li>
           <% end %>
       </ul>
+      <div class="speciais-cont-but border-t">
+        <%= link_to reports_path  do %>
+        <button>查看更多</button>
+        <% end %>
+      </div>
     </div>
     <% else %>
         <div class="not-available contentab pull-left">
@@ -88,7 +93,7 @@
               <span class="detail-body-hover iconfont icon-yuan"></span>
               <div class="clearfix detail-font-tit">
                 <p class="pull-left"><%= report.title %></p>
-                <span class="pull-right cur" onclick="showHideCode(<%= report.id %>)"><span class="iconfont icon-arrowdown"></span>查看详情</span>
+                <span class="pull-right cur" ><%= link_to report_path(report) ,style:'color: #8b54e3;' do %><span class="iconfont icon-arrowdown"></span>查看详情<% end %></span>
               </div>
               <div class="detail-body-title clearfix">
                 <span class="pull-left"><%= report.user.show_name %> ·</span>
@@ -100,6 +105,11 @@
             </li>
           <% end %>
       </ul>
+      <div class="speciais-cont-but border-t">
+        <%= link_to reports_path  do %>
+        <button>查看更多</button>
+        <% end %>
+      </div>
     </div>
     <% else %>
         <div class="not-available contentab pull-left">
@@ -121,7 +131,7 @@
               <span class="detail-body-hover iconfont icon-yuan"></span>
               <div class="clearfix detail-font-tit">
                 <p class="pull-left"><%= report.title %></p>
-                <span class="pull-right cur" onclick="showHideCode(<%= report.id %>)"><span class="iconfont icon-arrowdown"></span>查看详情</span>
+                <span class="pull-right cur" ><%= link_to report_path(report) ,style:'color: #8b54e3;' do %><span class="iconfont icon-arrowdown"></span>查看详情<% end %></span>
               </div>
               <div class="detail-body-title clearfix">
                 <span class="pull-left"><%= report.user.show_name %> ·</span>
@@ -142,6 +152,11 @@
             </li>
           <% end %>
       </ul>
+      <div class="speciais-cont-but border-t">
+        <%= link_to reports_path  do %>
+            <button>查看更多</button>
+        <% end %>
+      </div>
     </div>
     <% else %>
         <div class="not-available contentab pull-left">
@@ -187,13 +202,7 @@
     $('#dtails-cont').myTab()
     $('.circlechart').circlechart()
     $('.de-left-con-fon').hide()
-    function showHideCode (id) {
-        $("#show" + id + " .de-left-con").removeClass('read-more')
-        $("#show" + id + " .detail-font-tit > span").css('display', 'none')
-        $("#show" + id + " .details-img").css('display', 'block')
-        $("#show" + id + " .de-left-con-fon").css({"white-space": "pre-wrap"})
-        $("#show" + id + " .de-left-con-fon").show()
-    }
+
      //内容信息导航吸顶
       $(document).ready(function () {
           var navHeight = $("#navHeight").offset().top;

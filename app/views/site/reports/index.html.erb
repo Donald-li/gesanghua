@@ -1,0 +1,87 @@
+<div class="disclosures">
+
+  <p class="disclosures-tit"></p>
+  <div class="donations-1 ">
+    <ul class="donations1 clearfix">
+      <li class="cur ">
+        <a>发放报告</a>
+        <div class=""></div>
+      </li>
+      <li class="cur">
+        <a>回访报告</a>
+        <div class=""></div>
+      </li>
+      <li class="cur selectedDo">
+        <a>项目报告</a>
+        <div class="bottomline"></div>
+      </li>
+      <li class="cur">
+        <a>执行反馈</a>
+        <div class=""></div>
+      </li>
+    </ul>
+  </div>
+  <div class="camps-title clearfix" style="margin: 40px auto 20px;">
+    <%#= search_form_for @search, url: campaigns_path do |f| %>
+    <%#= f.select :campaign_category_id_eq, CampaignCategory.sorted.collect {|cc| [cc.name, cc.id]}, {include_blank: '全部活动'}, class: "allactivities" %>
+    <div class="pull-left">
+      <select class="allactivities pull-left" name="state">
+        <option value="AL">Alabama</option>
+        <option value="WY">Wyoming</option>
+      </select>
+    </div>
+    <div class="disclosures_search pull-left">
+      <div class="input-group clearfix">
+        <span class="iconfont icon-ico-search pull-left"></span>
+        <%= text_field_tag :name, params[:name], name: :name, class: 'from-input pull-left', placeholder: '搜索' %>
+      </div>
+    </div>
+    <button type="submit" class="camps-search">搜索</button>
+    <%# end %>
+  </div>
+  <p class="disclosures-t"></p>
+  <div>
+    <ul class="disclosures-cont">
+      <%= render '/site/reports/list' %>
+    </ul>
+  </div>
+</div>
+<style scoped>
+  .disclosures .donations1 > li {
+    width: 25%;
+  }
+
+  .disclosures .bottomline {
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+  }
+    .disclosures_search{
+      width: 230px;
+      height: 40px;
+      line-height: 39px;
+      border-radius: 3px;
+      border: 1px solid #e6e6e6;
+      margin-left: 10px;
+      padding: 0 10px;
+      display: inline-block;
+    }
+    .disclosures_search input{
+      border: none;
+      height: 38px;
+      line-height: 38px;
+      vertical-align: middle;
+      margin-left: 10px;
+    }
+</style>
+<script>
+    $('.disclosures-cont li').eq(0).removeClass('border-t')
+    $('.allactivities').select2({
+        width: "250px",
+        minimumResultsForSearch: -1
+    })
+    $('.nascentstate').select2({
+        width: "250px",
+        minimumResultsForSearch: -1
+    })
+</script>
