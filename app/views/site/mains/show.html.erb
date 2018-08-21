@@ -127,7 +127,9 @@
                   <%= image_tag 'gsh-img-2.png' %>
                 </div>
               </div>
-              <p class="gsh-cont-1 clearfix"><span class="ui-nowrap pull-left" style=" max-width: 240px;padding-right: 5px;"><%= article.author %></span> <span class="pull-left">| <%= article.published_at.strftime("%Y年%m月%d日") %></span></p>
+              <p class="gsh-cont-1 clearfix">
+                <span class="ui-nowrap pull-left" style=" max-width: 240px;padding-right: 5px;"><%= article.author %></span>
+                <span class="pull-left">| <%= article.published_at.strftime("%Y年%m月%d日") %></span></p>
               <p class="gsh-cont-2" style="height:50px;"><%= article.title %></p>
           <% end %>
         </div>
@@ -165,10 +167,14 @@
     </div>
   </div>
 </div>
-</div>
+<div class="w_pos_tit">
+  <i class="iconfont icon-ico-delete"></i>
+  为了更好的捐助体验，请先去完善个人信息，如已完善，请忽略。<a>去完善 ></a>
 </div>
 <script>
-
+$('.w_pos_tit i').click(function(){
+    $('.w_pos_tit').hide()
+})
     $('#show1').mousemove(function () {
         $('#show11').css("visibility", "visible")
     });
