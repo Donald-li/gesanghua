@@ -1,4 +1,3 @@
-
 <div id="detail">
   <div class="referral-head">
     <div class="referral-img">
@@ -7,185 +6,180 @@
       <div class="referral-cont">
         <p class="referral-cont-p"><%= @project.name %></p>
         <p class="referral-cont-m">已累计捐助 <span><%= @project.total_amount %></span> 元</p>
-        <%= link_to new_donate_path(item: @project.donate_item_id) do %><div class="referral-cont-but">捐助<%= @project.name %></div><% end %>
+        <%= link_to new_donate_path(item: @project.donate_item_id) do %>
+            <div class="referral-cont-but">捐助<%= @project.name %></div>
+        <% end %>
 
       </div>
     </div>
   </div>
 
   <div id="dtails-cont">
-  <div class="detail-nav " id="navHeight">
-    <div class="detail-fiexd ">
-      <div class="fhNav clearfix">
-        <div class="bottomLine"></div>
-        <ul class="nav pull-left" id="tabnav">
-          <li class="selectedNav">
-            <span>项目介绍</span>
-          </li>
-          <li>
-            <span>发放报告</span>
-          </li>
-          <li>
-            <span>回访报告</span>
-          </li>
-          <li>
-            <span>项目报告</span>
-          </li>
-        </ul>
-        <span class="pull-right share" id="share-2"></span>
-
-        <%= link_to pairs_path do %><div class="pull-right referral-school cur"><%= @total %> 个孩子待结对</div><% end %>
-
-      </div>
-    </div>
-  </div>
-  <div class="detail-body clearfix" id="conttab">
-    <!--申请详情-->
-    <div class="details-left pull-left contentab" style="display: block;">
-      <!-- <p class="detail-l-title">护花申请详情</p> -->
-      <div class="detail-l-fon"><%= @project.describe.gsub(/\n/, "<br/>").html_safe %></div>
-      <!-- <%= image_tag 'detail-reduce.png' %> -->
-    </div>
-    <!--报告-->
-    <% if @grant_reports.present? %>
-    <div class="pull-left detail-body-left border-l contentab">
-      <ul class="detail-body-ul">
-          <% @grant_reports.each do |report| %>
-            <li class="detail-body-cont" id="show<%= report.id %>">
-              <span class="detail-body-hover iconfont icon-yuan"></span>
-              <div class="clearfix detail-font-tit">
-                <p class="pull-left"><%= report.title %></p>
-                <span class="pull-right cur" ><%= link_to report_path(report) ,style:'color: #8b54e3;' do %><span class="iconfont icon-arrowdown"></span>查看详情<% end %></span>
-              </div>
-              <div class="detail-body-title clearfix">
-                <span class="pull-left"><%= report.user.show_name %> ·</span>
-                <span class="pull-left"><%= report.published_at.strftime("%Y-%m-%d")%>由发布</span>
-              </div>
-              <div class="de-left-con read-more clearfix">
-                <div class="de-left-con-fon"><%= report.content.html_safe %></div>
-              </div>
+    <div class="detail-nav " id="navHeight">
+      <div class="detail-fiexd ">
+        <div class="fhNav clearfix">
+          <div class="bottomLine"></div>
+          <ul class="nav pull-left" id="tabnav">
+            <li class="selectedNav">
+              <span>项目介绍</span>
             </li>
-          <% end %>
-      </ul>
-      <div class="speciais-cont-but border-t">
-        <%= link_to reports_path  do %>
-        <button>查看更多</button>
-        <% end %>
-      </div>
-    </div>
-    <% else %>
-        <div class="not-available contentab pull-left">
-          <div class="donation-cont-no">
-            <div class="donation-co-no-c">
-              <div class="donation-co-no-c-img">
-                <%= image_tag 'not-available.png' %>
-              </div>
-              <p>暂无发放报告</p>
-            </div>
-          </div>
-        </div>
-    <% end %>
-    <% if @visit_reports.present? %>
-    <div class="pull-left detail-body-left border-l contentab">
-      <ul class="detail-body-ul">
-          <% @visit_reports.each do |report| %>
-            <li class="detail-body-cont" id="show<%= report.id %>">
-              <span class="detail-body-hover iconfont icon-yuan"></span>
-              <div class="clearfix detail-font-tit">
-                <p class="pull-left"><%= report.title %></p>
-                <span class="pull-right cur" ><%= link_to report_path(report) ,style:'color: #8b54e3;' do %><span class="iconfont icon-arrowdown"></span>查看详情<% end %></span>
-              </div>
-              <div class="detail-body-title clearfix">
-                <span class="pull-left"><%= report.user.show_name %> ·</span>
-                <span class="pull-left"><%= report.published_at.strftime("%Y-%m-%d")%>由发布</span>
-              </div>
-              <div class="de-left-con read-more clearfix">
-                <div class="de-left-con-fon"><%= report.content.html_safe %></div>
-              </div>
+            <li>
+              <span>发放报告</span>
             </li>
-          <% end %>
-      </ul>
-      <div class="speciais-cont-but border-t">
-        <%= link_to reports_path  do %>
-        <button>查看更多</button>
-        <% end %>
-      </div>
-    </div>
-    <% else %>
-        <div class="not-available contentab pull-left">
-          <div class="donation-cont-no">
-            <div class="donation-co-no-c">
-              <div class="donation-co-no-c-img">
-                <%= image_tag 'not-available.png' %>
-              </div>
-              <p>暂无回访报告</p>
-            </div>
-          </div>
-        </div>
-    <% end %>
-    <% if @project_reports.present? %>
-    <div class="pull-left detail-body-left border-l contentab">
-      <ul class="detail-body-ul">
-          <% @project_reports.each do |report| %>
-            <li class="detail-body-cont" id="show<%= report.id %>">
-              <span class="detail-body-hover iconfont icon-yuan"></span>
-              <div class="clearfix detail-font-tit">
-                <p class="pull-left"><%= report.title %></p>
-                <span class="pull-right cur" ><%= link_to report_path(report) ,style:'color: #8b54e3;' do %><span class="iconfont icon-arrowdown"></span>查看详情<% end %></span>
-              </div>
-              <div class="detail-body-title clearfix">
-                <span class="pull-left"><%= report.user.show_name %> ·</span>
-                <span class="pull-left"><%= report.published_at.strftime("%Y-%m-%d")%>由发布</span>
-              </div>
-              <div class="de-left-con read-more clearfix">
-                <div class="de-left-con-fon"><%= report.content.html_safe %></div>
-                <!--<div class="clearfix details-img">-->
-                  <!--<%# if report.images.present? %>-->
-                    <!--<%# report.images.each do |img|%>-->
-                          <!--<a data-magnify="gallery"  href="<%#=image_url img.try(:file).try(:url, :medium).to_s%>">-->
-                            <!--<%#= image_tag img.try(:file).try(:url, :tiny).to_s ,:style => "width:211px" %>-->
-                          <!--</a>-->
-                    <!--<%# end %>-->
-                  <!--<%# end %>-->
-                <!--</div>-->
-              </div>
+            <li>
+              <span>回访报告</span>
             </li>
-          <% end %>
-      </ul>
-      <div class="speciais-cont-but border-t">
-        <%= link_to reports_path  do %>
-            <button>查看更多</button>
-        <% end %>
-      </div>
-    </div>
-    <% else %>
-        <div class="not-available contentab pull-left">
-          <div class="donation-cont-no">
-            <div class="donation-co-no-c">
-              <div class="donation-co-no-c-img">
-                <%= image_tag 'not-available.png' %>
-              </div>
-              <p>暂无项目报告</p>
-            </div>
-          </div>
-        </div>
-    <% end %>
-    <div class="pull-right detail-body-right">
-      <p class="detail-b-r-t border-b"><span>捐助记录</span></p>
-      <% if @donate_records.present? %>
-          <ul class="detail-b-r-name" id="donate-records">
-            <%= render '/site/donate_records/list', owner: @project, records: @donate_records, child: nil %>
+            <li>
+              <span>项目报告</span>
+            </li>
           </ul>
+          <span class="pull-right share" id="share-2"></span>
+
+          <%= link_to pairs_path do %>
+              <div class="pull-right referral-school cur"><%= @total %> 个孩子待结对</div>
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+    <div class="detail-body clearfix" id="conttab">
+      <!--申请详情-->
+      <div class="details-left pull-left contentab" style="display: block;">
+        <!-- <p class="detail-l-title">护花申请详情</p> -->
+        <div class="detail-l-fon"><%= @project.describe.gsub(/\n/, "<br/>").html_safe %></div>
+        <!-- <%= image_tag 'detail-reduce.png' %> -->
+      </div>
+      <!--报告-->
+      <% if @grant_reports.present? %>
+          <div class="pull-left detail-body-left border-l contentab">
+            <% if @grant_reports.count < 15 %>
+                <ul class="detail-body-ul">
+                  <% @grant_reports.each do |report| %>
+                      <li class="detail-body-cont" id="show<%= report.id %>">
+                        <span class="detail-body-hover iconfont icon-yuan"></span>
+                        <div class="clearfix detail-font-tit">
+                          <p class="pull-left"><%= report.title %></p>
+                          <span class="pull-right cur"><%= link_to report_path(report), style: 'color: #8b54e3;' do %><span class="iconfont icon-arrowdown"></span>查看详情<% end %></span>
+                        </div>
+                        <div class="detail-body-title clearfix">
+                          <span class="pull-left"><%= report.user.show_name %> ·</span>
+                          <span class="pull-left"><%= report.published_at.strftime("%Y-%m-%d") %>由发布</span>
+                        </div>
+                      </li>
+                  <% end %>
+                </ul>
+            <% else %>
+                <div class="speciais-cont-but border-t">
+                  <%= link_to reports_path(project_id: @project.id, kind: 'grant_report') do %>
+                      <button>查看更多</button>
+                  <% end %>
+                </div>
+            <% end %>
+          </div>
       <% else %>
-          <div class="not-available ">
+          <div class="not-available contentab pull-left">
             <div class="donation-cont-no">
               <div class="donation-co-no-c">
-                <p>暂无捐助记录</p>
+                <div class="donation-co-no-c-img">
+                  <%= image_tag 'not-available.png' %>
+                </div>
+                <p>暂无发放报告</p>
               </div>
             </div>
           </div>
       <% end %>
-    </div>
+      <% if @visit_reports.present? %>
+          <div class="pull-left detail-body-left border-l contentab">
+            <% if @visit_reports.count < 15 %>
+                <ul class="detail-body-ul">
+                  <% @visit_reports.each do |report| %>
+                      <li class="detail-body-cont" id="show<%= report.id %>">
+                        <span class="detail-body-hover iconfont icon-yuan"></span>
+                        <div class="clearfix detail-font-tit">
+                          <p class="pull-left"><%= report.title %></p>
+                          <span class="pull-right cur"><%= link_to report_path(report), style: 'color: #8b54e3;' do %><span class="iconfont icon-arrowdown"></span>查看详情<% end %></span>
+                        </div>
+                        <div class="detail-body-title clearfix">
+                          <span class="pull-left"><%= report.user.show_name %> ·</span>
+                          <span class="pull-left"><%= report.published_at.strftime("%Y-%m-%d") %>由发布</span>
+                        </div>
+                      </li>
+                  <% end %>
+                </ul>
+            <% else %>
+                <div class="speciais-cont-but border-t">
+                  <%= link_to reports_path(project_id: @project.id, kind: 'visit_report') do %>
+                      <button>查看更多</button>
+                  <% end %>
+                </div>
+            <% end %>
+          </div>
+      <% else %>
+          <div class="not-available contentab pull-left">
+            <div class="donation-cont-no">
+              <div class="donation-co-no-c">
+                <div class="donation-co-no-c-img">
+                  <%= image_tag 'not-available.png' %>
+                </div>
+                <p>暂无回访报告</p>
+              </div>
+            </div>
+          </div>
+      <% end %>
+      <% if @project_reports.present? %>
+          <div class="pull-left detail-body-left border-l contentab">
+            <% if @project_reports.count < 15 %>
+                <ul class="detail-body-ul">
+                  <% @project_reports.each do |report| %>
+                      <li class="detail-body-cont" id="show<%= report.id %>">
+                        <span class="detail-body-hover iconfont icon-yuan"></span>
+                        <div class="clearfix detail-font-tit">
+                          <p class="pull-left"><%= report.title %></p>
+                          <span class="pull-right cur"><%= link_to report_path(report), style: 'color: #8b54e3;' do %><span class="iconfont icon-arrowdown"></span>查看详情<% end %></span>
+                        </div>
+                        <div class="detail-body-title clearfix">
+                          <span class="pull-left"><%= report.user.show_name %> ·</span>
+                          <span class="pull-left"><%= report.published_at.strftime("%Y-%m-%d") %>由发布</span>
+                        </div>
+                      </li>
+                  <% end %>
+                </ul>
+            <% else %>
+                <div class="speciais-cont-but border-t">
+                  <%= link_to reports_path(project_id: @project.id, kind: 'project_report') do %>
+                      <button>查看更多</button>
+                  <% end %>
+                </div>
+            <% end %>
+          </div>
+      <% else %>
+          <div class="not-available contentab pull-left">
+            <div class="donation-cont-no">
+              <div class="donation-co-no-c">
+                <div class="donation-co-no-c-img">
+                  <%= image_tag 'not-available.png' %>
+                </div>
+                <p>暂无项目报告</p>
+              </div>
+            </div>
+          </div>
+      <% end %>
+      <div class="pull-right detail-body-right">
+        <p class="detail-b-r-t border-b"><span>捐助记录</span></p>
+        <% if @donate_records.present? %>
+            <ul class="detail-b-r-name" id="donate-records">
+              <%= render '/site/donate_records/list', owner: @project, records: @donate_records, child: nil %>
+            </ul>
+        <% else %>
+            <div class="not-available ">
+              <div class="donation-cont-no">
+                <div class="donation-co-no-c">
+                  <p>暂无捐助记录</p>
+                </div>
+              </div>
+            </div>
+        <% end %>
+      </div>
     </div>
 
 
@@ -203,24 +197,24 @@
     $('.circlechart').circlechart()
     $('.de-left-con-fon').hide()
 
-     //内容信息导航吸顶
-      $(document).ready(function () {
-          var navHeight = $("#navHeight").offset().top;
-          var navFix = $("#navHeight");
-          $(window).scroll(function () {
-              if ($(this).scrollTop() > navHeight) {
-                  navFix.addClass("navFix");
-              }
-              else {
-                  navFix.removeClass("navFix");
-              }
-          })
-      })
-     $('#share-2').share({
-       sites: ['qzone', 'wechat', 'weibo', 'qq'],
-       title: '<%= @project.name %>',
-       url: '<%= Settings.root_url %>pairs/<%= @project.id %>?m=<%= current_user.try(:id) %>',
-       description: '<%= @project.name %>',
-       image: 'http://<%= Settings.app_host%><%= @project.image_url(:tiny) %>'
-     });
+    //内容信息导航吸顶
+    $(document).ready(function () {
+        var navHeight = $("#navHeight").offset().top;
+        var navFix = $("#navHeight");
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > navHeight) {
+                navFix.addClass("navFix");
+            }
+            else {
+                navFix.removeClass("navFix");
+            }
+        })
+    })
+    $('#share-2').share({
+        sites: ['qzone', 'wechat', 'weibo', 'qq'],
+        title: '<%= @project.name %>',
+        url: '<%= Settings.root_url %>pairs/<%= @project.id %>?m=<%= current_user.try(:id) %>',
+        description: '<%= @project.name %>',
+        image: 'http://<%= Settings.app_host%><%= @project.image_url(:tiny) %>'
+    });
 </script>

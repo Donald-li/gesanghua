@@ -3,46 +3,41 @@
   <p class="disclosures-tit"></p>
   <div class="donations-1 ">
     <ul class="donations1 clearfix">
-      <li class="cur ">
-        <a>发放报告</a>
-        <div class=""></div>
+      <li class="cur <%= 'selectedDo' if params[:kind] == 'grant_report' %>">
+        <%= link_to '发放报告', reports_path(project_id: params[:project_id], kind: 'grant_report') %>
+        <div class="<%= 'bottomline' if params[:kind] == 'grant_report' %>"></div>
       </li>
-      <li class="cur">
-        <a>回访报告</a>
-        <div class=""></div>
+      <li class="cur <%= 'selectedDo' if params[:kind] == 'visit_report' %>">
+        <%= link_to '回访报告', reports_path(project_id: params[:project_id], kind: 'visit_report') %>
+        <div class="<%= 'bottomline' if params[:kind] == 'visit_report' %>"></div>
       </li>
-      <li class="cur selectedDo">
-        <a>项目报告</a>
-        <div class="bottomline"></div>
+      <li class="cur <%= 'selectedDo' if params[:kind] == 'project_report' %>">
+        <%= link_to '项目报告', reports_path(project_id: params[:project_id], kind: 'project_report') %>
+        <div class="<%= 'bottomline' if params[:kind] == 'project_report' %>"></div>
       </li>
-      <li class="cur">
-        <a>执行反馈</a>
-        <div class=""></div>
-      </li>
+      <!--<li class="cur">-->
+        <!--<a>执行反馈</a>-->
+        <!--<div class=""></div>-->
+      <!--</li>-->
     </ul>
   </div>
   <div class="camps-title clearfix" style="margin: 40px auto 20px;">
-    <%#= search_form_for @search, url: campaigns_path do |f| %>
-    <%#= f.select :campaign_category_id_eq, CampaignCategory.sorted.collect {|cc| [cc.name, cc.id]}, {include_blank: '全部活动'}, class: "allactivities" %>
-    <div class="pull-left">
-      <select class="allactivities pull-left" name="state">
-        <option value="AL">Alabama</option>
-        <option value="WY">Wyoming</option>
-      </select>
-    </div>
+    <%= search_form_for @search, url: reports_path do |f| %>
     <div class="disclosures_search pull-left">
       <div class="input-group clearfix">
         <span class="iconfont icon-ico-search pull-left"></span>
-        <%= text_field_tag :name, params[:name], name: :name, class: 'from-input pull-left', placeholder: '搜索' %>
+        <%= f.text_field :title_or_user_name_cont, class: 'from-input pull-left', placeholder: '搜索' %>
       </div>
+      <input type="hidden" name="project_id" value="<%= params[:project_id] %>">
+      <input type="hidden" name="kind" value="<%= params[:kind] %>">
     </div>
     <button type="submit" class="camps-search">搜索</button>
-    <%# end %>
+    <% end %>
   </div>
   <p class="disclosures-t"></p>
   <div>
     <ul class="disclosures-cont">
-      <%= render '/site/reports/list' %>
+      <%= render '/site/reports/list', reports: @reports %>
     </ul>
   </div>
 </div>

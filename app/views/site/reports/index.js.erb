@@ -1,0 +1,4 @@
+<% html = j(render('list', reports: @reports)) %>
+$('.speciais-cont-but').remove()
+$('.disclosures-cont').append('<%=html%>')
+

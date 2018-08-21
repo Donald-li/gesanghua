@@ -14,9 +14,9 @@ class Site::PairsController < Site::BaseController
   def show
     @project = Project.pair_project
     @total = ProjectSeasonApplyChild.where(project: @project).show.outside.pass.sorted.count
-    @project_reports = @project.project_reports.project_report.show.sorted
-    @visit_reports = @project.project_reports.visit_report.show.sorted
-    @grant_reports = @project.project_reports.grant_report.show.sorted
+    @project_reports = @project.project_reports.project_report.show.sorted.limit(15)
+    @visit_reports = @project.project_reports.visit_report.show.sorted.limit(15)
+    @grant_reports = @project.project_reports.grant_report.show.sorted.limit(15)
     @donate_records = DonateRecord.normal.where(project: @project).sorted.page(1).per(6)
   end
 

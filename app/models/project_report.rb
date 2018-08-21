@@ -60,4 +60,8 @@ class ProjectReport < ApplicationRecord
     self.content.present? ? self.content.gsub(/\r\n/, '<br>').gsub(/(<br\/*>\s*){1,}/, '<br>') : ''
   end
 
+  def published_time
+    self.published_at.strftime("%Y年%m月%d日")
+  end
+
 end

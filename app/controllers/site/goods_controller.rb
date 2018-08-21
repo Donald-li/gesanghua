@@ -16,7 +16,7 @@ class Site::GoodsController < Site::BaseController
 
   def show
     @total = ProjectSeasonApply.where(project: @project).show.raising.raise_project.pass.sorted.count
-    @project_reports = @project.project_reports.project_report.show.sorted
+    @project_reports = @project.project_reports.project_report.show.sorted.limit(15)
     @donate_records = DonateRecord.normal.where(project: @project).sorted.page(1).per(6)
   end
 

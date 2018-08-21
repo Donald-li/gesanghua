@@ -14,7 +14,7 @@ class Site::ReadsController < Site::BaseController
     @project = Project.read_project
     @book_applies = ProjectSeasonApply.where(project: @project).show.raise_project.read_executing.pass.sorted
     @total = @book_applies.count
-    @project_reports = @project.project_reports.project_report.show.sorted
+    @project_reports = @project.project_reports.project_report.show.sorted.limit(15)
     @donate_records = DonateRecord.normal.where(project: @project).sorted.page(1).per(6)
   end
 

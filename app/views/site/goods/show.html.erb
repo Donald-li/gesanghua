@@ -42,24 +42,29 @@
     <% if @project_reports.present? %>
     <div class="pull-left detail-body-left border-l contentab">
 
-      <ul class="detail-body-ul">
-          <% @project_reports.each do |report| %>
-            <li class="detail-body-cont" id="show<%= report.id %>">
-              <span class="detail-body-hover iconfont icon-yuan"></span>
-              <div class="clearfix detail-font-tit">
-                <p class="pull-left"><%= report.title %></p>
-                <span class="pull-right cur" onclick="showHideCode(<%= report.id %>)"><span class="iconfont icon-arrowdown"></span>查看详情</span>
-              </div>
-              <div class="detail-body-title clearfix">
-                <span class="pull-left"><%= report.user.show_name %> ·</span>
-                <span class="pull-left"><%= report.published_at.strftime("%Y-%m-%d")%>由发布</span>
-              </div>
-              <div class="de-left-con read-more clearfix">
-                <div class="de-left-con-fon"><%= report.content.html_safe %></div>
-              </div>
-            </li>
-          <% end %>
-      </ul>
+      <% if @project_reports.count < 15 %>
+          <ul class="detail-body-ul">
+            <% @project_reports.each do |report| %>
+                <li class="detail-body-cont" id="show<%= report.id %>">
+                  <span class="detail-body-hover iconfont icon-yuan"></span>
+                  <div class="clearfix detail-font-tit">
+                    <p class="pull-left"><%= report.title %></p>
+                    <span class="pull-right cur"><%= link_to report_path(report), style: 'color: #8b54e3;' do %><span class="iconfont icon-arrowdown"></span>查看详情<% end %></span>
+                  </div>
+                  <div class="detail-body-title clearfix">
+                    <span class="pull-left"><%= report.user.show_name %> ·</span>
+                    <span class="pull-left"><%= report.published_at.strftime("%Y-%m-%d") %>由发布</span>
+                  </div>
+                </li>
+            <% end %>
+          </ul>
+      <% else %>
+          <div class="speciais-cont-but border-t">
+            <%= link_to reports_path(project_id: @project.id, kind: 'project_report') do %>
+                <button>查看更多</button>
+            <% end %>
+          </div>
+      <% end %>
 
     </div>
       <% else %>
