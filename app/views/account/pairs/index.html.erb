@@ -13,15 +13,15 @@
       </li>
     </ul>
     <!--我的结对-->
+    <%= search_form_for @search, url: account_pairs_path do |f| %>
     <div class="school-apply-pair-share clearfix " style="padding:10px 0;">
       <button type="submit" class="school-apply-share-share pull-right">搜索</button>
-
       <div class="input-group pull-right">
         <span class="iconfont icon-ico-search"></span>
-        <%#= f.text_field :name_cont, placeholder: '输入学生姓名',style:'height:33px;width: 90%;'%>
-        <input type="" placeholder="搜索" style="height:33px;width: 90%;"/>
+        <%= f.text_field :name_or_gsh_child_gsh_no_cont, placeholder: '输入关键字',style:'height:33px;width: 90%;'%>
       </div>
     </div>
+    <% end %>
     <div class="my-pairs-cont" id="my-pairs-cont">
       <% if @children.present? %>
           <div class="donation-cont">

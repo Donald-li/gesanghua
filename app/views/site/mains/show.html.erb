@@ -1,9 +1,11 @@
+<% if current_user.need_perfect? %>
 <div style="width: 1140px;margin: 0 auto;position: relative;">
   <div class="w_pos_tit">
     <i class="iconfont icon-ico-delete"></i>
-    为了更好的捐助体验，请先去完善个人信息，如已完善，请忽略。<a>去完善 ></a>
+    为了更好的捐助体验，请先去完善个人信息，如已完善，请忽略。<%= link_to '去完善 >', edit_account_user_center_profile_path %>
   </div>
 </div>
+<% end %>
 <div class="bul-swiper">
   <div class="slide-box-demo">
     <div class="slide-box">

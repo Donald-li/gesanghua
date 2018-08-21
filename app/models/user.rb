@@ -149,6 +149,10 @@ class User < ApplicationRecord
     self.teacher.try(:school)
   end
 
+  def need_perfect?
+    self.phone.blank?
+  end
+
   def school_name
     self.school.try(:name)
   end
@@ -355,6 +359,7 @@ class User < ApplicationRecord
       json.join_team_time self.join_team_time.strftime("%Y-%m-%d") if self.join_team_time.present?
       json.roles self.roles
       json.role_tag self.role_tag
+      json.need_perfect self.need_perfect?
       json.project_ids self.manage_projects.ids if self.headmaster? || self.teacher?
     end.attributes!
   end
