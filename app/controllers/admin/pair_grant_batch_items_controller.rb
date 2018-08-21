@@ -12,13 +12,13 @@ class Admin::PairGrantBatchItemsController < Admin::BaseController
     @exist = (@grant.grant_batch == @batch)
     @grant.grant_batch = @batch
     @result = @grant.save
-    @grants = @batch.grants.page(1)
+    @grants = @batch.grants
   end
 
   def destroy
     @grant = @batch.grants.find(params[:id])
     @result = @grant.update(grant_batch_id: nil)
-    @grants = @batch.grants.page(1)
+    @grants = @batch.grants
   end
 
   private

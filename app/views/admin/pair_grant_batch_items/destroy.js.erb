@@ -3,3 +3,4 @@
     :locals=>{grants: @grants} ) -%>
  $('#items_list').html('<%=html%>');
  $('#search-btn').click()
+ $("#items-count").html('<%= @grants.length %>')

@@ -13,6 +13,6 @@ zh:
       feedback:
         content: '内容'
       school:
-        province: '所在地址'
-        city: '所在地址'
-        district: '所在地址'
+        province: '所在地址/省'
+        city: '所在地址/市'
+        district: '所在地址/区县'

@@ -26,7 +26,7 @@ class Admin::PairThankNotesController < Admin::BaseController
     if @feedback.save
       @feedback.attach_images(params[:image_ids])
       Notification.create(
-          kind: 'feedback_score',
+          kind: 'child_feedback',
           owner: @grant,
           user_id: @grant.user_id,
           title: "#反馈通知# 有新的孩子邮件",

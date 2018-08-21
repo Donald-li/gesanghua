@@ -20,7 +20,7 @@ class Api::V1::PairFeedbacksController < Api::V1::BaseController
     if @feedback.save
       @feedback.attach_images(params[:images].map{|image| image[:id]}) if params[:images].present?
       Notification.create(
-          kind: 'feedback_score',
+          kind: 'child_feedback',
           owner: @grant,
           user_id: @grant.user_id,
           title: "#反馈通知# 有新的孩子邮件",

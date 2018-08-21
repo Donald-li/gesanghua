@@ -2,7 +2,6 @@ class Api::V1::CooperationPairsController < Api::V1::BaseController
   before_action :set_pair, only: [:index]
 
   def index
-    # byebug
     user = current_user
     # 校长或者教师的项目申请
     if user.headmaster?
@@ -23,8 +22,10 @@ class Api::V1::CooperationPairsController < Api::V1::BaseController
 
   def verified_students
     apply = ProjectSeasonApply.find(params[:id])
-    students = apply.children.pass.page(params[:page]).per(params[:per])
-    api_success(data: {students: students.map{|st| st.list_builder}, apply_name: apply.apply_name, pagination: json_pagination(students)})
+    students = apply.children.pass
+    students = students.where("name like :q or id_card like :q", q: "%#{params[:keyword]}%") if params[:keyword].present?
+    students = students.page(params[:page]).per(params[:per])
+    api_success(data: {students: students.map{|st| st.manage_list_builder}, apply_name: apply.apply_name, pagination: json_pagination(students)})
   end
 
   private

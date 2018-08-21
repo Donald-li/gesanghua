@@ -275,6 +275,7 @@ class DonateRecord < ApplicationRecord
 
       self.refund!
       self.owner.cancel!
+      self.owner.update(cancel_time: Time.now)
       self.owner.refund!
     end
     # TODO: 通知

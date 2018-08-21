@@ -227,4 +227,19 @@ class Support::AjaxesController < Support::BaseController
     end
   end
 
+  def add_all_grants
+    @batch = GrantBatch.find(params[:id])
+    scope = GshChildGrant.waiting.succeed.where(grant_batch_id: nil).includes(:gsh_child).order("title asc").order("gsh_children.gsh_no asc")
+    scope = scope.where("title like :q", q: "%#{params[:title]}%") if params[:title].present?
+    scope = scope.where(school_id: params[:school_id]) if params[:school_id].present?
+    scope = scope.joins(:gsh_child).where("gsh_children.name like :q or gsh_children.gsh_no like :q", q: "%#{params[:keyword]}%") if params[:keyword].present? # gsh_child_name_or_gsh_child_gsh_no_cont
+    @grants = scope.sorted
+    if @grants.count > 0
+      @grants.update_all(grant_batch_id: @batch.id)
+      render json: {message: '署名成功', status: true}
+    else
+      render json: {message: '搜索范围内没有可发放学年', status: false}
+    end
+  end
+
 end

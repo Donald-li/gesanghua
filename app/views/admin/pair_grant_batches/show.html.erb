@@ -39,12 +39,18 @@
           <div class="caption">
             <i class="icon-layers"></i>添加结对孩子
           </div>
+          <div class="actions">
+            <button class="btn btn-xs blue" id="add-all-btn">
+              <i class="icon-plus"></i>
+              <span>全部添加</span>
+            </button>
+          </div>
         </div>
         <div class="portlet-body">
           <%= search_form_for @search, :url => admin_pair_grant_batch_items_path(@batch), :remote => true, :html => {:method => :get} do |f| %>
-              <%= f.text_field :title_cont, placeholder: '全部学年' %>
-              <%= f.select :school_id_eq, School.all_to_hash, {include_blank: '全部'}, class: 'form-control schools-ajax' %>
-              <%= f.text_field :gsh_child_name_or_gsh_child_gsh_no_cont, placeholder: '孩子姓名或编号' %>
+              <%= f.text_field :title_cont, placeholder: '全部学年', id: 'q_title' %>
+              <%= f.select :school_id_eq, School.all_to_hash, {include_blank: '全部'}, class: 'form-control schools-ajax', id: 'q_school_id' %>
+              <%= f.text_field :gsh_child_name_or_gsh_child_gsh_no_cont, placeholder: '孩子姓名或编号', id: 'q_keyword' %>
               <%= f.submit '搜索', :name => nil, id: 'search-btn', :class => "button", :disable_with => '请稍等...' %>
           <% end %>
           <div class="table-scrollable" id="contents_list">
@@ -59,13 +65,19 @@
           <div class="caption">
             <i class="icon-heart"></i>孩子名单
           </div>
+          <div class="actions">
+            <button class="btn btn-xs blue">
+              <i class="fa fa-list"></i>
+              共计<span id="items-count"><%= @items.count %></span>人
+            </button>
+          </div>
         </div>
         <div class="portlet-body">
           <%= search_form_for @search, :url => admin_pair_grant_batch_path(@batch), :remote => true,
                               :html => {:method => :get} do |f| %>
               <%= f.select :school_id_eq, School.all_to_hash, {include_blank: '全部'}, class: 'form-control schools-ajax', style: 'width: 100px' %>
               <%= f.text_field :gsh_child_name_or_gsh_child_gsh_no_cont, placeholder: '孩子姓名或编号' %>
-              <%= f.submit '搜索', :name => nil, :class => "button", :disable_with => '请稍等...' %>
+              <%= f.submit '搜索', :name => nil, id: 'items-btn', :class => "button", :disable_with => '请稍等...' %>
           <% end %>
           <div id="items_list" class="table-scrollable">
             <%= render :partial => "/admin/pair_grant_batch_items/items", :locals => {:grants => @items} %>
@@ -124,5 +136,30 @@
                 cache: true
             }
         });
+    })
+
+    $('#add-all-btn').click(function () {
+        var title = $('#q_title').val();
+        var school_id = $('#q_school_id').val();
+        var keyword = $("#q_keyword").val()
+        if (title || school_id || keyword) {
+            $.post("/ajaxes/add_all_grants",
+                {
+                    id: <%= @batch.id %>,
+                    title: title,
+                    school_id: school_id,
+                    keyword: keyword
+                },
+                function (data) {
+                    if (data.status) {
+                        $('#search-btn').click();
+                        $('#items-btn').click();
+                    } else {
+                        alert(data.message)
+                    }
+                });
+        } else {
+            alert('请输入搜索条件，确定批次范围')
+        }
     })
 </script>

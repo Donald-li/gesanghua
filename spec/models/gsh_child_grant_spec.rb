@@ -31,6 +31,8 @@
 #  grade_name                    :string                                 # 年级名称
 #  feedback_count                :integer
 #  message                       :text                                   # 留言
+#  cancel_time                   :datetime                               # 异常操作时间
+#  url                           :string                                 # 发放报告链接
 #
 
 require 'rails_helper'

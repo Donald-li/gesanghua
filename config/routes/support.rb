@@ -52,6 +52,7 @@ scope module: :support do
       post :turn_team
       get :get_child_priority
       post :set_shelf_name
+      post :add_all_grants
     end
   end
 end

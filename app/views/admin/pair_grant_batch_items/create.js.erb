@@ -7,3 +7,4 @@
 <% end -%>
 $('#item-tr-<%=@grant.id%>').fadeTo('slow', 0.5).fadeTo('slow', 1.0);
 $('#search-btn').click()
+$("#items-count").html('<%= @grants.length %>')

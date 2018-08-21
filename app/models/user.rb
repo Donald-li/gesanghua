@@ -416,7 +416,7 @@ class User < ApplicationRecord
         owner: self,
         user_id: self.id,
         title: '教师角色移除通知',
-        content: "#{operator.name}将您的#{self.school}老师角色移除"
+        content: "#{operator.name}将您的#{self.school.try(:name)}老师角色移除"
     )
     return true, '操作成功'
   end

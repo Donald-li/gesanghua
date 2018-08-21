@@ -44,6 +44,7 @@ class Admin::SchoolsController < Admin::BaseController
       if @school.save
         format.html {redirect_to referer_or(admin_schools_url), notice: '学校已增加。'}
       else
+        flash.now[:alert] = @school.errors.full_messages.first
         format.html {render :new}
       end
     end
@@ -63,6 +64,7 @@ class Admin::SchoolsController < Admin::BaseController
       if @school.update(school_params)
         format.html {redirect_to referer_or(admin_schools_url), notice: '学校信息已修改。'}
       else
+        flash.now[:alert] = @school.errors.full_messages.first
         format.html {render :edit}
       end
     end

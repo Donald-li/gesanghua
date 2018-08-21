@@ -57,6 +57,9 @@
               处理人
             </th>
             <th>
+              处理时间
+            </th>
+            <th>
               操作
             </th>
           </tr>
@@ -85,6 +88,9 @@
                 </td>
                 <td>
                   <%= grant.try(:operator).try(:name) %>
+                </td>
+                <td>
+                  <%= l grant.cancel_time if grant.cancel_time.present? %>
                 </td>
                 <td>
                   <%= link_to edit_admin_pair_grant_exception_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>

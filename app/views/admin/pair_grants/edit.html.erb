@@ -32,6 +32,7 @@
               <%= webuploader_tag 'image_ids[]', label: '上传发放证明图片', type: 'gsh_child_grant_image', asset: @grant.images %>
             </div>
           </div>
+          <%= f.input :url, label: '报告链接：', placeholder: '发放报告链接' %>
         </div>
         <div class="form-actions">
           <div class="row">

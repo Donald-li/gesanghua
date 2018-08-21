@@ -244,6 +244,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   def update_state(u_id)
     # self.done_semester_count = self.semesters.succeed.count
     self.state = 'hidden'
+    self.kind = 'inside'
     self.priority_id = u_id
     self.save!
   end
@@ -484,6 +485,15 @@ class ProjectSeasonApplyChild < ApplicationRecord
     end.attributes!
   end
 
+  def manage_list_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :name, :age, :reason, :id_card)
+      json.level_name self.enum_name(:level)
+      json.gender self.enum_name(:gender)
+      json.visit_number self.visits.count
+    end.attributes!
+  end
+
   def pair_feedback_builder
     Jbuilder.new do |json|
       json.(self, :id, :name, :id_card)
@@ -526,7 +536,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   def granted_record_builder
     Jbuilder.new do |json|
-      json.array! self.donate_all_records.granted do |grant|
+      json.array! self.donate_all_records.granted.reverse_order do |grant|
         json.(grant, :id)
         json.(grant, :title)
         json.(grant, :amount)
