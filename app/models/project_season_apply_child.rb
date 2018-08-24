@@ -298,6 +298,10 @@ class ProjectSeasonApplyChild < ApplicationRecord
     "#{Settings.m_root_url}/pair/#{self.id}  欢迎参与格桑花结对助学项目" # TODO 前段路由定义以后修改为正确的路由
   end
 
+  def share_path
+    "#{Settings.m_root_url}/pair/#{self.id}"
+  end
+
   # 通过审核
   def approve_pass
     self.approve_state = 'pass'

@@ -129,7 +129,7 @@
                       <i class="fa fa-gavel"></i> 审核
                   <% end %>
                   <%= link_to admin_home_visits_path(id: child.id), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
-                      <i class="fa fa-list"></i> 家访记录
+                      <i class="fa fa-list"></i> 家访记录 (<%= child.visits.count %>)
                   <% end %>
                 </td>
               </tr>
