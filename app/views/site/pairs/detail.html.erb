@@ -88,9 +88,9 @@
                       <span class="pull-right cur" onclick="showHideCode(<%= grant.id %>)"><span class="iconfont icon-arrowdown"></span>查看详情</span>
                     </div>
                     <div class="detail-body-title clearfix">
-                      <span class="pull-left"><%= grant.grant_person %> ·</span>
+                      <span class="pull-left">由<%= grant.grant_person %> ·</span>
                       <span class="pull-left"><%= grant.granted_at.strftime("%Y-%m-%d") if grant.granted_at.present? %>
-                        由发布</span>
+                        发布</span>
                     </div>
                     <div class="de-left-con read-more clearfix" id="showdiv">
                       <div class="de-left-con-fon"><%= grant.grant_remark %></div>

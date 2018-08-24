@@ -50,8 +50,8 @@
                     <span class="pull-right cur"><%= link_to report_path(report), style: 'color: #8b54e3;' do %><span class="iconfont icon-arrowdown"></span>查看详情<% end %></span>
                   </div>
                   <div class="detail-body-title clearfix">
-                    <span class="pull-left"><%= report.user.show_name %> ·</span>
-                    <span class="pull-left"><%= report.published_at.strftime("%Y-%m-%d") %>由发布</span>
+                    <span class="pull-left">由<%= report.user.show_name %> ·</span>
+                    <span class="pull-left"><%= report.published_at.strftime("%Y-%m-%d") %>发布</span>
                   </div>
                 </li>
             <% end %>

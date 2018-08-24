@@ -113,8 +113,8 @@
               <% else %>
                 <%= image_tag '' %>
               <% end %>
-              <span class="pull-left"><%= feedback.user.show_name %> ·</span>
-              <span class="pull-left"><%= feedback.created_at.strftime("%Y-%m-%d") %>由发布</span>
+              <span class="pull-left">由<%= feedback.user.show_name %> ·</span>
+              <span class="pull-left"><%= feedback.created_at.strftime("%Y-%m-%d") %>发布</span>
             </div>
             <div class="de-left-con read-more clearfix" id="showdiv">
               <div  class="de-left-con-fon"><%= feedback.content %></div>
