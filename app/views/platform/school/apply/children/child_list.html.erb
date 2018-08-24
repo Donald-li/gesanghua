@@ -6,7 +6,7 @@
         <span class="pull-left">学生名单</span>
 
         <div class="don-title-icon pull-right">
-          <%= link_to  platform_school_apply_pairs_path do %>
+          <%= link_to platform_school_apply_pairs_path do %>
               <span class="pull-right iconfont icon-arrow-right"></span>
               <span class="pull-right">返回项目管理</span>
           <% end %>
@@ -17,25 +17,29 @@
       <div class="school-apply-pair-share clearfix">
         <%= search_form_for @search, url: child_list_platform_school_apply_pair_children_path(@apply) do |f| %>
 
-        <div class="input-group pull-left">
-          <span class="iconfont icon-ico-search"></span>
-          <%= f.text_field :name_cont, placeholder: '输入学生姓名',style:'height:33px;width: 90%;'%>
-        </div>
-        <button type="submit" class="school-apply-share-share pull-left">搜索</button>
+            <div class="input-group pull-left">
+              <span class="iconfont icon-ico-search"></span>
+              <%= f.text_field :name_cont, placeholder: '输入学生姓名', style: 'height:33px;width: 90%;' %>
+            </div>
+            <button type="submit" class="school-apply-share-share pull-left">搜索</button>
         <% end %>
         <div class="add-reads" style="padding-right: 34px;">
-          <a onclick="exportExcel()">
+          <span class="pull-right share" style="padding-bottom: 5px" id="share-2"></span>
+
+          <a onclick="exportExcel()" style="margin-right: 10px;">
             <button class="school-teach-sub cur">
               <span class="fa fa-download"></span>
               <span>导出选中</span>
             </button>
           </a>
+
           <%= link_to new_platform_school_apply_pair_child_path(@apply) do %>
               <button class="pull-right school-apply-share-sub">
                 <span class="iconfont icon-ico-add1"></span>
                 <span>新增学生</span>
               </button>
           <% end %>
+
         </div>
       </div>
       <div class="paddchild">
@@ -72,11 +76,11 @@
                   <button class="recommend-but" data-toggle="modal" data-target="#myModal" onclick="setChildReason(<%= child.id %>, '<%= child.reason %>')">填写推荐理由</button>
                 </div>
                 <div class="pull-left" style="    padding: 10px 0;">
-                  <%= link_to edit_platform_school_apply_pair_child_path(@apply, child),class:'lookbutton',style:'margin-bottom:10px;' do %>
-                修改
+                  <%= link_to edit_platform_school_apply_pair_child_path(@apply, child), class: 'lookbutton', style: 'margin-bottom:10px;' do %>
+                      修改
                   <% end %>
-                  <%= link_to platform_school_apply_pair_child_path(@apply, child), method: :delete, data: {confirm: '确定要删除学生信息吗？'},class:'detail-table' do %>
-                  删除
+                  <%= link_to platform_school_apply_pair_child_path(@apply, child), method: :delete, data: {confirm: '确定要删除学生信息吗？'}, class: 'detail-table' do %>
+                      删除
                   <% end %>
                 </div>
               </div>
@@ -113,8 +117,8 @@
         </div>
         <div class="modal-body">
 
-            <input type="number" hidden name="child_id" id="child-id">
-            <textarea placeholder="请写你对学生的推荐理由" id="reason"></textarea>
+          <input type="number" hidden name="child_id" id="child-id">
+          <textarea placeholder="请写你对学生的推荐理由" id="reason"></textarea>
 
         </div>
         <div class="modal-footer overspreads-but">
@@ -139,11 +143,13 @@
     box-shadow: none;
     border-radius: 3px;
   }
+
   .school-teach-sub span {
     font-size: 13px;
     margin-top: 1px;
     margin-right: 6px;
   }
+
   .add-reads > a:nth-child(1) button:hover {
     background-color: #9750f5;
     color: #fff;
@@ -153,7 +159,7 @@
 
 </style>
 <script type="text/javascript">
-//    $('.overspread-4').overs(".recommend-but");
+    //    $('.overspread-4').overs(".recommend-but");
     $(function () {
         $("#checkedse").click(function () {
             var isChecked = $("#checkedse").prop("checked");
@@ -179,7 +185,7 @@
                         child_id: $('#child-id').val(),
                         reason: reason
                     },
-                    function(data){
+                    function (data) {
                         if (data.status) {
                             layer.msg(data.message, {
                                 icon: 0,
@@ -202,6 +208,7 @@
 
         })
     });
+
     function setSelectedNumber() {
         var checkedLength = $("#checked input:checked").length;
         $('#selected-number').text(checkedLength)
@@ -209,7 +216,7 @@
 
     function submitSelectedChildren() {
         var child_ids = []
-        $("#checked input:checked").each(function(){
+        $("#checked input:checked").each(function () {
             child_ids.push($(this).val());
         });
         if (child_ids.length > 0) {
@@ -218,7 +225,7 @@
                     id: '<%= @apply.id %>',
                     child_ids: child_ids
                 },
-                function(data){
+                function (data) {
                     if (data.status) {
                         layer.msg(data.message, {
                             icon: 0,
@@ -247,12 +254,12 @@
 
     function exportExcel() {
         var child_ids = []
-        $("#checked input:checked").each(function(){
+        $("#checked input:checked").each(function () {
             child_ids.push($(this).val());
         });
         if (child_ids.length > 0) {
 //            $.get("<%= excel_output_platform_school_apply_pair_children_path(@apply) %>", {child_ids: child_ids})
-            window.location.href = '/platform/school/apply/pairs/' + <%= @apply.id %> + '/children/excel_output?child_ids=' + child_ids
+            window.location.href = '/platform/school/apply/pairs/' + <%= @apply.id %> +'/children/excel_output?child_ids=' + child_ids
         } else {
             layer.msg('请勾选您要导出的学生', {
                 icon: 2,
@@ -261,4 +268,27 @@
         }
     }
 
+    $('#share-2').share({
+        sites: ['wechat'],
+        title: '<%= @apply.name %>',
+        url: '#{Settings.m_root_url}/form/pair-guide?code=#{@apply.code}&school_name=#{school.name}&apply_id=#{params[:id]}',
+        description: '',
+        image: '<%= image_url 'project-reducepage-child.png' %>'
+    });
+
 </script>
+
+<style lang="scss" scoped>
+  .social-share .social-share-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    line-height: 39px;
+    margin-top: -3px;
+    margin-left: 10px;
+
+  }
+  .social-share .help p:nth-child(2) {
+    display: none;
+  }
+</style>

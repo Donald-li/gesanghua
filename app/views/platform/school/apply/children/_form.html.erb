@@ -104,11 +104,12 @@
     </div>
     <div style="height: 172px;width: 777px;" class="clearfix">
       <span class="goodtext pull-left"  style="flex: 0 0 10%;max-width: 10%;width: 10%;">收入来源</span>
-      <textarea class="pull-left" placeholder="分别列明以下各项：
-      放牧/种植：指每年将家里多余的农牧产品卖出后的收入。
-      挖虫草：指挖出的虫草卖出后得到的收入。打工:指外出打工实际能带回家的收入。
-      国家救济：指国家发放的各类补助。
-      其他：注明家庭中其他收入的途径和数额。" name="project_season_apply_child[income_source]" required><%= @child.income_source %></textarea>
+      <textarea class="pull-left" placeholder="
+分别列明以下各项：
+放牧/种植：指每年将家里多余的农牧产品卖出后的收入。
+挖虫草：指挖出的虫草卖出后得到的收入。打工:指外出打工实际能带回家的收入。
+国家救济：指国家发放的各类补助。
+其他：注明家庭中其他收入的途径和数额。" name="project_season_apply_child[income_source]" required><%= @child.income_source %></textarea>
     </div>
     <div class="clearfix">
       <span class="goodtext pull-left">年支出</span>
@@ -118,11 +119,11 @@
     <div style="height: 172px;width: 777px;" class="clearfix">
       <span class="goodtext pull-left"  style="flex: 0 0 10%;max-width: 10%;width: 10%;">支出情况</span>
       <textarea class="pull-left" placeholder="
-      生活费：包括花钱购买的粮食、蔬菜、衣服、交通、租房费用等各项生活必须支出总和。
-      医疗：指全家用于购买药品、打针、住院等支出。
-      上学费用：指家庭里所有用于学校的费用，包括学费、书本费及生活费等各项支出总和。
-      农牧业投入成本：指购买工具、农药、牛/羊、饲料、牧草、租用草场或者田地等支出。
-      其他指不在以上各项的支出，写明名称和数额。" name="project_season_apply_child[expenditure_information]" required><%= @child.expenditure_information %></textarea>
+生活费：包括花钱购买的粮食、蔬菜、衣服、交通、租房费用等各项生活必须支出总和。
+医疗：指全家用于购买药品、打针、住院等支出。
+上学费用：指家庭里所有用于学校的费用，包括学费、书本费及生活费等各项支出总和。
+农牧业投入成本：指购买工具、农药、牛/羊、饲料、牧草、租用草场或者田地等支出。
+其他指不在以上各项的支出，写明名称和数额。" name="project_season_apply_child[expenditure_information]" required><%= @child.expenditure_information %></textarea>
     </div>
     <div style="height: 172px;width: 777px;" class="clearfix">
       <span class="goodtext pull-left"  style="flex: 0 0 10%;max-width: 10%;width: 10%;">家庭负债</span>
@@ -130,7 +131,19 @@
     </div>
     <div style="height: 172px;width: 777px;" class="clearfix">
       <span class="goodtext pull-left"  style="flex: 0 0 10%;max-width: 10%;width: 10%;">家庭情况</span>
-      <textarea class="pull-left" placeholder="请写明具体家庭情况和贫困原因" name="project_season_apply_child[family_condition]" required><%= @child.family_condition %></textarea>
+      <textarea class="pull-left" placeholder="
+共同生活的家人中：祖辈，如爷爷，奶奶或者外公、外婆等分别列明关系，岁数，健康情况，医疗花费。
+如:爷爷，65岁，高血压，每年花费500元吃药。
+父母辈，如爸爸、妈妈、叔叔，姑姑，舅舅，姨姨等  分别列明关系，岁数，健康情况，职业，收入。
+如：舅舅，45岁，健康，放牧为主，每年赚XXXX元。
+同辈，如哥哥，姐姐，弟弟，妹妹，表姐，堂兄等分别写明与学生本人的关系，岁数，上学情况，健康情况，或者打工情况。
+如：大哥，20，高中三年级，健康。晚辈，如兄弟姐妹的子女分别列明关系，岁数，上学情况，健康情况。
+如：侄子，4岁，幼儿园，健康。
+家庭情况主要是说明：详细说明一下家庭情况，审批通过获得资助的可能性更大哦！
+房屋情况：没有住房，寄住亲戚家，房屋破败没钱维修、重建，租房。
+耕地情况：家里有多少田地、草场或者有多少牛羊，家里农牧收入有多少，一年挖虫草能卖多少钱。
+家庭重大变故，需详细描述：亲人意外伤、残、故，导致的经济后果；火灾、地震、车祸等
+" name="project_season_apply_child[family_condition]" required><%= @child.family_condition %></textarea>
     </div>
   </div>
 </div>
