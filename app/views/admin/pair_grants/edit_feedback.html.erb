@@ -18,8 +18,15 @@
         <div class="form-body">
           <%= static_form_control '格桑花编号：', @grant.try(:gsh_child).try(:gsh_no) %>
           <%= static_form_control '学生姓名：', @grant.try(:gsh_child).try(:name) %>
-          <%= f.input :grant_person, label: '发放人：', placeholder: '请填写发放人', required: true %>
-          <%= f.input :grant_remark, label: '发放说明：', placeholder: '请填写发放说明' %>
+          <%= static_form_control '学生姓名：', @grant.try(:gsh_child).try(:name) %>
+          <div class="form-group">
+            <label class="col-md-2 control-label">发布时间：</label>
+            <div class="col-sm-9">
+              <%= f.text_field :granted_at, label: '发布日期', placeholder: '请选择发布日期', class: 'datepicker', required: true, value: Time.now %>
+            </div>
+          </div>
+          <%= f.input :grant_person, label: '记录发布人：', placeholder: '请填写发布人', required: true, input_html: {value: current_user.real_name}  %>
+          <%= f.input :grant_remark, label: '发放说明：', placeholder: '请填写发放人、发放说明、发放时间' %>
           <div class="form-group">
             <label class="col-md-2 control-label">发放证明(最多9张)：</label>
             <div class="col-sm-9">
