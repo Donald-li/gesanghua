@@ -49,13 +49,13 @@
       <div class="<%= display_line("levels") %>"></div>
     </li>
     <% end %>
-    <!--<%= link_to account_notices_path do %>-->
-        <!--<li class="<%= display_menu("notices") %> cur">-->
-          <!--<span class="iconfont icon-icon-tips"></span>-->
-          <!--<span>消息通知</span>-->
-          <!--<div class="<%= display_line("notices") %>"></div>-->
-        <!--</li>-->
-    <!--<% end %>-->
+    <%= link_to account_notices_path do %>
+        <li class="<%= display_menu("notices") %> cur">
+          <span class="iconfont icon-icon-tips"></span>
+          <span>消息通知</span>
+          <div class="<%= display_line("notices") %>"></div>
+        </li>
+    <% end %>
   </ul>
   <div  class="border-t" >
     <%= link_to account_logout_path, method: :delete do %>

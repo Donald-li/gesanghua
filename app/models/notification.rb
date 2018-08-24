@@ -33,6 +33,7 @@ class Notification < ApplicationRecord
 
   after_create :send_template_msg
 
+  scope :sorted, -> {order(created_at: :desc)}
 
   def summary_builder
     Jbuilder.new do |json|
@@ -55,6 +56,29 @@ class Notification < ApplicationRecord
   end
 
   def kind_title
+  end
+
+  def redirect_url
+    case self.kind
+      when /feedback_/
+        self.url || "#{Settings.root_url}account/orders"
+      when 'donate'
+        self.url || "#{Settings.root_url}account/orders"
+      when /project_/
+        self.url || "#{Settings.root_url}account/orders"
+      when /approve_/
+        self.url || "#{Settings.root_url}gsh_plus"
+      when 'exception_record'
+        self.url || "#{Settings.root_url}platform"
+      when 'child_granted'
+        self.url || "#{Settings.root_url}account/pairs"
+      when 'appoint_donor'
+        self.url || "#{Settings.root_url}account/pairs"
+      when 'continue_donate'
+        self.url || "#{Settings.root_url}pairs/#{self.owner_id}/detail"
+      else
+        self.url || "#{Settings.root_url}platform"
+    end
   end
 
   def send_template_msg
