@@ -3,7 +3,7 @@ styles = wb.styles
 header = styles.add_style :sz => 16, :b => true, :alignment => {:horizontal => :center}
 wb.add_worksheet(name: "学生名单") do |sheet|
 
-  sheet.add_row ["序号", "格桑花编号", "姓名", "学校", "年级", "申请学年", "筹款进度", "备注", "最新捐助人姓名", "电话", "邮箱", "地址", "代捐管理人姓名", "手机号"]
+  sheet.add_row ["序号", "格桑花编号", "姓名", "学校", "年级", "申请学年", "筹款进度", "备注", "最新捐助人姓名", "电话", "邮箱", "地址", "代捐管理人姓名", "手机号", "分享链接"]
   @pair_student_lists.each_with_index do |child, index|
     semesters = child.semesters.sorted
     donor = semesters.succeed.last.try(:user)
@@ -21,7 +21,8 @@ wb.add_worksheet(name: "学生名单") do |sheet|
                       donor.try(:email),
                       donor.try(:full_address),
                       donor.try(:manager).try(:name),
-                      donor.try(:manager).try(:phone)]
+                      donor.try(:manager).try(:phone),
+                      child.share_path]
   end
 
   sheet.column_widths 10, 20, 10, 10, 10, 150, 10, 10, 10, 10, 10, 30, 20, 20
