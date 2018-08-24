@@ -2,12 +2,13 @@
   <div class="portlet-title">
     <div class="caption">
       <i class="fa fa-sliders font-dark"></i>
-      <span class="caption-subject font-dark bold uppercase"><%= @visit.apply_child.name %>家访记录<%= @visit.apply_child.id %></span>
+      <span class="caption-subject font-dark bold uppercase"><%= @visit.apply_child.name %>
+        家访记录<%= @visit.apply_child.id %></span>
     </div>
     <div class="actions">
       <%= link_to admin_home_visits_path(id: @visit.apply_child.id), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
-        <i class="fa fa-reply"></i>
-        <span>返回</span>
+          <i class="fa fa-reply"></i>
+          <span>返回</span>
       <% end %>
     </div>
   </div>
@@ -186,60 +187,62 @@
             家长授权书
           </th>
           <th>
-            <%= image_tag @visit.image.try(:file).try(:url) %>
+            <% @visit.images.each do |image| %>
+                <%= image_tag image.try(:file).try(:url) %> <br>
+            <% end %>
           </th>
         </tr>
         </tbody>
       </table>
-      <table  class="table table-bordered table-hover">
+      <table class="table table-bordered table-hover">
         <tbody>
-          <tr>
-            <th>
-              家庭成员
-            </th>
-          </tr>
-          <tr>
-            <th>
-              成员姓名
-            </th>
-            <th>
-              年龄
-            </th>
-            <th>
-              关系
-            </th>
-            <th>
-              职业
-            </th>
-            <th>
-              健康状况
-            </th>
-            <th>
-              工作情况
-            </th>
-          </tr>
-            <% @visit.members.each do |member| %>
-              <tr>
-                <th>
-                  <%= member.name %>
-                </th>
-                <th>
-                  <%= member.age %>
-                </th>
-                <th>
-                  <%= member.relationship %>
-                </th>
-                <th>
-                  <%= member.profession %>
-                </th>
-                <th>
-                  <%= member.health_condition %>
-                </th>
-                <th>
-                  <%= member.job_condition %>
-                </th>
-              </tr>
-            <% end %>
+        <tr>
+          <th>
+            家庭成员
+          </th>
+        </tr>
+        <tr>
+          <th>
+            成员姓名
+          </th>
+          <th>
+            年龄
+          </th>
+          <th>
+            关系
+          </th>
+          <th>
+            职业
+          </th>
+          <th>
+            健康状况
+          </th>
+          <th>
+            工作情况
+          </th>
+        </tr>
+        <% @visit.members.each do |member| %>
+            <tr>
+              <th>
+                <%= member.name %>
+              </th>
+              <th>
+                <%= member.age %>
+              </th>
+              <th>
+                <%= member.relationship %>
+              </th>
+              <th>
+                <%= member.profession %>
+              </th>
+              <th>
+                <%= member.health_condition %>
+              </th>
+              <th>
+                <%= member.job_condition %>
+              </th>
+            </tr>
+        <% end %>
         </tbody>
       </table>
     </div>

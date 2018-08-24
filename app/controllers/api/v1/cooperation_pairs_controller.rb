@@ -28,6 +28,14 @@ class Api::V1::CooperationPairsController < Api::V1::BaseController
     api_success(data: {students: students.map{|st| st.manage_list_builder}, apply_name: apply.apply_name, pagination: json_pagination(students)})
   end
 
+  def submit_students
+    apply = ProjectSeasonApply.find(params[:id])
+    students = apply.children
+    students = students.where("name like :q or id_card like :q", q: "%#{params[:keyword]}%") if params[:keyword].present?
+    students = students.page(params[:page]).per(params[:per])
+    api_success(data: {submit_students: students.submit.map{|st| st.manage_list_builder}, draft_students: students.draft.map{|st| st.manage_list_builder}, apply_name: apply.apply_name})
+  end
+
   private
   def set_pair
     @pair = Project.first

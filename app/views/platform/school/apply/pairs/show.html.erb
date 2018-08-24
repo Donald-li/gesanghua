@@ -33,7 +33,17 @@
         <% if @apply.children.check_list.present? %>
         <div class="school-apply-pair-table-cont">
           <% @apply.children.check_list.each do |child| %>
-          <p><span><%= child.name %></span><%= child.age %>岁 | <%= child.enum_name(:gender) %> | <%= child.enum_name(:level) %> <%= child.enum_name(:grade) %></p>
+          <p>
+            <span><%= child.name %></span><%= child.age %>岁 | <%= child.enum_name(:gender) %> | <%= child.enum_name(:level) %> <%= child.enum_name(:grade) %>
+            <span style="float: right"><%= child.enum_name(:approve_state) %></span>
+          </p>
+          <% end %>
+          <hr>
+          <% @apply.children.draft.each do |child| %>
+              <p>
+                <span><%= child.name %></span><%= child.age %>岁 | <%= child.enum_name(:gender) %> | <%= child.enum_name(:level) %> <%= child.enum_name(:grade) %>
+                <span style="float: right"><%= child.enum_name(:approve_state) %></span>
+              </p>
           <% end %>
         </div>
         <% else %>

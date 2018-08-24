@@ -315,6 +315,7 @@ namespace :api do
     resources :cooperation_pairs do
       collection do
         get :verified_students
+        get :submit_students
       end
     end
 

@@ -20,6 +20,7 @@ namespace :account do
   resources :pairs, only: [:index] do     # 我的结对
     resources :children_mailboxs
   end
+  resources :notices, only: :index
   resources :bookshelves, only: [:index] # 我的图书角
   resources :teams, only: [:index, :new, :create, :edit, :update] do # 我的团队
     collection do

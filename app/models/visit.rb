@@ -30,11 +30,10 @@
 # 家访
 class Visit < ApplicationRecord
 
-  attr_accessor :image_id
   attr_accessor :member_ids
 
   include HasAsset
-  has_one_asset :image, class_name: 'Asset::VisitImage'
+  has_many_assets :images, class_name: 'Asset::VisitImage'
 
   belongs_to :owner, polymorphic: true, optional: true
 
@@ -61,10 +60,11 @@ class Visit < ApplicationRecord
       json.(self, :id, :investigador, :escort, :family_basic, :family_size, :basic_information, :income_information, :expenditure_information, :lodge, :other_subsidize, :prize_information, :study_information, :tuition_fee, :sponsor_fee)
       json.lodge_cost self.lodge_cost.to_f
       json.survey_time self.survey_time.strftime('%Y-%m-%d')
-      json.image do
-        json.id self.try(:image).try(:id)
-        json.url self.try(:image).try(:file_url)
-        json.protect_token self.try(:image).try(:protect_token)
+      json.images do
+        json.array! self.images do |img|
+          json.id img.id
+          json.url img.file_url
+        end
       end
     end.attributes!
   end

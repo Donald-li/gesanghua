@@ -186,6 +186,7 @@ zh:
     pass: '通过'
     reject: '不通过'
   project_season_apply_child_approve_states:
+    draft: '待提交'
     submit: '待审核'
     pass: '通过'
     reject: '不通过'

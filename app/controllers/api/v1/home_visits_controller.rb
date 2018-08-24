@@ -50,7 +50,7 @@ class Api::V1::HomeVisitsController < Api::V1::BaseController
       sponsor_fee: params[:sponsor_fee].first
     )
     if @visit.save
-      @visit.attach_image(params[:image][0][:id]) if params[:image][0].present?
+      @visit.attach_images(params[:images].pluck(:id)) if params[:images].present?
       family_members.update_all(visit_id: @visit.id)
       api_success(data: {result: true, child_id: @child.id}, message: '孩子家访信息提交成功！')
     else
@@ -88,7 +88,7 @@ class Api::V1::HomeVisitsController < Api::V1::BaseController
       tuition_fee: params[:tuition_fee],
       sponsor_fee: sponsor_fee
       )
-      @visit.attach_image(params[:image][0][:id]) if params[:image][0].present?
+      @visit.attach_images(params[:images].pluck(:id)) if params[:images].present?
       family_members.update_all(visit_id: @visit.id)
       api_success(data: {result: true, child_id: @visit.apply_child_id}, message: '孩子家访信息提交成功！')
     else
