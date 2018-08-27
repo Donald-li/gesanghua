@@ -9,13 +9,12 @@ wb.add_worksheet(name: "领款表") do |sheet|
   sheet.add_row ["学校名称："]
   sheet.add_row ["应到学生：#{@items.count}名 应发金额：￥#{(@items.sum(:amount) / 1.05).to_i}元 实到学生_____名，实发金额______元，日期______"]
 
-  sheet.add_row ["序号", "编号", "年级", "班级", "学生姓名", "捐助人", "捐助金额", "捐助人", "学生签字", "监护人关系", "监护人签字", "备注"], :style => [center, nil, nil, nil, nil, nil, left, nil, nil, nil, nil]
+  sheet.add_row ["序号", "编号", "年级/班级", "学生姓名", "捐助人", "捐助金额", "捐助人", "学生签字", "监护人关系", "监护人签字", "备注"], :style => [center, nil, nil, nil, nil, nil, left, nil, nil, nil, nil]
   @items.each_with_index do |grant, index|
     sheet.add_row [
                       index + 1,
                       grant.gsh_child.try(:gsh_no),
-                      grant.apply_child.enum_name(:level).to_s + grant.apply_child.grade.to_s,
-                      grant.apply_child.try(:classname).to_s,
+                      grant.apply_child.level_name + grant.apply_child.grade_name + '.' + grant.apply_child.try(:classname).to_s,
                       grant.apply_child.try(:name),
                       grant.user.try(:name),
                       (grant.amount / 1.05).to_i,
@@ -38,6 +37,7 @@ wb.add_worksheet(name: "领款表") do |sheet|
   sheet.add_row ["6. 本表格内容经有效盖章、签字方可生效。"]
   sheet.merge_cells "A1:H1"
   sheet.merge_cells "A#{@items.count + 6}:H#{@items.count + 6}"
+  sheet.merge_cells "A#{@items.count + 7}:L#{@items.count + 7}"
 
   sheet.column_widths 10
 
@@ -45,13 +45,12 @@ wb.add_worksheet(name: "领款表") do |sheet|
     sheet.add_row ["青海格桑花教育基金会 学生信息核对表（发放现场用）"], :style => [header]
     sheet.add_row
     sheet.add_row ["学校名称："]
-    sheet.add_row ["序号", "编号", "年级", "班级", "班级核实", "学生姓名", "性别", "父亲", "父亲最新情况", "母亲", "母亲最新情况", "学生其他信息"], :style => [center, nil, nil, nil, nil, nil, left, nil, nil, nil, nil]
+    sheet.add_row ["序号", "编号", "年级/班级", "班级核实", "学生姓名", "性别", "父亲", "父亲最新情况", "母亲", "母亲最新情况", "学生其他信息"], :style => [center, nil, nil, nil, nil, nil, left, nil, nil, nil, nil]
     @items.each_with_index do |grant, index|
       sheet.add_row [
                         index + 1,
                         grant.gsh_child.try(:gsh_no),
-                        grant.apply_child.enum_name(:level).to_s + grant.apply_child.enum_name(:grade).to_s,
-                        grant.apply_child.try(:classname).to_s,
+                        grant.apply_child.level_name + grant.apply_child.grade_name + '.' + grant.apply_child.try(:classname).to_s,
                         '',
                         grant.apply_child.try(:name),
                         grant.apply_child.try(:enum_name, :gender),
@@ -75,13 +74,12 @@ wb.add_worksheet(name: "领款表") do |sheet|
       sheet.add_row ["青海格桑花教育基金会 捐助人表"], :style => [header]
       sheet.add_row
       sheet.add_row ["学校名称："]
-      sheet.add_row ["序号", "编号", "年级", "班级", "学生姓名", "捐助人", "称呼", "性别", "地址", "电子邮箱", "留言"], :style => [center, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil]
+      sheet.add_row ["序号", "编号", "年级/班级", "学生姓名", "捐助人", "称呼", "性别", "地址", "电子邮箱", "留言"], :style => [center, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil]
       @items.each_with_index do |grant, index|
         sheet.add_row [
                           index + 1,
                           grant.gsh_child.try(:gsh_no),
-                          grant.apply_child.enum_name(:level).to_s + grant.apply_child.enum_name(:grade).to_s,
-                          grant.apply_child.try(:classname).to_s,
+                          grant.apply_child.level_name + grant.apply_child.grade_name + '.' + grant.apply_child.try(:classname).to_s,
                           grant.apply_child.try(:name),
                           grant.user.try(:name),
                           grant.user.try(:salutation),

@@ -37,8 +37,12 @@
       </div>
     </div>
     <div class="clearfix">
-      <span class="goodtext pull-left">班级</span>
-      <input  class="goodinput pull-left" type="text" name="project_season_apply_child[classname]" value="<%= @child.classname %>" placeholder="班级" required/>
+        <span class="goodtext">班级</span>
+        <div class="modified modified-1 goods-project-input">
+          <span class="iconfont icon-ico-reduce oversmin"></span>
+          <input type="number" name="project_season_apply_child[classname]" value="<%= @child.classname || '1' %>" class="oversinputs"/>
+          <span class="iconfont icon-ico-add1 oversadd"></span>
+        </div>
     </div>
     <div class="clearfix">
       <span class="goodtext pull-left">班主任</span>
@@ -232,5 +236,7 @@
         initImageWebuploader($('#child-image5'));
         initImageWebuploader($('#child-image6'));
     })
+
+    $('.modified-1').calculate()
 
 </script>

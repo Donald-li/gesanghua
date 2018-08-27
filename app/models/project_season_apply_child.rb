@@ -165,10 +165,6 @@ class ProjectSeasonApplyChild < ApplicationRecord
     self.avatar.try(:file_url, :tiny)
   end
 
-  def grade_name
-    self.enum_name(:level).to_s + self.enum_name(:grade).to_s
-  end
-
   def count_donate_amount_by_grant_number(number)
     count = 0
     self.get_donate_items.each_with_index do |item, index|
@@ -195,6 +191,36 @@ class ProjectSeasonApplyChild < ApplicationRecord
     self.semesters.pending.order(id: :asc)
   end
 
+  def level_name
+    {primary: 0, junior: 1, senior: 2, abbreviation: 4}
+    if self.primary?
+      '小'
+    elsif self.junior?
+      '初'
+    elsif self.senior?
+      '高'
+    elsif self.abbreviation?
+      '职'
+    end
+  end
+
+  def grade_name
+    if self.one?
+      '一'
+    elsif self.two?
+      '二'
+    elsif self.three?
+      '三'
+    elsif self.four?
+      '四'
+    elsif self.five?
+      '五'
+    elsif self.six?
+      '六'
+    end
+
+  end
+
   # 更新申请状态
   def check_state
     self.done_semester_count = self.semesters.succeed.count
@@ -213,7 +239,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
       year = self.id_card.slice(6, 4)
       month = self.id_card.slice(10, 2)
       day = self.id_card.slice(12, 2)
-      return "#{month}.#{day}"
+      return "#{month}月#{day}日生"
     end
   end
 
