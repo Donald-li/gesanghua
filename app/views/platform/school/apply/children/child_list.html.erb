@@ -271,7 +271,7 @@
     $('#share-2').share({
         sites: ['wechat'],
         title: '<%= @apply.name %>',
-        url: '<%= "#{Settings.m_root_url}/form/pair-guide?code=#{@apply.code}&school_name=#{school.name}&apply_id=#{params[:id]}" %>',
+        url: '<%= "#{Settings.m_root_url}/form/pair-guide?code=#{@apply.code}&school_name=#{@apply.school.try(:name)}&apply_id=#{params[:id]}" %>',
         description: '',
         image: '<%= image_url 'project-reducepage-child.png' %>'
     });
