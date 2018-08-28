@@ -10,8 +10,15 @@ namespace :platform do
           collection do
             get :child_list
           end
+          member do
+            get :visit_list
+            get :visit_form
+            post :visit_create
+            post :visit_update
+          end
         end
       end
+      resources :family_members
       resources :reads do
         collection do
           get :new_supplement

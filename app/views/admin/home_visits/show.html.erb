@@ -64,7 +64,6 @@
           </th>
           <th>
             <%= @visit.escort %>
-
           </th>
         </tr>
         <tr>
@@ -73,6 +72,14 @@
           </th>
           <th>
             <%= @visit.survey_time.strftime('%Y-%m-%d') %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            其他说明
+          </th>
+          <th>
+            <%= @visit.content %>
           </th>
         </tr>
         <tr>

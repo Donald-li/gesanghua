@@ -1,0 +1,161 @@
+<div class="person-body-right pull-right" id="addchildrenlist">
+  <div class="paddchild marginbottom">
+    <div class="don-title clearfix">
+      <span class="pull-left">编辑家访表</span>
+
+      <div class="don-title-icon pull-right">
+        <%= link_to visit_list_platform_school_apply_pair_child_path(@apply, @child) do %>
+            <span class="pull-right iconfont icon-arrow-right"></span>
+            <span class="pull-right">返回</span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <%= simple_form_for [:platform, @child, @visit], url: @visit.new_record? ? visit_create_platform_school_apply_pair_child_path(@apply, @child, visit_id: @visit.id) : visit_update_platform_school_apply_pair_child_path(@apply, @child, visit_id: @visit.id), method: :post, html: {'data-parsley-validate': true, class: 'user_form'} do |f| %>
+      <div class="addchild-list marginbottom">
+        <p class="don-title">学生信息</p>
+        <div class="addchild-list-cont">
+          <div class="clearfix">
+            <span class="goodtext pull-left">真实姓名</span>
+            <input  class="goodinput pull-left" type="text" value="<%= @child.name %>" disabled />
+          </div>
+          <div class="clearfix">
+            <span class="goodtext pull-left">身份证号</span>
+            <input  class="goodinput pull-left" type="text" value="<%= @child.id_card %>" disabled/>
+          </div>
+          <div class="clearfix">
+            <span class="goodtext pull-left">年龄</span>
+            <input  class="goodinput pull-left" type="text" value="<%= @child.age %>" disabled/>
+          </div>
+        </div>
+      </div>
+      <div class="addchild-list marginbottom">
+        <p class="don-title">调查人信息</p>
+        <div class="addchild-list-cont">
+          <div class="clearfix">
+            <span class="goodtext pull-left">调查人员</span>
+            <input  class="goodinput pull-left" type="text" name="visit[investigador]" value="<%= @visit.investigador %>" required/>
+          </div>
+          <div class="clearfix">
+            <span class="goodtext pull-left">陪同人员</span>
+            <input  class="goodinput pull-left" type="text" name="visit[escort]" value="<%= @visit.escort %>"/>
+          </div>
+          <div class="clearfix">
+            <span class="goodtext pull-left">调查时间</span>
+            <input  class="goodinput pull-left datepicker" type="text" name="visit[survey_time]" value="<%= @visit.survey_time.strftime("%Y-%m-%d") if @visit.survey_time.present? %>"/>
+          </div>
+          <div style="height: 172px;width: 777px;" class="clearfix">
+            <span class="goodtext pull-left" style="flex: 0 0 10%;max-width: 10%;width: 10%;">其他说明</span>
+            <textarea name="visit[content]" class="pull-left" required><%= @visit.content %></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="addchild-list addchild-list-up marginbottom">
+        <p class="don-title">家庭情况</p>
+        <div class="addchild-list-cont">
+          <div class="clearfix">
+            <span class="goodtext pull-left">基本情况</span>
+            <div class="pull-left">
+              <%= f.input :family_basic, as: :select, collection: ['双亲健在', '单亲（病故）', '单亲（离异）', '单亲（去世）', '父母双亡'], include_blank: false, label: false, input_html: {id: 'allcamps', class: ''} %>
+            </div>
+          </div>
+          <div class="clearfix">
+            <span class="goodtext">家庭人数</span>
+            <div class="modified modified-1 goods-project-input">
+              <span class="iconfont icon-ico-reduce oversmin"></span>
+              <input type="number" name="visit[family_size]" value="<%= @visit.family_size || 0 %>" class="oversinputs"/>
+              <span class="iconfont icon-ico-add1 oversadd"></span>
+            </div>
+          </div>
+          <p class="don-title">家庭成员</p>
+          <div class="reads-new-cont">
+           <%= render '/platform/school/apply/family_members/index' %>
+          </div>
+          <div style="height: 172px;width: 777px;" class="clearfix">
+            <span class="goodtext pull-left" style="flex: 0 0 10%;max-width: 10%;width: 10%;">基本情况</span>
+            <textarea name="visit[basic_information]" placeholder="例如：住房情况、财产状况、耕地/草地面积、牲畜和电器等" class="pull-left" required><%= @visit.basic_information %></textarea>
+          </div>
+          <div style="height: 172px;width: 777px;" class="clearfix">
+            <span class="goodtext pull-left" style="flex: 0 0 10%;max-width: 10%;width: 10%;">收入情况</span>
+            <textarea name="visit[income_information]" placeholder="例如：家庭经济收入及主要来源等" class="pull-left" required><%= @visit.income_information %></textarea>
+          </div>
+          <div style="height: 172px;width: 777px;" class="clearfix">
+            <span class="goodtext pull-left" style="flex: 0 0 10%;max-width: 10%;width: 10%;">支出情况</span>
+            <textarea name="visit[expenditure_information]" placeholder="例如：家庭经济支出的途径等" class="pull-left" required><%= @visit.expenditure_information %></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="addchild-list marginbottom">
+        <p class="don-title">学习与受资助情况</p>
+        <div class="addchild-list-cont">
+          <div class="clearfix">
+            <span class="goodtext pull-left">是否住校</span>
+            <div class="pull-left">
+              <%= f.input :lodge, as: :select, collection: ['是', '否'], include_blank: false, label: false, input_html: {id: 'allcamps1', class: ''} %>
+            </div>
+          </div>
+          <div class="clearfix">
+            <span class="goodtext pull-left">住校费用</span>
+            <input  class="goodinput pull-left" type="number" name="visit[lodge_cost]" value="<%= @visit.lodge_cost %>" required min="0"/>
+            <span class="income-moy">元</span>
+          </div>
+          <div style="height: 172px;width: 777px;" class="clearfix">
+            <span class="goodtext pull-left" style="flex: 0 0 10%;max-width: 10%;width: 10%;">其他资助</span>
+            <textarea name="visit[other_subsidize]" placeholder="如有其他资助人的资助，请写明" class="pull-left" required><%= @visit.other_subsidize %></textarea>
+          </div>
+          <div style="height: 172px;width: 777px;" class="clearfix">
+            <span class="goodtext pull-left" style="flex: 0 0 10%;max-width: 10%;width: 10%;">获奖情况</span>
+            <textarea name="visit[prize_information]" placeholder="可填写成长过程中获得的各种奖项" class="pull-left" required><%= @visit.prize_information %></textarea>
+          </div>
+          <div style="height: 172px;width: 777px;" class="clearfix">
+            <span class="goodtext pull-left" style="flex: 0 0 10%;max-width: 10%;width: 10%;">学习情况</span>
+            <textarea name="visit[study_information]" placeholder="可填写具体科目的成绩，综合评分，以及特长等信息" class="pull-left" required><%= @visit.study_information %></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="addchild-list addchild-list-up">
+        <p class="don-title">上传相关照片</p>
+        <div class="clearfix ">
+          <div style="height: 100%;margin-bottom: 20px;">
+            <p></p>
+            <%= webuploader_images 'image_ids[]', label: '上传图片', type: 'visit_image', asset: @visit.images %>
+          </div>
+
+        </div>
+      </div>
+      <div class="childern-submint">
+        <button type="submit">保存</button>
+        <button>
+          <%= link_to '取消', visit_list_platform_school_apply_pair_child_path(@apply, @child) %>
+        </button>
+      </div>
+  <% end %>
+
+</div>
+<div id="div-for-modal"></div>
+
+<script>
+    $("#allcamps").select2({
+        language:'zh-CN',
+        width: "389px",
+        minimumResultsForSearch: -1
+    });
+    $("#allcamps1").select2({
+        language:'zh-CN',
+        width: "389px",
+        minimumResultsForSearch: -1
+    });
+    $('.datepicker').datepicker({
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd',
+        showClear: true,
+        dayViewHeaderFormat: 'yyyy mm'
+    });
+
+    $(function(){
+        initMultiImageWebuploader($('#webuploader'));
+    })
+
+    $('.modified-1').calculate()
+
+</script>

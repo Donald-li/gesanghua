@@ -1,0 +1,14 @@
+<div class="clearfix" id="<%= 'member-'+ member.id.to_s %>">
+  <span class="pull-left"><%= member.name %></span>
+  <div class="pull-right">
+    <div class="clearfix don-con-pos">
+      <div class="pull-right cur edit-offline-user">
+        <%= link_to edit_platform_school_apply_family_member_path(member, pair_id: @apply.id, child_id: @child.id), remote: true do %>
+        <span class="iconfont icon-ico-edit "></span>
+        <span>编辑</span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <input hidden name="visit[member_ids][]" value="<%= member.id %>">
+</div>

@@ -1,0 +1,45 @@
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width: auto;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="detail-icon">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">编辑家庭成员</h4>
+      </div>
+      <%= simple_form_for member, url: member.new_record? ? platform_school_apply_family_members_path(pair_id: @apply.id, child_id: @child.id) : platform_school_apply_family_member_path(pair_id: @apply.id, child_id: @child.id, member_id: member.id), remote: true do |f| %>
+          <div class="modal-body" style="padding: 0 15px 15px 15px;">
+            <div  id="new-bookshelf">
+              <input type="hidden" id="member-id" name="member_id" value="<%= member.try(:id) %>">
+              <div>
+                <p class="goodtext">成员姓名</p>
+                <%= f.input :name, label: false, input_html: {id: 'member-name'}, required: true  %>
+              </div>
+              <div>
+                <p class="goodtext">年龄</p>
+                <%= f.input :age, label: false, input_html: {id: 'member-age'}, required: true  %>
+              </div>
+              <div>
+                <p class="goodtext">关系</p>
+                <%= f.input :relationship, label: false, input_html: {id: 'member-relationship'}, required: true  %>
+              </div>
+              <div>
+                <p class="goodtext">职业</p>
+                <%= f.input :profession, label: false, input_html: {id: 'member-profession'}, required: true  %>
+              </div>
+              <div>
+                <p class="goodtext">健康状况</p>
+                <%= f.input :health_condition, label: false, input_html: {id: 'member-health_condition'}, required: true  %>
+              </div>
+              <div>
+                <p class="goodtext">工作情况</p>
+                <%= f.input :job_condition, label: false, input_html: {id: 'member-job_condition'}, required: true  %>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer overspreads-but">
+            <button class="overspread-but over-but">保存</button>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</div>

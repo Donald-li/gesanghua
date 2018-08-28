@@ -1,0 +1,100 @@
+<div class="person-body-right pull-right" id="children">
+
+  <div class="children-body">
+    <div class="paddchild">
+      <div class="don-title border-b clearfix">
+        <span class="pull-left">家访列表</span>
+
+        <div class="don-title-icon pull-right">
+          <%= link_to child_list_platform_school_apply_pair_children_path(@apply) do %>
+              <span class="pull-right iconfont icon-arrow-right"></span>
+              <span class="pull-right">返回孩子列表</span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="school-apply-pair-table-co">
+      <div class="school-apply-pair-share clearfix">
+        <div class="add-reads" style="padding-right: 34px;">
+          <span class="pull-right share" style="padding-bottom: 5px" id="share-2"></span>
+          <%= link_to visit_form_platform_school_apply_pair_child_path(@apply, @child) do %>
+              <button class="pull-right school-apply-share-sub">
+                <span class="iconfont icon-ico-add1"></span>
+                <span>新增家访表</span>
+              </button>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="paddchild">
+      <div class="school-apply-pair-table clearfix">
+        <p class="pull-left" style="flex: 0 0 48%;max-width: 48%;width: 48%;">学生信息</p>
+        <p class="pull-left" style="flex: 0 0 17.5%;max-width: 17.5%;width: 17.5%;">填写人</p>
+        <p class="pull-left" style="flex: 0 0 17.5%;max-width: 17.5%;width: 17.5%;">调查时间</p>
+        <p class="pull-left" style="flex: 0 0 17.5%;max-width: 17.5%;width: 17.5%;">操作</p>
+      </div>
+    </div>
+
+    <div class="posscroll paddchild">
+      <% @visits.each do |visit| %>
+          <div class="school-apply-pair-tables" style="height:90px;">
+            <div class="school-apply-pair-table-cont clearfix">
+              <div class="school-apply-pair-child pull-left" style="flex: 0 0 48%;max-width: 48%;width: 48%;">
+                <div class="pull-left">
+                  <p>
+                    <span><%= @child.name %>家访记录</span>
+                  </p>
+                </div>
+              </div>
+
+              <div class=" border-r border-l pull-left">
+                <%= visit.investigador %>
+              </div>
+              <div class="pull-left" style="padding: 24px 0;">
+                <%= visit.survey_time.strftime("%Y-%m-%d") if visit.survey_time.present? %>
+              </div>
+              <div class="pull-left  border-l" style="padding:10px 0;width: 17%;">
+                <%= link_to visit_form_platform_school_apply_pair_child_path(@apply, @child, visit_id: visit.id), class: 'lookbutton' do %>
+                    修改
+                <% end %>
+              </div>
+            </div>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<style scope scoped>
+  .add-reads > a:nth-child(1) button:hover {
+    background-color: #9750f5;
+    color: #fff;
+    border: none;
+  }
+</style>
+<script type="text/javascript">
+
+    $('#share-2').share({
+        sites: ['wechat'],
+        title: '<%= @apply.name %>',
+        url: '<%= "#{Settings.m_root_url}/form/pair-guide?code=#{@apply.code}&school_name=#{@apply.school.try(:name)}&apply_id=#{params[:id]}" %>',
+        description: '',
+        image: '<%= image_url 'project-reducepage-child.png' %>'
+    });
+
+</script>
+
+<style lang="scss" scoped>
+  .social-share .social-share-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    line-height: 39px;
+    margin-top: -3px;
+    margin-left: 10px;
+
+  }
+
+  .social-share .help p:nth-child(2) {
+    display: none;
+  }
+</style>

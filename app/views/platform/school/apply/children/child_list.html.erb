@@ -44,7 +44,8 @@
       </div>
       <div class="paddchild">
         <div class="school-apply-pair-table clearfix">
-          <p class="pull-left" style="flex: 0 0 65%;max-width: 65%;width: 65%;">学生信息</p>
+          <p class="pull-left" style="flex: 0 0 48%;max-width: 48%;width: 48%;">学生信息</p>
+          <p class="pull-left" style="flex: 0 0 17.5%;max-width: 17.5%;width: 17.5%;">推荐理由</p>
           <p class="pull-left" style="flex: 0 0 17.5%;max-width: 17.5%;width: 17.5%;">推荐理由</p>
           <p class="pull-left" style="flex: 0 0 17.5%;max-width: 17.5%;width: 17.5%;">操作</p>
         </div>
@@ -54,7 +55,7 @@
         <% @children.each do |child| %>
             <div class="school-apply-pair-tables" style="height:90px;">
               <div class="school-apply-pair-table-cont clearfix">
-                <div class="school-apply-pair-child pull-left" style="flex: 0 0 65%;max-width: 65%;width: 65%;">
+                <div class="school-apply-pair-child pull-left" style="flex: 0 0 48%;max-width: 48%;width: 48%;">
                   <div class="pretty o-info pull-left">
                     <input type="checkbox" value="<%= child.id %>"/>
                     <label><i class="mdi mdi-check"></i></label>
@@ -75,8 +76,13 @@
                 <div class=" border-r border-l pull-left">
                   <button class="recommend-but" data-toggle="modal" data-target="#myModal" onclick="setChildReason(<%= child.id %>, '<%= child.reason %>')">填写推荐理由</button>
                 </div>
-                <div class="pull-left" style="    padding: 10px 0;">
-                  <%= link_to edit_platform_school_apply_pair_child_path(@apply, child), class: 'lookbutton', style: 'margin-bottom:10px;' do %>
+                <div class="pull-left" style="padding: 24px 0;">
+                  <button class="recommend-but" style="width: 120px;">
+                    <%= link_to "填写家访表（#{child.visits.count}）", visit_list_platform_school_apply_pair_child_path(@apply, child) %>
+                  </button>
+                </div>
+                <div class="pull-left  border-l" style="padding:10px 0;width: 17%;">
+                  <%= link_to edit_platform_school_apply_pair_child_path(@apply, child), class: 'lookbutton' do %>
                       修改
                   <% end %>
                   <%= link_to platform_school_apply_pair_child_path(@apply, child), method: :delete, data: {confirm: '确定要删除学生信息吗？'}, class: 'detail-table' do %>
@@ -128,7 +134,7 @@
     </div>
   </div>
 </div>
-<style scope>
+<style scope scoped>
   .school-teach-sub {
     background-color: #fff;
     border: 1px solid #8b54e3;
@@ -156,7 +162,21 @@
     border: none;
   }
 
-
+  .recommend-but {
+    outline: none;
+    background-color: #eaeaea;
+    width: 101px;
+    height: 30px;
+    line-height: 28px;
+    border: 1px solid #e6e6e6;
+    font-size: 13px;
+    color: #3d3d40;
+    border-radius: 2px;
+    margin-bottom: 10px;
+  }
+    .recommend-but:hover{
+      background-color: #f4f4f4;
+    }
 </style>
 <script type="text/javascript">
     //    $('.overspread-4').overs(".recommend-but");

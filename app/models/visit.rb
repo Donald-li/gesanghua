@@ -57,7 +57,7 @@ class Visit < ApplicationRecord
 
   def detail_builder
     Jbuilder.new do |json|
-      json.(self, :id, :investigador, :escort, :family_basic, :family_size, :basic_information, :income_information, :expenditure_information, :lodge, :other_subsidize, :prize_information, :study_information, :tuition_fee, :sponsor_fee)
+      json.(self, :id, :investigador, :content, :escort, :family_basic, :family_size, :basic_information, :income_information, :expenditure_information, :lodge, :other_subsidize, :prize_information, :study_information, :tuition_fee, :sponsor_fee)
       json.lodge_cost self.lodge_cost.to_f
       json.survey_time self.survey_time.strftime('%Y-%m-%d')
       json.images do

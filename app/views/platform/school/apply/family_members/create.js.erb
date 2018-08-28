@@ -1,0 +1,14 @@
+<% if @member.save %>
+<% html = j render 'item', member: @member %>
+$('#member-list').append('<%= html %>')
+$('#myModal').modal('hide')
+layer.msg('保存成功', {
+    icon: 1,
+    offset: 't c'
+});
+<% else %>
+layer.msg('保存失败', {
+    icon: 2,
+    offset: 't c'
+});
+<% end %>

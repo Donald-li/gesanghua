@@ -13,7 +13,7 @@ wb.add_worksheet(name: "学生名单") do |sheet|
                       child.name,
                       child.school.try(:name),
                       child.enum_name(:level).to_s + child.enum_name(:grade).to_s,
-                      "#{child.priority_user.try(:name)}(#{child.priority_user.try(:nickname)})"
+                      "#{child.priority_user.try(:name)}(#{child.priority_user.try(:nickname)})",
                       child.gift_progress,
                       child.remark,
                       donor.try(:name),

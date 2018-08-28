@@ -1,0 +1,6 @@
+<% html = j render 'form', member: @member %>
+console.log('<%= @member.to_json.html_safe %>')
+console.log('edit')
+$('#div-for-modal').empty()
+$('#div-for-modal').append('<%= html  %>')
+$('#myModal').modal('show')

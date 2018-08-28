@@ -1,7 +1,7 @@
 class Platform::School::Apply::ChildrenController < Platform::School::BaseController
   before_action :check_manage_limit
   before_action :set_apply
-  before_action :set_child, only: [:edit, :update, :destroy]
+  before_action :set_child, only: [:edit, :update, :destroy, :visit_list, :visit_form, :visit_update, :visit_create]
 
   def index
     scope = @apply.children.where(approve_state: params[:state]).sorted
@@ -81,6 +81,38 @@ class Platform::School::Apply::ChildrenController < Platform::School::BaseContro
     redirect_to child_list_platform_school_apply_pair_children_path, notice: '删除成功。'
   end
 
+  def visit_list
+    @visits = @child.visits.sorted
+  end
+
+  def visit_form
+    @visit = params[:visit_id].present? ? Visit.find(params[:visit_id]) : Visit.new
+  end
+
+  def visit_create
+    @visit = Visit.new(visit_params.merge(user: current_user, apply_child: @child))
+    if @visit.save
+      @visit.members = FamilyMember.find(visit_params[:member_ids])
+      @visit.attach_images(params[:image_ids])
+      redirect_to visit_list_platform_school_apply_pair_child_path(@apply, @child), notice: '修改成功。'
+    else
+      flash[:alert] = '修改失败'
+      format.html {render :visit_form}
+    end
+  end
+
+  def visit_update
+    @visit = Visit.find(params[:visit_id])
+    if @visit.update(visit_params)
+      @visit.members = FamilyMember.find(visit_params[:member_ids])
+      @visit.attach_images(params[:image_ids])
+      redirect_to visit_list_platform_school_apply_pair_child_path(@apply, @child), notice: '修改成功。'
+    else
+      flash[:alert] = '修改失败'
+      format.html {render :visit_form}
+    end
+  end
+
   private
   def check_manage_limit
     redirect_to root_path unless current_teacher.manage_projects.where(alias: 'pair').exists?
@@ -96,5 +128,9 @@ class Platform::School::Apply::ChildrenController < Platform::School::BaseContro
 
   def child_params
     params.require(:project_season_apply_child).permit!
+  end
+
+  def visit_params
+    params.require(:visit).permit!
   end
 end
