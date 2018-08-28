@@ -151,7 +151,7 @@ class User < ApplicationRecord
   end
 
   def need_perfect?
-    self.phone.blank? || self.name.present?
+    self.phone.blank? || self.name.blank?
   end
 
   def school_name
