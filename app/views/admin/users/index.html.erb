@@ -178,6 +178,9 @@
                 <%= link_to admin_user_account_records_path(user), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                     <i class="fa fa-file-list"></i> 账户记录
                 <% end %>
+                <%= link_to batch_manage_admin_users_path(user_id: user.id), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                    <i class="fa fa-paper-plane"></i> 推送消息
+                <% end %>
               </td>
             </tr>
             <% end %>

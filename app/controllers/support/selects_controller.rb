@@ -32,6 +32,7 @@ class Support::SelectsController < Support::BaseController
 
   def wechat_users
     scope = User.where.not(profile: {})
+    scope = scope.where(id: params[:user_id]) if params[:user_id].present?
     scope = scope.sorted.where("name like :q or phone like :q", q: "%#{params[:q]}%")
     users = scope.page(params[:page])
     render json: {items: users.as_json(only: [:id], methods: :name_for_select), pagination: json_pagination(users)}

@@ -30,8 +30,8 @@
               <div class="form-group radio_buttons required donate_record_donate_way">
                 <label class="col-md-2 control-label">推送方式：</label>
                 <div class="col-md-9 form-inline">
-                  <label><input type="radio" class="form-control radio_buttons send_way" name="send_way" value="total" checked onclick="toggleState()">所有用户</label>
-                  <label><input type="radio" class="form-control radio_buttons send_way" name="send_way" value="part" onclick="toggleState()">选定用户</label>
+                  <label><input type="radio" class="form-control radio_buttons send_way" name="send_way" value="total" <%= 'checked' if params[:user_id].blank? %> onclick="toggleState()">所有用户</label>
+                  <label><input type="radio" class="form-control radio_buttons send_way" name="send_way" value="part" <%= 'checked' if params[:user_id].present? %> onclick="toggleState()">选定用户</label>
                   <p class="help-block">推送微信消息给绑定微信的用户</p>
                 </div>
               </div>
@@ -83,7 +83,8 @@
                 data: function (params) {
                     return {
                         q: params.term, // search term
-                        page: params.page
+                        page: params.page,
+                        user_id: '<%= params[:user_id] %>'
                     };
                 },
                 processResults: function (data, params) {
@@ -104,7 +105,6 @@
             }
         });
         toggleState();
-
     })
 
     function toggleState() {
