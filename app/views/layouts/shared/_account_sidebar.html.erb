@@ -1,67 +1,69 @@
 <div class="person-body-left pull-left">
   <ul>
     <%= link_to account_orders_path do %>
-    <li class="<%= display_menu("orders") %> cur">
-      <span class="iconfont icon-ico-project"></span>
-      <span>我的捐助</span>
-      <div class="<%= display_line("orders") %>"></div>
-    </li>
+        <li class="<%= display_menu("orders") %> cur">
+          <span class="iconfont icon-ico-project"></span>
+          <span>我的捐助</span>
+          <div class="<%= display_line("orders") %>"></div>
+        </li>
     <% end %>
     <%= link_to account_teams_path do %>
-    <li class="<%= display_menu("teams") %> cur">
-      <span class="iconfont icon-ico-team"></span>
-      <span>我的团队</span>
-      <div class="<%= display_line("teams") %>"></div>
-    </li>
+        <li class="<%= display_menu("teams") %> cur">
+          <span class="iconfont icon-ico-team"></span>
+          <span>我的团队</span>
+          <div class="<%= display_line("teams") %>"></div>
+        </li>
     <% end %>
     <%= link_to account_campaigns_path do %>
-    <li class="<%= display_menu("campaigns") %> cur">
-      <span class="iconfont icon-ico-campaign"></span>
-      <span>我的活动</span>
-      <div class="<%= display_line("campaigns") %>"></div>
-    </li>
+        <li class="<%= display_menu("campaigns") %> cur">
+          <span class="iconfont icon-ico-campaign"></span>
+          <span>我的活动</span>
+          <div class="<%= display_line("campaigns") %>"></div>
+        </li>
     <% end %>
     <%= link_to account_offline_users_path do %>
-    <li class="<%= display_menu("offline_users") %> cur">
-      <span class="iconfont icon-ico-replace"></span>
-      <span>捐助人管理</span>
-      <div class="<%= display_line("offline_users") %>"></div>
-    </li>
+        <li class="<%= display_menu("offline_users") %> cur">
+          <span class="iconfont icon-ico-replace"></span>
+          <span>捐助人管理</span>
+          <div class="<%= display_line("offline_users") %>"></div>
+        </li>
     <% end %>
     <%= link_to platform_root_path do %>
-    <li class="cur <%= controller_path.start_with?('platform') ? 'selectedli' : '' %>">
-      <span class="iconfont icon-ioc-platform"></span>
-      <span>协作平台</span>
-      <div class="<%= controller_path.start_with?('platform') ? 'leftLine' : '' %>"></div>
-    </li>
+        <li class="cur <%= controller_path.start_with?('platform') ? 'selectedli' : '' %>">
+          <span class="iconfont icon-ioc-platform"></span>
+          <span>协作平台</span>
+          <div class="<%= controller_path.start_with?('platform') ? 'leftLine' : '' %>"></div>
+        </li>
     <% end %>
     <%= link_to gsh_plus_root_path do %>
-    <li class="cur">
-      <span class="iconfont icon-ico-gsh"></span>
-      <span>格桑花+</span>
-      <div class="<%= display_line("gsh_plus") %>"></div>
-    </li>
+        <li class="cur">
+          <span class="iconfont icon-ico-gsh"></span>
+          <span>格桑花+</span>
+          <div class="<%= display_line("gsh_plus") %>"></div>
+        </li>
     <% end %>
     <%= link_to account_level_path do %>
-    <li class="<%= display_menu("levels") %> cur">
-      <span class="iconfont icon-ico-badge"></span>
-      <span>我的勋章</span>
-      <div class="<%= display_line("levels") %>"></div>
-    </li>
+        <li class="<%= display_menu("levels") %> cur">
+          <span class="iconfont icon-ico-badge"></span>
+          <span>我的勋章</span>
+          <div class="<%= display_line("levels") %>"></div>
+        </li>
     <% end %>
     <%= link_to account_notices_path do %>
         <li class="<%= display_menu("notices") %> cur">
           <span class="iconfont icon-icon-tips"></span>
           <span>消息通知</span>
-          <i class="iconfont icon-yuan"></i>
+          <% if current_user.notifications.to_check.count > 0 %>
+              <i class="iconfont icon-yuan"></i>
+          <% end %>
           <div class="<%= display_line("notices") %>"></div>
         </li>
     <% end %>
   </ul>
-  <div  class="border-t" >
+  <div class="border-t">
     <%= link_to account_logout_path, method: :delete do %>
-    <span class="iconfont icon-off"></span>
-    <span>退出登录</span>
+        <span class="iconfont icon-off"></span>
+        <span>退出登录</span>
     <% end %>
   </div>
 </div>

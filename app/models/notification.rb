@@ -34,6 +34,7 @@ class Notification < ApplicationRecord
   after_create :send_template_msg
 
   scope :sorted, -> {order(created_at: :desc)}
+  scope :to_check, -> {where(read: false)}
 
   def summary_builder
     Jbuilder.new do |json|
