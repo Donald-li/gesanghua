@@ -8499,7 +8499,91 @@ select:disabled {
     }
   }
 }
+.w_form_visit{
 
+    & > div {
+      width: 100%;
+      height: 100% !important;
+    }
+
+    & > div > div {
+      width: 100%;
+      border: 1px solid $border;
+      border-radius: 3px;
+      position: relative;
+      height: 48px;
+      padding: 12px 20px;
+      margin-bottom: 20px;
+
+      & > span:nth-child(1) {
+        color: #3d3d40;
+        font-size: 14px;
+      }
+
+      & > span:nth-child(2) {
+        color: #3d3d40;
+        font-size: 14px;
+        font-weight: 600;
+        margin-left: 40px;
+      }
+
+      & > p:nth-child(1) {
+        color: #3d3d40;
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      & > p:nth-child(2) {
+        color: #3d3d40;
+        font-size: 14px;
+        margin-top: 3px;
+
+        span {
+          margin: 0 10px 0 0;
+        }
+      }
+
+      .don-con-pos {
+        position: absolute;
+        right: 20px;
+        top: 12px;
+        font-size: 14px;
+        color: #005ea7;
+
+        & > div {
+          margin-left: 20px;
+
+          .iconfont {
+            margin-right: 0;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+
+    .school-apply-share-sub {
+      background: #fff;
+      color: $color-border;
+      border: 1px solid $color-border;
+      line-height: 31px;
+      margin-bottom: 20px;
+      width: 130px;
+      a{
+        color: $color-border;
+        display: inline-block;
+        width:100%;
+      }
+    }
+  .school-apply-share-sub:hover{
+    background: $color-button;
+    a{
+      color:#fff;
+      display: inline-block;
+
+    }
+  }
+
+}
 .check-box {
   font-size: 12px;
   width: 224px;

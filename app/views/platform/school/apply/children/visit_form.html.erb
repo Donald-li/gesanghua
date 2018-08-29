@@ -68,8 +68,17 @@
             </div>
           </div>
           <p class="don-title">家庭成员</p>
-          <div class="reads-new-cont">
+          <div class="reads-new-cont w_form_visit" style="width: 100%;height: auto;margin-bottom: 0;">
            <%= render '/platform/school/apply/family_members/index' %>
+
+          </div>
+          <div class=" w_form_visit" style="width: 100%;height: auto;">
+            <button type="button" class="school-apply-share-sub addnewclass">
+              <%= link_to new_platform_school_apply_family_member_path(pair_id: @apply.id, child_id: @child.id), remote: true do %>
+                  <span class="iconfont icon-ico-add1"></span>
+                  <span>新增成员</span>
+              <% end  %>
+            </button>
           </div>
           <div style="height: 172px;width: 777px;" class="clearfix">
             <span class="goodtext pull-left" style="flex: 0 0 10%;max-width: 10%;width: 10%;">基本情况</span>

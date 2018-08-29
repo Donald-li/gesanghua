@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="school-apply-pair-table-co">
-      <div class="school-apply-pair-share clearfix">
+      <div class="school-apply-pair-share clearfix" style="height: 36px;">
         <div class="add-reads" style="padding-right: 34px;">
           <span class="pull-right share" style="padding-bottom: 5px" id="share-2"></span>
           <%= link_to visit_form_platform_school_apply_pair_child_path(@apply, @child) do %>
@@ -28,18 +28,18 @@
     </div>
     <div class="paddchild">
       <div class="school-apply-pair-table clearfix">
-        <p class="pull-left" style="flex: 0 0 48%;max-width: 48%;width: 48%;">学生信息</p>
+        <p class="pull-left" style="flex: 0 0 47.5%;max-width: 48%;width: 47.5%;">学生信息</p>
         <p class="pull-left" style="flex: 0 0 17.5%;max-width: 17.5%;width: 17.5%;">填写人</p>
-        <p class="pull-left" style="flex: 0 0 17.5%;max-width: 17.5%;width: 17.5%;">调查时间</p>
+        <p class="pull-left" style="flex: 0 0 17.5%;max-width: 17.5%;width: 17.5%;">填写时间</p>
         <p class="pull-left" style="flex: 0 0 17.5%;max-width: 17.5%;width: 17.5%;">操作</p>
       </div>
     </div>
 
     <div class="posscroll paddchild">
       <% @visits.each do |visit| %>
-          <div class="school-apply-pair-tables" style="height:90px;">
+          <div class="school-apply-pair-tables" >
             <div class="school-apply-pair-table-cont clearfix">
-              <div class="school-apply-pair-child pull-left" style="flex: 0 0 48%;max-width: 48%;width: 48%;">
+              <div class="school-apply-pair-child pull-left" style="flex: 0 0 47.5%;max-width: 48%;width: 47.5%;">
                 <div class="pull-left">
                   <p>
                     <span><%= @child.name %>家访记录</span>
@@ -47,13 +47,13 @@
                 </div>
               </div>
 
-              <div class=" border-r border-l pull-left">
+              <div class=" border-r border-l pull-left ">
                 <%= visit.investigador %>
               </div>
-              <div class="pull-left" style="padding: 24px 0;">
+              <div class="pull-left border-r " style="padding: 24px 0;">
                 <%= visit.survey_time.strftime("%Y-%m-%d") if visit.survey_time.present? %>
               </div>
-              <div class="pull-left  border-l" style="padding:10px 0;width: 17%;">
+              <div class="pull-left  " style="padding:10px 0;width: 17%;">
                 <%= link_to visit_form_platform_school_apply_pair_child_path(@apply, @child, visit_id: visit.id), class: 'lookbutton' do %>
                     修改
                 <% end %>
@@ -64,15 +64,8 @@
     </div>
   </div>
 </div>
-<style scope scoped>
-  .add-reads > a:nth-child(1) button:hover {
-    background-color: #9750f5;
-    color: #fff;
-    border: none;
-  }
-</style>
-<script type="text/javascript">
 
+<script type="text/javascript">
     $('#share-2').share({
         sites: ['wechat'],
         title: '<%= @apply.name %>',
@@ -93,8 +86,16 @@
     margin-left: 10px;
 
   }
-
+  .school-apply-pair-child > div:nth-child(1){
+    margin: 0;
+  }
   .social-share .help p:nth-child(2) {
     display: none;
+  }
+
+  .add-reads > a:nth-child(1) button:hover {
+    background-color: #9750f5;
+    color: #fff;
+    border: none;
   }
 </style>
