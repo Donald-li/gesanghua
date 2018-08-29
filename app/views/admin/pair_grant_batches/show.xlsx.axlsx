@@ -36,7 +36,7 @@ wb.add_worksheet(name: "领款表") do |sheet|
   sheet.add_row ["5. 请学校按领款金额开收据交格桑花发放人员。"]
   sheet.add_row ["6. 本表格内容经有效盖章、签字方可生效。"]
   sheet.merge_cells "A1:H1"
-  sheet.merge_cells "A#{@items.count + 6}:H#{@items.count + 6}"
+  sheet.merge_cells "A#{@items.count + 6}:J#{@items.count + 6}"
   sheet.merge_cells "A#{@items.count + 7}:I#{@items.count + 7}"
 
   sheet.column_widths 5, 15, 10, 12, 10, 8, 12, 10, 12, 10
@@ -67,7 +67,7 @@ wb.add_worksheet(name: "领款表") do |sheet|
     sheet.add_row ["1.如有学生情况不详的，请尽可能补齐。"]
     sheet.add_row ["2.此表内容由发放人员直接与学生沟通询问并填写。"]
     sheet.add_row ["3.如无变化的信息项，请划横线或打勾，以示已核对无变化。"]
-    sheet.merge_cells "A1:H1"
+    sheet.merge_cells "A1:K1"
 
     sheet.column_widths 10
 
@@ -96,7 +96,7 @@ wb.add_worksheet(name: "领款表") do |sheet|
       sheet.add_row ["1.此表可打印两份，其中一份由老师留存；另一份可剪开，分别交给学生留存。"]
       sheet.add_row ["2. 格桑花鼓励学生和捐助人通信，双方建立良好的沟通联系，学生有义务主动向捐助人汇报学习情况；"]
       sheet.add_row ["3. 在资助期，学生每学年必须通过格桑花平台的学生中心发送一次信件给捐助人，否则下一学年有可能取消资助。"]
-      sheet.merge_cells "A1:H1"
+      sheet.merge_cells "A1:J1"
 
       sheet.column_widths 10
     end
