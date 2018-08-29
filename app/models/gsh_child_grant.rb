@@ -73,7 +73,7 @@ class GshChildGrant < ApplicationRecord
   default_value_for :management_fee_state, 0
 
   enum balance_manage: {transfer: 1, send_back: 2} # TODO: 废弃 捐助状态 1:转捐 2:退回
-  default_value_for :balance_manage, 2
+  # default_value_for :balance_manage, 2
 
   scope :sorted, ->(){ order(id: :asc) }
   scope :reverse_sorted, ->{ sorted.reverse_order }
