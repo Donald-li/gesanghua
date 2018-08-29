@@ -6,10 +6,10 @@ left = styles.add_style :alignment => {:horizontal => :left}
 wb.add_worksheet(name: "领款表") do |sheet|
   sheet.add_row ["青海格桑花教育基金会 学生领款登记表"], :style => [header]
   sheet.add_row
-  sheet.add_row ["学校名称："]
+  sheet.add_row ["资助周期：____________________  学校名称：____________________  "]
   sheet.add_row ["应到学生：#{@items.count}名 应发金额：￥#{(@items.sum(:amount) / 1.05).to_i}元 实到学生_____名，实发金额______元，日期______"]
 
-  sheet.add_row ["序号", "编号", "年级/班级", "学生姓名", "捐助人", "捐助金额", "捐助人", "学生签字", "监护人关系", "监护人签字", "备注"], :style => [center, nil, nil, nil, nil, nil, left, nil, nil, nil, nil]
+  sheet.add_row ["序号", "编号", "年级/班级", "学生姓名", "捐助人", "捐助金额", "学生签字", "监护人关系", "监护人签字", "备注"], :style => [center, nil, nil, nil, nil, nil, left, nil, nil, nil, nil]
   @items.each_with_index do |grant, index|
     sheet.add_row [
                       index + 1,
@@ -18,7 +18,6 @@ wb.add_worksheet(name: "领款表") do |sheet|
                       grant.apply_child.try(:name),
                       grant.user.try(:name),
                       (grant.amount / 1.05).to_i,
-                      grant.user.try(:name),
                       '',
                       grant.apply_child.try(:guardian_relation),
                       '',
