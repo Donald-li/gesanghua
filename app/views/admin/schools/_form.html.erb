@@ -28,7 +28,7 @@
     <%= f.input :postcode, label: '邮政编码：', placeholder: '邮政编码', input_html: { data: {'parsley-required': true}} %>
     <%#= static_form_control '校长姓名：', @school.contact_name %>
     <%= f.input :contact_name, label: '学校负责人姓名：', placeholder: '负责人姓名', input_html: { data: {'parsley-required': true}} %>
-    <%= f.input :contact_id_card, label: '负责人身份证号码：', placeholder: '身份证号码', input_html: { data: {'parsley-required': true}} %>
+    <%= f.input :contact_id_card, label: '负责人身份证号码：', placeholder: '身份证号码', input_html: { data: {'parsley-required': @school.archive_data.blank?}} %>
     <%= f.input :contact_phone, label: '负责人手机号码：', placeholder: '手机号码', input_html: { data: {'parsley-required': true}} %>
     <%= f.input :number, label: '学生人数：', placeholder: '学生人数', input_html: { data: {'parsley-required': true}, type: 'number', min: 0} %>
     <%= f.input :teacher_count, label: '教师人数：', placeholder: '教师人数', input_html: { data: {'parsley-required': true}, type: 'number', min: 0} %>
