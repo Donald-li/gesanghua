@@ -1,6 +1,7 @@
 wb = xlsx_package.workbook
 styles = wb.styles
 header = styles.add_style :sz => 16, :b => true, :alignment => {:horizontal => :center}
+border = styles.add_style :border => { :style => :thin, :color => "00" }
 center = styles.add_style :alignment => {:horizontal => :center}
 left = styles.add_style :alignment => {:horizontal => :left}
 wb.add_worksheet(name: "领款表") do |sheet|
@@ -8,8 +9,8 @@ wb.add_worksheet(name: "领款表") do |sheet|
   sheet.add_row
   sheet.add_row ["资助周期：____________________  学校名称：____________________  "]
   sheet.add_row ["应到学生：#{@items.count}名 应发金额：￥#{(@items.sum(:amount) / 1.05).to_i}元 实到学生_____名，实发金额______元，日期______"]
-
-  sheet.add_row ["序号", "编号", "年级/班级", "学生姓名", "捐助人", "捐助金额", "学生签字", "监护人关系", "监护人签字", "备注"], :style => [center, nil, nil, nil, nil, nil, left, nil, nil, nil, nil]
+  sheet.add_row
+  sheet.add_row ["序号", "编号", "年级/班级", "学生姓名", "捐助人", "捐助金额", "学生签字", "监护人关系", "监护人签字", "备注"], :style => border
   @items.each_with_index do |grant, index|
     sheet.add_row [
                       index + 1,
@@ -21,10 +22,10 @@ wb.add_worksheet(name: "领款表") do |sheet|
                       '',
                       grant.apply_child.try(:guardian_relation),
                       '',
-                      '']
+                      ''], :style => border
   end
   sheet.add_row
-  sheet.add_row ["格桑花代表签名：          助学联系人签名：            校长签名：            "], :style => [header]
+  sheet.add_row ["格桑花代表签名：               助学联系人签名：                 校长签名：                 "]
   sheet.add_row
   sheet.add_row
   sheet.add_row ["格桑花结对助学-领款表填写说明："]
@@ -36,15 +37,16 @@ wb.add_worksheet(name: "领款表") do |sheet|
   sheet.add_row ["6. 本表格内容经有效盖章、签字方可生效。"]
   sheet.merge_cells "A1:H1"
   sheet.merge_cells "A#{@items.count + 6}:H#{@items.count + 6}"
-  sheet.merge_cells "A#{@items.count + 7}:L#{@items.count + 7}"
+  sheet.merge_cells "A#{@items.count + 7}:I#{@items.count + 7}"
 
-  sheet.column_widths 10
+  sheet.column_widths 5, 15, 10, 12, 10, 8, 12, 10, 12, 10
 
   wb.add_worksheet(name: "核对表") do |sheet|
     sheet.add_row ["青海格桑花教育基金会 学生信息核对表（发放现场用）"], :style => [header]
     sheet.add_row
     sheet.add_row ["学校名称："]
-    sheet.add_row ["序号", "编号", "年级/班级", "班级核实", "学生姓名", "性别", "父亲", "父亲最新情况", "母亲", "母亲最新情况", "学生其他信息"], :style => [center, nil, nil, nil, nil, nil, left, nil, nil, nil, nil]
+    sheet.add_row
+    sheet.add_row ["序号", "编号", "年级/班级", "班级核实", "学生姓名", "性别", "父亲", "父亲最新情况", "母亲", "母亲最新情况", "学生其他信息"], :style => border
     @items.each_with_index do |grant, index|
       sheet.add_row [
                         index + 1,
@@ -57,7 +59,7 @@ wb.add_worksheet(name: "领款表") do |sheet|
                         '',
                         grant.apply_child.try(:mother),
                         '',
-                        '']
+                        ''], :style => border
     end
     sheet.add_row
     sheet.add_row
@@ -73,7 +75,8 @@ wb.add_worksheet(name: "领款表") do |sheet|
       sheet.add_row ["青海格桑花教育基金会 捐助人表"], :style => [header]
       sheet.add_row
       sheet.add_row ["学校名称："]
-      sheet.add_row ["序号", "编号", "年级/班级", "学生姓名", "捐助人", "称呼", "性别", "地址", "电子邮箱", "留言"], :style => [center, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil]
+      sheet.add_row
+      sheet.add_row ["序号", "编号", "年级/班级", "学生姓名", "捐助人", "称呼", "性别", "地址", "电子邮箱", "留言"], :style => border
       @items.each_with_index do |grant, index|
         sheet.add_row [
                           index + 1,
@@ -85,7 +88,7 @@ wb.add_worksheet(name: "领款表") do |sheet|
                           grant.user.try(:enum_name, :gender),
                           grant.user.try(:full_address),
                           grant.user.try(:email),
-                          grant.message]
+                          grant.message], :style => border
       end
       sheet.add_row
       sheet.add_row
