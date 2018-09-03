@@ -30,7 +30,7 @@ class ProjectReport < ApplicationRecord
   enum state: {show: 1, hidden: 2} # 状态 1:显示 2:隐藏
   default_value_for :state, 1
 
-  enum kind: {project_report: 1, visit_report: 2, grant_report: 3} # 类型 1:项目报告 2:回访报告 3:发放报告
+  enum kind: {project_report: 1, visit_report: 2, grant_report: 3} # 类型 1:项目报告 2:家访报告 3:发放报告
   default_value_for :kind, 1
 
   include HasAsset

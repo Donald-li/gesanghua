@@ -8,7 +8,7 @@
         <div class="<%= 'bottomline' if params[:kind] == 'grant_report' %>"></div>
       </li>
       <li class="cur <%= 'selectedDo' if params[:kind] == 'visit_report' %>">
-        <%= link_to '回访报告', reports_path(project_id: params[:project_id], kind: 'visit_report') %>
+        <%= link_to '家访报告', reports_path(project_id: params[:project_id], kind: 'visit_report') %>
         <div class="<%= 'bottomline' if params[:kind] == 'visit_report' %>"></div>
       </li>
       <li class="cur <%= 'selectedDo' if params[:kind] == 'project_report' %>">

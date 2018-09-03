@@ -46,7 +46,7 @@
               配额数量
             </th>
             <th>
-              已填写/已提交
+              已填写/已提交/已通过
             </th>
             <th>
               批次
@@ -78,7 +78,7 @@
                   <%= apply.number %>
                 </td>
                 <td>
-                  <%= apply.children.draft.count %>/<%= apply.children.check_list.count %>
+                  <%= apply.children.draft.count %>/<%= apply.children.check_list.count %>/<%= apply.children.pass.count %>
                 </td>
                 <td>
                   <%= apply.season.try(:name) %>

@@ -63,8 +63,8 @@ class Volunteer < ApplicationRecord
   enum kind: {activated: 1, nonactivated: 2} # 志愿者激活状态 1:已激活 2:未激活（导入志愿者）
   default_value_for :kind, 1
 
-  enum internship_state: {official: 1, practice: 2} # 类型 1:实习 2:正式
-  default_value_for :internship_state, 1
+  enum internship_state: {official: 1, practice: 2} # 类型 1:正式 2:实习
+  default_value_for :internship_state, 2
 
   enum approve_state: { submit: 1, pass: 2, reject: 3 } # 审核状态：1:审核中 2:申请通过 3:申请不通过
   default_value_for :approve_state, 1
