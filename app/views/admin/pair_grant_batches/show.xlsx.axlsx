@@ -36,8 +36,8 @@ wb.add_worksheet(name: "领款表") do |sheet|
   sheet.add_row ["5. 请学校按领款金额开收据交格桑花发放人员。"]
   sheet.add_row ["6. 本表格内容经有效盖章、签字方可生效。"]
   sheet.merge_cells "A1:H1"
-  sheet.merge_cells "A#{@items.count + 6}:J#{@items.count + 6}"
-  sheet.merge_cells "A#{@items.count + 7}:I#{@items.count + 7}"
+  sheet.merge_cells "A#{@items.count + 7}:J#{@items.count + 7}"
+  sheet.merge_cells "A#{@items.count + 8}:I#{@items.count + 8}"
 
   sheet.column_widths 5, 15, 10, 12, 10, 8, 12, 10, 12, 10
 
