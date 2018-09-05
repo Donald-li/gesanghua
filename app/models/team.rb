@@ -34,6 +34,8 @@ class Team < ApplicationRecord
   include HasAsset
   has_one_asset :logo, class_name: 'Asset::TeamLogo'
 
+  validates :name, presence: true, uniqueness: true
+
   scope :sorted, ->{ order(created_at: :desc) }
 
   enum state: {normal: 1, dismiss: 2} # 1.正常 2.解散

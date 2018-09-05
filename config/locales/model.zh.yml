@@ -16,3 +16,5 @@ zh:
         province: '所在地址/省'
         city: '所在地址/市'
         district: '所在地址/区县'
+      team:
+        name: '团队名称'
