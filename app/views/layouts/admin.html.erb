@@ -34,7 +34,8 @@
   <link rel="stylesheet" href="/admin/assets/global/plugins/viewer/viewer.min.css">
   <!-- END THEME LAYOUT STYLES -->
   <%= yield :page_style %>
-  <script src="//cdn.ckeditor.com/4.7.1/full-all/ckeditor.js" type="text/javascript"></script>
+  <%= javascript_include_tag Ckeditor.cdn_url %>
+
   <%= stylesheet_link_tag 'admin' %>
   <script src="/admin/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
   <script src="/admin/assets/global/plugins/viewer/viewer.min.js" type="text/javascript"></script>

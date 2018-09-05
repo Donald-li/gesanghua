@@ -4,8 +4,8 @@
 // require Chart.bundle
 // require chartkick
 // require ckeditor/init
-//= require ckeditor/config
-//= require ckeditor/image
+// require ckeditor/config
+// require ckeditor/image
 //= require 'china_city/jquery.china_city'
 //= require_self
 //= require echarts.common

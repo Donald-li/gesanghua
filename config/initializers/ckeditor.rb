@@ -39,7 +39,7 @@ Ckeditor.setup do |config|
 
   # Customize ckeditor assets path
   # By default: nil
-  config.asset_path = '/ckeditor/'
+  # config.asset_path = '/ckeditor/'
 
   # To reduce the asset precompilation time, you can limit plugins and/or languages to those you need:
   # By default: nil (no limit)
@@ -49,10 +49,10 @@ Ckeditor.setup do |config|
   # CKEditor CDN
   # More info here http://cdn.ckeditor.com/
   # By default: nil (CDN disabled)
-  # config.cdn_url = '//cdn.ckeditor.com/4.7.1/full/ckeditor.js'
+  config.cdn_url = '//cdn.ckeditor.com/4.7.1/full-all/ckeditor.js'
 
   # JS config url
   # Used when CKEditor CDN enabled
   # By default: "ckeditor/config.js"
-  # config.js_config_url = '/ckeditor/config.js'
+  config.js_config_url = 'ckeditor/config.js'
 end
