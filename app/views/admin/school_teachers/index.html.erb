@@ -19,7 +19,13 @@
     <div class="dataTables_wrapper no-footer">
       <div class="row">
         <div class="col-md-12 col-sm-12">
-
+          <%= search_form_for @search, url: admin_school_school_teachers_path(@school), class: 'form-inline' do |f| %>
+              <div class="form-group">
+                <%= f.label :qq_or_wechat_or_school_name_or_name_or_phone_or_id_card_cont, '搜索' %>
+                <%= f.text_field :qq_or_wechat_or_school_name_or_name_or_phone_or_id_card_cont, class: 'form-control gsh-input-share', placeholder: '关键字' %>
+              </div>
+              <button type="submit" class="btn btn-default grey">查询</button>
+          <% end %>
         </div>
         <div class="col-md-6 col-sm-12">
           <div class="dataTables_filter pull-right"></div>

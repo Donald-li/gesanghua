@@ -30,6 +30,7 @@ CKEDITOR.editorConfig = function( config )
 
   // The location of a script that handles file uploads.
   config.filebrowserUploadUrl = "/ckeditor/attachment_files";
+  config.uploadUrl = "/ckeditor/pictures?langCode=zh-cn&command=QuickUpload&type=Files&responseType=json";
 
   config.allowedContent = true;
 
@@ -37,7 +38,8 @@ CKEDITOR.editorConfig = function( config )
 
   //config.disallowedContent = 'img{width,height};img[width,height]';  去掉上传图片去掉默认的高度或者宽度，4.4以上版本才可以这么设置
   config.removeDialogTabs = 'image:advanced;image:Link'; //上传图片去掉超链接和高级这两个选项卡
-
+  config.extraPlugins = 'uploadimage,image2',
+  // config.removePlugins = 'image';
 
   // Toolbar groups configuration.
   config.toolbar_full = [
@@ -78,4 +80,6 @@ CKEDITOR.editorConfig = function( config )
         { name: 'insert', items: [ 'Image'] },
         { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike'] }
     ]
+
+
 };

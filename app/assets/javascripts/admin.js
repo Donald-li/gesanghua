@@ -3,7 +3,8 @@
 //= require_tree ./plugin
 // require Chart.bundle
 // require chartkick
-//= require ckeditor/init
+// require ckeditor/init
+//= require ckeditor/config
 //= require ckeditor/image
 //= require 'china_city/jquery.china_city'
 //= require_self

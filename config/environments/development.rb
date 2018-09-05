@@ -25,7 +25,7 @@ Rails.application.configure do
 
     config.cache_store = :null_store
   end
-  config.session_store :cookie_store, :key => '_gesanghua_session', :expire_after => 30.minutes
+  config.session_store :cookie_store, :key => '_gesanghua_session', :expire_after => 2.hour
 
 
   # Don't care if the mailer can't send.
