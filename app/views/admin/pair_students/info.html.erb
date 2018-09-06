@@ -1,0 +1,302 @@
+<div class="portlet light portlet-fit bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="fa fa-sliders font-dark"></i>
+      <span class="caption-subject font-dark bold uppercase">审核结对助学项目申请</span>
+    </div>
+    <div class="actions">
+      <%= link_to admin_pair_apply_pair_students_path(@project_apply), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+          <i class="fa fa-reply"></i>
+          <span>返回</span>
+      <% end %>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="table-scrollable">
+      <table class="table table-bordered table-hover">
+        <tbody>
+        <tr>
+          <th>
+            申请编号
+          </th>
+          <th>
+            <%= @project_apply.id %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            申请学校
+          </th>
+          <th>
+            <%= @project_apply.school.try(:name) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            申请批次
+          </th>
+          <th>
+            <%= @project_apply.season.try(:name) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            姓名
+          </th>
+          <th>
+            <%= @apply_child.name %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            中学
+          </th>
+          <th>
+            <%= @apply_child.enum_name(:level) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            年级
+          </th>
+          <th>
+            <%= @apply_child.enum_name(:grade) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            学期
+          </th>
+          <th>
+            <%= @apply_child.enum_name(:semester) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            身份证号
+          </th>
+          <th>
+            <%= @apply_child.id_card %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            民族
+          </th>
+          <th>
+            <%= @apply_child.enum_name(:nation) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            性别
+          </th>
+          <th>
+            <%= @apply_child.enum_name(:gender) %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            自我介绍
+          </th>
+          <th>
+            <%= @apply_child.description %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            班主任
+          </th>
+          <th>
+            <%= @apply_child.teacher_name %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            联系方式
+          </th>
+          <th>
+            <%= @apply_child.teacher_phone %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            父亲
+          </th>
+          <th>
+            <%= @apply_child.father %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            父亲职业
+          </th>
+          <th>
+            <%= @apply_child.father_job %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            母亲
+          </th>
+          <th>
+            <%= @apply_child.mother %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            母亲职业
+          </th>
+          <th>
+            <%= @apply_child.mother_job %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            监护人
+          </th>
+          <th>
+            <%= @apply_child.guardian %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            与其关系
+          </th>
+          <th>
+            <%= @apply_child.guardian_relation %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            联系方式
+          </th>
+          <th>
+            <%= @apply_child.guardian_phone %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            家庭住址
+          </th>
+          <th>
+            <%= @apply_child.address %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            家庭年收入
+          </th>
+          <th>
+            <%= @apply_child.family_income %> 元
+          </th>
+        </tr>
+        <tr>
+          <th>
+            家庭年支出
+          </th>
+          <th>
+            <%= @apply_child.family_expenditure %> 元
+          </th>
+        </tr>
+        <tr>
+          <th>
+            收入来源
+          </th>
+          <th>
+            <%= @apply_child.income_source %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            家庭情况
+          </th>
+          <th>
+            <%= @apply_child.family_condition %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            推荐理由
+          </th>
+          <th>
+            <%= @apply_child.reason %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            孩子图片
+          </th>
+          <th>
+            <%= link_to image_tag(@apply_child.avatar_url(:small)), @apply_child.avatar_url(nil), target: '_blank' %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            身份证
+          </th>
+          <th>
+            <%= link_to image_tag(@apply_child.id_image_url(:small)), @apply_child.id_image_url(nil), target: '_blank' %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            申请书1
+          </th>
+          <th>
+            <%= link_to image_tag(@apply_child.apply_one_url(:small)), @apply_child.apply_one_url(nil), target: '_blank' %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            申请书2
+          </th>
+          <th>
+            <%= link_to image_tag(@apply_child.apply_two_url(:small)), @apply_child.apply_two_url(nil), target: '_blank' %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            客厅照片
+          </th>
+          <th>
+            <%= link_to image_tag(@apply_child.room_image_url(:small)), @apply_child.room_image_url(nil), target: '_blank' %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            院子照片
+          </th>
+          <th>
+            <%= link_to image_tag(@apply_child.yard_image_url(:small)), @apply_child.yard_image_url(nil), target: '_blank' %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            扶贫卡
+          </th>
+          <th>
+            <%= link_to image_tag(@apply_child.poverty_url(:small)), @apply_child.poverty_url(nil), target: '_blank' %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            孩子介绍
+          </th>
+          <th>
+            <%= @apply_child.information.html_safe %>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            备注
+          </th>
+          <th>
+            <%= @apply_child.remark %>
+          </th>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

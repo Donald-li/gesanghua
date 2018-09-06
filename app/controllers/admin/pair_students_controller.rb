@@ -1,7 +1,7 @@
 class Admin::PairStudentsController < Admin::BaseController
   before_action :check_auth
   before_action :set_project_apply
-  before_action :set_apply_child, only: [:show, :edit, :update, :destroy, :check]
+  before_action :set_apply_child, only: [:show, :edit, :update, :destroy, :check, :info]
 
   def index
     @search = @project_apply.children.where(school: @project_apply.school).check_list.includes(:gsh_child_grants).sorted.ransack(params[:q])
@@ -19,6 +19,9 @@ class Admin::PairStudentsController < Admin::BaseController
 
   def show
     store_referer
+  end
+
+  def info
   end
 
   def new

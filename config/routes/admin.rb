@@ -134,6 +134,7 @@ namespace :admin do
     resources :pair_students, concerns: [:check, :excel_upload, :excel_import] do
       member do
         patch :update_audit
+        get :info
       end
       collection do
         post :create_audit

@@ -119,6 +119,9 @@
                   <%= child.enum_name(:approve_state) %>
                 </td>
                 <td>
+                  <%= link_to info_admin_pair_apply_pair_student_path(@project_apply,child), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                      <i class="fa fa-file"></i> 查看
+                  <% end %>
                   <%= link_to edit_admin_pair_apply_pair_student_path(@project_apply,child), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                       <i class="fa fa-edit"></i> 修改
                   <% end %>
