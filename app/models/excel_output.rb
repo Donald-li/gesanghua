@@ -74,24 +74,24 @@ class ExcelOutput
         campaign_enlists.each do |campaign_enlist|
           sheet.add_row [campaign_enlist.user.try(:phone),
                          campaign_enlist.user.try(:nickname),
-                         campaign_enlist.created_at.strftime("%Y-%m-%d %H:%M")] |
-                            campaign.form.map {|i| campaign_enlist.form[i['key']] || ''} |
+                         campaign_enlist.created_at.strftime("%Y-%m-%d %H:%M")] +
+                            campaign.form.map {|i| campaign_enlist.form[i['key']] || ' '} +
                             [campaign_enlist.number,
                              campaign_enlist.contact_name,
-                             campaign_enlist.contact_phone]
+                             campaign_enlist.contact_phone], types: [:string] * (6 + campaign.form.length)
         end
       else
         sheet.add_row ["报名用户", "用户昵称", "报名时间"] | campaign.form.map {|i| i['label']} | ["报名人数", "联系人", "联系电话", '金额', '支付状态']
         campaign_enlists.each do |campaign_enlist|
           sheet.add_row [campaign_enlist.user.try(:phone),
                          campaign_enlist.user.try(:nickname),
-                         campaign_enlist.created_at.strftime("%Y-%m-%d %H:%M")] |
-                            campaign.form.map {|i| campaign_enlist.form[i['key']] || ''} |
+                         campaign_enlist.created_at.strftime("%Y-%m-%d %H:%M")] +
+                            campaign.form.map {|i| campaign_enlist.form[i['key']] || ' '} +
                             [campaign_enlist.number,
                              campaign_enlist.contact_name,
                              campaign_enlist.contact_phone,
                              campaign_enlist.total,
-                             campaign_enlist.enum_name(:payment_state)]
+                             campaign_enlist.enum_name(:payment_state)], types: [:string] * (8 + campaign.form.length)
         end
       end
       FileUtils.mkdir_p(Rails.root.join("public/files"))
