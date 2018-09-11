@@ -127,7 +127,7 @@
             <div class="form-actions">
               <div class="row">
                 <div class="col-md-offset-3 col-md-9">
-                  <%= f.button :submit, '提交', class: 'btn green' %>
+                  <%= f.button :submit, '提交', data: {confirm: '请仔细检查该学校是否已经注册过，避免数据混乱。确认审核通过该学校？'}, class: 'btn green' %>
                   <%= link_to '取消', admin_school_applies_path, class: 'btn' %>
                 </div>
               </div>
@@ -144,4 +144,6 @@
         })
     }
     toggleState();
+
+
 </script>
