@@ -72,7 +72,8 @@ class ExcelOutput
       if campaign.price == 0
         sheet.add_row ["报名用户", "用户昵称", "报名时间"] | campaign.form.map {|i| i['label']} | ["报名人数", "联系人", "联系电话"]
         campaign_enlists.each do |campaign_enlist|
-          sheet.add_row [campaign_enlist.user.try(:nickname),
+          sheet.add_row [campaign_enlist.user.try(:phone),
+                         campaign_enlist.user.try(:nickname),
                          campaign_enlist.created_at.strftime("%Y-%m-%d %H:%M")] |
                             campaign.form.map {|i| campaign_enlist.form[i['key']]} |
                             [campaign_enlist.number,
@@ -82,7 +83,8 @@ class ExcelOutput
       else
         sheet.add_row ["报名用户", "用户昵称", "报名时间"] | campaign.form.map {|i| i['label']} | ["报名人数", "联系人", "联系电话", '金额', '支付状态']
         campaign_enlists.each do |campaign_enlist|
-          sheet.add_row [campaign_enlist.user.try(:nickname),
+          sheet.add_row [campaign_enlist.user.try(:phone),
+                         campaign_enlist.user.try(:nickname),
                          campaign_enlist.created_at.strftime("%Y-%m-%d %H:%M")] |
                             campaign.form.map {|i| campaign_enlist.form[i['key']]} |
                             [campaign_enlist.number,
