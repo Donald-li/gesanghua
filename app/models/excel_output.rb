@@ -75,7 +75,7 @@ class ExcelOutput
           sheet.add_row [campaign_enlist.user.try(:phone),
                          campaign_enlist.user.try(:nickname),
                          campaign_enlist.created_at.strftime("%Y-%m-%d %H:%M")] |
-                            campaign.form.map {|i| campaign_enlist.form[i['key']]} |
+                            campaign.form.map {|i| campaign_enlist.form[i['key']] || ''} |
                             [campaign_enlist.number,
                              campaign_enlist.contact_name,
                              campaign_enlist.contact_phone]
@@ -86,7 +86,7 @@ class ExcelOutput
           sheet.add_row [campaign_enlist.user.try(:phone),
                          campaign_enlist.user.try(:nickname),
                          campaign_enlist.created_at.strftime("%Y-%m-%d %H:%M")] |
-                            campaign.form.map {|i| campaign_enlist.form[i['key']]} |
+                            campaign.form.map {|i| campaign_enlist.form[i['key']] || ''} |
                             [campaign_enlist.number,
                              campaign_enlist.contact_name,
                              campaign_enlist.contact_phone,
