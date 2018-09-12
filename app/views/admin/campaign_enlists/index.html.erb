@@ -86,7 +86,7 @@
               </td>
               <% @campaign.form.each do |key| %>
               <td>
-                <%= campaign_enlist.form[key['key']] %>
+                <%= [campaign_enlist.form[key['key']]].flatten.join(',') %>
               </td>
               <% end %>
               <td>

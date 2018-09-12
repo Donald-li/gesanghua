@@ -1,7 +1,7 @@
 <%= simple_form_for [:admin, @campaign, @campaign_enlist], wrapper: :admin_form, html: {data: {'parsley-validate': true}} do |f| %>
     <%= f.error_notification %>
     <div class="form-body form-horizontal">
-      <%= f.input :user_id, collection: [@campaign_enlist.user].compact.map {|u| [u.name, u.id]}, label: '选择用户：', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
+      <%= f.input :user_id, as: :select, collection: [[@campaign_enlist.user.try(:name_for_select), @campaign_enlist.user.try(:id)]], label: '选择用户：', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
       <%= f.input :contact_name, label: '联系人：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
       <%= f.input :contact_phone, label: '联系电话：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
       <%= render '/admin/shared/dynamic_form', apply: @campaign_enlist, model: :campaign_enlist%>

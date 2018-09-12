@@ -13,8 +13,8 @@ class Api::V1::CampaignsController < Api::V1::BaseController
   # 提交报名表单
   def apply
     @campaign = Campaign.show.find(params[:id])
-    keys = @campaign.form.map{|i| i['key']} # 动态字段
-    @enlist = @campaign.campaign_enlists.new(params.permit(:contact_name, :contact_phone, :number, :remark, form: keys))
+    @enlist = @campaign.campaign_enlists.new(params.permit(:contact_name, :contact_phone, :number, :remark))
+    @enlist.form = params[:form]
     if @campaign.price
       #TODO: 交报名费
       # @enlist.state = :paid

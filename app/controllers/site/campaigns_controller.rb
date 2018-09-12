@@ -17,9 +17,9 @@ class Site::CampaignsController < Site::BaseController
 
   def submit
     @campaign = Campaign.find(params[:id])
-    keys = @campaign.form.map{|i| i['key']} # 动态字段
     total = @campaign.price.to_f * params[:number].to_i
-    @enlist = @campaign.campaign_enlists.new(params.permit(:contact_name, :contact_phone, :number, :remark, form: keys))
+    @enlist = @campaign.campaign_enlists.new(params.permit(:contact_name, :contact_phone, :number, :remark))
+    @enlist.form = params[:form]
     if @campaign.price
       #TODO: 交报名费
       # @enlist.state = :paid
