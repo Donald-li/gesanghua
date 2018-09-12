@@ -23,7 +23,8 @@ class Admin::CampaignEnlistsController < Admin::BaseController
   end
 
   def create
-    @campaign_enlist = @campaign.campaign_enlists.new(campaign_enlist_params)
+    @campaign_enlist = @campaign.campaign_enlists.new(campaign_enlist_params.except(:payment_state))
+    @campaign_enlist.payment_state = campaign_enlist_params[:payment_state] if !campaign_enlist_params[:payment_state].blank?
     respond_to do |format|
       if @campaign_enlist.save
         format.html { redirect_to referer_or(admin_campaign_campaign_enlists_path(@campaign)), notice: '报名创建成功。' }
@@ -35,7 +36,8 @@ class Admin::CampaignEnlistsController < Admin::BaseController
 
   def update
     respond_to do |format|
-      if @campaign_enlist.update(campaign_enlist_params)
+      @campaign_enlist.payment_state = campaign_enlist_params[:payment_state] if !campaign_enlist_params[:payment_state].blank?
+      if @campaign_enlist.update(campaign_enlist_params.except(:payment_state))
         format.html { redirect_to referer_or(admin_campaign_campaign_enlists_path(@campaign)), notice: '报名信息已修改。' }
       else
         format.html { render :edit }

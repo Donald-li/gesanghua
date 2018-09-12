@@ -371,7 +371,7 @@ zh:
     done: '已结束'
   campaign_enlist_payment_states:
     unpaid: '未支付'
-    paid: '已报名'
+    paid: '已支付'
     canceled: '已取消'
   voucher_states:
     pending: '未处理'
