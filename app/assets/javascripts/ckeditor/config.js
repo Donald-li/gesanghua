@@ -71,6 +71,7 @@ CKEDITOR.editorConfig = function( config )
       { name: 'styles', items: ['FontSize', 'Format' ] },
       { name: 'paragraph', items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
       { name: 'insert', items: [ 'Image'] },
+      { name: 'links', items: [ 'Link', 'Unlink'] },
       { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike'] }
   ]
 
@@ -78,6 +79,7 @@ CKEDITOR.editorConfig = function( config )
         { name: 'styles', items: ['FontSize', 'Format' ] },
         { name: 'paragraph', items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
         { name: 'insert', items: [ 'Image'] },
+        { name: 'links', items: [ 'Link', 'Unlink'] },
         { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike'] }
     ]
 
