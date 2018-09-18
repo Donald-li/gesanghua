@@ -25,7 +25,7 @@ class ProjectReport < ApplicationRecord
   belongs_to :project, optional: true
   belongs_to :user, optional: true
 
-  scope :sorted, ->{ order(created_at: :desc) }
+  scope :sorted, ->{ order(published_at: :desc) }
 
   enum state: {show: 1, hidden: 2} # 状态 1:显示 2:隐藏
   default_value_for :state, 1

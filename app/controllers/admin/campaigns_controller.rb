@@ -1,6 +1,6 @@
 class Admin::CampaignsController < Admin::BaseController
   before_action :auth_manage_operation
-  before_action :set_campaign, only: [:show, :edit, :update, :destroy, :switch, :switch_state]
+  before_action :set_campaign, only: [:show, :edit, :update, :destroy, :switch, :switch_state, :share]
 
   def index
     @search = Campaign.sorted.ransack(params[:q])
@@ -65,6 +65,9 @@ class Admin::CampaignsController < Admin::BaseController
         format.html { redirect_to referer_or(admin_campaigns_url), notice: '标记失败。' }
       end
     end
+  end
+
+  def share
   end
 
   private

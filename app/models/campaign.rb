@@ -121,6 +121,10 @@ class Campaign < ApplicationRecord
     end.attributes!
   end
 
+  def share_url
+    "#{Settings.m_root_url}/campaign/#{self.id}  欢迎参与#{self.name}"
+  end
+
   private
   def set_form_from_attributes
     return unless self.form_attributes.present?

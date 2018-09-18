@@ -280,6 +280,7 @@ namespace :admin do
   resources :campaigns, concerns: [:switch] do
     member do
       put :switch_state
+      get :share
     end
     resources :campaign_enlists, concerns: [:excel_output] do
       member do

@@ -11,7 +11,7 @@
             <span style="margin-left: 0;"><%= @child.school.try(:name) %>
               | <%= @child.enum_name(:level) %> <%= @child.enum_name(:grade) %> <%= @child.classname %></span></p>
           <!-- <p class="detail-con-serial"> 杂多县新区第二民族中学 | 初中 一年级</p> -->
-          <p class="detail-con-font"><%= @child.reason %></p>
+          <!--<p class="detail-con-font"><%#= @child.reason %></p>-->
         </div>
         <div class="detail-cont-foot border-t ">
           <p>助学金额<span>￥<%= @child.get_tuition %>/年</span></p>
@@ -51,6 +51,8 @@
       <!--申请详情-->
       <div class="details-left pull-left contentab" style="display: block;">
         <div class="detail-l-fon">
+          <p class="detail-l-f-s-l">老师推荐理由：</p>
+          <div><%= @child.reason %></div>
           <p class="detail-l-f-s-l">自我介绍：</p>
           <div><%= @child.description %></div>
 
@@ -64,11 +66,13 @@
               <p>收入来源：<%= @child.income_source %></p>
               <p>家庭住址：<%= @child.address %></p>
           <% end %>
+        </div>
+        <div class="detail-l-fon"><%= @child.formatted_information.html_safe %></div>
+        <div class="detail-l-fon">
           <p class="detail-l-f-s-l">详细情况：</p>
           <%= image_tag @child.room_image_url(:medium) if @child.room_image %>
           <%= image_tag @child.yard_image_url(:medium) if @child.yard_image %>
         </div>
-        <div class="detail-l-fon"><%= @child.formatted_information.html_safe %></div>
         <div class="detail-l-fon">
           <p class="detail-l-f-s-l">建档时间：</p>
           <p>
