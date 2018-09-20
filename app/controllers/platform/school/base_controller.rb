@@ -13,10 +13,6 @@ class Platform::School::BaseController < ApplicationController
     { ip: request.remote_ip }
   end
 
-  def login_require
-    return !! current_teacher
-  end
-
   def current_teacher
     @current_teacher ||= current_user
   end
