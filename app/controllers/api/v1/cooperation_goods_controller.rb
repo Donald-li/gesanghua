@@ -6,10 +6,10 @@ class Api::V1::CooperationGoodsController < Api::V1::BaseController
     # 校长或者教师的项目申请
     if user.teacher.present?
       if user.has_role?(:headmaster)
-        applies = user.teacher.school.project_season_applies.joins(:project).includes(:season).where(project_id: @project.id).sorted.page(params[:page])
+        applies = user.school.project_season_applies.joins(:project).includes(:season).where(project_id: @project.id).sorted.page(params[:page])
         api_success(data: {applies: applies.map { |r| r.goods_apply_builder }, pagination: json_pagination(applies)})
       elsif user.has_role?(:teacher)
-        applies = user.teacher.project_season_applies.joins(:project).includes(:season).where(project_id: @project.id).sorted.page(params[:page])
+        applies = user.school.project_season_applies.joins(:project).includes(:season).where(project_id: @project.id).sorted.page(params[:page])
         api_success(data: {applies: applies.map { |r| r.goods_apply_builder }, pagination: json_pagination(applies)})
       else
         api_success(data: {applies: [], pagination: json_pagination([])})
