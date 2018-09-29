@@ -10,108 +10,108 @@
       <table class="table table-bordered table-hover">
         <tbody>
         <tr>
-          <th width="300px">
+          <td width="300px">
             学校名称
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @school_apply.name %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             学校申请人
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @school_apply.creater.try(:real_name) %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             学校所在地
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @school_apply.simple_address %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             通讯地址
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @school_apply.address %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             学校负责人
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @school_apply.contact_name %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             负责人身份证号码
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @school_apply.contact_id_card %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             负责人手机号码
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @school_apply.contact_phone %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             学生人数
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @school_apply.number %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             教师人数
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @school_apply.teacher_count %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             后勤人数
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @school_apply.logistic_count %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             学校简介
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @school_apply.describe %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             身份证图片
-          </th>
-          <th>
+          </td>
+          <td>
             <%= link_to image_tag(@school_apply.card_image_url(:small)), @school_apply.card_image_url(nil), target: '_blank' %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             学校证明图片
-          </th>
-          <th>
+          </td>
+          <td>
             <%= link_to image_tag(@school_apply.certificate_image_url(:small)), @school_apply.certificate_image_url(nil), target: '_blank' %>
-          </th>
+          </td>
         </tr>
         </tbody>
       </table>

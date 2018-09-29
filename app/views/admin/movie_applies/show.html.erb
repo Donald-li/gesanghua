@@ -10,47 +10,47 @@
       <table class="table table-bordered table-hover">
         <tbody>
         <tr>
-          <th>
+          <td>
             申请编号
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @project_apply.apply_no %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             申请学校
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @project_apply.school.try(:name) %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             联系人
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @project_apply.contact_name %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             联系方式
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @project_apply.contact_phone %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             申请理由
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @project_apply.describe %> <br>
             <% @project_apply.images.each do |image| %>
               <%= image_tag image.try(:file).try(:url, :small) %>
             <% end %>
-          </th>
+          </td>
         </tr>
         </tbody>
       </table>

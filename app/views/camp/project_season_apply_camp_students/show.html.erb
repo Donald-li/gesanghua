@@ -12,101 +12,101 @@
       <table class="table table-bordered table-hover">
         <thead>
         <tr>
-          <th width="100px">
+          <td width="100px">
             姓名
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @camp_student.name %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             身份证号
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @camp_student.id_card %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             性别
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @camp_student.enum_name(:gender) %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             年龄
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @camp_student.age %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             民族
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @camp_student.enum_name(:nation) %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             年级
-          </th>
-          <th>
+          </td>
+          <td>
             <%#= @camp_student.enum_name(:level) %> <%#= @camp_student.enum_name(:grade) %>
             <%= @camp_student.classname %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             身高体重
-          </th>
-          <th>
+          </td>
+          <td>
             身高：<%= @camp_student.height %> 体重：<%= @camp_student.weight %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             监护人
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @camp_student.guardian_name %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             监护人身份证号
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @camp_student.guardian_id_card %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             联系方式
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @camp_student.guardian_phone %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             与其关系
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @camp_student.guardian_relation %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             安全协议
-          </th>
-          <th>
+          </td>
+          <td>
             <%= image_tag @camp_student.image_url(:small) %>
-          </th>
+          </td>
         </tr>
 
       </table>

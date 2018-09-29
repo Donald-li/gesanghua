@@ -17,44 +17,44 @@
       <table class="table table-bordered table-hover">
         <tbody>
         <tr>
-          <th width="72px">
+          <td width="72px">
             分类名称
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @project.name %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             项目类型
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @project.enum_name(:kind) %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             财务分类
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @project.fund.try(:fund_category).try(:name) %> - <%= @project.fund.try(:name) %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             分类描述
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @project.describe %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             协议内容
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @project.protocol.html_safe %>
-          </th>
+          </td>
         </tr>
         </tbody>
       </table>

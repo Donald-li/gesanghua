@@ -16,70 +16,70 @@
       <table class="table table-bordered table-hover">
         <tbody>
         <tr>
-          <th>
+          <td>
             收入单号
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @donate_record.try(:donate_no) %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             捐助项目
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @donate_record.project_name %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             捐助时间
-          </th>
-          <th>
+          </td>
+          <td>
             <%= l @donate_record.created_at %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             捐助金额
-          </th>
-          <th>
+          </td>
+          <td>
             ￥<%= format_money(@donate_record.amount) %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             捐助方式
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @donate_record.income_record.income_source.try(:name) if @donate_record.income_record.present? %>
-          </th>
+          </td>
         </tr>
         <% if @donate_record.donor %>
         <tr>
-          <th>
+          <td>
             捐助人
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @donate_record.donor.admin_show_name %> ( <%= @donate_record.donor.phone %> )
-          </th>
+          </td>
         </tr>
         <% end %>
         <tr>
-          <th>
+          <td>
             代捐人
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @donate_record.agent_name %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             状态
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @donate_record.enum_name(:state) %>
-          </th>
+          </td>
         </tr>
         </tbody>
       </table>

@@ -16,110 +16,110 @@
       <table class="table table-bordered table-hover">
         <tbody>
         <tr>
-          <th>
+          <td>
             姓名
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @volunteer.name %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             性别
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @volunteer.enum_name(:gender) %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             联系方式
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @volunteer.phone %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             微信
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @volunteer.wechat %>
-          </th>
+          </td>
         </tr>
         <tr>
         <tr>
-          <th>
+          <td>
             QQ
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @volunteer.qq %>
-          </th>
+          </td>
         </tr>
         <tr>
         <tr>
-          <th>
+          <td>
             邮箱
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @volunteer.email %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             联系地址
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @volunteer.simple_address %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             身份证
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @volunteer.id_card %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             个人简介
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @volunteer.describe %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             证件照片
-          </th>
-          <th>
+          </td>
+          <td>
             <%= image_tag @volunteer.image_url(:tiny) %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             技能特长
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @volunteer.majors.map(&:name).join(', ') %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             获知渠道
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @volunteer.source %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             志愿者经历
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @volunteer.experience %>
-          </th>
+          </td>
         </tr>
         </tbody>
       </table>

@@ -24,36 +24,36 @@
         <tbody>
         <tr>
 
-          <th>
+          <td>
             单页面标题
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @page.title %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             单页面别名
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @page.alias %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             详情
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @page.content.html_safe %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             状态
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @page.enum_name(:state) %>
-          </th>
+          </td>
         </tr>
         </tbody>
 

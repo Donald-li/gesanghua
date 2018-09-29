@@ -18,65 +18,65 @@
       <table class="table table-bordered table-hover">
         <tbody>
         <tr>
-          <th>
+          <td>
             反馈学校
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @continual.user.try(:teacher).try(:school).try(:name) %>
-          </th>
+          </td>
         </tr>
         <% if @continual.project.complex? %>
             <tr>
-              <th>
+              <td>
                 开展班级
-              </th>
-              <th>
+              </td>
+              <td>
                 <%= @continual.arise_class %>
-              </th>
+              </td>
             </tr>
             <tr>
-              <th>
+              <td>
                 开展时间
-              </th>
-              <th>
+              </td>
+              <td>
                 <%= l @continual.arise_at %>
-              </th>
+              </td>
             </tr>
             <tr>
-              <th>
+              <td>
                 参与人数
-              </th>
-              <th>
+              </td>
+              <td>
                 <%= @continual.number %>
-              </th>
+              </td>
             </tr>
         <% end %>
         <tr>
-          <th>
+          <td>
             反馈人
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @continual.user.try(:name) %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             反馈时间
-          </th>
-          <th>
+          </td>
+          <td>
             <%= l @continual.created_at %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             反馈内容
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @continual.content.html_safe %> <br>
             <% @continual.images.each do |image| %>
               <%= image_tag image.try(:file).try(:url, :tiny) %>
             <% end %>
-          </th>
+          </td>
         </tr>
         </tbody>
 

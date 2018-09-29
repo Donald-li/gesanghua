@@ -18,53 +18,53 @@
       <table class="table table-bordered table-hover">
         <tbody>
         <tr>
-          <th width="72px">
+          <td width="72px">
             任务名称
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @task.name %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             时长
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @task.duration %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             内容
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @task.content.html_safe %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             需要人数
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @task.num %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             地区
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @task.workplace.try(:title) %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             任务时间
-          </th>
-          <th>
+          </td>
+          <td>
             开始时间：<%= l @task.start_time if @task.start_time.present? %> <br>
             结束时间：<%= l @task.end_time if @task.end_time.present? %>
-          </th>
+          </td>
         </tr>
         </tbody>
       </table>

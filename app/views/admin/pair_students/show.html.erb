@@ -12,288 +12,288 @@
       <table class="table table-bordered table-hover">
         <tbody>
         <tr>
-          <th>
+          <td>
             申请编号
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @project_apply.id %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             申请学校
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @project_apply.school.try(:name) %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             申请批次
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @project_apply.season.try(:name) %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             姓名
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply_child.name %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             中学
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply_child.enum_name(:level) %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             年级
-          </th>
-          <th>
+          </td>
+          <td>
             <%#= @apply_child.enum_name(:grade) %>
             <%= f.input :grade, as: :select, label: false, collection: ProjectSeasonApplyChild.options_for_enum_select(:grades), include_blank: false, input_html: {id: 'input-grade', onchange: 'calculateDonateYear()'} %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             学期
-          </th>
-          <th>
+          </td>
+          <td>
             <%#= @apply_child.enum_name(:semester) %>
             <%= f.input :semester, as: :select, label: false, collection: ProjectSeasonApplyChild.options_for_enum_select(:semesters), include_blank: false, input_html: {id: 'input-semester', onchange: 'calculateDonateYear()'} %>
             <br/>
             <span style="color: red">审核通过后生成捐助学年：<span id="donate_year"></span></span>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             身份证号
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply_child.id_card %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             民族
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply_child.enum_name(:nation) %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             性别
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply_child.enum_name(:gender) %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             自我介绍
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply_child.description %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             班主任
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply_child.teacher_name %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             联系方式
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply_child.teacher_phone %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             父亲
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply_child.father %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             父亲职业
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply_child.father_job %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             母亲
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply_child.mother %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             母亲职业
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply_child.mother_job %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             监护人
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply_child.guardian %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             与其关系
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply_child.guardian_relation %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             联系方式
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply_child.guardian_phone %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             家庭住址
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply_child.address %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             家庭年收入
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply_child.family_income %> 元
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             家庭年支出
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply_child.family_expenditure %> 元
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             收入来源
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply_child.income_source %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             家庭情况
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply_child.family_condition %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             推荐理由
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply_child.reason %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             孩子图片
-          </th>
-          <th>
+          </td>
+          <td>
             <%= link_to image_tag(@apply_child.avatar_url(:small)), @apply_child.avatar_url(nil), target: '_blank' %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             身份证
-          </th>
-          <th>
+          </td>
+          <td>
             <%= link_to image_tag(@apply_child.id_image_url(:small)), @apply_child.id_image_url(nil), target: '_blank' %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             申请书1
-          </th>
-          <th>
+          </td>
+          <td>
             <%= link_to image_tag(@apply_child.apply_one_url(:small)), @apply_child.apply_one_url(nil), target: '_blank' %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             申请书2
-          </th>
-          <th>
+          </td>
+          <td>
             <%= link_to image_tag(@apply_child.apply_two_url(:small)), @apply_child.apply_two_url(nil), target: '_blank' %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             客厅照片
-          </th>
-          <th>
+          </td>
+          <td>
             <%= link_to image_tag(@apply_child.room_image_url(:small)), @apply_child.room_image_url(nil), target: '_blank' %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             院子照片
-          </th>
-          <th>
+          </td>
+          <td>
             <%= link_to image_tag(@apply_child.yard_image_url(:small)), @apply_child.yard_image_url(nil), target: '_blank' %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             扶贫卡
-          </th>
-          <th>
+          </td>
+          <td>
             <%= link_to image_tag(@apply_child.poverty_url(:small)), @apply_child.poverty_url(nil), target: '_blank' %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             孩子介绍
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply_child.information.html_safe %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             备注
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @apply_child.remark %>
-          </th>
+          </td>
         </tr>
         </tbody>
       </table>

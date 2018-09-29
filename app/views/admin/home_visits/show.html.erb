@@ -17,237 +17,237 @@
       <table class="table table-bordered table-hover">
         <tbody>
         <tr>
-          <th>
+          <td>
             学生信息
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             学生姓名
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @visit.apply_child.name %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             身份证号
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @visit.apply_child.id_card %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             年龄
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @visit.apply_child.age %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             调查人信息
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             调查人员
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @visit.investigador %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             陪同人员
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @visit.escort %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             调查时间
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @visit.survey_time.strftime('%Y-%m-%d') %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             其他说明
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @visit.content %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             家庭情况
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             基本情况
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @visit.family_basic %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             家庭人数
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @visit.family_size %>
-          </th>
+          </td>
         </tr>
 
         <tr>
-          <th>
+          <td>
             基本情况
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @visit.basic_information %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             收入情况
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @visit.income_information %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             支出情况
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @visit.expenditure_information %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             学习与受资助情况
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             是否住校
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @visit.lodge %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             住校期间产生的退款
-          </th>
-          <th>
+          </td>
+          <td>
             ¥ <%= @visit.lodge_cost %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             其他资助
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @visit.other_subsidize %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             获奖情况
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @visit.prize_information %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             学习情况
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @visit.study_information %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             学杂费
-          </th>
-          <th>
+          </td>
+          <td>
             ¥ <%= @visit.tuition_fee %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             是否赞助生活
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @visit.sponsor_fee %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             家长授权书
-          </th>
-          <th>
+          </td>
+          <td>
             <% @visit.images.each do |image| %>
                 <%= image_tag image.try(:file).try(:url) %> <br>
             <% end %>
-          </th>
+          </td>
         </tr>
         </tbody>
       </table>
       <table class="table table-bordered table-hover">
         <tbody>
         <tr>
-          <th>
+          <td>
             家庭成员
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             成员姓名
-          </th>
-          <th>
+          </td>
+          <td>
             年龄
-          </th>
-          <th>
+          </td>
+          <td>
             关系
-          </th>
-          <th>
+          </td>
+          <td>
             职业
-          </th>
-          <th>
+          </td>
+          <td>
             健康状况
-          </th>
-          <th>
+          </td>
+          <td>
             工作情况
-          </th>
+          </td>
         </tr>
         <% @visit.members.each do |member| %>
             <tr>
-              <th>
+              <td>
                 <%= member.name %>
-              </th>
-              <th>
+              </td>
+              <td>
                 <%= member.age %>
-              </th>
-              <th>
+              </td>
+              <td>
                 <%= member.relationship %>
-              </th>
-              <th>
+              </td>
+              <td>
                 <%= member.profession %>
-              </th>
-              <th>
+              </td>
+              <td>
                 <%= member.health_condition %>
-              </th>
-              <th>
+              </td>
+              <td>
                 <%= member.job_condition %>
-              </th>
+              </td>
             </tr>
         <% end %>
         </tbody>

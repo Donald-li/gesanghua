@@ -24,36 +24,36 @@
         <tbody>
         <tr>
 
-          <th>
+          <td>
             帮助标题
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @support.title %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             显示位置
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @support.enum_name(:display_position) %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             详情
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @support.content.html_safe %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             状态
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @support.enum_name(:state) %>
-          </th>
+          </td>
         </tr>
         </tbody>
 

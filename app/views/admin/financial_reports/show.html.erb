@@ -18,30 +18,30 @@
       <table class="table table-bordered table-hover">
         <tbody>
         <tr>
-          <th>
+          <td>
             报告名称
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @financial_report.title %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             内容
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @financial_report.content.html_safe %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             附件
-          </th>
-          <th>
+          </td>
+          <td>
             <% @financial_report.report_files.each do |file| %>
               <i class="fa fa-download"></i><%= link_to file.file_name, file_download_admin_financial_report_path(file_id: file.id) %><br/>
             <% end %>
-          </th>
+          </td>
         </tr>
         </tbody>
       </table>

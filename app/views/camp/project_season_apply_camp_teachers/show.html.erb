@@ -12,44 +12,44 @@
       <table class="table table-bordered table-hover">
         <thead>
         <tr>
-          <th width="100px">
+          <td width="100px">
             姓名
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @camp_teacher.name %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             身份证号
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @camp_teacher.id_card %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             性别
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @camp_teacher.enum_name(:gender) %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             民族
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @camp_teacher.enum_name(:nation) %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             安全协议
-          </th>
-          <th>
+          </td>
+          <td>
             <%= image_tag @camp_teacher.image_url(:small) %>
-          </th>
+          </td>
         </tr>
       </table>
     </div>

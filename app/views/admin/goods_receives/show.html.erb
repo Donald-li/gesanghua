@@ -18,47 +18,47 @@
       <table class="table table-bordered table-hover">
         <tbody>
         <tr>
-          <th>
+          <td>
             申请编号
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @receive.owner.apply_no %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             项目名称
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @receive.owner.name %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             反馈人
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @receive.user.try(:name) %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             反馈时间
-          </th>
-          <th>
+          </td>
+          <td>
             <%= l @receive.created_at %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             反馈内容
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @receive.content.html_safe %> <br>
             <% @receive.images.each do |image| %>
               <%= image_tag image.try(:file).try(:url, :tiny) %>
             <% end %>
-          </th>
+          </td>
         </tr>
         </tbody>
 

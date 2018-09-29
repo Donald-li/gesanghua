@@ -18,96 +18,96 @@
       <table class="table table-bordered table-hover">
         <tbody>
         <tr>
-          <th width="72px">
+          <td width="72px">
             名称
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @task_achievement.task.try(:name) %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             计划时长
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @task_achievement.task.try(:duration) %>
-          </th>
+          </td>
         </tr>
 
         <tr>
-          <th>
+          <td>
             任务时间
-          </th>
-          <th>
+          </td>
+          <td>
             开始时间：<%= l @task_achievement.task.start_time if @task_achievement.task.try(:start_time).present? %> <br>
             结束时间：<%= l @task_achievement.task.end_time if @task_achievement.task.try(:end_time).present? %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             地点
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @task_achievement.task.try(:workplace).try(:title) %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             任务类型
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @task_achievement.task.enum_name(:kind) %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             志愿者姓名
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @task_achievement.volunteer.try(:name) %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             完成时间
-          </th>
-          <th>
+          </td>
+          <td>
             <%= l @task_achievement.finish_time if @task_achievement.finish_time.present? %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             成果描述
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @task_achievement.achievement_comment %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
-          </th>
-          <th>
+          <td>
+          </td>
+          <td>
             <% @task_achievement.images.each do |image| %>
                 <%= image_tag image.try(:file).try(:url, :small) %>
             <% end %>
-          </th>
+          </td>
         </tr>
 
         <tr>
-          <th>
+          <td>
             实际发放时长
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @task_achievement.duration %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             成果确认备注
-          </th>
-          <th>
+          </td>
+          <td>
             <%= @task_achievement.comment %>
-          </th>
+          </td>
         </tr>
 
         </tbody>

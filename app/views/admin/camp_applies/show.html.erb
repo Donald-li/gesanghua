@@ -10,76 +10,76 @@
       <table class="table table-bordered table-hover">
         <tbody>
         <tr>
-          <th width="100px">
+          <td width="100px">
             申请编号
-          </th>
-          <th colspan="3">
+          </td>
+          <td colspan="3">
             <%= @project_apply.apply_no %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             探索营地点
-          </th>
-          <th colspan="3">
+          </td>
+          <td colspan="3">
             <%= @project_apply.camp.try(:name) %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             经费来源
-          </th>
-          <th colspan="3">
+          </td>
+          <td colspan="3">
             <%= @project_apply.camp_income_source %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             营负责人
-          </th>
-          <th colspan="3">
+          </td>
+          <td colspan="3">
             <%= @project_apply.camp_principal %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             计划人数
-          </th>
-          <th colspan="3">
+          </td>
+          <td colspan="3">
             <%= @project_apply.number %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             开营时间
-          </th>
-          <th colspan="3">
+          </td>
+          <td colspan="3">
             <%= @project_apply.camp_start_time %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             行程天数
-          </th>
-          <th colspan="3">
+          </td>
+          <td colspan="3">
             <%= @project_apply.camp_period %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             行程介绍
-          </th>
-          <th colspan="3">
+          </td>
+          <td colspan="3">
             <%= @project_apply.project_describe %>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td>
             备注
-          </th>
-          <th colspan="3">
+          </td>
+          <td colspan="3">
             <%= @project_apply.describe %>
-          </th>
+          </td>
         </tr>
         </tbody>
       </table>
