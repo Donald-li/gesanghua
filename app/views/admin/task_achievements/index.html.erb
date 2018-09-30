@@ -96,6 +96,7 @@
                 </td>
                 <td>
                   <% if item.can_turn_over? %>
+                    <% if can_current_entrance('admin/task_achievements', 'switch', current_user.roles) %>
                       <%= link_to switch_edit_admin_task_achievement_path(item), class: 'btn btn-xs blue' do %>
                           <i class="fa fa-external-link"></i> 任务移交
                       <% end %>
@@ -104,6 +105,7 @@
                               <i class="fa fa-reply"></i> 任务取消
                           <% end %>
                       <% end %>
+                    <% end %>
                   <% end %>
                   <% if item.to_check? || item.done? %>
                       <%= link_to admin_task_achievement_path(item), class: 'btn btn-xs yellow' do %>

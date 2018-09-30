@@ -4,13 +4,17 @@
       <i class="icon-list"></i> 任务管理
     </div>
     <div class="actions">
-      <%= link_to batch_manage_admin_tasks_path, class: 'btn btn-xs yellow', 'data-no-turbolink' => true do %>
-          <i class="fa fa-cogs"></i>
-          <span>批量操作</span>
+      <% if can_current_entrance('admin/tasks', 'batch_manage', current_user.roles) %>
+        <%= link_to batch_manage_admin_tasks_path, class: 'btn btn-xs yellow', 'data-no-turbolink' => true do %>
+            <i class="fa fa-cogs"></i>
+            <span>批量操作</span>
+        <% end %>
       <% end %>
-      <%= link_to new_admin_task_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
-          <i class="icon-plus"></i>
-          <span>发布公开任务</span>
+      <% if can_current_entrance('admin/tasks', 'new', current_user.roles) %>
+        <%= link_to new_admin_task_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+            <i class="icon-plus"></i>
+            <span>发布公开任务</span>
+        <% end %>
       <% end %>
     </div>
   </div>
@@ -118,11 +122,15 @@
                   <%= link_to admin_task_task_applies_path(task), class: 'btn btn-xs blue' do %>
                       <i class="fa fa-list-ul"></i> 报名名单 ( <%= task.participant_number %> )
                   <% end %>
-                  <%= link_to edit_admin_task_url(task), class: 'btn btn-xs blue' do %>
-                      <i class="fa fa-edit"></i> 修改
+                  <% if can_current_entrance('admin/tasks', 'edit', current_user.roles) %>
+                    <%= link_to edit_admin_task_url(task), class: 'btn btn-xs blue' do %>
+                        <i class="fa fa-edit"></i> 修改
+                    <% end %>
                   <% end %>
-                  <%= link_to admin_task_url(task), class: 'btn btn-xs red', method: :delete, data: {confirm: '删除任务将同时删除该任务的报名名单，确定要删除吗？'} do %>
-                      <i class="fa fa-trash-o"></i> 删除
+                  <% if can_current_entrance('admin/tasks', 'destroy', current_user.roles) %>
+                    <%= link_to admin_task_url(task), class: 'btn btn-xs red', method: :delete, data: {confirm: '删除任务将同时删除该任务的报名名单，确定要删除吗？'} do %>
+                        <i class="fa fa-trash-o"></i> 删除
+                    <% end %>
                   <% end %>
                 </td>
               </tr>
