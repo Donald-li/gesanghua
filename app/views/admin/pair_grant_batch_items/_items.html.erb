@@ -25,23 +25,23 @@
           <% end %>
           <% if !grant.pending? %>
               <% if grant.waiting? %>
-                  <% if can_current_entrance('admin/pair_grant_batch_items', 'edit', current_user.roles) %>
+                  <% if can_current_entrance('admin/pair_grants', 'edit', current_user.roles) %>
                   <%= link_to edit_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs blue child-action' do %>
                       <i class="fa fa-play"></i> 发放操作
                   <% end %>
                   <% end %>
-                  <% if can_current_entrance('admin/pair_grant_batch_items', 'edit_delay', current_user.roles) %>
+                  <% if can_current_entrance('admin/pair_grants', 'edit_delay', current_user.roles) %>
                   <%= link_to edit_delay_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs green child-action' do %>
                       <i class="fa fa-pause"></i> 暂缓发放
                   <% end %>
                   <% end %>
-                  <% if can_current_entrance('admin/pair_grant_batch_items', 'edit_cancel', current_user.roles) %>
+                  <% if can_current_entrance('admin/pair_grants', 'edit_cancel', current_user.roles) %>
                   <%= link_to edit_cancel_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs red child-action' do %>
                       <i class="fa fa-stop"></i> 取消捐助
                   <% end %>
                   <% end %>
               <% elsif grant.suspend? %>
-                  <% if can_current_entrance('admin/pair_grant_batch_items', 'edit', current_user.roles) %>
+                  <% if can_current_entrance('admin/pair_grants', 'edit', current_user.roles) %>
                   <%= link_to edit_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs blue child-action' do %>
                       <i class="fa fa-play"></i> 继续发放
                   <% end %>
