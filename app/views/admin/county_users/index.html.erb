@@ -4,9 +4,11 @@
       <i class="icon-list"></i>县级领导
     </div>
     <div class="actions">
-      <%= link_to new_admin_county_user_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
-      <i class="icon-plus"></i>
-      <span>新增</span>
+      <% if can_current_entrance('admin/county_users', 'new', current_user.roles) %>
+        <%= link_to new_admin_county_user_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+        <i class="icon-plus"></i>
+        <span>新增</span>
+        <% end %>
       <% end %>
     </div>
   </div>
@@ -88,22 +90,28 @@
                 <% end %>
               </td>
               <td>
-                <% enable = county_user.user.try(:state) === 'enable' %>
-                <% if county_user.user %>
-                  <%= link_to switch_admin_county_user_path(county_user), data: {confirm: "确定#{enable ? '禁用该用户' : '启用该用户'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{enable ? 'green' : 'default'}" do %>
-                    <%= enable ? '启用' : '禁用' %>
-                    <i class="fa <%= enable ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                <% if can_current_entrance('admin/county_users', 'switch', current_user.roles) %>
+                  <% enable = county_user.user.try(:state) === 'enable' %>
+                  <% if county_user.user %>
+                    <%= link_to switch_admin_county_user_path(county_user), data: {confirm: "确定#{enable ? '禁用该用户' : '启用该用户'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{enable ? 'green' : 'default'}" do %>
+                      <%= enable ? '启用' : '禁用' %>
+                      <i class="fa <%= enable ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                    <% end %>
+                  <% else %>
+                      <span class="btn btn-xs default">未激活</span>
                   <% end %>
-                <% else %>
-                    <span class="btn btn-xs default">未激活</span>
                 <% end %>
               </td>
               <td>
-                <%= link_to edit_admin_county_user_path(county_user), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                  <i class="fa fa-edit"></i> 修改
+                <% if can_current_entrance('admin/county_users', 'edit', current_user.roles) %>
+                  <%= link_to edit_admin_county_user_path(county_user), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                    <i class="fa fa-edit"></i> 修改
+                  <% end %>
                 <% end %>
-                <%= link_to admin_county_user_path(county_user), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
-                  <i class="fa fa-trash-o"></i> 删除
+                <% if can_current_entrance('admin/county_users', 'destroy', current_user.roles) %>
+                  <%= link_to admin_county_user_path(county_user), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                    <i class="fa fa-trash-o"></i> 删除
+                  <% end %>
                 <% end %>
               </td>
             </tr>

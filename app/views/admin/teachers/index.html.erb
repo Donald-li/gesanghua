@@ -85,10 +85,12 @@
                 <%= teacher.school.try(:name) %>
               </td>
               <td>
-                <%= link_to edit_admin_teacher_path(teacher), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                  <i class="fa fa-edit"></i> 修改信息
+                <% if can_current_entrance('admin/teachers', 'edit', current_user.roles) %>
+                  <%= link_to edit_admin_teacher_path(teacher), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                    <i class="fa fa-edit"></i> 修改信息
+                  <% end %>
                 <% end %>
-                <% unless teacher.headmaster? %>
+                <% if can_current_entrance('admin/teachers', 'destroy', current_user.roles) %>
                   <%= link_to admin_teacher_path(teacher), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                     <i class="fa fa-trash-o"></i> 删除
                   <% end %>
