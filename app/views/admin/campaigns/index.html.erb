@@ -4,9 +4,11 @@
       <i class="icon-list"></i>活动管理
     </div>
     <div class="actions">
-      <%= link_to new_admin_campaign_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
-      <i class="icon-plus"></i>
-      <span>新增</span>
+      <% if can_current_entrance('admin/campaigns', 'new', current_user.roles) %>
+        <%= link_to new_admin_campaign_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+        <i class="icon-plus"></i>
+        <span>新增</span>
+        <% end %>
       <% end %>
     </div>
   </div>
@@ -140,8 +142,10 @@
                 </div>
               </td>
               <td>
-                <%= link_to edit_admin_campaign_path(campaign), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                  <i class="fa fa-edit"></i> 编辑
+                <% if can_current_entrance('admin/campaigns', 'edit', current_user.roles) %>
+                  <%= link_to edit_admin_campaign_path(campaign), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                    <i class="fa fa-edit"></i> 编辑
+                  <% end %>
                 <% end %>
                 <%= link_to admin_campaign_campaign_enlists_path(campaign), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                   <i class="fa fa-list"></i> 报名表
@@ -149,8 +153,10 @@
                 <%= link_to share_admin_campaign_path(campaign), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                     <i class="fa fa-share-alt"></i> 分享链接
                 <% end %>
-                <%= link_to admin_campaign_path(campaign), class: 'btn btn-xs red', method: :delete, data: {confirm: '删除活动将会同时删除此此活动的相关报名记录，确定要删除吗？'} do %>
-                  <i class="fa fa-trash-o"></i> 删除
+                <% if can_current_entrance('admin/campaigns', 'destroy', current_user.roles) %>
+                  <%= link_to admin_campaign_path(campaign), class: 'btn btn-xs red', method: :delete, data: {confirm: '删除活动将会同时删除此此活动的相关报名记录，确定要删除吗？'} do %>
+                    <i class="fa fa-trash-o"></i> 删除
+                  <% end %>
                 <% end %>
               </td>
             </tr>
