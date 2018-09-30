@@ -1,5 +1,5 @@
 class Admin::ManagementFeesController < Admin::BaseController
-  before_action :auth_manage_finanical
+
 
   def index
     scope = ManagementFee.sorted.includes(:month, :owner)

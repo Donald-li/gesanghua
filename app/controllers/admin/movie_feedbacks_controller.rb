@@ -1,5 +1,4 @@
 class Admin::MovieFeedbacksController < Admin::BaseController
-  before_action :check_auth
   before_action :set_install, only: [:show, :edit, :update, :destroy, :recommend]
   # before_action :set_project, only: [:index]
   before_action :set_project_apply, only: [:index, :new, :create, :update, :destroy, :recommend]
@@ -67,7 +66,4 @@ class Admin::MovieFeedbacksController < Admin::BaseController
       @apply = ProjectSeasonApply.find(params[:movie_school_id])
     end
 
-    def check_auth
-      auth_operate_project(Project.movie_project)
-    end
 end

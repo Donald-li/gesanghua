@@ -1,5 +1,4 @@
 class Admin::CampProjectResourcesController < Admin::BaseController
-  before_action :check_auth
   before_action :set_camp_project_resource, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -22,9 +21,9 @@ class Admin::CampProjectResourcesController < Admin::BaseController
     @camp_project_resource = CampProjectResource.new(camp_project_resource_params.merge(user: current_user))
     respond_to do |format|
       if @camp_project_resource.save
-        format.html { redirect_to referer_or(admin_camp_project_resources_url), notice: '新增成功' }
+        format.html {redirect_to referer_or(admin_camp_project_resources_url), notice: '新增成功'}
       else
-        format.html { render :new }
+        format.html {render :new}
       end
     end
   end
@@ -32,9 +31,9 @@ class Admin::CampProjectResourcesController < Admin::BaseController
   def update
     respond_to do |format|
       if @camp_project_resource.update(camp_project_resource_params)
-        format.html { redirect_to referer_or(admin_camp_project_resources_url), notice: '修改成功' }
+        format.html {redirect_to referer_or(admin_camp_project_resources_url), notice: '修改成功'}
       else
-        format.html { render :edit }
+        format.html {render :edit}
       end
     end
   end
@@ -42,20 +41,17 @@ class Admin::CampProjectResourcesController < Admin::BaseController
   def destroy
     @camp_project_resource.destroy
     respond_to do |format|
-      format.html { redirect_to referer_or(admin_camp_project_resources_url), notice: '删除成功' }
+      format.html {redirect_to referer_or(admin_camp_project_resources_url), notice: '删除成功'}
     end
   end
 
   private
-    def set_camp_project_resource
-      @camp_project_resource = CampProjectResource.find(params[:id])
-    end
-
-    def camp_project_resource_params
-      params.require(:camp_project_resource).permit!
-    end
-
-    def check_auth
-      auth_operate_project(Project.camp_project)
-    end
+  def set_camp_project_resource
+    @camp_project_resource = CampProjectResource.find(params[:id])
   end
+
+  def camp_project_resource_params
+    params.require(:camp_project_resource).permit!
+  end
+
+end

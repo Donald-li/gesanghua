@@ -1,5 +1,4 @@
 class Admin::MovieCareContinualFeedbacksController < Admin::BaseController
-  before_action :check_auth
   before_action :set_continual, only: [:show, :edit, :update, :destroy, :recommend]
   before_action :set_project, only: [:index, :new, :create, :update, :destroy, :recommend]
 
@@ -61,7 +60,4 @@ class Admin::MovieCareContinualFeedbacksController < Admin::BaseController
       @project = Project.find(Project.movie_care_project.id)
     end
 
-  def check_auth
-    auth_operate_project(Project.movie_care_project)
-  end
 end

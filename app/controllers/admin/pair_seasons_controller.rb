@@ -1,5 +1,4 @@
 class Admin::PairSeasonsController < Admin::BaseController
-  before_action :check_auth
   before_action :set_season, only: [:show, :edit, :update, :destroy, :switch]
 
   def index
@@ -73,10 +72,6 @@ class Admin::PairSeasonsController < Admin::BaseController
     # Never trust parameters from the scary internet, only allow the white list through.
     def pair_params
       params.require(:project_season).permit!
-    end
-
-    def check_auth
-      auth_operate_project(Project.pair_project)
     end
 
 end

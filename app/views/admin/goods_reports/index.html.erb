@@ -3,14 +3,12 @@
     <div class="caption">
       <i class="icon-list"></i>报告管理
     </div>
-    <% if can? :manage_project, current_user, @current_project %>
     <div class="actions">
       <%= link_to new_admin_goods_report_path(pid: @current_project.id), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
       <i class="icon-plus"></i>
       <span>新增</span>
       <% end %>
     </div>
-    <% end %>
   </div>
   <div class="portlet-body">
     <div class="dataTables_wrapper no-footer">

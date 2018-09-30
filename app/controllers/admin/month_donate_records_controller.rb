@@ -1,5 +1,5 @@
 class Admin::MonthDonateRecordsController < Admin::BaseController
-  before_action :auth_manage_operation
+
   before_action :set_month_donate, only: [:index]
 
   def index

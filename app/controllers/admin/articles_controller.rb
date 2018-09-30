@@ -1,6 +1,6 @@
 # 资讯管理
 class Admin::ArticlesController < Admin::BaseController
-  before_action :auth_manage_operation
+
   before_action :set_article, only: [:show, :edit, :update, :destroy, :switch, :recommend]
 
   def index

@@ -1,5 +1,4 @@
 class Admin::PairThankNotesController < Admin::BaseController
-  before_action :check_auth
   before_action :set_thank_note, only: [:show, :edit, :update, :destroy, :recommend]
 
   def index
@@ -78,8 +77,5 @@ class Admin::PairThankNotesController < Admin::BaseController
       params.require(:continual_feedback).permit!
     end
 
-    def check_auth
-      auth_operate_project(Project.pair_project)
-    end
 
 end

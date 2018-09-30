@@ -8,12 +8,10 @@
         <i class="fa fa-cny"></i>
         <span>可用余额：<%= format_money @user.balance %></span>
       </div> |
-      <% if can? :manage_financial, current_user %>
           <%= link_to new_admin_user_account_record_path(@user), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
               <i class="icon-plus"></i>
               <span>新增记录</span>
           <% end %>
-      <% end %>
     </div>
   </div>
   <div class="portlet-body">

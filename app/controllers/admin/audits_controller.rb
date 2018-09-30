@@ -1,6 +1,5 @@
 # 操作日志
 class Admin::AuditsController < Admin::BaseController
-  before_action :auth_superadmin
   def index
     set_search_end_of_day(:created_at_lteq)
     @search = PaperTrail::Version.order(id: :desc).where(item_type: ['User', 'School', 'Teacher', 'Project', 'ProjectSeason', 'ProjectSeasonApply', 'ProjectSeasonApplyChild', 'GrantBatch', 'GshChildGrant', 'GshChild',

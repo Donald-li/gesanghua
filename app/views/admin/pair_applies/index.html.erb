@@ -3,7 +3,6 @@
     <div class="caption">
       <i class="icon-list"></i>配额管理
     </div>
-    <% if can? :manage_project, current_user, Project.pair_project %>
     <div class="actions">
       <% if can? :manage_excel, current_user  %>
           <%= link_to url_for(params.permit!.merge(format: :xlsx)), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
@@ -16,7 +15,6 @@
           <span>新增配额</span>
       <% end %>
     </div>
-    <% end %>
   </div>
   <div class="portlet-body">
     <div class="dataTables_wrapper no-footer">

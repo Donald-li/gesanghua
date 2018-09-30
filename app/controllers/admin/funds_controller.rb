@@ -1,5 +1,5 @@
 class Admin::FundsController < Admin::BaseController
-  before_action :auth_manage_finanical
+
   before_action :set_fund, only: [:show, :edit, :update, :destroy, :move, :switch]
 
   def index

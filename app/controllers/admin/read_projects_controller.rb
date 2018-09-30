@@ -1,5 +1,4 @@
 class Admin::ReadProjectsController < Admin::BaseController
-  before_action :check_auth
   before_action :set_project, only: [:edit, :update, :switch, :supply_edit, :finish_project]
 
   def index
@@ -55,8 +54,5 @@ class Admin::ReadProjectsController < Admin::BaseController
     params.require(:project_season_apply).permit!
   end
 
-  def check_auth
-    auth_operate_project(Project.read_project)
-  end
 
 end

@@ -1,5 +1,5 @@
 class Admin::SourceAdjustAmountsController < Admin::BaseController
-  before_action :auth_manage_finanical
+
   before_action :set_income_source
 
   def new

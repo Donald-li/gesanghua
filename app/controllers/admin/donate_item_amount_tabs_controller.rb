@@ -1,6 +1,6 @@
 # 捐助项卡片
 class Admin::DonateItemAmountTabsController < Admin::BaseController
-  before_action :auth_manage_operation
+
   before_action :set_donate_item, only: [:new, :index, :create, :edit, :update, :destroy, :switch]
   before_action :set_amount_tab, only: [:show, :edit, :update, :destroy, :switch]
 

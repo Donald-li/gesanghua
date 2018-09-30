@@ -3,14 +3,12 @@
     <div class="caption">
       <i class="icon-list"></i>发放批次管理
     </div>
-    <% if can? :manage_project, current_user, Project.pair_project %>
     <div class="actions">
       <%= link_to new_admin_pair_grant_batch_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
           <i class="icon-plus"></i>
           <span>新增</span>
       <% end %>
     </div>
-    <% end %>
   </div>
   <div class="portlet-body">
     <div class="dataTables_wrapper no-footer">

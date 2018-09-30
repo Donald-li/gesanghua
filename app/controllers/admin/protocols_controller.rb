@@ -1,6 +1,6 @@
 # 协议管理
 class Admin::ProtocolsController < Admin::BaseController
-  before_action :auth_manage_operation
+
   before_action :set_protocol, only: [:show, :edit, :update, :destroy, :switch]
 
   def index

@@ -62,7 +62,7 @@ class Admin::ProjectBookSeasonsController < Admin::BaseController
   private
     def set_project
       @project = Project.read_project
-      auth_operate_project(@project)
+
     end
 
     def set_season

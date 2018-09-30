@@ -1,5 +1,5 @@
 class Admin::IncomeRecordsController < Admin::BaseController
-  before_action :auth_manage_finanical
+
   before_action :set_income_record, only: [:show, :edit, :update, :destroy, :return_back]
 
   def index

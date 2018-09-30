@@ -1,5 +1,4 @@
 class Admin::CampsController < Admin::BaseController
-  before_action :check_auth
   before_action :set_camp, only: [:edit, :update, :destroy]
 
   def index
@@ -61,7 +60,4 @@ class Admin::CampsController < Admin::BaseController
       params.require(:camp).permit!
     end
 
-    def check_auth
-      auth_operate_project(Project.camp_project)
-    end
 end

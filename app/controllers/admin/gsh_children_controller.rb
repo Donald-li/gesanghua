@@ -1,5 +1,5 @@
 class Admin::GshChildrenController < Admin::BaseController
-  before_action :auth_manage_operation
+
   before_action :set_gsh_child, only: [:show, :edit, :update, :destroy, :gsh_child_apply_records]
 
   def index

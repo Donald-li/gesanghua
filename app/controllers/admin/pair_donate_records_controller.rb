@@ -33,7 +33,7 @@ class Admin::PairDonateRecordsController < Admin::BaseController
 
   def set_project
     @project = Project.pair_project
-    auth_operate_project(@project)
+
   end
 
 

@@ -1,5 +1,5 @@
 class Admin::CampaignCategoriesController < Admin::BaseController
-  before_action :auth_manage_operation
+
   before_action :set_campaign_category, only: [:show, :edit, :update, :destroy, :cancel]
 
   def index

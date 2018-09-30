@@ -1,5 +1,4 @@
 class Admin::TaskAchievementsController < Admin::BaseController
-  before_action :auth_manage_manpower
   before_action :set_task_achievement, only: [:show, :edit, :update]
 
   def index

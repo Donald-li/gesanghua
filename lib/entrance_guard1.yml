@@ -1,0 +1,308 @@
+# 权限表
+project_manager:
+  menus:
+    user_manage:
+      actions:
+        admin/users:
+          except: ['destroy', 'combine']
+        admin/donate_records: all
+        admin/account_records:
+          except: ['destroy']
+    school_manage:
+      actions:
+        admin/school_applies: all
+        admin/schools: all
+        admin/school_teachers: all
+        admin/school_project_applies: all
+    user_role:
+      actions:
+        admin/gsh_children: all
+        admin/teachers: all
+        admin/county_users: all
+    team_manage:
+      actions:
+        admin/teams: ['index']
+        admin/team_members: ['index']
+        admin/team_statistics: all
+    volunteer_manage:
+      actions:
+        admin/tasks: all
+        admin/task_applies: all
+        admin/appoint_tasks: all
+        admin/task_achievements: all
+    admin_manage:
+      actions:
+        admin/administrators: all
+        admin/administrator_logs: all
+        admin/audits: all
+        admin/operate_logs: all
+    campaign_manage:
+      actions:
+        admin/campaigns: ['index']
+        admin/campaign_enlists: all
+    data_statistic:
+      actions:
+        admin/data_statistics: all
+        admin/donate_statistics: all
+    income_record:
+      actions:
+        admin/income_records: ['index']
+    expenditure_record:
+      actions:
+        admin/expenditure_records: ['index']
+    voucher_manage:
+      actions:
+        admin/vouchers: ['index']
+    pair_project_manage:
+      actions:
+        admin/pair_seasons: all
+        admin/pair_applies: all
+        admin/pair_students: all
+        admin/pair_exception_records: all
+        admin/home_visits: all
+        admin/pair_student_lists: all
+        admin/student_grants: all
+        admin/pair_donate_records: all
+        admin/pair_grant_batches: all
+        admin/pair_grants: all
+        admin/pair_reports: all
+        admin/pair_thank_notes: all
+        admin/pair_continual_feedbacks: all
+    read_project_manage:
+      actions:
+        admin/project_book_seasons: all
+        admin/read_applies: all
+        admin/read_projects: all
+        admin/read_reports: all
+        admin/read_continual_feedbacks: all
+    camp_project_manage:
+      actions:
+        admin/camps: all
+        admin/camp_users: all
+        admin/camp_applies: all
+        admin/camp_projects: all
+        admin/project_season_apply_camps: all
+        admin/camp_donate_records: all
+        admin/camp_execute_feedbacks: all
+        admin/project_season_apply_camp_students: all
+        admin/project_season_apply_camp_teachers: all
+        admin/camp_exception_records: all
+        admin/camp_document_estimates: all
+        admin/camp_document_budges: all
+        admin/camp_document_finances: all
+        admin/camp_document_volunteers: all
+        admin/camp_continual_feedbacks: all
+        admin/camp_project_resources: all
+        admin/camp_project_reports: all
+    movie_project_manage:
+      actions:
+        admin/project_movie_seasons: all
+        admin/movie_applies: all
+        admin/movie_schools: all
+        admin/movie_continual_feedbacks: all
+    care_project_manage:
+      actions:
+        admin/project_movie_care_seasons: all
+        admin/movie_care_applies: all
+        admin/movie_care_schools: all
+        admin/movie_care_continual_feedbacks: all
+    good_project_manage:
+      actions:
+        admin/project_goods_seasons: all
+        admin/goods_applies: all
+        admin/goods_projects: all
+        admin/goods_reports: all
+        admin/goods_continual_feedbacks: all
+
+
+project_operator:
+  menus:
+    pair_project_operator:
+      actions:
+        admin/pair_applies: ['index']
+        admin/pair_students: all
+        admin/pair_student_lists: ['index', 'show', 'edit']
+        admin/student_grants:
+          except: ['match', 'close']
+        admin/pair_grant_batches: ['index', 'show']
+        admin/pair_grants: ['edit', 'index']
+        admin/pair_reports: all
+        admin/pair_thank_notes: all
+        admin/pair_continual_feedbacks: all
+    read_project_operator:
+      actions:
+        admin/read_projects: all
+        admin/read_reports: all
+        admin/read_continual_feedbacks: all
+    camp_project_operator:
+      actions:
+        admin/camp_projects: all
+        admin/project_season_apply_camps: all
+        admin/camp_donate_records: all
+        admin/camp_execute_feedbacks: all
+        admin/project_season_apply_camp_students: all
+        admin/project_season_apply_camp_teachers: all
+        admin/camp_exception_records: all
+        admin/camp_document_estimates: all
+        admin/camp_document_budges: all
+        admin/camp_document_finances: all
+        admin/camp_document_volunteers: all
+        admin/camp_continual_feedbacks: all
+        admin/camp_project_resources: all
+        admin/camp_project_reports: all
+    movie_project_operator:
+      actions:
+        admin/movie_schools: all
+        admin/movie_continual_feedbacks: all
+    care_project_operator:
+      actions:
+        admin/movie_care_schools: all
+        admin/movie_care_continual_feedbacks: all
+    good_project_operator:
+      actions:
+        admin/goods_projects: all
+        admin/goods_reports: all
+        admin/goods_continual_feedbacks: all
+
+
+financial_staff:
+  menus:
+    user_manage:
+      actions:
+        admin/users: ['index', 'new', 'edit', 'batch_manage']
+        admin/donate_records: all
+        admin/account_records:
+          except: ['destroy']
+    pair_financial_staff:
+      actions:
+        admin/pair_student_lists: ['index', 'batch_manage']
+    data_statistic:
+      actions:
+        admin/data_statistics: all
+        admin/donate_statistics: all
+    pair_expection:
+      actions:
+        admin/pair_grant_exceptions: all
+    audit_manage:
+      actions:
+        admin/audit_reports: all
+    finance_report:
+      actions:
+        admin/financial_reports: all
+    bank_report:
+      actions:
+        admin/bank_reports: all
+    income_record:
+      actions:
+        admin/income_records: all
+    expenditure_record:
+      actions:
+        admin/expenditure_records: all
+    finance_statistic:
+      actions:
+        admin/finance_statistics: all
+    voucher_manage:
+      actions:
+        admin/vouchers: all
+    management_fee:
+      actions:
+        admin/management_fee_months: all
+    fund_category:
+      actions:
+        admin/fund_categories: all
+    income_source:
+      actions:
+        admin/income_sources: all
+
+
+custom_service:
+  menus:
+    user_manage:
+      actions:
+        admin/users: ['index', 'new', 'edit', 'manager', 'batch_manage']
+        admin/donate_records: all
+        admin/account_records:
+          except: ['destroy']
+    pair_custom_service:
+      actions:
+        admin/pair_student_lists: ['index', 'show', 'share', 'edit']
+        admin/student_grants: ['index']
+        admin/pair_donate_records: ['index', 'show']
+        admin/pair_grant_batches: ['index', 'show']
+        admin/pair_grants: ['index', 'show']
+    pair_expection:
+      actions:
+        admin/pair_grant_exceptions: all
+    income_record:
+      actions:
+        admin/income_records: ['show']
+manpower_operator:
+  menus:
+    user_manage:
+      actions:
+        admin/users: ['index', 'new', 'edit', 'batch_manage']
+        admin/donate_records: all
+        admin/account_records:
+          except: ['destroy']
+    volunteer_manage:
+      actions:
+        admin/volunteer_applies: all
+        admin/volunteers: all
+        admin/service_histories: all
+        admin/task_volunteers: all
+        admin/tasks: all
+        admin/task_applies: all
+        admin/appoint_tasks: all
+        admin/task_achievements: all
+    badge_level:
+      actions:
+        admin/badge_levels: all
+    major_manage:
+      actions:
+        admin/majors: all
+    task_category:
+      actions:
+        admin/task_categories: all
+    workplace_manage:
+      actions:
+        admin/workplaces: all
+    admin_manage:
+      actions:
+        admin/administrators: all
+
+
+platform_manager:
+  menus:
+    user_manage:
+      actions:
+        admin/users: ['index']
+        admin/donate_records: ['index']
+        admin/account_records: ['index']
+    user_role:
+      actions:
+        admin/gsh_children: ['index']
+        admin/teachers: ['index']
+        admin/county_users: ['index']
+    team_manage:
+      actions:
+        admin/teams: ['index']
+        admin/team_members: ['index']
+    volunteer_manage:
+      actions:
+        admin/volunteers: ['index', 'show', 'destroy']
+        admin/service_histories: all
+        admin/task_volunteers: all
+        admin/tasks: all
+        admin/task_applies: all
+        admin/appoint_tasks: all
+        admin/task_achievements: all
+    platform_manage:
+      actions:
+        admin/adverts: all
+        admin/articles: all
+        admin/specials: all
+        admin/protocols: all
+        admin/supports: all
+        admin/pages: all
+        admin/partners: all
+        admin/announcements: all

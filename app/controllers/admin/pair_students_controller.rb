@@ -1,5 +1,4 @@
 class Admin::PairStudentsController < Admin::BaseController
-  before_action :check_auth
   before_action :set_project_apply
   before_action :set_apply_child, only: [:show, :edit, :update, :destroy, :check, :info]
 
@@ -188,10 +187,6 @@ class Admin::PairStudentsController < Admin::BaseController
 
   def set_apply_child
     @apply_child = ProjectSeasonApplyChild.find(params[:id])
-  end
-
-  def check_auth
-    auth_operate_project(Project.pair_project)
   end
 
 end

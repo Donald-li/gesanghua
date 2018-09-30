@@ -1,5 +1,5 @@
 class Admin::CampaignEnlistsController < Admin::BaseController
-  before_action :auth_manage_operation
+
   before_action :set_campaign_enlist, only: [:show, :edit, :update, :destroy, :cancel, :calculate_total_price]
   before_action :set_campaign, only: [:index, :new, :create, :edit, :update, :cancel, :excel_output]
 

@@ -1,5 +1,5 @@
 class Admin::VouchersController < Admin::BaseController
-  before_action :auth_manage_operation
+
   before_action :set_voucher, only: [:edit, :update, :switch, :show]
 
   def index

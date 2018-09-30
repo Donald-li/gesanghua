@@ -29,37 +29,9 @@ class Admin::BaseController < ManagementBaseController
   def current_user
     unless @current_user
       user = User.find_by id: session[:admin_user_id]
-      @current_user = user if user && user.has_role?(User::ADMIN_ROLES)
+      @current_user = user if user && user.has_role?(User::SUPERADMIN_ROLES)
     end
     @current_user
-  end
-
-  def auth_superadmin
-    authorize! :manage_superadmin, current_user
-  end
-
-  def auth_manage_operation
-    authorize! :manage_operation, current_user
-  end
-
-  def auth_manage_manpower
-    authorize! :manage_manpower, current_user
-  end
-
-  def auth_custom_service
-    authorize! :manage_custom_service, current_user
-  end
-
-  def auth_manage_finanical
-    authorize! :manage_financial, current_user
-  end
-
-  def auth_manage_project(project=nil)
-    authorize! :manage_project, current_user, project
-  end
-
-  def auth_operate_project(project=nil)
-    authorize! :operate_project, current_user, project
   end
 
   def render_error(exception = nil)

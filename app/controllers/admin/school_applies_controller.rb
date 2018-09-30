@@ -1,5 +1,5 @@
 class Admin::SchoolAppliesController < Admin::BaseController
-  before_action :auth_manage_operation
+
   before_action :set_school_apply, only: [:edit, :show, :update, :check, :destroy]
 
   def index
