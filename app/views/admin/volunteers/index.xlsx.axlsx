@@ -3,7 +3,7 @@ styles = wb.styles
 header = styles.add_style :sz => 16, :b => true, :alignment => {:horizontal => :center}
 wb.add_worksheet(name: "用户名单") do |sheet|
 
-  sheet.add_row ["序号", "编号", "姓名", "联系方式", "地区", "服务时长", "认证时间", "服务年限", "类型", "工作状态", "专业"]
+  sheet.add_row ["序号", "编号", "姓名", "联系方式", "地区", "服务时长", "认证时间", "服务年限", "类型", "工作状态", "专业", "个人简介", "工作单位", "身份证号", "获知渠道", "志愿者经历", "微信", "QQ", "邮箱"]
   @volunteers.each_with_index do |volunteer, index|
     sheet.add_row [
                       index + 1,
@@ -16,7 +16,12 @@ wb.add_worksheet(name: "用户名单") do |sheet|
                       volunteer.volunteer_age,
                       volunteer.enum_name(:internship_state),
                       volunteer.enum_name(:job_state),
-                      volunteer.majors.pluck(:name).join(',')]
+                      volunteer.majors.pluck(:name).join(','),
+                      volunteer.describe,
+                      volunteer.workstation,
+                      volunteer.id_card + ' ',
+                      volunteer.source,
+                      volunteer.experience]
   end
 
   sheet.column_widths 10, 20, 10, 10, 30, 10, 10, 10, 10, 10, 30

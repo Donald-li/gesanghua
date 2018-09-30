@@ -1,0 +1,23 @@
+wb = xlsx_package.workbook
+styles = wb.styles
+header = styles.add_style :sz => 12, :b => true, :bg_color => 'FFFF33'
+wb.add_worksheet(name: "结对配额列表") do |sheet|
+
+  sheet.add_row ["序号", "申请编号", "申请学校", "配额数量", "已填写/已提交/已通过", "批次", "学校联系人", "联系方式", "状态"]
+  @project_applies.each_with_index do |apply, index|
+    sheet.add_row [
+                      index + 1,
+                      apply.apply_no,
+                      apply.school.try(:name),
+                      apply.number,
+                      "#{apply.children.draft.count}/#{apply.children.check_list.count}/#{apply.children.pass.count}",
+                      apply.season.try(:name),
+                      apply.school.try(:contact_name),
+                      apply.school.try(:contact_phone),
+                      apply.enum_name(:pair_state)
+                      ]
+  end
+
+
+end
+

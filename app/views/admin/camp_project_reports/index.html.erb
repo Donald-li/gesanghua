@@ -15,10 +15,7 @@
       <div class="row">
         <div class="col-md-12 col-sm-12">
           <%= search_form_for @search, url: admin_camp_project_reports_path, class: 'form-inline' do |f| %>
-          <div class="form-group">
-            <%= f.label :title_cont, '标题' %>
-            <%= f.text_field :title_cont, class: 'form-control gsh-input-share', placeholder: '请输入报告标题' %>
-          </div>
+          <div class="form-group">                <%= f.label :title_or_user_name_or_user_nickname_cont, '搜索' %>                <%= f.text_field :title_or_user_name_or_user_nickname_cont, class: 'form-control gsh-input-share', placeholder: '请输入标题或发布人' %>              </div>
           <div class="form-group">
             <%= f.label :kind_eq, '类型' %>
             <%= f.select :kind_eq, ProjectReport.options_for_select(:kinds, raw: true), {include_blank: '全部'}, placeholder: '', class: 'form-control gsh-input-share' %>

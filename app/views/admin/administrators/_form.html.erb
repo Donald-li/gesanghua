@@ -12,7 +12,11 @@
           <abbr title="必填项">*</abbr> 管理员角色：
         </label>
         <div class="col-md-9 user-roles">
-          <%= f.collection_check_boxes :roles, User::ROLES_HASH.slice(*User::ADMIN_ROLES), :first, :last %>
+          <% if current_user.has_role?(:superadmin) %>
+              <%= f.collection_check_boxes :roles, User::ROLES_HASH.slice(*User::SUPERADMIN_ROLES), :first, :last %>
+          <% else %>
+              <%= f.collection_check_boxes :roles, User::ROLES_HASH.slice(*User::ADMIN_ROLES), :first, :last %>
+          <% end %>
         </div>
       </div>
       <div class="form-group string required project-lists">
@@ -20,7 +24,7 @@
           <abbr title="必填项">*</abbr> 管理的项目：
         </label>
         <div class="col-md-9">
-          <%= f.collection_check_boxes :project_ids, Project.visible.map{|p| [p.id, p.name]}, :first, :last, input_html: {id: 'user-roles'} %>
+          <%= f.collection_check_boxes :project_ids, Project.visible.map {|p| [p.id, p.name]}, :first, :last, input_html: {id: 'user-roles'} %>
         </div>
       </div>
     </div>
@@ -35,23 +39,24 @@
 <% end %>
 
 <script>
-  function toggleProjects(){
-    var checks = $('.user-roles .checked input[type="checkbox"]')
-    var checked = checks.filter(function(i, el){
-      return $(el).val().startsWith('project_')
-    })
-    if(checked.length > 0){
-      $('.project-lists').show()
-    } else {
-      $('.project-lists').hide()
+    function toggleProjects() {
+        var checks = $('.user-roles .checked input[type="checkbox"]')
+        var checked = checks.filter(function (i, el) {
+            return $(el).val().startsWith('project_')
+        })
+        if (checked.length > 0) {
+            $('.project-lists').show()
+        } else {
+            $('.project-lists').hide()
+        }
     }
-  }
-  $(function(){
-    $('.user-roles input[type="checkbox"]').on('change', function(el){
-      toggleProjects()
+
+    $(function () {
+        $('.user-roles input[type="checkbox"]').on('change', function (el) {
+            toggleProjects()
+        })
+        setTimeout(
+            toggleProjects, 500
+        )
     })
-    setTimeout(
-      toggleProjects, 500
-    )
-  })
 </script>

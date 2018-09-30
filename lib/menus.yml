@@ -4,7 +4,6 @@ admin:
     admin_main:
       actions:
         'admin/mains': all
-
     admin_operation:
       menus:
         admin_user:
@@ -75,6 +74,7 @@ admin:
             admin_team_list:
               actions:
                 'admin/teams': all
+                'admin/team_members': all
             admin_team_statistic:
               actions:
                 'admin/team_statistics': all

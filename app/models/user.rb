@@ -52,13 +52,14 @@ class User < ApplicationRecord
   has_paper_trail only: [:nickname, :name, :password_digest, :state, :gender, :balance, :phone, :email, :address, :salutation, :consignee, :province, :city, :district, :id_card, :qq, :kind, :phone_verify, :use_nickname, :manager_id]
 
   include HasBitEnum
-  ROLES = %w[superadmin admin project_manager project_operator financial_staff volunteer county_user gsh_child custom_service headmaster teacher camp_manager manpower_operator]
-  ROLES_HASH = Hash[*ROLES.zip(%w[超级管理员 管理员 项目管理员 项目操作员 财务人员 志愿者 教育局用户 格桑花孩子 客服人员 学校负责人 老师 营管理员 人力管理员]).flatten]
+  ROLES = %w[superadmin admin project_manager project_operator financial_staff volunteer county_user gsh_child custom_service headmaster teacher camp_manager manpower_operator platform_manager]
+  ROLES_HASH = Hash[*ROLES.zip(%w[超级管理员 管理员 项目管理员 项目操作员 财务人员 志愿者 教育局用户 格桑花孩子 客服人员 学校负责人 老师 营管理员 人力管理员 平台管理员]).flatten]
   USER_ROLES = %w[volunteer county_user gsh_child headmaster teacher camp_manager]
-  ADMIN_ROLES = %w[superadmin admin project_manager project_operator financial_staff custom_service manpower_operator]
+  SUPERADMIN_ROLES = %w[superadmin admin project_manager project_operator financial_staff custom_service manpower_operator platform_manager]
+  ADMIN_ROLES = %w[project_manager project_operator custom_service manpower_operator platform_manager]
   has_bit_enum :role, ROLES, ROLES_HASH
 
-  scope :admin_user, -> {where("(users.roles_mask::bit(13) & B'1100100011111')::integer > 0")}
+  scope :admin_user, -> {where("(users.roles_mask::bit(14) & B'11100100011111')::integer > 0")}
 
   attr_accessor :avatar_id
   attr_accessor :new_user_id

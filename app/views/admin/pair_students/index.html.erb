@@ -64,7 +64,7 @@
               民族
             </th>
             <th>
-              年级
+              年级/班级
             </th>
             <th>
               申请捐助学年
@@ -102,7 +102,7 @@
                   <%= child.enum_name(:nation) %>
                 </td>
                 <td>
-                  <%= child.enum_name(:level) %> <%= child.enum_name(:grade) %> <%= child.enum_name(:semester) %>
+                  <%= child.enum_name(:level) %> <%= child.enum_name(:grade) %> <%= child.classname %> <%= child.enum_name(:semester) %>
                 </td>
                 <td>
                   <% if child.present? %>
