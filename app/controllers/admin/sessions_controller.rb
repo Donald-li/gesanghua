@@ -13,7 +13,7 @@ class Admin::SessionsController < Admin::BaseController
       render action: :new and return
     end
     admin =  User.find_by(login: session_params[:login])
-    unless admin && admin.has_role?([:superadmin, :admin, :project_manager, :project_operator, :financial_staff, :custom_service, :manpower_operator])
+    unless admin && admin.has_role?([:superadmin, :admin, :project_manager, :project_operator, :financial_staff, :custom_service, :manpower_operator, :platform_manager])
       flash[:alert] = '该帐号不存在'
       render(action: :new) && return
     end
