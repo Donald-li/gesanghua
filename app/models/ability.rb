@@ -30,5 +30,10 @@ class Ability
       user.has_role?([:superadmin, :admin, :project_manager, :custom_service])
     end
 
+    #团队移交
+    can :manager_team_manager, User do |user|
+      user.has_role?([:superadmin, :admin])
+    end
+
   end
 end

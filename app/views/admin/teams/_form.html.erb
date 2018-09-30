@@ -10,7 +10,11 @@
     <%= f.input :name, label: '名称：', autofocus: true, placeholder: '名称', input_html: { data: {'parsley-required': true}} %>
     <%= static_form_control '创建人：', @team.try(:creater).try(:name) %>
     <%= static_form_control '创建时间：', (l @team.created_at) %>
-    <%= f.input :manage_id, collection: [@team.manager].compact.map {|u| [u.name, u.id]}, label: '负责人：', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
+    <% if can? :manager_team_manager, current_user %>
+      <%= f.input :manage_id, collection: [@team.manager].compact.map {|u| [u.name, u.id]}, label: '负责人：', prompt: "请选择用户", input_html: {class: 'user_selector'} %>
+    <% else %>
+      <%= static_form_control '负责人：', (l @team.manager.try(:name)) %>
+    <% end %>
     <div style="margin-bottom: 20px;" class="form-group">
       <label class="col-md-2 control-label select required" for="project_category_id">所在地区：</label>
       <div class="col-sm-6">
