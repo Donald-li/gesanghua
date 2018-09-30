@@ -170,7 +170,7 @@ custom_service:
     admin/pair_grant_batches: ['index', 'show']
     admin/pair_grants: ['index', 'show']
     admin/pair_grant_exceptions: all
-    admin/income_records: ['show']
+    admin/income_records: ['index', 'show']
 
 
 manpower_operator:

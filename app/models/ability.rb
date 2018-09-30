@@ -75,7 +75,7 @@ class Ability
     end
 
     can :finance_pair_manage, User do |user|
-      user.has_role?([:superadmin, :admin]) || (user.has_role?([:project_manager, :custom_service, :financial_staff]) && user.project_ids.include?(Project.pair_project.id))
+      user.has_role?([:superadmin, :admin, :custom_service, :financial_staff]) || (user.has_role?([:project_manager]) && user.project_ids.include?(Project.pair_project.id))
     end
 
     can :header_admin_operation, User do |user|

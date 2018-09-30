@@ -756,7 +756,7 @@
       <li class="heading">
         <h3 class="uppercase">基础数据维护</h3>
       </li>
-      <% if can_current_entrance('admin/articles', 'index', current_user.roles) %>
+      <% if can_current_entrance('admin/articles', 'index', current_user.roles) && !current_user.has_role?(:admin) %>
         <li class="nav-item  <%= current_nav_class(:admin_article_category) %>">
           <%= link_to admin_article_categories_path, class: 'nav-link' do %>
               <i class="fa fa-list-alt"></i>
@@ -764,7 +764,7 @@
           <% end %>
         </li>
       <% end %>
-      <% if can_current_entrance('admin/projects', 'index', current_user.roles) %>
+      <% if can_current_entrance('admin/projects', 'index', current_user.roles) && !current_user.has_role?(:admin) %>
         <li class="nav-item  <%= current_nav_class(:admin_project_template) %>">
           <%= link_to admin_projects_path, class: 'nav-link' do %>
               <i class="fa fa-th-large"></i>
@@ -772,7 +772,7 @@
           <% end %>
         </li>
       <% end %>
-      <% if can_current_entrance('admin/donate_items', 'index', current_user.roles) %>
+      <% if can_current_entrance('admin/donate_items', 'index', current_user.roles) && !current_user.has_role?(:admin) %>
       <li class="nav-item  <%= current_nav_class(:admin_donate_item_template) %>">
         <%= link_to admin_donate_items_path, class: 'nav-link' do %>
             <i class="fa fa-magnet"></i>
@@ -985,7 +985,7 @@
           <span class="arrow <%= current_nav_class(:admin_finance_category, current: :open) %>"></span>
         </a>
         <ul class="sub-menu">
-          <% if can_current_entrance('admin/fund_categories', 'index', current_user.roles) %>
+          <% if can_current_entrance('admin/fund_categories', 'index', current_user.roles) && !current_user.has_role?(:admin) %>
             <li class="nav-item  <%= current_nav_class(:admin_fund_categories) %>">
               <%= link_to admin_fund_categories_path, class: 'nav-link nav-toggle' do %>
                   <!--<i class="fa fa-sign-in"></i>-->
@@ -993,7 +993,7 @@
               <% end %>
             </li>
           <% end %>
-          <% if can_current_entrance('admin/income_sources', 'index', current_user.roles) %>
+          <% if can_current_entrance('admin/income_sources', 'index', current_user.roles) && !current_user.has_role?(:admin) %>
             <li class="nav-item  <%= current_nav_class(:admin_income_source) %>">
               <%= link_to admin_income_sources_path, class: 'nav-link' do %>
                   <!--<i class="fa fa-yen"></i>-->
