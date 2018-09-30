@@ -4,9 +4,11 @@
       <i class="icon-list"></i><%= link_to @child_apply.name, admin_pair_student_lists_path('q[id_eq]': @child_apply.id), target: '_blank' %> > 资助学年
     </div>
     <div class="actions">
+      <% if can_current_entrance('admin/student_grants', 'match', current_user.roles) %>
       <% if @child_apply.semesters.pending.count > 0 %>
       <%= link_to match_admin_pair_student_list_student_grants_path(@child_apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
         <i class="fa fa-list-ul"></i> 配捐
+      <% end %>
       <% end %>
       <% end %>
       <% if can_current_entrance('admin/student_grants', 'new', current_user.roles) %>

@@ -28,8 +28,7 @@ class Ability
     # 管理后台项目功能
     can :manage_project, User, Project do |user, project|
       def check(user, project)
-        return true if user.has_role?([:superadmin, :admin])
-        return false unless user.has_role?([:project_manager, :project_operator])
+        return true if user.has_role?([:superadmin, :admin, :project_manager, :project_operator, :custom_service, :financial_staff])
         return project.id.in?(user.project_ids) if project
         true
       end
@@ -75,6 +74,29 @@ class Ability
       user.has_role?([:superadmin, :admin, :platform_manager])
     end
 
+    can :finance_pair_manage, User do |user|
+      user.has_role?([:superadmin, :admin]) || (user.has_role?([:project_manager, :custom_service, :financial_staff]) && user.project_ids.include?(Project.pair_project.id))
+    end
+
+    can :header_admin_operation, User do |user|
+      user.has_role?([:superadmin, :admin, :project_manager, :platform_manager, :manpower_operator, :custom_service, :financial_staff])
+    end
+
+    can :header_admin_project, User do |user|
+      user.has_role?([:superadmin, :admin, :project_manager, :project_operator, :custom_service, :financial_staff])
+    end
+
+    can :header_admin_system, User do |user|
+      user.has_role?([:superadmin, :admin, :project_manager, :manpower_operator])
+    end
+
+    can :header_admin_statistic, User do |user|
+      user.has_role?([:superadmin, :admin, :project_manager, :financial_staff])
+    end
+
+    can :header_admin_finance, User do |user|
+      user.has_role?([:superadmin, :admin, :project_manager, :custom_service, :financial_staff])
+    end
   end
 
 end

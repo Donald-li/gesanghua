@@ -91,6 +91,7 @@ project_manager:
     admin/goods_projects: all
     admin/goods_reports: all
     admin/goods_continual_feedbacks: all
+    admin/donate_project_reports: all
 
 # 以下需要根据具体项目权限区分
 project_operator:

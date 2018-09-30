@@ -678,11 +678,14 @@
                   <span class="arrow <%= current_nav_class(:admin_project_goods, if: -> {session[:goods_project_id].to_s == p.id.to_s}, current: :open) %>"></span>
                 </a>
                 <ul class="sub-menu">
+                  <% if can_current_entrance('admin/project_goods_seasons', 'index', current_user.roles) %>
                   <li class="nav-item <%= current_nav_class(:admin_project_goods_season, if: -> {session[:goods_project_id].to_s == p.id.to_s}) %>">
                     <%= link_to admin_project_goods_seasons_path(pid: p.id), class: 'nav-link' do %>
                         <span class="title">批次管理</span>
                     <% end %>
                   </li>
+                  <% end %>
+                  <% if can_current_entrance('admin/goods_applies', 'index', current_user.roles) %>
                   <li class="nav-item <%= current_nav_class(:admin_project_goods_applies, if: -> {session[:goods_project_id].to_s == p.id.to_s}) %> ">
                     <%= link_to admin_goods_applies_path(pid: p.id), class: 'nav-link' do %>
                         <span class="title">申请管理</span>
@@ -691,16 +694,22 @@
                         <% end %>
                     <% end %>
                   </li>
+                  <% end %>
+                  <% if can_current_entrance('admin/goods_projects', 'index', current_user.roles) %>
                   <li class="nav-item <%= current_nav_class(:admin_project_goods_projects, if: -> {session[:goods_project_id].to_s == p.id.to_s}) %> ">
                     <%= link_to admin_goods_projects_path(pid: p.id), class: 'nav-link' do %>
                         <span class="title">筹款项目</span>
                     <% end %>
                   </li>
+                  <% end %>
+                  <% if can_current_entrance('admin/goods_reports', 'index', current_user.roles) %>
                   <li class="nav-item <%= current_nav_class(:admin_project_goods_reports, if: -> {session[:goods_project_id].to_s == p.id.to_s}) %> ">
                     <%= link_to admin_goods_reports_path(pid: p.id), class: 'nav-link' do %>
                         <span class="title">报告管理</span>
                     <% end %>
                   </li>
+                  <% end %>
+                  <% if can_current_entrance('admin/goods_continual_feedbacks', 'index', current_user.roles) %>
                   <% if p.open_feedback? %>
                       <li class="nav-item <%= current_nav_class(:admin_project_goods_feedbacks, if: -> {session[:goods_project_id].to_s == p.id.to_s}) %> ">
                         <%= link_to admin_goods_continual_feedbacks_path(pid: p.id), class: 'nav-link' do %>
@@ -710,6 +719,7 @@
                             <% end %>
                         <% end %>
                       </li>
+                  <% end %>
                   <% end %>
                 </ul>
               </li>
@@ -729,11 +739,13 @@
                   <span class="arrow <%= current_nav_class(:admin_project_donates, if: -> {session[:goods_project_id].to_s == p.id.to_s}, current: :open) %>"></span>
                 </a>
                 <ul class="sub-menu">
+                  <% if can_current_entrance('admin/donate_project_reports', 'index', current_user.roles) %>
                   <li class="nav-item <%= current_nav_class(:admin_project_donate_reports, if: -> {session[:goods_project_id].to_s == p.id.to_s}) %> ">
                     <%= link_to admin_donate_project_reports_path(pid: p.id), class: 'nav-link' do %>
                         <span class="title">报告管理</span>
                     <% end %>
                   </li>
+                  <% end %>
                 </ul>
               </li>
           <% end %>
@@ -879,6 +891,7 @@
       <li class="heading">
         <h3 class="uppercase">财务管理</h3>
       </li>
+      <% if can? :finance_pair_manage, current_user %>
       <li class="nav-item  <%= current_nav_class(:admin_finance_pair) %> ">
         <a href="javascript:;" class="nav-link nav-toggle">
           <i class="fa fa-graduation-cap"></i>
@@ -895,6 +908,8 @@
           <% end %>
         </ul>
       </li>
+      <% end %>
+
       <% if can_current_entrance('admin/audit_reports', 'index', current_user.roles) %>
         <li class="nav-item  <%= current_nav_class(:admin_audit_reports) %>">
           <%= link_to admin_audit_reports_path, class: 'nav-link' do %>
