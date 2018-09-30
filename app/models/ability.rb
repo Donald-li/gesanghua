@@ -35,6 +35,7 @@ class Ability
       end
       check(user, project)
     end
+
     #指定代捐管理人
     can :manager_manager, User do |user|
       user.has_role?([:superadmin, :admin, :project_manager, :custom_service])
@@ -43,6 +44,35 @@ class Ability
     #团队移交
     can :manager_team_manager, User do |user|
       user.has_role?([:superadmin, :admin])
+    end
+
+    #运营管理-学校管理
+    can :manager_school_manage, User do |user|
+      user.has_role?([:superadmin, :admin, :project_manager])
+    end
+
+    #运营管理-用户身份
+    can :manager_user_identity, User do |user|
+      user.has_role?([:superadmin, :admin, :project_manager, :platform_manager])
+    end
+
+    #运营管理-团队管理
+    can :manager_team_manage, User do |user|
+      user.has_role?([:superadmin, :admin, :project_manager, :platform_manager])
+    end
+
+    #运营管理-志愿者管理
+    can :manager_volunteer_manage, User do |user|
+      user.has_role?([:superadmin, :admin, :project_manager, :platform_manager, :manpower_operator])
+    end
+
+    #运营管理-活动管理
+    can :manager_campaign_manage, User do |user|
+      user.has_role?([:superadmin, :admin, :project_manager])
+    end
+    #运营管理-平台管理
+    can :manager_platform_manage, User do |user|
+      user.has_role?([:superadmin, :admin, :project_manager])
     end
 
   end
