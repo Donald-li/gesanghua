@@ -72,7 +72,7 @@ class Ability
     end
     #运营管理-平台管理
     can :manager_platform_manage, User do |user|
-      user.has_role?([:superadmin, :admin, :project_manager])
+      user.has_role?([:superadmin, :admin, :platform_manager])
     end
 
   end
