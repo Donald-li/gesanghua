@@ -25,5 +25,16 @@ class Ability
       user.has_role?([:superadmin, :admin, :project_manager])
     end
 
+    # 管理后台项目功能
+    can :manage_project, User, Project do |user, project|
+      def check(user, project)
+        return true if user.has_role?([:superadmin, :admin])
+        return false unless user.has_role?([:project_manager, :project_operator])
+        return project.id.in?(user.project_ids) if project
+        true
+      end
+      check(user, project)
+    end
+
   end
 end

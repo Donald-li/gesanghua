@@ -1,17 +1,17 @@
 <table class="table table-striped table-bordered table-hover">
   <thead>
-    <tr>
-      <th>格桑花编号</th>
-      <th>姓名</th>
-      <th>学校</th>
-      <th>捐助学年</th>
-      <th>发放状态</th>
-      <th>捐助人</th>
-      <th>操作</th>
-    </tr>
+  <tr>
+    <th>格桑花编号</th>
+    <th>姓名</th>
+    <th>学校</th>
+    <th>捐助学年</th>
+    <th>发放状态</th>
+    <th>捐助人</th>
+    <th>操作</th>
+  </tr>
   </thead>
   <tbody>
-    <% grants.each do |grant| %>
+  <% grants.each do |grant| %>
       <tr id="item-tr-<%= grant.id %>">
         <td><%= grant.apply_child.try(:gsh_no) %></td>
         <td><%= grant.apply_child.try(:name) %></td>
@@ -19,30 +19,38 @@
         <td><%= grant.title %></td>
         <td><%= grant.enum_name(:state) %></td>
         <td><%= grant.user.try(:name) %></td>
-        <td id="item-td-<%=grant.id%>">
-          <%= link_to '移出批次',
-            admin_pair_grant_batch_item_path(grant.grant_batch_id, grant.id),
-            :remote => true, :method => :delete, class: 'btn btn-xs blue' %>
-            <% if !grant.pending? %>
+        <td id="item-td-<%= grant.id %>">
+          <% if can_current_entrance('admin/pair_grant_batch_items', 'destroy', current_user.roles) %>
+          <%= link_to '移出批次', admin_pair_grant_batch_item_path(grant.grant_batch_id, grant.id), :remote => true, :method => :delete, class: 'btn btn-xs blue' %>
+          <% end %>
+          <% if !grant.pending? %>
               <% if grant.waiting? %>
-                <%= link_to edit_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs blue child-action' do %>
-                    <i class="fa fa-play"></i> 发放操作
-                <% end %>
-                <%= link_to edit_delay_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs green child-action' do %>
-                    <i class="fa fa-pause"></i> 暂缓发放
-                <% end %>
-                <%= link_to edit_cancel_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs red child-action' do %>
-                    <i class="fa fa-stop"></i> 取消捐助
-                <% end %>
+                  <% if can_current_entrance('admin/pair_grant_batch_items', 'edit', current_user.roles) %>
+                  <%= link_to edit_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs blue child-action' do %>
+                      <i class="fa fa-play"></i> 发放操作
+                  <% end %>
+                  <% end %>
+                  <% if can_current_entrance('admin/pair_grant_batch_items', 'edit_delay', current_user.roles) %>
+                  <%= link_to edit_delay_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs green child-action' do %>
+                      <i class="fa fa-pause"></i> 暂缓发放
+                  <% end %>
+                  <% end %>
+                  <% if can_current_entrance('admin/pair_grant_batch_items', 'edit_cancel', current_user.roles) %>
+                  <%= link_to edit_cancel_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs red child-action' do %>
+                      <i class="fa fa-stop"></i> 取消捐助
+                  <% end %>
+                  <% end %>
               <% elsif grant.suspend? %>
-                <%= link_to edit_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs blue child-action' do %>
-                    <i class="fa fa-play"></i> 继续发放
-                <% end %>
+                  <% if can_current_entrance('admin/pair_grant_batch_items', 'edit', current_user.roles) %>
+                  <%= link_to edit_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs blue child-action' do %>
+                      <i class="fa fa-play"></i> 继续发放
+                  <% end %>
+                  <% end %>
               <% end %>
-            <% end %>
+          <% end %>
         </td>
       </tr>
-    <% end %>
+  <% end %>
   </tbody>
 </table>
 <div>

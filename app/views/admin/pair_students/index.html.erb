@@ -128,8 +128,10 @@
                   <%= link_to admin_pair_apply_pair_student_path(@project_apply,child), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                       <i class="fa fa-trash-o"></i> 删除申请
                   <% end %>
+                  <% if can_current_entrance('admin/pair_students', 'show', current_user.roles) %>
                   <%= link_to admin_pair_apply_pair_student_path(@project_apply,child), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                       <i class="fa fa-gavel"></i> 审核
+                  <% end %>
                   <% end %>
                   <%= link_to admin_home_visits_path(id: child.id), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
                       <i class="fa fa-list"></i> 家访记录 (<%= child.visits.count %>)

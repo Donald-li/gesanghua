@@ -42,6 +42,7 @@ project_manager:
     admin/student_grants: all
     admin/pair_donate_records: all
     admin/pair_grant_batches: all
+    admin/pair_grant_batch_items: all
     admin/pair_grants: all
     admin/pair_reports: all
     admin/pair_thank_notes: all
@@ -87,12 +88,13 @@ project_operator:
   actions:
     admin/mains: all
     admin/pair_applies: ['index']
-    admin/pair_students: all
+    admin/pair_students:
+      except: ['show']
     admin/pair_student_lists: ['index', 'show', 'edit']
     admin/student_grants:
       except: ['match', 'close']
-    admin/pair_grant_batches: ['index', 'show']
-    admin/pair_grants: ['edit', 'index']
+    admin/pair_grant_batches: ['index', 'show', 'edit']
+    admin/pair_grants: ['edit', 'index', 'edit', 'edit_feedback']
     admin/pair_reports: all
     admin/pair_thank_notes: all
     admin/pair_continual_feedbacks: all

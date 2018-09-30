@@ -4,15 +4,17 @@
       <i class="icon-list"></i> 捐助管理
     </div>
     <div class="actions">
-      <%= link_to batch_manage_admin_pair_student_lists_path, class: 'btn btn-xs yellow', 'data-no-turbolink' => true do %>
-          <i class="fa fa-cogs"></i>
-          <span>批量操作</span>
+      <% if can_current_entrance('admin/pair_student_lists', 'batch_manage', current_user.roles) %>
+          <%= link_to batch_manage_admin_pair_student_lists_path, class: 'btn btn-xs yellow', 'data-no-turbolink' => true do %>
+              <i class="fa fa-cogs"></i>
+              <span>批量操作</span>
+          <% end %>
       <% end %>
-      <% if can? :manage_excel, current_user  %>
-      <%= link_to url_for(params.permit!.merge(format: :xlsx)), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
-          <i class="fa fa-download"></i>
-          <span>导出</span>
-      <% end %>
+      <% if can? :manage_excel, current_user %>
+          <%= link_to url_for(params.permit!.merge(format: :xlsx)), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+              <i class="fa fa-download"></i>
+              <span>导出</span>
+          <% end %>
       <% end %>
     </div>
   </div>
@@ -23,24 +25,24 @@
           <%= search_form_for @search, url: admin_pair_student_lists_path, class: 'form-inline' do |f| %>
               <div class="form-group" style="margin-bottom: 10px;">
                 <%= f.label :name_or_gsh_child_gsh_no_cont, '姓名或编号' %>
-                <%= f.text_field :name_or_gsh_child_gsh_no_cont, class: 'form-control gsh-input-share', placeholder: '姓名或格桑花编号',style:'width:132px;' %>
+                <%= f.text_field :name_or_gsh_child_gsh_no_cont, class: 'form-control gsh-input-share', placeholder: '姓名或格桑花编号', style: 'width:132px;' %>
               </div>
               <div class="form-group" style="margin-bottom: 10px;">
                 <%= f.label :gsh_child_grants_title_cont, '申请学年' %>
-                <%= f.text_field :gsh_child_grants_title_cont, class: 'form-control gsh-input-share', placeholder: '搜索',style:'width:124px;' %>
+                <%= f.text_field :gsh_child_grants_title_cont, class: 'form-control gsh-input-share', placeholder: '搜索', style: 'width:124px;' %>
               </div>
-            <div class="form-group" style="margin-bottom: 10px;">
-              <%= f.label '地区' %>
-              <div class="form-group">
-                <div class="city-group">
-                  <%= select_tag 'q[school_province_eq]', options_for_select(ChinaCity.list, params[:q][:school_province_eq]), prompt: '省份', class: "city-select form-control gsh-input-share-l" %>
-                  <%= select_tag 'q[school_city_eq]', options_for_select(ChinaCity.list(params[:q][:school_province_eq] || ''), params[:q][:school_city_eq]), prompt: '城市', class: "city-select form-control" %>
-                  <%= select_tag 'q[school_district_eq]', options_for_select(ChinaCity.list(params[:q][:school_city_eq] || ''), params[:q][:school_district_eq]), prompt: '地区', class: "city-select form-control gsh-input-share-r" %>
+              <div class="form-group" style="margin-bottom: 10px;">
+                <%= f.label '地区' %>
+                <div class="form-group">
+                  <div class="city-group">
+                    <%= select_tag 'q[school_province_eq]', options_for_select(ChinaCity.list, params[:q][:school_province_eq]), prompt: '省份', class: "city-select form-control gsh-input-share-l" %>
+                    <%= select_tag 'q[school_city_eq]', options_for_select(ChinaCity.list(params[:q][:school_province_eq] || ''), params[:q][:school_city_eq]), prompt: '城市', class: "city-select form-control" %>
+                    <%= select_tag 'q[school_district_eq]', options_for_select(ChinaCity.list(params[:q][:school_city_eq] || ''), params[:q][:school_district_eq]), prompt: '地区', class: "city-select form-control gsh-input-share-r" %>
+                  </div>
                 </div>
               </div>
-            </div>
               <div class="form-group " style="margin: 0  10px 10px ">
-                <%= f.label :school_id_eq, '学校',class:'gsh-input-share-r' %>
+                <%= f.label :school_id_eq, '学校', class: 'gsh-input-share-r' %>
                 <%= f.select :school_id_eq, [], {include_blank: '全部'}, class: 'form-control schools-ajax', style: 'width:200px;' %>
               </div>
               <div class="form-group" style="margin-bottom: 10px;">
@@ -52,15 +54,15 @@
                 <%= f.select :student_state_eq, ProjectSeasonApplyChild.options_for_enum_select(:student_states, raw: true), {include_blank: '全部'}, class: 'form-control gsh-input-share' %>
               </div>
               <br>
-              <div class="form-group"  >
+              <div class="form-group">
                 <%= label_tag :donor_state_eq, '学生捐助状态' %>
                 <%= select_tag :donor_state_eq, options_for_select([['筹款中', 'raising'], ['可续捐', 'part_done'], ['筹款完成', 'done']], params[:donor_state_eq]), include_blank: '全部', class: 'form-control gsh-input-share' %>
               </div>
-              <div class="form-group" >
+              <div class="form-group">
                 <%= f.label :gsh_child_grants_donate_state_eq, '学年捐助状态' %>
                 <%= f.select :gsh_child_grants_donate_state_eq, GshChildGrant.options_for_enum_select(:donate_states, raw: true), {include_blank: '全部'}, class: 'form-control gsh-input-share' %>
               </div>
-              <button type="submit" class="btn btn-default grey" >搜索</button>
+              <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>
         </div>
         <div class="col-md-6 col-sm-12">
@@ -116,11 +118,12 @@
                   <%= child.try(:name) %>
                 </td>
                 <td>
-                  <%= child.apply.try(:school).try(:name) %> / <%= child.enum_name(:level) %> <%= child.enum_name(:grade) %> / <%= child.classname %>
+                  <%= child.apply.try(:school).try(:name) %>
+                  / <%= child.enum_name(:level) %> <%= child.enum_name(:grade) %> / <%= child.classname %>
                 </td>
                 <td>
                   <% child.gsh_child_grants.sorted.reverse.each do |grant| %>
-                    <span class="btn btn-xs <%= grant.button_color %>" title="<%= grant.enum_name(:donate_state) %>"><%= grant.title %></span>
+                      <span class="btn btn-xs <%= grant.button_color %>" title="<%= grant.enum_name(:donate_state) %>"><%= grant.title %></span>
                   <% end %>
                 </td>
                 <td>
@@ -136,32 +139,50 @@
                   <%= child.raise_condition %>
                 </td>
                 <td>
-                  <%= link_to turn_over_admin_pair_student_list_path(child), data: {confirm: "确定#{child.kind === 'outside' ? '内部认捐' : '平台可见'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{child.kind === 'inside' ? 'green' : 'blue'}" do %>
-                      <%= child.kind === 'outside' ? '平台可见' : '内部认捐' %>
-                      <i class="fa <%= child.kind === 'outside' ? 'fa-square-o' : 'fa-check-square-o' %>"></i>
+                  <% if can_current_entrance('admin/pair_student_lists', 'turn_over', current_user.roles) %>
+                      <%= link_to turn_over_admin_pair_student_list_path(child), data: {confirm: "确定#{child.kind === 'outside' ? '内部认捐' : '平台可见'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{child.kind === 'inside' ? 'green' : 'blue'}" do %>
+                          <%= child.kind === 'outside' ? '平台可见' : '内部认捐' %>
+                          <i class="fa <%= child.kind === 'outside' ? 'fa-square-o' : 'fa-check-square-o' %>"></i>
+                      <% end %>
+                  <% else %>
+                      <%= child.enum_name(:kind) %>
                   <% end %>
                 </td>
                 <td>
-                  <%= link_to switch_admin_pair_student_list_path(child), data: {confirm: "确定#{child.state === 'show' ? '关闭筹款' : '开启筹款'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{child.state === 'show' ? 'green' : 'default'}" do %>
-                      <%= child.state === 'show' ? '开启' : '关闭' %>
-                      <i class="fa <%= child.state === 'show' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                  <% if can_current_entrance('admin/pair_student_lists', 'switch', current_user.roles) %>
+                      <%= link_to switch_admin_pair_student_list_path(child), data: {confirm: "确定#{child.state === 'show' ? '关闭筹款' : '开启筹款'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{child.state === 'show' ? 'green' : 'default'}" do %>
+                          <%= child.state === 'show' ? '开启' : '关闭' %>
+                          <i class="fa <%= child.state === 'show' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                      <% end %>
+                  <% else %>
+                      <%= child.enum_name(:state) %>
                   <% end %>
                 </td>
                 <td>
-                  <%= link_to appoint_admin_pair_student_list_path(child), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
-                      <i class="fa fa-gg"></i> 指定捐助人
+                  <% if can_current_entrance('admin/pair_student_lists', 'appoint', current_user.roles) %>
+                      <%= link_to appoint_admin_pair_student_list_path(child), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
+                          <i class="fa fa-gg"></i> 指定捐助人
+                      <% end %>
                   <% end %>
-                  <%= link_to admin_pair_student_list_path(child), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
-                      <i class="fa fa-file"></i> 孩子详情
+                  <% if can_current_entrance('admin/pair_student_lists', 'show', current_user.roles) %>
+                      <%= link_to admin_pair_student_list_path(child), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                          <i class="fa fa-file"></i> 孩子详情
+                      <% end %>
                   <% end %>
-                  <%= link_to admin_pair_student_list_student_grants_path(child), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                      <i class="fa fa-list"></i> 资助学年
+                  <% if can_current_entrance('admin/student_grants', 'index', current_user.roles) %>
+                      <%= link_to admin_pair_student_list_student_grants_path(child), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                          <i class="fa fa-list"></i> 资助学年
+                      <% end %>
                   <% end %>
-                  <%= link_to share_admin_pair_student_list_path(child), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                      <i class="fa fa-share-alt"></i> 分享链接
+                  <% if can_current_entrance('admin/pair_student_lists', 'share', current_user.roles) %>
+                      <%= link_to share_admin_pair_student_list_path(child), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                          <i class="fa fa-share-alt"></i> 分享链接
+                      <% end %>
                   <% end %>
-                  <%= link_to edit_admin_pair_student_list_path(child), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                      <i class="fa fa-edit"></i> 修改
+                  <% if can_current_entrance('admin/pair_student_lists', 'edit', current_user.roles) %>
+                      <%= link_to edit_admin_pair_student_list_path(child), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                          <i class="fa fa-edit"></i> 修改
+                      <% end %>
                   <% end %>
                 </td>
               </tr>
@@ -181,7 +202,7 @@
   </div>
 </div>
 <script type="text/javascript">
-    $(function(){
+    $(function () {
         // 异步加载学校列表
         $('.schools-ajax').select2({
             language: "zh-CN",

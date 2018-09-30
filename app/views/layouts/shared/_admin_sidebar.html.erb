@@ -14,7 +14,7 @@
       <li class="nav-item start <%= current_nav_class(:admin_main) %>">
         <%= link_to admin_main_path, class: 'nav-link' do %>
             <i class="fa fa-home"></i>
-            <span class="title">管理首页<% can_current_entrance('admin/mains', 'show', current_user.roles) %></span>
+            <span class="title">管理首页</span>
         <% end %>
       </li>
     </ul>
@@ -252,356 +252,430 @@
       <li class="heading">
         <h3 class="uppercase">固定项目</h3>
       </li>
-
-      <li class="nav-item  <%= current_nav_class(:admin_pair) %> ">
-        <a href="javascript:;" class="nav-link nav-toggle">
-          <% to_prove_pair_apply = Project.pair_project.applies.waiting_check.count %>
-          <% to_check_pair_feedback = Project.pair_project.continual_feedbacks.uncheck.count %>
-          <i class="fa fa-graduation-cap"></i>
-          <span class="title <%= 'font-red-soft' if to_prove_pair_apply > 0 || to_check_pair_feedback > 0 %>">结对助学</span>
-          <span class="arrow <%= current_nav_class(:admin_pair, current: :open) %>"></span>
-        </a>
-        <ul class="sub-menu">
-          <li class="nav-item <%= current_nav_class(:admin_pair_season) %> ">
-            <%= link_to admin_pair_seasons_path, class: 'nav-link' do %>
-                <span class="title">批次管理</span>
-            <% end %>
-          </li>
-          <li class="nav-item <%= current_nav_class(:admin_pair_applies) %> ">
-            <%= link_to admin_pair_applies_path, class: 'nav-link' do %>
-                <span class="title">配额管理</span>
-                <% if to_prove_pair_apply > 0 %>
-                    <span class="badge badge-danger"><%= to_prove_pair_apply %></span>
-                <% end %>
-            <% end %>
-          </li>
-          <li class="nav-item <%= current_nav_class(:admin_pair_lists) %> ">
-            <%= link_to admin_pair_student_lists_path, class: 'nav-link' do %>
-                <span class="title">捐助管理</span>
-            <% end %>
-          </li>
-          <li class="nav-item <%= current_nav_class(:admin_pair_donate_records) %> ">
-            <%= link_to admin_pair_donate_records_path, class: 'nav-link' do %>
-                <span class="title">捐助记录</span>
-            <% end %>
-          </li>
-          <li class="nav-item <%= current_nav_class(:admin_pair_grant_batch) %> ">
-            <%= link_to admin_pair_grant_batches_path, class: 'nav-link' do %>
-                <i class=""></i>
-                <span class="title">发放批次</span>
-            <% end %>
-          </li>
-          <li class="nav-item <%= current_nav_class(:admin_pair_grants) %> ">
-            <%= link_to admin_pair_grants_path, class: 'nav-link' do %>
-                <span class="title">发放管理</span>
-            <% end %>
-          </li>
-          <li class="nav-item <%= current_nav_class(:admin_pair_reports) %> ">
-            <%= link_to admin_pair_reports_path, class: 'nav-link' do %>
-                <span class="title">报告管理</span>
-            <% end %>
-          </li>
-          <li class="nav-item <%= current_nav_class(:admin_pair_thank_notes) %> ">
-            <%= link_to admin_pair_thank_notes_path, class: 'nav-link' do %>
-                <span class="title">孩子信箱</span>
-            <% end %>
-          </li>
-          <% if Project.pair_project.open_feedback? %>
-              <li class="nav-item <%= current_nav_class(:admin_pair_continual_feedbacks) %> ">
-                <%= link_to admin_pair_continual_feedbacks_path, class: 'nav-link' do %>
-                    <span class="title">定期反馈</span>
-                    <% if to_check_pair_feedback > 0 %>
-                        <span class="badge badge-danger"><%= to_check_pair_feedback %></span>
-                    <% end %>
-                <% end %>
-              </li>
-          <% end %>
-        </ul>
-      </li>
-
-      <li class="nav-item <%= current_nav_class(:admin_project_book) %>">
-        <a href="javascript:;" class="nav-link nav-toggle">
-          <% to_prove_read_apply = Project.read_project.applies.submit.count %>
-          <% to_check_read_feedback = Project.read_project.continual_feedbacks.uncheck.count %>
-          <i class="fa fa-language"></i>
-          <span class="title <%= 'font-red-soft' if to_prove_read_apply > 0 || to_check_read_feedback > 0 %>">悦读</span>
-          <span class="arrow <%= current_nav_class(:admin_project_book, current: :open) %>"></span>
-        </a>
-        <ul class="sub-menu">
-          <li class="nav-item <%= current_nav_class(:admin_project_book_season) %>">
-            <%= link_to admin_project_book_seasons_path, class: 'nav-link' do %>
-                <span class="title">批次管理</span>
-            <% end %>
-          </li>
-          <li class="nav-item <%= current_nav_class(:admin_read_applies) %> ">
-            <%= link_to admin_read_applies_path, class: 'nav-link' do %>
-                <span class="title">项目申请</span>
-                <% if to_prove_read_apply > 0 %>
-                    <span class="badge badge-danger"><%= to_prove_read_apply %></span>
-                <% end %>
-            <% end %>
-          </li>
-          <li class="nav-item <%= current_nav_class(:admin_read_projects) %> ">
-            <%= link_to admin_read_projects_path, class: 'nav-link' do %>
-                <span class="title">筹款项目管理</span>
-            <% end %>
-          </li>
-          <li class="nav-item <%= current_nav_class(:admin_read_reports) %> ">
-            <%= link_to admin_read_reports_path, class: 'nav-link' do %>
-                <span class="title">报告管理</span>
-            <% end %>
-          </li>
-          <% if Project.read_project.open_feedback? %>
-              <li class="nav-item <%= current_nav_class(:admin_read_continual_feedbacks) %> ">
-                <%= link_to admin_read_continual_feedbacks_path, class: 'nav-link' do %>
-                    <span class="title">定期反馈</span>
-                    <% if to_check_read_feedback > 0 %>
-                        <span class="badge badge-danger"><%= to_check_read_feedback %></span>
-                    <% end %>
-                <% end %>
-              </li>
-          <% end %>
-        </ul>
-      </li>
-
-      <li class="nav-item <%= current_nav_class(:admin_project_camp) %>">
-        <a href="javascript:;" class="nav-link nav-toggle">
-          <% to_prove_camp_apply = ProjectSeasonApply.where(project: Project.camp_project).submit.count %>
-          <% to_check_camp_feedback = Project.camp_project.continual_feedbacks.uncheck.count %>
-          <i class="fa fa-map-signs"></i>
-          <span class="title <%= 'font-red-soft' if to_prove_camp_apply > 0 || to_check_camp_feedback > 0 %>">探索营</span>
-          <span class="arrow <%= current_nav_class(:admin_project_camp, current: :open) %>"></span>
-        </a>
-        <ul class="sub-menu">
-          <li class="nav-item <%= current_nav_class(:admin_camp) %>">
-            <%= link_to admin_camps_path, class: 'nav-link' do %>
-                <span class="title">分站管理</span>
-            <% end %>
-          </li>
-          <li class="nav-item <%= current_nav_class(:admin_camp_applies) %>">
-            <%= link_to admin_camp_applies_path, class: 'nav-link' do %>
-                <span class="title">营立项</span>
-                <% if to_prove_camp_apply > 0 %>
-                    <span class="badge badge-danger"><%= to_prove_camp_apply %></span>
-                <% end %>
-            <% end %>
-          </li>
-          <li class="nav-item <%= current_nav_class(:admin_camp_projects) %>">
-            <%= link_to admin_camp_projects_path, class: 'nav-link' do %>
-                <span class="title">营筹款项目</span>
-            <% end %>
-          </li>
-          <li class="nav-item <%= current_nav_class(:admin_camp_document) %>">
+      <% if can? :manage_project, current_user, Project.pair_project %>
+          <li class="nav-item  <%= current_nav_class(:admin_pair) %> ">
             <a href="javascript:;" class="nav-link nav-toggle">
-              <i class=""></i>
-              <span class="title">营资料管理</span>
-              <span class="arrow <%= current_nav_class(:admin_camp_document, current: :open) %>"></span>
+              <% to_prove_pair_apply = Project.pair_project.applies.waiting_check.count %>
+              <% to_check_pair_feedback = Project.pair_project.continual_feedbacks.uncheck.count %>
+              <i class="fa fa-graduation-cap"></i>
+              <span class="title <%= 'font-red-soft' if to_prove_pair_apply > 0 || to_check_pair_feedback > 0 %>">结对助学</span>
+              <span class="arrow <%= current_nav_class(:admin_pair, current: :open) %>"></span>
             </a>
             <ul class="sub-menu">
-              <li class="nav-item <%= current_nav_class(:admin_camp_document_estimates) %>">
-                <%= link_to admin_camp_document_estimates_path, class: 'nav-link' do %>
-                    <i class=""></i>
-                    <span class="title">概算管理</span>
-                <% end %>
-              </li>
-              <li class="nav-item <%= current_nav_class(:admin_camp_document_budges) %>">
-                <%= link_to admin_camp_document_budges_path, class: 'nav-link' do %>
-                    <i class=""></i>
-                    <span class="title">预算管理</span>
-                <% end %>
-              </li>
-              <li class="nav-item <%= current_nav_class(:admin_camp_document_finances) %>">
-                <%= link_to admin_camp_document_finances_path, class: 'nav-link' do %>
-                    <i class=""></i>
-                    <span class="title">决算管理</span>
-                <% end %>
-              </li>
-              <li class="nav-item <%= current_nav_class(:admin_camp_document_volunteers) %>">
-                <%= link_to admin_camp_document_volunteers_path, class: 'nav-link' do %>
-                    <i class=""></i>
-                    <span class="title">志愿者名单</span>
-                <% end %>
-              </li>
-              <li class="nav-item <%= current_nav_class(:admin_camp_document_summaries) %>">
-                <%= link_to admin_camp_document_summaries_path, class: 'nav-link' do %>
-                    <i class=""></i>
-                    <span class="title">总结</span>
-                <% end %>
-              </li>
-            </ul>
-          <li class="nav-item <%= current_nav_class(:admin_camp_project_resources) %>">
-            <%= link_to admin_camp_project_resources_path, class: 'nav-link' do %>
-                <i class=""></i>
-                <span class="title">资源管理</span>
-            <% end %>
-          </li>
-          <li class="nav-item <%= current_nav_class(:admin_camp_project_reports) %>">
-            <%= link_to admin_camp_project_reports_path, class: 'nav-link' do %>
-                <i class=""></i>
-                <span class="title">报告管理</span>
-            <% end %>
-          </li>
-          <% if Project.camp_project.open_feedback? %>
-              <li class="nav-item <%= current_nav_class(:admin_camp_continual_feedbacks) %> ">
-                <%= link_to admin_camp_continual_feedbacks_path, class: 'nav-link' do %>
-                    <span class="title">定期反馈</span>
-                    <% if to_check_camp_feedback > 0 %>
-                        <span class="badge badge-danger"><%= to_check_camp_feedback %></span>
+              <% if can_current_entrance('admin/pair_seasons', 'index', current_user.roles) %>
+                  <li class="nav-item <%= current_nav_class(:admin_pair_season) %> ">
+                    <%= link_to admin_pair_seasons_path, class: 'nav-link' do %>
+                        <span class="title">批次管理</span>
                     <% end %>
-                <% end %>
-              </li>
-          <% end %>
-        </ul>
-      </li>
-
-      <li class="nav-item <%= current_nav_class(:admin_project_movie) %>">
-        <a href="javascript:;" class="nav-link nav-toggle">
-          <% to_prove_movie_apply = Project.movie_project.applies.submit.count %>
-          <% to_check_movie_feedback = Project.movie_project.continual_feedbacks.uncheck.count %>
-          <i class="fa fa-video-camera"></i>
-          <span class="title <%= 'font-red-soft' if to_prove_movie_apply > 0 || to_check_movie_feedback > 0 %>">观影</span>
-          <span class="arrow <%= current_nav_class(:admin_project_movie, current: :open) %>"></span>
-        </a>
-        <ul class="sub-menu">
-          <li class="nav-item <%= current_nav_class(:admin_project_movie_season) %>">
-            <%= link_to admin_project_movie_seasons_path, class: 'nav-link' do %>
-                <span class="title">批次管理</span>
-            <% end %>
-          </li>
-          <li class="nav-item <%= current_nav_class(:admin_movie_applies) %> ">
-            <%= link_to admin_movie_applies_path, class: 'nav-link' do %>
-                <span class="title">申请管理</span>
-                <% if to_prove_movie_apply > 0 %>
-                    <span class="badge badge-danger"><%= to_prove_movie_apply %></span>
-                <% end %>
-            <% end %>
-          </li>
-          <li class="nav-item <%= current_nav_class(:admin_movie_schools) %> ">
-            <%= link_to admin_movie_schools_path, class: 'nav-link' do %>
-                <span class="title">学校管理</span>
-            <% end %>
-          </li>
-          <% if Project.movie_project.open_feedback? %>
-              <li class="nav-item <%= current_nav_class(:admin_movie_continual_feedbacks) %> ">
-                <%= link_to admin_movie_continual_feedbacks_path, class: 'nav-link' do %>
-                    <span class="title">定期反馈</span>
-                    <% if to_check_movie_feedback > 0 %>
-                        <span class="badge badge-danger"><%= to_check_movie_feedback %></span>
-                    <% end %>
-                <% end %>
-              </li>
-          <% end %>
-        </ul>
-      </li>
-
-      <li class="nav-item <%= current_nav_class(:admin_project_movie_care) %>">
-        <a href="javascript:;" class="nav-link nav-toggle">
-          <% to_prove_care_apply = Project.movie_care_project.applies.submit.count %>
-          <% to_check_care_feedback = Project.movie_care_project.continual_feedbacks.uncheck.count %>
-          <i class="fa fa-pencil-square"></i>
-          <span class="title <%= 'font-red-soft' if to_prove_care_apply > 0 || to_check_care_feedback > 0 %>">护花课程</span>
-          <span class="arrow <%= current_nav_class(:admin_project_movie_care, current: :open) %>"></span>
-        </a>
-        <ul class="sub-menu">
-          <li class="nav-item <%= current_nav_class(:admin_project_movie_care_season) %>">
-            <%= link_to admin_project_movie_care_seasons_path, class: 'nav-link' do %>
-                <span class="title">批次管理</span>
-            <% end %>
-          </li>
-          <li class="nav-item <%= current_nav_class(:admin_movie_care_applies) %> ">
-            <%= link_to admin_movie_care_applies_path, class: 'nav-link' do %>
-                <span class="title">申请管理</span>
-                <% if to_prove_care_apply > 0 %>
-                    <span class="badge badge-danger"><%= to_prove_care_apply %></span>
-                <% end %>
-            <% end %>
-          </li>
-          <li class="nav-item <%= current_nav_class(:admin_movie_care_schools) %> ">
-            <%= link_to admin_movie_care_schools_path, class: 'nav-link' do %>
-                <span class="title">学校管理</span>
-            <% end %>
-          </li>
-          <% if Project.movie_care_project.open_feedback? %>
-              <li class="nav-item <%= current_nav_class(:admin_movie_care_continual_feedbacks) %> ">
-                <%= link_to admin_movie_care_continual_feedbacks_path, class: 'nav-link' do %>
-                    <span class="title">定期反馈</span>
-                    <% if to_check_care_feedback > 0 %>
-                        <span class="badge badge-danger"><%= to_check_care_feedback %></span>
-                    <% end %>
-                <% end %>
-              </li>
-          <% end %>
-        </ul>
-      </li>
-
-      <li class="heading">
-        <h3 class="uppercase">物资类项目</h3>
-      </li>
-      <% Project.goods.each do |p| %>
-          <li class="nav-item <%= current_nav_class(:admin_project_goods, if: -> {session[:goods_project_id].to_s == p.id.to_s}) %>">
-            <a href="javascript:;" class="nav-link nav-toggle">
-              <% to_prove_apply = p.applies.submit.count %>
-              <% to_check_feedback = p.continual_feedbacks.uncheck.count %>
-              <i class="fa fa-cube"></i>
-              <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || to_check_feedback > 0 %>"><%= p.name %></span>
-              <span class="arrow <%= current_nav_class(:admin_project_goods, if: -> {session[:goods_project_id].to_s == p.id.to_s}, current: :open) %>"></span>
-            </a>
-            <ul class="sub-menu">
-              <li class="nav-item <%= current_nav_class(:admin_project_goods_season, if: -> {session[:goods_project_id].to_s == p.id.to_s}) %>">
-                <%= link_to admin_project_goods_seasons_path(pid: p.id), class: 'nav-link' do %>
-                    <span class="title">批次管理</span>
-                <% end %>
-              </li>
-              <li class="nav-item <%= current_nav_class(:admin_project_goods_applies, if: -> {session[:goods_project_id].to_s == p.id.to_s}) %> ">
-                <%= link_to admin_goods_applies_path(pid: p.id), class: 'nav-link' do %>
-                    <span class="title">申请管理</span>
-                    <% if to_prove_apply > 0 %>
-                        <span class="badge badge-danger"><%= to_prove_apply %></span>
-                    <% end %>
-                <% end %>
-              </li>
-              <li class="nav-item <%= current_nav_class(:admin_project_goods_projects, if: -> {session[:goods_project_id].to_s == p.id.to_s}) %> ">
-                <%= link_to admin_goods_projects_path(pid: p.id), class: 'nav-link' do %>
-                    <span class="title">筹款项目</span>
-                <% end %>
-              </li>
-              <li class="nav-item <%= current_nav_class(:admin_project_goods_reports, if: -> {session[:goods_project_id].to_s == p.id.to_s}) %> ">
-                <%= link_to admin_goods_reports_path(pid: p.id), class: 'nav-link' do %>
-                    <span class="title">报告管理</span>
-                <% end %>
-              </li>
-              <% if p.open_feedback? %>
-                  <li class="nav-item <%= current_nav_class(:admin_project_goods_feedbacks, if: -> {session[:goods_project_id].to_s == p.id.to_s}) %> ">
-                    <%= link_to admin_goods_continual_feedbacks_path(pid: p.id), class: 'nav-link' do %>
-                        <span class="title">定期反馈</span>
-                        <% if to_check_feedback > 0 %>
-                            <span class="badge badge-danger"><%= to_check_feedback %></span>
+                  </li>
+              <% end %>
+              <% if can_current_entrance('admin/pair_applies', 'index', current_user.roles) %>
+                  <li class="nav-item <%= current_nav_class(:admin_pair_applies) %> ">
+                    <%= link_to admin_pair_applies_path, class: 'nav-link' do %>
+                        <span class="title">配额管理</span>
+                        <% if to_prove_pair_apply > 0 %>
+                            <span class="badge badge-danger"><%= to_prove_pair_apply %></span>
                         <% end %>
                     <% end %>
                   </li>
+              <% end %>
+              <% if can_current_entrance('admin/pair_student_lists', 'index', current_user.roles) %>
+                  <li class="nav-item <%= current_nav_class(:admin_pair_lists) %> ">
+                    <%= link_to admin_pair_student_lists_path, class: 'nav-link' do %>
+                        <span class="title">捐助管理</span>
+                    <% end %>
+                  </li>
+              <% end %>
+              <% if can_current_entrance('admin/pair_donate_records', 'index', current_user.roles) %>
+                  <li class="nav-item <%= current_nav_class(:admin_pair_donate_records) %> ">
+                    <%= link_to admin_pair_donate_records_path, class: 'nav-link' do %>
+                        <span class="title">捐助记录</span>
+                    <% end %>
+                  </li>
+              <% end %>
+              <% if can_current_entrance('admin/pair_grant_batches', 'index', current_user.roles) %>
+                  <li class="nav-item <%= current_nav_class(:admin_pair_grant_batch) %> ">
+                    <%= link_to admin_pair_grant_batches_path, class: 'nav-link' do %>
+                        <i class=""></i>
+                        <span class="title">发放批次</span>
+                    <% end %>
+                  </li>
+              <% end %>
+              <% if can_current_entrance('admin/pair_grants', 'index', current_user.roles) %>
+                  <li class="nav-item <%= current_nav_class(:admin_pair_grants) %> ">
+                    <%= link_to admin_pair_grants_path, class: 'nav-link' do %>
+                        <span class="title">发放管理</span>
+                    <% end %>
+                  </li>
+              <% end %>
+              <% if can_current_entrance('admin/pair_reports', 'index', current_user.roles) %>
+                  <li class="nav-item <%= current_nav_class(:admin_pair_reports) %> ">
+                    <%= link_to admin_pair_reports_path, class: 'nav-link' do %>
+                        <span class="title">报告管理</span>
+                    <% end %>
+                  </li>
+              <% end %>
+              <% if can_current_entrance('admin/pair_thank_notes', 'edit', current_user.roles) %>
+                  <li class="nav-item <%= current_nav_class(:admin_pair_thank_notes) %> ">
+                    <%= link_to admin_pair_thank_notes_path, class: 'nav-link' do %>
+                        <span class="title">孩子信箱</span>
+                    <% end %>
+                  </li>
+              <% end %>
+              <% if can_current_entrance('admin/pair_continual_feedbacks', 'edit', current_user.roles) %>
+                  <% if Project.pair_project.open_feedback? %>
+                      <li class="nav-item <%= current_nav_class(:admin_pair_continual_feedbacks) %> ">
+                        <%= link_to admin_pair_continual_feedbacks_path, class: 'nav-link' do %>
+                            <span class="title">定期反馈</span>
+                            <% if to_check_pair_feedback > 0 %>
+                                <span class="badge badge-danger"><%= to_check_pair_feedback %></span>
+                            <% end %>
+                        <% end %>
+                      </li>
+                  <% end %>
               <% end %>
             </ul>
           </li>
       <% end %>
 
+      <% if can? :manage_project, current_user, Project.read_project %>
+          <li class="nav-item <%= current_nav_class(:admin_project_book) %>">
+            <a href="javascript:;" class="nav-link nav-toggle">
+              <% to_prove_read_apply = Project.read_project.applies.submit.count %>
+              <% to_check_read_feedback = Project.read_project.continual_feedbacks.uncheck.count %>
+              <i class="fa fa-language"></i>
+              <span class="title <%= 'font-red-soft' if to_prove_read_apply > 0 || to_check_read_feedback > 0 %>">悦读</span>
+              <span class="arrow <%= current_nav_class(:admin_project_book, current: :open) %>"></span>
+            </a>
+            <ul class="sub-menu">
+              <% if can_current_entrance('admin/project_book_seasons', 'index', current_user.roles) %>
+                  <li class="nav-item <%= current_nav_class(:admin_project_book_season) %>">
+                    <%= link_to admin_project_book_seasons_path, class: 'nav-link' do %>
+                        <span class="title">批次管理</span>
+                    <% end %>
+                  </li>
+              <% end %>
+              <% if can_current_entrance('admin/read_applies', 'index', current_user.roles) %>
+                  <li class="nav-item <%= current_nav_class(:admin_read_applies) %> ">
+                    <%= link_to admin_read_applies_path, class: 'nav-link' do %>
+                        <span class="title">项目申请</span>
+                        <% if to_prove_read_apply > 0 %>
+                            <span class="badge badge-danger"><%= to_prove_read_apply %></span>
+                        <% end %>
+                    <% end %>
+                  </li>
+              <% end %>
+              <% if can_current_entrance('admin/read_projects', 'index', current_user.roles) %>
+                  <li class="nav-item <%= current_nav_class(:admin_read_projects) %> ">
+                    <%= link_to admin_read_projects_path, class: 'nav-link' do %>
+                        <span class="title">筹款项目管理</span>
+                    <% end %>
+                  </li>
+              <% end %>
+              <% if can_current_entrance('admin/read_reports', 'index', current_user.roles) %>
+                  <li class="nav-item <%= current_nav_class(:admin_read_reports) %> ">
+                    <%= link_to admin_read_reports_path, class: 'nav-link' do %>
+                        <span class="title">报告管理</span>
+                    <% end %>
+                  </li>
+              <% end %>
+              <% if can_current_entrance('admin/read_continual_feedbacks', 'index', current_user.roles) %>
+                  <% if Project.read_project.open_feedback? %>
+                      <li class="nav-item <%= current_nav_class(:admin_read_continual_feedbacks) %> ">
+                        <%= link_to admin_read_continual_feedbacks_path, class: 'nav-link' do %>
+                            <span class="title">定期反馈</span>
+                            <% if to_check_read_feedback > 0 %>
+                                <span class="badge badge-danger"><%= to_check_read_feedback %></span>
+                            <% end %>
+                        <% end %>
+                      </li>
+                  <% end %>
+              <% end %>
+            </ul>
+          </li>
+      <% end %>
+
+      <% if can? :manage_project, current_user, Project.camp_project %>
+          <li class="nav-item <%= current_nav_class(:admin_project_camp) %>">
+            <a href="javascript:;" class="nav-link nav-toggle">
+              <% to_prove_camp_apply = ProjectSeasonApply.where(project: Project.camp_project).submit.count %>
+              <% to_check_camp_feedback = Project.camp_project.continual_feedbacks.uncheck.count %>
+              <i class="fa fa-map-signs"></i>
+              <span class="title <%= 'font-red-soft' if to_prove_camp_apply > 0 || to_check_camp_feedback > 0 %>">探索营</span>
+              <span class="arrow <%= current_nav_class(:admin_project_camp, current: :open) %>"></span>
+            </a>
+            <ul class="sub-menu">
+              <% if can_current_entrance('admin/camps', 'index', current_user.roles) %>
+                  <li class="nav-item <%= current_nav_class(:admin_camp) %>">
+                    <%= link_to admin_camps_path, class: 'nav-link' do %>
+                        <span class="title">分站管理</span>
+                    <% end %>
+                  </li>
+              <% end %>
+              <% if can_current_entrance('admin/camp_applies', 'index', current_user.roles) %>
+                  <li class="nav-item <%= current_nav_class(:admin_camp_applies) %>">
+                    <%= link_to admin_camp_applies_path, class: 'nav-link' do %>
+                        <span class="title">营立项</span>
+                        <% if to_prove_camp_apply > 0 %>
+                            <span class="badge badge-danger"><%= to_prove_camp_apply %></span>
+                        <% end %>
+                    <% end %>
+                  </li>
+              <% end %>
+              <% if can_current_entrance('admin/camp_projects', 'index', current_user.roles) %>
+                  <li class="nav-item <%= current_nav_class(:admin_camp_projects) %>">
+                    <%= link_to admin_camp_projects_path, class: 'nav-link' do %>
+                        <span class="title">营筹款项目</span>
+                    <% end %>
+                  </li>
+              <% end %>
+              <% if can_current_entrance('admin/camp_document_estimates', 'index', current_user.roles) %>
+                  <li class="nav-item <%= current_nav_class(:admin_camp_document) %>">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                      <i class=""></i>
+                      <span class="title">营资料管理</span>
+                      <span class="arrow <%= current_nav_class(:admin_camp_document, current: :open) %>"></span>
+                    </a>
+                    <ul class="sub-menu">
+                      <li class="nav-item <%= current_nav_class(:admin_camp_document_estimates) %>">
+                        <%= link_to admin_camp_document_estimates_path, class: 'nav-link' do %>
+                            <i class=""></i>
+                            <span class="title">概算管理</span>
+                        <% end %>
+                      </li>
+                      <li class="nav-item <%= current_nav_class(:admin_camp_document_budges) %>">
+                        <%= link_to admin_camp_document_budges_path, class: 'nav-link' do %>
+                            <i class=""></i>
+                            <span class="title">预算管理</span>
+                        <% end %>
+                      </li>
+                      <li class="nav-item <%= current_nav_class(:admin_camp_document_finances) %>">
+                        <%= link_to admin_camp_document_finances_path, class: 'nav-link' do %>
+                            <i class=""></i>
+                            <span class="title">决算管理</span>
+                        <% end %>
+                      </li>
+                      <li class="nav-item <%= current_nav_class(:admin_camp_document_volunteers) %>">
+                        <%= link_to admin_camp_document_volunteers_path, class: 'nav-link' do %>
+                            <i class=""></i>
+                            <span class="title">志愿者名单</span>
+                        <% end %>
+                      </li>
+                      <li class="nav-item <%= current_nav_class(:admin_camp_document_summaries) %>">
+                        <%= link_to admin_camp_document_summaries_path, class: 'nav-link' do %>
+                            <i class=""></i>
+                            <span class="title">总结</span>
+                        <% end %>
+                      </li>
+                    </ul>
+              <% end %>
+              <% if can_current_entrance('admin/camp_project_resources', 'index', current_user.roles) %>
+                  <li class="nav-item <%= current_nav_class(:admin_camp_project_resources) %>">
+                    <%= link_to admin_camp_project_resources_path, class: 'nav-link' do %>
+                        <i class=""></i>
+                        <span class="title">资源管理</span>
+                    <% end %>
+                  </li>
+              <% end %>
+              <% if can_current_entrance('admin/camp_project_reports', 'index', current_user.roles) %>
+                  <li class="nav-item <%= current_nav_class(:admin_camp_project_reports) %>">
+                    <%= link_to admin_camp_project_reports_path, class: 'nav-link' do %>
+                        <i class=""></i>
+                        <span class="title">报告管理</span>
+                    <% end %>
+                  </li>
+              <% end %>
+              <% if can_current_entrance('admin/camp_continual_feedbacks', 'index', current_user.roles) %>
+                  <% if Project.camp_project.open_feedback? %>
+                      <li class="nav-item <%= current_nav_class(:admin_camp_continual_feedbacks) %> ">
+                        <%= link_to admin_camp_continual_feedbacks_path, class: 'nav-link' do %>
+                            <span class="title">定期反馈</span>
+                            <% if to_check_camp_feedback > 0 %>
+                                <span class="badge badge-danger"><%= to_check_camp_feedback %></span>
+                            <% end %>
+                        <% end %>
+                      </li>
+                  <% end %>
+              <% end %>
+            </ul>
+          </li>
+      <% end %>
+
+      <% if can? :manage_project, current_user, Project.movie_project %>
+          <li class="nav-item <%= current_nav_class(:admin_project_movie) %>">
+            <a href="javascript:;" class="nav-link nav-toggle">
+              <% to_prove_movie_apply = Project.movie_project.applies.submit.count %>
+              <% to_check_movie_feedback = Project.movie_project.continual_feedbacks.uncheck.count %>
+              <i class="fa fa-video-camera"></i>
+              <span class="title <%= 'font-red-soft' if to_prove_movie_apply > 0 || to_check_movie_feedback > 0 %>">观影</span>
+              <span class="arrow <%= current_nav_class(:admin_project_movie, current: :open) %>"></span>
+            </a>
+            <ul class="sub-menu">
+              <% if can_current_entrance('admin/project_movie_seasons', 'index', current_user.roles) %>
+                  <li class="nav-item <%= current_nav_class(:admin_project_movie_season) %>">
+                    <%= link_to admin_project_movie_seasons_path, class: 'nav-link' do %>
+                        <span class="title">批次管理</span>
+                    <% end %>
+                  </li>
+              <% end %>
+              <% if can_current_entrance('admin/movie_applies', 'index', current_user.roles) %>
+                  <li class="nav-item <%= current_nav_class(:admin_movie_applies) %> ">
+                    <%= link_to admin_movie_applies_path, class: 'nav-link' do %>
+                        <span class="title">申请管理</span>
+                        <% if to_prove_movie_apply > 0 %>
+                            <span class="badge badge-danger"><%= to_prove_movie_apply %></span>
+                        <% end %>
+                    <% end %>
+                  </li>
+              <% end %>
+              <% if can_current_entrance('admin/movie_schools', 'index', current_user.roles) %>
+                  <li class="nav-item <%= current_nav_class(:admin_movie_schools) %> ">
+                    <%= link_to admin_movie_schools_path, class: 'nav-link' do %>
+                        <span class="title">学校管理</span>
+                    <% end %>
+                  </li>
+              <% end %>
+              <% if can_current_entrance('admin/movie_continual_feedbacks', 'index', current_user.roles) %>
+                  <% if Project.movie_project.open_feedback? %>
+                      <li class="nav-item <%= current_nav_class(:admin_movie_continual_feedbacks) %> ">
+                        <%= link_to admin_movie_continual_feedbacks_path, class: 'nav-link' do %>
+                            <span class="title">定期反馈</span>
+                            <% if to_check_movie_feedback > 0 %>
+                                <span class="badge badge-danger"><%= to_check_movie_feedback %></span>
+                            <% end %>
+                        <% end %>
+                      </li>
+                  <% end %>
+              <% end %>
+            </ul>
+          </li>
+      <% end %>
+
+      <% if can? :manage_project, current_user, Project.movie_care_project %>
+          <li class="nav-item <%= current_nav_class(:admin_project_movie_care) %>">
+            <a href="javascript:;" class="nav-link nav-toggle">
+              <% to_prove_care_apply = Project.movie_care_project.applies.submit.count %>
+              <% to_check_care_feedback = Project.movie_care_project.continual_feedbacks.uncheck.count %>
+              <i class="fa fa-pencil-square"></i>
+              <span class="title <%= 'font-red-soft' if to_prove_care_apply > 0 || to_check_care_feedback > 0 %>">护花课程</span>
+              <span class="arrow <%= current_nav_class(:admin_project_movie_care, current: :open) %>"></span>
+            </a>
+            <ul class="sub-menu">
+
+              <% if can_current_entrance('admin/project_movie_care_seasons', 'index', current_user.roles) %>
+                  <li class="nav-item <%= current_nav_class(:admin_project_movie_care_season) %>">
+                    <%= link_to admin_project_movie_care_seasons_path, class: 'nav-link' do %>
+                        <span class="title">批次管理</span>
+                    <% end %>
+                  </li>
+              <% end %>
+              <% if can_current_entrance('admin/movie_care_applies', 'index', current_user.roles) %>
+                  <li class="nav-item <%= current_nav_class(:admin_movie_care_applies) %> ">
+                    <%= link_to admin_movie_care_applies_path, class: 'nav-link' do %>
+                        <span class="title">申请管理</span>
+                        <% if to_prove_care_apply > 0 %>
+                            <span class="badge badge-danger"><%= to_prove_care_apply %></span>
+                        <% end %>
+                    <% end %>
+                  </li>
+              <% end %>
+              <% if can_current_entrance('admin/movie_care_schools', 'index', current_user.roles) %>
+                  <li class="nav-item <%= current_nav_class(:admin_movie_care_schools) %> ">
+                    <%= link_to admin_movie_care_schools_path, class: 'nav-link' do %>
+                        <span class="title">学校管理</span>
+                    <% end %>
+                  </li>
+              <% end %>
+              <% if can_current_entrance('admin/movie_care_continual_feedbacks', 'index', current_user.roles) %>
+                  <% if Project.movie_care_project.open_feedback? %>
+                      <li class="nav-item <%= current_nav_class(:admin_movie_care_continual_feedbacks) %> ">
+                        <%= link_to admin_movie_care_continual_feedbacks_path, class: 'nav-link' do %>
+                            <span class="title">定期反馈</span>
+                            <% if to_check_care_feedback > 0 %>
+                                <span class="badge badge-danger"><%= to_check_care_feedback %></span>
+                            <% end %>
+                        <% end %>
+                      </li>
+                  <% end %>
+              <% end %>
+            </ul>
+          </li>
+      <% end %>
+
+
+      <li class="heading">
+        <h3 class="uppercase">物资类项目</h3>
+      </li>
+      <% Project.goods.each do |p| %>
+          <% if can? :manage_project, current_user, p %>
+              <li class="nav-item <%= current_nav_class(:admin_project_goods, if: -> {session[:goods_project_id].to_s == p.id.to_s}) %>">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                  <% to_prove_apply = p.applies.submit.count %>
+                  <% to_check_feedback = p.continual_feedbacks.uncheck.count %>
+                  <i class="fa fa-cube"></i>
+                  <span class="title <%= 'font-red-soft' if to_prove_apply > 0 || to_check_feedback > 0 %>"><%= p.name %></span>
+                  <span class="arrow <%= current_nav_class(:admin_project_goods, if: -> {session[:goods_project_id].to_s == p.id.to_s}, current: :open) %>"></span>
+                </a>
+                <ul class="sub-menu">
+                  <li class="nav-item <%= current_nav_class(:admin_project_goods_season, if: -> {session[:goods_project_id].to_s == p.id.to_s}) %>">
+                    <%= link_to admin_project_goods_seasons_path(pid: p.id), class: 'nav-link' do %>
+                        <span class="title">批次管理</span>
+                    <% end %>
+                  </li>
+                  <li class="nav-item <%= current_nav_class(:admin_project_goods_applies, if: -> {session[:goods_project_id].to_s == p.id.to_s}) %> ">
+                    <%= link_to admin_goods_applies_path(pid: p.id), class: 'nav-link' do %>
+                        <span class="title">申请管理</span>
+                        <% if to_prove_apply > 0 %>
+                            <span class="badge badge-danger"><%= to_prove_apply %></span>
+                        <% end %>
+                    <% end %>
+                  </li>
+                  <li class="nav-item <%= current_nav_class(:admin_project_goods_projects, if: -> {session[:goods_project_id].to_s == p.id.to_s}) %> ">
+                    <%= link_to admin_goods_projects_path(pid: p.id), class: 'nav-link' do %>
+                        <span class="title">筹款项目</span>
+                    <% end %>
+                  </li>
+                  <li class="nav-item <%= current_nav_class(:admin_project_goods_reports, if: -> {session[:goods_project_id].to_s == p.id.to_s}) %> ">
+                    <%= link_to admin_goods_reports_path(pid: p.id), class: 'nav-link' do %>
+                        <span class="title">报告管理</span>
+                    <% end %>
+                  </li>
+                  <% if p.open_feedback? %>
+                      <li class="nav-item <%= current_nav_class(:admin_project_goods_feedbacks, if: -> {session[:goods_project_id].to_s == p.id.to_s}) %> ">
+                        <%= link_to admin_goods_continual_feedbacks_path(pid: p.id), class: 'nav-link' do %>
+                            <span class="title">定期反馈</span>
+                            <% if to_check_feedback > 0 %>
+                                <span class="badge badge-danger"><%= to_check_feedback %></span>
+                            <% end %>
+                        <% end %>
+                      </li>
+                  <% end %>
+                </ul>
+              </li>
+          <% end %>
+      <% end %>
+
+
       <li class="heading">
         <h3 class="uppercase">捐助类项目</h3>
       </li>
       <% Project.donate.each do |p| %>
-          <li class="nav-item <%= current_nav_class(:admin_project_donates, if: -> {session[:goods_project_id].to_s == p.id.to_s}) %>">
-            <a href="javascript:;" class="nav-link nav-toggle">
-              <i class="fa fa-trello"></i>
-              <span class="title"><%= p.name %></span>
-              <span class="arrow <%= current_nav_class(:admin_project_donates, if: -> {session[:goods_project_id].to_s == p.id.to_s}, current: :open) %>"></span>
-            </a>
-            <ul class="sub-menu">
-              <li class="nav-item <%= current_nav_class(:admin_project_donate_reports, if: -> {session[:goods_project_id].to_s == p.id.to_s}) %> ">
-                <%= link_to admin_donate_project_reports_path(pid: p.id), class: 'nav-link' do %>
-                    <span class="title">报告管理</span>
-                <% end %>
+          <% if can? :manage_project, current_user, p %>
+              <li class="nav-item <%= current_nav_class(:admin_project_donates, if: -> {session[:goods_project_id].to_s == p.id.to_s}) %>">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                  <i class="fa fa-trello"></i>
+                  <span class="title"><%= p.name %></span>
+                  <span class="arrow <%= current_nav_class(:admin_project_donates, if: -> {session[:goods_project_id].to_s == p.id.to_s}, current: :open) %>"></span>
+                </a>
+                <ul class="sub-menu">
+                  <li class="nav-item <%= current_nav_class(:admin_project_donate_reports, if: -> {session[:goods_project_id].to_s == p.id.to_s}) %> ">
+                    <%= link_to admin_donate_project_reports_path(pid: p.id), class: 'nav-link' do %>
+                        <span class="title">报告管理</span>
+                    <% end %>
+                  </li>
+                </ul>
               </li>
-            </ul>
-          </li>
+          <% end %>
       <% end %>
     </ul>
 

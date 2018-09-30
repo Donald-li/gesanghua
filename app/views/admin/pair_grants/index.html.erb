@@ -4,11 +4,11 @@
       <i class="icon-list"></i>发放管理
     </div>
     <div class="actions">
-      <% if can? :manage_excel, current_user  %>
-      <%= link_to url_for(params.permit!.merge(format: :xlsx)), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
-          <i class="fa fa-download"></i>
-          <span>导出</span>
-      <% end %>
+      <% if can? :manage_excel, current_user %>
+          <%= link_to url_for(params.permit!.merge(format: :xlsx)), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+              <i class="fa fa-download"></i>
+              <span>导出</span>
+          <% end %>
       <% end %>
     </div>
   </div>
@@ -125,45 +125,47 @@
                 </td>
                 <td>
                   <div class="btn-group">
-                    <a class="btn btn-xs green dropdown-toggle" data-toggle="dropdown" href="javascript:;" aria-expanded="false" >
+                    <a class="btn btn-xs green dropdown-toggle" data-toggle="dropdown" href="javascript:;" aria-expanded="false">
                       <i class="fa fa-cog"></i>
                       <%= grant.enum_name(:state) %>
                       <i class="fa fa-angle-down"></i>
                     </a>
-                    <ul class="dropdown-menu">
-                      <li>
-                        <%= link_to switch_admin_pair_grant_path(grant, state: 'waiting'), method: :put, data: {confirm: '确定标记为待发放吗？'} do %>
-                          标记为待发放
-                          <% if grant.waiting? %>
-                              <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
-                          <% end %>
-                        <% end %>
-                      </li>
-                      <li>
-                        <%= link_to switch_admin_pair_grant_path(grant, state: 'granted'), method: :put, data: {confirm: '确定标记为已发放吗？'} do %>
-                            标记为已发放
-                            <% if grant.granted? %>
-                                <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
+                    <% if can_current_entrance('admin/pair_grants', 'switch', current_user.roles) %>
+                        <ul class="dropdown-menu">
+                          <li>
+                            <%= link_to switch_admin_pair_grant_path(grant, state: 'waiting'), method: :put, data: {confirm: '确定标记为待发放吗？'} do %>
+                                标记为待发放
+                                <% if grant.waiting? %>
+                                    <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
+                                <% end %>
                             <% end %>
-                        <% end %>
-                      </li>
-                      <li>
-                        <%= link_to switch_admin_pair_grant_path(grant, state: 'suspend'), method: :put, data: {confirm: '确定标记为暂缓吗？'} do %>
-                            标记为暂缓
-                            <% if grant.suspend? %>
-                                <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
+                          </li>
+                          <li>
+                            <%= link_to switch_admin_pair_grant_path(grant, state: 'granted'), method: :put, data: {confirm: '确定标记为已发放吗？'} do %>
+                                标记为已发放
+                                <% if grant.granted? %>
+                                    <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
+                                <% end %>
                             <% end %>
-                        <% end %>
-                      </li>
-                      <li>
-                        <%= link_to switch_admin_pair_grant_path(grant, state: 'cancel'), method: :put, data: {confirm: '确定标记为已取消吗？'} do %>
-                            标记为已取消
-                            <% if grant.cancel? %>
-                                <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
+                          </li>
+                          <li>
+                            <%= link_to switch_admin_pair_grant_path(grant, state: 'suspend'), method: :put, data: {confirm: '确定标记为暂缓吗？'} do %>
+                                标记为暂缓
+                                <% if grant.suspend? %>
+                                    <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
+                                <% end %>
                             <% end %>
-                        <% end %>
-                      </li>
-                    </ul>
+                          </li>
+                          <li>
+                            <%= link_to switch_admin_pair_grant_path(grant, state: 'cancel'), method: :put, data: {confirm: '确定标记为已取消吗？'} do %>
+                                标记为已取消
+                                <% if grant.cancel? %>
+                                    <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
+                                <% end %>
+                            <% end %>
+                          </li>
+                        </ul>
+                    <% end %>
                   </div>
                 </td>
                 <td>
@@ -179,20 +181,28 @@
                       <% end %>
                   <% else %>
                       <% if grant.waiting? %>
-                          <%= link_to edit_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                              <i class="fa fa-play"></i> 发放操作
+                          <% if can_current_entrance('admin/pair_grants', 'edit', current_user.roles) %>
+                              <%= link_to edit_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                                  <i class="fa fa-play"></i> 发放操作
+                              <% end %>
                           <% end %>
-                          <%= link_to edit_delay_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
-                              <i class="fa fa-pause"></i> 暂缓发放
+                          <% if can_current_entrance('admin/pair_grants', 'edit_delay', current_user.roles) %>
+                              <%= link_to edit_delay_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
+                                  <i class="fa fa-pause"></i> 暂缓发放
+                              <% end %>
                           <% end %>
-                          <% if grant.can_refund? %>
-                          <%= link_to edit_cancel_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
-                              <i class="fa fa-stop"></i> 取消捐助
-                          <% end %>
+                          <% if can_current_entrance('admin/pair_grants', 'edit_cancel', current_user.roles) %>
+                              <% if grant.can_refund? %>
+                                  <%= link_to edit_cancel_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
+                                      <i class="fa fa-stop"></i> 取消捐助
+                                  <% end %>
+                              <% end %>
                           <% end %>
                       <% elsif grant.granted? %>
-                          <%= link_to edit_feedback_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
-                              <i class="fa fa-edit"></i> 修改发放反馈
+                          <% if can_current_entrance('admin/pair_grants', 'edit_feedback', current_user.roles) %>
+                              <%= link_to edit_feedback_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
+                                  <i class="fa fa-edit"></i> 修改发放反馈
+                              <% end %>
                           <% end %>
                           <% if !grant.accrued? %>
                               <%= link_to accrue_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
@@ -202,13 +212,17 @@
                               <a href="javascript:;" class="btn btn-xs grey"><i class="fa fa-yen"></i> 已计提管理费</a>
                           <% end %>
                       <% elsif grant.suspend? %>
-                          <%= link_to cancel_delay_admin_pair_grant_path(grant), method: :put, 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
-                              <i class="fa fa-pause"></i> 取消暂缓
+                          <% if can_current_entrance('admin/pair_grants', 'cancel_delay', current_user.roles) %>
+                              <%= link_to cancel_delay_admin_pair_grant_path(grant), method: :put, 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
+                                  <i class="fa fa-pause"></i> 取消暂缓
+                              <% end %>
                           <% end %>
-                          <% if grant.can_refund? %>
-                          <%= link_to edit_cancel_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
-                              <i class="fa fa-stop"></i> 取消捐助
-                          <% end %>
+                          <% if can_current_entrance('admin/pair_grants', 'edit_cancel', current_user.roles) %>
+                              <% if grant.can_refund? %>
+                                  <%= link_to edit_cancel_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
+                                      <i class="fa fa-stop"></i> 取消捐助
+                                  <% end %>
+                              <% end %>
                           <% end %>
                       <% end %>
                   <% end %>
