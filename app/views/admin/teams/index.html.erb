@@ -87,18 +87,24 @@
                 </td>
                 <td>
                   <% if team.normal? %>
-                      <%= link_to edit_admin_team_path(team), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                          <i class="fa fa-edit"></i> 团队管理
-                      <% end %>
-                      <%= link_to dismiss_admin_team_path(team), data: {confirm: '确定要解散该团队吗？'}, method: :put, class: 'btn btn-xs red' do %>
-                          <i class="fa fa-trash-o"></i> 解散团队
-                      <% end %>
+                    <% if can_current_entrance('admin/teams', 'edit', current_user.roles) %>
+                        <%= link_to edit_admin_team_path(team), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                            <i class="fa fa-edit"></i> 团队管理
+                        <% end %>
+                    <% end %>
+                    <% if can_current_entrance('admin/teams', 'dismiss', current_user.roles) %>
+                        <%= link_to dismiss_admin_team_path(team), data: {confirm: '确定要解散该团队吗？'}, method: :put, class: 'btn btn-xs red' do %>
+                            <i class="fa fa-trash-o"></i> 解散团队
+                        <% end %>
+                    <% end %>
                   <% end %>
                   <%= link_to admin_team_team_members_path(team), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                       <i class="fa fa-list"></i> 团队成员
                   <% end %>
-                  <%= link_to donate_records_admin_team_path(team), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                      <i class="fa fa-list"></i> 捐助记录
+                  <% if can_current_entrance('admin/teams', 'donate_records', current_user.roles) %>
+                    <%= link_to donate_records_admin_team_path(team), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                        <i class="fa fa-list"></i> 捐助记录
+                    <% end %>
                   <% end %>
                 </td>
               </tr>

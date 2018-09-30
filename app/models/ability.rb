@@ -35,6 +35,16 @@ class Ability
       end
       check(user, project)
     end
+    #指定代捐管理人
+    can :manager_manager, User do |user|
+      user.has_role?([:superadmin, :admin, :project_manager, :custom_service])
+    end
+
+    #团队移交
+    can :manager_team_manager, User do |user|
+      user.has_role?([:superadmin, :admin])
+    end
 
   end
+
 end

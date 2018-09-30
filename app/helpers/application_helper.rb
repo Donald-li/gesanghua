@@ -16,7 +16,7 @@ module ApplicationHelper
 
   def can_current_entrance(path_name, action_name, roles, **params)
     @current_entrance_cards ||= EntranceGuard.entrance_cards
-    can_entrance = (@current_entrance_cards[path_name][action_name].compact & roles).present?
+    can_entrance = (@current_entrance_cards[path_name][action_name].compact.uniq & roles).present?
     can_project = params[:project].present? ? current_user.project_ids.include?(params[:project].id) : true
     can_entrance && can_project
   end
