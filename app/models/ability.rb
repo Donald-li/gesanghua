@@ -25,5 +25,10 @@ class Ability
       user.has_role?([:superadmin, :admin, :project_manager])
     end
 
+    #指定代捐管理人
+    can :manager_manager, User do |user|
+      user.has_role?([:superadmin, :admin, :project_manager, :custom_service])
+    end
+
   end
 end

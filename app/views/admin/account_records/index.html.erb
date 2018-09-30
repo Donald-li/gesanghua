@@ -84,8 +84,10 @@
                   <%= record.remark %>
                 </td>
                 <td>
-                  <%= link_to admin_user_account_record_path(@user, record), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
-                      <i class="fa fa-trash-o"></i> 删除
+                  <% if can_current_entrance('admin/account_records', 'destroy', current_user.roles) %>
+                    <%= link_to admin_user_account_record_path(@user, record), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                        <i class="fa fa-trash-o"></i> 删除
+                    <% end %>
                   <% end %>
                 </td>
               </tr>

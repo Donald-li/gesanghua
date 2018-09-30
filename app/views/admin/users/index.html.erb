@@ -4,9 +4,11 @@
       <i class="icon-list"></i>用户管理
     </div>
     <div class="actions">
-      <%= link_to batch_manage_admin_users_path, class: 'btn btn-xs yellow', 'data-no-turbolink' => true do %>
-          <i class="fa fa-cogs"></i>
-          <span>批量操作</span>
+      <% if can_current_entrance('admin/users', 'batch_manage', current_user.roles) %>
+        <%= link_to batch_manage_admin_users_path, class: 'btn btn-xs yellow', 'data-no-turbolink' => true do %>
+            <i class="fa fa-cogs"></i>
+            <span>批量操作</span>
+        <% end %>
       <% end %>
       <% if can? :manage_excel, current_user  %>
       <%= link_to url_for(params.permit!.merge(format: :xlsx)), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
@@ -14,9 +16,11 @@
           <span>导出</span>
       <% end %>
       <% end %>
-      <%= link_to new_admin_user_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
-        <i class="icon-plus"></i>
-        <span>新增</span>
+      <% if can_current_entrance('admin/users', 'new', current_user.roles) %>
+        <%= link_to new_admin_user_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+          <i class="icon-plus"></i>
+          <span>新增</span>
+        <% end %>
       <% end %>
     </div>
   </div>
@@ -169,8 +173,10 @@
                 <%= user.remark %>
               </td>
               <td>
-                <%= link_to edit_admin_user_path(user), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                  <i class="fa fa-edit"></i> 修改
+                <% if can_current_entrance('admin/users', 'edit', current_user.roles) %>
+                  <%= link_to edit_admin_user_path(user), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                    <i class="fa fa-edit"></i> 修改
+                  <% end %>
                 <% end %>
                 <%= link_to admin_user_donate_records_path(user), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                   <i class="fa fa-file-text-o"></i> 捐助记录
@@ -178,8 +184,10 @@
                 <%= link_to admin_user_account_records_path(user), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                     <i class="fa fa-file-list"></i> 账户记录
                 <% end %>
-                <%= link_to batch_manage_admin_users_path(user_id: user.id), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                    <i class="fa fa-paper-plane"></i> 推送消息
+                <% if can_current_entrance('admin/users', 'batch_manage', current_user.roles) %>
+                  <%= link_to batch_manage_admin_users_path(user_id: user.id), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                      <i class="fa fa-paper-plane"></i> 推送消息
+                  <% end %>
                 <% end %>
               </td>
             </tr>

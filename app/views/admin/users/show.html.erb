@@ -38,33 +38,35 @@
           </div>
         </div>
     <% end %>
-    <div class="portlet light bordered">
-      <div class="portlet-title">
-        <div class="caption">
-          <i class="fa fa-cog font-red-sunglo"></i>
-          <span class="caption-subject font-red-sunglo bold uppercase">指定代捐管理人</span>
+    <% if can? :manager_manager, current_user %>
+      <div class="portlet light bordered">
+        <div class="portlet-title">
+          <div class="caption">
+            <i class="fa fa-cog font-red-sunglo"></i>
+            <span class="caption-subject font-red-sunglo bold uppercase">指定代捐管理人</span>
+          </div>
+          <div class="actions">
+          </div>
         </div>
-        <div class="actions">
-        </div>
-      </div>
-      <div class="portlet-body">
-        <div class="form-body form-inline">
-          <div class="form-body">
-            <div class="form-group">
-              <div class="col-sm-9">
-                <% if @user.unactived? %>
-                    <%= link_to manager_admin_user_path(@user), class: 'btn red', 'data-no-turbolink' => true do %>
-                        <i class="fa fa-cog"></i>
-                        <span>指定代捐管理人</span>
-                    <% end %>
-                <% else %>
-                    <a href="###" class="btn red">用户已激活，无法指定代捐管理人</a>
-                <% end %>
+        <div class="portlet-body">
+          <div class="form-body form-inline">
+            <div class="form-body">
+              <div class="form-group">
+                <div class="col-sm-9">
+                  <% if @user.unactived? %>
+                      <%= link_to manager_admin_user_path(@user), class: 'btn red', 'data-no-turbolink' => true do %>
+                          <i class="fa fa-cog"></i>
+                          <span>指定代捐管理人</span>
+                      <% end %>
+                  <% else %>
+                      <a href="###" class="btn red">用户已激活，无法指定代捐管理人</a>
+                  <% end %>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    <% end %>
   </div>
 </div>
