@@ -1,4 +1,8 @@
 # 权限表
+superadmin:
+  actions:
+    admin/campaign_categories: all
+    admin/complaints: all
 project_manager:
   actions:
     admin/mains: all
