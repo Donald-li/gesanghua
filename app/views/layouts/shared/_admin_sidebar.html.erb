@@ -37,141 +37,149 @@
           <% end %>
         </li>
       <% end %>
-      <li class="nav-item  <%= current_nav_class(:admin_schools) %> ">
-        <a href="javascript:;" class="nav-link nav-toggle">
-          <% to_prove_admin = School.can_check.count %>
-          <i class="fa fa-university"></i>
-          <span class="title <%= 'font-red-soft' if to_prove_admin > 0 %>">学校管理</span>
-          <span class="arrow <%= current_nav_class(:admin_schools, current: :open) %>"></span>
-        </a>
-        <ul class="sub-menu">
-          <% if can_current_entrance('admin/school_applies', 'index', current_user.roles) %>
-            <li class="nav-item <%= current_nav_class(:admin_school_applies) %> ">
-              <%= link_to admin_school_applies_path, class: 'nav-link' do %>
-                  <span class="title">新申请</span>
-                  <% if to_prove_admin > 0 %>
-                      <span class="badge badge-danger"><%= to_prove_admin %></span>
-                  <% end %>
-              <% end %>
-            </li>
+      <% if can? :manager_school_manage, current_user %>
+        <li class="nav-item  <%= current_nav_class(:admin_schools) %> ">
+          <a href="javascript:;" class="nav-link nav-toggle">
+            <% to_prove_admin = School.can_check.count %>
+            <i class="fa fa-university"></i>
+            <span class="title <%= 'font-red-soft' if to_prove_admin > 0 %>">学校管理</span>
+            <span class="arrow <%= current_nav_class(:admin_schools, current: :open) %>"></span>
+          </a>
+          <ul class="sub-menu">
+            <% if can_current_entrance('admin/school_applies', 'index', current_user.roles) %>
+              <li class="nav-item <%= current_nav_class(:admin_school_applies) %> ">
+                <%= link_to admin_school_applies_path, class: 'nav-link' do %>
+                    <span class="title">新申请</span>
+                    <% if to_prove_admin > 0 %>
+                        <span class="badge badge-danger"><%= to_prove_admin %></span>
+                    <% end %>
+                <% end %>
+              </li>
+            <% end %>
+            <% if can_current_entrance('admin/schools', 'index', current_user.roles) %>
+              <li class="nav-item <%= current_nav_class(:admin_school_list) %> ">
+                <%= link_to admin_schools_path, class: 'nav-link' do %>
+                    <span class="title">学校列表</span>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </li>
+      <% end %>
+      <% if can? :manager_user_identity, current_user %>
+        <li class="nav-item <%= current_nav_class(:admin_user_main) %> <%= current_nav_class(:admin_user_county_users) %> <%= current_nav_class(:admin_user_gsh_children) %> <%= current_nav_class(:admin_user_teachers) %>">
+          <%= link_to '', class: 'nav-link' do %>
+              <i class="fa fa-user"></i>
+              <span class="title">用户身份</span>
+              <span class="arrow <%= current_nav_class(:admin_user, current: :open) %>"></span>
           <% end %>
-          <% if can_current_entrance('admin/schools', 'index', current_user.roles) %>
-            <li class="nav-item <%= current_nav_class(:admin_school_list) %> ">
-              <%= link_to admin_schools_path, class: 'nav-link' do %>
-                  <span class="title">学校列表</span>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
-      </li>
-      <li class="nav-item <%= current_nav_class(:admin_user_main) %> <%= current_nav_class(:admin_user_county_users) %> <%= current_nav_class(:admin_user_gsh_children) %> <%= current_nav_class(:admin_user_teachers) %>">
-        <%= link_to '', class: 'nav-link' do %>
-            <i class="fa fa-user"></i>
-            <span class="title">用户身份</span>
-            <span class="arrow <%= current_nav_class(:admin_user, current: :open) %>"></span>
-        <% end %>
-        <ul class="sub-menu">
-          <% if can_current_entrance('admin/gsh_children', 'index', current_user.roles) %>
-            <li class="nav-item <%= current_nav_class(:admin_user_gsh_children) %> ">
-              <%= link_to admin_gsh_children_path, class: 'nav-link' do %>
-                  <i class="fa fa-user"></i>
-                  <span class="title">格桑花孩子</span>
-              <% end %>
-            </li>
-          <% end %>
-          <% if can_current_entrance('admin/teachers', 'index', current_user.roles) %>
-            <li class="nav-item <%= current_nav_class(:admin_user_teachers) %> ">
-              <%= link_to admin_teachers_path, class: 'nav-link' do %>
-                  <i class="fa fa-book"></i>
-                  <span class="title">教师用户</span>
-              <% end %>
-            </li>
-          <% end %>
-          <% if can_current_entrance('admin/county_users', 'index', current_user.roles) %>
-            <li class="nav-item <%= current_nav_class(:admin_user_county_users) %> ">
-              <%= link_to admin_county_users_path, class: 'nav-link' do %>
-                  <i class="fa fa-briefcase"></i>
-                  <span class="title">县级领导</span>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
-      </li>
-      <li class="nav-item <%= current_nav_class(:admin_manage_teams) %> ">
-        <a href="javascript:;" class="nav-link nav-toggle">
-          <i class="fa fa-users"></i>
-          <span class="title">团队管理</span>
-          <span class="arrow <%= current_nav_class(:admin_teams, current: :open) %>"></span>
-        </a>
-        <ul class="sub-menu">
-          <% if can_current_entrance('admin/teams', 'index', current_user.roles) %>
-            <li class="nav-item  <%= current_nav_class(:admin_team_list) %>">
-              <%= link_to admin_teams_path, class: 'nav-link' do %>
-                  <span class="title">团队管理</span>
-              <% end %>
-            </li>
-          <% end %>
-          <% if can_current_entrance('admin/team_statistics', 'show', current_user.roles) %>
-            <li class="nav-item  <%= current_nav_class(:admin_team_statistic) %>">
-              <%= link_to admin_team_statistic_path, class: 'nav-link' do %>
-                  <span class="title">捐助统计</span>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
-      </li>
-      <li class="nav-item <%= current_nav_class(:admin_volunteers) %> ">
-        <a href="javascript:;" class="nav-link nav-toggle">
-          <% to_check_task = TaskVolunteer.to_check.count %>
-          <% to_approve_volunteer = Volunteer.submit.count %>
-          <i class="fa fa-vcard"></i>
-          <span class="title <%= 'font-red-soft' if to_approve_volunteer + to_check_task > 0 %>">志愿者管理</span>
-          <span class="arrow <%= current_nav_class(:admin_volunteers, current: :open) %>"></span>
-        </a>
-        <ul class="sub-menu">
-          <% if can_current_entrance('admin/volunteer_applies', 'index', current_user.roles) %>
-            <li class="nav-item  <%= current_nav_class(:admin_volunteer_apply) %>">
-              <%= link_to admin_volunteer_applies_path, class: 'nav-link' do %>
-                  <span class="title">志愿者申请</span>
-                  <% if to_approve_volunteer > 0 %>
-                      <span class="badge badge-danger"><%= to_approve_volunteer %></span>
-                  <% end %>
-              <% end %>
-            </li>
-          <% end %>
-          <% if can_current_entrance('admin/volunteers', 'index', current_user.roles) %>
-            <li class="nav-item  <%= current_nav_class(:admin_volunteer_list) %>">
-              <%= link_to admin_volunteers_path, class: 'nav-link' do %>
-                  <span class="title">全部志愿者</span>
-              <% end %>
-            </li>
-          <% end %>
-          <% if can_current_entrance('admin/tasks', 'index', current_user.roles) %>
-            <li class="nav-item  <%= current_nav_class(:admin_task_list) %>">
-              <%= link_to admin_tasks_path, class: 'nav-link' do %>
-                  <span class="title">公开任务管理</span>
-              <% end %>
-            </li>
-          <% end %>
-          <% if can_current_entrance('admin/appoint_tasks', 'index', current_user.roles) %>
-            <li class="nav-item  <%= current_nav_class(:admin_appoint_task_list) %>">
-              <%= link_to admin_appoint_tasks_path, class: 'nav-link' do %>
-                  <span class="title">指派任务管理</span>
-              <% end %>
-            </li>
-          <% end %>
-          <% if can_current_entrance('admin/task_achievements', 'index', current_user.roles) %>
-            <li class="nav-item  <%= current_nav_class(:admin_task_check) %>">
-              <%= link_to admin_task_achievements_path, class: 'nav-link' do %>
-                  <span class="title">任务执行管理</span>
-                  <% if to_check_task > 0 %>
-                      <span class="badge badge-danger"><%= to_check_task %></span>
-                  <% end %>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
-      </li>
+          <ul class="sub-menu">
+            <% if can_current_entrance('admin/gsh_children', 'index', current_user.roles) %>
+              <li class="nav-item <%= current_nav_class(:admin_user_gsh_children) %> ">
+                <%= link_to admin_gsh_children_path, class: 'nav-link' do %>
+                    <i class="fa fa-user"></i>
+                    <span class="title">格桑花孩子</span>
+                <% end %>
+              </li>
+            <% end %>
+            <% if can_current_entrance('admin/teachers', 'index', current_user.roles) %>
+              <li class="nav-item <%= current_nav_class(:admin_user_teachers) %> ">
+                <%= link_to admin_teachers_path, class: 'nav-link' do %>
+                    <i class="fa fa-book"></i>
+                    <span class="title">教师用户</span>
+                <% end %>
+              </li>
+            <% end %>
+            <% if can_current_entrance('admin/county_users', 'index', current_user.roles) %>
+              <li class="nav-item <%= current_nav_class(:admin_user_county_users) %> ">
+                <%= link_to admin_county_users_path, class: 'nav-link' do %>
+                    <i class="fa fa-briefcase"></i>
+                    <span class="title">县级领导</span>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </li>
+      <% end %>
+      <% if can? :manager_team_manage, current_user %>
+        <li class="nav-item <%= current_nav_class(:admin_manage_teams) %> ">
+          <a href="javascript:;" class="nav-link nav-toggle">
+            <i class="fa fa-users"></i>
+            <span class="title">团队管理</span>
+            <span class="arrow <%= current_nav_class(:admin_teams, current: :open) %>"></span>
+          </a>
+          <ul class="sub-menu">
+            <% if can_current_entrance('admin/teams', 'index', current_user.roles) %>
+              <li class="nav-item  <%= current_nav_class(:admin_team_list) %>">
+                <%= link_to admin_teams_path, class: 'nav-link' do %>
+                    <span class="title">团队管理</span>
+                <% end %>
+              </li>
+            <% end %>
+            <% if can_current_entrance('admin/team_statistics', 'show', current_user.roles) %>
+              <li class="nav-item  <%= current_nav_class(:admin_team_statistic) %>">
+                <%= link_to admin_team_statistic_path, class: 'nav-link' do %>
+                    <span class="title">捐助统计</span>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </li>
+      <% end %>
+      <% if can? :manager_volunteer_manage, current_user %>
+        <li class="nav-item <%= current_nav_class(:admin_volunteers) %> ">
+          <a href="javascript:;" class="nav-link nav-toggle">
+            <% to_check_task = TaskVolunteer.to_check.count %>
+            <% to_approve_volunteer = Volunteer.submit.count %>
+            <i class="fa fa-vcard"></i>
+            <span class="title <%= 'font-red-soft' if to_approve_volunteer + to_check_task > 0 %>">志愿者管理</span>
+            <span class="arrow <%= current_nav_class(:admin_volunteers, current: :open) %>"></span>
+          </a>
+          <ul class="sub-menu">
+            <% if can_current_entrance('admin/volunteer_applies', 'index', current_user.roles) %>
+              <li class="nav-item  <%= current_nav_class(:admin_volunteer_apply) %>">
+                <%= link_to admin_volunteer_applies_path, class: 'nav-link' do %>
+                    <span class="title">志愿者申请</span>
+                    <% if to_approve_volunteer > 0 %>
+                        <span class="badge badge-danger"><%= to_approve_volunteer %></span>
+                    <% end %>
+                <% end %>
+              </li>
+            <% end %>
+            <% if can_current_entrance('admin/volunteers', 'index', current_user.roles) %>
+              <li class="nav-item  <%= current_nav_class(:admin_volunteer_list) %>">
+                <%= link_to admin_volunteers_path, class: 'nav-link' do %>
+                    <span class="title">全部志愿者</span>
+                <% end %>
+              </li>
+            <% end %>
+            <% if can_current_entrance('admin/tasks', 'index', current_user.roles) %>
+              <li class="nav-item  <%= current_nav_class(:admin_task_list) %>">
+                <%= link_to admin_tasks_path, class: 'nav-link' do %>
+                    <span class="title">公开任务管理</span>
+                <% end %>
+              </li>
+            <% end %>
+            <% if can_current_entrance('admin/appoint_tasks', 'index', current_user.roles) %>
+              <li class="nav-item  <%= current_nav_class(:admin_appoint_task_list) %>">
+                <%= link_to admin_appoint_tasks_path, class: 'nav-link' do %>
+                    <span class="title">指派任务管理</span>
+                <% end %>
+              </li>
+            <% end %>
+            <% if can_current_entrance('admin/task_achievements', 'index', current_user.roles) %>
+              <li class="nav-item  <%= current_nav_class(:admin_task_check) %>">
+                <%= link_to admin_task_achievements_path, class: 'nav-link' do %>
+                    <span class="title">任务执行管理</span>
+                    <% if to_check_task > 0 %>
+                        <span class="badge badge-danger"><%= to_check_task %></span>
+                    <% end %>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </li>
+      <% end %>
       <% to_prove_apply = 0 %>
       <% submited = 0 %>
 
@@ -189,35 +197,37 @@
           <!--
               <% end %>-->
       <!--</li>-->
-      <li class="nav-item <%= current_nav_class(:admin_campaign) %>">
-        <%= link_to '', class: 'nav-link' do %>
-            <% new = 0 %>
-            <i class="fa fa-flag"></i>
-            <span class="title">活动管理</span>
-            <span class="arrow <%= current_nav_class(:admin_campaign, current: :open) %>"></span>
-            <% if new > 0 %>
-                <span class="badge badge-danger"><%= new %></span>
+      <% if can? :manager_campaign_manage, current_user %>
+        <li class="nav-item <%= current_nav_class(:admin_campaign) %>">
+          <%= link_to '', class: 'nav-link' do %>
+              <% new = 0 %>
+              <i class="fa fa-flag"></i>
+              <span class="title">活动管理</span>
+              <span class="arrow <%= current_nav_class(:admin_campaign, current: :open) %>"></span>
+              <% if new > 0 %>
+                  <span class="badge badge-danger"><%= new %></span>
+              <% end %>
+          <% end %>
+          <ul class="sub-menu">
+            <% if can_current_entrance('admin/campaign_categories', 'index', current_user.roles) %>
+              <li class="nav-item <%= current_nav_class(:admin_campaign_categories) %> ">
+                <%= link_to admin_campaign_categories_path, class: 'nav-link' do %>
+                    <!-- <i class="fa fa-user"></i> -->
+                    <span class="title">活动分类管理</span>
+                <% end %>
+              </li>
             <% end %>
-        <% end %>
-        <ul class="sub-menu">
-          <% if can_current_entrance('admin/campaign_categories', 'index', current_user.roles) %>
-            <li class="nav-item <%= current_nav_class(:admin_campaign_categories) %> ">
-              <%= link_to admin_campaign_categories_path, class: 'nav-link' do %>
-                  <!-- <i class="fa fa-user"></i> -->
-                  <span class="title">活动分类管理</span>
-              <% end %>
-            </li>
-          <% end %>
-          <% if can_current_entrance('admin/campaigns', 'index', current_user.roles) %>
-            <li class="nav-item <%= current_nav_class(:admin_campaigns) %> ">
-              <%= link_to admin_campaigns_path, class: 'nav-link' do %>
-                  <!-- <i class="fa fa-user"></i> -->
-                  <span class="title">活动管理</span>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
-      </li>
+            <% if can_current_entrance('admin/campaigns', 'index', current_user.roles) %>
+              <li class="nav-item <%= current_nav_class(:admin_campaigns) %> ">
+                <%= link_to admin_campaigns_path, class: 'nav-link' do %>
+                    <!-- <i class="fa fa-user"></i> -->
+                    <span class="title">活动管理</span>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </li>
+      <% end %>
       <% if can_current_entrance('admin/complaints', 'index', current_user.roles) %>
         <li class="nav-item <%= current_nav_class(:admin_complaint) %>">
           <%= link_to admin_complaints_path, class: 'nav-link' do %>
@@ -230,71 +240,73 @@
           <% end %>
         </li>
       <% end %>
-      <li class="nav-item <%= current_nav_class(:admin_platform_content) %>">
-        <a href="javascript:;" class="nav-link nav-toggle">
-          <i class="fa fa-tasks"></i>
-          <span class="title">平台管理</span>
-          <span class="arrow <%= current_nav_class(:admin_platform_content, current: :open) %>"></span>
-        </a>
-        <ul class="sub-menu">
-          <% if can_current_entrance('admin/adverts', 'index', current_user.roles) %>
-            <li class="nav-item <%= current_nav_class(:admin_content_adverts) %>">
-              <%= link_to admin_adverts_path, class: 'nav-link' do %>
-                  <span class="title">广告图管理</span>
-              <% end %>
-            </li>
-          <% end %>
-          <% if can_current_entrance('admin/articles', 'index', current_user.roles) %>
-            <li class="nav-item <%= current_nav_class(:admin_content_articles) %>">
-              <%= link_to admin_articles_path, class: 'nav-link' do %>
-                  <span class="title">资讯管理</span>
-              <% end %>
-            </li>
-          <% end %>
-          <% if can_current_entrance('admin/specials', 'index', current_user.roles) %>
-            <li class="nav-item <%= current_nav_class(:admin_content_specials) %>">
-              <%= link_to admin_specials_path, class: 'nav-link' do %>
-                  <span class="title">专题管理</span>
-              <% end %>
-            </li>
-          <% end %>
-          <% if can_current_entrance('admin/protocols', 'index', current_user.roles) %>
-            <li class="nav-item <%= current_nav_class(:admin_content_protocols) %>">
-              <%= link_to admin_protocols_path, class: 'nav-link' do %>
-                  <span class="title">协议管理</span>
-              <% end %>
-            </li>
-          <% end %>
-          <% if can_current_entrance('admin/supports', 'index', current_user.roles) %>
-            <li class="nav-item <%= current_nav_class(:admin_content_supports) %>">
-              <%= link_to admin_supports_path, class: 'nav-link' do %>
-                  <span class="title">帮助中心</span>
-              <% end %>
-            </li>
-          <% end %>
-          <% if can_current_entrance('admin/pages', 'index', current_user.roles) %>
-            <li class="nav-item <%= current_nav_class(:admin_content_pages) %>">
-              <%= link_to admin_pages_path, class: 'nav-link' do %>
-                  <span class="title">单页管理</span>
-              <% end %>
-            </li>
-          <% end %>
-          <% if can_current_entrance('admin/partners', 'index', current_user.roles) %>
-            <li class="nav-item <%= current_nav_class(:admin_content_partners) %>">
-              <%= link_to admin_partners_path, class: 'nav-link' do %>
-                  <span class="title">合作伙伴管理</span>
-              <% end %>
-            </li>
-          <% end %>
-          <% if can_current_entrance('admin/announcements', 'index', current_user.roles) %>
-            <li class="nav-item <%= current_nav_class(:admin_content_announcements) %>">
-              <%= link_to admin_announcements_path, class: 'nav-link' do %>
-                  <span class="title">公告管理</span>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
-      </li>
+      <% if can? :manager_platform_manage, current_user %>
+        <li class="nav-item <%= current_nav_class(:admin_platform_content) %>">
+          <a href="javascript:;" class="nav-link nav-toggle">
+            <i class="fa fa-tasks"></i>
+            <span class="title">平台管理</span>
+            <span class="arrow <%= current_nav_class(:admin_platform_content, current: :open) %>"></span>
+          </a>
+          <ul class="sub-menu">
+            <% if can_current_entrance('admin/adverts', 'index', current_user.roles) %>
+              <li class="nav-item <%= current_nav_class(:admin_content_adverts) %>">
+                <%= link_to admin_adverts_path, class: 'nav-link' do %>
+                    <span class="title">广告图管理</span>
+                <% end %>
+              </li>
+            <% end %>
+            <% if can_current_entrance('admin/articles', 'index', current_user.roles) %>
+              <li class="nav-item <%= current_nav_class(:admin_content_articles) %>">
+                <%= link_to admin_articles_path, class: 'nav-link' do %>
+                    <span class="title">资讯管理</span>
+                <% end %>
+              </li>
+            <% end %>
+            <% if can_current_entrance('admin/specials', 'index', current_user.roles) %>
+              <li class="nav-item <%= current_nav_class(:admin_content_specials) %>">
+                <%= link_to admin_specials_path, class: 'nav-link' do %>
+                    <span class="title">专题管理</span>
+                <% end %>
+              </li>
+            <% end %>
+            <% if can_current_entrance('admin/protocols', 'index', current_user.roles) %>
+              <li class="nav-item <%= current_nav_class(:admin_content_protocols) %>">
+                <%= link_to admin_protocols_path, class: 'nav-link' do %>
+                    <span class="title">协议管理</span>
+                <% end %>
+              </li>
+            <% end %>
+            <% if can_current_entrance('admin/supports', 'index', current_user.roles) %>
+              <li class="nav-item <%= current_nav_class(:admin_content_supports) %>">
+                <%= link_to admin_supports_path, class: 'nav-link' do %>
+                    <span class="title">帮助中心</span>
+                <% end %>
+              </li>
+            <% end %>
+            <% if can_current_entrance('admin/pages', 'index', current_user.roles) %>
+              <li class="nav-item <%= current_nav_class(:admin_content_pages) %>">
+                <%= link_to admin_pages_path, class: 'nav-link' do %>
+                    <span class="title">单页管理</span>
+                <% end %>
+              </li>
+            <% end %>
+            <% if can_current_entrance('admin/partners', 'index', current_user.roles) %>
+              <li class="nav-item <%= current_nav_class(:admin_content_partners) %>">
+                <%= link_to admin_partners_path, class: 'nav-link' do %>
+                    <span class="title">合作伙伴管理</span>
+                <% end %>
+              </li>
+            <% end %>
+            <% if can_current_entrance('admin/announcements', 'index', current_user.roles) %>
+              <li class="nav-item <%= current_nav_class(:admin_content_announcements) %>">
+                <%= link_to admin_announcements_path, class: 'nav-link' do %>
+                    <span class="title">公告管理</span>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </li>
+      <% end %>
     </ul>
 
     <ul class="page-sidebar-menu module-menus menus-project hide" data-keep-expanded="false" data-slide-speed="200">

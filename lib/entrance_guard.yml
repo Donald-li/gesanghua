@@ -5,6 +5,9 @@ superadmin:
     admin/campaigns: all
     admin/complaints: all
     admin/teams: all
+    admin/article_categories: all
+    admin/projects: all
+    admin/donate_items: all
 project_manager:
   actions:
     admin/mains: all
