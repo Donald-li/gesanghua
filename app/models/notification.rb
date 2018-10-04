@@ -151,7 +151,7 @@ class Notification < ApplicationRecord
             color: "#274377"
         }
     }
-    $client.send_template_msg(self.user.openid, template_id, url, "#173177", data) if self.user.openid.present?
+    $client.send_template_msg(self.user.openid, template_id, url, "#173177", data) # if self.user.openid.present?
   end
 
 
