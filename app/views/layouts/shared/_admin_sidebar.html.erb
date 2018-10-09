@@ -978,6 +978,7 @@
           <% end %>
         </li>
       <% end %>
+      <% if can? :manager_finance_setting, current_user %>
       <li class="nav-item  <%= current_nav_class(:admin_finance_category) %> ">
         <a href="javascript:;" class="nav-link nav-toggle">
           <i class="fa fa-list"></i>
@@ -1003,6 +1004,7 @@
           <% end %>
         </ul>
       </li>
+      <% end %>
 
     </ul>
     <!-- END SIDEBAR MENU -->

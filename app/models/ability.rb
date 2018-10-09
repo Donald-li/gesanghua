@@ -94,6 +94,10 @@ class Ability
       user.has_role?([:superadmin, :admin, :project_manager, :financial_staff])
     end
 
+    can :manager_finance_setting, User do |user|
+      user.has_role?([:superadmin, :admin, :financial_staff])
+    end
+
     can :header_admin_finance, User do |user|
       user.has_role?([:superadmin, :admin, :project_manager, :custom_service, :financial_staff])
     end
