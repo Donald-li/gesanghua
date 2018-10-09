@@ -72,7 +72,7 @@ class Admin::MovieCareExceptionRecordsController < Admin::BaseController
 
   def set_project
     @project = Project.movie_care_project
-    auth_operate_project(@project)
+
   end
 
   def set_project_apply

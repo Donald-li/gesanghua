@@ -1,5 +1,4 @@
 class Admin::ProjectSeasonApplyCampStudentsController < Admin::BaseController
-  before_action :check_auth
   before_action :set_camp_student, only: [:edit, :update, :destroy, :show, :check]
   before_action :set_apply_camp
 
@@ -100,10 +99,6 @@ class Admin::ProjectSeasonApplyCampStudentsController < Admin::BaseController
 
   def camp_student_params
     params.require(:project_season_apply_camp_member).permit!
-  end
-
-  def check_auth
-    auth_operate_project(Project.camp_project)
   end
 
 end

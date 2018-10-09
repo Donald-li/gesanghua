@@ -1,5 +1,5 @@
 class Admin::SupportCategoriesController < Admin::BaseController
-  before_action :auth_manage_operation
+
   before_action :set_support_category, only: [:show, :edit, :update, :destroy, :move, :switch]
 
   def index

@@ -1,5 +1,4 @@
 class Admin::MajorsController < Admin::BaseController
-  before_action :auth_manage_manpower
   before_action :set_major, only: [:edit, :update, :destroy]
 
   def index

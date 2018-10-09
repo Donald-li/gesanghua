@@ -1,11 +1,18 @@
 class Admin::PairAppliesController < Admin::BaseController
-  before_action :check_auth
   before_action :set_project_apply, only: [:show, :edit, :update, :destroy, :change_state]
 
   def index
     @search = ProjectSeasonApply.where(project: Project.pair_project).sorted.ransack(params[:q])
     scope = @search.result
-    @project_applies = scope.includes(:school, :season).page(params[:page])
+    scope = scope.includes(:school, :season)
+    respond_to do |format|
+      format.html { @project_applies = scope.page(params[:page]) }
+      format.xlsx {
+        @project_applies = scope.all
+        OperateLog.create_export_excel(current_user,  '结对配额列表')
+        response.headers['Content-Disposition'] = 'attachment; filename=' + '结对配额列表' + Date.today.to_s + '.xlsx'
+      }
+    end
   end
 
   def show
@@ -75,7 +82,4 @@ class Admin::PairAppliesController < Admin::BaseController
     params.require(:project_season_apply).permit!
   end
 
-  def check_auth
-    auth_operate_project(Project.pair_project)
-  end
 end

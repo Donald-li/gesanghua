@@ -1,5 +1,4 @@
 class Admin::StudentGrantsController < Admin::BaseController
-  before_action :check_auth
   before_action :set_grant, only: [:show, :edit, :update, :destroy, :close]
   before_action :set_child_apply
 
@@ -87,8 +86,5 @@ class Admin::StudentGrantsController < Admin::BaseController
     params.require(:donate_record).permit!
   end
 
-  def check_auth
-    auth_operate_project(Project.pair_project)
-  end
 
 end

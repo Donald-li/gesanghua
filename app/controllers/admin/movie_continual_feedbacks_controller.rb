@@ -58,6 +58,6 @@ class Admin::MovieContinualFeedbacksController < Admin::BaseController
 
     def set_project
       @project = Project.movie_project
-      auth_operate_project(@project)
+
     end
 end

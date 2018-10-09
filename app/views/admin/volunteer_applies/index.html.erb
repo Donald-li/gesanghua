@@ -60,8 +60,10 @@
                   <%= apply.describe %>
                 </td>
                 <td>
-                  <%= link_to edit_admin_volunteer_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                      <i class="fa fa-gavel"></i> 审核
+                  <% if can_current_entrance('admin/volunteer_applies', 'edit', current_user.roles) %>
+                    <%= link_to edit_admin_volunteer_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                        <i class="fa fa-gavel"></i> 审核
+                    <% end %>
                   <% end %>
                 </td>
               </tr>

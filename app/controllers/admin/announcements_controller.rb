@@ -1,6 +1,6 @@
 # 公告管理
 class Admin::AnnouncementsController < Admin::BaseController
-  before_action :auth_manage_operation
+
   before_action :set_announcement, only: [:show, :edit, :update, :destroy, :switch]
 
   def index

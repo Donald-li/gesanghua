@@ -1,5 +1,4 @@
 class Admin::AdministratorsController < Admin::BaseController
-  before_action :check_super_administrator
   before_action :set_administrator, only: [:show, :edit, :update, :destroy, :switch]
   before_action :protect_check, only: [:destroy, :switch]
 
@@ -85,15 +84,6 @@ class Admin::AdministratorsController < Admin::BaseController
     ps = params.require(:user).permit!
     ps[:project_ids] = ps[:project_ids].select {|i| i.present?}.map(&:to_i)
     ps
-  end
-
-  def check_super_administrator
-    if !current_user.has_role?(:superadmin)
-      respond_to do |format|
-        format.html {redirect_to referer_or(admin_main_url), alert: "您不是超级管理员。"}
-      end
-      return
-    end
   end
 
   def protect_check

@@ -1,5 +1,5 @@
 class Admin::ExpenditureLedgersController < Admin::BaseController
-  before_action :auth_manage_operation
+
   before_action :set_ledger, only: [:edit, :update, :destroy, :move]
 
   def index

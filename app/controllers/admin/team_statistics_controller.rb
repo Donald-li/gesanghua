@@ -1,5 +1,5 @@
 class Admin::TeamStatisticsController < Admin::BaseController
-  before_action :auth_manage_operation
+
 
   def show
     params[:time_start] ||= Time.now.beginning_of_month

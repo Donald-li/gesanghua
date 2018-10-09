@@ -4,9 +4,11 @@
       <i class="icon-list"></i><%= link_to @volunteer.name, admin_volunteers_path %> > 时长记录
     </div>
     <div class="actions">
-      <%= link_to new_admin_volunteer_task_volunteer_path(@volunteer), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
-          <i class="icon-plus"></i>
-          <span>添加时长</span>
+      <% if can_current_entrance('admin/task_volunteers', 'new', current_user.roles) %>
+        <%= link_to new_admin_volunteer_task_volunteer_path(@volunteer), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+            <i class="icon-plus"></i>
+            <span>添加时长</span>
+        <% end %>
       <% end %>
       <%= link_to admin_volunteers_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
           <i class="fa fa-reply"></i>

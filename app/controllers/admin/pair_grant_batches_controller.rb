@@ -1,5 +1,4 @@
 class Admin::PairGrantBatchesController < Admin::BaseController
-  before_action :check_auth
 
   def index
     @search = GrantBatch.search(params[:q])
@@ -77,7 +76,4 @@ class Admin::PairGrantBatchesController < Admin::BaseController
     params.require(:grant_batch).permit!
   end
 
-  def check_auth
-    auth_operate_project(Project.pair_project)
-  end
 end

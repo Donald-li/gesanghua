@@ -1,5 +1,5 @@
 class Admin::DataStatisticsController < Admin::BaseController
-  before_action :auth_manage_operation
+
 
   def show
     @user_count = User.enable.count

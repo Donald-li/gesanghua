@@ -1,5 +1,4 @@
 class Admin::PairContinualFeedbacksController < Admin::BaseController
-  before_action :check_auth
   before_action :set_continual, only: [:show, :edit, :update, :destroy, :recommend]
   before_action :set_project, only: [:index, :new, :create, :update, :destroy, :recommend]
 
@@ -59,10 +58,6 @@ class Admin::PairContinualFeedbacksController < Admin::BaseController
 
     def set_project
       @project = Project.find(Project.pair_project.id)
-    end
-
-    def check_auth
-      auth_operate_project(Project.pair_project)
     end
 
 end

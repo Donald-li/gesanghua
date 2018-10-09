@@ -1,5 +1,5 @@
 class Admin::SchoolProjectAppliesController < Admin::BaseController
-  before_action :auth_manage_operation
+
   before_action :set_school_project_apply, only: [:show]
   before_action :set_school
 

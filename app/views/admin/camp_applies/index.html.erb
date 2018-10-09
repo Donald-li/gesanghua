@@ -4,9 +4,11 @@
       <i class="icon-list"></i>营立项申请
     </div>
     <div class="actions">
-      <%= link_to new_admin_camp_apply_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
-          <i class="icon-plus"></i>
-          <span>新增申请</span>
+      <% if can_current_entrance('admin/camp_applies', 'new', current_user.roles) %>
+          <%= link_to new_admin_camp_apply_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+              <i class="icon-plus"></i>
+              <span>新增申请</span>
+          <% end %>
       <% end %>
     </div>
   </div>
@@ -101,23 +103,31 @@
                   <%= apply.describe %>
                 </td>
                 <td>
-                  <%= link_to (params[:return_apply] ? url_for(controller: params[:return_apply], action: :index, current_apply: apply.id) : admin_camp_document_estimates_path(current_apply: apply.id)), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
-                      <i class="fa fa-file"></i> 营资料管理
+                  <% if can_current_entrance('admin/camp_document_estimates', 'index', current_user.roles) %>
+                      <%= link_to (params[:return_apply] ? url_for(controller: params[:return_apply], action: :index, current_apply: apply.id) : admin_camp_document_estimates_path(current_apply: apply.id)), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                          <i class="fa fa-file"></i> 营资料管理
+                      <% end %>
                   <% end %>
-                  <%= link_to edit_admin_camp_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                      <i class="fa fa-edit"></i> 修改
+                  <% if can_current_entrance('admin/camp_applies', 'new', current_user.roles) %>
+                      <%= link_to edit_admin_camp_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                          <i class="fa fa-edit"></i> 修改
+                      <% end %>
                   <% end %>
                   <% if apply.apply? %>
-                      <%= link_to admin_camp_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
-                          <i class="fa fa-gavel"></i> 审核
-                      <% end %>
-                      <% if apply.pass? && apply.apply?  %>
-                          <%= link_to edit_admin_camp_project_path(apply), data: {confirm: '确定要转为筹款项目吗？'}, class: 'btn btn-xs green' do %>
-                              <i class="fa fa-exchange"></i>转为筹款项目
+                      <% if can_current_entrance('admin/camp_applies', 'edit', current_user.roles) %>
+                          <%= link_to admin_camp_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                              <i class="fa fa-gavel"></i> 审核
                           <% end %>
-                      <% end %>
-                      <%= link_to admin_camp_apply_path(apply), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
-                          <i class="fa fa-trash-o"></i> 删除
+                          <% if apply.pass? && apply.apply? %>
+                              <%= link_to edit_admin_camp_project_path(apply), data: {confirm: '确定要转为筹款项目吗？'}, class: 'btn btn-xs green' do %>
+                                  <i class="fa fa-exchange"></i>转为筹款项目
+                              <% end %>
+                          <% end %>
+                          <%= link_to admin_camp_apply_path(apply), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                              <i class="fa fa-trash-o"></i> 删除
+                          <% end %>
+                      <% else %>
+                          <button class="btn btn-xs yellow">待转为筹款项目</button>
                       <% end %>
                   <% else %>
                       <button class="btn btn-xs green">已转为筹款项目</button>

@@ -8,6 +8,5 @@ class Admin::GoodsBaseController < Admin::BaseController
 
   def get_current_project
     @current_project ||= Project.where(kind: ['goods', 'donate']).find_by(id: session[:goods_project_id]) if session[:goods_project_id]
-    auth_operate_project(@current_project)
   end
 end

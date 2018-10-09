@@ -14,6 +14,13 @@ module ApplicationHelper
     is_current
   end
 
+  def can_current_entrance(path_name, action_name, roles, **params)
+    @current_entrance_cards ||= EntranceGuard.entrance_cards
+    can_entrance = (@current_entrance_cards[path_name][action_name].compact.uniq & roles).present?
+    can_project = params[:project].present? ? current_user.project_ids.include?(params[:project].id) : true
+    can_entrance && can_project
+  end
+
   def paginate_info(paginated)
     "显示 #{start = (paginated.current_page - 1) * paginated.limit_value + 1} - #{start + paginated.count - 1} 条，共 #{paginated.total_count} 条"
   end

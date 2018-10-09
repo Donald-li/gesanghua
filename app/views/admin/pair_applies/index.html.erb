@@ -3,20 +3,20 @@
     <div class="caption">
       <i class="icon-list"></i>配额管理
     </div>
-    <% if can? :manage_project, current_user, Project.pair_project %>
     <div class="actions">
-      <% if can? :manage_excel, current_user  %>
+      <% if can? :manage_excel, current_user %>
           <%= link_to url_for(params.permit!.merge(format: :xlsx)), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
               <i class="fa fa-download"></i>
               <span>导出</span>
           <% end %>
       <% end %>
-      <%= link_to new_admin_pair_apply_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
-          <i class="icon-plus"></i>
-          <span>新增配额</span>
+      <% if can_current_entrance('admin/pair_applies', 'new', current_user.roles) %>
+          <%= link_to new_admin_pair_apply_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+              <i class="icon-plus"></i>
+              <span>新增配额</span>
+          <% end %>
       <% end %>
     </div>
-    <% end %>
   </div>
   <div class="portlet-body">
     <div class="dataTables_wrapper no-footer">
@@ -88,7 +88,8 @@
                   <%= apply.number %>
                 </td>
                 <td>
-                  <%= apply.children.draft.count %>/<%= apply.children.check_list.count %>/<%= apply.children.pass.count %>
+                  <%= apply.children.draft.count %>/<%= apply.children.check_list.count %>
+                  /<%= apply.children.pass.count %>
                 </td>
                 <td>
                   <%= apply.season.try(:name) %>
@@ -106,52 +107,58 @@
                       <%= apply.enum_name(:pair_state) %>
                       <i class="fa fa-angle-down"></i>
                     </a>
-                    <ul class="dropdown-menu">
-                      <li>
-                        <%= link_to change_state_admin_pair_apply_path(apply, pair_state: 'waiting_upload'), method: :put, data: {confirm: '确定标记为待提交名单吗？'} do %>
-                            待提交名单
-                            <% if apply.waiting_upload? %>
-                                <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
+                    <% if can_current_entrance('admin/pair_applies', 'change_state', current_user.roles) %>
+                        <ul class="dropdown-menu">
+                          <li>
+                            <%= link_to change_state_admin_pair_apply_path(apply, pair_state: 'waiting_upload'), method: :put, data: {confirm: '确定标记为待提交名单吗？'} do %>
+                                待提交名单
+                                <% if apply.waiting_upload? %>
+                                    <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
+                                <% end %>
                             <% end %>
-                        <% end %>
-                      </li>
-                      <li>
-                        <%= link_to change_state_admin_pair_apply_path(apply, pair_state: 'waiting_check'), method: :put, data: {confirm: '确定标记为待审核吗？'} do %>
-                            待审核
-                            <% if apply.waiting_check? %>
-                                <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
+                          </li>
+                          <li>
+                            <%= link_to change_state_admin_pair_apply_path(apply, pair_state: 'waiting_check'), method: :put, data: {confirm: '确定标记为待审核吗？'} do %>
+                                待审核
+                                <% if apply.waiting_check? %>
+                                    <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
+                                <% end %>
                             <% end %>
-                        <% end %>
-                      </li>
-                      <li>
-                        <%= link_to change_state_admin_pair_apply_path(apply, pair_state: 'pair_complete'), method: :put, data: {confirm: '确定标记为审核完成吗？'} do %>
-                            审核完成
-                            <% if apply.pair_complete? %>
-                                <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
+                          </li>
+                          <li>
+                            <%= link_to change_state_admin_pair_apply_path(apply, pair_state: 'pair_complete'), method: :put, data: {confirm: '确定标记为审核完成吗？'} do %>
+                                审核完成
+                                <% if apply.pair_complete? %>
+                                    <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
+                                <% end %>
                             <% end %>
-                        <% end %>
-                      </li>
-                    </ul>
+                          </li>
+                        </ul>
+                    <% end %>
                   </div>
                 </td>
                 <td>
-                  <%= link_to edit_admin_pair_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                      <i class="fa fa-edit"></i> 修改
+                  <% if can_current_entrance('admin/pair_applies', 'edit', current_user.roles) %>
+                      <%= link_to edit_admin_pair_apply_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                          <i class="fa fa-edit"></i> 修改
+                      <% end %>
                   <% end %>
-                  <%= link_to admin_pair_apply_path(apply), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
-                      <i class="fa fa-trash-o"></i> 删除
+                  <% if can_current_entrance('admin/pair_applies', 'destroy', current_user.roles) %>
+                      <%= link_to admin_pair_apply_path(apply), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                          <i class="fa fa-trash-o"></i> 删除
+                      <% end %>
                   <% end %>
                   <%= link_to admin_pair_apply_pair_students_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                       <i class="fa fa-list-ul"></i> 查看名单
                   <% end %>
                   <% if !apply.exception_record.present? %>
-                    <%= link_to new_admin_pair_apply_pair_exception_record_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
-                        <i class="fa fa-list"></i> 异常记录
-                    <% end %>
+                      <%= link_to new_admin_pair_apply_pair_exception_record_path(apply), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
+                          <i class="fa fa-list"></i> 异常记录
+                      <% end %>
                   <% else %>
-                    <%= link_to edit_admin_pair_apply_pair_exception_record_path(apply, apply.exception_record), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
-                        <i class="fa fa-list"></i> 修改异常记录
-                    <% end %>
+                      <%= link_to edit_admin_pair_apply_pair_exception_record_path(apply, apply.exception_record), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
+                          <i class="fa fa-list"></i> 修改异常记录
+                      <% end %>
                   <% end %>
                 </td>
               </tr>

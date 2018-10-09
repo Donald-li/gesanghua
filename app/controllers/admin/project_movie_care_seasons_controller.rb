@@ -62,7 +62,7 @@ class Admin::ProjectMovieCareSeasonsController < Admin::BaseController
   private
     def set_project
       @project = Project.movie_care_project
-      auth_operate_project(@project)
+
     end
 
     def set_season

@@ -4,14 +4,18 @@
       <i class="icon-list"></i><%= link_to @child_apply.name, admin_pair_student_lists_path('q[id_eq]': @child_apply.id), target: '_blank' %> > 资助学年
     </div>
     <div class="actions">
+      <% if can_current_entrance('admin/student_grants', 'match', current_user.roles) %>
       <% if @child_apply.semesters.pending.count > 0 %>
       <%= link_to match_admin_pair_student_list_student_grants_path(@child_apply), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
         <i class="fa fa-list-ul"></i> 配捐
       <% end %>
       <% end %>
+      <% end %>
+      <% if can_current_entrance('admin/student_grants', 'new', current_user.roles) %>
       <%= link_to new_admin_pair_student_list_student_grant_path(@child_apply), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
         <i class="icon-plus"></i>
         <span>新增资助学年</span>
+      <% end %>
       <% end %>
     </div>
   </div>
@@ -110,11 +114,14 @@
                 <% end %>
               </td>
               <td>
+                <% if can_current_entrance('admin/student_grants', 'edit', current_user.roles) %>
                 <% if grant.apply_child.hidden?%>
                 <%= link_to edit_admin_pair_student_list_student_grant_path(@child_apply, grant), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                     <i class="fa fa-edit"></i> 修改
                 <% end %>
                 <% end %>
+                <% end %>
+
                 <% if grant.apply_child.hidden? && grant.pending? %>
                     <%= link_to close_admin_pair_student_list_student_grant_path(@child_apply, grant), 'data-no-turbolink' => true, class: 'btn btn-xs red', method: :post, data: {confirm: '确定要关闭吗？'} do %>
                         <i class="fa fa-eye-slash"></i> 关闭

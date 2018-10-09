@@ -1,5 +1,5 @@
 class Admin::ExpenditureUploadsController < Admin::BaseController
-  before_action :auth_manage_finanical
+
 
   def new
   end

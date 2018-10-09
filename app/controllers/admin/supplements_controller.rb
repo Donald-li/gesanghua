@@ -1,5 +1,4 @@
 class Admin::SupplementsController < Admin::BaseController
-  before_action :check_auth
   before_action :set_project
 
   def index
@@ -78,10 +77,6 @@ class Admin::SupplementsController < Admin::BaseController
 
   def logistic_params
     params.require(:logistic).permit!
-  end
-
-  def check_auth
-    auth_operate_project(Project.read_project)
   end
 
 end

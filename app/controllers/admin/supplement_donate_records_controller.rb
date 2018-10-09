@@ -49,7 +49,7 @@ class Admin::SupplementDonateRecordsController < Admin::BaseController
 
   def set_project
     @project = Project.read_project
-    auth_operate_project(@project)
+
   end
 
   def set_supplement

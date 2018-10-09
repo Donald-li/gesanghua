@@ -74,7 +74,7 @@ class Admin::GoodsExceptionRecordsController < Admin::BaseController
 
   def set_project
     @project = Project.goods
-    auth_operate_project(@project)
+
   end
 
   def set_project_apply

@@ -8,9 +8,11 @@
     <div class="actions">
       <div class="portlet-input input-inline input-small">
         <div class="input-icon right">
+          <% if can? :manager_manager, current_user %>
           <%= link_to admin_user_path(@user), class: 'btn red', 'data-no-turbolink' => true do %>
               <i class="fa fa-cogs"></i>
               <span>用户数据操作</span>
+          <% end %>
           <% end %>
         </div>
       </div>

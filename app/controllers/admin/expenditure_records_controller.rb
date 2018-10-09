@@ -1,6 +1,6 @@
 # 支出记录
 class Admin::ExpenditureRecordsController < Admin::BaseController
-  before_action :auth_manage_finanical
+
   before_action :set_record, only: [:show, :edit, :update, :destroy]
 
   def index

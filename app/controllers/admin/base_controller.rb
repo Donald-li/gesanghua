@@ -1,5 +1,5 @@
 class Admin::BaseController < ManagementBaseController
-  before_action :login_require
+  before_action :login_require, :can_entrance
   before_action :set_paper_trail_whodunnit
   # before_action :store_referer, only: [:new, :edit, :destroy]
 
@@ -26,40 +26,22 @@ class Admin::BaseController < ManagementBaseController
     end
   end
 
+  def can_entrance
+    return unless current_user.present?
+    @current_entrance_cards ||= EntranceGuard.entrance_cards
+    can_entrance = (@current_entrance_cards[request.path_parameters[:controller]][request.path_parameters[:action]].compact.uniq & current_user.roles).present?
+    can_project = session[:goods_project_id].present? ? current_user.project_ids.include?(session[:goods_project_id]) : true
+    unless can_entrance && can_project
+      redirect_to referer_or(admin_main_path), alert: '您没有权限'
+    end
+  end
+
   def current_user
     unless @current_user
       user = User.find_by id: session[:admin_user_id]
       @current_user = user if user && user.has_role?(User::SUPERADMIN_ROLES)
     end
     @current_user
-  end
-
-  def auth_superadmin
-    authorize! :manage_superadmin, current_user
-  end
-
-  def auth_manage_operation
-    authorize! :manage_operation, current_user
-  end
-
-  def auth_manage_manpower
-    authorize! :manage_manpower, current_user
-  end
-
-  def auth_custom_service
-    authorize! :manage_custom_service, current_user
-  end
-
-  def auth_manage_finanical
-    authorize! :manage_financial, current_user
-  end
-
-  def auth_manage_project(project=nil)
-    authorize! :manage_project, current_user, project
-  end
-
-  def auth_operate_project(project=nil)
-    authorize! :operate_project, current_user, project
   end
 
   def render_error(exception = nil)

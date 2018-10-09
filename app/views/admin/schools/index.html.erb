@@ -10,9 +10,11 @@
               <span>导出</span>
           <% end %>
       <% end %>
-      <%= link_to new_admin_school_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
-      <i class="icon-plus"></i>
-      <span>新增学校</span>
+      <% if can_current_entrance('admin/schools', 'new', current_user.roles) %>
+        <%= link_to new_admin_school_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+        <i class="icon-plus"></i>
+        <span>新增学校</span>
+        <% end %>
       <% end %>
     </div>
   </div>

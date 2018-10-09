@@ -3,7 +3,8 @@
   <div class="page-header-inner ">
     <!-- BEGIN LOGO -->
     <div class="page-logo">
-      <%= link_to admin_main_path, class: 'logo-text' do %>格桑花IT平台<% end %>
+      <%= link_to admin_main_path, class: 'logo-text' do %>格桑花IT平台
+      <% end %>
       <!--<a href="javascript:;"><img src="/admin/assets/layouts/layout4/img/logo-light.png" width="106" alt="logo" class="logo-default" /> </a>-->
       <div class="menu-toggler sidebar-toggler">
         <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
@@ -15,30 +16,30 @@
     <!-- END RESPONSIVE MENU TOGGLER -->
     <div class="module-nav page-actions">
       <ul class="nav nav-tabs nav-justified">
-        <% if can? :manage_custom_service, current_user %>
-          <li class="<%= current_nav_class(:admin_operation) %>" data-toggle="tab" style="width: auto">
-              <a href="#" data-content="menus-operate"> <i class="fa fa-sitemap"></i>运营管理 </a>
-          </li>
+        <% if can? :header_admin_operation, current_user %>
+        <li class="<%= current_nav_class(:admin_operation) %>" data-toggle="tab" style="width: auto">
+          <a href="#" data-content="menus-operate"> <i class="fa fa-sitemap"></i>运营管理 </a>
+        </li>
         <% end %>
-        <% if can? :operate_project, current_user %>
-          <li class="<%= current_nav_class(:admin_project) %>" data-toggle="tab" style="width: auto">
-              <a href="#" data-content="menus-project"> <i class="fa fa-inbox"></i>项目管理 </a>
-          </li>
+        <% if can? :header_admin_project, current_user %>
+        <li class="<%= current_nav_class(:admin_project) %>" data-toggle="tab" style="width: auto">
+          <a href="#" data-content="menus-project"> <i class="fa fa-inbox"></i>项目管理 </a>
+        </li>
         <% end %>
-        <% if can? :manage_manpower, current_user %>
-          <li class="<%= current_nav_class(:admin_system) %>" data-toggle="tab" style="width: auto">
-              <a href="#" data-content="menus-system"> <i class="fa fa-gear"></i>系统管理 </a>
-          </li>
+        <% if can? :header_admin_system, current_user %>
+        <li class="<%= current_nav_class(:admin_system) %>" data-toggle="tab" style="width: auto">
+          <a href="#" data-content="menus-system"> <i class="fa fa-gear"></i>系统管理 </a>
+        </li>
         <% end %>
-        <% if can? :manage_operation, current_user %>
-          <li class="<%= current_nav_class(:admin_statistic) %>" data-toggle="tab" style="width: auto">
-              <a href="#" data-content="menus-report"> <i class="fa fa-area-chart"></i>统计报表 </a>
-          </li>
+        <% if can? :header_admin_statistic, current_user %>
+        <li class="<%= current_nav_class(:admin_statistic) %>" data-toggle="tab" style="width: auto">
+          <a href="#" data-content="menus-report"> <i class="fa fa-area-chart"></i>统计报表 </a>
+        </li>
         <% end %>
-        <% if can? :manage_financial, current_user %>
-          <li class="<%= current_nav_class(:admin_finance) %>" data-toggle="tab" style="width: auto">
-              <a href="#" data-content="menus-financial"> <i class="fa fa-rmb"></i>财务管理 </a>
-          </li>
+        <% if can? :header_admin_finance, current_user %>
+        <li class="<%= current_nav_class(:admin_finance) %>" data-toggle="tab" style="width: auto">
+          <a href="#" data-content="menus-financial"> <i class="fa fa-rmb"></i>财务管理 </a>
+        </li>
         <% end %>
       </ul>
     </div>
@@ -57,7 +58,7 @@
             <ul class="dropdown-menu dropdown-menu-default">
               <li>
                 <%= link_to admin_logout_path, method: :delete do %>
-                  <i class="icon-logout"></i>退出
+                    <i class="icon-logout"></i>退出
                 <% end %>
               </li>
             </ul>
@@ -73,17 +74,17 @@
 </div>
 
 <script>
-  $(function(){
-    if($('.module-nav li.active').length==0) $('.module-nav li:first').addClass('active')
-    $('.module-menus').hide().removeClass('hide')
-    var active = $('.module-nav li.active a').data('content')
-    if(active) $('.module-menus.'+active).show()
-    $('.module-nav li a').on('click', function(ev){
-      var className = $(ev.target).data('content')
-      if(className){
-        $('.module-menus').hide()
-        $('.module-menus.'+className).show()
-      }
+    $(function () {
+        if ($('.module-nav li.active').length == 0) $('.module-nav li:first').addClass('active')
+        $('.module-menus').hide().removeClass('hide')
+        var active = $('.module-nav li.active a').data('content')
+        if (active) $('.module-menus.' + active).show()
+        $('.module-nav li a').on('click', function (ev) {
+            var className = $(ev.target).data('content')
+            if (className) {
+                $('.module-menus').hide()
+                $('.module-menus.' + className).show()
+            }
+        })
     })
-  })
 </script>

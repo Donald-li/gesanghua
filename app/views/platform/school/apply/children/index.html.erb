@@ -43,7 +43,8 @@
                     <span><%= child.name %></span>
                     <span><%= child.age %>岁 | <%= child.enum_name(:gender) %></span>
                   </p>
-                  <p><%= child.apply.school.name %> <%= child.enum_name(:level) %> <%= child.enum_name(:grade) %></p>
+                  <p style="width: 255px;"><%= truncate(child.school.try(:name), length: 18)  %></p>
+                  <p><%= child.enum_name(:level) %> <%= child.enum_name(:grade) %> <%= child.classname %></p>
                 </div>
 
               </div>

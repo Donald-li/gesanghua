@@ -1,5 +1,5 @@
 class Admin::PartnersController < Admin::BaseController
-  before_action :auth_manage_operation
+
   before_action :set_partner, only: [:edit, :update, :destroy, :switch, :move]
 
   def index

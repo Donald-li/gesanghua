@@ -1,5 +1,4 @@
 class Admin::DonateProjectReportsController < Admin::GoodsBaseController
-  before_action :check_auth
   before_action :set_report, only: [:edit, :update, :destroy, :switch]
 
   def index
@@ -60,8 +59,5 @@ class Admin::DonateProjectReportsController < Admin::GoodsBaseController
       params.require(:project_report).permit!
     end
 
-    def check_auth
-      auth_operate_project(Project.pair_project)
-    end
 
 end

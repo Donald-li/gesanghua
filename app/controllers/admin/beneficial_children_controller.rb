@@ -1,6 +1,5 @@
 # 收益孩子管理
 class Admin::BeneficialChildrenController < Admin::BaseController
-  before_action :auth_operate_project
   before_action :set_child, only: [:show, :edit, :update, :destroy]
 
   def new

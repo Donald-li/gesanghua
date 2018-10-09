@@ -4,6 +4,12 @@ class Ability
   def initialize(user)
     alias_action :create, :read, :update, :destroy, to: :crud
 
+    # superadmin admin
+    # 超级管理员   管理员
+    # project_manager project_operator camp_manager manpower_operator custom_service financial_staff  platform_manager
+    # 项目管理员        项目操作员        探索营管理    人力管理            客服            财务             平台管理员
+    # volunteer county_user gsh_child headmaster teacher
+    # 志愿者     县团委       格桑花孩子  校长       老师
     # 管理超级用户功能
     can :manage_superadmin, User do |user|
       user.has_role?(:superadmin)
@@ -19,74 +25,82 @@ class Ability
       user.has_role?([:superadmin, :admin, :project_manager])
     end
 
-    # 管理后台财务功能
-    can :manage_financial, User do |user|
-      user.has_role?([:superadmin, :financial_staff])
-    end
-
-    # 管理后台客服(用户管理)功能
-    can :manage_custom_service, User do |user|
-      user.has_role?([:superadmin, :admin, :financial_staff, :custom_service, :manpower_operator])
-    end
-
-    # 人力管理员
-    can :manage_manpower, User do |user|
-      user.has_role?([:superadmin, :admin, :manpower_operator])
-    end
-
     # 管理后台项目功能
     can :manage_project, User, Project do |user, project|
       def check(user, project)
-        return true if user.has_role?([:superadmin, :admin])
-        return false unless user.has_role?(:project_manager)
+        return true if user.has_role?([:superadmin, :admin, :project_manager, :project_operator, :custom_service, :financial_staff])
         return project.id.in?(user.project_ids) if project
         true
       end
       check(user, project)
     end
 
-    # 操作后台项目功能
-    can :operate_project, User, Project do |user, project|
-      def check(user, project)
-        return true if user.has_role?([:superadmin, :admin])
-        return false unless user.has_role?([:project_manager, :project_operator])
-        return project.id.in?(user.project_ids) if project
-        true
-      end
-      check(user, project)
+    #指定代捐管理人
+    can :manager_manager, User do |user|
+      user.has_role?([:superadmin, :admin, :project_manager, :custom_service])
     end
 
+    #团队移交
+    can :manager_team_manager, User do |user|
+      user.has_role?([:superadmin, :admin])
+    end
 
-    # if !user
-    #   can :update, :all
-    # end
-    # can :manage, :all if user.has_role? :admin
-    # can :crud, Project, user_id: user.id
-    # Define abilities for the passed in user here. For example:
-    #
-    #   user ||= User.new # guest user (not logged in)
-    #   if user.admin?
-    #     can :manage, :all
-    #   else
-    #     can :read, :all
-    #   end
-    #
-    # The first argument to `can` is the action you are giving the user
-    # permission to do.
-    # If you pass :manage it will apply to every action. Other common actions
-    # here are :read, :create, :update and :destroy.
-    #
-    # The second argument is the resource the user can perform the action on.
-    # If you pass :all it will apply to every resource. Otherwise pass a Ruby
-    # class of the resource.
-    #
-    # The third argument is an optional hash of conditions to further filter the
-    # objects.
-    # For example, here the user can only update published articles.
-    #
-    #   can :update, Article, :published => true
-    #
-    # See the wiki for details:
-    # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
+    #运营管理-学校管理
+    can :manager_school_manage, User do |user|
+      user.has_role?([:superadmin, :admin, :project_manager])
+    end
+
+    #运营管理-用户身份
+    can :manager_user_identity, User do |user|
+      user.has_role?([:superadmin, :admin, :project_manager, :platform_manager])
+    end
+
+    #运营管理-团队管理
+    can :manager_team_manage, User do |user|
+      user.has_role?([:superadmin, :admin, :project_manager, :platform_manager])
+    end
+
+    #运营管理-志愿者管理
+    can :manager_volunteer_manage, User do |user|
+      user.has_role?([:superadmin, :admin, :project_manager, :platform_manager, :manpower_operator])
+    end
+
+    #运营管理-活动管理
+    can :manager_campaign_manage, User do |user|
+      user.has_role?([:superadmin, :admin, :project_manager])
+    end
+    #运营管理-平台管理
+    can :manager_platform_manage, User do |user|
+      user.has_role?([:superadmin, :admin, :platform_manager])
+    end
+
+    can :finance_pair_manage, User do |user|
+      user.has_role?([:superadmin, :admin, :custom_service, :financial_staff]) || (user.has_role?([:project_manager]) && user.project_ids.include?(Project.pair_project.id))
+    end
+
+    can :header_admin_operation, User do |user|
+      user.has_role?([:superadmin, :admin, :project_manager, :platform_manager, :manpower_operator, :custom_service, :financial_staff])
+    end
+
+    can :header_admin_project, User do |user|
+      user.has_role?([:superadmin, :admin, :project_manager, :project_operator, :custom_service, :financial_staff])
+    end
+
+    can :header_admin_system, User do |user|
+      user.has_role?([:superadmin, :admin, :project_manager, :manpower_operator])
+    end
+
+    can :header_admin_statistic, User do |user|
+      user.has_role?([:superadmin, :admin, :project_manager, :financial_staff])
+    end
+
+    can :manager_finance_setting, User do |user|
+      user.has_role?([:superadmin, :admin, :financial_staff])
+    end
+
+    can :header_admin_finance, User do |user|
+      user.has_role?([:superadmin, :admin, :project_manager, :custom_service, :financial_staff])
+    end
   end
+
 end

@@ -1,6 +1,6 @@
 # 审计报告
 class Admin::AuditReportsController < Admin::BaseController
-  before_action :auth_manage_finanical
+
   before_action :set_audit_report, only: [:show, :edit, :update, :destroy, :switch, :file_download]
 
   def index

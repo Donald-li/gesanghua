@@ -16,10 +16,12 @@
         <i class="fa fa-cny"></i>
         <span>已发放统计：<%= format_money (@items.granted.sum(:amount) / 1.05).to_i %></span>
       </div> |
+      <% if can_current_entrance('admin/pair_grant_batch_items', 'index', current_user.roles) %>
       <a href="javascript:;" class='btn btn-xs green' onclick='toggleFinder()' do %>
         <i class="icon-plus"></i>
         <span>添加孩子</span>
       </a>
+      <% end %>
       <% if can? :manage_excel, current_user  %>
       <%= link_to url_for(params.permit!.merge(format: :xlsx)), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
           <i class="fa fa-download"></i>

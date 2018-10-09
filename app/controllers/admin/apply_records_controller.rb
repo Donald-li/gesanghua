@@ -1,6 +1,6 @@
 # 格桑花孩子的捐助记录
 class Admin::ApplyRecordsController < Admin::BaseController
-  before_action :auth_manage_operation
+
   before_action :set_apply_record, only: [:show]
   before_action :set_gsh_child
 

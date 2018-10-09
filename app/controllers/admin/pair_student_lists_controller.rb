@@ -1,5 +1,4 @@
 class Admin::PairStudentListsController < Admin::BaseController
-  before_action :check_auth
   before_action :set_pair_student_list, only: [:show, :edit, :update, :destroy, :switch, :remarks, :turn_over, :share, :qrcode_download, :appoint, :appoint_donor]
 
   def index
@@ -217,7 +216,4 @@ class Admin::PairStudentListsController < Admin::BaseController
       params.require(:project_season_apply_child).permit!
     end
 
-    def check_auth
-      auth_operate_project(Project.pair_project)
-    end
 end

@@ -1,5 +1,4 @@
 class Admin::DonateRecordsController < Admin::BaseController
-  before_action :auth_custom_service
   before_action :set_user, only: [:index, :destroy, :student_list]
 
   def index

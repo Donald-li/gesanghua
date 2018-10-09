@@ -1,6 +1,6 @@
 # 勋章管理
 class Admin::BadgeLevelsController < Admin::BaseController
-  before_action :auth_manage_operation
+
   before_action :set_badge
 
   def index

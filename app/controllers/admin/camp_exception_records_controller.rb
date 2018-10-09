@@ -74,7 +74,7 @@ class Admin::CampExceptionRecordsController < Admin::BaseController
 
   def set_project
     @project = Project.camp_project
-    auth_operate_project(@project)
+
   end
 
   def set_project_apply

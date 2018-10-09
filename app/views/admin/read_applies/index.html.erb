@@ -3,7 +3,6 @@
     <div class="caption">
       <i class="icon-list"></i>悦读项目申请
     </div>
-    <% if can? :manage_project, current_user, Project.read_project %>
     <div class="actions">
       <%= link_to supply_new_admin_read_applies_path, class: 'btn btn-xs green', 'data-no-turbolink' => true do %>
           <i class="icon-plus"></i>
@@ -15,7 +14,6 @@
           <span>新增图书角申请</span>
       <% end %>
     </div>
-    <% end %>
   </div>
   <div class="portlet-body">
     <div class="dataTables_wrapper no-footer">

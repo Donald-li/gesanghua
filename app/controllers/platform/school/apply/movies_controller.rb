@@ -1,5 +1,4 @@
 class Platform::School::Apply::MoviesController < Platform::School::BaseController
-  before_action :check_manage_limit
   before_action :set_apply, only: [:show, :edit, :update]
   before_action :set_school
 
@@ -45,9 +44,6 @@ class Platform::School::Apply::MoviesController < Platform::School::BaseControll
   end
 
   private
-  def check_manage_limit
-    redirect_to root_path unless current_teacher.manage_projects.where(alias: 'movie').exists?
-  end
 
   def set_apply
     @apply = ProjectSeasonApply.find(params[:id])

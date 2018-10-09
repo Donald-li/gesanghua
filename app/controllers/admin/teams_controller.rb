@@ -1,5 +1,5 @@
 class Admin::TeamsController < Admin::BaseController
-  before_action :auth_manage_operation
+
   before_action :set_team, only: [:show, :destroy, :edit, :update, :dismiss, :donate_records]
 
   def index

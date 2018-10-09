@@ -4,9 +4,11 @@
       <i class="icon-list"></i> 指派任务列表
     </div>
     <div class="actions">
-      <%= link_to new_admin_appoint_task_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
-          <i class="icon-plus"></i>
-          <span>发布指派任务</span>
+      <% if can_current_entrance('admin/appoint_tasks', 'new', current_user.roles) %>
+        <%= link_to new_admin_appoint_task_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+            <i class="icon-plus"></i>
+            <span>发布指派任务</span>
+        <% end %>
       <% end %>
     </div>
   </div>
@@ -79,11 +81,15 @@
                   <%= link_to admin_appoint_task_url(task), class: 'btn btn-xs blue' do %>
                     <i class="fa fa-list"></i> 工作列表
                   <% end %>
-                  <%= link_to edit_admin_appoint_task_url(task), class: 'btn btn-xs blue' do %>
-                      <i class="fa fa-edit"></i> 修改
+                  <% if can_current_entrance('admin/appoint_tasks', 'edit', current_user.roles) %>
+                    <%= link_to edit_admin_appoint_task_url(task), class: 'btn btn-xs blue' do %>
+                        <i class="fa fa-edit"></i> 修改
+                    <% end %>
                   <% end %>
-                  <%= link_to admin_appoint_task_url(task), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
-                      <i class="fa fa-trash-o"></i> 删除
+                  <% if can_current_entrance('admin/appoint_tasks', 'destroy', current_user.roles) %>
+                    <%= link_to admin_appoint_task_url(task), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
+                        <i class="fa fa-trash-o"></i> 删除
+                    <% end %>
                   <% end %>
                 </td>
               </tr>

@@ -1,5 +1,4 @@
 class Platform::School::Apply::ChildrenController < Platform::School::BaseController
-  before_action :check_manage_limit
   before_action :set_apply
   before_action :set_child, only: [:edit, :update, :destroy, :visit_list, :visit_form, :visit_update, :visit_create]
 
@@ -114,9 +113,6 @@ class Platform::School::Apply::ChildrenController < Platform::School::BaseContro
   end
 
   private
-  def check_manage_limit
-    redirect_to root_path unless current_teacher.manage_projects.where(alias: 'pair').exists?
-  end
 
   def set_apply
     @apply = ProjectSeasonApply.find(params[:pair_id])

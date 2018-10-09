@@ -1,5 +1,5 @@
 class Admin::SchoolTeachersController < Admin::BaseController
-  before_action :auth_manage_operation
+
   before_action :set_teacher, only: [:show, :destroy, :edit, :update, :destroy]
   before_action :set_school, only: [:new, :index, :create, :edit, :update]
 

@@ -1,5 +1,5 @@
 class Admin::PairGrantExceptionsController < Admin::BaseController
-  before_action :auth_manage_finanical
+
   before_action :set_grant, only: [:new, :edit, :update]
 
   def index

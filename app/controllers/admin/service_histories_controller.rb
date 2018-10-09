@@ -1,5 +1,5 @@
 class Admin::ServiceHistoriesController < Admin::BaseController
-  before_action :auth_manage_operation
+
   before_action :set_service_history, only: [:show]
   before_action :set_volunteer
 
