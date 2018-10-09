@@ -33,7 +33,7 @@ class Admin::SessionsController < Admin::BaseController
 
   def destroy
     reset_session
-    redirect_to referer_or(admin_login_path)
+    redirect_to admin_login_path
   end
 
   private
