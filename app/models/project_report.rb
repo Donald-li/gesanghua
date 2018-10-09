@@ -13,6 +13,7 @@
 #  user_id      :integer                                # 发布人
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  comment      :text
 #
 
 # 项目报告

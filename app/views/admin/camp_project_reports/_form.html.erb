@@ -18,6 +18,7 @@
       </div>
       <%= f.hidden_field :kind, value: 'project_report' %>
       <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectReport.options_for_select(:states), label: '状态：' %>
+      <%= f.input :comment, label: '备注：', input_html: {} %>
     </div>
     <div class="form-actions">
       <div class="row">
