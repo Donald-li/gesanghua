@@ -4,7 +4,7 @@
       <i class="icon-list"></i>收入记录
     </div>
     <div class="actions">
-      <% if can_current_entrance('admin/income_records', 'excel_import', current_user.roles) && !current_user.has_role?(:admin) %>
+      <% if can_current_entrance('admin/income_records', 'excel_import', current_user.roles) && current_user.roles != ["admin"] %>
         <%= link_to excel_upload_admin_income_records_path, class: 'btn btn-xs yellow', 'data-no-turbolink' => true do %>
             <i class="fa fa-upload"></i>
             <span>批量导入</span>
@@ -18,7 +18,7 @@
             <span>导出表单</span>
         <% end %>
       <% end %>
-      <% if can_current_entrance('admin/income_records', 'new', current_user.roles) && !current_user.has_role?(:admin) %>
+      <% if can_current_entrance('admin/income_records', 'new', current_user.roles) && current_user.roles != ["admin"] %>
         <%= link_to new_admin_income_record_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
             <i class="icon-plus"></i>
             <span>新增收入</span>
@@ -172,12 +172,12 @@
                   <%= record.remark %>
                 </td>
                 <td>
-                  <% if can_current_entrance('admin/income_records', 'edit', current_user.roles) && !current_user.has_role?(:admin) %>
+                  <% if can_current_entrance('admin/income_records', 'edit', current_user.roles) && current_user.roles != ["admin"] %>
                     <%= link_to edit_admin_income_record_path(record), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                         <i class="fa fa-edit"></i> 修改
                     <% end %>
                   <% end %>
-                  <% if can_current_entrance('admin/income_records','destroy', current_user.roles) && !current_user.has_role?(:admin) %>
+                  <% if can_current_entrance('admin/income_records','destroy', current_user.roles) && current_user.roles != ["admin"] %>
                     <% if record.offline? %>
                     <%= link_to admin_income_record_path(record), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
                         <i class="fa fa-trash-o"></i> 删除
