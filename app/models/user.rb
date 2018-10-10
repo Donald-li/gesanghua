@@ -352,7 +352,7 @@ class User < ApplicationRecord
   end
 
   def special_admin?
-    User::SUPERADMIN_ROLES & u.roles == ["admin"]
+    (User::SUPERADMIN_ROLES & self.roles) == ["admin"]
   end
 
   def summary_builder
