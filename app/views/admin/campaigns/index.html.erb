@@ -85,9 +85,13 @@
                 <%= campaign.campaign_category.try(:name) %>
               </td>
               <td>
+                <% if can_current_entrance('admin/campaigns', 'switch', current_user.roles) %>
                 <%= link_to switch_admin_campaign_path(campaign), data: {confirm: "确定#{campaign.state === 'show' ? '隐藏该活动' : '展示该活动'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{campaign.state === 'show' ? 'green' : 'default'}" do %>
                 <%= campaign.state === 'show' ? '展示' : '隐藏' %>
                 <i class="fa <%= campaign.state === 'show' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                <% end %>
+                <% else %>
+                  <%= campaign.enum_name(:state) %>
                 <% end %>
               </td>
               <td>
@@ -97,6 +101,7 @@
                     <%= campaign.enum_name(:execute_state) %>
                     <i class="fa fa-angle-down"></i>
                   </a>
+                  <% if can_current_entrance('admin/campaigns', 'switch_state', current_user.roles) %>
                   <ul class="dropdown-menu">
                     <li>
                       <%= link_to switch_state_admin_campaign_path(campaign, execute_state: 'draft'), method: :put, data: {confirm: '确定标记为未开始吗？'} do %>
@@ -139,6 +144,7 @@
                       <% end %>
                     </li>
                   </ul>
+                  <% end %>
                 </div>
               </td>
               <td>
@@ -153,7 +159,7 @@
                 <%= link_to share_admin_campaign_path(campaign), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                     <i class="fa fa-share-alt"></i> 分享链接
                 <% end %>
-                <% if can_current_entrance('admin/campaigns', 'destroy', current_user.roles) %>
+                <% if can_current_entrance('admin/campaigns', 'destroy', current_user.roles) && campaign.draft? %>
                   <%= link_to admin_campaign_path(campaign), class: 'btn btn-xs red', method: :delete, data: {confirm: '删除活动将会同时删除此此活动的相关报名记录，确定要删除吗？'} do %>
                     <i class="fa fa-trash-o"></i> 删除
                   <% end %>

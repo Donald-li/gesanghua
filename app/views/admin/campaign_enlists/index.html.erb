@@ -4,15 +4,17 @@
       <i class="icon-list"></i><%= link_to @campaign.name, admin_campaigns_path %> > 活动报名表
     </div>
     <div class="actions">
-      <% if can? :manage_excel, current_user  %>
+      <% if (can? :manage_excel, current_user) || current_user.has_role?(:custom_service)  %>
       <%= link_to excel_output_admin_campaign_campaign_enlists_path(@campaign), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
         <i class="fa fa-download"></i>
       <span>导出</span>
       <% end %>
       <% end %>
+      <% if can_current_entrance('admin/campaign_enlists', 'new', current_user.roles) %>
       <%= link_to new_admin_campaign_campaign_enlist_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
       <i class="icon-plus"></i>
       <span>新增</span>
+      <% end %>
       <% end %>
     </div>
   </div>
@@ -107,15 +109,19 @@
                 </td>
               <% end %>
               <td>
+                <% if can_current_entrance('admin/campaign_enlists', 'edit', current_user.roles) %>
                 <%= link_to edit_admin_campaign_campaign_enlist_path(campaign_enlist.campaign, campaign_enlist), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                   <i class="fa fa-edit"></i> 修改
                 <% end %>
+                <% end %>
+                <% if can_current_entrance('admin/campaign_enlists', 'cancel', current_user.roles) %>
                 <% if @campaign.price !=0 %>
                   <% if campaign_enlist.paid? %>
                     <%= link_to cancel_admin_campaign_campaign_enlist_path(campaign_enlist.campaign, campaign_enlist), data: {confirm: "确定取消报名吗？"}, method: :put, 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                        取消报名
                     <% end %>
                   <% end %>
+                <% end %>
                 <% end %>
               </td>
             </tr>

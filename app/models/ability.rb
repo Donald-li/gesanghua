@@ -67,7 +67,7 @@ class Ability
 
     #运营管理-活动管理
     can :manager_campaign_manage, User do |user|
-      user.has_role?([:superadmin, :admin, :project_manager])
+      user.has_role?([:superadmin, :admin, :project_manager, :custom_service])
     end
     #运营管理-平台管理
     can :manager_platform_manage, User do |user|

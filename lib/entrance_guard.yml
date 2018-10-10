@@ -40,6 +40,7 @@ project_manager:
     admin/donate_statistics: all
     admin/income_records: ['index']
     admin/expenditure_records: ['index']
+    admin/finance_statistics: ['index']
     admin/vouchers: ['index']
     # 以下需要根据具体项目权限区分
     admin/pair_seasons: all
@@ -164,6 +165,8 @@ custom_service:
     admin/donate_records: all
     admin/account_records:
       except: ['destroy']
+    admin/campaigns: ['index', 'share']
+    admin/campaign_enlists: ['index']
     admin/pair_student_lists: ['index', 'show', 'share', 'edit']
     admin/student_grants: ['index']
     admin/pair_donate_records: ['index', 'show']
@@ -171,6 +174,7 @@ custom_service:
     admin/pair_grants: ['index', 'show']
     admin/pair_grant_exceptions: all
     admin/income_records: ['index', 'show']
+    admin/finance_statistics: ['index']
 
 
 manpower_operator:
