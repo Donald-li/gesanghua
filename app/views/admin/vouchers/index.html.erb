@@ -93,7 +93,7 @@
                   <p><%= voucher.try(:tax_company) %></p>
                 </td>
                 <td>
-                  <% if can_current_entrance('admin/vouchers', 'switch', current_user.roles) && current_user.roles != ["admin"] %>
+                  <% if can_current_entrance('admin/vouchers', 'switch', current_user.roles) && !current_user.special_admin? %>
                     <%= link_to switch_admin_voucher_path(voucher), data: {confirm: "确定#{voucher.state === 'deal' ? '改为未处理状态' : '改为已处理状态'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{voucher.state === 'deal' ? 'green' : 'default'}" do %>
                         <%= voucher.state === 'deal' ? '已处理' : '未处理' %>
                         <i class="fa <%= voucher.state === 'deal' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
@@ -107,13 +107,13 @@
                     <% end %>
                   <% end %>
                   <% if voucher.state === 'pending' %>
-                      <% if can_current_entrance('admin/vouchers', 'edit', current_user.roles) && current_user.roles != ["admin"] %>
+                      <% if can_current_entrance('admin/vouchers', 'edit', current_user.roles) && !current_user.special_admin? %>
                       <%= link_to edit_admin_voucher_path(voucher), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                           <i class="fa fa-edit"></i> 编辑信息
                       <% end %>
                       <% end %>
                   <% else %>
-                    <% if can_current_entrance('admin/vouchers', 'edit', current_user.roles) && current_user.roles != ["admin"] %>
+                    <% if can_current_entrance('admin/vouchers', 'edit', current_user.roles) && !current_user.special_admin? %>
                       <%= link_to edit_admin_voucher_path(voucher), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                           <i class="fa fa-truck"></i> 编辑物流
                       <% end %>

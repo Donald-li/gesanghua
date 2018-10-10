@@ -351,6 +351,10 @@ class User < ApplicationRecord
     self.save
   end
 
+  def special_admin?
+    User::SUPERADMIN_ROLES & u.roles == ["admin"]
+  end
+
   def summary_builder
     Jbuilder.new do |json|
       json.(self, :id, :nickname, :name, :balance, :donate_amount, :team_id, :phone)
