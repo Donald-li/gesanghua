@@ -120,7 +120,7 @@ class FileUtil
 
       index = s.formatted_value(line, 'A')
       name = s.formatted_value(line, 'B')
-      id_card = s.cell(line, 'C')
+      id_card = s.cell(line, 'C').strip
       nation = s.formatted_value(line, 'D')
       level = s.formatted_value(line, 'E')
       grade = s.formatted_value(line, 'F')
@@ -181,7 +181,7 @@ class FileUtil
 
       index = s.formatted_value(line, 'A')
       name = s.formatted_value(line, 'B')
-      id_card = s.cell(line, 'C')
+      id_card = s.cell(line, 'C').strip
       nation = s.formatted_value(line, 'D')
       if kind == 'student'
         level = s.formatted_value(line, 'E')
@@ -261,7 +261,7 @@ class FileUtil
       index = s.formatted_value(line, 'A')
       name = s.formatted_value(line, 'B')
       volunteer_no = s.cell(line, 'C')
-      id_card = s.cell(line, 'D')
+      id_card = s.cell(line, 'D').strip
       phone = s.formatted_value(line, 'E')
       content = s.formatted_value(line, 'F')
       remark = s.formatted_value(line, 'G')
