@@ -107,6 +107,7 @@ project_operator:
     admin/pair_grant_batches: ['index', 'show', 'edit', 'update']
     admin/pair_grants: ['edit', 'index', 'update', 'edit_feedback']
     admin/pair_reports: all
+    admin/home_visits: all
     admin/pair_thank_notes: all
     admin/pair_continual_feedbacks: all
     admin/read_projects: all
