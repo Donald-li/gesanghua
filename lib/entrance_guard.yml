@@ -34,7 +34,7 @@ project_manager:
     admin/administrator_logs: all
     admin/audits: all
     admin/operate_logs: all
-    admin/campaigns: ['index', 'new']
+    admin/campaigns: ['index', 'new', 'create']
     admin/campaign_enlists: all
     admin/data_statistics: all
     admin/donate_statistics: all
@@ -101,11 +101,11 @@ project_operator:
     admin/pair_applies: ['index']
     admin/pair_students:
       except: ['show']
-    admin/pair_student_lists: ['index', 'show', 'edit']
+    admin/pair_student_lists: ['index', 'show', 'edit', 'update']
     admin/student_grants:
       except: ['match', 'close']
-    admin/pair_grant_batches: ['index', 'show', 'edit']
-    admin/pair_grants: ['edit', 'index', 'edit', 'edit_feedback']
+    admin/pair_grant_batches: ['index', 'show', 'edit', 'update']
+    admin/pair_grants: ['edit', 'index', 'update', 'edit_feedback']
     admin/pair_reports: all
     admin/pair_thank_notes: all
     admin/pair_continual_feedbacks: all
@@ -138,7 +138,7 @@ project_operator:
 financial_staff:
   actions:
     admin/mains: all
-    admin/users: ['index', 'new', 'edit', 'batch_manage']
+    admin/users: ['index', 'new', 'edit', 'batch_manage', 'create', 'update']
     admin/donate_records: all
     admin/account_records:
       except: ['destroy']
@@ -161,13 +161,13 @@ financial_staff:
 custom_service:
   actions:
     admin/mains: all
-    admin/users: ['index', 'new', 'edit', 'manager', 'batch_manage']
+    admin/users: ['index', 'new', 'edit', 'manager', 'batch_manage', 'switch', 'show', 'create', 'update']
     admin/donate_records: all
     admin/account_records:
       except: ['destroy']
     admin/campaigns: ['index', 'share']
     admin/campaign_enlists: ['index']
-    admin/pair_student_lists: ['index', 'show', 'share', 'edit']
+    admin/pair_student_lists: ['index', 'show', 'share', 'edit', 'update']
     admin/student_grants: ['index']
     admin/pair_donate_records: ['index', 'show']
     admin/pair_grant_batches: ['index', 'show']
@@ -180,7 +180,7 @@ custom_service:
 manpower_operator:
   actions:
     admin/mains: all
-    admin/users: ['index', 'new', 'edit', 'batch_manage']
+    admin/users: ['index', 'new', 'edit', 'batch_manage', 'create', 'update']
     admin/donate_records: all
     admin/account_records:
       except: ['destroy']
