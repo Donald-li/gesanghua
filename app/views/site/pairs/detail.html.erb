@@ -5,7 +5,7 @@
       <div class="detail-cont pull-left">
         <div>
           <p class="detail-con-t"><%= @child.donate_by_user?(current_user) ? @child.name : @child.secure_name %>
-            <span><%= @child.enum_name(:nation) %> | <%= @child.enum_name(:gender) %> | <%= @child.age %> <%= "| #{@child.child_birthday}" if @child.donate_by_user?(current_user) %></span>
+            <span><%= @child.enum_name(:nation) %> | <%= @child.enum_name(:gender) %> | <%= @child.age %> <%= "| #{@child.child_birthday}" %></span>
           </p>
           <p class="detail-con-serial"><%= @child.gsh_no %> |
             <span style="margin-left: 0;"><%= @child.school.try(:name) %>
