@@ -427,7 +427,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   # 是否被用户认捐？
   def donate_by_user?(user)
     return false unless user
-    self.priority_user == user || self.priority_user == user.manager || user.offline_users.unactived.pluck(:id).include?(self.priority_id) || donate_grants_by_user(user).exists?
+    self.priority_user == user || (self.priority_user.present? && self.priority_user == user.manager) || user.offline_users.unactived.pluck(:id).include?(self.priority_id) || donate_grants_by_user(user).exists?
   end
 
   # 用户捐助的学期
