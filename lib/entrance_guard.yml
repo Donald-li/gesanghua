@@ -106,7 +106,8 @@ project_operator:
     admin/student_grants:
       except: ['match', 'close']
     admin/pair_grant_batches: ['index', 'show', 'edit', 'update']
-    admin/pair_grants: ['edit', 'index', 'update', 'edit_feedback']
+    admin/pair_grants: ['edit', 'index', 'update', 'edit_feedback', 'accrue']
+    admin/management_fees: all
     admin/pair_reports: all
     admin/home_visits: all
     admin/pair_thank_notes: all
