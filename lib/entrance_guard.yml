@@ -54,6 +54,7 @@ project_manager:
     admin/pair_grant_batches: all
     admin/pair_grant_batch_items: all
     admin/pair_grants: all
+    admin/management_fees: all
     admin/pair_reports: all
     admin/pair_thank_notes: all
     admin/pair_continual_feedbacks: all
