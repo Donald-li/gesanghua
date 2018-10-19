@@ -8,6 +8,11 @@ superadmin:
     admin/article_categories: all
     admin/projects: all
     admin/donate_items: all
+    admin/donate_item_amount_tabs: all
+    admin/expenditure_records: all
+    admin/expenditure_ledgers: all
+    admin/expenditure_uploads: all
+    admin/modify_passwords: all
 project_manager:
   actions:
     admin/mains: all
@@ -21,6 +26,7 @@ project_manager:
     admin/school_teachers: all
     admin/school_project_applies: all
     admin/gsh_children: all
+    admin/apply_records: all
     admin/teachers: all
     admin/county_users: all
     admin/teams: ['index']
@@ -62,7 +68,12 @@ project_manager:
     admin/read_applies: all
     admin/read_projects: all
     admin/read_reports: all
+    admin/bookshelves: all
+    admin/bookshelf_donate_records: all
+    admin/supplements: all
+    admin/supplement_donate_records: all
     admin/read_continual_feedbacks: all
+    admin/read_exception_records: all
     admin/camps: all
     admin/camp_users: all
     admin/camp_applies: all
@@ -83,18 +94,26 @@ project_manager:
     admin/project_movie_seasons: all
     admin/movie_applies: all
     admin/movie_schools: all
+    admin/movie_exception_records: all
+    admin/movie_feedbacks: all
     admin/movie_continual_feedbacks: all
     admin/project_movie_care_seasons: all
     admin/movie_care_applies: all
     admin/movie_care_schools: all
     admin/movie_care_continual_feedbacks: all
+    admin/movie_care_exception_records: all
+    admin/movie_care_feedbacks: all
     admin/project_goods_seasons: all
     admin/goods_applies: all
     admin/goods_projects: all
+    admin/goods_donate_records: all
+    admin/goods_exception_records: all
     admin/goods_reports: all
+    admin/goods_installs: all
+    admin/goods_receives: all
     admin/goods_continual_feedbacks: all
     admin/donate_project_reports: all
-
+    admin/modify_passwords: all
 # 以下需要根据具体项目权限区分
 project_operator:
   actions:
@@ -113,8 +132,13 @@ project_operator:
     admin/pair_thank_notes: all
     admin/pair_continual_feedbacks: all
     admin/read_projects: all
+    admin/bookshelves: ['index']
+    admin/bookshelf_donate_records: all
+    admin/supplements: all
+    admin/supplement_donate_records: all
     admin/read_reports: all
     admin/read_continual_feedbacks: all
+    admin/read_exception_records: all
     admin/camp_projects: all
     admin/project_season_apply_camps: all
     admin/camp_donate_records: all
@@ -131,12 +155,20 @@ project_operator:
     admin/camp_project_reports: all
     admin/movie_schools: all
     admin/movie_continual_feedbacks: all
+    admin/movie_exception_records: all
+    admin/movie_feedbacks: all
     admin/movie_care_schools: all
+    admin/movie_care_exception_records: all
     admin/movie_care_continual_feedbacks: all
+    admin/movie_care_feedbacks: all
     admin/goods_projects: all
+    admin/goods_exception_records: all
+    admin/goods_donate_records: ['index', 'show']
     admin/goods_reports: all
+    admin/goods_installs: all
+    admin/goods_receives: all
     admin/goods_continual_feedbacks: all
-
+    admin/modify_passwords: all
 
 financial_staff:
   actions:
@@ -158,8 +190,11 @@ financial_staff:
     admin/vouchers: all
     admin/management_fee_months: all
     admin/fund_categories: all
+    admin/funds: all
+    admin/month_donates: all
+    admin/month_donate_records: all
     admin/income_sources: all
-
+    admin/modify_passwords: all
 
 custom_service:
   actions:
@@ -178,7 +213,7 @@ custom_service:
     admin/pair_grant_exceptions: all
     admin/income_records: ['index', 'show']
     admin/finance_statistics: ['index']
-
+    admin/modify_passwords: all
 
 manpower_operator:
   actions:
@@ -200,7 +235,7 @@ manpower_operator:
     admin/task_categories: all
     admin/workplaces: all
     admin/administrators: all
-
+    admin/modify_passwords: all
 
 platform_manager:
   actions:
@@ -209,6 +244,7 @@ platform_manager:
     admin/donate_records: ['index']
     admin/account_records: ['index']
     admin/gsh_children: ['index']
+    admin/apply_records: ['index']
     admin/teachers: ['index']
     admin/county_users: ['index']
     admin/teams: ['index']
@@ -223,8 +259,12 @@ platform_manager:
     admin/adverts: all
     admin/articles: all
     admin/specials: all
+    admin/special_adverts: all
+    admin/special_articles: all
     admin/protocols: all
+    admin/support_categories: all
     admin/supports: all
     admin/pages: all
     admin/partners: all
     admin/announcements: all
+    admin/modify_passwords: all

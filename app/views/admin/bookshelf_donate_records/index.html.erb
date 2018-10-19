@@ -106,11 +106,6 @@
                 <%= link_to admin_read_project_bookshelf_donate_record_path(read_project_id: @apply.id, bookshelf_id: @bookshelf.id, id: record.id), class: 'btn btn-xs blue' do %>
                   <i class="fa fa-file"></i> 查看详情
                 <% end %>
-                <% if false # record.platform_donate? %>
-                <%= link_to admin_read_project_bookshelf_donate_record_path(read_project_id: @apply.id, bookshelf_id: @bookshelf.id, id: record.id), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} do %>
-                  <i class="fa fa-trash-o"></i> 删除
-                <% end %>
-                <% end %>
               </td>
             </tr>
             <% end %>

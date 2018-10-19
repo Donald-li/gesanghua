@@ -57,6 +57,9 @@ class Admin::ExpenditureRecordsController < Admin::BaseController
     send_file(path, filename: "支出导入模板.xlsx")
   end
 
+  def excel_upload
+  end
+
   def excel_import
     respond_to do |format|
       if notice =  ExpenditureRecord.read_excel(params[:expenditure_record_excel_id])
