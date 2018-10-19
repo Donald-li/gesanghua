@@ -12,7 +12,7 @@ project_manager:
   actions:
     admin/mains: all
     admin/users:
-      except: ['destroy', 'combine']
+      except: ['destroy', 'combine', 'set_combine']
     admin/donate_records: all
     admin/account_records:
       except: ['destroy']
@@ -141,11 +141,11 @@ project_operator:
 financial_staff:
   actions:
     admin/mains: all
-    admin/users: ['index', 'new', 'edit', 'batch_manage', 'create', 'update']
+    admin/users: ['index', 'new', 'edit', 'batch_manage', 'send_message', 'create', 'update']
     admin/donate_records: all
     admin/account_records:
       except: ['destroy']
-    admin/pair_student_lists: ['index', 'batch_manage']
+    admin/pair_student_lists: ['index', 'batch_manage', 'grade_add_one', 'grade_minus_one', 'push_notice']
     admin/data_statistics: all
     admin/donate_statistics: all
     admin/pair_grant_exceptions: all
@@ -164,7 +164,7 @@ financial_staff:
 custom_service:
   actions:
     admin/mains: all
-    admin/users: ['index', 'new', 'edit', 'manager', 'batch_manage', 'switch', 'show', 'create', 'update']
+    admin/users: ['index', 'new', 'edit', 'manager', 'set_manager', 'batch_manage', 'send_message', 'switch', 'show', 'create', 'update']
     admin/donate_records: all
     admin/account_records:
       except: ['destroy']
@@ -183,7 +183,7 @@ custom_service:
 manpower_operator:
   actions:
     admin/mains: all
-    admin/users: ['index', 'new', 'edit', 'batch_manage', 'create', 'update']
+    admin/users: ['index', 'new', 'edit', 'batch_manage', 'send_message', 'create', 'update']
     admin/donate_records: all
     admin/account_records:
       except: ['destroy']
