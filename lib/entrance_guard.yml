@@ -12,7 +12,7 @@ superadmin:
     admin/expenditure_records: all
     admin/expenditure_ledgers: all
     admin/expenditure_uploads: all
-    admin/modify_passwords: all
+    admin/modify_password: all
 project_manager:
   actions:
     admin/mains: all
@@ -113,7 +113,7 @@ project_manager:
     admin/goods_receives: all
     admin/goods_continual_feedbacks: all
     admin/donate_project_reports: all
-    admin/modify_passwords: all
+    admin/modify_password: all
 # 以下需要根据具体项目权限区分
 project_operator:
   actions:
@@ -168,7 +168,7 @@ project_operator:
     admin/goods_installs: all
     admin/goods_receives: all
     admin/goods_continual_feedbacks: all
-    admin/modify_passwords: all
+    admin/modify_password: all
 
 financial_staff:
   actions:
@@ -194,7 +194,7 @@ financial_staff:
     admin/month_donates: all
     admin/month_donate_records: all
     admin/income_sources: all
-    admin/modify_passwords: all
+    admin/modify_password: all
 
 custom_service:
   actions:
@@ -213,7 +213,7 @@ custom_service:
     admin/pair_grant_exceptions: all
     admin/income_records: ['index', 'show']
     admin/finance_statistics: ['index']
-    admin/modify_passwords: all
+    admin/modify_password: all
 
 manpower_operator:
   actions:
@@ -235,7 +235,7 @@ manpower_operator:
     admin/task_categories: all
     admin/workplaces: all
     admin/administrators: all
-    admin/modify_passwords: all
+    admin/modify_password: all
 
 platform_manager:
   actions:
@@ -267,4 +267,4 @@ platform_manager:
     admin/pages: all
     admin/partners: all
     admin/announcements: all
-    admin/modify_passwords: all
+    admin/modify_password: all
