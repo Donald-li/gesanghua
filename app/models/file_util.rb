@@ -31,21 +31,28 @@ class FileUtil
 
       fund = fund_title.present? ? FundCategory.find_by(name: fund_title.split('-').first).funds.find_by(name: fund_title.split('-').second) : nil
       income_source = IncomeSource.find_by(name: income_source_name) || nil
+      agent = nil
       if donor_phone.present?
         donor = User.find_by(phone: donor_phone)
         unless donor.present?
           donor = User.create(name: donor_name, phone: donor_phone)
         end
-      else
-        messages.push("第#{line}行，手机号码必填")
+      end
+
+      if agent_phone.present?
+        agent = User.find_by(phone: agent_phone)
+        unless agent.present?
+          agent = User.create(name: agent_name, phone: agent_phone)
+        end
+      end
+
+      if (agent_name.present? && agent_phone.blank?) || donor_phone.blank?
+        messages.push("第#{line}行，#{'捐助人手机号码为空' if donor_phone.blank?}#{'，代捐人手机号码为空' if agent_name.present? && agent_phone.blank?}")
         fail_count += 1
         state = false
       end
 
-
-      agent = User.find_by(phone: agent_phone) if agent_phone.present?
-
-      if fund.present?
+      if fund.present? && donor.present?
         income_time = income_time.class.to_s == 'DateTime' || income_time.class.to_s == 'Date' ? income_time : Time.parse(income_time)
         IncomeRecord.create(kind: 'offline', title: title, fund: fund, income_time: income_time, amount: amount, income_source: income_source, agent: agent, donor: donor, remark: remark)
         success += 1
