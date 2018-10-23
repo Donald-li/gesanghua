@@ -72,9 +72,11 @@ class Admin::IncomeRecordsController < Admin::BaseController
 
   def excel_import
     respond_to do |format|
-      if IncomeRecord.read_excel(params[:income_record_excel_id])
+      state, messages, fail_count, success = IncomeRecord.read_excel(params[:income_record_excel_id])
+      if state
         format.html {redirect_to referer_or(admin_income_records_path), notice: '操作成功'}
       else
+        flash.now[:notice] = "导入成功#{success}条;导入失败#{fail_count}条，#{messages.join(',')}，请手动录入"
         format.html {render :excel_upload}
       end
     end

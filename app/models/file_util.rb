@@ -11,6 +11,11 @@ class FileUtil
       return {status: false, message: "格式不支持"}
     end
 
+    state = true
+    messages = []
+    fail_count = 0
+    success = 0
+
     2.upto(s.last_row) do |line|
 
       title = s.formatted_value(line, 'A')
@@ -18,7 +23,7 @@ class FileUtil
       income_time = s.cell(line, 'C')
       amount = s.formatted_value(line, 'D')
       income_source_name = s.formatted_value(line, 'E')
-      donor = s.formatted_value(line, 'F')
+      donor_name = s.formatted_value(line, 'F')
       donor_phone = s.formatted_value(line, 'G')
       agent_name = s.formatted_value(line, 'H')
       agent_phone = s.formatted_value(line, 'I')
@@ -26,16 +31,28 @@ class FileUtil
 
       fund = fund_title.present? ? FundCategory.find_by(name: fund_title.split('-').first).funds.find_by(name: fund_title.split('-').second) : nil
       income_source = IncomeSource.find_by(name: income_source_name) || nil
+      if donor_phone.present?
+        donor = User.find_by(phone: donor_phone)
+        unless donor.present?
+          donor = User.create(name: donor_name, phone: donor_phone)
+        end
+      else
+        messages.push("第#{line}行，手机号码必填")
+        fail_count += 1
+        state = false
+      end
 
-      donor = User.find_by(phone: donor_phone)
-      agent = User.find_by(phone: agent_phone)
+
+      agent = User.find_by(phone: agent_phone) if agent_phone.present?
 
       if fund.present?
         income_time = income_time.class.to_s == 'DateTime' || income_time.class.to_s == 'Date' ? income_time : Time.parse(income_time)
         IncomeRecord.create(kind: 'offline', title: title, fund: fund, income_time: income_time, amount: amount, income_source: income_source, agent: agent, donor: donor, remark: remark)
+        success += 1
       end
 
     end
+    return state, messages, fail_count, success
   end
 
   def self.import_expenditure_records(original_filename: nil, path: nil)
