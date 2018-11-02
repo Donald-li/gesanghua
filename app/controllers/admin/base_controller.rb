@@ -32,6 +32,7 @@ class Admin::BaseController < ManagementBaseController
     can_entrance = (@current_entrance_cards[request.path_parameters[:controller]][request.path_parameters[:action]].compact.uniq & current_user.roles).present?
     can_project = session[:goods_project_id].present? ? current_user.project_ids.include?(session[:goods_project_id]) : true
     logger.info "#{can_entrance}==#{can_project}"
+    logger.info session[:goods_project_id]
     unless can_entrance && can_project
       redirect_to admin_main_path, alert: '您没有权限'
     end
