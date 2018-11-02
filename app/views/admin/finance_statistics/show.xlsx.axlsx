@@ -1,9 +1,10 @@
 wb = xlsx_package.workbook
 wb.add_worksheet(name: "收支明细表") do |sheet|
-  sheet.add_row ["单号", "名称", "财务分类", "账户", "收入金额", "支出金额", "捐助人/经办人", "时间", "备注"]
-  @finance_records.each do |record|
+  sheet.add_row ["序号", "单号", "名称", "财务分类", "账户", "收入金额", "支出金额", "捐助人/经办人", "时间", "备注"]
+  @finance_records.each_with_index do |record, index|
     fund = Fund.find_by(id: record['fund_id'])
     sheet.add_row [
+    index+1,
       record['finance_no'] + ' ',
       record['title'],
       "#{fund.try(:fund_category).try(:name)} - #{fund.try(:name)}",

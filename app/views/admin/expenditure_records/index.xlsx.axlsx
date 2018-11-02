@@ -1,8 +1,9 @@
 wb = xlsx_package.workbook
 wb.add_worksheet(name: "支出记录列表") do |sheet|
-  sheet.add_row ["支出单号", "支出名称", "支出时间", "支出金额", "财务分类", "出账账户", "备注", "经办人"]
-  @expenditure_records.each do |g|
+  sheet.add_row ["序号", "支出单号", "支出名称", "支出时间", "支出金额", "财务分类", "出账账户", "备注", "经办人"]
+  @expenditure_records.each_with_index do |g, index|
     sheet.add_row [
+    index +1,
       g.id,
       g.name,
       (g.expended_at.strftime("%Y-%m-%d %H:%M") if g.expended_at),

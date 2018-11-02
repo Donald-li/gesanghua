@@ -1,10 +1,11 @@
 wb = xlsx_package.workbook
 wb.add_worksheet(name: "结对助学捐助列表") do |sheet|
-  sheet.add_row ["姓名", "年龄", "发放日期", "学校", "发放金额", "筹款状态", "发放状态", "捐助人", "捐助人手机号", "捐助人邮箱"]
-  @grants.each do |g|
+  sheet.add_row ["序号", "姓名", "年龄", "发放日期", "学校", "发放金额", "筹款状态", "发放状态", "捐助人", "捐助人手机号", "捐助人邮箱"]
+  @grants.each_with_index do |g, index|
     child = g.apply_child
     school = g.school
     sheet.add_row [
+    index+1,
       child.try(:name),
       child.try(:age),
       (g.granted_at.strftime("%Y-%m-%d %H:%M") if g.granted_at),

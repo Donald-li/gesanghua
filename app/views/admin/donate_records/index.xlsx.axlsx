@@ -1,8 +1,9 @@
 wb = xlsx_package.workbook
 wb.add_worksheet(name: "收入记录") do |sheet|
-  sheet.add_row ["标题", "项目", "财务分类", "捐助时间", "捐助金额", "捐助人", "手机号码", "代捐人"]
-  @donate_records.each do |record|
+  sheet.add_row ["序号", "标题", "项目", "财务分类", "捐助时间", "捐助金额", "捐助人", "手机号码", "代捐人"]
+  @donate_records.each_with_index do |record, index|
     sheet.add_row [
+    index+ 1,
       record.excel_apply_name,
       record.project_name,
       record.fund_name,

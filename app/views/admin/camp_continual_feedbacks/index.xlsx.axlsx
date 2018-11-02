@@ -1,9 +1,10 @@
 wb = xlsx_package.workbook
 wb.add_worksheet(name: "收入记录") do |sheet|
 if Project.camp_project.simple?
-sheet.add_row ["反馈学校", "反馈人", "反馈时间", "反馈内容", "反馈图片"]
-@continual_feedbacks.each do |feedback|
+sheet.add_row ["序号", "反馈学校", "反馈人", "反馈时间", "反馈内容", "反馈图片"]
+@continual_feedbacks.each_with_index do |feedback, index|
 sheet.add_row [
+index +1,
   feedback.school.try(:name),
   feedback.user.try(:name),
   feedback.created_at.strftime("%Y-%m-%d %H:%M:%S"),

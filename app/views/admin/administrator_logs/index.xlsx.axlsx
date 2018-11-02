@@ -1,8 +1,9 @@
 wb = xlsx_package.workbook
 wb.add_worksheet(name: "登录记录") do |sheet|
-  sheet.add_row ["管理员昵称", "IP", "登录时间"]
-  @administrator_logs.each do |log|
+  sheet.add_row ["序号", "管理员昵称", "IP", "登录时间"]
+  @administrator_logs.each_with_index do |log, index|
     sheet.add_row [
+        index + 1,
       log.administrator.nickname,
       log.ip,
       (l log.created_at)]
