@@ -169,13 +169,14 @@ class FileUtil
       debt_information = s.formatted_value(line, 'Y')
       family_condition = s.formatted_value(line, 'Z')
       reason = s.formatted_value(line, 'AA')
+      information = s.formatted_value(line, 'AB')
 
       _nation = nation.split('-').second.to_i
       _level = level.split('-').second.to_i
       _grade = grade.split('-').second.to_i
       _semester = semester.split('-').second.to_i
 
-      child = ProjectSeasonApplyChild.new(project: Project.pair_project, season: project_apply.season, apply: project_apply, school: project_apply.school, name: name, id_card: id_card, nation: _nation, level: _level, grade: _grade, semester: _semester, teacher_name: teacher_name, teacher_phone: teacher_phone, description: description, father: father, father_job: father_job, mother: mother, mother_job: mother_job, parent_information: parent_information, guardian: guardian, guardian_relation: guardian_relation, guardian_phone: guardian_phone, address: address, family_income: family_income, income_source: income_source, family_expenditure: family_expenditure, expenditure_information: expenditure_information, debt_information: debt_information, family_condition: family_condition, reason: reason, province: project_apply.province, city: project_apply.city, district: project_apply.district, classname: classname)
+      child = ProjectSeasonApplyChild.new(project: Project.pair_project, season: project_apply.season, apply: project_apply, school: project_apply.school, name: name, id_card: id_card, nation: _nation, level: _level, grade: _grade, semester: _semester, teacher_name: teacher_name, teacher_phone: teacher_phone, description: description, father: father, father_job: father_job, mother: mother, mother_job: mother_job, parent_information: parent_information, guardian: guardian, guardian_relation: guardian_relation, guardian_phone: guardian_phone, address: address, family_income: family_income, income_source: income_source, family_expenditure: family_expenditure, expenditure_information: expenditure_information, debt_information: debt_information, family_condition: family_condition, reason: reason, province: project_apply.province, city: project_apply.city, district: project_apply.district, classname: classname, information: information)
       if ProjectSeasonApplyChild.allow_apply?(project_apply.school, child.id_card)
         if child.approve_pass
           child_ids.push(child.id)
