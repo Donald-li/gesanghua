@@ -31,7 +31,7 @@ class Campaign < ApplicationRecord
 
   belongs_to :project, optional: true
   belongs_to :campaign_category
-  has_many :campaign_enlists, dependent: :destroy
+  has_many :campaign_enlists, dependent: :restrict_with_error
   has_many :users, through: :campaign_enlists
 
   belongs_to :appoint_fund, class_name: 'Fund', optional: true # 定项指定

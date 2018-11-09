@@ -114,7 +114,7 @@ class DonateRecord < ApplicationRecord
     elsif self.owner_type == 'GshChildGrant'
       "#{Settings.root_url}pairs/#{self.owner.try(:apply_child).try(:id)}/detail"
     elsif self.owner_type == 'CampaignEnlist'
-      "#{Settings.root_url}campaigns/#{self.owner.campaign_id}"
+      "#{Settings.root_url}campaigns/#{self.owner.try(:campaign_id)}"
     end
   end
 
