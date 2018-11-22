@@ -234,20 +234,6 @@ ActiveRecord::Schema.define(version: 20181009090432) do
     t.integer "camp_id", comment: "探索营id"
   end
 
-  create_table "camp_volunteers", force: :cascade, comment: "探索营志愿者" do |t|
-    t.string "volunteer_no", comment: "志愿者编号"
-    t.string "name", comment: "姓名"
-    t.integer "gender", comment: "性别"
-    t.string "id_card", comment: "身份证号"
-    t.string "phone", comment: "手机号"
-    t.text "content", comment: "工作内容"
-    t.string "remark", comment: "备注"
-    t.integer "camp_id", comment: "所属探索营"
-    t.integer "project_season_apply_id", comment: "营立项"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "campaign_categories", force: :cascade, comment: "活动分类表" do |t|
     t.string "name", comment: "名称"
     t.datetime "created_at", null: false
@@ -436,7 +422,7 @@ ActiveRecord::Schema.define(version: 20181009090432) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "expenditure_ledgers", force: :cascade, comment: "支出分类" do |t|
+  create_table "expenditure_ledgers", force: :cascade, comment: "财务分类" do |t|
     t.string "name", comment: "名称"
     t.integer "position", comment: "排序"
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "合计支出金额"
@@ -678,7 +664,7 @@ ActiveRecord::Schema.define(version: 20181009090432) do
     t.integer "owner_id", comment: "所属项目ID"
     t.decimal "total_amount", precision: 14, scale: 2, default: "0.0", comment: "项目金额"
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", comment: "提取管理费金额"
-    t.integer "fund_id", comment: "收入分类"
+    t.integer "fund_id", comment: "财务分类"
     t.float "rate", comment: "费率"
     t.decimal "fee", precision: 14, scale: 2, default: "0.0", comment: "管理费金额"
     t.integer "user_id", comment: "用户"
@@ -986,7 +972,6 @@ ActiveRecord::Schema.define(version: 20181009090432) do
     t.integer "state", comment: "状态"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "project_season_apply_child_id"
   end
 
   create_table "project_season_apply_periods", force: :cascade, comment: "项目申请时长" do |t|

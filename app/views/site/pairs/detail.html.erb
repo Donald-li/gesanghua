@@ -67,9 +67,10 @@
               <p>家庭住址：<%= @child.address %></p>
           <% end %>
         </div>
-        <div class="detail-l-fon"><%= @child.formatted_information.html_safe %></div>
         <div class="detail-l-fon">
           <p class="detail-l-f-s-l">详细情况：</p>
+          <div><%= @child.formatted_information.html_safe %></div>
+          <p class="detail-l-f-s-l">相关照片：</p>
           <%= image_tag @child.room_image_url(:medium) if @child.room_image %>
           <%= image_tag @child.yard_image_url(:medium) if @child.yard_image %>
         </div>
