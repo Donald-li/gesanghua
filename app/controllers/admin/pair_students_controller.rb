@@ -88,9 +88,13 @@ class Admin::PairStudentsController < Admin::BaseController
   end
 
   def destroy
-    @apply_child.destroy
+
     respond_to do |format|
+      if @apply_child.destroy
       format.html {redirect_to referer_or(admin_pair_apply_pair_students_path(@project_apply)), notice: '删除成功。'}
+      else
+        format.html {redirect_to referer_or(admin_pair_apply_pair_students_path(@project_apply)), alert: '删除失败。'}
+      end
     end
   end
 
