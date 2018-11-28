@@ -113,7 +113,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   validates :id_card, shenfenzheng_no: true, if: ->(c) {c.archive_data.blank?}
   validates :id_card, :name, presence: true, if: ->(c) {c.archive_data.blank?}
   validates :province, :city, :district, presence: true, if: ->(c) {c.archive_data.blank?}
-  validates :reason, length: {maximum: 20}
+  validates :reason, length: {maximum: 200}
 
   enum state: {show: 1, hidden: 2} # 状态：1:展示 2:隐藏
   default_value_for :state, 2
@@ -146,7 +146,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   scope :sorted, -> {order(created_at: :desc)}
   scope :reverse_sorted, -> {order(created_at: :asc)}
-  scope :can_batch_update, -> { pass.where(student_state: ['normal'])}
+  scope :can_batch_update, -> {pass.where(student_state: ['normal'])}
   scope :check_list, -> {where(approve_state: [1, 2, 3])}
 
   def self.allow_apply?(school, id_card, child=nil)
@@ -330,9 +330,11 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   # 通过审核
   def approve_pass
-    self.approve_state = 'pass'
-    self.save
-    self.gen_grant_record
+    if self.approve_state = 'pass' && self.save && self.gen_grant_record
+      return true
+    else
+      return false
+    end
   end
 
   def formatted_information
