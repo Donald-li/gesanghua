@@ -113,7 +113,6 @@ class ProjectSeasonApplyChild < ApplicationRecord
   validates :id_card, shenfenzheng_no: true, if: ->(c) {c.archive_data.blank?}
   validates :id_card, :name, presence: true, if: ->(c) {c.archive_data.blank?}
   validates :province, :city, :district, presence: true, if: ->(c) {c.archive_data.blank?}
-  validates :reason, length: {maximum: 200}
 
   enum state: {show: 1, hidden: 2} # 状态：1:展示 2:隐藏
   default_value_for :state, 2
