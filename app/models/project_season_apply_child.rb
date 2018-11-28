@@ -329,7 +329,8 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   # 通过审核
   def approve_pass
-    if self.approve_state = 'pass' && self.save && self.gen_grant_record
+    self.approve_state = 'pass'
+    if self.save && self.gen_grant_record
       return true
     else
       return false
