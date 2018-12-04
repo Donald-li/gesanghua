@@ -14,7 +14,7 @@ wb.add_worksheet(name: "管理费") do |sheet|
                       "#{fee.rate.to_i}%",
                       format_money(fee.fee),
                       l(fee.created_at)
-                  ]
+                  ], types: [:string] * 8
   end
 
   sheet.column_widths 10, 10, 30, 20, 20, 10, 15, 20

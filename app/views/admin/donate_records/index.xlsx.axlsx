@@ -11,7 +11,7 @@ wb.add_worksheet(name: "收入记录") do |sheet|
       record.amount,
       record.donor.try(:admin_show_name),
       record.donor.try(:phone),
-      record.agent_name]
+      record.agent_name], types: [:string] * 9
     end
     sheet.column_widths 40,10,20,30,10,20,20,20
   end

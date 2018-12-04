@@ -6,7 +6,7 @@ wb.add_worksheet(name: "登录记录") do |sheet|
         index + 1,
       log.administrator.nickname,
       log.ip,
-      (l log.created_at)]
+      (l log.created_at)], types: [:string] * 4
     end
     sheet.column_widths 10,30,30
   end

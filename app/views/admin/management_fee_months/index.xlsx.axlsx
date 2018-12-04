@@ -11,7 +11,7 @@ wb.add_worksheet(name: "管理费") do |sheet|
                       month.count,
                       format_money(month.fee),
                       month.enum_name(:state)
-                  ]
+                  ], types: [:string] * 5
   end
 
   sheet.column_widths 10, 20, 10, 20, 10

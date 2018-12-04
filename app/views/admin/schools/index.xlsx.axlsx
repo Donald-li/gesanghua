@@ -8,6 +8,6 @@ sheet.add_row ["序号", "学校名称", "申请时间", "所在地区", "负责
                  school.created_at.strftime("%Y-%m-%d %H:%M"),
                  school.full_address,
                  school.contact_name,
-                 school.contact_phone]
+                 school.contact_phone], types: [:string] * 6
 end
 end

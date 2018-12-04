@@ -17,12 +17,12 @@ wb.add_worksheet(name: "学生名单") do |sheet|
                       child.gift_progress,
                       child.remark,
                       child.priority_user.present? ? "#{child.priority_user.try(:name)}(#{child.priority_user.try(:nickname)})" : '',
-                      donor.try(:phone).to_s + ' ',
+                      donor.try(:phone).to_s,
                       donor.try(:email),
                       donor.try(:full_address),
                       donor.try(:manager).try(:name),
                       donor.try(:manager).try(:phone),
-                      child.share_path]
+                      child.share_path], types: [:string] * 15
   end
 
   sheet.column_widths 10, 20, 10, 10, 10, 150, 10, 10, 10, 10, 10, 30, 20, 20

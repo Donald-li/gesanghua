@@ -15,7 +15,7 @@ wb.add_worksheet(name: "结对配额列表") do |sheet|
                       apply.school.try(:contact_name),
                       apply.school.try(:contact_phone),
                       apply.enum_name(:pair_state)
-                      ]
+                      ], types: [:string] * 9
   end
 
 

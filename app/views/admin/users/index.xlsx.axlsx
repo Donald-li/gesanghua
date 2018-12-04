@@ -17,7 +17,7 @@ wb.add_worksheet(name: "用户名单") do |sheet|
                       user.manager.try(:name),
                       user.manager.try(:phone),
                       ("#{user.archive_data["DvUserName"]} - #{user.archive_data["Name"]}" unless user.archive_data.blank?),
-                      (user.archive_data["Email"] unless user.archive_data.blank?)]
+                      (user.archive_data["Email"] unless user.archive_data.blank?)], types: [:string] * 12
   end
 
   sheet.column_widths 10, 20, 10, 10, 20, 10, 10, 30, 30, 20

@@ -9,19 +9,19 @@ wb.add_worksheet(name: "用户名单") do |sheet|
                       index + 1,
                       volunteer.volunteer_no,
                       volunteer.name,
-                      volunteer.phone,
+                      volunteer.phone.to_s,
                       volunteer.simple_address,
                       volunteer.duration,
-                      (l volunteer.approve_time).to_s + ' ',
+                      (l volunteer.approve_time),
                       volunteer.volunteer_age,
                       volunteer.enum_name(:internship_state),
                       volunteer.enum_name(:job_state),
                       volunteer.majors.pluck(:name).join(','),
                       volunteer.describe,
                       volunteer.workstation,
-                      volunteer.id_card.to_s + ' ',
+                      volunteer.id_card.to_s,
                       volunteer.source,
-                      volunteer.experience]
+                      volunteer.experience], types: [:string] * 19
   end
 
   sheet.column_widths 10, 20, 10, 10, 30, 10, 10, 10, 10, 10, 30
