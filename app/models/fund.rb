@@ -51,7 +51,7 @@ class Fund < ApplicationRecord
   end
 
   def name_for_select
-    "#{self.fund_category.try(:name)} - #{self.name}"
+    "#{self.name}" # #{self.fund_category.try(:name)} -
   end
 
   # 跨分类调整
