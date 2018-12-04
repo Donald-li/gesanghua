@@ -19,7 +19,7 @@ wb.add_worksheet(name: "用户名单") do |sheet|
                       volunteer.majors.pluck(:name).join(','),
                       volunteer.describe,
                       volunteer.workstation,
-                      volunteer.id_card + ' ',
+                      volunteer.id_card.to_s + ' ',
                       volunteer.source,
                       volunteer.experience]
   end

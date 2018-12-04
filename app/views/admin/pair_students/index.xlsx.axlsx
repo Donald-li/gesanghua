@@ -11,7 +11,7 @@ wb.add_worksheet(name: "#{@project_apply.school.try(:name)}结对学生") do |sh
                       child.name,
                       child.age,
                       child.enum_name(:gender),
-                      child.id_card + ' ',
+                      child.id_card.to_s + ' ',
                       child.enum_name(:nation),
                       child.enum_name(:level),
                       child.enum_name(:grade),

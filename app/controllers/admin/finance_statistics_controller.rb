@@ -26,8 +26,7 @@ class Admin::FinanceStatisticsController < Admin::BaseController
     @expend_count = expend_records.sum(:amount)
     @balance_count = @income_count - @expend_count
 
-
-    @finance_records = ApplicationRecord.connection.execute("select * from (#{expend_records.to_sql} UNION #{income_records.to_sql}) as finance_records order by finance_records.finance_time")
+    @finance_records = ApplicationRecord.connection.execute("select * from (#{expend_records.to_sql} UNION #{income_records.to_sql}) as finance_records order by finance_records.finance_time desc")
     @finance_records = @finance_records.to_a
 
     @funds = Fund.all.sorted
