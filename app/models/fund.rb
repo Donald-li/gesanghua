@@ -50,6 +50,10 @@ class Fund < ApplicationRecord
     self.find 1
   end
 
+  def name_for_select
+    "#{self.fund_category.try(:name)} - #{self.name}"
+  end
+
   # 跨分类调整
   def self.platform_adjust(from_fund, to_fund, amount, user)
     amount = amount.to_f

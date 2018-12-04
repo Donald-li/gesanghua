@@ -139,4 +139,16 @@ class Support::SelectsController < Support::BaseController
   #   render json: {items: records.as_json(only: [:id, :name])}
   # end
 
+  def funds
+    fund_category = FundCategory.find_by(id: params[:fund_category_id])
+    if fund_category.present?
+      scope = fund_category.funds.sorted.where("name like :q", q: "%#{params[:q]}%")
+      funds = scope.page(params[:page])
+      render json: {items: funds.as_json(only: [:id], methods: :name_for_select), pagination: json_pagination(funds)}
+    else
+      funds = Fund.where(id: nil).page(params[:page])
+      render json: {items: funds.as_json(only: [:id], methods: :name_for_select), pagination: json_pagination(funds)}
+    end
+  end
+
 end

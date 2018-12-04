@@ -37,16 +37,15 @@
             </div>
             <div class="form-group">
               <label class="gsh-input-share-l  gsh-input-share-r">财务二级分类</label>
-              <select placeholder="" class="form-control gsh-input-share" id="fund2_selector" name="fund_id">
-                <option value="">请选择财务分类</option>
-                <% FundCategory.sorted.each do |fc| %>
-                    <optgroup label="<%= fc.name %>">
-                      <% fc.funds.sorted.each do |fund| %>
-                          <option value="<%= fund.id %>" <%= 'selected' if params[:fund_id] == fund.id.to_s %>><%= fc.name %> - <%= fund.name %></option>
-                      <% end %>
-                    </optgroup>
-                <% end %>
-              </select>
+              <select placeholder="" class="form-control gsh-input-share" id="fund2_selector" name="fund_id"></select>
+              <!--<option value="">请选择财务分类</option>-->
+              <!--<%# FundCategory.sorted.each do |fc| %>-->
+                  <!--<optgroup label="<%#= fc.name %>">-->
+                    <!--<%# fc.funds.sorted.each do |fund| %>-->
+                        <!--<option value="<%#= fund.id %>" <%#= 'selected' if params[:fund_id] == fund.id.to_s %>><%#= fc.name %> - <%#= fund.name %></option>-->
+                    <!--<%# end %>-->
+                  <!--</optgroup>-->
+              <!--<%# end %>-->
             </div>
             <div class="form-group">
               <label class="gsh-input-share-l  gsh-input-share-r">账户</label>
@@ -163,6 +162,38 @@
 
 <script type="text/javascript" charset="utf-8">
 $('#fund1_selector').select2()
-$('#fund2_selector').select2()
+$('#fund2_selector').select2({
+    language: "zh-CN",
+    placeholder: '请选择二级分类',
+    allowClear: true,
+    width: '200px',
+    ajax: {
+        url: "/selects/funds",
+        dataType: 'json',
+        delay: 250,
+        data: function (params) {
+            return {
+                q: params.term, // search term
+                page: params.page,
+                fund_category_id: $('#fund1_selector').val()
+            };
+        },
+        processResults: function (data, params) {
+            params.page = params.page || 1;
+            return {
+                results: $.map(data.items, function (item) {
+                    return {
+                        text: item.name_for_select,
+                        id: item.id
+                    }
+                }),
+                pagination: {
+                    more: params.page < data.pagination.total_pages
+                }
+            };
+        },
+        cache: true
+    }
+})
 $('#fund3_selector').select2()
 </script>

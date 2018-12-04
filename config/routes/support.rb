@@ -27,6 +27,7 @@ scope module: :support do
       get :volunteer_user
       get :all_users
       get :wechat_users
+      get :funds
     end
   end
   resources :ajaxes, only: [] do
