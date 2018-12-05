@@ -21,7 +21,11 @@ wb.add_worksheet(name: "用户名单") do |sheet|
                       volunteer.workstation,
                       volunteer.id_card.to_s,
                       volunteer.source,
-                      volunteer.experience], types: [:string] * 19
+                      volunteer.experience,
+                      volunteer.wechat,
+                      volunteer.qq,
+                      volunteer.email
+                      ], types: [:string] * 19
   end
 
   sheet.column_widths 10, 20, 10, 10, 30, 10, 10, 10, 10, 10, 30
