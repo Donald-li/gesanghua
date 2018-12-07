@@ -29,7 +29,11 @@ class Admin::BaseController < ManagementBaseController
   def can_entrance
     return unless current_user.present?
     @current_entrance_cards ||= EntranceGuard.entrance_cards
-    can_entrance = (@current_entrance_cards[request.path_parameters[:controller]][request.path_parameters[:action]].compact.uniq & current_user.roles).present?
+    entrance_cards = @current_entrance_cards[request.path_parameters[:controller]][request.path_parameters[:action]]
+    unless entrance_cards.present?
+      redirect_to admin_main_path, alert: '您没有权限'
+    end
+    can_entrance = (entrance_cards.compact.uniq & current_user.roles).present?
     # can_project = session[:goods_project_id].present? ? current_user.project_ids.include?(session[:goods_project_id]) : true
     # logger.info "#{can_entrance}==#{can_project}"
     # logger.info session[:goods_project_id]

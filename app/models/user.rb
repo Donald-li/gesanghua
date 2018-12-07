@@ -94,7 +94,7 @@ class User < ApplicationRecord
 
   has_many :notifications
   has_many :offline_users, class_name: "User", foreign_key: "manager_id"
-  has_many :administrator_logs, dependent: :destroy
+  has_many :administrator_logs, dependent: :destroy, foreign_key: 'administrator_id'
   has_many :exception_records, dependent: :nullify
 
   belongs_to :manager, class_name: "User", optional: true
