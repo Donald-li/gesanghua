@@ -178,11 +178,15 @@
                     <i class="fa fa-edit"></i> 修改
                   <% end %>
                 <% end %>
+                <% if can_current_entrance('admin/donate_records', 'index', current_user.roles) %>
                 <%= link_to admin_user_donate_records_path(user), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
                   <i class="fa fa-file-text-o"></i> 捐助记录
                 <% end %>
+                <% end %>
+                <% if can_current_entrance('admin/account_records', 'index', current_user.roles) %>
                 <%= link_to admin_user_account_records_path(user), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                     <i class="fa fa-file-list"></i> 账户记录
+                <% end %>
                 <% end %>
                 <% if can_current_entrance('admin/users', 'batch_manage', current_user.roles) %>
                   <%= link_to batch_manage_admin_users_path(user_id: user.id), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
