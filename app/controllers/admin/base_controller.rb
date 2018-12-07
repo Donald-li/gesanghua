@@ -49,6 +49,8 @@ class Admin::BaseController < ManagementBaseController
   end
 
   def render_error(exception = nil)
+    logger.info exception.try(:inspect)
+
     unless Rails.env == 'development'
     case exception
       when ActiveRecord::RecordNotFound, ActionController::RoutingError
@@ -59,8 +61,6 @@ class Admin::BaseController < ManagementBaseController
     else
       raise exception
     end
-    logger.info exception.try(:inspect)
-
   end
 
   def referer_or(url)
