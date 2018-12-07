@@ -96,6 +96,10 @@ class DonateRecord < ApplicationRecord
     end
   end
 
+  def excel_apply_name
+    "#{self.try(:child).try(:school).try(:name)} - #{self.apply_name}"
+  end
+
   # 代捐人名称
   def agent_name
     return '无' if self.agent.blank?
