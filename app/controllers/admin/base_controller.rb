@@ -56,7 +56,7 @@ class Admin::BaseController < ManagementBaseController
 
   def render_error(exception = nil)
     logger.info exception.try(:inspect)
-
+    raise exception
     unless Rails.env == 'development'
     case exception
       when ActiveRecord::RecordNotFound, ActionController::RoutingError
