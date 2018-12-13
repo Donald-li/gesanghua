@@ -27,6 +27,7 @@ class Admin::BaseController < ManagementBaseController
   end
 
   def can_entrance
+    logger.info '判断权限'
     return unless current_user.present?
     @current_entrance_cards ||= EntranceGuard.entrance_cards
     entrance_cards = @current_entrance_cards[request.path_parameters[:controller]][request.path_parameters[:action]]
@@ -42,6 +43,7 @@ class Admin::BaseController < ManagementBaseController
     unless can_entrance # && can_project
       redirect_to admin_main_path, alert: '您没有权限'
     end
+    logger.info '判断完成'
   end
 
   def current_user
