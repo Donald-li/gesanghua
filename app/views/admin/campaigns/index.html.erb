@@ -56,6 +56,9 @@
                 活动类型
               </th>
               <th>
+                策划人
+              </th>
+              <th>
                 是否显示
               </th>
               <th>
@@ -83,6 +86,9 @@
               </td>
               <td>
                 <%= campaign.campaign_category.try(:name) %>
+              </td>
+              <td>
+                <%= campaign.creator.try(:name) %>
               </td>
               <td>
                 <% if can_current_entrance('admin/campaigns', 'switch', current_user.roles) %>

@@ -57,6 +57,11 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-default">
               <li>
+                <%= link_to admin_modify_password_path do %>
+                  <i class="fa fa-edit"></i>修改密码
+                <% end %>
+              </li>
+              <li>
                 <%= link_to admin_logout_path, method: :delete do %>
                     <i class="icon-logout"></i>退出
                 <% end %>

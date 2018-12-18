@@ -5,8 +5,8 @@
     </div>
     <div class="actions">
       <%= link_to new_admin_administrator_path, class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
-      <i class="icon-plus"></i>
-      <span>新增</span>
+        <i class="icon-plus"></i>
+        <span>新增</span>
       <% end %>
     </div>
   </div>
@@ -15,11 +15,11 @@
       <div class="row">
         <div class="col-md-12 col-sm-12">
           <%= search_form_for @search, url: admin_administrators_path, class: 'form-inline' do |f| %>
-          <div class="form-group">
-            <%= f.label :login_cont, '用户账号' %>
-            <%= f.text_field :login_cont, class: 'form-control gsh-input-share', placeholder: '根据用户账号过滤' %>
-          </div>
-          <button type="submit" class="btn btn-default grey">搜索</button>
+            <div class="form-group">
+              <%= f.label :login_cont, '用户账号' %>
+              <%= f.text_field :login_cont, class: 'form-control gsh-input-share', placeholder: '根据用户账号过滤' %>
+            </div>
+            <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>
         </div>
         <div class="col-md-6 col-sm-12">
@@ -29,29 +29,32 @@
       <div class="table-scrollable">
         <table class="table table-striped table-bordered table-hover" id="sample_2">
           <thead>
-            <tr>
-              <th>
-                用户账号
-              </th>
-              <th>
-                用户昵称
-              </th>
-              <th>
-                用户类型
-              </th>
-              <th>
-                创建时间
-              </th>
-              <th>
-                状态
-              </th>
-              <th>
-                操作
-              </th>
-            </tr>
+          <tr>
+            <th>
+              用户账号
+            </th>
+            <th>
+              用户昵称
+            </th>
+            <th>
+              用户类型
+            </th>
+            <th>
+              可操作项目
+            </th>
+            <th>
+              创建时间
+            </th>
+            <th>
+              状态
+            </th>
+            <th>
+              操作
+            </th>
+          </tr>
           </thead>
           <tbody>
-            <% @administrators.each do |admin| %>
+          <% @administrators.each do |admin| %>
             <tr>
               <td>
                 <%= admin.login %>
@@ -63,18 +66,25 @@
                 <%= admin.roles_name.join(', ') %>
               </td>
               <td>
+                <% if admin.has_role?([:superadmin, :admin, :project_manager, :project_operator, :custom_service, :financial_staff]) %>
+                  <%= Project.visible.pluck(:name).join(',') %>
+                <% else %>
+                  <%= Project.visible.where(id: admin.project_ids).pluck(:name).join(',') %>
+                <% end %>
+              </td>
+              <td>
                 <%= l admin.created_at %>
               </td>
               <td>
                 <% if admin.has_role?(:superadmin) %>
-                  <a href="#" class="btn btn-xs yellow" >
+                  <a href="#" class="btn btn-xs yellow">
                     不能停用超级管理员
                     <i class="fa fa-user"></i>
                   </a>
                 <% else %>
                   <%= link_to switch_admin_administrator_path(admin), data: {confirm: "确定#{admin.enable? ? '停用该管理员' : '启用该管理员'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{admin.enable? ? 'green' : 'default'}" do %>
-                  <%= admin.enable? ? '启用' : '停用' %>
-                  <i class="fa <%= admin.enable? ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                    <%= admin.enable? ? '启用' : '停用' %>
+                    <i class="fa <%= admin.enable? ? 'fa-eye' : 'fa-eye-slash' %>"></i>
                   <% end %>
                 <% end %>
               </td>
@@ -85,7 +95,7 @@
                 <%= link_to '删除', admin_administrator_path(admin), class: 'btn btn-xs red', method: :delete, data: {confirm: '确定要删除吗？'} %>
               </td>
             </tr>
-            <% end %>
+          <% end %>
           </tbody>
         </table>
       </div>

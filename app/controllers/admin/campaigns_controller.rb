@@ -19,7 +19,7 @@ class Admin::CampaignsController < Admin::BaseController
   end
 
   def create
-    @campaign = Campaign.new(campaign_params)
+    @campaign = Campaign.new(campaign_params.merge(creator: current_user))
     respond_to do |format|
       if @campaign.save
         @campaign.attach_image(params[:image_id])

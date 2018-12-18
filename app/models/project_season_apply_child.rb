@@ -330,7 +330,19 @@ class ProjectSeasonApplyChild < ApplicationRecord
   # 通过审核
   def approve_pass
     self.approve_state = 'pass'
+    last_child = self.gsh_child.project_season_apply_children.sorted.first
+    self.priority_id = last_child.priority_id if last_child.present?
     if self.save && self.gen_grant_record
+      if self.priority_id.present?
+        Notification.create(
+            kind: 'continue_donate',
+            owner: child,
+            user_id: self.priority_id,
+            title: "#续捐通知# 您有一个孩子待续捐",
+            content: "您捐助过的#{child.name}新的学年助学款可以续捐了，请及时续捐",
+            url: "#{Settings.m_root_url}/pair/#{child.id}"
+        )
+      end
       return true
     else
       return false

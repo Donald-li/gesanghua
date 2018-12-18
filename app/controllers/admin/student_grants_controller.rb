@@ -17,6 +17,7 @@ class Admin::StudentGrantsController < Admin::BaseController
   end
 
   def create
+    grant_params[:title] = "#{grant_params[:title]} #{grant_params[:grade_name]}"
     @grant = GshChildGrant.new(grant_params.merge(school_id: @child_apply.school_id, gsh_child: @child_apply.gsh_child, apply_child: @child_apply, project_season_apply_id: @child_apply.project_season_apply_id))
 
     respond_to do |format|
@@ -32,6 +33,7 @@ class Admin::StudentGrantsController < Admin::BaseController
   end
 
   def update
+    grant_params[:title] = "#{grant_params[:title]} #{grant_params[:grade_name]}"
     respond_to do |format|
       if @grant.update(grant_params)
         format.html {redirect_to referer_or(admin_pair_student_list_student_grants_path(@child_apply)), notice: '修改成功。'}

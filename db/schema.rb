@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181009090432) do
+ActiveRecord::Schema.define(version: 20181218100732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -274,6 +274,7 @@ ActiveRecord::Schema.define(version: 20181009090432) do
     t.jsonb "form", comment: "报名表单定义"
     t.integer "execute_state", comment: "执行状态"
     t.integer "appoint_fund_id", comment: "指定财务分类"
+    t.integer "creator_id"
   end
 
   create_table "camps", force: :cascade, comment: "探索营" do |t|

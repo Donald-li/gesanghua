@@ -47,7 +47,7 @@
                       <%= f.input :mother_job, label: '母亲职业：', placeholder: '母亲职业', required: true %>
                       <%= f.input :parent_information, as: :select, collection: ['父母健在且共同生活', '父母离异', '父亲去世', '母亲去世', '父母均去世', '父亲下落不明', '母亲下落不明', '父母下落不明'], label: '父母情况：', include_blank: false %>
                       <%= f.input :guardian, label: '监护人：', placeholder: '监护人', required: true %>
-                      <%= f.input :guardian_relation, as: :select, collection: ['父子', '母子', '父女', '母女', '祖孙', '舅甥', '其他'], label: '与其关系：', include_blank: false %>
+                      <%= f.input :guardian_relation, as: :select, collection: ['父子', '母子', '父女', '母女', '祖孙', '舅甥', '叔侄', '其他'], label: '与其关系：', include_blank: false %>
                       <%= f.input :guardian_phone, label: '联系方式：', placeholder: '联系方式', required: true %>
                       <%= f.input :address, label: '家庭住址：', placeholder: '家庭住址', required: true %>
                       <%= f.input :family_income, label: '家庭年收入：', placeholder: '家庭年收入', required: true %>
@@ -76,7 +76,7 @@
                       <%= f.input :mother_job, label: '母亲职业：', placeholder: '母亲职业' %>
                       <%= f.input :parent_information, as: :select, collection: ['父母健在且共同生活', '父母离异', '父亲去世', '母亲去世', '父母均去世', '父亲下落不明', '母亲下落不明', '父母下落不明'], label: '父母情况：', include_blank: false %>
                       <%= f.input :guardian, label: '监护人：', placeholder: '监护人', required: true %>
-                      <%= f.input :guardian_relation, as: :select, collection: ['父子', '母子', '父女', '母女', '祖孙', '舅甥', '其他'], label: '与其关系：', include_blank: false %>
+                      <%= f.input :guardian_relation, as: :select, collection: ['父子', '母子', '父女', '母女', '祖孙', '舅甥', '叔侄', '其他'], label: '与其关系：', include_blank: false %>
                       <%= f.input :guardian_phone, label: '联系方式：', placeholder: '联系方式' %>
                       <%= f.input :address, label: '家庭住址：', placeholder: '家庭住址' %>
                       <%= f.input :family_income, label: '家庭年收入：', placeholder: '家庭年收入' %>

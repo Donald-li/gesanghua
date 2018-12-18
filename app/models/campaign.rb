@@ -20,6 +20,7 @@
 #  form                 :jsonb                                  # 报名表单定义
 #  execute_state        :integer                                # 执行状态
 #  appoint_fund_id      :integer                                # 指定财务分类
+#  creator_id           :integer
 #
 
 # 活动
@@ -29,6 +30,7 @@ class Campaign < ApplicationRecord
 
   attr_accessor :form_attributes
 
+  belongs_to :creator, class_name: 'User', foreign_key: :creator_id, optional: true
   belongs_to :project, optional: true
   belongs_to :campaign_category
   has_many :campaign_enlists, dependent: :restrict_with_error

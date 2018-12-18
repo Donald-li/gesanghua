@@ -3,13 +3,14 @@ namespace :admin do
   get '/login' => 'sessions#new', as: :login
   match '/logout', to: 'sessions#destroy', as: :logout, via: :delete
   resource :session, only: :create
-  get '/account/modify-password' => 'modify_password#edit', as: :modify_password
-  put '/account/modify-password' => 'modify_password#update', as: :modify_password_update
+  get '/admin/modify-password' => 'modify_password#edit', as: :modify_password
+  put '/admin/modify-password' => 'modify_password#update', as: :modify_password_update
   # get '/selects/gsh_child_user' => 'selects#gsh_child_user'
   # get '/selects/teacher_user' => 'selects#teacher_user'
   # get '/selects/teacher_school' => 'selects#teacher_school'
 
   resource :main, only: :show
+  resource :modify_password, only: [:edit, :update]
   resources :users, concerns: :switch do
     member do
       get :invoices

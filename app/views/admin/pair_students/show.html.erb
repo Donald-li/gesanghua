@@ -8,300 +8,300 @@
   <div class="portlet-body">
     <%= simple_form_for [:admin, @apply_child], url: check_admin_pair_apply_pair_student_path(@project_apply), method: :patch, wrapper: :admin_form, html: {id: 'approve-form', 'data-parsley-validate': true} do |f| %>
       <%= f.error_notification %>
-    <div class="table-scrollable">
-      <table class="table table-bordered table-hover">
-        <tbody>
-        <tr>
-          <td>
-            申请编号
-          </td>
-          <td>
-            <%= @project_apply.id %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            申请学校
-          </td>
-          <td>
-            <%= @project_apply.school.try(:name) %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            申请批次
-          </td>
-          <td>
-            <%= @project_apply.season.try(:name) %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            姓名
-          </td>
-          <td>
-            <%= @apply_child.name %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            中学
-          </td>
-          <td>
-            <%= @apply_child.enum_name(:level) %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            年级
-          </td>
-          <td>
-            <%#= @apply_child.enum_name(:grade) %>
-            <%= f.input :grade, as: :select, label: false, collection: ProjectSeasonApplyChild.options_for_enum_select(:grades), include_blank: false, input_html: {id: 'input-grade', onchange: 'calculateDonateYear()'} %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            学期
-          </td>
-          <td>
-            <%#= @apply_child.enum_name(:semester) %>
-            <%= f.input :semester, as: :select, label: false, collection: ProjectSeasonApplyChild.options_for_enum_select(:semesters), include_blank: false, input_html: {id: 'input-semester', onchange: 'calculateDonateYear()'} %>
-            <br/>
-            <span style="color: red">审核通过后生成捐助学年：<span id="donate_year"></span></span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            身份证号
-          </td>
-          <td>
-            <%= @apply_child.id_card %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            民族
-          </td>
-          <td>
-            <%= @apply_child.enum_name(:nation) %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            性别
-          </td>
-          <td>
-            <%= @apply_child.enum_name(:gender) %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            自我介绍
-          </td>
-          <td>
-            <%= @apply_child.description %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            班主任
-          </td>
-          <td>
-            <%= @apply_child.teacher_name %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            联系方式
-          </td>
-          <td>
-            <%= @apply_child.teacher_phone %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            父亲
-          </td>
-          <td>
-            <%= @apply_child.father %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            父亲职业
-          </td>
-          <td>
-            <%= @apply_child.father_job %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            母亲
-          </td>
-          <td>
-            <%= @apply_child.mother %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            母亲职业
-          </td>
-          <td>
-            <%= @apply_child.mother_job %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            监护人
-          </td>
-          <td>
-            <%= @apply_child.guardian %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            与其关系
-          </td>
-          <td>
-            <%= @apply_child.guardian_relation %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            联系方式
-          </td>
-          <td>
-            <%= @apply_child.guardian_phone %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            家庭住址
-          </td>
-          <td>
-            <%= @apply_child.address %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            家庭年收入
-          </td>
-          <td>
-            <%= @apply_child.family_income %> 元
-          </td>
-        </tr>
-        <tr>
-          <td>
-            家庭年支出
-          </td>
-          <td>
-            <%= @apply_child.family_expenditure %> 元
-          </td>
-        </tr>
-        <tr>
-          <td>
-            收入来源
-          </td>
-          <td>
-            <%= @apply_child.income_source %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            家庭情况
-          </td>
-          <td>
-            <%= @apply_child.family_condition %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            推荐理由
-          </td>
-          <td>
-            <%= @apply_child.reason %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            孩子图片
-          </td>
-          <td>
-            <%= link_to image_tag(@apply_child.avatar_url(:small)), @apply_child.avatar_url(nil), target: '_blank' %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            身份证
-          </td>
-          <td>
-            <%= link_to image_tag(@apply_child.id_image_url(:small)), @apply_child.id_image_url(nil), target: '_blank' %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            申请书1
-          </td>
-          <td>
-            <%= link_to image_tag(@apply_child.apply_one_url(:small)), @apply_child.apply_one_url(nil), target: '_blank' %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            申请书2
-          </td>
-          <td>
-            <%= link_to image_tag(@apply_child.apply_two_url(:small)), @apply_child.apply_two_url(nil), target: '_blank' %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            客厅照片
-          </td>
-          <td>
-            <%= link_to image_tag(@apply_child.room_image_url(:small)), @apply_child.room_image_url(nil), target: '_blank' %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            院子照片
-          </td>
-          <td>
-            <%= link_to image_tag(@apply_child.yard_image_url(:small)), @apply_child.yard_image_url(nil), target: '_blank' %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            扶贫卡
-          </td>
-          <td>
-            <%= link_to image_tag(@apply_child.poverty_url(:small)), @apply_child.poverty_url(nil), target: '_blank' %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            孩子介绍
-          </td>
-          <td>
-            <%= @apply_child.information.html_safe %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            备注
-          </td>
-          <td>
-            <%= @apply_child.remark %>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="portlet-body form">
+      <div class="table-scrollable">
+        <table class="table table-bordered table-hover">
+          <tbody>
+          <tr>
+            <td>
+              申请编号
+            </td>
+            <td>
+              <%= @project_apply.id %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              申请学校
+            </td>
+            <td>
+              <%= @project_apply.school.try(:name) %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              申请批次
+            </td>
+            <td>
+              <%= @project_apply.season.try(:name) %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              姓名
+            </td>
+            <td>
+              <%= @apply_child.name %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              中学
+            </td>
+            <td>
+              <%= @apply_child.enum_name(:level) %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              年级
+            </td>
+            <td>
+              <%#= @apply_child.enum_name(:grade) %>
+              <%= f.input :grade, as: :select, label: false, collection: ProjectSeasonApplyChild.options_for_enum_select(:grades), include_blank: false, input_html: {id: 'input-grade', onchange: 'calculateDonateYear()'} %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              学期
+            </td>
+            <td>
+              <%#= @apply_child.enum_name(:semester) %>
+              <%= f.input :semester, as: :select, label: false, collection: ProjectSeasonApplyChild.options_for_enum_select(:semesters), include_blank: false, input_html: {id: 'input-semester', onchange: 'calculateDonateYear()'} %>
+              <br/>
+              <span style="color: red">审核通过后生成捐助学年：<span id="donate_year"></span></span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              身份证号
+            </td>
+            <td>
+              <%= @apply_child.id_card %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              民族
+            </td>
+            <td>
+              <%= @apply_child.enum_name(:nation) %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              性别
+            </td>
+            <td>
+              <%= @apply_child.enum_name(:gender) %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              自我介绍
+            </td>
+            <td>
+              <%= @apply_child.description %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              班主任
+            </td>
+            <td>
+              <%= @apply_child.teacher_name %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              联系方式
+            </td>
+            <td>
+              <%= @apply_child.teacher_phone %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              父亲
+            </td>
+            <td>
+              <%= @apply_child.father %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              父亲职业
+            </td>
+            <td>
+              <%= @apply_child.father_job %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              母亲
+            </td>
+            <td>
+              <%= @apply_child.mother %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              母亲职业
+            </td>
+            <td>
+              <%= @apply_child.mother_job %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              监护人
+            </td>
+            <td>
+              <%= @apply_child.guardian %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              与其关系
+            </td>
+            <td>
+              <%= @apply_child.guardian_relation %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              联系方式
+            </td>
+            <td>
+              <%= @apply_child.guardian_phone %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              家庭住址
+            </td>
+            <td>
+              <%= @apply_child.address %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              家庭年收入
+            </td>
+            <td>
+              <%= @apply_child.family_income %> 元
+            </td>
+          </tr>
+          <tr>
+            <td>
+              家庭年支出
+            </td>
+            <td>
+              <%= @apply_child.family_expenditure %> 元
+            </td>
+          </tr>
+          <tr>
+            <td>
+              收入来源
+            </td>
+            <td>
+              <%= @apply_child.income_source %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              家庭情况
+            </td>
+            <td>
+              <%= @apply_child.family_condition %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              推荐理由
+            </td>
+            <td>
+              <%= @apply_child.reason %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              孩子图片
+            </td>
+            <td>
+              <%= link_to image_tag(@apply_child.avatar_url(:small)), @apply_child.avatar_url(nil), target: '_blank' %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              身份证
+            </td>
+            <td>
+              <%= link_to image_tag(@apply_child.id_image_url(:small)), @apply_child.id_image_url(nil), target: '_blank' %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              申请书1
+            </td>
+            <td>
+              <%= link_to image_tag(@apply_child.apply_one_url(:small)), @apply_child.apply_one_url(nil), target: '_blank' %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              申请书2
+            </td>
+            <td>
+              <%= link_to image_tag(@apply_child.apply_two_url(:small)), @apply_child.apply_two_url(nil), target: '_blank' %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              客厅照片
+            </td>
+            <td>
+              <%= link_to image_tag(@apply_child.room_image_url(:small)), @apply_child.room_image_url(nil), target: '_blank' %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              院子照片
+            </td>
+            <td>
+              <%= link_to image_tag(@apply_child.yard_image_url(:small)), @apply_child.yard_image_url(nil), target: '_blank' %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              扶贫卡
+            </td>
+            <td>
+              <%= link_to image_tag(@apply_child.poverty_url(:small)), @apply_child.poverty_url(nil), target: '_blank' %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              孩子介绍
+            </td>
+            <td>
+              <%= @apply_child.information.html_safe %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              备注
+            </td>
+            <td>
+              <%= @apply_child.remark %>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="portlet-body form">
 
         <div class="form-body form-horizontal">
-          <%= f.input :approve_state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApply.options_for_some_select(:audit_states, ['pass', 'reject']), checked: 'pass', label: '审核状态：', required: 'required', input_html: { class: 'approve_state', onclick: 'toggleState();'} %>
+          <%= f.input :approve_state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApply.options_for_some_select(:audit_states, ['pass', 'reject']), checked: 'pass', label: '审核状态：', required: 'required', input_html: {class: 'approve_state', onclick: 'toggleState();'} %>
           <div class="approve_reject">
             <%= f.input :approve_remark, label: '审核备注：', input_html: {class: 'form-control', placeholder: '', value: @apply_child.audits.try(:last).try(:comment)}, required: true %>
           </div>
@@ -314,45 +314,46 @@
             </div>
           </div>
         </div>
-        </div>
-      <% end %>
       </div>
+    <% end %>
+  </div>
 </div>
 <script type="text/javascript">
-    function toggleState(){
+    function toggleState() {
         toggleRadioInput('.approve_state', {
             reject: '.approve_reject'
         })
     }
+
     toggleState();
     calculateDonateYear();
-    function calculateDonateYear () {
-      var grade = null;
-      if ($('#input-grade').val() == 'one') {
-        grade = 1
-      } else if ($('#input-grade').val() == 'two') {
-        grade = 2
-      } else if ($('#input-grade').val() == 'three') {
-        grade = 3
-      }
-      var semester = $('#input-semester').val();
-      var year = <%= Time.now.year %>;
-      var apply_donate_year = [];
 
-      apply_num = 4 - grade
-      if (semester == 'next_term' && apply_num > 0) {
-        apply_donate_year.push(year + '.3 - ' + year + '.7 春季');
-        apply_num -= 1;
-      }
-      for(i = 1; i <= apply_num; i++)
-      {
-        apply_donate_year.push(year + '.9 - ' + year + '.7 学年');
-        year += 1;
-      }
-      var show_text = ''
-      for(i=0; i < apply_donate_year.length; i++){
-        show_text += apply_donate_year[i] + '  '
-      }
-      $('#donate_year').text(show_text);
+    function calculateDonateYear() {
+        var grade = null;
+        if ($('#input-grade').val() == 'one') {
+            grade = 1
+        } else if ($('#input-grade').val() == 'two') {
+            grade = 2
+        } else if ($('#input-grade').val() == 'three') {
+            grade = 3
+        }
+        var semester = $('#input-semester').val();
+        var year = <%= Time.now.year %>;
+        var apply_donate_year = [];
+
+        apply_num = 4 - grade
+        if (semester == 'next_term' && apply_num > 0) {
+            apply_donate_year.push(year + '.3 - ' + year + '.7 春季');
+            apply_num -= 1;
+        }
+        for (i = 1; i <= apply_num; i++) {
+            apply_donate_year.push(year + '.9 - ' + year + '.7 学年');
+            year += 1;
+        }
+        var show_text = ''
+        for (i = 0; i < apply_donate_year.length; i++) {
+            show_text += apply_donate_year[i] + '  '
+        }
+        $('#donate_year').text(show_text);
     }
 </script>

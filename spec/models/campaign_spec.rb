@@ -20,6 +20,7 @@
 #  form                 :jsonb                                  # 报名表单定义
 #  execute_state        :integer                                # 执行状态
 #  appoint_fund_id      :integer                                # 指定财务分类
+#  creator_id           :integer
 #
 
 require 'rails_helper'
