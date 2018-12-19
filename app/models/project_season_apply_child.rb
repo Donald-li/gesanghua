@@ -336,11 +336,11 @@ class ProjectSeasonApplyChild < ApplicationRecord
       if self.priority_id.present?
         Notification.create(
             kind: 'continue_donate',
-            owner: child,
+            owner: self,
             user_id: self.priority_id,
             title: "#续捐通知# 您有一个孩子待续捐",
             content: "您捐助过的#{child.name}新的学年助学款可以续捐了，请及时续捐",
-            url: "#{Settings.m_root_url}/pair/#{child.id}"
+            url: "#{Settings.m_root_url}/pair/#{self.id}"
         )
       end
       return true
