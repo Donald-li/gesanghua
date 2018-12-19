@@ -65,7 +65,7 @@
                 <%= fee.owner.try(:project).try(:name) %>
               </td>
               <td>
-                <%= format_money fee.amount %>
+                <%= format_money fee.total_amount %>
               </td>
               <td>
                 <%= fee.rate.to_i %>%

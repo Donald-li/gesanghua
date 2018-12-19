@@ -53,7 +53,15 @@ class ManagementFee < ApplicationRecord
   def calc_managemeng_rate
     return unless self.fund
     self.rate ||= self.fund.management_rate
-    self.fee = (self.amount.to_f - self.amount.to_f / ( 1 + self.rate.to_f / 100)).round(2)
+    self.fee = self.amount # (self.amount.to_f - self.amount.to_f / ( 1 + self.rate.to_f / 100)).round(2)
+  end
+
+  def self.migrate_records
+    self.sorted.each do |record|
+      record.amount = (record.total_amount.to_f - record.total_amount.to_f / ( 1 + self.rate.to_f / 100)).round(2)
+      record.fee = record.amount
+      record.save
+    end
   end
 
 end
