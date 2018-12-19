@@ -54,6 +54,7 @@ scope module: :support do
       get :get_child_priority
       post :set_shelf_name
       post :add_all_grants
+      get :batch_accrue
     end
   end
 end

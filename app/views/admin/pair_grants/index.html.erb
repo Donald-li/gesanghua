@@ -4,11 +4,17 @@
       <i class="icon-list"></i>发放管理
     </div>
     <div class="actions">
+      <% if can_current_entrance('admin/pair_grants', 'accrue', current_user.roles) %>
+        <a class="btn btn-xs yellow" data-toggle="modal" data-target="#accrueModal" id="set-name">
+          <i class="fa fa-cogs"></i>
+          一键计提管理费
+        </a>
+      <% end %>
       <% if can? :manage_excel, current_user %>
-          <%= link_to url_for(params.permit!.merge(format: :xlsx)), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
-              <i class="fa fa-download"></i>
-              <span>导出</span>
-          <% end %>
+        <%= link_to url_for(params.permit!.merge(format: :xlsx)), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+          <i class="fa fa-download"></i>
+          <span>导出</span>
+        <% end %>
       <% end %>
     </div>
   </div>
@@ -17,34 +23,34 @@
       <div class="row">
         <div class="col-md-12 col-sm-12">
           <%= search_form_for @search, url: admin_pair_grants_path, class: 'form-inline' do |f| %>
-              <div class="form-group">
-                <%= f.label :apply_child_name_or_gsh_child_id_card_or_gsh_child_gsh_no_cont, '搜索学生' %>
-                <%= f.text_field :apply_child_name_or_gsh_child_id_card_or_gsh_child_gsh_no_cont, class: 'form-control gsh-input-share', placeholder: '孩子姓名、格桑花编码' %>
-              </div>
-              <div class="form-group">
-                <%= f.text_field :title_cont, class: 'form-control gsh-input-share', placeholder: '学年名称' %>
-              </div>
-              <div class="form-group" style="margin: 0 10px">
-                <%= f.label :school_id_ep, '搜索学校', class: 'gsh-input-share-r' %>
-                <%= f.select :school_id_eq, School.all_to_hash, {include_blank: '全部'}, class: 'form-control schools-ajax ' %>
-              </div>
-              <div class="form-group">
-                <%= f.label :donate_state_eq, '筹款状态' %>
-                <%= f.select :donate_state_eq, GshChildGrant.options_for_select(:donate_states, raw: true), {include_blank: '全部'}, class: 'form-control gsh-input-share' %>
-              </div>
-              <div class="form-group">
-                <%= f.label :state_eq, '发放状态' %>
-                <%= f.select :state_eq, GshChildGrant.options_for_select(:states, raw: true), {include_blank: '全部'}, class: 'form-control gsh-input-share' %>
-              </div>
-              <div class="form-group">
-                <%= f.label :management_fee_state_eq, '计提状态' %>
-                <%= f.select :management_fee_state_eq, GshChildGrant.options_for_select(:management_fee_states, raw: true), {include_blank: '全部'}, class: 'form-control gsh-input-share' %>
-              </div>
-              <div class="form-group">
-                <%= label_tag :feedback_state_eq, '反馈状态' %>
-                <%= select_tag :feedback_state_eq, options_for_select([['未反馈', 'to_feedback'], ['已反馈', 'feedbacked']], params[:feedback_state_eq]), include_blank: '全部', class: 'form-control gsh-input-share' %>
-              </div>
-              <button type="submit" class="btn btn-default grey">搜索</button>
+            <div class="form-group">
+              <%= f.label :apply_child_name_or_gsh_child_id_card_or_gsh_child_gsh_no_cont, '搜索学生' %>
+              <%= f.text_field :apply_child_name_or_gsh_child_id_card_or_gsh_child_gsh_no_cont, class: 'form-control gsh-input-share', placeholder: '孩子姓名、格桑花编码' %>
+            </div>
+            <div class="form-group">
+              <%= f.text_field :title_cont, class: 'form-control gsh-input-share', placeholder: '学年名称' %>
+            </div>
+            <div class="form-group" style="margin: 0 10px">
+              <%= f.label :school_id_ep, '搜索学校', class: 'gsh-input-share-r' %>
+              <%= f.select :school_id_eq, School.all_to_hash, {include_blank: '全部'}, class: 'form-control schools-ajax ' %>
+            </div>
+            <div class="form-group">
+              <%= f.label :donate_state_eq, '筹款状态' %>
+              <%= f.select :donate_state_eq, GshChildGrant.options_for_select(:donate_states, raw: true), {include_blank: '全部'}, class: 'form-control gsh-input-share' %>
+            </div>
+            <div class="form-group">
+              <%= f.label :state_eq, '发放状态' %>
+              <%= f.select :state_eq, GshChildGrant.options_for_select(:states, raw: true), {include_blank: '全部'}, class: 'form-control gsh-input-share' %>
+            </div>
+            <div class="form-group">
+              <%= f.label :management_fee_state_eq, '计提状态' %>
+              <%= f.select :management_fee_state_eq, GshChildGrant.options_for_select(:management_fee_states, raw: true), {include_blank: '全部'}, class: 'form-control gsh-input-share' %>
+            </div>
+            <div class="form-group">
+              <%= label_tag :feedback_state_eq, '反馈状态' %>
+              <%= select_tag :feedback_state_eq, options_for_select([['未反馈', 'to_feedback'], ['已反馈', 'feedbacked']], params[:feedback_state_eq]), include_blank: '全部', class: 'form-control gsh-input-share' %>
+            </div>
+            <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>
         </div>
         <div class="col-md-6 col-sm-12">
@@ -95,143 +101,143 @@
           </thead>
           <tbody>
           <% @grants.each do |grant| %>
-              <tr>
-                <td>
-                  <%= grant.try(:apply).try(:season).try(:name) %>
-                </td>
-                <td>
-                  <span class="btn btn-xs <%= grant.button_color %>" title="<%= grant.enum_name(:donate_state) %>"><%= grant.title %></span>
-                </td>
-                <td>
-                  <%= grant.try(:apply_child).try(:name) %>
-                </td>
-                <td>
-                  <%= grant.try(:apply_child).try(:gsh_no) %>
-                </td>
-                <td>
-                  <%= link_to grant.user.try(:name), admin_users_path(user_id: grant.user_id) if grant.user_id %>
-                </td>
-                <td>
-                  <%= grant.granted_at.strftime("%Y-%m-%d") if grant.granted_at %>
-                </td>
-                <td>
-                  <%= grant.try(:school).try(:name) %>
-                </td>
-                <td>
-                  <%= format_money grant.amount %>
-                </td>
-                <td>
-                  <%= grant.enum_name(:donate_state) %>
-                </td>
-                <td>
-                  <div class="btn-group">
-                    <a class="btn btn-xs green dropdown-toggle" data-toggle="dropdown" href="javascript:;" aria-expanded="false">
-                      <i class="fa fa-cog"></i>
-                      <%= grant.enum_name(:state) %>
-                      <i class="fa fa-angle-down"></i>
-                    </a>
-                    <% if can_current_entrance('admin/pair_grants', 'switch', current_user.roles) %>
-                        <ul class="dropdown-menu">
-                          <li>
-                            <%= link_to switch_admin_pair_grant_path(grant, state: 'waiting'), method: :put, data: {confirm: '确定标记为待发放吗？'} do %>
-                                标记为待发放
-                                <% if grant.waiting? %>
-                                    <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
-                                <% end %>
-                            <% end %>
-                          </li>
-                          <li>
-                            <%= link_to switch_admin_pair_grant_path(grant, state: 'granted'), method: :put, data: {confirm: '确定标记为已发放吗？'} do %>
-                                标记为已发放
-                                <% if grant.granted? %>
-                                    <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
-                                <% end %>
-                            <% end %>
-                          </li>
-                          <li>
-                            <%= link_to switch_admin_pair_grant_path(grant, state: 'suspend'), method: :put, data: {confirm: '确定标记为暂缓吗？'} do %>
-                                标记为暂缓
-                                <% if grant.suspend? %>
-                                    <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
-                                <% end %>
-                            <% end %>
-                          </li>
-                          <li>
-                            <%= link_to switch_admin_pair_grant_path(grant, state: 'cancel'), method: :put, data: {confirm: '确定标记为已取消吗？'} do %>
-                                标记为已取消
-                                <% if grant.cancel? %>
-                                    <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
-                                <% end %>
-                            <% end %>
-                          </li>
-                        </ul>
+            <tr>
+              <td>
+                <%= grant.try(:apply).try(:season).try(:name) %>
+              </td>
+              <td>
+                <span class="btn btn-xs <%= grant.button_color %>" title="<%= grant.enum_name(:donate_state) %>"><%= grant.title %></span>
+              </td>
+              <td>
+                <%= grant.try(:apply_child).try(:name) %>
+              </td>
+              <td>
+                <%= grant.try(:apply_child).try(:gsh_no) %>
+              </td>
+              <td>
+                <%= link_to grant.user.try(:name), admin_users_path(user_id: grant.user_id) if grant.user_id %>
+              </td>
+              <td>
+                <%= grant.granted_at.strftime("%Y-%m-%d") if grant.granted_at %>
+              </td>
+              <td>
+                <%= grant.try(:school).try(:name) %>
+              </td>
+              <td>
+                <%= format_money grant.amount %>
+              </td>
+              <td>
+                <%= grant.enum_name(:donate_state) %>
+              </td>
+              <td>
+                <div class="btn-group">
+                  <a class="btn btn-xs green dropdown-toggle" data-toggle="dropdown" href="javascript:;" aria-expanded="false">
+                    <i class="fa fa-cog"></i>
+                    <%= grant.enum_name(:state) %>
+                    <i class="fa fa-angle-down"></i>
+                  </a>
+                  <% if can_current_entrance('admin/pair_grants', 'switch', current_user.roles) %>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <%= link_to switch_admin_pair_grant_path(grant, state: 'waiting'), method: :put, data: {confirm: '确定标记为待发放吗？'} do %>
+                          标记为待发放
+                          <% if grant.waiting? %>
+                            <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
+                          <% end %>
+                        <% end %>
+                      </li>
+                      <li>
+                        <%= link_to switch_admin_pair_grant_path(grant, state: 'granted'), method: :put, data: {confirm: '确定标记为已发放吗？'} do %>
+                          标记为已发放
+                          <% if grant.granted? %>
+                            <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
+                          <% end %>
+                        <% end %>
+                      </li>
+                      <li>
+                        <%= link_to switch_admin_pair_grant_path(grant, state: 'suspend'), method: :put, data: {confirm: '确定标记为暂缓吗？'} do %>
+                          标记为暂缓
+                          <% if grant.suspend? %>
+                            <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
+                          <% end %>
+                        <% end %>
+                      </li>
+                      <li>
+                        <%= link_to switch_admin_pair_grant_path(grant, state: 'cancel'), method: :put, data: {confirm: '确定标记为已取消吗？'} do %>
+                          标记为已取消
+                          <% if grant.cancel? %>
+                            <span class="badge badge-success"> <i class="fa fa-check"></i> </span>
+                          <% end %>
+                        <% end %>
+                      </li>
+                    </ul>
+                  <% end %>
+                </div>
+              </td>
+              <td>
+                <% count = grant.thank_notes.count %>
+                <% if count > 0 %>
+                  <%= link_to "#{count}次", admin_pair_thank_notes_path(q: {child_id_eq: grant.apply_child.try(:id)}), class: 'btn btn-xs blue' %>
+                <% end %>
+              </td>
+              <td>
+                <% if grant.pending? %>
+                  <%= link_to share_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
+                    <i class="fa fa-eye"></i> 去TA的分享
+                  <% end %>
+                <% else %>
+                  <% if grant.waiting? %>
+                    <% if can_current_entrance('admin/pair_grants', 'edit', current_user.roles) %>
+                      <%= link_to edit_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                        <i class="fa fa-play"></i> 发放操作
+                      <% end %>
                     <% end %>
-                  </div>
-                </td>
-                <td>
-                  <% count = grant.thank_notes.count %>
-                  <% if count > 0 %>
-                      <%= link_to "#{count}次", admin_pair_thank_notes_path(q: {child_id_eq: grant.apply_child.try(:id)}), class: 'btn btn-xs blue' %>
-                  <% end %>
-                </td>
-                <td>
-                  <% if grant.pending? %>
-                      <%= link_to share_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs yellow' do %>
-                          <i class="fa fa-eye"></i> 去TA的分享
+                    <% if can_current_entrance('admin/pair_grants', 'edit_delay', current_user.roles) %>
+                      <%= link_to edit_delay_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
+                        <i class="fa fa-pause"></i> 暂缓发放
                       <% end %>
-                  <% else %>
-                      <% if grant.waiting? %>
-                          <% if can_current_entrance('admin/pair_grants', 'edit', current_user.roles) %>
-                              <%= link_to edit_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
-                                  <i class="fa fa-play"></i> 发放操作
-                              <% end %>
-                          <% end %>
-                          <% if can_current_entrance('admin/pair_grants', 'edit_delay', current_user.roles) %>
-                              <%= link_to edit_delay_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
-                                  <i class="fa fa-pause"></i> 暂缓发放
-                              <% end %>
-                          <% end %>
-                          <% if can_current_entrance('admin/pair_grants', 'edit_cancel', current_user.roles) %>
-                              <% if grant.can_refund? %>
-                                  <%= link_to edit_cancel_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
-                                      <i class="fa fa-stop"></i> 取消捐助
-                                  <% end %>
-                              <% end %>
-                          <% end %>
-                      <% elsif grant.granted? %>
-                          <% if can_current_entrance('admin/pair_grants', 'edit_feedback', current_user.roles) %>
-                              <%= link_to edit_feedback_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
-                                  <i class="fa fa-edit"></i> 修改发放反馈
-                              <% end %>
-                          <% end %>
-                          <% if can_current_entrance('admin/pair_grants', 'accrue', current_user.roles) %>
-                          <% if !grant.accrued? %>
-                              <%= link_to accrue_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
-                                  <i class="fa fa-yen"></i> 计提管理费
-                              <% end %>
-                          <% else %>
-                              <a href="javascript:;" class="btn btn-xs grey"><i class="fa fa-yen"></i> 已计提管理费</a>
-                          <% end %>
-                          <% end %>
-
-                      <% elsif grant.suspend? %>
-                          <% if can_current_entrance('admin/pair_grants', 'cancel_delay', current_user.roles) %>
-                              <%= link_to cancel_delay_admin_pair_grant_path(grant), method: :put, 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
-                                  <i class="fa fa-pause"></i> 取消暂缓
-                              <% end %>
-                          <% end %>
-                          <% if can_current_entrance('admin/pair_grants', 'edit_cancel', current_user.roles) %>
-                              <% if grant.can_refund? %>
-                                  <%= link_to edit_cancel_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
-                                      <i class="fa fa-stop"></i> 取消捐助
-                                  <% end %>
-                              <% end %>
-                          <% end %>
+                    <% end %>
+                    <% if can_current_entrance('admin/pair_grants', 'edit_cancel', current_user.roles) %>
+                      <% if grant.can_refund? %>
+                        <%= link_to edit_cancel_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
+                          <i class="fa fa-stop"></i> 取消捐助
+                        <% end %>
                       <% end %>
-                  <% end %>
+                    <% end %>
+                  <% elsif grant.granted? %>
+                    <% if can_current_entrance('admin/pair_grants', 'edit_feedback', current_user.roles) %>
+                      <%= link_to edit_feedback_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
+                        <i class="fa fa-edit"></i> 修改发放反馈
+                      <% end %>
+                    <% end %>
+                    <% if can_current_entrance('admin/pair_grants', 'accrue', current_user.roles) %>
+                      <% if !grant.accrued? %>
+                        <%= link_to accrue_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
+                          <i class="fa fa-yen"></i> 计提管理费
+                        <% end %>
+                      <% else %>
+                        <a href="javascript:;" class="btn btn-xs grey"><i class="fa fa-yen"></i> 已计提管理费</a>
+                      <% end %>
+                    <% end %>
 
-                </td>
-              </tr>
+                  <% elsif grant.suspend? %>
+                    <% if can_current_entrance('admin/pair_grants', 'cancel_delay', current_user.roles) %>
+                      <%= link_to cancel_delay_admin_pair_grant_path(grant), method: :put, 'data-no-turbolink' => true, class: 'btn btn-xs green' do %>
+                        <i class="fa fa-pause"></i> 取消暂缓
+                      <% end %>
+                    <% end %>
+                    <% if can_current_entrance('admin/pair_grants', 'edit_cancel', current_user.roles) %>
+                      <% if grant.can_refund? %>
+                        <%= link_to edit_cancel_admin_pair_grant_path(grant), 'data-no-turbolink' => true, class: 'btn btn-xs red' do %>
+                          <i class="fa fa-stop"></i> 取消捐助
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                <% end %>
+
+              </td>
+            </tr>
           <% end %>
           </tbody>
         </table>
@@ -246,7 +252,38 @@
       </div>
     </div>
   </div>
+
+  <div class="modal fade" id="accrueModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="width: auto;">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" class="detail-icon">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">一键计提</h4>
+        </div>
+        <div class="modal-body" style="padding: 0 15px 15px 15px;">
+          <div class="overspread-constend">
+            <div class="overspread-const clearfix" style="margin-top: 20px;">
+              <div class=" overclass pull-left" style="width: 20%;">
+                <p class="goodtext" style="margin: 10px 0 0 0;line-height: 40px;">管理费明细</p>
+              </div>
+              <div class=" overclass pull-left" style="margin-top: 10px;width: 80%;">
+                <p class="goodtext" style="margin: 10px 0;font-size: 12px;">
+                  可计提记录共 <%= @accrue_count %> 条，共计捐助金额为 <%= format_money @accrue_amount %>元，管理费率为 <%= @rate %>%，共计管理费 <%= format_money @accrue_total %>元
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer overspreads-but">
+          <button class="overspread-but over-but" onclick="confirmAccrue()">确认</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
 <script type="text/javascript">
     $(function () {
         // 异步加载学校列表
@@ -282,4 +319,13 @@
             }
         });
     })
+    
+    function confirmAccrue() {
+        $.get('/ajaxes/batch_accrue', function (result) {
+            toastr.info(result.message, '' ,{"positionClass": "toast-top-center"})
+            setInterval(function () {
+                window.location.reload();
+            }, 3000)
+        })
+    }
 </script>

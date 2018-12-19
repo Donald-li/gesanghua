@@ -66,7 +66,7 @@
                 <%= admin.roles_name.join(', ') %>
               </td>
               <td>
-                <% if admin.has_role?([:superadmin, :admin, :project_manager, :project_operator, :custom_service, :financial_staff]) %>
+                <% if admin.has_role?([:superadmin, :admin]) %>
                   <%= Project.visible.pluck(:name).join(',') %>
                 <% else %>
                   <%= Project.visible.where(id: admin.project_ids).pluck(:name).join(',') %>

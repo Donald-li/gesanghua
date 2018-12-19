@@ -1,6 +1,6 @@
 wb = xlsx_package.workbook
 wb.add_worksheet(name: "收入记录") do |sheet|
-  sheet.add_row ["序号", "标题", "项目", "财务分类", "捐助时间", "捐助金额", "捐助人", "手机号码", "代捐人"]
+  sheet.add_row ["序号", "标题", "项目", "财务分类", "捐助时间", "捐助金额", "捐助人", "手机号码", "代捐人", '项目链接']
   @donate_records.each_with_index do |record, index|
     sheet.add_row [
     index+ 1,
@@ -11,7 +11,8 @@ wb.add_worksheet(name: "收入记录") do |sheet|
       record.amount,
       record.donor.try(:admin_show_name),
       record.donor.try(:phone),
-      record.agent_name], types: [:string] * 9
+      record.agent_name,
+      record.link_url], types: [:string] * 9
     end
     sheet.column_widths 40,10,20,30,10,20,20,20
   end

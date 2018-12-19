@@ -242,4 +242,27 @@ class Support::AjaxesController < Support::BaseController
     end
   end
 
+  def batch_accrue
+    @can_accrue_grants = GshChildGrant.where.not(donate_state: 'close').where(state: 'granted', management_fee_state: 'unaccrue')
+    total_count = @can_accrue_grants.count
+    success_count = 0
+    fail_count = 0
+    @can_accrue_grants.each do |grant|
+      @project = Project.pair_project
+      @rate = @project.management_rate
+      if ManagementFee.accrue_management_fee(
+          owner_type: grant.class.name,
+          owner_id: grant.id,
+          total_amount: grant.target_amount,
+          fund_id: @project.fund_id,
+          amount: format('%.2f', grant.target_amount * @rate / (100 + @rate)),
+          user: current_user)
+        success_count += 1
+      else
+        fail_count += 1
+      end
+    end
+    render json: {message: "共计#{total_count}条，成功#{success_count}条，失败#{fail_count}条。3秒后自动刷新页面"}
+  end
+
 end

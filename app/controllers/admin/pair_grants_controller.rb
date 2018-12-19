@@ -11,6 +11,11 @@ class Admin::PairGrantsController < Admin::BaseController
     end
     scope = scope.includes(:school, :gsh_child, :apply)
 
+    @accrue_count = GshChildGrant.where.not(donate_state: 'close').where(state: 'granted', management_fee_state: 'unaccrue').count
+    @accrue_amount = GshChildGrant.where.not(donate_state: 'close').where(state: 'granted', management_fee_state: 'unaccrue').sum(:amount)
+    @rate = Project.pair_project.management_rate
+    @accrue_total = format('%.2f', @accrue_amount * @rate / (100 + @rate))
+
     respond_to do |format|
       format.html {@grants = scope.reverse_sorted.page(params[:page])}
       format.xlsx {
