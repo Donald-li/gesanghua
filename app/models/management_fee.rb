@@ -58,7 +58,7 @@ class ManagementFee < ApplicationRecord
 
   def self.migrate_records
     self.sorted.each do |record|
-      record.amount = (record.total_amount.to_f - record.total_amount.to_f / ( 1 + self.rate.to_f / 100)).round(2)
+      record.amount = (record.total_amount.to_f - record.total_amount.to_f / ( 1 + record.rate.to_f / 100)).round(2)
       record.fee = record.amount
       record.save
     end
