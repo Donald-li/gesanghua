@@ -53,7 +53,7 @@
             协议内容
           </td>
           <td>
-            <%= @project.protocol.html_safe %>
+            <%= @project.protocol.html_safe if @project.protocol.present? %>
           </td>
         </tr>
         </tbody>
