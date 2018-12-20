@@ -5,6 +5,7 @@ superadmin:
     admin/campaigns: all
     admin/complaints: all
     admin/teams: all
+    admin/users: all
     admin/account_records: all
     admin/article_categories: all
     admin/projects: all
