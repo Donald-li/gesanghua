@@ -64,7 +64,7 @@ class Admin::AdministratorsController < Admin::BaseController
   end
 
   def destroy
-    @administrator.destroy
+    @administrator.update(roles: @administrator.roles & User::USER_ROLES)
     respond_to do |format|
       format.html {redirect_to referer_or(admin_administrators_url), notice: '管理员已删除。'}
     end
