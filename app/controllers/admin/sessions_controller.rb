@@ -18,7 +18,7 @@ class Admin::SessionsController < Admin::BaseController
       render(action: :new) && return
     end
     @admin = admin
-    if admin.state === 'disable'
+    unless admin.enable?
       flash[:alert] = '该帐号已被停用'
       render(action: :new) && return
     end
