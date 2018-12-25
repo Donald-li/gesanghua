@@ -201,7 +201,7 @@ financial_staff:
 custom_service:
   actions:
     admin/mains: all
-    admin/users: ['index', 'new', 'edit', 'manager', 'set_manager', 'batch_manage', 'send_message', 'switch', 'show', 'create', 'update']
+    admin/users: ['index', 'new', 'edit', 'manager', 'set_manager', 'batch_manage', 'send_message', 'switch', 'show', 'create', 'update', 'invoices', 'bill']
     admin/donate_records: all
     admin/account_records:
       except: ['destroy']
