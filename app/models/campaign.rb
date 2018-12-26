@@ -21,6 +21,7 @@
 #  execute_state        :integer                                # 执行状态
 #  appoint_fund_id      :integer                                # 指定财务分类
 #  creator_id           :integer
+#  child_price          :decimal(14, 2)   default(0.0)          # 儿童价
 #
 
 # 活动
@@ -101,7 +102,7 @@ class Campaign < ApplicationRecord
 
   def summary_builder(user=nil)
     Jbuilder.new do |json|
-      json.(self, :id, :name, :price, :start_time, :end_time, :sign_up_end_time, :number)
+      json.(self, :id, :name, :price, :child_price, :start_time, :end_time, :sign_up_end_time, :number)
       json.state_name self.detail_state_name(user)
       json.image_mode self.image.present?
       json.image self.image_url(:tiny).to_s

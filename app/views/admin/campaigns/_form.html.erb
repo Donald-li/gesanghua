@@ -48,7 +48,8 @@
         </div>
       </div>
       <%= f.input :number, label: '限制人数：', autofocus: true, placeholder: '如不填写，人数不限', input_html: { data: {}} %>
-      <%= f.input :price, label: '活动价格：', autofocus: true, input_html: { data: {'parsley-required': true}} %>
+      <%= f.input :price, label: '活动价格(成人)：', autofocus: true, input_html: { data: {'parsley-required': true}, placeholder: '成人价'} %>
+      <%= f.input :child_price, label: '活动价格(儿童)：', autofocus: true, input_html: { data: {'parsley-required': true}, placeholder: '儿童价'} %>
       <div class="form-group">
         <label class="col-md-2 control-label">活动详情：</label>
         <div class="col-sm-9">

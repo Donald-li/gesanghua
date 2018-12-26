@@ -15,6 +15,8 @@
 #  payment_state    :integer          default("paid")       # 支付状态 1:已支付 2:已取消
 #  income_source_id :integer                                # 收入来源id
 #  form             :jsonb                                  # 报名表单
+#  adult_number     :integer          default(0)
+#  child_number     :integer          default(0)
 #
 
 FactoryBot.define do

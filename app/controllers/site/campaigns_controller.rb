@@ -17,10 +17,10 @@ class Site::CampaignsController < Site::BaseController
 
   def submit
     @campaign = Campaign.find(params[:id])
-    total = @campaign.price.to_f * params[:number].to_i
-    @enlist = @campaign.campaign_enlists.new(params.permit(:contact_name, :contact_phone, :number, :remark))
+    total = @campaign.price.to_f * params[:adult_number].to_i + @campaign.child_price.to_f * params[:child_number].to_i
+    @enlist = @campaign.campaign_enlists.new(params.permit(:contact_name, :contact_phone, :remark, :child_number, :adult_number).merge(number: params[:child_number].to_i + params[:adult_number].to_i))
     @enlist.form = params[:form]
-    if @campaign.price
+    if @campaign.price > 0
       #TODO: 交报名费
       # @enlist.state = :paid
       @enlist.total = total

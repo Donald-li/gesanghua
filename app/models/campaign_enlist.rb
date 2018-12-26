@@ -15,11 +15,15 @@
 #  payment_state    :integer          default("paid")       # 支付状态 1:已支付 2:已取消
 #  income_source_id :integer                                # 收入来源id
 #  form             :jsonb                                  # 报名表单
+#  adult_number     :integer          default(0)
+#  child_number     :integer          default(0)
 #
 
 # 活动报名
 require 'custom_validators'
 class CampaignEnlist < ApplicationRecord
+  before_save :sum_number
+
   has_paper_trail only: [:campaign_id, :user_id, :number, :remark, :total, :contact_name, :contact_phone, :payment_state, :income_source_id, :form]
 
   belongs_to :campaign
@@ -57,7 +61,7 @@ class CampaignEnlist < ApplicationRecord
   end
 
   def total_price
-    self.number.to_i * self.campaign.price.to_f
+    self.adult_number.to_i * self.campaign.price.to_f + self.child_number.to_i * self.campaign.child_price.to_f
   end
 
   # 动态表单内容的builder
@@ -70,5 +74,10 @@ class CampaignEnlist < ApplicationRecord
         json.value self.form[item['key']] || ''
       end
     end.attributes!
+  end
+
+  private
+  def sum_number
+    self.number = self.adult_number + self.child_number
   end
 end

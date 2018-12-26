@@ -21,6 +21,7 @@
 #  execute_state        :integer                                # 执行状态
 #  appoint_fund_id      :integer                                # 指定财务分类
 #  creator_id           :integer
+#  child_price          :decimal(14, 2)   default(0.0)          # 儿童价
 #
 
 require 'rails_helper'

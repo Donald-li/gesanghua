@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181218100732) do
+ActiveRecord::Schema.define(version: 20181226090805) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -253,6 +253,8 @@ ActiveRecord::Schema.define(version: 20181218100732) do
     t.integer "payment_state", default: 1, comment: "支付状态 1:已支付 2:已取消"
     t.integer "income_source_id", comment: "收入来源id"
     t.jsonb "form", comment: "报名表单"
+    t.integer "adult_number", default: 0
+    t.integer "child_number", default: 0
     t.index ["campaign_id"], name: "index_campaign_enlists_on_campaign_id"
   end
 
@@ -275,6 +277,7 @@ ActiveRecord::Schema.define(version: 20181218100732) do
     t.integer "execute_state", comment: "执行状态"
     t.integer "appoint_fund_id", comment: "指定财务分类"
     t.integer "creator_id"
+    t.decimal "child_price", precision: 14, scale: 2, default: "0.0", comment: "儿童价"
   end
 
   create_table "camps", force: :cascade, comment: "探索营" do |t|

@@ -12,7 +12,7 @@ jQuery.fn.calculate = function() {
         $objmin.on("click",function(){
             var num = $objinput.val() ? parseInt($objinput.val()) : 0
 
-            if (num>1) {
+            if (num > 0) {
                 $objinput.val(num-1)
             }else{
                 $objmin.attr("disabled","disabled")
