@@ -243,7 +243,7 @@ class Support::AjaxesController < Support::BaseController
   end
 
   def batch_accrue
-    @can_accrue_grants = GshChildGrant.where.not(donate_state: 'close').where(state: 'granted', management_fee_state: 'unaccrue')
+    @can_accrue_grants = GshChildGrant.where(id: params[:grant_ids])
     total_count = @can_accrue_grants.count
     success_count = 0
     fail_count = 0

@@ -321,7 +321,9 @@
     })
     
     function confirmAccrue() {
-        $.get('/ajaxes/batch_accrue', function (result) {
+        $.get('/ajaxes/batch_accrue', {
+            grant_ids: <%= @grants.pluck(:id).to_json.html_safe %>
+        }, function (result) {
             toastr.info(result.message, '' ,{"positionClass": "toast-top-center"})
             setInterval(function () {
                 window.location.reload();
