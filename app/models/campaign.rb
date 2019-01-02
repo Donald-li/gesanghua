@@ -73,7 +73,7 @@ class Campaign < ApplicationRecord
 
   def can_apply?(user)
     return false if user.nil?
-    !self.campaign_enlists.paid.exists?(user_id: user.id) && self.submit? && self.campaign_enlists.paid.sum(:number) < self.number
+    !self.campaign_enlists.paid.exists?(user_id: user.id) && self.submit? && self.campaign_enlists.paid.sum(:number) < self.number.to_i
   end
 
   def form_submit(form)
@@ -91,7 +91,7 @@ class Campaign < ApplicationRecord
       '活动已结束'
     elsif self.to_do? || self.doing?
       '报名结束'
-    elsif self.number.to_i > 0 && self.campaign_enlists.paid.sum(:number) >= self.number
+    elsif self.number.to_i > 0 && self.campaign_enlists.paid.sum(:number) >= self.number.to_i
       '名额已满'
     elsif self.draft?
       '未开始报名'
