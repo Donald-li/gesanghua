@@ -6,13 +6,13 @@ class Api::V1::CampaignsController < Api::V1::BaseController
   end
 
   def show
-    @campaign = Campaign.show.find(params[:id])
+    @campaign = Campaign.find(params[:id])
     api_success(data: @campaign.detail_builder(current_user))
   end
 
   # 提交报名表单
   def apply
-    @campaign = Campaign.show.find(params[:id])
+    @campaign = Campaign.find(params[:id])
     total = @campaign.price.to_f * params[:adult_number].to_i + @campaign.child_price.to_f * params[:child_number].to_i
     @enlist = @campaign.campaign_enlists.new(params.permit(:contact_name, :contact_phone, :remark, :child_number, :adult_number).merge(number: params[:child_number].to_i + params[:adult_number].to_i))
     @enlist.form = params[:form]
