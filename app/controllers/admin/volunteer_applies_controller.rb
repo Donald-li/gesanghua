@@ -16,6 +16,7 @@ class Admin::VolunteerAppliesController < Admin::BaseController
       @apply.approve_state = approve_state
       if approve_state == 'pass'
         @apply.gen_volunteer_no
+        @apply.approve_time = Time.now
         @apply.enable!
         user = @apply.user
         user.roles = user.roles.push(:volunteer)
