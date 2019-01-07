@@ -10,8 +10,8 @@ GIT
       roxml
 
 GIT
-  remote: https://github.com/caryl/china_city.git
-  revision: a5aeaeb2d1bee47fb873b79eb9779c03aff4fe0b
+  remote: https://github.com/bulexu/china_city.git
+  revision: f8a3a4443cf678f4eb2b09bc3c42ec98102d09c1
   specs:
     china_city (0.0.6)
       jquery-rails (>= 3)
@@ -32,7 +32,7 @@ GIT
       typhoeus
 
 GEM
-  remote: https://gems.ruby-china.org/
+  remote: https://gems.ruby-china.com/
   specs:
     actioncable (5.1.1)
       actionpack (= 5.1.1)

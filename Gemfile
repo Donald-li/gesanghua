@@ -1,4 +1,4 @@
-source 'https://gems.ruby-china.org/'
+source 'https://gems.ruby-china.com/'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
@@ -50,7 +50,7 @@ gem 'counter_culture', '~> 1.0'
 gem 'kaminari'
 
 # 四级地域级联
-gem 'china_city', github: 'caryl/china_city'
+gem 'china_city', git: 'https://github.com/bulexu/china_city.git'
 
 gem 'simple_form'
 gem 'acts_as_list'
