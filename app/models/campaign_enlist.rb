@@ -55,7 +55,13 @@ class CampaignEnlist < ApplicationRecord
     donate_record = donate_records.last
     amount = donate_record.amount
     donate_record.update!(amount: amount)
-
+    Notification.create(
+        kind: 'campaign',
+        owner: self.user,
+        user_id: self.user_id,
+        title: '活动报名成功',
+        content: "您已成功报名#{@campaign.name}活动"
+    )
     self.payment_state = 'paid'
     self.save!
   end

@@ -25,7 +25,14 @@
         <div class="activity-detail-co">
           <span>费用</span>
           <% if @campaign.price > 0 || @campaign.child_price > 0 %>
-            <p><%= @campaign.price %>元/成人 <%= @campaign.child_price %>元/儿童</p>
+            <p>
+              <% if @campaign.price > 0 && @campaign.child_price == 0 %>
+                <%= @campaign.price %>元/人
+              <% else %>
+                <%= @campaign.price %>元/成人
+                <%= @campaign.child_price %>元/儿童
+              <% end %>
+            </p>
           <% else %>
             <p>免费</p>
           <% end %>

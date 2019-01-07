@@ -124,8 +124,12 @@ class Campaign < ApplicationRecord
     end.attributes!
   end
 
-  def share_url
+  def share_path
     "#{Settings.m_root_url}/campaign/#{self.id}  欢迎参与#{self.name}"
+  end
+
+  def share_url
+    "#{Settings.m_root_url}/campaign/#{self.id}"
   end
 
   private

@@ -25,11 +25,18 @@ class Site::CampaignsController < Site::BaseController
       # @enlist.state = :paid
       @enlist.total = total
     else
-      @enlist.state = :paid
+      @enlist.payment_state = :paid
     end
     @enlist.user = current_user
     if @enlist.save
       if @enlist.paid?
+        Notification.create(
+            kind: 'campaign',
+            owner: current_user,
+            user_id: current_user.id,
+            title: '活动报名成功',
+            content: "您已成功报名活动-#{@campaign.name}"
+        )
         redirect_to campaign_path, notice: '报名成功'
       else
         redirect_to new_donate_path(campaign_enlist: @enlist.id)

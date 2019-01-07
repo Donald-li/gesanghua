@@ -21,10 +21,17 @@ class Api::V1::CampaignsController < Api::V1::BaseController
       # @enlist.state = :paid
       @enlist.total = total
     else
-      @enlist.state = :paid
+      @enlist.payment_state = :paid
     end
     @enlist.user = current_user
     if @enlist.save
+      Notification.create(
+          kind: 'campaign',
+          owner: current_user,
+          user_id: current_user.id,
+          title: '活动报名成功',
+          content: "您已成功报名活动-#{@campaign.name}"
+      )
       api_success(data: @enlist.id)
     else
       api_error(message: @enlist.errors.messages)
