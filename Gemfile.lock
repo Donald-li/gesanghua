@@ -11,7 +11,7 @@ GIT
 
 GIT
   remote: https://github.com/bulexu/china_city.git
-  revision: e9ba33ad74285f5d4689188ceb1ad213a697be33
+  revision: 40b149b9e146b02e33d0345be2f827425d0bc95a
   specs:
     china_city (0.0.6)
       jquery-rails (>= 3)
