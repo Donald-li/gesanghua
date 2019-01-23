@@ -1,5 +1,6 @@
 class Admin::PairStudentListsController < Admin::BaseController
   before_action :set_pair_student_list, only: [:show, :edit, :update, :destroy, :switch, :remarks, :turn_over, :share, :qrcode_download, :appoint, :appoint_donor]
+  before_action :store_referer, only: [:turn_over]
 
   def index
     params[:q] ||= {}
@@ -11,9 +12,9 @@ class Admin::PairStudentListsController < Admin::BaseController
       scope = scope.where('project_season_apply_children.done_semester_count between 1 and project_season_apply_children.semester_count - 1') if donor_state == 'part_done'
     end
     respond_to do |format|
-      format.html { @pair_student_lists = scope.page(params[:page]) }
+      format.html {@pair_student_lists = scope.page(params[:page])}
       format.xlsx {
-        @pair_student_lists = scope.all
+        @pair_student_lists = scope.sorted
         OperateLog.create_export_excel(current_user, '捐助管理学生名单')
         response.headers['Content-Disposition'] = 'attachment; filename="捐助管理学生名单"' + Date.today.to_s + '.xlsx'
       }
@@ -61,13 +62,13 @@ class Admin::PairStudentListsController < Admin::BaseController
   def destroy
     @pair_student_list.destroy
     respond_to do |format|
-      format.html { redirect_to referer_or(admin_pair_student_lists_path), notice: '删除成功。' }
+      format.html {redirect_to referer_or(admin_pair_student_lists_path), notice: '删除成功。'}
     end
   end
 
   def switch
     @pair_student_list.show? ? @pair_student_list.hidden! : @pair_student_list.show!
-    redirect_to referer_or(admin_pair_student_lists_path), notice:  @pair_student_list.show? ? '已开启筹款' : '已关闭筹款'
+    redirect_to referer_or(admin_pair_student_lists_path), notice: @pair_student_list.show? ? '已开启筹款' : '已关闭筹款'
   end
 
   def remarks
@@ -80,7 +81,7 @@ class Admin::PairStudentListsController < Admin::BaseController
 
   def turn_over
     @pair_student_list.inside? ? @pair_student_list.outside! : @pair_student_list.inside!
-    redirect_to admin_pair_student_lists_path, notice:  @pair_student_list.inside? ? '标记内部认捐成功' : '标记平台可见成功'
+    redirect_to referer_or(admin_pair_student_lists_path), notice: @pair_student_list.inside? ? '标记内部认捐成功' : '标记平台可见成功'
   end
 
   def share
@@ -109,7 +110,7 @@ class Admin::PairStudentListsController < Admin::BaseController
       )
       redirect_to referer_or(admin_pair_student_lists_path), notice: @pair_student_list.priority_id.present? ? '指定捐助人成功，并发送微信通知' : '未设置捐助人'
     else
-      redirect_to referer_or(admin_pair_student_lists_path), notice:  '指定捐助人失败'
+      redirect_to referer_or(admin_pair_student_lists_path), notice: '指定捐助人失败'
     end
   end
 
@@ -206,14 +207,20 @@ class Admin::PairStudentListsController < Admin::BaseController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_pair_student_list
-      @pair_student_list = ProjectSeasonApplyChild.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def pair_student_list_params
-      params.require(:project_season_apply_child).permit!
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_pair_student_list
+    @pair_student_list = ProjectSeasonApplyChild.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def pair_student_list_params
+    params.require(:project_season_apply_child).permit!
+  end
+
+  def store_referer
+    session[:admin_referer] = request.referer if request.referer.present? && session[:skip_referer].blank?
+    session.delete(:skip_referer) if session[:skip_referer]
+  end
 
 end

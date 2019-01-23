@@ -20,6 +20,22 @@ class Platform::School::Apply::ChildrenController < Platform::School::BaseContro
   def create
     @child = ProjectSeasonApplyChild.new(child_params.merge(project: Project.pair_project, season: @apply.season, apply: @apply, school: @apply.school, province: @apply.province, city: @apply.city, district: @apply.district))
     respond_to do |format|
+      # unless params[:id_image_id].present?
+      #   flash[:alert] = '请上传身份证或户口本'
+      #   format.html {render :new and return}
+      # end
+      # unless params[:room_image_id].present?
+      #   flash[:alert] = '请上传客厅照片'
+      #   format.html {render :new and return}
+      # end
+      # unless params[:yard_image_id].present?
+      #   flash[:alert] = '请上传园子照片'
+      #   format.html {render :new and return}
+      # end
+      # unless params[:apply_one_id].present?
+      #   flash[:alert] = '请上传申请书1'
+      #   format.html {render :new and return}
+      # end
       if ProjectSeasonApplyChild.allow_apply?(@apply.school, child_params[:id_card])
         if @child.save
           @child.attach_avatar(params[:avatar_id])
@@ -31,6 +47,7 @@ class Platform::School::Apply::ChildrenController < Platform::School::BaseContro
           @child.attach_apply_two(params[:apply_two_id])
           format.html {redirect_to child_list_platform_school_apply_pair_children_path, notice: '新增成功。'}
         else
+          flash[:alert] = '保存失败'
           format.html {render :new}
         end
       else

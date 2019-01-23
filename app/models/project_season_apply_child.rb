@@ -58,6 +58,7 @@
 #  priority_id             :integer                                # 优先捐助人id
 #  archive_data            :jsonb                                  # 归档旧数据
 #  student_state           :integer          default("normal")     # 学生状态
+#  submit_at               :datetime
 #
 
 require 'custom_validators'
@@ -68,7 +69,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
 
   has_paper_trail only: [:project_id, :project_season_id, :project_season_apply_id, :gsh_child_id, :name, :province, :city, :district, :phone, :qq, :nation, :id_card, :parent_name, :description, :state,
                          :approve_state, :age, :level, :grade, :gender, :school_id, :semester, :kind, :reson, :gsh_no, :teacher_name, :teacher_phone, :father, :father_job, :mother, :mother_job, :guardian, :guardian_relation, :guardian_phone, :address,
-                         :family_income, :family_expenditure, :income_source, :family_condition, :brothers, :remark]
+                         :family_income, :family_expenditure, :income_source, :family_condition, :brothers, :remark, :priority_id]
 
   after_save :distinguish_gender, :count_age, :update_gsh_child
   before_update :update_pair_state, if: :can_update_pair_state?

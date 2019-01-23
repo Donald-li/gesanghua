@@ -157,7 +157,7 @@ class Api::V1::CooperationPairStudentsController < Api::V1::BaseController
   def submit_list
     @apply = ProjectSeasonApply.find(params[:id])
     @students = ProjectSeasonApplyChild.where("id in (?)", params[:students])
-    if @students.update_all(approve_state: 1) && @apply.update(pair_state: 2, applicant_id: params[:applicant])
+    if @students.update_all(approve_state: 'submit', submit_at: Time.now) && @apply.update(pair_state: 2, applicant_id: params[:applicant])
       api_success
     else
       return api_error(message: "提交失败，请检查")

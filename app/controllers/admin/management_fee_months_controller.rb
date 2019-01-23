@@ -6,7 +6,7 @@ class Admin::ManagementFeeMonthsController < Admin::BaseController
     respond_to do |format|
       format.html { @months = scope.page(params[:page]) }
       format.xlsx {
-        @months = scope.all
+        @months = scope.sorted
         OperateLog.create_export_excel(current_user, '管理费汇总表')
         response.headers['Content-Disposition'] = 'attachment; filename= "管理费汇总表" ' + Date.today.to_s + '.xlsx'
       }

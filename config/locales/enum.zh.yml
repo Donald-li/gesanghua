@@ -643,3 +643,6 @@ zh:
   management_fee_month_states:
     unaccrue: '未提取'
     accrued: '已提取'
+  logistic_kinds:
+    unpay: '到付'
+    paid: '已付'

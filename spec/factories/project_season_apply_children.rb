@@ -58,6 +58,7 @@
 #  priority_id             :integer                                # 优先捐助人id
 #  archive_data            :jsonb                                  # 归档旧数据
 #  student_state           :integer          default("normal")     # 学生状态
+#  submit_at               :datetime
 #
 
 FactoryBot.define do

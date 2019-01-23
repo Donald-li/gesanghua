@@ -9,6 +9,7 @@
 #  owner_id   :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  kind       :integer
 #
 
 require 'rails_helper'

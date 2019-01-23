@@ -36,7 +36,7 @@ class Api::V1::Account::UsersController < Api::V1::BaseController
 
   def get_user_promoter_record
     user = current_user
-    search = Donation.where(promoter_id: user.id)
+    search = Donation.paid.where(promoter_id: user.id)
     @promoter_records = search.sorted.page(params[:page])
     api_success(data: {promoter_records: @promoter_records.map{|promoter_record| promoter_record.promoter_record_builder}, user: user.summary_builder, pagination: json_pagination(@promoter_records)})
   end

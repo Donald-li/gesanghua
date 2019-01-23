@@ -9,7 +9,7 @@ wb.add_worksheet(name: "学生名单") do |sheet|
     donor = semesters.succeed.last.try(:user)
     sheet.add_row [
                       index + 1,
-                      child.gsh_child.try(:gsh_no),
+                      child.try(:gsh_no),
                       child.name,
                       child.school.try(:name),
                       child.enum_name(:level).to_s + child.enum_name(:grade).to_s,

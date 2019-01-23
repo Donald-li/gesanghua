@@ -8,7 +8,7 @@ class Admin::PairAppliesController < Admin::BaseController
     respond_to do |format|
       format.html { @project_applies = scope.page(params[:page]) }
       format.xlsx {
-        @project_applies = scope.all
+        @project_applies = scope.sorted
         OperateLog.create_export_excel(current_user,  '结对配额列表')
         response.headers['Content-Disposition'] = 'attachment; filename=' + '结对配额列表' + Date.today.to_s + '.xlsx'
       }

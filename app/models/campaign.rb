@@ -73,7 +73,8 @@ class Campaign < ApplicationRecord
 
   def can_apply?(user)
     return false if user.nil?
-    !self.campaign_enlists.paid.exists?(user_id: user.id) && self.submit? && (self.number.to_i > 0 ? self.campaign_enlists.paid.sum(:number) < self.number.to_i : true)
+    # !self.campaign_enlists.paid.exists?(user_id: user.id) &&
+    self.submit? && (self.number.to_i > 0 ? self.campaign_enlists.paid.sum(:number) < self.number.to_i : true)
   end
 
   def form_submit(form)

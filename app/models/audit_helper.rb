@@ -81,6 +81,8 @@ class AuditHelper
         end
       end
       a
+    when 'priority_id'
+      "#{audit.item.priority_user.try(:name)}(#{audit.item.priority_user.try(:phone)})"
     when /_id$/
       item = audit.item
       return unless item

@@ -57,7 +57,7 @@ class Support::AjaxesController < Support::BaseController
   def submit_pair_children
     @apply = ProjectSeasonApply.find(params[:id])
     @children = ProjectSeasonApplyChild.where(id: params[:child_ids])
-    if @children.map(&:submit!) && @apply.waiting_check!
+    if @children.update_all(approve_state: 'submit', submit_at: Time.now) && @apply.waiting_check!
       render json: {message: '提交成功，请耐心等待审核', status: true}
     else
       render json: {message: '提交失败，请重试', status: false}

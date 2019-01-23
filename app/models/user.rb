@@ -148,7 +148,7 @@ class User < ApplicationRecord
   end
 
   def school
-    self.teacher.try(:school)
+    self.teacher.try(:school) || School.find_by(user_id: self.id) || self.create_school
   end
 
   def need_perfect?

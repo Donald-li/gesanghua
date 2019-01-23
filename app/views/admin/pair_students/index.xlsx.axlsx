@@ -3,11 +3,12 @@ styles = wb.styles
 header = styles.add_style :sz => 12, :b => true, :bg_color => 'FFFF33'
 wb.add_worksheet(name: "#{@project_apply.school.try(:name)}结对学生") do |sheet|
 
-  sheet.add_row ["序号", "姓名", "年龄", "性别", "身份证号", "民族", "教育阶段", "年级", "学期", "班级", "申请学年", "班主任", "联系方式", "自我介绍", "父亲", "父亲职业", "母亲", "母亲职业", "父母情况", "监护人", "与其关系", "联系方式", "家庭住址", "家庭年收入", "收入来源", "家庭年支出", "支出情况", "负债情况", "家庭情况", "推荐理由", "孩子介绍", "备注", '分享链接'],
+  sheet.add_row ["序号", '格桑花编号', "姓名", "年龄", "性别", "身份证号", "民族", "教育阶段", "年级", "学期", "班级", "申请学年", "班主任", "联系方式", "自我介绍", "父亲", "父亲职业", "母亲", "母亲职业", "父母情况", "监护人", "与其关系", "联系方式", "家庭住址", "家庭年收入", "收入来源", "家庭年支出", "支出情况", "负债情况", "家庭情况", "推荐理由", "孩子介绍", '审核状态', "备注", '分享链接'],
         :style => [nil, header, header, header, nil, header, header, header, header, header, header, nil, nil, header, header, header, header, header, nil, header, header, nil, header, header, header, nil, nil, nil, nil, header, header, nil ]
   @children.each_with_index do |child, index|
     sheet.add_row [
                       index + 1,
+                      child.try(:gsh_no),
                       child.name,
                       child.age,
                       child.enum_name(:gender),
@@ -38,11 +39,10 @@ wb.add_worksheet(name: "#{@project_apply.school.try(:name)}结对学生") do |sh
                       child.family_condition,
                       child.reason,
                       child.information.html_safe,
+                      child.enum_name(:approve_state),
                       child.remark,
                       child.share_path], types: [:string] * 33
   end
-
-  sheet.column_widths 10, 20, 10, 10, 40, 10, 10, 10, 10, 60, 20, 20, 30, 20, 10, 20, 10, 20, 20, 10, 20, 20, 10, 20, 10, 20, 20, 20, 20, 20
 
 end
 

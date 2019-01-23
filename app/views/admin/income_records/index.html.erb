@@ -32,8 +32,8 @@
         <div class="col-md-12 col-sm-12">
           <%= search_form_for @search, url: admin_income_records_path, class: 'form-inline' do |f| %>
               <div class="form-group " style="margin-bottom: 10px;">
-                <%= f.label :title_or_income_no_or_donor_name_or_agent_name_or_remark_cont, '搜索' %>
-                <%= f.text_field :title_or_income_no_or_donor_name_or_agent_name_or_remark_cont, class: 'form-control gsh-input-share', placeholder: '关键字',style:'width:120px;' %>
+                <%= f.label :title_or_income_no_or_donor_nickname_or_agent_nickname_or_donor_name_or_agent_name_or_remark_cont, '搜索' %>
+                <%= f.text_field :title_or_income_no_or_donor_nickname_or_agent_nickname_or_donor_name_or_agent_name_or_remark_cont, class: 'form-control gsh-input-share', placeholder: '关键字',style:'width:120px;' %>
               </div>
               <div class="form-group" style="margin-bottom: 10px;">
                 <%= f.label :amount_eq, '金额' %>

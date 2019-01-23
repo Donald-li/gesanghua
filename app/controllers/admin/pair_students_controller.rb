@@ -9,7 +9,7 @@ class Admin::PairStudentsController < Admin::BaseController
     respond_to do |format|
       format.html { @children = scope.page(params[:page]) }
       format.xlsx {
-        @children = scope.all
+        @children = scope.sorted
         OperateLog.create_export_excel(current_user,  @project_apply.school.try(:name) + '结对学生名单')
         response.headers['Content-Disposition'] = 'attachment; filename=' + @project_apply.school.try(:name) + '结对学生名单' + Date.today.to_s + '.xlsx'
       }

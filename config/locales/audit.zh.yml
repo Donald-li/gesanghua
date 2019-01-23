@@ -177,6 +177,7 @@ zh:
       family_condition: '家庭情况'
       brothers: '兄弟姐妹'
       remark: '备注'
+      priority_id: '优先捐助人'
     grant_batch:
       project_id: '所属项目'
       batch_no: '批次号'
