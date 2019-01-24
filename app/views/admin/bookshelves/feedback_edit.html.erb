@@ -12,15 +12,24 @@
     </div>
   </div>
   <div class="portlet-body form">
-    <%= simple_form_for [:admin, @feedback], url: feedback_update_admin_read_project_bookshelf_path(@project, @bookshelf), method: :put, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'continual_form'} do |f| %>
+    <%= simple_form_for [:admin, @feedback], as: :feedback, url: feedback_update_admin_read_project_bookshelf_path(@project, @bookshelf), method: :patch, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'continual_form'} do |f| %>
       <%= f.error_notification %>
       <div class="form-body form-horizontal">
-        <%= f.hidden_field :feedback_id, value: @feedback.id %>
-        <%= f.input :class_name, label: '反馈班级：', input_html: {data: {'parsley-required': true}} %>
+        <input type="hidden" name="feedback_id" value="<%= @feedback.id %>">
+        <%= static_form_control '图书角编号：', @feedback.owner.bookshelf_no %>
+        <%= static_form_control '反馈班级：', @feedback.owner.classname %>
+        <%= static_form_control '反馈人：', @feedback.user.try(:name) %>
+        <%= static_form_control '反馈时间：', (l @feedback.created_at) %>
         <div class="form-group">
           <label class="col-md-2 control-label">反馈内容：</label>
           <div class="col-sm-9">
             <%= f.cktext_area :content, input_html: { data: {'parsley-required': true}}  %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">图片：</label>
+          <div class="col-sm-9">
+            <%= webuploader_tag 'image_ids[]', label: '上传图片', type: 'feedback_image', asset: @feedback.images, id: 'carousel-images' %>
           </div>
         </div>
         <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Feedback.options_for_select(:states), label: '状态：' %>
@@ -36,3 +45,7 @@
 
   </div>
 </div>
+
+<script type="text/javascript" charset="utf-8">
+    initMultiImageWebuploader($('#carousel-images'), {}, 9);
+</script>

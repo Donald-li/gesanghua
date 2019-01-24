@@ -91,6 +91,7 @@ class Admin::BookshelvesController < Admin::BaseController
     @bookshelf = ProjectSeasonApplyBookshelf.find(params[:id])
     @feedback = Feedback.find_by(id: params[:feedback_id])
     if @feedback.update(params.require(:feedback).permit!)
+      @feedback.attach_images(params[:image_ids])
       redirect_to referer_or(bookshelf_install_admin_read_project_bookshelf_path(@project, @bookshelf))
     else
       flash.now[:alert] = '保存失败'

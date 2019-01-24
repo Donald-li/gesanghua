@@ -21,7 +21,7 @@ class Site::CampsController < Site::BaseController
 
   def detail
     @apply = ProjectSeasonApply.find(params[:id])
-    @feedbacks = @apply.continual_feedbacks.recommend.sorted
+    @feedbacks = @apply.continual_feedbacks.sorted
     @donate_records = DonateRecord.normal.where(project_season_apply_id: @apply.id).sorted.page(1).per(6)
   end
 
