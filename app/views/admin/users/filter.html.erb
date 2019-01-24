@@ -141,8 +141,10 @@
               <td>
                 <%= user.remark %>
               </td>
-              <td style="background-color: green">
-                ￥<%= format_money user.total %>
+              <td style="background-color: gold">
+                <span style="">
+                  ￥<%= format_money user.total %>
+                </span>
               </td>
             </tr>
           <% end %>
