@@ -175,7 +175,7 @@ project_operator:
 financial_staff:
   actions:
     admin/mains: all
-    admin/users: ['index', 'new', 'edit', 'batch_manage', 'send_message', 'create', 'update']
+    admin/users: ['index', 'new', 'edit', 'batch_manage', 'send_message', 'create', 'update', 'filter']
     admin/donate_records: all
     admin/account_records:
       except: ['destroy']
@@ -201,7 +201,7 @@ financial_staff:
 custom_service:
   actions:
     admin/mains: all
-    admin/users: ['index', 'new', 'edit', 'manager', 'set_manager', 'batch_manage', 'send_message', 'switch', 'show', 'create', 'update', 'invoices', 'bill']
+    admin/users: ['index', 'new', 'edit', 'manager', 'set_manager', 'batch_manage', 'send_message', 'switch', 'show', 'create', 'update', 'invoices', 'bill', 'filter']
     admin/donate_records: all
     admin/account_records:
       except: ['destroy']
@@ -220,7 +220,7 @@ custom_service:
 manpower_operator:
   actions:
     admin/mains: all
-    admin/users: ['index', 'new', 'edit', 'batch_manage', 'send_message', 'create', 'update']
+    admin/users: ['index', 'new', 'edit', 'batch_manage', 'send_message', 'create', 'update', 'filter']
     admin/donate_records: all
     admin/account_records:
       except: ['destroy']
@@ -242,7 +242,7 @@ manpower_operator:
 platform_manager:
   actions:
     admin/mains: all
-    admin/users: ['index']
+    admin/users: ['index', 'filter']
     admin/donate_records: ['index']
     admin/account_records: ['index']
     admin/gsh_children: ['index']

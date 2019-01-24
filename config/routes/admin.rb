@@ -23,6 +23,7 @@ namespace :admin do
     collection do
       get :batch_manage
       put :send_message
+      get :filter
     end
     resources :donate_records, only: [:index, :destroy] do
       member do

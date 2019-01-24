@@ -1,0 +1,155 @@
+<div class="portlet light">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-list"></i>大客户筛选
+    </div>
+    <div class="actions">
+      <button class="btn btn-xs yellow">
+        <i class="fa fa-user"></i> <%= @users.length %> 人
+      </button>
+      <%= link_to admin_users_path, class: 'btn btn-xs blue' do %>
+        <i class="fa fa-reply"></i>
+        <span>返回</span>
+      <% end %>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="dataTables_wrapper no-footer">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <%= form_tag filter_admin_users_path, class: 'form-inline' do %>
+            <div class="form-group">
+              <label>时间段：</label>
+              <input type="text" name="start_at" class="form-control datepicker gsh-input-share-l" style="width:110px;" value="<%= params[:start_at] || Time.now.beginning_of_month %>">
+              <input type="text" name="end_at" class="form-control datepicker gsh-input-share-r" style="width:110px;" value="<%= params[:end_at] || Time.now %>">
+            </div>
+            <div class="form-group">
+              <label>捐助金额：</label>
+              <input type="text" name="amount_min" class="form-control gsh-input-share-l" placeholder="大于或等于" style="width:120px;" value="<%= params[:amount_min] || 10000 %>">
+              <input type="text" name="amount_max" class="form-control gsh-input-share-r" placeholder="大于或等于" style="width:120px;" value="<%= params[:amount_max] || 1000000 %>">
+            </div>
+            <button type="submit" class="btn btn-default grey">搜索</button>
+          <% end %>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="dataTables_filter pull-right">
+          </div>
+        </div>
+      </div>
+      <div class="table-scrollable dropdown-select">
+        <table class="table table-striped table-bordered table-hover" id="sample_2">
+          <thead>
+          <tr>
+            <th>
+              ID
+            </th>
+            <th>
+              昵称
+            </th>
+            <th>
+              姓名
+            </th>
+            <th>
+              手机/邮箱
+            </th>
+            <th>
+              地区/地址
+            </th>
+            <th>
+              余额
+            </th>
+            <th>
+              历史捐赠金额
+            </th>
+            <th>
+              可开票金额
+            </th>
+            <th>
+              微信绑定
+            </th>
+            <th>
+              账号状态
+            </th>
+            <th>
+              其他身份
+            </th>
+            <th>
+              代捐管理人
+            </th>
+            <th>
+              备注
+            </th>
+            <th>
+              阶段捐助金额
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td>
+                <%= user.id %>
+              </td>
+              <td>
+                <%= user.nickname %>
+              </td>
+              <td>
+                <%= user.name %>
+              </td>
+              <td>
+                <%= user.phone %> <br>
+                <%= user.email %>
+              </td>
+              <td>
+                <%= user.simple_address %> /
+                <%= user.address %>
+              </td>
+              <td>
+                ￥<%= format_money(user.balance) %>
+              </td>
+              <td>
+                ￥<%= format_money(user.income_records.sum(:amount)) %>
+              </td>
+              <td>
+                ￥<%= format_money(user.income_records.open_ticket.sum(:amount)) %>
+              </td>
+              <td>
+                <% if user.openid.present? %>
+                  <%= image_tag 'wechat.png', style: 'width: 25px;height: 25px;' %>
+                <% else %>
+                  <%= image_tag 'wechat_default.png', style: 'width: 25px;height: 25px;' %>
+                <% end %>
+              </td>
+              <td>
+                <% if user.unactived? %>
+                  <span class="btn btn-xs default"><%= user.enum_name(:state) %></span>
+                <% else %>
+                  <%= link_to switch_admin_user_path(user), data: {confirm: "确定#{user.state === 'enable' ? '禁用该用户' : '启用该用户'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{user.state === 'enable' ? 'green' : 'default'}" do %>
+                    <%= user.state === 'enable' ? '启用' : '禁用' %>
+                    <i class="fa <%= user.state === 'enable' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                  <% end %>
+                <% end %>
+              </td>
+              <td>
+                <% user.roles_name.each do |t| %>
+                  <span class="btn btn-xs yellow"><%= t %></span>
+                <% end %>
+              </td>
+              <td>
+                <%= link_to user.manager.try(:name), admin_users_path(user_id: user.manager_id) if user.manager.present? %>
+              </td>
+              <td>
+                <%= user.remark %>
+              </td>
+              <td style="background-color: green">
+                ￥<%= format_money user.total %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END EXAMPLE TABLE PORTLET-->
