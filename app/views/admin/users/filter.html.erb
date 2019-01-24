@@ -7,6 +7,12 @@
       <button class="btn btn-xs yellow">
         <i class="fa fa-user"></i> <%= @users.length %> 人
       </button>
+      <% if can? :manage_excel, current_user  %>
+        <%= link_to url_for(params.permit!.merge(format: :xlsx)), class: 'btn btn-xs blue', 'data-no-turbolink' => true do %>
+          <i class="fa fa-download"></i>
+          <span>导出</span>
+        <% end %>
+      <% end %>
       <%= link_to admin_users_path, class: 'btn btn-xs blue' do %>
         <i class="fa fa-reply"></i>
         <span>返回</span>

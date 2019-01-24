@@ -131,12 +131,27 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def filter
-    start_at = params[:start_at] || Time.now.beginning_of_month
-    end_at = params[:end_at].try(:end_of_day) || Time.now
-    amount_min = params[:amount_min] || 10000
-    amount_max = params[:amount_ax] || 1000000
+    respond_to do |format|
+      start_at = params[:start_at] || Time.now.beginning_of_month
+      end_at = params[:end_at].try(:end_of_day) || Time.now
+      amount_min = params[:amount_min] || 10000
+      amount_max = params[:amount_ax] || 1000000
 
-    @users = User.joins(:income_records).where("income_records.income_time >= ? and income_records.income_time <= ?", start_at, end_at).select("users.*, sum(income_records.amount) as total ").group('users.id').having("sum(income_records.amount) >= #{amount_min} and sum(income_records.amount) <= #{amount_max}").order("sum(income_records.amount) desc")
+      @users = User.joins(:income_records)
+                   .where("income_records.income_time >= ? and income_records.income_time <= ?", start_at, end_at)
+                   .select("users.*, sum(income_records.amount) as total ")
+                   .group('users.id')
+                   .having("sum(income_records.amount) >= #{amount_min} and sum(income_records.amount) <= #{amount_max}")
+                   .order("sum(income_records.amount) desc")
+
+      format.html do # HTML页面
+      end
+      format.xlsx {
+        OperateLog.create_export_excel(current_user,  '大用户名单')
+        response.headers['Content-Disposition'] = 'attachment; filename="大用户名单"' + Date.today.to_s + '.xlsx'
+      }
+    end
+
   end
 
   private

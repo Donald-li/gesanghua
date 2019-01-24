@@ -1,0 +1,26 @@
+wb = xlsx_package.workbook
+styles = wb.styles
+header = styles.add_style :sz => 16, :b => true, :alignment => {:horizontal => :center}
+wb.add_worksheet(name: "用户名单") do |sheet|
+
+  sheet.add_row ["id", "昵称", "姓名", "性别", "手机号", "账户余额", '阶段捐助金额', "捐助金额", "所在地区", "代捐管理人", "管理人手机号", "历史数据昵称/姓名", "历史数据邮箱"]
+  @users.each_with_index do |user, index|
+    sheet.add_row [
+                      user.id,
+                      user.nickname,
+                      user.name,
+                      user.enum_name(:gender),
+                      user.phone,
+                      user.balance,
+                      user.total,
+                      user.donate_amount,
+                      user.full_address,
+                      user.manager.try(:name),
+                      user.manager.try(:phone),
+                      ("#{user.archive_data["DvUserName"]} - #{user.archive_data["Name"]}" unless user.archive_data.blank?),
+                      (user.archive_data["Email"] unless user.archive_data.blank?)], types: [:string] * 12
+  end
+
+
+end
+
