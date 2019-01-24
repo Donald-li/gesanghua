@@ -8,6 +8,13 @@
     <div class="actions">
       <div class="btn-group">
         <a href="<%= admin_read_project_bookshelves_path(@project) %>" class="btn btn-xs blue">
+          <i class="fa fa-edit"></i>修改
+        </a>
+        <%= link_to feedback_switch_admin_read_project_bookshelf_path(@project, @bookshelf, feedback_id: @install), data: {confirm: "确定#{@install.show? ? '隐藏反馈' : '显示反馈'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{@install.show? ? 'green' : 'default'}" do %>
+          <%= @install.show? ? '显示' : '隐藏' %>
+          <i class="fa <%= @install.show? ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+        <% end %>
+        <a href="<%= admin_read_project_bookshelves_path(@project) %>" class="btn btn-xs blue">
           <i class="fa fa-reply"></i>返回
         </a>
       </div>

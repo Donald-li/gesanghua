@@ -73,6 +73,31 @@ class Admin::BookshelvesController < Admin::BaseController
     @install = @bookshelf.install_feedback
   end
 
+  def feedback_switch
+    store_referer
+    @bookshelf = ProjectSeasonApplyBookshelf.find(params[:id])
+    @feedback = Feedback.find_by(id: params[:feedback_id])
+    @feedback.show? ? @feedback.hidden! : @feedback.show!
+    redirect_to referer_or(bookshelf_install_admin_read_project_bookshelf_path(@project, @bookshelf))
+  end
+
+  def feedback_edit
+    store_referer
+    @bookshelf = ProjectSeasonApplyBookshelf.find(params[:id])
+    @feedback = Feedback.find_by(id: params[:feedback_id])
+  end
+
+  def feedback_update
+    @bookshelf = ProjectSeasonApplyBookshelf.find(params[:id])
+    @feedback = Feedback.find_by(id: params[:feedback_id])
+    if @feedback.update(params.require(:feedback).permit!)
+      redirect_to referer_or(bookshelf_install_admin_read_project_bookshelf_path(@project, @bookshelf))
+    else
+      flash.now[:alert] = '保存失败'
+      render :feedback_edit
+    end
+  end
+
   private
   def set_project
     @project = ProjectSeasonApply.find(params[:read_project_id])

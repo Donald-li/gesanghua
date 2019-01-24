@@ -1,0 +1,38 @@
+<div class="portlet light bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="icon-icon"></i>
+      <span class="caption-subject">修改反馈</span>
+    </div>
+    <div class="actions">
+      <div class="portlet-input input-inline input-small">
+        <div class="input-icon right">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body form">
+    <%= simple_form_for [:admin, @feedback], url: feedback_update_admin_read_project_bookshelf_path(@project, @bookshelf), method: :put, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'continual_form'} do |f| %>
+      <%= f.error_notification %>
+      <div class="form-body form-horizontal">
+        <%= f.hidden_field :feedback_id, value: @feedback.id %>
+        <%= f.input :class_name, label: '反馈班级：', input_html: {data: {'parsley-required': true}} %>
+        <div class="form-group">
+          <label class="col-md-2 control-label">反馈内容：</label>
+          <div class="col-sm-9">
+            <%= f.cktext_area :content, input_html: { data: {'parsley-required': true}}  %>
+          </div>
+        </div>
+        <%= f.input :state, as: :radio_buttons, wrapper: :inline_inputs, collection: Feedback.options_for_select(:states), label: '状态：' %>
+      </div>
+      <div class="form-actions">
+        <div class="row">
+          <div class="col-md-offset-2 col-md-9">
+            <%= f.button :submit, '提交', class: 'btn blue' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+  </div>
+</div>

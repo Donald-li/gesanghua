@@ -107,6 +107,9 @@ namespace :admin do
         post :create_shipment
         get :bookshelf_receive
         get :bookshelf_install
+        get :feedback_edit
+        patch :feedback_update
+        put :feedback_switch
       end
     end
     resources :supplements, concerns: :switch do

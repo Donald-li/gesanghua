@@ -7,7 +7,7 @@ class Api::V1::FeedbacksController < Api::V1::BaseController
     else
       query_types = ['ReceiveFeedback']
     end
-    feedbacks = Feedback.recommend.show.sorted.where(type: query_types).where(project_season_apply_id: params[:apply_id]).page(params[:page]).per(7)
+    feedbacks = Feedback.show.sorted.where(type: query_types).where(project_season_apply_id: params[:apply_id]).page(params[:page]).per(7)
     api_success(data: {feedbacks: feedbacks.map { |r| r.detail_builder }, pagination: json_pagination(feedbacks)})
   end
 
