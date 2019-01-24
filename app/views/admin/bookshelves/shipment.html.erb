@@ -1,11 +1,11 @@
 <div class="portlet light">
   <div class="portlet-title">
     <div class="caption">
-      <i class="icon-note"></i><%= link_to @bookshelf.apply.name, admin_read_project_bookshelves_path(@project, @bookshelf) %> > 填写发货信息
+      <i class="icon-note"></i><%= link_to @bookshelf.apply.name, admin_read_project_bookshelf_path(@project, @bookshelf) %> > 填写发货信息
     </div>
     <div class="actions">
       <div class="btn-group">
-        <a href="<%= admin_read_project_bookshelves_path(@project, @bookshelf) %>" class="btn btn-xs blue">
+        <a href="<%= admin_read_project_bookshelves_path(@project) %>" class="btn btn-xs blue">
           <i class="fa fa-reply"></i>返回
         </a>
       </div>
