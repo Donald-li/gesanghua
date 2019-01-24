@@ -34,8 +34,8 @@ class Api::V1::PairFeedbacksController < Api::V1::BaseController
   end
 
   def index
-    # feedbacks = ProjectSeasonApplyChild.find(params[:child_id]).continual_feedbacks.sorted.page(params[:page]).per(params[:per])
-    feedbacks = GshChild.find(params[:child_id]).continual_feedbacks.sorted.page(params[:page]).per(params[:per])
+    # feedbacks = ProjectSeasonApplyChild.find(params[:child_id]).continual_feedbacks.recomment.sorted.page(params[:page]).per(params[:per])
+    feedbacks = GshChild.find(params[:child_id]).continual_feedbacks.recomment.sorted.page(params[:page]).per(params[:per])
     api_success(data: {feedbacks: feedbacks.map{|f| f.detail_builder}, pagination: json_pagination(feedbacks)})
   end
 

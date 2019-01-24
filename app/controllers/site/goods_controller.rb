@@ -3,7 +3,7 @@ class Site::GoodsController < Site::BaseController
 
   def detail
     @apply = ProjectSeasonApply.find(params[:id])
-    @feedbacks = Feedback.show.sorted.where(project_season_apply_id: @apply.id)
+    @feedbacks = Feedback.show.recommend.sorted.where(project_season_apply_id: @apply.id)
     @donate_records = DonateRecord.normal.where(project_season_apply_id: @apply.id).sorted.page(1).per(6)
   end
 
