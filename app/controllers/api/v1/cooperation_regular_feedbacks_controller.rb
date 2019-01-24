@@ -17,7 +17,7 @@ class Api::V1::CooperationRegularFeedbacksController < Api::V1::BaseController
   end
 
   def feedback_list
-    feedbacks =  @project.continual_feedbacks.recommend.sorted.page(params[:page]).per(params[:per])
+    feedbacks =  @project.continual_feedbacks.sorted.page(params[:page]).per(params[:per])
     api_success(data: {feedbacks: feedbacks.map{|f| f.detail_builder}, pagination: json_pagination(feedbacks)})
   end
 

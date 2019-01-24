@@ -30,5 +30,5 @@
 
 # 持续反馈
 class ContinualFeedback < Feedback
-  scope :visible, ->{show.recommend}
+  scope :visible, ->{show}
 end
