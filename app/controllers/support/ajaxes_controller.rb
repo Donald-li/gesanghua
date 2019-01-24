@@ -265,4 +265,12 @@ class Support::AjaxesController < Support::BaseController
     render json: {message: "共计#{total_count}条，成功#{success_count}条，失败#{fail_count}条。3秒后自动刷新页面"}
   end
 
+  def search_wechat_user
+    users = User.where.not(profile: {})
+    users = users.where(province: params[:province]) if params[:province].present?
+    users = users.where(province: params[:province], city: params[:city]) if params[:city].present?
+    users = users.where(province: params[:province], city: params[:city], district: params[:district]) if params[:district].present?
+    render json: {user_ids: users.pluck(:id), count: users.count}
+  end
+
 end

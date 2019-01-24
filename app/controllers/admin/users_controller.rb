@@ -118,6 +118,8 @@ class Admin::UsersController < Admin::BaseController
   def send_message
     if params[:send_way] == 'total'
       user_ids = User.where.not(profile: {}).pluck(:id)
+    elsif params[:send_way] == 'filter'
+      user_ids = params[:user_ids_array].split(',')
     else
       user_ids = params[:user_ids]
     end

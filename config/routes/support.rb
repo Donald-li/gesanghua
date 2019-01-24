@@ -55,6 +55,7 @@ scope module: :support do
       post :set_shelf_name
       post :add_all_grants
       get :batch_accrue
+      get :search_wechat_user
     end
   end
 end

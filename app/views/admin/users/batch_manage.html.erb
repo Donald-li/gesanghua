@@ -31,11 +31,33 @@
                 <label class="col-md-2 control-label">推送方式：</label>
                 <div class="col-md-9 form-inline">
                   <label><input type="radio" class="form-control radio_buttons send_way" name="send_way" value="total" <%= 'checked' if params[:user_id].blank? %> onclick="toggleState()">所有用户</label>
+                  <label><input type="radio" class="form-control radio_buttons send_way" name="send_way" value="filter" onclick="toggleState()">筛选用户</label>
                   <label><input type="radio" class="form-control radio_buttons send_way" name="send_way" value="part" <%= 'checked' if params[:user_id].present? %> onclick="toggleState()">选定用户</label>
                   <p class="help-block">推送微信消息给绑定微信的用户</p>
                 </div>
               </div>
 
+              <div class="filter">
+                <div style="margin-bottom: 20px;" class="form-group">
+                  <label class="col-md-2 control-label select required" for="project_category_id">用户所在地：</label>
+                  <div class="col-sm-6">
+                    <div class="row city-group">
+                      <div class="col-sm-3">
+                        <%= select_tag 'province', options_for_select(ChinaCity.list, params[:province]), prompt: '省份', class: "city-select form-control gsh-input-share-l ", id: 'province' %>
+                      </div>
+                      <div class="col-sm-3">
+                        <%= select_tag 'city', options_for_select(ChinaCity.list(params[:province]), params[:city]), prompt: '城市', class: "city-select form-control ", id: 'city' %>
+                      </div>
+                      <div class="col-sm-3">
+                        <%= select_tag 'district', options_for_select(ChinaCity.list(params[:city]), params[:district]), prompt: '地区', class: "city-select form-control gsh-input-share-r", id: 'district' %>
+                      </div>
+                      <button type="button" class="btn blue" onclick="filterWechatUser()">筛选</button>
+                      <span id="result-number">0</span>人
+                      <input type="hidden" id="user-ids" name="user_ids_array">
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div class="part">
                 <div class="form-group approve_reject ">
                   <label class="col-md-2 control-label">选择用户：</label>
@@ -47,7 +69,7 @@
               <div class="form-group approve_reject ">
                 <label class="col-md-2 control-label">消息内容：</label>
                 <div class="col-sm-9">
-                  <textarea name="content"cols="100" rows="10" required></textarea>
+                  <textarea name="content" cols="100" rows="10" required></textarea>
                 </div>
               </div>
             </div>
@@ -109,7 +131,27 @@
 
     function toggleState() {
         toggleRadioInput('.send_way', {
-            part: '.part'
+            part: '.part',
+            filter: '.filter'
         })
+    }
+
+    function filterWechatUser() {
+        if ($('#province').val().length > 0) {
+            $.get('/ajaxes/search_wechat_user', {
+                province: $('#province').val(),
+                city: $('#city').val(),
+                district: $('#district').val()
+            }, function (result) {
+                console.log(result)
+                $('#result-number').text(result.count)
+                $('#user-ids').val(result.user_ids)
+                console.log(result.user_ids)
+                console.log($('#user-ids').val())
+            })
+        } else {
+            toastr.info('请选择省份', '' ,{"positionClass": "toast-top-center"})
+        }
+
     }
 </script>
