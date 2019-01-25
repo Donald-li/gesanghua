@@ -1,15 +1,4 @@
 GIT
-  remote: https://github.com/Modernech/weixin_rails_middleware.git
-  revision: a4c5a1b96194f2d91b4252957155cc4f5209d3e3
-  specs:
-    weixin_rails_middleware (1.3.2)
-      multi_xml (>= 0.5.2)
-      nokogiri (>= 1.6.1)
-      rails (>= 3.1)
-      railties (>= 3.1)
-      roxml
-
-GIT
   remote: https://github.com/bulexu/china_city.git
   revision: 40b149b9e146b02e33d0345be2f827425d0bc95a
   specs:
@@ -261,7 +250,6 @@ GEM
     mini_portile2 (2.4.0)
     minitest (5.11.3)
     multi_json (1.13.1)
-    multi_xml (0.6.0)
     netrc (0.11.0)
     nio4r (2.3.1)
     nokogiri (1.10.0)
@@ -350,9 +338,6 @@ GEM
     roo (2.3.2)
       nokogiri (~> 1)
       rubyzip (~> 1.1, < 2.0.0)
-    roxml (4.0.0)
-      activesupport (>= 4.0)
-      nokogiri (>= 1.3.3)
     rqrcode (0.10.1)
       chunky_png (~> 1.0)
     rspec (3.8.0)
@@ -547,7 +532,6 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
   weixin_authorize
-  weixin_rails_middleware!
   whenever
   wx_pay
   zip-zip

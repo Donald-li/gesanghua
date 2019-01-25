@@ -114,7 +114,7 @@ gem 'cancancan', '~> 2.0'
 # gem 'simplecov', :require => false, :group => :test
 
 # 微信
-gem 'weixin_rails_middleware', github: 'Modernech/weixin_rails_middleware'
+# gem 'weixin_rails_middleware', github: 'Modernech/weixin_rails_middleware'
 gem 'weixin_authorize'
 gem 'wx_pay'
 
