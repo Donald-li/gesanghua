@@ -1,0 +1,52 @@
+<!--这里是批量捐助-->
+<div id="donates">
+  <div class="donates-img">
+    <%= image_tag 'top-bg.png' %>
+    <div class="donates-img-cont">
+      <p>格桑花的承诺</p>
+      <p>每一笔善款去向可查，明明白白</p>
+    </div>
+  </div>
+  <div class="donates-content clearfix">
+    <div class="batch-content">
+      <!--批量捐助孩子-->
+      <div id="detail">
+        <p class="donates-c-l-t">批量选择你要捐助的孩子</p>
+        <div class="clearfix batch-body" >
+          <% 12.times do %>
+          <div class="batch clearfix pull-left batch-border">
+
+            <div class="batch-img-left">
+              <%= image_tag 'top-bg.png' %>
+            </div>
+              <div class="batch-right">
+                <h4>王嘉儿</h4>
+                <p>资助学年：<span>￥1059/年</span></p>
+                <ul class="ui-choose  choose-type-right" multiple="multiple" id="uc_03">
+                  <% 3.times do %>
+                      <li class="semester selected"><%= '2018.9 - 2019.7 学年 高中.1' %></li>
+                  <% end %>
+                </ul>
+              </div>
+          </div>
+          <% end %>
+        </div>
+      </div>
+
+
+      <div style="text-align:center;margin-top: 20px ">
+        <button class="class-button cur" >立即支付</button>
+        <div class="check-box">
+          <div class="pretty o-danger">
+            <input type="checkbox" checked/>
+            <label><i class="mdi mdi-check"></i></label>
+            <span class="checkbox_text">阅读并同意</span>
+          </div>
+          <span class=" cur" data-toggle="modal" data-target="#protocol">《格桑花用户捐助协议》</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

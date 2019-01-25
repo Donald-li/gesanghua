@@ -4339,6 +4339,123 @@ select:disabled {
     margin-top: 0;
   }
 }
+//批量捐助
+.batch-content{
+  padding: 42px 30px;
+  position: relative;
+  width: 100%;
+  .donates-c-l-t{
+    margin-bottom: 10px;
+  }
+  .check-box {
+    font-size: 12px;
+    width: 228px;
+    margin: 20px auto 0;
+    text-align: center;
+
+    .checkbox_item {
+      position: relative;
+      display: inline-block;
+      height: 16px;
+
+      & > span {
+        font-weight: 500;
+        color: $color-subtitle;
+      }
+    }
+  }
+
+
+}
+
+.batch-body{
+  max-height: 584px;
+  overflow: auto;
+  margin: 0 -8px 0 -13px;
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #dcdcdc;
+    background-clip: padding-box;
+    border: 1px solid #dcdcdc;
+    min-height: 38px;
+  }
+}
+.batch-border{
+  border: 1px solid $color-info!important;
+}
+.batch{
+  width: 349px;
+  padding: 20px;
+  box-sizing: border-box;
+  border: 1px solid $border;
+  border-radius: 4px;
+  margin: 10px 8px;
+  cursor: pointer;
+  .donates-c-l-t{
+    margin-bottom: 20px;
+  }
+.batch-img-left{
+
+  float: left;
+  width:80px;
+  img{
+    width: 80px;
+    height: 80px;
+    border-radius: 6px;
+  }
+
+}
+
+  .batch-right{
+    float: right;
+    width: 210px;
+    & > h4{
+      font-size: 18px;
+      color:#3d3d40;
+      font-weight: 500;
+    }
+    & > p{
+      font-size: 14px;
+      color:#3d3d40;
+      font-weight: 400;
+      span{
+        font-size: 18px;
+        color:#3d3d40;
+        font-weight: 400;
+      }
+      margin-bottom: 15px;
+    }
+
+
+   .ui-choose > li.selected {
+      background: url(image-path("ico-right-mark.png")) no-repeat right bottom;
+      background-size: 12%;
+      border: 1px solid $color-info;
+    }
+
+    .ui-choose > li {
+      box-sizing: border-box;
+      border: 1px solid $border;
+      width: 210px;
+      height: 40px;
+      line-height: 38px;
+      cursor: pointer;
+      position: relative;
+      z-index: 1;
+      text-align: left;
+      padding-left:10px ;
+      border-radius: 4px;
+      & + li{
+        margin-top: 15px;
+      }
+    }
+  }
+}
 
 //资讯详情页
 
@@ -5086,7 +5203,34 @@ select:disabled {
 .donates-c-l-co {
   width: 526px;
   padding-top: 28px;
+
 }
+.batch-c-l-co{
+  max-height: 176px;
+  overflow: auto;
+  .donates-c-l-coss{
+    width: 48%;
+    margin: 0 0 12px;
+  }
+  .donates-c-l-coss:nth-child(odd){
+    float: left;
+  }
+  .donates-c-l-coss:nth-child(even){
+    float: right;
+  }
+  &::-webkit-scrollbar {
+    width: 2px;
+    height: 5px;
+    border-radius: 50%;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #dcdcdc;
+    background-clip: padding-box;
+    border: 1px solid #dcdcdc;
+  }
+}
+
 
 .donates-c-l-coss {
   width: 100%;

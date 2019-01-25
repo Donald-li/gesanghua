@@ -24,13 +24,23 @@ end
       <!--物资类-->
       <div>
         <p class="donates-c-l-t">您的捐款将会用于资助以下学生</p>
+       <!--批量捐助-->
+          <!--<div class="donates-c-l-co clearfix batch-c-l-co">-->
+            <!--<% 12.times do %>-->
+            <!--<div class="donates-c-l-coss  ">-->
+              <!--<div class="pull-left">-->
+                <!--<p>被捐人</p>-->
+                <!--<p>捐款金额 1290元</p>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<% end %>-->
+          <!--</div>-->
+        <!---->
         <div class="donates-c-l-co">
           <div class="donates-c-l-coss clearfix">
             <div class="pull-left">
               <p><%= child.name %></p>
               <p>捐款金额 <%= number_to_currency amount %> 元</p>
-            </div>
-            <div class="pull-right">
             </div>
           </div>
         </div>

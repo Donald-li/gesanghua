@@ -27,4 +27,8 @@ class Site::PairsController < Site::BaseController
     @donate_records = DonateRecord.normal.where(project_season_apply_child_id: @child.id).sorted.page(1).per(6)
   end
 
+  def batch
+
+  end
+
 end

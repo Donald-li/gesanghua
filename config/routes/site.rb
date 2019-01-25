@@ -23,7 +23,11 @@ scope module: :site do
   resources :supports, only: [:show]
   resource :contribution, only: :show
   resources :volunteers, only: :index
-  resources :pairs, only: [:index, :show], concerns: [:detail]
+  resources :pairs, only: [:index, :show], concerns: [:detail] do
+    collection do
+      get :batch
+    end
+  end
   resources :reads, only: [:index, :show], concerns: [:detail]
   resources :camps, only: [:index, :show], concerns: [:detail]
   resources :goods, only: [:index, :show], concerns: [:detail]
