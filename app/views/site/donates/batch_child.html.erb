@@ -1,0 +1,248 @@
+<div id="donates">
+  <form action="<%= donates_path %>" method="post" data-parsley-validate="true">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <div class="donates-img">
+      <%= image_tag 'top-bg.png' %>
+      <div class="donates-img-cont">
+        <p>格桑花的承诺</p>
+        <p>每一笔善款去向可查，明明白白</p>
+      </div>
+    </div>
+    <div class="donates-content clearfix">
+      <div class="pull-left donates-content-left">
+        <!--物资类-->
+        <div>
+          <p class="donates-c-l-t">您的捐款将会用于资助以下学生</p>
+<!--          批量捐助-->
+          <div class="donates-c-l-co clearfix batch-c-l-co">
+            <% total = 0.0 %>
+            <% params[:child_list].each do |k, v| %>
+              <%
+                child = ProjectSeasonApplyChild.find(k)
+                semester_count = v.to_i || 0
+                semesters = child.donate_pending_records.reorder(:id)
+                amount = 0.0
+                i = 0
+                semesters.each do |s|
+                  amount = amount + s.amount.to_f if i < semester_count
+                  i = i + 1
+                end
+                total += amount
+              %>
+              <div class="donates-c-l-coss">
+                <div class="pull-left">
+                  <p><%= child.name %></p>
+                  <p>捐款金额 <%= number_to_currency amount %>元</p>
+                </div>
+              </div>
+
+            <% end %>
+          </div>
+        </div>
+
+        <!--整捐-->
+        <div class="benefactors-integer clearfix">
+          <span class="pull-left">助学金额</span>
+          <div class="pull-right">
+            <ul class="ui-choose" id="uc_01">
+              <li class="selected"><%= number_to_currency total %> 元
+                <span>
+                <%#= image_tag 'integer-read.png' %>
+              </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="benefactors-integer clearfix">
+          <span class="pull-left" style="width: 56px;">留言</span>
+          <textarea name="message" class="pull-left wf_textarea" required placeholder="想对孩子说的话"></textarea>
+        </div>
+        <div class="benefactors clearfix">
+          <span class="pull-left">选捐助人</span>
+          <select name="donor" id="benefactor" class="pull-left">
+            <% if @donors.count > 0 %>
+              <option value="">请选择捐助人</option>
+            <% end %>
+            <option value="<%= current_user.id %>"><%= current_user.show_name %></option>
+            <% @donors.each do |d| %>
+              <option value="<%= d.id %>" <%= 'selected' if child.priority_id == d.id %>><%= d.show_name %></option>
+            <% end %>
+          </select>
+        </div>
+        <% if current_user.team.present? %>
+          <div class="don-my-team">通过团队 <span><%= current_user.team.name %></span> 捐助</div>
+        <% end %>
+        <div class="benefactors-way clearfix border-b">
+          <span class="pull-left">支付方式</span>
+          <input type="hidden" name="amount" value="<%= total %>">
+          <input type="hidden" name="donate_way" value="wechat" id="donate_way">
+          <input type="hidden" name="donate_batch" value="batch_child">
+          <% params[:child_list].each do |k, v| %>
+          <input type="hidden" name="child_list[<%= k %>]" value="<%= v %>">
+            <% end %>
+          <ul class="ui-choose pull-left" id="uc_02">
+            <li class="donate_way selected" data-way="wechat">
+              <%= image_tag 'iconpic-buy-weixin.svg' %>
+            </li>
+            <li class="donate_way" data-way="alipay">
+              <%= image_tag 'iconpic-buy-alipay.svg' %>
+            </li>
+            <% if current_user.balance > 0 %>
+              <li class="donate_way" data-way="balance">
+                <%= image_tag 'iconpic-buy-outline.svg' %>
+                <span><%= number_to_currency current_user.balance %> 元</span>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+        <div style="text-align:center; ">
+          <button class="class-button cur">立即支付</button>
+          <div class="check-box">
+            <div class="pretty o-danger">
+              <input type="checkbox" checked/>
+              <label><i class="mdi mdi-check"></i></label>
+              <span class="checkbox_text">阅读并同意</span>
+            </div>
+            <span class=" cur" data-toggle="modal" data-target="#protocol"><%= @protocol.title %></span>
+          </div>
+        </div>
+
+        <!--<div class="mongolian-hint"><span>您的余额不足，不足以支付</span></div>-->
+      </div>
+      <div class="pull-right donates-content-right">
+        <div class="donates-con-r-t border-b ">
+          <p>银行汇款</p>
+        </div>
+        <div class="donates-con-r-con">
+          <p>户名：青海格桑花教育救助会</p>
+          <p>账号：2800 3001 0400 11830</p>
+          <p>开户行：中国农业银行西宁市七一路支行</p>
+        </div>
+        <div class="donates-con-r-t border-b margin-top-20">
+          <p>支付宝汇款</p>
+        </div>
+        <div class="donates-con-r-con">
+          <p>户名：青海格桑花教育救助会</p>
+          <p>账号：qhgesanghua@gesanghua.org</p>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModaldonation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="detail-icon">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">温馨提示</h4>
+      </div>
+      <div class="modal-body">
+        <div class="overspread-co">
+          <p class="over-font">支付失败</p>
+          <p class="over-fontns">请尝试其他支付方式</p>
+        </div>
+      </div>
+      <div class="modal-footer overspreads-but">
+        <button class="over-but" data-dismiss="modal">确认</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="detail-icon">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">温馨提示</h4>
+      </div>
+      <div class="modal-body">
+        <div class="overspread-co">
+          <p class="over-fontns">如支付成功关闭此窗口</p>
+        </div>
+      </div>
+      <div class="modal-footer overspreads-but">
+        <button class="succeed">支付成功</button>
+        <button class="defeated" data-dismiss="modal">支付失败</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="protocol" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width:590px;    margin: 76px auto;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="detail-icon">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"><%= @protocol.title %></h4>
+      </div>
+
+      <div class="modal-body" style="padding: 20px 30px 15px 30px;text-align: left;    max-height: 440px;overflow: auto;">
+        <%= @protocol.content %>
+      </div>
+      <div class="modal-footer overspreads-but">
+        <button class="overspreadsc-but overspread-but  over-but" data-dismiss="modal">同意</button>
+      </div>
+    </div>
+  </div>
+</div>
+<style scoped>
+  .parsley-errors-list {
+    width: 802px;
+  }
+
+  .wf_textarea {
+    width: 81%;
+    height: 50px;
+    border: 1px solid #e6e6e6;
+    resize: none;
+    border-radius: 3px;
+    font-size: 14px;
+    color: #2a2a2c;
+  }
+</style>
+<script>
+    //     模态窗
+    //    $('#myModal').on('shown.bs.modal', function (e) {}).modal();
+    // $('#myModaldonation').on('shown.bs.modal', function (e) {}).modal();
+    $('.donates-content-right').height($('.donates-content-left').height() + 29)
+
+    $('.ui-choose').ui_choose();
+    $("#benefactor").select2({
+        width: "426px",
+        minimumResultsForSearch: -1
+    });
+
+    // 更新捐助项信息
+    $('.donate-item-cur').click(function () {
+        $('#donate-item-describe').text($(this).data('describe'))
+        // 切换金额卡片
+        $('.ui-choose-tab').hide()
+        var amountTabName = '#amount-tab-' + $(this).data('donate-item-id')
+        if ($(amountTabName).length > 0) {
+            $(amountTabName).show()
+        } else {
+            $('#amount-tab-default').show()
+        }
+    })
+
+    // 把卡片金额设置到金额输入框
+    $('.amount_tab_cur').click(function () {
+        $('#donate-amount').val($(this).data('amount'))
+    })
+
+    // 金额框值改变时执行
+    $('#donate-amount').change(function () {
+        $('.amount_tab_cur').removeClass('selected')
+    })
+
+    // 选择支付方式
+    $('.donate_way').click(function () {
+        $('#donate_way').val($(this).data('way'))
+    })
+</script>
+

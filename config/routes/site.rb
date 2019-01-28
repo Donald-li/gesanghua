@@ -43,6 +43,8 @@ scope module: :site do
   resource :pay, only: [:new, :show] do
     member do
       get :failure
+      get :batch
+      get :batch_result
     end
   end
 

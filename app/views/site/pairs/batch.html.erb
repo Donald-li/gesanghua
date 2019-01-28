@@ -13,18 +13,18 @@
       <div id="detail">
         <p class="donates-c-l-t">批量选择你要捐助的孩子</p>
         <div class="clearfix batch-body" >
-          <% 12.times do %>
-          <div class="batch clearfix pull-left batch-border">
+          <% @children.each do |child| %>
+          <div class="batch clearfix pull-left" id="batch-<%= child.id %>">
 
             <div class="batch-img-left">
-              <%= image_tag 'top-bg.png' %>
+              <%= image_tag 'project-reducepage-child.png' %>
             </div>
               <div class="batch-right">
-                <h4>王嘉儿</h4>
-                <p>资助学年：<span>￥1059/年</span></p>
-                <ul class="ui-choose  choose-type-right" multiple="multiple" id="uc_03">
-                  <% 3.times do %>
-                      <li class="semester selected"><%= '2018.9 - 2019.7 学年 高中.1' %></li>
+                <h4><%= child.secure_name %></h4>
+                <p>资助学年：<span>￥<%= child.get_tuition %>/年</span></p>
+                <ul class="ui-choose choose-type-right" multiple="multiple" id="uc_03"  data-child-id="<%= child.id %>">
+                  <% child.donate_pending_records.reverse.each do |grant| %>
+                      <li class="semester" data-child-id="<%= child.id %>"><%= grant.title %></li>
                   <% end %>
                 </ul>
               </div>
@@ -33,20 +33,60 @@
         </div>
       </div>
 
-
-      <div style="text-align:center;margin-top: 20px ">
-        <button class="class-button cur" >立即支付</button>
-        <div class="check-box">
-          <div class="pretty o-danger">
-            <input type="checkbox" checked/>
-            <label><i class="mdi mdi-check"></i></label>
-            <span class="checkbox_text">阅读并同意</span>
-          </div>
-          <span class=" cur" data-toggle="modal" data-target="#protocol">《格桑花用户捐助协议》</span>
-        </div>
+      <%= form_tag new_donate_path, id: 'batch-form', method: :get do %>
+      <div style="text-align:center;margin-top: 20px " id="batch-body">
+        <input type="hidden" name="batch_child" id="child-count">
+        <button type="button" class="class-button cur" id="batch-donate">下一步</button>
       </div>
-
+      <% end %>
     </div>
 
   </div>
 </div>
+
+<script type="text/javascript" charset="utf-8">
+    $('.ui-choose li').on('click', function (el) {
+        var li = $(el.target)
+        // 如果自己没选中，将自己和之前的所有选中
+        // 如果自己选中了，取消自己和之后的选中
+        if (!li.hasClass('selected')) {
+            li.addClass('selected')
+            li.prevAll('li').addClass('selected')
+        } else {
+            li.removeClass('selected')
+            li.nextAll('li').removeClass('selected')
+        }
+        // 处理边框的选中样式
+        var div = $('#batch-' + li.data('child-id'))
+        if (li.hasClass('selected') || li.prevAll('li').hasClass('selected')) {
+            div.addClass('batch-border')
+        } else {
+            div.removeClass('batch-border')
+        }
+    });
+
+    $('#batch-donate').click(function () {
+        var childList = []
+        $('.ui-choose').each(function () {
+            if ($(this).find('.selected').length > 0) {
+                childList.push([$(this).data('child-id'), $(this).find('.selected').length])
+            }
+        })
+        console.log(childList)
+        if (childList.length == 0) {
+            layer.msg('请至少选择一个学年/学期', {
+                icon: 0,
+                offset: 't c'
+            });
+            return;
+        } else {
+            $('#child-count').val(childList.length)
+            childList.forEach(function (item) {
+                $('#batch-body').append('<input type="hidden" name="child_list['+ item[0] +']" value="'+ item[1] +'">')
+            })
+            $('#batch-form').submit()
+        }
+
+    })
+
+</script>
