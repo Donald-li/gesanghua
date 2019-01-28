@@ -267,6 +267,10 @@ class ProjectSeasonApplyChild < ApplicationRecord
     end
   end
 
+  def name_for_select
+    "#{self.name}(#{self.gsh_no} 学期:#{self.semesters.pending.sorted.pluck(:title).join(';')})"
+  end
+
   def update_state(u_id)
     # self.done_semester_count = self.semesters.succeed.count
     self.state = 'hidden'

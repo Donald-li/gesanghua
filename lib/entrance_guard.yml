@@ -179,7 +179,7 @@ financial_staff:
     admin/donate_records: all
     admin/account_records:
       except: ['destroy']
-    admin/pair_student_lists: ['index', 'batch_manage', 'grade_add_one', 'grade_minus_one', 'push_notice']
+    admin/pair_student_lists: ['index', 'batch_manage', 'batch_donate', 'batch_grant', 'grade_add_one', 'grade_minus_one', 'push_notice']
     admin/data_statistics: all
     admin/donate_statistics: all
     admin/pair_grant_exceptions: all

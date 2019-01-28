@@ -160,6 +160,8 @@ namespace :admin do
       post :appoint_donor
     end
     collection do
+      get :batch_donate
+      post :batch_grant
       get :batch_manage
       post :grade_add_one
       post :grade_minus_one

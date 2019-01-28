@@ -206,6 +206,34 @@ class Admin::PairStudentListsController < Admin::BaseController
     redirect_to batch_manage_admin_pair_student_lists_path, notice: '更新成功。'
   end
 
+  def batch_donate
+  end
+
+  def batch_grant
+    success = 0
+    fail = 0
+    message_list = []
+    params[:child_ids].each do |child_id|
+      child = ProjectSeasonApplyChild.find_by(id: child_id)
+      grant = child.semesters.pending.sorted.last
+      if grant.present?
+        result, message = DonateRecord.platform_donate(child, grant.amount, params.permit!.merge(current_user: current_user))
+        if result
+          success += 1
+        else
+          fail += 1
+          message_list.push(message)
+        end
+      end
+    end
+    if fail == 0
+      redirect_to batch_donate_admin_pair_student_lists_path, notice: '配捐成功。'
+    else
+      redirect_to batch_donate_admin_pair_student_lists_path, notice: "配捐成功#{success}个，失败#{fail}个,原因：#{message_list.join(',')}"
+    end
+
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

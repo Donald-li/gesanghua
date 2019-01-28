@@ -145,7 +145,7 @@ class DonateRecord < ApplicationRecord
     agent ||= donor
 
     result, message = self.do_donate(:platform_donate, source, owner, amount, donor: donor, agent: agent, operator: params[:current_user])
-    return result
+    return result, message
   end
 
   # 处理捐款

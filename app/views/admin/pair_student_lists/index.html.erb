@@ -4,6 +4,12 @@
       <i class="icon-list"></i> 捐助管理
     </div>
     <div class="actions">
+      <% if can_current_entrance('admin/pair_student_lists', 'batch_donate', current_user.roles) %>
+        <%= link_to batch_donate_admin_pair_student_lists_path, class: 'btn btn-xs red', 'data-no-turbolink' => true do %>
+          <i class="fa fa-cogs"></i>
+          <span>批量配捐</span>
+        <% end %>
+      <% end %>
       <% if can_current_entrance('admin/pair_student_lists', 'batch_manage', current_user.roles) %>
           <%= link_to batch_manage_admin_pair_student_lists_path, class: 'btn btn-xs yellow', 'data-no-turbolink' => true do %>
               <i class="fa fa-cogs"></i>
