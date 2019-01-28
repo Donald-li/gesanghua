@@ -65,7 +65,7 @@
             <% end %>
             <option value="<%= current_user.id %>"><%= current_user.show_name %></option>
             <% @donors.each do |d| %>
-              <option value="<%= d.id %>" <%= 'selected' if child.priority_id == d.id %>><%= d.show_name %></option>
+              <option value="<%= d.id %>"><%= d.show_name %></option>
             <% end %>
           </select>
         </div>
@@ -87,12 +87,6 @@
             <li class="donate_way" data-way="alipay">
               <%= image_tag 'iconpic-buy-alipay.svg' %>
             </li>
-            <% if current_user.balance > 0 %>
-              <li class="donate_way" data-way="balance">
-                <%= image_tag 'iconpic-buy-outline.svg' %>
-                <span><%= number_to_currency current_user.balance %> 元</span>
-              </li>
-            <% end %>
           </ul>
         </div>
         <div style="text-align:center; ">
