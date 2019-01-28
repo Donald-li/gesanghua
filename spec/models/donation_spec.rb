@@ -60,6 +60,18 @@ RSpec.describe Donation, type: :model do
       expect(donation.donate_records.first.donor_id).to eq donation.donor_id
       expect(donation.donate_records.first.amount).to eq 1
     end
+
+    it '微信支付成功-批量捐助' do
+      result = {"appid"=>"wx771c54fb737861a3", "bank_type"=>"CFT", "cash_fee"=>"1", "fee_type"=>"CNY", "is_subscribe"=>"Y", "mch_id"=>"1386171602", "nonce_str"=>"2e8946e3ec114102b1fd7c9d2be59a06", "openid"=>"o85zvjvpHVJM2YJV5kOe1oYmFoYE", "out_trade_no"=>"180404160000003", "result_code"=>"SUCCESS", "return_code"=>"SUCCESS", "sign"=>"49640DDD5752BB1502EAF831246AB1ED", "time_end"=>"20180404164424", "total_fee"=>"1", "trade_type"=>"JSAPI", "transaction_id"=>"4200000088201804042044369792"}
+      donation = Donation.create(amount: result['total_fee'], owner: @donate_item, donor_id: @donor.id, agent_id: @donor.id)
+      result['out_trade_no'] = donation.order_no
+      Donation.batch_wechat_payment_success result
+
+      expect(donation.income_record).to_not be(nil)
+      expect(donation.donate_records.count).to eq 1
+      expect(donation.donate_records.first.donor_id).to eq donation.donor_id
+      expect(donation.donate_records.first.amount).to eq 1
+    end
   end
 
 end
