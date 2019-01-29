@@ -42,7 +42,6 @@ class Site::PairsController < Site::BaseController
   end
 
   def batch_donate
-
   end
 
 end

@@ -246,6 +246,15 @@ class User < ApplicationRecord
     self.has_role?(:gsh_child)
   end
 
+  def can_continue_donate?
+    apply_child_ids = self.donate_records.visible.pluck(:project_season_apply_child_id)
+    apply_child_ids = apply_child_ids.push(ProjectSeasonApplyChild.where(priority_id: self.id).pluck(:id)).flatten.uniq
+    apply_child_ids = ProjectSeasonApplyChild.where(project: Project.pair_project, id: apply_child_ids).joins(:semesters)
+                          .where(gsh_child_grants: {donate_state: :pending})
+                          .select("distinct project_season_apply_children.id").pluck(:id).uniq
+    apply_child_ids.length > 0
+  end
+
   # 作为校长或老师管理的项目
   def manage_projects
     return Project.visible if self.headmaster?
