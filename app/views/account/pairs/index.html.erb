@@ -13,6 +13,11 @@
       </li>
     </ul>
     <!--我的结对-->
+    <%= link_to batch_pairs_path(type: 'continue'), style:'margin-left:20px;' do %>
+      <button class="project-cont-but">
+        <span>批量捐助</span>
+      </button>
+    <% end %>
     <%= search_form_for @search, url: account_pairs_path do |f| %>
     <div class="school-apply-pair-share clearfix " style="padding:10px 0;">
       <button type="submit" class="school-apply-share-share pull-right">搜索</button>

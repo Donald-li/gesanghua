@@ -28,13 +28,17 @@ class Site::PairsController < Site::BaseController
   end
 
   def batch
-    @project = Project.pair_project
-    # @total = ProjectSeasonApplyChild.where(project: @project).show.outside.pass.sorted.count
-    # @address_list = ProjectSeasonApplyChild.city_group
-    scope = ProjectSeasonApplyChild.show.pass.outside.sorted
-    # scope = scope.where("name like :q", q: "%#{params[:name]}%") if params[:name].present?
-    # scope = scope.where(city: params[:city]) if params[:city].present?
-    @children = scope
+    if params[:continue] == 'continue'
+      apply_child_ids = current_user.donate_records.visible.pluck(:project_season_apply_child_id)
+      apply_child_ids = apply_child_ids.push(ProjectSeasonApplyChild.where(priority_id: current_user.id).pluck(:id)).flatten.uniq
+      scope = ProjectSeasonApplyChild.where(id: apply_child_ids).show.pass.outside.sorted
+      @children = scope
+    else
+      @project = Project.pair_project
+      scope = ProjectSeasonApplyChild.show.pass.outside.sorted
+      @children = scope
+    end
+
   end
 
   def batch_donate

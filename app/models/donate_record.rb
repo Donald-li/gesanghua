@@ -161,7 +161,7 @@ class DonateRecord < ApplicationRecord
 
     self.transaction do # 事务
       # 来源金额是否充足？
-      if source.balance.to_f < amount
+      if source.try(:balance).to_f < amount
         return false, '余额不足'
       else
         source.lock! # 加锁

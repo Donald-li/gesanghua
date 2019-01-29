@@ -207,13 +207,29 @@ class Admin::PairStudentListsController < Admin::BaseController
   end
 
   def batch_donate
+    params[:q] ||= {}
+    ids = ProjectSeasonApplyChild.where(project: Project.pair_project).joins(:semesters)
+              .where(gsh_child_grants: {donate_state: :pending})
+              .select("distinct project_season_apply_children.id").pluck(:id).uniq
+    @children = ProjectSeasonApplyChild.where(id: ids).includes(:gsh_child).pass.sorted
+    @search = @children.ransack(params[:q])
+    scope = @search.result
+    if donor_state = params[:donor_state_eq]
+      scope = scope.where('project_season_apply_children.done_semester_count = 0') if donor_state == 'raising'
+      scope = scope.where('project_season_apply_children.done_semester_count = project_season_apply_children.semester_count') if donor_state == 'done'
+      scope = scope.where('project_season_apply_children.done_semester_count between 1 and project_season_apply_children.semester_count - 1') if donor_state == 'part_done'
+    end
+    @pair_student_lists = scope
   end
 
   def batch_grant
+    unless params[:child_ids].present?
+      redirect_to batch_donate_admin_pair_student_lists_path, notice: "请勾选孩子" and return
+    end
     success = 0
     fail = 0
     message_list = []
-    params[:child_ids].each do |child_id|
+    params[:child_ids].split(',').each do |child_id|
       child = ProjectSeasonApplyChild.find_by(id: child_id)
       grant = child.semesters.pending.sorted.last
       if grant.present?
