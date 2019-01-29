@@ -223,8 +223,8 @@ class Donation < ApplicationRecord
       if donation.unpaid?
         donor = donation.donor
         agent = donation.agent
-        amount = format('%.2f', (result['total_fee'].to_f / 100.to_f))
-        amount = donation.amount if Settings.pay_1_mode # 测试模式入账金额等于捐助金额
+        # amount = format('%.2f', (result['total_fee'].to_f / 100.to_f))
+        amount = donation.amount # if Settings.pay_1_mode # 测试模式入账金额等于捐助金额
 
         # 更新捐助状态
         donation.pay_state = 'paid'
@@ -331,7 +331,6 @@ class Donation < ApplicationRecord
         )
       end
     end
-
   end
 
   def detail_builder
