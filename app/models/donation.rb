@@ -138,7 +138,7 @@ class Donation < ApplicationRecord
         out_trade_no: order_no,
         subject: '捐助给格桑花',
         total_fee: Settings.pay_1_mode ? '0.01' : sprintf('%.2f', total.to_f),
-        return_url: 'http://' + Settings.app_host + '/pay/batch?order_no=' + order_no,
+        return_url: 'http://' + Settings.app_host + '/pay/batch_result?order_no=' + order_no,
         notify_url: "http://" + Settings.app_host + "/payment/alipay_payments/batch_notify"
     )
   end

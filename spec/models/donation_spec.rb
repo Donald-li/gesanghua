@@ -72,6 +72,20 @@ RSpec.describe Donation, type: :model do
       expect(donation.donate_records.first.donor_id).to eq donation.donor_id
       expect(donation.donate_records.first.amount).to eq 1
     end
+
+    it '支付宝支付成功-批量捐助' do
+      result = {"order_no"=>"190129100000006", "buyer_email"=>"18363993647@163.com", "buyer_id"=>"2088112067053142", "exterface"=>"create_donate_trade_p", "gmt_payment"=>"2019-01-29 10:56:56", "is_success"=>"T", "notify_id"=>"RqPnCoPT3K9%2Fvwbh3Ihy%2B80Tw%2FvHJZ3aVEB9tH9tdKRlTfH5zxrl%2Fb5NIFImjirToZrj", "notify_time"=>"2019-01-29 10:57:04", "notify_type"=>"trade_status_sync", "out_trade_no"=>"190129100000006", "seller_email"=>"qhgesanghua@gesanghua.org", "seller_id"=>"2088201540829461", "subject"=>"捐助给格桑花", "total_fee"=>"1", "trade_no"=>"2019012922001353141016007721", "trade_status"=>"TRADE_FINISHED", "sign"=>"c059c2fbbbb593ad9348392c3fc6d25b", "sign_type"=>"MD5"}
+      donation = Donation.create(amount: result['total_fee'], owner: @donate_item, donor_id: @donor.id, agent_id: @donor.id)
+      result['out_trade_no'] = donation.order_no
+      Donation.batch_alipay_payment_success result
+
+      expect(donation.income_record).to_not be(nil)
+      expect(donation.donate_records.count).to eq 1
+      expect(donation.donate_records.first.donor_id).to eq donation.donor_id
+      expect(donation.donate_records.first.amount).to eq 1
+    end
+
+
   end
 
 end
