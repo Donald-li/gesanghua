@@ -29,7 +29,7 @@ class Admin::VolunteersController < Admin::BaseController
 
   def create
     user = User.find(volunteer_params[:user_id])
-    @volunteer = Volunteer.new(volunteer_params.merge(approve_state: 2, name: user.name, phone: user.phone, province: user.province, city: user.city, district: user.district))
+    @volunteer = Volunteer.new(volunteer_params.merge(approve_state: 2, approve_time: Time.now, name: user.name, phone: user.phone, province: user.province, city: user.city, district: user.district))
     @volunteer.gen_volunteer_no
     respond_to do |format|
       if @volunteer.save
