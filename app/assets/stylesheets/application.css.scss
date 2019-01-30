@@ -10857,3 +10857,21 @@ select:disabled {
     }
   }
 }
+.but_pair{
+  width: 100px;
+  height: 34px;
+  border: 1px solid #8b54e3;
+  color: #8b54e3;
+  font-size: 14px;
+  border-radius: 3px;
+  text-align: center;
+  line-height: 34px;
+  background-color: #fff;
+  cursor: pointer;
+  &:hover{
+    background-color: #9750f5;
+    color: #fff;
+    line-height: 34px;
+    border: none;
+  }
+}
