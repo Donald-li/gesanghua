@@ -219,7 +219,7 @@ class Admin::PairStudentListsController < Admin::BaseController
       scope = scope.where('project_season_apply_children.done_semester_count = project_season_apply_children.semester_count') if donor_state == 'done'
       scope = scope.where('project_season_apply_children.done_semester_count between 1 and project_season_apply_children.semester_count - 1') if donor_state == 'part_done'
     end
-    @pair_student_lists = scope
+    @pair_student_lists = scope.page(params[:page]).per(60)
   end
 
   def batch_grant

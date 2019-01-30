@@ -116,9 +116,18 @@
             </tbody>
           </table>
         </div>
+        <div class="row">
+          <div class="col-md-5 col-sm-12">
+            <div class="dataTables_info" id="sample_4_info"><%= paginate_info(@pair_student_lists) %></div>
+          </div>
+          <div class="col-md-7 col-sm-12">
+            <%= paginate @pair_student_lists, theme: 'admin' %>
+          </div>
+        </div>
         <div class="form-actions left">
           <button type="button" href="###" class="btn blue uncheck" id="selectAll">全选</button>
         </div>
+        <p class="help-block" style="color: goldenrod;">注意：仅支持当页操作</p>
       </div>
     </div>
     <%= form_tag batch_grant_admin_pair_student_lists_path, method: :post, wrapper: :admin_form, id: 'approve-form', 'data-parsley-validate': true do %>
