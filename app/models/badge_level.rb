@@ -65,7 +65,6 @@ class BadgeLevel < ApplicationRecord
   def self.level(kind, value)
     level = self.where(kind: kind).order(value: :asc).where("badge_levels.value >= ?", value).last
     level.current_value = value if level.present?
-    puts level
     level
   end
 
