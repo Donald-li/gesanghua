@@ -56,7 +56,7 @@ class BadgeLevel < ApplicationRecord
       elsif kind == 'volunteer_age'
         value = owner.volunteer.try(:volunteer_age).to_i
       elsif owner
-        level_of_user(owner.team, kind)
+        self.level_of_user(owner.team, kind)
       end
     end
 
