@@ -46,8 +46,8 @@ class BadgeLevel < ApplicationRecord
   def self.level_of_user(owner, kind)
     kind = kind.to_s
     value = 0
-    if owner.is_a?(Team)
-      value = owner.total_donate_amount
+    if owner.team.present?
+      value = owner.team.total_donate_amount
     else
       if kind.end_with?('_task')
         value = owner.volunteer && owner.volunteer.task_volunteers.done.joins(:task).where(tasks: {"#{kind.split('_')[0]}_flag": true}).count
@@ -55,8 +55,8 @@ class BadgeLevel < ApplicationRecord
         value = owner.donate_amount
       elsif kind == 'volunteer_age'
         value = owner.volunteer.try(:volunteer_age).to_i
-      elsif owner
-        level_of_user(owner.team, kind)
+      # elsif owner
+      #   level_of_user(owner.team, kind)
       end
     end
 
