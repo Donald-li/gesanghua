@@ -48,19 +48,22 @@ class BadgeLevel < ApplicationRecord
     value = 0
     if owner.is_a?(Team)
       value = owner.total_donate_amount
+      self.level(kind, value.to_i)
     else
       if kind.end_with?('_task')
         value = owner.volunteer && owner.volunteer.task_volunteers.done.joins(:task).where(tasks: {"#{kind.split('_')[0]}_flag": true}).count
+        self.level(kind, value.to_i)
       elsif kind == 'user_donate'
         value = owner.donate_amount
+        self.level(kind, value.to_i)
       elsif kind == 'volunteer_age'
         value = owner.volunteer.try(:volunteer_age).to_i
+        self.level(kind, value.to_i)
       elsif owner
         self.level_of_user(owner.team, kind)
       end
     end
 
-    self.level(kind, value.to_i)
   end
 
   # 根据kind和值，判断当前等级信息
