@@ -55,7 +55,11 @@ class BadgeLevel < ApplicationRecord
       value = owner.volunteer.try(:volunteer_age).to_i
       self.level(kind, value.to_i)
     else
-      value = owner.team.try(:total_donate_amount)
+      if kind == 'society_team'
+        value = owner.team.society? ? owner.team.try(:total_donate_amount) : 0
+      else
+        value = owner.team.college? ? owner.team.try(:total_donate_amount) : 0
+      end
       self.level(kind, value.to_i)
     end
 
