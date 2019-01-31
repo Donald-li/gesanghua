@@ -55,7 +55,7 @@ class BadgeLevel < ApplicationRecord
       value = owner.volunteer.try(:volunteer_age).to_i
       self.level(kind, value.to_i)
     else
-      value = owner.team.total_donate_amount
+      value = owner.team.try(:total_donate_amount)
       self.level(kind, value.to_i)
     end
 
@@ -64,7 +64,7 @@ class BadgeLevel < ApplicationRecord
   # 根据kind和值，判断当前等级信息
   def self.level(kind, value)
     level = self.where(kind: kind).order(value: :asc).where('? >= value', value).last
-    level.current_value = value if level.present?
+    level.current_value = value #if level.present?
     level
   end
 
