@@ -21,7 +21,7 @@ class BadgeLevel < ApplicationRecord
   attr_accessor :current_value
 
   acts_as_list scope: [:kind]
-  scope :sorted, ->{ order(position: :asc) }
+  scope :sorted, -> {order(position: :asc)}
 
   enum kind: {user_donate: 10, society_team: 20, college_team: 30, ordinary_task: 40, intensive_task: 50, urgency_task: 60, innovative_task: 70, difficult_task: 80, volunteer_age: 90}
 
@@ -30,38 +30,33 @@ class BadgeLevel < ApplicationRecord
   def desc_of_kind
     current_value = self.current_value
     {
-      user_donate: "#{current_value}元用户捐款",
-      society_team: "#{current_value}元幕款",
-      college_team: "#{current_value}元募款",
-      ordinary_task: "#{current_value}次普通任务",
-      intensive_task: "#{current_value}次重点任务",
-      urgency_task: "#{current_value}次紧急任务",
-      innovative_task: "#{current_value}次创新任务",
-      difficult_task: "#{current_value}次难点任务",
-      volunteer_age: "#{current_value}年服务年度"
+        user_donate: "#{current_value}元用户捐款",
+        society_team: "#{current_value}元幕款",
+        college_team: "#{current_value}元募款",
+        ordinary_task: "#{current_value}次普通任务",
+        intensive_task: "#{current_value}次重点任务",
+        urgency_task: "#{current_value}次紧急任务",
+        innovative_task: "#{current_value}次创新任务",
+        difficult_task: "#{current_value}次难点任务",
+        volunteer_age: "#{current_value}年服务年度"
     }[self.kind.to_sym]
   end
 
   # 用户或机构的勋章
   def self.level_of_user(owner, kind)
     kind = kind.to_s
-    value = 0
-    if owner.is_a?(Team)
-      value = owner.total_donate_amount
+    if kind.end_with?('_task')
+      value = owner.volunteer && owner.volunteer.task_volunteers.done.joins(:task).where(tasks: {"#{kind.split('_')[0]}_flag": true}).count
+      self.level(kind, value.to_i)
+    elsif kind == 'user_donate'
+      value = owner.donate_amount
+      self.level(kind, value.to_i)
+    elsif kind == 'volunteer_age'
+      value = owner.volunteer.try(:volunteer_age).to_i
       self.level(kind, value.to_i)
     else
-      if kind.end_with?('_task')
-        value = owner.volunteer && owner.volunteer.task_volunteers.done.joins(:task).where(tasks: {"#{kind.split('_')[0]}_flag": true}).count
-        self.level(kind, value.to_i)
-      elsif kind == 'user_donate'
-        value = owner.donate_amount
-        self.level(kind, value.to_i)
-      elsif kind == 'volunteer_age'
-        value = owner.volunteer.try(:volunteer_age).to_i
-        self.level(kind, value.to_i)
-      elsif owner
-        self.level_of_user(owner.team, kind)
-      end
+      value = owner.team.total_donate_amount
+      self.level(kind, value.to_i)
     end
 
   end
