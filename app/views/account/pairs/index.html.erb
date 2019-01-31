@@ -15,6 +15,11 @@
     <!--我的结对-->
     <%= search_form_for @search, url: account_pairs_path do |f| %>
     <div class="school-apply-pair-share clearfix " style="padding:10px 0;">
+      <% if current_user.can_continue_donate? %>
+      <%= link_to batch_pairs_path(type: 'continue'), style:'wf_pair_but cur wf_but_2 pull-left ' do %>
+          <span class="but_pair" >批量续捐</span>
+      <% end %>
+      <% end %>
       <button type="submit" class="school-apply-share-share pull-right">搜索</button>
       <div class="input-group pull-right">
         <span class="iconfont icon-ico-search"></span>

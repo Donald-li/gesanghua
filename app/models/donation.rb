@@ -86,6 +86,23 @@ class Donation < ApplicationRecord
     return get_wechat_prepay_code(remote_ip)
   end
 
+  def self.batch_wechat_perpay_code(remote_ip, order_no, total)
+    notify_url = Settings.app_host + "/payment/wechat_payments/batch_notify"
+    params = {
+        body: '捐助给格桑花',
+        out_trade_no: order_no,
+        total_fee: Settings.pay_1_mode ? 1 : (total * 100).to_i,
+        # total_fee: 1,
+        spbill_create_ip: remote_ip,
+        notify_url: notify_url,
+        trade_type: 'NATIVE', # could be "JSAPI" or "NATIVE",
+        product_id: order_no,
+        is_subscribe: 'Y'
+    }
+    res = WxPay::Service.invoke_unifiedorder params
+    return res['code_url']
+  end
+
   # 返回支付宝支付按钮
   def alipay_prepay_h5
     # return get_alipay_prepay_url(type='wap')
@@ -111,6 +128,18 @@ class Donation < ApplicationRecord
       total_fee: Settings.pay_1_mode ? '0.01' : sprintf('%.2f', self.amount.to_f),
       return_url: 'http://' + Settings.app_host + '/pay?order_no=' + self.order_no,
       notify_url: "http://" + Settings.app_host + "/payment/alipay_payments/notify"
+    )
+  end
+
+  def self.batch_alipay_prepay_page(order_no, total)
+    Alipay::Service.create_direct_pay_by_user_url(
+        service: 'create_donate_trade_p',
+        payment_type: 4,
+        out_trade_no: order_no,
+        subject: '捐助给格桑花',
+        total_fee: Settings.pay_1_mode ? '0.01' : sprintf('%.2f', total.to_f),
+        return_url: 'http://' + Settings.app_host + '/pay/batch_result?order_no=' + order_no,
+        notify_url: "http://" + Settings.app_host + "/payment/alipay_payments/batch_notify"
     )
   end
 
@@ -186,6 +215,46 @@ class Donation < ApplicationRecord
     end
   end
 
+  # 微信-支付成功
+  def self.batch_wechat_payment_success(result)
+    # TODO: 这里也应该加到事务里
+    donations = Donation.where(order_no: result['out_trade_no'])
+    donations.each do |donation|
+      if donation.unpaid?
+        donor = donation.donor
+        agent = donation.agent
+        # amount = format('%.2f', (result['total_fee'].to_f / 100.to_f))
+        amount = donation.amount # if Settings.pay_1_mode # 测试模式入账金额等于捐助金额
+
+        # 更新捐助状态
+        donation.pay_state = 'paid'
+        donation.pay_result = result.to_json
+        donation.build_income_record(fund: donation.income_fund, agent: agent, donor: donor, amount: amount, promoter_id: donation.promoter_id, team_id: donation.team_id, balance: amount, voucher_state: 'to_bill', income_source_id: IncomeSource.wechat_id, income_time: Time.now, title: donation.title)
+        donation.save
+
+        # 执行捐助
+        income_record = donation.income_record
+        DonateRecord.do_donate('user_donate', income_record, donation.owner, amount, {agent: agent, donor: donor, promoter_id: donation.promoter_id, team_id: donation.team_id, message: donation.message})
+
+        owner = income_record
+        title = '#支付成功# 感谢您的支持'
+        content = "感谢你的支持 捐助款已经收到，后续动态我们会持续通知"
+        notice = Notification.create(
+            kind: 'donate',
+            owner: owner,
+            project_id: donation.project_id,
+            project_season_id: donation.project_season_id,
+            project_season_apply_id: donation.project_season_apply_id,
+            user_id: agent.id,
+            title: title,
+            content: content,
+            url: "#{Settings.m_root_url}/account/"
+        )
+      end
+    end
+
+  end
+
   # 支付宝-支付成功
   def self.alipay_payment_success(result)
     # TODO: 这里也应该加到事务里
@@ -221,6 +290,46 @@ class Donation < ApplicationRecord
         content: content,
         url: "#{Settings.m_root_url}/account/"
       )
+    end
+  end
+
+  # 支付宝-支付成功
+  def self.batch_alipay_payment_success(result)
+    # TODO: 这里也应该加到事务里
+    donations = Donation.where(order_no: result['out_trade_no'])
+    donations.each do |donation|
+      if donation.unpaid?
+        donor = donation.donor
+        agent = donation.agent
+        amount = donation.amount
+        # amount = result['receipt_amount']
+        # amount = donation.amount if Settings.pay_1_mode # 测试模式入账金额等于捐助金额
+
+        # 更新捐助状态
+        donation.pay_state = 'paid'
+        donation.pay_result = result.to_json
+        donation.build_income_record(fund: donation.income_fund, agent: agent, donor: donor, amount: amount, promoter_id: donation.promoter_id, team_id: donation.team_id, balance: amount, voucher_state: 'to_bill', income_source_id: IncomeSource.alipay_id, income_time: Time.now, title: donation.title)
+        donation.save
+
+        # 执行捐助
+        income_record = donation.income_record
+        DonateRecord.do_donate('user_donate', income_record, donation.owner, amount, {agent: agent, donor: donor, promoter_id: donation.promoter_id, team_id: donation.team_id, message: donation.message})
+
+        owner = income_record
+        title = '#支付成功# 感谢您的支持'
+        content = "感谢你的支持！捐助款已经收到，后续动态我们会持续通知"
+        notice = Notification.create(
+            kind: 'donate',
+            project_id: donation.project_id,
+            project_season_id: donation.project_season_id,
+            project_season_apply_id: donation.project_season_apply_id,
+            owner: owner,
+            user_id: agent.id,
+            title: title,
+            content: content,
+            url: "#{Settings.m_root_url}/account/"
+        )
+      end
     end
   end
 

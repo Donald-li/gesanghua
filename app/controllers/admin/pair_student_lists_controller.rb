@@ -206,6 +206,50 @@ class Admin::PairStudentListsController < Admin::BaseController
     redirect_to batch_manage_admin_pair_student_lists_path, notice: '更新成功。'
   end
 
+  def batch_donate
+    params[:q] ||= {}
+    ids = ProjectSeasonApplyChild.where(project: Project.pair_project).joins(:semesters)
+              .where(gsh_child_grants: {donate_state: :pending})
+              .select("distinct project_season_apply_children.id").pluck(:id).uniq
+    @children = ProjectSeasonApplyChild.where(id: ids).includes(:gsh_child).pass.sorted
+    @search = @children.ransack(params[:q])
+    scope = @search.result
+    if donor_state = params[:donor_state_eq]
+      scope = scope.where('project_season_apply_children.done_semester_count = 0') if donor_state == 'raising'
+      scope = scope.where('project_season_apply_children.done_semester_count = project_season_apply_children.semester_count') if donor_state == 'done'
+      scope = scope.where('project_season_apply_children.done_semester_count between 1 and project_season_apply_children.semester_count - 1') if donor_state == 'part_done'
+    end
+    @pair_student_lists = scope.page(params[:page]).per(60)
+  end
+
+  def batch_grant
+    unless params[:child_ids].present?
+      redirect_to batch_donate_admin_pair_student_lists_path, notice: "请勾选孩子" and return
+    end
+    success = 0
+    fail = 0
+    message_list = []
+    params[:child_ids].split(',').each do |child_id|
+      child = ProjectSeasonApplyChild.find_by(id: child_id)
+      grant = child.semesters.pending.sorted.last
+      if grant.present?
+        result, message = DonateRecord.platform_donate(child, grant.amount, params.permit!.merge(current_user: current_user))
+        if result
+          success += 1
+        else
+          fail += 1
+          message_list.push(message)
+        end
+      end
+    end
+    if fail == 0
+      redirect_to batch_donate_admin_pair_student_lists_path, notice: '配捐成功。'
+    else
+      redirect_to batch_donate_admin_pair_student_lists_path, notice: "配捐成功#{success}个，失败#{fail}个,原因：#{message_list.join(',')}"
+    end
+
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

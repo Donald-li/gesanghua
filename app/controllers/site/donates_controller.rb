@@ -28,6 +28,7 @@ class Site::DonatesController < Site::BaseController
     @protocol = Protocol.donate_protocol.first
 
     render 'child' if params[:child].present?
+    render 'batch_child' if params[:batch_child].present?
     render 'apply' if params[:apply].present?
     render 'bookshelf' if params[:bookshelf].present?
     render 'campaign_enlist' if params[:campaign_enlist].present?
@@ -35,7 +36,7 @@ class Site::DonatesController < Site::BaseController
   end
 
   def create
-    donate_way = params[:donate_way]
+
 
     agent = current_user
     donor_id = params[:donor].presence || agent.id
@@ -46,27 +47,70 @@ class Site::DonatesController < Site::BaseController
 
     donor = User.find donor_id if donor_id
 
-    owner = DonateItem.find(params[:donate_item]) if params[:donate_item].present?
-    owner = ProjectSeasonApply.find(params[:apply]) if params[:apply].present?
-    owner = ProjectSeasonApplyChild.find(params[:child]) if params[:child].present?
-    owner = ProjectSeasonApplyBookshelf.find(params[:bookshelf]) if params[:bookshelf].present?
-    owner = CampaignEnlist.find(params[:campaign_enlist]) if params[:campaign_enlist].present? # 活动报名
+    if params[:donate_batch].present?
+      order_no = nil
+      total = 0.0
+      params[:child_list].each do |k, v|
+        child = ProjectSeasonApplyChild.find(k)
+        semester_count = v.to_i || 0
+        semesters = child.donate_pending_records.reorder(:id)
+        amount = 0.0
+        i = 0
+        semesters.each do |s|
+          amount = amount + s.amount.to_f if i < semester_count
+          i = i + 1
+        end
+        total += amount
 
-    if params[:donate_way] == 'wechat'
-      donation = Donation.new(pay_way: :wechat, amount: amount, owner: owner, donor_id: donor_id, agent_id: agent.id, team_id: team_id, promoter_id: promoter_id, message: params[:message])
-      if donation.save
-        redirect_to new_pay_path(order_no: donation.order_no)
+        if params[:donate_way] == 'wechat'
+          donation = Donation.create(pay_way: :wechat, order_no: order_no, amount: amount, owner: child, donor_id: donor_id, agent_id: agent.id, team_id: team_id, promoter_id: promoter_id, message: params[:message])
+          order_no ||= donation.order_no
+          # if donation.save
+          #   redirect_to new_pay_path(order_no: donation.order_no)
+          # end
+        elsif params[:donate_way] == 'alipay'
+          donation = Donation.create(pay_way: :alipay, order_no: order_no, amount: amount, owner: child, donor_id: donor_id, agent_id: agent.id, team_id: team_id, promoter_id: promoter_id, message: params[:message])
+          order_no ||= donation.order_no
+          # if donation.save
+          #   redirect_to donation.alipay_prepay_page
+          # end
+        # elsif params[:donate_way] == 'balance'
+        #   result, message = DonateRecord.do_donate('user_donate', agent, owner, amount, {agent: agent, donor: donor, promoter_id: promoter_id, message: params[:message]})
+        #   if result
+        #     redirect_to account_orders_path
+        #   end
+        end
       end
-    elsif params[:donate_way] == 'alipay'
-      donation = Donation.new(pay_way: :alipay, amount: amount, owner: owner, donor_id: donor_id, agent_id: agent.id, team_id: team_id, promoter_id: promoter_id, message: params[:message])
-      if donation.save
-        redirect_to donation.alipay_prepay_page
+
+      if params[:donate_way] == 'wechat'
+        redirect_to batch_pay_path(order_no: order_no, total: total)
+      elsif params[:donate_way] == 'alipay'
+        redirect_to Donation.batch_alipay_prepay_page(order_no, total)
       end
-    elsif params[:donate_way] == 'balance'
-      result, message = DonateRecord.do_donate('user_donate', agent, owner, amount, {agent: agent, donor: donor, promoter_id: promoter_id, message: params[:message]})
-      if result
-        redirect_to account_orders_path
+    else
+      owner = DonateItem.find(params[:donate_item]) if params[:donate_item].present?
+      owner = ProjectSeasonApply.find(params[:apply]) if params[:apply].present?
+      owner = ProjectSeasonApplyChild.find(params[:child]) if params[:child].present?
+      owner = ProjectSeasonApplyBookshelf.find(params[:bookshelf]) if params[:bookshelf].present?
+      owner = CampaignEnlist.find(params[:campaign_enlist]) if params[:campaign_enlist].present? # 活动报名
+
+      if params[:donate_way] == 'wechat'
+        donation = Donation.new(pay_way: :wechat, amount: amount, owner: owner, donor_id: donor_id, agent_id: agent.id, team_id: team_id, promoter_id: promoter_id, message: params[:message])
+        if donation.save
+          redirect_to new_pay_path(order_no: donation.order_no)
+        end
+      elsif params[:donate_way] == 'alipay'
+        donation = Donation.new(pay_way: :alipay, amount: amount, owner: owner, donor_id: donor_id, agent_id: agent.id, team_id: team_id, promoter_id: promoter_id, message: params[:message])
+        if donation.save
+          redirect_to donation.alipay_prepay_page
+        end
+      elsif params[:donate_way] == 'balance'
+        result, message = DonateRecord.do_donate('user_donate', agent, owner, amount, {agent: agent, donor: donor, promoter_id: promoter_id, message: params[:message]})
+        if result
+          redirect_to account_orders_path
+        end
       end
     end
+
   end
 end

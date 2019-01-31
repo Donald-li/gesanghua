@@ -151,4 +151,12 @@ class Support::SelectsController < Support::BaseController
     end
   end
 
+  def grant_children
+    ids = ProjectSeasonApplyChild.where(project: Project.pair_project).joins(:semesters)
+              .where(gsh_child_grants: {donate_state: :pending})
+              .select("distinct project_season_apply_children.id").pluck(:id).uniq
+    children = ProjectSeasonApplyChild.where(id: ids).includes(:gsh_child).pass.sorted.page(params[:page])
+    render json: {items: children.as_json(only: [:id], methods: :name_for_select), pagination: json_pagination(children)}
+  end
+
 end

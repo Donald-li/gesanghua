@@ -35,6 +35,16 @@ class Payment::AlipayPaymentsController < Payment::BaseController
 
   end
 
+  def batch_notify
+    logger.info request.request_parameters.inspect
+    if Alipay::Notify.verify?(request.request_parameters, {})
+      succ, message = Donation.batch_alipay_payment_success(params)
+      render :plain => 'success'
+    else
+      render :plain => ''
+    end
+  end
+
   def success
     render :plain => 'success'
   end

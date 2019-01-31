@@ -21,6 +21,26 @@ class Payment::WechatPaymentsController < Payment::BaseController
     end
   end
 
+  def batch_notify
+    result = Hash.from_xml(request.body.read)["xml"]
+    logger.info result
+    order_no = result['out_trade_no']
+    url = batch_result_pay_path(order_no: order_no)
+    if WxPay::Sign.verify?(result)
+      succ, message = Donation.batch_wechat_payment_success(result) if result['result_code'] == 'SUCCESS'
+      if succ
+        ActionCable.server.broadcast("order_#{order_no}", {result: true, url: url})
+        render :xml => {return_code: "SUCCESS"}.to_xml(root: 'xml', dasherize: false)
+      else
+        ActionCable.server.broadcast("order_#{order_no}", {result: false, url: url})
+        render :xml => {return_code: "FAIL", return_msg: "捐款失败"}.to_xml(root: 'xml', dasherize: false)
+      end
+    else
+      ActionCable.server.broadcast("order_#{order_no}", {result: false, url: url})
+      render :xml => {return_code: "FAIL", return_msg: "签名失败"}.to_xml(root: 'xml', dasherize: false)
+    end
+  end
+
   def success
 
   end
