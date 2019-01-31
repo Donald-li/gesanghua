@@ -64,7 +64,7 @@ class BadgeLevel < ApplicationRecord
   # 根据kind和值，判断当前等级信息
   def self.level(kind, value)
     level = self.where(kind: kind).order(value: :asc).where('? >= value', value).last
-    level.current_value = value if level
+    level.current_value = value if level.present?
     level
   end
 
