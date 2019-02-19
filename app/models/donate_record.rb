@@ -310,7 +310,7 @@ class DonateRecord < ApplicationRecord
                     when 'ProjectSeasonApply'
                       self.owner.cover_image_url(:tiny)
                     when 'GshChildGrant' # 优先展示发放照片
-                      self.owner.images.first.try(:file).try(:url, :tiny) || self.child.try(:avatar_url, :tiny)
+                      self.owner.try(:images).try(:first).try(:file).try(:url, :tiny) || self.child.try(:avatar_url, :tiny)
                     when 'ProjectSeasonApplyChild'
                       self.owner.project.try(:image_url, :tiny)
                     when 'ProjectSeasonApplyBookshelf', 'BookshelfSupplement'
