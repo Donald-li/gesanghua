@@ -47,7 +47,7 @@
         <% case record.project_id %>
         <% when Project.pair_project.id %>
             <% if record.owner_type == 'GshChildGrant' %>
-                <% url = detail_pair_path(record.owner.apply_child) %>
+                <% url = detail_pair_path(record.owner.try(:apply_child)) %>
             <% elsif record.owner_type == 'ProjectSeasonApplyChild' %>
                 <% url = detail_pair_path(record.owner) %>
             <% elsif record.owner_type == 'DonateItem' %>
