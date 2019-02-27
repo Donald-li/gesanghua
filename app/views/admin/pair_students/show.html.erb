@@ -292,7 +292,7 @@
               提交时间
             </td>
             <td>
-              <%= l @apply_child.submit_at %>
+              <%= l @apply_child.submit_at if @apply_child.submit_at.present? %>
             </td>
           </tr>
           <tr>
