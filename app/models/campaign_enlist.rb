@@ -35,7 +35,7 @@ class CampaignEnlist < ApplicationRecord
 
   validates :contact_phone, phone: true
 
-  #default_vaule_for :number, 1
+  # default_vaule_for :number, 1
 
   enum payment_state: {unpaid: 0, paid: 1, canceled: 2} #支付状态 1:已支付 2:已取消
   default_value_for :payment_state do |enlist|
@@ -60,7 +60,7 @@ class CampaignEnlist < ApplicationRecord
         owner: self.user,
         user_id: self.user_id,
         title: '活动报名成功',
-        content: "您已成功报名#{@campaign.name}活动"
+        content: "您已成功报名#{self.campaign.try(:name)}活动"
     )
     self.payment_state = 'paid'
     self.save!
