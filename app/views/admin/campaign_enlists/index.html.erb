@@ -117,7 +117,7 @@
                 <% if can_current_entrance('admin/campaign_enlists', 'cancel', current_user.roles) %>
                 <% if @campaign.price !=0 %>
                   <% if campaign_enlist.paid? %>
-                    <%= link_to cancel_admin_campaign_campaign_enlist_path(campaign_enlist.campaign, campaign_enlist), data: {confirm: "确定取消报名吗？"}, method: :put, 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
+                    <%= link_to cancel_admin_campaign_campaign_enlist_path(campaign_enlist.campaign, campaign_enlist), data: {confirm: "确定取消报名吗？（需要您手动处理退款）"}, method: :put, 'data-no-turbolink' => true, class: 'btn btn-xs blue' do %>
                        取消报名
                     <% end %>
                   <% end %>

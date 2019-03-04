@@ -15,6 +15,7 @@ superadmin:
     admin/expenditure_ledgers: all
     admin/expenditure_uploads: all
     admin/modify_password: all
+    admin/camp_document_summaries: all
 project_manager:
   actions:
     admin/mains: all
@@ -90,6 +91,7 @@ project_manager:
     admin/camp_document_budges: all
     admin/camp_document_finances: all
     admin/camp_document_volunteers: all
+    admin/camp_document_summaries: all
     admin/camp_continual_feedbacks: all
     admin/camp_project_resources: all
     admin/camp_project_reports: all
@@ -152,6 +154,7 @@ project_operator:
     admin/camp_document_budges: all
     admin/camp_document_finances: all
     admin/camp_document_volunteers: all
+    admin/camp_document_summaries: all
     admin/camp_continual_feedbacks: all
     admin/camp_project_resources: all
     admin/camp_project_reports: all
