@@ -42,6 +42,7 @@ class Admin::PairGrantsController < Admin::BaseController
     respond_to do |format|
       if @grant.update(grant_params)
         @grant.attach_images(params[:image_ids])
+        @grant.granted_at = Time.now
         @grant.granted!
         notice = Notification.create(
             kind: 'child_granted',

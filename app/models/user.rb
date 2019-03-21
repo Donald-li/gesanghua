@@ -277,7 +277,7 @@ class User < ApplicationRecord
   end
 
   def school_approve_state
-    if self.teacher?
+    if self.teacher.present?
       self.teacher.try(:school).try(:approve_state)
     elsif self.create_school.present?
       self.create_school.approve_state
