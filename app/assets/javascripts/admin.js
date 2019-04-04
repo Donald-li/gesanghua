@@ -106,7 +106,7 @@ $(function(){
 
     $('.datetime-picker').each(function(){
         if(this.value.length == 0) return
-        var date = moment(this.value, 'YYYY-MM-DD hh:mm').format('YYYY-MM-DD hh:mm')
+        var date = moment(this.value, 'YYYY-MM-DD HH:mm').format('YYYY-MM-DD HH:mm')
         $(this).val(date)
     });
 
