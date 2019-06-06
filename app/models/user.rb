@@ -147,6 +147,10 @@ class User < ApplicationRecord
     end
   end
 
+  def select_with_role_names
+    "#{self.name}(#{self.nickname}) #{self.roles_name.join(',')}"
+  end
+
   def school
     self.teacher.try(:school) || School.find_by(user_id: self.id) || self.create_school
   end
