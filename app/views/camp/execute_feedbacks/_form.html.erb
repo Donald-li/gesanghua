@@ -1,7 +1,7 @@
 <%= simple_form_for [:camp, @project, @feedback], url: @feedback.new_record? ? camp_project_execute_feedbacks_path : camp_project_execute_feedback_path, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'continual_form'} do |f| %>
     <%= f.error_notification %>
     <div class="form-body form-horizontal">
-      <%= f.input :user_id, collection: [@feedback.user].compact.map {|u| [u.name, u.id]}, label: '反馈人：', prompt: "请选择用户", input_html: {class: 'camp_user_selector'}, required: true %>
+      <%= f.input :user_id, collection: [@feedback.user].compact.map {|u| [u.select_with_role_names, u.id]}, label: '反馈人：', prompt: "请选择用户", input_html: {class: 'camp_user_selector'}, required: true %>
       <div class="form-group">
         <label class="col-md-2 control-label">反馈内容：</label>
         <div class="col-sm-9">

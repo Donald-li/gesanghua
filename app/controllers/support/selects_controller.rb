@@ -113,8 +113,9 @@ class Support::SelectsController < Support::BaseController
 
   def camp_users
     scope = User.sorted.where("name like :q or nickname like :q or phone like :q", q: "%#{params[:q]}%")
+    scope = scope.where(camp_id: params[:camp_id]) if params[:camp_id].present?
     users = scope.page(params[:page])
-    render json: {items: users.as_json(only: [:id], methods: :select_with_role_names), pagination: json_pagination(users)}
+    render json: {items: users.as_json(only: [:id, :name], methods: :select_with_role_names), pagination: json_pagination(users)}
   end
 
   def child_grants
