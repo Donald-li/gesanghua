@@ -31,7 +31,7 @@ class Site::PairsController < Site::BaseController
     if params[:continue] == 'continue'
       apply_child_ids = current_user.donate_records.visible.pluck(:project_season_apply_child_id)
       apply_child_ids = apply_child_ids.push(ProjectSeasonApplyChild.where(priority_id: current_user.id).pluck(:id)).flatten.uniq
-      scope = ProjectSeasonApplyChild.where(id: apply_child_ids).show.pass.outside.sorted
+      scope = ProjectSeasonApplyChild.where(id: apply_child_ids).pass.outside.sorted
       @children = scope
     else
       @project = Project.pair_project
