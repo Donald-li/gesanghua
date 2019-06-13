@@ -97,7 +97,7 @@ class DonateRecord < ApplicationRecord
   end
 
   def excel_apply_name
-    "#{self.try(:child).present? ? self.try(:child).try(:school).try(:name).to_s + ' - ' : ''}#{self.apply_name}"
+    "#{self.try(:child).present? ? self.try(:child).try(:gsh_no).to_s + self.try(:child).try(:school).try(:name).to_s + ' - ' : ''}#{self.apply_name}"
   end
 
   # 代捐人名称
