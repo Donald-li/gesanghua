@@ -28,7 +28,7 @@ class Site::PairsController < Site::BaseController
   end
 
   def batch
-    if params[:continue] == 'continue'
+    if params[:type] == 'continue'
       apply_child_ids = current_user.donate_records.visible.pluck(:project_season_apply_child_id)
       apply_child_ids = apply_child_ids.push(ProjectSeasonApplyChild.where(priority_id: current_user.id).pluck(:id)).flatten.uniq
       scope = ProjectSeasonApplyChild.where(id: apply_child_ids).pass.outside.sorted
