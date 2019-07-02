@@ -56,7 +56,7 @@ class Voucher < ApplicationRecord
         records.update_all(voucher_state: :billed, voucher_id: self.id)
         return true
       rescue => e
-        raise e
+        logger.info e.inspect
         return false
       end
     end

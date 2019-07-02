@@ -16,7 +16,7 @@ class Api::V1::Account::VouchersController < Api::V1::BaseController
     if @voucher.save_voucher(current_user, ids)
       api_success(data: true, message: '提交成功')
     else
-      api_error(message: '提交失败')
+      api_error(message: "保存失败，#{@voucher.errors.full_messages.join(',')}")
     end
   end
 

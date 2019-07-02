@@ -60,3 +60,10 @@ zh:
         parent_information: '父母情况'
         information: '对外展示的孩子介绍'
         classname: '班级名称'
+      voucher:
+        contact_name: '联系人'
+        contact_phone: '联系方式'
+        province: '省'
+        city: '市'
+        district: '区县'
+        address: '详细地址'
