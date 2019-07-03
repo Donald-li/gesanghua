@@ -99,8 +99,10 @@
                         label: '我再看看',
                         className: 'btn-danger'
                     }
-                }, callback: function () {
-                    $('.category_form').submit()
+                }, callback: function (result) {
+                    if (result) {
+                        $('.category_form').submit()
+                    }
                 }
             })
         })
