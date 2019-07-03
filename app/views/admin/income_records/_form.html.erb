@@ -88,6 +88,9 @@
         });
 
         $("#to-submit").click(function () {
+            <% if @income_record.new_record? %>
+            $('.category_form').submit()
+            <% else %>
             bootbox.confirm({
                 message: "请检查可用余额是否正确",
                 buttons: {
@@ -105,6 +108,7 @@
                     }
                 }
             })
+            <% end %>
         })
     })
 </script>
