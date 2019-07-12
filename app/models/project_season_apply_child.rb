@@ -409,7 +409,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
     ProjectSeasonApplyChild.pass.hidden.sorted.each do |child|
       user_id = child.priority_id
       pending_grants = child.semesters.pending
-      if pending_grants.count > 0 && pending_grants.first.title.start_with?(Time.now.year) && user_id.present?
+      if pending_grants.count > 0 && pending_grants.first.try(:title).start_with?(Time.now.year) && user_id.present?
         Notification.create(
             kind: 'continue_donate',
             owner: child,
