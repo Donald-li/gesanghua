@@ -34,6 +34,13 @@
               <input type="text" name="amount_min" class="form-control gsh-input-share-l" placeholder="大于或等于" style="width:120px;" value="<%= params[:amount_min] || 10000 %>">
               <input type="text" name="amount_max" class="form-control gsh-input-share-r" placeholder="小于或等于" style="width:120px;" value="<%= params[:amount_max] || 1000000 %>">
             </div>
+            <div class="form-group">
+              <div class="city-group">
+                <%= select_tag 'q[province_eq]', options_for_select(ChinaCity.list, params[:q].present? ? params[:q][:province_eq] : []), prompt: '省份', class: "city-select form-control gsh-input-share-l " %>
+                <%= select_tag 'q[city_eq]', options_for_select(params[:q].present? ? ChinaCity.list(params[:q][:province_eq]) : [], params[:q].present? ? params[:q][:city_eq] : []), prompt: '城市', class: "city-select form-control " %>
+                <%= select_tag 'q[district_eq]', options_for_select(params[:q].present? ? ChinaCity.list(params[:q][:city_eq]) : [], params[:q].present? ? params[:q][:district_eq] : []), prompt: '地区', class: "city-select form-control gsh-input-share-r" %>
+              </div>
+            </div>
             <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>
         </div>
