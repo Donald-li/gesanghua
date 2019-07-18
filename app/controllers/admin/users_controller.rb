@@ -143,7 +143,11 @@ class Admin::UsersController < Admin::BaseController
                    .group('users.id')
                    .having("sum(income_records.amount) >= #{amount_min} and sum(income_records.amount) <= #{amount_max}")
                    .order("sum(income_records.amount) desc")
-
+      if params[:q].present?
+        @users = @users.where(province: params[:q][:province_eq]) if params[:q][:province_eq].present?
+        @users = @users.where(city: params[:q][:city_eq]) if params[:q][:city_eq].present?
+        @users = @users.where(district: params[:q][:district_eq]) if params[:q][:district_eq].present?
+      end
       format.html do # HTML页面
       end
       format.xlsx {
