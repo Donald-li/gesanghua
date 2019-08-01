@@ -20,9 +20,11 @@ class BatchNoticeJob < ApplicationJob
         ActionCable.server.broadcast "batch_notice_#{current_user.id}", data: {percentage: (percentage * 100).to_i, message: '正在发送', total: total}
         puts "#current | #{percentage} | #{total} | #{(percentage * 100).to_i}"
       end
+      if current == total
+        ActionCable.server.broadcast "batch_notice_#{current_user.id}", data: {percentage: 100, message: '完成', total: total}
+      end
       current += 1
     end
-    ActionCable.server.broadcast "batch_notice_#{current_user.id}", data: {percentage: 100, message: '完成', total: total}
 
   end
 
