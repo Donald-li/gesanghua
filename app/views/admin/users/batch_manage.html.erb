@@ -19,11 +19,9 @@
           <i class="fa fa-paper-plane font-red-sunglo"></i>
           <span class="caption-subject font-red-sunglo bold uppercase">批量推送微信通知</span>
         </div>
-        <div class="actions">
-        </div>
       </div>
       <div class="portlet-body form">
-        <%= simple_form_for [:admin, User.new], url: send_message_admin_users_path, method: :put, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'category_form'} do |f| %>
+        <%= simple_form_for [:admin, User.new], url: send_message_admin_users_path, remote: true, method: :put, wrapper: :admin_form, html: {'data-parsley-validate': true, class: 'category_form'} do |f| %>
             <%= f.error_notification %>
             <div class="form-body form-horizontal">
 
@@ -81,13 +79,34 @@
               </div>
             </div>
         <% end %>
+        <div class="note note-success" style="display: none;">
+          <h4 class="block">消息推送中</h4>
+          <div class="progress progress-striped active">
+            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+          </div>
+          <p id="message"></p>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
+<%= javascript_include_tag 'cable' %>
 <script type="text/javascript" charset="utf-8">
     $(function () {
+        this.App || (this.App = {});
+        App.cable = ActionCable.createConsumer();
+        App.cable.subscriptions.create({
+                channel: "BatchNoticeChannel",
+                id: "<%= current_user.id %>"
+            },
+            {
+                received: function (data) {
+                    $('.note-success').show()
+                    $('.progress-bar').css('width', data.data.percentage + '%')
+                    $('#message').text('状态：' + data.data.message + ' 进度：' + data.data.percentage + '%' + '，共计' + data.data.total + '条')
+                }
+            })
+
         initImageWebuploader($('#webuploader'));
         // 异步加载志愿者列表
         $('#user-ajax').select2({
@@ -154,4 +173,5 @@
         }
 
     }
+
 </script>

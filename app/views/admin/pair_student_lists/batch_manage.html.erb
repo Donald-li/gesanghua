@@ -63,7 +63,7 @@
           <div class="form-body">
             <div class="form-group">
               <div class="col-sm-9">
-                <%= link_to push_notice_admin_pair_student_lists_path, method: :post, data: {confirm: '确认推送通知吗？'}, class: 'btn btn-lg green' do %>
+                <%= link_to push_notice_admin_pair_student_lists_path, remote: true, method: :post, data: {confirm: '确认推送通知吗？'}, class: 'btn btn-lg green' do %>
                     <i class="fa fa-feed"></i>
                     点击推送
                 <% end %>
@@ -88,7 +88,7 @@
           <div class="form-body">
             <div class="form-group">
               <div class="col-sm-9">
-                <%= link_to update_priority_admin_pair_student_lists_path, method: :post, data: {confirm: '确认统一更新优先捐助人吗？'}, class: 'btn btn-lg green' do %>
+                <%= link_to update_priority_admin_pair_student_lists_path, remote: true, method: :post, data: {confirm: '确认统一更新优先捐助人吗？'}, class: 'btn btn-lg green' do %>
                     <i class="fa fa-gg"></i>
                     点击更新
                 <% end %>
@@ -99,5 +99,51 @@
         </div>
       </div>
     </div>
+    <div class="note note-success" id="push-notice" style="display: none;">
+      <h4 class="block">消息推送中</h4>
+      <div class="progress progress-striped active">
+        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+      </div>
+      <p id="message"></p>
+    </div>
+    <div class="note note-success" id="update-priority" style="display: none;">
+      <h4 class="block">优先捐助人更新中</h4>
+      <div class="progress progress-striped active">
+        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+      </div>
+      <p id="message"></p>
+    </div>
   </div>
 </div>
+<%= javascript_include_tag 'cable' %>
+<script type="text/javascript" charset="utf-8">
+$(function () {
+    this.App || (this.App = {});
+    App.cable = ActionCable.createConsumer();
+    App.cable.subscriptions.create({
+            channel: "BatchNoticeChannel",
+            id: "<%= current_user.id %>"
+        },
+        {
+            received: function (data) {
+                console.log('reveiving')
+                $('#push-notice').show()
+                $('#push-notice .progress-bar').css('width', data.data.percentage + '%')
+                $('#push-notice #message').text('状态：' + data.data.message + ' 进度：' + data.data.percentage + '%' + '，共计' + data.data.total + '条')
+            }
+        })
+
+    App.cable.subscriptions.create({
+            channel: "UpdatePriorityChannel",
+            id: "<%= current_user.id %>"
+        },
+        {
+            received: function (data) {
+                console.log('reveiving')
+                $('#update-priority').show()
+                $('#update-priority .progress-bar').css('width', data.data.percentage + '%')
+                $('#update-priority #message').text('状态：' + data.data.message + ' 进度：' + data.data.percentage + '%' + '，共计' + data.data.total + '条')
+            }
+        })
+})
+</script>

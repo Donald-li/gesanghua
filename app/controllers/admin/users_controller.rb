@@ -123,11 +123,9 @@ class Admin::UsersController < Admin::BaseController
     else
       user_ids = params[:user_ids]
     end
-    if User.send_messages(user_ids, params[:content])
-      redirect_to batch_manage_admin_users_path, notice: "发送成功 #{user_ids.count} 条"
-    else
-      redirect_to batch_manage_admin_users_path, notice: '发送失败。'
-    end
+    BatchNoticeJob.perform_later(ids: user_ids, content: params[:content], current_user: current_user)
+    flash.now[:notice] = '正在推送'
+
   end
 
   def filter

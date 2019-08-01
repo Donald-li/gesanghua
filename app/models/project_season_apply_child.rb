@@ -405,27 +405,29 @@ class ProjectSeasonApplyChild < ApplicationRecord
   end
 
   # 批量推送续捐消息
-  def self.batch_push_notice
-    ProjectSeasonApplyChild.pass.hidden.sorted.each do |child|
-      user_id = child.priority_id
-      pending_grants = child.semesters.pending
-      if pending_grants.count > 0 && pending_grants.first.try(:title).to_s.start_with?(Time.now.year.to_s) && user_id.present?
-        Notification.create(
-            kind: 'continue_donate',
-            owner: child,
-            user_id: user_id,
-            title: "#续捐通知# 您有一个孩子待续捐",
-            content: "您捐助过的#{child.name}新的学年助学款可以续捐了，请及时续捐",
-            url: "#{Settings.m_root_url}/pair/#{child.id}"
-        )
-      end
-    end
+  def self.batch_push_notice(current_user)
+    BatchNoticeDonorJob.perform_later(current_user: current_user)
+    # ProjectSeasonApplyChild.pass.hidden.sorted.each do |child|
+    #   user_id = child.priority_id
+    #   pending_grants = child.semesters.pending
+    #   if pending_grants.count > 0 && pending_grants.first.try(:title).to_s.start_with?(Time.now.year.to_s) && user_id.present?
+    #     Notification.create(
+    #         kind: 'continue_donate',
+    #         owner: child,
+    #         user_id: user_id,
+    #         title: "#续捐通知# 您有一个孩子待续捐",
+    #         content: "您捐助过的#{child.name}新的学年助学款可以续捐了，请及时续捐",
+    #         url: "#{Settings.m_root_url}/pair/#{child.id}"
+    #     )
+    #   end
+    # end
   end
 
-  def self.update_priority_users
-    ProjectSeasonApplyChild.pass.hidden.sorted.each do |child|
-      child.update(priority_id: child.semesters.sorted.succeed.last.try(:user_id))
-    end
+  def self.update_priority_users(current_user)
+    UpdatePriorityJob.perform_later(current_user: current_user)
+    # ProjectSeasonApplyChild.pass.hidden.sorted.each do |child|
+    #   child.update(priority_id: child.semesters.sorted.succeed.last.try(:user_id))
+    # end
   end
 
   # 受助学生的全部捐助记录

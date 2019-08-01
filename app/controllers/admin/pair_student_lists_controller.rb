@@ -197,13 +197,13 @@ class Admin::PairStudentListsController < Admin::BaseController
   end
 
   def push_notice
-    ProjectSeasonApplyChild.batch_push_notice
-    redirect_to batch_manage_admin_pair_student_lists_path, notice: '推送成功。'
+    ProjectSeasonApplyChild.batch_push_notice(current_user)
+    flash.now[:notice] = '正在推送'
   end
 
   def update_priority
-    ProjectSeasonApplyChild.update_priority_users
-    redirect_to batch_manage_admin_pair_student_lists_path, notice: '更新成功。'
+    ProjectSeasonApplyChild.update_priority_users(current_user)
+    flash.now[:notice] = '正在更新'
   end
 
   def batch_donate
