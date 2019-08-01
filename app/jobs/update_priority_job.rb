@@ -9,7 +9,7 @@ class UpdatePriorityJob < ApplicationJob
       child.update(priority_id: child.semesters.sorted.succeed.last.try(:user_id))
       if current % 10 == 0
         percentage = current / total.to_f
-        ActionCable.server.broadcast "update_priority_#{current_user.id}", data: {percentage: (percentage * 100).to_i, message: '正在发送', total: total}
+        ActionCable.server.broadcast "update_priority_#{current_user.id}", data: {percentage: (percentage * 100).to_i, message: '正在更新', total: total}
         puts "#current | #{percentage} | #{total} | #{(percentage * 100).to_i}"
       end
       current += 1
