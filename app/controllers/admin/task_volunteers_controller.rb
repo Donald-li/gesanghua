@@ -22,7 +22,7 @@ class Admin::TaskVolunteersController < Admin::BaseController
     if params[:kind] == 'reduce'
       task_volunteer_params[:duration] = 0 - task_volunteer_params[:duration].to_i
     end
-    @task_volunteer = TaskVolunteer.new(task_volunteer_params.merge(volunteer: @volunteer, kind: 2, finish_state: 'done', finish_time: Time.now, user_id: current_user.id))
+    @task_volunteer = TaskVolunteer.new(task_volunteer_params.merge(volunteer: @volunteer, kind: 2, state: 'done', finish_time: Time.now, user_id: current_user.id))
 
     respond_to do |format|
       if @task_volunteer.save
