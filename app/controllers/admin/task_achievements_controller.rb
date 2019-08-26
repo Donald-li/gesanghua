@@ -2,7 +2,7 @@ class Admin::TaskAchievementsController < Admin::BaseController
   before_action :set_task_achievement, only: [:show, :edit, :update]
 
   def index
-    @search = TaskVolunteer.sorted.where(state: [:pass, :to_check, :done, :cancel, :turn_over]).ransack(params[:q])
+    @search = TaskVolunteer.joins(:task).sorted.where(state: [:pass, :to_check, :done, :cancel, :turn_over]).ransack(params[:q])
     scope = @search.result.includes(:volunteer, :task)
     scope = scope.where(task_id: params[:task_id]) if params[:task_id].present?
     @task_volunteers = scope.page(params[:page])
