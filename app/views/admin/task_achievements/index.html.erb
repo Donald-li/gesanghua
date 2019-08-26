@@ -76,14 +76,16 @@
                   <%= item.task.try(:duration) %>
                 </td>
                 <td>
-                  <%= item.task.start_time.strftime("%Y-%m-%d %H:%M") if item.task.start_time.present? %>
-                  到 <%= item.task.end_time.strftime("%Y-%m-%d %H:%M") if item.task.end_time.present? %>
+                  <%= item.task.start_time.strftime("%Y-%m-%d %H:%M") if item.task.try(:start_time).present? %>
+                  到 <%= item.task.end_time.strftime("%Y-%m-%d %H:%M") if item.task.try(:end_time).present? %>
                 </td>
                 <td>
                   <%= item.task.try(:workplace).try(:title) %>
                 </td>
                 <td>
+                  <% if item.task %>
                   <button class="btn btn-xs <%= item.task.normal? ? 'yellow-gold' : 'green' %>"><%= item.task.enum_name(:kind) %></button>
+                  <% end %>
                 </td>
                 <td>
                   <%= item.volunteer.name %>
