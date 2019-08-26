@@ -113,7 +113,7 @@ class TaskVolunteer < ApplicationRecord
   def notice_volunteer
     self.volunteer.update(task_state: true)
     user = self.volunteer.try(:user)
-    if self.appoint? && user.present?
+    if self.appoint? && user.present? && self.task.present?
       Notification.create(
           kind: 'new_task',
           owner: user,
