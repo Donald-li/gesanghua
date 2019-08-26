@@ -67,7 +67,7 @@
           <% @task_volunteers.each do |item| %>
               <tr>
                 <td>
-                  <%= item.task.task_no %>
+                  <%= item.task.try(:task_no) %>
                 </td>
                 <td>
                   <%= item.task.try(:name) %>
