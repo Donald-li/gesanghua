@@ -3,6 +3,7 @@ class Api::Entrance::LingXi::MonthDonatesController < Api::Entrance::LingXi::Bas
   def synchronize
     logger.info "+++++++++++++++++"
     logger.info params.inspect
+    logger.info request.body
     logger.info "+++++++++++++++++"
 
   end
