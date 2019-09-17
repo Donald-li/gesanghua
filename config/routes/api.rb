@@ -441,4 +441,16 @@ namespace :api do
   namespace :common do
     resources :uploads, only: [:create, :destroy]
   end
+
+  namespace :entrance do
+    namespace :lian_quan do
+      resources :projects
+      resources :donate_records
+    end
+    namespace :ling_xi do
+      resource :month_donate, only: [] do
+        post :synchronize
+      end
+    end
+  end
 end
