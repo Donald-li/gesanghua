@@ -4,32 +4,19 @@ class Api::Entrance::LingXi::MonthDonatesController < Api::Entrance::LingXi::Bas
     logger.info "+++++++++++++++++"
     logger.info request.body.read
     logger.info "+++++++++++++++++"
-    params_body = request.body.read
-    form_params = params_body[:form_info]
-    logger.info form_params.inspect
-
-    
-    if form_params[:mobile].present?
-      user = User.find_by(phone: form_params[:mobile])
-    elsif form_params[:email].present?
-      user = User.find_by(email: form_params[:email])
+    params_body = JSON.parse(request.body.string)
+    form_params = params_body['form_info']
+    if form_params['mobile'].present?
+      user = User.find_by(phone: form_params['mobile'])
+    elsif form_params['email'].present?
+      user = User.find_by(email: form_params['email'])
     else
-      user = User.find_by(name: form_params[:name])
+      user = User.find_by(name: form_params['name'])
     end
     unless user.present?
-      user = User.create(name: form_params[:name], phone: form_params[:mobile], email: form_params[:email])
+      user = User.create(name: form_params['name'], phone: form_params['mobile'], email: form_params['email'])
     end
-    if IncomeRecord.create(donor: user,
-                        agent: user,
-                        fund_id: Settings.month_donate_fund_id,
-                        income_source_id: IncomeSource.wechat_id,
-                        amount: params_body[:money],
-                        balance: params_body[:money],
-                        income_time: Time.at(params_body[:pay_time]),
-                        remark: params_body[:comment],
-                        title: '灵析月捐项目爱心款',
-                        kind: :offline,
-                        archive_data: params_body)
+    if IncomeRecord.create(donor: user, agent: user, fund_id: Settings.month_donate_fund_id, income_source_id: IncomeSource.wechat_id, amount: params_body['money'], balance: params_body['money'], income_time: Time.now, remark: params_body['comment'], title: '灵析月捐项目爱心款', kind: :offline, archive_data: params_body)
       api_success(message: '保存成功')
     else
       api_error(message: '保存失败')
