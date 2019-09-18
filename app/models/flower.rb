@@ -22,6 +22,7 @@
 #  apply_kind            :integer          default("platform_assign") # 申请类型 1:平台分配 2:用户申请
 #  feedback_format       :integer                                     # 反馈形式
 #  management_rate       :integer
+#  project_no            :string                                      # 项目编号
 #
 
 # 护花项目

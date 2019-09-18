@@ -9,6 +9,7 @@
 #  state      :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  ip         :string
 #
 
 require 'rails_helper'

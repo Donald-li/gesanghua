@@ -9,6 +9,7 @@
 #  state      :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  ip         :string
 #
 
 require 'custom_validators'
@@ -26,12 +27,12 @@ class SmsCode < ApplicationRecord
     str
   end
 
-  def self.send_code(mobile, kind='signup')
+  def self.send_code(mobile, kind='signup', ip: '')
     if valid_mobile?(mobile, kind)
-      code = self.create(kind: kind, mobile: mobile, code: random)
+      code = self.create(kind: kind, mobile: mobile, code: random, ip: ip)
       code.send_message if code.valid? && Settings.send_sms == true
     else
-      code = self.new(mobile: mobile, kind: kind, code: random)
+      code = self.new(mobile: mobile, kind: kind, code: random, ip: ip)
       code.errors.add(:mobile, '您已发送过验证码，请输入验证码，或者1分钟后再次请求')
     end
     code
