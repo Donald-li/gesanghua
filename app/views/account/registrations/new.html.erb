@@ -7,36 +7,6 @@
       <div class="screen-body" style="min-height: 300px;">
         <div class="screen-body-cell">
           <div class="auto-box cell-wrap clearfix">
-            <!--<div class="login-box">-->
-            <!--<div class="login-header">用户注册</div>-->
-            <!--<div class="login-body">-->
-            <!--<%= simple_form_for [:user, User.new], url: account_registration_path, wrapper: :admin_form, html: {'data-parsley-validate': true} do |f| %>-->
-                <!--<%= f.error_notification %>-->
-                <!--<div class="form-body">-->
-                <!--<%= f.input :login, label: '登录账号', autofocus: true, placeholder: '请输入手机号码' %>-->
-                <!--<div class="form-group user_rucaptcha yzm">-->
-                <!--<label class="col-md-2 control-label">短信验证码</label>-->
-                <!--<div class="col-md-8">-->
-                <!--<input class="form-control" id="code" name="code" type="text" placeholder="输入验证码">-->
-                <!--</div>-->
-                <!--<div class="col-md-4">-->
-                <!--<button id="send_code" type="button" class="btn btn-primary-line btn-block" onclick="sendSms('verify_profile', $('#organization_login').val());">获取验证码</button>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--<%= f.input :password, label: '输入密码', placeholder: '请输入登录密码' %>-->
-                <!--<%#= f.input :password_confirmation, label: '确认密码', placeholder: '重新输入一次密码' %>-->
-                <!--<div class="help-disc">-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--<div class="login-btn-wrap">-->
-                <!--<%= f.button :submit, '注册账号', class: 'btn btn-danger btn-lg' %>-->
-                <!--</div>-->
-                <!--
-        <% end %>-->
-            <!--<%= javascript_include_tag 'global/sms', 'data-turbolinks-track': 'reload' %>-->
-            <!--</div>-->
-            <!--</div>-->
-
             <div class="loge pull-left">
               <%= image_tag 'bg-left.jpg' %>
               <div class="loge-cont">
@@ -88,6 +58,12 @@
                     <%= f.password_field :password, class: 'input__field input__field--hoshi login-put', id: 'password', placeholder: '密码' %>
                     <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="password"></label>
 				      </span>
+                  <span class="input input--hoshi captcha-label">
+                <%= rucaptcha_input_tag(class: 'input__field input__field--hoshi', id: 'captcha-text', placeholder: '图形验证码') %>
+                <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="security"></label>
+                    <%= rucaptcha_image_tag(alt: 'Captcha', class: 'img-captcha', onclick: "refreshCaptcha()") %>
+				      </span>
+
                   <span class="input input--hoshi">
                 <input class="input__field input__field--hoshi" type="text" id="security" name="code" placeholder="输入验证码"/>
                 <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="security"></label>
@@ -151,6 +127,15 @@
   body{
     background-color: #f5f5f5;
   }
+    .captcha-label{
+      position: relative;
+    }
+  .captcha-label img{
+    height: 36px;
+    position: absolute;
+    right: 0;
+    top: -4px;
+  }
 </style>
 <script type="text/javascript" charset="utf-8">
 
@@ -175,16 +160,19 @@
     document.getElementById("btn").onclick = function () {
         var _this = this
         var mobile = $('#phonenumber').val()
+        var captcha = $('#captcha-text').val()
         if (mobile.length > 0) {
             $.ajax({
                 type: "post",
                 url: "/api/v1/common/sms_codes",
-                data: {kind: 'signup', mobile: mobile},
+                data: {kind: 'signup', mobile: mobile, _rucaptcha: captcha},
                 success: function (data) {
-                  // layer.msg(data.message, {
-                  //      icon: 0,
-                  //      offset: 't c'
-                  //  });
+                    if (data.status == 400) {
+                        layer.msg(data.message, {
+                            icon: 0,
+                            offset: 't c'
+                        });
+                    }
                     time(_this);
                 },
                 error: function (data) {
@@ -218,6 +206,10 @@
     $(window).resize(function () {
         setHeight();
     });
+
+    function refreshCaptcha() {
+        $('.img-captcha').attr('src', '/rucaptcha');
+    }
 
     function setHeight() {
         var windowHeight = $(window).height();
