@@ -6,7 +6,7 @@ class Api::V1::Common::SmsCodesController < Api::V1::BaseController
     if user.present? && current_user != user
       type = user.unactived? ? 'offline_active' : 'user_combine'
     end
-    unless verify_rucaptcha?
+    if params[:kind] == 'signup' && !mobile_user_agent? && !verify_rucaptcha?
       api_error(message: '请输入图形验证码') and return
     end
     code = SmsCode.send_code(params[:mobile], params[:kind], ip: request.remote_ip)

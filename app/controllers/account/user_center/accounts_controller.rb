@@ -18,7 +18,7 @@ class Account::UserCenter::AccountsController < Account::BaseController
         redirect_to edit_phone_account_user_center_account_path, alert: '确认密码错误。' and return
       end
     end
-    unless SmsCode.valid_code?(mobile: params[:phone], code: params[:code], kind: 'signup')
+    unless SmsCode.valid_code?(mobile: params[:phone], code: params[:code], kind: 'change_mobile')
       redirect_to edit_phone_account_user_center_account_path, alert: '验证码错误。' and return
     end
     if User.find_by(phone: params[:phone])
@@ -65,7 +65,7 @@ class Account::UserCenter::AccountsController < Account::BaseController
     if params[:code].empty?
       redirect_to change_phone_account_user_center_account_path, alert: '验证码不能为空。' and return
     end
-    unless SmsCode.valid_code?(mobile: params[:phone], code: params[:code], kind: 'signup')
+    unless SmsCode.valid_code?(mobile: params[:phone], code: params[:code], kind: 'change_mobile')
       redirect_to change_phone_account_user_center_account_path, alert: '验证码错误。' and return
     end
     if User.find_by(phone: params[:phone])

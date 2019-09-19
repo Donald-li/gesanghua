@@ -75,7 +75,7 @@
             $.ajax({
                 type: "post",
                 url: "/api/v1/common/sms_codes",
-                data: {kind: 'signup', mobile: mobile},
+                data: {kind: 'change_mobile', mobile: mobile},
                 success: function (data) {
                     if (data.data.type === 'user_combine') {
                         layer.msg('您绑定的手机号已经被其他用户绑定，继续绑定将会合并账户信息', {

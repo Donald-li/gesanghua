@@ -56,7 +56,7 @@
             $.ajax({
                 type: "post",
                 url: "/api/v1/common/sms_codes",
-                data: {kind: 'signup', mobile: mobile},
+                data: {kind: 'change_mobile', mobile: mobile},
                 success: function (data) {
 //                    layer.msg(data.message, {
 //                        icon: 0,

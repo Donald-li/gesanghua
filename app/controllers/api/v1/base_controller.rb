@@ -22,6 +22,14 @@ class Api::V1::BaseController < ApplicationController
     end
   end
 
+  def mobile_user_agent?
+    session[:format] = params[:save_format] if params[:save_format].present?
+    @mobile_user_agent ||= params[:format].to_sym if params[:format].present?
+    @mobile_user_agent ||= session[:format].to_sym if session[:format].present?
+    @mobile_user_agent ||= :mobile if request.env["HTTP_USER_AGENT"].to_s.downcase =~ /(mobile|android|iphone|micromessenger)/ #.+Safari
+    @mobile_user_agent == :mobile
+  end
+
   # 错误页面返回，前端监听1804
   def empty_page
     api_error(status: 1804, message: '没有用户信息')
