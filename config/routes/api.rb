@@ -444,8 +444,10 @@ namespace :api do
 
   namespace :entrance do
     namespace :lian_quan do
-      resources :projects
-      resources :donate_records
+      resource :test, only: :show
+      resources :projects do
+        resources :records
+      end
     end
     namespace :ling_xi do
       resource :month_donate, only: [] do

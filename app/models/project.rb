@@ -62,6 +62,7 @@ class Project < ApplicationRecord
   default_value_for :form, []
   default_value_for :management_rate, 0
   before_save :set_form_from_attributes
+  before_create :gen_project_no
 
   enum kind: { fixed: 1, apply: 2, goods: 3, donate: 4} # 项目类型 1:固定类 2:申请类 2:物资类
   default_value_for :kind, 2
@@ -227,6 +228,20 @@ class Project < ApplicationRecord
       json.alias self.alias
     end.attributes!
   end
+
+  def gen_project_no
+    unless self.project_no
+      loop do
+        self.project_no = SecureRandom.urlsafe_base64
+        break if !Project.find_by(project_no: self.project_no)
+      end
+    end
+  end
+
+  # Project.all.each do |p|
+  #   p.gen_project_no
+  #   p.save
+  # end
 
   private
   def set_form_from_attributes

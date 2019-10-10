@@ -26,6 +26,8 @@ junior_year_amount: 1570
 senior_term_amount: 1050
 senior_year_amount: 2100
 
+month_donate_fund_id: 58
+
 # 微信公众号
 wechat_app_id: "wx771c54fb737861a3"
 wechat_app_secret: "727a1fe9d8216c3ba8bfb21be61ec6bd"
