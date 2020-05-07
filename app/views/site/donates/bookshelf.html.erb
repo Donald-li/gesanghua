@@ -161,7 +161,7 @@ bookshelf = ProjectSeasonApplyBookshelf.find(params[:bookshelf])
       </div>
 
       <div class="modal-body" style="padding: 20px 30px 15px 30px;text-align: left;    max-height: 440px;overflow: auto;">
-        <%= @protocol.content %>
+        <%= @protocol.content.html_safe %>
       </div>
       <div class="modal-footer overspreads-but">
         <button class="overspreadsc-but overspread-but  over-but" data-dismiss="modal">同意</button>
