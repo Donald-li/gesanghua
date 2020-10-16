@@ -105,7 +105,7 @@
                   联系电话
                 </td>
                 <td>
-                  <%= @pair_student_list.phone %>
+                  <%= @pair_student_list.phone || @pair_student_list.guardian_phone %>
                 </td>
               </tr>
               <tr>
