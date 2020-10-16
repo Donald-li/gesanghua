@@ -696,8 +696,8 @@ class ProjectSeasonApplyChild < ApplicationRecord
       gsh_child.city = self.city
       gsh_child.district = self.district
       gsh_child.name = self.name
-      # gsh_child.phone = self.phone
-      # gsh_child.qq = self.qq
+      gsh_child.phone ||= self.phone
+      gsh_child.qq ||= self.qq
       gsh_child.id_card = self.id_card
       gsh_child.save(validate: false)
 
