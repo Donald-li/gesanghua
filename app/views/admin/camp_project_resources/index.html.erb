@@ -16,6 +16,10 @@
         <div class="col-md-6 col-sm-12">
             <%= search_form_for @search, url: admin_camp_project_resources_path, class: 'form-inline' do |f| %>
             <div class="form-group">
+              <%= f.label :camp_name_cont, '探索营名称' %>
+              <%= f.text_field :camp_name_cont, class: 'form-control gsh-input-share' %>
+            </div>
+            <div class="form-group">
               <%= f.label :company_cont, '单位' %>
               <%= f.text_field :company_cont, class: 'form-control gsh-input-share' %>
             </div>
