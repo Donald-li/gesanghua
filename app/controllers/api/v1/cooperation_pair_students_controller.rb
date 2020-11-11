@@ -63,6 +63,7 @@ class Api::V1::CooperationPairStudentsController < Api::V1::BaseController
         @student.attach_avatar(params[:avatar][:id]) if params[:avatar].present?
         @student.attach_id_image(params[:id_image][0][:id]) if params[:id_image][0].present?
         @student.attach_poverty(params[:poverty][0][:id]) if params[:poverty][0].present?
+        @student.attach_other(params[:other].map {|p| p['id']}) if params[:other].present?
         @student.attach_room_image(params[:room_image][0][:id]) if params[:room_image][0].present?
         @student.attach_yard_image(params[:yard_image][0][:id]) if params[:yard_image][0].present?
         @student.attach_apply_one(params[:apply_one][0][:id]) if params[:apply_one][0].present?
@@ -117,6 +118,7 @@ class Api::V1::CooperationPairStudentsController < Api::V1::BaseController
       @student.attach_avatar(params[:avatar][:id]) if params[:avatar].present?
       @student.attach_id_image(params[:id_image][0][:id]) if params[:id_image][0].present?
       @student.attach_poverty(params[:poverty][0][:id]) if params[:poverty][0].present?
+      @student.attach_other(params[:other].map {|p| p['id']}) if params[:other].present?
       @student.attach_room_image(params[:room_image][0][:id]) if params[:room_image][0].present?
       @student.attach_yard_image(params[:yard_image][0][:id]) if params[:yard_image][0].present?
       @student.attach_apply_one(params[:apply_one][0][:id]) if params[:apply_one][0].present?

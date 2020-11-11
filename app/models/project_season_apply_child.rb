@@ -81,6 +81,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   has_one_asset :avatar, class_name: 'Asset::ApplyChildAvatar' # 前台上传的个人照片作为孩子头像
   has_one_asset :id_image, class_name: 'Asset::ApplyChildIdCard'
   has_one_asset :poverty, class_name: 'Asset::ApplyChildPoverty'
+  has_many_assets :other, class_name: 'Asset::ApplyChildOther'
   has_one_asset :room_image, class_name: 'Asset::ApplyChildRoomImage'
   has_one_asset :yard_image, class_name: 'Asset::ApplyChildYardImage'
   has_one_asset :apply_one, class_name: 'Asset::ApplyChildApplyImage'
@@ -633,6 +634,15 @@ class ProjectSeasonApplyChild < ApplicationRecord
         json.id self.try(:poverty).try(:id)
         json.url self.try(:poverty).try(:file_url)
         json.protect_token self.try(:poverty).try(:protect_token)
+      end
+      if self.other.present?
+        json.other do
+          json.array! self.other do |oth|
+            json.id oth.try(:id)
+            json.url oth.try(:file_url)
+            json.protect_token oth.try(:protect_token)
+          end
+        end
       end
       json.room_image do
         json.id self.try(:room_image).try(:id)

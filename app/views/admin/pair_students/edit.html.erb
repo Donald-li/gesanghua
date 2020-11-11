@@ -154,6 +154,12 @@
                     </div>
                   </div>
                   <div class="form-group">
+                    <label class="col-md-2 control-label">上传其他证明照片：</label>
+                    <div class="col-sm-9">
+                      <%= webuploader_tag 'other_ids[]', type: 'apply_child_other', asset: @apply_child.other, klass: 'multi', id: 'single-upload8' %>
+                    </div>
+                  </div>
+                  <div class="form-group">
                     <label class="col-md-2 control-label">孩子介绍：</label>
                     <div class="col-sm-9">
                       <p class="help-block">格桑花管理人员负责填写，用于前台展示（必须填写）</p>
@@ -188,6 +194,7 @@
         initImageWebuploader($('#single-upload5'));
         initImageWebuploader($('#single-upload6'));
         initImageWebuploader($('#single-upload7'));
+        initMultiImageWebuploader($('#product-carousel8'));
     })
 
 
