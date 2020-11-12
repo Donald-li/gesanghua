@@ -127,6 +127,7 @@ Protocol.find_or_create_by(title: '《格桑花用户注册协议》', version: 
 Protocol.find_or_create_by(title: '《捐赠收据申请说明》', version: '2018年版', content: '捐赠收据申请说明', kind: 'voucher_protocol', state: 'show')
 Protocol.find_or_create_by(title: '《申请须知》', version: '2018年版', content: '申请须知', kind: 'volunteer_introduction', state: 'show')
 Protocol.find_or_create_by(title: '《管理制度》', version: '2018年版', content: '管理制度', kind: 'volunteer_rules', state: 'show')
+Protocol.find_or_create_by(title: '《保密承诺书》', version: '2020年版', content: '保密承诺书', kind: 'volunteer_require', state: 'show')
 
 
 # pc捐助广告位

@@ -101,6 +101,7 @@ zh:
     voucher_protocol: '捐赠收据申请说明'
     volunteer_introduction: '志愿者申请须知'
     volunteer_rules: '志愿者管理制度'
+    volunteer_require: '志愿者保密承诺书'
   protocol_states:
     show: '显示'
     hidden: '隐藏'

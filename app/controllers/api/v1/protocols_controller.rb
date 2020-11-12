@@ -10,7 +10,8 @@ class Api::V1::ProtocolsController < Api::V1::BaseController
     elsif params[:type] === 'volunteer-apply-protocol'
       @protocol_intro = Protocol.volunteer_introduction.show.last
       @protocol_rule = Protocol.volunteer_rules.show.last
-      api_success(data: {intro: @protocol_intro.summary_builder, rule: @protocol_rule.summary_builder})
+      @protocol_require = Protocol.volunteer_require.show.last
+      api_success(data: {intro: @protocol_intro.summary_builder, rule: @protocol_rule.summary_builder, secrecy: @protocol_require.summary_builder})
     elsif params[:type] === 'voucher-protocol'
       @protocol = Protocol.voucher_protocol.show.last
       api_success(data: @protocol.summary_builder)
