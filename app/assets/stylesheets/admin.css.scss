@@ -227,3 +227,15 @@
     font-size: 12px;
   }
 }
+.upload-wrap .upload-body .upload-list li.file-item .show {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  line-height: 20px;
+  background-color: #fff;
+  color: #000;
+  font-size: 14px;
+  z-index: 1;
+  padding: 0 4px;
+}

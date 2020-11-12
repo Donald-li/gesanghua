@@ -35,6 +35,7 @@ module ApplicationHelper
     [asset].flatten.compact.select { |a| !a.new_record? }.each do |a|
       html << %{
                 <li id="#{a.id}" class="file-item thumbnail">
+                  #{link_to '看大图', a.try(:file).try(:url, nil), target: '_blank', class: 'show'}
                   #{link_to 'x', upload_path(a, file_id: a.id, protect_token: a.protect_token), method: :delete, remote: true, class: 'delete'}
       #{hidden_field_tag name, a.id}
       #{image_tag a.file.url}
