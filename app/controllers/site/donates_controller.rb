@@ -96,7 +96,7 @@ class Site::DonatesController < Site::BaseController
       #两小时之内的订单   +   已付款
       if params[:child].present?
         owner = ProjectSeasonApplyChild.find(params[:child])
-        if Donation.where(owner: owner).where('created_at > :time', time: Time.now - 2.hours).where.not(donor_id: agent.id).present?
+        if Donation.where(owner: owner).where('created_at > :time', time: Time.now - 2.hours).where.not(donor_id: agent.id).present? || owner.state == 'hidden'
           flash[:alert] = '该孩子有人正在捐助，请稍后再试或看看其他孩子'
           redirect_to pairs_path and return
         end
