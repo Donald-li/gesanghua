@@ -19,7 +19,7 @@ class Api::V1::DonationsController < Api::V1::BaseController
     if params[:child].present?
       owner = ProjectSeasonApplyChild.find(params[:child])
       #两小时内的捐助订单判断  已完成捐助判断
-      if Donation.where(owner: owner).where('created_at > :time', time: Time.now - 2.hours).where.not(donor_id: agent.id).present? || owner.state == 'hidden'
+      if Donation.where(owner: owner).where('created_at > :time', time: Time.now - 2.hours).where.not(donor_id: agent.id).present?
         api_error(message: '该孩子有人正在捐助，请稍后再试或看看其他孩子') && return
       end
     end
