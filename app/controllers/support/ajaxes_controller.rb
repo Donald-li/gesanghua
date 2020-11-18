@@ -213,7 +213,7 @@ class Support::AjaxesController < Support::BaseController
     donor = User.find(params[:donor_id])
     if @child.priority_id.present? and donor.id != @child.priority_id and !donor.offline_users.pluck(:id).include?(@child.priority_id) and @child.hidden?
       render json: {message: '被捐助学生已被指定优先捐助人，请联系管理员处理', status: false}
-    elsif Donation.where(owner: @child).where('created_at > :time', time: Time.now - 0.5.hours).where.not(donor_id: donor.id).present?
+    elsif Donation.where(owner: @child).where('created_at > :time', time: Time.now - 0.5.hours).where.not(agent_id: donor.id).present?
       render json: {message: '该孩子有人正在捐助，请稍后再试或看看其他孩子', status: false}
     else
       render json: {message: '可捐助', status: true}

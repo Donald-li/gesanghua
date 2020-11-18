@@ -59,7 +59,7 @@ class Api::V1::PairChildrenController < Api::V1::BaseController
     donor = current_user
     if @child.priority_id.present? and donor.id != @child.priority_id and !donor.offline_users.pluck(:id).include?(@child.priority_id) and @child.hidden?
       api_error(message: message)
-    elsif Donation.where(owner: @child).where('created_at > :time', time: Time.now - 0.5.hours).where.not(donor_id: donor.id).present?
+    elsif Donation.where(owner: @child).where('created_at > :time', time: Time.now - 0.5.hours).where.not(agent_id: donor.id).present?
       api_error(message: '该孩子有人正在捐助，请稍后再试或看看其他孩子')
     else
       api_success(message: '可资助', data: true)
