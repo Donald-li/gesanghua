@@ -27,7 +27,7 @@ class Api::V1::OfflineDonorsController < Api::V1::BaseController
 
   def delete_donor
     @user = current_user.offline_users
-    @offline_donor = @user.offline_users.find(params[:id])
+    @offline_donor = @user.find(params[:id])
     if @offline_donor.present?
       if @offline_donor.update(manager_id: nil)
         api_success(data: {result: true}, message: '删除捐助人信息成功')
