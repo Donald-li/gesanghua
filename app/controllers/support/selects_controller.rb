@@ -25,7 +25,7 @@ class Support::SelectsController < Support::BaseController
   end
 
   def all_users
-    scope = User.sorted.where("name like :q or nickname like :q or phone like :q", q: "%#{params[:q]}%")
+    scope = User.sorted.where("name like :q or nickname like :q or phone like :q or id = :user", q: "%#{params[:q]}%", user: params[:q].to_i)
     users = scope.page(params[:page])
     render json: {items: users.as_json(only: [:id], methods: :name_for_select), pagination: json_pagination(users) }
   end
@@ -33,7 +33,7 @@ class Support::SelectsController < Support::BaseController
   def wechat_users
     scope = User.where.not(profile: {})
     scope = scope.where(id: params[:user_id]) if params[:user_id].present?
-    scope = scope.sorted.where("name like :q or nickname like :q or phone like :q", q: "%#{params[:q]}%")
+    scope = scope.sorted.where("name like :q or nickname like :q or phone like :q or id = :user", q: "%#{params[:q]}%", user: params[:q].to_i)
     users = scope.page(params[:page])
     render json: {items: users.as_json(only: [:id], methods: :name_for_select), pagination: json_pagination(users)}
   end

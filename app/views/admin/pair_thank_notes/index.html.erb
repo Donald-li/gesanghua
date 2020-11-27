@@ -20,6 +20,10 @@
                 <%= f.text_field :child_name_or_child_gsh_child_gsh_no_or_child_school_name_cont, class: 'form-control gsh-input-share', placeholder: '学生姓名、格桑花编号、学校名称' %>
               </div>
               <div class="form-group">
+                <%= f.label :grant_user_name_cont, '搜索' %>
+                <%= f.text_field :grant_user_name_cont, class: 'form-control gsh-input-share', placeholder: '捐助人姓名搜索' %>
+              </div>
+              <div class="form-group">
                 <%= f.label '反馈时间' %>
                 <%= f.text_field :created_at_gteq, class: 'form-control datepicker gsh-input-share-l', placeholder: '开始时间' %>
                 <%= f.text_field :created_at_lteq, class: 'form-control datepicker gsh-input-share-r', placeholder: '结束时间' %>

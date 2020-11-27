@@ -21,6 +21,10 @@
                 <%= f.label :name_cont, '名称' %>
                 <%= f.text_field :name_cont, class: 'form-control gsh-input-share', placeholder: '名称' %>
               </div>
+              <div class="form-group">
+                <%= f.label :state_cont, '发放状态' %>
+                <%= f.select :state_eq, GrantBatch.options_for_enum_select(:states, raw: true), {include_blank: '全部'}, class: 'form-control gsh-input-share' %>
+              </div>
               <button type="submit" class="btn btn-default grey">搜索</button>
           <% end %>
         </div>
