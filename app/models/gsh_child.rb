@@ -49,6 +49,18 @@ class GshChild < ApplicationRecord
   before_create :gen_gsh_no
   before_save :formatted_name
 
+
+  #性别
+  def distinguish_gender
+    gender = nil
+    return gender if self.id_card.blank?
+    pid_gender = ChinesePid.new("#{self.id_card}").gender
+    gender = '男' if pid_gender == 1
+    gender = '女' if pid_gender == 0
+    return gender
+  end
+
+
   def summary_builder
     apply_child = self.project_season_apply_children.first
     Jbuilder.new do |json|

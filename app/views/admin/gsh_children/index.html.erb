@@ -71,10 +71,7 @@
                 <%= gsh_child.name %>
               </td>
               <td>
-                <% if gsh_child.user_id? %>
-                <%= gsh_child.user.try(:gender)==='male' ? '男' : '女' %>
-                <% else %>
-                <% end %>
+                <%= gsh_child.distinguish_gender %>
               </td>
               <td>
                 <%= gsh_child.phone %>
