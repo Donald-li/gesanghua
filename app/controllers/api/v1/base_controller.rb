@@ -44,7 +44,7 @@ class Api::V1::BaseController < ApplicationController
   end
 
   def current_user
-    @current_user ||= User.find 32437 if Settings.development_mode
+    @current_user ||= User.find 22352 if Settings.development_mode
     # @current_user ||= User.find Settings.api_defautl_user if Rails.env.development? || Settings.api_defautl_user
     token = request.headers['Authorization'] || params[:auth_token]
     return nil if token.blank?

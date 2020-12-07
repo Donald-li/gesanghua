@@ -10,7 +10,12 @@ class Api::V1::Account::PairChildrenController < Api::V1::BaseController
 
   def feedback_list
     # 验证权限
-    feedbacks = ContinualFeedback.where(project_season_apply_child_id: params[:child_id]).sorted.page(params[:page]).per(params[:per])
+    user_ids = [current_user.id]
+    user_ids += current_user.offline_users.unactived.try(:ids)
+    grant_ids = GshChildGrant.where(user_id: user_ids).ids
+    scope = ContinualFeedback.where(gsh_child_grant_id: grant_ids, project_season_apply_child_id: params[:child_id]).sorted
+    feedbacks = scope.page(params[:page]).per(params[:per])
+    # feedbacks = ContinualFeedback.where(project_season_apply_child_id: params[:child_id]).sorted.page(params[:page]).per(params[:per])
     api_success(data: {feedbacks: feedbacks.map{|f| f.detail_builder}, pagination: json_pagination(feedbacks)})
   end
 

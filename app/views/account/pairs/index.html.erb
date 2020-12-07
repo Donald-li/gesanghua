@@ -57,7 +57,7 @@
                         <% end %>
                     <% end %>
                     <%= link_to account_pair_children_mailboxs_path(pair_id: child.id), class: child.continual_feedbacks.uncheck.count > 0 ? 'wf_pair_but wf_but_2 cur' : 'wf_pair_but wf_but_1 cur' do %>
-                        孩子信箱 <%= child.continual_feedbacks.uncheck.count %>
+                        孩子信箱 <%= child.children_feedback(current_user).uncheck.count %>
                     <% end %>
                   </div>
                 </div>

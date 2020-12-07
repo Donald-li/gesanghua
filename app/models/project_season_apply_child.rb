@@ -560,6 +560,15 @@ class ProjectSeasonApplyChild < ApplicationRecord
     end.attributes!
   end
 
+  #孩子的反馈信
+  def children_feedback(user)
+    user_ids = [user.id]
+    user_ids += user.offline_users.unactived.try(:ids)
+    grant_ids = GshChildGrant.where(user_id: user_ids).ids
+    feedbacks = ContinualFeedback.where(gsh_child_grant_id: grant_ids, project_season_apply_child_id: self.id)
+    return feedbacks
+  end
+
   def donate_children_builder(user)
     Jbuilder.new do |json|
       json.(self, :id, :name)
@@ -568,7 +577,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
       json.donate_state self.can_continue?(user)
       json.avatar self.avatar_url(:tiny).to_s
       json.grants self.donate_grants_by_user(user).pluck(:title)
-      json.feedbacks_count self.continual_feedbacks.uncheck.count
+      json.feedbacks_count self.children_feedback(user).uncheck.length
     end.attributes!
   end
 
