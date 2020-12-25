@@ -272,6 +272,7 @@ namespace :admin do
     member do
       get :switch_edit
       put :switch_update
+      put :switch_finish
     end
   end
   resources :appoint_tasks

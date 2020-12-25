@@ -4,7 +4,7 @@ class Admin::PartnersController < Admin::BaseController
 
   def index
     @search = Partner.sorted.ransack(params[:q])
-    scope = @search.result
+    scope = @search.result.includes(:image)
     @partners = scope.page(params[:page])
   end
 

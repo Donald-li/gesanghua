@@ -1,0 +1,88 @@
+current directory: /Users/wikiflyer/workspace/gesanghua/vendor/bundle/ruby/2.6.0/gems/rmmseg-cpp-new-0.3.1/ext/rmmseg
+/Users/wikiflyer/.rvm/rubies/ruby-2.6.6/bin/ruby -I /Users/wikiflyer/.rvm/rubies/ruby-2.6.6/lib/ruby/site_ruby/2.6.0 -r ./siteconf20201221-4093-2yzij9.rb extconf.rb
+creating Makefile
+
+current directory: /Users/wikiflyer/workspace/gesanghua/vendor/bundle/ruby/2.6.0/gems/rmmseg-cpp-new-0.3.1/ext/rmmseg
+make "DESTDIR=" clean
+
+current directory: /Users/wikiflyer/workspace/gesanghua/vendor/bundle/ruby/2.6.0/gems/rmmseg-cpp-new-0.3.1/ext/rmmseg
+make "DESTDIR="
+compiling algor.cpp
+In file included from algor.cpp:4:
+In file included from ./rules.h:7:
+In file included from ./chunk.h:6:
+./word.h:31:22: warning: implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+            nbytes = std::strlen(text);
+                   ~ ^~~~~~~~~~~~~~~~~
+1 warning generated.
+compiling dict.cpp
+In file included from dict.cpp:3:
+In file included from ./dict.h:4:
+./word.h:31:22: warning: implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+            nbytes = std::strlen(text);
+                   ~ ^~~~~~~~~~~~~~~~~
+dict.cpp:73:26: warning: implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+        int new_n_bins = new_size();
+            ~~~~~~~~~~   ^~~~~~~~~~
+2 warnings generated.
+compiling memory.cpp
+compiling rmmseg.cpp
+In file included from rmmseg.cpp:5:
+In file included from ./dict.h:4:
+./word.h:31:22: warning: implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+            nbytes = std::strlen(text);
+                   ~ ^~~~~~~~~~~~~~~~~
+rmmseg.cpp:74:22: warning: implicit conversion loses integer precision: 'long' to 'int' [-Wshorten-64-to-32]
+        int nbytes = RSTRING_LEN(word);
+            ~~~~~~   ^~~~~~~~~~~~~~~~~
+/Users/wikiflyer/.rvm/rubies/ruby-2.6.6/include/ruby-2.6.0/ruby/ruby.h:1000:6: note: expanded from macro 'RSTRING_LEN'
+     RSTRING_EMBED_LEN(str) : \
+     ^~~~~~~~~~~~~~~~~~~~~~
+/Users/wikiflyer/.rvm/rubies/ruby-2.6.6/include/ruby-2.6.0/ruby/ruby.h:996:6: note: expanded from macro 'RSTRING_EMBED_LEN'
+     (long)((RBASIC(str)->flags >> RSTRING_EMBED_LEN_SHIFT) & \
+     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+rmmseg.cpp:74:22: warning: implicit conversion loses integer precision: 'long' to 'int' [-Wshorten-64-to-32]
+        int nbytes = RSTRING_LEN(word);
+            ~~~~~~   ^~~~~~~~~~~~~~~~~
+/Users/wikiflyer/.rvm/rubies/ruby-2.6.6/include/ruby-2.6.0/ruby/ruby.h:1001:28: note: expanded from macro 'RSTRING_LEN'
+     RSTRING(str)->as.heap.len)
+     ~~~~~~~~~~~~~~~~~~~~~~^~~
+rmmseg.cpp:92:22: warning: implicit conversion loses integer precision: 'long' to 'int' [-Wshorten-64-to-32]
+        int nbytes = RSTRING_LEN(word);
+            ~~~~~~   ^~~~~~~~~~~~~~~~~
+/Users/wikiflyer/.rvm/rubies/ruby-2.6.6/include/ruby-2.6.0/ruby/ruby.h:1000:6: note: expanded from macro 'RSTRING_LEN'
+     RSTRING_EMBED_LEN(str) : \
+     ^~~~~~~~~~~~~~~~~~~~~~
+/Users/wikiflyer/.rvm/rubies/ruby-2.6.6/include/ruby-2.6.0/ruby/ruby.h:996:6: note: expanded from macro 'RSTRING_EMBED_LEN'
+     (long)((RBASIC(str)->flags >> RSTRING_EMBED_LEN_SHIFT) & \
+     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+rmmseg.cpp:92:22: warning: implicit conversion loses integer precision: 'long' to 'int' [-Wshorten-64-to-32]
+        int nbytes = RSTRING_LEN(word);
+            ~~~~~~   ^~~~~~~~~~~~~~~~~
+/Users/wikiflyer/.rvm/rubies/ruby-2.6.6/include/ruby-2.6.0/ruby/ruby.h:1001:28: note: expanded from macro 'RSTRING_LEN'
+     RSTRING(str)->as.heap.len)
+     ~~~~~~~~~~~~~~~~~~~~~~^~~
+rmmseg.cpp:162:27: warning: implicit conversion loses integer precision: 'long' to 'int' [-Wshorten-64-to-32]
+        int start = t.text-base;
+            ~~~~~   ~~~~~~^~~~~
+rmmseg.cpp:212:51: warning: implicit conversion loses integer precision: 'long' to 'int' [-Wshorten-64-to-32]
+                                                  RSTRING_LEN(text));
+                                                  ^~~~~~~~~~~~~~~~~
+/Users/wikiflyer/.rvm/rubies/ruby-2.6.6/include/ruby-2.6.0/ruby/ruby.h:1000:6: note: expanded from macro 'RSTRING_LEN'
+     RSTRING_EMBED_LEN(str) : \
+     ^~~~~~~~~~~~~~~~~~~~~~
+/Users/wikiflyer/.rvm/rubies/ruby-2.6.6/include/ruby-2.6.0/ruby/ruby.h:996:6: note: expanded from macro 'RSTRING_EMBED_LEN'
+     (long)((RBASIC(str)->flags >> RSTRING_EMBED_LEN_SHIFT) & \
+     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+rmmseg.cpp:212:51: warning: implicit conversion loses integer precision: 'long' to 'int' [-Wshorten-64-to-32]
+                                                  RSTRING_LEN(text));
+                                                  ^~~~~~~~~~~~~~~~~
+/Users/wikiflyer/.rvm/rubies/ruby-2.6.6/include/ruby-2.6.0/ruby/ruby.h:1001:28: note: expanded from macro 'RSTRING_LEN'
+     RSTRING(str)->as.heap.len)
+     ~~~~~~~~~~~~~~~~~~~~~~^~~
+8 warnings generated.
+linking shared-object rmmseg.bundle
+
+current directory: /Users/wikiflyer/workspace/gesanghua/vendor/bundle/ruby/2.6.0/gems/rmmseg-cpp-new-0.3.1/ext/rmmseg
+make "DESTDIR=" install
+/usr/local/opt/coreutils/bin/ginstall -c -m 0755 rmmseg.bundle ./.gem.20201221-4093-m5m4wq

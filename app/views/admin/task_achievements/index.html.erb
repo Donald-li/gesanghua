@@ -106,6 +106,9 @@
                           <%= link_to switch_admin_task_achievement_path(item), data: {confirm: '确认取消此任务？'}, method: :put, class: 'btn btn-xs blue' do %>
                               <i class="fa fa-reply"></i> 任务取消
                           <% end %>
+                          <%= link_to switch_finish_admin_task_achievement_path(item), data: {confirm: '确认将此任务标记完成？'}, method: :put, class: 'btn btn-xs blue' do %>
+                            <i class="fa fa-reply"></i> 任务完成
+                          <% end %>
                       <% end %>
                     <% end %>
                   <% end %>

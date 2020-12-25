@@ -19,7 +19,7 @@ class Support::SelectsController < Support::BaseController
   end
 
   def users
-    scope = User.enable.sorted.where("name like :q or nickname like :q or phone like :q", q: "%#{params[:q]}%")
+    scope = User.enable.sorted.where("name like :q or nickname like :q or phone like :q or id = :user_id", q: "%#{params[:q]}%", user_id: params[:q].to_i)
     users = scope.page(params[:page])
     render json: {items: users.as_json(only: [:id], methods: :name_for_select), pagination: json_pagination(users)}
   end

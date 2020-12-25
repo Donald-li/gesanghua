@@ -93,13 +93,16 @@ class ProjectSeasonApplyChild < ApplicationRecord
   belongs_to :apply, class_name: 'ProjectSeasonApply', foreign_key: 'project_season_apply_id'
   belongs_to :gsh_child, optional: true
   belongs_to :school
-  belongs_to :user, optional: true
+  belongs_to :user, optional: true,foreign_key: 'donate_user_id'
+  belongs_to :priority, class_name: 'User', foreign_key: 'priority_id'
   has_many :visits, foreign_key: 'apply_child_id', dependent: :destroy
   has_many :audits, as: :owner, dependent: :destroy
   has_many :remarks, as: :owner, dependent: :destroy
   has_many :complaints, as: :owner, dependent: :destroy
   has_many :donates, class_name: 'DonateRecord', dependent: :restrict_with_error, as: :owner #TODO: 待检查
-  has_many :gsh_child_grants, dependent: :destroy
+
+  # has_many :gsh_child_grants, dependent: :destroy
+  has_many :gsh_child_grants,->{order(id: :asc) }
   #FIXME: 跟上面的关系重复了？
   has_many :semesters, class_name: 'GshChildGrant', dependent: :destroy
   has_many :feedbacks, as: :owner, dependent: :destroy

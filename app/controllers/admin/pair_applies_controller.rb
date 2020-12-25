@@ -4,7 +4,7 @@ class Admin::PairAppliesController < Admin::BaseController
   def index
     @search = ProjectSeasonApply.where(project: Project.pair_project).sorted.ransack(params[:q])
     scope = @search.result
-    scope = scope.includes(:school, :season)
+    scope = scope.includes(:school, :season,:children,:exception_record)
     respond_to do |format|
       format.html { @project_applies = scope.page(params[:page]) }
       format.xlsx {

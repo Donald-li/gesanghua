@@ -1,0 +1,18 @@
+# pack-refs with: peeled fully-peeled sorted 
+2e59b911eb6247ba074632c57c59cf9218d67473 refs/heads/master
+d4d0a24357979bb31731841e1951c27ae1f3d495 refs/heads/rails4
+02f0b5d1e1058f4d8a75d2a4cfa1dc22e440891a refs/tags/release-1.0.1
+c46eeb4e1acc097f606f0b01b4a82d68e6aa1cde refs/tags/release-1.0.3
+eb1515d6fa5f6dd7f91a77f779593e5a8be90e90 refs/tags/release-1.0.4
+227ade8b9fc277276155d20138b3caa7b707ef2c refs/tags/release-1.0.5
+d4cc2542a59109c4eabbe83100de3df8b6434343 refs/tags/release-1.0.6
+d50ac4b870b5be1c157baa670bd51f1ffcb0fa92 refs/tags/release-1.0.7
+8aa332a507dc84828061e85591a65c0fc7ed18af refs/tags/release-2.0.0
+cd4cfc111637bc96d3a30aa83f76aac207634b52 refs/tags/release-2.0.1
+e0d318d4829f7a76412bf12e0b443810ffde8d88 refs/tags/release-2.0.2
+^93b649cb0a5f2c9246779c42875a37930261773b
+f13f5041db90e6ebb2f46340374d231e55dfbe7c refs/tags/release-2.0.3
+ee9f469b61b7e023d81bee80dca197307eae6a9f refs/tags/release-3.0.0
+d86bbcdc5dcbc9be467e686a1597c8ce39e10e7d refs/tags/release-3.0.0.1
+9b402adcd0b4d109b2eeb5413b26a356f8ba0af0 refs/tags/release-3.0.1
+b53779da93df9bfc78f1ac051d4477f8337bbe1d refs/tags/release-3.0.2

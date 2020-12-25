@@ -3,7 +3,7 @@ class Admin::CampAppliesController < Admin::BaseController
 
   def index
     @search = ProjectSeasonApply.where(project: Project.camp_project).sorted.ransack(params[:q])
-    scope = @search.result
+    scope = @search.result.includes(:camp)
     @project_applies = scope.page(params[:page])
   end
 

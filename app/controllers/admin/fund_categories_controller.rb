@@ -4,7 +4,7 @@ class Admin::FundCategoriesController < Admin::BaseController
 
   def index
     @search = FundCategory.sorted.ransack(params[:q])
-    scope = @search.result
+    scope = @search.result.includes(:funds)
     @fund_categories = scope.page(params[:page])
   end
 

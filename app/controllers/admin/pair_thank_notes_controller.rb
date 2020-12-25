@@ -2,7 +2,7 @@ class Admin::PairThankNotesController < Admin::BaseController
   before_action :set_thank_note, only: [:show, :edit, :update, :destroy, :recommend]
 
   def index
-    @notes = ContinualFeedback.includes(:child, :owner, :grant).where.not(gsh_child_grant_id: nil)
+    @notes = ContinualFeedback.includes(child:[:gsh_child],grant:[:user,:donator]).where.not(gsh_child_grant_id: nil)
     set_search_end_of_day(:created_at_lteq)
     @search = @notes.ransack(params[:q])
     scope = @search.result

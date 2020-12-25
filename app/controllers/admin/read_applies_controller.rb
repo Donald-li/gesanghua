@@ -2,8 +2,9 @@ class Admin::ReadAppliesController < Admin::BaseController
   before_action :set_project_apply, only: [:show, :edit, :update, :destroy, :audit, :students, :switch, :check]
 
   def index
-    @search = ProjectSeasonApply.where(project_id: 2).sorted.ransack(params[:q])
-    scope = @search.result.joins(:school)
+    @search = ProjectSeasonApply.includes(:school,:season).where(project_id: 2).sorted.ransack(params[:q])
+    # scope = @search.result.joins(:school)
+    scope = @search.result
     @project_applies = scope.page(params[:page])
   end
 

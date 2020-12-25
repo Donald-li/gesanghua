@@ -4,7 +4,7 @@ class Admin::BadgeLevelsController < Admin::BaseController
   before_action :set_badge
 
   def index
-    @levels = @scope.sorted.all
+    @levels = @scope.sorted.all.includes(:icon)
   end
 
   def new

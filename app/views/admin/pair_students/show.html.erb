@@ -7,6 +7,22 @@
   </div>
   <div class="portlet-body">
     <%= simple_form_for [:admin, @apply_child], url: check_admin_pair_apply_pair_student_path(@project_apply), method: :patch, wrapper: :admin_form, html: {id: 'approve-form', 'data-parsley-validate': true} do |f| %>
+      <div class="portlet-body form">
+        <div class="form-body form-horizontal">
+          <%= f.input :approve_state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApply.options_for_some_select(:audit_states, ['pass', 'reject']), checked: 'pass', label: '审核状态：', required: 'required', input_html: {class: 'approve_state', onclick: 'toggleState();'} %>
+          <div class="approve_reject">
+            <%= f.input :approve_remark, label: '审核备注：', input_html: {class: 'form-control', placeholder: '', value: @apply_child.audits.try(:last).try(:comment)}, required: true %>
+          </div>
+          <div class="form-actions">
+            <div class="row">
+              <div class="col-md-offset-3 col-md-9">
+                <%= f.button :submit, '提交', class: 'btn green' %>
+                <%= link_to '取消', admin_pair_apply_pair_students_path(@project_apply), class: 'btn' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <%= f.error_notification %>
       <div class="table-scrollable">
         <table class="table table-bordered table-hover">
@@ -316,23 +332,7 @@
           </tbody>
         </table>
       </div>
-      <div class="portlet-body form">
 
-        <div class="form-body form-horizontal">
-          <%= f.input :approve_state, as: :radio_buttons, wrapper: :inline_inputs, collection: ProjectSeasonApply.options_for_some_select(:audit_states, ['pass', 'reject']), checked: 'pass', label: '审核状态：', required: 'required', input_html: {class: 'approve_state', onclick: 'toggleState();'} %>
-          <div class="approve_reject">
-            <%= f.input :approve_remark, label: '审核备注：', input_html: {class: 'form-control', placeholder: '', value: @apply_child.audits.try(:last).try(:comment)}, required: true %>
-          </div>
-          <div class="form-actions">
-            <div class="row">
-              <div class="col-md-offset-3 col-md-9">
-                <%= f.button :submit, '提交', class: 'btn green' %>
-                <%= link_to '取消', admin_pair_apply_pair_students_path(@project_apply), class: 'btn' %>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     <% end %>
   </div>
 </div>

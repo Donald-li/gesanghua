@@ -4,7 +4,7 @@ class Admin::GoodsReportsController < Admin::GoodsBaseController
   def index
     set_search_end_of_day(:published_at_lteq)
     @search = ProjectReport.where(project_id: @current_project.id).sorted.ransack(params[:q])
-    scope = @search.result
+    scope = @search.result.includes(:user)
     @reports = scope.page(params[:page])
   end
 

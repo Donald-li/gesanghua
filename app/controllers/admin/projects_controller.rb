@@ -4,7 +4,7 @@ class Admin::ProjectsController < Admin::BaseController
 
   def index
     @search = Project.sorted.ransack(params[:q])
-    scope = @search.result
+    scope = @search.result.includes(:image,:icon,fund:[:fund_category])
     @projects = scope.page(params[:page])
   end
 
