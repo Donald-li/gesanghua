@@ -94,7 +94,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   belongs_to :gsh_child, optional: true
   belongs_to :school
   belongs_to :user, optional: true,foreign_key: 'donate_user_id'
-  belongs_to :priority, class_name: 'User', foreign_key: 'priority_id'
+  # belongs_to :priority, class_name: 'User', foreign_key: 'priority_id'
   has_many :visits, foreign_key: 'apply_child_id', dependent: :destroy
   has_many :audits, as: :owner, dependent: :destroy
   has_many :remarks, as: :owner, dependent: :destroy
