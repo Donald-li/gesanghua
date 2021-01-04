@@ -339,7 +339,7 @@ class ProjectSeasonApplyChild < ApplicationRecord
   # 通过审核
   def approve_pass
     self.approve_state = 'pass'
-    last_child = self.gsh_child.present? ? self.gsh_child.project_season_apply_children.pass.sorted.first : nil
+    last_child = self.gsh_child.present? ? (self.gsh_child.user_id || self.gsh_child.project_season_apply_children.pass.sorted.first) : nil
     self.priority_id = last_child.priority_id if last_child.present?
     if self.save && self.gen_grant_record
       if self.priority_id.present?
