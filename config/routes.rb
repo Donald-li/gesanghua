@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   draw :gsh_plus
   draw :camp
 
-  mount RuCaptcha::Engine => "/rucaptcha"
+  # mount RuCaptcha::Engine => "/rucaptcha"
   mount ChinaCity::Engine => '/china_city'
 
 end

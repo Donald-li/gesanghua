@@ -366,7 +366,7 @@ GEM
       rmmseg-cpp-new (~> 0.3.1)
     ruby_dep (1.5.0)
     rubyzip (1.1.7)
-    rucaptcha (1.2.0)
+    rucaptcha (2.5.3)
       railties (>= 3.2)
     sass (3.7.3)
       sass-listen (~> 4.0.0)
@@ -517,7 +517,7 @@ DEPENDENCIES
   rqrcode
   rspec-rails (~> 3.5)
   ruby-pinyin
-  rucaptcha (~> 1.2.0)
+  rucaptcha (~> 2.5.3)
   sass-rails (~> 5.0)
   second_level_cache (~> 2.3.0)
   selenium-webdriver

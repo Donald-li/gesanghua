@@ -56,7 +56,7 @@ gem 'simple_form'
 gem 'acts_as_list'
 
 # 图片验证码
-gem 'rucaptcha', '~>1.2.0'
+gem 'rucaptcha', '~>2.5.3'
 gem 'dalli'
 
 gem 'paper_trail'
