@@ -142,6 +142,7 @@ GEM
       activesupport (>= 3.0.0)
       after_commit_action (~> 1.0)
     crass (1.0.4)
+    dalli (2.7.11)
     database_cleaner (1.7.0)
     deep_merge (1.2.1)
     diff-lcs (1.3)
@@ -483,6 +484,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   config
   counter_culture (~> 1.0)
+  dalli
   database_cleaner
   default_value_for (~> 3.0.0)!
   echarts-rails
