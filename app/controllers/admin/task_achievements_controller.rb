@@ -47,6 +47,17 @@ class Admin::TaskAchievementsController < Admin::BaseController
     end
   end
 
+  def switch_finish
+    @task_volunteer = TaskVolunteer.find(params[:id])
+    respond_to do |format|
+      if @task_volunteer.update(state: 'done',finish_time: Time.now)
+        format.html { redirect_to referer_or(admin_task_achievements_path), notice: '标记任务完成成功。' }
+      else
+        format.html { redirect_to referer_or(admin_task_achievements_path), notice: '标记任务完成失败。' }
+      end
+    end
+  end
+
   def switch
     @task_volunteer = TaskVolunteer.find(params[:id])
     respond_to do |format|

@@ -4,7 +4,7 @@ class Admin::CampaignsController < Admin::BaseController
 
   def index
     @search = Campaign.sorted.ransack(params[:q])
-    scope = @search.result
+    scope = @search.result.includes(:creator,:campaign_category)
     @campaigns = scope.page(params[:page])
   end
 

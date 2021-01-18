@@ -2,7 +2,6 @@ class Admin::BaseController < ManagementBaseController
   before_action :login_require, :can_entrance
   before_action :set_paper_trail_whodunnit
   # before_action :store_referer, only: [:new, :edit, :destroy]
-
   helper_method :current_user
   layout 'admin'
 

@@ -3,7 +3,7 @@ class Admin::CampsController < Admin::BaseController
 
   def index
     @search = Camp.sorted.ransack(params[:q])
-    scope = @search.result
+    scope = @search.result.includes(:fund)
     @camps = scope.page(params[:page])
   end
 

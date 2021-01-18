@@ -46,6 +46,10 @@
                 <%= f.label :state_eq, '状态' %>
                 <%= f.select :state_eq, DonateRecord.options_for_enum_select(:states, raw: true), {include_blank: '全部'}, class: 'form-control gsh-input-share' %>
               </div>
+            <div class="form-group">
+              <%= f.label :title_cont, '标题' %>
+              <%= f.text_field :school_name_or_apply_name_or_child_name_cont, class: 'form-control', placeholder: '标题' %>
+            </div>
           <button type="submit" class="btn btn-default grey">查询</button>
           <% end %>
         </div>

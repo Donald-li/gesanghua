@@ -3,7 +3,7 @@ class Admin::CampProjectsController < Admin::BaseController
 
   def index
     @search = ProjectSeasonApply.where(project_id: Project.camp_project.id).pass.raise_project.order(camp_state: :asc).sorted.ransack(params[:q])
-    scope = @search.result
+    scope = @search.result.includes(:exception_record)
     @projects = scope.page(params[:page])
   end
 

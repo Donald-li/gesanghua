@@ -5,7 +5,7 @@ class Admin::IncomeRecordsController < Admin::BaseController
   def index
     set_search_end_of_day(:income_time_lteq)
     @search = IncomeRecord.sorted.ransack(params[:q])
-    scope = @search.result
+    scope = @search.result.includes(:donor,:agent,:promoter,:income_source,:donation,fund:[:fund_category])
     respond_to do |format|
       format.html {@income_records = scope.page(params[:page])}
       format.xlsx {

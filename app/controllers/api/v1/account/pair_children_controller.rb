@@ -1,6 +1,7 @@
 class Api::V1::Account::PairChildrenController < Api::V1::BaseController
 
   def index
+    Rails.logger.debug ">>>>>>> FFFFF <<<<<<,"
     apply_child_ids = current_user.donate_records.visible.pluck(:project_season_apply_child_id)
     apply_child_ids = apply_child_ids.push(ProjectSeasonApplyChild.where(priority_id: current_user.id).pluck(:id)).flatten.uniq
     children = ProjectSeasonApplyChild.joins(:gsh_child).where(id: apply_child_ids).sorted.page(params[:page]).per(params[:per])

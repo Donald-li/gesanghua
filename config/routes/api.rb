@@ -197,6 +197,7 @@ namespace :api do
         post :settlement
         get :get_child_priority
       end
+      get :switch_child
     end
 
     resources :projects, only: [:index] do

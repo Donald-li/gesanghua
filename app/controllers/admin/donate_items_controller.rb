@@ -4,7 +4,7 @@ class Admin::DonateItemsController < Admin::BaseController
 
   def index
     @search = DonateItem.sorted.ransack(params[:q])
-    scope = @search.result
+    scope = @search.result.includes(fund:[:fund_category])
     @donate_items = scope.page(params[:page])
   end
 

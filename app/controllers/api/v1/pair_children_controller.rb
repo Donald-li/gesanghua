@@ -66,6 +66,14 @@ class Api::V1::PairChildrenController < Api::V1::BaseController
     end
   end
 
+  def switch_child
+    apply_child_ids = current_user.donate_records.visible.pluck(:project_season_apply_child_id)
+    apply_child_ids = apply_child_ids.push(ProjectSeasonApplyChild.where(priority_id: current_user.id).pluck(:id)).flatten.uniq
+    children = ProjectSeasonApplyChild.joins(:gsh_child).where(id: apply_child_ids).sorted.page(params[:page]).per(1)
+    children = children.where("project_season_apply_children.name like :q or gsh_children.gsh_no like :q", q: "%#{params[:keyword]}%") if params[:keyword].present?
+    api_success(data: {children: children.map { |r| r.donate_children_builder(current_user) }, pagination: json_pagination(children)})
+  end
+
   private
 
   def set_pair

@@ -4,15 +4,17 @@ class Admin::PairStudentListsController < Admin::BaseController
 
   def index
     params[:q] ||= {}
-    @search = ProjectSeasonApplyChild.includes(:project, :gsh_child_grants).pass.sorted.ransack(params[:q])
-    scope = @search.result
+    @search = ProjectSeasonApplyChild.pass.sorted.ransack(params[:q])
+    scope = @search.result.includes(:gsh_child, :gsh_child_grants, apply: [:school])
+
     if donor_state = params[:donor_state_eq]
       scope = scope.where('project_season_apply_children.done_semester_count = 0') if donor_state == 'raising'
       scope = scope.where('project_season_apply_children.done_semester_count = project_season_apply_children.semester_count') if donor_state == 'done'
       scope = scope.where('project_season_apply_children.done_semester_count between 1 and project_season_apply_children.semester_count - 1') if donor_state == 'part_done'
     end
+
     respond_to do |format|
-      format.html {@pair_student_lists = scope.page(params[:page])}
+      format.html {  @pair_student_lists = scope.page(params[:page]) }
       format.xlsx {
         @pair_student_lists = scope.sorted
         OperateLog.create_export_excel(current_user, '捐助管理学生名单')
@@ -38,7 +40,7 @@ class Admin::PairStudentListsController < Admin::BaseController
       if ProjectSeasonApplyChild.allow_apply?(@project_apply.school, pair_student_list_params[:id_card], @pair_student_list)
         if pair_student_list_params[:information].empty?
           flash[:alert] = '请填写孩子介绍'
-          format.html {render :edit and return}
+          format.html { render :edit and return }
         end
         if @pair_student_list.update(pair_student_list_params)
           @pair_student_list.attach_avatar(params[:avatar_id])
@@ -48,13 +50,13 @@ class Admin::PairStudentListsController < Admin::BaseController
           @pair_student_list.attach_yard_image(params[:yard_image_id])
           @pair_student_list.attach_apply_one(params[:apply_one_id])
           @pair_student_list.attach_apply_two(params[:apply_two_id])
-          format.html {redirect_to referer_or(admin_pair_student_lists_path), notice: '修改成功。'}
+          format.html { redirect_to referer_or(admin_pair_student_lists_path), notice: '修改成功。' }
         else
-          format.html {render :edit}
+          format.html { render :edit }
         end
       else
         flash[:alert] = '身份证号已占用'
-        format.html {render :edit}
+        format.html { render :edit }
       end
     end
   end
@@ -62,7 +64,7 @@ class Admin::PairStudentListsController < Admin::BaseController
   def destroy
     @pair_student_list.destroy
     respond_to do |format|
-      format.html {redirect_to referer_or(admin_pair_student_lists_path), notice: '删除成功。'}
+      format.html { redirect_to referer_or(admin_pair_student_lists_path), notice: '删除成功。' }
     end
   end
 
@@ -101,12 +103,12 @@ class Admin::PairStudentListsController < Admin::BaseController
     @pair_student_list.priority_id = params[:project_season_apply_child][:priority_id]
     if @pair_student_list.save
       notice = Notification.create(
-          kind: 'appoint_donor',
-          owner: @pair_student_list,
-          user_id: @pair_student_list.priority_id,
-          title: "#结对通知# 系统为您结对啦",
-          content: "系统将您指定为孩子#{@pair_student_list.name}的捐助人，快去捐助吧",
-          url: "#{Settings.m_root_url}/pair/#{@pair_student_list.id}"
+        kind: 'appoint_donor',
+        owner: @pair_student_list,
+        user_id: @pair_student_list.priority_id,
+        title: "#结对通知# 系统为您结对啦",
+        content: "系统将您指定为孩子#{@pair_student_list.name}的捐助人，快去捐助吧",
+        url: "#{Settings.m_root_url}/pair/#{@pair_student_list.id}"
       )
       redirect_to referer_or(admin_pair_student_lists_path), notice: @pair_student_list.priority_id.present? ? '指定捐助人成功，并发送微信通知' : '未设置捐助人'
     else
@@ -149,10 +151,10 @@ class Admin::PairStudentListsController < Admin::BaseController
       logger.info "========++++++++==待操作人数：#{@total}========+++++++++"
       logger.info "========++++++++==实际操作人数：#{num}一年级：#{@one_count}二年级：#{@two_count}========+++++++++"
       if num == @total
-        format.html {redirect_to batch_manage_admin_pair_student_lists_path, notice: '操作成功。'}
+        format.html { redirect_to batch_manage_admin_pair_student_lists_path, notice: '操作成功。' }
       else
         flash[:alert] = '操作失败'
-        format.html {render :batch_manage}
+        format.html { render :batch_manage }
       end
     end
   end
@@ -188,10 +190,10 @@ class Admin::PairStudentListsController < Admin::BaseController
       logger.info "========++++++++==待操作人数：#{@total}========+++++++++"
       logger.info "========++++++++==实际操作人数：#{num}二年级：#{@two_count}三年级：#{@three_count}========+++++++++"
       if num == @total
-        format.html {redirect_to batch_manage_admin_pair_student_lists_path, notice: '操作成功。'}
+        format.html { redirect_to batch_manage_admin_pair_student_lists_path, notice: '操作成功。' }
       else
         flash[:alert] = '操作失败'
-        format.html {render :batch_manage}
+        format.html { render :batch_manage }
       end
     end
   end
@@ -209,8 +211,8 @@ class Admin::PairStudentListsController < Admin::BaseController
   def batch_donate
     params[:q] ||= {}
     ids = ProjectSeasonApplyChild.where(project: Project.pair_project).joins(:semesters)
-              .where(gsh_child_grants: {donate_state: :pending})
-              .select("distinct project_season_apply_children.id").pluck(:id).uniq
+                                 .where(gsh_child_grants: { donate_state: :pending })
+                                 .select("distinct project_season_apply_children.id").pluck(:id).uniq
     @children = ProjectSeasonApplyChild.where(id: ids).includes(:gsh_child).pass.sorted
     @search = @children.ransack(params[:q])
     scope = @search.result
@@ -254,7 +256,7 @@ class Admin::PairStudentListsController < Admin::BaseController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_pair_student_list
-    @pair_student_list = ProjectSeasonApplyChild.find(params[:id])
+    @pair_student_list = ProjectSeasonApplyChild.find_by(id: params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

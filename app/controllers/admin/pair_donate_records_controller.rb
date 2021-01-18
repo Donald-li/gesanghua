@@ -2,7 +2,7 @@ class Admin::PairDonateRecordsController < Admin::BaseController
   before_action :set_project
 
   def index
-    @donate_records = @project.donate_records
+    @donate_records = @project.donate_records.includes(:child,:owner,:donor,:income_record,:agent)
     set_search_end_of_day(:created_at_lteq)
     @search = @donate_records.ransack(params[:q])
     scope = @search.result

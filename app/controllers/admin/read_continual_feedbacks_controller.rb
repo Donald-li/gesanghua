@@ -5,7 +5,7 @@ class Admin::ReadContinualFeedbacksController < Admin::BaseController
   def index
     @continual_feedbacks = @project.continual_feedbacks
     @search = @continual_feedbacks.ransack(params[:q])
-    scope = @search.result
+    scope = @search.result.includes(user:[teacher:[:school]])
     respond_to do |format|
       format.html { @continual_feedbacks = scope.page(params[:page]) }
       format.xlsx {

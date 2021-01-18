@@ -128,7 +128,7 @@
                   / <%= child.enum_name(:level) %> <%= child.enum_name(:grade) %> / <%= child.classname %>
                 </td>
                 <td>
-                  <% child.gsh_child_grants.sorted.reverse.each do |grant| %>
+                  <% child.gsh_child_grants.each do |grant| %>
                       <span class="btn btn-xs <%= grant.button_color %>" title="<%= grant.enum_name(:donate_state) %>"><%= grant.title %></span>
                   <% end %>
                 </td>
@@ -156,9 +156,9 @@
                 </td>
                 <td>
                   <% if can_current_entrance('admin/pair_student_lists', 'switch', current_user.roles) %>
-                      <%= link_to switch_admin_pair_student_list_path(child), data: {confirm: "确定#{child.state === 'show' ? '关闭筹款' : '开启筹款'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{child.state === 'show' ? 'green' : 'default'}" do %>
-                          <%= child.state === 'show' ? '开启' : '关闭' %>
-                          <i class="fa <%= child.state === 'show' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
+                      <%= link_to switch_admin_pair_student_list_path(child), data: {confirm: "确定#{child.state === 'show' ? '关闭筹款' : '开启筹款'}吗？"}, method: :put, 'data-no-turbolink' => true, class: "btn btn-xs #{child.state  === 'show' ? 'green' : 'default'}" do %>
+                          <%= child.state  === 'show' ? '开启' : '关闭' %>
+                          <i class="fa <%= child.state  === 'show' ? 'fa-eye' : 'fa-eye-slash' %>"></i>
                       <% end %>
                   <% else %>
                       <%= child.enum_name(:state) %>

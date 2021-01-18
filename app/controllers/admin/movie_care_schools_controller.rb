@@ -3,7 +3,7 @@ class Admin::MovieCareSchoolsController < Admin::BaseController
 
   def index
     @search = ProjectSeasonApply.where(project_id: Project.movie_care_project.id).pass.sorted.ransack(params[:q])
-    scope = @search.result
+    scope = @search.result.includes(:school,:install_feedback)
     @project_applies = scope.page(params[:page])
   end
 

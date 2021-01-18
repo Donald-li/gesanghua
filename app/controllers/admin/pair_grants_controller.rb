@@ -9,7 +9,7 @@ class Admin::PairGrantsController < Admin::BaseController
       scope = scope.where('feedback_count = 0') if feedback_state == 'to_feedback'
       scope = scope.where('feedback_count > 0') if feedback_state == 'feedbacked'
     end
-    scope = scope.includes(:school, :gsh_child, :apply)
+    scope = scope.includes(:school, :apply,:user,:thank_notes,apply_child:[:gsh_child])
 
     @accrue_grants = scope.where.not(donate_state: 'close').where(state: 'granted', management_fee_state: 'unaccrue')
     @accrue_count = scope.where.not(donate_state: 'close').where(state: 'granted', management_fee_state: 'unaccrue').count

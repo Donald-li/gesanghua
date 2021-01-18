@@ -6,7 +6,7 @@ class Admin::ExpenditureRecordsController < Admin::BaseController
   def index
     set_search_end_of_day(:expended_at_lteq)
     @search = ExpenditureRecord.sorted.ransack(params[:q])
-    scope = @search.result
+    scope = @search.result.includes(:income_source,fund:[:fund_category])
 
     respond_to do |format|
       format.html { @expenditure_records = scope.page(params[:page]) }
