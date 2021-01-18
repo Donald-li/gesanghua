@@ -72,6 +72,8 @@
                 <td>
                   <%= batch.granted_count %> /
                   <%= batch.total_count %>
+                  <%  batch.granted! if batch.granted_count == batch.total_count %>
+                  <% batch.waiting! if batch.granted_count != batch.total_count %>
                 </td>
                 <td>
                   <%= batch.enum_name(:state) %>
