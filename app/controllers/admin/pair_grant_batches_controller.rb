@@ -14,7 +14,9 @@ class Admin::PairGrantBatchesController < Admin::BaseController
   def show
     @batch = GrantBatch.find(params[:id])
     @search = @batch.grants.search(params[:q])
-
+    if @batch.total_count == @batch.granted_count
+      @batch.granted! # 自动更新为发放状态
+    end
     @grants = GshChildGrant.where('1<>1').search(params[:q]).result.includes(:gsh_child).order("gsh_children.gsh_no asc").page(1) # .order("title asc")
     @items = @search.result.includes(:gsh_child, :school).order("gsh_children.gsh_no asc")
     respond_to do |format|
