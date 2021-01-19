@@ -340,8 +340,8 @@ class ProjectSeasonApplyChild < ApplicationRecord
   def approve_pass
     self.approve_state = 'pass'
     last_child = self.gsh_child.present? ? (self.gsh_child || self.gsh_child.project_season_apply_children.pass.sorted.first) : nil
-    self.priority_id = last_child.user_id if last_child.user_id.present?
-    self.priority_id = last_child.priority_id if last_child.priority_id.present?
+    self.priority_id = last_child.user_id if last_child.has_attribute? user_id
+    self.priority_id = last_child.priority_id if last_child.has_attribute? priority_id
     if self.save && self.gen_grant_record
       if self.priority_id.present?
         Notification.create(
