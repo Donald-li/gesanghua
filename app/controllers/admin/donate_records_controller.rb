@@ -2,11 +2,12 @@ class Admin::DonateRecordsController < Admin::BaseController
   before_action :set_user, only: [:index, :destroy, :student_list]
 
   def index
-    @donate_records = @user.donate_records
+    donate_records = @user.donate_records
     set_search_end_of_day(:created_at_lteq)
-    @search = @donate_records.ransack(params[:q])
-    scope = @search.result.includes(:school, owner:[:apply])
+    @search = donate_records.ransack(params[:q])
+    scope = @search.result
     scope = scope.where(project: nil) if params[:project_id_eq] == 'gsh'
+    @donate_records = scope
     respond_to do |format|
       format.html {@donate_records = scope.sorted.page(params[:page])}
       format.xlsx {
