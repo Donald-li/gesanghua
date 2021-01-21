@@ -63,20 +63,22 @@ class TaskVolunteer < ApplicationRecord
     Jbuilder.new do |json|
       json.(self, :id, :reason)
       json.task_id self.task_id
-      json.task_name self.task.try(:name)
-      json.task_num self.task.num
-      json.task_duration self.task.duration
-      json.ordinary_flag self.task.ordinary_flag
-      json.intensive_flag self.task.intensive_flag
-      json.urgency_flag self.task.urgency_flag
-      json.innovative_flag self.task.innovative_flag
-      json.difficult_flag self.task.difficult_flag
-      json.location self.task.try(:workplace).try(:title)
-      json.cover_mode self.task.cover.present?
-      json.cover_url self.task.cover_url(:small) if self.task.cover.present?
-      json.task_state self.task_state
-      json.task_action self.task_action
-      json.source self.task.try(:name) || self.task.source
+      if self.task.present?
+        json.task_name self.task.try(:name)
+        json.task_num self.task.try(:num)
+        json.task_duration self.task.duration
+        json.ordinary_flag self.task.ordinary_flag
+        json.intensive_flag self.task.intensive_flag
+        json.urgency_flag self.task.urgency_flag
+        json.innovative_flag self.task.innovative_flag
+        json.difficult_flag self.task.difficult_flag
+        json.location self.task.try(:workplace).try(:title)
+        json.cover_mode self.task.cover.present?
+        json.cover_url self.task.cover_url(:small) if self.task.cover.present?
+        json.task_state self.task_state
+        json.task_action self.task_action
+        json.source self.task.try(:name) || self.task.source
+      end
     end.attributes!
   end
 
