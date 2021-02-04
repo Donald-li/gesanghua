@@ -5,7 +5,7 @@ class Admin::PairGrantExceptionsController < Admin::BaseController
   def index
     set_search_end_of_day(:published_at_lteq)
     @search = GshChildGrant.cancel.reverse_sorted.ransack(params[:q])
-    scope = @search.result.includes(:school,:operator,:gsh_child,apply_child:[:gsh_child])
+    scope = @search.result
     @grants = scope.page(params[:page])
   end
 
