@@ -27,19 +27,19 @@ class Api::Entrance::LingXi::MonthDonatesController < Api::Entrance::LingXi::Bas
       logger.info "---present#{incomes.present?}"
       return api_success
     end
-    if IncomeRecord.create(
-      donor: user,
-      agent: user,
-      fund_id: Settings.month_donate_fund_id,
-      income_source_id: IncomeSource.wechat_id,
-      amount: params_body['money'],
-      balance: params_body['money'],
-      income_time: Time.now,
-      remark: params_body['comment'],
-      title: '灵析月捐项目爱心款',
-      kind: :offline,
-      archive_data: params_body
+    income = IncomeRecord.find_or_create_by(donor: user,
+                                            agent: user,
+                                            fund_id: Settings.month_donate_fund_id,
+                                            income_source_id: IncomeSource.wechat_id,
+                                            amount: params_body['money'],
+                                            balance: params_body['money'],
+                                            remark: params_body['comment'],
+                                            title: '灵析月捐项目爱心款',
+                                            kind: :offline,
+                                            archive_data: params_body
     )
+    if income.present?
+      income.update(income_time: Time.now)
       api_success(message: '保存成功')
     else
       api_error(message: '保存失败')
