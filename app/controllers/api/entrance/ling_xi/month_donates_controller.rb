@@ -19,9 +19,14 @@ class Api::Entrance::LingXi::MonthDonatesController < Api::Entrance::LingXi::Bas
     if params_body['type'] != 'pay'
       return api_success
     end
-    return api_success if IncomeRecord.where(
-      "archive_data ->> 'flow_number' = ?", form_params['flow_number']
-    ).present?
+    if params_body['success'] != '1'
+      return api_success
+    end
+    incomes = IncomeRecord.where(fund_id: Settings.month_donate_fund_id, income_source_id: IncomeSource.wechat_id, kind: :offline).where("archive_data ->> 'flow_number' = ?", form_params['flow_number'])
+    if incomes.present?
+      logger.info "---present#{incomes.present?}"
+      return api_success
+    end
     if IncomeRecord.create(
       donor: user,
       agent: user,
