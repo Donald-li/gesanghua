@@ -6,8 +6,8 @@
 
 set :output, "log/cron_log.log"
 
-# set :environment , :production
-set :environment , :development
+set :environment , :production
+# set :environment , :development
 
 every :hour do
 # every 1.minute do
