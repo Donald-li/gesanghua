@@ -27,16 +27,23 @@ class Api::Entrance::LingXi::MonthDonatesController < Api::Entrance::LingXi::Bas
       logger.info "---present#{incomes.present?}"
       return api_success
     end
-    income = IncomeRecord.find_or_create_by(donor: user,
-                                            agent: user,
-                                            fund_id: Settings.month_donate_fund_id,
-                                            income_source_id: IncomeSource.wechat_id,
-                                            amount: params_body['money'],
-                                            balance: params_body['money'],
-                                            remark: params_body['comment'],
-                                            title: '灵析月捐项目爱心款',
-                                            kind: :offline,
-                                            archive_data: params_body
+    income = IncomeRecord.find_by(donor: user,
+                                  agent: user,
+                                  fund_id: Settings.month_donate_fund_id,
+                                  income_source_id: IncomeSource.wechat_id,
+                                  amount: params_body['money'],
+                                  balance: params_body['money']
+    )
+    income ||= IncomeRecord.create(donor: user,
+                                   agent: user,
+                                   fund_id: Settings.month_donate_fund_id,
+                                   income_source_id: IncomeSource.wechat_id,
+                                   amount: params_body['money'],
+                                   balance: params_body['money'],
+                                   remark: params_body['comment'],
+                                   title: '灵析月捐项目爱心款',
+                                   kind: :offline,
+                                   archive_data: params_body
     )
     if income.present?
       income.update(income_time: Time.now)
@@ -83,7 +90,7 @@ end
 #         "title": "\u683c\u6851\u82b1\u6708\u6350",
 #         "eid": "ca7zx2eqwovy9021p313kd483gmnp5rl"
 #     },
-#     "stamp": 1568701805,
+#     "stamp": 1568701805, # 这个字段每次数据都会变化
 #     "noncestr": "45bspSufr1mbIjRH",
 #     "api_key": "jmz9q5esqoze",
 #     "signature": "ae220caef36b4cf6fa279d5e9c25051156b6c11f390980ebe06832b0c026083e"

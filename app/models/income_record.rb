@@ -69,7 +69,7 @@ class IncomeRecord < ApplicationRecord
 
   counter_culture :agent, column_name: proc {|model| model.income_source.present? && !model.income_source.offline? ? 'online_amount' : nil}, delta_column: 'amount'
   counter_culture :agent, column_name: proc {|model| model.income_source.present? && model.income_source.offline? ? 'offline_amount' : nil}, delta_column: 'amount'
-  counter_culture :agent, column_name: 'donate_amount', delta_magnitude: proc {|model| model.amount}
+  counter_culture :agent, column_name: 'donate_amount', delta_column: :amount
   # counter_culture :promoter, column_name: 'promoter_amount_count', delta_column: 'amount'
   counter_culture :fund, column_name: proc {|model| model.fund.present? && model.income_time >= Time.mktime(2018, 6, 1) ? 'total' : nil}, delta_column: 'amount'
   counter_culture :fund, column_name: proc {|model| model.fund.present? && model.income_time >= Time.mktime(2018, 6, 1) ? 'balance' : nil}, delta_column: 'amount'
