@@ -27,12 +27,10 @@ class Api::Entrance::LingXi::MonthDonatesController < Api::Entrance::LingXi::Bas
       logger.info "---present#{incomes.present?}"
       return api_success
     end
-    income = IncomeRecord.find_by(donor: user,
+    income = IncomeRecord.where("archive_data ->> 'oid' = ?", params_body['oid']).find_by(donor: user,
                                   agent: user,
                                   fund_id: Settings.month_donate_fund_id,
-                                  income_source_id: IncomeSource.wechat_id,
-                                  amount: params_body['money'],
-                                  balance: params_body['money']
+                                  income_source_id: IncomeSource.wechat_id
     )
     income ||= IncomeRecord.create(donor: user,
                                    agent: user,
