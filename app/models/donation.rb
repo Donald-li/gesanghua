@@ -191,7 +191,9 @@ class Donation < ApplicationRecord
       # 更新捐助状态
       donation.pay_state = 'paid'
       donation.pay_result = result.to_json
-      donation.build_income_record(fund: donation.income_fund, agent: agent, donor: donor, amount: amount, promoter_id: donation.promoter_id, team_id: donation.team_id, balance: amount, voucher_state: 'to_bill', income_source_id: IncomeSource.wechat_id, income_time: Time.now, title: donation.title)
+      if donation.income_record.blank?
+        donation.build_income_record(fund: donation.income_fund, agent: agent, donor: donor, amount: amount, promoter_id: donation.promoter_id, team_id: donation.team_id, balance: amount, voucher_state: 'to_bill', income_source_id: IncomeSource.wechat_id, income_time: Time.now, title: donation.title)
+      end
       donation.save
 
       # 执行捐助
