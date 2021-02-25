@@ -191,9 +191,9 @@ class Donation < ApplicationRecord
       # 更新捐助状态
       donation.pay_state = 'paid'
       donation.pay_result = result.to_json
-      income_record = IncomeRecord.find_or_create_by(donation_id: donation.id, amount: amount)
+      income_record = IncomeRecord.find_or_create_by(donation_id: donation.id, amount: amount, fund: donation.income_fund, balance: amount, income_source_id: IncomeSource.wechat_id, title: donation.title, voucher_state: 'to_bill')
       if donation.income_record.present?
-        income_record.update(income_time: Time.now, fund: donation.income_fund, agent: agent, donor: donor, amount: amount, promoter_id: donation.promoter_id, team_id: donation.team_id, balance: amount, voucher_state: 'to_bill', income_source_id: IncomeSource.wechat_id, title: donation.title)
+        income_record.update(income_time: Time.now, agent: agent, donor: donor, promoter_id: donation.promoter_id, team_id: donation.team_id)
       end
       donation.save
 
