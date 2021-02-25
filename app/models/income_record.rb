@@ -48,7 +48,7 @@ class IncomeRecord < ApplicationRecord
   belongs_to :fund, optional: true
   belongs_to :income_source, optional: true
 
-  validates :amount, :income_time, presence: true
+  validates :amount, presence: true
 
   enum kind: {online: 1, offline: 2} #分类: 线上、线下
   default_value_for :kind, 1
