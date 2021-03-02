@@ -41,10 +41,10 @@ class Api::Entrance::LingXi::MonthDonatesController < Api::Entrance::LingXi::Bas
                                    remark: params_body['comment'],
                                    title: '灵析月捐项目爱心款',
                                    kind: :offline,
+                                   income_time: Time.now,
                                    archive_data: params_body
     )
     if income.present?
-      income.update(income_time: Time.now)
       api_success(message: '保存成功')
     else
       api_error(message: '保存失败')
