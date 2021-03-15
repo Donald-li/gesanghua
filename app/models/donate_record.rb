@@ -272,9 +272,9 @@ class DonateRecord < ApplicationRecord
     self.transaction do
       unless self.source_type == 'Fund'
         # 退余额
-        self.agent.lock!
-        AccountRecord.create!(title: self.apply_name + '退款', kind: 'refund', amount: self.amount, donate_record: self, user: self.agent, donor: self.donor, operator: operator)
-        self.agent.save!
+        self.agent.present? ? self.agent.lock! : self.donor.lock!
+        AccountRecord.create!(title: self.apply_name + '退款', kind: 'refund', amount: self.amount, donate_record: self, user: self.agent || self.donor, donor: self.donor, operator: operator)
+        self.agent.present? ? self.agent.save! : self.donor.save!
       end
 
       self.refund!
