@@ -73,6 +73,7 @@ class DonateRecord < ApplicationRecord
   scope :visible, -> {normal}
 
   before_create :set_assoc_attrs
+  after_create :set_agent_id
 
   def project_name
     self.project.try(:name) || '格桑花'
@@ -428,6 +429,12 @@ class DonateRecord < ApplicationRecord
     self.apply = self.owner.apply if self.owner.apply.present?
     self.child = self.owner.child if self.owner.child.present?
     self.donation = self.source.donation if self.owner.is_a?('IncomeRecord') && self.source.donation.present?
+  end
+
+  def set_agent_id
+    return if self.agent_id.present?
+    self.agent_id = self.donor_id
+    self.save!
   end
 
   def set_assoc_attrs

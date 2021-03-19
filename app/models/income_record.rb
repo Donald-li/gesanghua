@@ -76,6 +76,8 @@ class IncomeRecord < ApplicationRecord
   counter_culture :income_source, column_name: proc {|model| model.income_time >= Time.mktime(2018, 6, 1) ? 'amount' : nil}, delta_column: 'amount'
   counter_culture :income_source, column_name: proc {|model| model.income_time >= Time.mktime(2018, 6, 1) ? 'in_total' : nil}, delta_column: 'amount'
 
+  after_create :set_agent_id
+
   def has_balance?
     self.balance > 0
   end
@@ -306,6 +308,12 @@ class IncomeRecord < ApplicationRecord
     if self.saved_change_to_donor_id || self.saved_change_to_agent_id
       self.donate_records.update_all(donor_id: self.donor_id, agent_id: self.agent_id)
     end
+  end
+
+  def set_agent_id
+    return if self.agent_id.present?
+    self.agent_id = self.donor_id
+    self.save!
   end
 
 end
