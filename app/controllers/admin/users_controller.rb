@@ -50,7 +50,7 @@ class Admin::UsersController < Admin::BaseController
     roles = @user.roles
     user_params[:roles] = (user_params[:roles] | ( roles & User::SUPERADMIN_ROLES)).select(&:present?) if user_params[:roles].present?
     respond_to do |format|
-      if @user.update(user_params)
+      if @user.update(user_params.merge(login: user_params[:phone]))
         @user.attach_avatar(params[:avatar_id])
         format.html { redirect_to referer_or(admin_users_url), notice: '用户已修改。' }
       else
