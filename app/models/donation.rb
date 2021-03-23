@@ -49,6 +49,8 @@ class Donation < ApplicationRecord
   enum pay_state: { unpaid: 1, paid: 2}
   default_value_for :pay_state, 1
 
+  # validates :order_no, presence: true
+
   scope :sorted, -> {order(id: :desc)}
 
   # 代捐人名称
