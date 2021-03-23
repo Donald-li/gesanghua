@@ -182,6 +182,15 @@ class Donation < ApplicationRecord
   def self.wechat_payment_success(result)
     # TODO: 这里也应该加到事务里
     donation = Donation.find_by(order_no: result['out_trade_no'])
+    # 订单重复不在创建
+    # 处理订单重复
+    donations = Donation.where(order_no: result['out_trade_no'])
+    donations.each do |d|
+      if d.income_record.present?
+        return true
+      end
+    end
+    logger.info "+++++++++donation_id#{donation.id}++#{result['out_trade_no']}+++++++"
     if donation.unpaid?
       donor = donation.donor
       agent = donation.agent
