@@ -85,12 +85,11 @@ class ProjectSeasonApplyCampMember < ApplicationRecord
   scope :reverse_sorted, -> {order(created_at: :asc)}
 
   def self.allow_apply?(apply_camp, id_card, member=nil)
-    return true if id_card.blank?
     if member.nil?
-      return false if self.where(apply_camp: apply_camp, id_card: id_card).present?
+      return false if self.where(apply_camp: apply_camp, id_card: id_card).present? && id_card.present?
       return true
     else
-      return false if self.where.not(id: member.id).where(apply_camp: apply_camp, id_card: id_card).present?
+      return false if self.where.not(id: member.id).where(apply_camp: apply_camp, id_card: id_card).present? && id_card.present?
       return true
     end
   end
