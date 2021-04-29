@@ -252,7 +252,7 @@ class FileUtil
         honor_experience = s.formatted_value(line, 'M')
       end
 
-      _nation = nation.split('-').second.to_i
+      _nation = nation.present? ? nation.split('-').second.to_i : nil
 
       member = ProjectSeasonApplyCampMember.new(state: 'pass', kind: kind, camp: apply_camp.camp, apply: apply_camp.apply, school: apply_camp.school, apply_camp: apply_camp, name: name, id_card: id_card, nation: _nation, level: _level, grade: _grade, classname: classname, guardian_name: guardian, guardian_phone: guardian_phone, phone: phone, height: height, weight: weight, guardian_id_card: guardian_id_card, guardian_relation: guardian_relation, cloth_size: cloth_size, course_type: course_type, course_grade: course_grade, period: period, position: position, train_experience: train_experience, project_experience: project_experience, honor_experience: honor_experience)
 
