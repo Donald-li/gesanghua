@@ -264,8 +264,7 @@ class FileUtil
           return {status: false, message: "导入失败：名单第#{line}行数据有误#{member.errors.full_messages.join(',')}"}
         end
       else
-        ProjectSeasonApplyCampMember.where(id: member_ids).destroy_all
-        return {status: false, message: "导入失败：名单第#{line}行，本批次身份证号已占用"}
+        next
       end
 
     end
