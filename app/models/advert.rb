@@ -27,9 +27,9 @@ class Advert < ApplicationRecord
   include HasAsset
   has_one_asset :image, class_name: 'Asset::AdvertImage'
 
-  enum kind: {banner: 1, special: 2, pc_banner: 3, pc_donate_banner: 4} # 4:pc首页项目捐款广告位
+  enum kind: { banner: 1, special: 2, pc_banner: 3, pc_donate_banner: 4 } # 4:pc首页项目捐款广告位
   default_value_for :kind, 1
-  enum state: { hidden: 2, show: 1}
+  enum state: { hidden: 2, show: 1 }
   default_value_for :state, 1
 
   validates :kind, presence: true
