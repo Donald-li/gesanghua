@@ -78,7 +78,7 @@ gem 'second_level_cache', '~> 2.3.0'
 
 # 图片上传和处理
 gem 'mini_magick'
-gem 'carrierwave', '~>0.11.2'
+gem 'carrierwave', '~>2.2.1'
 
 # 软删除
 gem "paranoia", "~> 2.2"
